@@ -9,7 +9,7 @@ $this->title = 'KEMENTERIAN BELIA DAN SUKAN MALAYSIA - Dashboard';
     <div class="jumbotron">
         <h1>Selamat Datang</h1>
 
-        <p class="lead">SISTEM PENGURUSAN SUKAN BERSEPADU</p>
+        <p class="lead">SISTEM PENGURUSAN SUKAN BERSEPADU TEST</p>
 
         <!--<p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>-->
     </div>
