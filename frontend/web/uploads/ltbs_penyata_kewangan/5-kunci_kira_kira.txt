@@ -1,0 +1,183 @@
+High Priority
+--------------
+ - Umur should auto calculate base on Takhir Lahir
+
+
+ - Senarai Jurulatih - Senarai Atlet in tab
+ - Senarai Atlet - tahap should keep track date upgrade tahap
+ - Senarai Atlet - add new tab 'Discipline' - fields(Category, Detail, Action, Date)
+ - Senarai Atlet - generate surat tawaran in one goal
+ - Senarai Atlet - if tahap change to Podium, then change to cawangan ISN. Same to other way round.
+ 
+ - Pembayaran Elaun - hide Kelulusan only after created record then show.
+ - Pembayaran Elaun - after apply only jkk/jkb to approve
+ - Pembayaran Elaun - paid date and cheque no
+
+ - Skim Kebajikan - after apply only jkk/jkb to approve, less RM10k approve by head
+ - Skim Kebajikan - paid date and cheque no
+ - Skim Kebajikan - penerima - (atlet dropdown) 
+ - Skim Kebajikan - if EKP add upload document
+ - Skim Kebajikan - add kelulusan
+
+
+Pengurusan Insentif
+-------------------
+ - PJS has access to this module
+ - after apply only jkk/jkb to approve
+
+Permohonan Program Binaan
+--------------------------
+ - add objektif field, upload function
+ - after apply only jkk/jkb to approve
+ - Sokong PN is Yes, only can allow to do approval
+ - Sokong PN or Kelulusan is No, they can revise the prices and resubmit
+
+Borang Penyertaan Atlet
+-----------------------
+ - Nama Program dropdown filter only those approved 
+
+Permohonan Pendidikan
+---------------------
+ - after approved will insert into Atlet - Pendidikan to sync
+
+Permohonan Biasiswa
+--------------------
+ - Atlet Profile add another tab Biasiswa and put the link inside same to KBS E-Biasiswa
+
+Pengurusan Biasiswa Atlet
+--------------------------
+ - link it to Atlet Profile, show in tab or any other way to do it.
+
+Pengurusan Kewangan
+-------------------
+ - Total bujet allocated base on Sukan. So any cost approved must deduct from this bujet and show the balance.
+ - Should we link back to those costs into this modules?
+
+Bantuan Geran Penganjuran
+-------------------------
+ - kos approve will deduct from the Pengurusan Kewangan allocated bajet base on Sukan
+
+Penilaian Pestasi
+-----------------
+ - before 1 month Pengurusan Kejohanan Temasya's 'Tarikh Kejohanan' send reminder, after the penilaian date 7 days will disable the penilaian
+ - Kejohanan is refer to Penilaian Prestasi Kejohanan each Participant/Atlet
+
+Permohonan Projek Inovasi
+-------------------------
+ - refer to USR comment process flow, 14 days SLA
+
+Permohonan Membaiki Peralatan
+-----------------------------
+ - refer to USR comment process flow, 14 days SLA
+ - add another field External Party, show if status gagal.
+
+
+Perancangan Program
+-------------------
+ - all the activities will show into Calender
+ - What are the activities and from which modules?
+
+ISN: Permohonan Perkhidmatan Analisa Perlawanan Dan Biomekani
+-------------------------------------------------------------
+ - add Kelulusan field
+
+ISN: Ujian Saringan
+--------------------
+ - the listing description missing
+
+ISN: Permohonan Penyelidikan
+-----------------------------
+ - permohonan process is missing refer to URS
+
+MSN: Pengurusan JKK/JKP
+-----------------------
+ - Nama Ahli - dropdown list of internal users/system users
+ - Yearly budget allocation.
+
+MSN: Pengurusan JKK/JKP
+-----------------------
+ - Nama Ahli - dropdown list of internal users/system users
+ - Yearly budget allocation.
+
+ISN: Permohonan Liputan Perubatan Sukan
+-----------------------------------------
+ - add link to Permohonan Ubatan
+ - add field Jenis Liputan -> Luar Negara or Dalam Negara
+ - refer to URS process flow
+
+ISN: Permohonan Program Pendidikan Kesihatan
+----------------------------------------------
+ - add field kategori permohonan -> Konsultansi, Servis
+
+MSN: Senarai Jurulatih
+----------------------
+ - add Kelulusan, Tawaran
+ - tab Atlet, list of Atlet under this Jurulatih
+
+MSN: Pengurusan Pemantauan Dan Penilaian Jurulatih (URS MSN 1.5.4)
+------------------------------------------------------------------
+ - calculation for the penilaian refer to URS
+ - Refer back to this URS module update those fields missing is Senarai Jurulatih
+
+MSN - Pengurusan Kejohanan Temasya
+-----------------------------------
+ - add Muat naik field
+
+MSN - Pengurusan Bantuan Geran Penganjuran (URS MSN 2.2.8.1)
+-------------------------------------------------------------
+ - add SLA process refer to URS
+ - Muat Naik replace with 4 uploads which are -> Surat Tuntutan, Laporan Lengkap, Penyata Perbelanjaan, Surat Kelulusan
+
+MSN - Program Persatuan Sukan Kebangsaan (input oleh Cawangan) (URS MSN 3.1.2)
+-------------------------------------------------------------------------------
+ - All bantuan permohonan status dropdown -> same as tbl_ref_status_permohonan_sue
+ - All bantuan permohonan after apply only jkk/jkb to approve
+
+MSN - Pengurusan Modal Program / Kursus Pengurusan Sukan Kebangsaan (URS MSN 3.11)
+-----------------------------------------------------------------------------------
+ - Kursus Persatuan - add field Max Peserta & Program Yuran
+ - Kehadiran Peserta - add field to link Kursus Persatuan and must less than or equal Max Peserta in Kursus Persatuan
+ - Pengurusan Permohonan Kursus Persatuan - add field Kursus Persatuan for Public to select which Kursus Persatuan to attend
+
+
+Access
+======
+ - Penilaian Pestasi - ISN can access
+ - Skim Kebajikan - PJS can access
+
+
+Remark
+======
+ - Skim Kebajikan - bring documents
+ - Pengurusan Insentif - bring documents
+ - Permohonan Pendidikan - bring documents
+ - Pengurusan Kewang - check if there is form
+ - Penilaian Pestasi <-> Penilaian Prestasi Atlet - why got these 2 modules different, and check back the URS.
+ - ISN: Pengurusan Kemudahan Dan Peralatan - bring documents
+ - ISN: Ujian Saringan - bring documents
+ - ISN: Satelit - bring documents
+ - MSN: Pengurusan JKK/JKP - bring documents
+ - Pengurusan Perhimpunan / Kem Atlet (URS MSN 1.3.6) - bring documents
+ - Pengurusan Kejohanan (URS MSN 1.3.10) - bring documents
+ - Pengurusan Program Binaan (URS MSN 1.3.11) - bring documents
+ - Pesakit Luar Sistem Pendaftaran Dan Temujanji Atlet (URS ISN 1.4.1.1) - bring documents
+ - Pengurusan Pemantauan Dan Penilaian Jurulatih (URS MSN 1.5.4) - bring documents
+ - Pengurusan Anugerah Sukan (URS MSN 2.2.7.1) - bring documents
+ - Pengurusan Pembekalan Penyediaan Sukatan/Manual Teknikal Dan Kepegawaian (URS MSN 2.2.9.2) - bring documents
+ - Pengurusan Maklumat PSK (URS MSN 3.1.1) - form missing because the lady did not give us
+ - Pengurusan Kewangan (URS MSN 3.5) - need to check back the document
+ - Sukarelawan (URS MSN 3.10) - bring documents
+ - Pengurusan Modal Program / Kursus Pengurusan Sukan Kebangsaan (URS MSN 3.11) - bring documents
+
+Clarification
+=============
+ - Permohonan Peralatan does it need to sync to Atlet Profile?
+
+
+
+Public Access
+=============
+ - Tempahan for venue, E-biasiswa, EKP Skim Kebajian (to confirm), Permohonan Penyelidikan, Sukarelawan, Pengurusan Modal Program / Kursus Pengurusan Sukan Kebangsaan
+
+
+ 

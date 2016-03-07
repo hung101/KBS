@@ -1,0 +1,28 @@
+<?php
+
+use yii\helpers\Html;
+
+use app\models\general\GeneralLabel;
+
+
+/* @var $this yii\web\View */
+/* @var $model app\models\PerkhidmatanPermakanan */
+
+$this->title = GeneralLabel::createTitle . ' Perkhidmatan Permakanan';
+$this->params['breadcrumbs'][] = ['label' => 'Perkhidmatan Permakanan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="perkhidmatan-permakanan-create">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <?= $this->render('_form', [
+        'model' => $model,
+        'searchModelKeputusanAnalisiTubuhBadan' => $searchModelKeputusanAnalisiTubuhBadan,
+        'dataProviderKeputusanAnalisiTubuhBadan' => $dataProviderKeputusanAnalisiTubuhBadan,
+        'searchModelPemberianSuplemenMakananJusRundinganPendidikan' => $searchModelPemberianSuplemenMakananJusRundinganPendidikan,
+        'dataProviderPemberianSuplemenMakananJusRundinganPendidikan' => $dataProviderPemberianSuplemenMakananJusRundinganPendidikan,
+        'readonly' => $readonly,
+    ]) ?>
+
+</div>

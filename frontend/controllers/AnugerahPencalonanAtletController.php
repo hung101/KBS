@@ -1,0 +1,180 @@
+<?php
+
+namespace frontend\controllers;
+
+use Yii;
+use app\models\AnugerahPencalonanAtlet;
+use frontend\models\AnugerahPencalonanAtletSearch;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
+
+use app\models\general\GeneralVariable;
+use app\models\general\GeneralLabel;
+
+// table reference
+use app\models\RefSukan;
+use app\models\RefAcara;
+use app\models\RefStatusPencalonan;
+
+/**
+ * AnugerahPencalonanAtletController implements the CRUD actions for AnugerahPencalonanAtlet model.
+ */
+class AnugerahPencalonanAtletController extends Controller
+{
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['post'],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Lists all AnugerahPencalonanAtlet models.
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $searchModel = new AnugerahPencalonanAtletSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single AnugerahPencalonanAtlet model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionView($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $ref = RefSukan::findOne(['id' => $model->nama_sukan]);
+        $model->nama_sukan = $ref['desc'];
+        
+        $ref = RefAcara::findOne(['id' => $model->nama_acara]);
+        $model->nama_acara = $ref['desc'];
+        
+        $ref = RefStatusPencalonan::findOne(['id' => $model->status_pencalonan]);
+        $model->status_pencalonan = $ref['desc'];
+        
+        $model->sifat_kepimpinan_ketua_pasukan = GeneralLabel::getYesNoLabel($model->sifat_kepimpinan_ketua_pasukan);
+        
+        $model->sifat_kepimpinan_jurulatih = GeneralLabel::getYesNoLabel($model->sifat_kepimpinan_jurulatih);
+        
+        $model->sifat_kepimpinan_asia_tenggara = GeneralLabel::getYesNoLabel($model->sifat_kepimpinan_asia_tenggara);
+        
+        $model->sifat_kepimpinan_penolong_jurulatih = GeneralLabel::getYesNoLabel($model->sifat_kepimpinan_penolong_jurulatih);
+        
+        $model->sifat_kepimpinan_pegawai_teknikal = GeneralLabel::getYesNoLabel($model->sifat_kepimpinan_pegawai_teknikal);
+        
+        $ref = RefSukan::findOne(['id' => $model->nama_sukan_sebelum_dicalon]);
+        $model->nama_sukan_sebelum_dicalon = $ref['desc'];
+        
+        $model->memenangi_kategori_dalam_anugerah_sukan = GeneralLabel::getYesNoLabel($model->memenangi_kategori_dalam_anugerah_sukan);
+        
+        $model->kelulusan = GeneralLabel::getYesNoLabel($model->kelulusan);
+        
+        return $this->render('view', [
+            'model' => $model,
+            'readonly' => true,
+        ]);
+    }
+
+    /**
+     * Creates a new AnugerahPencalonanAtlet model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new AnugerahPencalonanAtlet();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->anugerah_pencalonan_atlet]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+                'readonly' => false,
+            ]);
+        }
+    }
+
+    /**
+     * Updates an existing AnugerahPencalonanAtlet model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionUpdate($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->anugerah_pencalonan_atlet]);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+                'readonly' => false,
+            ]);
+        }
+    }
+
+    /**
+     * Deletes an existing AnugerahPencalonanAtlet model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionDelete($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Finds the AnugerahPencalonanAtlet model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return AnugerahPencalonanAtlet the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = AnugerahPencalonanAtlet::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+}

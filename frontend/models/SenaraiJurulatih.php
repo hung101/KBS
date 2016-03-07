@@ -1,0 +1,72 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "tbl_senarai_jurulatih".
+ *
+ * @property integer $senarai_jurulatih_id
+ * @property integer $pengurusan_jkk_jkp_program_id
+ * @property string $jurulatih
+ */
+class SenaraiJurulatih extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'tbl_senarai_jurulatih';
+    }
+    
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior',
+            [
+                'class' => \yii\behaviors\BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'updated',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['jurulatih'], 'required', 'skipOnEmpty' => true],
+            [['pengurusan_jkk_jkp_program_id'], 'integer'],
+            [['jurulatih'], 'string', 'max' => 80]
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'senarai_jurulatih_id' => 'Senarai Jurulatih ID',
+            'pengurusan_jkk_jkp_program_id' => 'Pengurusan Jkk Jkp Program ID',
+            'jurulatih' => 'Jurulatih',
+        ];
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJurulatih(){
+        return $this->hasOne(Jurulatih::className(), ['jurulatih_id' => 'jurulatih']);
+    }
+}

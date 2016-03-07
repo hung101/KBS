@@ -1,0 +1,28 @@
+<?php
+
+use yii\helpers\Html;
+
+// contant values
+use app\models\general\GeneralLabel;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\FarmasiPermohonanUbatan */
+
+//$this->title = 'Update Farmasi Permohonan Ubatan: ' . ' ' . $model->farmasi_permohonan_ubatan_id;
+$this->title = GeneralLabel::updateTitle . ' Permohonan Ubatan';
+$this->params['breadcrumbs'][] = ['label' => 'Permohonan Ubatan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Permohonan Ubatan', 'url' => ['view', 'id' => $model->farmasi_permohonan_ubatan_id]];
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="farmasi-permohonan-ubatan-update">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <?= $this->render('_form', [
+        'model' => $model,
+        'searchModelFarmasiUbatan' => $searchModelFarmasiUbatan,
+        'dataProviderFarmasiUbatan' => $dataProviderFarmasiUbatan,
+        'readonly' => $readonly,
+    ]) ?>
+
+</div>
