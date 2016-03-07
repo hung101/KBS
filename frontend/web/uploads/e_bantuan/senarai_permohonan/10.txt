@@ -1,0 +1,3 @@
+touch -t 201509010000 /tmp/start
+touch -t 201509030000 /tmp/stop
+find recording/ -newer /tmp/start \! -newer /tmp/stop | xargs mv -t testdir

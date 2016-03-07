@@ -1,0 +1,26 @@
+DP1-POP - First 5 Items
+DP1-JIC - First 3 Items
+DP1-CPS - First 5 Items
+DP1-RPS NMC - First 5 Items
+DP1-MOU-POPU - All Items
+DP1-MK4 Bgd Mek - All Items
+
+
+150.151.16.25
+255.255.255.0
+150.151.16.62
+
+Database Access
+===============
+Username: helpdesk
+Password: HelpdesK12
+Database: helpdesk
+
+Web Server IP
+=============
+150.151.16.20
+
+SSH Username: helpdesk
+Password Helpdesk12
+
+Main URL: https://150.151.16.20/nmss/main_page.php

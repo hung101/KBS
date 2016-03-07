@@ -1,0 +1,59 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "tbl_ref_kelulusan_e_laporan".
+ *
+ * @property integer $id
+ * @property string $desc
+ * @property integer $aktif
+ * @property integer $created_by
+ * @property integer $updated_by
+ * @property string $created
+ * @property string $updated
+ */
+class RefKelulusanELaporan extends \yii\db\ActiveRecord
+{
+    const KELULUSAN_YA = 1;
+    const KELULUSAN_TIDAK = 2;
+    
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'tbl_ref_kelulusan_e_laporan';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['desc'], 'required'],
+            [['aktif', 'created_by', 'updated_by'], 'integer'],
+            [['created', 'updated'], 'safe'],
+            [['desc'], 'string', 'max' => 80]
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'desc' => 'Desc',
+            'aktif' => 'Aktif',
+            'created_by' => 'Created By',
+            'updated_by' => 'Updated By',
+            'created' => 'Created',
+            'updated' => 'Updated',
+        ];
+    }
+}
