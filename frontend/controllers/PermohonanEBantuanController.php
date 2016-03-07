@@ -251,6 +251,12 @@ class PermohonanEBantuanController extends Controller
                 $number++;
             }
 
+            $line_space = "";
+            for($line=36; $line>$number; $line--) {
+                $line_space .= "<tr><td>&nbsp;</td></tr>";
+            }
+            $page_break = "<table cellpadding=\"1px\" cellspacing=\"0\" style=\"border-collapse:collapse;\">".$line_space."</table>";
+
             $JUMLAH_PEMOHONAN = number_format($JUMLAH_PEMOHONAN,2);
             $JUMLAH_BUTIRAN_DISOKONG = number_format($JUMLAH_BUTIRAN_DISOKONG,2);
             $JUMLAH_BUTIRAN_DIPERAKUKAN = number_format($JUMLAH_BUTIRAN_DIPERAKUKAN,2);
@@ -265,6 +271,7 @@ class PermohonanEBantuanController extends Controller
             $html_content = str_replace("[JUMLAH_PEMOHONAN]",$JUMLAH_PEMOHONAN,$html_content);
             $html_content = str_replace("[JUMLAH_BUTIRAN_DISOKONG]",$JUMLAH_BUTIRAN_DISOKONG,$html_content);
             $html_content = str_replace("[JUMLAH_BUTIRAN_DIPERAKUKAN]",$JUMLAH_BUTIRAN_DIPERAKUKAN,$html_content);
+            $html_content = str_replace("[page_break]",$page_break,$html_content);
 
         }
         
