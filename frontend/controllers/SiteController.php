@@ -101,8 +101,11 @@ class SiteController extends Controller
                 $user = new User();
             
                 $user = $user->findByUsername(Yii::$app->request->post()['LoginForm']['username']);
-                $user->login_attempted = $user->login_attempted + 1;
-                $user->save();
+                
+                if($user) {
+                    $user->login_attempted = intval($user->login_attempted) + 1;
+                    $user->save();
+                }
             }
             return $this->render('login', [
                 'model' => $model,

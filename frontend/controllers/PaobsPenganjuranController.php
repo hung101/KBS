@@ -22,6 +22,9 @@ use app\models\RefNegeri;
 use app\models\RefBandar;
 use app\models\RefPeringkatBadanSukan;
 
+// eddie (jasper)
+use Jaspersoft\Client\Client;
+
 /**
  * PaobsPenganjuranController implements the CRUD actions for PaobsPenganjuran model.
  */
@@ -57,6 +60,40 @@ class PaobsPenganjuranController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    // eddie (jasper) start
+
+        public function actionReport()
+    {
+
+        $c = new Client(
+            "http://210.195.194.199:8080/jasperserver",
+            "jasperadmin",
+            "jasperadmin"
+        );
+
+        //$report = $c->reportService()->runReport('/spsb/kbs/e_laporan/laporan_perlaksaan_program', 'html');
+
+        $controls = array(
+            'TEMPAT' => array('Manara Office Kuala Pilah')
+        );
+
+        //$report = $c->reportService()->runReport('/spsb/kbs/e_laporan/laporan_perlaksaan_program', 'html', null, null, $controls);
+
+        $report = $c->reportService()->runReport('/spsb/kbs/e_laporan/laporan_perlaksaan_program', 'pdf');
+         
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Description: File Transfer');
+        header('Content-Disposition: attachment; filename=laporan_perlaksaan_program.pdf');
+        header('Content-Transfer-Encoding: binary');
+        header('Content-Length: ' . strlen($report));
+        header('Content-Type: application/pdf');
+
+        echo $report;
+    }
+
+    // eddie (jasper) end
 
     /**
      * Displays a single PaobsPenganjuran model.
