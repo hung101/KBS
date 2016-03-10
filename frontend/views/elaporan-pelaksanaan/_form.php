@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use kartik\helpers\Html;
 //use yii\widgets\ActiveForm;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
@@ -60,8 +60,15 @@ use app\models\general\GeneralMessage;
             'attributes' => [
                 'kategori_elaporan' =>  [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2', 
+                    'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-e-laporan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
                         'data'=>ArrayHelper::map(RefKategoriELaporan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kategoriELaporan],
                         'pluginOptions' => [
@@ -70,8 +77,15 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>5]],
                 'bahagian' => [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2', 
+                    'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-bahagian-e-laporan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
                         'data'=>ArrayHelper::map(RefBahagianELaporan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::bahagian],
                         'pluginOptions' => [
@@ -102,8 +116,15 @@ use app\models\general\GeneralMessage;
                 'nama_penganjur_persatuan_kerjasama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
                 'peringkat' => [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2', 
+                    'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-peringkat-e-laporan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
                         'data'=>ArrayHelper::map(RefPeringkatELaporan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::peringkat],
                             'pluginOptions' => [
@@ -169,8 +190,15 @@ use app\models\general\GeneralMessage;
             'attributes' => [
                 'alamat_tempat_pelaksanaan_negeri' => [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2', 
+                    'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::negeri],
                         'pluginOptions' => [
@@ -664,8 +692,15 @@ use app\models\general\GeneralMessage;
                     'attributes' => [
                         'kelulusan' => [
                             'type'=>Form::INPUT_WIDGET, 
-                            'widgetClass'=>'\kartik\widgets\Select2', 
+                            'widgetClass'=>'\kartik\widgets\Select2',
                             'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-kelulusan-e-laporan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
                                 'data'=>ArrayHelper::map(RefKelulusanELaporan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                                 'options' => ['placeholder' => Placeholder::kelulusan],
                                 'pluginOptions' => [

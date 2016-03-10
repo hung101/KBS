@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use kartik\helpers\Html;
 //use yii\widgets\ActiveForm;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
@@ -50,8 +50,15 @@ use app\models\general\GeneralVariable;
             'attributes' => [
                'jenis_bantuan' =>[
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2', 
+                    'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-bantuan-sue/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
                         'data'=>ArrayHelper::map(RefJenisBantuanSue::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jenisBantuan],
                         'pluginOptions' => [
@@ -169,8 +176,15 @@ use app\models\general\GeneralVariable;
                'umur' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>3]],
                  'jantina' => [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2', 
+                    'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jantina/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
                         'data'=>ArrayHelper::map(RefJantina::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jantina],
                         'pluginOptions' => [
@@ -179,8 +193,15 @@ use app\models\general\GeneralVariable;
                     'columnOptions'=>['colspan'=>3]],
                 'kewarganegara' => [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2', 
+                    'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-negara/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
                         'data'=>ArrayHelper::map(RefNegara::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kewarganegara],
                         'pluginOptions' => [
@@ -195,8 +216,15 @@ use app\models\general\GeneralVariable;
             'attributes' => [
                'bangsa' =>[
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2', 
+                    'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-bangsa/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
                         'data'=>ArrayHelper::map(RefBangsa::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::bangsa],
                         'pluginOptions' => [
@@ -205,8 +233,15 @@ use app\models\general\GeneralVariable;
                     'columnOptions'=>['colspan'=>3]],
                  'agama' => [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2', 
+                    'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-agama/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
                         'data'=>ArrayHelper::map(RefAgama::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::agama],
                         'pluginOptions' => [
@@ -215,8 +250,15 @@ use app\models\general\GeneralVariable;
                     'columnOptions'=>['colspan'=>3]],
                 'kelayakan_akademi' => [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2', 
+                    'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kelayakan-akademik/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
                         'data'=>ArrayHelper::map(RefKelayakanAkademik::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kelayakanAkademik],
                         'pluginOptions' => [
@@ -246,8 +288,15 @@ use app\models\general\GeneralVariable;
             'attributes' => [
                 'alamat_negeri' => [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2', 
+                    'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::negeri],
                         'pluginOptions' => [
@@ -357,8 +406,15 @@ use app\models\general\GeneralVariable;
             'attributes' => [
                 'status_permohonan' => [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2', 
+                    'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan-sue/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
                         'data'=>ArrayHelper::map(RefStatusPermohonanSue::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::statusPermohonan],
                         'pluginOptions' => [

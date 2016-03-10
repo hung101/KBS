@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use kartik\helpers\Html;
 //use yii\widgets\ActiveForm;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
@@ -46,8 +46,15 @@ use app\models\RefStatusLaporanMesyuaratAgung;
                     'attributes' => [
                         'profil_badan_sukan_id' => [
                             'type'=>Form::INPUT_WIDGET, 
-                            'widgetClass'=>'\kartik\widgets\Select2', 
+                            'widgetClass'=>'\kartik\widgets\Select2',
                             'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/profil-badan-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
                                 'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
                                 'options' => ['placeholder' => Placeholder::badanSukan],],
                             'columnOptions'=>['colspan'=>3]],
@@ -71,8 +78,15 @@ use app\models\RefStatusLaporanMesyuaratAgung;
                 //'nama_badan_sukan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>8],'options'=>['maxlength'=>80]],
                 'peringkat_badan_sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2', 
+                    'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-peringkat-badan-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
                         'data'=>ArrayHelper::map(RefPeringkatBadanSukan::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::peringkatBadanSukan],],
                     'columnOptions'=>['colspan'=>4]],
@@ -105,8 +119,15 @@ use app\models\RefStatusLaporanMesyuaratAgung;
             'attributes' => [
                 'alamat_badan_sukan_negeri' => [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2', 
+                    'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::negeri],],
                     'columnOptions'=>['colspan'=>3]],
@@ -161,8 +182,15 @@ use app\models\RefStatusLaporanMesyuaratAgung;
                             'attributes' => [
                                 'status' => [
                                     'type'=>Form::INPUT_WIDGET, 
-                                    'widgetClass'=>'\kartik\widgets\Select2', 
+                                    'widgetClass'=>'\kartik\widgets\Select2',
                                     'options'=>[
+                                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                        [
+                                            'append' => [
+                                                'content' => Html::a(Html::icon('edit'), ['/ref-status-laporan-mesyuarat-agung/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                                'asButton' => true
+                                            ]
+                                        ] : null,
                                         'data'=>ArrayHelper::map(RefStatusLaporanMesyuaratAgung::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                                         'options' => ['placeholder' => Placeholder::status],
                                         'pluginOptions' => [
