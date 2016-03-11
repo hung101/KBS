@@ -3,7 +3,7 @@ return [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=45.64.168.12;dbname=copilot_kbs',
+            'dsn' => 'mysql:host=localhost;dbname=copilot_kbs',
             'username' => 'copilot_kbs',
             'password' => 'sqCycPB6r',
             'charset' => 'utf8',
