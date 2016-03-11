@@ -1,0 +1,21 @@
+<?php
+
+use yii\helpers\Html;
+
+
+/* @var $this yii\web\View */
+/* @var $model app\models\RefNegara */
+
+$this->title = 'Create Ref Negara';
+$this->params['breadcrumbs'][] = ['label' => 'Ref Negaras', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="ref-negara-create">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <?= $this->render('_form', [
+        'model' => $model,
+    ]) ?>
+
+</div>

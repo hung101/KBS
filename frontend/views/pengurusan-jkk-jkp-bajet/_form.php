@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use kartik\helpers\Html;
 //use yii\widgets\ActiveForm;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
@@ -39,8 +39,15 @@ use app\models\general\GeneralMessage;
             'attributes' => [
                 'pengurusan_jkk_jkp_id' => [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2', 
+                    'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/pengurusan-jkk-jkp/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
                         'data'=>ArrayHelper::map(PengurusanJkkJkp::find()->joinWith(['refNamaAhliJkkJkp'])->all(),'pengurusan_jkk_jkp_id', 'refNamaAhliJkkJkp.desc'),
                         'options' => ['placeholder' => Placeholder::ahliJKK_JKP],],
                     'columnOptions'=>['colspan'=>3]],
@@ -52,8 +59,15 @@ use app\models\general\GeneralMessage;
             'attributes' => [
                 'kategori_bajet' => [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2', 
+                    'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-bajet-jkk-jkp/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
                         'data'=>ArrayHelper::map(RefKategoriBajetJkkJkp::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kategoriBajet],],
                     'columnOptions'=>['colspan'=>5]],

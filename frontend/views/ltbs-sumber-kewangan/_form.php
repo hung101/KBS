@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use kartik\helpers\Html;
 //use yii\widgets\ActiveForm;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
@@ -40,8 +40,15 @@ use app\models\ProfilBadanSukan;
                     'attributes' => [
                         'profil_badan_sukan_id' => [
                             'type'=>Form::INPUT_WIDGET, 
-                            'widgetClass'=>'\kartik\widgets\Select2', 
+                            'widgetClass'=>'\kartik\widgets\Select2',
                             'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/profil-badan-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
                                 'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
                                 'options' => ['placeholder' => Placeholder::badanSukan],],
                             'columnOptions'=>['colspan'=>3]],
@@ -64,15 +71,29 @@ use app\models\ProfilBadanSukan;
             'attributes' => [
                 'jenis' => [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2', 
+                    'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-kewangan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
                         'data'=>ArrayHelper::map(RefJenisKewangan::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jenisKewangan],],
                     'columnOptions'=>['colspan'=>4]],
                 'sumber' => [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2', 
+                    'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-kewangan-sumber/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
                         'data'=>ArrayHelper::map(RefJenisKewanganSumber::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jenisKewanganSumber],],
                     'columnOptions'=>['colspan'=>4]],
