@@ -63,32 +63,32 @@ class PaobsPenganjuranController extends Controller
 
     // eddie (jasper) start
 
-        public function actionReport()
+    public function actionReport()
     {
 
         $c = new Client(
-            "http://210.195.194.199:8080/jasperserver",
-            "jasperadmin",
-            "jasperadmin"
+            Yii::$app->params['jasperurl'],
+            Yii::$app->params['jasperuser'],
+            Yii::$app->params['jasperpass']
         );
-
-        //$report = $c->reportService()->runReport('/spsb/kbs/e_laporan/laporan_perlaksaan_program', 'html');
-
+        
         $controls = array(
-            'TEMPAT' => array('Manara Office Kuala Pilah')
+            'NEGERI' =>array('3') 
         );
 
         //$report = $c->reportService()->runReport('/spsb/kbs/e_laporan/laporan_perlaksaan_program', 'html', null, null, $controls);
+        
+        $report_format = 'pdf'; // Edward e.g pdf, xls, csv, docx, rtf, odt, ods, xlsx, pptx
 
-        $report = $c->reportService()->runReport('/spsb/kbs/e_laporan/laporan_perlaksaan_program', 'pdf');
-         
+        $report = $c->reportService()->runReport('/spsb/kbs/e_laporan/laporan_perlaksaan_program', $report_format);
+        
         header('Cache-Control: must-revalidate');
         header('Pragma: public');
         header('Content-Description: File Transfer');
-        header('Content-Disposition: attachment; filename=laporan_perlaksaan_program.pdf');
+        header('Content-Disposition: attachment; filename=laporan_perlaksaan_program.' . $report_format);
         header('Content-Transfer-Encoding: binary');
         header('Content-Length: ' . strlen($report));
-        header('Content-Type: application/pdf');
+        header('Content-Type: application/'.$report_format);
 
         echo $report;
     }

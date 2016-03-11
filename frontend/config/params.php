@@ -4,4 +4,7 @@ return [
 // eddie (print) start
     'pdf_template' => '/pdf_template/',
 // eddie (print) end
+    'jasperuser' => 'jasperadmin',
+    'jasperpass' => 'jasperadmin',
+    'jasperurl' => 'http://192.168.0.216:8080/jasperserver',
 ];
