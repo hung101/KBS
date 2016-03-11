@@ -18,8 +18,8 @@ class RefSukanSearch extends RefSukan
     public function rules()
     {
         return [
-            [['ref_sukan_id', 'aktif'], 'integer'],
-            [['nama_sukan'], 'safe'],
+            [['id', 'aktif'], 'integer'],
+            [['desc'], 'safe'],
         ];
     }
 
@@ -56,11 +56,11 @@ class RefSukanSearch extends RefSukan
         }
 
         $query->andFilterWhere([
-            'ref_sukan_id' => $this->ref_sukan_id,
+            'id' => $this->id,
             'aktif' => $this->aktif,
         ]);
 
-        $query->andFilterWhere(['like', 'nama_sukan', $this->nama_sukan]);
+        $query->andFilterWhere(['like', 'desc', $this->desc]);
 
         return $dataProvider;
     }

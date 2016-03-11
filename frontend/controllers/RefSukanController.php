@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * RefSukanController implements the CRUD actions for RefSukan model.
  */
-class RefsukanController extends Controller
+class RefSukanController extends Controller
 {
     public function behaviors()
     {
