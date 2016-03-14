@@ -10,6 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
+// table reference
+use app\models\RefKategoriProgramLiputanPerubatanSukan;
+
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
@@ -66,6 +69,9 @@ class FarmasiPermohonanLiputanPerubatanSukanController extends Controller
         $model->kelulusan_ceo = GeneralLabel::getYesNoLabel($model->kelulusan_ceo);
         
         $model->kelulusan_pbu = GeneralLabel::getYesNoLabel($model->kelulusan_pbu);
+        
+        $ref = RefKategoriProgramLiputanPerubatanSukan::findOne(['id' => $model->kategori_program]);
+        $model->kategori_program = $ref['desc'];
         
         return $this->render('view', [
             'model' => $model,

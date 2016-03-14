@@ -60,12 +60,13 @@ class PenjadualanUjianFisiologiSearch extends PenjadualanUjianFisiologi
         $query->andFilterWhere([
             'penjadualan_ujian_fisiologi_id' => $this->penjadualan_ujian_fisiologi_id,
             //'atlet_id' => $this->atlet_id,
-            'tarikh_masa' => $this->tarikh_masa,
+            //'tarikh_masa' => $this->tarikh_masa,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_perkhidmatan_fisiologi.desc', $this->perkhidmatan])
             ->andFilterWhere(['like', 'pegawai_yang_bertanggungjawab', $this->pegawai_yang_bertanggungjawab])
             ->andFilterWhere(['like', 'catitan_ringkas', $this->catitan_ringkas])
+                ->andFilterWhere(['like', 'tarikh_masa', $this->tarikh_masa])
                 ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id]);
 
         return $dataProvider;

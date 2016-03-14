@@ -19,7 +19,7 @@ class FarmasiPermohonanLiputanPerubatanSukanSearch extends FarmasiPermohonanLipu
     {
         return [
             [['permohonan_liputan_perubatan_sukan_id'], 'integer'],
-            [['nama_program', 'tarikh_program', 'tempat_program', 'nama_pemohon', 'no_tel_pemohon', 'pegawai_bertugas', 'muat_naik', 'kelulusan_ceo', 'kelulusan_pbu'], 'safe'],
+            [['nama_program', 'tarikh_program', 'tempat_program', 'nama_pemohon', 'no_tel_pemohon', 'pegawai_bertugas', 'muat_naik', 'kelulusan_ceo', 'kelulusan_pbu', 'kategori_program'], 'safe'],
         ];
     }
 
@@ -43,7 +43,8 @@ class FarmasiPermohonanLiputanPerubatanSukanSearch extends FarmasiPermohonanLipu
     {
         $query = FarmasiPermohonanLiputanPerubatanSukan::find()
                 ->joinWith(['refKelulusanCEO' => function($query) { $query->from('tbl_ref_kelulusan rkceo');}])
-                ->joinWith(['refKelulusanPBU' => function($query) { $query->from('tbl_ref_kelulusan rkpbu');}]);
+                ->joinWith(['refKelulusanPBU' => function($query) { $query->from('tbl_ref_kelulusan rkpbu');}])
+                ->joinWith(['refKategoriProgramLiputanPerubatanSukan']);
         
 
         $dataProvider = new ActiveDataProvider([
@@ -72,7 +73,8 @@ class FarmasiPermohonanLiputanPerubatanSukanSearch extends FarmasiPermohonanLipu
             ->andFilterWhere(['like', 'pegawai_bertugas', $this->pegawai_bertugas])
             ->andFilterWhere(['like', 'muat_naik', $this->muat_naik])
                 ->andFilterWhere(['like', 'rkceo.desc', $this->kelulusan_ceo])
-                ->andFilterWhere(['like', 'rkpbu.desc', $this->kelulusan_pbu]);
+                ->andFilterWhere(['like', 'rkpbu.desc', $this->kelulusan_pbu])
+                ->andFilterWhere(['like', 'tbl_ref_kategori_program_liputan_perubatan_sukan.desc', $this->kategori_program]);
 
         return $dataProvider;
     }

@@ -48,8 +48,9 @@ class PenjadualanUjianFisiologi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'perkhidmatan', 'tarikh_masa', 'pegawai_yang_bertanggungjawab'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
+            [['perkhidmatan', 'tarikh_masa', 'pegawai_yang_bertanggungjawab', 'kategori_sukan', 'sukan', 'acara', 'tempat', 'bilangan_atlet'], 'required', 'skipOnEmpty' => true],
+            [['atlet_id', 'kategori_sukan', 'sukan', 'acara', 'tempat'], 'integer'],
+            [['bilangan_atlet'], 'integer', 'min' => 1, 'max' => 100],
             [['tarikh_masa'], 'safe'],
             [['perkhidmatan', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80],
             [['catitan_ringkas'], 'string', 'max' => 255]
@@ -64,10 +65,15 @@ class PenjadualanUjianFisiologi extends \yii\db\ActiveRecord
         return [
             'penjadualan_ujian_fisiologi_id' => 'Penjadualan Ujian Fisiologi ID',
             'atlet_id' => 'Atlet',
-            'perkhidmatan' => 'Perkhidmatan',
+            'perkhidmatan' => 'Ujian',
             'tarikh_masa' => 'Tarikh Masa',
             'pegawai_yang_bertanggungjawab' => 'Pegawai Yang Bertanggungjawab',
             'catitan_ringkas' => 'Catitan Ringkas',
+            'kategori_sukan' => 'Kategori Sukan',
+            'sukan' => 'Sukan',
+            'acara' => 'Acara',
+            'tempat' => 'Tempat',
+            'bilangan_atlet' => 'Bilangan Atlet',
         ];
     }
     

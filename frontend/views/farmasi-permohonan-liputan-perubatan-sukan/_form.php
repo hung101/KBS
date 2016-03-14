@@ -6,6 +6,10 @@ use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use kartik\datecontrol\DateControl;
+use yii\helpers\ArrayHelper;
+
+// table reference
+use app\models\RefKategoriProgramLiputanPerubatanSukan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -43,6 +47,23 @@ use app\models\general\GeneralMessage;
                             'autoclose'=>true,
                         ]
                     ],
+                    'columnOptions'=>['colspan'=>3]],
+                'kategori_program' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-program-liputan-perubatan-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefKategoriProgramLiputanPerubatanSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kategoriProgram],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],

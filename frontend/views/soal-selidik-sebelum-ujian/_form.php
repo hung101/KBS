@@ -7,6 +7,10 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use yii\grid\GridView;
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 // table reference
 use app\models\Atlet;
@@ -25,6 +29,14 @@ use app\models\general\GeneralMessage;
 ?>
 
 <div class="soal-selidik-sebelum-ujian-form">
+    
+    <?php
+        if(!$readonly){
+            $template = '{view} {update} {delete}';
+        } else {
+            $template = '{view}';
+        }
+    ?>
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
@@ -70,40 +82,106 @@ use app\models\general\GeneralMessage;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'soalan' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-soalan-soal-selidik/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefSoalanSoalSelidik::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::soalan],],
-                    'columnOptions'=>['colspan'=>6]],
-                'jawapan' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-jawapan-soal-selidik/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefJawapanSoalSelidik::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jawapan],],
-                    'columnOptions'=>['colspan'=>3]],
+                'pemilihan_ujian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                'pegawai_bertanggungjawab' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
             ],
         ],
-        
+        [
+            'attributes' => [
+                'catatan' => ['type'=>Form::INPUT_TEXTAREA,'options'=>['maxlength'=>255]],
+            ]
+        ],
     ]
 ]);
     ?>
+    
+    <h3>Soalan</h3>
+    
+    <?php 
+            Modal::begin([
+                'header' => '<h3 id="modalTitle"></h3>',
+                'id' => 'modal',
+                'size' => 'modal-lg',
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE]
+            ]);
+            
+            echo '<div id="modalContent"></div>';
+            
+            Modal::end();
+        ?>
+    
+    <?php Pjax::begin(['id' => 'soalSelidikSebelumUjianSoalanJawapanGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderSoalSelidikSebelumUjianSoalanJawapan,
+        //'filterModel' => $searchModelSoalSelidikSebelumUjianSoalanJawapan,
+        'id' => 'soalSelidikSebelumUjianSoalanJawapanGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'soal_selidik_sebelum_ujian_soalan_jawapan_id',
+            //'soal_selidik_sebelum_ujian_id',
+            [
+                'attribute' => 'soalan',
+                'value' => 'refSoalanSoalSelidik.desc'
+            ],
+            [
+                'attribute' => 'jawapan',
+                'value' => 'refJawapanSoalSelidik.desc'
+            ],
+            //'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['soal-selidik-sebelum-ujian-soalan-jawapan/delete', 'id' => $model->soal_selidik_sebelum_ujian_soalan_jawapan_id]).'", "'.GeneralMessage::confirmDelete.'", "soalSelidikSebelumUjianSoalanJawapanGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['soal-selidik-sebelum-ujian-soalan-jawapan/update', 'id' => $model->soal_selidik_sebelum_ujian_soalan_jawapan_id]).'", "'.GeneralLabel::updateTitle . ' Soalan");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['soal-selidik-sebelum-ujian-soalan-jawapan/view', 'id' => $model->soal_selidik_sebelum_ujian_soalan_jawapan_id]).'", "'.GeneralLabel::viewTitle . ' Soalan");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+    <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        $soal_selidik_sebelum_ujian_id = "";
+        
+        if(isset($model->soal_selidik_sebelum_ujian_id)){
+            $soal_selidik_sebelum_ujian_id = $model->soal_selidik_sebelum_ujian_id;
+        }
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['soal-selidik-sebelum-ujian-soalan-jawapan/create', 'soal_selidik_sebelum_ujian_id' => $soal_selidik_sebelum_ujian_id]).'", "'.GeneralLabel::createTitle . ' Soalan");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
 
     <!--<?= $form->field($model, 'atlet_id')->textInput() ?>
 

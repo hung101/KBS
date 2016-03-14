@@ -60,7 +60,7 @@ class UjianSaringan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'sekolah', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'jantina', 'no_telefon', 'darjah', 'berat_badan', 'ketinggian', 'tinggi_duduk', 'panjang_depa', 'body_mass_index'], 'required', 'skipOnEmpty' => true],
+            [['nama', 'sekolah'], 'required', 'skipOnEmpty' => true],
             [['berat_badan', 'ketinggian', 'tinggi_duduk', 'panjang_depa', 'body_mass_index'], 'number'],
             [['nama', 'sekolah'], 'string', 'max' => 80],
             [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90],

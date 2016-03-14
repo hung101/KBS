@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use Yii;
 use app\models\SoalSelidikSebelumUjian;
 use frontend\models\SoalSelidikSebelumUjianSearch;
+use app\models\SoalSelidikSebelumUjianSoalanJawapan;
+use frontend\models\SoalSelidikSebelumUjianSoalanJawapanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,6 +67,13 @@ class SoalSelidikSebelumUjianController extends Controller
         
         $model = $this->findModel($id);
         
+        $queryPar = null;
+        
+        $queryPar['SoalSelidikSebelumUjianSoalanJawapanSearch']['soal_selidik_sebelum_ujian_id'] = $id;
+        
+        $searchModelSoalSelidikSebelumUjianSoalanJawapan= new SoalSelidikSebelumUjianSoalanJawapanSearch();
+        $dataProviderSoalSelidikSebelumUjianSoalanJawapan = $searchModelSoalSelidikSebelumUjianSoalanJawapan->search($queryPar);
+        
         $ref = Atlet::findOne(['atlet_id' => $model->atlet_id]);
         $model->atlet_id = $ref['nameAndIC'];
         
@@ -76,6 +85,8 @@ class SoalSelidikSebelumUjianController extends Controller
         
         return $this->render('view', [
             'model' => $model,
+            'searchModelSoalSelidikSebelumUjianSoalanJawapan' => $searchModelSoalSelidikSebelumUjianSoalanJawapan,
+            'dataProviderSoalSelidikSebelumUjianSoalanJawapan' => $dataProviderSoalSelidikSebelumUjianSoalanJawapan,
             'readonly' => true,
         ]);
     }
@@ -92,12 +103,31 @@ class SoalSelidikSebelumUjianController extends Controller
         }
         
         $model = new SoalSelidikSebelumUjian();
+        
+        $queryPar = null;
+        
+        Yii::$app->session->open();
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['SoalSelidikSebelumUjianSoalanJawapanSearch']['session_id'] = Yii::$app->session->id;
+        }
+        
+        $searchModelSoalSelidikSebelumUjianSoalanJawapan= new SoalSelidikSebelumUjianSoalanJawapanSearch();
+        $dataProviderSoalSelidikSebelumUjianSoalanJawapan = $searchModelSoalSelidikSebelumUjianSoalanJawapan->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // update all the temporary session id with soal_selidik_sebelum_ujian_id
+            if(isset(Yii::$app->session->id)){
+                SoalSelidikSebelumUjianSoalanJawapan::updateAll(['soal_selidik_sebelum_ujian_id' => $model->soal_selidik_sebelum_ujian_id], 'session_id = "'.Yii::$app->session->id.'"');
+                SoalSelidikSebelumUjianSoalanJawapan::updateAll(['session_id' => ''], 'soal_selidik_sebelum_ujian_id = "'.$model->soal_selidik_sebelum_ujian_id.'"');
+            }
+            
             return $this->redirect(['view', 'id' => $model->soal_selidik_sebelum_ujian_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'searchModelSoalSelidikSebelumUjianSoalanJawapan' => $searchModelSoalSelidikSebelumUjianSoalanJawapan,
+                'dataProviderSoalSelidikSebelumUjianSoalanJawapan' => $dataProviderSoalSelidikSebelumUjianSoalanJawapan,
                 'readonly' => false,
             ]);
         }
@@ -116,12 +146,21 @@ class SoalSelidikSebelumUjianController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        $queryPar = null;
+        
+        $queryPar['SoalSelidikSebelumUjianSoalanJawapanSearch']['soal_selidik_sebelum_ujian_id'] = $id;
+        
+        $searchModelSoalSelidikSebelumUjianSoalanJawapan= new SoalSelidikSebelumUjianSoalanJawapanSearch();
+        $dataProviderSoalSelidikSebelumUjianSoalanJawapan = $searchModelSoalSelidikSebelumUjianSoalanJawapan->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->soal_selidik_sebelum_ujian_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'searchModelSoalSelidikSebelumUjianSoalanJawapan' => $searchModelSoalSelidikSebelumUjianSoalanJawapan,
+                'dataProviderSoalSelidikSebelumUjianSoalanJawapan' => $dataProviderSoalSelidikSebelumUjianSoalanJawapan,
                 'readonly' => false,
             ]);
         }
