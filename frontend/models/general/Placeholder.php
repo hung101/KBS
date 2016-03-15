@@ -214,6 +214,7 @@ class Placeholder{
     const tahapPenganjuran = " -- Pilih Tahap Penganjuran -- ";
     const tarafPerkahwinan = " -- Pilih Taraf Perkahwinan -- "; 
     const temasya = " -- Pilih Temasya -- "; 
+    const tempat = " -- Pilih Tempat -- "; 
     const ubat = " -- Pilih Ubat -- "; 
     const unitDiagnosisPreskripsiPemeriksaanPenyiasatan = " -- Pilih Fisio atau Rehab -- "; 
     const universitiInstitusi = " -- Pilih Universiti / Institusi -- "; 

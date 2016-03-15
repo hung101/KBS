@@ -48,6 +48,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'nama_program',
             'tarikh_program',
             'tempat_program',
+            [
+                'attribute' => 'kategori_program',
+                'value' => 'refKategoriProgramLiputanPerubatanSukan.desc'
+            ],
             'nama_pemohon',
             // 'no_tel_pemohon',
             // 'pegawai_bertugas',

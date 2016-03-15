@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\PenjadualanUjianFisiologiSearch */
@@ -46,16 +47,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'penjadualan_ujian_fisiologi_id',
             //'atlet_id',
-            [
+            /*[
                 'attribute' => 'atlet_id',
                 'value' => 'refAtlet.name_penuh'
-            ],
-            //'perkhidmatan',
+            ],*/
+            'perkhidmatan',
+            //'tarikh_masa',
             [
-                'attribute' => 'perkhidmatan',
-                'value' => 'refPerkhidmatanFisiologi.desc'
+                'attribute' => 'tarikh_masa',
+                'format' => 'raw',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_masa, GeneralFunction::TYPE_DATETIME);
+                },
             ],
-            'tarikh_masa',
             'pegawai_yang_bertanggungjawab',
             // 'catitan_ringkas',
 

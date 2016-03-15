@@ -47,11 +47,12 @@ class SoalSelidikSebelumUjian extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'tarikh', 'soalan', 'jawapan'], 'required', 'skipOnEmpty' => true],
+            [['atlet_id', 'tarikh', 'pemilihan_ujian', 'pegawai_bertanggungjawab'], 'required', 'skipOnEmpty' => true],
             [['atlet_id'], 'integer'],
             [['tarikh'], 'safe'],
-            [['soalan'], 'string', 'max' => 80],
-            [['jawapan'], 'string', 'max' => 30]
+            [['soalan', 'pemilihan_ujian', 'pegawai_bertanggungjawab'], 'string', 'max' => 80],
+            [['jawapan'], 'string', 'max' => 30],
+            [['catatan'], 'string', 'max' => 255]
         ];
     }
 
@@ -62,8 +63,11 @@ class SoalSelidikSebelumUjian extends \yii\db\ActiveRecord
     {
         return [
             'soal_selidik_sebelum_ujian_id' => 'Soal Selidik Sebelum Ujian ID',
-            'atlet_id' => 'Atlet ID',
-            'tarikh' => 'Tarikh',
+            'atlet_id' => 'Atlet',
+            'tarikh' => 'Tarikh Pemilihan Ujian',
+            'pemilihan_ujian' => 'Pemilihan Ujian',
+            'pegawai_bertanggungjawab' => 'Pegawai Bertanggungjawab',
+            'catatan' => 'Catatan',
             'soalan' => 'Soalan',
             'jawapan' => 'Jawapan',
         ];

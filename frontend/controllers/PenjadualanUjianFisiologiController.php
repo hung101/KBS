@@ -10,10 +10,15 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Atlet;
 use app\models\RefPerkhidmatanFisiologi;
+use app\models\RefSukan;
+use app\models\RefKategoriSukan;
+use app\models\RefAcara;
+use app\models\RefTempatPenjadualanUjianFisiologi;
 
 /**
  * PenjadualanUjianFisiologiController implements the CRUD actions for PenjadualanUjianFisiologi model.
@@ -67,8 +72,19 @@ class PenjadualanUjianFisiologiController extends Controller
         $ref = Atlet::findOne(['atlet_id' => $model->atlet_id]);
         $model->atlet_id = $ref['nameAndIC'];
         
-        $ref = RefPerkhidmatanFisiologi::findOne(['id' => $model->perkhidmatan]);
-        $model->perkhidmatan = $ref['desc'];
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefKategoriSukan::findOne(['id' => $model->kategori_sukan]);
+        $model->kategori_sukan = $ref['desc'];
+        
+        $ref = RefAcara::findOne(['id' => $model->acara]);
+        $model->acara = $ref['desc'];
+        
+        $ref = RefTempatPenjadualanUjianFisiologi::findOne(['id' => $model->tempat]);
+        $model->tempat = $ref['desc'];
+        
+        $model->tarikh_masa = GeneralFunction::convert($model->tarikh_masa, GeneralFunction::TYPE_DATETIME);
         
         return $this->render('view', [
             'model' => $model,

@@ -19,7 +19,7 @@ class SoalSelidikSebelumUjianSearch extends SoalSelidikSebelumUjian
     {
         return [
             [['soal_selidik_sebelum_ujian_id'], 'integer'],
-            [['tarikh', 'soalan', 'jawapan', 'atlet_id'], 'safe'],
+            [['tarikh', 'soalan', 'jawapan', 'atlet_id', 'pemilihan_ujian', 'pegawai_bertanggungjawab'], 'safe'],
         ];
     }
 
@@ -66,7 +66,9 @@ class SoalSelidikSebelumUjianSearch extends SoalSelidikSebelumUjian
 
         $query->andFilterWhere(['like', 'tbl_ref_soalan_soal_selidik.desc', $this->soalan])
             ->andFilterWhere(['like', 'tbl_ref_jawapan_soal_selidik.desc', $this->jawapan])
-                ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id]);
+                ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id])
+                ->andFilterWhere(['like', 'pemilihan_ujian', $this->pemilihan_ujian])
+                ->andFilterWhere(['like', 'pegawai_bertanggungjawab', $this->pegawai_bertanggungjawab]);
 
         return $dataProvider;
     }

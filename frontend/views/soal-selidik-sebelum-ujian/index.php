@@ -50,17 +50,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'atlet_id',
                 'value' => 'refAtlet.name_penuh'
             ],
+            'pemilihan_ujian',
             'tarikh',
+            'pegawai_bertanggungjawab',
             //'soalan',
-            [
+            /*[
                 'attribute' => 'soalan',
                 'value' => 'refSoalanSoalSelidik.desc'
-            ],
+            ],*/
             //'jawapan',
-            [
+            /*[
                 'attribute' => 'jawapan',
                 'value' => 'refJawapanSoalSelidik.desc'
-            ],
+            ],*/
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

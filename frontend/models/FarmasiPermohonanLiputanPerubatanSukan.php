@@ -55,9 +55,9 @@ class FarmasiPermohonanLiputanPerubatanSukan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_program', 'tarikh_program', 'tempat_program', 'nama_pemohon', 'no_tel_pemohon', 'pegawai_bertugas', 'kelulusan_ceo', 'kelulusan_pbu'], 'required', 'skipOnEmpty' => true],
+            [['nama_program', 'tarikh_program', 'tempat_program', 'nama_pemohon', 'no_tel_pemohon', 'pegawai_bertugas', 'kelulusan_ceo', 'kelulusan_pbu', 'kategori_program'], 'required', 'skipOnEmpty' => true],
             [['tarikh_program'], 'safe'],
-            [['kelulusan_ceo', 'kelulusan_pbu'], 'integer'],
+            [['kelulusan_ceo', 'kelulusan_pbu', 'kategori_program'], 'integer'],
             [['nama_program', 'nama_pemohon', 'pegawai_bertugas'], 'string', 'max' => 80],
             [['tempat_program'], 'string', 'max' => 90],
             [['no_tel_pemohon'], 'string', 'max' => 14],
@@ -82,6 +82,7 @@ class FarmasiPermohonanLiputanPerubatanSukan extends \yii\db\ActiveRecord
             'muat_naik' => 'Muat Naik',
             'kelulusan_ceo' => 'Kelulusan CEO',
             'kelulusan_pbu' => 'Kelulusan PBU',
+            'kategori_program' => 'Kategori Program',
         ];
     }
     
@@ -108,5 +109,12 @@ class FarmasiPermohonanLiputanPerubatanSukan extends \yii\db\ActiveRecord
      */
     public function getRefKelulusanPBU(){
         return $this->hasOne(RefKelulusan::className(), ['id' => 'kelulusan_pbu']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKategoriProgramLiputanPerubatanSukan(){
+        return $this->hasOne(RefKategoriProgramLiputanPerubatanSukan::className(), ['id' => 'kategori_program']);
     }
 }
