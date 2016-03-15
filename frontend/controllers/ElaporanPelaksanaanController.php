@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use Yii;
 use app\models\ElaporanPelaksanaan;
+use app\models\ElaporanPelaksanaanReport;
 use frontend\models\ElaporanPelaksanaanSearch;
 use app\models\ElaporanPelaksanaanGambar;
 use frontend\models\ElaporanPelaksanaanGambarSearch;
@@ -19,6 +20,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\BaseUrl;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
@@ -34,6 +36,9 @@ use app\models\RefParlimen;
 use app\models\RefBahagianELaporan;
 use app\models\RefCawanganELaporan;
 use app\models\RefKelulusanELaporan;
+
+// eddie (jasper)
+use Jaspersoft\Client\Client;
 
 /**
  * ElaporanPelaksanaanController implements the CRUD actions for ElaporanPelaksanaan model.
@@ -70,6 +75,102 @@ class ElaporanPelaksanaanController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    // eddie (jasper) start
+
+    public function actionReport()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new ElaporanPelaksanaanReport();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-report'
+                    , 'nama_penganjur' => $model->nama_penganjur
+                    , 'nama_program' => $model->nama_program
+                    , 'negeri' => $model->negeri
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_pada' => $model->tarikh_pada
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-report'
+                    , 'nama_penganjur' => $model->nama_penganjur
+                    , 'nama_program' => $model->nama_program
+                    , 'negeri' => $model->negeri
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_pada' => $model->tarikh_pada
+                    , 'format' => $model->format
+                ]);
+
+            }
+
+        } 
+
+        return $this->render('report', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateReport($nama_penganjur, $nama_program, $negeri, $tarikh_dari, $tarikh_pada, $format)
+    {
+
+        $c = new Client(
+            Yii::$app->params['jasperurl'],
+            Yii::$app->params['jasperuser'],
+            Yii::$app->params['jasperpass']
+        );
+
+        if($nama_penganjur == "") $nama_penganjur = array();
+        else $nama_penganjur = array($nama_penganjur);
+
+        if($nama_program == "") $nama_program = array();
+        else $nama_program = array($nama_program);
+
+        if($negeri == "") $negeri = array();
+        else $negeri = array(intval($negeri));
+
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array(time(date($tarikh_dari)));
+
+        if($tarikh_pada == "") $tarikh_pada = array();
+        else $tarikh_pada = array(time(date($tarikh_pada)));
+        
+        $controls = array(
+            'NAMA_PENGANJUR' => $nama_penganjur,
+            'NAMA_PROGRAM' => $nama_program,
+            'NEGERI' => $negeri,
+            'START_FROM_DATE' => $tarikh_dari,
+            'START_TO_DATE' => $tarikh_pada,
+        );
+
+        if($format == 'html') {
+            $report = $c->reportService()->runReport('/spsb/kbs/e_laporan/laporan_perlaksaan_program', 'html', null, null, $controls);
+        } else {
+            $report = $c->reportService()->runReport('/spsb/kbs/e_laporan/laporan_perlaksaan_program', $format, null, null, $controls);
+        
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Description: File Transfer');
+            header('Content-Disposition: attachment; filename=laporan_perlaksaan_program.' . $format);
+            header('Content-Transfer-Encoding: binary');
+            header('Content-Length: ' . strlen($report));
+            header('Content-Type: application/'.$format);
+        }
+
+        echo $report;
+
+    }
+
+    // eddie (jasper) end
 
     /**
      * Displays a single ElaporanPelaksanaan model.
