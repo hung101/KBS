@@ -6,7 +6,7 @@ use Yii;
 use yii\base\Model;
 
 
-class PjsLaporanAhliJawatankuasaKeceilBiro extends Model
+class PjsLaporanAhliJawatankuasaKecilBiro extends Model
 {
     public $bangsa;
     public $jantina;
