@@ -9,7 +9,6 @@ use kartik\builder\FormGrid;
 use kartik\datecontrol\DateControl;
 
 // table reference
-use app\models\RefNegeri;
 use app\models\RefReportFormat;
 
 // contant values
@@ -19,10 +18,10 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanPelaksaan */
 
-$this->title = 'Laporan Pelaksanaan Program';
+$this->title = 'Laporan Badan Sukan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="elaporan-pelaksanaan-report">
+<div class="laporan-badan-sukan">
 
     <h1><?= Html::encode($this->title) ?></h1>
     
@@ -40,43 +39,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama_penganjur' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100]],
-            ]
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'nama_program' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100]],
-            ]
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'negeri' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],
-                        'pluginOptions' => [
-                                    'allowClear' => true
-                                ],],
-                    'columnOptions'=>['colspan'=>3]],
-            ]
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
                 'tarikh_dari' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -87,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'tarikh_pada' => [
+                'tarikh_hingga' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,

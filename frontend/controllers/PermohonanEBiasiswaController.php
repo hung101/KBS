@@ -7,12 +7,23 @@ use app\models\PermohonanEBiasiswa;
 use frontend\models\PermohonanEBiasiswaSearch;
 use app\models\PermohonanEBiasiswaPenyertaanKejohanan;
 use frontend\models\PermohonanEBiasiswaPenyertaanKejohananSearch;
+use app\models\PermohonanEBiasiswaLaporanPenyataBayaranPelajar;
+use app\models\PermohonanEBiasiswaLaporanPrestasiAkademik;
+use app\models\PermohonanEBiasiswaLaporanSenaraiPenerimaBiasiswa;
+use app\models\PermohonanEBiasiswaLaporanStatistikPermohonanBiasiswaMengikutIptaIpts;
+use app\models\PermohonanEBiasiswaLaporanStatistikPermohonanBiasiswaMengikutJantina;
+use app\models\PermohonanEBiasiswaLaporanStatistikPermohonanBiasiswaMengikutKaum;
+use app\models\PermohonanEBiasiswaLaporanStatistikPermohonanBiasiswaMengikutPeringkatPengajian;
+use app\models\PermohonanEBiasiswaLaporanStatistikPermohonanBiasiswaMengikutStatus;
+use app\models\PermohonanEBiasiswaLaporanStatistikPermohonanBiasiswaMengikutSukan;
+use app\models\PermohonanEBiasiswaLaporanStatistikPermohonanBiasiswaMengikutUniversitiInstitusi;
 use app\models\BspPembayaran;
 use frontend\models\BspPembayaranSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\BaseUrl;
 
 use app\models\general\Upload;
 // contant values
@@ -376,5 +387,384 @@ class PermohonanEBiasiswaController extends Controller
             $img->update();
 
             return $this->redirect(['update', 'id' => $id]);
+    }
+    
+    public function actionLaporanPenyataBayaranPelajar()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new PermohonanEBiasiswaLaporanPenyataBayaranPelajar();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-penyata-bayaran-pelajar'
+                    , 'e_biasiswa_id' => $model->e_biasiswa_id
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-penyata-bayaran-pelajar'
+                    , 'e_biasiswa_id' => $model->e_biasiswa_id
+                    , 'format' => $model->format
+                ]);
+
+            }
+
+        } 
+
+        return $this->render('laporan_penyata_bayaran_pelajar', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanPenyataBayaranPelajar($e_biasiswa_id, $format)
+    {
+        if($e_biasiswa_id == "") $e_biasiswa_id = array();
+        else $e_biasiswa_id = array($e_biasiswa_id);
+        
+        $controls = array(
+            'E_BIASISWA_ID' => $e_biasiswa_id,
+        );
+        
+        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_penyata_bayaran_pelajar', $format, $controls, 'laporan_penyata_bayaran_pelajar');
+    }
+    
+    public function actionLaporanPrestasiAkademik()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new PermohonanEBiasiswaLaporanPrestasiAkademik();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-prestasi-akademik'
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-prestasi-akademik'
+                    , 'format' => $model->format
+                ]);
+
+            }
+
+        } 
+
+        return $this->render('laporan_prestasi_akademik', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanPrestasiAkademik($format)
+    {
+        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_prestasi_akademik', $format, null, 'laporan_prestasi_akademik');
+    }
+    
+    public function actionLaporanSenaraiPenerimaBiasiswa()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new PermohonanEBiasiswaLaporanSenaraiPenerimaBiasiswa();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-senarai-penerima-biasiswa'
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-senarai-penerima-biasiswa'
+                    , 'format' => $model->format
+                ]);
+
+            }
+
+        } 
+
+        return $this->render('laporan_senarai_penerima_biasiswa', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanSenaraiPenerimaBiasiswa($format)
+    {
+        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_senarai_penerima_biasiswa', $format, null, 'laporan_senarai_penerima_biasiswa');
+    }
+    
+    public function actionLaporanStatistikPermohonanBiasiswaMengikutIptaIpts()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new PermohonanEBiasiswaLaporanStatistikPermohonanBiasiswaMengikutIptaIpts();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-permohonan-biasiswa-mengikut-ipta-ipts'
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-permohonan-biasiswa-mengikut-ipta-ipts'
+                    , 'format' => $model->format
+                ]);
+
+            }
+
+        } 
+
+        return $this->render('laporan_statistik_permohonan_biasiswa_mengikut_ipta_ipts', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanStatistikPermohonanBiasiswaMengikutIptaIpts($format)
+    {
+        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_statistik_permohonan_biasiswa_mengikut_ipta_ipts', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_ipta_ipts');
+    }
+    
+    public function actionLaporanStatistikPermohonanBiasiswaMengikutJantina()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new PermohonanEBiasiswaLaporanStatistikPermohonanBiasiswaMengikutJantina();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-permohonan-biasiswa-mengikut-jantina'
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-permohonan-biasiswa-mengikut-jantina'
+                    , 'format' => $model->format
+                ]);
+
+            }
+
+        } 
+
+        return $this->render('laporan_statistik_permohonan_biasiswa_mengikut_jantina', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanStatistikPermohonanBiasiswaMengikutJantina($format)
+    {
+        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_statistik_permohonan_biasiswa_mengikut_jantina', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_jantina');
+    }
+    
+    public function actionLaporanStatistikPermohonanBiasiswaMengikutKaum()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new PermohonanEBiasiswaLaporanStatistikPermohonanBiasiswaMengikutKaum();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-permohonan-biasiswa-mengikut-kaum'
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-permohonan-biasiswa-mengikut-kaum'
+                    , 'format' => $model->format
+                ]);
+
+            }
+
+        } 
+
+        return $this->render('laporan_statistik_permohonan_biasiswa_mengikut_kaum', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanStatistikPermohonanBiasiswaMengikutKaum($format)
+    {
+        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_statistik_permohonan_biasiswa_mengikut_kaum', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_kaum');
+    }
+    
+    public function actionLaporanStatistikPermohonanBiasiswaMengikutPeringkatPengajian()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new PermohonanEBiasiswaLaporanStatistikPermohonanBiasiswaMengikutPeringkatPengajian();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-permohonan-biasiswa-mengikut-peringkat-pengajian'
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-permohonan-biasiswa-mengikut-peringkat-pengajian'
+                    , 'format' => $model->format
+                ]);
+
+            }
+
+        } 
+
+        return $this->render('laporan_statistik_permohonan_biasiswa_mengikut_peringkat_pengajian', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanStatistikPermohonanBiasiswaMengikutPeringkatPengajian($format)
+    {
+        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_statistik_permohonan_biasiswa_mengikut_peringkat_pengajian', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_peringkat_pengajian');
+    }
+    
+    public function actionLaporanStatistikPermohonanBiasiswaMengikutStatus()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new PermohonanEBiasiswaLaporanStatistikPermohonanBiasiswaMengikutStatus();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-permohonan-biasiswa-mengikut-status'
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-permohonan-biasiswa-mengikut-status'
+                    , 'format' => $model->format
+                ]);
+
+            }
+
+        } 
+
+        return $this->render('laporan_statistik_permohonan_biasiswa_mengikut_status', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanStatistikPermohonanBiasiswaMengikutStatus($format)
+    {
+        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_statistik_permohonan_biasiswa_mengikut_status', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_status');
+    }
+    
+    public function actionLaporanStatistikPermohonanBiasiswaMengikutSukan()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new PermohonanEBiasiswaLaporanStatistikPermohonanBiasiswaMengikutSukan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-permohonan-biasiswa-mengikut-sukan'
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-permohonan-biasiswa-mengikut-sukan'
+                    , 'format' => $model->format
+                ]);
+
+            }
+
+        } 
+
+        return $this->render('laporan_statistik_permohonan_biasiswa_mengikut_sukan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanStatistikPermohonanBiasiswaMengikutSukan($format)
+    {
+        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_statistik_permohonan_biasiswa_mengikut_sukan', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_sukan');
+    }
+    
+    public function actionLaporanStatistikPermohonanBiasiswaMengikutUniversitiInstitusi()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new PermohonanEBiasiswaLaporanStatistikPermohonanBiasiswaMengikutUniversitiInstitusi();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-permohonan-biasiswa-mengikut-universiti-institusi'
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-permohonan-biasiswa-mengikut-universiti-institusi'
+                    , 'format' => $model->format
+                ]);
+
+            }
+
+        } 
+
+        return $this->render('laporan_statistik_permohonan_biasiswa_mengikut_universiti_institusi', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanStatistikPermohonanBiasiswaMengikutUniversitiInstitusi($format)
+    {
+        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_statistik_permohonan_biasiswa_mengikut_universiti_institusi', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_universiti_institusi');
     }
 }

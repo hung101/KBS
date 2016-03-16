@@ -73,14 +73,14 @@ class PaobsPenganjuranController extends Controller
         );
         
         $controls = array(
-            'NEGERI' =>array('3') 
+            'NEGERI' =>array('5') 
         );
 
         //$report = $c->reportService()->runReport('/spsb/kbs/e_laporan/laporan_perlaksaan_program', 'html', null, null, $controls);
         
         $report_format = 'pdf'; // Edward e.g pdf, xls, csv, docx, rtf, odt, ods, xlsx, pptx
 
-        $report = $c->reportService()->runReport('/spsb/kbs/e_laporan/laporan_perlaksaan_program', $report_format);
+        $report = $c->reportService()->runReport('/spsb/kbs/e_laporan/laporan_perlaksaan_program', $report_format, null, null, $controls);
         
         header('Cache-Control: must-revalidate');
         header('Pragma: public');

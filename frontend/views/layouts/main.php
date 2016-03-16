@@ -371,6 +371,15 @@ AppAsset::register($this);
                         ],*/
                         ['label' => 'Latihan Pendidikan & Badan Sukan', 'url' => ['/latihan-dan-program/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['latihan-dan-program']['module'])],
                         ['label' => 'Persatuan', 'url' => ['/persatuan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['persatuan']['module'])],
+                        [
+                            'label' => 'Laporan',
+                            'items' => [
+                                ['label' => 'Laporan Ahli Jawatankuasa Induk', 'url' => ['/profil-badan-sukan/laporan-ahli-jawatankuasa-induk'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['module'])],
+                                ['label' => 'Laporan Ahli Jawatankuasa Kecil / Biro', 'url' => ['/profil-badan-sukan/laporan-ahli-jawatankuasa-kecil-biro'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['module'])],
+                                ['label' => 'Laporan Badan Sukan', 'url' => ['/profil-badan-sukan/laporan-badan-sukan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['module'])],
+                                ['label' => 'Laporan Penganjuran Acara', 'url' => ['/profil-badan-sukan/laporan-penganjuran-acara'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['module'])],
+                            ],
+                        ],
                     ]];
                 }
                 
@@ -381,9 +390,16 @@ AppAsset::register($this);
                             'items' => [
                                 ['label' => 'Permohonan e-Bantuan', 'url' => ['/permohonan-e-bantuan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-bantuan']['module'])],
                                 ['label' => 'Urusetia', 'url' => ['/permohonan-e-bantuan-urusetia/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-bantuan-urusetia']['module'])],
+                                ['label' => 'Laporan Status Permohonan Bantuan', 'url' => ['/permohonan-e-bantuan/laporan-status-permohonan-bantuan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-bantuan']['module'])],
                             ],
                         ],
-                        ['label' => 'e-Laporan', 'url' => ['/elaporan-pelaksanaan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['elaporan-pelaksanaan']['module'])],
+                        [
+                            'label' => 'e-Laporan',
+                            'items' => [
+                                ['label' => 'e-Laporan', 'url' => ['/elaporan-pelaksanaan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['elaporan-pelaksanaan']['module'])],
+                                ['label' => 'Laporan Pelaksanaan Program', 'url' => ['/elaporan-pelaksanaan/report'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['elaporan-pelaksanaan']['module'])],
+                            ],
+                        ],
                         [
                             'label' => 'e-Fasiliti / e-Kemudahan',
                             'items' => [
@@ -393,6 +409,14 @@ AppAsset::register($this);
                                 //['label' => 'Kemudahan Aduan', 'url' => ['/pengurusan-kemudahan-aduan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['pengurusan-kemudahan-aduan']['module'])],
                                 //['label' => 'Pengurusan Kemudahan Aduan Pemeriksa', 'url' => ['/pengurusan-kemudahan-aduan-pemeriksa/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['pengurusan-kemudahan-aduan-pemeriksa']['module'])],
                                 ['label' => 'Tempahan', 'url' => ['/tempahan-kemudahan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['tempahan-kemudahan']['module'])],
+                                [
+                                    'label' => 'Laporan',
+                                    'items' => [
+                                        ['label' => 'Laporan Pengguna Dan Hasil Bagi Kombes', 'url' => ['/tempahan-kemudahan/laporan-penggunaan-dan-hasil-bagi-kombes'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['tempahan-kemudahan']['module'])],
+                                        ['label' => 'Laporan Kuantiti Kemudahan', 'url' => ['/tempahan-kemudahan/laporan-kuantiti-kemudahan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['tempahan-kemudahan']['module'])],
+                                        ['label' => 'Laporan Pengguna Dan Hasil Bagi Kombes Tahunan', 'url' => ['/tempahan-kemudahan/laporan-penggunaan-dan-hasil-bagi-kombes-tahunan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['tempahan-kemudahan']['module'])],
+                                    ],
+                                ],
                             ],
                         ],
                         [
@@ -414,6 +438,21 @@ AppAsset::register($this);
                                 //['label' => 'Pembayaran Biasiswa Sukan Persekutuan', 'url' => ['/bsp-pembayaran/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['bsp-pembayaran']['module'])],
                                 ['label' => 'Pengesahan Tamat Pengajian', 'url' => ['/bsp-tamat-pengesahan-pengajian/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['bsp-tamat-pengesahan-pengajian']['module'])],
                                 ['label' => 'Bendahari IPT', 'url' => ['/bsp-bendahari-ipt/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['bsp-bendahari-ipt']['module'])],
+                                [
+                                    'label' => 'Laporan',
+                                    'items' => [
+                                        ['label' => 'Laporan Penyata Bayaran Pelajar', 'url' => ['/permohonan-e-biasiswa/laporan-penyata-bayaran-pelajar'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                        ['label' => 'Laporan Prestasi Akademik', 'url' => ['/permohonan-e-biasiswa/laporan-prestasi-akademik'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                        ['label' => 'Laporan Senarai Penerima Biasiswa', 'url' => ['/permohonan-e-biasiswa/laporan-senarai-penerima-biasiswa'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                        ['label' => 'Laporan Statistik Permohonan Biasiswa Mengikut IPTA / IPTS', 'url' => ['/permohonan-e-biasiswa/laporan-statistik-permohonan-biasiswa-mengikut-ipta-ipts'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                        ['label' => 'Laporan Statistik Permohonan Biasiswa Mengikut Jantina', 'url' => ['/permohonan-e-biasiswa/laporan-statistik-permohonan-biasiswa-mengikut-jantina'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                        ['label' => 'Laporan Statistik Permohonan Biasiswa Mengikut Kaum', 'url' => ['/permohonan-e-biasiswa/laporan-statistik-permohonan-biasiswa-mengikut-kaum'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                        ['label' => 'Laporan Statistik Permohonan Biasiswa Mengikut Peringkat Pengajian', 'url' => ['/permohonan-e-biasiswa/laporan-statistik-permohonan-biasiswa-mengikut-peringkat-pengajian'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                        ['label' => 'Laporan Statistik Permohonan Biasiswa Mengikut Status', 'url' => ['/permohonan-e-biasiswa/laporan-statistik-permohonan-biasiswa-mengikut-status'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                        ['label' => 'Laporan Statistik Permohonan Biasiswa Mengikut Sukan', 'url' => ['/permohonan-e-biasiswa/laporan-statistik-permohonan-biasiswa-mengikut-sukan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                        ['label' => 'Laporan Statistik Permohonan Biasiswa Mengikut Universiti / Institusi', 'url' => ['/permohonan-e-biasiswa/laporan-statistik-permohonan-biasiswa-mengikut-universiti-institusi'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                    ],
+                                ],
                             ],
                         ],
                         

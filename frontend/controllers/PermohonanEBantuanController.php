@@ -17,10 +17,12 @@ use app\models\PermohonanEBantuanPendapatanTahunLepas;
 use frontend\models\PermohonanEBantuanPendapatanTahunLepasSearch;
 use app\models\PermohonanEBantuanAnggaranPerbelanjaan;
 use frontend\models\PermohonanEBantuanAnggaranPerbelanjaanSearch;
+use app\models\PermohonanEBantuanLaporanStatusPermohonanBantuan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\BaseUrl;
 
 // contant values
 use app\models\general\Upload;
@@ -280,6 +282,91 @@ class PermohonanEBantuanController extends Controller
         return $pdf->render();
     }
 // eddie (print2) end
+    
+
+    public function actionLaporanStatusPermohonanBantuan()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new PermohonanEBantuanLaporanStatusPermohonanBantuan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-status-permohonan-bantuan'
+                    , 'jumlah_dilulus_dari' => $model->jumlah_dilulus_dari
+                    , 'jumlah_dilulus_hingga' => $model->jumlah_dilulus_hingga
+                    , 'jumlah_dipohon_dari' => $model->jumlah_dipohon_dari
+                    , 'jumlah_dipohon_hingga' => $model->jumlah_dipohon_hingga
+                    , 'negeri' => $model->negeri
+                    , 'tarikh_terima_dari' => $model->tarikh_terima_dari
+                    , 'tarikh_terima_hingga' => $model->tarikh_terima_hingga
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-status-permohonan-bantuan'
+                    , 'jumlah_dilulus_dari' => $model->jumlah_dilulus_dari
+                    , 'jumlah_dilulus_hingga' => $model->jumlah_dilulus_hingga
+                    , 'jumlah_dipohon_dari' => $model->jumlah_dipohon_dari
+                    , 'jumlah_dipohon_hingga' => $model->jumlah_dipohon_hingga
+                    , 'negeri' => $model->negeri
+                    , 'tarikh_terima_dari' => $model->tarikh_terima_dari
+                    , 'tarikh_terima_hingga' => $model->tarikh_terima_hingga
+                    , 'format' => $model->format
+                ]);
+
+            }
+
+        } 
+
+        return $this->render('laporan_status_permohonan_bantuan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanStatusPermohonanBantuan($jumlah_dilulus_dari, $jumlah_dilulus_hingga, $jumlah_dipohon_dari, $jumlah_dipohon_hingga, $negeri, $tarikh_terima_dari, $tarikh_terima_hingga, $format)
+    {
+
+        if($jumlah_dilulus_dari == "") $jumlah_dilulus_dari = array();
+        else $jumlah_dilulus_dari = array($jumlah_dilulus_dari);
+
+        if($jumlah_dilulus_hingga == "") $jumlah_dilulus_hingga = array();
+        else $jumlah_dilulus_hingga = array($jumlah_dilulus_hingga);
+
+        if($jumlah_dipohon_dari == "") $jumlah_dipohon_dari = array();
+        else $jumlah_dipohon_dari = array($jumlah_dipohon_dari);
+
+        if($jumlah_dipohon_hingga == "") $jumlah_dipohon_hingga = array();
+        else $jumlah_dipohon_hingga = array($jumlah_dipohon_hingga);
+
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        if($tarikh_terima_dari == "") $tarikh_terima_dari = array();
+        else $tarikh_terima_dari = array($tarikh_terima_dari);
+        
+        if($tarikh_terima_hingga == "") $tarikh_terima_hingga = array();
+        else $tarikh_terima_hingga = array($tarikh_terima_hingga);
+        
+        $controls = array(
+            'JUMLAH_DILULUS_START' => $jumlah_dilulus_dari,
+            'JUMLAH_DILULUS_END' => $jumlah_dilulus_hingga,
+            'JUMLAH_DIPOHON_START' => $jumlah_dipohon_dari,
+            'JUMLAH_DIPOHON_END' => $jumlah_dipohon_hingga,
+            'NEGERI' => $negeri,
+            'TARIKH_TERIMA_START' => $tarikh_terima_dari,
+            'TARIKH_TERIMA_END' => $tarikh_terima_hingga, 
+        );
+        
+        GeneralFunction::generateReport('/spsb/kbs/e_bantuan/status_permohonan_bantuan', $format, $controls, 'status_permohonan_bantuan');
+
+    }
 
     /**
      * Creates a new PermohonanEBantuan model.

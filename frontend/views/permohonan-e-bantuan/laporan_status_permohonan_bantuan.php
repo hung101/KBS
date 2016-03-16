@@ -19,7 +19,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanPelaksaan */
 
-$this->title = 'Laporan Pelaksanaan Program';
+$this->title = 'Laporan Status Permohonan Bantuan';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="elaporan-pelaksanaan-report">
@@ -40,14 +40,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama_penganjur' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100]],
+                'jumlah_dilulus_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>20]],
+                'jumlah_dilulus_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>20]],
             ]
         ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama_program' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100]],
+                'jumlah_dipohon_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>20]],
+                'jumlah_dipohon_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>20]],
             ]
         ],
         [
@@ -77,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'tarikh_dari' => [
+                'tarikh_terima_dari' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
@@ -87,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'tarikh_pada' => [
+                'tarikh_terima_hingga' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,

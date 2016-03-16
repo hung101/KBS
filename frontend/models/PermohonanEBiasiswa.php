@@ -194,4 +194,16 @@ class PermohonanEBiasiswa extends \yii\db\ActiveRecord
     {
         return $this->hasOne(RefStatusPermohonanEBiasiswa::className(), ['id' => 'status_permohonan']);
     }
+    
+    public function getNameAndIC(){
+        $returnValue = "";
+        
+        if($this->no_kad_pengenalan != ""){
+            $returnValue = $this->nama.' ('.$this->no_kad_pengenalan.')';
+        } else {
+            $returnValue = $this->nama;
+        }
+        
+        return $returnValue;
+    }
 }

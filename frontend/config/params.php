@@ -6,5 +6,5 @@ return [
 // eddie (print) end
     'jasperuser' => 'jasperadmin',
     'jasperpass' => 'jasperadmin',
-    'jasperurl' => 'http://210.195.193.95:8080/jasperserver',
+    'jasperurl' => 'http://192.168.0.216:8080/jasperserver',
 ];

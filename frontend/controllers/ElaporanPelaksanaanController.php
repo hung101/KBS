@@ -37,9 +37,6 @@ use app\models\RefBahagianELaporan;
 use app\models\RefCawanganELaporan;
 use app\models\RefKelulusanELaporan;
 
-// eddie (jasper)
-use Jaspersoft\Client\Client;
-
 /**
  * ElaporanPelaksanaanController implements the CRUD actions for ElaporanPelaksanaan model.
  */
@@ -123,12 +120,6 @@ class ElaporanPelaksanaanController extends Controller
     public function actionGenerateReport($nama_penganjur, $nama_program, $negeri, $tarikh_dari, $tarikh_pada, $format)
     {
 
-        $c = new Client(
-            Yii::$app->params['jasperurl'],
-            Yii::$app->params['jasperuser'],
-            Yii::$app->params['jasperpass']
-        );
-
         if($nama_penganjur == "") $nama_penganjur = array();
         else $nama_penganjur = array($nama_penganjur);
 
@@ -139,10 +130,10 @@ class ElaporanPelaksanaanController extends Controller
         else $negeri = array(intval($negeri));
 
         if($tarikh_dari == "") $tarikh_dari = array();
-        else $tarikh_dari = array(time(date($tarikh_dari)));
+        else $tarikh_dari = array($tarikh_dari);
 
         if($tarikh_pada == "") $tarikh_pada = array();
-        else $tarikh_pada = array(time(date($tarikh_pada)));
+        else $tarikh_pada = array($tarikh_pada);
         
         $controls = array(
             'NAMA_PENGANJUR' => $nama_penganjur,
@@ -151,22 +142,8 @@ class ElaporanPelaksanaanController extends Controller
             'START_FROM_DATE' => $tarikh_dari,
             'START_TO_DATE' => $tarikh_pada,
         );
-
-        if($format == 'html') {
-            $report = $c->reportService()->runReport('/spsb/kbs/e_laporan/laporan_perlaksaan_program', 'html', null, null, $controls);
-        } else {
-            $report = $c->reportService()->runReport('/spsb/kbs/e_laporan/laporan_perlaksaan_program', $format, null, null, $controls);
         
-            header('Cache-Control: must-revalidate');
-            header('Pragma: public');
-            header('Content-Description: File Transfer');
-            header('Content-Disposition: attachment; filename=laporan_perlaksaan_program.' . $format);
-            header('Content-Transfer-Encoding: binary');
-            header('Content-Length: ' . strlen($report));
-            header('Content-Type: application/'.$format);
-        }
-
-        echo $report;
+        GeneralFunction::generateReport('/spsb/kbs/e_laporan/laporan_perlaksaan_program', $format, $controls, 'laporan_perlaksaan_program');
 
     }
 

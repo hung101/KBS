@@ -5,11 +5,16 @@ namespace frontend\controllers;
 use Yii;
 use app\models\ProfilBadanSukan;
 use app\models\ProfilBadanSukanSearch;
+use app\models\PjsLaporanAhliJawatankuasaInduk;
+use app\models\PjsLaporanAhliJawatankuasaKecilBiro;
+use app\models\PjsLaporanBadanSukan;
+use app\models\PjsLaporanPenganjuranAcara;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\helpers\Json;
+use yii\helpers\BaseUrl;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
@@ -266,5 +271,233 @@ class ProfilBadanSukanController extends Controller
         $model = ProfilBadanSukan::find()->where(['profil_badan_sukan' => $id])->asArray()->one();
         
         echo Json::encode($model);
+    }
+    
+    public function actionLaporanAhliJawatankuasaInduk()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new PjsLaporanAhliJawatankuasaInduk();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-ahli-jawatankuasa-induk'
+                    , 'bangsa' => $model->bangsa
+                    , 'jantina' => $model->jantina
+                    , 'umur_dari' => $model->umur_dari
+                    , 'umur_hingga' => $model->umur_hingga
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-ahli-jawatankuasa-induk'
+                    , 'bangsa' => $model->bangsa
+                    , 'jantina' => $model->jantina
+                    , 'umur_dari' => $model->umur_dari
+                    , 'umur_hingga' => $model->umur_hingga
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_ahli_jawatankuasa_induk', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanAhliJawatankuasaInduk($bangsa, $jantina, $umur_dari, $umur_hingga, $format)
+    {
+        if($bangsa == "") $bangsa = array();
+        else $bangsa = array($bangsa);
+        
+        if($jantina == "") $jantina = array();
+        else $jantina = array($jantina);
+        
+        if($umur_dari == "") $umur_dari = array();
+        else $umur_dari = array($umur_dari);
+        
+        if($umur_hingga == "") $umur_hingga = array();
+        else $umur_hingga = array($umur_hingga);
+        
+        $controls = array(
+            'BANGSA' => $bangsa,
+            'JANTINA' => $jantina,
+            'UMUR_FROM' => $umur_dari,
+            'UMUR_TO' => $umur_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/pjs/laporan_ahli_jawatankuasa_induk', $format, $controls, 'laporan_ahli_jawatankuasa_induk');
+    }
+    
+    public function actionLaporanAhliJawatankuasaKecilBiro()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new PjsLaporanAhliJawatankuasaKecilBiro();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-ahli-jawatankuasa-kecil-biro'
+                    , 'bangsa' => $model->bangsa
+                    , 'jantina' => $model->jantina
+                    , 'umur_dari' => $model->umur_dari
+                    , 'umur_hingga' => $model->umur_hingga
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-ahli-jawatankuasa-kecil-biro'
+                    , 'bangsa' => $model->bangsa
+                    , 'jantina' => $model->jantina
+                    , 'umur_dari' => $model->umur_dari
+                    , 'umur_hingga' => $model->umur_hingga
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_ahli_jawatankuasa_kecil_biro', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanAhliJawatankuasaKecilBiro($bangsa, $jantina, $umur_dari, $umur_hingga, $format)
+    {
+        if($bangsa == "") $bangsa = array();
+        else $bangsa = array($bangsa);
+        
+        if($jantina == "") $jantina = array();
+        else $jantina = array($jantina);
+        
+        if($umur_dari == "") $umur_dari = array();
+        else $umur_dari = array($umur_dari);
+        
+        if($umur_hingga == "") $umur_hingga = array();
+        else $umur_hingga = array($umur_hingga);
+        
+        $controls = array(
+            'BANGSA' => $bangsa,
+            'JANTINA' => $jantina,
+            'UMUR_FROM' => $umur_dari,
+            'UMUR_TO' => $umur_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/pjs/laporan_ahli_jawatankuasa_kecil_biro', $format, $controls, 'laporan_ahli_jawatankuasa_kecil_biro');
+    }
+    
+    public function actionLaporanBadanSukan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new PjsLaporanBadanSukan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-badan-sukan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-badan-sukan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_badan_sukan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanBadanSukan($tarikh_dari, $tarikh_hingga, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/pjs/laporan_badan_sukan', $format, $controls, 'laporan_badan_sukan');
+    }
+    
+    public function actionLaporanPenganjuranAcara()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new PjsLaporanPenganjuranAcara();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-penganjuran-acara'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'peringkat' => $model->peringkat
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-penganjuran-acara'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'peringkat' => $model->peringkat
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_penganjuran_acara', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanPenganjuranAcara($tarikh_dari, $tarikh_hingga, $peringkat, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($peringkat == "") $peringkat = array();
+        else $peringkat = array($peringkat);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'PERINGKAT' => $peringkat,
+        );
+        
+        GeneralFunction::generateReport('/spsb/pjs/laporan_penganjuran_acara', $format, $controls, 'laporan_penganjuran_acara');
     }
 }

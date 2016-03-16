@@ -32,6 +32,7 @@ class Placeholder{
     const darjah = " -- Pilih Darjah -- ";
     const delegasi = " -- Pilih Delegasi -- ";
     const doktor = " -- Pilih Doktor -- ";
+    const format = " -- Pilih Format -- ";
     const fasilitiSatelit = " -- Pilih Fasiliti Satelit -- ";
     const fisio = " -- Pilih Fisio -- ";
     const hubungan = " -- Pilih Hubungan -- ";

@@ -1,6 +1,10 @@
 <?php
 namespace common\models\general;
 
+use Yii;
+// eddie (jasper)
+use Jaspersoft\Client\Client;
+
 class GeneralFunction{
     const DATE_FORMAT = 'php:d-m-Y';
     const DATETIME_FORMAT = 'php:d-m-Y H:i';
@@ -32,5 +36,27 @@ class GeneralFunction{
         if($curMonth<$dob[1] || ($curMonth==$dob[1] && $curDay<$dob[2])) 
                 $age--; 
         return $age; 
+    }
+    
+    public static function generateReport($reportURL, $format, $controls, $filename){
+        $c = new Client(
+            Yii::$app->params['jasperurl'],
+            Yii::$app->params['jasperuser'],
+            Yii::$app->params['jasperpass']
+        );
+            
+        $report = $c->reportService()->runReport($reportURL, $format, null, null, $controls);
+        
+        if($format != 'html') {
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Description: File Transfer');
+            header('Content-Disposition: attachment; filename=' . $filename . '.' . $format);
+            header('Content-Transfer-Encoding: binary');
+            header('Content-Length: ' . strlen($report));
+            header('Content-Type: application/'.$format);
+        }
+        
+        echo $report;
     }
 }

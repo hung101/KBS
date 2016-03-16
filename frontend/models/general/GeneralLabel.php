@@ -40,6 +40,7 @@ class GeneralLabel{
     const send = "Hantar";
     const view = "Papar";
     const other = "Lain-lain";
+    const generate = "Menjana";
     const backToList = "Kembali Ke Senarai";
     const backToForm = "Kembali Ke Borang";
     const viewTitle = "Papar";

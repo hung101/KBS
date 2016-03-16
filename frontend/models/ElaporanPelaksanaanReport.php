@@ -21,6 +21,7 @@ class ElaporanPelaksanaanReport extends Model
         return [
             [['format'], 'required'],
             [['nama_penganjur', 'nama_program', 'negeri', 'tarikh_dari', 'tarikh_pada'], 'safe'],
+            [['tarikh_pada'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true],
         ];
     }
 
@@ -30,8 +31,8 @@ class ElaporanPelaksanaanReport extends Model
             'nama_penganjur' => 'Nama Penganjur',
             'nama_program' => 'Nama Program',
             'negeri' => 'Negeri',
-            'tarikh_dari' => 'Tarikh',
-            'tarikh_pada' => 'Tarikh Pada',
+            'tarikh_dari' => 'Tarikh Mula',
+            'tarikh_pada' => 'Hingga',
             'format' => 'Format',
         ];
     }
