@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+use app\models\general\GeneralLabel;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\RefTahapKerjayaJurulatih */
 
@@ -30,7 +32,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'desc',
-            'aktif',
+            //'aktif',
+            /*[
+                'attribute' => 'aktif',
+                'value' => $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no,
+            ],*/
+            [
+                'attribute' => 'aktif',
+                'value' => $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no,
+            ],
             'created_by',
             'updated_by',
             'created',

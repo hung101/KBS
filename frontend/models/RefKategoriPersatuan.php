@@ -49,7 +49,7 @@ class RefKategoriPersatuan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['desc'], 'required'],
+            [['desc', 'aktif'], 'required'],
             [['aktif', 'created_by', 'updated_by'], 'integer'],
             [['created', 'updated'], 'safe'],
             [['desc'], 'string', 'max' => 80]

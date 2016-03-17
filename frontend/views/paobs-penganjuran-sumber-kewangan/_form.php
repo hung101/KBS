@@ -46,13 +46,13 @@ use app\models\general\GeneralLabel;
 
     <?= $form->field($model, 'session_id')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'created_by')->textInput() ?>
+    
 
-    <?= $form->field($model, 'updated_by')->textInput() ?>
+    
 
-    <?= $form->field($model, 'created')->textInput() ?>
+    
 
-    <?= $form->field($model, 'updated')->textInput() ?>-->
+    -->
 
     <div class="form-group">
         <?php if(!$readonly): ?>

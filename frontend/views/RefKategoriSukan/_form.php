@@ -38,7 +38,8 @@ use kartik\builder\FormGrid;
 
     <!--<?= $form->field($model, 'nama_kategori_sukan')->textInput(['maxlength' => 80]) ?>
 
-    <?= $form->field($model, 'aktif')->textInput() ?>-->
+    <?php $model->isNewRecord ? $model->aktif = 1: $model->aktif = $model->aktif ;  ?>
+    <?= $form->field($model, 'aktif')->radioList(array(true=>GeneralLabel::yes,false=>GeneralLabel::no)); ?>-->
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Hantar' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

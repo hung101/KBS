@@ -3,6 +3,10 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
+use app\models\general\G
+eneralLabel;
+use app\models\general\GeneralMessage;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AtletPenajaansokonganSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */

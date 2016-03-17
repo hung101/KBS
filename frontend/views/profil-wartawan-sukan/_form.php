@@ -57,7 +57,8 @@ use app\models\general\GeneralLabel;
 
     <?= $form->field($model, 'no_tel')->textInput(['maxlength' => 14]) ?>
 
-    <?= $form->field($model, 'aktif')->textInput() ?>-->
+    <?php $model->isNewRecord ? $model->aktif = 1: $model->aktif = $model->aktif ;  ?>
+    <?= $form->field($model, 'aktif')->radioList(array(true=>GeneralLabel::yes,false=>GeneralLabel::no)); ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>

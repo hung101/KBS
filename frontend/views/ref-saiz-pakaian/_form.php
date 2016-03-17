@@ -16,15 +16,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'aktif')->textInput() ?>
+    <?php $model->isNewRecord ? $model->aktif = 1: $model->aktif = $model->aktif ;  ?>
+    <?= $form->field($model, 'aktif')->radioList(array(true=>GeneralLabel::yes,false=>GeneralLabel::no)); ?>
 
-    <?= $form->field($model, 'created_by')->textInput() ?>
+    
 
-    <?= $form->field($model, 'updated_by')->textInput() ?>
+    
 
-    <?= $form->field($model, 'created')->textInput() ?>
+    
 
-    <?= $form->field($model, 'updated')->textInput() ?>
+    
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

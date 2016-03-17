@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
+use app\models\general\GeneralLabel;
+
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\RefSukanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -25,14 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'ref_kategori_sukan_id',
             'desc',
-            'aktif',
-            'created_by',
-            // 'updated_by',
-            // 'created',
-            // 'updated',
+            [
+                'attribute' => 'aktif',
+                'value' => function ($model) {
+                    return $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no;
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
+use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
+
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\BspBorangBorangSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -36,10 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'bsp_12',
             // 'bsp_13',
             // 'bsp_14',
-            // 'created_by',
-            // 'updated_by',
-            // 'created',
-            // 'updated',
+            // ,
+            // ,
+            // ,
+            // ,
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

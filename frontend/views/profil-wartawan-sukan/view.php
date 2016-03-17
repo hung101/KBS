@@ -46,8 +46,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'emel',
             'agensi',
             'no_tel',
-            'aktif',
-        ],
+            //'aktif',
+            [
+                'attribute' => 'aktif',
+                'value' => $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no,
+            ],        ],
     ]);*/ ?>
 
 </div>

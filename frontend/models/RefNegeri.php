@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "tbl_ref_negeri".
  *
  * @property integer $id
+ * @property string $kod
  * @property string $desc
  * @property integer $aktif
  * @property integer $created_by
@@ -52,6 +53,7 @@ class RefNegeri extends \yii\db\ActiveRecord
             [['desc'], 'required'],
             [['aktif', 'created_by', 'updated_by'], 'integer'],
             [['created', 'updated'], 'safe'],
+            [['kod'], 'string', 'max' => 5],
             [['desc'], 'string', 'max' => 80]
         ];
     }
@@ -63,6 +65,7 @@ class RefNegeri extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'kod' => 'Kod',
             'desc' => 'Desc',
             'aktif' => 'Aktif',
             'created_by' => 'Created By',

@@ -40,8 +40,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'nama',
             'tarikh_mula',
             'tarikh_tamat',
-            'aktif',
-            'created_by',
+            //'aktif',
+            [
+                'attribute' => 'aktif',
+                'value' => $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no,
+            ],            'created_by',
             'updated_by',
             'created',
             'updated',

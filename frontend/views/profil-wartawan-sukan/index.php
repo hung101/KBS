@@ -52,9 +52,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'aktif',
             [
                 'attribute' => 'aktif',
-                'value' => 'refKelulusan.desc'
+                'value' => function ($model) {
+                    return $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no;
+                },
             ],
-
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',
                 'buttons' => [

@@ -18,8 +18,8 @@ class RefSukanSearch extends RefSukan
     public function rules()
     {
         return [
-            [['id', 'aktif'], 'integer'],
-            [['desc'], 'safe'],
+            [['id', 'ref_kategori_sukan_id', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['desc', 'created', 'updated'], 'safe'],
         ];
     }
 
@@ -50,14 +50,19 @@ class RefSukanSearch extends RefSukan
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to any records when validation fails
+            // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
         }
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'ref_kategori_sukan_id' => $this->ref_kategori_sukan_id,
             'aktif' => $this->aktif,
+            'created_by' => $this->created_by,
+            'updated_by' => $this->updated_by,
+            'created' => $this->created,
+            'updated' => $this->updated,
         ]);
 
         $query->andFilterWhere(['like', 'desc', $this->desc]);

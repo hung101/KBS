@@ -95,6 +95,15 @@ use app\models\general\Placeholder;
                             'widgetClass'=>'\kartik\widgets\DepDrop', 
                             'options'=>[
                                 'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/ltbs-ahli-jawatankuasa-induk-kecil/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                        ],
                                 'data'=>ArrayHelper::map(LtbsAhliJawatankuasaIndukKecil::find()->all(),'ahli_jawatan_id', 'nama_penuh'),
                                 'options'=>['prompt'=>'', 'id'=>'ahliJawatanInduk'],
                                 'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
@@ -126,6 +135,15 @@ use app\models\general\Placeholder;
                             'widgetClass'=>'\kartik\widgets\DepDrop', 
                             'options'=>[
                                 'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/ltbs-ahli-jawatankuasa-kecil/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                        ],
                                 'data'=>ArrayHelper::map(LtbsAhliJawatankuasaKecil::find()->all(),'ahli_jawatan_id', 'nama_penuh'),
                                 'options'=>['prompt'=>'', 'id'=>'ahliJawatanKecilBiro'],
                                 'select2Options'=>['pluginOptions'=>['allowClear'=>true]],

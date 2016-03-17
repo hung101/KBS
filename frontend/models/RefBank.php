@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $desc
+ * @property string $kod
  * @property integer $aktif
  * @property integer $created_by
  * @property integer $updated_by
@@ -52,6 +53,7 @@ class RefBank extends \yii\db\ActiveRecord
             [['desc'], 'required'],
             [['aktif', 'created_by', 'updated_by'], 'integer'],
             [['created', 'updated'], 'safe'],
+            [['kod'], 'string', 'max' => 5],
             [['desc'], 'string', 'max' => 80]
         ];
     }
@@ -63,6 +65,7 @@ class RefBank extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'kod' => 'Kod', 
             'desc' => 'Desc',
             'aktif' => 'Aktif',
             'created_by' => 'Created By',

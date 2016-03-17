@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
+use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
+
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\ElaporanPelaksanaanKelebihanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -29,10 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'elaporan_pelaksaan_id',
             'kekurangan',
             //'session_id',
-            //'created_by',
-            // 'updated_by',
-            // 'created',
-            // 'updated',
+            //,
+            // ,
+            // ,
+            // ,
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

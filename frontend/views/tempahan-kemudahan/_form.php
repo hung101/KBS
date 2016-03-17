@@ -121,6 +121,15 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=>'\kartik\widgets\DepDrop', 
                     'options'=>[
                         'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/pengurusan-kemudahan-sedia-ada/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                        ],
                         'data'=>ArrayHelper::map(PengurusanKemudahanSediaAda::find()->joinWith(['refJenisKemudahan'])->all(),'pengurusan_kemudahan_sedia_ada_id', 'sukanRekreasiDanJenisKemudahan'),
                         'options'=>['prompt'=>'', 'id'=>'kemudahanID'],
                         'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
@@ -193,6 +202,15 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=>'\kartik\widgets\DepDrop', 
                     'options'=>[
                         'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/ref-bandar/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                        ],
                         'data'=>ArrayHelper::map(RefBandar::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'', 'disabled'=>true],
                         'pluginOptions' => [

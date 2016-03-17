@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
+use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
+
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\RefNegaraSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -25,16 +28,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'desc',
             'kod_1',
             'kod_2',
             'kod_3',
             // 'aktif',
-            // 'created_by',
-            // 'updated_by',
-            // 'created',
-            // 'updated',
+            // ,
+            // ,
+            // ,
+            // ,
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

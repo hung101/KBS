@@ -55,10 +55,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     return GeneralLabel::getYesNoLabel($model->aktif);
                 },
             ],
-            // 'created_by',
-            // 'updated_by',
-            // 'created',
-            // 'updated',
+            // ,
+            // ,
+            // ,
+            // ,
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

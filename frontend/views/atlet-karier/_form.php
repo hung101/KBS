@@ -92,6 +92,15 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=>'\kartik\widgets\DepDrop', 
                     'options'=>[
                         'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/ref-bandar/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                        ],
                         'data'=>ArrayHelper::map(RefBandar::find()->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
                         'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
@@ -187,13 +196,13 @@ use app\models\general\GeneralVariable;
 
     <?= $form->field($model, 'income_tax_no')->textInput(['maxlength' => 20]) ?>
 
-    <?= $form->field($model, 'created_by')->textInput() ?>
+    
 
-    <?= $form->field($model, 'updated_by')->textInput() ?>
+    
 
-    <?= $form->field($model, 'created')->textInput() ?>
+    
 
-    <?= $form->field($model, 'updated')->textInput() ?>-->
+    -->
 
     <div class="form-group">
         <?php if(!$readonly): ?>
