@@ -39,10 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'soal_selidik_sebelum_ujian_id',
             'soalan',
             'jawapan',
-            'created_by',
-            'updated_by',
-            'created',
-            'updated',
+
         ],
     ]);*/ ?>
 

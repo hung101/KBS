@@ -18,8 +18,8 @@ class RefAcaraSearch extends RefAcara
     public function rules()
     {
         return [
-            [['id', 'ref_sukan_id', 'aktif'], 'integer'],
-            [['desc'], 'safe'],
+            [['id', 'aktif'], 'integer'],
+            [['desc', 'ref_sukan_id'], 'safe'],
         ];
     }
 
@@ -55,13 +55,15 @@ class RefAcaraSearch extends RefAcara
             return $dataProvider;
         }
 
+        $query->joinWith('refSukan');
+
         $query->andFilterWhere([
             'id' => $this->id,
-            'ref_sukan_id' => $this->ref_sukan_id,
             'aktif' => $this->aktif,
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc]);
+        $query->andFilterWhere(['like', 'desc', $this->desc])
+            ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->ref_sukan_id]);
 
         return $dataProvider;
     }

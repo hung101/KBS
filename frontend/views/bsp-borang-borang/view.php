@@ -56,10 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'bsp_12',
             'bsp_13',
             'bsp_14',
-            'created_by',
-            'updated_by',
-            'created',
-            'updated',
+
         ],
     ]);*/ ?>
 

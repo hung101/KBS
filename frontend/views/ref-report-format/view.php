@@ -32,10 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'desc',
             'file_extension',
             'aktif',
-            'created_by',
-            'updated_by',
-            'created',
-            'updated',
+
         ],
     ]) ?>
 

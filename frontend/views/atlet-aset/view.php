@@ -57,10 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'daftar_alamat_1',
             'nama_syarikat_perniagaan',
             'produk_perkhidmatan_perniagaan',
-            'created_by',
-            'updated_by',
-            'created',
-            'updated',
+
         ],
     ])*/ ?>
 

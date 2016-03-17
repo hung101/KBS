@@ -27,7 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'ref_kategori_sukan_id',
+            [
+                'attribute' => 'ref_kategori_sukan_id',
+                'value' => 'refKategoriSukan.desc',
+            ],
             'desc',
             [
                 'attribute' => 'aktif',

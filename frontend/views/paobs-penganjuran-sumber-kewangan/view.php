@@ -40,10 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'sumber',
             'jumlah',
             'session_id',
-            'created_by',
-            'updated_by',
-            'created',
-            'updated',
+
         ],
     ]);*/ ?>
 

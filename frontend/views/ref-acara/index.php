@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 use app\models\general\GeneralLabel;
-use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\RefAcaraSearch */
@@ -29,7 +28,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'ref_sukan_id',
+            [
+                'attribute' => 'ref_sukan_id',
+                'value' => 'refSukan.desc',
+            ],
             'desc',
             //'aktif',
             [

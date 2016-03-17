@@ -64,13 +64,17 @@ class RefAcara extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ref_sukan_id' => 'Ref Sukan ID',
-            'desc' => 'Desc',
+            'ref_sukan_id' => 'Ref Sukan',
+            'desc' => 'Nama Acara',
             'aktif' => 'Aktif',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+
+    public function getRefSukan() {
+        return $this->hasOne(RefSukan::className(), ['id' => 'ref_sukan_id']);
     }
 }

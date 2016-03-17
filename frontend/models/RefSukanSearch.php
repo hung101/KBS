@@ -18,8 +18,8 @@ class RefSukanSearch extends RefSukan
     public function rules()
     {
         return [
-            [['id', 'ref_kategori_sukan_id', 'aktif', 'created_by', 'updated_by'], 'integer'],
-            [['desc', 'created', 'updated'], 'safe'],
+            [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['desc', 'created', 'updated', 'ref_kategori_sukan_id'], 'safe'],
         ];
     }
 
@@ -55,9 +55,10 @@ class RefSukanSearch extends RefSukan
             return $dataProvider;
         }
 
+        $query->joinWith('refKategoriSukan');
+
         $query->andFilterWhere([
             'id' => $this->id,
-            'ref_kategori_sukan_id' => $this->ref_kategori_sukan_id,
             'aktif' => $this->aktif,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -65,7 +66,8 @@ class RefSukanSearch extends RefSukan
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc]);
+        $query->andFilterWhere(['like', 'desc', $this->desc])
+            ->andFilterWhere(['like', 'tbl_ref_kategori_sukan.desc', $this->ref_kategori_sukan_id]);
 
         return $dataProvider;
     }

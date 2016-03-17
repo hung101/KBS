@@ -62,10 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'socso_no',
             'kwsp_no',
             'income_tax_no',
-            'created_by',
-            'updated_by',
-            'created',
-            'updated',
+
         ],
     ])*/ ?>
 

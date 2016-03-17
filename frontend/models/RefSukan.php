@@ -45,9 +45,9 @@ class RefSukan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ref_kategori_sukan_id','nama_sukan', 'aktif'], 'required'],
+            [['ref_kategori_sukan_id','desc', 'aktif'], 'required'],
             [['aktif'], 'integer'],
-            [['nama_sukan'], 'string', 'max' => 80]
+            [['desc'], 'string', 'max' => 80]
         ];
     }
 
@@ -59,8 +59,12 @@ class RefSukan extends \yii\db\ActiveRecord
         return [
             'ref_sukan_id' => 'Ref Sukan ID',
             'ref_kategori_sukan_id' => 'Kategori Sukan',
-            'nama_sukan' => 'Nama Sukan',
+            'desc' => 'Nama Sukan',
             'aktif' => 'Aktif',
         ];
+    }
+
+    public function getRefKategoriSukan() {
+        return $this->hasOne(RefKategoriSukan::className(), ['id' => 'ref_kategori_sukan_id']);
     }
 }

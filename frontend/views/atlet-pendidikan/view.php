@@ -63,10 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'biasiswa_tajaan',
             'jenis_biasiswa',
             'jumlah_biasiswa',
-            'created_by',
-            'updated_by',
-            'created',
-            'updated',
+
         ],
     ]) */?>
 

@@ -50,11 +50,11 @@ class RefNegara extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['desc', 'kod'], 'required'],
+            [['desc', 'kod_1', 'kod_2', 'kod_3'], 'required'],
             [['aktif', 'created_by', 'updated_by'], 'integer'],
             [['created', 'updated'], 'safe'],
             [['desc'], 'string', 'max' => 80],
-            [['kod'], 'string', 'max' => 5]
+            [['kod_1', 'kod_2', 'kod_3'], 'string', 'max' => 5]
         ];
     }
 
@@ -66,7 +66,9 @@ class RefNegara extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'desc' => 'Desc',
-            'kod' => 'Kod',
+            'kod_1' => 'Kod 1',
+            'kod_2' => 'Kod 2',
+            'kod_3' => 'Kod 3',
             'aktif' => 'Aktif',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

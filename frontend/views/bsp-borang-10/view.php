@@ -39,10 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'bsp_borang_borang_id',
             'bsp_10',
             'session_id',
-            'created_by',
-            'updated_by',
-            'created',
-            'updated',
+
         ],
     ]);*/ ?>
 
