@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'ref_kategori_penganjuran_id',
+            'refKategoriPenganjuran.desc',
             'desc',
             //'aktif',
             [

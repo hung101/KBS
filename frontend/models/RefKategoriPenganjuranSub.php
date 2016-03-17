@@ -64,7 +64,7 @@ class RefKategoriPenganjuranSub extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ref_kategori_penganjuran_id' => 'Ref Kategori Penganjuran ID',
+            'ref_kategori_penganjuran_id' => 'Ref Kategori Penganjuran',
             'desc' => 'Desc',
             'aktif' => 'Aktif',
             'created_by' => 'Created By',
@@ -72,5 +72,9 @@ class RefKategoriPenganjuranSub extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+
+    public function getRefKategoriPenganjuran() {
+        return $this->hasOne(RefKategoriPenganjuran::className(), ['id' => 'ref_kategori_penganjuran_id']);
     }
 }

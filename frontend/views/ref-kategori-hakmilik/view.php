@@ -32,7 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'desc',
-            'tempahan_display_flag',
+            //'tempahan_display_flag',
+            [
+                'attribute' => 'tempahan_display_flag',
+                'value' => $model->tempahan_display_flag == 1 ? GeneralLabel::yes : GeneralLabel::no,
+            ],
             //'aktif',
             [
                 'attribute' => 'aktif',

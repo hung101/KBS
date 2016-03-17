@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'ref_jenis_pakaian_id',
+            'refJenisPakaian.desc',
             'desc',
             //'aktif',
             [

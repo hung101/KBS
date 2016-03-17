@@ -32,8 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'desc',
-            'show_public',
-            //'aktif',
+            [
+                'attribute' => 'show_public',
+                'value' => $model->show_public == 1 ? GeneralLabel::yes : GeneralLabel::no,
+            ],
             [
                 'attribute' => 'aktif',
                 'value' => $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no,

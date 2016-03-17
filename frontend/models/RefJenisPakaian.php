@@ -73,4 +73,8 @@ class RefJenisPakaian extends \yii\db\ActiveRecord
             'updated' => 'Updated',
         ];
     }
+
+    public function getRefSukan() {
+        return $this->hasOne(RefSukan::className(), ['id' => 'ref_sukan_id']);
+    }
 }

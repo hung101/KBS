@@ -18,8 +18,8 @@ class RefUniversitiInstitusiEBiasiswaSearch extends RefUniversitiInstitusiEBiasi
     public function rules()
     {
         return [
-            [['id', 'ref_universiti_institusi_kategori_e_biasiswa_id', 'aktif', 'created_by', 'updated_by'], 'integer'],
-            [['desc', 'created', 'updated'], 'safe'],
+            [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['desc', 'created', 'updated', 'ref_universiti_institusi_kategori_e_biasiswa_id'], 'safe'],
         ];
     }
 
@@ -55,9 +55,10 @@ class RefUniversitiInstitusiEBiasiswaSearch extends RefUniversitiInstitusiEBiasi
             return $dataProvider;
         }
 
+        $query->joinWith('refUniversitiInstitusiKategoriEBiasiswa');
+
         $query->andFilterWhere([
             'id' => $this->id,
-            'ref_universiti_institusi_kategori_e_biasiswa_id' => $this->ref_universiti_institusi_kategori_e_biasiswa_id,
             'aktif' => $this->aktif,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -65,7 +66,8 @@ class RefUniversitiInstitusiEBiasiswaSearch extends RefUniversitiInstitusiEBiasi
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc]);
+        $query->andFilterWhere(['like', 'desc', $this->desc])
+            ->andFilterWhere(['like', 'tbl_ref_universiti_institusi_kategori_e_biasiswa.desc', $this->ref_universiti_institusi_kategori_e_biasiswa_id]);
 
         return $dataProvider;
     }

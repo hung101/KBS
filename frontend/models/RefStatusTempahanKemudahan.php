@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $desc
+ * @property integer $report_flag
  * @property integer $aktif
  * @property integer $created_by
  * @property integer $updated_by
@@ -20,16 +21,9 @@ class RefStatusTempahanKemudahan extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public static function tableName() 
+    public static function tableName()
     {
         return 'tbl_ref_status_tempahan_kemudahan';
-    }
-
-    public function behaviors()
-    {
-        return [
-            'bedezign\yii2\audit\AuditTrailBehavior',
-        ];
     }
 
     /**
@@ -38,8 +32,7 @@ class RefStatusTempahanKemudahan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['desc'], 'required'],
-            [['aktif', 'created_by', 'updated_by'], 'integer'],
+            [['report_flag', 'aktif', 'created_by', 'updated_by'], 'integer'],
             [['created', 'updated'], 'safe'],
             [['desc'], 'string', 'max' => 80]
         ];
@@ -53,6 +46,7 @@ class RefStatusTempahanKemudahan extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'desc' => 'Desc',
+            'report_flag' => 'Report Flag',
             'aktif' => 'Aktif',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

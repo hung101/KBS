@@ -99,7 +99,7 @@ use app\models\general\Placeholder;
                             'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                             [
                                 'append' => [
-                                    'content' => Html::a(Html::icon('edit'), ['/ltbs-ahli-jawatankuasa-induk-kecil/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'content' => Html::a(Html::icon('edit'), ['/ltbs-ahli-jawatankuasa-induk-kecil/get-ahli-jawatankuasa-induk-by-badansukan'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                     'asButton' => true
                                 ]
                             ] : null,
@@ -139,7 +139,7 @@ use app\models\general\Placeholder;
                             'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                             [
                                 'append' => [
-                                    'content' => Html::a(Html::icon('edit'), ['/ltbs-ahli-jawatankuasa-kecil/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'content' => Html::a(Html::icon('edit'), ['/ltbs-ahli-jawatankuasa-kecil/get-ahli-jawatankuasa-kecil-by-badansukan'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                     'asButton' => true
                                 ]
                             ] : null,

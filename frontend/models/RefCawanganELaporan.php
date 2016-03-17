@@ -52,7 +52,7 @@ class RefCawanganELaporan extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ref_bahagian_e_laporan_id' => 'Ref Bahagian E Laporan ID',
+            'ref_bahagian_e_laporan_id' => 'Ref Bahagian E Laporan',
             'desc' => 'Desc',
             'aktif' => 'Aktif',
             'created_by' => 'Created By',
@@ -60,5 +60,9 @@ class RefCawanganELaporan extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+
+    public function getRefBahagianELaporan() {
+        return $this->hasOne(RefBahagianELaporan::className(), ['id' => 'ref_bahagian_e_laporan_id']);
     }
 }

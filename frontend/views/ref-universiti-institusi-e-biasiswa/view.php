@@ -31,9 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'ref_universiti_institusi_kategori_e_biasiswa_id',
+            'refUniversitiInstitusiKategoriEBiasiswa.desc',
             'desc',
-            //'aktif',
             [
                 'attribute' => 'aktif',
                 'value' => $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no,

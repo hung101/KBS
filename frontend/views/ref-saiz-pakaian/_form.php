@@ -1,7 +1,14 @@
 <?php
 
-use kartik\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
+
+use kartik\helpers\Html;
+use kartik\widgets\Select2;
+
+use app\models\RefSaizPakaian;
+use app\models\general\GeneralLabel;
+use app\models\general\Placeholder;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefSaizPakaian */
@@ -12,7 +19,20 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'ref_jenis_pakaian_id')->textInput() ?>
+    <?= $form->field($model, 'ref_jenis_pakaian_id')->widget(Select2::classname(), [
+    	'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+        [
+            'append' => [
+                'content' => Html::a(Html::icon('edit'), ['/ref-saiz-pakaian/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                'asButton' => true
+            ]
+        ] : null,
+	    'data' => ArrayHelper::map(RefSaizPakaian::find()->all(),'id', 'desc'),
+	    'options' => ['placeholder' => Placeholder::saizPakaian],
+	    'pluginOptions' => [
+	        'allowClear' => true
+	    ],
+	]); ?>
 
     <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>
 

@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "tbl_ref_universiti_institusi_e_biasiswa".
  *
  * @property integer $id
+ * @property integer $ref_universiti_institusi_kategori_e_biasiswa_id
  * @property string $desc
  * @property integer $aktif
  * @property integer $created_by
@@ -31,8 +32,8 @@ class RefUniversitiInstitusiEBiasiswa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['ref_universiti_institusi_kategori_e_biasiswa_id', 'aktif', 'created_by', 'updated_by'], 'integer'],
             [['desc'], 'required'],
-            [['aktif', 'created_by', 'updated_by'], 'integer'],
             [['created', 'updated'], 'safe'],
             [['desc'], 'string', 'max' => 80]
         ];
@@ -45,6 +46,7 @@ class RefUniversitiInstitusiEBiasiswa extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'ref_universiti_institusi_kategori_e_biasiswa_id' => 'Ref Universiti Institusi Kategori E Biasiswa ID',
             'desc' => 'Desc',
             'aktif' => 'Aktif',
             'created_by' => 'Created By',

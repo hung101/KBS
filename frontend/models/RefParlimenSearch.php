@@ -18,8 +18,8 @@ class RefParlimenSearch extends RefParlimen
     public function rules()
     {
         return [
-            [['id', 'ref_negeri_id', 'aktif', 'created_by', 'updated_by'], 'integer'],
-            [['desc', 'created', 'updated'], 'safe'],
+            [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['desc', 'created', 'updated', 'ref_negeri_id'], 'safe'],
         ];
     }
 
@@ -55,9 +55,10 @@ class RefParlimenSearch extends RefParlimen
             return $dataProvider;
         }
 
+        $query->joinWith('refNegeri');
+
         $query->andFilterWhere([
             'id' => $this->id,
-            'ref_negeri_id' => $this->ref_negeri_id,
             'aktif' => $this->aktif,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -65,7 +66,8 @@ class RefParlimenSearch extends RefParlimen
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc]);
+        $query->andFilterWhere(['like', 'desc', $this->desc])
+            ->andFilterWhere(['like', 'tbl_ref_negeri.desc', $this->ref_negeri_id]);
 
         return $dataProvider;
     }

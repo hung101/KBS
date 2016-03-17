@@ -64,7 +64,7 @@ class RefBandar extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ref_negeri_id' => 'Ref Negeri ID',
+            'ref_negeri_id' => 'Ref Negeri',
             'desc' => 'Desc',
             'aktif' => 'Aktif',
             'created_by' => 'Created By',
@@ -72,5 +72,9 @@ class RefBandar extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+
+    public function getRefNegeri() {
+        return $this->hasOne(RefNegeri::className(), ['id' => 'ref_negeri_id']);
     }
 }

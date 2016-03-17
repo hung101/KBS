@@ -64,7 +64,7 @@ class RefSaizPakaian extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ref_jenis_pakaian_id' => 'Ref Jenis Pakaian ID',
+            'ref_jenis_pakaian_id' => 'Ref Jenis Pakaian',
             'desc' => 'Desc',
             'aktif' => 'Aktif',
             'created_by' => 'Created By',
@@ -72,5 +72,9 @@ class RefSaizPakaian extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+
+    public function getRefJenisPakaian() {
+        return $this->hasOne(RefJenisPakaian::className(), ['id' => 'ref_jenis_pakaian_id']);
     }
 }

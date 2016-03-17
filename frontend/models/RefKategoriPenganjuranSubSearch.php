@@ -18,8 +18,8 @@ class RefKategoriPenganjuranSubSearch extends RefKategoriPenganjuranSub
     public function rules()
     {
         return [
-            [['id', 'ref_kategori_penganjuran_id', 'aktif', 'created_by', 'updated_by'], 'integer'],
-            [['desc', 'created', 'updated'], 'safe'],
+            [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['desc', 'created', 'updated', 'ref_kategori_penganjuran_id'], 'safe'],
         ];
     }
 
@@ -55,9 +55,10 @@ class RefKategoriPenganjuranSubSearch extends RefKategoriPenganjuranSub
             return $dataProvider;
         }
 
+        $query->joinWith('refKategoriPenganjuran');
+
         $query->andFilterWhere([
             'id' => $this->id,
-            'ref_kategori_penganjuran_id' => $this->ref_kategori_penganjuran_id,
             'aktif' => $this->aktif,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -65,7 +66,8 @@ class RefKategoriPenganjuranSubSearch extends RefKategoriPenganjuranSub
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc]);
+        $query->andFilterWhere(['like', 'desc', $this->desc])
+            ->andFilterWhere(['like', 'tbl_ref_kategori_penganjuran.desc', $this->ref_kategori_penganjuran_id]);
 
         return $dataProvider;
     }

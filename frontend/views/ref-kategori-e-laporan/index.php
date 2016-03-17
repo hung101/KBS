@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 use app\models\general\GeneralLabel;
-use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\RefKategoriELaporanSearch */
@@ -28,19 +27,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            //'id',
             'desc',
-            'show_public',
-            //'aktif',
+            [
+                'attribute' => 'show_public',
+                'value' => function ($model) {
+                    return $model->show_public == 1 ? GeneralLabel::yes : GeneralLabel::no;
+                },
+            ],
             [
                 'attribute' => 'aktif',
                 'value' => function ($model) {
                     return $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no;
                 },
             ],
-            // ,
-            // ,
-            // ,
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

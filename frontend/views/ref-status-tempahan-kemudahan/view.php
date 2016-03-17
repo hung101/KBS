@@ -32,8 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'desc',
-            'report_flag',
-            //'aktif',
+            [
+                'attribute' => 'report_flag',
+                'value' => $model->report_flag == 1 ? GeneralLabel::yes : GeneralLabel::no,
+            ],
             [
                 'attribute' => 'aktif',
                 'value' => $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no,

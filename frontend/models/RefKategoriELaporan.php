@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $desc
+ * @property integer $show_public
  * @property integer $aktif
  * @property integer $created_by
  * @property integer $updated_by
@@ -18,31 +19,12 @@ use Yii;
 class RefKategoriELaporan extends \yii\db\ActiveRecord
 {
     const KATEGORI_NGO = 3;
-    
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return 'tbl_ref_kategori_e_laporan';
-    }
-    
-    public function behaviors()
-    {
-        return [
-            'bedezign\yii2\audit\AuditTrailBehavior',
-            [
-                'class' => \yii\behaviors\BlameableBehavior::className(),
-                'createdByAttribute' => 'created_by',
-                'updatedByAttribute' => 'updated_by',
-            ],
-            [
-                'class' => \yii\behaviors\TimestampBehavior::className(),
-                'createdAtAttribute' => 'created',
-                'updatedAtAttribute' => 'updated',
-                'value' => new \yii\db\Expression('NOW()'),
-            ],
-        ];
     }
 
     /**
@@ -52,7 +34,7 @@ class RefKategoriELaporan extends \yii\db\ActiveRecord
     {
         return [
             [['desc'], 'required'],
-            [['aktif', 'created_by', 'updated_by'], 'integer'],
+            [['show_public', 'aktif', 'created_by', 'updated_by'], 'integer'],
             [['created', 'updated'], 'safe'],
             [['desc'], 'string', 'max' => 80]
         ];
@@ -66,6 +48,7 @@ class RefKategoriELaporan extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'desc' => 'Desc',
+            'show_public' => 'Show Public',
             'aktif' => 'Aktif',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

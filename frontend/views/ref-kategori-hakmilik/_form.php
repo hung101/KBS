@@ -16,7 +16,8 @@ use app\models\general\GeneralLabel;
 
     <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'tempahan_display_flag')->textInput() ?>
+    <?php $model->isNewRecord ? $model->tempahan_display_flag = 1: $model->tempahan_display_flag = $model->tempahan_display_flag ;  ?>
+    <?= $form->field($model, 'tempahan_display_flag')->radioList(array(true=>GeneralLabel::yes,false=>GeneralLabel::no)); ?>
 
     <?php $model->isNewRecord ? $model->aktif = 1: $model->aktif = $model->aktif ;  ?>
     <?= $form->field($model, 'aktif')->radioList(array(true=>GeneralLabel::yes,false=>GeneralLabel::no)); ?>

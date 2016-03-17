@@ -18,8 +18,8 @@ class RefCawanganELaporanSearch extends RefCawanganELaporan
     public function rules()
     {
         return [
-            [['id', 'ref_bahagian_e_laporan_id', 'aktif', 'created_by', 'updated_by'], 'integer'],
-            [['desc', 'created', 'updated'], 'safe'],
+            [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['desc', 'created', 'updated', 'ref_bahagian_e_laporan_id'], 'safe'],
         ];
     }
 
@@ -55,9 +55,10 @@ class RefCawanganELaporanSearch extends RefCawanganELaporan
             return $dataProvider;
         }
 
+        $query->joinWith('refBahagianELaporan');
+
         $query->andFilterWhere([
             'id' => $this->id,
-            'ref_bahagian_e_laporan_id' => $this->ref_bahagian_e_laporan_id,
             'aktif' => $this->aktif,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -65,7 +66,8 @@ class RefCawanganELaporanSearch extends RefCawanganELaporan
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc]);
+        $query->andFilterWhere(['like', 'desc', $this->desc])
+            ->andFilterWhere(['like', 'tbl_ref_bahagian_e_laporan.desc', $this->ref_bahagian_e_laporan_id]);
 
         return $dataProvider;
     }
