@@ -364,7 +364,7 @@ class PermohonanEBantuanController extends Controller
             'TARIKH_TERIMA_END' => $tarikh_terima_hingga, 
         );
         
-        GeneralFunction::generateReport('/spsb/kbs/e_bantuan/status_permohonan_bantuan', $format, $controls, 'status_permohonan_bantuan');
+        GeneralFunction::generateReport('/spsb/kbs/e-Bantuan/StatusPermohonanEBantuan', $format, $controls, 'status_permohonan_bantuan');
 
     }
 

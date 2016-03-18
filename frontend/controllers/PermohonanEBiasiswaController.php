@@ -432,7 +432,7 @@ class PermohonanEBiasiswaController extends Controller
             'E_BIASISWA_ID' => $e_biasiswa_id,
         );
         
-        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_penyata_bayaran_pelajar', $format, $controls, 'laporan_penyata_bayaran_pelajar');
+        GeneralFunction::generateReport('/spsb/kbs/eBiasiswa/PenyataBayaranPelajar', $format, $controls, 'laporan_penyata_bayaran_pelajar');
     }
     
     public function actionLaporanPrestasiAkademik()
@@ -469,7 +469,7 @@ class PermohonanEBiasiswaController extends Controller
 
     public function actionGenerateLaporanPrestasiAkademik($format)
     {
-        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_prestasi_akademik', $format, null, 'laporan_prestasi_akademik');
+        GeneralFunction::generateReport('/spsb/kbs/eBiasiswa/PrestasiAkademikPenerimaBiasiswa', $format, null, 'laporan_prestasi_akademik');
     }
     
     public function actionLaporanSenaraiPenerimaBiasiswa()
@@ -506,7 +506,7 @@ class PermohonanEBiasiswaController extends Controller
 
     public function actionGenerateLaporanSenaraiPenerimaBiasiswa($format)
     {
-        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_senarai_penerima_biasiswa', $format, null, 'laporan_senarai_penerima_biasiswa');
+        GeneralFunction::generateReport('/spsb/kbs/eBiasiswa/SenaraiPenerimaBiasiswa', $format, null, 'laporan_senarai_penerima_biasiswa');
     }
     
     public function actionLaporanStatistikPermohonanBiasiswaMengikutIptaIpts()
@@ -543,7 +543,7 @@ class PermohonanEBiasiswaController extends Controller
 
     public function actionGenerateLaporanStatistikPermohonanBiasiswaMengikutIptaIpts($format)
     {
-        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_statistik_permohonan_biasiswa_mengikut_ipta_ipts', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_ipta_ipts');
+        GeneralFunction::generateReport('/spsb/kbs/eBiasiswa/StatistikPermohonanBiasiswaPecahanMengikutIPTA_IPTS', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_ipta_ipts');
     }
     
     public function actionLaporanStatistikPermohonanBiasiswaMengikutJantina()
@@ -580,7 +580,7 @@ class PermohonanEBiasiswaController extends Controller
 
     public function actionGenerateLaporanStatistikPermohonanBiasiswaMengikutJantina($format)
     {
-        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_statistik_permohonan_biasiswa_mengikut_jantina', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_jantina');
+        GeneralFunction::generateReport('/spsb/kbs/eBiasiswa/StatistikPermohonanBiasiswaPecahanMengikutJantina', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_jantina');
     }
     
     public function actionLaporanStatistikPermohonanBiasiswaMengikutKaum()
@@ -617,7 +617,7 @@ class PermohonanEBiasiswaController extends Controller
 
     public function actionGenerateLaporanStatistikPermohonanBiasiswaMengikutKaum($format)
     {
-        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_statistik_permohonan_biasiswa_mengikut_kaum', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_kaum');
+        GeneralFunction::generateReport('/spsb/kbs/eBiasiswa/StatistikPermohonanBiasiswaPecahanMengikutKaum', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_kaum');
     }
     
     public function actionLaporanStatistikPermohonanBiasiswaMengikutPeringkatPengajian()
@@ -654,7 +654,7 @@ class PermohonanEBiasiswaController extends Controller
 
     public function actionGenerateLaporanStatistikPermohonanBiasiswaMengikutPeringkatPengajian($format)
     {
-        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_statistik_permohonan_biasiswa_mengikut_peringkat_pengajian', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_peringkat_pengajian');
+        GeneralFunction::generateReport('/spsb/kbs/eBiasiswa/StatistikPermohonanBiasiswaPecahanMengikutPeringkatPengajian', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_peringkat_pengajian');
     }
     
     public function actionLaporanStatistikPermohonanBiasiswaMengikutStatus()
@@ -691,7 +691,7 @@ class PermohonanEBiasiswaController extends Controller
 
     public function actionGenerateLaporanStatistikPermohonanBiasiswaMengikutStatus($format)
     {
-        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_statistik_permohonan_biasiswa_mengikut_status', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_status');
+        GeneralFunction::generateReport('/spsb/kbs/eBiasiswa/StatistikPermohonanBiasiswaPecahanMengikutStatus', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_status');
     }
     
     public function actionLaporanStatistikPermohonanBiasiswaMengikutSukan()
@@ -728,7 +728,7 @@ class PermohonanEBiasiswaController extends Controller
 
     public function actionGenerateLaporanStatistikPermohonanBiasiswaMengikutSukan($format)
     {
-        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_statistik_permohonan_biasiswa_mengikut_sukan', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_sukan');
+        GeneralFunction::generateReport('/spsb/kbs/eBiasiswa/StatistikPermohonanBiasiswaPecahanMengikutSukan', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_sukan');
     }
     
     public function actionLaporanStatistikPermohonanBiasiswaMengikutUniversitiInstitusi()
@@ -765,6 +765,6 @@ class PermohonanEBiasiswaController extends Controller
 
     public function actionGenerateLaporanStatistikPermohonanBiasiswaMengikutUniversitiInstitusi($format)
     {
-        GeneralFunction::generateReport('/spsb/kbs/e_biasiswa/laporan_statistik_permohonan_biasiswa_mengikut_universiti_institusi', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_universiti_institusi');
+        GeneralFunction::generateReport('/spsb/kbs/eBiasiswa/StatistikPermohonanBiasiswaPecahanMengikutUniversitiInstitusi', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_universiti_institusi');
     }
 }

@@ -17,7 +17,7 @@ class EKemudahanLaporanPenggunaanDanHasilBagiKombesTahunan extends Model
     public function rules()
     {
         return [
-            [['format'], 'required'],
+            [['format','tahun_1', 'tahun_2'], 'required'],
             [['tahun_1', 'tahun_2'], 'integer', 'min'=>GeneralVariable::yearMin, 'max'=>GeneralVariable::yearMax],
         ];
     }

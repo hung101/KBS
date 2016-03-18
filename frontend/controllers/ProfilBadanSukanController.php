@@ -332,7 +332,7 @@ class ProfilBadanSukanController extends Controller
             'UMUR_TO' => $umur_hingga,
         );
         
-        GeneralFunction::generateReport('/spsb/pjs/laporan_ahli_jawatankuasa_induk', $format, $controls, 'laporan_ahli_jawatankuasa_induk');
+        GeneralFunction::generateReport('/spsb/PJS/LaporanAhliJawatankuasaInduk', $format, $controls, 'laporan_ahli_jawatankuasa_induk');
     }
     
     public function actionLaporanAhliJawatankuasaKecilBiro()
@@ -394,7 +394,7 @@ class ProfilBadanSukanController extends Controller
             'UMUR_TO' => $umur_hingga,
         );
         
-        GeneralFunction::generateReport('/spsb/pjs/laporan_ahli_jawatankuasa_kecil_biro', $format, $controls, 'laporan_ahli_jawatankuasa_kecil_biro');
+        GeneralFunction::generateReport('/spsb/PJS/LaporanAhliJawatankuasaInduk_1', $format, $controls, 'laporan_ahli_jawatankuasa_kecil_biro');
     }
     
     public function actionLaporanBadanSukan()
@@ -443,7 +443,7 @@ class ProfilBadanSukanController extends Controller
             'TO_DATE' => $tarikh_hingga,
         );
         
-        GeneralFunction::generateReport('/spsb/pjs/laporan_badan_sukan', $format, $controls, 'laporan_badan_sukan');
+        GeneralFunction::generateReport('/spsb/PJS/LaporanBadanSukanMengikutTarikhPendaftaran', $format, $controls, 'laporan_badan_sukan');
     }
     
     public function actionLaporanPenganjuranAcara()
@@ -498,6 +498,6 @@ class ProfilBadanSukanController extends Controller
             'PERINGKAT' => $peringkat,
         );
         
-        GeneralFunction::generateReport('/spsb/pjs/laporan_penganjuran_acara', $format, $controls, 'laporan_penganjuran_acara');
+        GeneralFunction::generateReport('/spsb/PJS/LaporanPenganjuranAcara', $format, $controls, 'laporan_penganjuran_acara');
     }
 }

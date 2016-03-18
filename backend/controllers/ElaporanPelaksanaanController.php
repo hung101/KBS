@@ -183,7 +183,7 @@ class ElaporanPelaksanaanController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($permohonan_e_bantuan_id)
+    public function actionCreate($permohonan_e_bantuan_id=null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));

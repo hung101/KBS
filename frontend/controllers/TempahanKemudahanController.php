@@ -240,7 +240,7 @@ class TempahanKemudahanController extends Controller
             'TO_DATE' => $tarikh_hingga, 
         );
         
-        GeneralFunction::generateReport('/spsb/kbs/e_kemudahan/laporan_penggunaan_dan_hasil_bagi_kombes', $format, $controls, 'laporan_penggunaan_dan_hasil_bagi_kombes');
+        GeneralFunction::generateReport('/spsb/kbs/eKemudahan/LaporanPenggunaanDanHasilBagiKombes', $format, $controls, 'laporan_penggunaan_dan_hasil_bagi_kombes');
     }
     
     public function actionLaporanKuantitiKemudahan()
@@ -292,7 +292,7 @@ class TempahanKemudahanController extends Controller
             'KATEGORI' => $kategori,
         );
         
-        GeneralFunction::generateReport('/spsb/kbs/e_kemudahan/laporan_kuantiti_kemudahan', $format, $controls, 'laporan_kuantiti_kemudahan');
+        GeneralFunction::generateReport('/spsb/kbs/eKemudahan/LaporanKuantitiKemudahan', $format, $controls, 'laporan_kuantiti_kemudahan');
     }
     
     public function actionLaporanPenggunaanDanHasilBagiKombesTahunan()
@@ -344,6 +344,6 @@ class TempahanKemudahanController extends Controller
             'YEAR_2' => $tahun_2,
         );
         
-        GeneralFunction::generateReport('/spsb/kbs/e_kemudahan/laporan_penggunaan_dan_hasil_bagi_kombes_tahunan', $format, $controls, 'laporan_penggunaan_dan_hasil_bagi_kombes_tahunan');
+        GeneralFunction::generateReport('/spsb/kbs/eKemudahan/LaporanPenggunaanDanHasilTahunan', $format, $controls, 'laporan_penggunaan_dan_hasil_bagi_kombes_tahunan');
     }
 }

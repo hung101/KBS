@@ -24,7 +24,7 @@ class PermohonanEBantuanLaporanStatusPermohonanBantuan extends Model
             [['format'], 'required'],
             [['jumlah_dilulus_dari', 'jumlah_dilulus_hingga', 'jumlah_dipohon_dari', 'jumlah_dipohon_hingga', 'negeri', 'tarikh_terima_dari', 'tarikh_terima_hingga'], 'safe'],
             [['jumlah_dilulus_dari', 'jumlah_dilulus_hingga', 'jumlah_dipohon_dari', 'jumlah_dipohon_hingga'], 'number'],
-            [['tarikh_terima_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true],
+            [['tarikh_terima_hingga'], 'compare', 'compareAttribute'=>'tarikh_terima_dari', 'operator'=>'>=', 'skipOnEmpty'=>true],
         ];
     }
 
