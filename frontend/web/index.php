@@ -18,6 +18,11 @@ $application = new yii\web\Application($config);
 // eddie start
 $session = Yii::$app->getSession();
 
+// set default language session
+if($session->get('language') == null || $session->get('language') == "") {
+	$session->set('language', "BM");
+}
+
 if($session->get(Yii::$app->user->authTimeoutParam)) {
 
 	if($session->get(Yii::$app->user->authTimeoutParam) > time()) {
