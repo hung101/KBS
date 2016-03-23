@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_penilaian_pendidikan_penganjur_intructor".
  *
@@ -60,11 +62,12 @@ class PengurusanPenilaianPendidikanPenganjurIntructor extends \yii\db\ActiveReco
     public function attributeLabels()
     {
         return [
-            'pengurusan_penilaian_pendidikan_penganjur_intructor_id' => 'Pengurusan Penilaian Pendidikan Penganjur Intructor ID',
-            'nama_penganjuran_kursus' => 'Nama Penganjuran Kursus',
-            'kod_kursus' => 'Kod Kursus',
-            'tarikh_kursus' => 'Tarikh Kursus',
-            'instructor' => 'Instructor',
+            'pengurusan_penilaian_pendidikan_penganjur_intructor_id' => GeneralLabel::pengurusan_penilaian_pendidikan_penganjur_intructor_id,
+            'nama_penganjuran_kursus' => GeneralLabel::nama_penganjuran_kursus,
+            'kod_kursus' => GeneralLabel::kod_kursus,
+            'tarikh_kursus' => GeneralLabel::tarikh_kursus,
+            'instructor' => GeneralLabel::instructor,
+
         ];
     }
 }

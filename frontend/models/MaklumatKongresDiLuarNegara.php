@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_maklumat_kongres_di_luar_negara".
  *
@@ -69,17 +71,18 @@ class MaklumatKongresDiLuarNegara extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'maklumat_kongres_di_luar_negara_id' => 'Maklumat Kongres Di Luar Negara ID',
-            'pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat_id' => 'Pengurusan Perhubungan Dalam Dan Luar Negara Mesyuarat ID',
-            'tajuk' => 'Tajuk',
-            'tempat' => 'Tempat',
-            'masa' => 'Masa',
-            'tarikh_penerbangan' => 'Tarikh Penerbangan',
-            'tiket_penerbangan' => 'Tiket Penerbangan',
-            'jumlah_penerbangan' => 'Jumlah Penerbangan',
-            'lain_lain' => 'Lain Lain',
-            'jumlah_kos_lain_lain' => 'Jumlah Kos Lain Lain',
-            'nama_pegawai_terlibat' => 'Nama Pegawai Terlibat',
+            'maklumat_kongres_di_luar_negara_id' => GeneralLabel::maklumat_kongres_di_luar_negara_id,
+            'pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat_id' => GeneralLabel::pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat_id,
+            'tajuk' => GeneralLabel::tajuk,
+            'tempat' => GeneralLabel::tempat,
+            'masa' => GeneralLabel::masa,
+            'tarikh_penerbangan' => GeneralLabel::tarikh_penerbangan,
+            'tiket_penerbangan' => GeneralLabel::tiket_penerbangan,
+            'jumlah_penerbangan' => GeneralLabel::jumlah_penerbangan,
+            'lain_lain' => GeneralLabel::lain_lain,
+            'jumlah_kos_lain_lain' => GeneralLabel::jumlah_kos_lain_lain,
+            'nama_pegawai_terlibat' => GeneralLabel::nama_pegawai_terlibat,
+
         ];
     }
 }

@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\User */
 
 //$this->title = 'Update User: ' . ' ' . $model->id;
-$this->title = GeneralLabel::updateTitle . ' User';
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::user;
 $this->params['breadcrumbs'][] = ['label' => 'Admin - User', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' User', 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::user, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-update">

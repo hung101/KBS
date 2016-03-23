@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_sukarelawan".
  *
@@ -98,42 +100,40 @@ class Sukarelawan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'sukarelawan_id' => 'Sukarelawan ID',
-            'nama' => 'Nama',
-            'no_kad_pengenalan' => 'No Kad Pengenalan',
-            'alamat_1' => 'Alamat',
-            'alamat_2' => '',
-            'alamat_3' => '',
-            'alamat_negeri' => 'Negeri',
-            'alamat_bandar' => 'Bandar',
-            'alamat_poskod' => 'Poskod',
-            'tarikh_lahir' => 'Tarikh Lahir',
-            'jantina' => 'Jantina',
-            'no_tel_bimbit' => 'No Tel Bimbit',
-            'status' => 'Status Perkahwinan',
-            'emel' => 'Emel',
-            'facebook' => 'Facebook',
-            'saiz_baju' => 'Saiz Baju',
-            'kebatasan_fizikal' => 'Kebatasan Fizikal',
-            'menyatakan_jika_ada_kebatasan_fizikal' => 'Nyatakan Jika Ada Kebatasan Fizikal',
-            'kelulusan_akademi' => 'Kelulusan Akademik',
-            'bidang_kepakaran' => 'Bidang Kepakaran',
-            'pekerjaan_semasa' => 'Pekerjaan Semasa',
-            'nama_majikan' => 'Nama Majikan',
-            'alamat_majikan_1' => 'Alamat Majikan',
-            'alamat_majikan_2' => '',
-            'alamat_majikan_3' => '',
-            'alamat_majikan_negeri' => 'Negeri',
-            'alamat_majikan_bandar' => 'Bandar',
-            'alamat_majikan_poskod' => 'Poskod',
-            'bidang_diminati' => 'Bidang Diminati',
-            'bidang_diminati_lain_lain' => 'Lain-lain',
-            'waktu_ketika_diperlukan' => 'Waktu Ketika Diperlukan',
-            'menyatakan_waktu_ketika_diperlukan' => 'Nyatakan Waktu Ketika Diperlukan',
-            'muatnaik' => 'Gambar Muat Naik',
-            'clause' => 'Saya mengesahan segala maklumat di atas adalah benar mengenai diri saya. Saya, '
-            . 'dengan rela hati menawarkan diri untuk sama-sama terlibat dan membantu segala usaha murni sebagai sukarelawan sukan dan sedia berkhidmat. Saya juga'
-            . ' akan sentiasa akur dengan peraturan-peraturan dan patuh kepada etika kesukarelawan.',
+            'sukarelawan_id' => GeneralLabel::sukarelawan_id,
+            'nama' => GeneralLabel::nama,
+            'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'tarikh_lahir' => GeneralLabel::tarikh_lahir,
+            'jantina' => GeneralLabel::jantina,
+            'no_tel_bimbit' => GeneralLabel::no_tel_bimbit,
+            'status' => GeneralLabel::status,
+            'emel' => GeneralLabel::emel,
+            'facebook' => GeneralLabel::facebook,
+            'saiz_baju' => GeneralLabel::saiz_baju,
+            'kebatasan_fizikal' => GeneralLabel::kebatasan_fizikal,
+            'menyatakan_jika_ada_kebatasan_fizikal' => GeneralLabel::menyatakan_jika_ada_kebatasan_fizikal,
+            'kelulusan_akademi' => GeneralLabel::kelulusan_akademi,
+            'bidang_kepakaran' => GeneralLabel::bidang_kepakaran,
+            'pekerjaan_semasa' => GeneralLabel::pekerjaan_semasa,
+            'nama_majikan' => GeneralLabel::nama_majikan,
+            'alamat_majikan_1' => GeneralLabel::alamat_majikan_1,
+            'alamat_majikan_2' => GeneralLabel::alamat_majikan_2,
+            'alamat_majikan_3' => GeneralLabel::alamat_majikan_3,
+            'alamat_majikan_negeri' => GeneralLabel::alamat_majikan_negeri,
+            'alamat_majikan_bandar' => GeneralLabel::alamat_majikan_bandar,
+            'alamat_majikan_poskod' => GeneralLabel::alamat_majikan_poskod,
+            'bidang_diminati' => GeneralLabel::bidang_diminati,
+            'bidang_diminati_lain_lain' => GeneralLabel::bidang_diminati_lain_lain,
+            'waktu_ketika_diperlukan' => GeneralLabel::waktu_ketika_diperlukan,
+            'menyatakan_waktu_ketika_diperlukan' => GeneralLabel::menyatakan_waktu_ketika_diperlukan,
+            'muatnaik' => GeneralLabel::muatnaik,
+            'clause' => GeneralLabel::clause,
         ];
     }
     

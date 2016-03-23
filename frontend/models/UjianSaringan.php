@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_ujian_saringan".
  *
@@ -79,24 +81,25 @@ class UjianSaringan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'ujian_saringan_id' => 'Ujian Saringan ID',
-            'nama' => 'Nama',
-            'sekolah' => 'Sekolah',
-            'alamat_1' => 'Alamat',
-            'alamat_2' => '',
-            'alamat_3' => '',
-            'alamat_negeri' => 'Negeri',
-            'alamat_bandar' => 'Bandar',
-            'alamat_poskod' => 'Poskod',
-            'jantina' => 'Jantina',
-            'no_telefon' => 'No Telefon',
-            'darjah' => 'Darjah',
-            'berat_badan' => 'Berat Badan (kg)',
-            'ketinggian' => 'Ketinggian (cm)',
-            'tinggi_duduk' => 'Tinggi Duduk (cm)',
-            'panjang_depa' => 'Panjang Depa (cm)',
-            'body_mass_index' => 'Body Mass Index (m)',
-            'catatan' => 'Catatan',
+            'ujian_saringan_id' => GeneralLabel::ujian_saringan_id,
+            'nama' => GeneralLabel::nama,
+            'sekolah' => GeneralLabel::sekolah,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'jantina' => GeneralLabel::jantina,
+            'no_telefon' => GeneralLabel::no_telefon,
+            'darjah' => GeneralLabel::darjah,
+            'berat_badan' => GeneralLabel::berat_badan,
+            'ketinggian' => GeneralLabel::ketinggian,
+            'tinggi_duduk' => GeneralLabel::tinggi_duduk,
+            'panjang_depa' => GeneralLabel::panjang_depa,
+            'body_mass_index' => GeneralLabel::body_mass_index,
+            'catatan' => GeneralLabel::catatan,
+
         ];
     }
     

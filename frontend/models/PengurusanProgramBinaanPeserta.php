@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_program_binaan_peserta".
  *
@@ -62,13 +64,14 @@ class PengurusanProgramBinaanPeserta extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_program_binaan_peserta_id' => 'Pengurusan Program Binaan Peserta ID',
-            'pengurusan_program_binaan_id' => 'Pengurusan Program Binaan ID',
-            'kategori_peserta' => 'Kategori Peserta',
-            'atlet_id' => 'Atlet',
-            'jurulatih_id' => 'Jurulatih',
-            'nama_peserta' => 'Nama Peserta',
-            'jantina' => 'Jantina',
+            'pengurusan_program_binaan_peserta_id' => GeneralLabel::pengurusan_program_binaan_peserta_id,
+            'pengurusan_program_binaan_id' => GeneralLabel::pengurusan_program_binaan_id,
+            'kategori_peserta' => GeneralLabel::kategori_peserta,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'jurulatih_id' => GeneralLabel::jurulatih_id,
+            'nama_peserta' => GeneralLabel::nama_peserta,
+            'jantina' => GeneralLabel::jantina,
+
         ];
     }
     

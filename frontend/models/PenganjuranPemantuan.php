@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_penganjuran_pemantuan".
  *
@@ -64,17 +66,17 @@ class PenganjuranPemantuan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'penganjuran_pemantuan_id' => 'Penganjuran Pemantuan ID',
-            'permohonan_pendahuluan_pelagai' => 'Permohonan pendahuluan pelbagai untuk tuntutan perjalanan instruktur',
-            'menghantar_surat_cuti_tanpa' => 'Menghantar surat cuti tanpa rekod kepada majikan instruktur selewat-lewatnya 1 bulan sebelum tarikh pembengkelan',
-            'keperluan_bengkel_telah' => 'Keperluan bengkel telah disediakan, iaitu, alat bantu mengajar, alat tulis, manual teknikal dan kepegawaian',
-            'membuat_tempahan_penginapan' => 'Membuat tempahan penginapan termasuk makan/minum untuk instruktur',
-            'membuat_tempahan_tempat_untuk' => 'Membuat tempahan tempat untuk pembengkelan',
-            'mengesahan_kehadiran_panel' => 'Mengesahkan kehadiran panel instruktur sebelum tarikh pembengkelan',
-            'mengesahan_pendaftaran_panel' => 'Mengesahkan pendaftaran panel instruktur',
-            'memberi_taklimat' => 'Memberi taklimat dan garis panduan penyediaan sukatan/manual',
-            'mengumpul_dan_membukukan' => 'Mengumpul dan membukukan nota semasa bengkel',
-            'membuat_pelarasan_kewangan' => 'Membuat Pelarasan Kewangan',
+            'penganjuran_pemantuan_id' => GeneralLabel::penganjuran_pemantuan_id,
+            'permohonan_pendahuluan_pelagai' => GeneralLabel::permohonan_pendahuluan_pelagai,
+            'menghantar_surat_cuti_tanpa' => GeneralLabel::menghantar_surat_cuti_tanpa,
+            'keperluan_bengkel_telah' => GeneralLabel::keperluan_bengkel_telah,
+            'membuat_tempahan_penginapan' => GeneralLabel::membuat_tempahan_penginapan,
+            'membuat_tempahan_tempat_untuk' => GeneralLabel::membuat_tempahan_tempat_untuk,
+            'mengesahan_kehadiran_panel' => GeneralLabel::mengesahan_kehadiran_panel,
+            'mengesahan_pendaftaran_panel' => GeneralLabel::mengesahan_pendaftaran_panel,
+            'memberi_taklimat' => GeneralLabel::memberi_taklimat,
+            'mengumpul_dan_membukukan' => GeneralLabel::mengumpul_dan_membukukan,
+            'membuat_pelarasan_kewangan' => GeneralLabel::membuat_pelarasan_kewangan,
         ];
     }
 }

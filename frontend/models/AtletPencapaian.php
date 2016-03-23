@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_atlet_pencapaian".
  *
@@ -68,17 +70,18 @@ class AtletPencapaian extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pencapaian_id' => 'Pencapaian ID',
-            'atlet_id' => 'Atlet ID',
-            'nama_kejohanan_temasya' => 'Nama Kejohanan Temasya',
-            'peringkat_kejohanan' => 'Peringkat Kejohanan',
-            'tarikh_mula_kejohanan' => 'Tarikh Mula Kejohanan',
-            'tarikh_tamat_kejohanan' => 'Tarikh Tamat Kejohanan',
-            'nama_sukan' => 'Nama Sukan',
-            'nama_acara' => 'Nama Acara',
-            'lokasi_kejohanan' => 'Lokasi Kejohanan',
-            'pencapaian' => 'Pencapaian',
-            'insentif_id' => 'Insentif ID',
+            'pencapaian_id' => GeneralLabel::pencapaian_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'nama_kejohanan_temasya' => GeneralLabel::nama_kejohanan_temasya,
+            'peringkat_kejohanan' => GeneralLabel::peringkat_kejohanan,
+            'tarikh_mula_kejohanan' => GeneralLabel::tarikh_mula_kejohanan,
+            'tarikh_tamat_kejohanan' => GeneralLabel::tarikh_tamat_kejohanan,
+            'nama_sukan' => GeneralLabel::nama_sukan,
+            'nama_acara' => GeneralLabel::nama_acara,
+            'lokasi_kejohanan' => GeneralLabel::lokasi_kejohanan,
+            'pencapaian' => GeneralLabel::pencapaian,
+            'insentif_id' => GeneralLabel::insentif_id,
+
         ];
     }
 }

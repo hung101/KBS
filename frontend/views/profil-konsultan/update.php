@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\ProfilKonsultan */
 
 //$this->title = 'Update Profil Konsultan: ' . ' ' . $model->profil_konsultan_id;
-$this->title = GeneralLabel::updateTitle . ' Profil Kaunselor';
-$this->params['breadcrumbs'][] = ['label' => 'Profil Kaunselor', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Profil Kaunselor', 'url' => ['view', 'id' => $model->profil_konsultan_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::profil_kaunselor;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::profil_kaunselor, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::profil_kaunselor, 'url' => ['view', 'id' => $model->profil_konsultan_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="profil-konsultan-update">

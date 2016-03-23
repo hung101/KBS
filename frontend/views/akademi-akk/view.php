@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->akademi_akk_id;
 $this->title = GeneralLabel::viewTitle . ' AKK';
-$this->params['breadcrumbs'][] = ['label' => 'Akademi Kejurulatihan Kebangsaan (AKK)', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="akademi-akk-view">

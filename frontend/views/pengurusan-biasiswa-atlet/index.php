@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanBiasiswaAtletSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pengurusan Biasiswa Atlet';
+$this->title = GeneralLabel::pengurusan_biasiswa_atlet;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-biasiswa-atlet-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-biasiswa-atlet']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Pengurusan Biasiswa Atlet', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::pengurusan_biasiswa_atlet, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

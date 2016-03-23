@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_atlet_aset".
  *
@@ -72,30 +74,31 @@ class AtletAset extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'aset_id' => 'Aset ID',
-            'atlet_id' => 'Atlet ID',
-            'jenis_aset' => 'Jenis Aset',
-            'daftar_no_pengangkutan' => 'No Daftar Pengangkutan',
-            'jenis_harta_pengangkutan_perniagaan' => 'Jenis Harta/Pengangkutan/Perniagaan',
-            'nilai_harta_pengangkutan' => 'Nilai Harta/Pengangkutan',
-            'daftar_alamat_1' => 'Alamat Pendaftaran',
-            'daftar_alamat_2' => '',
-            'daftar_alamat_3' => '',
-            'daftar_alamat_negeri' => 'Negeri',
-            'daftar_alamat_bandar' => 'Bandar',
-            'daftar_alamat_poskod' => 'Poskod',
-            'nama_syarikat_perniagaan' => 'Nama Syarikat Perniagaan',
-            'produk_perkhidmatan_perniagaan' => 'Produk/Perkhidmatan Perniagaan',
-            'nama_bank' => 'Nama Bank',
-            'jenis_pinjaman' => 'Jenis Pinjaman',
-            'no_akaun' => 'No Akaun',
-            'nilai_pinjaman' => 'Nilai Pinjaman',
-            'tarikh_mula' => 'Tarikh Mula',
-            'tarikh_tamat' => 'Tarikh Tamat',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
-            'created' => 'Created',
-            'updated' => 'Updated',
+            'aset_id' => GeneralLabel::aset_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'jenis_aset' => GeneralLabel::jenis_aset,
+            'daftar_no_pengangkutan' => GeneralLabel::daftar_no_pengangkutan,
+            'jenis_harta_pengangkutan_perniagaan' => GeneralLabel::jenis_harta_pengangkutan_perniagaan,
+            'nilai_harta_pengangkutan' => GeneralLabel::nilai_harta_pengangkutan,
+            'daftar_alamat_1' => GeneralLabel::daftar_alamat_1,
+            'daftar_alamat_2' => GeneralLabel::daftar_alamat_2,
+            'daftar_alamat_3' => GeneralLabel::daftar_alamat_3,
+            'daftar_alamat_negeri' => GeneralLabel::daftar_alamat_negeri,
+            'daftar_alamat_bandar' => GeneralLabel::daftar_alamat_bandar,
+            'daftar_alamat_poskod' => GeneralLabel::daftar_alamat_poskod,
+            'nama_syarikat_perniagaan' => GeneralLabel::nama_syarikat_perniagaan,
+            'produk_perkhidmatan_perniagaan' => GeneralLabel::produk_perkhidmatan_perniagaan,
+            'nama_bank' => GeneralLabel::nama_bank,
+            'jenis_pinjaman' => GeneralLabel::jenis_pinjaman,
+            'no_akaun' => GeneralLabel::no_akaun,
+            'nilai_pinjaman' => GeneralLabel::nilai_pinjaman,
+            'tarikh_mula' => GeneralLabel::tarikh_mula,
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,
+            'created_by' => GeneralLabel::created_by,
+            'updated_by' => GeneralLabel::updated_by,
+            'created' => GeneralLabel::created,
+            'updated' => GeneralLabel::updated,
+
         ];
     }
     

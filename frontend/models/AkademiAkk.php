@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_akademi_akk".
  *
@@ -85,25 +87,26 @@ class AkademiAkk extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'akademi_akk_id' => 'Akademi Akk ID',
-            'senarai_nama_peserta' => 'Senarai Nama Peserta',
-            'nama' => 'Nama',
-            'muatnaik_gambar' => 'Muatnaik Gambar',
-            'no_kad_pengenalan' => 'No Kad Pengenalan',
-            'no_passport' => 'No Passport',
-            'tarikh_lahir' => 'Tarikh Lahir',
-            'tempat_lahir' => 'Tempat Lahir',
-            'no_telefon' => 'No Telefon',
-            'emel' => 'Emel',
-            'nama_majikan' => 'Nama Majikan',
-            'alamat_majikan_1' => 'Alamat Majikan',
-            'alamat_majikan_2' => '',
-            'alamat_majikan_3' => '',
-            'alamat_majikan_negeri' => 'Negeri',
-            'alamat_majikan_bandar' => 'Bandar',
-            'alamat_majikan_poskod' => 'Poskod',
-            'no_telefon_pejabat' => 'No Telefon Pejabat',
-            'kategori_pensijilan' => 'Kategori Pensijilan',
+            'akademi_akk_id' => GeneralLabel::akademi_akk_id,
+            'senarai_nama_peserta' => GeneralLabel::senarai_nama_peserta,
+            'nama' => GeneralLabel::nama,
+            'muatnaik_gambar' => GeneralLabel::muatnaik_gambar,
+            'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
+            'no_passport' => GeneralLabel::no_passport,
+            'tarikh_lahir' => GeneralLabel::tarikh_lahir,
+            'tempat_lahir' => GeneralLabel::tempat_lahir,
+            'no_telefon' => GeneralLabel::no_telefon,
+            'emel' => GeneralLabel::emel,
+            'nama_majikan' => GeneralLabel::nama_majikan,
+            'alamat_majikan_1' => GeneralLabel::alamat_majikan_1,
+            'alamat_majikan_2' => GeneralLabel::alamat_majikan_2,
+            'alamat_majikan_3' => GeneralLabel::alamat_majikan_3,
+            'alamat_majikan_negeri' => GeneralLabel::alamat_majikan_negeri,
+            'alamat_majikan_bandar' => GeneralLabel::alamat_majikan_bandar,
+            'alamat_majikan_poskod' => GeneralLabel::alamat_majikan_poskod,
+            'no_telefon_pejabat' => GeneralLabel::no_telefon_pejabat,
+            'kategori_pensijilan' => GeneralLabel::kategori_pensijilan,
+
         ];
     }
     

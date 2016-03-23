@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_ltbs_penyata_kewangan".
  *
@@ -61,11 +63,12 @@ class LtbsPenyataKewangan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'penyata_kewangan_id' => 'Penyata Kewangan ID',
-            'profil_badan_sukan_id' => 'Badan Sukan',
-            'penyata_penerimaan_dan_pembayaran' => 'Penyata Penerimaan Dan Pembayaran',
-            'penyata_pendapatan_dan_perbelanjaan' => 'Penyata Pendapatan Dan Perbelanjaan',
-            'kunci_kira_kira' => 'Kunci Kira Kira',
+            'penyata_kewangan_id' => GeneralLabel::penyata_kewangan_id,
+            'profil_badan_sukan_id' => GeneralLabel::profil_badan_sukan_id,
+            'penyata_penerimaan_dan_pembayaran' => GeneralLabel::penyata_penerimaan_dan_pembayaran,
+            'penyata_pendapatan_dan_perbelanjaan' => GeneralLabel::penyata_pendapatan_dan_perbelanjaan,
+            'kunci_kira_kira' => GeneralLabel::kunci_kira_kira,
+
         ];
     }
     

@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_temujanji_komplimentari".
  *
@@ -64,16 +66,17 @@ class TemujanjiKomplimentari extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'temujanji_komplimentari_id' => 'Temujanji Komplimentari ID',
-            'atlet_id' => 'Atlet',
-            'jantina' => 'Jantina',
-            'jenis_sukan' => 'Jenis Sukan',
-            'perkhidmatan' => 'Perkhidmatan',
-            'tarikh_khidmat' => 'Tarikh Khidmat',
-            'lokasi' => 'Lokasi',
-            'pegawai_yang_bertanggungjawab' => 'Juru Urut Yang Bertanggungjawab',
-            'status_temujanji' => 'Status Temujanji',
-            'catitan_ringkas' => 'Catitan Ringkas',
+            'temujanji_komplimentari_id' => GeneralLabel::temujanji_komplimentari_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'jantina' => GeneralLabel::jantina,
+            'jenis_sukan' => GeneralLabel::jenis_sukan,
+            'perkhidmatan' => GeneralLabel::perkhidmatan,
+            'tarikh_khidmat' => GeneralLabel::tarikh_khidmat,
+            'lokasi' => GeneralLabel::lokasi,
+            'pegawai_yang_bertanggungjawab' => GeneralLabel::pegawai_yang_bertanggungjawab,
+            'status_temujanji' => GeneralLabel::status_temujanji,
+            'catitan_ringkas' => GeneralLabel::catitan_ringkas,
+
         ];
     }
     

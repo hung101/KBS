@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->pengurusan_upstn_id;
 $this->title = GeneralLabel::viewTitle . ' USPTN';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan USPTN', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_usptn, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-upstn-view">

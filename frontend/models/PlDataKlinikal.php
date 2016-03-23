@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pl_data_klinikal".
  *
@@ -77,27 +79,28 @@ class PlDataKlinikal extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pl_data_klinikal_id' => 'Pl Data Klinikal ID',
-            'atlet_id' => 'Atlet ID',
-            'penglihatan_tanpa_cermin_mata_kiri' => 'Penglihatan Tanpa Cermin Mata Kiri',
-            'penglihatan_tanpa_cermin_mata_kanan' => 'Penglihatan Tanpa Cermin Mata Kanan',
-            'penglihatan_cermin_mata_kiri' => 'Penglihatan Cermin Mata Kiri',
-            'penglihatan_cermin_mata_kanan' => 'Penglihatan Cermin Mata Kanan',
-            'usia_kali_pertama_haid' => 'Usia Kali Pertama Haid',
-            'haid_kitaran' => 'Haid Kitaran',
-            'status_haid' => 'Status Haid',
-            'haid_kali_terakhir_hari_pertama' => 'Haid Kali Terakhir Hari Pertama',
-            'kali_terakhir_bersalin' => 'Kali Terakhir Bersalin',
-            'bilangan_kanak_kanak' => 'Bilangan Kanak Kanak',
-            'masalah_haid' => 'Masalah Haid',
-            'perokok_tempoh' => 'Perokok Tempoh (Tahun)',
-            'status_perokok' => 'Status Perokok',
-            'alkohol' => 'Alkohol (M/Minggu)',
-            'jenis_alkohol' => 'Jenis Alkohol',
-            'diet_harian' => 'Diet Harian',
-            'berat_badan_turun' => 'Berat Badan Turun (KG)',
-            'berat_badan_naik' => 'Berat Badan Naik (KG)',
-            'supplements' => 'Supplements',
+            'pl_data_klinikal_id' => GeneralLabel::pl_data_klinikal_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'penglihatan_tanpa_cermin_mata_kiri' => GeneralLabel::penglihatan_tanpa_cermin_mata_kiri,
+            'penglihatan_tanpa_cermin_mata_kanan' => GeneralLabel::penglihatan_tanpa_cermin_mata_kanan,
+            'penglihatan_cermin_mata_kiri' => GeneralLabel::penglihatan_cermin_mata_kiri,
+            'penglihatan_cermin_mata_kanan' => GeneralLabel::penglihatan_cermin_mata_kanan,
+            'usia_kali_pertama_haid' => GeneralLabel::usia_kali_pertama_haid,
+            'haid_kitaran' => GeneralLabel::haid_kitaran,
+            'status_haid' => GeneralLabel::status_haid,
+            'haid_kali_terakhir_hari_pertama' => GeneralLabel::haid_kali_terakhir_hari_pertama,
+            'kali_terakhir_bersalin' => GeneralLabel::kali_terakhir_bersalin,
+            'bilangan_kanak_kanak' => GeneralLabel::bilangan_kanak_kanak,
+            'masalah_haid' => GeneralLabel::masalah_haid,
+            'perokok_tempoh' => GeneralLabel::perokok_tempoh,
+            'status_perokok' => GeneralLabel::status_perokok,
+            'alkohol' => GeneralLabel::alkohol,
+            'jenis_alkohol' => GeneralLabel::jenis_alkohol,
+            'diet_harian' => GeneralLabel::diet_harian,
+            'berat_badan_turun' => GeneralLabel::berat_badan_turun,
+            'berat_badan_naik' => GeneralLabel::berat_badan_naik,
+            'supplements' => GeneralLabel::supplements,
+
         ];
     }
 }

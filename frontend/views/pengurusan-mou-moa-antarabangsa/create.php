@@ -7,8 +7,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanMouMoaAntarabangsa */
 
-$this->title = GeneralLabel::createTitle . ' Pengurusan MOU - MOA Antarabangsa';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan MOU - MOA Antarabangsa', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::pengurusan_mou_moa_antarabangsa;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_mou_moa_antarabangsa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-mou-moa-antarabangsa-create">

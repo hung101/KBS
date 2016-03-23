@@ -7,8 +7,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\FarmasiPermohonanLiputanPerubatanSukan */
 
-$this->title = GeneralLabel::createTitle . ' Permohonan Liputan Perubatan Sukan';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan Liputan Perubatan Sukan', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::permohonan_liputan_perubatan_sukan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_liputan_perubatan_sukan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="farmasi-permohonan-liputan-perubatan-sukan-create">

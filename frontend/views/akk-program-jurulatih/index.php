@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\AkkProgramJurulatihSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Peningkatan Kerjaya Jurulatih';
+$this->title = GeneralLabel::peningkatan_kerjaya_jurulatih;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="akk-program-jurulatih-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['akk-program-jurulatih']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Peningkatan Kerjaya Jurulatih', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::peningkatan_kerjaya_jurulatih, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

@@ -5,6 +5,8 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
+use app\models\general\GeneralLabel;
+
 
 class PermohonanEBiasiswaLaporanSenaraiPenerimaBiasiswa extends Model
 {
@@ -20,7 +22,8 @@ class PermohonanEBiasiswaLaporanSenaraiPenerimaBiasiswa extends Model
     public function attributeLabels()
     {
         return [
-            'format' => 'Format',
+            'format' => GeneralLabel::format,
+
         ];
     }
 }

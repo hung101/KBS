@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_bsp_elaun_latihan_praktikal".
  *
@@ -64,15 +66,16 @@ class BspElaunLatihanPraktikal extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'bsp_elaun_latihan_praktikal_id' => 'Bsp Elaun Latihan Praktikal ID',
-            'bsp_pemohon_id' => 'Bsp Pemohon ID',
-            'tarikh' => 'Tarikh',
-            'jenis_latihan_amali' => 'Jenis Latihan Amali',
-            'tempat_latihan_praktikal' => 'Tempat Latihan Praktikal',
-            'tarikh_mula' => 'Tarikh Mula',
-            'tarikh_tamat' => 'Tarikh Tamat',
-            'jumlah_hari' => 'Jumlah Hari',
-            'muat_naik' => 'Muat Naik (Borang Tuntutan Elaun Latihan Praktikal)',
+            'bsp_elaun_latihan_praktikal_id' => GeneralLabel::bsp_elaun_latihan_praktikal_id,
+            'bsp_pemohon_id' => GeneralLabel::bsp_pemohon_id,
+            'tarikh' => GeneralLabel::tarikh,
+            'jenis_latihan_amali' => GeneralLabel::jenis_latihan_amali,
+            'tempat_latihan_praktikal' => GeneralLabel::tempat_latihan_praktikal,
+            'tarikh_mula' => GeneralLabel::tarikh_mula,
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,
+            'jumlah_hari' => GeneralLabel::jumlah_hari,
+            'muat_naik' => GeneralLabel::muat_naik,
+
         ];
     }
     

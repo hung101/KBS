@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_permohonan_program_pendidikan_pencegahan".
  *
@@ -65,14 +67,15 @@ class PermohonanProgramPendidikanPencegahan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'program_pendidikan_pencegahan_id' => 'Program Pendidikan Pencegahan ID',
-            'atlet_id_staff_id' => 'Atlet Id Staff ID',
-            'program' => 'Program',
-            'tarikh_permohonan' => 'Tarikh Permohonan',
-            'status_permohonan' => 'Status Permohonan',
-            'kategori_permohonan' => 'Kategori Permohonan',
-            'catitan_ringkas' => 'Catitan Ringkas',
-            'kelulusan' => 'Kelulusan',
+            'program_pendidikan_pencegahan_id' => GeneralLabel::program_pendidikan_pencegahan_id,
+            'atlet_id_staff_id' => GeneralLabel::atlet_id_staff_id,
+            'program' => GeneralLabel::program,
+            'tarikh_permohonan' => GeneralLabel::tarikh_permohonan,
+            'status_permohonan' => GeneralLabel::status_permohonan,
+            'kategori_permohonan' => GeneralLabel::kategori_permohonan,
+            'catitan_ringkas' => GeneralLabel::catitan_ringkas,
+            'kelulusan' => GeneralLabel::kelulusan,
+
         ];
     }
 }

@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_anugerah_pelaksaan_majlis".
  *
@@ -63,14 +65,15 @@ class AnugerahPelaksaanMajlis extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'anugerah_pelaksaan_majlis_id' => 'Anugerah Pelaksaan Majlis ID',
-            'tarikh_majlis_anugerah' => 'Tarikh Majlis Anugerah',
-            'nama_ahli_jawatan_kuasa' => 'Nama Ahli Jawatan Kuasa',
-            'jawatan' => 'Jawatan',
-            'tarikh_pelantikan' => 'Tarikh Pelantikan',
-            'tempoh' => 'Tempoh',
-            'nama_tugas' => 'Nama Tugas',
-            'status_tugas' => 'Status Tugas',
+            'anugerah_pelaksaan_majlis_id' => GeneralLabel::anugerah_pelaksaan_majlis_id,
+            'tarikh_majlis_anugerah' => GeneralLabel::tarikh_majlis_anugerah,
+            'nama_ahli_jawatan_kuasa' => GeneralLabel::nama_ahli_jawatan_kuasa,
+            'jawatan' => GeneralLabel::jawatan,
+            'tarikh_pelantikan' => GeneralLabel::tarikh_pelantikan,
+            'tempoh' => GeneralLabel::tempoh,
+            'nama_tugas' => GeneralLabel::nama_tugas,
+            'status_tugas' => GeneralLabel::status_tugas,
+
         ];
     }
 }

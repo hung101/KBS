@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_kontraktor".
  *
@@ -69,17 +71,18 @@ class PengurusanKontraktor extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_kontraktor_id' => 'Pengurusan Kontraktor ID',
-            'nama_kontraktor' => 'Nama Kontraktor',
-            'alamat_1' => 'Alamat',
-            'alamat_2' => '',
-            'alamat_3' => '',
-            'alamat_negeri' => 'Alamat Negeri',
-            'alamat_bandar' => 'Alamat Bandar',
-            'alamat_poskod' => 'Alamat Poskod',
-            'telefon_pejabat' => 'Telefon Pejabat',
-            'telefon_bimbit' => 'Telefon Bimbit',
-            'peralatan_yang_dibekal' => 'Peralatan Yang Dibekal',
+            'pengurusan_kontraktor_id' => GeneralLabel::pengurusan_kontraktor_id,
+            'nama_kontraktor' => GeneralLabel::nama_kontraktor,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'telefon_pejabat' => GeneralLabel::telefon_pejabat,
+            'telefon_bimbit' => GeneralLabel::telefon_bimbit,
+            'peralatan_yang_dibekal' => GeneralLabel::peralatan_yang_dibekal,
+
         ];
     }
 }

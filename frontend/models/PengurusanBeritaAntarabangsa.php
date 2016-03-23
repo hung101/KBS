@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_berita_antarabangsa".
  *
@@ -64,11 +66,12 @@ class PengurusanBeritaAntarabangsa extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_berita_antarabangsa_id' => 'Pengurusan Berita Antarabangsa ID',
-            'kategori_berita' => 'Kategori Berita',
-            'nama_berita' => 'Nama Berita',
-            'tarikh_berita' => 'Tarikh Berita',
-            'muatnaik' => 'Muatnaik',
+            'pengurusan_berita_antarabangsa_id' => GeneralLabel::pengurusan_berita_antarabangsa_id,
+            'kategori_berita' => GeneralLabel::kategori_berita,
+            'nama_berita' => GeneralLabel::nama_berita,
+            'tarikh_berita' => GeneralLabel::tarikh_berita,
+            'muatnaik' => GeneralLabel::muatnaik,
+
         ];
     }
     

@@ -7,8 +7,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\BspTamatPengesahanPengajian */
 
-$this->title = GeneralLabel::createTitle . ' Pengesahan Tamat Pengajian';
-$this->params['breadcrumbs'][] = ['label' => 'Pengesahan Tamat Pengajian', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::pengesahan_tamat_pengajian;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengesahan_tamat_pengajian, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-tamat-pengesahan-pengajian-create">

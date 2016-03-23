@@ -8,9 +8,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\JenisKebajikan */
 
 //$this->title = GeneralLabel::updateTitle . ' Jenis Kebajikan: ' . ' ' . $model->jenis_kebajikan_id;
-$this->title = GeneralLabel::updateTitle . ' Jenis Kebajikan';
-$this->params['breadcrumbs'][] = ['label' => 'Jenis Kebajikan', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Jenis Kebajikan', 'url' => ['view', 'id' => $model->jenis_kebajikan_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::jenis_kebajikan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::jenis_kebajikan, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::jenis_kebajikan, 'url' => ['view', 'id' => $model->jenis_kebajikan_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="jenis-kebajikan-update">

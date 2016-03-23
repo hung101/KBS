@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PermohonanBiasiswa */
 
 //$this->title = $model->permohonan_biasiswa_id;
-$this->title = GeneralLabel::viewTitle . ' Permohonan Biasiswa';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan Biasiswa', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::permohonan_biasiswa;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_biasiswa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-biasiswa-view">

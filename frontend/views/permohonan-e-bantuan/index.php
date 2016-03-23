@@ -11,7 +11,7 @@ use common\models\general\GeneralFunction;
 /* @var $searchModel frontend\models\PermohonanEBantuanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Permohonan e-Bantuan';
+$this->title = GeneralLabel::permohonan_ebantuan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebantuan-index">
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-bantuan']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Permohonan e-Bantuan', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::permohonan_ebantuan, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

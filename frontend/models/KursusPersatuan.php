@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_kursus_persatuan".
  *
@@ -61,12 +63,13 @@ class KursusPersatuan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'kursus_persatuan_id' => 'Kursus Persatuan ID',
-            'nama_kursus' => 'Nama Kursus',
-            'tarikh' => 'Tarikh',
-            'activiti' => 'Activiti',
-            'tempat' => 'Tempat',
-            'pegawai_terlibat' => 'Pegawai Terlibat',
+            'kursus_persatuan_id' => GeneralLabel::kursus_persatuan_id,
+            'nama_kursus' => GeneralLabel::nama_kursus,
+            'tarikh' => GeneralLabel::tarikh,
+            'activiti' => GeneralLabel::activiti,
+            'tempat' => GeneralLabel::tempat,
+            'pegawai_terlibat' => GeneralLabel::pegawai_terlibat,
+
         ];
     }
 }

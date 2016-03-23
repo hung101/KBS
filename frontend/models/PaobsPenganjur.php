@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_paobs_penganjur".
  *
@@ -77,34 +79,35 @@ class PaobsPenganjur extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'penganjur_id' => 'Penganjur ID',
-            'penganjuran_id' => 'Penganjuran ID',
-            'profil_syarikat' => 'Profil Syarikat/Badan Sukan',
-            'nama_penganjur' => 'Nama Penganjur',
-            'no_pendaftaran_syarikat' => 'No Pendaftaran Syarikat/Badan Sukan',
-            'tarikh_penubuhan_syarikat' => 'Tarikh Penubuhan Syarikat/Badan Sukan',
-            'sijil_pendaftaran' => 'Sijil Pendaftaran',
-            'alamat_penganjur_1' => 'Alamat Penganjur',
-            'alamat_penganjur_2' => '',
-            'alamat_penganjur_3' => '',
-            'alamat_penganjur_negeri' => 'Negeri',
-            'alamat_penganjur_bandar' => 'Bandar',
-            'alamat_penganjur_poskod' => 'Poskod',
-            'no_telefon_penganjur' => 'No Telefon Penganjur',
-            'no_faks_penganjur' => 'No Faks Penganjur',
-            'emel_penganjur' => 'Emel Penganjur',
-            'kertas_cadangan_pelaksanaan' => 'Kertas Cadangan Pelaksanaan',
-            'nama_aktiviti' => 'Nama Aktiviti',
-            'jenis_sukan' => 'Jenis Sukan',
-            'tarikh_aktiviti' => 'Tarikh Aktiviti',
-            'alamat_lokasi' => 'Alamat Lokasi',
-            'pemilik_lokasi' => 'Pemilik Lokasi',
-            'bilangan_peserta' => 'Bilangan Peserta',
-            'negara_peserta' => 'Negara Peserta',
-            'kos_aktiviti' => 'Kos Aktiviti',
-            'sumber_kewangan' => 'Sumber Kewangan',
-            'surat_sokongan' => 'Surat Sokongan/Sanksi Dari Badan Antarabangsa',
-            'laporan_penganjuran' => 'Laporan Penganjuran',
+            'penganjur_id' => GeneralLabel::penganjur_id,
+            'penganjuran_id' => GeneralLabel::penganjuran_id,
+            'profil_syarikat' => GeneralLabel::profil_syarikat,
+            'nama_penganjur' => GeneralLabel::nama_penganjur,
+            'no_pendaftaran_syarikat' => GeneralLabel::no_pendaftaran_syarikat,
+            'tarikh_penubuhan_syarikat' => GeneralLabel::tarikh_penubuhan_syarikat,
+            'sijil_pendaftaran' => GeneralLabel::sijil_pendaftaran,
+            'alamat_penganjur_1' => GeneralLabel::alamat_penganjur_1,
+            'alamat_penganjur_2' => GeneralLabel::alamat_penganjur_2,
+            'alamat_penganjur_3' => GeneralLabel::alamat_penganjur_3,
+            'alamat_penganjur_negeri' => GeneralLabel::alamat_penganjur_negeri,
+            'alamat_penganjur_bandar' => GeneralLabel::alamat_penganjur_bandar,
+            'alamat_penganjur_poskod' => GeneralLabel::alamat_penganjur_poskod,
+            'no_telefon_penganjur' => GeneralLabel::no_telefon_penganjur,
+            'no_faks_penganjur' => GeneralLabel::no_faks_penganjur,
+            'emel_penganjur' => GeneralLabel::emel_penganjur,
+            'kertas_cadangan_pelaksanaan' => GeneralLabel::kertas_cadangan_pelaksanaan,
+            'nama_aktiviti' => GeneralLabel::nama_aktiviti,
+            'jenis_sukan' => GeneralLabel::jenis_sukan,
+            'tarikh_aktiviti' => GeneralLabel::tarikh_aktiviti,
+            'alamat_lokasi' => GeneralLabel::alamat_lokasi,
+            'pemilik_lokasi' => GeneralLabel::pemilik_lokasi,
+            'bilangan_peserta' => GeneralLabel::bilangan_peserta,
+            'negara_peserta' => GeneralLabel::negara_peserta,
+            'kos_aktiviti' => GeneralLabel::kos_aktiviti,
+            'sumber_kewangan' => GeneralLabel::sumber_kewangan,
+            'surat_sokongan' => GeneralLabel::surat_sokongan,
+            'laporan_penganjuran' => GeneralLabel::laporan_penganjuran,
+
         ];
     }
     

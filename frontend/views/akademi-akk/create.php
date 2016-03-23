@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\AkademiAkk */
 
 $this->title = GeneralLabel::createTitle . ' AKK';
-$this->params['breadcrumbs'][] = ['label' => 'Akademi Kejurulatihan Kebangsaan (AKK)', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="akademi-akk-create">

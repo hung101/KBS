@@ -5,6 +5,8 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
+use app\models\general\GeneralLabel;
+
 
 class PermohonanEBantuanLaporanStatusPermohonanBantuan extends Model
 {
@@ -31,14 +33,15 @@ class PermohonanEBantuanLaporanStatusPermohonanBantuan extends Model
     public function attributeLabels()
     {
         return [
-            'jumlah_dilulus_dari' => 'Jumlah Dilulus Dari',
-            'jumlah_dilulus_hingga' => 'Hingga',
-            'jumlah_dipohon_dari' => 'Jumlah Dipohon Dari',
-            'jumlah_dipohon_hingga' => 'Hingga',
-            'negeri' => 'Negeri',
-            'tarikh_terima_dari' => 'Tarikh Terima Dari',
-            'tarikh_terima_hingga' => 'Hingga',
-            'format' => 'Format',
+            'jumlah_dilulus_dari' => GeneralLabel::jumlah_dilulus_dari,
+            'jumlah_dilulus_hingga' => GeneralLabel::jumlah_dilulus_hingga,
+            'jumlah_dipohon_dari' => GeneralLabel::jumlah_dipohon_dari,
+            'jumlah_dipohon_hingga' => GeneralLabel::jumlah_dipohon_hingga,
+            'negeri' => GeneralLabel::negeri,
+            'tarikh_terima_dari' => GeneralLabel::tarikh_terima_dari,
+            'tarikh_terima_hingga' => GeneralLabel::tarikh_terima_hingga,
+            'format' => GeneralLabel::format,
+
         ];
     }
 }

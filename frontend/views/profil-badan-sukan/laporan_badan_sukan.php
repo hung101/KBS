@@ -18,7 +18,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanPelaksaan */
 
-$this->title = 'Laporan Badan Sukan';
+$this->title = GeneralLabel::laporan_badan_sukan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="laporan-badan-sukan">

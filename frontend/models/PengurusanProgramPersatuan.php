@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_program_persatuan".
  *
@@ -57,9 +59,10 @@ class PengurusanProgramPersatuan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_program_persatuan' => 'Pengurusan Program Persatuan',
-            'bantuan_tahun' => 'Bantuan Tahun',
-            'nama_persatuan' => 'Nama Persatuan',
+            'pengurusan_program_persatuan' => GeneralLabel::pengurusan_program_persatuan,
+            'bantuan_tahun' => GeneralLabel::bantuan_tahun,
+            'nama_persatuan' => GeneralLabel::nama_persatuan,
+
         ];
     }
 }

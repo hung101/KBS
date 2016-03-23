@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_elaporan_komposisi_penyertaan".
  *
@@ -60,11 +62,12 @@ class ElaporanKomposisiPenyertaan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'elaporan_komposisi_penyertaan_id' => 'Elaporan Komposisi Penyertaan ID',
-            'elaporan_pelaksaan_id' => 'Elaporan Pelaksaan ID',
-            'kumpulan_penyertaan' => 'Kumpulan Penyertaan',
-            'jenis_komposisi' => 'Jenis Komposisi',
-            'bilangan' => 'Bilangan',
+            'elaporan_komposisi_penyertaan_id' => GeneralLabel::elaporan_komposisi_penyertaan_id,
+            'elaporan_pelaksaan_id' => GeneralLabel::elaporan_pelaksaan_id,
+            'kumpulan_penyertaan' => GeneralLabel::kumpulan_penyertaan,
+            'jenis_komposisi' => GeneralLabel::jenis_komposisi,
+            'bilangan' => GeneralLabel::bilangan,
+
         ];
     }
 }

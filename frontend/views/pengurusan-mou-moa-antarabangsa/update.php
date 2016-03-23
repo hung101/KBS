@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PengurusanMouMoaAntarabangsa */
 
 //$this->title = 'Update Pengurusan Mou Moa Antarabangsa: ' . ' ' . $model->pengurusan_mou_moa_antarabangsa_id;
-$this->title = GeneralLabel::updateTitle . ' Pengurusan MOU - MOA Antarabangsa';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan MOU - MOA Antarabangsa', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Pengurusan MOU - MOA Antarabangsa', 'url' => ['view', 'id' => $model->pengurusan_mou_moa_antarabangsa_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::pengurusan_mou_moa_antarabangsa;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_mou_moa_antarabangsa, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_mou_moa_antarabangsa, 'url' => ['view', 'id' => $model->pengurusan_mou_moa_antarabangsa_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-mou-moa-antarabangsa-update">

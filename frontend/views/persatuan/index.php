@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Persatuan';
+$this->title = GeneralLabel::persatuan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(GeneralLabel::createTitle . ' Persatuan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::persatuan, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'profil_badan_sukan_desc',
                 'value' => 'refProfilBadanSukan.nama_badan_sukan',
-                'label' => 'Persatuan',
+                'label' => GeneralLabel::persatuan,
             ],
             //'no_kad_pengenalan',
             // 'tel_mobile_no',

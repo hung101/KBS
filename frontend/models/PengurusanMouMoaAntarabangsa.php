@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_mou_moa_antarabangsa".
  *
@@ -65,15 +67,16 @@ class PengurusanMouMoaAntarabangsa extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_mou_moa_antarabangsa_id' => 'Pengurusan MOU - MOA Antarabangsa ID',
-            'nama_negara_terlibat' => 'Nama Negara Terlibat',
-            'agensi' => 'Agensi',
-            'asas_asas_pertimbangan' => 'Asas Asas Pertimbangan',
-            'jangka_waktu_mula' => 'Jangka Waktu Mula',
-            'jangka_waktu_tamat' => 'Jangka Waktu Tamat',
-            'status' => 'Status',
-            'tajuk_mou_moa' => 'Tajuk MOU - MOA',
-            'catatan' => 'Catatan',
+            'pengurusan_mou_moa_antarabangsa_id' => GeneralLabel::pengurusan_mou_moa_antarabangsa_id,
+            'nama_negara_terlibat' => GeneralLabel::nama_negara_terlibat,
+            'agensi' => GeneralLabel::agensi,
+            'asas_asas_pertimbangan' => GeneralLabel::asas_asas_pertimbangan,
+            'jangka_waktu_mula' => GeneralLabel::jangka_waktu_mula,
+            'jangka_waktu_tamat' => GeneralLabel::jangka_waktu_tamat,
+            'status' => GeneralLabel::status,
+            'tajuk_mou_moa' => GeneralLabel::tajuk_mou_moa,
+            'catatan' => GeneralLabel::catatan,
+
         ];
     }
     

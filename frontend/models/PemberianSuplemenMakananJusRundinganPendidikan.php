@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pemberian_suplemen_makanan_jus_rundingan_pendidikan".
  *
@@ -61,15 +63,16 @@ class PemberianSuplemenMakananJusRundinganPendidikan extends \yii\db\ActiveRecor
     public function attributeLabels()
     {
         return [
-            'pemberian_suplemen_makanan_jus_rundingan_pendidikan_id' => 'Pemberian Suplemen/Makanan/Jus/Rundingan/Pendidikan ID',
-            'perkhidmatan_permakanan_id' => 'Perkhidmatan Permakanan ID',
-            'kategori_atlet' => 'Kategori Atlet',
-            'sukan' => 'Sukan',
-            'acara' => 'Acara',
-            'atlet' => 'Atlet',
-            'nama_suplemen_makanan_jus_rundingan_pendidikan' => 'Nama Suplemen/Jus',
-            'kuantiti_ml_g' => 'Kuantiti/ml/g',
-            'harga' => 'Harga',
+            'pemberian_suplemen_makanan_jus_rundingan_pendidikan_id' => GeneralLabel::pemberian_suplemen_makanan_jus_rundingan_pendidikan_id,
+            'perkhidmatan_permakanan_id' => GeneralLabel::perkhidmatan_permakanan_id,
+            'kategori_atlet' => GeneralLabel::kategori_atlet,
+            'sukan' => GeneralLabel::sukan,
+            'acara' => GeneralLabel::acara,
+            'atlet' => GeneralLabel::atlet,
+            'nama_suplemen_makanan_jus_rundingan_pendidikan' => GeneralLabel::nama_suplemen_makanan_jus_rundingan_pendidikan,
+            'kuantiti_ml_g' => GeneralLabel::kuantiti_ml_g,
+            'harga' => GeneralLabel::harga,
+
         ];
     }
 }

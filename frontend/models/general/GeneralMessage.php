@@ -8,8 +8,27 @@ use Yii;
  * and open the template in the editor.
  */
 
-class GeneralMessage{
-    const confirmDelete = "Adakah anda pasti anda mahu memadam item ini?";
-    const confirmRemove = "Adakah anda pasti mahu mengeluarkan?";
-    const uploadEmptyError = "Please upload a file";
+$session = Yii::$app->getSession();
+
+if($session->get('language') == "BM" || $session->get('language') == null || $session->get('language') == "") {
+
+	class GeneralMessage{
+	    const confirmDelete = "Adakah anda pasti anda mahu memadam item ini?";
+	    const confirmRemove = "Adakah anda pasti mahu mengeluarkan?";
+	    const uploadEmptyError = "Please upload a file";
+	    const selamat_datang = "Selamat Datang";
+	    const sistem_pengurusan_sukan_bersepadu = "SISTEM PENGURUSAN SUKAN BERSEPADU";
+	}
+}
+
+if($session->get('language') == "EN") {
+
+	class GeneralMessage{
+	    const confirmDelete = "Adakah anda pasti anda mahu memadam item ini?";
+	    const confirmRemove = "Adakah anda pasti mahu mengeluarkan?";
+	    const uploadEmptyError = "Please upload a file";
+	    const selamat_datang = "Welcome";
+	    const sistem_pengurusan_sukan_bersepadu = "INTEGRATED SPORTS MANAGEMENT SYSTEM";
+	}
+
 }

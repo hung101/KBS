@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PengurusanProgramBinaan */
 
 //$this->title = $model->pengurusan_program_binaan_id;
-$this->title = GeneralLabel::viewTitle . ' Pengurusan Program Binaan';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Program Binaan', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_program_binaan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_program_binaan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-program-binaan-view">

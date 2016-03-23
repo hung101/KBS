@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_ekemudahan".
  *
@@ -69,17 +71,18 @@ class Ekemudahan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'ekemudahan_id' => 'Ekemudahan ID',
-            'kategori' => 'Kategori',
-            'jenis' => 'Jenis',
-            'gambar' => 'Gambar',
-            'lokasi' => 'Lokasi',
-            'dihubungi' => 'Dihubungi',
-            'kadar_sewa' => 'Kadar Sewa',
-            'url' => 'Url',
-            'nama_perniagaan_perkhidmatan_organisasi' => 'Nama Perniagaan/Perkhidmatan/Organisasi',
-            'kapasiti_penggunaan' => 'Kapasiti Penggunaan',
-            'no_lesen_pendaftaran' => 'No Lesen Pendaftaran',
+            'ekemudahan_id' => GeneralLabel::ekemudahan_id,
+            'kategori' => GeneralLabel::kategori,
+            'jenis' => GeneralLabel::jenis,
+            'gambar' => GeneralLabel::gambar,
+            'lokasi' => GeneralLabel::lokasi,
+            'dihubungi' => GeneralLabel::dihubungi,
+            'kadar_sewa' => GeneralLabel::kadar_sewa,
+            'url' => GeneralLabel::url,
+            'nama_perniagaan_perkhidmatan_organisasi' => GeneralLabel::nama_perniagaan_perkhidmatan_organisasi,
+            'kapasiti_penggunaan' => GeneralLabel::kapasiti_penggunaan,
+            'no_lesen_pendaftaran' => GeneralLabel::no_lesen_pendaftaran,
+
         ];
     }
 }

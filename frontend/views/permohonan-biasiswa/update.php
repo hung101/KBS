@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PermohonanBiasiswa */
 
 //$this->title = 'Update Permohonan Biasiswa: ' . ' ' . $model->permohonan_biasiswa_id;
-$this->title = GeneralLabel::updateTitle . ' Permohonan Biasiswa';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan Biasiswa', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Permohonan Biasiswa', 'url' => ['view', 'id' => $model->permohonan_biasiswa_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::permohonan_biasiswa;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_biasiswa, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::permohonan_biasiswa, 'url' => ['view', 'id' => $model->permohonan_biasiswa_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-biasiswa-update">

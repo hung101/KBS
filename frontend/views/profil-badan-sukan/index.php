@@ -11,7 +11,7 @@ use common\models\general\GeneralFunction;
 /* @var $searchModel app\models\ProfilBadanSukanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Profil Badan Sukan';
+$this->title = GeneralLabel::profil_badan_sukan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="profil-badan-sukan-index">
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Profil Badan Sukan', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::profil_badan_sukan, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

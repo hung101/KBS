@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_jkk_jkp_bajet".
  *
@@ -59,10 +61,11 @@ class PengurusanJkkJkpBajet extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_jkk_jkp_bajet_id' => 'Pengurusan Jkk Jkp Bajet ID',
-            'pengurusan_jkk_jkp_id' => 'Pengurusan Jkk Jkp ID',
-            'kategori_bajet' => 'Kategori Bajet',
-            'jumlah_bajet' => 'Jumlah Bajet',
+            'pengurusan_jkk_jkp_bajet_id' => GeneralLabel::pengurusan_jkk_jkp_bajet_id,
+            'pengurusan_jkk_jkp_id' => GeneralLabel::pengurusan_jkk_jkp_id,
+            'kategori_bajet' => GeneralLabel::kategori_bajet,
+            'jumlah_bajet' => GeneralLabel::jumlah_bajet,
+
         ];
     }
     

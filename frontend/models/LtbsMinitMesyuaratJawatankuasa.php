@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_ltbs_minit_mesyuarat_jawatankuasa".
  *
@@ -68,22 +70,23 @@ class LtbsMinitMesyuaratJawatankuasa extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'mesyuarat_id' => 'Mesyuarat ID',
-            'tarikh' => 'Tarikh & Masa',
-            'profil_badan_sukan_id' => 'Badan Sukan',
-            'masa' => 'Masa',
-            'tempat' => 'Tempat',
-            'mengikut_perlembagaan' => 'Korum Mesyuarat Mengikut Perlembagaan',
-            'korum_mesyuarat_jumlah_ahli_yang_hadir' => 'Korum Mesyuarat Jumlah Ahli Yang Hadir',
-            'jumlah_ahli_yang_hadir' => 'Jumlah Ahli Yang Hadir',
-            'agenda_mesyuarat' => 'Agenda Mesyuarat',
-            'keputusan_mesyuarat' => 'Keputusan Mesyuarat',
-            'minit_ajk_muat_naik' => 'Minit AJK',
-            'notis_agm_muat_naik' => 'Notis AGM',
-            'minit_agm_muat_naik' => 'Minit AGM',
-            'laporan_kewangan_muat_naik' => 'Laporan Kewangan',
-            'laporan_aktiviti_muat_naik' => 'Laporan Aktiviti',
-            'status' => 'Status',
+            'mesyuarat_id' => GeneralLabel::mesyuarat_id,
+            'tarikh' => GeneralLabel::tarikh,
+            'profil_badan_sukan_id' => GeneralLabel::profil_badan_sukan_id,
+            'masa' => GeneralLabel::masa,
+            'tempat' => GeneralLabel::tempat,
+            'mengikut_perlembagaan' => GeneralLabel::mengikut_perlembagaan,
+            'korum_mesyuarat_jumlah_ahli_yang_hadir' => GeneralLabel::korum_mesyuarat_jumlah_ahli_yang_hadir,
+            'jumlah_ahli_yang_hadir' => GeneralLabel::jumlah_ahli_yang_hadir,
+            'agenda_mesyuarat' => GeneralLabel::agenda_mesyuarat,
+            'keputusan_mesyuarat' => GeneralLabel::keputusan_mesyuarat,
+            'minit_ajk_muat_naik' => GeneralLabel::minit_ajk_muat_naik,
+            'notis_agm_muat_naik' => GeneralLabel::notis_agm_muat_naik,
+            'minit_agm_muat_naik' => GeneralLabel::minit_agm_muat_naik,
+            'laporan_kewangan_muat_naik' => GeneralLabel::laporan_kewangan_muat_naik,
+            'laporan_aktiviti_muat_naik' => GeneralLabel::laporan_aktiviti_muat_naik,
+            'status' => GeneralLabel::status,
+
             
         ];
     }

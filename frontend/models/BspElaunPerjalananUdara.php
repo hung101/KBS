@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_bsp_elaun_perjalanan_udara".
  *
@@ -62,14 +64,15 @@ class BspElaunPerjalananUdara extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'bsp_elaun_perjalanan_udara_id' => 'Bsp Elaun Perjalanan Udara ID',
-            'bsp_pemohon_id' => 'Bsp Pemohon ID',
-            'tarikh' => 'Tarikh',
-            'destinasi_pergi' => 'Destinasi Pergi',
-            'tarikh_pergi' => 'Tarikh Pergi',
-            'destinasi_balik' => 'Destinasi Balik',
-            'tarikh_balik' => 'Tarikh Balik',
-            'muat_naik' => 'Muat Naik (Borang Permohonan Bayaran Tuntutan Elaun Perjalanan Udara)',
+            'bsp_elaun_perjalanan_udara_id' => GeneralLabel::bsp_elaun_perjalanan_udara_id,
+            'bsp_pemohon_id' => GeneralLabel::bsp_pemohon_id,
+            'tarikh' => GeneralLabel::tarikh,
+            'destinasi_pergi' => GeneralLabel::destinasi_pergi,
+            'tarikh_pergi' => GeneralLabel::tarikh_pergi,
+            'destinasi_balik' => GeneralLabel::destinasi_balik,
+            'tarikh_balik' => GeneralLabel::tarikh_balik,
+            'muat_naik' => GeneralLabel::muat_naik,
+
         ];
     }
 }

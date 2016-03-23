@@ -10,8 +10,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\BantuanElaun */
 
 //$this->title = $model->bantuan_elaun_id;
-$this->title = GeneralLabel::viewTitle . ' Bantuan Elaun SUE/Elaun Penyelaras/Emolumen PSK';
-$this->params['breadcrumbs'][] = ['label' => 'Bantuan Elaun SUE/Elaun Penyelaras/Emolumen PSK', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::bantuan_elaun_sueelaun_penyelarasemolumen_psk;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bantuan_elaun_sueelaun_penyelarasemolumen_psk, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bantuan-elaun-view">

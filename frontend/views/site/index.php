@@ -1,5 +1,7 @@
 <?php
 use miloschuman\highcharts\Highcharts;
+use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 $this->title = 'KEMENTERIAN BELIA DAN SUKAN MALAYSIA - Dashboard';
@@ -7,9 +9,9 @@ $this->title = 'KEMENTERIAN BELIA DAN SUKAN MALAYSIA - Dashboard';
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Selamat Datang</h1>
+        <h1><?= GeneralMessage::selamat_datang ?></h1>
 
-        <p class="lead">SISTEM PENGURUSAN SUKAN BERSEPADU</p>
+        <p class="lead"><?= GeneralMessage::sistem_pengurusan_sukan_bersepadu ?></p>
 
         <!--<p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>-->
     </div>

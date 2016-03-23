@@ -8,9 +8,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PengurusanMediaProgram */
 
 //$this->title = 'Update Pengurusan Media Program: ' . ' ' . $model->pengurusan_media_program_id;
-$this->title = GeneralLabel::updateTitle . ' Pengurusan Media';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Media', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Pengurusan Media', 'url' => ['view', 'id' => $model->pengurusan_media_program_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::pengurusan_media;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_media, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_media, 'url' => ['view', 'id' => $model->pengurusan_media_program_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-media-program-update">

@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_perhimpunan_kem_peserta".
  *
@@ -60,11 +62,12 @@ class PengurusanPerhimpunanKemPeserta extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_perhimpunan_kem_peserta_id' => 'Pengurusan Perhimpunan Kem Peserta ID',
-            'pengurusan_perhimpunan_kem_id' => 'Pengurusan Perhimpunan Kem ID',
-            'nama_peserta' => 'Nama Peserta',
-            'kategori_peserta' => 'Kategori Peserta',
-            'jawatan' => 'Jawatan',
+            'pengurusan_perhimpunan_kem_peserta_id' => GeneralLabel::pengurusan_perhimpunan_kem_peserta_id,
+            'pengurusan_perhimpunan_kem_id' => GeneralLabel::pengurusan_perhimpunan_kem_id,
+            'nama_peserta' => GeneralLabel::nama_peserta,
+            'kategori_peserta' => GeneralLabel::kategori_peserta,
+            'jawatan' => GeneralLabel::jawatan,
+
         ];
     }
     

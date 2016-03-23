@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanJkkJkpBajetSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pengurusan JKK/JKP Bajet';
+$this->title = GeneralLabel::pengurusan_jkkjkp_bajet;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-jkk-jkp-bajet-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-jkk-jkp-bajet']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Pengurusan JKK/JKP Bajet', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::pengurusan_jkkjkp_bajet, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

@@ -5,6 +5,8 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
+use app\models\general\GeneralLabel;
+
 
 class PjsLaporanBadanSukan extends Model
 {
@@ -24,9 +26,10 @@ class PjsLaporanBadanSukan extends Model
     public function attributeLabels()
     {
         return [
-            'tarikh_dari' => 'Tarikh Dari',
-            'tarikh_hingga' => 'Hingga',
-            'format' => 'Format',
+            'tarikh_dari' => GeneralLabel::tarikh_dari,
+            'tarikh_hingga' => GeneralLabel::tarikh_hingga,
+            'format' => GeneralLabel::format,
+
         ];
     }
 }

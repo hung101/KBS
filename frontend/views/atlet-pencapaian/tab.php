@@ -1,5 +1,7 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
 use yii\helpers\Html;
 use kartik\tabs\TabsX;
 use yii\helpers\Url;
@@ -8,7 +10,7 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\AtletPendidikanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Atlet';
+$this->title = GeneralLabel::atlet;
 $this->params['breadcrumbs'][] = ['label' => 'Atlets', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

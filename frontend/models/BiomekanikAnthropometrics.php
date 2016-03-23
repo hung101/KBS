@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_biomekanik_anthropometrics".
  *
@@ -60,11 +62,12 @@ class BiomekanikAnthropometrics extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'biomekanik_anthropometrics_id' => 'Biomekanik Anthropometrics ID',
-            'perkhidmatan_analisa_perlawanan_biomekanik_id' => 'Perkhidmatan Biomekanik ID',
-            'anthropometrics' => 'Anthropometrics',
-            'cm_kg' => 'cm/kg',
-            'catatan' => 'Catatan',
+            'biomekanik_anthropometrics_id' => GeneralLabel::biomekanik_anthropometrics_id,
+            'perkhidmatan_analisa_perlawanan_biomekanik_id' => GeneralLabel::perkhidmatan_analisa_perlawanan_biomekanik_id,
+            'anthropometrics' => GeneralLabel::anthropometrics,
+            'cm_kg' => GeneralLabel::cm_kg,
+            'catatan' => GeneralLabel::catatan,
+
         ];
     }
     

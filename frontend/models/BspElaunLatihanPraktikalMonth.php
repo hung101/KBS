@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_bsp_elaun_latihan_praktikal_month".
  *
@@ -58,10 +60,11 @@ class BspElaunLatihanPraktikalMonth extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'bsp_elaun_latihan_praktikal_month_id' => 'Bsp Elaun Latihan Praktikal Month ID',
-            'bsp_elaun_latihan_praktikal_id' => 'Bsp Elaun Latihan Praktikal ID',
-            'bulan' => 'Bulan',
-            'jumlah_hari' => 'Jumlah Hari',
+            'bsp_elaun_latihan_praktikal_month_id' => GeneralLabel::bsp_elaun_latihan_praktikal_month_id,
+            'bsp_elaun_latihan_praktikal_id' => GeneralLabel::bsp_elaun_latihan_praktikal_id,
+            'bulan' => GeneralLabel::bulan,
+            'jumlah_hari' => GeneralLabel::jumlah_hari,
+
         ];
     }
 }

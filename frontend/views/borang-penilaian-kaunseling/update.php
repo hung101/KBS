@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\BorangPenilaianKaunseling */
 
 //$this->title = 'Update Borang Penilaian Kaunseling: ' . ' ' . $model->borang_penilaian_kaunseling_id;
-$this->title = GeneralLabel::updateTitle . ' Laporan Sesi Kaunseling';
-$this->params['breadcrumbs'][] = ['label' => 'Laporan Sesi Kaunseling', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Laporan Sesi Kaunseling', 'url' => ['view', 'id' => $model->borang_penilaian_kaunseling_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::laporan_sesi_kaunseling;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::laporan_sesi_kaunseling, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::laporan_sesi_kaunseling, 'url' => ['view', 'id' => $model->borang_penilaian_kaunseling_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="borang-penilaian-kaunseling-update">

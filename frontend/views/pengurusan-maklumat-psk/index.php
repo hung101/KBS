@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanMaklumatPskSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pengurusan Maklumat PSK';
+$this->title = GeneralLabel::pengurusan_maklumat_psk;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-maklumat-psk-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-maklumat-psk']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle .' Pengurusan Maklumat PSK', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle .' ' . GeneralLabel::pengurusan_maklumat_psk, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

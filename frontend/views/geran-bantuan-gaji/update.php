@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\GeranBantuanGaji */
 
 //$this->title = 'Update Geran Bantuan Gaji: ' . ' ' . $model->geran_bantuan_gaji_id;
-$this->title = GeneralLabel::updateTitle . ' Geran Bantuan Gaji';
-$this->params['breadcrumbs'][] = ['label' => 'Geran Bantuan Gaji', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Geran Bantuan Gaji', 'url' => ['view', 'id' => $model->geran_bantuan_gaji_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::geran_bantuan_gaji;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::geran_bantuan_gaji, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::geran_bantuan_gaji, 'url' => ['view', 'id' => $model->geran_bantuan_gaji_id]];
 $this->params['breadcrumbs'][] = $this->title ;
 ?>
 <div class="geran-bantuan-gaji-update">

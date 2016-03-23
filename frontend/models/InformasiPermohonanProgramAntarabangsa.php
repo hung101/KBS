@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_informasi_permohonan".
  *
@@ -63,10 +65,11 @@ class InformasiPermohonanProgramAntarabangsa extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'informasi_permohonan_id' => 'Informasi Permohonan ID',
-            'butiran_permohonan' => 'Butiran Permohonan',
-            'amaun' => 'Amaun',
-            'muatnaik_dokumen' => 'Muatnaik Dokumen',
+            'informasi_permohonan_id' => GeneralLabel::informasi_permohonan_id,
+            'butiran_permohonan' => GeneralLabel::butiran_permohonan,
+            'amaun' => GeneralLabel::amaun,
+            'muatnaik_dokumen' => GeneralLabel::muatnaik_dokumen,
+
         ];
     }
     

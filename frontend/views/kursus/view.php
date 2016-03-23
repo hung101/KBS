@@ -11,9 +11,9 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\Kursus */
 
 //$this->title = $model->kursus_id;
-$this->title = GeneralLabel::viewTitle . ' CCE';
-$this->params['breadcrumbs'][] = ['label' => 'Akademi Kejurulatihan Kebangsaan (AKK)', 'url' => ['akademi-akk/index']];
-$this->params['breadcrumbs'][] = ['label' => 'CCE', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::cce;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, 'url' => ['akademi-akk/index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::cce, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="kursus-view">

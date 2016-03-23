@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_anugerah_pencalonan_atlet".
  *
@@ -86,35 +88,36 @@ class AnugerahPencalonanAtlet extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'anugerah_pencalonan_atlet' => 'Anugerah Pencalonan Atlet',
-            'nama_atlet' => 'Nama Atlet',
-            'tahun_pencalonan' => 'Tahun Pencalonan',
-            'nama_sukan' => 'Nama Sukan',
-            'nama_acara' => 'Nama Acara',
-            'status_pencalonan' => 'Status Pencalonan',
-            'kejayaan' => 'Kejayaan',
-            'ulasan_kejayaan' => 'Ulasan Kejayaan',
-            'susan_ranking_kebangsaan' => 'Susan Ranking Kebangsaan',
-            'susan_ranking_asia' => 'Susan Ranking Asia',
-            'susan_ranking_asia_tenggara' => 'Susan Ranking Asia Tenggara',
-            'susan_ranking_dunia' => 'Susan Ranking Dunia',
-            'sifat_kepimpinan_ketua_pasukan' => 'Sifat Kepimpinan Ketua Pasukan',
-            'sifat_kepimpinan_jurulatih' => 'Sifat Kepimpinan Jurulatih',
-            'sifat_kepimpinan_asia_tenggara' => 'Sifat Kepimpinan Asia Tenggara',
-            'sifat_kepimpinan_penolong_jurulatih' => 'Sifat Kepimpinan Penolong Jurulatih',
-            'sifat_kepimpinan_pegawai_teknikal' => 'Sifat Kepimpinan Pegawai Teknikal',
-            'nama_sukan_sebelum_dicalon' => 'Nama Sukan Sebelum Dicalon',
-            'mewakili' => 'Mewakili',
-            'pencalonan_olahragawan_tahun' => 'Pencalonan Olahragawan Tahun',
-            'pencalonan_olahragawati_tahun' => 'Pencalonan Olahragawati Tahun',
-            'pencalonan_pasukan_lelaki_kebangsaan_tahun' => 'Pencalonan Pasukan Lelaki Kebangsaan Tahun',
-            'pencalonan_pasukan_wanita_kebangsaan_tahun' => 'Pencalonan Pasukan Wanita Kebangsaan Tahun',
-            'pencalonan_olahragawan_harapan_tahun' => 'Pencalonan Olahragawan Harapan Tahun',
-            'pencalonan_olahragawati_harapan_tahun' => 'Pencalonan Olahragawati Harapan Tahun',
-            'memenangi_kategori_dalam_anugerah_sukan' => 'Memenangi Kategori Dalam Anugerah Sukan',
-            'nama_kategori' => 'Nama Kategori',
-            'tahun' => 'Tahun',
-            'kelulusan' => 'Kelulusan',
+            'anugerah_pencalonan_atlet' => GeneralLabel::anugerah_pencalonan_atlet,
+            'nama_atlet' => GeneralLabel::nama_atlet,
+            'tahun_pencalonan' => GeneralLabel::tahun_pencalonan,
+            'nama_sukan' => GeneralLabel::nama_sukan,
+            'nama_acara' => GeneralLabel::nama_acara,
+            'status_pencalonan' => GeneralLabel::status_pencalonan,
+            'kejayaan' => GeneralLabel::kejayaan,
+            'ulasan_kejayaan' => GeneralLabel::ulasan_kejayaan,
+            'susan_ranking_kebangsaan' => GeneralLabel::susan_ranking_kebangsaan,
+            'susan_ranking_asia' => GeneralLabel::susan_ranking_asia,
+            'susan_ranking_asia_tenggara' => GeneralLabel::susan_ranking_asia_tenggara,
+            'susan_ranking_dunia' => GeneralLabel::susan_ranking_dunia,
+            'sifat_kepimpinan_ketua_pasukan' => GeneralLabel::sifat_kepimpinan_ketua_pasukan,
+            'sifat_kepimpinan_jurulatih' => GeneralLabel::sifat_kepimpinan_jurulatih,
+            'sifat_kepimpinan_asia_tenggara' => GeneralLabel::sifat_kepimpinan_asia_tenggara,
+            'sifat_kepimpinan_penolong_jurulatih' => GeneralLabel::sifat_kepimpinan_penolong_jurulatih,
+            'sifat_kepimpinan_pegawai_teknikal' => GeneralLabel::sifat_kepimpinan_pegawai_teknikal,
+            'nama_sukan_sebelum_dicalon' => GeneralLabel::nama_sukan_sebelum_dicalon,
+            'mewakili' => GeneralLabel::mewakili,
+            'pencalonan_olahragawan_tahun' => GeneralLabel::pencalonan_olahragawan_tahun,
+            'pencalonan_olahragawati_tahun' => GeneralLabel::pencalonan_olahragawati_tahun,
+            'pencalonan_pasukan_lelaki_kebangsaan_tahun' => GeneralLabel::pencalonan_pasukan_lelaki_kebangsaan_tahun,
+            'pencalonan_pasukan_wanita_kebangsaan_tahun' => GeneralLabel::pencalonan_pasukan_wanita_kebangsaan_tahun,
+            'pencalonan_olahragawan_harapan_tahun' => GeneralLabel::pencalonan_olahragawan_harapan_tahun,
+            'pencalonan_olahragawati_harapan_tahun' => GeneralLabel::pencalonan_olahragawati_harapan_tahun,
+            'memenangi_kategori_dalam_anugerah_sukan' => GeneralLabel::memenangi_kategori_dalam_anugerah_sukan,
+            'nama_kategori' => GeneralLabel::nama_kategori,
+            'tahun' => GeneralLabel::tahun,
+            'kelulusan' => GeneralLabel::kelulusan,
+
         ];
     }
     

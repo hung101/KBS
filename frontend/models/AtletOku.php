@@ -6,6 +6,8 @@ use Yii;
 
 use app\models\general\GeneralVariable;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_atlet_oku".
  *
@@ -60,13 +62,14 @@ class AtletOku extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'oku_id' => 'Oku ID',
-            'atlet_id' => 'Atlet ID',
-            'jenis_kurang_upaya' => 'Jenis Kurang Upaya',
-            'jenis_kurang_upaya_pendengaran' => 'Jenis Kurang Upaya Pendengaran',
-            'negara' => 'Negara',
-            'tahun' => 'Tahun',
-            'status' => 'Status',
+            'oku_id' => GeneralLabel::oku_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'jenis_kurang_upaya' => GeneralLabel::jenis_kurang_upaya,
+            'jenis_kurang_upaya_pendengaran' => GeneralLabel::jenis_kurang_upaya_pendengaran,
+            'negara' => GeneralLabel::negara,
+            'tahun' => GeneralLabel::tahun,
+            'status' => GeneralLabel::status,
+
         ];
     }
     

@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_bsp_pertukaran_program_pengajian_dokumen".
  *
@@ -63,10 +65,11 @@ class BspPertukaranProgramPengajianDokumen extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'bsp_pertukaran_program_pengajian_dokumen_id' => 'Bsp Pertukaran Program Pengajian Dokumen ID',
-            'bsp_pertukaran_program_pengajian_id' => 'Bsp Pertukaran Program Pengajian ID',
-            'nama_dokumen' => 'Nama Dokumen',
-            'upload' => 'Upload',
+            'bsp_pertukaran_program_pengajian_dokumen_id' => GeneralLabel::bsp_pertukaran_program_pengajian_dokumen_id,
+            'bsp_pertukaran_program_pengajian_id' => GeneralLabel::bsp_pertukaran_program_pengajian_id,
+            'nama_dokumen' => GeneralLabel::nama_dokumen,
+            'upload' => GeneralLabel::upload,
+
         ];
     }
     

@@ -8,8 +8,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\BspBendahariIpt */
 
-$this->title = GeneralLabel::createTitle . ' Persatuan';
-$this->params['breadcrumbs'][] = ['label' => 'Persatuan', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::persatuan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::persatuan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-e-bantuan-urusetia-create">

@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_kemudah_pakaian_peralatan_tiket".
  *
@@ -66,15 +68,16 @@ class KemudahPakaianPeralatanTiket extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'kemudah_pakaian_peralatan_tiket_id' => 'Kemudahan/Pakaian/Peralatan Tiket ID',
-            'atlet_id' => 'Atlet',
-            'kategori_permohonan' => 'Kategori Permohonan',
-            'tarikh_diperlukan_pergi' => 'Tarikh Diperlukan/Pergi',
-            'tarikh_dijangka_dipulangkan_balik' => 'Tarikh Dijangka Dipulangkan/Balik',
-            'destinasi_daripada' => 'Destinasi Daripada',
-            'destinasi_ke' => 'Destinasi Ke',
-            'ulasan_permohonan' => 'Ulasan Permohonan',
-            'kelulusan' => 'Kelulusan',
+            'kemudah_pakaian_peralatan_tiket_id' => GeneralLabel::kemudah_pakaian_peralatan_tiket_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'kategori_permohonan' => GeneralLabel::kategori_permohonan,
+            'tarikh_diperlukan_pergi' => GeneralLabel::tarikh_diperlukan_pergi,
+            'tarikh_dijangka_dipulangkan_balik' => GeneralLabel::tarikh_dijangka_dipulangkan_balik,
+            'destinasi_daripada' => GeneralLabel::destinasi_daripada,
+            'destinasi_ke' => GeneralLabel::destinasi_ke,
+            'ulasan_permohonan' => GeneralLabel::ulasan_permohonan,
+            'kelulusan' => GeneralLabel::kelulusan,
+
         ];
     }
 }

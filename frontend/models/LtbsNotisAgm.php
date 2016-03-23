@@ -6,6 +6,8 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_ltbs_notis_agm".
  *
@@ -58,10 +60,11 @@ class LtbsNotisAgm extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'tbl_ltbs_id' => 'Tbl Ltbs ID',
-            'nama_mesyuarat_agong' => 'Nama Mesyuarat Agong',
-            'tahun' => 'Tahun',
-            'notis_agm' => 'Notis AGM',
+            'tbl_ltbs_id' => GeneralLabel::tbl_ltbs_id,
+            'nama_mesyuarat_agong' => GeneralLabel::nama_mesyuarat_agong,
+            'tahun' => GeneralLabel::tahun,
+            'notis_agm' => GeneralLabel::notis_agm,
+
         ];
     }
     

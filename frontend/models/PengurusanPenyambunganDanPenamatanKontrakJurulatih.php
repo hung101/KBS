@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih".
  *
@@ -73,12 +75,13 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatih extends \yii\db\ActiveR
     public function attributeLabels()
     {
         return [
-            'pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id' => 'Pengurusan Penyambungan Dan Penamatan Kontrak Jurulatih ID',
-            'jurulatih' => 'Jurulatih',
-            'tarikh_mula' => 'Tarikh Mula',
-            'tarikh_tamat' => 'Tarikh Tamat',
-            'status_permohonan' => 'Status Permohonan',
-            'muat_naik_document' => 'Muat Naik Document',
+            'pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id' => GeneralLabel::pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id,
+            'jurulatih' => GeneralLabel::jurulatih,
+            'tarikh_mula' => GeneralLabel::tarikh_mula,
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,
+            'status_permohonan' => GeneralLabel::status_permohonan,
+            'muat_naik_document' => GeneralLabel::muat_naik_document,
+
         ];
     }
     

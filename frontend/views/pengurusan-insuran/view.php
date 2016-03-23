@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PengurusanInsuran */
 
 //$this->title = $model->pengurusan_insuran_id;
-$this->title = GeneralLabel::viewTitle . ' Pengurusan Insurans';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Insurans', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_insurans;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_insurans, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-insuran-view">

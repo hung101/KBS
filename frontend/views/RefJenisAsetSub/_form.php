@@ -1,7 +1,10 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
 use kartik\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\model\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefJenisAsetSub */

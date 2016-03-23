@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PengurusanUpstn */
 
 $this->title = GeneralLabel::createTitle . ' USPTN';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan USPTN', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_usptn, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-upstn-create">

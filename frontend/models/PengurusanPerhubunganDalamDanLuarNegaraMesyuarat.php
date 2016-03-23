@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat".
  *
@@ -76,22 +78,23 @@ class PengurusanPerhubunganDalamDanLuarNegaraMesyuarat extends \yii\db\ActiveRec
     public function attributeLabels()
     {
         return [
-            'pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat_id' => 'Pengurusan Perhubungan Dalam Dan Luar Negara Mesyuarat ID',
-            'nama' => 'Nama',
-            'no_kad_pengenalan' => 'No Kad Pengenalan',
-            'jawatan' => 'Jawatan',
-            'alamat_1' => 'Alamat 1',
-            'alamat_2' => 'Alamat 2',
-            'alamat_3' => 'Alamat 3',
-            'alamat_negeri' => 'Alamat Negeri',
-            'alamat_bandar' => 'Alamat Bandar',
-            'alamat_poskod' => 'Alamat Poskod',
-            'no_tel_bimbit' => 'No Tel Bimbit',
-            'emel' => 'Emel',
-            'muatnaik_dokumen' => 'Muatnaik Dokumen',
-            'nama_kejohonan' => 'Nama Kejohonan',
-            'muatnaik_dokumen_kejohanan' => 'Muatnaik Dokumen Kejohanan',
-            'status_permohonan' => 'Status Permohonan',
+            'pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat_id' => GeneralLabel::pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat_id,
+            'nama' => GeneralLabel::nama,
+            'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
+            'jawatan' => GeneralLabel::jawatan,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'no_tel_bimbit' => GeneralLabel::no_tel_bimbit,
+            'emel' => GeneralLabel::emel,
+            'muatnaik_dokumen' => GeneralLabel::muatnaik_dokumen,
+            'nama_kejohonan' => GeneralLabel::nama_kejohonan,
+            'muatnaik_dokumen_kejohanan' => GeneralLabel::muatnaik_dokumen_kejohanan,
+            'status_permohonan' => GeneralLabel::status_permohonan,
+
         ];
     }
 }

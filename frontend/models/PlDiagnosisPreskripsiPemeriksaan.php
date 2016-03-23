@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pl_diagnosis_preskripsi_pemeriksaan".
  *
@@ -63,15 +65,16 @@ class PlDiagnosisPreskripsiPemeriksaan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pl_diagnosis_preskripsi_pemeriksaan_id' => 'Pl Diagnosis Preskripsi Pemeriksaan ID',
-            'pl_temujanji_id' => 'Temujanji ID',
-            'tarikh' => 'Tarikh',
-            'jenis_diagnosis_preskripsi_pemeriksaan' => 'Jenis Kecederaan / Masalah Kesihatan',
-            'status_diagnosis_preskripsi_pemeriksaan' => 'Status Diagnosis / Preskripsi / Pemeriksaan / Penyiasatan',
-            'pegawai_yang_bertanggungjawab' => 'Doktor / MA Bertanggungjawab',
-            'unit' => 'Unit',
-            'harga' => 'Caj & Fi',
-            'catitan_ringkas' => 'Catitan Ringkas',
+            'pl_diagnosis_preskripsi_pemeriksaan_id' => GeneralLabel::pl_diagnosis_preskripsi_pemeriksaan_id,
+            'pl_temujanji_id' => GeneralLabel::pl_temujanji_id,
+            'tarikh' => GeneralLabel::tarikh,
+            'jenis_diagnosis_preskripsi_pemeriksaan' => GeneralLabel::jenis_diagnosis_preskripsi_pemeriksaan,
+            'status_diagnosis_preskripsi_pemeriksaan' => GeneralLabel::status_diagnosis_preskripsi_pemeriksaan,
+            'pegawai_yang_bertanggungjawab' => GeneralLabel::pegawai_yang_bertanggungjawab,
+            'unit' => GeneralLabel::unit,
+            'harga' => GeneralLabel::harga,
+            'catitan_ringkas' => GeneralLabel::catitan_ringkas,
+
         ];
     }
     

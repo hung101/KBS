@@ -10,7 +10,7 @@ use app\models\general\GeneralLabel;
 
 //$this->title = 'Update Akademi Akk: ' . ' ' . $model->akademi_akk_id;
 $this->title = GeneralLabel::updateTitle . ' AKK';
-$this->params['breadcrumbs'][] = ['label' => 'Akademi Kejurulatihan Kebangsaan (AKK)', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' AKK', 'url' => ['view', 'id' => $model->akademi_akk_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_bantuan_elaun".
  *
@@ -90,39 +92,40 @@ class BantuanElaun extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'bantuan_elaun_id' => 'Bantuan Elaun ID',
-            'jenis_bantuan' => 'Jenis Bantuan',
-            'nama_pemohon' => 'Nama Pemohon',
-            'jawatan' => 'Jawatan',
-            'persatuan' => 'Persatuan',
-            'tarikh' => 'Tarikh',
-            'nama_persatuan' => 'Nama Persatuan',
-            'tarikh_mula_dilantik' => 'Tarikh Mula Dilantik',
-            'tarikh_tamat_dilantik' => 'Tarikh Tamat Dilantik',
-            'nama' => 'Nama Calon',
-            'muatnaik_gambar' => 'Muatnaik Gambar',
-            'no_kad_pengenalan' => 'No Kad Pengenalan',
-            'tarikh_lahir' => 'Tarikh Lahir',
-            'umur' => 'Umur',
-            'jantina' => 'Jantina',
-            'kewarganegara' => 'Kewarganegara',
-            'bangsa' => 'Bangsa',
-            'agama' => 'Agama',
-            'kelayakan_akademi' => 'Kelayakan Akademik',
-            'alamat_1' => 'Alamat Persatuan',
-            'alamat_2' => '',
-            'alamat_3' => '',
-            'alamat_negeri' => 'Negeri',
-            'alamat_bandar' => 'Bandar',
-            'alamat_poskod' => 'Poskod',
-            'no_tel_bimbit' => 'No Tel Bimbit',
-            'no_tel_persatuan_pejabat' => 'No Tel Persatuan / Pejabat',
-            'emel' => 'Emel',
-            'kontrak' => 'Kontrak',
-            'jumlah_elaun' => 'Jumlah Elaun',
-            'muatnaik_dokumen' => 'Muatnaik Dokumen',
-            'status_permohonan' => 'Status Permohonan',
-            'catatan' => 'Catatan',
+            'bantuan_elaun_id' => GeneralLabel::bantuan_elaun_id,
+            'jenis_bantuan' => GeneralLabel::jenis_bantuan,
+            'nama_pemohon' => GeneralLabel::nama_pemohon,
+            'jawatan' => GeneralLabel::jawatan,
+            'persatuan' => GeneralLabel::persatuan,
+            'tarikh' => GeneralLabel::tarikh,
+            'nama_persatuan' => GeneralLabel::nama_persatuan,
+            'tarikh_mula_dilantik' => GeneralLabel::tarikh_mula_dilantik,
+            'tarikh_tamat_dilantik' => GeneralLabel::tarikh_tamat_dilantik,
+            'nama' => GeneralLabel::nama,
+            'muatnaik_gambar' => GeneralLabel::muatnaik_gambar,
+            'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
+            'tarikh_lahir' => GeneralLabel::tarikh_lahir,
+            'umur' => GeneralLabel::umur,
+            'jantina' => GeneralLabel::jantina,
+            'kewarganegara' => GeneralLabel::kewarganegara,
+            'bangsa' => GeneralLabel::bangsa,
+            'agama' => GeneralLabel::agama,
+            'kelayakan_akademi' => GeneralLabel::kelayakan_akademi,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'no_tel_bimbit' => GeneralLabel::no_tel_bimbit,
+            'no_tel_persatuan_pejabat' => GeneralLabel::no_tel_persatuan_pejabat,
+            'emel' => GeneralLabel::emel,
+            'kontrak' => GeneralLabel::kontrak,
+            'jumlah_elaun' => GeneralLabel::jumlah_elaun,
+            'muatnaik_dokumen' => GeneralLabel::muatnaik_dokumen,
+            'status_permohonan' => GeneralLabel::status_permohonan,
+            'catatan' => GeneralLabel::catatan,
+
         ];
     }
 }

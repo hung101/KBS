@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_informasi_persatuan".
  *
@@ -71,18 +73,19 @@ class InformasiPersatuan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'informasi_persatuan_id' => 'Informasi Persatuan ID',
-            'nama_persatuan' => 'Nama Persatuan',
-            'alamat_1' => 'Alamat 1',
-            'alamat_2' => 'Alamat 2',
-            'alamat_3' => 'Alamat 3',
-            'alamat_negeri' => 'Alamat Negeri',
-            'alamat_bandar' => 'Alamat Bandar',
-            'alamat_poskod' => 'Alamat Poskod',
-            'no_tel' => 'No Tel',
-            'no_faks' => 'No Faks',
-            'emel' => 'Emel',
-            'laman_web' => 'Laman Web',
+            'informasi_persatuan_id' => GeneralLabel::informasi_persatuan_id,
+            'nama_persatuan' => GeneralLabel::nama_persatuan,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'no_tel' => GeneralLabel::no_tel,
+            'no_faks' => GeneralLabel::no_faks,
+            'emel' => GeneralLabel::emel,
+            'laman_web' => GeneralLabel::laman_web,
+
         ];
     }
 }

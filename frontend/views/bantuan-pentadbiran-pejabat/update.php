@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\BantuanPentadbiranPejabat */
 
 //$this->title = 'Update Bantuan Pentadbiran Pejabat: ' . ' ' . $model->bantuan_pentadbiran_pejabat_id;
-$this->title = GeneralLabel::updateTitle . ' Bantuan Pentadbiran Pejabat';
-$this->params['breadcrumbs'][] = ['label' => 'Bantuan Pentadbiran Pejabat', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Bantuan Pentadbiran Pejabat', 'url' => ['view', 'id' => $model->bantuan_pentadbiran_pejabat_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::bantuan_pentadbiran_pejabat;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bantuan_pentadbiran_pejabat, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::bantuan_pentadbiran_pejabat, 'url' => ['view', 'id' => $model->bantuan_pentadbiran_pejabat_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bantuan-pentadbiran-pejabat-update">

@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_program_binaan_kos".
  *
@@ -63,13 +65,14 @@ class PengurusanProgramBinaanKos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_program_binaan_kos_id' => 'Pengurusan Program Binaan Kos ID',
-            'pengurusan_program_binaan_id' => 'Pengurusan Program Binaan ID',
-            'kategori_kos' => 'Kategori Kos',
-            'anggaran_kos_per_kategori' => 'Anggaran Kos Per Kategori',
-            'revised_kos_per_kategori' => 'Revised Kos Per Kategori',
-            'approved_kos_per_kategori' => 'Approved Kos Per Kategori',
-            'catatan' => 'Catatan',
+            'pengurusan_program_binaan_kos_id' => GeneralLabel::pengurusan_program_binaan_kos_id,
+            'pengurusan_program_binaan_id' => GeneralLabel::pengurusan_program_binaan_id,
+            'kategori_kos' => GeneralLabel::kategori_kos,
+            'anggaran_kos_per_kategori' => GeneralLabel::anggaran_kos_per_kategori,
+            'revised_kos_per_kategori' => GeneralLabel::revised_kos_per_kategori,
+            'approved_kos_per_kategori' => GeneralLabel::approved_kos_per_kategori,
+            'catatan' => GeneralLabel::catatan,
+
         ];
     }
     

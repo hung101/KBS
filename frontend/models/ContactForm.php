@@ -5,6 +5,8 @@ namespace frontend\models;
 use Yii;
 use yii\base\Model;
 
+use app\models\general\GeneralLabel;
+
 /**
  * ContactForm is the model behind the contact form.
  */
@@ -37,7 +39,8 @@ class ContactForm extends Model
     public function attributeLabels()
     {
         return [
-            'verifyCode' => 'Verification Code',
+            'verifyCode' => GeneralLabel::verifyCode,
+
         ];
     }
 

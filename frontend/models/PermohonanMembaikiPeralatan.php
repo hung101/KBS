@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_permohonan_membaiki_peralatan".
  *
@@ -74,23 +76,24 @@ class PermohonanMembaikiPeralatan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'permohonan_membaiki_peralatan_id' => 'Permohonan Membaiki Peralatan ID',
-            'tarikh_permohonan' => 'Tarikh Permohonan',
-            'pemohon' => 'Pemohon',
-            'nama_peralatan' => 'Nama Peralatan',
-            'model' => 'Model',
-            'nombor_siri' => 'Nombor Siri',
-            'tarikh_diterima' => 'Tarikh Diterima',
-            'tarikh_dipulang' => 'Tarikh Dipulang',
-            'kerosakan' => 'Kerosakan',
-            'simptom_kerosakan' => 'Simptom Kerosakan',
-            'komponen_utama' => 'Komponen Utama',
-            'proses_pemeriksaan' => 'Proses Pemeriksaan',
-            'pembaikan' => 'Pembaikan',
-            'cadangan' => 'Cadangan',
-            'pegawai_yang_bertanggungjawab' => 'Pegawai Yang Bertanggungjawab',
-            'catitan_ringkas' => 'Catitan Ringkas',
-            'status_permohonan' => 'Status Permohonan',
+            'permohonan_membaiki_peralatan_id' => GeneralLabel::permohonan_membaiki_peralatan_id,
+            'tarikh_permohonan' => GeneralLabel::tarikh_permohonan,
+            'pemohon' => GeneralLabel::pemohon,
+            'nama_peralatan' => GeneralLabel::nama_peralatan,
+            'model' => GeneralLabel::model,
+            'nombor_siri' => GeneralLabel::nombor_siri,
+            'tarikh_diterima' => GeneralLabel::tarikh_diterima,
+            'tarikh_dipulang' => GeneralLabel::tarikh_dipulang,
+            'kerosakan' => GeneralLabel::kerosakan,
+            'simptom_kerosakan' => GeneralLabel::simptom_kerosakan,
+            'komponen_utama' => GeneralLabel::komponen_utama,
+            'proses_pemeriksaan' => GeneralLabel::proses_pemeriksaan,
+            'pembaikan' => GeneralLabel::pembaikan,
+            'cadangan' => GeneralLabel::cadangan,
+            'pegawai_yang_bertanggungjawab' => GeneralLabel::pegawai_yang_bertanggungjawab,
+            'catitan_ringkas' => GeneralLabel::catitan_ringkas,
+            'status_permohonan' => GeneralLabel::status_permohonan,
+
         ];
     }
     

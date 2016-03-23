@@ -7,8 +7,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanKpi */
 
-$this->title = GeneralLabel::createTitle . ' Pengurusan KPI';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan KPI', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::pengurusan_kpi;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_kpi, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-kpi-create">

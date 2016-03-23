@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_ref_jenis_aset_sub".
  *
@@ -62,14 +64,15 @@ class RefJenisAsetSub extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'ref_jenis_aset_id' => 'Ref Jenis Aset ID',
-            'desc' => 'Desc',
-            'aktif' => 'Aktif',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
-            'created' => 'Created',
-            'updated' => 'Updated',
+            'id' => GeneralLabel::id,
+            'ref_jenis_aset_id' => GeneralLabel::ref_jenis_aset_id,
+            'desc' => GeneralLabel::desc,
+            'aktif' => GeneralLabel::aktif,
+            'created_by' => GeneralLabel::created_by,
+            'updated_by' => GeneralLabel::updated_by,
+            'created' => GeneralLabel::created,
+            'updated' => GeneralLabel::updated,
+
         ];
     }
 }

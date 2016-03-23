@@ -7,8 +7,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\ProfilWartawanSukan */
 
-$this->title = GeneralLabel::createTitle . ' Profil Wartawan Sukan';
-$this->params['breadcrumbs'][] = ['label' => 'Profil Wartawan Sukan', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::profil_wartawan_sukan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::profil_wartawan_sukan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="profil-wartawan-sukan-create">

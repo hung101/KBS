@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\BspTamatPengesahanPengajian */
 
 //$this->title = $model->bsp_tamat_pengesahan_pengajian_id;
-$this->title = GeneralLabel::viewTitle . ' Pengesahan Tamat Pengajian';
-$this->params['breadcrumbs'][] = ['label' => 'Pengesahan Tamat Pengajian', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::pengesahan_tamat_pengajian;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengesahan_tamat_pengajian, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-tamat-pengesahan-pengajian-view">

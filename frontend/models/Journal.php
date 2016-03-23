@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_journal".
  *
@@ -75,20 +77,21 @@ class Journal extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'journal_id' => 'Journal ID',
-            'nama_penulis' => 'Nama Penulis',
-            'telefon_no' => 'Telefon No',
-            'emel' => 'Emel',
-            'alamat_1' => 'Alamat',
-            'alamat_2' => '',
-            'alamat_3' => '',
-            'alamat_negeri' => 'Negeri',
-            'alamat_bandar' => 'Bandar',
-            'alamat_poskod' => 'Poskod',
-            'tarikh_journal' => 'Tarikh Journal',
-            'bahagian' => 'Bahagian',
-            'artikel_journal' => 'Artikel Journal',
-            'status_journal' => 'Status Journal',
+            'journal_id' => GeneralLabel::journal_id,
+            'nama_penulis' => GeneralLabel::nama_penulis,
+            'telefon_no' => GeneralLabel::telefon_no,
+            'emel' => GeneralLabel::emel,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'tarikh_journal' => GeneralLabel::tarikh_journal,
+            'bahagian' => GeneralLabel::bahagian,
+            'artikel_journal' => GeneralLabel::artikel_journal,
+            'status_journal' => GeneralLabel::status_journal,
+
         ];
     }
     

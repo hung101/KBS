@@ -11,10 +11,10 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PenganjuranKursus */
 
 //$this->title = $model->penganjuran_kursus_id;
-$this->title = GeneralLabel::viewTitle . ' Penganjuran Kursus';
-$this->params['breadcrumbs'][] = ['label' => 'Akademi Kejurulatihan Kebangsaan (AKK)', 'url' => ['akademi-akk/index']];
-$this->params['breadcrumbs'][] = ['label' => 'CCE', 'url' => ['kursus/index']];
-$this->params['breadcrumbs'][] = ['label' => 'Penganjuran Kursus', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::penganjuran_kursus;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, 'url' => ['akademi-akk/index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::cce, 'url' => ['kursus/index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penganjuran_kursus, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="penganjuran-kursus-view">

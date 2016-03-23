@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_borang_penilaian".
  *
@@ -59,10 +61,11 @@ class BorangPenilaian extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'borang_penilaian_id' => 'Borang Penilaian ID',
-            'nama_program' => 'Nama Program',
-            'tarikh_program' => 'Tarikh Program',
-            'tempat' => 'Tempat',
+            'borang_penilaian_id' => GeneralLabel::borang_penilaian_id,
+            'nama_program' => GeneralLabel::nama_program,
+            'tarikh_program' => GeneralLabel::tarikh_program,
+            'tempat' => GeneralLabel::tempat,
+
         ];
     }
 }

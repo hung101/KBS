@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_penginapan".
  *
@@ -64,14 +66,15 @@ class PengurusanPenginapan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_penginapan_id' => 'Pengurusan Penginapan ID',
-            'atlet_id' => 'Atlet',
-            'nama_pegawai' => 'Nama Pegawai',
-            'tarikh_masa_penginapan_mula' => 'Tarikh Masa Penginapan Mula',
-            'tarikh_masa_penginapan_akhir' => 'Tarikh Masa Penginapan Akhir',
-            'lokasi' => 'Lokasi',
-            'nama_penginapan' => 'Nama Penginapan',
-            'catatan' => 'Catatan',
+            'pengurusan_penginapan_id' => GeneralLabel::pengurusan_penginapan_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'nama_pegawai' => GeneralLabel::nama_pegawai,
+            'tarikh_masa_penginapan_mula' => GeneralLabel::tarikh_masa_penginapan_mula,
+            'tarikh_masa_penginapan_akhir' => GeneralLabel::tarikh_masa_penginapan_akhir,
+            'lokasi' => GeneralLabel::lokasi,
+            'nama_penginapan' => GeneralLabel::nama_penginapan,
+            'catatan' => GeneralLabel::catatan,
+
         ];
     }
     

@@ -6,6 +6,8 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_kemudahan_sedia_ada".
  *
@@ -68,32 +70,33 @@ class PengurusanKemudahanSediaAda extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_kemudahan_sedia_ada_id' => 'Pengurusan Kemudahan Sedia Ada ID',
-            'pengurusan_kemudahan_venue_id' => 'Nama Kemudahan',
-            'nama_kemudahan' => 'Nama Kemudahan',
-            'jenis_kemudahan' => 'Jenis Kemudahan',
-            'sukan_rekreasi' => 'Sukan / Rekreasi',
-            'size' => 'Unit',
-            'lokasi' => 'Lokasi',
-            'keluasan_padang' => 'Keluasan',
-            'jumlah_kapasiti' => 'Jumlah Kapasiti',
-            'bilangan_kekerapan_penyenggaran' => 'Bilangan Kekerapan Penyenggaran',
-            'kekerapan_penggunaan' => 'Kekerapan Penggunaan',
-            'kekerapan_kerosakan_berlaku' => 'Kekerapan Kerosakan Berlaku',
-            'cost_pembaikian' => 'Kos Pembaikian',
-            'kadar_sewaan_sejam_siang' => 'Sejam - Siang (RM)',
-            'kadar_sewaan_sehari_siang' => 'Sehari - Siang (RM)',
-            'kadar_sewaan_seminggu_siang' => 'Seminggu - Siang (RM)',
-            'kadar_sewaan_sebulan_siang' => 'Sebulan - Siang (RM)',
-            'kadar_sewaan_sejam_malam' => 'Sejam - Malam (RM)',
-            'kadar_sewaan_sehari_malam' => 'Sehari - Malam (RM)',
-            'kadar_sewaan_seminggu_malam' => 'Seminggu - Malam (RM)',
-            'kadar_sewaan_sebulan_malam' => 'Sebulan - Malam (RM)',
-            'gambar_1' => 'Gambar 1',
-            'gambar_2' => 'Gambar 2',
-            'gambar_3' => 'Gambar 3',
-            'gambar_4' => 'Gambar 4',
-            'gambar_5' => 'Gambar 5',
+            'pengurusan_kemudahan_sedia_ada_id' => GeneralLabel::pengurusan_kemudahan_sedia_ada_id,
+            'pengurusan_kemudahan_venue_id' => GeneralLabel::pengurusan_kemudahan_venue_id,
+            'nama_kemudahan' => GeneralLabel::nama_kemudahan,
+            'jenis_kemudahan' => GeneralLabel::jenis_kemudahan,
+            'sukan_rekreasi' => GeneralLabel::sukan_rekreasi,
+            'size' => GeneralLabel::size,
+            'lokasi' => GeneralLabel::lokasi,
+            'keluasan_padang' => GeneralLabel::keluasan_padang,
+            'jumlah_kapasiti' => GeneralLabel::jumlah_kapasiti,
+            'bilangan_kekerapan_penyenggaran' => GeneralLabel::bilangan_kekerapan_penyenggaran,
+            'kekerapan_penggunaan' => GeneralLabel::kekerapan_penggunaan,
+            'kekerapan_kerosakan_berlaku' => GeneralLabel::kekerapan_kerosakan_berlaku,
+            'cost_pembaikian' => GeneralLabel::cost_pembaikian,
+            'kadar_sewaan_sejam_siang' => GeneralLabel::kadar_sewaan_sejam_siang,
+            'kadar_sewaan_sehari_siang' => GeneralLabel::kadar_sewaan_sehari_siang,
+            'kadar_sewaan_seminggu_siang' => GeneralLabel::kadar_sewaan_seminggu_siang,
+            'kadar_sewaan_sebulan_siang' => GeneralLabel::kadar_sewaan_sebulan_siang,
+            'kadar_sewaan_sejam_malam' => GeneralLabel::kadar_sewaan_sejam_malam,
+            'kadar_sewaan_sehari_malam' => GeneralLabel::kadar_sewaan_sehari_malam,
+            'kadar_sewaan_seminggu_malam' => GeneralLabel::kadar_sewaan_seminggu_malam,
+            'kadar_sewaan_sebulan_malam' => GeneralLabel::kadar_sewaan_sebulan_malam,
+            'gambar_1' => GeneralLabel::gambar_1,
+            'gambar_2' => GeneralLabel::gambar_2,
+            'gambar_3' => GeneralLabel::gambar_3,
+            'gambar_4' => GeneralLabel::gambar_4,
+            'gambar_5' => GeneralLabel::gambar_5,
+
         ];
     }
     

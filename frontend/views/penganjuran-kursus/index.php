@@ -10,9 +10,9 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PenganjuranKursusSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Penganjuran Kursus';
-$this->params['breadcrumbs'][] = ['label' => 'Akademi Kejurulatihan Kebangsaan (AKK)', 'url' => ['akademi-akk/index']];
-$this->params['breadcrumbs'][] = ['label' => 'CCE', 'url' => ['kursus/index']];
+$this->title = GeneralLabel::penganjuran_kursus;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, 'url' => ['akademi-akk/index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::cce, 'url' => ['kursus/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="penganjuran-kursus-index">
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Penganjuran Kursus', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::penganjuran_kursus, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

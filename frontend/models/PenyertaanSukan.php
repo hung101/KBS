@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_penyertaan_sukan".
  *
@@ -63,17 +65,18 @@ class PenyertaanSukan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'penyertaan_sukan_id' => 'Penyertaan Sukan ID',
-            'kategori_penilaian' => 'Kategori Penilaian',
-            'nama_temasya' => 'Nama Temasya',
-            'nama_sukan' => 'Nama Sukan',
-            'tempat_penginapan' => 'Tempat Penginapan',
-            'tempat_latihan' => 'Tempat Latihan',
-            'nama_atlet' => 'Nama Atlet',
-            'nama_pegawai' => 'Nama Pegawai',
-            'jawatan_pegawai' => 'Jawatan Pegawai',
-            'nama_pengurus_sukan' => 'Nama Pengurus Sukan',
-            'nama_sukarelawan' => 'Nama Sukarelawan',
+            'penyertaan_sukan_id' => GeneralLabel::penyertaan_sukan_id,
+            'kategori_penilaian' => GeneralLabel::kategori_penilaian,
+            'nama_temasya' => GeneralLabel::nama_temasya,
+            'nama_sukan' => GeneralLabel::nama_sukan,
+            'tempat_penginapan' => GeneralLabel::tempat_penginapan,
+            'tempat_latihan' => GeneralLabel::tempat_latihan,
+            'nama_atlet' => GeneralLabel::nama_atlet,
+            'nama_pegawai' => GeneralLabel::nama_pegawai,
+            'jawatan_pegawai' => GeneralLabel::jawatan_pegawai,
+            'nama_pengurus_sukan' => GeneralLabel::nama_pengurus_sukan,
+            'nama_sukarelawan' => GeneralLabel::nama_sukarelawan,
+
         ];
     }
     

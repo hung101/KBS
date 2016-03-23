@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_akk_program_jurulatih".
  *
@@ -64,15 +66,16 @@ class AkkProgramJurulatih extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'akk_program_jurulatih_id' => 'Akk Program Jurulatih ID',
-            'peningkatan_kerjaya_jurulatih_id' => 'Peningkatan Kerjaya Jurulatih ID',
-            'jurulatih' => 'Jurulatih',
-            'penganjur' => 'Penganjur',
-            'nama_program' => 'Nama Program/Kursus/Seminar',
-            'tarikh_program' => 'Tarikh',
-            'tempat_program' => 'Tempat',
-            'kod_kursus' => 'Kod Kursus',
-            'tahap' => 'Tahap',
+            'akk_program_jurulatih_id' => GeneralLabel::akk_program_jurulatih_id,
+            'peningkatan_kerjaya_jurulatih_id' => GeneralLabel::peningkatan_kerjaya_jurulatih_id,
+            'jurulatih' => GeneralLabel::jurulatih,
+            'penganjur' => GeneralLabel::penganjur,
+            'nama_program' => GeneralLabel::nama_program,
+            'tarikh_program' => GeneralLabel::tarikh_program,
+            'tempat_program' => GeneralLabel::tempat_program,
+            'kod_kursus' => GeneralLabel::kod_kursus,
+            'tahap' => GeneralLabel::tahap,
+
         ];
     }
 }

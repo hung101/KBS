@@ -10,8 +10,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\GeranBantuanGaji */
 
 //$this->title = $model->geran_bantuan_gaji_id;
-$this->title = GeneralLabel::viewTitle . ' Geran Bantuan Gaji';
-$this->params['breadcrumbs'][] = ['label' => 'Geran Bantuan Gaji', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::geran_bantuan_gaji;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::geran_bantuan_gaji, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="geran-bantuan-gaji-view">

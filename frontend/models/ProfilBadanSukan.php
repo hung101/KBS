@@ -6,6 +6,7 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 
 /**
  * This is the model class for table "tbl_profil_badan_sukan".
@@ -77,33 +78,34 @@ class ProfilBadanSukan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'profil_badan_sukan' => 'Profil Badan Sukan',
-            'nama_badan_sukan' => 'Nama Badan Sukan',
-            'nama_badan_sukan_sebelum_ini' => 'Nama Badan Sukan Sebelum Ini',
-            'no_pendaftaran_sijil_pendaftaran' => 'Sijil Pendaftaran',
-            'no_pendaftaran' => 'No Pendaftaran',
-            'tarikh_lulus_pendaftaran' => 'Tarikh Lulus Pendaftaran',
-            'peringkat_badan_sukan' => 'Peringkat Badan Sukan',
-            'jenis_sukan' => 'Jenis Sukan',
-            'alamat_tetap_badan_sukan_1' => 'Alamat Tetap Badan Sukan',
-            'alamat_tetap_badan_sukan_2' => '',
-            'alamat_tetap_badan_sukan_3' => '',
-            'alamat_tetap_badan_sukan_negeri' => 'Negeri',
-            'alamat_tetap_badan_sukan_bandar' => 'Bandar',
-            'alamat_tetap_badan_sukan_poskod' => 'Poskod',
-            'alamat_surat_menyurat_badan_sukan_1' => 'Alamat Surat Menyurat Badan Sukan',
-            'alamat_surat_menyurat_badan_sukan_2' => '',
-            'alamat_surat_menyurat_badan_sukan_3' => '',
-            'alamat_surat_menyurat_badan_sukan_negeri' => 'Negeri',
-            'alamat_surat_menyurat_badan_sukan_bandar' => 'Bandar',
-            'alamat_surat_menyurat_badan_sukan_poskod' => 'Poskod',
-            'no_telefon_pejabat' => 'No Telefon Pejabat 1',
-            'no_telefon_pejabat_2' => 'No Telefon Pejabat 2',
-            'no_telefon_pejabat_3' => 'No Telefon Pejabat 3',
-            'no_tel_bimbit' => 'No Telefon Bimbit',
-            'no_faks_pejabat' => 'No Faks Pejabat',
-            'emel_badan_sukan' => 'Emel Badan Sukan',
-            'pengiktirafan_yang_pernah_diterima_badan_sukan' => 'Pengelola Badan Sukan Antarabangsa',
+            'profil_badan_sukan' => GeneralLabel::profil_badan_sukan,
+            'nama_badan_sukan' => GeneralLabel::nama_badan_sukan,
+            'nama_badan_sukan_sebelum_ini' => GeneralLabel::nama_badan_sukan_sebelum_ini,
+            'no_pendaftaran_sijil_pendaftaran' => GeneralLabel::no_pendaftaran_sijil_pendaftaran,
+            'no_pendaftaran' => GeneralLabel::no_pendaftaran,
+            'tarikh_lulus_pendaftaran' => GeneralLabel::tarikh_lulus_pendaftaran,
+            'peringkat_badan_sukan' => GeneralLabel::peringkat_badan_sukan,
+            'jenis_sukan' => GeneralLabel::jenis_sukan,
+            'alamat_tetap_badan_sukan_1' => GeneralLabel::alamat_tetap_badan_sukan_1,
+            'alamat_tetap_badan_sukan_2' => GeneralLabel::alamat_tetap_badan_sukan_2,
+            'alamat_tetap_badan_sukan_3' => GeneralLabel::alamat_tetap_badan_sukan_3,
+            'alamat_tetap_badan_sukan_negeri' => GeneralLabel::alamat_tetap_badan_sukan_negeri,
+            'alamat_tetap_badan_sukan_bandar' => GeneralLabel::alamat_tetap_badan_sukan_bandar,
+            'alamat_tetap_badan_sukan_poskod' => GeneralLabel::alamat_tetap_badan_sukan_poskod,
+            'alamat_surat_menyurat_badan_sukan_1' => GeneralLabel::alamat_surat_menyurat_badan_sukan_1,
+            'alamat_surat_menyurat_badan_sukan_2' => GeneralLabel::alamat_surat_menyurat_badan_sukan_2,
+            'alamat_surat_menyurat_badan_sukan_3' => GeneralLabel::alamat_surat_menyurat_badan_sukan_3,
+            'alamat_surat_menyurat_badan_sukan_negeri' => GeneralLabel::alamat_surat_menyurat_badan_sukan_negeri,
+            'alamat_surat_menyurat_badan_sukan_bandar' => GeneralLabel::alamat_surat_menyurat_badan_sukan_bandar,
+            'alamat_surat_menyurat_badan_sukan_poskod' => GeneralLabel::alamat_surat_menyurat_badan_sukan_poskod,
+            'no_telefon_pejabat' => GeneralLabel::no_telefon_pejabat,
+            'no_telefon_pejabat_2' => GeneralLabel::no_telefon_pejabat_2,
+            'no_telefon_pejabat_3' => GeneralLabel::no_telefon_pejabat_3,
+            'no_tel_bimbit' => GeneralLabel::no_tel_bimbit,
+            'no_faks_pejabat' => GeneralLabel::no_faks_pejabat,
+            'emel_badan_sukan' => GeneralLabel::emel_badan_sukan,
+            'pengiktirafan_yang_pernah_diterima_badan_sukan' => GeneralLabel::pengiktirafan_yang_pernah_diterima_badan_sukan,
+
         ];
     }
     

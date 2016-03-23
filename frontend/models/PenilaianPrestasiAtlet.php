@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_penilaian_prestasi_atlet".
  *
@@ -69,22 +71,23 @@ class PenilaianPrestasiAtlet extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'penilaian_prestasi_atlet_id' => 'Penilaian Prestasi Atlet ID',
-            'atlet_id' => 'Atlet',
-            'tahap_kesihatan' => 'Tahap Kesihatan',
-            'tahap_kecederaan' => 'Tahap Kecederaan',
-            'kecederaan_tarikh_mula' => 'Kecederaan Tarikh Mula',
-            'kecederaan_tarikh_tamat' => 'Kecederaan Tarikh Tamat',
-            'ulasan' => 'Ulasan',
-            'tindakan' => 'Tindakan',
-            'tahun_penilaian' => 'Tahun Penilaian',
-            'jadual_latihan' => 'Jadual Latihan',
-            'nama_sukan' => 'Nama Sukan',
-            'nama_acara' => 'Nama Acara',
-            'sasaran' => 'Sasaran',
-            'keputusan' => 'Keputusan',
-            'break_record' => 'Break Record',
-            'maklumat_shakam_shakar' => 'Maklumat Shakam Shakar',
+            'penilaian_prestasi_atlet_id' => GeneralLabel::penilaian_prestasi_atlet_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'tahap_kesihatan' => GeneralLabel::tahap_kesihatan,
+            'tahap_kecederaan' => GeneralLabel::tahap_kecederaan,
+            'kecederaan_tarikh_mula' => GeneralLabel::kecederaan_tarikh_mula,
+            'kecederaan_tarikh_tamat' => GeneralLabel::kecederaan_tarikh_tamat,
+            'ulasan' => GeneralLabel::ulasan,
+            'tindakan' => GeneralLabel::tindakan,
+            'tahun_penilaian' => GeneralLabel::tahun_penilaian,
+            'jadual_latihan' => GeneralLabel::jadual_latihan,
+            'nama_sukan' => GeneralLabel::nama_sukan,
+            'nama_acara' => GeneralLabel::nama_acara,
+            'sasaran' => GeneralLabel::sasaran,
+            'keputusan' => GeneralLabel::keputusan,
+            'break_record' => GeneralLabel::break_record,
+            'maklumat_shakam_shakar' => GeneralLabel::maklumat_shakam_shakar,
+
         ];
     }
     

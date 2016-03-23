@@ -5,6 +5,8 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
+use app\models\general\GeneralLabel;
+
 
 class EKemudahanLaporanKuantitiKemudahan extends Model
 {
@@ -23,9 +25,10 @@ class EKemudahanLaporanKuantitiKemudahan extends Model
     public function attributeLabels()
     {
         return [
-            'negeri' => 'Negeri',
-            'kategori' => 'Kategori',
-            'format' => 'Format',
+            'negeri' => GeneralLabel::negeri,
+            'kategori' => GeneralLabel::kategori,
+            'format' => GeneralLabel::format,
+
         ];
     }
 }

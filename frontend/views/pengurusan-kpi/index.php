@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanKpiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pengurusan KPI';
+$this->title = GeneralLabel::pengurusan_kpi;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-kpi-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kpi']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle .' Pengurusan KPI', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle .' ' . GeneralLabel::pengurusan_kpi, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

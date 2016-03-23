@@ -10,8 +10,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\ProfilWartawanSukan */
 
 //$this->title = $model->profil_wartawan_sukan_id;
-$this->title = GeneralLabel::viewTitle . ' Profil Wartawan Sukan';
-$this->params['breadcrumbs'][] = ['label' => 'Profil Wartawan Sukan', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::profil_wartawan_sukan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::profil_wartawan_sukan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="profil-wartawan-sukan-view">

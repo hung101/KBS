@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_ltbs_ahli_gabungan".
  *
@@ -62,23 +64,24 @@ class LtbsAhliGabungan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'ahli_gabungan_id' => 'Ahli Gabungan ID',
-            'profil_badan_sukan_id' => 'Badan Sukan',
-            'nama_badan_sukan' => 'Nama Badan Sukan',
-            'peringkat_badan_sukan' => 'Peringkat Badan Sukan',
-            'alamat_badan_sukan_1' => 'Alamat Badan Sukan',
-            'alamat_badan_sukan_2' => '',
-            'alamat_badan_sukan_3' => '',
-            'alamat_badan_sukan_negeri' => 'Negeri',
-            'alamat_badan_sukan_bandar' => 'Bandar',
-            'alamat_badan_sukan_poskod' => 'Poskod',
-            'nama_penuh_presiden_badan_sukan' => 'Nama Penuh Presiden Badan Sukan',
-            'no_tel_bimbit_presiden_badan_sukan' => 'No Tel',
-            'emel_presiden_badan_sukan' => 'Emel',
-            'nama_penuh_setiausaha_badan_sukan' => 'Nama Penuh Setiausaha Badan Sukan',
-            'no_tel_bimbit_setiausaha_badan_sukan' => 'No Tel',
-            'emel_setiausaha_badan_sukan' => 'Emel',
-            'status' => 'Status',
+            'ahli_gabungan_id' => GeneralLabel::ahli_gabungan_id,
+            'profil_badan_sukan_id' => GeneralLabel::profil_badan_sukan_id,
+            'nama_badan_sukan' => GeneralLabel::nama_badan_sukan,
+            'peringkat_badan_sukan' => GeneralLabel::peringkat_badan_sukan,
+            'alamat_badan_sukan_1' => GeneralLabel::alamat_badan_sukan_1,
+            'alamat_badan_sukan_2' => GeneralLabel::alamat_badan_sukan_2,
+            'alamat_badan_sukan_3' => GeneralLabel::alamat_badan_sukan_3,
+            'alamat_badan_sukan_negeri' => GeneralLabel::alamat_badan_sukan_negeri,
+            'alamat_badan_sukan_bandar' => GeneralLabel::alamat_badan_sukan_bandar,
+            'alamat_badan_sukan_poskod' => GeneralLabel::alamat_badan_sukan_poskod,
+            'nama_penuh_presiden_badan_sukan' => GeneralLabel::nama_penuh_presiden_badan_sukan,
+            'no_tel_bimbit_presiden_badan_sukan' => GeneralLabel::no_tel_bimbit_presiden_badan_sukan,
+            'emel_presiden_badan_sukan' => GeneralLabel::emel_presiden_badan_sukan,
+            'nama_penuh_setiausaha_badan_sukan' => GeneralLabel::nama_penuh_setiausaha_badan_sukan,
+            'no_tel_bimbit_setiausaha_badan_sukan' => GeneralLabel::no_tel_bimbit_setiausaha_badan_sukan,
+            'emel_setiausaha_badan_sukan' => GeneralLabel::emel_setiausaha_badan_sukan,
+            'status' => GeneralLabel::status,
+
         ];
     }
     

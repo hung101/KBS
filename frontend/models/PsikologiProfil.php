@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_psikologi_profil".
  *
@@ -86,24 +88,25 @@ class PsikologiProfil extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'psikologi_profil_id' => 'Psikologi Profil ID',
-            'nama' => 'Nama',
-            'pangkat' => 'Pangkat',
-            'no_kad_pengenalan' => 'No Kad Pengenalan',
-            'tarikh_lahir' => 'Tarikh Lahir',
-            'jantina' => 'Jantina',
-            'alamat_1' => 'Alamat',
-            'alamat_2' => '',
-            'alamat_3' => '',
-            'alamat_negeri' => 'Negeri',
-            'alamat_bandar' => 'Bandar',
-            'alamat_poskod' => 'Poskod',
-            'no_tel_bimbit' => 'No Tel Bimbit',
-            'emel' => 'Emel',
-            'facebook' => 'Facebook',
-            'muat_naik' => 'Muat Naik',
-            'catatan' => 'Catatan',
-            'pengalaman_pertandingan' => 'Pengalaman Pertandingan',
+            'psikologi_profil_id' => GeneralLabel::psikologi_profil_id,
+            'nama' => GeneralLabel::nama,
+            'pangkat' => GeneralLabel::pangkat,
+            'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
+            'tarikh_lahir' => GeneralLabel::tarikh_lahir,
+            'jantina' => GeneralLabel::jantina,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'no_tel_bimbit' => GeneralLabel::no_tel_bimbit,
+            'emel' => GeneralLabel::emel,
+            'facebook' => GeneralLabel::facebook,
+            'muat_naik' => GeneralLabel::muat_naik,
+            'catatan' => GeneralLabel::catatan,
+            'pengalaman_pertandingan' => GeneralLabel::pengalaman_pertandingan,
+
         ];
     }
     

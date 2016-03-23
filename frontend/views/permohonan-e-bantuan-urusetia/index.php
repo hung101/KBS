@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Urusetia';
+$this->title = GeneralLabel::urusetia;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(GeneralLabel::createTitle . ' Urusetia', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::urusetia, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -44,12 +44,12 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'urusetia_negeri_e_bantuan_desc',
                 'value' => 'refNegeri.desc',
-                'label' => 'Negeri',
+                'label' => GeneralLabel::negeri,
             ],
             [
                 'attribute' => 'urusetia_kategori_program_e_bantuan_desc',
                 'value' => 'refKategoriProgram.desc',
-                'label' => 'Kategori Program',
+                'label' => GeneralLabel::kategori_program,
             ],
 
             //['class' => 'yii\grid\ActionColumn'],

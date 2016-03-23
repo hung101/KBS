@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_atlet_pendidikan".
  *
@@ -82,33 +84,34 @@ class AtletPendidikan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pendidikan_atlet_id' => 'Pendidikan Atlet ID',
-            'atlet_id' => 'Atlet ID',
-            'jenis_peringkatan_pendidikan' => 'Tahap Pendidikan',
-            'kursus' => 'Kursus',
-            'fakulti' => 'Fakulti',
-            'nama' => 'Nama Institusi/Sekolah',
-            'alamat_1' => 'Alamat',
-            'alamat_2' => '',
-            'alamat_3' => '',
-            'alamat_negeri' => 'Negeri',
-            'alamat_bandar' => 'Bandar',
-            'alamat_poskod' => 'Poskod',
-            'no_telefon' => 'No Telefon',
-            'no_faks' => 'No Faks',
-            'tahun_mula' => 'Tahun Mula',
-            'tahun_tamat' => 'Tahun Tamat',
-            'pelajar_id_no' => 'Pelajar Id No',
-            'keputusan_cgpa' => 'Keputusan/CGPA',
-            'biasiswa_tajaan' => 'Biasiswa/Pinjaman',
-            'jenis_biasiswa' => 'Biasiswa',
-            'jumlah_biasiswa' => 'Jumlah',
-            'tahun_mula_biasiswa' => 'Tahun Mula',
-            'tahun_tamat_biasiswa' => 'Tahun Tamat',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
-            'created' => 'Created',
-            'updated' => 'Updated',
+            'pendidikan_atlet_id' => GeneralLabel::pendidikan_atlet_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'jenis_peringkatan_pendidikan' => GeneralLabel::jenis_peringkatan_pendidikan,
+            'kursus' => GeneralLabel::kursus,
+            'fakulti' => GeneralLabel::fakulti,
+            'nama' => GeneralLabel::nama,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'no_telefon' => GeneralLabel::no_telefon,
+            'no_faks' => GeneralLabel::no_faks,
+            'tahun_mula' => GeneralLabel::tahun_mula,
+            'tahun_tamat' => GeneralLabel::tahun_tamat,
+            'pelajar_id_no' => GeneralLabel::pelajar_id_no,
+            'keputusan_cgpa' => GeneralLabel::keputusan_cgpa,
+            'biasiswa_tajaan' => GeneralLabel::biasiswa_tajaan,
+            'jenis_biasiswa' => GeneralLabel::jenis_biasiswa,
+            'jumlah_biasiswa' => GeneralLabel::jumlah_biasiswa,
+            'tahun_mula_biasiswa' => GeneralLabel::tahun_mula_biasiswa,
+            'tahun_tamat_biasiswa' => GeneralLabel::tahun_tamat_biasiswa,
+            'created_by' => GeneralLabel::created_by,
+            'updated_by' => GeneralLabel::updated_by,
+            'created' => GeneralLabel::created,
+            'updated' => GeneralLabel::updated,
+
         ];
     }
     

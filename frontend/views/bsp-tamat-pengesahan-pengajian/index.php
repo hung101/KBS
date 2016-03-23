@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\BspTamatPengesahanPengajianSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pengesahan Tamat Pengajian';
+$this->title = GeneralLabel::pengesahan_tamat_pengajian;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-tamat-pengesahan-pengajian-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(GeneralLabel::createTitle . ' Pengesahan Tamat Pengajian', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::pengesahan_tamat_pengajian, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

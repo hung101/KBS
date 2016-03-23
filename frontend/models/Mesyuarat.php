@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_mesyuarat".
  *
@@ -68,21 +70,22 @@ class Mesyuarat extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'mesyuarat_id' => 'Mesyuarat ID',
-            'nama_mesyuarat' => 'Nama Mesyuarat',
-            'agenda' => 'Agenda',
-            'bil_mesyuarat' => 'Bil Mesyuarat',
-            'tarikh' => 'Tarikh & Masa',
-            'masa' => 'Masa',
-            'tempat' => 'Tempat',
-            'pengurusi' => 'Pengurusi',
-            'pencatat_minit' => 'Pencatat Minit',
-            'perkara_perkara_dan_tindakan' => 'Perkara Perkara Dan Tindakan',
-            'mesyuarat_tamat' => 'Mesyuarat Tamat',
-            'mesyuarat_seterusnya' => 'Mesyuarat Seterusnya',
-            'muat_naik' => 'Muat Naik',
-            'disedia_oleh' => 'Disedia Oleh',
-            'disemak_oleh' => 'Disemak Oleh',
+            'mesyuarat_id' => GeneralLabel::mesyuarat_id,
+            'nama_mesyuarat' => GeneralLabel::nama_mesyuarat,
+            'agenda' => GeneralLabel::agenda,
+            'bil_mesyuarat' => GeneralLabel::bil_mesyuarat,
+            'tarikh' => GeneralLabel::tarikh,
+            'masa' => GeneralLabel::masa,
+            'tempat' => GeneralLabel::tempat,
+            'pengurusi' => GeneralLabel::pengurusi,
+            'pencatat_minit' => GeneralLabel::pencatat_minit,
+            'perkara_perkara_dan_tindakan' => GeneralLabel::perkara_perkara_dan_tindakan,
+            'mesyuarat_tamat' => GeneralLabel::mesyuarat_tamat,
+            'mesyuarat_seterusnya' => GeneralLabel::mesyuarat_seterusnya,
+            'muat_naik' => GeneralLabel::muat_naik,
+            'disedia_oleh' => GeneralLabel::disedia_oleh,
+            'disemak_oleh' => GeneralLabel::disemak_oleh,
+
         ];
     }
 }

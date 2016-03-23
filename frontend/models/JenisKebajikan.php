@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_jenis_kebajikan".
  *
@@ -62,13 +64,14 @@ class JenisKebajikan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'jenis_kebajikan_id' => 'Jenis Kebajikan ID',
-            'jenis_kebajikan' => 'Jenis Kebajikan',
-            'perkara' => 'Perkara',
-            'sukan_sea_para_asean' => 'Sukan SEA/Para Asean (RM)',
-            'sukan_asia_komenwel_para_asia_ead' => 'Sukan Asia/Komenwel/Para Asia/EAD (RM)',
-            'sukan_olimpik_paralimpik' => 'Sukan Olimpik/Paralimpik (RM)',
-            'kejohanan_asia_dunia' => 'Kejohanan Asia/Dunia (RM)',
+            'jenis_kebajikan_id' => GeneralLabel::jenis_kebajikan_id,
+            'jenis_kebajikan' => GeneralLabel::jenis_kebajikan,
+            'perkara' => GeneralLabel::perkara,
+            'sukan_sea_para_asean' => GeneralLabel::sukan_sea_para_asean,
+            'sukan_asia_komenwel_para_asia_ead' => GeneralLabel::sukan_asia_komenwel_para_asia_ead,
+            'sukan_olimpik_paralimpik' => GeneralLabel::sukan_olimpik_paralimpik,
+            'kejohanan_asia_dunia' => GeneralLabel::kejohanan_asia_dunia,
+
         ];
     }
     

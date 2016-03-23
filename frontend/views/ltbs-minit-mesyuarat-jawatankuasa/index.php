@@ -12,7 +12,7 @@ use common\models\general\GeneralFunction;
 /* @var $searchModel app\models\LtbsMinitMesyuaratJawatankuasaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Maklumat Mesyuarat Agung Tahunan';
+$this->title = GeneralLabel::maklumat_mesyuarat_agung_tahunan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ltbs-minit-mesyuarat-jawatankuasa-index">
@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-minit-mesyuarat-jawatankuasa']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Maklumat Mesyuarat Agung Tahunan', ['create', 'profil_badan_sukan_id' => $profil_badan_sukan_id], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::maklumat_mesyuarat_agung_tahunan, ['create', 'profil_badan_sukan_id' => $profil_badan_sukan_id], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

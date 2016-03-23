@@ -6,6 +6,8 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_bsp_prestasi_akademik".
  *
@@ -63,13 +65,14 @@ class BspPrestasiAkademik extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'bsp_prestasi_akademik_id' => 'Bsp Prestasi Akademik ID',
-            'bsp_pemohon_id' => 'Bsp Pemohon ID',
-            'tarikh' => 'Tarikh',
-            'semester' => 'Semester',
-            'png' => 'GPA',
-            'pngk' => 'CGPA',
-            'muat_naik' => 'Muat Naik (Borang Maklumat Terkini Prestasi Akademik Sukan Mengikut Semester)',
+            'bsp_prestasi_akademik_id' => GeneralLabel::bsp_prestasi_akademik_id,
+            'bsp_pemohon_id' => GeneralLabel::bsp_pemohon_id,
+            'tarikh' => GeneralLabel::tarikh,
+            'semester' => GeneralLabel::semester,
+            'png' => GeneralLabel::png,
+            'pngk' => GeneralLabel::pngk,
+            'muat_naik' => GeneralLabel::muat_naik,
+
         ];
     }
     

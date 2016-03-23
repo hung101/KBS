@@ -7,8 +7,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PlDataKlinikal */
 
-$this->title = GeneralLabel::createTitle . ' Data Klinikal';
-$this->params['breadcrumbs'][] = ['label' => 'Data Klinikal', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::data_klinikal;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::data_klinikal, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pl-data-klinikal-create">

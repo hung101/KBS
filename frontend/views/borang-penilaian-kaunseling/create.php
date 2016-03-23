@@ -7,8 +7,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\BorangPenilaianKaunseling */
 
-$this->title = GeneralLabel::createTitle . ' Laporan Sesi Kaunseling';
-$this->params['breadcrumbs'][] = ['label' => 'Laporan Sesi Kaunseling', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::laporan_sesi_kaunseling;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::laporan_sesi_kaunseling, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="borang-penilaian-kaunseling-create">

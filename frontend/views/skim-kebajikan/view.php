@@ -10,8 +10,8 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\SkimKebajikan */
 
 //$this->title = $model->skim_kebajikan_id;
-$this->title = GeneralLabel::viewTitle . ' Skim Kebajikan';
-$this->params['breadcrumbs'][] = ['label' => 'Skim Kebajikan', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::skim_kebajikan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::skim_kebajikan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="skim-kebajikan-view">

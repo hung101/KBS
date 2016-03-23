@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_bsp_penjamin".
  *
@@ -87,32 +89,33 @@ class BspPenjamin extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'bsp_penjamin_id' => 'Bsp Penjamin ID',
-            'bsp_pemohon_id' => 'Bsp Pemohon ID',
-            'nama' => 'Nama',
-            'no_kad_pengenalan' => 'No Kad Pengenalan',
-            'alamat_tetap_1' => 'Alamat Tetap',
-            'alamat_tetap_2' => '',
-            'alamat_tetap_3' => '',
-            'alamat_negeri' => 'Negeri',
-            'alamat_bandar' => 'Bandar',
-            'alamat_poskod' => 'Poskod',
-            'alamat_surat_menyurat_1' => 'Alamat Surat Menyurat',
-            'alamat_surat_menyurat_2' => '',
-            'alamat_surat_menyurat_3' => '',
-            'alamat_surat_menyurat_negeri' => 'Negeri',
-            'alamat_surat_menyurat_bandar' => 'Bandar',
-            'alamat_surat_menyurat_poskod' => 'Poskod',
-            'no_telefon_rumah' => 'No Telefon Rumah',
-            'no_telefon_pejabat' => 'No Telefon Pejabat',
-            'no_telefon_bimbit' => 'No Telefon Bimbit',
-            'email' => 'Email',
-            'alamat_pejabat_1' => 'Alamat Pejabat',
-            'alamat_pejabat_2' => '',
-            'alamat_pejabat_3' => '',
-            'alamat_pejabat_negeri' => 'Negeri',
-            'alamat_pejabat_bandar' => 'Bandar',
-            'alamat_pejabat_poskod' => 'Poskod',
+            'bsp_penjamin_id' => GeneralLabel::bsp_penjamin_id,
+            'bsp_pemohon_id' => GeneralLabel::bsp_pemohon_id,
+            'nama' => GeneralLabel::nama,
+            'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
+            'alamat_tetap_1' => GeneralLabel::alamat_tetap_1,
+            'alamat_tetap_2' => GeneralLabel::alamat_tetap_2,
+            'alamat_tetap_3' => GeneralLabel::alamat_tetap_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'alamat_surat_menyurat_1' => GeneralLabel::alamat_surat_menyurat_1,
+            'alamat_surat_menyurat_2' => GeneralLabel::alamat_surat_menyurat_2,
+            'alamat_surat_menyurat_3' => GeneralLabel::alamat_surat_menyurat_3,
+            'alamat_surat_menyurat_negeri' => GeneralLabel::alamat_surat_menyurat_negeri,
+            'alamat_surat_menyurat_bandar' => GeneralLabel::alamat_surat_menyurat_bandar,
+            'alamat_surat_menyurat_poskod' => GeneralLabel::alamat_surat_menyurat_poskod,
+            'no_telefon_rumah' => GeneralLabel::no_telefon_rumah,
+            'no_telefon_pejabat' => GeneralLabel::no_telefon_pejabat,
+            'no_telefon_bimbit' => GeneralLabel::no_telefon_bimbit,
+            'email' => GeneralLabel::email,
+            'alamat_pejabat_1' => GeneralLabel::alamat_pejabat_1,
+            'alamat_pejabat_2' => GeneralLabel::alamat_pejabat_2,
+            'alamat_pejabat_3' => GeneralLabel::alamat_pejabat_3,
+            'alamat_pejabat_negeri' => GeneralLabel::alamat_pejabat_negeri,
+            'alamat_pejabat_bandar' => GeneralLabel::alamat_pejabat_bandar,
+            'alamat_pejabat_poskod' => GeneralLabel::alamat_pejabat_poskod,
+
         ];
     }
 }

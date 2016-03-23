@@ -7,8 +7,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanMaklumBalasPeserta */
 
-$this->title = GeneralLabel::createTitle . ' Kehadiran Peserta';
-$this->params['breadcrumbs'][] = ['label' => 'Kehadiran Peserta', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::kehadiran_peserta;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kehadiran_peserta, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-maklum-balas-peserta-create">

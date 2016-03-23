@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_biasiswa_atlet".
  *
@@ -62,12 +64,13 @@ class PengurusanBiasiswaAtlet extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_biasiswa_atlet_id' => 'Pengurusan Biasiswa Atlet ID',
-            'atlet_id' => 'Atlet',
-            'tarikh_mula' => 'Tarikh Mula',
-            'tarikh_akhir' => 'Tarikh Akhir',
-            'nama_biasiswa_sponsor' => 'Nama Biasiswa/Sponsor',
-            'jumlah_penajaan' => 'Jumlah Penajaan',
+            'pengurusan_biasiswa_atlet_id' => GeneralLabel::pengurusan_biasiswa_atlet_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'tarikh_mula' => GeneralLabel::tarikh_mula,
+            'tarikh_akhir' => GeneralLabel::tarikh_akhir,
+            'nama_biasiswa_sponsor' => GeneralLabel::nama_biasiswa_sponsor,
+            'jumlah_penajaan' => GeneralLabel::jumlah_penajaan,
+
         ];
     }
     

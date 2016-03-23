@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PengurusanMouMoaAntarabangsa */
 
 //$this->title = $model->pengurusan_mou_moa_antarabangsa_id;
-$this->title = GeneralLabel::viewTitle . ' Pengurusan MOU - MOA Antarabangsa';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan MOU - MOA Antarabangsa', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_mou_moa_antarabangsa;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_mou_moa_antarabangsa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-mou-moa-antarabangsa-view">

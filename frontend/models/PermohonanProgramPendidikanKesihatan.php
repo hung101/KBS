@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_permohonan_program_pendidikan_kesihatan".
  *
@@ -72,16 +74,17 @@ class PermohonanProgramPendidikanKesihatan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'permohonan_program_pendidikan_kesihatan_id' => 'Permohonan Program Pendidikan Kesihatan ID',
-            'nama_program' => 'Nama Program',
-            'tarikh_program' => 'Tarikh Program',
-            'tempat_program' => 'Tempat Program',
-            'nama_pemohon' => 'Nama Pemohon',
-            'no_tel_pemohon' => 'No Tel Pemohon',
-            'pegawai_bertugas' => 'Pegawai Bertugas',
-            'muat_naik' => 'Muat Naik',
-            'kelulusan_ceo' => 'Kelulusan CEO',
-            'kelulusan_pbu' => 'Kelulusan PBU',
+            'permohonan_program_pendidikan_kesihatan_id' => GeneralLabel::permohonan_program_pendidikan_kesihatan_id,
+            'nama_program' => GeneralLabel::nama_program,
+            'tarikh_program' => GeneralLabel::tarikh_program,
+            'tempat_program' => GeneralLabel::tempat_program,
+            'nama_pemohon' => GeneralLabel::nama_pemohon,
+            'no_tel_pemohon' => GeneralLabel::no_tel_pemohon,
+            'pegawai_bertugas' => GeneralLabel::pegawai_bertugas,
+            'muat_naik' => GeneralLabel::muat_naik,
+            'kelulusan_ceo' => GeneralLabel::kelulusan_ceo,
+            'kelulusan_pbu' => GeneralLabel::kelulusan_pbu,
+
         ];
     }
     

@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_farmasi_ubatan".
  *
@@ -62,12 +64,13 @@ class FarmasiUbatan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'farmasi_ubatan_id' => 'Farmasi Ubatan ID',
-            'farmasi_permohonan_ubatan_id' => 'Farmasi Permohonan Ubatan ID',
-            'nama_ubat' => 'Nama Ubat',
-            'size' => 'Size',
-            'kuantiti' => 'Kuantiti',
-            'harga' => 'Harga',
+            'farmasi_ubatan_id' => GeneralLabel::farmasi_ubatan_id,
+            'farmasi_permohonan_ubatan_id' => GeneralLabel::farmasi_permohonan_ubatan_id,
+            'nama_ubat' => GeneralLabel::nama_ubat,
+            'size' => GeneralLabel::size,
+            'kuantiti' => GeneralLabel::kuantiti,
+            'harga' => GeneralLabel::harga,
+
         ];
     }
     

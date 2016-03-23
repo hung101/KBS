@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_ltbs_senarai_nama_hadir_jawatankuasa".
  *
@@ -64,14 +66,15 @@ class LtbsSenaraiNamaHadirJawatankuasa extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'senarai_nama_hadi_id' => 'Senarai Nama Hadi ID',
-            'mesyuarat_id' => 'Mesyuarat ID',
-            'nama_penuh' => 'Nama Penuh',
-            'no_kad_pengenalan' => 'No Kad Pengenalan',
-            'jantina' => 'Jantina',
-            'jawatan' => 'Jawatan',
-            'kategori_keahlian' => 'Kategori Keahlian',
-            'kehadiran' => 'Kehadiran',
+            'senarai_nama_hadi_id' => GeneralLabel::senarai_nama_hadi_id,
+            'mesyuarat_id' => GeneralLabel::mesyuarat_id,
+            'nama_penuh' => GeneralLabel::nama_penuh,
+            'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
+            'jantina' => GeneralLabel::jantina,
+            'jawatan' => GeneralLabel::jawatan,
+            'kategori_keahlian' => GeneralLabel::kategori_keahlian,
+            'kehadiran' => GeneralLabel::kehadiran,
+
         ];
     }
 }

@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_senarai_atlet".
  *
@@ -57,9 +59,10 @@ class SenaraiAtlet extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'senarai_atlet_id' => 'Senarai Atlet ID',
-            'pengurusan_jkk_jkp_program_id' => 'Pengurusan Jkk Jkp Program ID',
-            'atlet' => 'Atlet',
+            'senarai_atlet_id' => GeneralLabel::senarai_atlet_id,
+            'pengurusan_jkk_jkp_program_id' => GeneralLabel::pengurusan_jkk_jkp_program_id,
+            'atlet' => GeneralLabel::atlet,
+
         ];
     }
     

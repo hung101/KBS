@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_maklumat_psk".
  *
@@ -60,11 +62,12 @@ class PengurusanMaklumatPsk extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_maklumat_psk_id' => 'Pengurusan Maklumat Psk ID',
-            'nama_sponsor' => 'Nama Sponsor',
-            'jumlah_sponsor' => 'Jumlah Sponsor',
-            'tarikh_sponsor_mula' => 'Tarikh Sponsor Mula',
-            'tarikh_sponsor_tamat' => 'Tarikh Sponsor Tamat',
+            'pengurusan_maklumat_psk_id' => GeneralLabel::pengurusan_maklumat_psk_id,
+            'nama_sponsor' => GeneralLabel::nama_sponsor,
+            'jumlah_sponsor' => GeneralLabel::jumlah_sponsor,
+            'tarikh_sponsor_mula' => GeneralLabel::tarikh_sponsor_mula,
+            'tarikh_sponsor_tamat' => GeneralLabel::tarikh_sponsor_tamat,
+
         ];
     }
 }

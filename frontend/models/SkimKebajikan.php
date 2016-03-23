@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_skim_kebajikan".
  *
@@ -70,17 +72,18 @@ class SkimKebajikan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'skim_kebajikan_id' => 'Skim Kebajikan ID',
-            'jenis_bantuan_skak' => 'Jenis Bantuan SKAK',
-            'jumlah_bantuan' => 'Jumlah Bantuan',
-            'nama_pemohon' => 'Nama Pemohon',
-            'nama_penerima' => 'Nama Penerima',
-            'jenis_sukan' => 'Jenis Sukan',
-            'masalah_dihadapi' => 'Masalah Dihadapi',
-            'tarikh_kejadian' => 'Tarikh Kejadian',
-            'lokasi_kejadian' => 'Lokasi Kejadian',
-            'jenis_bantuan_lain_yang_diterima' => 'Jenis Bantuan Lain Yang Diterima',
-            'kelulusan' => 'Kelulusan',
+            'skim_kebajikan_id' => GeneralLabel::skim_kebajikan_id,
+            'jenis_bantuan_skak' => GeneralLabel::jenis_bantuan_skak,
+            'jumlah_bantuan' => GeneralLabel::jumlah_bantuan,
+            'nama_pemohon' => GeneralLabel::nama_pemohon,
+            'nama_penerima' => GeneralLabel::nama_penerima,
+            'jenis_sukan' => GeneralLabel::jenis_sukan,
+            'masalah_dihadapi' => GeneralLabel::masalah_dihadapi,
+            'tarikh_kejadian' => GeneralLabel::tarikh_kejadian,
+            'lokasi_kejadian' => GeneralLabel::lokasi_kejadian,
+            'jenis_bantuan_lain_yang_diterima' => GeneralLabel::jenis_bantuan_lain_yang_diterima,
+            'kelulusan' => GeneralLabel::kelulusan,
+
         ];
     }
     

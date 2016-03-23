@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_ref_negara".
  *
@@ -64,16 +66,17 @@ class RefNegara extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'desc' => 'Desc',
-            'kod_1' => 'Kod 1',
-            'kod_2' => 'Kod 2',
-            'kod_3' => 'Kod 3',
-            'aktif' => 'Aktif',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
-            'created' => 'Created',
-            'updated' => 'Updated',
+            'id' => GeneralLabel::id,
+            'desc' => GeneralLabel::desc,
+            'kod_1' => GeneralLabel::kod_1,
+            'kod_2' => GeneralLabel::kod_2,
+            'kod_3' => GeneralLabel::kod_3,
+            'aktif' => GeneralLabel::aktif,
+            'created_by' => GeneralLabel::created_by,
+            'updated_by' => GeneralLabel::updated_by,
+            'created' => GeneralLabel::created,
+            'updated' => GeneralLabel::updated,
+
         ];
     }
 }

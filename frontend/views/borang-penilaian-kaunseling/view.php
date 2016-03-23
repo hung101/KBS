@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\BorangPenilaianKaunseling */
 
 //$this->title = $model->borang_penilaian_kaunseling_id;
-$this->title = GeneralLabel::viewTitle . ' Laporan Sesi Kaunseling';
-$this->params['breadcrumbs'][] = ['label' => 'Laporan Sesi Kaunseling', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::laporan_sesi_kaunseling;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::laporan_sesi_kaunseling, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="borang-penilaian-kaunseling-view">

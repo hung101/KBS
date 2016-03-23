@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_forum_seminar_persidangan_di_luar_negara".
  *
@@ -62,22 +64,23 @@ class ForumSeminarPersidanganDiLuarNegara extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'forum_seminar_persidangan_di_luar_negara_id' => 'Forum Seminar Persidangan Di Luar Negara ID',
-            'nama_pemohon' => 'Nama Pemohon',
-            'jawatan_pemohon' => 'Jawatan Pemohon',
-            'persatuan_pemohon' => 'Persatuan Pemohon',
-            'jenis_program' => 'Jenis Program',
-            'nama' => 'Nama Pemohon',
-            'nama_program' => 'Nama Program',
-            'tarikh' => 'Tarikh',
-            'persatuan' => 'Persatuan',
-            'jawatan' => 'Jawatan',
-            'nama_wakil_persatuan_1' => 'Nama Wakil Persatuan 1',
-            'nama_wakil_persatuan_2' => 'Nama Wakil Persatuan 2',
-            'amaun' => 'Amaun',
-            'negara' => 'Negara',
-            'status_permohonan' => 'Status Permohonan',
-            'catatan' => 'Catatan',
+            'forum_seminar_persidangan_di_luar_negara_id' => GeneralLabel::forum_seminar_persidangan_di_luar_negara_id,
+            'nama_pemohon' => GeneralLabel::nama_pemohon,
+            'jawatan_pemohon' => GeneralLabel::jawatan_pemohon,
+            'persatuan_pemohon' => GeneralLabel::persatuan_pemohon,
+            'jenis_program' => GeneralLabel::jenis_program,
+            'nama' => GeneralLabel::nama,
+            'nama_program' => GeneralLabel::nama_program,
+            'tarikh' => GeneralLabel::tarikh,
+            'persatuan' => GeneralLabel::persatuan,
+            'jawatan' => GeneralLabel::jawatan,
+            'nama_wakil_persatuan_1' => GeneralLabel::nama_wakil_persatuan_1,
+            'nama_wakil_persatuan_2' => GeneralLabel::nama_wakil_persatuan_2,
+            'amaun' => GeneralLabel::amaun,
+            'negara' => GeneralLabel::negara,
+            'status_permohonan' => GeneralLabel::status_permohonan,
+            'catatan' => GeneralLabel::catatan,
+
         ];
     }
     

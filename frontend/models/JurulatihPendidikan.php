@@ -5,6 +5,8 @@ namespace app\models;
 use Yii;
 use app\models\general\GeneralVariable;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_jurulatih_pendidikan".
  *
@@ -63,11 +65,12 @@ class JurulatihPendidikan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'jurulatih_pendidikan_id' => 'Jurulatih Pendidikan ID',
-            'jurulatih_id' => 'Jurulatih ID',
-            'tahun' => 'Tahun',
-            'sekolah_kolej_universiti' => 'Sekolah/Kolej/Universiti',
-            'gred' => 'Gred',
+            'jurulatih_pendidikan_id' => GeneralLabel::jurulatih_pendidikan_id,
+            'jurulatih_id' => GeneralLabel::jurulatih_id,
+            'tahun' => GeneralLabel::tahun,
+            'sekolah_kolej_universiti' => GeneralLabel::sekolah_kolej_universiti,
+            'gred' => GeneralLabel::gred,
+
         ];
     }
 }

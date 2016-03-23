@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_geran_bantuan_gaji".
  *
@@ -76,26 +78,27 @@ class GeranBantuanGaji extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'geran_bantuan_gaji_id' => 'Geran Bantuan Gaji ID',
-            'muatnaik_gambar' => 'Muatnaik Gambar',
-            'nama_jurulatih' => 'Nama Jurulatih',
-            'cawangan' => 'Cawangan',
-            'sub_cawangan' => 'Sub Cawangan',
-            'program_msn' => 'Program Msn',
-            'lain_lain_program' => 'Lain Lain Program',
-            'pusat_latihan' => 'Pusat Latihan',
-            'nama_sukan' => 'Nama Sukan',
-            'nama_acara' => 'Nama Acara',
-            'tarikh_mula' => 'Tarikh Mula',
-            'tarikh_tamat' => 'Tarikh Tamat',
-            'status_jurulatih' => 'Status Jurulatih',
-            'status_permohonan' => 'Status Permohonan',
-            'status_keaktifan_jurulatih' => 'Status Keaktifan Jurulatih',
-            'kategori_geran' => 'Kategori Geran',
-            'jumlah_geran' => 'Jumlah Geran',
-            'status_geran' => 'Status Geran',
-            'kelulusan' => 'Kelulusan',
-            'catatan' => 'Catatan',
+            'geran_bantuan_gaji_id' => GeneralLabel::geran_bantuan_gaji_id,
+            'muatnaik_gambar' => GeneralLabel::muatnaik_gambar,
+            'nama_jurulatih' => GeneralLabel::nama_jurulatih,
+            'cawangan' => GeneralLabel::cawangan,
+            'sub_cawangan' => GeneralLabel::sub_cawangan,
+            'program_msn' => GeneralLabel::program_msn,
+            'lain_lain_program' => GeneralLabel::lain_lain_program,
+            'pusat_latihan' => GeneralLabel::pusat_latihan,
+            'nama_sukan' => GeneralLabel::nama_sukan,
+            'nama_acara' => GeneralLabel::nama_acara,
+            'tarikh_mula' => GeneralLabel::tarikh_mula,
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,
+            'status_jurulatih' => GeneralLabel::status_jurulatih,
+            'status_permohonan' => GeneralLabel::status_permohonan,
+            'status_keaktifan_jurulatih' => GeneralLabel::status_keaktifan_jurulatih,
+            'kategori_geran' => GeneralLabel::kategori_geran,
+            'jumlah_geran' => GeneralLabel::jumlah_geran,
+            'status_geran' => GeneralLabel::status_geran,
+            'kelulusan' => GeneralLabel::kelulusan,
+            'catatan' => GeneralLabel::catatan,
+
         ];
     }
     

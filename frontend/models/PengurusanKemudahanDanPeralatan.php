@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_kemudahan_dan_peralatan".
  *
@@ -62,13 +64,14 @@ class PengurusanKemudahanDanPeralatan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_kemudahan_dan_peralatan_id' => 'Pengurusan Kemudahan Dan Peralatan ID',
-            'kerja' => 'Kerja',
-            'masa' => 'Masa',
-            'catatan_ringkas' => 'Catatan Ringkas',
-            'tindakan_yang_diambil' => 'Tindakan Yang Diambil',
-            'hasil' => 'Hasil',
-            'ketidakpatuhan' => 'Ketidakpatuhan',
+            'pengurusan_kemudahan_dan_peralatan_id' => GeneralLabel::pengurusan_kemudahan_dan_peralatan_id,
+            'kerja' => GeneralLabel::kerja,
+            'masa' => GeneralLabel::masa,
+            'catatan_ringkas' => GeneralLabel::catatan_ringkas,
+            'tindakan_yang_diambil' => GeneralLabel::tindakan_yang_diambil,
+            'hasil' => GeneralLabel::hasil,
+            'ketidakpatuhan' => GeneralLabel::ketidakpatuhan,
+
         ];
     }
     

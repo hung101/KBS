@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_elaporan_pelaksanaan_objektif".
  *
@@ -57,9 +59,10 @@ class ElaporanPelaksanaanObjektif extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'elaporan_pelaksanaan_objektif_id' => 'Elaporan Pelaksanaan Objektif ID',
-            'elaporan_pelaksaan_id' => 'Elaporan Pelaksaan ID',
-            'objektif_pelaksanaan' => 'Objektif Pelaksanaan',
+            'elaporan_pelaksanaan_objektif_id' => GeneralLabel::elaporan_pelaksanaan_objektif_id,
+            'elaporan_pelaksaan_id' => GeneralLabel::elaporan_pelaksaan_id,
+            'objektif_pelaksanaan' => GeneralLabel::objektif_pelaksanaan,
+
         ];
     }
 }

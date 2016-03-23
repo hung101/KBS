@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PsikologiAktiviti */
 
 //$this->title = $model->psikologi_aktiviti_id;
-$this->title = GeneralLabel::viewTitle . ' Aktiviti Psikologi';
-$this->params['breadcrumbs'][] = ['label' => 'Aktiviti Psikologi', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::aktiviti_psikologi;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::aktiviti_psikologi, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="psikologi-aktiviti-view">

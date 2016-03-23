@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\FarmasiPermohonanUbatan */
 
 //$this->title = 'Update Farmasi Permohonan Ubatan: ' . ' ' . $model->farmasi_permohonan_ubatan_id;
-$this->title = GeneralLabel::updateTitle . ' Permohonan Ubatan';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan Ubatan', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Permohonan Ubatan', 'url' => ['view', 'id' => $model->farmasi_permohonan_ubatan_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::permohonan_ubatan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ubatan, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::permohonan_ubatan, 'url' => ['view', 'id' => $model->farmasi_permohonan_ubatan_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="farmasi-permohonan-ubatan-update">

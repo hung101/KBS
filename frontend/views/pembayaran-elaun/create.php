@@ -7,8 +7,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PembayaranElaun */
 
-$this->title = GeneralLabel::createTitle . ' Pembayaran Elaun';
-$this->params['breadcrumbs'][] = ['label' => 'Pembayaran Elaun', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::pembayaran_elaun;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pembayaran_elaun, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pembayaran-elaun-create">

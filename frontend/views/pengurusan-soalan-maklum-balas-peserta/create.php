@@ -1,13 +1,14 @@
 <?php
 
 use yii\helpers\Html;
+use app\models\general\GeneralLabel;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanSoalanMaklumBalasPeserta */
 
 $this->title = 'Tambah Penilaian Prestasi Kejohanan';
-$this->params['breadcrumbs'][] = ['label' => 'Penilaian Prestasi Kejohanan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penilaian_prestasi_kejohanan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-soalan-maklum-balas-peserta-create">

@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_bsp".
  *
@@ -66,26 +68,27 @@ class Bsp extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'bsp_pemohon_id' => 'Bsp Pemohon ID',
-            'atlet_id' => 'Atlet ID',
-            'nama_penerima' => 'Nama Penerima',
-            'no_kad_pengenalan' => 'No Kad Pengenalan',
-            'alamat_1' => 'Alamat 1',
-            'alamat_2' => 'Alamat 2',
-            'alamat_3' => 'Alamat 3',
-            'alamat_negeri' => 'Alamat Negeri',
-            'alamat_bandar' => 'Alamat Bandar',
-            'alamat_poskod' => 'Alamat Poskod',
-            'no_tel_bimbit' => 'No Tel Bimbit',
-            'peringkat_pengajian' => 'Peringkat Pengajian',
-            'bidang_pengajian' => 'Bidang Pengajian',
-            'falkuti_pengajian' => 'Falkuti Pengajian',
-            'ipt' => 'IPT',
-            'tahun_mula_pengajian' => 'Tahun Mula Pengajian',
-            'tahun_tamat_pengajian' => 'Tahun Tamat Pengajian',
-            'tahun_ditawarkan_biasiswa' => 'Tahun Ditawarkan Biasiswa',
-            'kelulusan' => 'Kelulusan',
-            'temuduga_tarikh' => 'Temuduga Tarikh',
+            'bsp_pemohon_id' => GeneralLabel::bsp_pemohon_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'nama_penerima' => GeneralLabel::nama_penerima,
+            'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'no_tel_bimbit' => GeneralLabel::no_tel_bimbit,
+            'peringkat_pengajian' => GeneralLabel::peringkat_pengajian,
+            'bidang_pengajian' => GeneralLabel::bidang_pengajian,
+            'falkuti_pengajian' => GeneralLabel::falkuti_pengajian,
+            'ipt' => GeneralLabel::ipt,
+            'tahun_mula_pengajian' => GeneralLabel::tahun_mula_pengajian,
+            'tahun_tamat_pengajian' => GeneralLabel::tahun_tamat_pengajian,
+            'tahun_ditawarkan_biasiswa' => GeneralLabel::tahun_ditawarkan_biasiswa,
+            'kelulusan' => GeneralLabel::kelulusan,
+            'temuduga_tarikh' => GeneralLabel::temuduga_tarikh,
+
         ];
     }
 }

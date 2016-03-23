@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_elaporan_kewangan_dan_perbelanjaan".
  *
@@ -61,11 +63,12 @@ class ElaporanKewanganDanPerbelanjaan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'elaporan_kewangan_dan_perbelanjaan_id' => 'Elaporan Kewangan Dan Perbelanjaan ID',
-            'elaporan_pelaksaan_id' => 'Elaporan Pelaksaan ID',
-            'program_aktiviti_butir' => 'Program/Aktiviti/Butir',
-            'jenis_kewangan' => 'Jenis Kewangan',
-            'jumlah' => 'Jumlah',
+            'elaporan_kewangan_dan_perbelanjaan_id' => GeneralLabel::elaporan_kewangan_dan_perbelanjaan_id,
+            'elaporan_pelaksaan_id' => GeneralLabel::elaporan_pelaksaan_id,
+            'program_aktiviti_butir' => GeneralLabel::program_aktiviti_butir,
+            'jenis_kewangan' => GeneralLabel::jenis_kewangan,
+            'jumlah' => GeneralLabel::jumlah,
+
         ];
     }
 }

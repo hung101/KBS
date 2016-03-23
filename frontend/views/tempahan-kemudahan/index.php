@@ -11,7 +11,7 @@ use common\models\general\GeneralFunction;
 /* @var $searchModel frontend\models\TempahanKemudahanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tempahan';
+$this->title = GeneralLabel::tempahan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tempahan-kemudahan-index">

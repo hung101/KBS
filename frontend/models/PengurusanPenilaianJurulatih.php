@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_penilaian_jurulatih".
  *
@@ -60,12 +62,13 @@ class PengurusanPenilaianJurulatih extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_penilaian_jurulatih_id' => 'Pengurusan Penilaian Jurulatih ID',
-            'pengurusan_pemantauan_dan_penilaian_jurulatih_id' => 'Pengurusan Pemantauan Dan Penilaian Jurulatih ID',
-            'penilaian_oleh' => 'Penilaian Oleh',
-            'nama' => 'Nama',
-            'tarikh_dinilai' => 'Tarikh Dinilai',
-            'catatan' => 'Catatan',
+            'pengurusan_penilaian_jurulatih_id' => GeneralLabel::pengurusan_penilaian_jurulatih_id,
+            'pengurusan_pemantauan_dan_penilaian_jurulatih_id' => GeneralLabel::pengurusan_pemantauan_dan_penilaian_jurulatih_id,
+            'penilaian_oleh' => GeneralLabel::penilaian_oleh,
+            'nama' => GeneralLabel::nama,
+            'tarikh_dinilai' => GeneralLabel::tarikh_dinilai,
+            'catatan' => GeneralLabel::catatan,
+
         ];
     }
 }

@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_bsp_kedudukan_kewangan_penjamin".
  *
@@ -71,19 +73,20 @@ class BspKedudukanKewanganPenjamin extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'bsp_kedudukan_kewangan_penjamin_id' => 'Bsp Kedudukan Kewangan Penjamin ID',
-            'bsp_penjamin_id' => 'Bsp Penjamin ID',
-            'pendapatan_bulanan' => 'Pendapatan Bulanan (RM)',
-            'pinjaman_perumahan_baki_terkini' => 'Pinjaman Perumahan (baki terkini) (RM)',
-            'sebagai_penjamin_siberhutang' => 'Sebagai Penjamin Siberhutang (jumlah yang sedang dijamin) (RM)',
-            'lain_lain_pinjaman_tanggungan' => 'Lain-lain Pinjaman/Tanggungan (RM)',
-            'perkerjaan' => 'Perkerjaan',
-            'nama_alamat_majikan' => 'Nama/Alamat Majikan',
-            'nama_isteri_suami' => 'Nama Isteri/Suami',
-            'no_kp_isteri_suami' => 'No K/P Isteri/Suami',
-            'jumlah_anak' => 'Jumlah Anak',
-            'pertalian_keluarga_dengan_pelajar' => 'Pertalian Keluarga Dengan Pelajar',
-            'pelajar_lain_selain_daripada_penerima_di_atas' => 'Saya adalah penjamin kepada pelajar berikut (Sekiranya ada menjamin pelajar lain selain daripada penerima di atas)',
+            'bsp_kedudukan_kewangan_penjamin_id' => GeneralLabel::bsp_kedudukan_kewangan_penjamin_id,
+            'bsp_penjamin_id' => GeneralLabel::bsp_penjamin_id,
+            'pendapatan_bulanan' => GeneralLabel::pendapatan_bulanan,
+            'pinjaman_perumahan_baki_terkini' => GeneralLabel::pinjaman_perumahan_baki_terkini,
+            'sebagai_penjamin_siberhutang' => GeneralLabel::sebagai_penjamin_siberhutang,
+            'lain_lain_pinjaman_tanggungan' => GeneralLabel::lain_lain_pinjaman_tanggungan,
+            'perkerjaan' => GeneralLabel::perkerjaan,
+            'nama_alamat_majikan' => GeneralLabel::nama_alamat_majikan,
+            'nama_isteri_suami' => GeneralLabel::nama_isteri_suami,
+            'no_kp_isteri_suami' => GeneralLabel::no_kp_isteri_suami,
+            'jumlah_anak' => GeneralLabel::jumlah_anak,
+            'pertalian_keluarga_dengan_pelajar' => GeneralLabel::pertalian_keluarga_dengan_pelajar,
+            'pelajar_lain_selain_daripada_penerima_di_atas' => GeneralLabel::pelajar_lain_selain_daripada_penerima_di_atas,
+
         ];
     }
 }

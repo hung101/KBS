@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_permohonan_biasiswa".
  *
@@ -86,35 +88,36 @@ class PermohonanBiasiswa extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'permohonan_biasiswa_id' => 'Permohonan Biasiswa ID',
-            'sukan' => 'Sukan',
-            'nama_institusi_pengajian' => 'Nama Institusi Pengajian',
-            'tarikh_mula_pengajian' => 'Tarikh Mula Pengajian',
-            'tarikh_tamat_pengajian' => 'Tarikh Tamat Pengajian',
-            'nama_program_pengajian' => 'Nama Program Pengajian',
-            'atlet_id' => 'Atlet',
-            'no_ic' => 'No IC',
-            'umur' => 'Umur',
-            'jantina' => 'Jantina',
-            'alamat_rumah_1' => 'Alamat Rumah',
-            'alamat_rumah_2' => '',
-            'alamat_rumah_3' => '',
-            'alamat_rumah_negeri' => 'Negeri',
-            'alamat_rumah_bandar' => 'Bandar',
-            'alamat_rumah_poskod' => 'Poskod',
-            'no_tel_rumah' => 'No Tel Rumah',
-            'no_tel_bimbit' => 'No Tel Bimbit',
-            'alamat_pengajian_1' => 'Alamat Pengajian',
-            'alamat_pengajian_2' => '',
-            'alamat_pengajian_3' => '',
-            'alamat_pengajian_negeri' => 'Negeri',
-            'alamat_pengajian_bandar' => 'Bandar',
-            'alamat_pengajian_poskod' => 'Poskod',
-            'no_tel_pengajian' => 'No Tel Pengajian',
-            'no_fax_pengajian' => 'No Fax Pengajian',
-            'jenis_biasiswa' => 'Jenis Biasiswa',
-            'muatnaik' => 'Muatnaik',
-            'kelulusan' => 'Kelulusan',
+            'permohonan_biasiswa_id' => GeneralLabel::permohonan_biasiswa_id,
+            'sukan' => GeneralLabel::sukan,
+            'nama_institusi_pengajian' => GeneralLabel::nama_institusi_pengajian,
+            'tarikh_mula_pengajian' => GeneralLabel::tarikh_mula_pengajian,
+            'tarikh_tamat_pengajian' => GeneralLabel::tarikh_tamat_pengajian,
+            'nama_program_pengajian' => GeneralLabel::nama_program_pengajian,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'no_ic' => GeneralLabel::no_ic,
+            'umur' => GeneralLabel::umur,
+            'jantina' => GeneralLabel::jantina,
+            'alamat_rumah_1' => GeneralLabel::alamat_rumah_1,
+            'alamat_rumah_2' => GeneralLabel::alamat_rumah_2,
+            'alamat_rumah_3' => GeneralLabel::alamat_rumah_3,
+            'alamat_rumah_negeri' => GeneralLabel::alamat_rumah_negeri,
+            'alamat_rumah_bandar' => GeneralLabel::alamat_rumah_bandar,
+            'alamat_rumah_poskod' => GeneralLabel::alamat_rumah_poskod,
+            'no_tel_rumah' => GeneralLabel::no_tel_rumah,
+            'no_tel_bimbit' => GeneralLabel::no_tel_bimbit,
+            'alamat_pengajian_1' => GeneralLabel::alamat_pengajian_1,
+            'alamat_pengajian_2' => GeneralLabel::alamat_pengajian_2,
+            'alamat_pengajian_3' => GeneralLabel::alamat_pengajian_3,
+            'alamat_pengajian_negeri' => GeneralLabel::alamat_pengajian_negeri,
+            'alamat_pengajian_bandar' => GeneralLabel::alamat_pengajian_bandar,
+            'alamat_pengajian_poskod' => GeneralLabel::alamat_pengajian_poskod,
+            'no_tel_pengajian' => GeneralLabel::no_tel_pengajian,
+            'no_fax_pengajian' => GeneralLabel::no_fax_pengajian,
+            'jenis_biasiswa' => GeneralLabel::jenis_biasiswa,
+            'muatnaik' => GeneralLabel::muatnaik,
+            'kelulusan' => GeneralLabel::kelulusan,
+
         ];
     }
     

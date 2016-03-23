@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PengurusanJkkJkpBajet */
 
 //$this->title = $model->pengurusan_jkk_jkp_bajet_id;
-$this->title = GeneralLabel::viewTitle . ' Pengurusan JKK/JKP Bajet';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan JKK/JKP Bajet', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_jkkjkp_bajet;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_jkkjkp_bajet, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-jkk-jkp-bajet-view">

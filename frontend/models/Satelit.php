@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_satelit".
  *
@@ -62,12 +64,13 @@ class Satelit extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'satelit_id' => 'Satelit ID',
-            'atlet_id' => 'Atlet',
-            'tarikh' => 'Tarikh',
-            'sukan' => 'Sukan',
-            'perkhidmatan' => 'Perkhidmatan',
-            'fasiliti' => 'Fasiliti',
+            'satelit_id' => GeneralLabel::satelit_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'tarikh' => GeneralLabel::tarikh,
+            'sukan' => GeneralLabel::sukan,
+            'perkhidmatan' => GeneralLabel::perkhidmatan,
+            'fasiliti' => GeneralLabel::fasiliti,
+
         ];
     }
     

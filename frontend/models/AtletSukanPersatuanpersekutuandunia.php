@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_atlet_sukan_persatuanpersekutuandunia".
  *
@@ -65,19 +67,20 @@ class AtletSukanPersatuanpersekutuandunia extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'persatuan_persekutuan_dunia_id' => 'Persatuan Persekutuan Dunia ID',
-            'atlet_id' => 'Atlet ID',
-            'jenis' => 'Jenis',
-            'name_persatuan_persekutuan_dunia' => 'Nama Persatuan / Persekutuan Dunia',
-            'alamat_1' => 'Alamat',
-            'alamat_2' => '',
-            'alamat_3' => '',
-            'alamat_negeri' => 'Negeri',
-            'alamat_bandar' => 'Bandar',
-            'alamat_poskod' => 'Poskod',
-            'no_telefon' => 'No Telefon',
-            'emel' => 'Emel',
-            'laman_web' => 'Laman Web',
+            'persatuan_persekutuan_dunia_id' => GeneralLabel::persatuan_persekutuan_dunia_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'jenis' => GeneralLabel::jenis,
+            'name_persatuan_persekutuan_dunia' => GeneralLabel::name_persatuan_persekutuan_dunia,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'no_telefon' => GeneralLabel::no_telefon,
+            'emel' => GeneralLabel::emel,
+            'laman_web' => GeneralLabel::laman_web,
+
         ];
     }
     

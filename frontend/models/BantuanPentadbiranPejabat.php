@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_bantuan_pentadbiran_pejabat".
  *
@@ -74,26 +76,27 @@ class BantuanPentadbiranPejabat extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'bantuan_pentadbiran_pejabat_id' => 'Bantuan Pentadbiran Pejabat ID',
-            'nama' => 'Nama Permohon',
-            'jawatan' => 'Jawatan',
-            'persatuan' => 'Persatuan',
-            'tarikh' => 'Tarikh',
-            'nama_sue' => 'Nama SUE',
-            'no_kad_pengenalan' => 'No Kad Pengenalan',
-            'tarikh_lahir' => 'Tarikh Lahir',
-            'alamat_1' => 'Alamat Persatuan',
-            'alamat_2' => '',
-            'alamat_3' => '',
-            'alamat_negeri' => 'Negeri',
-            'alamat_bandar' => 'Bandar',
-            'alamat_poskod' => 'Poskod',
-            'no_tel_bimbit' => 'No Tel',
-            'no_faks' => 'No Tel',
-            'emel' => 'Emel',
-            'jumlah_dipohon' => 'Jumlah Dipohon',
-            'status_permohonan' => 'Status Permohonan',
-            'catatan' => 'Catatan',
+            'bantuan_pentadbiran_pejabat_id' => GeneralLabel::bantuan_pentadbiran_pejabat_id,
+            'nama' => GeneralLabel::nama,
+            'jawatan' => GeneralLabel::jawatan,
+            'persatuan' => GeneralLabel::persatuan,
+            'tarikh' => GeneralLabel::tarikh,
+            'nama_sue' => GeneralLabel::nama_sue,
+            'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
+            'tarikh_lahir' => GeneralLabel::tarikh_lahir,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'no_tel_bimbit' => GeneralLabel::no_tel_bimbit,
+            'no_faks' => GeneralLabel::no_faks,
+            'emel' => GeneralLabel::emel,
+            'jumlah_dipohon' => GeneralLabel::jumlah_dipohon,
+            'status_permohonan' => GeneralLabel::status_permohonan,
+            'catatan' => GeneralLabel::catatan,
+
         ];
     }
     

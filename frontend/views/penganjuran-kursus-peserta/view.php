@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->penganjuran_kursus_peserta_id;
 $this->title = GeneralLabel::viewTitle . ' Penganjuran Kursus Peserta';
-$this->params['breadcrumbs'][] = ['label' => 'Penganjuran Kursus : Senarai Peserta', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penganjuran_kursus_senarai_peserta, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="penganjuran-kursus-peserta-view">

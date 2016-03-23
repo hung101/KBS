@@ -5,6 +5,8 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
+use app\models\general\GeneralLabel;
+
 
 class PjsLaporanAhliJawatankuasaInduk extends Model
 {
@@ -27,11 +29,12 @@ class PjsLaporanAhliJawatankuasaInduk extends Model
     public function attributeLabels()
     {
         return [
-            'bangsa' => 'Bangsa',
-            'jantina' => 'Jantina',
-            'umur_dari' => 'Umur Dari',
-            'umur_hingga' => 'Hingga',
-            'format' => 'Format',
+            'bangsa' => GeneralLabel::bangsa,
+            'jantina' => GeneralLabel::jantina,
+            'umur_dari' => GeneralLabel::umur_dari,
+            'umur_hingga' => GeneralLabel::umur_hingga,
+            'format' => GeneralLabel::format,
+
         ];
     }
 }

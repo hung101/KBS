@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_permohonan_e_bantuan_senarai_aktiviti_projek".
  *
@@ -61,11 +63,12 @@ class PermohonanEBantuanSenaraiAktivitiProjek extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'senarai_aktiviti_projek_id' => 'Senarai Aktiviti Projek ID',
-            'permohonan_e_bantuan_id' => 'Permohonan E Bantuan ID',
-            'nama_aktiviti_projek' => 'Nama Aktiviti / Projek',
-            'keterangan_ringkas' => 'Keterangan Ringkas',
-            'kejayaan_yang_dicapai' => 'Kejayaan Yang Dicapai',
+            'senarai_aktiviti_projek_id' => GeneralLabel::senarai_aktiviti_projek_id,
+            'permohonan_e_bantuan_id' => GeneralLabel::permohonan_e_bantuan_id,
+            'nama_aktiviti_projek' => GeneralLabel::nama_aktiviti_projek,
+            'keterangan_ringkas' => GeneralLabel::keterangan_ringkas,
+            'kejayaan_yang_dicapai' => GeneralLabel::kejayaan_yang_dicapai,
+
         ];
     }
 }

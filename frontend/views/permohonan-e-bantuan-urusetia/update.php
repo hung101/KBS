@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\BspBendahariIpt */
 
 //$this->title = 'Update Bsp Bendahari Ipt: ' . ' ' . $model->bsp_bendahari_ipt_id;
-$this->title = GeneralLabel::updateTitle . ' Urusetia';
-$this->params['breadcrumbs'][] = ['label' => 'Urusetia', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Urusetia', 'url' => ['view', 'id' => $model->id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::urusetia;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::urusetia, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::urusetia, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-e-bantuan-urusetia-update">

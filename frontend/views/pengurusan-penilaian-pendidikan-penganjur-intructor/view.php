@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PengurusanPenilaianPendidikanPenganjurIntructor */
 
 //$this->title = $model->pengurusan_penilaian_pendidikan_penganjur_intructor_id;
-$this->title = GeneralLabel::viewTitle . ' Pengurusan Penilaian Pendidikan Penganjur/Intructor';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Penilaian Pendidikan Penganjur/Intructor', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_penilaian_pendidikan_penganjurintructor;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_penilaian_pendidikan_penganjurintructor, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-penilaian-pendidikan-penganjur-intructor-view">

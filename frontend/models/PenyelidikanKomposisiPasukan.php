@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_penyelidikan_komposisi_pasukan".
  *
@@ -74,20 +76,21 @@ class PenyelidikanKomposisiPasukan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'penyelidikan_komposisi_pasukan_id' => 'Penyelidikan Komposisi Pasukan ID',
-            'permohonana_penyelidikan_id' => 'Permohonana Penyelidikan ID',
-            'nama' => 'Nama',
-            'pasukan' => 'Pasukan',
-            'jawatan' => 'Jawatan',
-            'telefon_no' => 'Telefon No',
-            'emel' => 'Emel',
-            'alamat_1' => 'Alamat',
-            'alamat_2' => '',
-            'alamat_3' => '',
-            'alamat_negeri' => 'Negeri',
-            'alamat_bandar' => 'Bandar',
-            'alamat_poskod' => 'Poskod',
-            'institusi_universiti_syarikat' => 'Institusi/Universiti/Syarikat',
+            'penyelidikan_komposisi_pasukan_id' => GeneralLabel::penyelidikan_komposisi_pasukan_id,
+            'permohonana_penyelidikan_id' => GeneralLabel::permohonana_penyelidikan_id,
+            'nama' => GeneralLabel::nama,
+            'pasukan' => GeneralLabel::pasukan,
+            'jawatan' => GeneralLabel::jawatan,
+            'telefon_no' => GeneralLabel::telefon_no,
+            'emel' => GeneralLabel::emel,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'institusi_universiti_syarikat' => GeneralLabel::institusi_universiti_syarikat,
+
         ];
     }
     

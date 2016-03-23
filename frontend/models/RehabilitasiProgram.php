@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_rehabilitasi_program".
  *
@@ -59,10 +61,11 @@ class RehabilitasiProgram extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'rehabilitasi_program_id' => 'Rehabilitasi Program ID',
-            'rehabilitasi_id' => 'Rehabilitasi ID',
-            'tarikh' => 'Tarikh',
-            'nama_exercise_modality' => 'Nama Exercise/Modality',
+            'rehabilitasi_program_id' => GeneralLabel::rehabilitasi_program_id,
+            'rehabilitasi_id' => GeneralLabel::rehabilitasi_id,
+            'tarikh' => GeneralLabel::tarikh,
+            'nama_exercise_modality' => GeneralLabel::nama_exercise_modality,
+
         ];
     }
 }

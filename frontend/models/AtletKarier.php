@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_atlet_karier".
  *
@@ -81,30 +83,31 @@ class AtletKarier extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'karier_atlet_id' => 'Karier Atlet ID',
-            'atlet_id' => 'Atlet ID',
-            'syarikat' => 'Syarikat',
-            'alamat_1' => 'Alamat',
-            'alamat_2' => '',
-            'alamat_3' => '',
-            'alamat_negeri' => 'Negeri',
-            'alamat_bandar' => 'Bandar',
-            'alamat_poskod' => 'Poskod',
-            'laman_web' => 'Laman Web',
-            'tel_no' => 'No Tel',
-            'faks_no' => 'No Faks',
-            'emel' => 'Emel',
-            'jawatan_kerja' => 'Jawatan',
-            'pendapatan' => 'Pendapatan',
-            'tahun_mula' => 'Tahun Mula',
-            'tahun_tamat' => 'Tahun Tamat',
-            'socso_no' => 'No Perkeso',
-            'kwsp_no' => 'No KWSP',
-            'income_tax_no' => 'No Cukai Pendapatan',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
-            'created' => 'Created',
-            'updated' => 'Updated',
+            'karier_atlet_id' => GeneralLabel::karier_atlet_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'syarikat' => GeneralLabel::syarikat,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'laman_web' => GeneralLabel::laman_web,
+            'tel_no' => GeneralLabel::tel_no,
+            'faks_no' => GeneralLabel::faks_no,
+            'emel' => GeneralLabel::emel,
+            'jawatan_kerja' => GeneralLabel::jawatan_kerja,
+            'pendapatan' => GeneralLabel::pendapatan,
+            'tahun_mula' => GeneralLabel::tahun_mula,
+            'tahun_tamat' => GeneralLabel::tahun_tamat,
+            'socso_no' => GeneralLabel::socso_no,
+            'kwsp_no' => GeneralLabel::kwsp_no,
+            'income_tax_no' => GeneralLabel::income_tax_no,
+            'created_by' => GeneralLabel::created_by,
+            'updated_by' => GeneralLabel::updated_by,
+            'created' => GeneralLabel::created,
+            'updated' => GeneralLabel::updated,
+
         ];
     }
 }
