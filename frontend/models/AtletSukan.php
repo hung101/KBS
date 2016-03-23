@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_atlet_sukan".
  *
@@ -65,20 +67,21 @@ class AtletSukan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'sukan_id' => 'Sukan ID',
-            'atlet_id' => 'Atlet ID',
-            'jurulatih_id' => 'Jurulatih',
-            'nama_sukan' => 'Sukan',
-            'acara' => 'Acara',
-            'tahun_umur_permulaan' => 'Umur Mula Menceburi Sukan',
-            'tarikh_mula_menyertai_program_msn' => 'Tarikh Mula Menyertai Program MSN',
-            'tarikh_tamat_menyertai_program_msn' => 'Tarikh Tamat Menyertai Program MSN',
-            'cawangan' => 'Cawangan',
-            'program_semasa' => 'Program Semasa',
-            'no_lesen_sukan' => 'No Lesen Sukan',
-            'atlet_persekutuan_dunia_id' => 'ID Atlet Persekutuan Dunia',
-            'negeri_diwakili' => 'Negeri Diwakili',
-            'status' => 'Status'
+            'sukan_id' => GeneralLabel::sukan_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'jurulatih_id' => GeneralLabel::jurulatih_id,
+            'nama_sukan' => GeneralLabel::nama_sukan,
+            'acara' => GeneralLabel::acara,
+            'tahun_umur_permulaan' => GeneralLabel::tahun_umur_permulaan,
+            'tarikh_mula_menyertai_program_msn' => GeneralLabel::tarikh_mula_menyertai_program_msn,
+            'tarikh_tamat_menyertai_program_msn' => GeneralLabel::tarikh_tamat_menyertai_program_msn,
+            'cawangan' => GeneralLabel::cawangan,
+            'program_semasa' => GeneralLabel::program_semasa,
+            'no_lesen_sukan' => GeneralLabel::no_lesen_sukan,
+            'atlet_persekutuan_dunia_id' => GeneralLabel::atlet_persekutuan_dunia_id,
+            'negeri_diwakili' => GeneralLabel::negeri_diwakili,
+            'status' => GeneralLabel::status,
+
         ];
     }
     

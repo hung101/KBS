@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_ujian_saringan".
  *
@@ -85,6 +87,7 @@ class UjianSaringan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+<<<<<<< HEAD
             'ujian_saringan_id' => 'Ujian Saringan ID',
             'nama' => 'Nama',
             'sekolah' => 'Sekolah',
@@ -109,6 +112,27 @@ class UjianSaringan extends \yii\db\ActiveRecord
             'sukan' => 'Sukan',
             'tarikh_lahir' => 'Tarikh Lahir',
             'maklumat_program' => 'Maklumat Program',
+=======
+            'ujian_saringan_id' => GeneralLabel::ujian_saringan_id,
+            'nama' => GeneralLabel::nama,
+            'sekolah' => GeneralLabel::sekolah,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'jantina' => GeneralLabel::jantina,
+            'no_telefon' => GeneralLabel::no_telefon,
+            'darjah' => GeneralLabel::darjah,
+            'berat_badan' => GeneralLabel::berat_badan,
+            'ketinggian' => GeneralLabel::ketinggian,
+            'tinggi_duduk' => GeneralLabel::tinggi_duduk,
+            'panjang_depa' => GeneralLabel::panjang_depa,
+            'body_mass_index' => GeneralLabel::body_mass_index,
+            'catatan' => GeneralLabel::catatan,
+
+>>>>>>> c7c89dfafdb9ae6b57129d667645eaed0d1c524d
         ];
     }
     

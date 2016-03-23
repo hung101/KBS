@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_penganjuran_kursus_peserta".
  *
@@ -119,6 +121,7 @@ class PenganjuranKursusPeserta extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+<<<<<<< HEAD
             'penganjuran_kursus_peserta_id' => 'Penganjuran Kursus Peserta ID',
             'kategori_kursus' => 'Kategori Kursus',
             'nama_kursus' => 'Nama Kursus',
@@ -169,6 +172,58 @@ class PenganjuranKursusPeserta extends \yii\db\ActiveRecord
             'dokumen_lampiran' => 'Dokumen Lampiran',
             'kelulusan' => 'Kelulusan',
             'no_lesen' => 'No Lesen',
+=======
+            'penganjuran_kursus_peserta_id' => GeneralLabel::penganjuran_kursus_peserta_id,
+            'kategori_kursus' => GeneralLabel::kategori_kursus,
+            'nama_kursus' => GeneralLabel::nama_kursus,
+            'kod_kursus' => GeneralLabel::kod_kursus,
+            'tarikh' => GeneralLabel::tarikh,
+            'tempat' => GeneralLabel::tempat,
+            'yuran' => GeneralLabel::yuran,
+            'nama_penuh' => GeneralLabel::nama_penuh,
+            'muatnaik_gambar' => GeneralLabel::muatnaik_gambar,
+            'jantina' => GeneralLabel::jantina,
+            'taraf_perkahwinan' => GeneralLabel::taraf_perkahwinan,
+            'no_passport' => GeneralLabel::no_passport,
+            'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
+            'no_kp_polis_tentera' => GeneralLabel::no_kp_polis_tentera,
+            'kaum' => GeneralLabel::kaum,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'no_tel_bimbit' => GeneralLabel::no_tel_bimbit,
+            'no_tel_rumah' => GeneralLabel::no_tel_rumah,
+            'emel' => GeneralLabel::emel,
+            'pekerjaan' => GeneralLabel::pekerjaan,
+            'nama_majikan' => GeneralLabel::nama_majikan,
+            'alamat_majikan_1' => GeneralLabel::alamat_majikan_1,
+            'alamat_majikan_2' => GeneralLabel::alamat_majikan_2,
+            'alamat_majikan_3' => GeneralLabel::alamat_majikan_3,
+            'alamat_majikan_negeri' => GeneralLabel::alamat_majikan_negeri,
+            'alamat_majikan_bandar' => GeneralLabel::alamat_majikan_bandar,
+            'alamat_majikan_poskod' => GeneralLabel::alamat_majikan_poskod,
+            'no_tel_majikan' => GeneralLabel::no_tel_majikan,
+            'no_faks_majikan' => GeneralLabel::no_faks_majikan,
+            'kelulusan_akademi' => GeneralLabel::kelulusan_akademi,
+            'nama_kelulusan' => GeneralLabel::nama_kelulusan,
+            'kelulusan_sukan_spesifik' => GeneralLabel::kelulusan_sukan_spesifik,
+            'nama_sukan_akademi' => GeneralLabel::nama_sukan_akademi,
+            'kelulusan_sains_sukan' => GeneralLabel::kelulusan_sains_sukan,
+            'sijil_spkk_msn' => GeneralLabel::sijil_spkk_msn,
+            'lesen_kejurulatihan_msn' => GeneralLabel::lesen_kejurulatihan_msn,
+            'status_jurulatih' => GeneralLabel::status_jurulatih,
+            'lantikan' => GeneralLabel::lantikan,
+            'nama_sukan_jurulatih' => GeneralLabel::nama_sukan_jurulatih,
+            'tahun_berkhidmat_mula' => GeneralLabel::tahun_berkhidmat_mula,
+            'tahun_berkhidmat_tamat' => GeneralLabel::tahun_berkhidmat_tamat,
+            'pencapaian' => GeneralLabel::pencapaian,
+            'dokumen_lampiran' => GeneralLabel::dokumen_lampiran,
+            'kelulusan' => GeneralLabel::kelulusan,
+
+>>>>>>> c7c89dfafdb9ae6b57129d667645eaed0d1c524d
         ];
     }
     

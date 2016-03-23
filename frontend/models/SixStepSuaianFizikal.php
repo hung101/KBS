@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_six_step".
  *
@@ -62,6 +64,7 @@ class SixStepSuaianFizikal extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+<<<<<<< HEAD
             'six_step_id' => 'Six Step ID',
             'atlet_id' => 'Atlet',
             'kategori_atlet' => 'Kategori Atlet',
@@ -70,6 +73,16 @@ class SixStepSuaianFizikal extends \yii\db\ActiveRecord
             'stage' => 'Stage',
             'status' => 'Status',
             'muat_naik' => 'Muat Naik',
+=======
+            'six_step_id' => GeneralLabel::six_step_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'kategori_atlet' => GeneralLabel::kategori_atlet,
+            'sukan' => GeneralLabel::sukan,
+            'acara' => GeneralLabel::acara,
+            'stage' => GeneralLabel::stage,
+            'status' => GeneralLabel::status,
+
+>>>>>>> c7c89dfafdb9ae6b57129d667645eaed0d1c524d
         ];
     }
     
