@@ -87,32 +87,6 @@ class UjianSaringan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-<<<<<<< HEAD
-            'ujian_saringan_id' => 'Ujian Saringan ID',
-            'nama' => 'Nama',
-            'sekolah' => 'Sekolah',
-            'alamat_1' => 'Alamat',
-            'alamat_2' => '',
-            'alamat_3' => '',
-            'alamat_negeri' => 'Negeri',
-            'alamat_bandar' => 'Bandar',
-            'alamat_poskod' => 'Poskod',
-            'jantina' => 'Jantina',
-            'no_telefon' => 'No Telefon',
-            'darjah' => 'Darjah',
-            'berat_badan' => 'Berat Badan (kg)',
-            'ketinggian' => 'Ketinggian (cm)',
-            'tinggi_duduk' => 'Tinggi Duduk (cm)',
-            'panjang_depa' => 'Panjang Depa (cm)',
-            'body_mass_index' => 'Body Mass Index (m)',
-            'catatan' => 'Catatan',
-            'no_kad_pengenalan' => 'No Kad Pengenalan',
-            'umur' => 'Umur',
-            'bangsa' => 'Bangsa',
-            'sukan' => 'Sukan',
-            'tarikh_lahir' => 'Tarikh Lahir',
-            'maklumat_program' => 'Maklumat Program',
-=======
             'ujian_saringan_id' => GeneralLabel::ujian_saringan_id,
             'nama' => GeneralLabel::nama,
             'sekolah' => GeneralLabel::sekolah,
@@ -131,8 +105,6 @@ class UjianSaringan extends \yii\db\ActiveRecord
             'panjang_depa' => GeneralLabel::panjang_depa,
             'body_mass_index' => GeneralLabel::body_mass_index,
             'catatan' => GeneralLabel::catatan,
-
->>>>>>> c7c89dfafdb9ae6b57129d667645eaed0d1c524d
         ];
     }
     

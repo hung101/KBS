@@ -61,18 +61,10 @@ class PendaftaranGym extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-<<<<<<< HEAD
-            'pendaftaran_gym_id' => 'Pendaftaran Gym ID',
-            'atlet_id' => 'Atlet',
-            'tarikh' => 'Tarikh & Masa',
-            'sukan' => 'Sukan',
-=======
             'pendaftaran_gym_id' => GeneralLabel::pendaftaran_gym_id,
             'atlet_id' => GeneralLabel::atlet_id,
             'tarikh' => GeneralLabel::tarikh,
             'sukan' => GeneralLabel::sukan,
-
->>>>>>> c7c89dfafdb9ae6b57129d667645eaed0d1c524d
         ];
     }
     

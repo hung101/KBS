@@ -64,16 +64,6 @@ class SixStepSuaianFizikal extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-<<<<<<< HEAD
-            'six_step_id' => 'Six Step ID',
-            'atlet_id' => 'Atlet',
-            'kategori_atlet' => 'Kategori Atlet',
-            'sukan' => 'Sukan',
-            'acara' => 'Acara',
-            'stage' => 'Stage',
-            'status' => 'Status',
-            'muat_naik' => 'Muat Naik',
-=======
             'six_step_id' => GeneralLabel::six_step_id,
             'atlet_id' => GeneralLabel::atlet_id,
             'kategori_atlet' => GeneralLabel::kategori_atlet,
@@ -81,8 +71,6 @@ class SixStepSuaianFizikal extends \yii\db\ActiveRecord
             'acara' => GeneralLabel::acara,
             'stage' => GeneralLabel::stage,
             'status' => GeneralLabel::status,
-
->>>>>>> c7c89dfafdb9ae6b57129d667645eaed0d1c524d
         ];
     }
     
