@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_paobs_penganjuran".
  *
@@ -77,24 +79,25 @@ class PaobsPenganjuran extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'penganjuran_id' => 'Penganjuran ID',
-            'nama_aktiviti' => 'Nama Aktiviti',
-            'jenis_sukan' => 'Jenis Sukan',
-            'peringkat_sukan' => 'Peringkat Sukan',
-            'tarikh_aktiviti' => 'Tarikh Aktiviti',
-            'alamat_lokasi_1' => 'Alamat Lokasi',
-            'alamat_lokasi_2' => '',
-            'alamat_lokasi_3' => '',
-            'alamat_lokasi_negeri' => 'Negeri',
-            'alamat_lokasi_bandar' => 'Bandar',
-            'alamat_lokasi_poskod' => 'Poskod',
-            'pemilik_lokasi' => 'Pemilik Lokasi',
-            'bilangan_peserta' => 'Bilangan Peserta',
-            'negara_peserta' => 'Negara Peserta',
-            'kos_aktiviti' => 'Kos Aktiviti',
-            'sumber_kewangan' => 'Sumber Kewangan',
-            'surat_sokongan' => 'Surat Sokongan/Sanksi Dari Badan Antarabangsa',
-            'laporan_penganjuran' => 'Laporan Penganjuran',
+            'penganjuran_id' => GeneralLabel::penganjuran_id,
+            'nama_aktiviti' => GeneralLabel::nama_aktiviti,
+            'jenis_sukan' => GeneralLabel::jenis_sukan,
+            'peringkat_sukan' => GeneralLabel::peringkat_sukan,
+            'tarikh_aktiviti' => GeneralLabel::tarikh_aktiviti,
+            'alamat_lokasi_1' => GeneralLabel::alamat_lokasi_1,
+            'alamat_lokasi_2' => GeneralLabel::alamat_lokasi_2,
+            'alamat_lokasi_3' => GeneralLabel::alamat_lokasi_3,
+            'alamat_lokasi_negeri' => GeneralLabel::alamat_lokasi_negeri,
+            'alamat_lokasi_bandar' => GeneralLabel::alamat_lokasi_bandar,
+            'alamat_lokasi_poskod' => GeneralLabel::alamat_lokasi_poskod,
+            'pemilik_lokasi' => GeneralLabel::pemilik_lokasi,
+            'bilangan_peserta' => GeneralLabel::bilangan_peserta,
+            'negara_peserta' => GeneralLabel::negara_peserta,
+            'kos_aktiviti' => GeneralLabel::kos_aktiviti,
+            'sumber_kewangan' => GeneralLabel::sumber_kewangan,
+            'surat_sokongan' => GeneralLabel::surat_sokongan,
+            'laporan_penganjuran' => GeneralLabel::laporan_penganjuran,
+
         ];
     }
     

@@ -10,8 +10,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PengurusanMaklumatPsk */
 
 //$this->title = $model->pengurusan_maklumat_psk_id;
-$this->title = GeneralLabel::viewTitle . ' Pengurusan Maklumat PSK';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Maklumat PSK', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_maklumat_psk;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_maklumat_psk, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-maklumat-psk-view">

@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PlDataKlinikal */
 
 //$this->title = $model->pl_data_klinikal_id;
-$this->title = GeneralLabel::viewTitle . ' Data Klinikal';
-$this->params['breadcrumbs'][] = ['label' => 'Data Klinikal', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::data_klinikal;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::data_klinikal, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pl-data-klinikal-view">

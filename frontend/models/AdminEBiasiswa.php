@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_admin_e_biasiswa".
  *
@@ -59,15 +61,16 @@ class AdminEBiasiswa extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'admin_e_biasiswa_id' => 'Admin E Biasiswa ID',
-            'nama' => 'Nama Sesi',
-            'tarikh_mula' => 'Tarikh Mula',
-            'tarikh_tamat' => 'Tarikh Tamat',
-            'aktif' => 'Aktif',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
-            'created' => 'Created',
-            'updated' => 'Updated',
+            'admin_e_biasiswa_id' => GeneralLabel::admin_e_biasiswa_id,
+            'nama' => GeneralLabel::nama,
+            'tarikh_mula' => GeneralLabel::tarikh_mula,
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,
+            'aktif' => GeneralLabel::aktif,
+            'created_by' => GeneralLabel::created_by,
+            'updated_by' => GeneralLabel::updated_by,
+            'created' => GeneralLabel::created,
+            'updated' => GeneralLabel::updated,
+
         ];
     }
     

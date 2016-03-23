@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_kelayakan_jaringan_antarabangsa".
  *
@@ -62,12 +64,13 @@ class PengurusanKelayakanJaringanAntarabangsa extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_kelayakan_jaringan_antarabangsa_id' => 'Pengurusan Kelayakan Jaringan Antarabangsa ID',
-            'pengurusan_jaringan_antarabangsa_id' => 'Pengurusan Jaringan Antarabangsa ID',
-            'nama_kursus' => 'Nama Kursus',
-            'tarikh' => 'Tarikh',
-            'tempat' => 'Tempat',
-            'tahap_kelayakan' => 'Tahap Kelayakan',
+            'pengurusan_kelayakan_jaringan_antarabangsa_id' => GeneralLabel::pengurusan_kelayakan_jaringan_antarabangsa_id,
+            'pengurusan_jaringan_antarabangsa_id' => GeneralLabel::pengurusan_jaringan_antarabangsa_id,
+            'nama_kursus' => GeneralLabel::nama_kursus,
+            'tarikh' => GeneralLabel::tarikh,
+            'tempat' => GeneralLabel::tempat,
+            'tahap_kelayakan' => GeneralLabel::tahap_kelayakan,
+
         ];
     }
 }

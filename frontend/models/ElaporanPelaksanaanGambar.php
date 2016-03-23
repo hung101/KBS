@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_elaporan_pelaksanaan_gambar".
  *
@@ -63,10 +65,11 @@ class ElaporanPelaksanaanGambar extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'elaporan_pelaksanaan_gambar_id' => 'Elaporan Pelaksanaan Gambar ID',
-            'elaporan_pelaksaan_id' => 'Elaporan Pelaksaan ID',
-            'muat_naik_gambar' => 'Muat Naik Gambar',
-            'tajuk' => 'Tajuk',
+            'elaporan_pelaksanaan_gambar_id' => GeneralLabel::elaporan_pelaksanaan_gambar_id,
+            'elaporan_pelaksaan_id' => GeneralLabel::elaporan_pelaksaan_id,
+            'muat_naik_gambar' => GeneralLabel::muat_naik_gambar,
+            'tajuk' => GeneralLabel::tajuk,
+
         ];
     }
     

@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_permohonan_kemudahan_ticket_kapal_terbang".
  *
@@ -75,22 +77,23 @@ class PermohonanKemudahanTicketKapalTerbang extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'permohonan_kemudahan_ticket_kapal_terbang_id' => 'Permohonan Kemudahan Ticket Kapal Terbang ID',
-            'nama_pemohon' => 'Nama Pemohon',
-            'bahagian' => 'Bahagian',
-            'jawatan' => 'Jawatan',
-            'destinasi' => 'Destinasi',
-            'tarikh' => 'Tarikh',
-            'nama_program' => 'Nama Program',
-            'no_fail_kelulusan' => 'No Fail Kelulusan',
-            'bil_penumpang' => 'Bil. Penumpang',
-            'aktiviti' => 'Aktiviti',
-            'kod_perbelanjaan' => 'Kod Perbelanjaan',
-            'sukan' => 'Sukan',
-            'atlet' => 'Atlet',
-            'jurulatih' => 'Jurulatih',
-            'pegawai_teknikal' => 'Pegawai Teknikal',
-            'kelulusan' => 'Kelulusan',
+            'permohonan_kemudahan_ticket_kapal_terbang_id' => GeneralLabel::permohonan_kemudahan_ticket_kapal_terbang_id,
+            'nama_pemohon' => GeneralLabel::nama_pemohon,
+            'bahagian' => GeneralLabel::bahagian,
+            'jawatan' => GeneralLabel::jawatan,
+            'destinasi' => GeneralLabel::destinasi,
+            'tarikh' => GeneralLabel::tarikh,
+            'nama_program' => GeneralLabel::nama_program,
+            'no_fail_kelulusan' => GeneralLabel::no_fail_kelulusan,
+            'bil_penumpang' => GeneralLabel::bil_penumpang,
+            'aktiviti' => GeneralLabel::aktiviti,
+            'kod_perbelanjaan' => GeneralLabel::kod_perbelanjaan,
+            'sukan' => GeneralLabel::sukan,
+            'atlet' => GeneralLabel::atlet,
+            'jurulatih' => GeneralLabel::jurulatih,
+            'pegawai_teknikal' => GeneralLabel::pegawai_teknikal,
+            'kelulusan' => GeneralLabel::kelulusan,
+
         ];
     }
     

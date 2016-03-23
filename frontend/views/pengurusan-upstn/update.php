@@ -10,7 +10,7 @@ use app\models\general\GeneralLabel;
 
 //$this->title = 'Update Pengurusan Upstn: ' . ' ' . $model->pengurusan_upstn_id;
 $this->title = GeneralLabel::updateTitle . ' USPTN';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan USPTN', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_usptn, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' USPTN', 'url' => ['view', 'id' => $model->pengurusan_upstn_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

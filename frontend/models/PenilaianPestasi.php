@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_penilaian_pestasi".
  *
@@ -64,17 +66,18 @@ class PenilaianPestasi extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'penilaian_pestasi_id' => 'Penilaian Pestasi ID',
-            'atlet_id' => 'Atlet',
-            'tarikh' => 'Tarikh',
-            'kategori_kecergasan' => 'Kategori Kecergasan',
-            'tahap_sihat' => 'Kesihatan / Kecergasan',
-            'kejohanan' => 'Kejohanan',
-            'pencapaian_sukan_dalam_tahun_yang_dinilai' => 'Pencapaian Sukan Dalam Tahun Yang Dinilai',
-            'kecederaan_jika_ada' => 'Kecederaan Jika Ada',
-            'laporan_kesihatan' => 'Laporan Kesihatan',
-            'elaun_yang_diterima' => 'Elaun Yang Diterima',
-            'skim_hadiah_kemenangan_sukan' => 'Skim Hadiah Kemenangan Sukan',
+            'penilaian_pestasi_id' => GeneralLabel::penilaian_pestasi_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'tarikh' => GeneralLabel::tarikh,
+            'kategori_kecergasan' => GeneralLabel::kategori_kecergasan,
+            'tahap_sihat' => GeneralLabel::tahap_sihat,
+            'kejohanan' => GeneralLabel::kejohanan,
+            'pencapaian_sukan_dalam_tahun_yang_dinilai' => GeneralLabel::pencapaian_sukan_dalam_tahun_yang_dinilai,
+            'kecederaan_jika_ada' => GeneralLabel::kecederaan_jika_ada,
+            'laporan_kesihatan' => GeneralLabel::laporan_kesihatan,
+            'elaun_yang_diterima' => GeneralLabel::elaun_yang_diterima,
+            'skim_hadiah_kemenangan_sukan' => GeneralLabel::skim_hadiah_kemenangan_sukan,
+
         ];
     }
     

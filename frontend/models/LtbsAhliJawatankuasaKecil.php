@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_ltbs_ahli_jawatankuasa_kecil".
  *
@@ -78,23 +80,24 @@ class LtbsAhliJawatankuasaKecil extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'ahli_jawatan_id' => 'Ahli Jawatan ID',
-            'profil_badan_sukan_id' => 'Badan Sukan',
-            'nama_jawatankuasa' => 'Nama Jawatankuasa',
-            'jawatan' => 'Jawatan',
-            'nama_penuh' => 'Nama Penuh',
-            'no_kad_pengenalan' => 'No Kad Pengenalan',
-            'jantina' => 'Jantina',
-            'bangsa' => 'Bangsa',
-            'umur' => 'Umur',
-            'no_tel' => 'No Tel',
-            'emel' => 'Emel',
-            'pekerjaan' => 'Pekerjaan',
-            'nama_majikan' => 'Nama Majikan',
-            'tarikh_mula_memegang_jawatan' => 'Tarikh Mula Memegang Jawatan',
-            'pengiktirafan_yang_diterima' => 'Pengiktirafan Yang Diterima',
-            'kursus_yang_pernah_diikuti_oleh_pemegang_jawatan' => 'Kursus Yang Pernah Diikuti Oleh Pemegang Jawatan',
-            'status' => 'Status',
+            'ahli_jawatan_id' => GeneralLabel::ahli_jawatan_id,
+            'profil_badan_sukan_id' => GeneralLabel::profil_badan_sukan_id,
+            'nama_jawatankuasa' => GeneralLabel::nama_jawatankuasa,
+            'jawatan' => GeneralLabel::jawatan,
+            'nama_penuh' => GeneralLabel::nama_penuh,
+            'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
+            'jantina' => GeneralLabel::jantina,
+            'bangsa' => GeneralLabel::bangsa,
+            'umur' => GeneralLabel::umur,
+            'no_tel' => GeneralLabel::no_tel,
+            'emel' => GeneralLabel::emel,
+            'pekerjaan' => GeneralLabel::pekerjaan,
+            'nama_majikan' => GeneralLabel::nama_majikan,
+            'tarikh_mula_memegang_jawatan' => GeneralLabel::tarikh_mula_memegang_jawatan,
+            'pengiktirafan_yang_diterima' => GeneralLabel::pengiktirafan_yang_diterima,
+            'kursus_yang_pernah_diikuti_oleh_pemegang_jawatan' => GeneralLabel::kursus_yang_pernah_diikuti_oleh_pemegang_jawatan,
+            'status' => GeneralLabel::status,
+
         ];
     }
     

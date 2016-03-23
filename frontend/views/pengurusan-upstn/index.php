@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanUpstnSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pengurusan USPTN';
+$this->title = GeneralLabel::pengurusan_usptn;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-upstn-index">

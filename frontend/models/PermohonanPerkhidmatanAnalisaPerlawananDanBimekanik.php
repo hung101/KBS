@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik".
  *
@@ -61,12 +63,13 @@ class PermohonanPerkhidmatanAnalisaPerlawananDanBimekanik extends \yii\db\Active
     public function attributeLabels()
     {
         return [
-            'permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id' => 'Permohonan Perkhidmatan Analisa Perlawanan Dan Bimekanik ID',
-            'atlet_id' => 'Atlet',
-            'tarikh' => 'Tarikh',
-            'sukan' => 'Sukan',
-            'tujuan' => 'Tujuan',
-            'perkhidmatan' => 'Perkhidmatan',
+            'permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id' => GeneralLabel::permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'tarikh' => GeneralLabel::tarikh,
+            'sukan' => GeneralLabel::sukan,
+            'tujuan' => GeneralLabel::tujuan,
+            'perkhidmatan' => GeneralLabel::perkhidmatan,
+
         ];
     }
     

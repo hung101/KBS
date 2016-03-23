@@ -8,8 +8,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\BspBendahariIpt */
 
-$this->title = GeneralLabel::createTitle . ' Bendahari IPT';
-$this->params['breadcrumbs'][] = ['label' => 'Bendahari IPT', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::bendahari_ipt;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bendahari_ipt, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-bendahari-ipt-create">

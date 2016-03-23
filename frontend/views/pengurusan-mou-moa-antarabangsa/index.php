@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanMouMoaAntarabangsaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pengurusan MOU - MOA Antarabangsa';
+$this->title = GeneralLabel::pengurusan_mou_moa_antarabangsa;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-mou-moa-antarabangsa-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-mou-moa-antarabangsa']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Pengurusan MOU - MOA Antarabangsa', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::pengurusan_mou_moa_antarabangsa, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\FarmasiPermohonanUbatan */
 
 //$this->title = $model->farmasi_permohonan_ubatan_id;
-$this->title = GeneralLabel::viewTitle . ' Permohonan Ubatan';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan Ubatan', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::permohonan_ubatan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ubatan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="farmasi-permohonan-ubatan-view">

@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_system_modules".
  *
@@ -67,16 +69,17 @@ class SystemModules extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'system_modules_id' => 'System Modules ID',
-            'category' => 'Category',
-            'module_name' => 'Module Name',
-            'action' => 'Action',
-            'sort' => 'Sort',
-            'aktif' => 'Aktif',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
-            'created' => 'Created',
-            'updated' => 'Updated',
+            'system_modules_id' => GeneralLabel::system_modules_id,
+            'category' => GeneralLabel::category,
+            'module_name' => GeneralLabel::module_name,
+            'action' => GeneralLabel::action,
+            'sort' => GeneralLabel::sort,
+            'aktif' => GeneralLabel::aktif,
+            'created_by' => GeneralLabel::created_by,
+            'updated_by' => GeneralLabel::updated_by,
+            'created' => GeneralLabel::created,
+            'updated' => GeneralLabel::updated,
+
         ];
     }
 }

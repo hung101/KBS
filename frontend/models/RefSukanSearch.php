@@ -7,6 +7,8 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\RefSukan;
 
+use app\models\general\GeneralLabel;
+
 /**
  * RefSukanSearch represents the model behind the search form about `app\models\RefSukan`.
  */
@@ -58,12 +60,13 @@ class RefSukanSearch extends RefSukan
         $query->joinWith('refKategoriSukan');
 
         $query->andFilterWhere([
-            'id' => $this->id,
-            'aktif' => $this->aktif,
-            'created_by' => $this->created_by,
-            'updated_by' => $this->updated_by,
-            'created' => $this->created,
-            'updated' => $this->updated,
+            'id' => GeneralLabel::id,
+            'aktif' => GeneralLabel::aktif,
+            'created_by' => GeneralLabel::created_by,
+            'updated_by' => GeneralLabel::updated_by,
+            'created' => GeneralLabel::created,
+            'updated' => GeneralLabel::updated,
+
         ]);
 
         $query->andFilterWhere(['like', 'desc', $this->desc])

@@ -10,8 +10,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PengurusanKpi */
 
 //$this->title = $model->pengurusan_kpi_id;
-$this->title = GeneralLabel::viewTitle . ' Pengurusan KPI';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan KPI', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_kpi;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_kpi, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-kpi-view">

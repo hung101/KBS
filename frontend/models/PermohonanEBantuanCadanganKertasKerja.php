@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_permohonan_e_bantuan_cadangan_kertas_kerja".
  *
@@ -59,10 +61,11 @@ class PermohonanEBantuanCadanganKertasKerja extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'permohonan_e_bantuan_cadangan_kertas_kerja_id' => 'Permohonan E Bantuan Cadangan Kertas Kerja ID',
-            'permohonan_e_bantuan_id' => 'Permohonan E Bantuan ID',
-            'nama_cadangan_kertas_kerja' => 'Nama Cadangan Kertas Kerja',
-            'muat_naik' => 'Muat Naik',
+            'permohonan_e_bantuan_cadangan_kertas_kerja_id' => GeneralLabel::permohonan_e_bantuan_cadangan_kertas_kerja_id,
+            'permohonan_e_bantuan_id' => GeneralLabel::permohonan_e_bantuan_id,
+            'nama_cadangan_kertas_kerja' => GeneralLabel::nama_cadangan_kertas_kerja,
+            'muat_naik' => GeneralLabel::muat_naik,
+
         ];
     }
 }

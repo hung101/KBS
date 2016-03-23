@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_bsp_borang_11".
  *
@@ -67,14 +69,15 @@ class BspBorang11 extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'bsp_borang_11_id' => 'Bsp Borang 11 ID',
-            'bsp_borang_borang_id' => 'Bsp Borang Borang ID',
-            'bsp_11' => 'Muat Naik (Borang Permohonan Perlanjutan Biasiswa KBS)',
-            'session_id' => 'Session ID',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
-            'created' => 'Created',
-            'updated' => 'Updated',
+            'bsp_borang_11_id' => GeneralLabel::bsp_borang_11_id,
+            'bsp_borang_borang_id' => GeneralLabel::bsp_borang_borang_id,
+            'bsp_11' => GeneralLabel::bsp_11,
+            'session_id' => GeneralLabel::session_id,
+            'created_by' => GeneralLabel::created_by,
+            'updated_by' => GeneralLabel::updated_by,
+            'created' => GeneralLabel::created,
+            'updated' => GeneralLabel::updated,
+
         ];
     }
     

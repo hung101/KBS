@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_permohonan_bimbingan_kaunseling".
  *
@@ -69,19 +71,20 @@ class PermohonanBimbinganKaunseling extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'permohonan_bimbingan_kaunseling_id' => 'Permohonan Bimbingan Kaunseling ID',
-            'atlet_id' => 'Atlet',
-            'tarikh_temujanji' => 'Tarikh Temujanji',
-            'status_permohonan' => 'Status Permohonan',
-            'tarikh_rujukan' => 'Tarikh Rujukan',
-            'nama_pemohon_rujukan' => 'Nama Pemohon Rujukan',
-            'kes_latarbelakang' => 'Latarbelakang Kes',
-            'kes_latarbelakang_lain' => '',
-            'notis' => 'Nota Kes',
-            'pekerjaan_bapa' => 'Pekerjaan Bapa',
-            'pekerjaan_ibu' => 'Pekerjaan Ibu',
-            'bil_adik_beradik' => 'Bil Adik Beradik',
-            'no_telefon' => 'No Telefon',
+            'permohonan_bimbingan_kaunseling_id' => GeneralLabel::permohonan_bimbingan_kaunseling_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'tarikh_temujanji' => GeneralLabel::tarikh_temujanji,
+            'status_permohonan' => GeneralLabel::status_permohonan,
+            'tarikh_rujukan' => GeneralLabel::tarikh_rujukan,
+            'nama_pemohon_rujukan' => GeneralLabel::nama_pemohon_rujukan,
+            'kes_latarbelakang' => GeneralLabel::kes_latarbelakang,
+            'kes_latarbelakang_lain' => GeneralLabel::kes_latarbelakang_lain,
+            'notis' => GeneralLabel::notis,
+            'pekerjaan_bapa' => GeneralLabel::pekerjaan_bapa,
+            'pekerjaan_ibu' => GeneralLabel::pekerjaan_ibu,
+            'bil_adik_beradik' => GeneralLabel::bil_adik_beradik,
+            'no_telefon' => GeneralLabel::no_telefon,
+
         ];
     }
     

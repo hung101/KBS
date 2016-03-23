@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_maklum_balas_peserta".
  *
@@ -61,13 +63,14 @@ class PengurusanMaklumBalasPeserta extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_maklum_balas_peserta_id' => 'Pengurusan Maklum Balas Peserta ID',
-            'nama_penganjuran_kursus' => 'Nama',
-            'jantina' => 'Jantina',
-            'bangsa' => 'Bangsa',
-            'kod_kursus' => 'Kod Kursus',
-            'tarikh_kursus' => 'Tarikh Kursus',
-            'catatan' => 'Catatan',
+            'pengurusan_maklum_balas_peserta_id' => GeneralLabel::pengurusan_maklum_balas_peserta_id,
+            'nama_penganjuran_kursus' => GeneralLabel::nama_penganjuran_kursus,
+            'jantina' => GeneralLabel::jantina,
+            'bangsa' => GeneralLabel::bangsa,
+            'kod_kursus' => GeneralLabel::kod_kursus,
+            'tarikh_kursus' => GeneralLabel::tarikh_kursus,
+            'catatan' => GeneralLabel::catatan,
+
         ];
     }
     

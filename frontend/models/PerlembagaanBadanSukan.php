@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_perlembagaan_badan_sukan".
  *
@@ -66,13 +68,14 @@ class PerlembagaanBadanSukan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'perlembagaan_badan_sukan_id' => 'Perlembagaan Badan Sukan ID',
-            'tarikh_kelulusan_Terkini' => 'Tarikh Kelulusan Terkini',
-            'bilangan_pindaan_perlembagaan_dilakukan' => 'Bilangan Pindaan Perlembagaan Sebelum Ini',
-            'tarikh_pindaan' => 'Tarikh Pindaan',
-            'tarikh_kelulusan' => 'Tarikh Kelulusan',
-            'muat_naik' => 'Muat Naik Perlembagaan Terkini',
-            'status' => 'Status',
+            'perlembagaan_badan_sukan_id' => GeneralLabel::perlembagaan_badan_sukan_id,
+            'tarikh_kelulusan_Terkini' => GeneralLabel::tarikh_kelulusan_Terkini,
+            'bilangan_pindaan_perlembagaan_dilakukan' => GeneralLabel::bilangan_pindaan_perlembagaan_dilakukan,
+            'tarikh_pindaan' => GeneralLabel::tarikh_pindaan,
+            'tarikh_kelulusan' => GeneralLabel::tarikh_kelulusan,
+            'muat_naik' => GeneralLabel::muat_naik,
+            'status' => GeneralLabel::status,
+
         ];
     }
     

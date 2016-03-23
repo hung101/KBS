@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_media_program".
  *
@@ -63,14 +65,15 @@ class PengurusanMediaProgram extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_media_program_id' => 'Pengurusan Media Program ID',
-            'tarikh_mula' => 'Tarikh Mula',
-            'tarikh_tamat' => 'Tarikh Tamat',
-            'nama_program' => 'Nama Program',
-            'tempat' => 'Tempat',
-            'cawangan' => 'Bahagian',
-            'maklumat_msn_negeri' => 'Maklumat Msn Negeri',
-            'catatan' => 'Catatan',
+            'pengurusan_media_program_id' => GeneralLabel::pengurusan_media_program_id,
+            'tarikh_mula' => GeneralLabel::tarikh_mula,
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,
+            'nama_program' => GeneralLabel::nama_program,
+            'tempat' => GeneralLabel::tempat,
+            'cawangan' => GeneralLabel::cawangan,
+            'maklumat_msn_negeri' => GeneralLabel::maklumat_msn_negeri,
+            'catatan' => GeneralLabel::catatan,
+
         ];
     }
 }

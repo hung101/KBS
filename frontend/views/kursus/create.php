@@ -7,9 +7,9 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\Kursus */
 
-$this->title = GeneralLabel::createTitle . ' CCE';
-$this->params['breadcrumbs'][] = ['label' => 'Akademi Kejurulatihan Kebangsaan (AKK)', 'url' => ['akademi-akk/index']];
-$this->params['breadcrumbs'][] = ['label' => 'CCE', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::cce;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, 'url' => ['akademi-akk/index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::cce, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="kursus-create">

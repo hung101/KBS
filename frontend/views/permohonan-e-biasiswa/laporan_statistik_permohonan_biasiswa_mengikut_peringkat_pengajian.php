@@ -17,7 +17,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanPelaksaan */
 
-$this->title = 'Laporan Statistik Permohonan Biasiswa Mengikut Peringkat Pengajian';
+$this->title = GeneralLabel::laporan_statistik_permohonan_biasiswa_mengikut_peringkat_pengajian;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="laporan-statistik-permohonan-biasiswa-mengikit-peringkat-pengajian">

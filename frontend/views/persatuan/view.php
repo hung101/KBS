@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\BspBendahariIpt */
 
 //$this->title = $model->bsp_bendahari_ipt_id;
-$this->title = GeneralLabel::viewTitle . ' Persatuan';
-$this->params['breadcrumbs'][] = ['label' => 'Persatuan', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::persatuan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::persatuan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-e-bantuan-urusetia-view">

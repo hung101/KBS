@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pemohon_kursus_tahap_akk".
  *
@@ -69,14 +71,15 @@ class PemohonKursusTahapAkk extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pemohon_kursus_tahap_akk_id' => 'Pemohon Kursus Tahap Akk ID',
-            'akademi_akk_id' => 'Akademi Akk ID',
-            'tahap' => 'Tahap',
-            'tahun_lulus' => 'Tahun Lulus',
-            'no_sijil' => 'No Sijil',
-            'kod_kursus' => 'Kod Kursus',
-            'tempat' => 'Tempat',
-            'muatnaik_sijil' => 'Muatnaik Sijil',
+            'pemohon_kursus_tahap_akk_id' => GeneralLabel::pemohon_kursus_tahap_akk_id,
+            'akademi_akk_id' => GeneralLabel::akademi_akk_id,
+            'tahap' => GeneralLabel::tahap,
+            'tahun_lulus' => GeneralLabel::tahun_lulus,
+            'no_sijil' => GeneralLabel::no_sijil,
+            'kod_kursus' => GeneralLabel::kod_kursus,
+            'tempat' => GeneralLabel::tempat,
+            'muatnaik_sijil' => GeneralLabel::muatnaik_sijil,
+
         ];
     }
     

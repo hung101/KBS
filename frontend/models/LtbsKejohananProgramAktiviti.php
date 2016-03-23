@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_ltbs_kejohanan_program_aktiviti".
  *
@@ -62,13 +64,14 @@ class LtbsKejohananProgramAktiviti extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'kejohanan_program_aktiviti_id' => 'Kejohanan/Program/Aktiviti ID',
-            'profil_badan_sukan_id' => 'Badan Sukan',
-            'nama_kejohanana_program_aktiviti_yang_disertai' => 'Nama Aktiviti',
-            'tarikh_kejohanan_program_aktiviti_yang_disertai' => 'Tarikh Aktiviti',
-            'lokasi_tempat_kejohanan_program_aktiviti_yang_disertai' => 'Lokasi Aktiviti',
-            'bilangan_peserta_yang_menyertai' => 'Bilangan Peserta',
-            'kos_kejohanan_program_aktiviti_yang_disertai' => 'Kos Aktiviti',
+            'kejohanan_program_aktiviti_id' => GeneralLabel::kejohanan_program_aktiviti_id,
+            'profil_badan_sukan_id' => GeneralLabel::profil_badan_sukan_id,
+            'nama_kejohanana_program_aktiviti_yang_disertai' => GeneralLabel::nama_kejohanana_program_aktiviti_yang_disertai,
+            'tarikh_kejohanan_program_aktiviti_yang_disertai' => GeneralLabel::tarikh_kejohanan_program_aktiviti_yang_disertai,
+            'lokasi_tempat_kejohanan_program_aktiviti_yang_disertai' => GeneralLabel::lokasi_tempat_kejohanan_program_aktiviti_yang_disertai,
+            'bilangan_peserta_yang_menyertai' => GeneralLabel::bilangan_peserta_yang_menyertai,
+            'kos_kejohanan_program_aktiviti_yang_disertai' => GeneralLabel::kos_kejohanan_program_aktiviti_yang_disertai,
+
         ];
     }
 }

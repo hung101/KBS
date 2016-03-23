@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PenganjuranKursusPenganjurSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Penganjuran Kursus : Penganjur';
+$this->title = GeneralLabel::penganjuran_kursus_penganjur;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="penganjuran-kursus-penganjur-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-penganjur']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Penganjuran Kursus : Penganjur', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::penganjuran_kursus_penganjur, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

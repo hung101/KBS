@@ -17,7 +17,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanPelaksaan */
 
-$this->title = 'Laporan Senarai Penerima Biasiswa';
+$this->title = GeneralLabel::laporan_senarai_penerima_biasiswa;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="laporan-prestasi-akademik">

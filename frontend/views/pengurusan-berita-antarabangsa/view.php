@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PengurusanBeritaAntarabangsa */
 
 //$this->title = $model->pengurusan_berita_antarabangsa_id;
-$this->title = GeneralLabel::viewTitle . ' Pengurusan Berita Antarabangsa';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Berita Antarabangsa', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_berita_antarabangsa;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_berita_antarabangsa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-berita-antarabangsa-view">

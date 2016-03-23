@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_permohonan_kursus_persatuan".
  *
@@ -83,25 +85,26 @@ class PengurusanPermohonanKursusPersatuan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_permohonan_kursus_persatuan_id' => 'Pengurusan Permohonan Kursus Persatuan ID',
-            'nama' => 'Nama',
-            'no_kad_pengenalan' => 'No Kad Pengenalan',
-            'tarikh_lahir' => 'Tarikh Lahir',
-            'jantina' => 'Jantina',
-            'alamat_1' => 'Alamat',
-            'alamat_2' => '',
-            'alamat_3' => '',
-            'alamat_negeri' => 'Negeri',
-            'alamat_bandar' => 'Bandar',
-            'alamat_poskod' => 'Poskod',
-            'no_tel_bimbit' => 'No Tel Bimbit',
-            'emel' => 'Emel',
-            'facebook' => 'Facebook',
-            'kelayakan_akademi' => 'Kelayakan Akademi',
-            'perkerjaan' => 'Perkerjaan',
-            'nama_majikan' => 'Nama Majikan',
-            'yuran_program' => 'Yuran Program',
-            'kelulusan' => 'Kelulusan',
+            'pengurusan_permohonan_kursus_persatuan_id' => GeneralLabel::pengurusan_permohonan_kursus_persatuan_id,
+            'nama' => GeneralLabel::nama,
+            'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
+            'tarikh_lahir' => GeneralLabel::tarikh_lahir,
+            'jantina' => GeneralLabel::jantina,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'no_tel_bimbit' => GeneralLabel::no_tel_bimbit,
+            'emel' => GeneralLabel::emel,
+            'facebook' => GeneralLabel::facebook,
+            'kelayakan_akademi' => GeneralLabel::kelayakan_akademi,
+            'perkerjaan' => GeneralLabel::perkerjaan,
+            'nama_majikan' => GeneralLabel::nama_majikan,
+            'yuran_program' => GeneralLabel::yuran_program,
+            'kelulusan' => GeneralLabel::kelulusan,
+
         ];
     }
     

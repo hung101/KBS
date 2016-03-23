@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PermohonanEBantuan */
 
 //$this->title = 'Update Permohonan Ebantuan: ' . ' ' . $model->permohonan_e_bantuan_id;
-$this->title = GeneralLabel::updateTitle . ' Permohonan e-Bantuan';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan e-Bantuan', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Permohonan e-Bantuan', 'url' => ['view', 'id' => $model->permohonan_e_bantuan_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::permohonan_ebantuan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebantuan, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::permohonan_ebantuan, 'url' => ['view', 'id' => $model->permohonan_e_bantuan_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebantuan-update">

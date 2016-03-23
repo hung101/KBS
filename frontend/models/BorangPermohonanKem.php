@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_borang_permohonan_kem".
  *
@@ -62,12 +64,13 @@ class BorangPermohonanKem extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'borang_permohonan_kem_id' => 'Borang Permohonan Kem ID',
-            'nama_program' => 'Nama Program',
-            'tarikh_program' => 'Tarikh Program',
-            'tempat' => 'Tempat',
-            'objektif' => 'Objektif',
-            'cadangan' => 'Cadangan',
+            'borang_permohonan_kem_id' => GeneralLabel::borang_permohonan_kem_id,
+            'nama_program' => GeneralLabel::nama_program,
+            'tarikh_program' => GeneralLabel::tarikh_program,
+            'tempat' => GeneralLabel::tempat,
+            'objektif' => GeneralLabel::objektif,
+            'cadangan' => GeneralLabel::cadangan,
+
         ];
     }
 }

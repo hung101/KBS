@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel app\models\MesyuaratSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Mesyuarat';
+$this->title = GeneralLabel::mesyuarat;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mesyuarat-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat']['create']) || isset(Yii::$app->user->identity->peranan_akses['ISN']['mesyuarat']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Mesyuarat', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::mesyuarat, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_psikologi_aktiviti".
  *
@@ -60,11 +62,12 @@ class PsikologiAktiviti extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'psikologi_aktiviti_id' => 'Psikologi Aktiviti ID',
-            'psikologi_profil_id' => 'Pegawai Psikologi',
-            'nama_aktiviti' => 'Nama Aktiviti',
-            'tarikh_mula' => 'Tarikh Mula',
-            'tarikh_tamat' => 'Tarikh Tamat',
+            'psikologi_aktiviti_id' => GeneralLabel::psikologi_aktiviti_id,
+            'psikologi_profil_id' => GeneralLabel::psikologi_profil_id,
+            'nama_aktiviti' => GeneralLabel::nama_aktiviti,
+            'tarikh_mula' => GeneralLabel::tarikh_mula,
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,
+
         ];
     }
 }

@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PengurusanKewangan */
 
 //$this->title = 'Update Pengurusan Kewangan: ' . ' ' . $model->pengurusan_kewangan_id;
-$this->title = GeneralLabel::updateTitle . ' Pengurusan Kewangan';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Kewangan', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Pengurusan Kewangan', 'url' => ['view', 'id' => $model->pengurusan_kewangan_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::pengurusan_kewangan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_kewangan, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_kewangan, 'url' => ['view', 'id' => $model->pengurusan_kewangan_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-kewangan-update">

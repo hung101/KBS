@@ -5,6 +5,8 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
+use app\models\general\GeneralLabel;
+
 
 class ElaporanPelaksanaanReport extends Model
 {
@@ -28,12 +30,13 @@ class ElaporanPelaksanaanReport extends Model
     public function attributeLabels()
     {
         return [
-            'nama_penganjur' => 'Nama Penganjur',
-            'nama_program' => 'Nama Program',
-            'negeri' => 'Negeri',
-            'tarikh_dari' => 'Tarikh Mula',
-            'tarikh_pada' => 'Hingga',
-            'format' => 'Format',
+            'nama_penganjur' => GeneralLabel::nama_penganjur,
+            'nama_program' => GeneralLabel::nama_program,
+            'negeri' => GeneralLabel::negeri,
+            'tarikh_dari' => GeneralLabel::tarikh_dari,
+            'tarikh_pada' => GeneralLabel::tarikh_pada,
+            'format' => GeneralLabel::format,
+
         ];
     }
 }

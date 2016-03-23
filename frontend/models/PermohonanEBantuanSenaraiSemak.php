@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_permohonan_e_bantuan_senarai_semak".
  *
@@ -63,12 +65,13 @@ class PermohonanEBantuanSenaraiSemak extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'senarai_semak_id' => 'Senarai Semak ID',
-            'permohonan_e_bantuan_id' => 'Permohonan E Bantuan ID',
-            'kertas_kerja_projek_program' => 'Kertas Kerja Projek / Program',
-            'salinan_sijil_pendaftaran_persatuan_pertubuhan' => 'Salinan Sijil Pendaftaran Persatuan / Pertubuhan',
-            'salinan_perlembagaan_persatuan_pertubuhan' => 'Salinan Perlembagaan Persatuan / Pertubuhan',
-            'salinan_buku_bank' => 'Salinan Buku Bank / Penyata Kewangan Persatuan / Pertubuhan',
+            'senarai_semak_id' => GeneralLabel::senarai_semak_id,
+            'permohonan_e_bantuan_id' => GeneralLabel::permohonan_e_bantuan_id,
+            'kertas_kerja_projek_program' => GeneralLabel::kertas_kerja_projek_program,
+            'salinan_sijil_pendaftaran_persatuan_pertubuhan' => GeneralLabel::salinan_sijil_pendaftaran_persatuan_pertubuhan,
+            'salinan_perlembagaan_persatuan_pertubuhan' => GeneralLabel::salinan_perlembagaan_persatuan_pertubuhan,
+            'salinan_buku_bank' => GeneralLabel::salinan_buku_bank,
+
         ];
     }
     

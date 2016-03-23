@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_jaringan_antarabangsa".
  *
@@ -89,34 +91,35 @@ class PengurusanJaringanAntarabangsa extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_jaringan_antarabangsa_id' => 'Pengurusan Jaringan Antarabangsa ID',
-            'nama_badan_sukan' => 'Nama Badan Sukan',
-            'negara' => 'Negara',
-            'nama_pemohon' => 'Nama Pemohon',
-            'no_kad_pengenalan' => 'No Kad Pengenalan',
-            'jantina' => 'Jantina',
-            'alamat_surat_menyurat_1' => 'Alamat Surat Menyurat',
-            'alamat_surat_menyurat_2' => '',
-            'alamat_surat_menyurat_3' => '',
-            'alamat_surat_menyurat_negeri' => 'Negeri',
-            'alamat_surat_menyurat_bandar' => 'Bandar',
-            'alamat_surat_menyurat_poskod' => 'Poskod',
-            'pegawai_teknikal' => 'Pegawai Teknikal',
-            'permohonan' => 'Permohonan',
-            'jenis_program' => 'Jenis Program',
-            'no_telefon' => 'No Telefon',
-            'no_tel_bimbit' => 'No Tel Bimbit',
-            'no_faks' => 'No Faks',
-            'emel' => 'Emel',
-            'nama_majikan' => 'Nama Majikan',
-            'alamat_majikan_1' => 'Alamat Majikan',
-            'alamat_majikan_2' => '',
-            'alamat_majikan_3' => '',
-            'alamat_majikan_negeri' => 'Negeri',
-            'alamat_majikan_bandar' => 'Bandar',
-            'alamat_majikan_poskod' => 'Poskod',
-            'jawatan_di_persatuan' => 'Jawatan Di Persatuan',
-            'tahap_kelayakan_sekarang' => 'Tahap Kelayakan Sekarang',
+            'pengurusan_jaringan_antarabangsa_id' => GeneralLabel::pengurusan_jaringan_antarabangsa_id,
+            'nama_badan_sukan' => GeneralLabel::nama_badan_sukan,
+            'negara' => GeneralLabel::negara,
+            'nama_pemohon' => GeneralLabel::nama_pemohon,
+            'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
+            'jantina' => GeneralLabel::jantina,
+            'alamat_surat_menyurat_1' => GeneralLabel::alamat_surat_menyurat_1,
+            'alamat_surat_menyurat_2' => GeneralLabel::alamat_surat_menyurat_2,
+            'alamat_surat_menyurat_3' => GeneralLabel::alamat_surat_menyurat_3,
+            'alamat_surat_menyurat_negeri' => GeneralLabel::alamat_surat_menyurat_negeri,
+            'alamat_surat_menyurat_bandar' => GeneralLabel::alamat_surat_menyurat_bandar,
+            'alamat_surat_menyurat_poskod' => GeneralLabel::alamat_surat_menyurat_poskod,
+            'pegawai_teknikal' => GeneralLabel::pegawai_teknikal,
+            'permohonan' => GeneralLabel::permohonan,
+            'jenis_program' => GeneralLabel::jenis_program,
+            'no_telefon' => GeneralLabel::no_telefon,
+            'no_tel_bimbit' => GeneralLabel::no_tel_bimbit,
+            'no_faks' => GeneralLabel::no_faks,
+            'emel' => GeneralLabel::emel,
+            'nama_majikan' => GeneralLabel::nama_majikan,
+            'alamat_majikan_1' => GeneralLabel::alamat_majikan_1,
+            'alamat_majikan_2' => GeneralLabel::alamat_majikan_2,
+            'alamat_majikan_3' => GeneralLabel::alamat_majikan_3,
+            'alamat_majikan_negeri' => GeneralLabel::alamat_majikan_negeri,
+            'alamat_majikan_bandar' => GeneralLabel::alamat_majikan_bandar,
+            'alamat_majikan_poskod' => GeneralLabel::alamat_majikan_poskod,
+            'jawatan_di_persatuan' => GeneralLabel::jawatan_di_persatuan,
+            'tahap_kelayakan_sekarang' => GeneralLabel::tahap_kelayakan_sekarang,
+
         ];
     }
     

@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_kejohanan_temasya".
  *
@@ -71,23 +73,24 @@ class PengurusanKejohananTemasya extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_kejohanan_temasya_id' => 'Pengurusan Kejohanan Temasya ID',
-            'nama_kejohanan_temasya' => 'Nama Kejohanan / Temasya',
-            'peringkat' => 'Peringkat',
-            'tarikh_kejohanan' => 'Tarikh Kejohanan',
-            'nama_sukan' => 'Nama Sukan',
-            'nama_acara' => 'Nama Acara',
-            'lokasi_kejohanan' => 'Lokasi Kejohanan',
-            'nama_ketua_kontijen' => 'Nama Ketua Kontijen',
-            'nama_atlet' => 'Nama Atlet',
-            'nama_pegawai' => 'Nama Pegawai',
-            'nama_doktor' => 'Nama Doktor',
-            'nama_fisio' => 'Nama Fisio',
-            'tarikh_penginapan_mula' => 'Tarikh Penginapan Mula',
-            'tarikh_penginapan_akhir' => 'Tarikh Penginapan Akhir',
-            'tarikh_perjalanan_pesawat' => 'Tarikh Perjalanan Kapal Terbang Dari',
-            'tarikh_pulang_perjalanan_pesawat' => 'Ke',
-            'catatan_pesawat' => 'Catatan',
+            'pengurusan_kejohanan_temasya_id' => GeneralLabel::pengurusan_kejohanan_temasya_id,
+            'nama_kejohanan_temasya' => GeneralLabel::nama_kejohanan_temasya,
+            'peringkat' => GeneralLabel::peringkat,
+            'tarikh_kejohanan' => GeneralLabel::tarikh_kejohanan,
+            'nama_sukan' => GeneralLabel::nama_sukan,
+            'nama_acara' => GeneralLabel::nama_acara,
+            'lokasi_kejohanan' => GeneralLabel::lokasi_kejohanan,
+            'nama_ketua_kontijen' => GeneralLabel::nama_ketua_kontijen,
+            'nama_atlet' => GeneralLabel::nama_atlet,
+            'nama_pegawai' => GeneralLabel::nama_pegawai,
+            'nama_doktor' => GeneralLabel::nama_doktor,
+            'nama_fisio' => GeneralLabel::nama_fisio,
+            'tarikh_penginapan_mula' => GeneralLabel::tarikh_penginapan_mula,
+            'tarikh_penginapan_akhir' => GeneralLabel::tarikh_penginapan_akhir,
+            'tarikh_perjalanan_pesawat' => GeneralLabel::tarikh_perjalanan_pesawat,
+            'tarikh_pulang_perjalanan_pesawat' => GeneralLabel::tarikh_pulang_perjalanan_pesawat,
+            'catatan_pesawat' => GeneralLabel::catatan_pesawat,
+
         ];
     }
     

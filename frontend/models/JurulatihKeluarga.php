@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_jurulatih_keluarga".
  *
@@ -71,18 +73,19 @@ class JurulatihKeluarga extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'jurulatih_keluarga_id' => 'Jurulatih Keluarga ID',
-            'jurulatih_id' => 'Jurulatih ID',
-            'nama_suami_isteri_waris' => 'Nama Suami/Isteri/Waris',
-            'alamat_surat_menyurat_1' => 'Alamat Surat Menyurat',
-            'alamat_surat_menyurat_2' => '',
-            'alamat_surat_menyurat_3' => '',
-            'alamat_surat_menyurat_negeri' => 'Negeri',
-            'alamat_surat_menyurat_bandar' => 'Bandar',
-            'alamat_surat_menyurat_poskod' => 'Poskod',
-            'emel' => 'Emel',
-            'no_telefon' => 'No Telefon',
-            'no_telefon_bimbit' => 'No Telefon Bimbit',
+            'jurulatih_keluarga_id' => GeneralLabel::jurulatih_keluarga_id,
+            'jurulatih_id' => GeneralLabel::jurulatih_id,
+            'nama_suami_isteri_waris' => GeneralLabel::nama_suami_isteri_waris,
+            'alamat_surat_menyurat_1' => GeneralLabel::alamat_surat_menyurat_1,
+            'alamat_surat_menyurat_2' => GeneralLabel::alamat_surat_menyurat_2,
+            'alamat_surat_menyurat_3' => GeneralLabel::alamat_surat_menyurat_3,
+            'alamat_surat_menyurat_negeri' => GeneralLabel::alamat_surat_menyurat_negeri,
+            'alamat_surat_menyurat_bandar' => GeneralLabel::alamat_surat_menyurat_bandar,
+            'alamat_surat_menyurat_poskod' => GeneralLabel::alamat_surat_menyurat_poskod,
+            'emel' => GeneralLabel::emel,
+            'no_telefon' => GeneralLabel::no_telefon,
+            'no_telefon_bimbit' => GeneralLabel::no_telefon_bimbit,
+
         ];
     }
 }

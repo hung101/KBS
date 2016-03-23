@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_bsp_perlanjutan_sebab".
  *
@@ -57,9 +59,10 @@ class BspPerlanjutanSebab extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'bsp_perlanjutan_sebab_id' => 'Bsp Perlanjutan Sebab ID',
-            'bsp_perlanjutan_id' => 'Bsp Perlanjutan ID',
-            'sebab' => 'Sebab-sebab Mohon Perlanjutan',
+            'bsp_perlanjutan_sebab_id' => GeneralLabel::bsp_perlanjutan_sebab_id,
+            'bsp_perlanjutan_id' => GeneralLabel::bsp_perlanjutan_id,
+            'sebab' => GeneralLabel::sebab,
+
         ];
     }
 }

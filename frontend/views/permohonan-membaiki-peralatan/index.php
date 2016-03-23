@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PermohonanMembaikiPeralatanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Permohonan Membaiki Peralatan';
+$this->title = GeneralLabel::permohonan_membaiki_peralatan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-membaiki-peralatan-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-membaiki-peralatan']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Permohonan Membaiki Peralatan', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::permohonan_membaiki_peralatan, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

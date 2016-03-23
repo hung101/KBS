@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanBeritaAntarabangsaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pengurusan Berita Antarabangsa';
+$this->title = GeneralLabel::pengurusan_berita_antarabangsa;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-berita-antarabangsa-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-berita-antarabangsa']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Pengurusan Berita Antarabangsa', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::pengurusan_berita_antarabangsa, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

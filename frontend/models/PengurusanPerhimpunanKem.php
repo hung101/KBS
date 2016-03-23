@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_perhimpunan_kem".
  *
@@ -76,24 +78,25 @@ class PengurusanPerhimpunanKem extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_perhimpunan_kem_id' => 'Pengurusan Perhimpunan/Kem ID',
-            'kategori_geran_bantuan' => 'Kategori Geran Bantuan',
-            'nama_ppn' => 'Nama PPN',
-            'pengurus_pn' => 'Pegawai PSK',
-            'nama_penganjuran' => 'Nama Penganjuran',
-            'kategori_penganjuran' => 'Kategori Penganjuran',
-            'sub_kategori_penganjuran' => 'Sub Kategori Penganjuran',
-            'tahap_penganjuran' => 'Tahap Penganjuran',
-            'negeri' => 'Negeri',
-            'kategori_sukan' => 'Kategori Sukan',
-            'tarikh_penganjuran' => 'Tarikh Penganjuran',
-            'activiti' => 'Activiti',
-            'tempat' => 'Tempat',
-            'jumlah_peserta' => 'Jumlah Peserta',
-            'disahkan' => 'Disahkan',
-            'sokongan_pn' => 'Sokongan PN',
-            'muat_naik' => 'Muat Naik',
-            'kelulusan' => 'Kelulusan',
+            'pengurusan_perhimpunan_kem_id' => GeneralLabel::pengurusan_perhimpunan_kem_id,
+            'kategori_geran_bantuan' => GeneralLabel::kategori_geran_bantuan,
+            'nama_ppn' => GeneralLabel::nama_ppn,
+            'pengurus_pn' => GeneralLabel::pengurus_pn,
+            'nama_penganjuran' => GeneralLabel::nama_penganjuran,
+            'kategori_penganjuran' => GeneralLabel::kategori_penganjuran,
+            'sub_kategori_penganjuran' => GeneralLabel::sub_kategori_penganjuran,
+            'tahap_penganjuran' => GeneralLabel::tahap_penganjuran,
+            'negeri' => GeneralLabel::negeri,
+            'kategori_sukan' => GeneralLabel::kategori_sukan,
+            'tarikh_penganjuran' => GeneralLabel::tarikh_penganjuran,
+            'activiti' => GeneralLabel::activiti,
+            'tempat' => GeneralLabel::tempat,
+            'jumlah_peserta' => GeneralLabel::jumlah_peserta,
+            'disahkan' => GeneralLabel::disahkan,
+            'sokongan_pn' => GeneralLabel::sokongan_pn,
+            'muat_naik' => GeneralLabel::muat_naik,
+            'kelulusan' => GeneralLabel::kelulusan,
+
         ];
     }
     

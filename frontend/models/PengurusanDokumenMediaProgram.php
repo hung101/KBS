@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_dokumen_media_program".
  *
@@ -64,11 +66,12 @@ class PengurusanDokumenMediaProgram extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_dokumen_media_program_id' => 'Pengurusan Dokumen Media Program ID',
-            'pengurusan_media_program_id' => 'Media Program',
-            'kategori_dokumen' => 'Kategori Dokumen',
-            'nama_dokumen' => 'Nama Dokumen',
-            'muatnaik' => 'Muat Naik',
+            'pengurusan_dokumen_media_program_id' => GeneralLabel::pengurusan_dokumen_media_program_id,
+            'pengurusan_media_program_id' => GeneralLabel::pengurusan_media_program_id,
+            'kategori_dokumen' => GeneralLabel::kategori_dokumen,
+            'nama_dokumen' => GeneralLabel::nama_dokumen,
+            'muatnaik' => GeneralLabel::muatnaik,
+
         ];
     }
     

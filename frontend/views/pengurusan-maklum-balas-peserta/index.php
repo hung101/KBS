@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanMaklumBalasPesertaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Kehadiran Peserta';
+$this->title = GeneralLabel::kehadiran_peserta;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-maklum-balas-peserta-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-maklum-balas-peserta']['create'])): ?>
     <p>
-        <?= Html::a(GeneralLabel::createTitle . ' Kehadiran Peserta', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::kehadiran_peserta, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?php endif; ?>
 

@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PenyertaanSukan */
 
 //$this->title = $model->penyertaan_sukan_id;
-$this->title = GeneralLabel::viewTitle . ' Penilaian Prestasi Kejohanan';
-$this->params['breadcrumbs'][] = ['label' => 'Penilaian Prestasi Kejohanan', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::penilaian_prestasi_kejohanan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penilaian_prestasi_kejohanan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="penyertaan-sukan-view">

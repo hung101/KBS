@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PsikologiProfilSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Profil Psikologi';
+$this->title = GeneralLabel::profil_psikologi;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="psikologi-profil-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['psikologi-profil']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle .' Profil Psikologi', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle .' ' . GeneralLabel::profil_psikologi, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

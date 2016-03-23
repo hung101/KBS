@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_ltbs_minit_mesyuarat_agm".
  *
@@ -64,14 +66,15 @@ class LtbsMinitMesyuaratAgm extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'mesyuarat_agm_id' => 'Mesyuarat Agm ID',
-            'tarikh' => 'Tarikh & Masa',
-            'masa' => 'Masa',
-            'tempat' => 'Tempat',
-            'jumlah_ahli_yang_hadir' => 'Korum Mesyuarat Mengikut Perlembagaan',
-            'jumlah_ahli_yang_layak_mengundi' => 'Kehadiran Ahli Yang Layak Mengundi',
-            'agenda_mesyuarat' => 'Agenda Mesyuarat',
-            'keputusan_mesyuarat' => 'Keputusan Mesyuarat',
+            'mesyuarat_agm_id' => GeneralLabel::mesyuarat_agm_id,
+            'tarikh' => GeneralLabel::tarikh,
+            'masa' => GeneralLabel::masa,
+            'tempat' => GeneralLabel::tempat,
+            'jumlah_ahli_yang_hadir' => GeneralLabel::jumlah_ahli_yang_hadir,
+            'jumlah_ahli_yang_layak_mengundi' => GeneralLabel::jumlah_ahli_yang_layak_mengundi,
+            'agenda_mesyuarat' => GeneralLabel::agenda_mesyuarat,
+            'keputusan_mesyuarat' => GeneralLabel::keputusan_mesyuarat,
+
         ];
     }
 }

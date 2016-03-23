@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_soal_selidik_sebelum_ujian".
  *
@@ -62,14 +64,15 @@ class SoalSelidikSebelumUjian extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'soal_selidik_sebelum_ujian_id' => 'Soal Selidik Sebelum Ujian ID',
-            'atlet_id' => 'Atlet',
-            'tarikh' => 'Tarikh Pemilihan Ujian',
-            'pemilihan_ujian' => 'Pemilihan Ujian',
-            'pegawai_bertanggungjawab' => 'Pegawai Bertanggungjawab',
-            'catatan' => 'Catatan',
-            'soalan' => 'Soalan',
-            'jawapan' => 'Jawapan',
+            'soal_selidik_sebelum_ujian_id' => GeneralLabel::soal_selidik_sebelum_ujian_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'tarikh' => GeneralLabel::tarikh,
+            'pemilihan_ujian' => GeneralLabel::pemilihan_ujian,
+            'pegawai_bertanggungjawab' => GeneralLabel::pegawai_bertanggungjawab,
+            'catatan' => GeneralLabel::catatan,
+            'soalan' => GeneralLabel::soalan,
+            'jawapan' => GeneralLabel::jawapan,
+
         ];
     }
     

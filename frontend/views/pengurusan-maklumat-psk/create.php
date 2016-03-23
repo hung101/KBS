@@ -7,8 +7,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanMaklumatPsk */
 
-$this->title = GeneralLabel::createTitle .' Pengurusan Maklumat PSK';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Maklumat PSK', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle .' ' . GeneralLabel::pengurusan_maklumat_psk;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_maklumat_psk, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-maklumat-psk-create">

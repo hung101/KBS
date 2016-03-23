@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanProgramBinaanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Permohonan Program Binaan';
+$this->title = GeneralLabel::permohonan_program_binaan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-program-binaan-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Permohonan Program Binaan', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::permohonan_program_binaan, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

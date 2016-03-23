@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_bsp_pertukaran_program_pengajian".
  *
@@ -63,14 +65,15 @@ class BspPertukaranProgramPengajian extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'bsp_pertukaran_program_pengajian_id' => 'Bsp Pertukaran Program Pengajian ID',
-            'bsp_pemohon_id' => 'Bsp Pemohon ID',
-            'tarikh' => 'Tarikh',
-            'bidang_pengajian_kursus' => 'Bidang Pengajian/Kursus',
-            'fakulti' => 'Fakulti',
-            'tarikh_mula_pengajian' => 'Tarikh Mula Pengajian',
-            'tarikh_tamat_pengajian' => 'Tarikh Tamat Pengajian',
-            'tempoh_perlanjutan_semester' => 'Tempoh Perlanjutan Semester',
+            'bsp_pertukaran_program_pengajian_id' => GeneralLabel::bsp_pertukaran_program_pengajian_id,
+            'bsp_pemohon_id' => GeneralLabel::bsp_pemohon_id,
+            'tarikh' => GeneralLabel::tarikh,
+            'bidang_pengajian_kursus' => GeneralLabel::bidang_pengajian_kursus,
+            'fakulti' => GeneralLabel::fakulti,
+            'tarikh_mula_pengajian' => GeneralLabel::tarikh_mula_pengajian,
+            'tarikh_tamat_pengajian' => GeneralLabel::tarikh_tamat_pengajian,
+            'tempoh_perlanjutan_semester' => GeneralLabel::tempoh_perlanjutan_semester,
+
         ];
     }
 }

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PlDataKlinikalSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Data Klinikal';
+$this->title = GeneralLabel::data_klinikal;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pl-data-klinikal-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-data-klinikal']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Data Klinikal', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::data_klinikal, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

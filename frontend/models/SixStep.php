@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_six_step".
  *
@@ -58,13 +60,14 @@ class SixStep extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'six_step_id' => 'Six Step ID',
-            'atlet_id' => 'Atlet',
-            'kategori_atlet' => 'Kategori Atlet',
-            'sukan' => 'Sukan',
-            'acara' => 'Acara',
-            'stage' => 'Stage',
-            'status' => 'Status',
+            'six_step_id' => GeneralLabel::six_step_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'kategori_atlet' => GeneralLabel::kategori_atlet,
+            'sukan' => GeneralLabel::sukan,
+            'acara' => GeneralLabel::acara,
+            'stage' => GeneralLabel::stage,
+            'status' => GeneralLabel::status,
+
         ];
     }
     

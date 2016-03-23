@@ -10,8 +10,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\ForumSeminarPersidanganDiLuarNegara */
 
 //$this->title = $model->forum_seminar_persidangan_di_luar_negara_id;
-$this->title = GeneralLabel::viewTitle . ' Bantuan Menghadiri Program Antarabangsa';
-$this->params['breadcrumbs'][] = ['label' => 'Bantuan Menghadiri Program Antarabangsa', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::bantuan_menghadiri_program_antarabangsa;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bantuan_menghadiri_program_antarabangsa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="forum-seminar-persidangan-di-luar-negara-view">

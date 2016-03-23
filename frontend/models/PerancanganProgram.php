@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_perancangan_program".
  *
@@ -64,13 +66,14 @@ class PerancanganProgram extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'perancangan_program_id' => 'Perancangan Program ID',
-            'tarikh_mula' => 'Tarikh Mula',
-            'tarikh_tamat' => 'Tarikh Akhir',
-            'nama_program' => 'Nama Program',
-            'jenis_program' => 'Jenis Program',
-            'lokasi' => 'Lokasi',
-            'muat_naik' => 'Muat Naik',
+            'perancangan_program_id' => GeneralLabel::perancangan_program_id,
+            'tarikh_mula' => GeneralLabel::tarikh_mula,
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,
+            'nama_program' => GeneralLabel::nama_program,
+            'jenis_program' => GeneralLabel::jenis_program,
+            'lokasi' => GeneralLabel::lokasi,
+            'muat_naik' => GeneralLabel::muat_naik,
+
         ];
     }
     

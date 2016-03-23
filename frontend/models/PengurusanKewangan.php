@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_kewangan".
  *
@@ -69,19 +71,20 @@ class PengurusanKewangan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_kewangan_id' => 'Pengurusan Kewangan ID',
-            'nama_acara_program' => 'Sukan',
-            'tarikh_acara' => 'Tarikh',
-            'kategori_acara' => 'Kategori Acara',
-            'objektif' => 'Objektif',
-            'kategori_penggunaan' => 'Kategori Penggunaan',
-            'harga_penggunaan' => 'Harga Penggunaan',
-            'jumlah_bajet' => 'Jumlah Bajet',
-            'jumlah_penggunaan' => 'Jumlah Penggunaan',
-            'catatan' => 'Catatan',
-            'bajet_keseluruhan' => 'Bajet Keseluruhan',
-            'penggunaan_keseluruhan' => 'Penggunaan Keseluruhan',
-            'baki' => 'Baki',
+            'pengurusan_kewangan_id' => GeneralLabel::pengurusan_kewangan_id,
+            'nama_acara_program' => GeneralLabel::nama_acara_program,
+            'tarikh_acara' => GeneralLabel::tarikh_acara,
+            'kategori_acara' => GeneralLabel::kategori_acara,
+            'objektif' => GeneralLabel::objektif,
+            'kategori_penggunaan' => GeneralLabel::kategori_penggunaan,
+            'harga_penggunaan' => GeneralLabel::harga_penggunaan,
+            'jumlah_bajet' => GeneralLabel::jumlah_bajet,
+            'jumlah_penggunaan' => GeneralLabel::jumlah_penggunaan,
+            'catatan' => GeneralLabel::catatan,
+            'bajet_keseluruhan' => GeneralLabel::bajet_keseluruhan,
+            'penggunaan_keseluruhan' => GeneralLabel::penggunaan_keseluruhan,
+            'baki' => GeneralLabel::baki,
+
         ];
     }
     

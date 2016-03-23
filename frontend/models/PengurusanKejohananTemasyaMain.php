@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_kejohanan_temasya_main".
  *
@@ -59,10 +61,11 @@ class PengurusanKejohananTemasyaMain extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_kejohanan_temasya_main_id' => 'Pengurusan Kejohanan Temasya Main ID',
-            'nama_temasya' => 'Nama Temasya',
-            'nama_pertandingan' => 'Nama Pertandingan',
-            'tarikh' => 'Tarikh',
+            'pengurusan_kejohanan_temasya_main_id' => GeneralLabel::pengurusan_kejohanan_temasya_main_id,
+            'nama_temasya' => GeneralLabel::nama_temasya,
+            'nama_pertandingan' => GeneralLabel::nama_pertandingan,
+            'tarikh' => GeneralLabel::tarikh,
+
         ];
     }
     

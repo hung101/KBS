@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_user_peranan".
  *
@@ -68,10 +70,11 @@ class UserPeranan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'user_peranan_id' => 'User Peranan ID',
-            'nama_peranan' => 'Nama Peranan',
-            'peranan_akses' => 'Peranan Akses',
-            'aktif' => 'Aktif',
+            'user_peranan_id' => GeneralLabel::user_peranan_id,
+            'nama_peranan' => GeneralLabel::nama_peranan,
+            'peranan_akses' => GeneralLabel::peranan_akses,
+            'aktif' => GeneralLabel::aktif,
+
         ];
     }
     

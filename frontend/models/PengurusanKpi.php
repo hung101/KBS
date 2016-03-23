@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_kpi".
  *
@@ -63,13 +65,14 @@ class PengurusanKpi extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_kpi_id' => 'Pengurusan Kpi ID',
-            'nama_sukan' => 'Nama Sukan',
-            'nama_acara' => 'Nama Acara',
-            'jumlah_sasaran_pingat' => 'Jumlah Sasaran Pingat',
-            'jumlah_pingat_yang_telah_dimenangi' => 'Jumlah Pingat Yang Telah Dimenangi',
-            'rekod_baru_yang_dicipta' => 'Rekod Baru Yang Dicipta',
-            'senarai_atlet_yang_memenangi' => 'Senarai Atlet Yang Memenangi',
+            'pengurusan_kpi_id' => GeneralLabel::pengurusan_kpi_id,
+            'nama_sukan' => GeneralLabel::nama_sukan,
+            'nama_acara' => GeneralLabel::nama_acara,
+            'jumlah_sasaran_pingat' => GeneralLabel::jumlah_sasaran_pingat,
+            'jumlah_pingat_yang_telah_dimenangi' => GeneralLabel::jumlah_pingat_yang_telah_dimenangi,
+            'rekod_baru_yang_dicipta' => GeneralLabel::rekod_baru_yang_dicipta,
+            'senarai_atlet_yang_memenangi' => GeneralLabel::senarai_atlet_yang_memenangi,
+
         ];
     }
     

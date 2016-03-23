@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PsikologiAktiviti */
 
 //$this->title = 'Update Psikologi Aktiviti: ' . ' ' . $model->psikologi_aktiviti_id;
-$this->title = GeneralLabel::updateTitle . ' Aktiviti Psikologi';
-$this->params['breadcrumbs'][] = ['label' => 'Aktiviti Psikologi', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Aktiviti Psikologi', 'url' => ['view', 'id' => $model->psikologi_aktiviti_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::aktiviti_psikologi;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::aktiviti_psikologi, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::aktiviti_psikologi, 'url' => ['view', 'id' => $model->psikologi_aktiviti_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="psikologi-aktiviti-update">

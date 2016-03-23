@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PenganjuranKursusPenganjur */
 
 //$this->title = 'Update Penganjuran Kursus Penganjur: ' . ' ' . $model->penganjuran_kursus_penganjur_id;
-$this->title = GeneralLabel::updateTitle . ' Penganjuran Kursus : Penganjur';
-$this->params['breadcrumbs'][] = ['label' => 'Penganjuran Kursus : Penganjur', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Penganjuran Kursus : Penganjur', 'url' => ['view', 'id' => $model->penganjuran_kursus_penganjur_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::penganjuran_kursus_penganjur;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penganjuran_kursus_penganjur, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::penganjuran_kursus_penganjur, 'url' => ['view', 'id' => $model->penganjuran_kursus_penganjur_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="penganjuran-kursus-penganjur-update">

@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\BspBendahariIpt */
 
 //$this->title = $model->bsp_bendahari_ipt_id;
-$this->title = GeneralLabel::viewTitle . ' Bendahari IPT';
-$this->params['breadcrumbs'][] = ['label' => 'Bendahari IPT', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::bendahari_ipt;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bendahari_ipt, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-bendahari-ipt-view">

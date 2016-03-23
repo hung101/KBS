@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PengurusanMaklumBalasPeserta */
 
 //$this->title = $model->pengurusan_maklum_balas_peserta_id;
-$this->title = GeneralLabel::viewTitle . ' Kehadiran Peserta';
-$this->params['breadcrumbs'][] = ['label' => 'Kehadiran Peserta', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::kehadiran_peserta;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kehadiran_peserta, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-maklum-balas-peserta-view">

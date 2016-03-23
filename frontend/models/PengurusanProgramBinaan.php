@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_program_binaan".
  *
@@ -73,21 +75,22 @@ class PengurusanProgramBinaan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_program_binaan_id' => 'Pengurusan Program Binaan ID',
-            'nama_program' => 'Nama Program',
-            'nama_ppn' => 'Nama Ppn',
-            'pengurus_pn' => 'Pengurus Pn',
-            'kategori_permohonan' => 'Kategori Permohonan',
-            'jenis_permohonan' => 'Jenis Permohonan',
-            'sukan' => 'Sukan',
-            'tempat' => 'Tempat',
-            'tahap' => 'Tahap',
-            'negeri' => 'Negeri',
-            'daerah' => 'Daerah',
-            'tarikh_mula' => 'Tarikh Mula',
-            'tarikh_tamat' => 'Tarikh Tamat',
-            'sokongan_pn' => 'Sokongan Pn',
-            'kelulusan' => 'Kelulusan',
+            'pengurusan_program_binaan_id' => GeneralLabel::pengurusan_program_binaan_id,
+            'nama_program' => GeneralLabel::nama_program,
+            'nama_ppn' => GeneralLabel::nama_ppn,
+            'pengurus_pn' => GeneralLabel::pengurus_pn,
+            'kategori_permohonan' => GeneralLabel::kategori_permohonan,
+            'jenis_permohonan' => GeneralLabel::jenis_permohonan,
+            'sukan' => GeneralLabel::sukan,
+            'tempat' => GeneralLabel::tempat,
+            'tahap' => GeneralLabel::tahap,
+            'negeri' => GeneralLabel::negeri,
+            'daerah' => GeneralLabel::daerah,
+            'tarikh_mula' => GeneralLabel::tarikh_mula,
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,
+            'sokongan_pn' => GeneralLabel::sokongan_pn,
+            'kelulusan' => GeneralLabel::kelulusan,
+
         ];
     }
     

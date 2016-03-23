@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_elaporan_pelaksaan".
  *
@@ -85,31 +87,32 @@ class ElaporanPelaksaan extends \yii\db\ActiveRecord
     {
         return [
             'elaporan_pelaksaan_id' => 'Elaporan Pelaksaan ID',
-            'nama_projek_program_aktiviti_kejohanan' => 'Nama Projek Program Aktiviti Kejohanan',
-            'peringkat' => 'Peringkat',
-            'nama_penganjur_persatuan_kerjasama' => 'Nama Penganjur Persatuan Kerjasama',
-            'jumlah_bantuan_peruntukan' => 'Jumlah Bantuan Peruntukan',
-            'jumlah_perbelanjaan' => 'Jumlah Perbelanjaan',
-            'no_cek_eft' => 'No Cek Eft',
-            'tarikh_cek_eft' => 'Tarikh Cek Eft',
-            'tarikh_pelaksanaan_mula' => 'Tarikh Pelaksanaan Mula',
-            'tarikh_pelaksanaan_tarikh' => 'Tarikh Pelaksanaan Tarikh',
-            'objektif_pelaksaan' => 'Objektif Pelaksaan',
-            'tempat_pelaksanaan' => 'Tempat Pelaksanaan',
-            'dirasmikan_oleh' => 'Dirasmikan Oleh',
-            'lelaki' => 'Lelaki',
-            'wanita' => 'Wanita',
-            'melayu' => 'Melayu',
-            'cina' => 'Cina',
-            'india' => 'India',
-            'lain_lain' => 'Lain Lain',
-            'jumlah_penyertaan' => 'Jumlah Penyertaan',
-            'rumusan_program' => 'Rumusan Program',
-            'muat_naik' => 'Muat Naik',
-            'creator_nama' => 'Nama Pelapor',
-            'creator_emel' => 'Emel Pelapor',
-            'creator_mobile_no' => 'Tel No Pelapor',
-            'kelulusan' => 'Kelulusan',
+            'nama_projek_program_aktiviti_kejohanan' => GeneralLabel::nama_projek_program_aktiviti_kejohanan,
+            'peringkat' => GeneralLabel::peringkat,
+            'nama_penganjur_persatuan_kerjasama' => GeneralLabel::nama_penganjur_persatuan_kerjasama,
+            'jumlah_bantuan_peruntukan' => GeneralLabel::jumlah_bantuan_peruntukan,
+            'jumlah_perbelanjaan' => GeneralLabel::jumlah_perbelanjaan,
+            'no_cek_eft' => GeneralLabel::no_cek_eft,
+            'tarikh_cek_eft' => GeneralLabel::tarikh_cek_eft,
+            'tarikh_pelaksanaan_mula' => GeneralLabel::tarikh_pelaksanaan_mula,
+            'tarikh_pelaksanaan_tarikh' => GeneralLabel::tarikh_pelaksanaan_tarikh,
+            'objektif_pelaksaan' => GeneralLabel::objektif_pelaksaan,
+            'tempat_pelaksanaan' => GeneralLabel::tempat_pelaksanaan,
+            'dirasmikan_oleh' => GeneralLabel::dirasmikan_oleh,
+            'lelaki' => GeneralLabel::lelaki,
+            'wanita' => GeneralLabel::wanita,
+            'melayu' => GeneralLabel::melayu,
+            'cina' => GeneralLabel::cina,
+            'india' => GeneralLabel::india,
+            'lain_lain' => GeneralLabel::lain_lain,
+            'jumlah_penyertaan' => GeneralLabel::jumlah_penyertaan,
+            'rumusan_program' => GeneralLabel::rumusan_program,
+            'muat_naik' => GeneralLabel::muat_naik,
+            'creator_nama' => GeneralLabel::creator_nama,
+            'creator_emel' => GeneralLabel::creator_emel,
+            'creator_mobile_no' => GeneralLabel::creator_mobile_no,
+            'kelulusan' => GeneralLabel::kelulusan,
+
         ];
     }
     

@@ -9,8 +9,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\AdminEBiasiswa */
 
 //$this->title = $model->admin_e_biasiswa_id;
-$this->title = GeneralLabel::viewTitle . ' Admin : E-Biasiswa';
-$this->params['breadcrumbs'][] = ['label' => 'Admin : E-Biasiswa', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::admin_ebiasiswa;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::admin_ebiasiswa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="admin-ebiasiswa-view">

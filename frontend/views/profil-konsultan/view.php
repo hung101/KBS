@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\ProfilKonsultan */
 
 //$this->title = $model->profil_konsultan_id;
-$this->title = GeneralLabel::viewTitle . ' Profil Kaunselor';
-$this->params['breadcrumbs'][] = ['label' => 'Profil Kaunselor', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::profil_kaunselor;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::profil_kaunselor, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="profil-konsultan-view">

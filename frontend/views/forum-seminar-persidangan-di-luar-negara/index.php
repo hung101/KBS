@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\ForumSeminarPersidanganDiLuarNegaraSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Bantuan Menghadiri Program Antarabangsa';
+$this->title = GeneralLabel::bantuan_menghadiri_program_antarabangsa;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="forum-seminar-persidangan-di-luar-negara-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['forum-seminar-persidangan-di-luar-negara']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Bantuan Menghadiri Program Antarabangsa', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::bantuan_menghadiri_program_antarabangsa, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

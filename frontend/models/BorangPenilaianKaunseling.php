@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_borang_penilaian_kaunseling".
  *
@@ -64,16 +66,17 @@ class BorangPenilaianKaunseling extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'borang_penilaian_kaunseling_id' => 'Borang Penilaian Kaunseling ID',
-            'profil_konsultan_id' => 'Konsultan',
-            'atlet' => 'Atlet',
-            'diagnosis' => 'Diagnosis',
-            'preskripsi' => 'Preskripsi',
-            'cadangan' => 'Cadangan',
-            'rujukan' => 'Rujukan',
-            'tindakan_selanjutnya' => 'Tindakan Selanjutnya',
-            'kategori_permasalahan' => 'Kategori Masalah',
-            'tarikh_temujanji' => 'Tarikh Temujanji',
+            'borang_penilaian_kaunseling_id' => GeneralLabel::borang_penilaian_kaunseling_id,
+            'profil_konsultan_id' => GeneralLabel::profil_konsultan_id,
+            'atlet' => GeneralLabel::atlet,
+            'diagnosis' => GeneralLabel::diagnosis,
+            'preskripsi' => GeneralLabel::preskripsi,
+            'cadangan' => GeneralLabel::cadangan,
+            'rujukan' => GeneralLabel::rujukan,
+            'tindakan_selanjutnya' => GeneralLabel::tindakan_selanjutnya,
+            'kategori_permasalahan' => GeneralLabel::kategori_permasalahan,
+            'tarikh_temujanji' => GeneralLabel::tarikh_temujanji,
+
         ];
     }
     

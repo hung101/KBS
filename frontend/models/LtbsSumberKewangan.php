@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_ltbs_sumber_kewangan".
  *
@@ -60,11 +62,12 @@ class LtbsSumberKewangan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'sumber_kewangan_id' => 'Sumber Kewangan ID',
-            'profil_badan_sukan_id' => 'Badan Sukan',
-            'jenis' => 'Jenis',
-            'sumber' => 'Sumber',
-            'jumlah' => 'Jumlah (RM)',
+            'sumber_kewangan_id' => GeneralLabel::sumber_kewangan_id,
+            'profil_badan_sukan_id' => GeneralLabel::profil_badan_sukan_id,
+            'jenis' => GeneralLabel::jenis,
+            'sumber' => GeneralLabel::sumber,
+            'jumlah' => GeneralLabel::jumlah,
+
         ];
     }
     

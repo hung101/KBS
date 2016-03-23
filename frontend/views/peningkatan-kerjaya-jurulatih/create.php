@@ -1,13 +1,14 @@
 <?php
 
 use yii\helpers\Html;
+use app\models\general\GeneralLabel;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PeningkatanKerjayaJurulatih */
 
 $this->title = 'Tambah Peningkatan Kerjaya Jurulatih';
-$this->params['breadcrumbs'][] = ['label' => 'Peningkatan Kerjaya Jurulatih', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::peningkatan_kerjaya_jurulatih, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="peningkatan-kerjaya-jurulatih-create">

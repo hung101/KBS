@@ -7,8 +7,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\BantuanElaun */
 
-$this->title = GeneralLabel::createTitle . ' Bantuan Elaun SUE/Elaun Penyelaras/Emolumen PSK';
-$this->params['breadcrumbs'][] = ['label' => 'Bantuan Elaun SUE/Elaun Penyelaras/Emolumen PSK', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::bantuan_elaun_sueelaun_penyelarasemolumen_psk;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bantuan_elaun_sueelaun_penyelarasemolumen_psk, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bantuan-elaun-create">

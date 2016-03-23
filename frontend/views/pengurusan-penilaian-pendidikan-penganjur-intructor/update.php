@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PengurusanPenilaianPendidikanPenganjurIntructor */
 
 //$this->title = 'Update Pengurusan Penilaian Pendidikan Penganjur Intructor: ' . ' ' . $model->pengurusan_penilaian_pendidikan_penganjur_intructor_id;
-$this->title = GeneralLabel::updateTitle . ' Pengurusan Penilaian Pendidikan Penganjur/Intructor';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Penilaian Pendidikan Penganjur/Intructor', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Pengurusan Penilaian Pendidikan Penganjur/Intructor', 'url' => ['view', 'id' => $model->pengurusan_penilaian_pendidikan_penganjur_intructor_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::pengurusan_penilaian_pendidikan_penganjurintructor;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_penilaian_pendidikan_penganjurintructor, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_penilaian_pendidikan_penganjurintructor, 'url' => ['view', 'id' => $model->pengurusan_penilaian_pendidikan_penganjur_intructor_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-penilaian-pendidikan-penganjur-intructor-update">

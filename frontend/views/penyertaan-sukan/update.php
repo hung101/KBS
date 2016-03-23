@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PenyertaanSukan */
 
 //$this->title = 'Update Penyertaan Sukan: ' . ' ' . $model->penyertaan_sukan_id;
-$this->title = GeneralLabel::updateTitle . ' Penilaian Prestasi Kejohanan';
-$this->params['breadcrumbs'][] = ['label' => 'Penilaian Prestasi Kejohanan', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Penilaian Prestasi Kejohanan', 'url' => ['view', 'id' => $model->penyertaan_sukan_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::penilaian_prestasi_kejohanan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penilaian_prestasi_kejohanan, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::penilaian_prestasi_kejohanan, 'url' => ['view', 'id' => $model->penyertaan_sukan_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="penyertaan-sukan-update">

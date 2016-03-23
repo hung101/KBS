@@ -10,8 +10,8 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\KursusSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'CCE';
-$this->params['breadcrumbs'][] = ['label' => 'Akademi Kejurulatihan Kebangsaan (AKK)', 'url' => ['akademi-akk/index']];
+$this->title = GeneralLabel::cce;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, 'url' => ['akademi-akk/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="kursus-index">
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['kursus']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' CCE', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::cce, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

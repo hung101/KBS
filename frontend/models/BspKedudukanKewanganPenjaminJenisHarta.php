@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_bsp_kedudukan_kewangan_penjamin_jenis_harta".
  *
@@ -60,11 +62,12 @@ class BspKedudukanKewanganPenjaminJenisHarta extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'bsp_kedudukan_kewangan_penjamin_jenis_harta_id' => 'Bsp Kedudukan Kewangan Penjamin Jenis Harta ID',
-            'bsp_kedudukan_kewangan_penjamin_id' => 'Bsp Kedudukan Kewangan Penjamin ID',
-            'jenis_harta' => 'Jenis Harta',
-            'jumlah_ekar_kaki_persegi' => 'Jumlah/Ekar/Kaki Persegi',
-            'nilai' => 'Nilai (RM)',
+            'bsp_kedudukan_kewangan_penjamin_jenis_harta_id' => GeneralLabel::bsp_kedudukan_kewangan_penjamin_jenis_harta_id,
+            'bsp_kedudukan_kewangan_penjamin_id' => GeneralLabel::bsp_kedudukan_kewangan_penjamin_id,
+            'jenis_harta' => GeneralLabel::jenis_harta,
+            'jumlah_ekar_kaki_persegi' => GeneralLabel::jumlah_ekar_kaki_persegi,
+            'nilai' => GeneralLabel::nilai,
+
         ];
     }
     

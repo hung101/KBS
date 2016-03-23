@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanPenilaianPendidikanPenganjurIntructorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pengurusan Penilaian Pendidikan Penganjur/Intructor';
+$this->title = GeneralLabel::pengurusan_penilaian_pendidikan_penganjurintructor;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-penilaian-pendidikan-penganjur-intructor-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penilaian-pendidikan-penganjur-intructor']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Pengurusan Penilaian Pendidikan Penganjur/Intructor', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::pengurusan_penilaian_pendidikan_penganjurintructor, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

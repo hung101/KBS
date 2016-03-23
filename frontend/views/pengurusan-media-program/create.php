@@ -8,8 +8,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanMediaProgram */
 
-$this->title = GeneralLabel::createTitle . ' Pengurusan Media';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Media', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::pengurusan_media;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_media, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-media-program-create">

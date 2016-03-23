@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\BantuanElaunSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Bantuan Elaun SUE/Elaun Penyelaras/Emolumen PSK';
+$this->title = GeneralLabel::bantuan_elaun_sueelaun_penyelarasemolumen_psk;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bantuan-elaun-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-elaun']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Bantuan Elaun SUE/Elaun Penyelaras/Emolumen PSK', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::bantuan_elaun_sueelaun_penyelarasemolumen_psk, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

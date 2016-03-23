@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_biomekanik_ujian".
  *
@@ -59,10 +61,11 @@ class BiomekanikUjian extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'biomekanik_ujian_id' => 'Biomekanik Ujian ID',
-            'perkhidmatan_analisa_perlawanan_biomekanik_id' => 'Perkhidmatan Biomekanik ID',
-            'tarikh' => 'Tarikh',
-            'biomekanik_ujian' => 'Biomekanik Ujian',
+            'biomekanik_ujian_id' => GeneralLabel::biomekanik_ujian_id,
+            'perkhidmatan_analisa_perlawanan_biomekanik_id' => GeneralLabel::perkhidmatan_analisa_perlawanan_biomekanik_id,
+            'tarikh' => GeneralLabel::tarikh,
+            'biomekanik_ujian' => GeneralLabel::biomekanik_ujian,
+
         ];
     }
     

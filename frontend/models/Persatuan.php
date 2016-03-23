@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_bsp_bendahari_ipt".
  *
@@ -70,25 +72,26 @@ class Persatuan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'username' => 'Username',
-            'jabatan_id' => 'Jabatan',
-            'profil_badan_sukan' => 'Persatuan',
-            'peranan' => 'Peranan',
-            'auth_key' => 'Auth Key',
-            'password_hash' => 'Kata Laluan',
-            'new_password' => 'Kata Laluan',
-            'password_confirm' => 'Taip Semula Kata Laluan',
-            'password_reset_token' => 'Taip Semula Kata Laluan',
-            'full_name' => 'Nama Penuh',
-            'tel_mobile_no' => 'Tel Bimbit No',
-            'tel_no' => 'Tel No',
-            'email' => 'Emel',
-            'status' => 'Status',
-            'no_kad_pengenalan' => 'No K/P',
-            'ipt_bendahari_e_biasiswa' => 'IPT',
-            'urusetia_negeri_e_bantuan' => 'Negeri',
-            'urusetia_kategori_program_e_bantuan' => 'Kategori Program',
+            'id' => GeneralLabel::id,
+            'username' => GeneralLabel::username,
+            'jabatan_id' => GeneralLabel::jabatan_id,
+            'profil_badan_sukan' => GeneralLabel::profil_badan_sukan,
+            'peranan' => GeneralLabel::peranan,
+            'auth_key' => GeneralLabel::auth_key,
+            'password_hash' => GeneralLabel::password_hash,
+            'new_password' => GeneralLabel::new_password,
+            'password_confirm' => GeneralLabel::password_confirm,
+            'password_reset_token' => GeneralLabel::password_reset_token,
+            'full_name' => GeneralLabel::full_name,
+            'tel_mobile_no' => GeneralLabel::tel_mobile_no,
+            'tel_no' => GeneralLabel::tel_no,
+            'email' => GeneralLabel::email,
+            'status' => GeneralLabel::status,
+            'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
+            'ipt_bendahari_e_biasiswa' => GeneralLabel::ipt_bendahari_e_biasiswa,
+            'urusetia_negeri_e_bantuan' => GeneralLabel::urusetia_negeri_e_bantuan,
+            'urusetia_kategori_program_e_bantuan' => GeneralLabel::urusetia_kategori_program_e_bantuan,
+
         ];
     }
     

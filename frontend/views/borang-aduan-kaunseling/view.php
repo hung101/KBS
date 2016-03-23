@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\BorangAduanKaunseling */
 
 //$this->title = $model->borang_aduan_kaunseling_id;
-$this->title = GeneralLabel::viewTitle . ' Borang Aduan Atlet';
-$this->params['breadcrumbs'][] = ['label' => 'Borang Aduan Atlet', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::borang_aduan_atlet;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::borang_aduan_atlet, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="borang-aduan-kaunseling-view">

@@ -5,6 +5,8 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
+use app\models\general\GeneralLabel;
+
 
 class EKemudahanLaporanPenggunaanDanHasilBagiKombes extends Model
 {
@@ -26,11 +28,12 @@ class EKemudahanLaporanPenggunaanDanHasilBagiKombes extends Model
     public function attributeLabels()
     {
         return [
-            'negeri' => 'Negeri',
-            'kategori' => 'Kategori',
-            'tarikh_dari' => 'Tarikh Dari',
-            'tarikh_hingga' => 'Hingga',
-            'format' => 'Format',
+            'negeri' => GeneralLabel::negeri,
+            'kategori' => GeneralLabel::kategori,
+            'tarikh_dari' => GeneralLabel::tarikh_dari,
+            'tarikh_hingga' => GeneralLabel::tarikh_hingga,
+            'format' => GeneralLabel::format,
+
         ];
     }
 }

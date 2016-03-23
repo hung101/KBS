@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_atlet_penajaansokongan".
  *
@@ -75,23 +77,24 @@ class AtletPenajaansokongan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'penajaan_sokongan_id' => 'Penajaan Sokongan ID',
-            'atlet_id' => 'Atlet ID',
-            'nama_syarikat' => 'Nama Syarikat',
-            'alamat_1' => 'Alamat',
-            'alamat_2' => '',
-            'alamat_3' => '',
-            'alamat_negeri' => 'Negeri',
-            'alamat_bandar' => 'Bandar',
-            'alamat_poskod' => 'Poskod',
-            'emel' => 'Emel',
-            'no_telefon' => 'No Telefon',
-            'peribadi_yang_bertanggungjawab' => 'Peribadi Yang Bertanggungjawab',
-            'jenis_kontrak' => 'Jenis Kontrak',
-            'nilai_kontrak' => 'Nilai Kontrak',
-            'tahun_permulaan' => 'Tahun Permulaan',
-            'tahun_akhir' => 'Tahun Tamat',
-            'barang_yang_penyokong' => 'Barang Yang Penyokong',
+            'penajaan_sokongan_id' => GeneralLabel::penajaan_sokongan_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'nama_syarikat' => GeneralLabel::nama_syarikat,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'emel' => GeneralLabel::emel,
+            'no_telefon' => GeneralLabel::no_telefon,
+            'peribadi_yang_bertanggungjawab' => GeneralLabel::peribadi_yang_bertanggungjawab,
+            'jenis_kontrak' => GeneralLabel::jenis_kontrak,
+            'nilai_kontrak' => GeneralLabel::nilai_kontrak,
+            'tahun_permulaan' => GeneralLabel::tahun_permulaan,
+            'tahun_akhir' => GeneralLabel::tahun_akhir,
+            'barang_yang_penyokong' => GeneralLabel::barang_yang_penyokong,
+
         ];
     }
 }

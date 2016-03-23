@@ -8,8 +8,8 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PaobsPenganjuran */
 
 //$this->title = 'Update Paobs Penganjuran: ' . ' ' . $model->penganjuran_id;
-$this->title = ' Penganjuran Acara Sukan';
-$this->params['breadcrumbs'][] = ['label' => 'Penganjuran Acara Sukan', 'url' => ['index']];
+$this->title = ' ' . GeneralLabel::penganjuran_acara_sukan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penganjuran_acara_sukan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle, 'url' => ['view', 'id' => $model->penganjuran_id]];
 $this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>

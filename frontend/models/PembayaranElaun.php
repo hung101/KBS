@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pembayaran_elaun".
  *
@@ -66,17 +68,18 @@ class PembayaranElaun extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pembayaran_elaun_id' => 'Pembayaran Elaun ID',
-            //'jenis_atlet' => 'Jenis Atlet',
-            'atlet_id' => 'Atlet',
-            'kategori_elaun' => 'Kategori Elaun',
-            'tarikh_mula' => 'Tarikh Mula',
-            'tarikh_tamat' => 'Tarikh Tamat',
-            'tempoh_elaun' => 'Tempoh Elaun',
-            'sebab_elaun' => 'Catatan',
-            'status_elaun' => 'Status Elaun',
-            'jumlah_elaun' => 'Jumlah Elaun',
-            'kelulusan' => 'Kelulusan',
+            'pembayaran_elaun_id' => GeneralLabel::pembayaran_elaun_id,
+            'jenis_atlet' => GeneralLabel::jenis_atlet,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'kategori_elaun' => GeneralLabel::kategori_elaun,
+            'tarikh_mula' => GeneralLabel::tarikh_mula,
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,
+            'tempoh_elaun' => GeneralLabel::tempoh_elaun,
+            'sebab_elaun' => GeneralLabel::sebab_elaun,
+            'status_elaun' => GeneralLabel::status_elaun,
+            'jumlah_elaun' => GeneralLabel::jumlah_elaun,
+            'kelulusan' => GeneralLabel::kelulusan,
+
         ];
     }
     

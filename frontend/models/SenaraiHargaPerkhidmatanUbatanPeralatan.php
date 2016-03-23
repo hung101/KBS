@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_senarai_harga_perkhidmatan_ubatan_peralatan".
  *
@@ -59,10 +61,11 @@ class SenaraiHargaPerkhidmatanUbatanPeralatan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'senarai_harga_perkhidmatan_ubatan_peralatan_id' => 'Senarai Harga Perkhidmatan Ubatan Peralatan ID',
-            'nama_perkhidmatan_ubatan_peralatan' => 'Nama Perkhidmatan/Ubatan/Peralatan',
-            'harga' => 'Harga Tab/ML/Botol/Perkhidmatan/Unit',
-            'catitan_ringkas' => 'Catitan Ringkas',
+            'senarai_harga_perkhidmatan_ubatan_peralatan_id' => GeneralLabel::senarai_harga_perkhidmatan_ubatan_peralatan_id,
+            'nama_perkhidmatan_ubatan_peralatan' => GeneralLabel::nama_perkhidmatan_ubatan_peralatan,
+            'harga' => GeneralLabel::harga,
+            'catitan_ringkas' => GeneralLabel::catitan_ringkas,
+
         ];
     }
 }

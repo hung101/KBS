@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_insentif".
  *
@@ -77,27 +79,28 @@ class PengurusanInsentif extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_insentif_id' => 'Pengurusan Insentif ID',
-            'atlet_id' => 'Atlet',
-            'nama_insentif' => 'Nama Insentif',
-            'kumpulan' => 'Kumpulan',
-            'rekod_baru' => 'Rekod Baru',
-            'nama_sukan' => 'Nama Sukan',
-            'kelayakan_pingat' => 'Kelayakan Pingat',
-            'jumlah_insentif' => 'Jumlah Insentif',
-            'sgar_nama_jurulatih' => 'SGAR Nama Jurulatih',
-            'jumlah_sgar' => 'Jumlah SGAR',
-            'sikap_nama_persatuan' => 'SIKAP Nama Persatuan',
-            'jumlah_sikap' => 'Jumlah SIKAP',
-            'siso_tarikh_kelayakan' => 'SISO Tarikh Kelayakan',
-            'sisi_tarikh_olimpik' => 'SISO Tarikh Olimpik',
-            'jumlah_siso' => 'Jumlah SISO',
-            'sito_nama_acara_di_olimpik' => 'SITO Nama Acara Di Olimpik',
-            'sito_pingat' => 'SITO Pingat',
-            'jumlah_sito' => 'Jumlah SITO',
-            'category_insentif' => 'Kategory Insentif',
-            'muat_naik_dokumen' => 'Muat Naik Dokumen',
-            'kelulusan' => 'Kelulusan',
+            'pengurusan_insentif_id' => GeneralLabel::pengurusan_insentif_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'nama_insentif' => GeneralLabel::nama_insentif,
+            'kumpulan' => GeneralLabel::kumpulan,
+            'rekod_baru' => GeneralLabel::rekod_baru,
+            'nama_sukan' => GeneralLabel::nama_sukan,
+            'kelayakan_pingat' => GeneralLabel::kelayakan_pingat,
+            'jumlah_insentif' => GeneralLabel::jumlah_insentif,
+            'sgar_nama_jurulatih' => GeneralLabel::sgar_nama_jurulatih,
+            'jumlah_sgar' => GeneralLabel::jumlah_sgar,
+            'sikap_nama_persatuan' => GeneralLabel::sikap_nama_persatuan,
+            'jumlah_sikap' => GeneralLabel::jumlah_sikap,
+            'siso_tarikh_kelayakan' => GeneralLabel::siso_tarikh_kelayakan,
+            'sisi_tarikh_olimpik' => GeneralLabel::sisi_tarikh_olimpik,
+            'jumlah_siso' => GeneralLabel::jumlah_siso,
+            'sito_nama_acara_di_olimpik' => GeneralLabel::sito_nama_acara_di_olimpik,
+            'sito_pingat' => GeneralLabel::sito_pingat,
+            'jumlah_sito' => GeneralLabel::jumlah_sito,
+            'category_insentif' => GeneralLabel::category_insentif,
+            'muat_naik_dokumen' => GeneralLabel::muat_naik_dokumen,
+            'kelulusan' => GeneralLabel::kelulusan,
+
         ];
     }
     

@@ -8,9 +8,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PembayaranElaun */
 
 //$this->title = 'Update Pembayaran Elaun: ' . ' ' . $model->pembayaran_elaun_id;
-$this->title = GeneralLabel::updateTitle . ' Pembayaran Elaun';
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::pembayaran_elaun;
 $this->params['breadcrumbs'][] = ['label' => 'Pembayaran Elauns', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Pembayaran Elaun', 'url' => ['view', 'id' => $model->pembayaran_elaun_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::pembayaran_elaun, 'url' => ['view', 'id' => $model->pembayaran_elaun_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pembayaran-elaun-update">

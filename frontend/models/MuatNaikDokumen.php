@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_muat_naik_dokumen".
  *
@@ -63,10 +65,11 @@ class MuatNaikDokumen extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'muat_naik_dokumen_id' => 'Muat Naik Dokumen ID',
-            'kategori_muat_naik' => 'Kategori Muat Naik',
-            'muat_naik_dokumen' => 'Muat Naik Dokumen',
-            'tarikh_muat_naik' => 'Tarikh Muat Naik',
+            'muat_naik_dokumen_id' => GeneralLabel::muat_naik_dokumen_id,
+            'kategori_muat_naik' => GeneralLabel::kategori_muat_naik,
+            'muat_naik_dokumen' => GeneralLabel::muat_naik_dokumen,
+            'tarikh_muat_naik' => GeneralLabel::tarikh_muat_naik,
+
         ];
     }
     

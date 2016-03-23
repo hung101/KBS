@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_penjadualan_ujian_fisiologi".
  *
@@ -63,17 +65,18 @@ class PenjadualanUjianFisiologi extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'penjadualan_ujian_fisiologi_id' => 'Penjadualan Ujian Fisiologi ID',
-            'atlet_id' => 'Atlet',
-            'perkhidmatan' => 'Ujian',
-            'tarikh_masa' => 'Tarikh Masa',
-            'pegawai_yang_bertanggungjawab' => 'Pegawai Yang Bertanggungjawab',
-            'catitan_ringkas' => 'Catitan Ringkas',
-            'kategori_sukan' => 'Kategori Sukan',
-            'sukan' => 'Sukan',
-            'acara' => 'Acara',
-            'tempat' => 'Tempat',
-            'bilangan_atlet' => 'Bilangan Atlet',
+            'penjadualan_ujian_fisiologi_id' => GeneralLabel::penjadualan_ujian_fisiologi_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'perkhidmatan' => GeneralLabel::perkhidmatan,
+            'tarikh_masa' => GeneralLabel::tarikh_masa,
+            'pegawai_yang_bertanggungjawab' => GeneralLabel::pegawai_yang_bertanggungjawab,
+            'catitan_ringkas' => GeneralLabel::catitan_ringkas,
+            'kategori_sukan' => GeneralLabel::kategori_sukan,
+            'sukan' => GeneralLabel::sukan,
+            'acara' => GeneralLabel::acara,
+            'tempat' => GeneralLabel::tempat,
+            'bilangan_atlet' => GeneralLabel::bilangan_atlet,
+
         ];
     }
     

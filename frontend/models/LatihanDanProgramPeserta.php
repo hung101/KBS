@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_latihan_dan_program_peserta".
  *
@@ -68,18 +70,19 @@ class LatihanDanProgramPeserta extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'latihan_dan_program_peserta_id' => 'Latihan Dan Program Peserta ID',
-            'latihan_dan_program_id' => 'Latihan Dan Program ID',
-            'ahli_jawatan_induk_id' => 'Ahli Jawatankuasa Induk',
-            'ahli_jawatan_kecil_id' => 'Ahli Jawatankuasa Kecil / Biro',
-            'nama' => 'Nama',
-            'no_kad_pengenalan' => 'No Kad Pengenalan',
-            'nama_badan_sukan' => 'Nama Badan Sukan',
-            'no_pendaftaran_sukan' => 'No Pendaftaran Sukan',
-            'jawatan' => 'Jawatan',
-            'tempoh_memegang_jawatan' => 'Tempoh Memegang Jawatan',
-            'no_tel_bimbit' => 'No Tel Bimbit',
-            'emel' => 'Emel',
+            'latihan_dan_program_peserta_id' => GeneralLabel::latihan_dan_program_peserta_id,
+            'latihan_dan_program_id' => GeneralLabel::latihan_dan_program_id,
+            'ahli_jawatan_induk_id' => GeneralLabel::ahli_jawatan_induk_id,
+            'ahli_jawatan_kecil_id' => GeneralLabel::ahli_jawatan_kecil_id,
+            'nama' => GeneralLabel::nama,
+            'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
+            'nama_badan_sukan' => GeneralLabel::nama_badan_sukan,
+            'no_pendaftaran_sukan' => GeneralLabel::no_pendaftaran_sukan,
+            'jawatan' => GeneralLabel::jawatan,
+            'tempoh_memegang_jawatan' => GeneralLabel::tempoh_memegang_jawatan,
+            'no_tel_bimbit' => GeneralLabel::no_tel_bimbit,
+            'emel' => GeneralLabel::emel,
+
         ];
     }
     

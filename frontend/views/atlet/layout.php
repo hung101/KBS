@@ -1,5 +1,7 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
 use yii\helpers\Html;
 use kartik\tabs\TabsX;
 use yii\helpers\Url;
@@ -15,7 +17,7 @@ if($this->context->action->id == "create"){
     $disabledTabs = 'disabled';
 }
 
-$this->title = 'Atlet';
+$this->title = GeneralLabel::atlet;
 $this->params['breadcrumbs'][] = ['label' => 'Senarai Atlet', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

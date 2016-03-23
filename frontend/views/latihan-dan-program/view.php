@@ -10,8 +10,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\LatihanDanProgram */
 
 //$this->title = $model->latihan_dan_program_id;
-$this->title =  'Latihan Dan Pendidikan Badan Sukan';
-$this->params['breadcrumbs'][] = ['label' => 'Latihan Dan Pendidikan Badan Sukan', 'url' => ['index']];
+$this->title = GeneralLabel::latihan_dan_pendidikan_badan_sukan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::latihan_dan_pendidikan_badan_sukan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = GeneralLabel::viewTitle;
 ?>
 <div class="latihan-dan-program-view">

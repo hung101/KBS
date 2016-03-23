@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_kemudahan_venue".
  *
@@ -76,25 +78,26 @@ class PengurusanKemudahanVenue extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_kemudahan_venue_id' => 'Pengurusan Kemudahan Venue ID',
-            'nama_venue' => 'Nama Venue',
-            'alamat_1' => 'Alamat',
-            'alamat_2' => '',
-            'alamat_3' => '',
-            'alamat_negeri' => 'Negeri',
-            'alamat_bandar' => 'Bandar',
-            'alamat_poskod' => 'Poskod',
-            'no_telefon' => 'No Telefon',
-            'no_faks' => 'No Faks',
-            'emel' => 'Emel',
-            'tahun_pembinaan' => 'Tahun Pembinaan',
-            'tahun_siap_pembinaan' => 'Tahun Siap Pembinaan',
-            'keluasan_venue' => 'Keluasan Venue',
-            'no_faks' => 'No Faks',
-            'pemilik' => 'Pemilik',
-            'sewaan' => 'Sewaan',
-            'status' => 'Status',
-            'kos_project' => 'Kos Projek',
+            'pengurusan_kemudahan_venue_id' => GeneralLabel::pengurusan_kemudahan_venue_id,
+            'nama_venue' => GeneralLabel::nama_venue,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'no_telefon' => GeneralLabel::no_telefon,
+            'no_faks' => GeneralLabel::no_faks,
+            'emel' => GeneralLabel::emel,
+            'tahun_pembinaan' => GeneralLabel::tahun_pembinaan,
+            'tahun_siap_pembinaan' => GeneralLabel::tahun_siap_pembinaan,
+            'keluasan_venue' => GeneralLabel::keluasan_venue,
+            'no_faks' => GeneralLabel::no_faks,
+            'pemilik' => GeneralLabel::pemilik,
+            'sewaan' => GeneralLabel::sewaan,
+            'status' => GeneralLabel::status,
+            'kos_project' => GeneralLabel::kos_project,
+
         ];
     }
     

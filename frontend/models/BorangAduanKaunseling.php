@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_borang_aduan_kaunseling".
  *
@@ -73,23 +75,24 @@ class BorangAduanKaunseling extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'borang_aduan_kaunseling_id' => 'Borang Aduan Kaunseling ID',
-            'nama_pengadu' => 'Nama Pengadu',
-            'tarikh_aduan' => 'Tarikh Aduan',
-            'no_aduan' => 'No Aduan',
-            'status_aduan' => 'Status Aduan',
-            'aduan_kategori' => 'Kategori Aduan',
-            'penyataan_aduan' => 'Penyataan Aduan',
-            'tindakan_yang_telah_diambil' => 'Tindakan Yang Telah Diambil',
-            'dokumen_berkaitan_yang_dilampirkan' => 'Dokumen Berkaitan Yang Dilampirkan',
-            'bantuan_yang_anda_perlukan' => 'Bantuan Yang Anda Perlukan',
-            'rujukan_aduan_kepada_cawangan_yang_berkaitan' => 'Rujukan Aduan Kepada Cawangan Yang Berkaitan',
-            'rujuk_aduan_kepada_atlet' => 'Rujuk Aduan Kepada Atlet',
-            'tiada_sebarang_tindakan' => 'Tiada Sebarang Tindakan',
-            'maklumbalas_kepada_pengadu' => 'Maklumbalas Kepada Pengadu',
-            'tindakan_susulan' => 'Tindakan Susulan',
-            'aduan_dimajukan_kepada_agensi_lain' => 'Aduan Dimajukan Kepada Agensi Lain',
-            'catatan' => 'Catatan',
+            'borang_aduan_kaunseling_id' => GeneralLabel::borang_aduan_kaunseling_id,
+            'nama_pengadu' => GeneralLabel::nama_pengadu,
+            'tarikh_aduan' => GeneralLabel::tarikh_aduan,
+            'no_aduan' => GeneralLabel::no_aduan,
+            'status_aduan' => GeneralLabel::status_aduan,
+            'aduan_kategori' => GeneralLabel::aduan_kategori,
+            'penyataan_aduan' => GeneralLabel::penyataan_aduan,
+            'tindakan_yang_telah_diambil' => GeneralLabel::tindakan_yang_telah_diambil,
+            'dokumen_berkaitan_yang_dilampirkan' => GeneralLabel::dokumen_berkaitan_yang_dilampirkan,
+            'bantuan_yang_anda_perlukan' => GeneralLabel::bantuan_yang_anda_perlukan,
+            'rujukan_aduan_kepada_cawangan_yang_berkaitan' => GeneralLabel::rujukan_aduan_kepada_cawangan_yang_berkaitan,
+            'rujuk_aduan_kepada_atlet' => GeneralLabel::rujuk_aduan_kepada_atlet,
+            'tiada_sebarang_tindakan' => GeneralLabel::tiada_sebarang_tindakan,
+            'maklumbalas_kepada_pengadu' => GeneralLabel::maklumbalas_kepada_pengadu,
+            'tindakan_susulan' => GeneralLabel::tindakan_susulan,
+            'aduan_dimajukan_kepada_agensi_lain' => GeneralLabel::aduan_dimajukan_kepada_agensi_lain,
+            'catatan' => GeneralLabel::catatan,
+
         ];
     }
     

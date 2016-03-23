@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_kemudahan_aduan_kerosakan".
  *
@@ -59,10 +61,11 @@ class PengurusanKemudahanAduanKerosakan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_kemudahan_aduan_kerosakan_id' => 'Pengurusan Kemudahan Aduan Kerosakan ID',
-            'pengurusan_kemudahan_aduan_id' => 'Pengurusan Kemudahan Aduan ID',
-            'jenis_kerosakan' => 'Jenis Kerosakan',
-            'lokasi_kerosakan' => 'Lokasi Kerosakan',
+            'pengurusan_kemudahan_aduan_kerosakan_id' => GeneralLabel::pengurusan_kemudahan_aduan_kerosakan_id,
+            'pengurusan_kemudahan_aduan_id' => GeneralLabel::pengurusan_kemudahan_aduan_id,
+            'jenis_kerosakan' => GeneralLabel::jenis_kerosakan,
+            'lokasi_kerosakan' => GeneralLabel::lokasi_kerosakan,
+
         ];
     }
 }

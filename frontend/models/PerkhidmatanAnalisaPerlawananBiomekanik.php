@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_perkhidmatan_analisa_perlawanan_biomekanik".
  *
@@ -68,14 +70,15 @@ class PerkhidmatanAnalisaPerlawananBiomekanik extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'perkhidmatan_analisa_perlawanan_biomekanik_id' => 'Perkhidmatan Analisa Perlawanan Biomekanik ID',
-            'permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id' => 'Permohonan Perkhidmatan Analisa Perlawanan Dan Bimekanik ID',
-            'perkhidmatan' => 'Perkhidmatan',
-            'tarikh' => 'Tarikh',
-            'pegawai_yang_bertanggungjawab' => 'Pegawai Yang Bertanggungjawab',
-            'status_ujian' => 'Status Ujian',
-            'catitan_ringkas' => 'Catitan Ringkas',
-            'muat_naik_video' => 'Muat Naik Video',
+            'perkhidmatan_analisa_perlawanan_biomekanik_id' => GeneralLabel::perkhidmatan_analisa_perlawanan_biomekanik_id,
+            'permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id' => GeneralLabel::permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id,
+            'perkhidmatan' => GeneralLabel::perkhidmatan,
+            'tarikh' => GeneralLabel::tarikh,
+            'pegawai_yang_bertanggungjawab' => GeneralLabel::pegawai_yang_bertanggungjawab,
+            'status_ujian' => GeneralLabel::status_ujian,
+            'catitan_ringkas' => GeneralLabel::catitan_ringkas,
+            'muat_naik_video' => GeneralLabel::muat_naik_video,
+
         ];
     }
     

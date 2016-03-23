@@ -9,8 +9,8 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\ProfilBadanSukan */
 
 //$this->title = 'Update Profil Badan Sukan: ' . ' ' . $model->profil_badan_sukan;
-$this->title = 'Profil Badan Sukan';
-$this->params['breadcrumbs'][] = ['label' => 'Profil Badan Sukan', 'url' => ['index']];
+$this->title = GeneralLabel::profil_badan_sukan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::profil_badan_sukan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle, 'url' => ['view', 'id' => $model->profil_badan_sukan]];
 $this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>

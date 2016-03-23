@@ -10,8 +10,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PengurusanMediaProgram */
 
 //$this->title = $model->pengurusan_media_program_id;
-$this->title = GeneralLabel::viewTitle . ' Pengurusan Media';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Media', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_media;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_media, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-media-program-view">

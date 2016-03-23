@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\Sukarelawan */
 
 //$this->title = $model->sukarelawan_id;
-$this->title = GeneralLabel::viewTitle . ' Sukarelawan';
-$this->params['breadcrumbs'][] = ['label' => 'Sukarelawan', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::sukarelawan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::sukarelawan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sukarelawan-view">

@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_keputusan_ujian_saringan".
  *
@@ -61,12 +63,13 @@ class KeputusanUjianSaringan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'keputusan_ujian_saringan_id' => 'Keputusan Ujian Saringan ID',
-            'ujian_saringan_id' => 'Ujian Saringan ID',
-            'jenis_ujian_saringan' => 'Jenis Ujian Saringan',
-            'percubaan_1' => 'Percubaan 1',
-            'percubaan_2' => 'Percubaan 2',
-            'terbaik' => 'Terbaik',
+            'keputusan_ujian_saringan_id' => GeneralLabel::keputusan_ujian_saringan_id,
+            'ujian_saringan_id' => GeneralLabel::ujian_saringan_id,
+            'jenis_ujian_saringan' => GeneralLabel::jenis_ujian_saringan,
+            'percubaan_1' => GeneralLabel::percubaan_1,
+            'percubaan_2' => GeneralLabel::percubaan_2,
+            'terbaik' => GeneralLabel::terbaik,
+
         ];
     }
 }

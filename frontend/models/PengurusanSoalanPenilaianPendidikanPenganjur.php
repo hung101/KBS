@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_soalan_penilaian_pendidikan_penganjur".
  *
@@ -58,10 +60,11 @@ class PengurusanSoalanPenilaianPendidikanPenganjur extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_soalan_penilaian_pendidikan_penganjur_id' => 'Pengurusan Soalan Penilaian Pendidikan Penganjur ID',
-            'pengurusan_penilaian_pendidikan_penganjur_intructor_id' => 'Pengurusan Penilaian Pendidikan Penganjur Intructor ID',
-            'soalan' => 'Soalan',
-            'rating' => 'Rating',
+            'pengurusan_soalan_penilaian_pendidikan_penganjur_id' => GeneralLabel::pengurusan_soalan_penilaian_pendidikan_penganjur_id,
+            'pengurusan_penilaian_pendidikan_penganjur_intructor_id' => GeneralLabel::pengurusan_penilaian_pendidikan_penganjur_intructor_id,
+            'soalan' => GeneralLabel::soalan,
+            'rating' => GeneralLabel::rating,
+
         ];
     }
     

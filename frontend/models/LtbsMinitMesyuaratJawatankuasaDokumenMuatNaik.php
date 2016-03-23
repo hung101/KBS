@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_ltbs_minit_mesyuarat_jawatankuasa_dokumen_muat_naik".
  *
@@ -59,10 +61,11 @@ class LtbsMinitMesyuaratJawatankuasaDokumenMuatNaik extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'dokumen_muat_naik_id' => 'Dokumen Muat Naik ID',
-            'mesyuarat_id' => 'Mesyuarat ID',
-            'nama_dokumen' => 'Nama Dokumen',
-            'muat_naik' => 'Muat Naik',
+            'dokumen_muat_naik_id' => GeneralLabel::dokumen_muat_naik_id,
+            'mesyuarat_id' => GeneralLabel::mesyuarat_id,
+            'nama_dokumen' => GeneralLabel::nama_dokumen,
+            'muat_naik' => GeneralLabel::muat_naik,
+
         ];
     }
 }

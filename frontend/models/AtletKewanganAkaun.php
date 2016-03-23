@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_atlet_kewangan_akaun".
  *
@@ -62,12 +64,13 @@ class AtletKewanganAkaun extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'akaun_id' => 'Akaun ID',
-            'atlet_id' => 'Atlet ID',
-            'nama_bank' => 'Nama Bank',
-            'cawangan' => 'Cawangan',
-            'no_akaun' => 'No Akaun',
-            'jenis_akaun' => 'Jenis Akaun',
+            'akaun_id' => GeneralLabel::akaun_id,
+            'atlet_id' => GeneralLabel::atlet_id,
+            'nama_bank' => GeneralLabel::nama_bank,
+            'cawangan' => GeneralLabel::cawangan,
+            'no_akaun' => GeneralLabel::no_akaun,
+            'jenis_akaun' => GeneralLabel::jenis_akaun,
+
         ];
     }
     

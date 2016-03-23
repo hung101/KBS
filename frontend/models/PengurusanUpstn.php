@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_upstn".
  *
@@ -65,15 +67,16 @@ class PengurusanUpstn extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_upstn_id' => 'Pengurusan Upstn ID',
-            'nama_pengurus_sukan' => 'Nama Pengurus Sukan',
-            'nama_sukan' => 'Nama Sukan',
-            'tarikh_lawatan' => 'Tarikh & Masa Lawatan',
-            'masa' => 'Masa',
-            'tempat' => 'Tempat',
-            'kehadiran' => 'Kehadiran',
-            'isu' => 'Isu',
-            'ulasan' => 'Ulasan',
+            'pengurusan_upstn_id' => GeneralLabel::pengurusan_upstn_id,
+            'nama_pengurus_sukan' => GeneralLabel::nama_pengurus_sukan,
+            'nama_sukan' => GeneralLabel::nama_sukan,
+            'tarikh_lawatan' => GeneralLabel::tarikh_lawatan,
+            'masa' => GeneralLabel::masa,
+            'tempat' => GeneralLabel::tempat,
+            'kehadiran' => GeneralLabel::kehadiran,
+            'isu' => GeneralLabel::isu,
+            'ulasan' => GeneralLabel::ulasan,
+
         ];
     }
     

@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\User */
 
 //$this->title = $model->id;
-$this->title = GeneralLabel::viewTitle . ' User';
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::user;
 $this->params['breadcrumbs'][] = ['label' => 'Admin - User', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

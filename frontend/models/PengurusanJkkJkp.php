@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_jkk_jkp".
  *
@@ -71,24 +73,25 @@ class PengurusanJkkJkp extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_jkk_jkp_id' => 'Pengurusan JKK/JKP ID',
-            'jenis_cawangan_kuasa' => 'Jenis Cawangan Kuasa',
-            'nama_setiausaha_jkk_jkp' => 'Nama Setiausaha JKK/JKP',
-            'tarikh_pelantikan_jkk_jkp' => 'Tarikh Pelantikan JKK/JKP',
-            'tempoh_hak_jkk_jkp' => 'Tempoh Hak JKK/JKP',
-            'status' => 'Status',
-            'nama_pegawai_coach' => 'Nama Ahli',
-            'jawatan' => 'Jawatan',
-            'tarikh_pelantikan' => 'Tarikh Pelantikan',
-            'tempoh_hak' => 'Tempoh Hak',
-            'peranan' => 'Peranan (JKK/JKP)',
-            'agensi' => 'Agensi',
-            'jawatan_agensi' => 'Jawatan (Agensi)',
-            'sukan' => 'Sukan',
-            'nama_acara' => 'Nama Acara',
-            'nama_atlet' => 'Nama Atlet',
-            'status_pilihan' => 'Status Pilihan',
-            'nama_jurulatih' => 'Nama Jurulatih',
+            'pengurusan_jkk_jkp_id' => GeneralLabel::pengurusan_jkk_jkp_id,
+            'jenis_cawangan_kuasa' => GeneralLabel::jenis_cawangan_kuasa,
+            'nama_setiausaha_jkk_jkp' => GeneralLabel::nama_setiausaha_jkk_jkp,
+            'tarikh_pelantikan_jkk_jkp' => GeneralLabel::tarikh_pelantikan_jkk_jkp,
+            'tempoh_hak_jkk_jkp' => GeneralLabel::tempoh_hak_jkk_jkp,
+            'status' => GeneralLabel::status,
+            'nama_pegawai_coach' => GeneralLabel::nama_pegawai_coach,
+            'jawatan' => GeneralLabel::jawatan,
+            'tarikh_pelantikan' => GeneralLabel::tarikh_pelantikan,
+            'tempoh_hak' => GeneralLabel::tempoh_hak,
+            'peranan' => GeneralLabel::peranan,
+            'agensi' => GeneralLabel::agensi,
+            'jawatan_agensi' => GeneralLabel::jawatan_agensi,
+            'sukan' => GeneralLabel::sukan,
+            'nama_acara' => GeneralLabel::nama_acara,
+            'nama_atlet' => GeneralLabel::nama_atlet,
+            'status_pilihan' => GeneralLabel::status_pilihan,
+            'nama_jurulatih' => GeneralLabel::nama_jurulatih,
+
         ];
     }
     

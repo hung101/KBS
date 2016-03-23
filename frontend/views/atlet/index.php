@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Atlet', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::atlet, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
     

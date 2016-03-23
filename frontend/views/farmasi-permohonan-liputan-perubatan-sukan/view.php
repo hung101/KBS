@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\FarmasiPermohonanLiputanPerubatanSukan */
 
 //$this->title = $model->permohonan_liputan_perubatan_sukan_id;
-$this->title = GeneralLabel::viewTitle . ' Permohonan Liputan Perubatan Sukan';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan Liputan Perubatan Sukan', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::permohonan_liputan_perubatan_sukan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_liputan_perubatan_sukan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="farmasi-permohonan-liputan-perubatan-sukan-view">

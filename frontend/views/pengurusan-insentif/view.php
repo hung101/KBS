@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PengurusanInsentif */
 
 //$this->title = $model->pengurusan_insentif_id;
-$this->title = GeneralLabel::viewTitle . ' Pengurusan Insentif';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Insentif', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_insentif;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_insentif, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-insentif-view">

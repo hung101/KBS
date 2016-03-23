@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\BspTamatPengesahanPengajian */
 
 //$this->title = 'Update Bsp Pengesahan Tamat Pengajian: ' . ' ' . $model->bsp_tamat_pengesahan_pengajian_id;
-$this->title = GeneralLabel::updateTitle . ' Pengesahan Tamat Pengajian';
-$this->params['breadcrumbs'][] = ['label' => 'Pengesahan Tamat Pengajian', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Pengesahan Tamat Pengajian', 'url' => ['view', 'id' => $model->bsp_tamat_pengesahan_pengajian_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::pengesahan_tamat_pengajian;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengesahan_tamat_pengajian, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::pengesahan_tamat_pengajian, 'url' => ['view', 'id' => $model->bsp_tamat_pengesahan_pengajian_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="bsp-tamat-pengesahan-pengajian-update">

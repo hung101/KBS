@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PengurusanMaklumBalasPeserta */
 
 //$this->title = 'Update Pengurusan Maklum Balas Peserta: ' . ' ' . $model->pengurusan_maklum_balas_peserta_id;
-$this->title = GeneralLabel::updateTitle . ' Kehadiran Peserta';
-$this->params['breadcrumbs'][] = ['label' => 'Kehadiran Peserta', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Kehadiran Peserta', 'url' => ['view', 'id' => $model->pengurusan_maklum_balas_peserta_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::kehadiran_peserta;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kehadiran_peserta, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::kehadiran_peserta, 'url' => ['view', 'id' => $model->pengurusan_maklum_balas_peserta_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-maklum-balas-peserta-update">

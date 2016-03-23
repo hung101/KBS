@@ -10,8 +10,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PengurusanBiasiswaAtlet */
 
 //$this->title = $model->pengurusan_biasiswa_atlet_id;
-$this->title = GeneralLabel::viewTitle . ' Pengurusan Biasiswa Atlet';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Biasiswa Atlet', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_biasiswa_atlet;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_biasiswa_atlet, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-biasiswa-atlet-view">

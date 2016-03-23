@@ -7,6 +7,8 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_jurulatih_spkk".
  *
@@ -64,12 +66,13 @@ class JurulatihSpkk extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'jurulatih_spkk_id' => 'Jurulatih Spkk ID',
-            'jurulatih_id' => 'Jurulatih ID',
-            'jenis_spkk' => 'Jenis Sijil',
-            'tahap' => 'Tahap',
-            'sukan' => 'Sukan',
-            'muatnaik_sijil' => 'Muatnaik Sijil',
+            'jurulatih_spkk_id' => GeneralLabel::jurulatih_spkk_id,
+            'jurulatih_id' => GeneralLabel::jurulatih_id,
+            'jenis_spkk' => GeneralLabel::jenis_spkk,
+            'tahap' => GeneralLabel::tahap,
+            'sukan' => GeneralLabel::sukan,
+            'muatnaik_sijil' => GeneralLabel::muatnaik_sijil,
+
         ];
     }
     

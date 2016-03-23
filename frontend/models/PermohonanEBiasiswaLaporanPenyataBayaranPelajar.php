@@ -5,6 +5,8 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
+use app\models\general\GeneralLabel;
+
 
 class PermohonanEBiasiswaLaporanPenyataBayaranPelajar extends Model
 {
@@ -22,8 +24,9 @@ class PermohonanEBiasiswaLaporanPenyataBayaranPelajar extends Model
     public function attributeLabels()
     {
         return [
-            'e_biasiswa_id' => 'Pemohon',
-            'format' => 'Format',
+            'e_biasiswa_id' => GeneralLabel::e_biasiswa_id,
+            'format' => GeneralLabel::format,
+
         ];
     }
 }

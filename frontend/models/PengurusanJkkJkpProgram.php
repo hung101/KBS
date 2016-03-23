@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_jkk_jkp_program".
  *
@@ -62,13 +64,14 @@ class PengurusanJkkJkpProgram extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pengurusan_jkk_jkp_program_id' => 'Pengurusan Jkk Jkp Program ID',
-            'pengurusan_jkk_jkp_id' => 'Ahli JKK/JKP',
-            'tarikh_mula_program' => 'Tarikh Mula Program',
-            'tarikh_tamat_program' => 'Tarikh Tamat Program',
-            'lokasi_program' => 'Lokasi Program',
-            'nama_program' => 'Nama Program',
-            'nama_pesserta' => 'Nama Peserta',
+            'pengurusan_jkk_jkp_program_id' => GeneralLabel::pengurusan_jkk_jkp_program_id,
+            'pengurusan_jkk_jkp_id' => GeneralLabel::pengurusan_jkk_jkp_id,
+            'tarikh_mula_program' => GeneralLabel::tarikh_mula_program,
+            'tarikh_tamat_program' => GeneralLabel::tarikh_tamat_program,
+            'lokasi_program' => GeneralLabel::lokasi_program,
+            'nama_program' => GeneralLabel::nama_program,
+            'nama_pesserta' => GeneralLabel::nama_pesserta,
+
         ];
     }
 }

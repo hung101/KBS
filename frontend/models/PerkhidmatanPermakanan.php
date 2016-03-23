@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_perkhidmatan_permakanan".
  *
@@ -61,11 +63,12 @@ class PerkhidmatanPermakanan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'perkhidmatan_permakanan_id' => 'Perkhidmatan Permakanan ID',
-            'permohonan_perkhidmatan_permakanan_id' => 'Permohonan Perkhidmatan Permakanan ID',
-            'tarikh' => 'Tarikh',
-            'pegawai_yang_bertanggungjawab' => 'Pegawai Yang Bertanggungjawab',
-            'catitan_ringkas' => 'Catitan Ringkas',
+            'perkhidmatan_permakanan_id' => GeneralLabel::perkhidmatan_permakanan_id,
+            'permohonan_perkhidmatan_permakanan_id' => GeneralLabel::permohonan_perkhidmatan_permakanan_id,
+            'tarikh' => GeneralLabel::tarikh,
+            'pegawai_yang_bertanggungjawab' => GeneralLabel::pegawai_yang_bertanggungjawab,
+            'catitan_ringkas' => GeneralLabel::catitan_ringkas,
+
         ];
     }
 }

@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PengurusanBeritaAntarabangsa */
 
 //$this->title = 'Update Pengurusan Berita Antarabangsa: ' . ' ' . $model->pengurusan_berita_antarabangsa_id;
-$this->title = GeneralLabel::updateTitle . ' Pengurusan Berita Antarabangsa';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Berita Antarabangsa', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Pengurusan Berita Antarabangsa', 'url' => ['view', 'id' => $model->pengurusan_berita_antarabangsa_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::pengurusan_berita_antarabangsa;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_berita_antarabangsa, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_berita_antarabangsa, 'url' => ['view', 'id' => $model->pengurusan_berita_antarabangsa_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-berita-antarabangsa-update">

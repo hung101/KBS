@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PengurusanInsentif */
 
 //$this->title = 'Update Pengurusan Insentif: ' . ' ' . $model->pengurusan_insentif_id;
-$this->title = GeneralLabel::updateTitle . ' Pengurusan Insentif';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Insentif', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Pengurusan Insentif', 'url' => ['view', 'id' => $model->pengurusan_insentif_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::pengurusan_insentif;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_insentif, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_insentif, 'url' => ['view', 'id' => $model->pengurusan_insentif_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-insentif-update">

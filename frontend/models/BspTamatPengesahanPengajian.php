@@ -6,6 +6,8 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_bsp_tamat_pengesahan_pengajian".
  *
@@ -64,13 +66,14 @@ class BspTamatPengesahanPengajian extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'bsp_tamat_pengesahan_pengajian_id' => 'Bsp Tamat Pengesahan Pengajian ID',
-            'nama_ipts' => 'Nama IPT',
-            'pengajian' => 'Pengajian',
-            'bidang' => 'Bidang',
-            'cgpa_pngk' => 'CGPA / PNGK',
-            'tarikh_tamat' => 'Tarikh Tamat',
-            'muat_naik' => 'Muat Naik (Surat Pengesahan Tamat Pengajian)',
+            'bsp_tamat_pengesahan_pengajian_id' => GeneralLabel::bsp_tamat_pengesahan_pengajian_id,
+            'nama_ipts' => GeneralLabel::nama_ipts,
+            'pengajian' => GeneralLabel::pengajian,
+            'bidang' => GeneralLabel::bidang,
+            'cgpa_pngk' => GeneralLabel::cgpa_pngk,
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,
+            'muat_naik' => GeneralLabel::muat_naik,
+
         ];
     }
     

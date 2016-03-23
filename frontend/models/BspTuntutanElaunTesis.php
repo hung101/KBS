@@ -6,6 +6,8 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_bsp_tuntutan_elaun_tesis".
  *
@@ -62,11 +64,12 @@ class BspTuntutanElaunTesis extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'bsp_tuntutan_elaun_tesis_od' => 'Bsp Tuntutan Elaun Tesis Od',
-            'bsp_pemohon_id' => 'Bsp Pemohon ID',
-            'tarikh' => 'Tarikh',
-            'tajuk_tesis' => 'Tajuk Tesis',
-            'muat_naik'=>'Muat Naik (Borang Pengesahan Tuntutan Elaun Tesis)'
+            'bsp_tuntutan_elaun_tesis_od' => GeneralLabel::bsp_tuntutan_elaun_tesis_od,
+            'bsp_pemohon_id' => GeneralLabel::bsp_pemohon_id,
+            'tarikh' => GeneralLabel::tarikh,
+            'tajuk_tesis' => GeneralLabel::tajuk_tesis,
+            'muat_naik' => GeneralLabel::muat_naik,
+
         ];
     }
     
