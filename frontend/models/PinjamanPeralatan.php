@@ -51,9 +51,10 @@ class PinjamanPeralatan extends \yii\db\ActiveRecord
         return [
             [['atlet_id', 'nama_peralatan', 'kuantiti', 'tarikh_diberi'], 'required', 'skipOnEmpty' => true],
             [['atlet_id', 'kuantiti'], 'integer'],
-            [['tarikh_diberi', 'tarikh_dipulang'], 'safe'],
+            //[['tarikh_diberi'], 'safe'],
             [['nama_peralatan'], 'string', 'max' => 80],
-            [['tempoh_pinjaman'], 'string', 'max' => 20]
+            [['tempoh_pinjaman'], 'string', 'max' => 50],
+            [['tarikh_dipulang'], 'compare', 'compareAttribute'=>'tarikh_diberi', 'operator'=>'>='],
         ];
     }
 

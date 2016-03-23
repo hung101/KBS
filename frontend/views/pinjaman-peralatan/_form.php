@@ -27,7 +27,7 @@ use app\models\general\GeneralMessage;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -79,6 +79,7 @@ use app\models\general\GeneralMessage;
                     'ajaxConversion'=>false,
                     'options'=>[
                         'type'=>DateControl::FORMAT_DATETIME,
+                        'options' => ['id'=>'tarikhDiberiId',],
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
@@ -90,12 +91,13 @@ use app\models\general\GeneralMessage;
                     'ajaxConversion'=>false,
                     'options'=>[
                         'type'=>DateControl::FORMAT_DATETIME,
+                        'options' => ['id'=>'tarikhDipulangId',],
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'tempoh_pinjaman' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>20]],
+                'tempoh_pinjaman' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>50,'id'=>'tempohPinjamanId','disabled'=>true]],
             ],
         ],
         
@@ -113,7 +115,7 @@ use app\models\general\GeneralMessage;
 
     <?= $form->field($model, 'tarikh_dipulang')->textInput() ?>
 
-    <?= $form->field($model, 'tempoh_pinjaman')->textInput(['maxlength' => 20]) ?>-->
+    <?= $form->field($model, 'tempoh_pinjaman')->textInput(['maxlength' => 50]) ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -124,3 +126,68 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+$script = <<< JS
+        
+$(document).ready(function(){
+});
+        
+$("#tarikhDiberiId-disp").focusout(function(){
+    getDurationBetweenDatetime();
+});
+        
+$("#tarikhDipulangId-disp").focusout(function(){
+    getDurationBetweenDatetime();
+});
+        
+function getDurationBetweenDatetime(){
+    var fromDatetime = $("#tarikhDiberiId").val();
+    var toDatetime = $("#tarikhDipulangId").val();
+        
+    if(fromDatetime != "" && toDatetime != ""){
+        var fromDatetimeMoment = moment(fromDatetime,'YYYY-MM-DD HH:mm:ss');
+        var toDatetimeMoment = moment(toDatetime,'YYYY-MM-DD HH:mm:ss');
+        
+        var durationsMs = toDatetimeMoment.diff(fromDatetimeMoment, 'milliseconds');
+        var durationMessage = '';
+        
+        var d, h, m, s;
+        
+        s = Math.floor(durationsMs / 1000);
+        m = Math.floor(s / 60);
+        s = s % 60;
+        h = Math.floor(m / 60);
+        m = m % 60;
+        d = Math.floor(h / 24);
+        h = h % 24;
+        
+        if(d > 0){
+            durationMessage += d + ' Hari ';
+        }
+        
+        if(h > 0){
+            durationMessage += h + ' Jam ';
+        }
+        
+        if(m > 0){
+            durationMessage += m + ' Minit ';
+        }
+        
+        $("#tempohPinjamanId").val(durationMessage);
+    }
+}
+        
+// enable all the disabled field before submit
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+        
+JS;
+        
+$this->registerJs($script);
+?>

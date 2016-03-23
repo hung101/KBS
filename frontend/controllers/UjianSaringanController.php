@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefNegeri;
@@ -17,6 +18,9 @@ use app\models\RefBandar;
 use app\models\RefJantina;
 use app\models\RefDarjah;
 use app\models\RefSekolah;
+use app\models\RefBangsa;
+use app\models\RefSukan;
+use app\models\RefMaklumatProgram;
 
 /**
  * UjianSaringanController implements the CRUD actions for UjianSaringan model.
@@ -81,6 +85,20 @@ class UjianSaringanController extends Controller
         
         $ref = RefSekolah::findOne(['id' => $model->sekolah]);
         $model->sekolah = $ref['desc'];
+        
+        $ref = RefBangsa::findOne(['id' => $model->bangsa]);
+        $model->bangsa = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefMaklumatProgram::findOne(['id' => $model->maklumat_program]);
+        $model->maklumat_program = $ref['desc'];
+        
+        if($model->no_kad_pengenalan){
+            $model->umur = GeneralFunction::getDOBfromICNo($model->no_kad_pengenalan);
+            $model->umur = GeneralFunction::ageCalculator($model->umur);
+        }
         
         return $this->render('view', [
             'model' => $model,

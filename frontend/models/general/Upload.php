@@ -66,6 +66,7 @@ class Upload{
     const profilPsikologiFolder = "profil_psikologi";
     const perlembagaanBadanSukanFolder = "perlembagaan_badan_sukan";
     const sukarelawanFolder = "sukarelawan";
+    const sixStepSuaianFizikalFolder = "six_step_suaian_fizikal";
     const uploadRootFolder = "uploads";
     
     

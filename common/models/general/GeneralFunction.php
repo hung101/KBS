@@ -27,6 +27,24 @@ class GeneralFunction{
         return \Yii::$app->formatter->asDatetime($dateStr, $fmt);
     }
     
+    public static function getDOBfromICNo($ic){
+        $dobYear = substr($ic, 0, 2);
+        $dobMonth = substr($ic, 2, 2);
+        $dobDay = substr($ic, 4, 2);
+        
+        $curYearAddOne = substr(date("Y")+1, -2); // Current Year + 1 with last 2 digits
+        
+        $birthFullYear = null;
+        
+        if($dobYear < $curYearAddOne){
+            $birthFullYear = "20" . $dobYear;
+        } else {
+            $birthFullYear = "19" . $dobYear;
+        }
+        
+        return $birthFullYear . "-" . $dobMonth . "-" . $dobDay;
+    }
+    
     public static function ageCalculator($dob){
 	$dob=explode("-",$dob); 
         $curMonth = date("m");

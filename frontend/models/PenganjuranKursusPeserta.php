@@ -98,7 +98,7 @@ class PenganjuranKursusPeserta extends \yii\db\ActiveRecord
             [['yuran'], 'number'],
             [['kelulusan'], 'integer'],
             [['kategori_kursus', 'nama_kursus', 'tempat', 'nama_penuh', 'pekerjaan', 'nama_majikan', 'kelulusan_akademi', 'nama_kelulusan', 'kelulusan_sukan_spesifik', 'nama_sukan_akademi', 'kelulusan_sains_sukan', 'sijil_spkk_msn', 'lesen_kejurulatihan_msn', 'lantikan', 'nama_sukan_jurulatih'], 'string', 'max' => 80],
-            [['kod_kursus', 'alamat_negeri', 'alamat_majikan_negeri', 'status_jurulatih'], 'string', 'max' => 30],
+            [['kod_kursus', 'alamat_negeri', 'alamat_majikan_negeri', 'status_jurulatih', 'no_lesen'], 'string', 'max' => 30],
             [['muatnaik_gambar', 'emel'], 'string', 'max' => 100],
             [['jantina'], 'string', 'max' => 1],
             [['taraf_perkahwinan', 'kaum'], 'string', 'max' => 25],
@@ -153,13 +153,13 @@ class PenganjuranKursusPeserta extends \yii\db\ActiveRecord
             'alamat_majikan_poskod' => 'Poskod',
             'no_tel_majikan' => 'No Tel Majikan',
             'no_faks_majikan' => 'No Faks Majikan',
-            'kelulusan_akademi' => 'Kelulusan Akademi',
+            'kelulusan_akademi' => 'Kelulusan Akademik',
             'nama_kelulusan' => 'Nama Kelulusan',
             'kelulusan_sukan_spesifik' => 'Kelulusan Sukan Spesifik',
             'nama_sukan_akademi' => 'Nama Sukan Akademi',
             'kelulusan_sains_sukan' => 'Kelulusan Sains Sukan',
             'sijil_spkk_msn' => 'Sijil SPKK',
-            'lesen_kejurulatihan_msn' => 'Lesen Kejurulatihan',
+            'lesen_kejurulatihan_msn' => 'Lesen Kejurulatihan AKK',
             'status_jurulatih' => 'Status Jurulatih',
             'lantikan' => 'Lantikan',
             'nama_sukan_jurulatih' => 'Nama Sukan Jurulatih',
@@ -168,6 +168,7 @@ class PenganjuranKursusPeserta extends \yii\db\ActiveRecord
             'pencapaian' => 'Pencapaian',
             'dokumen_lampiran' => 'Dokumen Lampiran',
             'kelulusan' => 'Kelulusan',
+            'no_lesen' => 'No Lesen',
         ];
     }
     

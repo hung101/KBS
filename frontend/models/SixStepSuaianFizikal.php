@@ -3,6 +3,9 @@
 namespace app\models;
 
 use Yii;
+use yii\web\UploadedFile;
+use app\models\general\Upload;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_six_step".
@@ -48,7 +51,8 @@ class SixStepSuaianFizikal extends \yii\db\ActiveRecord
         return [
             [['atlet_id', 'stage', 'status'], 'required', 'skipOnEmpty' => true],
             [['atlet_id', 'kategori_atlet', 'sukan', 'acara'], 'integer'],
-            [['stage', 'status'], 'string', 'max' => 30]
+            [['stage', 'status'], 'string', 'max' => 30],
+            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }
 
@@ -65,7 +69,19 @@ class SixStepSuaianFizikal extends \yii\db\ActiveRecord
             'acara' => 'Acara',
             'stage' => 'Stage',
             'status' => 'Status',
+            'muat_naik' => 'Muat Naik',
         ];
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
     }
     
     /**

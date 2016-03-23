@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "tbl_ref_jantina".
+ * This is the model class for table "tbl_ref_maklumat_program".
  *
  * @property integer $id
  * @property string $desc
@@ -15,35 +15,14 @@ use Yii;
  * @property string $created
  * @property string $updated
  */
-class RefJantina extends \yii\db\ActiveRecord
+class RefMaklumatProgram extends \yii\db\ActiveRecord
 {
-    const LELAKI = 1;
-    const PEREMPUAN = 2;
-    
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'tbl_ref_jantina';
-    }
-    
-    public function behaviors()
-    {
-        return [
-            'bedezign\yii2\audit\AuditTrailBehavior',
-            [
-                'class' => \yii\behaviors\BlameableBehavior::className(),
-                'createdByAttribute' => 'created_by',
-                'updatedByAttribute' => 'updated_by',
-            ],
-            [
-                'class' => \yii\behaviors\TimestampBehavior::className(),
-                'createdAtAttribute' => 'created',
-                'updatedAtAttribute' => 'updated',
-                'value' => new \yii\db\Expression('NOW()'),
-            ],
-        ];
+        return 'tbl_ref_maklumat_program';
     }
 
     /**

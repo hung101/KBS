@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\PendaftaranGymSearch */
@@ -50,7 +51,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'atlet_id',
                 'value' => 'refAtlet.name_penuh'
             ],
-            'tarikh',
+            //'tarikh',
+            [
+                'attribute' => 'tarikh',
+                'format' => 'raw',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATETIME);
+                },
+            ],
             //'sukan',
             [
                 'attribute' => 'sukan',

@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Atlet;
@@ -69,6 +70,10 @@ class PinjamanPeralatanController extends Controller
         
         $ref = RefPeralatanPinjaman::findOne(['id' => $model->nama_peralatan]);
         $model->nama_peralatan = $ref['desc'];
+        
+        $model->tarikh_diberi = GeneralFunction::convert($model->tarikh_diberi, GeneralFunction::TYPE_DATETIME);
+        
+        $model->tarikh_dipulang = GeneralFunction::convert($model->tarikh_dipulang, GeneralFunction::TYPE_DATETIME);
         
         return $this->render('view', [
             'model' => $model,

@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\PinjamanPeralatanSearch */
@@ -56,8 +57,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'refPeralatanPinjaman.desc'
             ],
             'kuantiti',
-            'tarikh_diberi',
-            // 'tarikh_dipulang',
+            //'tarikh_diberi',
+            [
+                'attribute' => 'tarikh_diberi',
+                'format' => 'raw',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_diberi, GeneralFunction::TYPE_DATETIME);
+                },
+            ],
+            //'tarikh_dipulang',
+            [
+                'attribute' => 'tarikh_dipulang',
+                'format' => 'raw',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_dipulang, GeneralFunction::TYPE_DATETIME);
+                },
+            ],
             // 'tempoh_pinjaman',
 
             //['class' => 'yii\grid\ActionColumn'],

@@ -172,6 +172,49 @@ function calculateAge(birthday) { // birthday is a date
     return Math.abs(ageDate.getUTCFullYear() - 1970);
 }
 
+function isEven(n) {
+   return n % 2 == 0;
+}
+
+function isOdd(n) {
+   return Math.abs(n % 2) == 1;
+}
+
+// only allow number key in
+$(".number").keydown(function (e) {
+    // Allow: backspace, delete, tab, escape, enter and .
+    //alert(e.keyCode);
+    if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+         // Allow: Ctrl+A, Command+A
+        (e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) || 
+         // Allow: home, end, left, right, down, up
+        (e.keyCode >= 35 && e.keyCode <= 40)) {
+             // let it happen, don't do anything
+             return;
+    }
+    // Ensure that it is a number and stop the keypress
+    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+        e.preventDefault();
+    }
+});
+
+$(".integer").keydown(function (e) {
+    // Allow: backspace, delete, tab, escape, enter and .
+    //alert(e.keyCode);
+    if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1 ||
+         // Allow: Ctrl+A, Command+A
+        (e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) || 
+         // Allow: home, end, left, right, down, up
+        (e.keyCode >= 35 && e.keyCode <= 40)) {
+             // let it happen, don't do anything
+             return;
+    }
+    // Ensure that it is a number and stop the keypress
+    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+        e.preventDefault();
+    }
+});
+
 // atlet pendidikan form submit
 $('body').on('beforeSubmit', 'form#atlet_pendidikan_form', function () {
     var tabId = 'pendidikan_tab';

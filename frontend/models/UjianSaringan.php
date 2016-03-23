@@ -28,6 +28,8 @@ use Yii;
  */
 class UjianSaringan extends \yii\db\ActiveRecord
 {
+    //public $umur;
+    
     /**
      * @inheritdoc
      */
@@ -60,7 +62,7 @@ class UjianSaringan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'sekolah'], 'required', 'skipOnEmpty' => true],
+            [['nama', 'sekolah', 'no_kad_pengenalan'], 'required', 'skipOnEmpty' => true],
             [['berat_badan', 'ketinggian', 'tinggi_duduk', 'panjang_depa', 'body_mass_index'], 'number'],
             [['nama', 'sekolah'], 'string', 'max' => 80],
             [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90],
@@ -69,7 +71,11 @@ class UjianSaringan extends \yii\db\ActiveRecord
             [['alamat_poskod'], 'string', 'max' => 5],
             [['jantina'], 'string', 'max' => 1],
             [['no_telefon'], 'string', 'max' => 14],
-            [['catatan'], 'string', 'max' => 255]
+            [['catatan'], 'string', 'max' => 255],
+            [['no_kad_pengenalan'], 'string', 'max' => 12],
+            [['no_kad_pengenalan'], 'integer'],
+            [['umur'], 'integer'],
+            [['bangsa', 'sukan', 'tarikh_lahir', 'maklumat_program'], 'safe'],
         ];
     }
 
@@ -97,6 +103,12 @@ class UjianSaringan extends \yii\db\ActiveRecord
             'panjang_depa' => 'Panjang Depa (cm)',
             'body_mass_index' => 'Body Mass Index (m)',
             'catatan' => 'Catatan',
+            'no_kad_pengenalan' => 'No Kad Pengenalan',
+            'umur' => 'Umur',
+            'bangsa' => 'Bangsa',
+            'sukan' => 'Sukan',
+            'tarikh_lahir' => 'Tarikh Lahir',
+            'maklumat_program' => 'Maklumat Program',
         ];
     }
     

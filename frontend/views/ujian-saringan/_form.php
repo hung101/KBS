@@ -15,6 +15,9 @@ use app\models\RefBandar;
 use app\models\RefJantina;
 use app\models\RefDarjah;
 use app\models\RefSekolah;
+use app\models\RefBangsa;
+use app\models\RefSukan;
+use app\models\RefMaklumatProgram;
 
 
 // contant values
@@ -32,8 +35,12 @@ use app\models\general\GeneralMessage;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     <?php
+    if(!$readonly){
+        echo $form->field($model, 'tarikh_lahir')->hiddenInput()->label(false);
+    }
+        
         echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
@@ -43,7 +50,49 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
+                'maklumat_program' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-maklumat-program/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefMaklumatProgram::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::maklumatProgram],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+                'no_kad_pengenalan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12, 'id'=>'noKadPengenalanId', 'class'=>'integer']],
+                
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'sukan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::sukan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
                 'sekolah' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -57,7 +106,21 @@ use app\models\general\GeneralMessage;
                         ] : null,
                         'data'=>ArrayHelper::map(RefSekolah::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sekolah],],
-                    'columnOptions'=>['colspan'=>6]],
+                    'columnOptions'=>['colspan'=>4]],
+                'darjah' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-darjah/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefDarjah::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::darjah],],
+                    'columnOptions'=>['colspan'=>4]],
             ],
         ],
         [
@@ -122,6 +185,24 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'umur' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>3, 'disabled'=>true, 'id'=>'umurId']],
+                'bangsa' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-bangsa/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefBangsa::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::bangsa],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
                 'jantina' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -136,38 +217,25 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefJantina::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jantina],],
                     'columnOptions'=>['colspan'=>3]],
-                'no_telefon' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>14]],
-                'darjah' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-darjah/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefDarjah::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::darjah],],
-                    'columnOptions'=>['colspan'=>4]],
+                'no_telefon' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
+                
             ]
         ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'berat_badan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'id'=>'beratBadanId']],
-                'ketinggian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'id'=>'ketinggianId']],
-                'tinggi_duduk' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6]],
+                'berat_badan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'id'=>'beratBadanId', 'class'=>'number calculateBMI']],
+                'ketinggian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'id'=>'ketinggianId', 'class'=>'number calculateBMI']],
+                'tinggi_duduk' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'class'=>'number']],
             ]
         ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'panjang_depa' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
-                'body_mass_index' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
+                'panjang_depa' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10, 'class'=>'number']],
+                'body_mass_index' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10, 'id'=>'BMIId', 'class'=>'number', 'disabled'=>true]],
             ]
         ],
         [
@@ -227,26 +295,58 @@ use app\models\general\GeneralMessage;
 
 <?php
 
+$LELAKI_CODE = RefJantina::LELAKI;
+$PEREMPUAN_CODE = RefJantina::PEREMPUAN;
+
 $script = <<< JS
         
-    
-    // only allow number key in
-    $("#beratBadanId").keydown(function (e) {
-        // Allow: backspace, delete, tab, escape, enter and .
-        //alert(e.keyCode);
-        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-             // Allow: Ctrl+A, Command+A
-            (e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) || 
-             // Allow: home, end, left, right, down, up
-            (e.keyCode >= 35 && e.keyCode <= 40)) {
-                 // let it happen, don't do anything
-                 return;
-        }
-        // Ensure that it is a number and stop the keypress
-        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-            e.preventDefault();
+    $(document).ready(function(){
+        if($("#noKadPengenalanId").val() != ""){
+            getAgeFromICNo($("#noKadPengenalanId").val());
         }
     });
+        
+    $(".calculateBMI").keyup(function (e) {
+        if($("#beratBadanId").val() > 0 && $("#ketinggianId").val() > 0){
+            var height = $("#ketinggianId").val() / 100; //convert to meter
+            var height2 = height * height;
+            var BMI = $("#beratBadanId").val() / height2;
+            $("#BMIId").val(BMI.toFixed(2));
+        }
+    }); 
+        
+    $("#noKadPengenalanId").focusout(function(){
+        getAgeFromICNo(this.value);
+    });
+        
+    function getAgeFromICNo(ICNo){
+        var DOBVal = "";
+
+        if(ICNo != ""){
+            DOBVal = getDOBFromICNo(ICNo);
+        
+            $("#ujiansaringan-tarikh_lahir").val(DOBVal);  
+        
+            if(isEven(ICNo)){
+                // if IC No is even then is woman
+                $("#ujiansaringan-jantina").val('$PEREMPUAN_CODE').trigger("change");
+            } else {
+                // if IC No is odd then is guy
+                $("#ujiansaringan-jantina").val('$LELAKI_CODE').trigger("change");
+            }
+        }
+
+        $("#umurId").val(calculateAge(formatSaveDate(DOBVal)));
+    }
+ 
+    // enable all the disabled field before submit
+    $('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+        var form = $(this);
+        
+        $("form#{$model->formName()} input").prop("disabled", false);
+    });
+        
 JS;
         
 $this->registerJs($script);

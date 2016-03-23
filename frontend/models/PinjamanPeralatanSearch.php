@@ -61,13 +61,15 @@ class PinjamanPeralatanSearch extends PinjamanPeralatan
             'pinjaman_peralatan_id' => $this->pinjaman_peralatan_id,
             //'atlet_id' => $this->atlet_id,
             'kuantiti' => $this->kuantiti,
-            'tarikh_diberi' => $this->tarikh_diberi,
-            'tarikh_dipulang' => $this->tarikh_dipulang,
+            //'tarikh_diberi' => $this->tarikh_diberi,
+            //'tarikh_dipulang' => $this->tarikh_dipulang,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_peralatan_pinjaman.desc', $this->nama_peralatan])
             ->andFilterWhere(['like', 'tempoh_pinjaman', $this->tempoh_pinjaman])
-            ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id]);
+            ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id])
+                ->andFilterWhere(['like', 'tarikh_diberi', $this->tarikh_diberi])
+                ->andFilterWhere(['like', 'tarikh_dipulang', $this->tarikh_dipulang]);
 
         return $dataProvider;
     }

@@ -102,4 +102,11 @@ class AtletSukan extends \yii\db\ActiveRecord
     public function getRefProgramSemasaSukanAtlet(){
         return $this->hasOne(RefProgramSemasaSukanAtlet::className(), ['id' => 'program_semasa']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefAtlet(){
+        return $this->hasOne(Atlet::className(), ['atlet_id' => 'atlet_id']);
+    }
 }

@@ -3,23 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use app\models\PendaftaranGym;
-use frontend\models\PendaftaranGymSearch;
+use app\models\RefMaklumatProgram;
+use frontend\models\RefMaklumatProgramSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-use app\models\general\GeneralVariable;
-use common\models\general\GeneralFunction;
-
-// table reference
-use app\models\Atlet;
-use app\models\RefSukan;
-
 /**
- * PendaftaranGymController implements the CRUD actions for PendaftaranGym model.
+ * RefMaklumatProgramController implements the CRUD actions for RefMaklumatProgram model.
  */
-class PendaftaranGymController extends Controller
+class RefMaklumatProgramController extends Controller
 {
     public function behaviors()
     {
@@ -34,16 +27,12 @@ class PendaftaranGymController extends Controller
     }
 
     /**
-     * Lists all PendaftaranGym models.
+     * Lists all RefMaklumatProgram models.
      * @return mixed
      */
     public function actionIndex()
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
-        }
-        
-        $searchModel = new PendaftaranGymSearch();
+        $searchModel = new RefMaklumatProgramSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -53,81 +42,56 @@ class PendaftaranGymController extends Controller
     }
 
     /**
-     * Displays a single PendaftaranGym model.
+     * Displays a single RefMaklumatProgram model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
-        }
-        
-        $model = $this->findModel($id);
-        
-        $ref = Atlet::findOne(['atlet_id' => $model->atlet_id]);
-        $model->atlet_id = $ref['nameAndIC'];
-        
-        $ref = RefSukan::findOne(['id' => $model->sukan]);
-        $model->sukan = $ref['desc'];
-        
-        $model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATETIME);
-        
         return $this->render('view', [
-            'model' => $model,
-            'readonly' => true,
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new PendaftaranGym model.
+     * Creates a new RefMaklumatProgram model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
-        }
-        
-        $model = new PendaftaranGym();
+        $model = new RefMaklumatProgram();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pendaftaran_gym_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'readonly' => false,
             ]);
         }
     }
 
     /**
-     * Updates an existing PendaftaranGym model.
+     * Updates an existing RefMaklumatProgram model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
-        }
-        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pendaftaran_gym_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'readonly' => false,
             ]);
         }
     }
 
     /**
-     * Deletes an existing PendaftaranGym model.
+     * Deletes an existing RefMaklumatProgram model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -140,15 +104,15 @@ class PendaftaranGymController extends Controller
     }
 
     /**
-     * Finds the PendaftaranGym model based on its primary key value.
+     * Finds the RefMaklumatProgram model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return PendaftaranGym the loaded model
+     * @return RefMaklumatProgram the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = PendaftaranGym::findOne($id)) !== null) {
+        if (($model = RefMaklumatProgram::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

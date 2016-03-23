@@ -8,6 +8,9 @@ use frontend\models\SixStepSuaianFizikalSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+
+use app\models\general\Upload;
 
 // table reference
 use app\models\RefAtletTahap;
@@ -92,13 +95,20 @@ class SixStepSuaianFizikalController extends Controller
         $model = new SixStepSuaianFizikal();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->six_step_id]);
-        } else {
-            return $this->render('create', [
+            $file = UploadedFile::getInstance($model, 'muat_naik');
+            if($file){
+                $model->muat_naik = Upload::uploadFile($file, Upload::sixStepSuaianFizikalFolder, $model->six_step_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->six_step_id]);
+            }
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -112,13 +122,20 @@ class SixStepSuaianFizikalController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->six_step_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'muat_naik');
+            if($file){
+                $model->muat_naik = Upload::uploadFile($file, Upload::sixStepSuaianFizikalFolder, $model->six_step_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->six_step_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -129,6 +146,8 @@ class SixStepSuaianFizikalController extends Controller
      */
     public function actionDelete($id)
     {
+        self::actionDeleteupload($id, 'muat_naik');
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -148,5 +167,27 @@ class SixStepSuaianFizikalController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            return $this->redirect(['update', 'id' => $id]);
     }
 }

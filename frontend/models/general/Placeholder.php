@@ -137,6 +137,7 @@ class Placeholder{
     const lainLainProgram = "-- Pilih Lain-lain Program --";
     const lesenKejurulatihan = "-- Pilih Lesen Kejurulatihan --";
     const lokasi = "-- Pilih Lokasi --";
+    const maklumatProgram = "-- Pilih Maklumat Program --";
     const masalahKesihatan = "-- Pilih Masalah Kesihatan --";
     const namaAhli = "-- Pilih Nama Ahli --";
     const namaInsentif = "-- Pilih Nama Insentif --";

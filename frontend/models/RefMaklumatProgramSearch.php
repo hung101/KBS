@@ -5,12 +5,12 @@ namespace frontend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\PendaftaranGym;
+use app\models\RefMaklumatProgram;
 
 /**
- * PendaftaranGymSearch represents the model behind the search form about `app\models\PendaftaranGym`.
+ * RefMaklumatProgramSearch represents the model behind the search form about `app\models\RefMaklumatProgram`.
  */
-class PendaftaranGymSearch extends PendaftaranGym
+class RefMaklumatProgramSearch extends RefMaklumatProgram
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class PendaftaranGymSearch extends PendaftaranGym
     public function rules()
     {
         return [
-            [['pendaftaran_gym_id'], 'integer'],
-            [['tarikh', 'sukan', 'atlet_id'], 'safe'],
+            [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['desc', 'created', 'updated'], 'safe'],
         ];
     }
 
@@ -41,9 +41,7 @@ class PendaftaranGymSearch extends PendaftaranGym
      */
     public function search($params)
     {
-        $query = PendaftaranGym::find()
-                ->joinWith(['refSukan'])
-                ->joinWith(['refAtlet']);
+        $query = RefMaklumatProgram::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -52,20 +50,21 @@ class PendaftaranGymSearch extends PendaftaranGym
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to any records when validation fails
+            // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
         }
 
         $query->andFilterWhere([
-            'pendaftaran_gym_id' => $this->pendaftaran_gym_id,
-            //'atlet_id' => $this->atlet_id,
-            //'tarikh' => $this->tarikh,
+            'id' => $this->id,
+            'aktif' => $this->aktif,
+            'created_by' => $this->created_by,
+            'updated_by' => $this->updated_by,
+            'created' => $this->created,
+            'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
-                ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id])
-                ->andFilterWhere(['like', 'tarikh', $this->tarikh]);
+        $query->andFilterWhere(['like', 'desc', $this->desc]);
 
         return $dataProvider;
     }

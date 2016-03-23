@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Session;
+use yii\helpers\Json;
 
 use app\models\general\GeneralVariable;
 
@@ -237,5 +238,43 @@ class AtletSukanController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    /**
+     * Get Bandars base on Negeri id
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionAtletsBySukan()
+    {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $cat_id = $parents[0];
+                $out = self::getAtletsBySukan($cat_id); 
+                // the getSubCatList function will query the database based on the
+                // cat_id and return an array like below:
+                // [
+                //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+                //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+                // ]
+                echo Json::encode(['output'=>$out, 'selected'=>'']);
+                return;
+            }
+        }
+        echo Json::encode(['output'=>'', 'selected'=>'']);
+    }
+    
+    /**
+     * get list of Atlets by Sukan
+     * @param integer $id
+     * @return Array Atlets
+     */
+    public static function getAtletsBySukan($sukan_id) {
+        $data = AtletSukan::find()->joinWith(['refAtlet'])->where(['nama_sukan'=>$sukan_id])->select(['DISTINCT(`tbl_atlet`.`atlet_id`) AS id','tbl_atlet.name_penuh AS name'])->createCommand()->queryAll();
+        $value = (count($data) == 0) ? ['' => ''] : $data;
+
+        return $value;
     }
 }

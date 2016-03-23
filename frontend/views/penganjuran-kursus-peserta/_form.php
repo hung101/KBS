@@ -403,7 +403,7 @@ use app\models\general\GeneralVariable;
                         ] : null,
                         'data'=>ArrayHelper::map(RefKelulusanSainsSukan::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kelulusanSainsSukan],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>3]],
                 'sijil_spkk_msn' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -417,7 +417,7 @@ use app\models\general\GeneralVariable;
                         ] : null,
                         'data'=>ArrayHelper::map(RefSijilSpkk::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sijilSPKK],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>3]],
                 'lesen_kejurulatihan_msn' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -431,7 +431,8 @@ use app\models\general\GeneralVariable;
                         ] : null,
                         'data'=>ArrayHelper::map(RefLesenKejurulatihan::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::lesenKejurulatihan],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>3]],
+                'no_lesen' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
             ]
         ],
         [
