@@ -5,13 +5,18 @@ namespace frontend\controllers;
 use Yii;
 use app\models\FarmasiPermohonanLiputanPerubatanSukan;
 use frontend\models\FarmasiPermohonanLiputanPerubatanSukanSearch;
+use app\models\IsnLaporanRingkasanStatistik;
+use app\models\IsnLaporanRingkasanStatistikBulanan;
+use app\models\IsnLaporanBulananSecaraDetail;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\BaseUrl;
 
 // table reference
 use app\models\RefKategoriProgramLiputanPerubatanSukan;
+use common\models\general\GeneralFunction;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
@@ -194,5 +199,146 @@ class FarmasiPermohonanLiputanPerubatanSukanController extends Controller
             $img->update();
 
             return $this->redirect(['update', 'id' => $id]);
+    }
+    
+    public function actionLaporanRingkasanStatistik()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanRingkasanStatistik();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-ringkasan-statistik'
+                    , 'tahun' => $model->tahun
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-ringkasan-statistik'
+                    , 'tahun' => $model->tahun
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_ringkasan_statistik', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanRingkasanStatistik($tahun, $format)
+    {
+        if($tahun == "") $tahun = array();
+        else $tahun = array($tahun);
+        
+        $controls = array(
+            'YEAR' => $tahun,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanLiputanPerubatanSukanRingkasanStatistik', $format, $controls, 'laporan_ringkasan_statistik');
+    }
+    
+    public function actionLaporanRingkasanStatistikBulanan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanRingkasanStatistikBulanan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-ringkasan-statistik-bulanan'
+                    , 'tahun' => $model->tahun
+                    , 'kategori_program_id' => $model->kategori_program_id
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-ringkasan-statistik-bulanan'
+                    , 'tahun' => $model->tahun
+                    , 'kategori_program_id' => $model->kategori_program_id
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_ringkasan_statistik_bulanan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanRingkasanStatistikBulanan($tahun, $kategori_program_id, $format)
+    {
+        if($tahun == "") $tahun = array();
+        else $tahun = array($tahun);
+        
+        if($kategori_program_id == "") $kategori_program_id = array();
+        else $kategori_program_id = array($kategori_program_id);
+        
+        $controls = array(
+            'YEAR' => $tahun,
+            'KATEGORI_PROGRAM' => $kategori_program_id,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanLiputanPerubatanSukanRingkasanStatistikBulanan', $format, $controls, 'laporan_ringkasan_statistik_bulanan');
+    }
+    
+    public function actionLaporanBulananSecaraDetail()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanBulananSecaraDetail();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-bulanan-secara-detail'
+                    , 'tahun' => $model->tahun
+                    , 'kategori_program_id' => $model->kategori_program_id
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-bulanan-secara-detail'
+                    , 'tahun' => $model->tahun
+                    , 'kategori_program_id' => $model->kategori_program_id
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_bulanan_secara_detail', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanBulananSecaraDetail($tahun, $kategori_program_id, $format)
+    {
+        if($tahun == "") $tahun = array();
+        else $tahun = array($tahun);
+        
+        if($kategori_program_id == "") $kategori_program_id = array();
+        else $kategori_program_id = array($kategori_program_id);
+        
+        $controls = array(
+            'YEAR' => $tahun,
+            'KATEGORI_PROGRAM' => $kategori_program_id,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanLiputanPerubatanSukanBulananSecaraDetail', $format, $controls, 'laporan_bulanan_secara_detail');
     }
 }

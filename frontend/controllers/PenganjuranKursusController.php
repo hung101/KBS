@@ -5,9 +5,12 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PenganjuranKursus;
 use frontend\models\PenganjuranKursusSearch;
+use app\models\IsnLaporanSenaraiKursus;
+use app\models\IsnLaporanSenaraiPeserta;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\BaseUrl;
 
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
@@ -71,7 +74,9 @@ class PenganjuranKursusController extends Controller
         $ref = RefNegeri::findOne(['id' => $model->negeri]);
         $model->negeri = $ref['desc'];
         
-        $model->tarikh_kursus = GeneralFunction::convert($model->tarikh_kursus);
+        $model->tarikh_kursus_mula = GeneralFunction::convert($model->tarikh_kursus_mula);
+        
+        $model->tarikh_kursus_tamat = GeneralFunction::convert($model->tarikh_kursus_tamat);
         
         return $this->render('view', [
             'model' => $model,
@@ -157,5 +162,97 @@ class PenganjuranKursusController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionLaporanSenaraiKursus()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanSenaraiKursus();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-senarai-kursus'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-senarai-kursus'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_senarai_kursus', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanSenaraiKursus($tarikh_dari, $tarikh_hingga, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanSenaraiKursus', $format, $controls, 'laporan_senarai_kursus');
+    }
+    
+    public function actionLaporanSenaraiPeserta()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanSenaraiPeserta();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-senarai-peserta'
+                    , 'penganjuran_kursus_id' => $model->penganjuran_kursus_id
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-senarai-peserta'
+                    , 'penganjuran_kursus_id' => $model->penganjuran_kursus_id
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_senarai_peserta', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanSenaraiPeserta($penganjuran_kursus_id, $format)
+    {
+        if($penganjuran_kursus_id == "") $penganjuran_kursus_id = array();
+        else $penganjuran_kursus_id = array($penganjuran_kursus_id);
+        
+        $controls = array(
+            'PENGANJURAN_KURSUS_ID' => $penganjuran_kursus_id,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanSenaraiPeserta', $format, $controls, 'laporan_senarai_peserta');
     }
 }

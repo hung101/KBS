@@ -682,9 +682,12 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laman_web = "Laman Web";
         const lantikan = "Lantikan";
         const laporan_aktiviti_muat_naik = "Laporan Aktiviti";
+        const laporan_bulanan_secara_detail = "Laporan Bulanan Secara Detail";
         const laporan_kesihatan = "Laporan Kesihatan";
         const laporan_kewangan_muat_naik = "Laporan Kewangan";
         const laporan_penganjuran = "Laporan Penganjuran";
+        const laporan_ringkasan_statistik = "Laporan Ringkasan Statistik";
+        const laporan_ringkasan_statistik_bulanan = "Laporan Ringkasan Statistik Bulanan";
         const laporan_ulasan = "Laporan Ulasan";
         const latihan_dan_program_id = "Latihan Dan Program ID";
         const latihan_dan_program_peserta_id = "Latihan Dan Program Peserta ID";
@@ -830,7 +833,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const nama_penuh_presiden_badan_sukan = "Nama Penuh Presiden Badan Sukan";
         const nama_penuh_setiausaha_badan_sukan = "Nama Penuh Setiausaha Badan Sukan";
         const nama_penulis = "Nama Penulis";
-        const nama_penyelaras = "Nama Penyelaras / Penganjur";
+        const nama_penyelaras = "Nama Penyelaras";
         const nama_peperiksaan = "Nama Peperiksaan";
         const nama_peralatan = "Nama Peralatan";
         const nama_peranan = "Nama Peranan";
@@ -1378,7 +1381,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tarikh_kelulusan = "Tarikh Kelulusan";
         const tarikh_kelulusan_Terkini = "Tarikh Kelulusan Terkini";
         const tarikh_khidmat = "Tarikh Khidmat";
-        const tarikh_kursus = "Tarikh Kursus";
+        const tarikh_kursus_mula = "Tarikh Kursus Mula";
+        const tarikh_kursus_tamat = "Tarikh Kursus Tamat";
         const tarikh_lahir = "Tarikh Lahir";
         const tarikh_lawatan = "Tarikh & Masa Lawatan";
         const tarikh_lulus_pendaftaran = "Tarikh Lulus Pendaftaran";
@@ -1569,7 +1573,9 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_penyata_bayaran_pelajar = "Laporan Penyata Bayaran Pelajar";
         const laporan_prestasi_akademik = "Laporan Prestasi Akademik";
         const laporan_senarai_penerima_biasiswa = "Laporan Senarai Penerima Biasiswa";
+        const laporan_senarai_peserta = "Laporan Senarai Peserta";
         const laporan_sesi_kaunseling = "Laporan Sesi Kaunseling";
+        const laporan_senarai_kursus = "Laporan Senarai Kursus";
         const laporan_statistik_permohonan_biasiswa_mengikut_ipta_ipts = "Laporan Statistik Permohonan Biasiswa Mengikut IPTA / IPTS";
         const laporan_statistik_permohonan_biasiswa_mengikut_jantina = "Laporan Statistik Permohonan Biasiswa Mengikut Jantina";
         const laporan_statistik_permohonan_biasiswa_mengikut_kaum = "Laporan Statistik Permohonan Biasiswa Mengikut Kaum";
@@ -2388,10 +2394,13 @@ if($session->get('language') == "EN") {
         const lain_lain_sumbangan = "The estimated revenue other Contributions";
         const laman_web = "Website";
         const lantikan = "The appointment of";
-        const laporan_aktiviti_muat_naik = "Activity Reports";
+        const laporan_aktiviti_muat_naik = "Activity Report";
+        const laporan_bulanan_secara_detail = "Monthly Report Details";
         const laporan_kesihatan = "Medical Report";
         const laporan_kewangan_muat_naik = "Financial Reporting";
         const laporan_penganjuran = "Report Recommendations:";
+        const laporan_ringkasan_statistik = "Report Summary Statistics";
+        const laporan_ringkasan_statistik_bulanan = "Report Summary Statistics Monthly";
         const laporan_ulasan = "The Report Reviews";
         const latihan_dan_program_id = "Training And Program ID";
         const latihan_dan_program_peserta_id = "Training And Program Participant ID";
@@ -2537,7 +2546,7 @@ if($session->get('language') == "EN") {
         const nama_penuh_presiden_badan_sukan = "The Full Name Of The President Of The Sports Body";
         const nama_penuh_setiausaha_badan_sukan = "The Full Name Of The Secretary Of The Sports Bodies";
         const nama_penulis = "Author (S)";
-        const nama_penyelaras = "Name of Coordinator / Organizer";
+        const nama_penyelaras = "Name of Coordinator";
         const nama_peperiksaan = "Name Of Examination";
         const nama_peralatan = "Name Of Equipment";
         const nama_peranan = "The Name Of The Role";
@@ -3085,7 +3094,8 @@ if($session->get('language') == "EN") {
         const tarikh_kelulusan = "Date Of Approval";
         const tarikh_kelulusan_Terkini = "The Latest Date Of Approval";
         const tarikh_khidmat = "Date Of Service";
-        const tarikh_kursus = "Course Date";
+        const tarikh_kursus_mula = "Course Start Date";
+        const tarikh_kursus_tamat = "Course End Date";
         const tarikh_lahir = "Date Of Birth";
         const tarikh_lawatan = "Date & Time Of Visit";
         const tarikh_lulus_pendaftaran = "The Date Of Pass Registration";
@@ -3276,7 +3286,9 @@ if($session->get('language') == "EN") {
         const laporan_penyata_bayaran_pelajar = "Student Payment Statements";
         const laporan_prestasi_akademik = "Academic Performance Reports";
         const laporan_senarai_penerima_biasiswa = "Scholarship Recipients List Report";
+        const laporan_senarai_peserta = "Participant List Report";
         const laporan_sesi_kaunseling = "Counselling Session Report";
+        const laporan_senarai_kursus = "List Of Courses Report";
         const laporan_statistik_permohonan_biasiswa_mengikut_ipta_ipts = "Statistical Report In Accordance With The Scholarship Application IPTA/IPTS";
         const laporan_statistik_permohonan_biasiswa_mengikut_jantina = "Statistical Report Scholarship Application By Gender";
         const laporan_statistik_permohonan_biasiswa_mengikut_kaum = "Statistical Reports Racial Scholarship Application";

@@ -50,10 +50,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'penganjuran_kursus_id',
             //'tarikh_kursus',
             [
-                'attribute' => 'tarikh_kursus',
+                'attribute' => 'tarikh_kursus_mula',
                 'format' => 'raw',
                 'value'=>function ($model) {
-                    return GeneralFunction::convert($model->tarikh_kursus);
+                    return GeneralFunction::convert($model->tarikh_kursus_mula);
                 },
             ],
             'tempat_kursus',

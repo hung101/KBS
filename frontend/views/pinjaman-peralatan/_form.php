@@ -134,48 +134,23 @@ $script = <<< JS
 $(document).ready(function(){
 });
         
-$("#tarikhDiberiId-disp").focusout(function(){
-    getDurationBetweenDatetime();
+$("#tarikhDiberiId").change(function(){
+    setDuration();
 });
         
-$("#tarikhDipulangId-disp").focusout(function(){
-    getDurationBetweenDatetime();
+$("#tarikhDipulangId").change(function(){
+    setDuration();
 });
         
-function getDurationBetweenDatetime(){
+function setDuration(){
     var fromDatetime = $("#tarikhDiberiId").val();
     var toDatetime = $("#tarikhDipulangId").val();
         
+    var fromDatetimeMoment = moment(fromDatetime,'YYYY-MM-DD HH:mm:ss');
+    var toDatetimeMoment = moment(toDatetime,'YYYY-MM-DD HH:mm:ss');
+        
     if(fromDatetime != "" && toDatetime != ""){
-        var fromDatetimeMoment = moment(fromDatetime,'YYYY-MM-DD HH:mm:ss');
-        var toDatetimeMoment = moment(toDatetime,'YYYY-MM-DD HH:mm:ss');
-        
-        var durationsMs = toDatetimeMoment.diff(fromDatetimeMoment, 'milliseconds');
-        var durationMessage = '';
-        
-        var d, h, m, s;
-        
-        s = Math.floor(durationsMs / 1000);
-        m = Math.floor(s / 60);
-        s = s % 60;
-        h = Math.floor(m / 60);
-        m = m % 60;
-        d = Math.floor(h / 24);
-        h = h % 24;
-        
-        if(d > 0){
-            durationMessage += d + ' Hari ';
-        }
-        
-        if(h > 0){
-            durationMessage += h + ' Jam ';
-        }
-        
-        if(m > 0){
-            durationMessage += m + ' Minit ';
-        }
-        
-        $("#tempohPinjamanId").val(durationMessage);
+        $("#tempohPinjamanId").val(getDurationBetweenDatetime(fromDatetimeMoment,toDatetimeMoment));
     }
 }
         

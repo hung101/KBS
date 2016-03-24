@@ -29,7 +29,7 @@ use app\models\general\GeneralMessage;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -62,7 +62,7 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'tarikh_kursus' => [
+                'tarikh_kursus_mula' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
@@ -72,6 +72,34 @@ use app\models\general\GeneralMessage;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
+                'tarikh_kursus_tamat' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                'tempoh_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100, 'disabled'=>true]],
+                
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'nama_penyelaras' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+                'penganjur' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+                'no_telefon' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
+                'kuota_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>11]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                 'tempat_kursus' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5]],
                  'negeri' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -89,20 +117,13 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'nama_penyelaras' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
-                'no_telefon' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
-                'kuota_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>11]],
-            ],
-        ],
     ]
 ]);
         ?>
+    
+    
 
-    <!--<?= $form->field($model, 'tarikh_kursus')->textInput() ?>
+    <!--<?= $form->field($model, 'tarikh_kursus_mula')->textInput() ?>
 
     <?= $form->field($model, 'tempat_kursus')->textInput(['maxlength' => 90]) ?>
 
@@ -128,3 +149,43 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+$script = <<< JS
+        
+$(document).ready(function(){
+});
+        
+$("#penganjurankursus-tarikh_kursus_mula").change(function(){
+    setDuration();
+});
+        
+$("#penganjurankursus-tarikh_kursus_tamat").change(function(){
+    setDuration();
+});
+        
+function setDuration(){
+    var fromDatetime = $("#penganjurankursus-tarikh_kursus_mula").val();
+    var toDatetime = $("#penganjurankursus-tarikh_kursus_tamat").val();
+        
+    var fromDatetimeMoment = moment(fromDatetime,'YYYY-MM-DD');
+    var toDatetimeMoment = moment(toDatetime,'YYYY-MM-DD');
+        
+    if(fromDatetime != "" && toDatetime != ""){
+        $("#penganjurankursus-tempoh_kursus").val(getDurationBetweenDatetime(fromDatetimeMoment,toDatetimeMoment));
+    }
+}
+        
+// enable all the disabled field before submit
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+        
+JS;
+        
+$this->registerJs($script);
+?>

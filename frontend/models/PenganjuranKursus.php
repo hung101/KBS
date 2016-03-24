@@ -10,7 +10,7 @@ use app\models\general\GeneralLabel;
  * This is the model class for table "tbl_penganjuran_kursus".
  *
  * @property integer $penganjuran_kursus_id
- * @property string $tarikh_kursus
+ * @property string $tarikh_kursus_mula
  * @property string $tempat_kursus
  * @property string $negeri
  * @property string $nama_penyelaras
@@ -51,13 +51,15 @@ class PenganjuranKursus extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis_kursus','kod_kursus', 'tarikh_kursus', 'tempat_kursus', 'negeri', 'nama_penyelaras', 'no_telefon', 'kuota_kursus', 'nama_kursus'], 'required', 'skipOnEmpty' => true],
-            [['tarikh_kursus'], 'safe'],
+            [['jenis_kursus','kod_kursus', 'tarikh_kursus_mula', 'tarikh_kursus_tamat', 'penganjur', 'tempat_kursus', 'negeri', 'nama_penyelaras', 'no_telefon', 'kuota_kursus', 'nama_kursus'], 'required', 'skipOnEmpty' => true],
+            [['tarikh_kursus_mula', 'tarikh_kursus_tamat'], 'safe'],
             [['kuota_kursus'], 'integer'],
             [['tempat_kursus'], 'string', 'max' => 90],
+            [['tempoh_kursus'], 'string', 'max' => 100],
             [['kod_kursus','negeri'], 'string', 'max' => 30],
-            [['nama_penyelaras', 'nama_kursus'], 'string', 'max' => 80],
-            [['no_telefon'], 'string', 'max' => 14]
+            [['nama_penyelaras', 'nama_kursus', 'penganjur'], 'string', 'max' => 80],
+            [['no_telefon'], 'string', 'max' => 14],
+            [['tarikh_kursus_tamat'], 'compare', 'compareAttribute'=>'tarikh_kursus_mula', 'operator'=>'>='],
         ];
     }
 
@@ -70,7 +72,8 @@ class PenganjuranKursus extends \yii\db\ActiveRecord
             'penganjuran_kursus_id' => GeneralLabel::penganjuran_kursus_id,
             'jenis_kursus' => GeneralLabel::jenis_kursus,
             'negeri' => GeneralLabel::negeri,
-            'tarikh_kursus' => GeneralLabel::tarikh_kursus,
+            'tarikh_kursus_mula' => GeneralLabel::tarikh_kursus_mula,
+            'tarikh_kursus_tamat' => GeneralLabel::tarikh_kursus_tamat,
             'tempat_kursus' => GeneralLabel::tempat_kursus,
             'negeri' => GeneralLabel::negeri,
             'nama_penyelaras' => GeneralLabel::nama_penyelaras,
@@ -78,6 +81,7 @@ class PenganjuranKursus extends \yii\db\ActiveRecord
             'kuota_kursus' => GeneralLabel::kuota_kursus,
             'nama_kursus' => GeneralLabel::nama_kursus,
             'kod_kursus' => GeneralLabel::kod_kursus,
+            'penganjur' => GeneralLabel::penganjur,
         ];
     }
     

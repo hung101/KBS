@@ -155,6 +155,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pejabatYangMendaftarkan = " -- Pilih Pejabat Yang Mendaftarkan -- ";
         const pemohon = " -- Pilih Pemohon -- ";
         const pengajian = " -- Pilih Pengajian -- ";
+        const penganjuranKursus = " -- Pilih Penganjuran Kursus -- ";
         const peralatan = " -- Pilih Peralatan -- ";
         const peralatanKemudahan = " -- Pilih Peralatan Kemudahan -- ";
         const peranan = " -- Pilih Peranan -- ";
@@ -375,6 +376,7 @@ if($session->get('language') == "EN") {
         const pejabatYangMendaftarkan = " -- Select The Register Office -- ";
         const pemohon = " -- Select The Applicant -- ";
         const pengajian = " -- Select Study -- ";
+        const penganjuranKursus = " -- Pilih A Organization Of Courses -- ";
         const peralatan = " -- Select Equipment -- ";
         const peralatanKemudahan = " -- Select Equipment Facilities -- ";
         const peranan = " -- Select Role -- ";

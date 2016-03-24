@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'penganjuran_kursus_id') ?>
 
-    <?= $form->field($model, 'tarikh_kursus') ?>
+    <?= $form->field($model, 'tarikh_kursus_mula') ?>
 
     <?= $form->field($model, 'tempat_kursus') ?>
 

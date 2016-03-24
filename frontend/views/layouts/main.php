@@ -351,6 +351,14 @@ AppAsset::register($this);
                             'items' => [
                                 ['label' => GeneralLabel::permohonan_liputan_perubatan_sukan, 'url' => ['/farmasi-permohonan-liputan-perubatan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['module'])],
                                 ['label' => GeneralLabel::permohonan_ubatan, 'url' => ['/farmasi-permohonan-ubatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['module'])],
+                                [
+                                    'label' => GeneralLabel::laporan,
+                                    'items' => [
+                                        ['label' => GeneralLabel::laporan_ringkasan_statistik, 'url' => ['/farmasi-permohonan-liputan-perubatan-sukan/laporan-ringkasan-statistik'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['module'])],
+                                        ['label' => GeneralLabel::laporan_ringkasan_statistik_bulanan, 'url' => ['/farmasi-permohonan-liputan-perubatan-sukan/laporan-ringkasan-statistik-bulanan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['module'])],
+                                        ['label' => GeneralLabel::laporan_bulanan_secara_detail, 'url' => ['/farmasi-permohonan-liputan-perubatan-sukan/laporan-bulanan-secara-detail'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['module'])],
+                                    ],
+                                ],
                             ],
                         ],
                         ['label' => GeneralLabel::pendidikan_sistem_permohonan_program_pendidikan_kesihatan_kepada_atlet_dan_staf, 'url' => ['/permohonan-program-pendidikan-kesihatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-program-pendidikan-kesihatan']['module'])],
@@ -361,8 +369,15 @@ AppAsset::register($this);
                                 ['label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, 'url' => ['/akademi-akk/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['akademi-akk']['module'])],
                                 ['label' => GeneralLabel::cce, 'url' => ['/kursus/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['kursus']['module'])],
                                 ['label' => GeneralLabel::penganjuran_kursus, 'url' => ['/penganjuran-kursus/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['module'])],
-                                ['label' => GeneralLabel::penganjuran_kursus_senarai_peserta, 'url' => ['/penganjuran-kursus-peserta/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-peserta']['module'])],
-                                ['label' => GeneralLabel::penganjuran_kursus_penganjur, 'url' => ['/penganjuran-kursus-penganjur/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-penganjur']['module'])],
+                                //['label' => GeneralLabel::penganjuran_kursus_senarai_peserta, 'url' => ['/penganjuran-kursus-peserta/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-peserta']['module'])],
+                                //['label' => GeneralLabel::penganjuran_kursus_penganjur, 'url' => ['/penganjuran-kursus-penganjur/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-penganjur']['module'])],
+                                [
+                                    'label' => GeneralLabel::laporan,
+                                    'items' => [
+                                        ['label' => GeneralLabel::laporan_senarai_kursus, 'url' => ['/penganjuran-kursus/laporan-senarai-kursus'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['module'])],
+                                        ['label' => GeneralLabel::laporan_senarai_peserta, 'url' => ['/penganjuran-kursus/laporan-senarai-peserta'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['module'])],
+                                    ],
+                                ],
                             ],
                         ],
                     ]];

@@ -19,7 +19,7 @@ class PenganjuranKursusSearch extends PenganjuranKursus
     {
         return [
             [['penganjuran_kursus_id', 'kuota_kursus'], 'integer'],
-            [['tarikh_kursus', 'tempat_kursus', 'negeri', 'nama_penyelaras', 'no_telefon', 'jenis_kursus'], 'safe'],
+            [['tarikh_kursus_mula', 'tarikh_kursus_tamat', 'tempat_kursus', 'negeri', 'nama_penyelaras', 'no_telefon', 'jenis_kursus'], 'safe'],
         ];
     }
 
@@ -59,7 +59,7 @@ class PenganjuranKursusSearch extends PenganjuranKursus
 
         $query->andFilterWhere([
             'penganjuran_kursus_id' => $this->penganjuran_kursus_id,
-            'tarikh_kursus' => $this->tarikh_kursus,
+            //'tarikh_kursus_mula' => $this->tarikh_kursus_mula,
             'kuota_kursus' => $this->kuota_kursus,
         ]);
 
@@ -67,7 +67,9 @@ class PenganjuranKursusSearch extends PenganjuranKursus
                 ->andFilterWhere(['like', 'tbl_ref_jenis_kursus_penganjuran.desc', $this->jenis_kursus])
             ->andFilterWhere(['like', 'tbl_ref_negeri.desc', $this->negeri])
             ->andFilterWhere(['like', 'nama_penyelaras', $this->nama_penyelaras])
-            ->andFilterWhere(['like', 'no_telefon', $this->no_telefon]);
+            ->andFilterWhere(['like', 'no_telefon', $this->no_telefon])
+                ->andFilterWhere(['like', 'tarikh_kursus_tamat', $this->tarikh_kursus_tamat])
+                ->andFilterWhere(['like', 'tarikh_kursus_mula', $this->tarikh_kursus_mula]);
 
         return $dataProvider;
     }

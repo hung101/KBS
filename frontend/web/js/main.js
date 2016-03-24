@@ -215,6 +215,39 @@ $(".integer").keydown(function (e) {
     }
 });
 
+function getDurationBetweenDatetime(fromDatetimeMoment, toDatetimeMoment){
+        
+    if(fromDatetimeMoment != "" && toDatetimeMoment != ""){
+        
+        var durationsMs = toDatetimeMoment.diff(fromDatetimeMoment, 'milliseconds');
+        var durationMessage = '';
+        
+        var d, h, m, s;
+        
+        s = Math.floor(durationsMs / 1000);
+        m = Math.floor(s / 60);
+        s = s % 60;
+        h = Math.floor(m / 60);
+        m = m % 60;
+        d = Math.floor(h / 24);
+        h = h % 24;
+        
+        if(d > 0){
+            durationMessage += d + ' Hari ';
+        }
+        
+        if(h > 0){
+            durationMessage += h + ' Jam ';
+        }
+        
+        if(m > 0){
+            durationMessage += m + ' Minit ';
+        }
+        
+        return durationMessage;
+    }
+}
+
 // atlet pendidikan form submit
 $('body').on('beforeSubmit', 'form#atlet_pendidikan_form', function () {
     var tabId = 'pendidikan_tab';
