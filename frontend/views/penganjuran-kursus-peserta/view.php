@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 // contant values
 use app\models\general\GeneralLabel;
@@ -11,8 +12,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PenganjuranKursusPeserta */
 
 //$this->title = $model->penganjuran_kursus_peserta_id;
-$this->title = GeneralLabel::viewTitle . ' Penganjuran Kursus Peserta';
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penganjuran_kursus_senarai_peserta, 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::penganjuran_kursus_senarai_peserta;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penganjuran_kursus_senarai_peserta, 'url' => Url::to(['index', 'penganjuran_kursus_id' => $model->penganjuran_kursus_id])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="penganjuran-kursus-peserta-view">
@@ -36,6 +37,8 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <?= $this->render('_form', [
         'model' => $model,
+        'searchModelPenganjuranKursusPesertaSukan' => $searchModelPenganjuranKursusPesertaSukan,
+        'dataProviderPenganjuranKursusPesertaSukan' => $dataProviderPenganjuranKursusPesertaSukan,
         'readonly' => $readonly,
     ]) ?>
 

@@ -119,7 +119,12 @@ use app\models\general\GeneralVariable;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>2]],
-                'tid' => ['type'=>Form::INPUT_RADIO_LIST, 'items'=>[true=>'Ya', false=>'Tidak'],'options'=>['inline'=>true],'columnOptions'=>['colspan'=>2]],
+                'tid' => [
+                    'type'=>Form::INPUT_RADIO_LIST, 
+                    'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
+                    'value'=>false,
+                    'options'=>['inline'=>true],
+                    'columnOptions'=>['colspan'=>2]],
                 'cawangan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',

@@ -51,12 +51,12 @@ class PenganjuranKursus extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis_kursus', 'tarikh_kursus', 'tempat_kursus', 'negeri', 'nama_penyelaras', 'no_telefon', 'kuota_kursus'], 'required', 'skipOnEmpty' => true],
+            [['jenis_kursus','kod_kursus', 'tarikh_kursus', 'tempat_kursus', 'negeri', 'nama_penyelaras', 'no_telefon', 'kuota_kursus', 'nama_kursus'], 'required', 'skipOnEmpty' => true],
             [['tarikh_kursus'], 'safe'],
             [['kuota_kursus'], 'integer'],
             [['tempat_kursus'], 'string', 'max' => 90],
-            [['negeri'], 'string', 'max' => 30],
-            [['nama_penyelaras'], 'string', 'max' => 80],
+            [['kod_kursus','negeri'], 'string', 'max' => 30],
+            [['nama_penyelaras', 'nama_kursus'], 'string', 'max' => 80],
             [['no_telefon'], 'string', 'max' => 14]
         ];
     }
@@ -76,7 +76,8 @@ class PenganjuranKursus extends \yii\db\ActiveRecord
             'nama_penyelaras' => GeneralLabel::nama_penyelaras,
             'no_telefon' => GeneralLabel::no_telefon,
             'kuota_kursus' => GeneralLabel::kuota_kursus,
-
+            'nama_kursus' => GeneralLabel::nama_kursus,
+            'kod_kursus' => GeneralLabel::kod_kursus,
         ];
     }
     

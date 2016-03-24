@@ -9,6 +9,9 @@ use kartik\widgets\DepDrop;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use yii\grid\GridView;
+use yii\bootstrap\Modal;
+use yii\widgets\Pjax;
 
 // table reference
 use app\models\RefJantina;
@@ -39,13 +42,21 @@ use app\models\general\GeneralVariable;
 ?>
 
 <div class="penganjuran-kursus-peserta-form">
+    
+    <?php
+        if(!$readonly){
+            $template = '{view} {update} {delete}';
+        } else {
+            $template = '{view}';
+        }
+    ?>
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL,'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
     <?php
-        echo FormGrid::widget([
+        /*echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -87,11 +98,11 @@ use app\models\general\GeneralVariable;
                     ],
                     'columnOptions'=>['colspan'=>3]],
                  'tempat' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>90]],
-                'yuran' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
+                
             ],
         ],
     ]
-]);
+]);*/
     ?>
     
     <?php
@@ -137,6 +148,7 @@ use app\models\general\GeneralVariable;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                  'nama_penuh' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                'yuran' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
             ],
         ],
         [
@@ -155,7 +167,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefBangsa::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kaum],],
+                        'options' => ['placeholder' => Placeholder::kaum],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'jantina' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -169,7 +184,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJantina::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jantina],],
+                        'options' => ['placeholder' => Placeholder::jantina],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'taraf_perkahwinan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -183,7 +201,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefTarafPerkahwinan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::tarafPerkahwinan],],
+                        'options' => ['placeholder' => Placeholder::tarafPerkahwinan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
@@ -227,13 +248,17 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
+                        'options' => ['placeholder' => Placeholder::negeri],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'alamat_bandar' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\DepDrop', 
                     'options'=>[
                         'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'select2Options'=> [
                             'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                             [
@@ -260,7 +285,8 @@ use app\models\general\GeneralVariable;
             'attributes' => [
                 'no_tel_bimbit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
                 'no_tel_rumah' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
-                'emel' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>100]],
+                'emel' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100]],
+                'maklumat_persamaan_taraf' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>50]],
             ]
         ],
         [
@@ -302,13 +328,17 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
+                        'options' => ['placeholder' => Placeholder::negeri],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'alamat_majikan_bandar' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\DepDrop', 
                     'options'=>[
                         'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'select2Options'=> [
                             'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                             [
@@ -353,10 +383,13 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKelulusanAkademi::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kelulusanAkademi],],
+                        'options' => ['placeholder' => Placeholder::kelulusanAkademi],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'nama_kelulusan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
-                'kelulusan_sukan_spesifik' => [
+                /*'kelulusan_sukan_spesifik' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -383,10 +416,111 @@ use app\models\general\GeneralVariable;
                         ] : null,
                         'data'=>ArrayHelper::map(RefSukanAkademi::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukanAkademi],],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>3]],*/
             ]
         ],
-        [
+    ]
+]);
+    ?>
+    
+    <h3>Sukan</h3>
+    
+    <?php 
+            Modal::begin([
+                'header' => '<h3 id="modalTitle"></h3>',
+                'id' => 'modal',
+                'size' => 'modal-lg',
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE]
+            ]);
+            
+            echo '<div id="modalContent"></div>';
+            
+            Modal::end();
+        ?>
+    
+    <?php Pjax::begin(['id' => 'penganjuranKursusPesertaSukanGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPenganjuranKursusPesertaSukan,
+        //'filterModel' => $searchModelPenganjuranKursusPesertaSukan,
+        'id' => 'penganjuranKursusPesertaSukanGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'penganjuran_kursus_peserta_sukan_id',
+            //'penganjuran_kursus_peserta_id',
+            //'jenis_sukan',
+            [
+                'attribute' => 'jenis_sukan',
+                'value' => 'refSukan.desc'
+            ],
+            //'tahap',
+            [
+                'attribute' => 'tahap',
+                'value' => 'refTahapSukanPeserta.desc'
+            ],
+            'tahun',
+            // 'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['penganjuran-kursus-peserta-sukan/delete', 'id' => $model->penganjuran_kursus_peserta_sukan_id]).'", "'.GeneralMessage::confirmDelete.'", "penganjuranKursusPesertaSukanGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penganjuran-kursus-peserta-sukan/update', 'id' => $model->penganjuran_kursus_peserta_sukan_id]).'", "'.GeneralLabel::updateTitle . ' Sukan");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penganjuran-kursus-peserta-sukan/view', 'id' => $model->penganjuran_kursus_peserta_sukan_id]).'", "'.GeneralLabel::viewTitle . ' Sukan");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+    <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        $penganjuran_kursus_peserta_id = "";
+        
+        if(isset($model->penganjuran_kursus_peserta_id)){
+            $penganjuran_kursus_peserta_id = $model->penganjuran_kursus_peserta_id;
+        }
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penganjuran-kursus-peserta-sukan/create', 'penganjuran_kursus_peserta_id' => $penganjuran_kursus_peserta_id]).'", "'.GeneralLabel::createTitle . ' Sukan");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
+    
+    <?php
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+            [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -402,7 +536,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKelulusanSainsSukan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kelulusanSainsSukan],],
+                        'options' => ['placeholder' => Placeholder::kelulusanSainsSukan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'sijil_spkk_msn' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -416,7 +553,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSijilSpkk::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sijilSPKK],],
+                        'options' => ['placeholder' => Placeholder::sijilSPKK],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'lesen_kejurulatihan_msn' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -430,12 +570,15 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefLesenKejurulatihan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::lesenKejurulatihan],],
+                        'options' => ['placeholder' => Placeholder::lesenKejurulatihan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'no_lesen' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
             ]
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -482,7 +625,7 @@ use app\models\general\GeneralVariable;
                         'options' => ['placeholder' => Placeholder::sukan],],
                     'columnOptions'=>['colspan'=>4]],
             ]
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -509,15 +652,15 @@ use app\models\general\GeneralVariable;
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'pencapaian' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
             ]
-        ],
-    ]
-]);
+        ],*/
+        ]
+    ]);
     ?>
     
     <?php // Muat Naik

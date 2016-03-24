@@ -11,7 +11,7 @@ use app\models\general\GeneralLabel;
 /* @var $searchModel app\models\AtletSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Senarai Atlet';
+$this->title = GeneralLabel::senarai_atlet;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-index">

@@ -7,9 +7,11 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use yii\helpers\Url;
 
 // table reference
 use app\models\RefJenisKursusPenganjuran;
+use app\models\RefKategoriKursusPenganjuran;
 use app\models\RefNegeri;
 
 // contant values
@@ -49,9 +51,11 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJenisKursusPenganjuran::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jenisKursus],],
+                        'data'=>ArrayHelper::map(RefKategoriKursusPenganjuran::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kategoriKursus],],
                     'columnOptions'=>['colspan'=>3]],
+                'nama_kursus' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
+                'kod_kursus' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
             ],
         ],
         [
@@ -114,6 +118,11 @@ use app\models\general\GeneralMessage;
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?php endif; ?>
+        <?php
+        if(!$model->isNewRecord){
+            echo '&nbsp;&nbsp;' . Html::a('Maklumat Peribadi Peserta', Url::to(['/penganjuran-kursus-peserta/index', 'penganjuran_kursus_id' => $model->penganjuran_kursus_id]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
+        }
+        ?>
     </div>
 
     <?php ActiveForm::end(); ?>

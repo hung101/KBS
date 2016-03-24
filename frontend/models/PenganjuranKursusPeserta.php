@@ -95,7 +95,7 @@ class PenganjuranKursusPeserta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['kategori_kursus', 'nama_kursus', 'kod_kursus', 'tarikh', 'tempat', 'yuran', 'nama_penuh', 'jantina', 'taraf_perkahwinan', 'kaum', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'no_tel_rumah', 'pekerjaan', 'nama_majikan', 'alamat_majikan_1', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 'no_tel_majikan', 'kelulusan'], 'required', 'skipOnEmpty' => true],
+            [['kategori_kursus', 'nama_kursus', 'kod_kursus', 'tarikh', 'tempat', 'yuran', 'nama_penuh', 'jantina', 'taraf_perkahwinan', 'kaum', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'pekerjaan', 'nama_majikan', 'alamat_majikan_1', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 'no_tel_majikan', 'kelulusan'], 'required', 'skipOnEmpty' => true],
             [['tarikh', 'tahun_berkhidmat_mula', 'tahun_berkhidmat_tamat'], 'safe'],
             [['yuran'], 'number'],
             [['kelulusan'], 'integer'],
@@ -111,7 +111,9 @@ class PenganjuranKursusPeserta extends \yii\db\ActiveRecord
             [['alamat_poskod', 'alamat_majikan_poskod'], 'string', 'max' => 5],
             [['no_tel_bimbit', 'no_tel_rumah', 'no_tel_majikan', 'no_faks_majikan'], 'string', 'max' => 14],
             [['pencapaian'], 'string', 'max' => 255],
+            [['maklumat_persamaan_taraf'], 'string', 'max' => 50],
             [['muatnaik_gambar','dokumen_lampiran'], 'validateFileUpload', 'skipOnEmpty' => false],
+            [['tahun_berkhidmat_tamat'], 'compare', 'compareAttribute'=>'tahun_berkhidmat_mula', 'operator'=>'>='],
         ];
     }
 
@@ -170,6 +172,7 @@ class PenganjuranKursusPeserta extends \yii\db\ActiveRecord
             'pencapaian' => GeneralLabel::pencapaian,
             'dokumen_lampiran' => GeneralLabel::dokumen_lampiran,
             'kelulusan' => GeneralLabel::kelulusan,
+            'maklumat_persamaan_taraf' => GeneralLabel::maklumat_persamaan_taraf,
         ];
     }
     

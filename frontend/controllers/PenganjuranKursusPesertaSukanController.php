@@ -3,23 +3,22 @@
 namespace frontend\controllers;
 
 use Yii;
-use app\models\PenganjuranKursus;
-use frontend\models\PenganjuranKursusSearch;
+use app\models\PenganjuranKursusPesertaSukan;
+use frontend\models\PenganjuranKursusPesertaSukanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-use app\models\general\GeneralVariable;
-use common\models\general\GeneralFunction;
-
 // table reference
-use app\models\RefJenisKursusPenganjuran;
-use app\models\RefNegeri;
+use app\models\RefSukan;
+use app\models\RefTahapSukanPeserta;
+
+use app\models\general\GeneralVariable;
 
 /**
- * PenganjuranKursusController implements the CRUD actions for PenganjuranKursus model.
+ * PenganjuranKursusPesertaSukanController implements the CRUD actions for PenganjuranKursusPesertaSukan model.
  */
-class PenganjuranKursusController extends Controller
+class PenganjuranKursusPesertaSukanController extends Controller
 {
     public function behaviors()
     {
@@ -34,7 +33,7 @@ class PenganjuranKursusController extends Controller
     }
 
     /**
-     * Lists all PenganjuranKursus models.
+     * Lists all PenganjuranKursusPesertaSukan models.
      * @return mixed
      */
     public function actionIndex()
@@ -43,7 +42,7 @@ class PenganjuranKursusController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
-        $searchModel = new PenganjuranKursusSearch();
+        $searchModel = new PenganjuranKursusPesertaSukanSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -53,7 +52,7 @@ class PenganjuranKursusController extends Controller
     }
 
     /**
-     * Displays a single PenganjuranKursus model.
+     * Displays a single PenganjuranKursusPesertaSukan model.
      * @param integer $id
      * @return mixed
      */
@@ -65,37 +64,46 @@ class PenganjuranKursusController extends Controller
         
         $model = $this->findModel($id);
         
-        $ref = RefJenisKursusPenganjuran::findOne(['id' => $model->jenis_kursus]);
-        $model->jenis_kursus = $ref['desc'];
+        $ref = RefSukan::findOne(['id' => $model->jenis_sukan]);
+        $model->jenis_sukan = $ref['desc'];
         
-        $ref = RefNegeri::findOne(['id' => $model->negeri]);
-        $model->negeri = $ref['desc'];
+        $ref = RefTahapSukanPeserta::findOne(['id' => $model->tahap]);
+        $model->tahap = $ref['desc'];
         
-        $model->tarikh_kursus = GeneralFunction::convert($model->tarikh_kursus);
-        
-        return $this->render('view', [
+        return $this->renderAjax('view', [
             'model' => $model,
             'readonly' => true,
         ]);
     }
 
     /**
-     * Creates a new PenganjuranKursus model.
+     * Creates a new PenganjuranKursusPesertaSukan model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($penganjuran_kursus_peserta_id)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
-        $model = new PenganjuranKursus();
+        $model = new PenganjuranKursusPesertaSukan();
+        
+        Yii::$app->session->open();
+        
+        if($penganjuran_kursus_peserta_id != ''){
+            $model->penganjuran_kursus_peserta_id = $penganjuran_kursus_peserta_id;
+        } else {
+            if(isset(Yii::$app->session->id)){
+                $model->session_id = Yii::$app->session->id;
+            }
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->penganjuran_kursus_id]);
+            return '1';
+            //return $this->redirect(['view', 'id' => $model->penganjuran_kursus_peserta_sukan_id]);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
@@ -103,7 +111,7 @@ class PenganjuranKursusController extends Controller
     }
 
     /**
-     * Updates an existing PenganjuranKursus model.
+     * Updates an existing PenganjuranKursusPesertaSukan model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -117,9 +125,10 @@ class PenganjuranKursusController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->penganjuran_kursus_id]);
+            return '1';
+            //return $this->redirect(['view', 'id' => $model->penganjuran_kursus_peserta_sukan_id]);
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
@@ -127,7 +136,7 @@ class PenganjuranKursusController extends Controller
     }
 
     /**
-     * Deletes an existing PenganjuranKursus model.
+     * Deletes an existing PenganjuranKursusPesertaSukan model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -140,19 +149,19 @@ class PenganjuranKursusController extends Controller
         
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        //return $this->redirect(['index']);
     }
 
     /**
-     * Finds the PenganjuranKursus model based on its primary key value.
+     * Finds the PenganjuranKursusPesertaSukan model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return PenganjuranKursus the loaded model
+     * @return PenganjuranKursusPesertaSukan the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = PenganjuranKursus::findOne($id)) !== null) {
+        if (($model = PenganjuranKursusPesertaSukan::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -3,23 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use app\models\PenganjuranKursus;
-use frontend\models\PenganjuranKursusSearch;
+use app\models\RefTahapSukanPeserta;
+use frontend\models\RefTahapSukanPesertaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-use app\models\general\GeneralVariable;
-use common\models\general\GeneralFunction;
-
-// table reference
-use app\models\RefJenisKursusPenganjuran;
-use app\models\RefNegeri;
-
 /**
- * PenganjuranKursusController implements the CRUD actions for PenganjuranKursus model.
+ * RefTahapSukanPesertaController implements the CRUD actions for RefTahapSukanPeserta model.
  */
-class PenganjuranKursusController extends Controller
+class RefTahapSukanPesertaController extends Controller
 {
     public function behaviors()
     {
@@ -34,16 +27,12 @@ class PenganjuranKursusController extends Controller
     }
 
     /**
-     * Lists all PenganjuranKursus models.
+     * Lists all RefTahapSukanPeserta models.
      * @return mixed
      */
     public function actionIndex()
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
-        }
-        
-        $searchModel = new PenganjuranKursusSearch();
+        $searchModel = new RefTahapSukanPesertaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -53,106 +42,77 @@ class PenganjuranKursusController extends Controller
     }
 
     /**
-     * Displays a single PenganjuranKursus model.
+     * Displays a single RefTahapSukanPeserta model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
-        }
-        
-        $model = $this->findModel($id);
-        
-        $ref = RefJenisKursusPenganjuran::findOne(['id' => $model->jenis_kursus]);
-        $model->jenis_kursus = $ref['desc'];
-        
-        $ref = RefNegeri::findOne(['id' => $model->negeri]);
-        $model->negeri = $ref['desc'];
-        
-        $model->tarikh_kursus = GeneralFunction::convert($model->tarikh_kursus);
-        
         return $this->render('view', [
-            'model' => $model,
-            'readonly' => true,
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new PenganjuranKursus model.
+     * Creates a new RefTahapSukanPeserta model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
-        }
-        
-        $model = new PenganjuranKursus();
+        $model = new RefTahapSukanPeserta();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->penganjuran_kursus_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'readonly' => false,
             ]);
         }
     }
 
     /**
-     * Updates an existing PenganjuranKursus model.
+     * Updates an existing RefTahapSukanPeserta model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      */
     public function actionUpdate($id)
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
-        }
-        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->penganjuran_kursus_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'readonly' => false,
             ]);
         }
     }
 
     /**
-     * Deletes an existing PenganjuranKursus model.
+     * Deletes an existing RefTahapSukanPeserta model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
-        }
-        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the PenganjuranKursus model based on its primary key value.
+     * Finds the RefTahapSukanPeserta model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return PenganjuranKursus the loaded model
+     * @return RefTahapSukanPeserta the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = PenganjuranKursus::findOne($id)) !== null) {
+        if (($model = RefTahapSukanPeserta::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

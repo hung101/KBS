@@ -18,7 +18,7 @@ class PenganjuranKursusPesertaSearch extends PenganjuranKursusPeserta
     public function rules()
     {
         return [
-            [['penganjuran_kursus_peserta_id'], 'integer'],
+            [['penganjuran_kursus_peserta_id', 'penganjuran_kursus_id'], 'integer'],
             [['kategori_kursus', 'kelulusan', 'nama_kursus', 'kod_kursus', 'tarikh', 'tempat', 'nama_penuh', 'muatnaik_gambar', 'jantina', 'taraf_perkahwinan', 'no_passport', 'no_kad_pengenalan', 'no_kp_polis_tentera', 'kaum', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'no_tel_rumah', 'emel', 'pekerjaan', 'nama_majikan', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 'no_tel_majikan', 'no_faks_majikan', 'kelulusan_akademi', 'nama_kelulusan', 'kelulusan_sukan_spesifik', 'nama_sukan_akademi', 'kelulusan_sains_sukan', 'sijil_spkk_msn', 'lesen_kejurulatihan_msn', 'status_jurulatih', 'lantikan', 'nama_sukan_jurulatih', 'tahun_berkhidmat_mula', 'tahun_berkhidmat_tamat', 'pencapaian'], 'safe'],
             [['yuran'], 'number'],
         ];
@@ -65,6 +65,7 @@ class PenganjuranKursusPesertaSearch extends PenganjuranKursusPeserta
             'tahun_berkhidmat_mula' => $this->tahun_berkhidmat_mula,
             'tahun_berkhidmat_tamat' => $this->tahun_berkhidmat_tamat,
             //'kelulusan' => $this->kelulusan,
+            'penganjuran_kursus_id' => $this->penganjuran_kursus_id,
         ]);
 
         $query->andFilterWhere(['like', 'kategori_kursus', $this->kategori_kursus])

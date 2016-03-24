@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\PenganjuranKursusSearch */
@@ -47,7 +48,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'penganjuran_kursus_id',
-            'tarikh_kursus',
+            //'tarikh_kursus',
+            [
+                'attribute' => 'tarikh_kursus',
+                'format' => 'raw',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_kursus);
+                },
+            ],
             'tempat_kursus',
             //'negeri',
             [

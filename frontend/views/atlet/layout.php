@@ -18,7 +18,7 @@ if($this->context->action->id == "create"){
 }
 
 $this->title = GeneralLabel::atlet;
-$this->params['breadcrumbs'][] = ['label' => 'Senarai Atlet', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::senarai_atlet, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-create">

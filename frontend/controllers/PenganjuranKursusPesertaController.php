@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PenganjuranKursusPeserta;
 use frontend\models\PenganjuranKursusPesertaSearch;
+use app\models\PenganjuranKursusPesertaSukan;
+use frontend\models\PenganjuranKursusPesertaSukanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -52,18 +54,25 @@ class PenganjuranKursusPesertaController extends Controller
      * Lists all PenganjuranKursusPeserta models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($penganjuran_kursus_id)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if($penganjuran_kursus_id!=""){
+            $queryParams['PenganjuranKursusPesertaSearch']['penganjuran_kursus_id'] = $penganjuran_kursus_id;
+        }
+        
         $searchModel = new PenganjuranKursusPesertaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'penganjuran_kursus_id' => $penganjuran_kursus_id,
         ]);
     }
 
@@ -79,6 +88,13 @@ class PenganjuranKursusPesertaController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        $queryPar = null;
+        
+        $queryPar['PenganjuranKursusPesertaSukanSearch']['penganjuran_kursus_peserta_id'] = $id;
+        
+        $searchModelPenganjuranKursusPesertaSukan = new PenganjuranKursusPesertaSukanSearch();
+        $dataProviderPenganjuranKursusPesertaSukan = $searchModelPenganjuranKursusPesertaSukan->search($queryPar);
         
         $ref = RefJantina::findOne(['id' => $model->jantina]);
         $model->jantina = $ref['desc'];
@@ -135,6 +151,8 @@ class PenganjuranKursusPesertaController extends Controller
         
         return $this->render('view', [
             'model' => $model,
+            'searchModelPenganjuranKursusPesertaSukan' => $searchModelPenganjuranKursusPesertaSukan,
+            'dataProviderPenganjuranKursusPesertaSukan' => $dataProviderPenganjuranKursusPesertaSukan,
             'readonly' => true,
         ]);
     }
@@ -144,15 +162,34 @@ class PenganjuranKursusPesertaController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($penganjuran_kursus_id)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = new PenganjuranKursusPeserta();
+        
+        $model->penganjuran_kursus_id = $penganjuran_kursus_id;
+        
+        $queryPar = null;
+        
+        Yii::$app->session->open();
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['PenganjuranKursusPesertaSukanSearch']['session_id'] = Yii::$app->session->id;
+        }
+        
+        $searchModelPenganjuranKursusPesertaSukan = new PenganjuranKursusPesertaSukanSearch();
+        $dataProviderPenganjuranKursusPesertaSukan = $searchModelPenganjuranKursusPesertaSukan->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // update all the temporary session id with Permohonan e-Bantuan id
+            if(isset(Yii::$app->session->id)){
+                PenganjuranKursusPesertaSukan::updateAll(['penganjuran_kursus_peserta_id' => $model->penganjuran_kursus_peserta_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PenganjuranKursusPesertaSukan::updateAll(['session_id' => ''], 'penganjuran_kursus_peserta_id = "'.$model->penganjuran_kursus_peserta_id.'"');
+            }
+            
             $file = UploadedFile::getInstance($model, 'muatnaik_gambar');
             $filename = $model->penganjuran_kursus_peserta_id . "-muatnaik_gambar";
             if($file){
@@ -171,9 +208,12 @@ class PenganjuranKursusPesertaController extends Controller
         }
         
         return $this->render('create', [
-                'model' => $model,
-                'readonly' => false,
-            ]);
+            'model' => $model,
+            'searchModelPenganjuranKursusPesertaSukan' => $searchModelPenganjuranKursusPesertaSukan,
+            'dataProviderPenganjuranKursusPesertaSukan' => $dataProviderPenganjuranKursusPesertaSukan,
+            'readonly' => false,
+            'penganjuran_kursus_id' => $penganjuran_kursus_id,
+        ]);
     }
 
     /**
@@ -189,6 +229,13 @@ class PenganjuranKursusPesertaController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        $queryPar = null;
+        
+        $queryPar['PenganjuranKursusPesertaSukanSearch']['penganjuran_kursus_peserta_id'] = $id;
+        
+        $searchModelPenganjuranKursusPesertaSukan = new PenganjuranKursusPesertaSukanSearch();
+        $dataProviderPenganjuranKursusPesertaSukan = $searchModelPenganjuranKursusPesertaSukan->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'muatnaik_gambar');
@@ -208,9 +255,11 @@ class PenganjuranKursusPesertaController extends Controller
         }
         
         return $this->render('update', [
-                'model' => $model,
-                'readonly' => false,
-            ]);
+            'model' => $model,
+            'searchModelPenganjuranKursusPesertaSukan' => $searchModelPenganjuranKursusPesertaSukan,
+            'dataProviderPenganjuranKursusPesertaSukan' => $dataProviderPenganjuranKursusPesertaSukan,
+            'readonly' => false,
+        ]);
     }
 
     /**
