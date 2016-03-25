@@ -103,6 +103,15 @@ class AuditEntry extends ActiveRecord
     }
 
     /**
+     * Returns access module
+     * @return ActiveQuery
+     */
+    public function getMap()
+    {
+        return static::hasOne(AuditMap::className(), ['path' => 'route']);
+    }
+
+    /**
      * Writes a number of associated data records in one go.
      * @param      $batchData
      * @param bool $compact
@@ -189,6 +198,7 @@ class AuditEntry extends ActiveRecord
             'user_id'        => Yii::t('audit', 'User'),
             'memory_max'     => Yii::t('audit', 'Memory'),
             'request_method' => Yii::t('audit', 'Request Method'),
+            'map'            => Yii::t('audit', 'Module Name'),
         ];
     }
 

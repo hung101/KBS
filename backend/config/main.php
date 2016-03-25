@@ -15,9 +15,9 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
 	// eddie start
-    'modules' => [
+    /*'modules' => [
         'audit' => 'bedezign\yii2\audit\Audit',
-    ],
+    ],*/
 	// eddie end
     'components' => [
         'user' => [

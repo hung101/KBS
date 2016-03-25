@@ -17,11 +17,13 @@ class AuditEntrySearch extends AuditEntry
     /**
      * @return array
      */
+    public $map;
+
     public function rules()
     {
         // only fields in rules() are searchable
         return [
-            [['id', 'user_id', 'ip', 'created', 'duration', 'memory_max', 'route', 'request_method', 'ajax'], 'safe'],
+            [['id', 'user_id', 'ip', 'created', 'duration', 'memory_max', 'route', 'request_method', 'ajax', 'map'], 'safe'],
         ];
     }
 
@@ -56,6 +58,8 @@ class AuditEntrySearch extends AuditEntry
             return $dataProvider;
         }
 
+        $query->joinWith('map');
+
         // adjust the query by adding the filters
         $query->andFilterWhere(['id' => $this->id]);
         $this->filterUserId($this->user_id, $query);
@@ -67,6 +71,8 @@ class AuditEntrySearch extends AuditEntry
         $query->andFilterWhere(['memory_max' => $this->memory_max]);
         $query->andFilterWhere(['like', 'created', $this->created]);
         $query->with(['linkedErrors', 'javascripts']);
+
+        $query->andFilterWhere(['like', 'audit_map.name', $this->map]);
 
         return $dataProvider;
     }

@@ -16,7 +16,11 @@ return [
     'controllerNamespace' => 'frontend\controllers',
 // eddie start
     'modules' => [
-        'audit' => 'bedezign\yii2\audit\Audit',
+        'audit' => [
+            'class' => 'bedezign\yii2\audit\Audit',
+            'accessRoles' => null,
+            'accessUsers' => [1],
+        ],
     ],
 // eddie end
     'components' => [

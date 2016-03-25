@@ -61,7 +61,7 @@ return [
              // other settings
          ],
 		 // eddie start
-         'audit' => 'bedezign\yii2\audit\Audit',
+         //'audit' => 'bedezign\yii2\audit\Audit',
 		 // eddie end
      ]
 ];
