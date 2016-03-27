@@ -7,7 +7,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\AkademiAkk */
 
-$this->title = GeneralLabel::createTitle . ' AKK';
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::akademi_kejurulatihan_kebangsaan_akk;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -27,6 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProviderKelayakanSukanSpesifikAkk' => $dataProviderKelayakanSukanSpesifikAkk,
         'searchModelPemohonKursusTahapAkk' => $searchModelPemohonKursusTahapAkk,
         'dataProviderPemohonKursusTahapAkk' => $dataProviderPemohonKursusTahapAkk,
+        'searchModelAkkSijilPertolonganCemas' => $searchModelAkkSijilPertolonganCemas,
+        'dataProviderAkkSijilPertolonganCemas' => $dataProviderAkkSijilPertolonganCemas,
+        'searchModelAkkSijilCpr' => $searchModelAkkSijilCpr,
+        'dataProviderAkkSijilCpr' => $dataProviderAkkSijilCpr,
+        'searchModelAkkPermitKerja' => $searchModelAkkPermitKerja,
+        'dataProviderAkkPermitKerja' => $dataProviderAkkPermitKerja,
         'readonly' => $readonly,
     ]) ?>
 

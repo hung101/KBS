@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "tbl_ref_tahap_sukan_peserta".
+ * This is the model class for table "tbl_ref_status_jurulatih_akk".
  *
  * @property integer $id
  * @property string $desc
@@ -15,32 +15,14 @@ use Yii;
  * @property string $created
  * @property string $updated
  */
-class RefTahapSukanPeserta extends \yii\db\ActiveRecord
+class RefStatusJurulatihAkk extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'tbl_ref_tahap_sukan_peserta';
-    }
-    
-    public function behaviors()
-    {
-        return [
-            'bedezign\yii2\audit\AuditTrailBehavior',
-            [
-                'class' => \yii\behaviors\BlameableBehavior::className(),
-                'createdByAttribute' => 'created_by',
-                'updatedByAttribute' => 'updated_by',
-            ],
-            [
-                'class' => \yii\behaviors\TimestampBehavior::className(),
-                'createdAtAttribute' => 'created',
-                'updatedAtAttribute' => 'updated',
-                'value' => new \yii\db\Expression('NOW()'),
-            ],
-        ];
+        return 'tbl_ref_status_jurulatih_akk';
     }
 
     /**

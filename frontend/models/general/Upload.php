@@ -19,6 +19,9 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const akademiAkkFolder = "akademi_akk";
         const akademiAkkKegiatanPengalamanJurulatihAkkFolder = "kegiatan_pengalaman_jurulatih_akk";
         const akademiAkkPemohonKursusTahapAkkFolder = "pemohon_kursus_tahap_akk";
+        const akademiAkkSijilPertolonganCemasFolder = "akk_sijil_pertolongan_cemas";
+        const akademiAkkSijilCprFolder = "akk_sijil_cpr";
+        const akademiAkkPermitKerjaFolder = "akk_permit_kerja";
         const atletFolder = "atlet";
         const bantuanElaunFolder = "bantuan_elaun";
         const bspElaunLatihanPraktikal = "bsp_elaun_latihan_praktikal";
@@ -124,6 +127,9 @@ if($session->get('language') == "EN") {
         const akademiAkkFolder = "akademi_akk";
         const akademiAkkKegiatanPengalamanJurulatihAkkFolder = "kegiatan_pengalaman_jurulatih_akk";
         const akademiAkkPemohonKursusTahapAkkFolder = "pemohon_kursus_tahap_akk";
+        const akademiAkkSijilPertolonganCemasFolder = "akk_sijil_pertolongan_cemas";
+        const akademiAkkSijilCprFolder = "akk_sijil_cpr";
+        const akademiAkkPermitKerjaFolder = "akk_permit_kerja";
         const atletFolder = "atlet";
         const bantuanElaunFolder = "bantuan_elaun";
         const bspElaunLatihanPraktikal = "bsp_elaun_latihan_praktikal";

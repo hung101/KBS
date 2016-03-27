@@ -15,6 +15,12 @@ use app\models\KelayakanSukanSpesifikAkk;
 use frontend\models\KelayakanSukanSpesifikAkkSearch;
 use app\models\PemohonKursusTahapAkk;
 use frontend\models\PemohonKursusTahapAkkSearch;
+use app\models\AkkSijilPertolonganCemas;
+use frontend\models\AkkSijilPertolonganCemasSearch;
+use app\models\AkkSijilCpr;
+use frontend\models\AkkSijilCprSearch;
+use app\models\AkkPermitKerja;
+use frontend\models\AkkPermitKerjaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -28,6 +34,9 @@ use app\models\Jurulatih;
 use app\models\RefKategoriPensijilanAkademiAkk;
 use app\models\RefBandar;
 use app\models\RefNegeri;
+use app\models\RefStatusJurulatihAkk;
+use app\models\RefJantina;
+use app\models\RefBangsa;
 
 /**
  * AkademiAkkController implements the CRUD actions for AkademiAkk model.
@@ -90,6 +99,21 @@ class AkademiAkkController extends Controller
         $ref = RefNegeri::findOne(['id' => $model->alamat_majikan_negeri]);
         $model->alamat_majikan_negeri = $ref['desc'];
         
+        $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
+        $model->alamat_bandar = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->alamat_negeri]);
+        $model->alamat_negeri = $ref['desc'];
+        
+        $ref = RefJantina::findOne(['id' => $model->jantina]);
+        $model->jantina = $ref['desc'];
+        
+        $ref = RefBangsa::findOne(['id' => $model->bangsa]);
+        $model->bangsa = $ref['desc'];
+        
+        $ref = RefStatusJurulatihAkk::findOne(['id' => $model->status_jurulatih]);
+        $model->status_jurulatih = $ref['desc'];
+        
         $queryPar = null;
         
         $queryPar['KegiatanPengalamanJurulatihAkkSearch']['akademi_akk_id'] = $id;
@@ -97,6 +121,9 @@ class AkademiAkkController extends Controller
         $queryPar['KelayakanAkademiAkkSearch']['akademi_akk_id'] = $id;
         $queryPar['KelayakanSukanSpesifikAkkSearch']['akademi_akk_id'] = $id;
         $queryPar['PemohonKursusTahapAkkSearch']['akademi_akk_id'] = $id;
+        $queryPar['AkkSijilPertolonganCemasSearch']['akademi_akk_id'] = $id;
+        $queryPar['AkkSijilCprSearch']['akademi_akk_id'] = $id;
+        $queryPar['AkkPermitKerjaSearch']['akademi_akk_id'] = $id;
         
         $searchModelKegiatanPengalamanJurulatihAkk  = new KegiatanPengalamanJurulatihAkkSearch();
         $dataProviderKegiatanPengalamanJurulatihAkk = $searchModelKegiatanPengalamanJurulatihAkk->search($queryPar);
@@ -113,6 +140,15 @@ class AkademiAkkController extends Controller
         $searchModelPemohonKursusTahapAkk= new PemohonKursusTahapAkkSearch();
         $dataProviderPemohonKursusTahapAkk = $searchModelPemohonKursusTahapAkk->search($queryPar);
         
+        $searchModelAkkSijilPertolonganCemas= new AkkSijilPertolonganCemasSearch();
+        $dataProviderAkkSijilPertolonganCemas = $searchModelAkkSijilPertolonganCemas->search($queryPar);
+        
+        $searchModelAkkSijilCpr= new AkkSijilCprSearch();
+        $dataProviderAkkSijilCpr = $searchModelAkkSijilCpr->search($queryPar);
+        
+        $searchModelAkkPermitKerja= new AkkPermitKerjaSearch();
+        $dataProviderAkkPermitKerja = $searchModelAkkPermitKerja->search($queryPar);
+        
         return $this->render('view', [
             'model' => $model,
             'searchModelKegiatanPengalamanJurulatihAkk' => $searchModelKegiatanPengalamanJurulatihAkk,
@@ -125,6 +161,12 @@ class AkademiAkkController extends Controller
             'dataProviderKelayakanSukanSpesifikAkk' => $dataProviderKelayakanSukanSpesifikAkk,
             'searchModelPemohonKursusTahapAkk' => $searchModelPemohonKursusTahapAkk,
             'dataProviderPemohonKursusTahapAkk' => $dataProviderPemohonKursusTahapAkk,
+            'searchModelAkkSijilPertolonganCemas' => $searchModelAkkSijilPertolonganCemas,
+            'dataProviderAkkSijilPertolonganCemas' => $dataProviderAkkSijilPertolonganCemas,
+            'searchModelAkkSijilCpr' => $searchModelAkkSijilCpr,
+            'dataProviderAkkSijilCpr' => $dataProviderAkkSijilCpr,
+            'searchModelAkkPermitKerja' => $searchModelAkkPermitKerja,
+            'dataProviderAkkPermitKerja' => $dataProviderAkkPermitKerja,
             'readonly' => true,
         ]);
     }
@@ -152,6 +194,9 @@ class AkademiAkkController extends Controller
             $queryPar['KelayakanAkademiAkkSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['KelayakanSukanSpesifikAkkSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['PemohonKursusTahapAkkSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['AkkSijilPertolonganCemasSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['AkkSijilCprSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['AkkPermitKerjaSearch']['session_id'] = Yii::$app->session->id;
         }
         
         $searchModelKegiatanPengalamanJurulatihAkk  = new KegiatanPengalamanJurulatihAkkSearch();
@@ -168,6 +213,15 @@ class AkademiAkkController extends Controller
         
         $searchModelPemohonKursusTahapAkk= new PemohonKursusTahapAkkSearch();
         $dataProviderPemohonKursusTahapAkk = $searchModelPemohonKursusTahapAkk->search($queryPar);
+        
+        $searchModelAkkSijilPertolonganCemas= new AkkSijilPertolonganCemasSearch();
+        $dataProviderAkkSijilPertolonganCemas = $searchModelAkkSijilPertolonganCemas->search($queryPar);
+        
+        $searchModelAkkSijilCpr= new AkkSijilCprSearch();
+        $dataProviderAkkSijilCpr = $searchModelAkkSijilCpr->search($queryPar);
+        
+        $searchModelAkkPermitKerja= new AkkPermitKerjaSearch();
+        $dataProviderAkkPermitKerja = $searchModelAkkPermitKerja->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $upload = new Upload();
@@ -191,6 +245,15 @@ class AkademiAkkController extends Controller
                 
                 PemohonKursusTahapAkk::updateAll(['akademi_akk_id' => $model->akademi_akk_id], 'session_id = "'.Yii::$app->session->id.'"');
                 PemohonKursusTahapAkk::updateAll(['session_id' => ''], 'akademi_akk_id = "'.$model->akademi_akk_id.'"');
+                
+                AkkSijilPertolonganCemas::updateAll(['akademi_akk_id' => $model->akademi_akk_id], 'session_id = "'.Yii::$app->session->id.'"');
+                AkkSijilPertolonganCemas::updateAll(['session_id' => ''], 'akademi_akk_id = "'.$model->akademi_akk_id.'"');
+                
+                AkkSijilCpr::updateAll(['akademi_akk_id' => $model->akademi_akk_id], 'session_id = "'.Yii::$app->session->id.'"');
+                AkkSijilCpr::updateAll(['session_id' => ''], 'akademi_akk_id = "'.$model->akademi_akk_id.'"');
+                
+                AkkPermitKerja::updateAll(['akademi_akk_id' => $model->akademi_akk_id], 'session_id = "'.Yii::$app->session->id.'"');
+                AkkPermitKerja::updateAll(['session_id' => ''], 'akademi_akk_id = "'.$model->akademi_akk_id.'"');
             }
             
             if($model->save()){
@@ -209,6 +272,12 @@ class AkademiAkkController extends Controller
                 'dataProviderKelayakanSukanSpesifikAkk' => $dataProviderKelayakanSukanSpesifikAkk,
                 'searchModelPemohonKursusTahapAkk' => $searchModelPemohonKursusTahapAkk,
                 'dataProviderPemohonKursusTahapAkk' => $dataProviderPemohonKursusTahapAkk,
+                'searchModelAkkSijilPertolonganCemas' => $searchModelAkkSijilPertolonganCemas,
+                'dataProviderAkkSijilPertolonganCemas' => $dataProviderAkkSijilPertolonganCemas,
+                'searchModelAkkSijilCpr' => $searchModelAkkSijilCpr,
+                'dataProviderAkkSijilCpr' => $dataProviderAkkSijilCpr,
+                'searchModelAkkPermitKerja' => $searchModelAkkPermitKerja,
+                'dataProviderAkkPermitKerja' => $dataProviderAkkPermitKerja,
                 'readonly' => false,
             ]);
         }
@@ -235,6 +304,9 @@ class AkademiAkkController extends Controller
         $queryPar['KelayakanAkademiAkkSearch']['akademi_akk_id'] = $id;
         $queryPar['KelayakanSukanSpesifikAkkSearch']['akademi_akk_id'] = $id;
         $queryPar['PemohonKursusTahapAkkSearch']['akademi_akk_id'] = $id;
+        $queryPar['AkkSijilPertolonganCemasSearch']['akademi_akk_id'] = $id;
+        $queryPar['AkkSijilCprSearch']['akademi_akk_id'] = $id;
+        $queryPar['AkkPermitKerjaSearch']['akademi_akk_id'] = $id;
         
         $searchModelKegiatanPengalamanJurulatihAkk  = new KegiatanPengalamanJurulatihAkkSearch();
         $dataProviderKegiatanPengalamanJurulatihAkk = $searchModelKegiatanPengalamanJurulatihAkk->search($queryPar);
@@ -250,6 +322,15 @@ class AkademiAkkController extends Controller
         
         $searchModelPemohonKursusTahapAkk= new PemohonKursusTahapAkkSearch();
         $dataProviderPemohonKursusTahapAkk = $searchModelPemohonKursusTahapAkk->search($queryPar);
+        
+        $searchModelAkkSijilPertolonganCemas= new AkkSijilPertolonganCemasSearch();
+        $dataProviderAkkSijilPertolonganCemas = $searchModelAkkSijilPertolonganCemas->search($queryPar);
+        
+        $searchModelAkkSijilCpr= new AkkSijilCprSearch();
+        $dataProviderAkkSijilCpr = $searchModelAkkSijilCpr->search($queryPar);
+        
+        $searchModelAkkPermitKerja= new AkkPermitKerjaSearch();
+        $dataProviderAkkPermitKerja = $searchModelAkkPermitKerja->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $upload = new Upload();
@@ -274,6 +355,12 @@ class AkademiAkkController extends Controller
                 'dataProviderKelayakanSukanSpesifikAkk' => $dataProviderKelayakanSukanSpesifikAkk,
                 'searchModelPemohonKursusTahapAkk' => $searchModelPemohonKursusTahapAkk,
                 'dataProviderPemohonKursusTahapAkk' => $dataProviderPemohonKursusTahapAkk,
+                'searchModelAkkSijilPertolonganCemas' => $searchModelAkkSijilPertolonganCemas,
+                'dataProviderAkkSijilPertolonganCemas' => $dataProviderAkkSijilPertolonganCemas,
+                'searchModelAkkSijilCpr' => $searchModelAkkSijilCpr,
+                'dataProviderAkkSijilCpr' => $dataProviderAkkSijilCpr,
+                'searchModelAkkPermitKerja' => $searchModelAkkPermitKerja,
+                'dataProviderAkkPermitKerja' => $dataProviderAkkPermitKerja,
                 'readonly' => false,
             ]);
         }
