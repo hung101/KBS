@@ -25,7 +25,7 @@ use app\models\general\GeneralMessage;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -141,7 +141,7 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
                 } else {
                     $(document).find('#modal').modal('hide');
                     form.trigger("reset");
-                    $.pjax.defaults.timeout = 6000;
+                    $.pjax.defaults.timeout = 16000;
                     $.pjax.reload({container:'#kegiatanPengalamanJurulatihAkkGrid'});
                 }
           }

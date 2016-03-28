@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\AkademiAkk */
 
 //$this->title = $model->akademi_akk_id;
-$this->title = GeneralLabel::viewTitle . ' AKK';
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::akademi_kejurulatihan_kebangsaan_akk;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -45,6 +45,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProviderKelayakanSukanSpesifikAkk' => $dataProviderKelayakanSukanSpesifikAkk,
         'searchModelPemohonKursusTahapAkk' => $searchModelPemohonKursusTahapAkk,
         'dataProviderPemohonKursusTahapAkk' => $dataProviderPemohonKursusTahapAkk,
+        'searchModelAkkSijilPertolonganCemas' => $searchModelAkkSijilPertolonganCemas,
+        'dataProviderAkkSijilPertolonganCemas' => $dataProviderAkkSijilPertolonganCemas,
+        'searchModelAkkSijilCpr' => $searchModelAkkSijilCpr,
+        'dataProviderAkkSijilCpr' => $dataProviderAkkSijilCpr,
+        'searchModelAkkPermitKerja' => $searchModelAkkPermitKerja,
+        'dataProviderAkkPermitKerja' => $dataProviderAkkPermitKerja,
         'readonly' => $readonly,
     ]) ?>
 

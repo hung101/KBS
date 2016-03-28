@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['akademi-akk']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' AKK', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 
@@ -70,6 +70,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'kategori_pensijilan',
                 'value' => 'refKategoriPensijilanAkademiAkk.desc'
             ],
+            'jenis_sukan',
+            'tahun',
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

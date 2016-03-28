@@ -574,7 +574,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kategori_penganjuran = "Kategori Penganjuran";
         const kategori_penggunaan = "Kategori Penggunaan";
         const kategori_penilaian = "Kategori Penilaian";
-        const kategori_pensijilan = "Kategori Pensijilan";
+        const kategori_pensijilan = "Kategori Perlesenan";
         const kategori_permasalahan = "Kategori Masalah";
         const kategori_permohonan = "Kategori Permohonan";
         const kategori_persatuan = "Kategori Persatuan";
@@ -1125,6 +1125,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const perkhidmatan_analisa_perlawanan_biomekanik_id = "Perkhidmatan Analisa Perlawanan Biomekanik ID";
         const perkhidmatan_permakanan_id = "Perkhidmatan Permakanan ID";
         const perlembagaan_badan_sukan_id = "Perlembagaan Badan Sukan ID";
+        const permit_kerja_jurulatih = "Permit Kerja (Jurulatih Asing)";
         const permohonan = "Permohonan";
         const permohonan_biasiswa_id = "Permohonan Biasiswa ID";
         const permohonan_bimbingan_kaunseling_id = "Permohonan Bimbingan Kaunseling ID";
@@ -1260,6 +1261,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const sifat_kepimpinan_pegawai_teknikal = "Sifat Kepimpinan Pegawai Teknikal";
         const sifat_kepimpinan_penolong_jurulatih = "Sifat Kepimpinan Penolong Jurulatih";
         const sijil_pendaftaran = "Sijil Pendaftaran";
+        const sijil_pertolongan_cemas = "Sijil Pertolongan Cemas";
+        const sijil_CPR = "Sijil CPR";
         const sijil_spkk_msn = "Sijil SPKK";
         const sikap_nama_persatuan = "SIKAP Nama Persatuan";
         const simptom_kerosakan = "Simptom Kerosakan";
@@ -1522,7 +1525,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const admin_ebiasiswa = "Admin : E-Biasiswa";
         const administration = "Administration";
         const aduan = "Aduan";
-        const akademi_kejurulatihan_kebangsaan_akk = "Akademi Kejurulatihan Kebangsaan (AKK)";
+        const akademi_kejurulatihan_kebangsaan_akk = "Permohonan Lesen";
         const aktiviti_psikologi = "Aktiviti Psikologi";
         const anugerah_pelaksaan_majlis = "Anugerah Pelaksaan Majlis";
         const bantuan_elaun_sueelaun_penyelarasemolumen_psk = "Bantuan Elaun SUE/Elaun Penyelaras/Emolumen PSK";
@@ -2287,7 +2290,7 @@ if($session->get('language') == "EN") {
         const kategori_penganjuran = "Organizing Categories";
         const kategori_penggunaan = "Category Of Use";
         const kategori_penilaian = "Category Assessment";
-        const kategori_pensijilan = "Category Certification";
+        const kategori_pensijilan = "Category Licensing";
         const kategori_permasalahan = "Category Problems";
         const kategori_permohonan = "Category Application";
         const kategori_persatuan = "Category Associations";
@@ -2838,6 +2841,7 @@ if($session->get('language') == "EN") {
         const perkhidmatan_analisa_perlawanan_biomekanik_id = "Biomechanics Analysis Of Service ID Match";
         const perkhidmatan_permakanan_id = "Food Hygiene Service ID";
         const perlembagaan_badan_sukan_id = "The Constitution Of The Body ID Sports";
+        const permit_kerja_jurulatih = "Work Permit (Foreign Coach)";
         const permohonan = "Application";
         const permohonan_biasiswa_id = "Scholarship Application ID";
         const permohonan_bimbingan_kaunseling_id = "Guidance Counseling Application ID";
@@ -2973,6 +2977,8 @@ if($session->get('language') == "EN") {
         const sifat_kepimpinan_pegawai_teknikal = "The Nature Of Leadership Technical Officials";
         const sifat_kepimpinan_penolong_jurulatih = "The Nature Of The Leadership Assistant Coach";
         const sijil_pendaftaran = "Registration Certificate";
+        const sijil_pertolongan_cemas = "First Aid Certificate";
+        const sijil_CPR = "CPR Certification";
         const sijil_spkk_msn = "The Certificate Is PRACTICED";
         const sikap_nama_persatuan = "The ATTITUDE Of The Name Of The Association";
         const simptom_kerosakan = "Symptoms Of Damage";
@@ -3235,7 +3241,7 @@ if($session->get('language') == "EN") {
         const admin_ebiasiswa = "Admin: E-Scholarship";
         const administration = "Administration";
         const aduan = "Complaints";
-        const akademi_kejurulatihan_kebangsaan_akk = "National Coaching Academy (AKK)";
+        const akademi_kejurulatihan_kebangsaan_akk = "License Application";
         const aktiviti_psikologi = "Psychological Activities";
         const anugerah_pelaksaan_majlis = "Pelaksaan Awards Ceremony";
         const bantuan_elaun_sueelaun_penyelarasemolumen_psk = "Help SUE Allowance/Allowance Coordinator/Emoluments NSAS";

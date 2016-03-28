@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\AkademiAkk */
 
 //$this->title = 'Update Akademi Akk: ' . ' ' . $model->akademi_akk_id;
-$this->title = GeneralLabel::updateTitle . ' AKK';
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::akademi_kejurulatihan_kebangsaan_akk;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' AKK', 'url' => ['view', 'id' => $model->akademi_akk_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, 'url' => ['view', 'id' => $model->akademi_akk_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="akademi-akk-update">
@@ -30,6 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProviderKelayakanSukanSpesifikAkk' => $dataProviderKelayakanSukanSpesifikAkk,
         'searchModelPemohonKursusTahapAkk' => $searchModelPemohonKursusTahapAkk,
         'dataProviderPemohonKursusTahapAkk' => $dataProviderPemohonKursusTahapAkk,
+        'searchModelAkkSijilPertolonganCemas' => $searchModelAkkSijilPertolonganCemas,
+        'dataProviderAkkSijilPertolonganCemas' => $dataProviderAkkSijilPertolonganCemas,
+        'searchModelAkkSijilCpr' => $searchModelAkkSijilCpr,
+        'dataProviderAkkSijilCpr' => $dataProviderAkkSijilCpr,
+        'searchModelAkkPermitKerja' => $searchModelAkkPermitKerja,
+        'dataProviderAkkPermitKerja' => $dataProviderAkkPermitKerja,
         'readonly' => $readonly,
     ]) ?>
 

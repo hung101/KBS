@@ -18,8 +18,8 @@ class AkademiAkkSearch extends AkademiAkk
     public function rules()
     {
         return [
-            [['akademi_akk_id'], 'integer'],
-            [['nama', 'muatnaik_gambar', 'no_kad_pengenalan', 'no_passport', 'tarikh_lahir', 'tempat_lahir', 'no_telefon', 'emel', 'nama_majikan', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 'no_telefon_pejabat', 'kategori_pensijilan'], 'safe'],
+            [['akademi_akk_id', 'tahun'], 'integer'],
+            [['nama', 'muatnaik_gambar', 'no_kad_pengenalan', 'no_passport', 'tarikh_lahir', 'tempat_lahir', 'no_telefon', 'emel', 'nama_majikan', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 'no_telefon_pejabat', 'kategori_pensijilan', 'jenis_sukan'], 'safe'],
         ];
     }
 
@@ -60,6 +60,7 @@ class AkademiAkkSearch extends AkademiAkk
         $query->andFilterWhere([
             'akademi_akk_id' => $this->akademi_akk_id,
             'tarikh_lahir' => $this->tarikh_lahir,
+            'tahun' => $this->tahun,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_jurulatih.nama', $this->nama])
@@ -77,7 +78,8 @@ class AkademiAkkSearch extends AkademiAkk
             ->andFilterWhere(['like', 'alamat_majikan_bandar', $this->alamat_majikan_bandar])
             ->andFilterWhere(['like', 'alamat_majikan_poskod', $this->alamat_majikan_poskod])
             ->andFilterWhere(['like', 'no_telefon_pejabat', $this->no_telefon_pejabat])
-            ->andFilterWhere(['like', 'tbl_ref_kategori_pensijilan_akademi_akk.desc', $this->kategori_pensijilan]);
+            ->andFilterWhere(['like', 'tbl_ref_kategori_pensijilan_akademi_akk.desc', $this->kategori_pensijilan])
+                ->andFilterWhere(['like', 'jenis_sukan', $this->jenis_sukan]);
 
         return $dataProvider;
     }
