@@ -27,6 +27,7 @@ class AuditTrail extends ActiveRecord
     /**
      * @inheritdoc
      */
+
     public static function tableName()
     {
         return '{{%audit_trail}}';
@@ -48,7 +49,7 @@ class AuditTrail extends ActiveRecord
             'old_value' => Yii::t('audit', 'Old Value'),
             'new_value' => Yii::t('audit', 'New Value'),
             'created'   => Yii::t('audit', 'Created'),
-            'map'       => Yii::t('audit', 'Module Name'),
+            'auditMap'  => Yii::t('audit', 'Module Name'),
         ];
     }
 
@@ -64,9 +65,13 @@ class AuditTrail extends ActiveRecord
      * Returns access module
      * @return ActiveQuery
      */
-    public function getMap()
+    public function getAuditMap()
     {
         return $this->hasOne(AuditMap::className(), ['path' => 'model']);
+    }
+
+    public function setAuditMap($auditMap) {
+        $this->auditMap = $auditMap;
     }
 
     /**

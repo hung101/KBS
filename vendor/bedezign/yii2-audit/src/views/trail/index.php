@@ -46,8 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => AuditTrailSearch::actionFilter(),
             ],
             [
-                'attribute' => 'map',
-                'value' => 'map.name',
+                'attribute' => 'auditMap',
+                'value' => 'auditMap.name',
             ],
             'model',
             'model_id',
