@@ -69,6 +69,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const permohonanBiasiswaFolder = "permohonan_biasiswa";
         const permohonanPendidikanFolder = "permohonan_pendidikan";
         const permohonanProgramPendidikanKesihatanFolder = "permohonan_program_pendidikan_kesihatan";
+        const plTemujanjiFisioterapiFolder = "pl_temujanji_fisioterapi";
+        const plTemujanjiRehabilitasiFolder = "pl_temujanji_rehabilitasi";
         const profilBadanSukanFolder = "profil_badan_sukan";
         const profilPsikologiFolder = "profil_psikologi";
         const perlembagaanBadanSukanFolder = "perlembagaan_badan_sukan";
@@ -177,6 +179,8 @@ if($session->get('language') == "EN") {
         const permohonanBiasiswaFolder = "permohonan_biasiswa";
         const permohonanPendidikanFolder = "permohonan_pendidikan";
         const permohonanProgramPendidikanKesihatanFolder = "permohonan_program_pendidikan_kesihatan";
+        const plTemujanjiFisioterapiFolder = "pl_temujanji_fisioterapi";
+        const plTemujanjiRehabilitasiFolder = "pl_temujanji_rehabilitasi";
         const profilBadanSukanFolder = "profil_badan_sukan";
         const profilPsikologiFolder = "profil_psikologi";
         const perlembagaanBadanSukanFolder = "perlembagaan_badan_sukan";

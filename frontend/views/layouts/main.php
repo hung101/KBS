@@ -344,8 +344,18 @@ AppAsset::register($this);
                         ['label' => GeneralLabel::makmal_perubatan_permohonan_khidmat_ujian_makmal_melalui_sistem, 'url' => ['/pl-temujanji/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji']['module'])],
                         ['label' => GeneralLabel::permohonan_penyiasatan_makmal_dan_pengimejan_pengimejan_pengurusan_pangkalan_data_atlet_imej, 'url' => ['/pl-temujanji/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji']['module'])],
                         ['label' => GeneralLabel::caj_perkhidmatan_senarai_harga_perkhidmatan_caj_perkhidmatan_senarai_harga_ubatan, 'url' => ['/senarai-harga-perkhidmatan-ubatan-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['senarai-harga-perkhidmatan-ubatan-peralatan']['module'])],
-                        ['label' => GeneralLabel::fisioterapi_sistem_permohonan_khidmat_rawatan_fisioterapi, 'url' => ['/pl-temujanji/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji']['module'])],
-                        ['label' => GeneralLabel::rehabilitasi_permohonan_khidmat_rawatan_rehabilitasi, 'url' => ['/pl-temujanji/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji']['module'])],
+                        [
+                            'label' => GeneralLabel::fisioterapi_sistem_permohonan_khidmat_rawatan_fisioterapi,
+                            'items' => [
+                                ['label' => GeneralLabel::temujanji_fisioterapi, 'url' => ['/pl-temujanji-fisioterapi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-fisioterapi']['module'])],
+                            ],
+                        ],
+                        [
+                            'label' => GeneralLabel::rehabilitasi_permohonan_khidmat_rawatan_rehabilitasi,
+                            'items' => [
+                                ['label' => GeneralLabel::temujanji_rehabilitasi, 'url' => ['/pl-temujanji-rehabilitasi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-rehabilitasi']['module'])],
+                            ],
+                        ],
                         [
                             'label' => GeneralLabel::liputan_perubatan_dalam_dan_luar_negara,
                             'items' => [
@@ -508,7 +518,7 @@ AppAsset::register($this);
                     ]];
                 }
                 
-                $sideMenuItems[] = ['label' => GeneralLabel::laporan, 'url' => 'http://10.19.189.87:8080/jasperserver'];
+                //$sideMenuItems[] = ['label' => GeneralLabel::laporan, 'url' => 'http://10.19.189.87:8080/jasperserver'];
                 
                 $topMenuItems[] = [
                     'label' => 'Logout (' . Yii::$app->user->identity->username . ')',

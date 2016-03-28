@@ -28,6 +28,7 @@ use yii\web\UploadedFile;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Jurulatih;
@@ -113,6 +114,14 @@ class AkademiAkkController extends Controller
         
         $ref = RefStatusJurulatihAkk::findOne(['id' => $model->status_jurulatih]);
         $model->status_jurulatih = $ref['desc'];
+        
+        $model->tarikh_lahir = GeneralFunction::convert($model->tarikh_lahir);
+        
+        $model->tarikh_terima_borang = GeneralFunction::convert($model->tarikh_terima_borang);
+        
+        $model->tarikh_mula_lesen = GeneralFunction::convert($model->tarikh_mula_lesen);
+        
+        $model->tarikh_tamat_lesen = GeneralFunction::convert($model->tarikh_tamat_lesen);
         
         $queryPar = null;
         

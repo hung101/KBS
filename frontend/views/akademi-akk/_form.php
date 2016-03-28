@@ -706,253 +706,323 @@ use common\models\general\GeneralFunction;
     <?php Pjax::end(); ?>
     
     <br>
-    
-    <h3><?=GeneralLabel::sijil_pertolongan_cemas?></h3>
-    
-    <?php Pjax::begin(['id' => 'akkSijilPertolonganCemasGrid', 'timeout' => 100000]); ?>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProviderAkkSijilPertolonganCemas,
-        //'filterModel' => $searchModelAkkSijilPertolonganCemas,
-        'id' => 'akkSijilPertolonganCemasGrid',
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            //'akk_sijil_pertolongan_cemas_id',
-            //'akademi_akk_id',
-            'no_sijil',
-            'tahap',
-            'tahun',
-            // 'sijil',
-            [
-                'attribute' => 'sijil',
-                'format' => 'raw',
-                'value'=>function ($model) {
-                    if($model->sijil){
-                        //return Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->sijil , ['target'=>'_blank']);
-                        return Html::a(GeneralLabel::viewAttachment, 'javascript:void(0);', 
-                                        [ 
-                                            'onclick' => 'viewUpload("'.\Yii::$app->request->BaseUrl.'/' . $model->sijil .'");'
-                                        ]);
-                    } else {
-                        return "";
-                    }
-                },
-            ],
-            // 'session_id',
-            // 'created_by',
-            // 'updated_by',
-            // 'created',
-            // 'updated',
-
-            //['class' => 'yii\grid\ActionColumn'],
-            ['class' => 'yii\grid\ActionColumn',
-                'buttons' => [
-                    'delete' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
-                        'title' => Yii::t('yii', 'Delete'),
-                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['akk-sijil-pertolongan-cemas/delete', 'id' => $model->akk_sijil_pertolongan_cemas_id]).'", "'.GeneralMessage::confirmDelete.'", "akkSijilPertolonganCemasGrid");',
-                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
-                        ]);
-
-                    },
-                    'update' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
-                        'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-sijil-pertolongan-cemas/update', 'id' => $model->akk_sijil_pertolongan_cemas_id]).'", "'.GeneralLabel::updateTitle . ' ' . GeneralLabel::sijil_pertolongan_cemas .'");',
-                        ]);
-                    },
-                    'view' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
-                        'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-sijil-pertolongan-cemas/view', 'id' => $model->akk_sijil_pertolongan_cemas_id]).'", "'.GeneralLabel::viewTitle . ' ' . GeneralLabel::sijil_pertolongan_cemas .'");',
-                        ]);
-                    }
-                ],
-                'template' => $template,
-            ],
-        ],
-    ]); ?>
-    
-    <?php if(!$readonly): ?>
-    <p>
-    <?php 
-        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-sijil-pertolongan-cemas/create', 'akademi_akk_id' => $akademi_akk_id]).'", "'.GeneralLabel::createTitle . ' ' . GeneralLabel::sijil_pertolongan_cemas .'");',
-                        'class' => 'btn btn-success',
-                        ]);?>
-    </p>
-    <?php endif; ?>
-    
-    <?php Pjax::end(); ?>
-    
     <br>
     
-    <h3><?=GeneralLabel::sijil_CPR?></h3>
+    <pre style="text-align: center"><strong>SIJIL TAMBAHAN YANG DIKEHENDAKI BAGI SUKAN AKUATIK SAHAJA</strong></pre>
     
-    <?php Pjax::begin(['id' => 'akkSijilCprGrid', 'timeout' => 100000]); ?>
+    <div class="panel panel-default">
+        <div class="panel-body">
+        
+            <h3><?=GeneralLabel::sijil_pertolongan_cemas?></h3>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProviderAkkSijilCpr,
-        //'filterModel' => $searchModelAkkSijilCpr,
-        'id' => 'akkSijilCprGrid',
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            <?php Pjax::begin(['id' => 'akkSijilPertolonganCemasGrid', 'timeout' => 100000]); ?>
 
-            //'akk_sijil_cpr_id',
-            //'akademi_akk_id',
-            'no_sijil',
-            'tahun',
-            'tarikh_tamat',
-            [
-                'attribute' => 'sijil',
-                'format' => 'raw',
-                'value'=>function ($model) {
-                    if($model->sijil){
-                        //return Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->sijil , ['target'=>'_blank']);
-                        return Html::a(GeneralLabel::viewAttachment, 'javascript:void(0);', 
-                                        [ 
-                                            'onclick' => 'viewUpload("'.\Yii::$app->request->BaseUrl.'/' . $model->sijil .'");'
-                                        ]);
-                    } else {
-                        return "";
-                    }
-                },
-            ],
-            // 'session_id',
-            // 'created_by',
-            // 'updated_by',
-            // 'created',
-            // 'updated',
+            <?= GridView::widget([
+                'dataProvider' => $dataProviderAkkSijilPertolonganCemas,
+                //'filterModel' => $searchModelAkkSijilPertolonganCemas,
+                'id' => 'akkSijilPertolonganCemasGrid',
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
 
-            //['class' => 'yii\grid\ActionColumn'],
-            ['class' => 'yii\grid\ActionColumn',
-                'buttons' => [
-                    'delete' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
-                        'title' => Yii::t('yii', 'Delete'),
-                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['akk-sijil-cpr/delete', 'id' => $model->akk_sijil_cpr_id]).'", "'.GeneralMessage::confirmDelete.'", "akkSijilCprGrid");',
-                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
-                        ]);
+                    //'akk_sijil_pertolongan_cemas_id',
+                    //'akademi_akk_id',
+                    'no_sijil',
+                    'tahap',
+                    'tahun',
+                    // 'sijil',
+                    [
+                        'attribute' => 'sijil',
+                        'format' => 'raw',
+                        'value'=>function ($model) {
+                            if($model->sijil){
+                                //return Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->sijil , ['target'=>'_blank']);
+                                return Html::a(GeneralLabel::viewAttachment, 'javascript:void(0);', 
+                                                [ 
+                                                    'onclick' => 'viewUpload("'.\Yii::$app->request->BaseUrl.'/' . $model->sijil .'");'
+                                                ]);
+                            } else {
+                                return "";
+                            }
+                        },
+                    ],
+                    // 'session_id',
+                    // 'created_by',
+                    // 'updated_by',
+                    // 'created',
+                    // 'updated',
 
-                    },
-                    'update' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
-                        'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-sijil-cpr/update', 'id' => $model->akk_sijil_cpr_id]).'", "'.GeneralLabel::updateTitle . ' ' . GeneralLabel::sijil_CPR .'");',
-                        ]);
-                    },
-                    'view' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
-                        'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-sijil-cpr/view', 'id' => $model->akk_sijil_cpr_id]).'", "'.GeneralLabel::viewTitle . ' ' . GeneralLabel::sijil_CPR .'");',
-                        ]);
-                    }
+                    //['class' => 'yii\grid\ActionColumn'],
+                    ['class' => 'yii\grid\ActionColumn',
+                        'buttons' => [
+                            'delete' => function ($url, $model) {
+                                return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                                'title' => Yii::t('yii', 'Delete'),
+                                'onclick' => 'deleteRecordModalAjax("'.Url::to(['akk-sijil-pertolongan-cemas/delete', 'id' => $model->akk_sijil_pertolongan_cemas_id]).'", "'.GeneralMessage::confirmDelete.'", "akkSijilPertolonganCemasGrid");',
+                                //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                                ]);
+
+                            },
+                            'update' => function ($url, $model) {
+                                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                                'title' => Yii::t('yii', 'Update'),
+                                'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-sijil-pertolongan-cemas/update', 'id' => $model->akk_sijil_pertolongan_cemas_id]).'", "'.GeneralLabel::updateTitle . ' ' . GeneralLabel::sijil_pertolongan_cemas .'");',
+                                ]);
+                            },
+                            'view' => function ($url, $model) {
+                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                                'title' => Yii::t('yii', 'View'),
+                                'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-sijil-pertolongan-cemas/view', 'id' => $model->akk_sijil_pertolongan_cemas_id]).'", "'.GeneralLabel::viewTitle . ' ' . GeneralLabel::sijil_pertolongan_cemas .'");',
+                                ]);
+                            }
+                        ],
+                        'template' => $template,
+                    ],
                 ],
-                'template' => $template,
-            ],
-        ],
-    ]); ?>
-    
-    <?php if(!$readonly): ?>
-    <p>
-    <?php 
-        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-sijil-cpr/create', 'akademi_akk_id' => $akademi_akk_id]).'", "'.GeneralLabel::createTitle . ' ' . GeneralLabel::sijil_CPR .'");',
-                        'class' => 'btn btn-success',
-                        ]);?>
-    </p>
-    <?php endif; ?>
-    
-    <?php Pjax::end(); ?>
+            ]); ?>
+
+            <?php if(!$readonly): ?>
+            <p>
+            <?php 
+                echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                                'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-sijil-pertolongan-cemas/create', 'akademi_akk_id' => $akademi_akk_id]).'", "'.GeneralLabel::createTitle . ' ' . GeneralLabel::sijil_pertolongan_cemas .'");',
+                                'class' => 'btn btn-success',
+                                ]);?>
+            </p>
+            <?php endif; ?>
+
+            <?php Pjax::end(); ?>
+
+            <br>
+
+            <h3><?=GeneralLabel::sijil_CPR?></h3>
+
+            <?php Pjax::begin(['id' => 'akkSijilCprGrid', 'timeout' => 100000]); ?>
+
+            <?= GridView::widget([
+                'dataProvider' => $dataProviderAkkSijilCpr,
+                //'filterModel' => $searchModelAkkSijilCpr,
+                'id' => 'akkSijilCprGrid',
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+
+                    //'akk_sijil_cpr_id',
+                    //'akademi_akk_id',
+                    'no_sijil',
+                    'tahun',
+                    'tarikh_tamat',
+                    [
+                        'attribute' => 'sijil',
+                        'format' => 'raw',
+                        'value'=>function ($model) {
+                            if($model->sijil){
+                                //return Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->sijil , ['target'=>'_blank']);
+                                return Html::a(GeneralLabel::viewAttachment, 'javascript:void(0);', 
+                                                [ 
+                                                    'onclick' => 'viewUpload("'.\Yii::$app->request->BaseUrl.'/' . $model->sijil .'");'
+                                                ]);
+                            } else {
+                                return "";
+                            }
+                        },
+                    ],
+                    // 'session_id',
+                    // 'created_by',
+                    // 'updated_by',
+                    // 'created',
+                    // 'updated',
+
+                    //['class' => 'yii\grid\ActionColumn'],
+                    ['class' => 'yii\grid\ActionColumn',
+                        'buttons' => [
+                            'delete' => function ($url, $model) {
+                                return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                                'title' => Yii::t('yii', 'Delete'),
+                                'onclick' => 'deleteRecordModalAjax("'.Url::to(['akk-sijil-cpr/delete', 'id' => $model->akk_sijil_cpr_id]).'", "'.GeneralMessage::confirmDelete.'", "akkSijilCprGrid");',
+                                //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                                ]);
+
+                            },
+                            'update' => function ($url, $model) {
+                                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                                'title' => Yii::t('yii', 'Update'),
+                                'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-sijil-cpr/update', 'id' => $model->akk_sijil_cpr_id]).'", "'.GeneralLabel::updateTitle . ' ' . GeneralLabel::sijil_CPR .'");',
+                                ]);
+                            },
+                            'view' => function ($url, $model) {
+                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                                'title' => Yii::t('yii', 'View'),
+                                'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-sijil-cpr/view', 'id' => $model->akk_sijil_cpr_id]).'", "'.GeneralLabel::viewTitle . ' ' . GeneralLabel::sijil_CPR .'");',
+                                ]);
+                            }
+                        ],
+                        'template' => $template,
+                    ],
+                ],
+            ]); ?>
+
+            <?php if(!$readonly): ?>
+            <p>
+            <?php 
+                echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                                'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-sijil-cpr/create', 'akademi_akk_id' => $akademi_akk_id]).'", "'.GeneralLabel::createTitle . ' ' . GeneralLabel::sijil_CPR .'");',
+                                'class' => 'btn btn-success',
+                                ]);?>
+            </p>
+            <?php endif; ?>
+
+            <?php Pjax::end(); ?>
+
+            <br>
+
+            <h3><?=GeneralLabel::permit_kerja_jurulatih?></h3>
+
+            <?php Pjax::begin(['id' => 'akkPermitKerjaGrid', 'timeout' => 100000]); ?>
+
+            <?= GridView::widget([
+                'dataProvider' => $dataProviderAkkPermitKerja,
+                //'filterModel' => $searchModelAkkPermitKerja,
+                'id' => 'akkPermitKerjaGrid',
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+
+                    //'akk_permit_kerja_id',
+                    //'akademi_akk_id',
+                    'no_permit',
+                    'tahun',
+                    //'tarikh_tamat',
+                    [
+                        'attribute' => 'tarikh_tamat',
+                        'format' => 'raw',
+                        'value'=>function ($model) {
+                            return GeneralFunction::convert($model->tarikh_tamat);
+                        },
+                    ],
+                    [
+                        'attribute' => 'permit',
+                        'format' => 'raw',
+                        'value'=>function ($model) {
+                            if($model->permit){
+                                return Html::a(GeneralLabel::viewAttachment, 'javascript:void(0);', 
+                                                [ 
+                                                    'onclick' => 'viewUpload("'.\Yii::$app->request->BaseUrl.'/' . $model->permit .'");'
+                                                ]);
+                            } else {
+                                return "";
+                            }
+                        },
+                    ],
+                    // 'session_id',
+                    // 'created_by',
+                    // 'updated_by',
+                    // 'created',
+                    // 'updated',
+
+                    //['class' => 'yii\grid\ActionColumn'],
+                    ['class' => 'yii\grid\ActionColumn',
+                        'buttons' => [
+                            'delete' => function ($url, $model) {
+                                return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                                'title' => Yii::t('yii', 'Delete'),
+                                'onclick' => 'deleteRecordModalAjax("'.Url::to(['akk-permit-kerja/delete', 'id' => $model->akk_permit_kerja_id]).'", "'.GeneralMessage::confirmDelete.'", "akkPermitKerjaGrid");',
+                                //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                                ]);
+
+                            },
+                            'update' => function ($url, $model) {
+                                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                                'title' => Yii::t('yii', 'Update'),
+                                'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-permit-kerja/update', 'id' => $model->akk_permit_kerja_id]).'", "'.GeneralLabel::updateTitle . ' ' . GeneralLabel::permit_kerja_jurulatih .'");',
+                                ]);
+                            },
+                            'view' => function ($url, $model) {
+                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                                'title' => Yii::t('yii', 'View'),
+                                'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-permit-kerja/view', 'id' => $model->akk_permit_kerja_id]).'", "'.GeneralLabel::viewTitle . ' ' . GeneralLabel::permit_kerja_jurulatih .'");',
+                                ]);
+                            }
+                        ],
+                        'template' => $template,
+                    ],
+                ],
+            ]); ?>
+
+            <?php if(!$readonly): ?>
+            <p>
+            <?php 
+                echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                                'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-permit-kerja/create', 'akademi_akk_id' => $akademi_akk_id]).'", "'.GeneralLabel::createTitle . ' ' . GeneralLabel::permit_kerja_jurulatih .'");',
+                                'class' => 'btn btn-success',
+                                ]);?>
+            </p>
+            <?php endif; ?>
+
+            <?php Pjax::end(); ?>
+        </div>
+    </div>
     
     <br>
-    
-    <h3><?=GeneralLabel::permit_kerja_jurulatih?></h3>
-    
-    <?php Pjax::begin(['id' => 'akkPermitKerjaGrid', 'timeout' => 100000]); ?>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProviderAkkPermitKerja,
-        //'filterModel' => $searchModelAkkPermitKerja,
-        'id' => 'akkPermitKerjaGrid',
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            //'akk_permit_kerja_id',
-            //'akademi_akk_id',
-            'no_permit',
-            'tahun',
-            //'tarikh_tamat',
-            [
-                'attribute' => 'tarikh_tamat',
-                'format' => 'raw',
-                'value'=>function ($model) {
-                    return GeneralFunction::convert($model->tarikh_tamat);
-                },
-            ],
-            [
-                'attribute' => 'permit',
-                'format' => 'raw',
-                'value'=>function ($model) {
-                    if($model->permit){
-                        return Html::a(GeneralLabel::viewAttachment, 'javascript:void(0);', 
-                                        [ 
-                                            'onclick' => 'viewUpload("'.\Yii::$app->request->BaseUrl.'/' . $model->permit .'");'
-                                        ]);
-                    } else {
-                        return "";
-                    }
-                },
-            ],
-            // 'session_id',
-            // 'created_by',
-            // 'updated_by',
-            // 'created',
-            // 'updated',
-
-            //['class' => 'yii\grid\ActionColumn'],
-            ['class' => 'yii\grid\ActionColumn',
-                'buttons' => [
-                    'delete' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
-                        'title' => Yii::t('yii', 'Delete'),
-                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['akk-permit-kerja/delete', 'id' => $model->akk_permit_kerja_id]).'", "'.GeneralMessage::confirmDelete.'", "akkPermitKerjaGrid");',
-                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
-                        ]);
-
-                    },
-                    'update' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
-                        'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-permit-kerja/update', 'id' => $model->akk_permit_kerja_id]).'", "'.GeneralLabel::updateTitle . ' ' . GeneralLabel::permit_kerja_jurulatih .'");',
-                        ]);
-                    },
-                    'view' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
-                        'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-permit-kerja/view', 'id' => $model->akk_permit_kerja_id]).'", "'.GeneralLabel::viewTitle . ' ' . GeneralLabel::permit_kerja_jurulatih .'");',
-                        ]);
-                    }
-                ],
-                'template' => $template,
-            ],
-        ],
-    ]); ?>
-    
-    <?php if(!$readonly): ?>
-    <p>
-    <?php 
-        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-permit-kerja/create', 'akademi_akk_id' => $akademi_akk_id]).'", "'.GeneralLabel::createTitle . ' ' . GeneralLabel::permit_kerja_jurulatih .'");',
-                        'class' => 'btn btn-success',
-                        ]);?>
-    </p>
-    <?php endif; ?>
-    
-    <?php Pjax::end(); ?>
-    
     <br>
+    
+    <pre style="text-align: center"><strong>UNTUK KEGUNAAN PENGELUARAN LESEN</strong></pre>
+    
+    <div class="panel panel-default">
+        <div class="panel-body">
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'tarikh_terima_borang' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                 'no_lesen_jurulatih' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>30]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'tarikh_mula_lesen' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                'tarikh_tamat_lesen' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                'no_sijil_spkk' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>30]],
+            ]
+        ],
+    ]
+]);
+    ?>
+            </div>
+    </div>
 
     <!--<?= $form->field($model, 'nama')->textInput(['maxlength' => 80]) ?>
 

@@ -2,3 +2,25 @@ div.required label:after {
     content: " *";
     color: red;
 }
+
+.modal-lg {
+    width: 80%;
+    border-radius: 0;
+}
+
+.modal-lg .modal-content {
+    border-radius: 5;
+}
+
+.modal.slide .modal-dialog {
+    -webkit-transition: -webkit-transform .3s ease-out;
+    -o-transition:      -o-transform .3s ease-out;
+    transition:         transform .3s ease-out;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+}
+
+.modal.in .modal-dialog {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
