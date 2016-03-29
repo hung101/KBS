@@ -10,9 +10,12 @@ use frontend\models\FarmasiUbatanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
+use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Atlet;
@@ -72,6 +75,8 @@ class FarmasiPermohonanUbatanController extends Controller
         $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         $model->kelulusan = $YesNo;
         
+        $model->tarikh_pemberian = GeneralFunction::convert($model->tarikh_pemberian);
+        
         $queryPar = null;
         
         $queryPar['FarmasiUbatanSearch']['farmasi_permohonan_ubatan_id'] = $id;
@@ -117,7 +122,14 @@ class FarmasiPermohonanUbatanController extends Controller
                 FarmasiUbatan::updateAll(['session_id' => ''], 'farmasi_permohonan_ubatan_id = "'.$model->farmasi_permohonan_ubatan_id.'"');
             }
             
-            return $this->redirect(['view', 'id' => $model->farmasi_permohonan_ubatan_id]);
+            $file = UploadedFile::getInstance($model, 'muat_naik');
+            if($file){
+                $model->muat_naik = Upload::uploadFile($file, Upload::farmasiPermohonanUbatanFolder, $model->farmasi_permohonan_ubatan_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->farmasi_permohonan_ubatan_id]);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -150,7 +162,14 @@ class FarmasiPermohonanUbatanController extends Controller
         $dataProviderFarmasiUbatan= $searchModelFarmasiUbatan->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->farmasi_permohonan_ubatan_id]);
+            $file = UploadedFile::getInstance($model, 'muat_naik');
+            if($file){
+                $model->muat_naik = Upload::uploadFile($file, Upload::farmasiPermohonanUbatanFolder, $model->farmasi_permohonan_ubatan_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->farmasi_permohonan_ubatan_id]);
+            }
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -192,5 +211,27 @@ class FarmasiPermohonanUbatanController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            return $this->redirect(['update', 'id' => $id]);
     }
 }

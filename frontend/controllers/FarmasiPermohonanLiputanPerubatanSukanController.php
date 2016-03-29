@@ -78,6 +78,8 @@ class FarmasiPermohonanLiputanPerubatanSukanController extends Controller
         $ref = RefKategoriProgramLiputanPerubatanSukan::findOne(['id' => $model->kategori_program]);
         $model->kategori_program = $ref['desc'];
         
+        $model->tarikh_program = GeneralFunction::convert($model->tarikh_program);
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,

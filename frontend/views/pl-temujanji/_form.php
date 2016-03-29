@@ -16,6 +16,7 @@ use kartik\datecontrol\DateControl;
 use app\models\Atlet;
 use app\models\RefJenisTemujanjiPesakitLuar;
 use app\models\RefStatusTemujanjiPesakitLuar;
+use app\models\RefPegawaiPerubatan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -64,7 +65,13 @@ use app\models\general\GeneralMessage;
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::atlet],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>6]],
+                'kehadiran_pesakit' => [
+                    'type'=>Form::INPUT_RADIO_LIST, 
+                    'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
+                    'value'=>false,
+                    'options'=>['inline'=>true],
+                    'columnOptions'=>['colspan'=>2]],
             ]
         ],
         [
@@ -76,6 +83,7 @@ use app\models\general\GeneralMessage;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
+                        'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
@@ -116,7 +124,29 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefStatusTemujanjiPesakitLuar::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::statusTemujanji],],
                     'columnOptions'=>['colspan'=>3]],
-                'pegawai_yang_bertanggungjawab' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
+                'pegawai_yang_bertanggungjawab' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-pegawai-perubatan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefPegawaiPerubatan::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::pegawai],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>4]],
+                'kehadiran_pegawai_bertanggungjawab' => [
+                    'type'=>Form::INPUT_RADIO_LIST, 
+                    'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
+                    'value'=>false,
+                    'options'=>['inline'=>true],
+                    'columnOptions'=>['colspan'=>2]],
             ]
         ],
         [
@@ -124,6 +154,13 @@ use app\models\general\GeneralMessage;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'catitan_ringkas' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>255]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'catatan_tambahan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>255]],
             ]
         ],
     ]

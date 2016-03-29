@@ -196,6 +196,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const auth_key = "Auth Key";
         const bagaimana = "Bagaimana";
         const bahagian = "Bahagian";
+        const bahagian_cawangan_pusat = "Bahagian / Cawangan / Pusat";
         const bahagian_kecederaan = "Bahagian Kecederaan";
         const bahasa_ibu = "Bahasa Ibunda";
         const bajet_keseluruhan = "Bajet Keseluruhan";
@@ -301,6 +302,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const catatan_pesawat = "Catatan";
         const catatan_rekod_baru = "Catatan Rekod Baru";
         const catatan_ringkas = "Catatan Ringkas";
+        const catatan_tambahan = "Catatan Tambahan";
         const category = "Category";
         const category_insentif = "Kategory Insentif";
         const catitan_ringkas = "Catitan Ringkas";
@@ -691,6 +693,10 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_penganjuran = "Laporan Penganjuran";
         const laporan_ringkasan_statistik = "Laporan Ringkasan Statistik";
         const laporan_ringkasan_statistik_bulanan = "Laporan Ringkasan Statistik Bulanan";
+        const laporan_temujanji_fisioterapi = "Laporan Temujanji Fisioterapi";
+        const laporan_temujanji_kedatangan_pegawai = "Laporan Temujanji Kedatangan Pegawai";
+        const laporan_temujanji_kedatangan_pesakit = "Laporan Temujanji Kedatangan Pesakit";
+        const laporan_temujanji_rehabilitasi = "Laporan Temujanji Rehabilitasi";
         const laporan_ulasan = "Laporan Ulasan";
         const latihan_dan_program_id = "Latihan Dan Program ID";
         const latihan_dan_program_peserta_id = "Latihan Dan Program Peserta ID";
@@ -859,6 +865,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const nama_program_kursus_bengkel = "Nama Program / Kursus / Bengkel";
         const nama_program_pengajian = "Nama Program Pengajian";
         const nama_programs = "Nama Program/Kursus/Seminar";
+        const nama_projek = "Nama Projek";
         const nama_projek_program_aktiviti_kejohanan = "Nama Projek Program / Aktiviti / Kejohanan";
         const nama_rehabilitasi = "Nama Rehabilitasi";
         const nama_sesi = "Nama Sesi";
@@ -985,6 +992,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pegawai = "Pegawai";
         const pegawai_bertanggungjawab = "Pegawai Bertanggungjawab";
         const pegawai_bertugas = "Pegawai Bertugas";
+        const pegawai_isn = "Pegawai ISN";
         const pegawai_teknikal = "Pegawai Teknikal";
         const pegawai_terlibat = "Pegawai Terlibat";
         const pegawai_perubatan_pakar_perubatan_sukan = "Pegawai Perubatan / Pakar Perubatan Sukan";
@@ -1577,6 +1585,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const isn = "ISN";
         const jawatankuasa_tertinggi_sukan_malaysia_teknikal_dan_pertandingan = "Jawatankuasa Tertinggi Sukan Malaysia Teknikal dan Pertandingan";
         const kbs = "KBS";
+        const kehadiran_pegawai_bertanggungjawab = "Kehadiran Pegawai Bertanggungjawab";
+        const kehadiran_pesakit = "Kehadiran Pesakit";
         const kehadiran_peserta = "Kehadiran Peserta";
         const kemasukan_dan_pengumpulan_data_maklumat_sukan_yang_dianjurkan = "Kemasukan Dan Pengumpulan Data Maklumat Sukan Yang Dianjurkan";
         const kemudahan_aduan = "Kemudahan Aduan";
@@ -1716,6 +1726,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tempahan = "Tempahan";
         const temujanji = "Temujanji";
         const temujanji_fisioterapi = "Temujanji Fisioterapi";
+        const temujanji_makmal_perubatan = "Temujanji Makmal Perubatan";
         const temujanji_rehabilitasi = "Temujanji Rehabilitasi";
         const urusetia = "Urusetia";
         const user = "User";
@@ -1933,6 +1944,7 @@ if($session->get('language') == "EN") {
         const auth_key = "Auth Key";
         const bagaimana = "How";
         const bahagian = "Part";
+        const bahagian_cawangan_pusat = "Division / Branch / Center";
         const bahagian_kecederaan = "Part Injuries";
         const bahasa_ibu = "Native Language";
         const bajet_keseluruhan = "Overall Budget";
@@ -2037,7 +2049,8 @@ if($session->get('language') == "EN") {
         const catatan_admin = "Postings/Reviews";
         const catatan_pesawat = "Entries";
         const catatan_rekod_baru = "Posts New Record";
-        const catatan_ringkas = "Simple Entry";
+        const catatan_ringkas = "Brief Notes";
+        const catatan_tambahan = "Additional Notes";
         const category = "Category";
         const category_insentif = "Kategory Incentives";
         const catitan_ringkas = "Simple Entry";
@@ -2428,6 +2441,10 @@ if($session->get('language') == "EN") {
         const laporan_penganjuran = "Report Recommendations:";
         const laporan_ringkasan_statistik = "Report Summary Statistics";
         const laporan_ringkasan_statistik_bulanan = "Report Summary Statistics Monthly";
+        const laporan_temujanji_fisioterapi = "Report Physiotherapy Appointment";
+        const laporan_temujanji_kedatangan_pegawai = "Report Officer Presence";
+        const laporan_temujanji_kedatangan_pesakit = "Report Patient Presence";
+        const laporan_temujanji_rehabilitasi = "Report Rehabilitation Appointment";
         const laporan_ulasan = "The Report Reviews";
         const latihan_dan_program_id = "Training And Program ID";
         const latihan_dan_program_peserta_id = "Training And Program Participant ID";
@@ -2596,6 +2613,7 @@ if($session->get('language') == "EN") {
         const nama_program_kursus_bengkel = "The Name Of The Program/Course/Workshop";
         const nama_program_pengajian = "The Name Of The Study Programme";
         const nama_programs = "The Name Of The Program/Courses/Seminars";
+        const nama_projek = "Project Name";
         const nama_projek_program_aktiviti_kejohanan = "Project Name Programmes/Activities/Tournament";
         const nama_rehabilitasi = "The Name Of Rehabilitation";
         const nama_sesi = "The Name Of The Session";
@@ -2722,6 +2740,7 @@ if($session->get('language') == "EN") {
         const pegawai = "Officer";
         const pegawai_bertanggungjawab = "Responsible Officer";
         const pegawai_bertugas = "Duty Officer";
+        const pegawai_isn = "Officer ISN";
         const pegawai_teknikal = "Technical Officer";
         const pegawai_terlibat = "Officers Involved";
         const pegawai_perubatan_pakar_perubatan_sukan = "Medical Officer / Medical Specialist Sports";
@@ -3314,6 +3333,8 @@ if($session->get('language') == "EN") {
         const isn = "ISN";
         const jawatankuasa_tertinggi_sukan_malaysia_teknikal_dan_pertandingan = "The highest Committee for technical and Sports Competitions";
         const kbs = "KBS";
+        const kehadiran_pegawai_bertanggungjawab = "Presence Of Officer In Charge";
+        const kehadiran_pesakit = "Patient Presence";
         const kehadiran_peserta = "The Presence Of Participants";
         const kemasukan_dan_pengumpulan_data_maklumat_sukan_yang_dianjurkan = "Data Collection And Entry Information In Organized Sports";
         const kemudahan_aduan = "Facilities Complaints";
@@ -3453,6 +3474,7 @@ if($session->get('language') == "EN") {
         const tempahan = "Booking";
         const temujanji = "Appointment";
         const temujanji_fisioterapi = "Physiotherapy Appointment";
+        const temujanji_makmal_perubatan = "Appointment of Laboratory Medicine";
         const temujanji_rehabilitasi = "Rehabilitation Appointment";
         const urusetia = "Secretariat";
         const user = "User";

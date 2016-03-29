@@ -3,6 +3,9 @@
 namespace app\models;
 
 use Yii;
+use yii\web\UploadedFile;
+use app\models\general\Upload;
+use app\models\general\GeneralMessage;
 
 use app\models\general\GeneralLabel;
 
@@ -54,7 +57,8 @@ class FarmasiPermohonanUbatan extends \yii\db\ActiveRecord
             [['atlet_id', 'kelulusan'], 'integer'],
             [['tarikh_pemberian'], 'safe'],
             [['pegawai_yang_bertanggungjawab'], 'string', 'max' => 80],
-            [['catitan_ringkas'], 'string', 'max' => 255]
+            [['catitan_ringkas'], 'string', 'max' => 255],
+            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }
 
@@ -65,12 +69,12 @@ class FarmasiPermohonanUbatan extends \yii\db\ActiveRecord
     {
         return [
             'farmasi_permohonan_ubatan_id' => GeneralLabel::farmasi_permohonan_ubatan_id,
-            'atlet_id' => GeneralLabel::atlet_id,
+            'atlet_id' => GeneralLabel::nama_pemohon,
             'tarikh_pemberian' => GeneralLabel::tarikh_pemberian,
-            'pegawai_yang_bertanggungjawab' => GeneralLabel::pegawai_yang_bertanggungjawab,
+            'pegawai_yang_bertanggungjawab' => GeneralLabel::pegawai_isn,
             'catitan_ringkas' => GeneralLabel::catitan_ringkas,
             'kelulusan' => GeneralLabel::kelulusan,
-
+            'muat_naik' => GeneralLabel::muat_naik,
         ];
     }
     
@@ -79,5 +83,16 @@ class FarmasiPermohonanUbatan extends \yii\db\ActiveRecord
      */
     public function getRefKelulusan(){
         return $this->hasOne(RefKelulusan::className(), ['id' => 'kelulusan']);
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
     }
 }

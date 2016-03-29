@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\FarmasiPermohonanUbatanSearch */
@@ -46,7 +47,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'farmasi_permohonan_ubatan_id',
             //'atlet_id',
-            'tarikh_pemberian',
+            //'tarikh_pemberian',
+            [
+                'attribute' => 'tarikh_pemberian',
+                'format' => 'raw',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_pemberian);
+                },
+            ],
             'pegawai_yang_bertanggungjawab',
             // 'catitan_ringkas',
             //'kelulusan',

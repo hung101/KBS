@@ -25,6 +25,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const badanSukan = "-- Pilih Badan Sukan --";
         const badanSukanAntarabangsa = "-- Pilih Badan Sukan Antarabangsa --";
         const bahagian = " -- Pilih Bahagian -- ";
+        const bahagianCawanganPusat = " -- Pilih Bahagian / Cawangan / Pusat -- ";
         const bahagianKecederaan = " -- Pilih Bahagian Kecederaan -- ";
         const bahasa = " -- Pilih Bahasa -- ";
         const bandar = " -- Pilih Bandar -- ";
@@ -253,6 +254,7 @@ if($session->get('language') == "EN") {
         const badanSukan = "-- Select Sports Bodies --";
         const badanSukanAntarabangsa = "-- Select International Sports Bodies --";
         const bahagian = " -- Select Part -- ";
+        const bahagianCawanganPusat = " -- Pilih Division / Branch / Center -- ";
         const bahagianKecederaan = " -- Select Part Injuries -- ";
         const bahasa = " -- Select A Language -- ";
         const bandar = " -- Select City -- ";

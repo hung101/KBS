@@ -52,12 +52,12 @@ class PlTemujanji extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'tarikh_temujanji', 'doktor_pegawai_perubatan', 'status_temujanji', 'pegawai_yang_bertanggungjawab', 'catitan_ringkas'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
+            [['atlet_id', 'tarikh_temujanji', 'status_temujanji', 'pegawai_yang_bertanggungjawab', 'catitan_ringkas'], 'required', 'skipOnEmpty' => true],
+            [['atlet_id', 'kehadiran_pesakit', 'kehadiran_pegawai_bertanggungjawab'], 'integer'],
             [['tarikh_temujanji'], 'safe'],
             [['doktor_pegawai_perubatan', 'makmal_perubatan', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80],
             [['status_temujanji'], 'string', 'max' => 30],
-            [['catitan_ringkas'], 'string', 'max' => 255]
+            [['catitan_ringkas', 'catatan_tambahan'], 'string', 'max' => 255]
         ];
     }
 
@@ -75,12 +75,19 @@ class PlTemujanji extends \yii\db\ActiveRecord
             'status_temujanji' => GeneralLabel::status_temujanji,
             'pegawai_yang_bertanggungjawab' => GeneralLabel::pegawai_yang_bertanggungjawab,
             'catitan_ringkas' => GeneralLabel::catitan_ringkas,
-
+            'kehadiran_pesakit' => GeneralLabel::kehadiran_pesakit,
+            'kehadiran_pegawai_bertanggungjawab' => GeneralLabel::kehadiran_pegawai_bertanggungjawab,
+            'catatan_tambahan' => GeneralLabel::catatan_tambahan,
         ];
     }
     
     public function getRefStatusTemujanjiPesakitLuar()
     {
         return $this->hasOne(RefStatusTemujanjiPesakitLuar::className(), ['id' => 'status_temujanji']);
+    }
+    
+    public function getRefPegawaiPerubatan()
+    {
+        return $this->hasOne(RefPegawaiPerubatan::className(), ['id' => 'pegawai_yang_bertanggungjawab']);
     }
 }

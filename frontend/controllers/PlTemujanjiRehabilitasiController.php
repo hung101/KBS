@@ -7,10 +7,12 @@ use app\models\PlTemujanjiRehabilitasi;
 use frontend\models\PlTemujanjiRehabilitasiSearch;
 use app\models\PlDiagnosisPreskripsiPemeriksaanRehabilitasi;
 use frontend\models\PlDiagnosisPreskripsiPemeriksaanRehabilitasiSearch;
+use app\models\IsnLaporanTemujanjiRehabilitasi;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\BaseUrl;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
@@ -256,5 +258,73 @@ class PlTemujanjiRehabilitasiController extends Controller
             $img->update();
 
             return $this->redirect(['update', 'id' => $id]);
+    }
+        
+    public function actionLaporanTemujanjiRehabilitasi()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanTemujanjiRehabilitasi();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-temujanji-rehabilitasi'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'pegawai_bertanggungjawab' => $model->pegawai_bertanggungjawab
+                    , 'sukan' => $model->sukan
+                    , 'bahagian_kecederaan' => $model->bahagian_kecederaan
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-temujanji-rehabilitasi'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'pegawai_bertanggungjawab' => $model->pegawai_bertanggungjawab
+                    , 'sukan' => $model->sukan
+                    , 'bahagian_kecederaan' => $model->bahagian_kecederaan
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_temujanji_rehabilitasi', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanTemujanjiRehabilitasi($tarikh_dari, $tarikh_hingga, $pegawai_bertanggungjawab, $sukan, $bahagian_kecederaan, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($pegawai_bertanggungjawab == "") $pegawai_bertanggungjawab = array();
+        else $pegawai_bertanggungjawab = array($pegawai_bertanggungjawab);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($bahagian_kecederaan == "") $bahagian_kecederaan = array();
+        else $bahagian_kecederaan = array($bahagian_kecederaan);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'PEGAWAI' => $pegawai_bertanggungjawab,
+            'SUKAN' => $sukan,
+            'KECEDERAAN' => $bahagian_kecederaan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanTemujanjiRehabilitasi', $format, $controls, 'laporan_temujanji_rehabilitasi');
     }
 }

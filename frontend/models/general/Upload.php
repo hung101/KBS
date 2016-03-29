@@ -43,6 +43,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const eLaporanFolder = "e_laporan";
         const eLaporanGambarSubFolder = "gambar";
         const farmasiPermohonanLiputanPerubatanSukanFolder = "farmasi_permohonan_liputan_perubatan_sukan";
+        const farmasiPermohonanUbatanFolder = "farmasi_permohonan_ubatan";
         const jurulatihFolder = "jurulatih";
         const jurulatihKelayakan = "jurulatih_kelayakan";
         const informasiPermohonanFolder = "informasi_permohonan";
@@ -153,6 +154,7 @@ if($session->get('language') == "EN") {
         const eLaporanFolder = "e_laporan";
         const eLaporanGambarSubFolder = "gambar";
         const farmasiPermohonanLiputanPerubatanSukanFolder = "farmasi_permohonan_liputan_perubatan_sukan";
+        const farmasiPermohonanUbatanFolder = "farmasi_permohonan_ubatan";
         const jurulatihFolder = "jurulatih";
         const jurulatihKelayakan = "jurulatih_kelayakan";
         const informasiPermohonanFolder = "informasi_permohonan";

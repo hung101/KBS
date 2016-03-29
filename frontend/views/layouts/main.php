@@ -337,23 +337,32 @@ AppAsset::register($this);
                             'label' => GeneralLabel::pesakit_luar_sistem_pendaftaran_dan_temujanji_atlet_pesakit_luar_sistem_proses_rawatan_pesakit_luar_pengurusan_rekod_pemeriksaan_perubatan_pesakit_luar_sistem_pemberian_ubat_kepada_psk,
                             'items' => [
                                 ['label' => GeneralLabel::temujanji, 'url' => ['/pl-temujanji/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji']['module'])],
-                                ['label' => GeneralLabel::data_klinikal, 'url' => ['/pl-data-klinikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-data-klinikal']['module'])],
+                                //['label' => GeneralLabel::data_klinikal, 'url' => ['/pl-data-klinikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-data-klinikal']['module'])],
+                                [
+                                    'label' => GeneralLabel::laporan,
+                                    'items' => [
+                                        ['label' => GeneralLabel::laporan_temujanji_kedatangan_pesakit, 'url' => ['/pl-temujanji/laporan-temujanji-kedatangan-pesakit'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji']['module'])],
+                                        ['label' => GeneralLabel::laporan_temujanji_kedatangan_pegawai, 'url' => ['/pl-temujanji/laporan-temujanji-kedatangan-pegawai'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji']['module'])],
+                                    ],
+                                ],
                             ],
                         ],
                         ['label' => GeneralLabel::farmasi_rekod_permohonan_ubatan_di_kaunter_oleh_atlet_otc_drug, 'url' => ['/farmasi-permohonan-ubatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['module'])],
-                        ['label' => GeneralLabel::makmal_perubatan_permohonan_khidmat_ujian_makmal_melalui_sistem, 'url' => ['/pl-temujanji/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji']['module'])],
+                        ['label' => GeneralLabel::makmal_perubatan_permohonan_khidmat_ujian_makmal_melalui_sistem, 'url' => ['/pl-temujanji-makmal-perubatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-makmal-perubatan']['module'])],
                         ['label' => GeneralLabel::permohonan_penyiasatan_makmal_dan_pengimejan_pengimejan_pengurusan_pangkalan_data_atlet_imej, 'url' => ['/pl-temujanji/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji']['module'])],
                         ['label' => GeneralLabel::caj_perkhidmatan_senarai_harga_perkhidmatan_caj_perkhidmatan_senarai_harga_ubatan, 'url' => ['/senarai-harga-perkhidmatan-ubatan-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['senarai-harga-perkhidmatan-ubatan-peralatan']['module'])],
                         [
                             'label' => GeneralLabel::fisioterapi_sistem_permohonan_khidmat_rawatan_fisioterapi,
                             'items' => [
                                 ['label' => GeneralLabel::temujanji_fisioterapi, 'url' => ['/pl-temujanji-fisioterapi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-fisioterapi']['module'])],
+                                ['label' => GeneralLabel::laporan_temujanji_fisioterapi, 'url' => ['/pl-temujanji-fisioterapi/laporan-temujanji-fisioterapi'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-fisioterapi']['module'])],
                             ],
                         ],
                         [
                             'label' => GeneralLabel::rehabilitasi_permohonan_khidmat_rawatan_rehabilitasi,
                             'items' => [
                                 ['label' => GeneralLabel::temujanji_rehabilitasi, 'url' => ['/pl-temujanji-rehabilitasi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-rehabilitasi']['module'])],
+                                ['label' => GeneralLabel::laporan_temujanji_rehabilitasi, 'url' => ['/pl-temujanji-rehabilitasi/laporan-temujanji-rehabilitasi'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-rehabilitasi']['module'])],
                             ],
                         ],
                         [

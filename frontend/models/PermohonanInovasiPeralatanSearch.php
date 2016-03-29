@@ -41,7 +41,8 @@ class PermohonanInovasiPeralatanSearch extends PermohonanInovasiPeralatan
      */
     public function search($params)
     {
-        $query = PermohonanInovasiPeralatan::find();
+        $query = PermohonanInovasiPeralatan::find()
+                ->joinWith(['refStatusPermohonanProjekInovasi']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -65,7 +66,7 @@ class PermohonanInovasiPeralatanSearch extends PermohonanInovasiPeralatan
             ->andFilterWhere(['like', 'ringkasan_inovasi_peralatan', $this->ringkasan_inovasi_peralatan])
             ->andFilterWhere(['like', 'pegawai_yang_bertanggungjawab', $this->pegawai_yang_bertanggungjawab])
             ->andFilterWhere(['like', 'catitan_ringkas', $this->catitan_ringkas])
-            ->andFilterWhere(['like', 'status_permohonan', $this->status_permohonan]);
+            ->andFilterWhere(['like', 'tbl_ref_status_permohonan_projek_inovasi.desc', $this->status_permohonan]);
 
         return $dataProvider;
     }
