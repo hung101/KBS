@@ -55,8 +55,11 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const downloadForm = "Muat Turun Borang";
         const removeImage = "Keluarkan Gambar";
         const mandatoryField = "Medan Mandatori";
+        const select_action = "Pilihan Tindakan : ";
         const yes = "Ya";
         const no = "Tidak";
+        const offer_yes = "Tawaran Ya";
+        const offer_no = "Tawaran Tidak";
 
 
         
@@ -1773,8 +1776,11 @@ if($session->get('language') == "EN") {
         const downloadForm = "Download Form";
         const removeImage = "Remove Image";
         const mandatoryField = "Mandatory Field";
+        const select_action = "Select Action : ";
         const yes = "Yes";
         const no = "No";
+        const offer_yes = "Offer Yes";
+        const offer_no = "Offer No";
 
         const acara = "Events";
         const action = "Action";

@@ -38,13 +38,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php endif; ?>
     
     <?php Pjax::begin(['timeout' => false, 'enablePushState' => false,]); ?>
-    
+    <?=Html::beginForm(['atlet/bulk'],'post');?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+            [
+                'class' => 'yii\grid\CheckboxColumn',
+            ],
             ['class' => 'yii\grid\SerialColumn'],
-
             //'atlet_id',
             'name_penuh',
             'tarikh_lahir',
@@ -99,7 +101,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-    
+
+    <?=Html::dropDownList('action','',[''=>GeneralLabel::select_action,'1'=>GeneralLabel::offer_yes,'0'=>GeneralLabel::offer_no],['class'=>'dropdown',])?>
+    <?=Html::submitButton(GeneralLabel::send, ['class' => 'btn btn-info',]);?>
+    <?= Html::endForm();?> 
+
     <?php Pjax::end(); ?>
 
 </div>
