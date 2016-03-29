@@ -103,4 +103,11 @@ class PermohonanMembaikiPeralatan extends \yii\db\ActiveRecord
     public function getRefPeralatanPermohonanMembaiki(){
         return $this->hasOne(RefPeralatanPermohonanMembaiki::className(), ['id' => 'nama_peralatan']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusPermohonanMembaikiPeralatan(){
+        return $this->hasOne(RefStatusPermohonanMembaikiPeralatan::className(), ['id' => 'status_permohonan']);
+    }
 }

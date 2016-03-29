@@ -56,7 +56,8 @@ class PermohonanInovasiPeralatan extends \yii\db\ActiveRecord
             [['tarikh_permohonan'], 'safe'],
             [['pemohon', 'nama_peralatan', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80],
             [['ringkasan_inovasi_peralatan', 'catitan_ringkas'], 'string', 'max' => 255],
-            [['status_permohonan'], 'string', 'max' => 30]
+            [['status_permohonan'], 'string', 'max' => 30],
+            [['bahagian_cawangan_pusat'], 'integer'],
         ];
     }
 
@@ -69,12 +70,19 @@ class PermohonanInovasiPeralatan extends \yii\db\ActiveRecord
             'permohonan_inovasi_peralatan_id' => GeneralLabel::permohonan_inovasi_peralatan_id,
             'tarikh_permohonan' => GeneralLabel::tarikh_permohonan,
             'pemohon' => GeneralLabel::pemohon,
-            'nama_peralatan' => GeneralLabel::nama_peralatan,
+            'nama_peralatan' => GeneralLabel::nama_projek,
             'ringkasan_inovasi_peralatan' => GeneralLabel::ringkasan_inovasi_peralatan,
             'pegawai_yang_bertanggungjawab' => GeneralLabel::pegawai_yang_bertanggungjawab,
             'catitan_ringkas' => GeneralLabel::catitan_ringkas,
             'status_permohonan' => GeneralLabel::status_permohonan,
-
+            'bahagian_cawangan_pusat' => GeneralLabel::bahagian_cawangan_pusat,
         ];
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusPermohonanProjekInovasi(){
+        return $this->hasOne(RefStatusPermohonanProjekInovasi::className(), ['id' => 'status_permohonan']);
     }
 }

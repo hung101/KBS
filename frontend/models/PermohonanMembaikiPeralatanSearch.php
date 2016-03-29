@@ -42,7 +42,8 @@ class PermohonanMembaikiPeralatanSearch extends PermohonanMembaikiPeralatan
     public function search($params)
     {
         $query = PermohonanMembaikiPeralatan::find()
-                ->joinWith(['refPeralatanPermohonanMembaiki']);
+                ->joinWith(['refPeralatanPermohonanMembaiki'])
+                ->joinWith(['refStatusPermohonanMembaikiPeralatan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -75,7 +76,7 @@ class PermohonanMembaikiPeralatanSearch extends PermohonanMembaikiPeralatan
             ->andFilterWhere(['like', 'cadangan', $this->cadangan])
             ->andFilterWhere(['like', 'pegawai_yang_bertanggungjawab', $this->pegawai_yang_bertanggungjawab])
             ->andFilterWhere(['like', 'catitan_ringkas', $this->catitan_ringkas])
-            ->andFilterWhere(['like', 'status_permohonan', $this->status_permohonan]);
+            ->andFilterWhere(['like', 'tbl_ref_status_permohonan_membaiki_peralatan.desc', $this->status_permohonan]);
 
         return $dataProvider;
     }

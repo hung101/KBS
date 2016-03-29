@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\PermohonanInovasiPeralatanSearch */
@@ -45,13 +46,24 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'permohonan_inovasi_peralatan_id',
-            'tarikh_permohonan',
+            //'tarikh_permohonan',
+            [
+                'attribute' => 'tarikh_permohonan',
+                'format' => 'raw',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_permohonan);
+                },
+            ],
             'pemohon',
             'nama_peralatan',
             //'ringkasan_inovasi_peralatan',
             // 'pegawai_yang_bertanggungjawab',
             // 'catitan_ringkas',
             // 'status_permohonan',
+            [
+                'attribute' => 'status_permohonan',
+                'value' => 'refStatusPermohonanProjekInovasi.desc'
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefStatusPermohonanMembaikiPeralatan;
@@ -69,6 +70,12 @@ class PermohonanMembaikiPeralatanController extends Controller
         
         $ref = RefPeralatanPermohonanMembaiki::findOne(['id' => $model->nama_peralatan]);
         $model->nama_peralatan = $ref['desc'];
+        
+        $model->tarikh_permohonan = GeneralFunction::convert($model->tarikh_permohonan);
+        
+        $model->tarikh_diterima = GeneralFunction::convert($model->tarikh_diterima);
+        
+        $model->tarikh_dipulang = GeneralFunction::convert($model->tarikh_dipulang);
         
         return $this->render('view', [
             'model' => $model,

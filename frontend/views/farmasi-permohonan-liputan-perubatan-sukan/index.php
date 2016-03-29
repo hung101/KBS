@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\FarmasiPermohonanLiputanPerubatanSukanSearch */
@@ -46,7 +47,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'permohonan_liputan_perubatan_sukan_id',
             //'nama_program',
-            'tarikh_program',
+            //'tarikh_program',
+            [
+                'attribute' => 'tarikh_program',
+                'format' => 'raw',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_program);
+                },
+            ],
             'tempat_program',
             [
                 'attribute' => 'kategori_program',

@@ -68,7 +68,7 @@ class AkademiAkk extends \yii\db\ActiveRecord
         return [
             [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'tempat_lahir', 'no_telefon', 'kategori_pensijilan', 'jenis_sukan', 'tahun',
                 'jantina', 'bangsa', 'status_jurulatih', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod'], 'required', 'skipOnEmpty' => true],
-            [['tarikh_lahir'], 'safe'],
+            [['tarikh_lahir', 'tarikh_terima_borang', 'tarikh_mula_lesen', 'tarikh_tamat_lesen'], 'safe'],
             [['jantina', 'bangsa', 'status_jurulatih'], 'integer'],
             [['nama', 'nama_majikan', 'jenis_sukan'], 'string', 'max' => 80],
             [['senarai_nama_peserta', 'emel'], 'string', 'max' => 255],
@@ -77,13 +77,14 @@ class AkademiAkk extends \yii\db\ActiveRecord
             [['no_passport'], 'string', 'max' => 15],
             [['tempat_lahir', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3'], 'string', 'max' => 90],
             [['no_telefon', 'no_telefon_pejabat'], 'string', 'max' => 14],
-            [['alamat_majikan_negeri', 'kategori_pensijilan', 'alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30],
+            [['alamat_majikan_negeri', 'kategori_pensijilan', 'alamat_1', 'alamat_2', 'alamat_3', 'no_lesen_jurulatih', 'no_sijil_spkk'], 'string', 'max' => 30],
             [['alamat_majikan_bandar'], 'string', 'max' => 40],
             [['alamat_majikan_poskod', 'alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5],
             [['tahun'], 'string', 'max' => 4],
             [['alamat_negeri'], 'string', 'max' => 3],
             [['tahun'], 'integer', 'min' => GeneralVariable::yearMin, 'max' => GeneralVariable::yearMax],
-            [['muatnaik_gambar'],'validateFileUpload', 'skipOnEmpty' => false]
+            [['muatnaik_gambar'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['tarikh_tamat_lesen'], 'compare', 'compareAttribute'=>'tarikh_mula_lesen', 'operator'=>'>='],
         ];
     }
 
@@ -112,7 +113,11 @@ class AkademiAkk extends \yii\db\ActiveRecord
             'alamat_majikan_poskod' => GeneralLabel::alamat_majikan_poskod,
             'no_telefon_pejabat' => GeneralLabel::no_telefon_pejabat,
             'kategori_pensijilan' => GeneralLabel::kategori_pensijilan,
-
+            'tarikh_terima_borang' => GeneralLabel::tarikh_terima_borang,
+            'no_lesen_jurulatih' => GeneralLabel::no_lesen_jurulatih,
+            'tarikh_mula_lesen' => GeneralLabel::tarikh_mula_lesen,
+            'tarikh_tamat_lesen' => GeneralLabel::tarikh_tamat_lesen,
+            'no_sijil_spkk' => GeneralLabel::no_sijil_spkk,
         ];
     }
     

@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\PlTemujanjiSearch */
@@ -46,7 +47,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pl_temujanji_id',
             //'atlet_id',
-            'tarikh_temujanji',
+            //'tarikh_temujanji',
+            [
+                'attribute' => 'tarikh_temujanji',
+                'format' => 'raw',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_temujanji, GeneralFunction::TYPE_DATETIME);
+                },
+            ],
             'doktor_pegawai_perubatan',
             //'makmal_perubatan',
             //'status_temujanji',
@@ -55,7 +63,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'refStatusTemujanjiPesakitLuar.desc'
             ],
             // 'pegawai_yang_bertanggungjawab',
+            [
+                'attribute' => 'pegawai_yang_bertanggungjawab',
+                'value' => 'refPegawaiPerubatan.desc'
+            ],
             // 'catitan_ringkas',
+            'catatan_tambahan',
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

@@ -19,7 +19,7 @@ class PlTemujanjiSearch extends PlTemujanji
     {
         return [
             [['pl_temujanji_id', 'atlet_id'], 'integer'],
-            [['tarikh_temujanji', 'doktor_pegawai_perubatan', 'makmal_perubatan', 'status_temujanji', 'pegawai_yang_bertanggungjawab', 'catitan_ringkas'], 'safe'],
+            [['tarikh_temujanji', 'doktor_pegawai_perubatan', 'makmal_perubatan', 'status_temujanji', 'pegawai_yang_bertanggungjawab', 'catitan_ringkas', 'catatan_tambahan'], 'safe'],
         ];
     }
 
@@ -42,7 +42,8 @@ class PlTemujanjiSearch extends PlTemujanji
     public function search($params)
     {
         $query = PlTemujanji::find()
-                ->joinWith(['refStatusTemujanjiPesakitLuar']);
+                ->joinWith(['refStatusTemujanjiPesakitLuar'])
+                ->joinWith(['refPegawaiPerubatan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -65,8 +66,9 @@ class PlTemujanjiSearch extends PlTemujanji
         $query->andFilterWhere(['like', 'doktor_pegawai_perubatan', $this->doktor_pegawai_perubatan])
             ->andFilterWhere(['like', 'makmal_perubatan', $this->makmal_perubatan])
             ->andFilterWhere(['like', 'tbl_ref_status_temujanji_pesakit_luar.desc', $this->status_temujanji])
-            ->andFilterWhere(['like', 'pegawai_yang_bertanggungjawab', $this->pegawai_yang_bertanggungjawab])
-            ->andFilterWhere(['like', 'catitan_ringkas', $this->catitan_ringkas]);
+            ->andFilterWhere(['like', 'tbl_ref_pegawai_perubatan.desc', $this->pegawai_yang_bertanggungjawab])
+            ->andFilterWhere(['like', 'catitan_ringkas', $this->catitan_ringkas])
+                ->andFilterWhere(['like', 'catatan_tambahan', $this->catatan_tambahan]);
 
         return $dataProvider;
     }

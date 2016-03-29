@@ -10,9 +10,11 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefStatusPermohonanProjekInovasi;
+use app\models\RefBahagianCawanganPusat;
 
 /**
  * PermohonanInovasiPeralatanController implements the CRUD actions for PermohonanInovasiPeralatan model.
@@ -65,6 +67,11 @@ class PermohonanInovasiPeralatanController extends Controller
         
         $ref = RefStatusPermohonanProjekInovasi::findOne(['id' => $model->status_permohonan]);
         $model->status_permohonan = $ref['desc'];
+        
+        $ref = RefBahagianCawanganPusat::findOne(['id' => $model->bahagian_cawangan_pusat]);
+        $model->bahagian_cawangan_pusat = $ref['desc'];
+        
+        $model->tarikh_permohonan = GeneralFunction::convert($model->tarikh_permohonan);
         
         return $this->render('view', [
             'model' => $model,
