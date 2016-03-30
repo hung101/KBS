@@ -42,7 +42,8 @@ class PenyelidikanKomposisiPasukanSearch extends PenyelidikanKomposisiPasukan
     public function search($params)
     {
         $query = PenyelidikanKomposisiPasukan::find()
-                ->joinWith(['refPasukanPenyelidikan']);
+                ->joinWith(['refPasukanPenyelidikan'])
+                ->joinWith(['refJawatanPasukanPenyelidikan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -63,7 +64,7 @@ class PenyelidikanKomposisiPasukanSearch extends PenyelidikanKomposisiPasukan
 
         $query->andFilterWhere(['like', 'nama', $this->nama])
             ->andFilterWhere(['like', 'tbl_ref_pasukan_penyelidikan.desc', $this->pasukan])
-            ->andFilterWhere(['like', 'jawatan', $this->jawatan])
+            ->andFilterWhere(['like', 'tbl_ref_jawatan_pasukan_penyelidikan.desc', $this->jawatan])
             ->andFilterWhere(['like', 'telefon_no', $this->telefon_no])
             ->andFilterWhere(['like', 'emel', $this->emel])
             ->andFilterWhere(['like', 'alamat_1', $this->alamat_1])

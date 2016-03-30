@@ -41,6 +41,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const format = " -- Pilih Format -- ";
         const fasilitiSatelit = " -- Pilih Fasiliti Satelit -- ";
         const fisio = " -- Pilih Fisio -- ";
+        const gelaran = " -- Pilih Gelaran -- ";
         const hubungan = " -- Pilih Hubungan -- ";
         const instructor = " -- Pilih Instructor -- ";
         const jabatan = " -- Pilih Jabatan -- ";
@@ -80,9 +81,11 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jenisPakaian = "-- Pilih Jenis Pakaian --";
         const jenisPendapatan = "-- Pilih Jenis Pendapatan --";
         const jenisPenganjuran = "-- Pilih Jenis Penganjuran --";
+        const jenisPerkhidmatan = "-- Pilih Jenis Perkhidmatan --";
         const jenisPermohonan = "-- Pilih Jenis Permohonan --";
         const jenisPermohonanProgramBinaan = "-- Pilih Jenis Permohonan --";
         const jenisProgram = "-- Pilih Jenis Program --";
+        const jenisProjek = "-- Pilih Jenis Projek --";
         const jenisRekod = "-- Pilih Jenis Rekod --";
         const jenisSejarahPerubatan = "-- Pilih Jenis Sejarah Perubatan --";
         const jenisSijil = "-- Pilih Jenis Sijil --";
@@ -137,6 +140,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kemudahan = " -- Pilih Kemudahan -- ";
         const kumpulan = "-- Pilih Kumpulan --";
         const kumpulanDarah = "-- Pilih Kumpulan Darah --";
+        const kursus = "-- Pilih Kursus --";
         const lantikan = "-- Pilih Lantikan--";
         const laporan = "-- Pilih Laporan --";
         const latarbelakangKes = "-- Pilih Latarbelakang Kes --";
@@ -270,7 +274,8 @@ if($session->get('language') == "EN") {
         const format = " -- Select The Format -- ";
         const fasilitiSatelit = " -- Select Satellite Facility -- ";
         const fisio = " -- Select Physio -- ";
-        const hubungan = " -- Select Contacts -- ";
+        const gelaran = " -- Pilih Title -- ";
+        const hubungan = " -- Select Relationship -- ";
         const instructor = " -- Select Instructor -- ";
         const jabatan = " -- Select Department -- ";
         const jantina = " -- Select Gender -- ";
@@ -309,9 +314,11 @@ if($session->get('language') == "EN") {
         const jenisPakaian = "-- Select The Type Of Clothing --";
         const jenisPendapatan = "-- Select The Type Of Income --";
         const jenisPenganjuran = "-- Select The Type Of Organisation --";
+        const jenisPerkhidmatan = "-- Select The Type Of Service --";
         const jenisPermohonan = "-- Select The Type Of Application --";
         const jenisPermohonanProgramBinaan = "-- Select The Type Of Application --";
         const jenisProgram = "-- Select The Type Of Program --";
+        const jenisProjek = "-- Select The Type Of Project --";
         const jenisRekod = "-- Select Record Type --";
         const jenisSejarahPerubatan = "-- Select The Type Of History Of Medicine --";
         const jenisSijil = "-- Select The Type Of Certificate --";
@@ -366,6 +373,7 @@ if($session->get('language') == "EN") {
         const kemudahan = " -- Select Facilities -- ";
         const kumpulan = "-- Select The Group --";
         const kumpulanDarah = "-- Select Blood Group --";
+        const kursus = "-- Select Course --";
         const lantikan = "-- Select Appointment--";
         const laporan = "-- Select Report --";
         const latarbelakangKes = "-- Select The Background To The Case --";

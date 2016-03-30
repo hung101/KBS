@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\PermohonanPenyelidikanSearch */
@@ -46,7 +47,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'permohonana_penyelidikan_id',
             'nama_permohon',
-            'tarikh_permohonan',
+            //'tarikh_permohonan',
+            [
+                'attribute' => 'tarikh_permohonan',
+                'format' => 'raw',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_permohonan);
+                },
+            ],
             'tajuk_penyelidikan',
             //'ringkasan_permohonan',
             // 'biasa_dengan_keperluan_penyelidikan',
