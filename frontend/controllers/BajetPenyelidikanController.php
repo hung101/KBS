@@ -63,6 +63,9 @@ class BajetPenyelidikanController extends Controller
         
         $model = $this->findModel($id);
         
+        // get the id before be replace by desc
+        $model->jenis_bajet_id = $model->jenis_bajet;
+        
         $ref = RefJenisBajet::findOne(['id' => $model->jenis_bajet]);
         $model->jenis_bajet = $ref['desc'];
         

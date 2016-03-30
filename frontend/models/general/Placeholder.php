@@ -38,6 +38,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const darjah = " -- Pilih Darjah -- ";
         const delegasi = " -- Pilih Delegasi -- ";
         const doktor = " -- Pilih Doktor -- ";
+        const dokumenPenyelidikan = " -- Pilih Dokumen Penyelidikan -- ";
         const format = " -- Pilih Format -- ";
         const fasilitiSatelit = " -- Pilih Fasiliti Satelit -- ";
         const fisio = " -- Pilih Fisio -- ";
@@ -271,6 +272,7 @@ if($session->get('language') == "EN") {
         const darjah = " -- Select Degree -- ";
         const delegasi = " -- Select Delegation -- ";
         const doktor = " -- Select A Doctor -- ";
+        const dokumenPenyelidikan = " -- Select A Research Document -- ";
         const format = " -- Select The Format -- ";
         const fasilitiSatelit = " -- Select Satellite Facility -- ";
         const fisio = " -- Select Physio -- ";

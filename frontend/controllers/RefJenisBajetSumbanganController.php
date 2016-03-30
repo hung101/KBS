@@ -3,16 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use app\models\RefJenisPerkhidmatanAkademik;
-use frontend\models\RefJenisPerkhidmatanAkademikSearch;
+use app\models\RefJenisBajetSumbangan;
+use frontend\models\RefJenisBajetSumbanganSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RefJenisPerkhidmatanAkademikkanController implements the CRUD actions for RefJenisPerkhidmatanAkademik model.
+ * RefJenisBajetSumbanganController implements the CRUD actions for RefJenisBajetSumbangan model.
  */
-class RefJenisPerkhidmatanAkademikkanController extends Controller
+class RefJenisBajetSumbanganController extends Controller
 {
     public function behaviors()
     {
@@ -27,12 +27,12 @@ class RefJenisPerkhidmatanAkademikkanController extends Controller
     }
 
     /**
-     * Lists all RefJenisPerkhidmatanAkademik models.
+     * Lists all RefJenisBajetSumbangan models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new RefJenisPerkhidmatanAkademikSearch();
+        $searchModel = new RefJenisBajetSumbanganSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,7 +42,7 @@ class RefJenisPerkhidmatanAkademikkanController extends Controller
     }
 
     /**
-     * Displays a single RefJenisPerkhidmatanAkademik model.
+     * Displays a single RefJenisBajetSumbangan model.
      * @param integer $id
      * @return mixed
      */
@@ -54,13 +54,13 @@ class RefJenisPerkhidmatanAkademikkanController extends Controller
     }
 
     /**
-     * Creates a new RefJenisPerkhidmatanAkademik model.
+     * Creates a new RefJenisBajetSumbangan model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new RefJenisPerkhidmatanAkademik();
+        $model = new RefJenisBajetSumbangan();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -72,7 +72,7 @@ class RefJenisPerkhidmatanAkademikkanController extends Controller
     }
 
     /**
-     * Updates an existing RefJenisPerkhidmatanAkademik model.
+     * Updates an existing RefJenisBajetSumbangan model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,7 +91,7 @@ class RefJenisPerkhidmatanAkademikkanController extends Controller
     }
 
     /**
-     * Deletes an existing RefJenisPerkhidmatanAkademik model.
+     * Deletes an existing RefJenisBajetSumbangan model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,15 +104,15 @@ class RefJenisPerkhidmatanAkademikkanController extends Controller
     }
 
     /**
-     * Finds the RefJenisPerkhidmatanAkademik model based on its primary key value.
+     * Finds the RefJenisBajetSumbangan model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return RefJenisPerkhidmatanAkademik the loaded model
+     * @return RefJenisBajetSumbangan the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = RefJenisPerkhidmatanAkademik::findOne($id)) !== null) {
+        if (($model = RefJenisBajetSumbangan::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

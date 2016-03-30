@@ -8,6 +8,7 @@ use frontend\models\RefJenisBajetSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 /**
  * RefJenisBajetController implements the CRUD actions for RefJenisBajet model.
@@ -117,5 +118,16 @@ class RefJenisBajetController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    /**
+     * get list of Ahli Jawatan by Badan Sukan
+     * @param integer $id
+     * @return Array AhliJawatans
+     */
+    public static function actionGetButiran($id) {
+        $model = RefJenisBajet::findOne($id);
+        
+        echo Json::encode($model);
     }
 }

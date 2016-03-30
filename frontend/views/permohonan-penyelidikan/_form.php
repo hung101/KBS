@@ -47,7 +47,7 @@ use app\models\general\GeneralMessage;
         }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data'], 'id'=>$model->formName()]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -276,39 +276,129 @@ use app\models\general\GeneralMessage;
                     ]
                 ]);
             ?>
+        </div>
+    </div>
             
-            <?php // Dokumen Sokongan Upload
-    if($model->akademik_dokumen_sokongan){
-        echo "<label>" . $model->getAttributeLabel('akademik_dokumen_sokongan') . "</label><br>";
-        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->akademik_dokumen_sokongan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
-        if(!$readonly){
-            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->permohonana_penyelidikan_id, 'field'=> 'akademik_dokumen_sokongan'], 
-            [
-                'class'=>'btn btn-danger', 
-                'data' => [
-                    'confirm' => GeneralMessage::confirmRemove,
-                    'method' => 'post',
-                ]
-            ]).'<p>';
-        }
-    } else {
-        echo FormGrid::widget([
-        'model' => $model,
-        'form' => $form,
-        'autoGenerateColumns' => true,
-        'rows' => [
-                [
-                    'columns'=>12,
-                    'autoGenerateColumns'=>false, // override columns setting
-                    'attributes' => [
-                        'akademik_dokumen_sokongan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
-                    ],
-                ],
-            ]
-        ]);
-    }
-    ?>
             
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong><?=GeneralLabel::persetujuan?></strong>
+        </div>
+        <div class="panel-body">
+            <?php // Penyertaan Lembaran Maklumat Upload
+            if($model->penyertaan_lembaran_maklumat){
+                echo "<label>" . $model->getAttributeLabel('penyertaan_lembaran_maklumat') . "</label><br>";
+                echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->penyertaan_lembaran_maklumat , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+                if(!$readonly){
+                    echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->permohonana_penyelidikan_id, 'field'=> 'penyertaan_lembaran_maklumat'], 
+                    [
+                        'class'=>'btn btn-danger', 
+                        'data' => [
+                            'confirm' => GeneralMessage::confirmRemove,
+                            'method' => 'post',
+                        ]
+                    ]).'<p>';
+                }
+            } else {
+                echo FormGrid::widget([
+                'model' => $model,
+                'form' => $form,
+                'autoGenerateColumns' => true,
+                'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'penyertaan_lembaran_maklumat' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                            ],
+                        ],
+                    ]
+                ]);
+            }
+            ?>
+            
+            <?php
+                echo FormGrid::widget([
+                    'model' => $model,
+                    'form' => $form,
+                    'autoGenerateColumns' => true,
+                    'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'sebab_tiada_penyertaan_lembaran_maklumat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>255]],
+                            ],
+                        ],
+                    ]
+                ]);
+            ?>
+            
+            <?php // Borang Persetujuan Penyertaan Upload
+            if($model->borang_persetujuan_penyertaan){
+                echo "<label>" . $model->getAttributeLabel('borang_persetujuan_penyertaan') . "</label><br>";
+                echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->borang_persetujuan_penyertaan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+                if(!$readonly){
+                    echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->permohonana_penyelidikan_id, 'field'=> 'borang_persetujuan_penyertaan'], 
+                    [
+                        'class'=>'btn btn-danger', 
+                        'data' => [
+                            'confirm' => GeneralMessage::confirmRemove,
+                            'method' => 'post',
+                        ]
+                    ]).'<p>';
+                }
+            } else {
+                echo FormGrid::widget([
+                'model' => $model,
+                'form' => $form,
+                'autoGenerateColumns' => true,
+                'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'borang_persetujuan_penyertaan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                            ],
+                        ],
+                    ]
+                ]);
+            }
+            ?>
+            
+            <?php
+                echo FormGrid::widget([
+                    'model' => $model,
+                    'form' => $form,
+                    'autoGenerateColumns' => true,
+                    'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'sebab_tiada_borang_persetujuan_penyertaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>255]],
+                            ],
+                        ],
+                    ]
+                ]);
+            ?>
+            
+            <?php
+                echo FormGrid::widget([
+                    'model' => $model,
+                    'form' => $form,
+                    'autoGenerateColumns' => true,
+                    'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'pengecualian_persetujuan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>255]],
+                            ],
+                        ],
+                    ]
+                ]);
+            ?>
         </div>
     </div>
     
@@ -327,7 +417,11 @@ use app\models\general\GeneralMessage;
 
             //'dokumen_penyelidikan_id',
             //'permohonana_penyelidikan_id',
-            'nama_dokumen',
+            //'nama_dokumen',
+            [
+                'attribute' => 'nama_dokumen',
+                'value' => 'refDokumenPenyelidikan.desc'
+            ],
             //'muat_naik',
             [
                 'attribute' => 'muat_naik',
@@ -391,6 +485,11 @@ use app\models\general\GeneralMessage;
     
     <h3>Bajet Penyelidikan</h3>
     
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong><?=GeneralLabel::bajet_untuk_isn?></strong>
+        </div>
+        <div class="panel-body">
     <?php Pjax::begin(['id' => 'bajetPenyelidikanGrid', 'timeout' => 100000]); ?>
 
     <?= GridView::widget([
@@ -407,8 +506,9 @@ use app\models\general\GeneralMessage;
                 'attribute' => 'jenis_bajet',
                 'value' => 'refJenisBajet.desc'
             ],
-            'tahun',
-            'jumlah',
+            'tahun_1',
+            'tahun_2',
+            'tahun_3',
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',
@@ -438,6 +538,22 @@ use app\models\general\GeneralMessage;
             ],
         ],
     ]); ?>
+            
+    <?php 
+        $calculate_jumlah_tahun_1 = 0.00;
+        $calculate_jumlah_tahun_2 = 0.00;
+        $calculate_jumlah_tahun_3 = 0.00;
+        foreach($dataProviderBajetPenyelidikan->models as $BPLmodel){
+            $calculate_jumlah_tahun_1 += $BPLmodel->tahun_1;
+            $calculate_jumlah_tahun_2 += $BPLmodel->tahun_2;
+            $calculate_jumlah_tahun_3 += $BPLmodel->tahun_3;
+        }
+        
+        $calculate_jumlah_keseluruhan = $calculate_jumlah_tahun_1 + $calculate_jumlah_tahun_2 + $calculate_jumlah_tahun_3;
+    ?>
+    
+            <strong>Tahun 1:</strong> RM <?=$calculate_jumlah_tahun_1?> &nbsp;&nbsp;&nbsp;&nbsp; <strong>Tahun 2:</strong> RM <?=$calculate_jumlah_tahun_2?> &nbsp;&nbsp;&nbsp;&nbsp; <strong>Tahun 3:</strong> RM <?=$calculate_jumlah_tahun_3?>
+            <h4><strong>Jumlah Keseluruhan: RM <?=$calculate_jumlah_keseluruhan?></strong></h4>
     
     <?php Pjax::end(); ?>
     
@@ -451,6 +567,146 @@ use app\models\general\GeneralMessage;
                         ]);?>
     </p>
     <?php endif; ?>
+    
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong><?=GeneralLabel::bajet_sumbangan?></strong>
+        </div>
+        <div class="panel-body">
+    <?php Pjax::begin(['id' => 'bajetPenyelidikanSumbanganGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderBajetPenyelidikanSumbangan,
+        //'filterModel' => $searchModelBajetPenyelidikanSumbangan,
+        'id' => 'bajetPenyelidikanGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'bajet_penyelidikan_id',
+            //'permohonana_penyelidikan_id',
+            //'jenis_bajet',
+            [
+                'attribute' => 'jenis_bajet',
+                'value' => 'refJenisBajetSumbangan.desc'
+            ],
+            'tahun_1',
+            'tahun_2',
+            'tahun_3',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['bajet-penyelidikan-sumbangan/delete', 'id' => $model->bajet_penyelidikan_id]).'", "'.GeneralMessage::confirmDelete.'", "bajetPenyelidikanSumbanganGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bajet-penyelidikan-sumbangan/update', 'id' => $model->bajet_penyelidikan_id]).'", "'.GeneralLabel::updateTitle . ' Bajet Penyelidikan");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bajet-penyelidikan-sumbangan/view', 'id' => $model->bajet_penyelidikan_id]).'", "'.GeneralLabel::viewTitle . ' Bajet Penyelidikan");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+            
+    <?php 
+        $calculate_jumlah_tahun_1 = 0.00;
+        $calculate_jumlah_tahun_2 = 0.00;
+        $calculate_jumlah_tahun_3 = 0.00;
+        foreach($dataProviderBajetPenyelidikanSumbangan->models as $BPLmodel){
+            $calculate_jumlah_tahun_1 += $BPLmodel->tahun_1;
+            $calculate_jumlah_tahun_2 += $BPLmodel->tahun_2;
+            $calculate_jumlah_tahun_3 += $BPLmodel->tahun_3;
+        }
+        
+        $calculate_jumlah_keseluruhan = $calculate_jumlah_tahun_1 + $calculate_jumlah_tahun_2 + $calculate_jumlah_tahun_3;
+    ?>
+    
+            <strong>Tahun 1:</strong> RM <?=$calculate_jumlah_tahun_1?> &nbsp;&nbsp;&nbsp;&nbsp; <strong>Tahun 2:</strong> RM <?=$calculate_jumlah_tahun_2?> &nbsp;&nbsp;&nbsp;&nbsp; <strong>Tahun 3:</strong> RM <?=$calculate_jumlah_tahun_3?>
+            <h4><strong>Jumlah Keseluruhan: RM <?=$calculate_jumlah_keseluruhan?></strong></h4>
+    
+    <?php Pjax::end(); ?>
+    
+    <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bajet-penyelidikan-sumbangan/create', 'permohonana_penyelidikan_id' => $permohonana_penyelidikan_id]).'", "'.GeneralLabel::createTitle . ' Bajet Penyelidikan");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+        </div>
+    </div>
+    
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong><?=GeneralLabel::pengisytiharan?></strong>
+        </div>
+        <div class="panel-body">
+            <?php
+            if(!$readonly){
+                echo FormGrid::widget([
+                    'model' => $model,
+                    'form' => $form,
+                    'autoGenerateColumns' => true,
+                    'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'pengisytiharan' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>6],'options'=>['id'=>'declareID']],
+                            ],
+                        ],
+                    ]
+                ]);
+            }
+            ?>
+            <?php
+                echo FormGrid::widget([
+                    'model' => $model,
+                    'form' => $form,
+                    'autoGenerateColumns' => true,
+                    'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'tarikh_pengisytiharan' => [
+                                    'type'=>Form::INPUT_WIDGET, 
+                                    'widgetClass'=> DateControl::classname(),
+                                    'ajaxConversion'=>false,
+                                    'options'=>[
+                                        'pluginOptions' => [
+                                            'autoclose'=>true,
+                                        ]
+                                    ],
+                                    'columnOptions'=>['colspan'=>3]],
+                            ],
+                        ],
+                    ]
+                ]);
+            ?>
+        </div>
+    </div>
     
     <br>
     
@@ -584,3 +840,21 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+$script = <<< JS
+    // enable all the disabled field before submit
+    $('form#{$model->formName()}').on('beforeSubmit', function (e) {
+        if(document.getElementById("declareID").checked){
+        } else {
+            alert('Sila tanda "Pengisytiharan"');
+            
+            return false;
+        }
+    });
+        
+JS;
+        
+$this->registerJs($script);
+?>

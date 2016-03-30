@@ -12,11 +12,13 @@ use app\models\general\GeneralLabel;
  * @property integer $bajet_penyelidikan_id
  * @property integer $permohonana_penyelidikan_id
  * @property string $jenis_bajet
- * @property string $tahun
+ * @property string $tahun_1
  * @property string $jumlah
  */
 class BajetPenyelidikan extends \yii\db\ActiveRecord
 {
+    public $jenis_bajet_id;
+    
     /**
      * @inheritdoc
      */
@@ -49,11 +51,10 @@ class BajetPenyelidikan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis_bajet', 'tahun', 'jumlah'], 'required', 'skipOnEmpty' => true],
-            [['permohonana_penyelidikan_id'], 'integer'],
-            [['tahun'], 'safe'],
-            [['jumlah'], 'number'],
-            [['jenis_bajet'], 'string', 'max' => 80]
+            [['jenis_bajet', 'tahun_1','tahun_2','tahun_3'], 'required', 'skipOnEmpty' => true],
+            [['permohonana_penyelidikan_id', 'jenis_bajet'], 'integer'],
+            [['jumlah','tahun_1','tahun_2','tahun_3'], 'number'],
+            [['catatan'], 'string', 'max' => 255]
         ];
     }
 
@@ -66,9 +67,11 @@ class BajetPenyelidikan extends \yii\db\ActiveRecord
             'bajet_penyelidikan_id' => GeneralLabel::bajet_penyelidikan_id,
             'permohonana_penyelidikan_id' => GeneralLabel::permohonana_penyelidikan_id,
             'jenis_bajet' => GeneralLabel::jenis_bajet,
-            'tahun' => GeneralLabel::tahun,
+            'tahun_1' => GeneralLabel::tahun_1,
+            'tahun_2' => GeneralLabel::tahun_2,
+            'tahun_3' => GeneralLabel::tahun_3,
             'jumlah' => GeneralLabel::jumlah,
-
+            'catatan' => GeneralLabel::catatan,
         ];
     }
     

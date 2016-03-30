@@ -55,15 +55,15 @@ class PermohonanPenyelidikan extends \yii\db\ActiveRecord
     {
         return [
             [['nama_permohon', 'tarikh_permohonan', 'tajuk_penyelidikan', 'ringkasan_permohonan', 'biasa_dengan_keperluan_penyelidikan', 'kelulusan_echics', 'kelulusan', 'jenis_projek'], 'required', 'skipOnEmpty' => true],
-            [['tarikh_permohonan', 'tarikh_direkodkan', 'akademik_tarikh_pelantikan_pertama', 'akademik_kontrak_tarikh_tamat'], 'safe'],
-            [['biasa_dengan_keperluan_penyelidikan', 'kelulusan_echics', 'kelulusan', 'jenis_projek', 'akademik_jenis_perkhidmatan', 'akademik_kursus'], 'integer'],
+            [['tarikh_permohonan', 'tarikh_direkodkan', 'akademik_tarikh_pelantikan_pertama', 'akademik_kontrak_tarikh_tamat', 'tarikh_pengisytiharan'], 'safe'],
+            [['biasa_dengan_keperluan_penyelidikan', 'kelulusan_echics', 'kelulusan', 'jenis_projek', 'akademik_jenis_perkhidmatan', 'akademik_kursus', 'pengisytiharan'], 'integer'],
             [['nama_permohon', 'tajuk_penyelidikan', 'akademik_nama', 'akademik_nama_yang_dicadangkan'], 'string', 'max' => 80],
-            [['ringkasan_permohonan'], 'string', 'max' => 255],
+            [['ringkasan_permohonan', 'pengecualian_persetujuan', 'sebab_tiada_penyertaan_lembaran_maklumat', 'sebab_tiada_borang_persetujuan_penyertaan'], 'string', 'max' => 255],
             [['isnrp_no', 'akademik_no_kakitangan'], 'string', 'max' => 30],
             [['akademik_ic_no'], 'string', 'max' => 12],
             [['akademik_no_tel_bimbit'], 'string', 'max' => 14],
             [['akademik_emel'], 'string', 'max' => 100],
-            [['akademik_dokumen_sokongan'],'validateFileUpload', 'skipOnEmpty' => false]
+            [['akademik_dokumen_sokongan', 'penyertaan_lembaran_maklumat', 'borang_persetujuan_penyertaan'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }
 
@@ -95,6 +95,13 @@ class PermohonanPenyelidikan extends \yii\db\ActiveRecord
             'akademik_nama_yang_dicadangkan' => GeneralLabel::nama_yang_dicadangkan,
             'akademik_kursus' => GeneralLabel::kursus,
             'akademik_dokumen_sokongan' => GeneralLabel::dokumen_sokongan,
+            'penyertaan_lembaran_maklumat' => GeneralLabel::penyertaan_lembaran_maklumat,
+            'sebab_tiada_penyertaan_lembaran_maklumat' => GeneralLabel::sebab_tiada_penyertaan_lembaran_maklumat,
+            'borang_persetujuan_penyertaan' => GeneralLabel::borang_persetujuan_penyertaan,
+            'sebab_tiada_borang_persetujuan_penyertaan' => GeneralLabel::sebab_tiada_borang_persetujuan_penyertaan,
+            'pengecualian_persetujuan' => GeneralLabel::pengecualian_persetujuan,
+            'tarikh_pengisytiharan' => GeneralLabel::tarikh,
+            'pengisytiharan' => GeneralLabel::perakuan_pemohon_penyelidikan_isn,
         ];
     }
     

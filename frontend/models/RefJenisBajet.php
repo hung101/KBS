@@ -53,8 +53,8 @@ class RefJenisBajet extends \yii\db\ActiveRecord
         return [
             [['desc'], 'required'],
             [['aktif', 'created_by', 'updated_by'], 'integer'],
-            [['created', 'updated'], 'safe'],
-            [['desc'], 'string', 'max' => 80]
+            [['created', 'updated', 'butiran'], 'safe'],
+            [['desc'], 'string', 'max' => 80],
         ];
     }
 
@@ -67,6 +67,7 @@ class RefJenisBajet extends \yii\db\ActiveRecord
             'id' => GeneralLabel::id,
             'desc' => GeneralLabel::desc,
             'aktif' => GeneralLabel::aktif,
+            'butiran' => GeneralLabel::butiran,
             'created_by' => GeneralLabel::created_by,
             'updated_by' => GeneralLabel::updated_by,
             'created' => GeneralLabel::created,

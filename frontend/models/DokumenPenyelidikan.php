@@ -87,4 +87,11 @@ class DokumenPenyelidikan extends \yii\db\ActiveRecord
             $this->addError($attribute, GeneralMessage::uploadEmptyError);
         }
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefDokumenPenyelidikan(){
+        return $this->hasOne(RefDokumenPenyelidikan::className(), ['id' => 'nama_dokumen']);
+    }
 }

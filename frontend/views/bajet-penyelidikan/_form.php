@@ -6,6 +6,7 @@ use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 // table reference
 use app\models\RefJenisBajet;
@@ -48,25 +49,52 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJenisBajet::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jenisBajet],
+                        'options' => ['placeholder' => Placeholder::jenisBajet, 'id'=>'jenisBajetID'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>6]],
-                'tahun' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>4]],
-                 'jumlah' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
+                    'columnOptions'=>['colspan'=>4]],
+                'tahun_1' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>10]],
+                'tahun_2' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>10]],
+                'tahun_3' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>10]],
             ],
         ],
         
     ]
 ]);
     ?>
+    
+<div class="row">
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-md-4" id="jenisBajetButiranID">
+      </div>
+    </div><!--/row-->    
+  </div><!--/col-12-->
+</div><!--/row-->
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'catatan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>255]],
+            ],
+        ],
+    ]
+]);
+        ?>
 
     <!--<?= $form->field($model, 'permohonana_penyelidikan_id')->textInput() ?>
 
     <?= $form->field($model, 'jenis_bajet')->textInput(['maxlength' => 80]) ?>
 
-    <?= $form->field($model, 'tahun')->textInput(['maxlength' => 4]) ?>
+    <?= $form->field($model, 'tahun_1')->textInput(['maxlength' => 4]) ?>
 
     <?= $form->field($model, 'jumlah')->textInput(['maxlength' => 10]) ?>-->
 
@@ -81,6 +109,13 @@ use app\models\general\GeneralMessage;
 </div>
 
 <?php
+$URLGetButiran = Url::to(['/ref-jenis-bajet/get-butiran']);
+$jenisBajetID = $model->jenis_bajet;
+
+if($readonly){
+    $jenisBajetID = $model->jenis_bajet_id;
+}
+
 $script = <<< JS
         
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
@@ -110,6 +145,32 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
      });
      return false;
 });
+
+$(document).ready(function(){
+    var jenisBajetID = "$jenisBajetID";
+        
+    if(jenisBajetID != "") {
+        getButiran(jenisBajetID);
+    }
+}); 
+
+$('#jenisBajetID').change(function(){
+    //alert(this.value);
+    getButiran(this.value);
+});
+        
+function getButiran(id){
+    $.get('$URLGetButiran',{id:id},function(data){
+        // Clear the butiran before get new one
+        $('#jenisBajetButiranID').html('');
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+            $('#jenisBajetButiranID').html( '<div class="well" >' + data.butiran + '</div>');
+        }
+    });  
+}
      
 
 JS;

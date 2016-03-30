@@ -19,7 +19,7 @@ class BajetPenyelidikanSearch extends BajetPenyelidikan
     {
         return [
             [['bajet_penyelidikan_id', 'permohonana_penyelidikan_id'], 'integer'],
-            [['jenis_bajet', 'tahun'], 'safe'],
+            [['jenis_bajet', 'tahun_1'], 'safe'],
             [['jumlah'], 'number'],
         ];
     }
@@ -60,7 +60,7 @@ class BajetPenyelidikanSearch extends BajetPenyelidikan
         $query->andFilterWhere([
             'bajet_penyelidikan_id' => $this->bajet_penyelidikan_id,
             'permohonana_penyelidikan_id' => $this->permohonana_penyelidikan_id,
-            'tahun' => $this->tahun,
+            'tahun_1' => $this->tahun_1,
             'jumlah' => $this->jumlah,
         ]);
 

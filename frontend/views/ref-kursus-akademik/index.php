@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
+use app\models\general\GeneralLabel;
+
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\RefKursusAkademikSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -27,9 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'desc',
-            'aktif',
-            'created_by',
-            'updated_by',
+            //'aktif',
+            [
+                'attribute' => 'aktif',
+                'value' => function ($model) {
+                    return $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no;
+                },
+            ],
             // 'created',
             // 'updated',
 

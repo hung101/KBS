@@ -19,7 +19,7 @@ class RefJenisBajetSearch extends RefJenisBajet
     {
         return [
             [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
-            [['desc', 'created', 'updated'], 'safe'],
+            [['desc', 'created', 'updated', 'butiran'], 'safe'],
         ];
     }
 
@@ -64,7 +64,8 @@ class RefJenisBajetSearch extends RefJenisBajet
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc]);
+        $query->andFilterWhere(['like', 'desc', $this->desc])
+                ->andFilterWhere(['like', 'butiran', $this->butiran]);
 
         return $dataProvider;
     }

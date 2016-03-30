@@ -41,7 +41,8 @@ class DokumenPenyelidikanSearch extends DokumenPenyelidikan
      */
     public function search($params)
     {
-        $query = DokumenPenyelidikan::find();
+        $query = DokumenPenyelidikan::find()
+                ->joinWith(['refDokumenPenyelidikan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -60,7 +61,7 @@ class DokumenPenyelidikanSearch extends DokumenPenyelidikan
             'permohonana_penyelidikan_id' => $this->permohonana_penyelidikan_id,
         ]);
 
-        $query->andFilterWhere(['like', 'nama_dokumen', $this->nama_dokumen])
+        $query->andFilterWhere(['like', 'tbl_ref_dokumen_penyelidikan.desc', $this->nama_dokumen])
             ->andFilterWhere(['like', 'muat_naik', $this->muat_naik])
                 ->andFilterWhere(['like', 'session_id', $this->session_id]);
 

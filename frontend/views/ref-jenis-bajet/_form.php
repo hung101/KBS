@@ -14,7 +14,9 @@ use app\models\general\GeneralLabel;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'desc')->textInput(['maxlength' => 80]) ?>
+    
+    <?= $form->field($model, 'butiran')->textArea(['rows' => '5']) ?>
 
     <?php $model->isNewRecord ? $model->aktif = 1: $model->aktif = $model->aktif ;  ?>
     <?= $form->field($model, 'aktif')->radioList(array(true=>GeneralLabel::yes,false=>GeneralLabel::no)); ?>

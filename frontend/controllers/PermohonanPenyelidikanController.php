@@ -11,6 +11,8 @@ use app\models\DokumenPenyelidikan;
 use frontend\models\DokumenPenyelidikanSearch;
 use app\models\BajetPenyelidikan;
 use frontend\models\BajetPenyelidikanSearch;
+use app\models\BajetPenyelidikanSumbangan;
+use frontend\models\BajetPenyelidikanSumbanganSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -95,15 +97,18 @@ class PermohonanPenyelidikanController extends Controller
         
         $model->tarikh_direkodkan = GeneralFunction::convert($model->tarikh_direkodkan);
         
+        $model->tarikh_pengisytiharan = GeneralFunction::convert($model->tarikh_pengisytiharan);
+        
         $model->akademik_tarikh_pelantikan_pertama = GeneralFunction::convert($model->akademik_tarikh_pelantikan_pertama);
         
         $model->akademik_kontrak_tarikh_tamat = GeneralFunction::convert($model->akademik_kontrak_tarikh_tamat);
         
         $queryPar = null;
         
-        $queryPar['PenyelidikanKomposisiPasukanSearch']['pengurusan_perhimpunan_kem_id'] = $id;
-        $queryPar['DokumenPenyelidikanSearch']['pengurusan_perhimpunan_kem_id'] = $id;
-        $queryPar['BajetPenyelidikanSearch']['pengurusan_perhimpunan_kem_id'] = $id;
+        $queryPar['PenyelidikanKomposisiPasukanSearch']['permohonana_penyelidikan_id'] = $id;
+        $queryPar['DokumenPenyelidikanSearch']['permohonana_penyelidikan_id'] = $id;
+        $queryPar['BajetPenyelidikanSearch']['permohonana_penyelidikan_id'] = $id;
+        $queryPar['BajetPenyelidikanSumbanganSearch']['permohonana_penyelidikan_id'] = $id;
         
         $searchModelPenyelidikanKomposisiPasukan  = new PenyelidikanKomposisiPasukanSearch();
         $dataProviderPenyelidikanKomposisiPasukan = $searchModelPenyelidikanKomposisiPasukan->search($queryPar);
@@ -114,6 +119,9 @@ class PermohonanPenyelidikanController extends Controller
         $searchModelBajetPenyelidikan = new BajetPenyelidikanSearch();
         $dataProviderBajetPenyelidikan = $searchModelBajetPenyelidikan->search($queryPar);
         
+        $searchModelBajetPenyelidikanSumbangan = new BajetPenyelidikanSumbanganSearch();
+        $dataProviderBajetPenyelidikanSumbangan = $searchModelBajetPenyelidikanSumbangan->search($queryPar);
+        
         return $this->render('view', [
             'model' => $model,
             'searchModelPenyelidikanKomposisiPasukan' => $searchModelPenyelidikanKomposisiPasukan,
@@ -122,6 +130,8 @@ class PermohonanPenyelidikanController extends Controller
             'dataProviderDokumenPenyelidikan' => $dataProviderDokumenPenyelidikan,
             'searchModelBajetPenyelidikan' => $searchModelBajetPenyelidikan,
             'dataProviderBajetPenyelidikan' => $dataProviderBajetPenyelidikan,
+            'searchModelBajetPenyelidikanSumbangan' => $searchModelBajetPenyelidikanSumbangan,
+            'dataProviderBajetPenyelidikanSumbangan' => $dataProviderBajetPenyelidikanSumbangan,
             'readonly' => true,
         ]);
     }
@@ -147,6 +157,7 @@ class PermohonanPenyelidikanController extends Controller
             $queryPar['PenyelidikanKomposisiPasukanSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['DokumenPenyelidikanSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['BajetPenyelidikanSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['BajetPenyelidikanSumbanganSearch']['session_id'] = Yii::$app->session->id;
         }
         
         $searchModelPenyelidikanKomposisiPasukan  = new PenyelidikanKomposisiPasukanSearch();
@@ -154,6 +165,9 @@ class PermohonanPenyelidikanController extends Controller
         
         $searchModelDokumenPenyelidikan  = new DokumenPenyelidikanSearch();
         $dataProviderDokumenPenyelidikan = $searchModelDokumenPenyelidikan->search($queryPar);
+        
+        $searchModelBajetPenyelidikanSumbangan = new BajetPenyelidikanSumbanganSearch();
+        $dataProviderBajetPenyelidikanSumbangan = $searchModelBajetPenyelidikanSumbangan->search($queryPar);
         
         $searchModelBajetPenyelidikan = new BajetPenyelidikanSearch();
         $dataProviderBajetPenyelidikan = $searchModelBajetPenyelidikan->search($queryPar);
@@ -168,11 +182,24 @@ class PermohonanPenyelidikanController extends Controller
                 
                 BajetPenyelidikan::updateAll(['permohonana_penyelidikan_id' => $model->permohonana_penyelidikan_id], 'session_id = "'.Yii::$app->session->id.'"');
                 BajetPenyelidikan::updateAll(['session_id' => ''], 'permohonana_penyelidikan_id = "'.$model->permohonana_penyelidikan_id.'"');
+                
+                BajetPenyelidikanSumbangan::updateAll(['permohonana_penyelidikan_id' => $model->permohonana_penyelidikan_id], 'session_id = "'.Yii::$app->session->id.'"');
+                BajetPenyelidikanSumbangan::updateAll(['session_id' => ''], 'permohonana_penyelidikan_id = "'.$model->permohonana_penyelidikan_id.'"');
             }
             
             $file = UploadedFile::getInstance($model, 'akademik_dokumen_sokongan');
             if($file){
-                $model->akademik_dokumen_sokongan = Upload::uploadFile($file, Upload::permohonanPenyelidikanFolder, $model->permohonana_penyelidikan_id);
+                $model->akademik_dokumen_sokongan = Upload::uploadFile($file, Upload::permohonanPenyelidikanFolder, 'akademik_dokumen_sokongan-' .$model->permohonana_penyelidikan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'penyertaan_lembaran_maklumat');
+            if($file){
+                $model->penyertaan_lembaran_maklumat = Upload::uploadFile($file, Upload::permohonanPenyelidikanFolder, 'penyertaan_lembaran_maklumat-' .$model->permohonana_penyelidikan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'borang_persetujuan_penyertaan');
+            if($file){
+                $model->borang_persetujuan_penyertaan = Upload::uploadFile($file, Upload::permohonanPenyelidikanFolder, 'borang_persetujuan_penyertaan-' .$model->permohonana_penyelidikan_id);
             }
             
             if($model->save()){
@@ -188,6 +215,8 @@ class PermohonanPenyelidikanController extends Controller
                 'dataProviderDokumenPenyelidikan' => $dataProviderDokumenPenyelidikan,
                 'searchModelBajetPenyelidikan' => $searchModelBajetPenyelidikan,
                 'dataProviderBajetPenyelidikan' => $dataProviderBajetPenyelidikan,
+                'searchModelBajetPenyelidikanSumbangan' => $searchModelBajetPenyelidikanSumbangan,
+                'dataProviderBajetPenyelidikanSumbangan' => $dataProviderBajetPenyelidikanSumbangan,
                 'readonly' => false,
             ]);
     }
@@ -208,9 +237,10 @@ class PermohonanPenyelidikanController extends Controller
         
         $queryPar = null;
         
-        $queryPar['PenyelidikanKomposisiPasukanSearch']['pengurusan_perhimpunan_kem_id'] = $id;
-        $queryPar['DokumenPenyelidikanSearch']['pengurusan_perhimpunan_kem_id'] = $id;
-        $queryPar['BajetPenyelidikanSearch']['pengurusan_perhimpunan_kem_id'] = $id;
+        $queryPar['PenyelidikanKomposisiPasukanSearch']['permohonana_penyelidikan_id'] = $id;
+        $queryPar['DokumenPenyelidikanSearch']['permohonana_penyelidikan_id'] = $id;
+        $queryPar['BajetPenyelidikanSearch']['permohonana_penyelidikan_id'] = $id;
+        $queryPar['BajetPenyelidikanSumbanganSearch']['permohonana_penyelidikan_id'] = $id;
         
         $searchModelPenyelidikanKomposisiPasukan  = new PenyelidikanKomposisiPasukanSearch();
         $dataProviderPenyelidikanKomposisiPasukan = $searchModelPenyelidikanKomposisiPasukan->search($queryPar);
@@ -220,11 +250,24 @@ class PermohonanPenyelidikanController extends Controller
         
         $searchModelBajetPenyelidikan = new BajetPenyelidikanSearch();
         $dataProviderBajetPenyelidikan = $searchModelBajetPenyelidikan->search($queryPar);
+        
+        $searchModelBajetPenyelidikanSumbangan = new BajetPenyelidikanSumbanganSearch();
+        $dataProviderBajetPenyelidikanSumbangan = $searchModelBajetPenyelidikanSumbangan->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'akademik_dokumen_sokongan');
             if($file){
                 $model->akademik_dokumen_sokongan = Upload::uploadFile($file, Upload::permohonanPenyelidikanFolder, $model->permohonana_penyelidikan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'penyertaan_lembaran_maklumat');
+            if($file){
+                $model->penyertaan_lembaran_maklumat = Upload::uploadFile($file, Upload::permohonanPenyelidikanFolder, 'penyertaan_lembaran_maklumat-' .$model->permohonana_penyelidikan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'borang_persetujuan_penyertaan');
+            if($file){
+                $model->borang_persetujuan_penyertaan = Upload::uploadFile($file, Upload::permohonanPenyelidikanFolder, 'borang_persetujuan_penyertaan-' .$model->permohonana_penyelidikan_id);
             }
             
             if($model->save()){
@@ -240,6 +283,8 @@ class PermohonanPenyelidikanController extends Controller
                 'dataProviderDokumenPenyelidikan' => $dataProviderDokumenPenyelidikan,
                 'searchModelBajetPenyelidikan' => $searchModelBajetPenyelidikan,
                 'dataProviderBajetPenyelidikan' => $dataProviderBajetPenyelidikan,
+                'searchModelBajetPenyelidikanSumbangan' => $searchModelBajetPenyelidikanSumbangan,
+                'dataProviderBajetPenyelidikanSumbangan' => $dataProviderBajetPenyelidikanSumbangan,
                 'readonly' => false,
             ]);
     }
