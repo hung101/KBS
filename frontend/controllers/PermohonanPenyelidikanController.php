@@ -14,10 +14,18 @@ use frontend\models\BajetPenyelidikanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 // contant values
+use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
+
+// table reference
+use app\models\RefJenisProjek;
+use app\models\RefJenisPerkhidmatanAkademik;
+use app\models\RefKursusAkademik;
 
 /**
  * PermohonanPenyelidikanController implements the CRUD actions for PermohonanPenyelidikan model.
@@ -73,6 +81,23 @@ class PermohonanPenyelidikanController extends Controller
         $model->kelulusan_echics  = GeneralLabel::getYesNoLabel($model->kelulusan_echics);
         
         $model->kelulusan  = GeneralLabel::getYesNoLabel($model->kelulusan);
+        
+        $ref = RefJenisProjek::findOne(['id' => $model->jenis_projek]);
+        $model->jenis_projek = $ref['desc'];
+        
+        $ref = RefJenisPerkhidmatanAkademik::findOne(['id' => $model->akademik_jenis_perkhidmatan]);
+        $model->akademik_jenis_perkhidmatan = $ref['desc'];
+        
+        $ref = RefKursusAkademik::findOne(['id' => $model->akademik_kursus]);
+        $model->akademik_kursus = $ref['desc'];
+        
+        $model->tarikh_permohonan = GeneralFunction::convert($model->tarikh_permohonan);
+        
+        $model->tarikh_direkodkan = GeneralFunction::convert($model->tarikh_direkodkan);
+        
+        $model->akademik_tarikh_pelantikan_pertama = GeneralFunction::convert($model->akademik_tarikh_pelantikan_pertama);
+        
+        $model->akademik_kontrak_tarikh_tamat = GeneralFunction::convert($model->akademik_kontrak_tarikh_tamat);
         
         $queryPar = null;
         
@@ -145,9 +170,17 @@ class PermohonanPenyelidikanController extends Controller
                 BajetPenyelidikan::updateAll(['session_id' => ''], 'permohonana_penyelidikan_id = "'.$model->permohonana_penyelidikan_id.'"');
             }
             
-            return $this->redirect(['view', 'id' => $model->permohonana_penyelidikan_id]);
-        } else {
-            return $this->render('create', [
+            $file = UploadedFile::getInstance($model, 'akademik_dokumen_sokongan');
+            if($file){
+                $model->akademik_dokumen_sokongan = Upload::uploadFile($file, Upload::permohonanPenyelidikanFolder, $model->permohonana_penyelidikan_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->permohonana_penyelidikan_id]);
+            }
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'searchModelPenyelidikanKomposisiPasukan' => $searchModelPenyelidikanKomposisiPasukan,
                 'dataProviderPenyelidikanKomposisiPasukan' => $dataProviderPenyelidikanKomposisiPasukan,
@@ -157,7 +190,6 @@ class PermohonanPenyelidikanController extends Controller
                 'dataProviderBajetPenyelidikan' => $dataProviderBajetPenyelidikan,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -190,9 +222,17 @@ class PermohonanPenyelidikanController extends Controller
         $dataProviderBajetPenyelidikan = $searchModelBajetPenyelidikan->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->permohonana_penyelidikan_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'akademik_dokumen_sokongan');
+            if($file){
+                $model->akademik_dokumen_sokongan = Upload::uploadFile($file, Upload::permohonanPenyelidikanFolder, $model->permohonana_penyelidikan_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->permohonana_penyelidikan_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelPenyelidikanKomposisiPasukan' => $searchModelPenyelidikanKomposisiPasukan,
                 'dataProviderPenyelidikanKomposisiPasukan' => $dataProviderPenyelidikanKomposisiPasukan,
@@ -202,7 +242,6 @@ class PermohonanPenyelidikanController extends Controller
                 'dataProviderBajetPenyelidikan' => $dataProviderBajetPenyelidikan,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

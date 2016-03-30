@@ -58,8 +58,8 @@ class PenyelidikanKomposisiPasukan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'pasukan', 'telefon_no', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'institusi_universiti_syarikat'], 'required', 'skipOnEmpty' => true],
-            [['permohonana_penyelidikan_id'], 'integer'],
+            [['nama', 'jawatan', 'gelaran', 'pasukan', 'telefon_no', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'institusi_universiti_syarikat'], 'required', 'skipOnEmpty' => true],
+            [['permohonana_penyelidikan_id', 'gelaran'], 'integer'],
             [['nama', 'institusi_universiti_syarikat'], 'string', 'max' => 80],
             [['pasukan', 'jawatan', 'alamat_negeri'], 'string', 'max' => 30],
             [['telefon_no'], 'string', 'max' => 14],
@@ -90,7 +90,7 @@ class PenyelidikanKomposisiPasukan extends \yii\db\ActiveRecord
             'alamat_bandar' => GeneralLabel::alamat_bandar,
             'alamat_poskod' => GeneralLabel::alamat_poskod,
             'institusi_universiti_syarikat' => GeneralLabel::institusi_universiti_syarikat,
-
+            'gelaran' => GeneralLabel::gelaran,
         ];
     }
     
@@ -99,5 +99,12 @@ class PenyelidikanKomposisiPasukan extends \yii\db\ActiveRecord
      */
     public function getRefPasukanPenyelidikan(){
         return $this->hasOne(RefPasukanPenyelidikan::className(), ['id' => 'pasukan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJawatanPasukanPenyelidikan(){
+        return $this->hasOne(RefJawatanPasukanPenyelidikan::className(), ['id' => 'jawatan']);
     }
 }

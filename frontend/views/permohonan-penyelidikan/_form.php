@@ -10,6 +10,7 @@ use kartik\widgets\DepDrop;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
+use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
 
 // table reference
@@ -19,6 +20,9 @@ use app\models\RefSokongan;
 use app\models\RefBank;
 use app\models\RefNegeri;
 use app\models\RefBandar;
+use app\models\RefJenisProjek;
+use app\models\RefJenisPerkhidmatanAkademik;
+use app\models\RefKursusAkademik;
 
 // contant values
 use app\models\general\Placeholder;
@@ -43,7 +47,7 @@ use app\models\general\GeneralMessage;
         }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -72,6 +76,20 @@ use app\models\general\GeneralMessage;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'tajuk_penyelidikan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                'jenis_projek' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-projek/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefJenisProjek::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::jenisProjek],],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
         [
@@ -85,7 +103,7 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     
-    <h3>Penyelidikan Komposisi Pasukan</h3>
+    <h3><?=GeneralLabel::penyelidikan_komposisi_pasukan?></h3>
     
     <?php 
             Modal::begin([
@@ -113,11 +131,15 @@ use app\models\general\GeneralMessage;
             //'permohonana_penyelidikan_id',
             'nama',
             //'pasukan',
-            [
+            /*[
                 'attribute' => 'pasukan',
                 'value' => 'refPasukanPenyelidikan.desc'
+            ],*/
+            //'jawatan',
+            [
+                'attribute' => 'jawatan',
+                'value' => 'refJawatanPasukanPenyelidikan.desc'
             ],
-            'jawatan',
             // 'telefon_no',
             // 'emel',
             // 'alamat_1',
@@ -126,7 +148,7 @@ use app\models\general\GeneralMessage;
             // 'alamat_negeri',
             // 'alamat_bandar',
             // 'alamat_poskod',
-            // 'institusi_universiti_syarikat',
+            'institusi_universiti_syarikat',
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',
@@ -142,13 +164,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyelidikan-komposisi-pasukan/update', 'id' => $model->penyelidikan_komposisi_pasukan_id]).'", "'.GeneralLabel::updateTitle . ' Penyelidikan Komposisi Pasukan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyelidikan-komposisi-pasukan/update', 'id' => $model->penyelidikan_komposisi_pasukan_id]).'", "'.GeneralLabel::updateTitle  . ' ' . GeneralLabel::penyelidikan_komposisi_pasukan .'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyelidikan-komposisi-pasukan/view', 'id' => $model->penyelidikan_komposisi_pasukan_id]).'", "'.GeneralLabel::viewTitle . ' Penyelidikan Komposisi Pasukan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyelidikan-komposisi-pasukan/view', 'id' => $model->penyelidikan_komposisi_pasukan_id]).'", "'.GeneralLabel::viewTitle  . ' ' . GeneralLabel::penyelidikan_komposisi_pasukan .'");',
                         ]);
                     }
                 ],
@@ -169,11 +191,126 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyelidikan-komposisi-pasukan/create', 'permohonana_penyelidikan_id' => $permohonana_penyelidikan_id]).'", "'.GeneralLabel::createTitle . ' Penyelidikan Komposisi Pasukan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyelidikan-komposisi-pasukan/create', 'permohonana_penyelidikan_id' => $permohonana_penyelidikan_id]).'", "'.GeneralLabel::createTitle  . ' ' . GeneralLabel::penyelidikan_komposisi_pasukan .'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
     <?php endif; ?>
+    
+    <br>
+    
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong><?=GeneralLabel::butiran_akademik?></strong>
+        </div>
+        <div class="panel-body">
+            <?php
+                echo FormGrid::widget([
+                    'model' => $model,
+                    'form' => $form,
+                    'autoGenerateColumns' => true,
+                    'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'akademik_nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
+                                'akademik_ic_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12]],
+                                'akademik_no_kakitangan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
+                            ],
+                        ],
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'akademik_jenis_perkhidmatan' => [
+                                    'type'=>Form::INPUT_WIDGET, 
+                                    'widgetClass'=>'\kartik\widgets\Select2',
+                                    'options'=>[
+                                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                        [
+                                            'append' => [
+                                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-perkhidmatan-akademik/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                                'asButton' => true
+                                            ]
+                                        ] : null,
+                                        'data'=>ArrayHelper::map(RefJenisPerkhidmatanAkademik::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                        'options' => ['placeholder' => Placeholder::jenisPerkhidmatan],],
+                                    'columnOptions'=>['colspan'=>3]],
+                                'akademik_kontrak_tarikh_tamat' => [
+                                    'type'=>Form::INPUT_WIDGET, 
+                                    'widgetClass'=> DateControl::classname(),
+                                    'ajaxConversion'=>false,
+                                    'options'=>[
+                                        'pluginOptions' => [
+                                            'autoclose'=>true,
+                                        ]
+                                    ],
+                                    'columnOptions'=>['colspan'=>3]],
+                                'akademik_no_tel_bimbit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
+                                'akademik_emel' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+                            ],
+                        ],
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'akademik_nama_yang_dicadangkan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+                                'akademik_kursus' => [
+                                    'type'=>Form::INPUT_WIDGET, 
+                                    'widgetClass'=>'\kartik\widgets\Select2',
+                                    'options'=>[
+                                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                        [
+                                            'append' => [
+                                                'content' => Html::a(Html::icon('edit'), ['/ref-kursus-akademik/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                                'asButton' => true
+                                            ]
+                                        ] : null,
+                                        'data'=>ArrayHelper::map(RefKursusAkademik::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                        'options' => ['placeholder' => Placeholder::kursus],],
+                                    'columnOptions'=>['colspan'=>3]],
+                            ],
+                        ],
+                    ]
+                ]);
+            ?>
+            
+            <?php // Dokumen Sokongan Upload
+    if($model->akademik_dokumen_sokongan){
+        echo "<label>" . $model->getAttributeLabel('akademik_dokumen_sokongan') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->akademik_dokumen_sokongan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->permohonana_penyelidikan_id, 'field'=> 'akademik_dokumen_sokongan'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'akademik_dokumen_sokongan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+            
+        </div>
+    </div>
     
     <br>
     
@@ -382,6 +519,47 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     <?php endif; ?>
+    
+    
+    <?php if($model->kelulusan == 1  || $readonly): ?>
+    <br>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong><?=GeneralLabel::untuk_kegunaan_pejabat_sahaja?></strong>
+        </div>
+        <div class="panel-body">
+            <?php
+                echo FormGrid::widget([
+                    'model' => $model,
+                    'form' => $form,
+                    'autoGenerateColumns' => true,
+                    'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'isnrp_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
+                                'tarikh_direkodkan' => [
+                                    'type'=>Form::INPUT_WIDGET, 
+                                    'widgetClass'=> DateControl::classname(),
+                                    'ajaxConversion'=>false,
+                                    'options'=>[
+                                        'pluginOptions' => [
+                                            'autoclose'=>true,
+                                        ]
+                                    ],
+                                    'columnOptions'=>['colspan'=>3]],
+                            ],
+                        ],
+                    ]
+                ]);
+            ?>
+            
+        </div>
+    </div>
+    <?php endif; ?>
+    
 
     <!--<?= $form->field($model, 'nama_permohon')->textInput(['maxlength' => 80]) ?>
 
