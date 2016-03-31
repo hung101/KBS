@@ -33,10 +33,34 @@ $this->params['breadcrumbs'][] = $this->title;
             //'kategori_atlet',
             //'sukan',
             //'acara',
-             'atlet',
-             'fit',
-             'unfit',
-             'refer',
+             [
+                'attribute' => 'atlet',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet,
+                ]
+            ],
+             [
+                'attribute' => 'fit',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::fit,
+                ]
+            ],
+             [
+                'attribute' => 'unfit',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::unfit,
+                ]
+            ],
+             [
+                'attribute' => 'refer',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::refer,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

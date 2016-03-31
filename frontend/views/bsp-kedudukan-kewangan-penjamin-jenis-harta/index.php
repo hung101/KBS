@@ -33,10 +33,26 @@ $this->params['breadcrumbs'][] = $this->title;
             //'jenis_harta',
             [
                 'attribute' => 'jenis_harta',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_harta,
+                ],
                 'value' => 'refJenisHarta.desc'
             ],
-            'jumlah_ekar_kaki_persegi',
-            'nilai',
+            [
+                'attribute' => 'jumlah_ekar_kaki_persegi',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_ekar_kaki_persegi,
+                ]
+            ],
+            [
+                'attribute' => 'nilai',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nilai,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

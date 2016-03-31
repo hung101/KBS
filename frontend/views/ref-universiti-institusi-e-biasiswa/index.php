@@ -30,12 +30,26 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'id',
             [
                 'attribute' => 'ref_universiti_institusi_kategori_e_biasiswa_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::ref_universiti_institusi_kategori_e_biasiswa_id,
+                ],
                 'value' => 'refUniversitiInstitusiKategoriEBiasiswa.desc',
             ],
-            'desc',
+            [
+                'attribute' => 'desc',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::desc,
+                ]
+            ],
             // 'aktif',
             [
                 'attribute' => 'aktif',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::aktif,
+                ],
                 'value' => function ($model) {
                     return $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no;
                 },

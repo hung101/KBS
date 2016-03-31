@@ -49,19 +49,45 @@ $this->params['breadcrumbs'][] = $this->title;
             //'kategori_kursus',
             [
                 'attribute' => 'kategori_kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_kursus,
+                ],
                 'value' => 'refKategoriKursus.desc'
             ],
-            'nama_kursus',
+            [
+                'attribute' => 'nama_kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_kursus,
+                ]
+            ],
             //'tarikh_kursus',
             [
                 'attribute' => 'tarikh_kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_kursus,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_kursus);
                 },
             ],
-            'lokasi_kursus',
-            'penganjuran_kursus',
+            [
+                'attribute' => 'lokasi_kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::lokasi_kursus,
+                ]
+            ],
+            [
+                'attribute' => 'penganjuran_kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::penganjuran_kursus,
+                ]
+            ],
             // 'bilangan_ahli_yang_menyertai',
 
             //['class' => 'yii\grid\ActionColumn'],

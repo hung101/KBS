@@ -30,10 +30,34 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'senarai_tugas_id',
             //'mesyuarat_id',
-            'name_tugas',
-            'tarikh_tamat',
-            'pegawai',
-            'atlet_id',
+            [
+                'attribute' => 'name_tugas',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::name_tugas,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_tamat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat,
+                ]
+            ],
+            [
+                'attribute' => 'pegawai',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pegawai,
+                ]
+            ],
+            [
+                'attribute' => 'atlet_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
+                ]
+            ],
             // 'persatuan',
             // 'status',
 

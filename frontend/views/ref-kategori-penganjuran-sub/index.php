@@ -31,12 +31,26 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             [
                 'attribute' => 'ref_kategori_penganjuran_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::ref_kategori_penganjuran_id,
+                ],
                 'value' => 'refKategoriPenganjuran.desc',
             ],
-            'desc',
+            [
+                'attribute' => 'desc',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::desc,
+                ]
+            ],
             //'aktif',
             [
                 'attribute' => 'aktif',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::aktif,
+                ],
                 'value' => function ($model) {
                     return $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no;
                 },

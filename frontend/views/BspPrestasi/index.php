@@ -30,8 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'bsp_prestasi_id',
             //'bsp_pemohon_id',
-            'laporan_ulasan',
-            'nyatakan_sebab_sebab_tidak_menyertai_kejohanan',
+            [
+                'attribute' => 'laporan_ulasan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::laporan_ulasan,
+                ]
+            ],
+            [
+                'attribute' => 'nyatakan_sebab_sebab_tidak_menyertai_kejohanan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nyatakan_sebab_sebab_tidak_menyertai_kejohanan,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -49,17 +49,35 @@ $this->params['breadcrumbs'][] = $this->title;
             //'atlet_id',
             [
                 'attribute' => 'atlet_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
+                ],
                 'value' => 'refAtlet.name_penuh'
             ],
             //'nama_peralatan',
             [
                 'attribute' => 'nama_peralatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_peralatan,
+                ],
                 'value' => 'refPeralatanPinjaman.desc'
             ],
-            'kuantiti',
+            [
+                'attribute' => 'kuantiti',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kuantiti,
+                ]
+            ],
             //'tarikh_diberi',
             [
                 'attribute' => 'tarikh_diberi',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_diberi,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_diberi, GeneralFunction::TYPE_DATETIME);
@@ -68,6 +86,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'tarikh_dipulang',
             [
                 'attribute' => 'tarikh_dipulang',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_dipulang,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_dipulang, GeneralFunction::TYPE_DATETIME);

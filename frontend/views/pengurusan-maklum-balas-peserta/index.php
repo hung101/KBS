@@ -45,16 +45,30 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'pengurusan_maklum_balas_peserta_id',
-            'nama_penganjuran_kursus',
+            [
+                'attribute' => 'nama_penganjuran_kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_penganjuran_kursus,
+                ]
+            ],
             //'kod_kursus',
             //'tarikh_kursus',
             //'catatan',
             [
                 'attribute' => 'jantina',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jantina,
+                ],
                 'value' => 'refJantina.desc'
             ],
             [
                 'attribute' => 'bangsa',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bangsa,
+                ],
                 'value' => 'refBangsa.desc'
             ],
 

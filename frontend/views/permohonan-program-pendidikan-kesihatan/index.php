@@ -46,21 +46,53 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'permohonan_program_pendidikan_kesihatan_id',
-            'nama_program',
-            'tarikh_program',
-            'tempat_program',
-            'nama_pemohon',
+            [
+                'attribute' => 'nama_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_program,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_program,
+                ]
+            ],
+            [
+                'attribute' => 'tempat_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tempat_program,
+                ]
+            ],
+            [
+                'attribute' => 'nama_pemohon',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pemohon,
+                ]
+            ],
             // 'no_tel_pemohon',
             // 'pegawai_bertugas',
             // 'muat_naik',
             //'kelulusan_ceo',
             [
                 'attribute' => 'kelulusan_ceo',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelulusan_ceo,
+                ],
                 'value' => 'refKelulusanCEO.desc'
             ],
             //'kelulusan_pbu',
             [
                 'attribute' => 'kelulusan_pbu',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelulusan_pbu,
+                ],
                 'value' => 'refKelulusanPBU.desc'
             ],
 

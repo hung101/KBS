@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pemohon_kursus_tahap_akk_id',
             //'akademi_akk_id',
-            'tahap',
-            'tahun_lulus',
-            'no_sijil',
+            [
+                'attribute' => 'tahap',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahap,
+                ]
+            ],
+            [
+                'attribute' => 'tahun_lulus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun_lulus,
+                ]
+            ],
+            [
+                'attribute' => 'no_sijil',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_sijil,
+                ]
+            ],
             // 'kod_kursus',
             // 'tempat',
             // 'muatnaik_sijil',

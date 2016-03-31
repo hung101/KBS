@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'penyelidikan_komposisi_pasukan_id',
             //'permohonana_penyelidikan_id',
-            'nama',
-            'pasukan',
-            'jawatan',
+            [
+                'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ]
+            ],
+            [
+                'attribute' => 'pasukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pasukan,
+                ]
+            ],
+            [
+                'attribute' => 'jawatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jawatan,
+                ]
+            ],
             // 'telefon_no',
             // 'emel',
             // 'alamat_1',

@@ -49,16 +49,34 @@ $this->params['breadcrumbs'][] = $this->title;
             //'kategori_elaporan',
             [
                 'attribute' => 'kategori_elaporan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_elaporan,
+                ],
                 'value' => 'refKategoriELaporan.desc'
             ],
-            'nama_projek_program_aktiviti_kejohanan',
+            [
+                'attribute' => 'nama_projek_program_aktiviti_kejohanan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_projek_program_aktiviti_kejohanan,
+                ]
+            ],
             //'peringkat',
             [
                 'attribute' => 'peringkat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::peringkat,
+                ],
                 'value' => 'refPeringkatELaporan.desc'
             ],
             [
                 'attribute' => 'alamat_tempat_pelaksanaan_parlimen',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::alamat_tempat_pelaksanaan_parlimen,
+                ],
                 'value' => 'refParlimen.desc'
             ],
             //'nama_penganjur_persatuan_kerjasama',
@@ -69,6 +87,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'tarikh_pelaksanaan_mula',
             [
                 'attribute' => 'tarikh_pelaksanaan_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_pelaksanaan_mula,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_pelaksanaan_mula);
@@ -77,6 +99,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'tarikh_pelaksanaan_akhir',
             [
                 'attribute' => 'tarikh_pelaksanaan_akhir',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_pelaksanaan_akhir,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_pelaksanaan_akhir);
@@ -91,7 +117,13 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'l_cina',
             // 'l_india',
             // 'l_lain_lain',
-            'jumlah_penyertaan',
+            [
+                'attribute' => 'jumlah_penyertaan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_penyertaan,
+                ]
+            ],
             // 'rumusan_program',
             // 'muat_naik',
 

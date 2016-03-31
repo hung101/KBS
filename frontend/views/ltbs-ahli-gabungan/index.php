@@ -51,7 +51,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'badan_sukan',
                 'value' => 'refBadanSukan.nama_badan_sukan'
             ],
-            'alamat_badan_sukan_1',
+            [
+                'attribute' => 'alamat_badan_sukan_1',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::alamat_badan_sukan_1,
+                ]
+            ],
             //'nama_penuh_presiden_badan_sukan',
             //'nama_penuh_setiausaha_badan_sukan',
 

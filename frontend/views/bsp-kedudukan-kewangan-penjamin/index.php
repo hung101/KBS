@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'bsp_kedudukan_kewangan_penjamin_id',
             //'bsp_penjamin_id',
-            'pendapatan_bulanan',
-            'pinjaman_perumahan_baki_terkini',
-            'sebagai_penjamin_siberhutang',
+            [
+                'attribute' => 'pendapatan_bulanan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pendapatan_bulanan,
+                ]
+            ],
+            [
+                'attribute' => 'pinjaman_perumahan_baki_terkini',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pinjaman_perumahan_baki_terkini,
+                ]
+            ],
+            [
+                'attribute' => 'sebagai_penjamin_siberhutang',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sebagai_penjamin_siberhutang,
+                ]
+            ],
             // 'lain_lain_pinjaman_tanggungan',
             // 'perkerjaan',
             // 'nama_alamat_majikan',

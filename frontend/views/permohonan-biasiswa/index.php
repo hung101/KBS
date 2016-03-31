@@ -48,18 +48,42 @@ $this->params['breadcrumbs'][] = $this->title;
             //'atlet_id',
             [
                 'attribute' => 'atlet_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
+                ],
                 'value' => 'refAtlet.name_penuh'
             ],
             //'sukan',
             [
                 'attribute' => 'sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
                 'value' => 'refSukan.desc'
             ],
-            'no_ic',
-            'umur',
+            [
+                'attribute' => 'no_ic',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_ic,
+                ]
+            ],
+            [
+                'attribute' => 'umur',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::umur,
+                ]
+            ],
             //'jantina',
             [
                 'attribute' => 'jantina',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jantina,
+                ],
                 'value' => 'refJantina.desc'
             ],
             // 'alamat_rumah_1',

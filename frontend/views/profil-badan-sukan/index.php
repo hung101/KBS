@@ -46,11 +46,27 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'profil_badan_sukan',
-            'nama_badan_sukan',
-            'nama_badan_sukan_sebelum_ini',
+            [
+                'attribute' => 'nama_badan_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_badan_sukan,
+                ]
+            ],
+            [
+                'attribute' => 'nama_badan_sukan_sebelum_ini',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_badan_sukan_sebelum_ini,
+                ]
+            ],
             //'no_pendaftaran_sijil_pendaftaran',
             [
                 'attribute' => 'no_pendaftaran_sijil_pendaftaran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_pendaftaran_sijil_pendaftaran,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     if($model->no_pendaftaran_sijil_pendaftaran){
@@ -63,6 +79,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'tarikh_lulus_pendaftaran',
             [
                 'attribute' => 'tarikh_lulus_pendaftaran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_lulus_pendaftaran,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_lulus_pendaftaran);

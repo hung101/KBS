@@ -27,15 +27,29 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'desc',
+            [
+                'attribute' => 'desc',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::desc,
+                ]
+            ],
             [
                 'attribute' => 'report_flag',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::report_flag,
+                ],
                 'value' => function ($model) {
                     return $model->report_flag == 1 ? GeneralLabel::yes : GeneralLabel::no;
                 },
             ],
             [
                 'attribute' => 'aktif',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::aktif,
+                ],
                 'value' => function ($model) {
                     return $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no;
                 },

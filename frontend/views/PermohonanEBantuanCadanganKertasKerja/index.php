@@ -30,7 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'permohonan_e_bantuan_cadangan_kertas_kerja_id',
             //'permohonan_e_bantuan_id',
-            'nama_cadangan_kertas_kerja',
+            [
+                'attribute' => 'nama_cadangan_kertas_kerja',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_cadangan_kertas_kerja,
+                ]
+            ],
             //'muat_naik',
 
             ['class' => 'yii\grid\ActionColumn'],

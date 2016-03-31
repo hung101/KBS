@@ -46,9 +46,27 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'senarai_harga_perkhidmatan_ubatan_peralatan_id',
-            'nama_perkhidmatan_ubatan_peralatan',
-            'harga',
-            'catitan_ringkas',
+            [
+                'attribute' => 'nama_perkhidmatan_ubatan_peralatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_perkhidmatan_ubatan_peralatan,
+                ]
+            ],
+            [
+                'attribute' => 'harga',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::harga,
+                ]
+            ],
+            [
+                'attribute' => 'catitan_ringkas',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::catitan_ringkas,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

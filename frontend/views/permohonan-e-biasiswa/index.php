@@ -48,14 +48,40 @@ $this->params['breadcrumbs'][] = $this->title;
             //'muat_naik_gambar',
             [
                 'attribute' => 'admin_e_biasiswa_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::admin_e_biasiswa_id,
+                ],
                 'value' => 'refSesiPermohonan.nama'
             ],
-            'nama',
-            'no_matriks',
-            'no_kad_pengenalan',
+            [
+                'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ]
+            ],
+            [
+                'attribute' => 'no_matriks',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_matriks,
+                ]
+            ],
+            [
+                'attribute' => 'no_kad_pengenalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
+                ]
+            ],
             //'jantina',
             [
                 'attribute' => 'jantina',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jantina,
+                ],
                 'value' => 'refJantina.desc'
             ],
             // 'keturunan',
@@ -87,7 +113,11 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'status_permohonan',
             [
                 'attribute' => 'status_permohonan_desc',
-                'label' => 'Status Permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan_desc,
+                ],
+                'label' => GeneralLabel::status_permohonan_desc,
                 'value' => 'refStatusPermohonanEBiasiswa.desc'
             ],
 

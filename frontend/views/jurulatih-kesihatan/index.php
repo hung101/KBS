@@ -54,11 +54,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'jurulatih_kesihatan_id',
             //'jurulatih_id',
-            'tinggi',
-            'berat',
+            [
+                'attribute' => 'tinggi',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tinggi,
+                ]
+            ],
+            [
+                'attribute' => 'berat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::berat,
+                ]
+            ],
             //'masalah_kesihatan',
             [
                 'attribute' => 'masalah_kesihatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::masalah_kesihatan,
+                ],
                 'value' => 'refMasalahKesihatan.desc'
             ],
             // 'catatan',

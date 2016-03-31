@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pendapatan_tahun_lepas_id',
             //'permohonan_e_bantuan_id',
-            'jenis_pendapatan',
-            'butir_butir',
-            'jumlah_pendapatan',
+            [
+                'attribute' => 'jenis_pendapatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_pendapatan,
+                ]
+            ],
+            [
+                'attribute' => 'butir_butir',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::butir_butir,
+                ]
+            ],
+            [
+                'attribute' => 'jumlah_pendapatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_pendapatan,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

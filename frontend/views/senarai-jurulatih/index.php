@@ -30,7 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'senarai_jurulatih_id',
             //'pengurusan_jkk_jkp_program_id',
-            'jurulatih',
+            [
+                'attribute' => 'jurulatih',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jurulatih,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

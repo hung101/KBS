@@ -45,11 +45,35 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'mesyuarat_id',
-            'nama_mesyuarat',
-            'bil_mesyuarat',
-            'tarikh',
+            [
+                'attribute' => 'nama_mesyuarat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_mesyuarat,
+                ]
+            ],
+            [
+                'attribute' => 'bil_mesyuarat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bil_mesyuarat,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
             //'masa',
-            'tempat',
+            [
+                'attribute' => 'tempat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tempat,
+                ]
+            ],
             //'pengurusi',
             // 'pencatat_minit',
             // 'perkara_perkara_dan_tindakan',

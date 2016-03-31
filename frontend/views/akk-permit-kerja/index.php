@@ -26,10 +26,28 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'akk_permit_kerja_id',
-            'akademi_akk_id',
+            [
+                'attribute' => 'akademi_akk_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::akademi_akk_id,
+                ]
+            ],
             'no_permit',
-            'tahun',
-            'tarikh_tamat',
+            [
+                'attribute' => 'tahun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_tamat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat,
+                ]
+            ],
             // 'permit',
             // 'session_id',
             // 'created_by',

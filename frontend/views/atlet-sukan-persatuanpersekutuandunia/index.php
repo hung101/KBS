@@ -57,17 +57,43 @@ $this->params['breadcrumbs'][] = $this->title;
             //'jenis',
             [
                 'attribute' => 'jenis',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis,
+                ],
                 'value' => 'refJenisSukanPersatuanPersekutuandunia.desc'
             ],
             //'name_persatuan_persekutuan_dunia',
             [
                 'attribute' => 'name_persatuan_persekutuan_dunia',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::name_persatuan_persekutuan_dunia,
+                ],
                 'value' => 'refNamaSukanPersatuanPersekutuandunia.desc'
             ],
             // 'alamat_1',
-            'no_telefon',
-            'emel',
-            'laman_web',
+            [
+                'attribute' => 'no_telefon',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_telefon,
+                ]
+            ],
+            [
+                'attribute' => 'emel',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::emel,
+                ]
+            ],
+            [
+                'attribute' => 'laman_web',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::laman_web,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

@@ -49,9 +49,19 @@ $this->params['breadcrumbs'][] = $this->title;
             //'kategori_bajet',
             [
                 'attribute' => 'kategori_bajet',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_bajet,
+                ],
                 'value' => 'refKategoriBajetJkkJkp.desc'
             ],
-            'jumlah_bajet',
+            [
+                'attribute' => 'jumlah_bajet',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_bajet,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

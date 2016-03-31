@@ -31,9 +31,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'bsp_pertukaran_program_pengajian_id',
             //'bsp_pemohon_id',
-            'tarikh',
-            'bidang_pengajian_kursus',
-            'fakulti',
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
+            [
+                'attribute' => 'bidang_pengajian_kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bidang_pengajian_kursus,
+                ]
+            ],
+            [
+                'attribute' => 'fakulti',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::fakulti,
+                ]
+            ],
             // 'tarikh_mula_pengajian',
             // 'tarikh_tamat_pengajian',
             // 'tempoh_perlanjutan_semester',

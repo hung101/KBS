@@ -54,15 +54,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'anugerah_id',
             //'atlet_id',
-            'tahun',
+            [
+                'attribute' => 'tahun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun,
+                ]
+            ],
             //'nama_acara',
             [
                 'attribute' => 'nama_acara',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_acara,
+                ],
                 'value' => 'refKategoriAnugerah.desc'
             ],
             //'kategori',
             [
                 'attribute' => 'kategori',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori,
+                ],
                 'value' => 'refAcara.desc'
             ],
             // 'insentif_id',

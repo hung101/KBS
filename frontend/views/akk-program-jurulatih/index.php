@@ -46,9 +46,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'akk_program_jurulatih_id',
             //'peningkatan_kerjaya_jurulatih_id',
-            'nama_program',
-            'tarikh_program',
-            'tempat_program',
+            [
+                'attribute' => 'nama_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_program,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_program,
+                ]
+            ],
+            [
+                'attribute' => 'tempat_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tempat_program,
+                ]
+            ],
             // 'kod_kursus',
             // 'tahap',
 

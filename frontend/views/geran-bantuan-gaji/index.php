@@ -49,6 +49,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'nama_jurulatih',
             [
                 'attribute' => 'nama_jurulatih',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_jurulatih,
+                ],
                 'value' => 'refJurulatih.nama'
             ],
             //'cawangan',
@@ -62,19 +66,37 @@ $this->params['breadcrumbs'][] = $this->title;
             //'status_permohonan',
             [
                 'attribute' => 'status_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan,
+                ],
                 'value' => 'refStatusPermohonanGeranBantuanGajiJurulatih.desc'
             ],
             // 'status_keaktifan_jurulatih',
             //'kategori_geran',
             [
                 'attribute' => 'kategori_geran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_geran,
+                ],
                 'value' => 'refKategoriGeranJurulatih.desc'
             ],
-            'jumlah_geran',
+            [
+                'attribute' => 'jumlah_geran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_geran,
+                ]
+            ],
             // 'status_geran',
             //'kelulusan',
             [
                 'attribute' => 'kelulusan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelulusan,
+                ],
                 'value' => 'refKelulusan.desc'
             ],
             // 'catatan',

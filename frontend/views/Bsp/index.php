@@ -30,10 +30,34 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'bsp_pemohon_id',
             //'atlet_id',
-            'peringkat_pengajian',
-            'bidang_pengajian',
-            'falkuti_pengajian',
-            'ipt',
+            [
+                'attribute' => 'peringkat_pengajian',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::peringkat_pengajian,
+                ]
+            ],
+            [
+                'attribute' => 'bidang_pengajian',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bidang_pengajian,
+                ]
+            ],
+            [
+                'attribute' => 'falkuti_pengajian',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::falkuti_pengajian,
+                ]
+            ],
+            [
+                'attribute' => 'ipt',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::ipt,
+                ]
+            ],
             // 'tahun_mula_pengajian',
             // 'tahun_tamat_pengajian',
             // 'tahun_ditawarkan_biasiswa',

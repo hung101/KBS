@@ -29,11 +29,21 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'user_peranan_id',
-            'nama_peranan',
+            [
+                'attribute' => 'nama_peranan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_peranan,
+                ]
+            ],
             //'peranan_akses',
             //'aktif',
             [
                 'attribute' => 'aktif',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::aktif,
+                ],
                 'value' => function ($model) {
                     return $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no;
                 },

@@ -26,10 +26,34 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'akk_sijil_pertolongan_cemas_id',
-            'akademi_akk_id',
-            'no_sijil',
-            'tahap',
-            'tahun',
+            [
+                'attribute' => 'akademi_akk_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::akademi_akk_id,
+                ]
+            ],
+            [
+                'attribute' => 'no_sijil',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_sijil,
+                ]
+            ],
+            [
+                'attribute' => 'tahap',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahap,
+                ]
+            ],
+            [
+                'attribute' => 'tahun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun,
+                ]
+            ],
             // 'sijil',
             // 'session_id',
             // 'created_by',

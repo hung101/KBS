@@ -57,11 +57,19 @@ $this->params['breadcrumbs'][] = $this->title;
             //'nama_sukan',
             [
                 'attribute' => 'nama_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_sukan,
+                ],
                 'value' => 'refSukan.desc'
             ],
             //'acara',
             [
                 'attribute' => 'acara',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::acara,
+                ],
                 'value' => 'refAcara.desc'
             ],
             // 'tahun_umur_permulaan',
@@ -69,6 +77,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'program_semasa',
             [
                 'attribute' => 'program_semasa',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program_semasa,
+                ],
                 'value' => 'refProgramSemasaSukanAtlet.desc'
             ],
             // 'no_lesen_sukan',

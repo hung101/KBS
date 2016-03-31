@@ -46,9 +46,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pl_data_klinikal_id',
             //'atlet_id',
-            'penglihatan_tanpa_cermin_mata_kiri',
-            'penglihatan_tanpa_cermin_mata_kanan',
-            'penglihatan_cermin_mata_kiri',
+            [
+                'attribute' => 'penglihatan_tanpa_cermin_mata_kiri',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::penglihatan_tanpa_cermin_mata_kiri,
+                ]
+            ],
+            [
+                'attribute' => 'penglihatan_tanpa_cermin_mata_kanan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::penglihatan_tanpa_cermin_mata_kanan,
+                ]
+            ],
+            [
+                'attribute' => 'penglihatan_cermin_mata_kiri',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::penglihatan_cermin_mata_kiri,
+                ]
+            ],
             // 'penglihatan_cermin_mata_kanan',
             // 'usia_kali_pertama_haid',
             // 'haid_kitaran',

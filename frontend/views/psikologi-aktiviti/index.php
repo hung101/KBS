@@ -46,9 +46,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'psikologi_aktiviti_id',
             //'psikologi_profil_id',
-            'nama_aktiviti',
-            'tarikh_mula',
-            'tarikh_tamat',
+            [
+                'attribute' => 'nama_aktiviti',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_aktiviti,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_tamat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

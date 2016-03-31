@@ -45,9 +45,27 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'pengurusan_penilaian_pendidikan_penganjur_intructor_id',
-            'nama_penganjuran_kursus',
-            'kod_kursus',
-            'tarikh_kursus',
+            [
+                'attribute' => 'nama_penganjuran_kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_penganjuran_kursus,
+                ]
+            ],
+            [
+                'attribute' => 'kod_kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kod_kursus,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_kursus,
+                ]
+            ],
             //'instructor',
 
             //['class' => 'yii\grid\ActionColumn'],

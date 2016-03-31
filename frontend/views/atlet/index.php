@@ -1,11 +1,15 @@
 <?php
 
-use yii\helpers\Html;
+use kartik\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+
+use yii\widgets\ActiveForm;
+use kartik\icons\Icon;
+Icon::map($this);
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AtletSearch */
@@ -48,17 +52,47 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             ['class' => 'yii\grid\SerialColumn'],
             //'atlet_id',
-            'name_penuh',
-            'tarikh_lahir',
-            'umur',
+            [
+                'attribute' => 'name_penuh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::name_penuh,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_lahir',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_lahir,
+                ]
+            ],
+            [
+                'attribute' => 'umur',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::umur,
+                ]
+            ],
             //'tempat_lahir_bandar',
             // 'tempat_lahir_negeri',
             // 'bangsa',
             // 'agama',
             // 'jantina',
             // 'taraf_perkahwinan',
-            'tinggi',
-            'berat',
+            [
+                'attribute' => 'tinggi',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tinggi,
+                ]
+            ],
+            [
+                'attribute' => 'berat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::berat,
+                ]
+            ],
             // 'bahasa_ibu',
             // 'no_sijil_lahir',
             // 'ic_no',

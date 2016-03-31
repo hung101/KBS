@@ -29,21 +29,41 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'username',
+            [
+                'attribute' => 'username',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::username,
+                ]
+            ],
             //'jabatan_id',
             [
                 'attribute' => 'jabatan_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jabatan_id,
+                ],
                 'value' => 'refJabatanUser.desc'
             ],
             //'peranan',
             [
                 'attribute' => 'nama_peranan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_peranan,
+                ],
                 'value' => 'refUserPeranan.nama_peranan'
             ],
             //'auth_key',
             // 'password_hash',
             // 'password_reset_token',
-             'full_name',
+             [
+                'attribute' => 'full_name',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::full_name,
+                ]
+            ],
             // 'tel_mobile_no',
             // 'tel_no',
             // 'email:email',

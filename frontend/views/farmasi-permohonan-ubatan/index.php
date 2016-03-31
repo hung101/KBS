@@ -50,16 +50,30 @@ $this->params['breadcrumbs'][] = $this->title;
             //'tarikh_pemberian',
             [
                 'attribute' => 'tarikh_pemberian',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_pemberian,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_pemberian);
                 },
             ],
-            'pegawai_yang_bertanggungjawab',
+            [
+                'attribute' => 'pegawai_yang_bertanggungjawab',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pegawai_yang_bertanggungjawab,
+                ]
+            ],
             // 'catitan_ringkas',
             //'kelulusan',
             [
                 'attribute' => 'kelulusan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelulusan,
+                ],
                 'value' => 'refKelulusan.desc'
             ],
 

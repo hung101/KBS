@@ -48,12 +48,26 @@ $this->params['breadcrumbs'][] = $this->title;
             //'nama_acara_program',
             [
                 'attribute' => 'nama_acara_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_acara_program,
+                ],
                 'value' => 'refSukan.desc'
             ],
-            'tarikh_acara',
+            [
+                'attribute' => 'tarikh_acara',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_acara,
+                ]
+            ],
             //'kategori_penggunaan',
             [
                 'attribute' => 'kategori_penggunaan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_penggunaan,
+                ],
                 'value' => 'refKategoriPenggunaan.desc'
             ],
             //'objektif',

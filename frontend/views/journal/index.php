@@ -45,7 +45,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'journal_id',
-            'nama_penulis',
+            [
+                'attribute' => 'nama_penulis',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_penulis,
+                ]
+            ],
             //'telefon_no',
             //'emel',
             //'alamat_1',
@@ -54,12 +60,22 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'alamat_negeri',
             // 'alamat_bandar',
             // 'alamat_poskod',
-             'tarikh_journal',
+             [
+                'attribute' => 'tarikh_journal',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_journal,
+                ]
+            ],
             // 'bahagian',
             // 'artikel_journal:ntext',
             //'status_journal',
             [
                 'attribute' => 'status_journal',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_journal,
+                ],
                 'value' => 'refStatusJournal.desc'
             ],
 

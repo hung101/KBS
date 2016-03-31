@@ -49,19 +49,39 @@ $this->params['breadcrumbs'][] = $this->title;
             //'tarikh_permohonan',
             [
                 'attribute' => 'tarikh_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_permohonan,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_permohonan);
                 },
             ],
-            'pemohon',
-            'nama_peralatan',
+            [
+                'attribute' => 'pemohon',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pemohon,
+                ]
+            ],
+            [
+                'attribute' => 'nama_peralatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_peralatan,
+                ]
+            ],
             //'ringkasan_inovasi_peralatan',
             // 'pegawai_yang_bertanggungjawab',
             // 'catitan_ringkas',
             // 'status_permohonan',
             [
                 'attribute' => 'status_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan,
+                ],
                 'value' => 'refStatusPermohonanProjekInovasi.desc'
             ],
 

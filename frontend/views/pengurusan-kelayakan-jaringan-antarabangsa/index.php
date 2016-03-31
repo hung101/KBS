@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pengurusan_kelayakan_jaringan_antarabangsa_id',
             //'pengurusan_jaringan_antarabangsa_id',
-            'nama_kursus',
-            'tarikh',
-            'tempat',
+            [
+                'attribute' => 'nama_kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_kursus,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
+            [
+                'attribute' => 'tempat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tempat,
+                ]
+            ],
             // 'tahap_kelayakan',
 
             //['class' => 'yii\grid\ActionColumn'],

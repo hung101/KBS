@@ -50,6 +50,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'tarikh_temujanji',
             [
                 'attribute' => 'tarikh_temujanji',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_temujanji,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_temujanji, GeneralFunction::TYPE_DATETIME);
@@ -60,15 +64,29 @@ $this->params['breadcrumbs'][] = $this->title;
             //'status_temujanji',
             [
                 'attribute' => 'status_temujanji',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_temujanji,
+                ],
                 'value' => 'refStatusTemujanjiPesakitLuar.desc'
             ],
             // 'pegawai_yang_bertanggungjawab',
             [
                 'attribute' => 'pegawai_yang_bertanggungjawab',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pegawai_yang_bertanggungjawab,
+                ],
                 'value' => 'refPegawaiPerubatan.desc'
             ],
             // 'catitan_ringkas',
-            'catatan_tambahan',
+            [
+                'attribute' => 'catatan_tambahan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::catatan_tambahan,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

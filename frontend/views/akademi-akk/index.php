@@ -48,10 +48,20 @@ $this->params['breadcrumbs'][] = $this->title;
             //'nama',
             [
                 'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ],
                 'value' => 'refJurulatih.nama'
             ],
             //'muatnaik_gambar',
-            'no_kad_pengenalan',
+            [
+                'attribute' => 'no_kad_pengenalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
+                ]
+            ],
             //'no_passport',
             // 'tarikh_lahir',
             // 'tempat_lahir',
@@ -68,10 +78,26 @@ $this->params['breadcrumbs'][] = $this->title;
             //'kategori_pensijilan',
             [
                 'attribute' => 'kategori_pensijilan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_pensijilan,
+                ],
                 'value' => 'refKategoriPensijilanAkademiAkk.desc'
             ],
-            'jenis_sukan',
-            'tahun',
+            [
+                'attribute' => 'jenis_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_sukan,
+                ]
+            ],
+            [
+                'attribute' => 'tahun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

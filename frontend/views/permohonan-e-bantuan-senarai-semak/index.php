@@ -33,6 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'kertas_kerja_projek_program',
             [
                 'attribute' => 'kertas_kerja_projek_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kertas_kerja_projek_program,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     if($model->kertas_kerja_projek_program){
@@ -48,6 +52,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'salinan_sijil_pendaftaran_persatuan_pertubuhan',
             [
                 'attribute' => 'salinan_sijil_pendaftaran_persatuan_pertubuhan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::salinan_sijil_pendaftaran_persatuan_pertubuhan,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     if($model->salinan_sijil_pendaftaran_persatuan_pertubuhan){
@@ -63,6 +71,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'salinan_perlembagaan_persatuan_pertubuhan',
             [
                 'attribute' => 'salinan_perlembagaan_persatuan_pertubuhan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::salinan_perlembagaan_persatuan_pertubuhan,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     if($model->salinan_perlembagaan_persatuan_pertubuhan){
@@ -78,6 +90,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'salinan_buku_bank',
             [
                 'attribute' => 'salinan_buku_bank',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::salinan_buku_bank,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     if($model->salinan_buku_bank){

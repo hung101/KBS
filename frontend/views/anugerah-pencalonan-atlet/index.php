@@ -45,16 +45,36 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
            // 'anugerah_pencalonan_atlet',
-            'nama_atlet',
-            'tahun_pencalonan',
+            [
+                'attribute' => 'nama_atlet',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_atlet,
+                ]
+            ],
+            [
+                'attribute' => 'tahun_pencalonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun_pencalonan,
+                ]
+            ],
             //'nama_sukan',
             [
                 'attribute' => 'nama_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_sukan,
+                ],
                 'value' => 'refSukan.desc'
             ],
             //'nama_acara',
             [
                 'attribute' => 'nama_acara',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_acara,
+                ],
                 'value' => 'refAcara.desc'
             ],
             // 'status_pencalonan',

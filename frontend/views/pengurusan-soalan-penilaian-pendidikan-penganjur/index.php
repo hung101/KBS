@@ -30,8 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pengurusan_soalan_penilaian_pendidikan_penganjur_id',
             //'pengurusan_penilaian_pendidikan_penganjur_intructor_id',
-            'soalan',
-            'rating',
+            [
+                'attribute' => 'soalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::soalan,
+                ]
+            ],
+            [
+                'attribute' => 'rating',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::rating,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

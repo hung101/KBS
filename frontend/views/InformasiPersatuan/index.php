@@ -29,17 +29,35 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'informasi_persatuan_id',
-            'nama_persatuan',
+            [
+                'attribute' => 'nama_persatuan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_persatuan,
+                ]
+            ],
             //'alamat_1',
             //'alamat_2',
             //'alamat_3',
             // 'alamat_negeri',
             // 'alamat_bandar',
             // 'alamat_poskod',
-             'no_tel',
+             [
+                'attribute' => 'no_tel',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_tel,
+                ]
+            ],
             // 'no_faks',
             // 'emel',
-             'laman_web',
+             [
+                'attribute' => 'laman_web',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::laman_web,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

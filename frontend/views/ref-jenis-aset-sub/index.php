@@ -25,11 +25,41 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'ref_jenis_aset_id',
-            'desc',
-            'aktif',
-            'created_by',
+            [
+                'attribute' => 'id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::id,
+                ]
+            ],
+            [
+                'attribute' => 'ref_jenis_aset_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::ref_jenis_aset_id,
+                ]
+            ],
+            [
+                'attribute' => 'desc',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::desc,
+                ]
+            ],
+            [
+                'attribute' => 'aktif',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::aktif,
+                ]
+            ],
+            [
+                'attribute' => 'created_by',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::created_by,
+                ]
+            ],
             // 'updated_by',
             // 'created',
             // 'updated',

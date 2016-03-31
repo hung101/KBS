@@ -31,11 +31,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'bsp_perlanjutan_id',
             //'bsp_pemohon_id',
-            'tarikh',
-            'tempoh_mohon_perlanjutan',
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
+            [
+                'attribute' => 'tempoh_mohon_perlanjutan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tempoh_mohon_perlanjutan,
+                ]
+            ],
             //'permohonan_pelanjutan',
             [
                 'attribute' => 'permohonan_pelanjutan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::permohonan_pelanjutan,
+                ],
                 'value' => 'refPermohonanPelanjutan.desc'
             ],
 

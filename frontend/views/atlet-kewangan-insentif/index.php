@@ -54,15 +54,37 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'insentif_id',
             //'atlet_id',
-            'tarikh_mula',
+            [
+                'attribute' => 'tarikh_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
+                ]
+            ],
             //'jenis_insentif',
             [
                 'attribute' => 'jenis_insentif',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_insentif,
+                ],
                 'value' => 'refJenisInsentif.desc'
             ],
-            'jumlah',
+            [
+                'attribute' => 'jumlah',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah,
+                ]
+            ],
             //'pertandingan',
-            'pencapaian',
+            [
+                'attribute' => 'pencapaian',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pencapaian,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

@@ -48,10 +48,26 @@ $this->params['breadcrumbs'][] = $this->title;
             //'jurulatih',
             [
                 'attribute' => 'jurulatih',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jurulatih,
+                ],
                 'value' => 'refJurulatih.nama'
             ],
-            'tarikh_mula',
-            'tarikh_tamat',
+            [
+                'attribute' => 'tarikh_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_tamat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat,
+                ]
+            ],
             //'muatnaik_gambar',
             //'cawangan',
             //'sub_cawangan',
@@ -64,6 +80,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'status_permohonan',
             [
                 'attribute' => 'status_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan,
+                ],
                 'value' => 'refStatusPermohonanKontrakJurulatih.desc'
             ],
             // 'status_keaktifan_jurulatih',

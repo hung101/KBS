@@ -30,8 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'biomekanik_anthropometrics_id',
             //'perkhidmatan_analisa_perlawanan_biomekanik_id',
-            'anthropometrics',
-            'cm_kg',
+            [
+                'attribute' => 'anthropometrics',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::anthropometrics,
+                ]
+            ],
+            [
+                'attribute' => 'cm_kg',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::cm_kg,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

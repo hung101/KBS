@@ -48,20 +48,38 @@ $this->params['breadcrumbs'][] = $this->title;
             //'kategori_aduan',
             [
                 'attribute' => 'kategori_aduan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_aduan,
+                ],
                 'value' => 'refKategoriAduanKemudahan.desc'
             ],
             //'pengurusan_kemudahan_venue_id',
             [
                 'attribute' => 'pengurusan_kemudahan_venue_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pengurusan_kemudahan_venue_id,
+                ],
                 'value' => 'refPengurusanVenue.nama_venue'
             ],
             //'venue',
             //'peralatan',
             [
                 'attribute' => 'peralatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::peralatan,
+                ],
                 'value' => 'refPeralatanKemudahan.desc'
             ],
-             'tarikh_aduan',
+             [
+                'attribute' => 'tarikh_aduan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_aduan,
+                ]
+            ],
             // 'nama_pengadu',
             // 'kenyataan_aduan',
             // 'tindakan_ulasan',

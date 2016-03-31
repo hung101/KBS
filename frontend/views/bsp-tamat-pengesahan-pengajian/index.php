@@ -29,13 +29,29 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'bsp_tamat_pengesahan_pengajian_id',
-            'nama_ipts',
+            [
+                'attribute' => 'nama_ipts',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_ipts,
+                ]
+            ],
             //'pengajian',
             [
                 'attribute' => 'pengajian',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pengajian,
+                ],
                 'value' => 'refPengajianEBiasiswa.desc'
             ],
-            'bidang',
+            [
+                'attribute' => 'bidang',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bidang,
+                ]
+            ],
             //'cgpa_pngk',
             // 'tarikh_tamat',
 

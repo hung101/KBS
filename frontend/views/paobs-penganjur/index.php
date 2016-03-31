@@ -47,7 +47,13 @@ $this->params['breadcrumbs'][] = $this->title;
             //'penganjur_id',
             //'penganjuran_id',
             //'profil_syarikat',
-            'nama_penganjur',
+            [
+                'attribute' => 'nama_penganjur',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_penganjur,
+                ]
+            ],
             //'no_pendaftaran_syarikat',
             //'tarikh_penubuhan_syarikat',
             // 'sijil_pendaftaran',
@@ -56,14 +62,36 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'no_faks_penganjur',
             // 'emel_penganjur',
             // 'kertas_cadangan_pelaksanaan',
-            'nama_aktiviti',
+            [
+                'attribute' => 'nama_aktiviti',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_aktiviti,
+                ]
+            ],
             //'jenis_sukan',
             [
                 'attribute' => 'jenis_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_sukan,
+                ],
                 'value' => 'refSukan.desc'
             ],
-            'tarikh_aktiviti',
-            'alamat_lokasi',
+            [
+                'attribute' => 'tarikh_aktiviti',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_aktiviti,
+                ]
+            ],
+            [
+                'attribute' => 'alamat_lokasi',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::alamat_lokasi,
+                ]
+            ],
             // 'pemilik_lokasi',
             // 'bilangan_peserta',
             // 'negara_peserta',

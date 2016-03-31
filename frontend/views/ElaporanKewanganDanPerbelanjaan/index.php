@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'elaporan_kewangan_dan_perbelanjaan_id',
             //'elaporan_pelaksaan_id',
-            'program_aktiviti_butir',
-            'jenis_kewangan',
-            'jumlah',
+            [
+                'attribute' => 'program_aktiviti_butir',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program_aktiviti_butir,
+                ]
+            ],
+            [
+                'attribute' => 'jenis_kewangan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_kewangan,
+                ]
+            ],
+            [
+                'attribute' => 'jumlah',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

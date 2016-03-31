@@ -57,10 +57,26 @@ $this->params['breadcrumbs'][] = $this->title;
             //'jenis_elaun',
             [
                 'attribute' => 'jenis_elaun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_elaun,
+                ],
                 'value' => 'refJenisElaun.desc'
             ],
-            'jumlah_elaun',
-            'tarikh_mula',
+            [
+                'attribute' => 'jumlah_elaun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_elaun,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

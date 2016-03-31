@@ -48,15 +48,35 @@ $this->params['breadcrumbs'][] = $this->title;
             //'nama_sukan',
             [
                 'attribute' => 'nama_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_sukan,
+                ],
                 'value' => 'refSukan.desc'
             ],
             //'nama_acara',
             [
                 'attribute' => 'nama_acara',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_acara,
+                ],
                 'value' => 'refAcara.desc'
             ],
-            'jumlah_sasaran_pingat',
-            'jumlah_pingat_yang_telah_dimenangi',
+            [
+                'attribute' => 'jumlah_sasaran_pingat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_sasaran_pingat,
+                ]
+            ],
+            [
+                'attribute' => 'jumlah_pingat_yang_telah_dimenangi',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_pingat_yang_telah_dimenangi,
+                ]
+            ],
             // 'rekod_baru_yang_dicipta',
             // 'senarai_atlet_yang_memenangi',
 

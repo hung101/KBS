@@ -45,11 +45,27 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'pengurusan_anjuran_id',
-            'nama_program_anjuran',
-            'tarikh_program_anjuran',
+            [
+                'attribute' => 'nama_program_anjuran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_program_anjuran,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_program_anjuran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_program_anjuran,
+                ]
+            ],
             //'nama_badan_sukan_antarabangsa',
             [
                 'attribute' => 'nama_badan_sukan_antarabangsa',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_badan_sukan_antarabangsa,
+                ],
                 'value' => 'refBadanSukanAntarabangsa.desc'
             ],
             //'nama_delegasi',

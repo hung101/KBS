@@ -45,16 +45,36 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'penyertaan_sukan_aduan_id',
-            'nama_pengadu',
-            'tarikh_aduan',
+            [
+                'attribute' => 'nama_pengadu',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pengadu,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_aduan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_aduan,
+                ]
+            ],
             //'status_aduan',
             [
                 'attribute' => 'status_aduan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_aduan,
+                ],
                 'value' => 'refStatusAduanPenyertaanSukan.desc'
             ],
             //'aduan_kategori',
             [
                 'attribute' => 'aduan_kategori',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::aduan_kategori,
+                ],
                 'value' => 'refKategoriAduanPenyertaanSukan.desc'
             ],
             // 'penyataan_aduan',

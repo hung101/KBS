@@ -48,14 +48,28 @@ $this->params['breadcrumbs'][] = $this->title;
             //'jenis',
             [
                 'attribute' => 'jenis',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis,
+                ],
                 'value' => 'refJenisKewangan.desc'
             ],
             //'sumber',
             [
                 'attribute' => 'sumber',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sumber,
+                ],
                 'value' => 'refJenisKewanganSumber.desc'
             ],
-            'jumlah',
+            [
+                'attribute' => 'jumlah',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

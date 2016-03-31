@@ -28,11 +28,41 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'penganjuran_pemantuan_id',
-            'permohonan_pendahuluan_pelagai',
-            'menghantar_surat_cuti_tanpa',
-            'keperluan_bengkel_telah',
-            'membuat_tempahan_penginapan',
+            [
+                'attribute' => 'penganjuran_pemantuan_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::penganjuran_pemantuan_id,
+                ]
+            ],
+            [
+                'attribute' => 'permohonan_pendahuluan_pelagai',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::permohonan_pendahuluan_pelagai,
+                ]
+            ],
+            [
+                'attribute' => 'menghantar_surat_cuti_tanpa',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::menghantar_surat_cuti_tanpa,
+                ]
+            ],
+            [
+                'attribute' => 'keperluan_bengkel_telah',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::keperluan_bengkel_telah,
+                ]
+            ],
+            [
+                'attribute' => 'membuat_tempahan_penginapan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::membuat_tempahan_penginapan,
+                ]
+            ],
             // 'membuat_tempahan_tempat_untuk',
             // 'mengesahan_kehadiran_panel',
             // 'mengesahan_pendaftaran_panel',

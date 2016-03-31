@@ -29,11 +29,27 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'informasi_permohonan_id',
-            'butiran_permohonan',
-            'amaun',
+            [
+                'attribute' => 'butiran_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::butiran_permohonan,
+                ]
+            ],
+            [
+                'attribute' => 'amaun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::amaun,
+                ]
+            ],
             //'muatnaik_dokumen',
             [
                 'attribute' => 'muatnaik_dokumen',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::muatnaik_dokumen,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     if($model->muatnaik_dokumen){

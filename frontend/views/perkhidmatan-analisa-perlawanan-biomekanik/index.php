@@ -49,10 +49,26 @@ $this->params['breadcrumbs'][] = $this->title;
             //'perkhidmatan',
             [
                 'attribute' => 'perkhidmatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::perkhidmatan,
+                ],
                 'value' => 'refPerkhidmatanBiomekanik.desc'
             ],
-            'tarikh',
-            'pegawai_yang_bertanggungjawab',
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
+            [
+                'attribute' => 'pegawai_yang_bertanggungjawab',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pegawai_yang_bertanggungjawab,
+                ]
+            ],
             // 'status_ujian',
             // 'catitan_ringkas',
 

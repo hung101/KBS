@@ -54,9 +54,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'kaunseling_id',
             //'atlet_id',
-            'tarikh',
-            'tujuan',
-            'susulan',
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
+            [
+                'attribute' => 'tujuan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tujuan,
+                ]
+            ],
+            [
+                'attribute' => 'susulan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::susulan,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

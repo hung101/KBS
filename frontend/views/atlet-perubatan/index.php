@@ -44,11 +44,41 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'perubatan_id',
-            'atlet_id',
-            'kumpulan_darah',
-            'alergi_makanan',
-            'alergi_perubatan',
+            [
+                'attribute' => 'perubatan_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::perubatan_id,
+                ]
+            ],
+            [
+                'attribute' => 'atlet_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
+                ]
+            ],
+            [
+                'attribute' => 'kumpulan_darah',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kumpulan_darah,
+                ]
+            ],
+            [
+                'attribute' => 'alergi_makanan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::alergi_makanan,
+                ]
+            ],
+            [
+                'attribute' => 'alergi_perubatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::alergi_perubatan,
+                ]
+            ],
             // 'alergi_jenis_lain',
             // 'penyakit_semula_jadi',
 

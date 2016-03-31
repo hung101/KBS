@@ -30,7 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'objektif_pertubuhan_id',
             //'permohonan_e_bantuan_id',
-            'objektif',
+            [
+                'attribute' => 'objektif',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::objektif,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

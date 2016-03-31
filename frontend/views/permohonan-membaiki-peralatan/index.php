@@ -49,15 +49,29 @@ $this->params['breadcrumbs'][] = $this->title;
             //'tarikh_permohonan',
             [
                 'attribute' => 'tarikh_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_permohonan,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_permohonan);
                 },
             ],
-            'pemohon',
+            [
+                'attribute' => 'pemohon',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pemohon,
+                ]
+            ],
             //'nama_peralatan',
             [
                 'attribute' => 'nama_peralatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_peralatan,
+                ],
                 'value' => 'refPeralatanPermohonanMembaiki.desc'
             ],
             //'model',
@@ -75,6 +89,10 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'status_permohonan',
             [
                 'attribute' => 'status_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan,
+                ],
                 'value' => 'refStatusPermohonanMembaikiPeralatan.desc'
             ],
 

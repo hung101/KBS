@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'elaporan_komposisi_penyertaan_id',
             //'elaporan_pelaksaan_id',
-            'kumpulan_penyertaan',
-            'jenis_komposisi',
-            'bilangan',
+            [
+                'attribute' => 'kumpulan_penyertaan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kumpulan_penyertaan,
+                ]
+            ],
+            [
+                'attribute' => 'jenis_komposisi',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_komposisi,
+                ]
+            ],
+            [
+                'attribute' => 'bilangan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bilangan,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

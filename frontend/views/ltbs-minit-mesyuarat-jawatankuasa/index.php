@@ -50,15 +50,29 @@ $this->params['breadcrumbs'][] = $this->title;
             //'tarikh',
             [
                 'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATETIME);
                 },
             ],
             //'masa',
-            'tempat',
+            [
+                'attribute' => 'tempat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tempat,
+                ]
+            ],
             [
                 'attribute' => 'profil_badan_sukan_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::profil_badan_sukan_id,
+                ],
                 'value' => 'refBadanSukan.nama_badan_sukan'
             ],
             //'mengikut_perlembagaan',

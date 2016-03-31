@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pengurusan_perhimpunan_kem_kos_id',
             //'permohonan_perganjuran_id',
-            'kategori_kos',
-            'anggaran_kos_per_kategori',
-            'revised_kos_per_kategori',
+            [
+                'attribute' => 'kategori_kos',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_kos,
+                ]
+            ],
+            [
+                'attribute' => 'anggaran_kos_per_kategori',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::anggaran_kos_per_kategori,
+                ]
+            ],
+            [
+                'attribute' => 'revised_kos_per_kategori',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::revised_kos_per_kategori,
+                ]
+            ],
             // 'approved_kos_per_kategori',
             // 'catatan',
 

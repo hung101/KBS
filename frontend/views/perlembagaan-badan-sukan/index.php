@@ -53,6 +53,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'tarikh_kelulusan',
             [
                 'attribute' => 'tarikh_kelulusan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_kelulusan,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_kelulusan);

@@ -49,26 +49,54 @@ $this->params['breadcrumbs'][] = $this->title;
             //'cawangan',
             [
                 'attribute' => 'cawangan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::cawangan,
+                ],
                 'value' => 'refCawangan.desc'
             ],
             //'negeri',
             //'sukan',
             [
                 'attribute' => 'sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
                 'value' => 'refSukan.desc'
             ],
             //'program',
             [
                 'attribute' => 'program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program,
+                ],
                 'value' => 'refProgram.desc'
             ],
-             'tarikh',
+             [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
             // 'aktiviti',
-             'jumlah_peralatan',
+             [
+                'attribute' => 'jumlah_peralatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_peralatan,
+                ]
+            ],
             // 'nota_urus_setia',
              //'kelulusan',
             [
                 'attribute' => 'kelulusan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelulusan,
+                ],
                 'value' => 'refKelulusan.desc'
             ],
 

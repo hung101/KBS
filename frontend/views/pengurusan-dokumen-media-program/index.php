@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pengurusan_dokumen_media_program_id',
             //'pengurusan_media_program_id',
-            'kategori_dokumen',
-            'nama_dokumen',
-            'muatnaik',
+            [
+                'attribute' => 'kategori_dokumen',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_dokumen,
+                ]
+            ],
+            [
+                'attribute' => 'nama_dokumen',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_dokumen,
+                ]
+            ],
+            [
+                'attribute' => 'muatnaik',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::muatnaik,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

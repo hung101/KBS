@@ -52,11 +52,21 @@ $this->params['breadcrumbs'][] = $this->title;
             //'tarikh',
             // 'tempat',
             // 'yuran',
-            'nama_penuh',
+            [
+                'attribute' => 'nama_penuh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_penuh,
+                ]
+            ],
             // 'muatnaik_gambar',
             //'jantina',
             [
                 'attribute' => 'jantina',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jantina,
+                ],
                 'value' => 'refJantina.desc'
             ],
             // 'taraf_perkahwinan',
@@ -99,6 +109,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'kelulusan',
             [
                 'attribute' => 'kelulusan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelulusan,
+                ],
                 'value' => 'refKelulusan.desc'
             ],
 

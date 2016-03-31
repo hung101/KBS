@@ -46,21 +46,41 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'penganjuran_id',
-            'nama_aktiviti',
+            [
+                'attribute' => 'nama_aktiviti',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_aktiviti,
+                ]
+            ],
             //'jenis_sukan',
             [
                 'attribute' => 'jenis_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_sukan,
+                ],
                 'value' => 'refSukan.desc'
             ],
             //'tarikh_aktiviti',
             [
                 'attribute' => 'tarikh_aktiviti',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_aktiviti,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_aktiviti);
                 },
             ],
-            'alamat_lokasi_1',
+            [
+                'attribute' => 'alamat_lokasi_1',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::alamat_lokasi_1,
+                ]
+            ],
             //'pemilik_lokasi',
             // 'bilangan_peserta',
             // 'negara_peserta',

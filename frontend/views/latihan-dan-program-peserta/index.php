@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'latihan_dan_program_peserta_id',
             //'latihan_dan_program_id',
-            'nama',
-            'no_kad_pengenalan',
-            'nama_badan_sukan',
+            [
+                'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ]
+            ],
+            [
+                'attribute' => 'no_kad_pengenalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
+                ]
+            ],
+            [
+                'attribute' => 'nama_badan_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_badan_sukan,
+                ]
+            ],
             // 'no_pendaftaran_sukan',
             // 'jawatan',
             // 'tempoh_memegang_jawatan',

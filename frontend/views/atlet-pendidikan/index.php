@@ -55,18 +55,46 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'attribute' => 'jenis_peringkatan_pendidikan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_peringkatan_pendidikan,
+                ],
                 'value' => 'tahapPendidikan.desc'
             ],
             //'pendidikan_atlet_id',
             //'atlet_id',
             //'jenis_peringkatan_pendidikan',
-            'nama',
-            'kursus',
+            [
+                'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ]
+            ],
+            [
+                'attribute' => 'kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kursus,
+                ]
+            ],
             //'fakulti',
             // 'alamat_1',
             // 'no_telefon',
-            'tahun_mula',
-            'tahun_tamat',
+            [
+                'attribute' => 'tahun_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun_mula,
+                ]
+            ],
+            [
+                'attribute' => 'tahun_tamat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun_tamat,
+                ]
+            ],
             // 'pelajar_id_no',
             // 'keputusan_cgpa',
             // 'biasiswa_tajaan',

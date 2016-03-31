@@ -46,10 +46,20 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'kejohanan_program_aktiviti_id',
-            'nama_kejohanana_program_aktiviti_yang_disertai',
+            [
+                'attribute' => 'nama_kejohanana_program_aktiviti_yang_disertai',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_kejohanana_program_aktiviti_yang_disertai,
+                ]
+            ],
             //'tarikh_kejohanan_program_aktiviti_yang_disertai',
             [
                 'attribute' => 'tarikh_kejohanan_program_aktiviti_yang_disertai',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_kejohanan_program_aktiviti_yang_disertai,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_kejohanan_program_aktiviti_yang_disertai);

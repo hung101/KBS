@@ -48,21 +48,37 @@ $this->params['breadcrumbs'][] = $this->title;
             //'atlet_id',
             [
                 'attribute' => 'atlet_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
+                ],
                 'value' => 'atlet.name_penuh'
             ],
             //'nama_insentif',
             [
                 'attribute' => 'nama_insentif',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_insentif,
+                ],
                 'value' => 'refNamaInsentif.desc'
             ],
             //'kumpulan',
             [
                 'attribute' => 'kumpulan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kumpulan,
+                ],
                 'value' => 'refKumpulan.desc'
             ],
             //'rekod_baru',
             [
                 'attribute' => 'rekod_baru',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::rekod_baru,
+                ],
                 'value' => 'refRekodBaru.desc'
             ],
             // 'nama_sukan',

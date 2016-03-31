@@ -54,10 +54,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'donator_id',
             //'atlet_id',
-            'no_donator_dokumen',
+            [
+                'attribute' => 'no_donator_dokumen',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_donator_dokumen,
+                ]
+            ],
             //'jenis_organ',
             [
                 'attribute' => 'jenis_organ',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_organ,
+                ],
                 'value' => 'refJenisOrgan.desc'
             ],
 

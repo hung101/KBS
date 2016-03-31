@@ -30,8 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'anggaran_perbelanjaan_id',
             //'permohonan_e_bantuan_id',
-            'butir_butir_perbelanjaan',
-            'jumlah_perbelanjaan',
+            [
+                'attribute' => 'butir_butir_perbelanjaan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::butir_butir_perbelanjaan,
+                ]
+            ],
+            [
+                'attribute' => 'jumlah_perbelanjaan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_perbelanjaan,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

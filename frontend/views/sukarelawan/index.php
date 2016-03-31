@@ -45,7 +45,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'sukarelawan_id',
-            'nama',
+            [
+                'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ]
+            ],
             //'no_kad_pengenalan',
            // 'alamat_1',
             //'alamat_2',
@@ -57,11 +63,19 @@ $this->params['breadcrumbs'][] = $this->title;
             //'jantina',
             [
                 'attribute' => 'jantina',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jantina,
+                ],
                 'value' => 'refJantina.desc'
             ],
             //'alamat_bandar',
             [
                 'attribute' => 'alamat_bandar',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::alamat_bandar,
+                ],
                 'value' => 'refBandar.desc'
             ],
             // 'no_tel_bimbit',

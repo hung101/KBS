@@ -57,13 +57,33 @@ $this->params['breadcrumbs'][] = $this->title;
             //'nama_bank',
             [
                 'attribute' => 'nama_bank',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_bank,
+                ],
                 'value' => 'refBank.desc'
             ],
-            'cawangan',
-            'no_akaun',
+            [
+                'attribute' => 'cawangan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::cawangan,
+                ]
+            ],
+            [
+                'attribute' => 'no_akaun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_akaun,
+                ]
+            ],
             //'jenis_akaun',
             [
                 'attribute' => 'jenis_akaun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_akaun,
+                ],
                 'value' => 'refJenisBankAkaun.desc'
             ],
 

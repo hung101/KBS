@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'senarai_nama_hadi_id',
             //'mesyuarat_id',
-            'nama_penuh',
-            'no_kad_pengenalan',
-            'jawatan',
+            [
+                'attribute' => 'nama_penuh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_penuh,
+                ]
+            ],
+            [
+                'attribute' => 'no_kad_pengenalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
+                ]
+            ],
+            [
+                'attribute' => 'jawatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jawatan,
+                ]
+            ],
             //'jantina',
             //'kategori_keahlian',
             // 'kehadiran',

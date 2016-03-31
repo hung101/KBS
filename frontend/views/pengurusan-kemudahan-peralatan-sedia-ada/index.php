@@ -49,9 +49,19 @@ $this->params['breadcrumbs'][] = $this->title;
             //'nama_peralatan',
             [
                 'attribute' => 'nama_peralatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_peralatan,
+                ],
                 'value' => 'refPeralatanKemudahan.desc'
             ],
-            'kuantiti',
+            [
+                'attribute' => 'kuantiti',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kuantiti,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

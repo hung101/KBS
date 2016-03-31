@@ -45,16 +45,30 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'jurulatih_id',
-             'nama',
+             [
+                'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ]
+            ],
            // 'gambar',
             //'cawangan',
             [
                 'attribute' => 'cawangan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::cawangan,
+                ],
                 'value' => 'refCawangan.desc'
             ],
             //'sub_cawangan_pelapis',
             [
                 'attribute' => 'sub_cawangan_pelapis',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sub_cawangan_pelapis,
+                ],
                 'value' => 'refSubProgramPelapisJurulatih.desc'
             ],
            // 'lain_lain_program',
@@ -62,11 +76,19 @@ $this->params['breadcrumbs'][] = $this->title;
             //'nama_sukan',
             [
                 'attribute' => 'nama_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_sukan,
+                ],
                 'value' => 'refSukan.desc'
             ],
             //'nama_acara',
             [
                 'attribute' => 'nama_acara',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_acara,
+                ],
                 'value' => 'refAcara.desc'
             ],
             // 'status_jurulatih',

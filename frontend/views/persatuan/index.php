@@ -29,7 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'username',
+            [
+                'attribute' => 'username',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::username,
+                ]
+            ],
             //'jabatan_id',
             //'peranan',
             //'auth_key',
@@ -37,13 +43,24 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'password_reset_token',
             [
                 'attribute' => 'profil_badan_sukan_desc',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::persatuan,
+                ],
                 'value' => 'refProfilBadanSukan.nama_badan_sukan',
                 'label' => GeneralLabel::persatuan,
             ],
             //'no_kad_pengenalan',
             // 'tel_mobile_no',
             // 'tel_no',
-            'email:email',
+            [
+                'attribute' => 'email',
+                'format' => 'email',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::email,
+                ]
+            ],
             // 'status_id',
             
 

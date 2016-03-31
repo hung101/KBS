@@ -48,11 +48,33 @@ $this->params['breadcrumbs'][] = $this->title;
             //'atlet_id',
             [
                 'attribute' => 'atlet_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
+                ],
                 'value' => 'atlet.name_penuh'
             ],
-            'nama_insuran',
-            'jumlah_tuntutan',
-            'tarikh_tuntutan',
+            [
+                'attribute' => 'nama_insuran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_insuran,
+                ]
+            ],
+            [
+                'attribute' => 'jumlah_tuntutan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_tuntutan,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_tuntutan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tuntutan,
+                ]
+            ],
             // 'pegawai_yang_bertanggungjawab',
 
             //['class' => 'yii\grid\ActionColumn'],

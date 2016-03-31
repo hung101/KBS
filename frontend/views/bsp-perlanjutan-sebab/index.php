@@ -30,7 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'bsp_perlanjutan_sebab_id',
             //'bsp_perlanjutan_id',
-            'sebab',
+            [
+                'attribute' => 'sebab',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sebab,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

@@ -48,9 +48,19 @@ $this->params['breadcrumbs'][] = $this->title;
             //'atlet_id',
             [
                 'attribute' => 'atlet_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
+                ],
                 'value' => 'refAtlet.name_penuh'
             ],
-            'no_ic',
+            [
+                'attribute' => 'no_ic',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_ic,
+                ]
+            ],
             //'umur',
             //'jantina',
             // 'tinggi',
@@ -67,6 +77,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'tahap_pendidikan',
             [
                 'attribute' => 'tahap_pendidikan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahap_pendidikan,
+                ],
                 'value' => 'refTahapPendidikan.desc'
             ],
             // 'aliran',

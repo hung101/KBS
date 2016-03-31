@@ -29,9 +29,27 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat_id',
-            'nama',
-            'no_kad_pengenalan',
-            'jawatan',
+            [
+                'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ]
+            ],
+            [
+                'attribute' => 'no_kad_pengenalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
+                ]
+            ],
+            [
+                'attribute' => 'jawatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jawatan,
+                ]
+            ],
             //'alamat_1',
             // 'alamat_2',
             // 'alamat_3',
@@ -41,7 +59,13 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'no_tel_bimbit',
             // 'emel',
             // 'muatnaik_dokumen',
-             'nama_kejohonan',
+             [
+                'attribute' => 'nama_kejohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_kejohonan,
+                ]
+            ],
             // 'muatnaik_dokumen_kejohanan',
             // 'status_permohonan',
 

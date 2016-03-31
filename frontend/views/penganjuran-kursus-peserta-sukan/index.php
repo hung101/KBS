@@ -26,10 +26,34 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'penganjuran_kursus_peserta_sukan_id',
-            'penganjuran_kursus_peserta_id',
-            'jenis_sukan',
-            'tahap',
-            'tahun',
+            [
+                'attribute' => 'penganjuran_kursus_peserta_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::penganjuran_kursus_peserta_id,
+                ]
+            ],
+            [
+                'attribute' => 'jenis_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_sukan,
+                ]
+            ],
+            [
+                'attribute' => 'tahap',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahap,
+                ]
+            ],
+            [
+                'attribute' => 'tahun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun,
+                ]
+            ],
             // 'created_by',
             // 'updated_by',
             // 'created',

@@ -45,10 +45,28 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'anugerah_pelaksaan_majlis_id',
-            'tarikh_majlis_anugerah',
-            'nama_ahli_jawatan_kuasa',
+            [
+                'attribute' => 'tarikh_majlis_anugerah',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_majlis_anugerah,
+                ]
+            ],
+            [
+                'attribute' => 'nama_ahli_jawatan_kuasa',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_ahli_jawatan_kuasa,
+                ]
+            ],
             //'jawatan',
-            'tarikh_pelantikan',
+            [
+                'attribute' => 'tarikh_pelantikan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_pelantikan,
+                ]
+            ],
             // 'tempoh',
             // 'nama_tugas',
             // 'status_tugas',

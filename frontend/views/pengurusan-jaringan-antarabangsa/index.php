@@ -45,15 +45,29 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'pengurusan_jaringan_antarabangsa_id',
-            'nama_badan_sukan',
+            [
+                'attribute' => 'nama_badan_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_badan_sukan,
+                ]
+            ],
             //'negara',
             [
                 'attribute' => 'negara',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::negara,
+                ],
                 'value' => 'refNegara.desc'
             ],
             //'nama_pemohon',
             [
                 'attribute' => 'nama_pemohon',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pemohon,
+                ],
                 'value' => 'refPemohonJaringanAntarabangsa.desc'
             ],
             //'no_kad_pengenalan',

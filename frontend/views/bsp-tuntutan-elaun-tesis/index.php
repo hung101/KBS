@@ -31,8 +31,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'bsp_tuntutan_elaun_tesis_od',
             //'bsp_pemohon_id',
-            'tarikh',
-            'tajuk_tesis',
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
+            [
+                'attribute' => 'tajuk_tesis',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tajuk_tesis,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

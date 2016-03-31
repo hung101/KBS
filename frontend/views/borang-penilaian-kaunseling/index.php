@@ -48,10 +48,18 @@ $this->params['breadcrumbs'][] = $this->title;
             //'profil_konsultan_id',
             [
                 'attribute' => 'profil_konsultan_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::profil_konsultan_id,
+                ],
                 'value' => 'refUser.full_name'
             ],
             [
                 'attribute' => 'atlet',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet,
+                ],
                 'value' => 'refAtlet.name_penuh'
             ],
             //'diagnosis',
@@ -62,6 +70,10 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'kategori_permasalahan',
             [
                 'attribute' => 'kategori_permasalahan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_permasalahan,
+                ],
                 'value' => 'refKategoriMasalahKaunseling.desc'
             ],
             // 'tarikh_temujanji',

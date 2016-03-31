@@ -49,17 +49,41 @@ $this->params['breadcrumbs'][] = $this->title;
             //'jenis_cawangan_kuasa',
             [
                 'attribute' => 'nama_pegawai_coach',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pegawai_coach,
+                ],
                 'value' => 'refNamaAhliJkkJkp.desc'
             ],
             [
                 'attribute' => 'jenis_cawangan_kuasa',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_cawangan_kuasa,
+                ],
                 'value' => 'refJenisCawanganKuasaJkkJkp.desc'
             ],
-            'tarikh_pelantikan_jkk_jkp',
-            'tempoh_hak_jkk_jkp',
+            [
+                'attribute' => 'tarikh_pelantikan_jkk_jkp',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_pelantikan_jkk_jkp,
+                ]
+            ],
+            [
+                'attribute' => 'tempoh_hak_jkk_jkp',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tempoh_hak_jkk_jkp,
+                ]
+            ],
             //'status',
             [
                 'attribute' => 'status',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status,
+                ],
                 'value' => 'refStatusJkkJkp.desc'
             ],
             // 'nama_pegawai_coach',

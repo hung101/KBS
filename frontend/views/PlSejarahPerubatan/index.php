@@ -30,8 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pl_sejarah_perubatan_id',
             //'atlet_id',
-            'tarikh',
-            'nama_perubatan',
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
+            [
+                'attribute' => 'nama_perubatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_perubatan,
+                ]
+            ],
             //'butiran_perubatan',
 
             ['class' => 'yii\grid\ActionColumn'],

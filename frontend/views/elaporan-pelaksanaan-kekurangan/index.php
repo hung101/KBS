@@ -30,7 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'elaporan_pelaksanaan_kekurangan_id',
             //'elaporan_pelaksaan_id',
-            'kekurangan',
+            [
+                'attribute' => 'kekurangan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kekurangan,
+                ]
+            ],
             //'session_id',
             //,
             // ,

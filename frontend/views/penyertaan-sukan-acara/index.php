@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'penyertaan_sukan_acara_id',
             //'penyertaan_sukan_id',
-            'nama_acara',
-            'tarikh_acara',
-            'keputusan_acara',
+            [
+                'attribute' => 'nama_acara',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_acara,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_acara',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_acara,
+                ]
+            ],
+            [
+                'attribute' => 'keputusan_acara',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::keputusan_acara,
+                ]
+            ],
             // 'jumlah_pingat',
             // 'rekod_baru',
             // 'catatan_rekod_baru',

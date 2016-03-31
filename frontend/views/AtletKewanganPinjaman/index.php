@@ -30,10 +30,34 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pinjaman_id',
             //'atlet_id',
-            'nama_bank',
-            'jenis_pinjaman',
-            'no_akaun',
-            'nilai_pinjaman',
+            [
+                'attribute' => 'nama_bank',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_bank,
+                ]
+            ],
+            [
+                'attribute' => 'jenis_pinjaman',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_pinjaman,
+                ]
+            ],
+            [
+                'attribute' => 'no_akaun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_akaun,
+                ]
+            ],
+            [
+                'attribute' => 'nilai_pinjaman',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nilai_pinjaman,
+                ]
+            ],
             'tahun_pinjaman',
             // 'tahun_permulaan',
 

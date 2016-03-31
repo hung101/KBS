@@ -46,9 +46,27 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'permohonan_e_bantuan_id',
-            'ebantuan_id',
-            'no_pendaftaran',
-            'nama_pertubuhan_persatuan',
+            [
+                'attribute' => 'ebantuan_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::ebantuan_id,
+                ]
+            ],
+            [
+                'attribute' => 'no_pendaftaran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_pendaftaran,
+                ]
+            ],
+            [
+                'attribute' => 'nama_pertubuhan_persatuan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pertubuhan_persatuan,
+                ]
+            ],
             //'tarikh_didaftarkan',
             /*[
                 'attribute' => 'tarikh_didaftarkan',
@@ -78,20 +96,52 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'bilangan_cawangan_badan_gabungan',
             // 'objektif_pertubuhan',
             // 'aktiviti_dan_kejayaan_yang_dicapai',
-            'nama_program',
+            [
+                'attribute' => 'nama_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_program,
+                ]
+            ],
             //'jumlah_bantuan_yang_dipohon',
             [
                 'attribute' => 'jumlah_bantuan_yang_dipohon',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_bantuan_yang_dipohon,
+                ],
                 'label' => 'Jumlah Bantuan Yang Dipohon'
             ],
             //'kelulusan',
             [
                 'attribute' => 'kelulusan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelulusan,
+                ],
                 'value' => 'refKelulusan.desc'
             ],
-            'bil_mesyuarat',
-            'tarikh_mesyuarat',
-            'jumlah_diluluskan',
+            [
+                'attribute' => 'bil_mesyuarat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bil_mesyuarat,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_mesyuarat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mesyuarat,
+                ]
+            ],
+            [
+                'attribute' => 'jumlah_diluluskan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_diluluskan,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             

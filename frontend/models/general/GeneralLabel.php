@@ -60,6 +60,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const no = "Tidak";
         const offer_yes = "Tawaran Ya";
         const offer_no = "Tawaran Tidak";
+        const filter = "Menyaring";
 
 
         
@@ -1765,7 +1766,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const elaporan_pelaksanaan_program_aktiviti = "E-Laporan Pelaksanaan / Program / Aktiviti";
         const kategori_hakmilik = "Kategori Hakmilik";
         const penganjuran_acara_sukan = "Penganjuran Acara Sukan";
-        //const jumlah_bantuan_yang_dipohon = "Jumlah Bantuan Yang Dipohon";
+        const ipt_bendahari_e_biasiswa_desc = "IPT";
+        const status_permohonan_desc = "Status Permohonan";
 
         // main.php label end
         // bahasa end
@@ -1840,6 +1842,7 @@ if($session->get('language') == "EN") {
         const no = "No";
         const offer_yes = "Offer Yes";
         const offer_no = "Offer No";
+        const filter = "Filter";
 
         const acara = "Events";
         const action = "Action";
@@ -3543,7 +3546,8 @@ if($session->get('language') == "EN") {
         const elaporan_pelaksanaan_program_aktiviti = "E-Delivery Report / Program / Activity";
         const kategori_hakmilik = "Title's Category";
         const penganjuran_acara_sukan = "Organizing Sporting Events";
-        //const jumlah_bantuan_yang_dipohon = "Total Funds Applied";
+        const ipt_bendahari_e_biasiswa_desc = "IPT";
+        const status_permohonan_desc = "Status Of Application";
 
 
         // main.php label end

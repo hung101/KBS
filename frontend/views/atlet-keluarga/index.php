@@ -52,13 +52,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'keluarga_id',
             //'atlet_id',
-            'nama',
+            [
+                'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ]
+            ],
             //'hubungan',
             [
                 'attribute' => 'hubungan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::hubungan,
+                ],
                 'value' => 'refHubungan.desc'
             ],
-            'no_kad_pengenalan',
+            [
+                'attribute' => 'no_kad_pengenalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
+                ]
+            ],
             // 'tarikh_lahir',
             // 'pekerjaan',
             // 'bangsa',

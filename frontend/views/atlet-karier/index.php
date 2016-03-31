@@ -51,15 +51,45 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'karier_atlet_id',
             //'atlet_id',
-            'syarikat',
+            [
+                'attribute' => 'syarikat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::syarikat,
+                ]
+            ],
             //'alamat',
-            'laman_web',
+            [
+                'attribute' => 'laman_web',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::laman_web,
+                ]
+            ],
             // 'tel_no',
             // 'emel',
-             'jawatan_kerja',
+             [
+                'attribute' => 'jawatan_kerja',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jawatan_kerja,
+                ]
+            ],
             // 'pendapatan',
-            'tahun_mula',
-            'tahun_tamat',
+            [
+                'attribute' => 'tahun_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun_mula,
+                ]
+            ],
+            [
+                'attribute' => 'tahun_tamat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun_tamat,
+                ]
+            ],
             // 'socso_no',
             // 'kwsp_no',
             // 'income_tax_no',

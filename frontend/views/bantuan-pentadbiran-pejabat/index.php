@@ -45,9 +45,27 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'bantuan_pentadbiran_pejabat_id',
-            'nama',
-            'no_kad_pengenalan',
-            'tarikh_lahir',
+            [
+                'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ]
+            ],
+            [
+                'attribute' => 'no_kad_pengenalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_lahir',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_lahir,
+                ]
+            ],
             //'alamat_1',
             // 'alamat_2',
             // 'alamat_3',
@@ -58,6 +76,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'status_permohonan',
             [
                 'attribute' => 'status_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan,
+                ],
                 'value' => 'refStatusPermohonanBantuanPentadbiranPejabat.desc'
             ],
             // 'catatan',

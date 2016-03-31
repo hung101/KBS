@@ -51,15 +51,29 @@ $this->params['breadcrumbs'][] = $this->title;
             //'tarikh_kursus',
             [
                 'attribute' => 'tarikh_kursus_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_kursus_mula,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_kursus_mula);
                 },
             ],
-            'tempat_kursus',
+            [
+                'attribute' => 'tempat_kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tempat_kursus,
+                ]
+            ],
             //'negeri',
             [
                 'attribute' => 'negeri',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::negeri,
+                ],
                 'value' => 'refNegeri.desc'
             ],
             //'nama_penyelaras',

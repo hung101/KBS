@@ -46,17 +46,31 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'tempahan_kemudahan_id',
-            'nama',
+            [
+                'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ]
+            ],
             //'no_kad_pengenalan',
             //'location_alamat_1',
             //'venue',
             [
                 'attribute' => 'venue',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::venue,
+                ],
                 'value' => 'refPengurusanKemudahanVenue.nama_venue'
             ],
             //'tarikh_mula',
             [
                 'attribute' => 'tarikh_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATETIME);
@@ -64,12 +78,32 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'jenis_kadar',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_kadar,
+                ],
                 'value' => 'refJenisKadarKemudahan.desc'
             ],
-            'quantity_kadar',
-            'bayaran_sewa',
+            [
+                'attribute' => 'quantity_kadar',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::quantity_kadar,
+                ]
+            ],
+            [
+                'attribute' => 'bayaran_sewa',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bayaran_sewa,
+                ]
+            ],
             [
                 'attribute' => 'status',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status,
+                ],
                 'value' => 'refStatusTempahanKemudahan.desc'
             ],
             //'tarikh_akhir',

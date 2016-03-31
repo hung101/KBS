@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'bajet_penyelidikan_id',
             //'permohonana_penyelidikan_id',
-            'jenis_bajet',
-            'tahun',
-            'jumlah',
+            [
+                'attribute' => 'jenis_bajet',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_bajet,
+                ]
+            ],
+            [
+                'attribute' => 'tahun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun,
+                ]
+            ],
+            [
+                'attribute' => 'jumlah',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

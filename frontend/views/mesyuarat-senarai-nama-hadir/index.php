@@ -30,8 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'senarai_nama_hadir_id',
             //'mesyuarat_id',
-            'nama',
-            'kehadiran',
+            [
+                'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ]
+            ],
+            [
+                'attribute' => 'kehadiran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kehadiran,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

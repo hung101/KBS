@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'program_pendidikan_pencegahan_id',
             //'atlet_id_staff_id',
-            'program',
-            'tarikh_permohonan',
-            'status_permohonan',
+            [
+                'attribute' => 'program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_permohonan,
+                ]
+            ],
+            [
+                'attribute' => 'status_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan,
+                ]
+            ],
             // 'kategori_permohonan',
             // 'catitan_ringkas',
             // 'kelulusan',

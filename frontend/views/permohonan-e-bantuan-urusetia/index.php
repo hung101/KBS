@@ -29,25 +29,52 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'username',
+            [
+                'attribute' => 'username',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::username,
+                ]
+            ],
             //'jabatan_id',
             //'peranan',
             //'auth_key',
             // 'password_hash',
             // 'password_reset_token',
-            'full_name',
+            [
+                'attribute' => 'full_name',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::full_name,
+                ]
+            ],
             //'no_kad_pengenalan',
             // 'tel_mobile_no',
             // 'tel_no',
-            'email:email',
+            [
+                'attribute' => 'email',
+                'format' => 'email',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::email,
+                ]
+            ],
             // 'status_id',
             [
                 'attribute' => 'urusetia_negeri_e_bantuan_desc',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::negeri,
+                ],
                 'value' => 'refNegeri.desc',
                 'label' => GeneralLabel::negeri,
             ],
             [
                 'attribute' => 'urusetia_kategori_program_e_bantuan_desc',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_program,
+                ],
                 'value' => 'refKategoriProgram.desc',
                 'label' => GeneralLabel::kategori_program,
             ],

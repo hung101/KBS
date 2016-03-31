@@ -48,11 +48,33 @@ $this->params['breadcrumbs'][] = $this->title;
             //'atlet_id',
             [
                 'attribute' => 'atlet_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
+                ],
                 'value' => 'atlet.name_penuh'
             ],
-            'tahap_sihat',
-            'pencapaian_sukan_dalam_tahun_yang_dinilai',
-            'kecederaan_jika_ada',
+            [
+                'attribute' => 'tahap_sihat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahap_sihat,
+                ]
+            ],
+            [
+                'attribute' => 'pencapaian_sukan_dalam_tahun_yang_dinilai',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pencapaian_sukan_dalam_tahun_yang_dinilai,
+                ]
+            ],
+            [
+                'attribute' => 'kecederaan_jika_ada',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kecederaan_jika_ada,
+                ]
+            ],
             // 'laporan_kesihatan',
             // 'elaun_yang_diterima',
             // 'skim_hadiah_kemenangan_sukan',

@@ -35,16 +35,39 @@ $this->params['breadcrumbs'][] = $this->title;
             //'auth_key',
             // 'password_hash',
             // 'password_reset_token',
-            'full_name',
-            'no_kad_pengenalan',
+            [
+                'attribute' => 'full_name',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::full_name,
+                ]
+            ],
+            [
+                'attribute' => 'no_kad_pengenalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
+                ]
+            ],
             // 'tel_mobile_no',
             // 'tel_no',
-            'email:email',
+            [
+                'attribute' => 'email',
+                'format' => 'email',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::email,
+                ]
+            ],
             // 'status_id',
             [
                 'attribute' => 'ipt_bendahari_e_biasiswa_desc',
                 'value' => 'refUniversitiInstitusiEBiasiswa.desc',
-                'label' => 'IPT',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::ipt_bendahari_e_biasiswa_desc,
+                ],
+                'label' => GeneralLabel::ipt_bendahari_e_biasiswa_desc,
             ],
 
             //['class' => 'yii\grid\ActionColumn'],

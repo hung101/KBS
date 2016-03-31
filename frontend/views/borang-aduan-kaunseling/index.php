@@ -48,13 +48,33 @@ $this->params['breadcrumbs'][] = $this->title;
             //'nama_pengadu',
             [
                 'attribute' => 'nama_pengadu',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pengadu,
+                ],
                 'value' => 'atlet.name_penuh'
             ],
-            'tarikh_aduan',
-            'no_aduan',
+            [
+                'attribute' => 'tarikh_aduan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_aduan,
+                ]
+            ],
+            [
+                'attribute' => 'no_aduan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_aduan,
+                ]
+            ],
             //'status_aduan',
             [
                 'attribute' => 'status_aduan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_aduan,
+                ],
                 'value' => 'refStatusAduan.desc'
             ],
             // 'aduan_kategori',

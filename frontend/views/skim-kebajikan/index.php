@@ -48,18 +48,42 @@ $this->params['breadcrumbs'][] = $this->title;
             //'jenis_bantuan_skak',
             [
                 'attribute' => 'jenis_bantuan_skak',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_bantuan_skak,
+                ],
                 'value' => 'refJenisBantuanSKAK.desc'
             ],
-            'jumlah_bantuan',
+            [
+                'attribute' => 'jumlah_bantuan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_bantuan,
+                ]
+            ],
             //'nama_pemohon',
             [
                 'attribute' => 'nama_pemohon',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pemohon,
+                ],
                 'value' => 'atlet.name_penuh'
             ],
-            'nama_penerima',
+            [
+                'attribute' => 'nama_penerima',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_penerima,
+                ]
+            ],
             //'jenis_sukan',
             [
                 'attribute' => 'jenis_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_sukan,
+                ],
                 'value' => 'refSukan.desc'
             ],
             // 'masalah_dihadapi',

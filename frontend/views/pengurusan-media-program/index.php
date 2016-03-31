@@ -46,9 +46,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pengurusan_media_program_id',
             //'tarikh_mula',
-            'nama_program',
-            'tempat',
-            'cawangan',
+            [
+                'attribute' => 'nama_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_program,
+                ]
+            ],
+            [
+                'attribute' => 'tempat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tempat,
+                ]
+            ],
+            [
+                'attribute' => 'cawangan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::cawangan,
+                ]
+            ],
             // 'maklumat_msn_negeri',
             // 'catatan',
 

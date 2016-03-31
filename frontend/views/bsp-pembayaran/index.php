@@ -33,17 +33,31 @@ $this->params['breadcrumbs'][] = $this->title;
             //'bsp_pemohon_id',
             [
                 'attribute' => 'bsp_pemohon_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bsp_pemohon_id,
+                ],
                 'value' => 'refPemohonEBiasiswa.desc'
             ],
             //'tarikh',
             [
                 'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh);
                 },
             ],
-            'bayaran',
+            [
+                'attribute' => 'bayaran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bayaran,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

@@ -30,8 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'rehabilitasi_program_id',
             //'rehabilitasi_id',
-            'tarikh',
-            'nama_exercise_modality',
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
+            [
+                'attribute' => 'nama_exercise_modality',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_exercise_modality,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

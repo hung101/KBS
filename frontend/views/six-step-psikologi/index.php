@@ -48,16 +48,28 @@ $this->params['breadcrumbs'][] = $this->title;
             //'atlet_id',
             [
                 'attribute' => 'atlet_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
+                ],
                 'value' => 'atlet.name_penuh'
             ],
             //'stage',
             [
                 'attribute' => 'stage',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::stage,
+                ],
                 'value' => 'refSixstepPsikologiStage.desc'
             ],
             //'status',
             [
                 'attribute' => 'status',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status,
+                ],
                 'value' => 'refSixstepPsikologiStatus.desc'
             ],
 

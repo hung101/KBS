@@ -50,11 +50,19 @@ $this->params['breadcrumbs'][] = $this->title;
             //'kategori_permohonan',
             [
                 'attribute' => 'kategori_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_permohonan,
+                ],
                 'value' => 'refKategoriPermohonan.desc'
             ],
             //'jenis_permohonan',
             [
                 'attribute' => 'jenis_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_permohonan,
+                ],
                 'value' => 'refJenisPermohonan.desc'
             ],
             // 'sukan',
@@ -62,16 +70,36 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'tahap',
             // 'negeri',
             // 'daerah',
-             'tarikh_mula',
-             'tarikh_tamat',
+             [
+                'attribute' => 'tarikh_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
+                ]
+            ],
+             [
+                'attribute' => 'tarikh_tamat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat,
+                ]
+            ],
             // 'sokongan_pn',
             [
                 'attribute' => 'sokongan_pn',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sokongan_pn,
+                ],
                 'value' => 'refSokongPn.desc'
             ],
             //'kelulusan',
             [
                 'attribute' => 'kelulusan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelulusan,
+                ],
                 'value' => 'refKelulusanProgramBinaan.desc'
             ],
 

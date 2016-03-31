@@ -51,16 +51,32 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'atlet_id',
                 'value' => 'refAtlet.name_penuh'
             ],*/
-            'perkhidmatan',
+            [
+                'attribute' => 'perkhidmatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::perkhidmatan,
+                ]
+            ],
             //'tarikh_masa',
             [
                 'attribute' => 'tarikh_masa',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_masa,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_masa, GeneralFunction::TYPE_DATETIME);
                 },
             ],
-            'pegawai_yang_bertanggungjawab',
+            [
+                'attribute' => 'pegawai_yang_bertanggungjawab',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pegawai_yang_bertanggungjawab,
+                ]
+            ],
             // 'catitan_ringkas',
 
             //['class' => 'yii\grid\ActionColumn'],

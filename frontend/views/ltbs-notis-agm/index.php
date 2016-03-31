@@ -45,11 +45,27 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'tbl_ltbs_id',
-            'nama_mesyuarat_agong',
-            'tahun',
+            [
+                'attribute' => 'nama_mesyuarat_agong',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_mesyuarat_agong,
+                ]
+            ],
+            [
+                'attribute' => 'tahun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun,
+                ]
+            ],
             //'notis_agm',
             [
                 'attribute' => 'notis_agm',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::notis_agm,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     if($model->notis_agm){

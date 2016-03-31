@@ -30,12 +30,42 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'cadangan_elaun_id',
             //'atlet',
-            'elaun_semasa',
-            'elaun_cadangan',
-            'tarikh_mula',
-             'tarikh_tamat',
+            [
+                'attribute' => 'elaun_semasa',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::elaun_semasa,
+                ]
+            ],
+            [
+                'attribute' => 'elaun_cadangan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::elaun_cadangan,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
+                ]
+            ],
+             [
+                'attribute' => 'tarikh_tamat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat,
+                ]
+            ],
             // 'ulasan',
-             'jenis_kelulusan',
+             [
+                'attribute' => 'jenis_kelulusan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_kelulusan,
+                ]
+            ],
             // 'muat_naik',
 
             ['class' => 'yii\grid\ActionColumn'],

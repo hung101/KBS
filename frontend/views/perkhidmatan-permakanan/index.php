@@ -30,8 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'perkhidmatan_permakanan_id',
             //'permohonan_perkhidmatan_permakanan_id',
-            'tarikh',
-            'pegawai_yang_bertanggungjawab',
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
+            [
+                'attribute' => 'pegawai_yang_bertanggungjawab',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pegawai_yang_bertanggungjawab,
+                ]
+            ],
             //'catitan_ringkas',
 
             //['class' => 'yii\grid\ActionColumn'],

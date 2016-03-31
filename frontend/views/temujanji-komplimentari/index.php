@@ -48,17 +48,35 @@ $this->params['breadcrumbs'][] = $this->title;
             //'atlet_id',
             [
                 'attribute' => 'atlet_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
+                ],
                 'value' => 'refAtlet.name_penuh'
             ],
             //'perkhidmatan',
             [
                 'attribute' => 'perkhidmatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::perkhidmatan,
+                ],
                 'value' => 'refPerkhidmatanKomplimentari.desc'
             ],
-            'tarikh_khidmat',
+            [
+                'attribute' => 'tarikh_khidmat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_khidmat,
+                ]
+            ],
             //'pegawai_yang_bertanggungjawab',
             [
                 'attribute' => 'pegawai_yang_bertanggungjawab',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pegawai_yang_bertanggungjawab,
+                ],
                 'value' => 'refJuruUrut.desc'
             ],
             // 'status_temujanji',

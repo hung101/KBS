@@ -53,7 +53,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'jurulatih_keluarga_id',
             //'jurulatih_id',
-            'nama_suami_isteri_waris',
+            [
+                'attribute' => 'nama_suami_isteri_waris',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_suami_isteri_waris,
+                ]
+            ],
             //'alamat_surat_menyurat_1',
             //'alamat_surat_menyurat_2',
             // 'alamat_surat_menyurat_3',
@@ -61,7 +67,13 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'alamat_surat_menyurat_bandar',
             // 'alamat_surat_menyurat_poskod',
             // 'emel',
-             'no_telefon',
+             [
+                'attribute' => 'no_telefon',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_telefon,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

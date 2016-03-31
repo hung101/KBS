@@ -30,8 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'biomekanik_ujian_id',
             //'perkhidmatan_analisa_perlawanan_biomekanik_id',
-            'tarikh',
-            'biomekanik_ujian',
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
+            [
+                'attribute' => 'biomekanik_ujian',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::biomekanik_ujian,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

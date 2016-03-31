@@ -28,10 +28,34 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'soal_selidik_sebelum_ujian_soalan_jawapan_id',
-            'soal_selidik_sebelum_ujian_id',
-            'soalan',
-            'jawapan',
+            [
+                'attribute' => 'soal_selidik_sebelum_ujian_soalan_jawapan_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::soal_selidik_sebelum_ujian_soalan_jawapan_id,
+                ]
+            ],
+            [
+                'attribute' => 'soal_selidik_sebelum_ujian_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::soal_selidik_sebelum_ujian_id,
+                ]
+            ],
+            [
+                'attribute' => 'soalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::soalan,
+                ]
+            ],
+            [
+                'attribute' => 'jawapan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jawapan,
+                ]
+            ],
 
             // ,
             // ,

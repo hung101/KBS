@@ -54,9 +54,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'doktor_id',
             //'atlet_id',
-            'nama_doktor',
-            'no_telefon',
-            'hospital_klinik',
+            [
+                'attribute' => 'nama_doktor',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_doktor,
+                ]
+            ],
+            [
+                'attribute' => 'no_telefon',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_telefon,
+                ]
+            ],
+            [
+                'attribute' => 'hospital_klinik',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::hospital_klinik,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

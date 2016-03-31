@@ -48,6 +48,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'penyata_penerimaan_dan_pembayaran',
             [
                 'attribute' => 'penyata_penerimaan_dan_pembayaran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::penyata_penerimaan_dan_pembayaran,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     if($model->penyata_penerimaan_dan_pembayaran){
@@ -63,6 +67,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'penyata_pendapatan_dan_perbelanjaan',
             [
                 'attribute' => 'penyata_pendapatan_dan_perbelanjaan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::penyata_pendapatan_dan_perbelanjaan,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     if($model->penyata_pendapatan_dan_perbelanjaan){
@@ -78,6 +86,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'kunci_kira_kira',
             [
                 'attribute' => 'kunci_kira_kira',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kunci_kira_kira,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     if($model->kunci_kira_kira){

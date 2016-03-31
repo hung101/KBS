@@ -45,12 +45,34 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'pengurusan_perhimpunan_kem_id',
-            'nama_ppn',
-            'pengurus_pn',
-            'nama_penganjuran',
+            [
+                'attribute' => 'nama_ppn',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_ppn,
+                ]
+            ],
+            [
+                'attribute' => 'pengurus_pn',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pengurus_pn,
+                ]
+            ],
+            [
+                'attribute' => 'nama_penganjuran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_penganjuran,
+                ]
+            ],
             //'kategori_penganjuran',
             [
                 'attribute' => 'kategori_penganjuran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_penganjuran,
+                ],
                 'value' => 'refKategoriPenganjuran.desc'
             ],
             // 'sub_kategori_penganjuran',

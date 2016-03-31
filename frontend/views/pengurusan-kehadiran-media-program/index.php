@@ -30,7 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pengurusan_kehadiran_media_program_id',
             //'pengurusan_media_program_id',
-            'nama_wartawan',
+            [
+                'attribute' => 'nama_wartawan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_wartawan,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

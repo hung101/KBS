@@ -56,11 +56,41 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pencapaian_id',
             //'atlet_id',
-            'tarikh_mula_kejohanan',
-            'tarikh_tamat_kejohanan',
-            'nama_kejohanan_temasya',
-            'lokasi_kejohanan',
-            'pencapaian',
+            [
+                'attribute' => 'tarikh_mula_kejohanan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula_kejohanan,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_tamat_kejohanan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat_kejohanan,
+                ]
+            ],
+            [
+                'attribute' => 'nama_kejohanan_temasya',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_kejohanan_temasya,
+                ]
+            ],
+            [
+                'attribute' => 'lokasi_kejohanan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::lokasi_kejohanan,
+                ]
+            ],
+            [
+                'attribute' => 'pencapaian',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pencapaian,
+                ]
+            ],
             //'peringkat_kejohanan',
             
              //'nama_sukan',

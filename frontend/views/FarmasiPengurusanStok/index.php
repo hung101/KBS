@@ -29,10 +29,34 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'farmasi_pengurusan_stok',
-            'nama_ubat',
-            'dos',
-            'harga',
-            'kuantiti',
+            [
+                'attribute' => 'nama_ubat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_ubat,
+                ]
+            ],
+            [
+                'attribute' => 'dos',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::dos,
+                ]
+            ],
+            [
+                'attribute' => 'harga',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::harga,
+                ]
+            ],
+            [
+                'attribute' => 'kuantiti',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kuantiti,
+                ]
+            ],
             // 'jumlah_harga',
 
             ['class' => 'yii\grid\ActionColumn'],

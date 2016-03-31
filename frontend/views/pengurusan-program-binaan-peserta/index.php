@@ -30,10 +30,28 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pengurusan_program_binaan_peserta_id',
             //'pengurusan_program_binaan_id',
-            'kategori_peserta',
+            [
+                'attribute' => 'kategori_peserta',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_peserta,
+                ]
+            ],
             'atlet_jurulatih',
-            'nama_peserta',
-             'jantina',
+            [
+                'attribute' => 'nama_peserta',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_peserta,
+                ]
+            ],
+             [
+                'attribute' => 'jantina',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jantina,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

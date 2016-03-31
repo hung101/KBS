@@ -48,15 +48,35 @@ $this->params['breadcrumbs'][] = $this->title;
             //'atlet_id',
             [
                 'attribute' => 'atlet_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
+                ],
                 'value' => 'refAtlet.name_penuh'
             ],
             //'nama_pegawai',
             [
                 'attribute' => 'nama_pegawai',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pegawai,
+                ],
                 'value' => 'refPegawaiPengurusanPenginapan.desc'
             ],
-            'tarikh_masa_penginapan_mula',
-            'tarikh_masa_penginapan_akhir',
+            [
+                'attribute' => 'tarikh_masa_penginapan_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_masa_penginapan_mula,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_masa_penginapan_akhir',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_masa_penginapan_akhir,
+                ]
+            ],
             // 'lokasi',
             // 'nama_penginapan',
 

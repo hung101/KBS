@@ -57,11 +57,19 @@ $this->params['breadcrumbs'][] = $this->title;
             //'jenis_pakaian',
             [
                 'attribute' => 'jenis_pakaian',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_pakaian,
+                ],
                 'value' => 'refJenisPakaian.desc'
             ],
             //'saiz_pakaian',
             [
                 'attribute' => 'saiz_pakaian',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::saiz_pakaian,
+                ],
                 'value' => 'refSaizPakaian.desc'
             ],
 

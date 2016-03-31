@@ -29,9 +29,27 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'peningkatan_kerjaya_jurulatih_id',
-            'nama_jurulatih',
-            'cawangan',
-            'sub_cawangan',
+            [
+                'attribute' => 'nama_jurulatih',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_jurulatih,
+                ]
+            ],
+            [
+                'attribute' => 'cawangan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::cawangan,
+                ]
+            ],
+            [
+                'attribute' => 'sub_cawangan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sub_cawangan,
+                ]
+            ],
             //'program_msn',
             // 'lain_lain_program',
             // 'pusat_latihan',

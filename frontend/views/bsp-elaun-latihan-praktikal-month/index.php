@@ -30,8 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'bsp_elaun_latihan_praktikal_month_id',
             //'bsp_elaun_latihan_praktikal_id',
-            'bulan',
-            'jumlah_hari',
+            [
+                'attribute' => 'bulan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bulan,
+                ]
+            ],
+            [
+                'attribute' => 'jumlah_hari',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_hari,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

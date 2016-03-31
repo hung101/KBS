@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'rehabilitasi_id',
             //'pl_diagnosis_preskripsi_pemeriksaan_id',
-            'tarikh',
-            'kesan_klinikal',
-            'masalah_yang_dikenal_pasti',
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
+            [
+                'attribute' => 'kesan_klinikal',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kesan_klinikal,
+                ]
+            ],
+            [
+                'attribute' => 'masalah_yang_dikenal_pasti',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::masalah_yang_dikenal_pasti,
+                ]
+            ],
             // 'potensi_rehabilitasi',
             // 'matlamat_rehabilitasi',
 

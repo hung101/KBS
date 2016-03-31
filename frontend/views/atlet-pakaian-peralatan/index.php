@@ -57,16 +57,42 @@ $this->params['breadcrumbs'][] = $this->title;
             //'jenis_sukan',
             [
                 'attribute' => 'jenis_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_sukan,
+                ],
                 'value' => 'refSukan.desc'
             ],
-            'saiz',
+            [
+                'attribute' => 'saiz',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::saiz,
+                ]
+            ],
             //'jenama',
             [
                 'attribute' => 'jenama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenama,
+                ],
                 'value' => 'refJenamaPeralatan.desc'
             ],
-            'model',
-            'warna',
+            [
+                'attribute' => 'model',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::model,
+                ]
+            ],
+            [
+                'attribute' => 'warna',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::warna,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

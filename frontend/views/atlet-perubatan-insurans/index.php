@@ -54,9 +54,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'insurans_id',
             //'atlet_id',
-            'syarikat_insurans',
-            'no_polisi_hayat',
-            'no_polisi_kad_perubatan',
+            [
+                'attribute' => 'syarikat_insurans',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::syarikat_insurans,
+                ]
+            ],
+            [
+                'attribute' => 'no_polisi_hayat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_polisi_hayat,
+                ]
+            ],
+            [
+                'attribute' => 'no_polisi_kad_perubatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_polisi_kad_perubatan,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

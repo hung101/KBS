@@ -57,6 +57,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'jenis_kurang_upaya',
             [
                 'attribute' => 'jenis_kurang_upaya',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_kurang_upaya,
+                ],
                 'value' => 'refJenisKurangUpaya.desc'
             ],
             //'jenis_kurang_upaya_pendengaran',

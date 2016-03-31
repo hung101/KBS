@@ -31,10 +31,28 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'bsp_elaun_perjalanan_udara_id',
             //'bsp_pemohon_id',
-            'tarikh',
-            'destinasi_pergi',
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
+            [
+                'attribute' => 'destinasi_pergi',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::destinasi_pergi,
+                ]
+            ],
             // 'tarikh_pergi',
-            'destinasi_balik',
+            [
+                'attribute' => 'destinasi_balik',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::destinasi_balik,
+                ]
+            ],
             // 'tarikh_balik',
 
             //['class' => 'yii\grid\ActionColumn'],

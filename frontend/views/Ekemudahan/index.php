@@ -29,11 +29,35 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'ekemudahan_id',
-            'kategori',
-            'jenis',
+            [
+                'attribute' => 'kategori',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori,
+                ]
+            ],
+            [
+                'attribute' => 'jenis',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis,
+                ]
+            ],
             //'gambar',
-            'lokasi',
-            'dihubungi',
+            [
+                'attribute' => 'lokasi',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::lokasi,
+                ]
+            ],
+            [
+                'attribute' => 'dihubungi',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::dihubungi,
+                ]
+            ],
             // 'kadar_sewa',
             // 'url:url',
             // 'nama_perniagaan_perkhidmatan_organisasi',

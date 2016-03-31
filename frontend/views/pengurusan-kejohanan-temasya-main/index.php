@@ -49,14 +49,28 @@ $this->params['breadcrumbs'][] = $this->title;
             //'nama_temasya',
             [
                 'attribute' => 'nama_temasya',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_temasya,
+                ],
                 'value' => 'refTemasya.desc'
             ],
             //'nama_pertandingan',
             [
                 'attribute' => 'nama_pertandingan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pertandingan,
+                ],
                 'value' => 'refPertandinganTemasya.desc'
             ],
-            'tarikh',
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

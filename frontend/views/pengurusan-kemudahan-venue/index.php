@@ -45,9 +45,19 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'pengurusan_kemudahan_venue_id',
-            'nama_venue',
+            [
+                'attribute' => 'nama_venue',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_venue,
+                ]
+            ],
             [
                 'attribute' => 'kategori_hakmilik',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_hakmilik,
+                ],
                 'value' => 'refKategoriHakmilik.desc'
             ],
             //'alamat_1',
@@ -58,11 +68,21 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'alamat_poskod',
             // 'no_telefon',
             // 'no_faks',
-             'pemilik',
+             [
+                'attribute' => 'pemilik',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pemilik,
+                ]
+            ],
             // 'sewaan',
             //'status',
             [
                 'attribute' => 'status',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status,
+                ],
                 'value' => 'refStatusVenue.desc'
             ],
 

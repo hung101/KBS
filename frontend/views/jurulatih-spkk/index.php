@@ -57,16 +57,28 @@ $this->params['breadcrumbs'][] = $this->title;
             //'jenis_spkk',
             [
                 'attribute' => 'jenis_spkk',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_spkk,
+                ],
                 'value' => 'refJenisSijilKelayakanJurulatih.desc'
             ],
             //'tahap',
             [
                 'attribute' => 'tahap',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahap,
+                ],
                 'value' => 'refTahapKelayakanJurulatih.desc'
             ],
             //'muatnaik_sijil',
             [
                 'attribute' => 'muatnaik_sijil',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::muatnaik_sijil,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     if($model->muatnaik_sijil){

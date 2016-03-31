@@ -54,9 +54,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'jurulatih_pendidikan_id',
             //'jurulatih_id',
-            'tahun',
-            'sekolah_kolej_universiti',
-            'gred',
+            [
+                'attribute' => 'tahun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun,
+                ]
+            ],
+            [
+                'attribute' => 'sekolah_kolej_universiti',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sekolah_kolej_universiti,
+                ]
+            ],
+            [
+                'attribute' => 'gred',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::gred,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

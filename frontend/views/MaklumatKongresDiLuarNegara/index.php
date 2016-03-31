@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'maklumat_kongres_di_luar_negara_id',
             //'pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat_id',
-            'tajuk',
-            'tempat',
-            'masa',
+            [
+                'attribute' => 'tajuk',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tajuk,
+                ]
+            ],
+            [
+                'attribute' => 'tempat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tempat,
+                ]
+            ],
+            [
+                'attribute' => 'masa',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::masa,
+                ]
+            ],
             // 'tarikh_penerbangan',
             // 'tiket_penerbangan',
             // 'jumlah_penerbangan',

@@ -46,16 +46,32 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'permohonana_penyelidikan_id',
-            'nama_permohon',
+            [
+                'attribute' => 'nama_permohon',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_permohon,
+                ]
+            ],
             //'tarikh_permohonan',
             [
                 'attribute' => 'tarikh_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_permohonan,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_permohonan);
                 },
             ],
-            'tajuk_penyelidikan',
+            [
+                'attribute' => 'tajuk_penyelidikan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tajuk_penyelidikan,
+                ]
+            ],
             //'ringkasan_permohonan',
             // 'biasa_dengan_keperluan_penyelidikan',
             // 'kelulusan_echics',

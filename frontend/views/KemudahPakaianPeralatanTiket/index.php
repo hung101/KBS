@@ -29,14 +29,44 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'kemudah_pakaian_peralatan_tiket_id',
-            'atlet_id',
-            'kategori_permohonan',
-            'tarikh_diperlukan_pergi',
-            'tarikh_dijangka_dipulangkan_balik',
+            [
+                'attribute' => 'atlet_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
+                ]
+            ],
+            [
+                'attribute' => 'kategori_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_permohonan,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_diperlukan_pergi',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_diperlukan_pergi,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_dijangka_dipulangkan_balik',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_dijangka_dipulangkan_balik,
+                ]
+            ],
             // 'destinasi_daripada',
             // 'destinasi_ke',
             // 'ulasan_permohonan',
-            'kelulusan',
+            [
+                'attribute' => 'kelulusan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelulusan,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

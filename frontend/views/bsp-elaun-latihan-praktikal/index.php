@@ -31,13 +31,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'bsp_elaun_latihan_praktikal_id',
             //'bsp_pemohon_id',
-            'tarikh',
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
             //'jenis_latihan_amali',
             [
                 'attribute' => 'jenis_latihan_amali',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_latihan_amali,
+                ],
                 'value' => 'refJenisLatihanAmali.desc'
             ],
-            'tempat_latihan_praktikal',
+            [
+                'attribute' => 'tempat_latihan_praktikal',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tempat_latihan_praktikal,
+                ]
+            ],
             // 'tarikh_mula',
             // 'tarikh_tamat',
             // 'jumlah_hari',

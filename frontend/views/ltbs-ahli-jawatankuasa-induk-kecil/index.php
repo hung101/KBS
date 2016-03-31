@@ -48,16 +48,36 @@ $this->params['breadcrumbs'][] = $this->title;
             //'ahli_jawatan_id',
             //'jenis_jawatankuasa',
             //'nama_jawatankuasa',
-            'nama_penuh',
+            [
+                'attribute' => 'nama_penuh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_penuh,
+                ]
+            ],
             //'jawatan',
             [
                 'attribute' => 'jawatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jawatan,
+                ],
                 'value' => 'refJawatanInduk.desc'
             ],
-             'no_kad_pengenalan',
+             [
+                'attribute' => 'no_kad_pengenalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
+                ]
+            ],
             //'jantina',
             [
                 'attribute' => 'jantina',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jantina,
+                ],
                 'value' => 'refJantina.desc'
             ],
             // 'bangsa',

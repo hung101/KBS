@@ -54,15 +54,29 @@ $this->params['breadcrumbs'][] = $this->title;
             //'jenis_aset',
             [
                 'attribute' => 'jenis_aset',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_aset,
+                ],
                 'value' => 'jenisAset.desc'
             ],
             // 'daftar_no_pengangkutan',
             //'jenis_harta_pengangkutan_perniagaan',
             [
                 'attribute' => 'jenis_harta_pengangkutan_perniagaan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_harta_pengangkutan_perniagaan,
+                ],
                 'value' => 'jenisAsetSub.desc'
             ],
-            'nilai_harta_pengangkutan',
+            [
+                'attribute' => 'nilai_harta_pengangkutan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nilai_harta_pengangkutan,
+                ]
+            ],
             // 'daftar_alamat',
             // 'nama_syarikat_perniagaan',
             // 'produk_perkhidmatan_perniagaan',

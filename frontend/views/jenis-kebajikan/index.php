@@ -48,11 +48,33 @@ $this->params['breadcrumbs'][] = $this->title;
             //'jenis_kebajikan',
             [
                 'attribute' => 'jenis_kebajikan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_kebajikan,
+                ],
                 'value' => 'refJenisKebajikan.desc'
             ],
-            'perkara',
-            'sukan_sea_para_asean',
-            'sukan_asia_komenwel_para_asia_ead',
+            [
+                'attribute' => 'perkara',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::perkara,
+                ]
+            ],
+            [
+                'attribute' => 'sukan_sea_para_asean',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan_sea_para_asean,
+                ]
+            ],
+            [
+                'attribute' => 'sukan_asia_komenwel_para_asia_ead',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan_asia_komenwel_para_asia_ead,
+                ]
+            ],
             // 'sukan_olimpik_paralimpik',
             // 'kejohanan_asia_dunia',
 

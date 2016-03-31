@@ -33,16 +33,50 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pencapaian_rekods_id',
             //'pencapaian_id',
-            'tarikh',
-            'peringkat',
-            'opponent',
-            'venue',
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
+            [
+                'attribute' => 'peringkat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::peringkat,
+                ]
+            ],
+            [
+                'attribute' => 'opponent',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::opponent,
+                ]
+            ],
+            [
+                'attribute' => 'venue',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::venue,
+                ]
+            ],
             //'jenis_rekod',
             [
                 'attribute' => 'jenis_rekod',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_rekod,
+                ],
                 'value' => 'refJenisRekod.desc'
             ],
-            'result',
+            [
+                'attribute' => 'result',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::result,
+                ]
+            ],
             //'personal_best',
             //'season_best',
 

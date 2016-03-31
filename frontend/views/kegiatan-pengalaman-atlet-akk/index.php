@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'kegiatan_pengalaman_atlet_akk_id',
             //'akademi_akk_id',
-            'nama_sukan_pertandingan',
-            'tahun',
-            'sukan_acara',
+            [
+                'attribute' => 'nama_sukan_pertandingan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_sukan_pertandingan,
+                ]
+            ],
+            [
+                'attribute' => 'tahun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun,
+                ]
+            ],
+            [
+                'attribute' => 'sukan_acara',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan_acara,
+                ]
+            ],
             // 'pencapaian',
 
             ['class' => 'yii\grid\ActionColumn'],

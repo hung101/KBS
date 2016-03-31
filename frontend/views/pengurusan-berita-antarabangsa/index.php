@@ -48,13 +48,33 @@ $this->params['breadcrumbs'][] = $this->title;
             //'kategori_berita',
             [
                 'attribute' => 'kategori_berita',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_berita,
+                ],
                 'value' => 'refKategoriBerita.desc'
             ],
-            'nama_berita',
-            'tarikh_berita',
+            [
+                'attribute' => 'nama_berita',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_berita,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_berita',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_berita,
+                ]
+            ],
             //'muatnaik',
             [
                 'attribute' => 'muatnaik',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::muatnaik,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     if($model->muatnaik){

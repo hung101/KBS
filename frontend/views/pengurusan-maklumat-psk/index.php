@@ -45,10 +45,34 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'pengurusan_maklumat_psk_id',
-            'nama_sponsor',
-            'jumlah_sponsor',
-            'tarikh_sponsor_mula',
-            'tarikh_sponsor_tamat',
+            [
+                'attribute' => 'nama_sponsor',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_sponsor,
+                ]
+            ],
+            [
+                'attribute' => 'jumlah_sponsor',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_sponsor,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_sponsor_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_sponsor_mula,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_sponsor_tamat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_sponsor_tamat,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

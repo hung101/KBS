@@ -45,18 +45,46 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'permohonan_kemudahan_ticket_kapal_terbang_id',
-            'nama_pemohon',
+            [
+                'attribute' => 'nama_pemohon',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pemohon,
+                ]
+            ],
             //'bahagian',
             //'jawatan',
-            'destinasi',
-            'tarikh',
+            [
+                'attribute' => 'destinasi',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::destinasi,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
             //'nama_program',
             [
                 'attribute' => 'nama_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_program,
+                ],
                 'value' => 'program.desc'
             ],
             // 'no_fail_kelulusan',
-             'bil_penumpang',
+             [
+                'attribute' => 'bil_penumpang',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bil_penumpang,
+                ]
+            ],
             // 'aktiviti',
             // 'kod_perbelanjaan',
             // 'sukan',

@@ -45,10 +45,34 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'profil_konsultan_id',
-            'nama_konsultan',
-            'ic_no',
-            'emel',
-            'no_bimbit',
+            [
+                'attribute' => 'nama_konsultan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_konsultan,
+                ]
+            ],
+            [
+                'attribute' => 'ic_no',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::ic_no,
+                ]
+            ],
+            [
+                'attribute' => 'emel',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::emel,
+                ]
+            ],
+            [
+                'attribute' => 'no_bimbit',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_bimbit,
+                ]
+            ],
             // 'bidang_konsultansi',
 
             //['class' => 'yii\grid\ActionColumn'],

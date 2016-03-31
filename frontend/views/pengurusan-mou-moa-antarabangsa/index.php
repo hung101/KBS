@@ -48,16 +48,36 @@ $this->params['breadcrumbs'][] = $this->title;
             //'nama_negara_terlibat',
             [
                 'attribute' => 'nama_negara_terlibat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_negara_terlibat,
+                ],
                 'value' => 'refNegara.desc'
             ],
             //'agensi',
             [
                 'attribute' => 'agensi',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::agensi,
+                ],
                 'value' => 'refAgensiAntarabangsa.desc'
             ],
             //'asas_asas_pertimbangan',
-            'jangka_waktu_mula',
-             'jangka_waktu_tamat',
+            [
+                'attribute' => 'jangka_waktu_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jangka_waktu_mula,
+                ]
+            ],
+             [
+                'attribute' => 'jangka_waktu_tamat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jangka_waktu_tamat,
+                ]
+            ],
             // 'status',
             // 'tajuk_mou_moa',
             // 'catatan',

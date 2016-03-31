@@ -28,11 +28,41 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'bsp_borang_borang_id',
-            'bsp_pemohon_id',
-            'bsp_03',
-            'bsp_04',
-            'bsp_05',
+            [
+                'attribute' => 'bsp_borang_borang_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bsp_borang_borang_id,
+                ]
+            ],
+            [
+                'attribute' => 'bsp_pemohon_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bsp_pemohon_id,
+                ]
+            ],
+            [
+                'attribute' => 'bsp_03',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bsp_03,
+                ]
+            ],
+            [
+                'attribute' => 'bsp_04',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bsp_04,
+                ]
+            ],
+            [
+                'attribute' => 'bsp_05',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bsp_05,
+                ]
+            ],
             // 'bsp_07',
             // 'bsp_08',
             // 'bsp_09',

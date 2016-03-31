@@ -31,8 +31,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'bsp_penjamin_id',
             //'bsp_pemohon_id',
-            'nama',
-            'no_kad_pengenalan',
+            [
+                'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ]
+            ],
+            [
+                'attribute' => 'no_kad_pengenalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
+                ]
+            ],
             // 'alamat_tetap_1',
             // 'alamat_tetap_2',
             // 'alamat_tetap_3',

@@ -32,9 +32,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'bsp_prestasi_akademik_id',
             //'bsp_pemohon_id',
-            'tarikh',
-            'png',
-            'pngk',
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
+            [
+                'attribute' => 'png',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::png,
+                ]
+            ],
+            [
+                'attribute' => 'pngk',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pngk,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

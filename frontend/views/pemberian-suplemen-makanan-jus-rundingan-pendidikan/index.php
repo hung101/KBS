@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pemberian_suplemen_makanan_jus_rundingan_pendidikan_id',
             //'perkhidmatan_permakanan_id',
-            'nama_suplemen_makanan_jus_rundingan_pendidikan',
-            'kuantiti_ml_g',
-            'harga',
+            [
+                'attribute' => 'nama_suplemen_makanan_jus_rundingan_pendidikan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_suplemen_makanan_jus_rundingan_pendidikan,
+                ]
+            ],
+            [
+                'attribute' => 'kuantiti_ml_g',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kuantiti_ml_g,
+                ]
+            ],
+            [
+                'attribute' => 'harga',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::harga,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

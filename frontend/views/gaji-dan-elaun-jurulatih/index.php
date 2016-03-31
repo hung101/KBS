@@ -48,6 +48,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'nama_jurulatih',
             [
                 'attribute' => 'nama_jurulatih',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_jurulatih,
+                ],
                 'value' => 'refJurulatih.nama'
             ],
             //'no_kad_pengenalan',
@@ -57,6 +61,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'bank',
             [
                 'attribute' => 'bank',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bank,
+                ],
                 'value' => 'refBank.desc'
             ],
             // 'no_akaun',

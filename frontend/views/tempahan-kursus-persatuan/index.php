@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'tempahan_kursus_persatuan_id',
             //'kursus_persatuan_id',
-            'tarikh',
-            'jenis_tempahan',
-            'unit_tempahan',
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
+            [
+                'attribute' => 'jenis_tempahan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_tempahan,
+                ]
+            ],
+            [
+                'attribute' => 'unit_tempahan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::unit_tempahan,
+                ]
+            ],
             // 'kos_tempahan',
 
             ['class' => 'yii\grid\ActionColumn'],

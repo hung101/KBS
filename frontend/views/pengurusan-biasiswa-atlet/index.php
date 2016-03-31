@@ -48,11 +48,33 @@ $this->params['breadcrumbs'][] = $this->title;
             //'atlet_id',
             [
                 'attribute' => 'atlet_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
+                ],
                 'value' => 'refAtlet.name_penuh'
             ],
-            'tarikh_mula',
-            'tarikh_akhir',
-            'nama_biasiswa_sponsor',
+            [
+                'attribute' => 'tarikh_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_akhir',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_akhir,
+                ]
+            ],
+            [
+                'attribute' => 'nama_biasiswa_sponsor',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_biasiswa_sponsor,
+                ]
+            ],
             // 'jumlah_penajaan',
 
             //['class' => 'yii\grid\ActionColumn'],

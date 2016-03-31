@@ -29,10 +29,34 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'desc',
-            'kod_1',
-            'kod_2',
-            'kod_3',
+            [
+                'attribute' => 'desc',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::desc,
+                ]
+            ],
+            [
+                'attribute' => 'kod_1',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kod_1,
+                ]
+            ],
+            [
+                'attribute' => 'kod_2',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kod_2,
+                ]
+            ],
+            [
+                'attribute' => 'kod_3',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kod_3,
+                ]
+            ],
             // 'aktif',
             // ,
             // ,

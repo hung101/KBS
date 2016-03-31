@@ -30,8 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'elaun_jurulatih_id',
             //'gaji_dan_elaun_jurulatih_id',
-            'jenis_elaun',
-            'jumlah_elaun',
+            [
+                'attribute' => 'jenis_elaun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_elaun,
+                ]
+            ],
+            [
+                'attribute' => 'jumlah_elaun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_elaun,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

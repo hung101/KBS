@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'bsp_prestasi_sukan_id',
             //'bsp_pemohon_id',
-            'tarikh',
-            'kejohanan_yang_disertai',
-            'lokasi_kejohanan',
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
+            [
+                'attribute' => 'kejohanan_yang_disertai',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kejohanan_yang_disertai,
+                ]
+            ],
+            [
+                'attribute' => 'lokasi_kejohanan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::lokasi_kejohanan,
+                ]
+            ],
             // 'pencapaian',
 
             ['class' => 'yii\grid\ActionColumn'],

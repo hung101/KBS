@@ -48,11 +48,27 @@ $this->params['breadcrumbs'][] = $this->title;
             //'kategori_kursus',
             [
                 'attribute' => 'kategori_kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_kursus,
+                ],
                 'value' => 'refKategoriKursusPenganjuran.desc'
             ],
-            'nama_kursus',
+            [
+                'attribute' => 'nama_kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_kursus,
+                ]
+            ],
             //'kod_kursus',
-            'tarikh',
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
             // 'tempat',
 
             //['class' => 'yii\grid\ActionColumn'],

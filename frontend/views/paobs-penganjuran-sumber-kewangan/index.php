@@ -30,8 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'paobs_penganjuran_sumber_kewangan_id',
             //'penganjuran_id',
-            'sumber',
-            'jumlah',
+            [
+                'attribute' => 'sumber',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sumber,
+                ]
+            ],
+            [
+                'attribute' => 'jumlah',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah,
+                ]
+            ],
             //'session_id',
             // ,
             // ,

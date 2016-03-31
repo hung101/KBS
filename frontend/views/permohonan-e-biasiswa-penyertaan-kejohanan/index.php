@@ -30,14 +30,62 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'penyertaan_kejohanan_id',
             //'permohonan_e_biasiswa_id',
-            'sukan',
-            'tarikh',
-            'anjuran',
-             'kejohanan_mewakili',
-             'acara',
-             'nama_kejohanan',
-             'tempat',
-             'pencapaian',
+            [
+                'attribute' => 'sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ]
+            ],
+            [
+                'attribute' => 'anjuran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::anjuran,
+                ]
+            ],
+             [
+                'attribute' => 'kejohanan_mewakili',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kejohanan_mewakili,
+                ]
+            ],
+             [
+                'attribute' => 'acara',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::acara,
+                ]
+            ],
+             [
+                'attribute' => 'nama_kejohanan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_kejohanan,
+                ]
+            ],
+             [
+                'attribute' => 'tempat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tempat,
+                ]
+            ],
+             [
+                'attribute' => 'pencapaian',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pencapaian,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

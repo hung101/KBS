@@ -30,8 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pl_diagnosis_preskripsi_pemeriksaan_id',
             //'pl_temujanji_id',
-            'jenis_diagnosis_preskripsi_pemeriksaan',
-            'status_diagnosis_preskripsi_pemeriksaan',
+            [
+                'attribute' => 'jenis_diagnosis_preskripsi_pemeriksaan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_diagnosis_preskripsi_pemeriksaan,
+                ]
+            ],
+            [
+                'attribute' => 'status_diagnosis_preskripsi_pemeriksaan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_diagnosis_preskripsi_pemeriksaan,
+                ]
+            ],
             //'catitan_ringkas',
 
             ['class' => 'yii\grid\ActionColumn'],

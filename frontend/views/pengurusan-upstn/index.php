@@ -45,13 +45,29 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'pengurusan_upstn_id',
-            'nama_pengurus_sukan',
+            [
+                'attribute' => 'nama_pengurus_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pengurus_sukan,
+                ]
+            ],
             //'nama_sukan',
             [
                 'attribute' => 'nama_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_sukan,
+                ],
                 'value' => 'refSukan.desc'
             ],
-            'tarikh_lawatan',
+            [
+                'attribute' => 'tarikh_lawatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_lawatan,
+                ]
+            ],
             //'masa',
             // 'tempat',
             // 'kehadiran',

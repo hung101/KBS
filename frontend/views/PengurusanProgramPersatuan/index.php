@@ -29,8 +29,20 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'pengurusan_program_persatuan',
-            'bantuan_tahun',
-            'nama_persatuan',
+            [
+                'attribute' => 'bantuan_tahun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bantuan_tahun,
+                ]
+            ],
+            [
+                'attribute' => 'nama_persatuan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_persatuan,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

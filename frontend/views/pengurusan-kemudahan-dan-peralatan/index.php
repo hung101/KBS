@@ -48,10 +48,26 @@ $this->params['breadcrumbs'][] = $this->title;
             //'kerja',
             [
                 'attribute' => 'kerja',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kerja,
+                ],
                 'value' => 'refKerjaPengurusanKemudahanPeralatan.desc'
             ],
-            'masa',
-            'catatan_ringkas',
+            [
+                'attribute' => 'masa',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::masa,
+                ]
+            ],
+            [
+                'attribute' => 'catatan_ringkas',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::catatan_ringkas,
+                ]
+            ],
             //'tindakan_yang_diambil',
             // 'hasil',
             // 'ketidakpatuhan',

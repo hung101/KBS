@@ -45,16 +45,40 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'pengurusan_kontraktor_id',
-            'nama_kontraktor',
+            [
+                'attribute' => 'nama_kontraktor',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_kontraktor,
+                ]
+            ],
             //'alamat_1',
             //'alamat_2',
             //'alamat_3',
             // 'alamat_negeri',
             // 'alamat_bandar',
             // 'alamat_poskod',
-             'telefon_pejabat',
-             'telefon_bimbit',
-             'peralatan_yang_dibekal',
+             [
+                'attribute' => 'telefon_pejabat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::telefon_pejabat,
+                ]
+            ],
+             [
+                'attribute' => 'telefon_bimbit',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::telefon_bimbit,
+                ]
+            ],
+             [
+                'attribute' => 'peralatan_yang_dibekal',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::peralatan_yang_dibekal,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

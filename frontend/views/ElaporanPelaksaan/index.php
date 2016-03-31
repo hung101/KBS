@@ -29,9 +29,27 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'elaporan_pelaksaan_id',
-            'nama_projek_program_aktiviti_kejohanan',
-            'nama_persatuan',
-            'jumlah_bantuan',
+            [
+                'attribute' => 'nama_projek_program_aktiviti_kejohanan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_projek_program_aktiviti_kejohanan,
+                ]
+            ],
+            [
+                'attribute' => 'nama_persatuan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_persatuan,
+                ]
+            ],
+            [
+                'attribute' => 'jumlah_bantuan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_bantuan,
+                ]
+            ],
             // 'no_cek_eft',
             // 'tarikh_cek_eft',
             // 'objektif_pelaksaan',

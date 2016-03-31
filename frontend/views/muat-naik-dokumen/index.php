@@ -48,11 +48,19 @@ $this->params['breadcrumbs'][] = $this->title;
             //'kategori_muat_naik',
             [
                 'attribute' => 'kategori_muat_naik',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_muat_naik,
+                ],
                 'value' => 'refKategoriMuatnaik.desc'
             ],
             //'muat_naik_dokumen',
             [
                 'attribute' => 'muat_naik_dokumen',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::muat_naik_dokumen,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     if($model->muat_naik_dokumen){
@@ -66,7 +74,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 },
             ],
-            'tarikh_muat_naik',
+            [
+                'attribute' => 'tarikh_muat_naik',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_muat_naik,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

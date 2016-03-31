@@ -30,8 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'bsp_dokumen_sokongan_id',
             //'bsp_pemohon_id',
-            'nama_dokumen',
-            'upload',
+            [
+                'attribute' => 'nama_dokumen',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_dokumen,
+                ]
+            ],
+            [
+                'attribute' => 'upload',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::upload,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -30,9 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'senarai_aktiviti_projek_id',
             //'permohonan_e_bantuan_id',
-            'nama_aktiviti_projek',
-            'keterangan_ringkas',
-            'kejayaan_yang_dicapai',
+            [
+                'attribute' => 'nama_aktiviti_projek',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_aktiviti_projek,
+                ]
+            ],
+            [
+                'attribute' => 'keterangan_ringkas',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::keterangan_ringkas,
+                ]
+            ],
+            [
+                'attribute' => 'kejayaan_yang_dicapai',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kejayaan_yang_dicapai,
+                ]
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

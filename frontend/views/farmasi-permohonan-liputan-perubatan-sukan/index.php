@@ -50,28 +50,56 @@ $this->params['breadcrumbs'][] = $this->title;
             //'tarikh_program',
             [
                 'attribute' => 'tarikh_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_program,
+                ],
                 'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_program);
                 },
             ],
-            'tempat_program',
+            [
+                'attribute' => 'tempat_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tempat_program,
+                ]
+            ],
             [
                 'attribute' => 'kategori_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_program,
+                ],
                 'value' => 'refKategoriProgramLiputanPerubatanSukan.desc'
             ],
-            'nama_pemohon',
+            [
+                'attribute' => 'nama_pemohon',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pemohon,
+                ]
+            ],
             // 'no_tel_pemohon',
             // 'pegawai_bertugas',
             // 'muat_naik',
             //'kelulusan_ceo',
             [
                 'attribute' => 'kelulusan_ceo',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelulusan_ceo,
+                ],
                 'value' => 'refKelulusanCEO.desc'
             ],
             //'kelulusan_pbu',
             [
                 'attribute' => 'kelulusan_pbu',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelulusan_pbu,
+                ],
                 'value' => 'refKelulusanPBU.desc'
             ],
 

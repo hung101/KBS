@@ -46,9 +46,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pengurusan_jkk_jkp_program_id',
             //'pengurusan_jkk_jkp_id',
-            'nama_program',
-            'tarikh_mula_program',
-            'tarikh_tamat_program',
+            [
+                'attribute' => 'nama_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_program,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_mula_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula_program,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_tamat_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat_program,
+                ]
+            ],
             //'kategori_program',
             // 'nama_pesserta',
 

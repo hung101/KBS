@@ -54,15 +54,43 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'kursus_kem_id',
             //'atlet_id',
-            'tarikh_mula',
-            'tarikh_tamat',
+            [
+                'attribute' => 'tarikh_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_tamat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat,
+                ]
+            ],
             //'jenis',
             [
                 'attribute' => 'jenis',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis,
+                ],
                 'value' => 'refJenisKursuskem.desc'
             ],
-            'lokasi',
-            'nama_kursus_kem',
+            [
+                'attribute' => 'lokasi',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::lokasi,
+                ]
+            ],
+            [
+                'attribute' => 'nama_kursus_kem',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_kursus_kem,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

@@ -44,11 +44,41 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'penajaan_sokongan_id',
-            'atlet_id',
-            'nama_syarikat',
-            'alamat',
-            'emel',
+            [
+                'attribute' => 'penajaan_sokongan_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::penajaan_sokongan_id,
+                ]
+            ],
+            [
+                'attribute' => 'atlet_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
+                ]
+            ],
+            [
+                'attribute' => 'nama_syarikat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_syarikat,
+                ]
+            ],
+            [
+                'attribute' => 'alamat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::alamat,
+                ]
+            ],
+            [
+                'attribute' => 'emel',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::emel,
+                ]
+            ],
             // 'no_telefon',
             // 'peribadi_yang_bertanggungjawab',
             // 'jenis_kontrak',
