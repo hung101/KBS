@@ -8,8 +8,6 @@ use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
 
 use yii\widgets\ActiveForm;
-use kartik\icons\Icon;
-Icon::map($this);
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AtletSearch */
