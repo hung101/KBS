@@ -1034,6 +1034,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pencalonan_pasukan_lelaki_kebangsaan_tahun = "Pencalonan Pasukan Lelaki Kebangsaan Tahun";
         const pencalonan_pasukan_wanita_kebangsaan_tahun = "Pencalonan Pasukan Wanita Kebangsaan Tahun";
         const pencapaian = "Pencapaian";
+        const pencapaian_long = "Jenis Pencapaian: DD [UPSR/PMR@PT3/SPM/STPM/CGPA]";
         const pencapaian_id = "Pencapaian ID";
         const pencapaian_rekods_id = "Pencapaian Rekods ID";
         const pencapaian_sukan_dalam_tahun_yang_dinilai = "Pencapaian Sukan Dalam Tahun Yang Dinilai";
@@ -1361,6 +1362,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const susan_ranking_kebangsaan = "Susan Ranking Kebangsaan";
         const susulan = "Susulan";
         const syarikat = "Syarikat";
+        const majikan = "Majikan";
         const syarikat_insurans = "Syarikat Insurans";
         const system_modules_id = "System Modules ID";
         const tahap = "Tahap";
@@ -1494,7 +1496,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tel_bimbit_pengadu = "Tel Bimbit Pengadu";
         const tel_mobile_no = "Tel Bimbit No";
         const tel_no = "No Telefon";
-        const tel_no_kecemasan = "No Tel";
+        const tel_no_kecemasan = "No Tel Kecemasan";
         const telefon_bimbit = "Telefon Bimbit";
         const telefon_no = "Telefon No";
         const telefon_pejabat = "Telefon Pejabat";
@@ -2813,7 +2815,8 @@ if($session->get('language') == "EN") {
         const pencalonan_olahragawati_tahun = "The Nomination Of The Sportswoman Of The Year";
         const pencalonan_pasukan_lelaki_kebangsaan_tahun = "The Nomination Of The Men's Team Of The Year";
         const pencalonan_pasukan_wanita_kebangsaan_tahun = "Women's Team Of The Year Nomination";
-        const pencapaian = "The achievement of the";
+        const pencapaian = "Achievement";
+        const pencapaian_long = "Type of Achievement: DD [UPSR/PMR@PT3/SPM/STPM/CGPA]";
         const pencapaian_id = "Achievement Of The ID";
         const pencapaian_rekods_id = "Performance Checking Records ID";
         const pencapaian_sukan_dalam_tahun_yang_dinilai = "Sports Achievements In The Year Under Review";
@@ -3141,6 +3144,7 @@ if($session->get('language') == "EN") {
         const susan_ranking_kebangsaan = "Susan National Ranking";
         const susulan = "Follow up";
         const syarikat = "The company";
+        const majikan = "Employer";
         const syarikat_insurans = "Insurance Company";
         const system_modules_id = "System Modules ID";
         const tahap = "The level of";
@@ -3274,7 +3278,7 @@ if($session->get('language') == "EN") {
         const tel_bimbit_pengadu = "Mobile The Complainant";
         const tel_mobile_no = "Mobile No";
         const tel_no = "No Phone";
-        const tel_no_kecemasan = "Tel No";
+        const tel_no_kecemasan = "Emergency Contact No.";
         const telefon_bimbit = "Cell Phone";
         const telefon_no = "Phone No";
         const telefon_pejabat = "Office Phone";

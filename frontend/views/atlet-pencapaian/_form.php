@@ -162,7 +162,7 @@ use app\models\general\GeneralMessage;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'lokasi_kejohanan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>8],'options'=>['maxlength'=>90]],
-                'pencapaian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                'pencapaian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80],'label'=>GeneralLabel::pencapaian_long],
             ],
         ],
     ]

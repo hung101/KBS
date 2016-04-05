@@ -62,14 +62,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
             //'nama_acara',
-            [
+            /*[
                 'attribute' => 'nama_acara',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_acara,
                 ],
                 'value' => 'refKategoriAnugerah.desc'
-            ],
+            ],*/
             //'kategori',
             [
                 'attribute' => 'kategori',

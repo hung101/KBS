@@ -51,46 +51,70 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             //'atlet_id',
             [
+                'attribute' => 'ic_no',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::ic_no,
+                ]
+            ],
+            [
                 'attribute' => 'name_penuh',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::name_penuh,
                 ]
             ],
+            /*[
+                'attribute' => 'tawaran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tawaran,
+                ]
+            ],*/
             [
+                'attribute' => 'tawaran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tawaran,
+                ],
+                'value' => function ($model) {
+                    return $model->tawaran == 1 ? GeneralLabel::yes : GeneralLabel::no;
+                },
+            ],
+            /*[
                 'attribute' => 'tarikh_lahir',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_lahir,
                 ]
-            ],
-            [
+            ],*/
+            /*[
                 'attribute' => 'umur',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::umur,
                 ]
-            ],
+            ],*/
             //'tempat_lahir_bandar',
             // 'tempat_lahir_negeri',
             // 'bangsa',
             // 'agama',
             // 'jantina',
             // 'taraf_perkahwinan',
-            [
+            /*[
                 'attribute' => 'tinggi',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tinggi,
                 ]
-            ],
-            [
+            ],*/
+            /*[
                 'attribute' => 'berat',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::berat,
                 ]
-            ],
+            ],*/
             // 'bahasa_ibu',
             // 'no_sijil_lahir',
             // 'ic_no',
