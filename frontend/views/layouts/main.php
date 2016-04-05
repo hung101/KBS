@@ -414,7 +414,18 @@ AppAsset::register($this);
                             ],
                         ],
                         ['label' => GeneralLabel::pendidikan_sistem_permohonan_program_pendidikan_kesihatan_kepada_atlet_dan_staf, 'url' => ['/permohonan-program-pendidikan-kesihatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-program-pendidikan-kesihatan']['module'])],
-                        ['label' => GeneralLabel::komplementari_sistem_permohonan_perkhidmatan_perkhidmatan_komplementari, 'url' => ['/temujanji-komplimentari/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['temujanji-komplimentari']['module'])],
+                        [
+                            'label' => GeneralLabel::komplementari_sistem_permohonan_perkhidmatan_perkhidmatan_komplementari,
+                            'items' => [
+                                ['label' => GeneralLabel::temujanji_komplimentori, 'url' => ['/temujanji-komplimentari/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['temujanji-komplimentari']['module'])],
+                                [
+                                    'label' => GeneralLabel::laporan,
+                                    'items' => [
+                                        ['label' => GeneralLabel::laporan_komplimentori, 'url' => ['/temujanji-komplimentari/laporan-komplimentori'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['temujanji-komplimentari']['module'])],
+                                    ],
+                                ],
+                            ],
+                        ],
                         [
                             'label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk,
                             'items' => [

@@ -703,6 +703,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_fisiologi_jumlah_bilangan_ujian = "Laporan Fisiologi Jumlah Bilangan Ujian";
         const laporan_kesihatan = "Laporan Kesihatan";
         const laporan_kewangan_muat_naik = "Laporan Kewangan";
+        const laporan_komplimentori = "Laporan Komplimentori";
         const laporan_penganjuran = "Laporan Penganjuran";
         const laporan_ringkasan_statistik = "Laporan Ringkasan Statistik";
         const laporan_ringkasan_statistik_bulanan = "Laporan Ringkasan Statistik Bulanan";
@@ -1780,6 +1781,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tempahan = "Tempahan";
         const temujanji = "Temujanji";
         const temujanji_fisioterapi = "Temujanji Fisioterapi";
+        const temujanji_komplimentori = "Temujanji Komplimentori";
         const temujanji_makmal_perubatan = "Temujanji Makmal Perubatan";
         const temujanji_rehabilitasi = "Temujanji Rehabilitasi";
         const untuk_kegunaan_pejabat_sahaja = "UNTUK KEGUNAAN PEJABAT SAHAJA";
@@ -2507,6 +2509,7 @@ if($session->get('language') == "EN") {
         const laporan_fisiologi_jumlah_bilangan_ujian = "Report Physiology Total Number of Test";
         const laporan_kesihatan = "Medical Report";
         const laporan_kewangan_muat_naik = "Financial Reporting";
+        const laporan_komplimentori = "Report Complimentory";
         const laporan_penganjuran = "Report Recommendations:";
         const laporan_ringkasan_statistik = "Report Summary Statistics";
         const laporan_ringkasan_statistik_bulanan = "Report Summary Statistics Monthly";
@@ -3584,6 +3587,7 @@ if($session->get('language') == "EN") {
         const tempahan = "Booking";
         const temujanji = "Appointment";
         const temujanji_fisioterapi = "Physiotherapy Appointment";
+        const temujanji_komplimentori = "Appointment Complimentory";
         const temujanji_makmal_perubatan = "Appointment of Laboratory Medicine";
         const temujanji_rehabilitasi = "Rehabilitation Appointment";
         const untuk_kegunaan_pejabat_sahaja = "FOR OFFICE USE ONLY";

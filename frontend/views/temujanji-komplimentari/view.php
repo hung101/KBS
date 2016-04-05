@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\TemujanjiKomplimentari */
 
 //$this->title = $model->temujanji_komplimentari_id;
-$this->title = GeneralLabel::viewTitle . ' Temujanji Komplimentari';
-$this->params['breadcrumbs'][] = ['label' => 'Temujanji Komplimentari', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::temujanji_komplimentori;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::temujanji_komplimentori, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="temujanji-komplimentari-view">
