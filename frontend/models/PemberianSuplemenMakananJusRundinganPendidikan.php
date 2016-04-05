@@ -49,7 +49,7 @@ class PemberianSuplemenMakananJusRundinganPendidikan extends \yii\db\ActiveRecor
     public function rules()
     {
         return [
-            [['atlet', 'nama_suplemen_makanan_jus_rundingan_pendidikan', 'kuantiti_ml_g', 'harga'], 'required', 'skipOnEmpty' => true],
+            [['atlet', 'nama_suplemen_makanan_jus_rundingan_pendidikan', 'kuantiti_ml_g'], 'required', 'skipOnEmpty' => true],
             [['perkhidmatan_permakanan_id', 'kuantiti_ml_g', 'kategori_atlet', 'acara', 'sukan'], 'integer'],
             [['nama_suplemen_makanan_jus_rundingan_pendidikan'], 'safe'],
             [['harga'], 'number'],

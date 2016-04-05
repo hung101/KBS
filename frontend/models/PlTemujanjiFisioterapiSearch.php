@@ -60,7 +60,7 @@ class PlTemujanjiFisioterapiSearch extends PlTemujanjiFisioterapi
         $query->andFilterWhere([
             'pl_temujanji_id' => $this->pl_temujanji_id,
             'atlet_id' => $this->atlet_id,
-            'tarikh_temujanji' => $this->tarikh_temujanji,
+            //'tarikh_temujanji' => $this->tarikh_temujanji,
         ]);
 
         $query->andFilterWhere(['like', 'doktor_pegawai_perubatan', $this->doktor_pegawai_perubatan])
@@ -68,7 +68,8 @@ class PlTemujanjiFisioterapiSearch extends PlTemujanjiFisioterapi
             ->andFilterWhere(['like', 'tbl_ref_status_temujanji_pesakit_luar.desc', $this->status_temujanji])
             ->andFilterWhere(['like', 'tbl_ref_nama_fisioterapi.desc', $this->nama_fisioterapi])
             ->andFilterWhere(['like', 'pegawai_yang_bertanggungjawab', $this->pegawai_yang_bertanggungjawab])
-            ->andFilterWhere(['like', 'catitan_ringkas', $this->catitan_ringkas]);
+            ->andFilterWhere(['like', 'catitan_ringkas', $this->catitan_ringkas])
+                ->andFilterWhere(['like', 'tarikh_temujanji', $this->tarikh_temujanji]);
 
         return $dataProvider;
     }

@@ -1604,7 +1604,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const elaporan = "e-Laporan";
         const farmasi_rekod_permohonan_ubatan_di_kaunter_oleh_atlet_otc_drug = "Farmasi Rekod Permohonan Ubatan Di Kaunter Oleh Atlet (Otc Drug)";
         const fisio_doktor_bertanggungjawab = "Fisio / Doktor Bertanggungjawab";
-        const fisiologi_sistem_pangkalan_data_atlet_dan_journal = "Fisiologi Sistem Pangkalan Data Atlet dan Journal";
+        const fisiologi_sistem_pangkalan_data_atlet_dan_journal = "Soal Selidik Sebelum Ujian";
         const fisiologi_sistem_penjadualan_ujian_fisiologi = "Fisiologi Sistem Penjadualan Ujian Fisiologi";
         const fisiologi_sistem_sixstep = "Fisiologi Sistem ‘SIX-Step’";
         const fisioterapi_diagnosis = "Fisioterapi Diagnosis";
