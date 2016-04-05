@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PsikologiAktiviti */
 
 $this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::aktiviti_psikologi;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::aktiviti_psikologi, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::aktiviti_psikologi, 'url' => ['index', 'psikologi_profil_id' => $psikologi_profil_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="psikologi-aktiviti-create">

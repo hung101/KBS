@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PenjadualanUjianFisiologi */
 
 //$this->title = $model->penjadualan_ujian_fisiologi_id;
-$this->title = GeneralLabel::viewTitle . ' Penjadualan Ujian Fisiologi';
-$this->params['breadcrumbs'][] = ['label' => 'Penjadualan Ujian Fisiologi', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::penjadualan_ujian_fisiologi;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penjadualan_ujian_fisiologi, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="penjadualan-ujian-fisiologi-view">

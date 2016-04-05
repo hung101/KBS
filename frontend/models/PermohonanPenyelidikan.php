@@ -63,7 +63,11 @@ class PermohonanPenyelidikan extends \yii\db\ActiveRecord
             [['akademik_ic_no'], 'string', 'max' => 12],
             [['akademik_no_tel_bimbit'], 'string', 'max' => 14],
             [['akademik_emel'], 'string', 'max' => 100],
-            [['akademik_dokumen_sokongan', 'penyertaan_lembaran_maklumat', 'borang_persetujuan_penyertaan'],'validateFileUpload', 'skipOnEmpty' => false]
+            [['akademik_dokumen_sokongan', 'penyertaan_lembaran_maklumat', 'borang_persetujuan_penyertaan'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['semak_borang_permohonan_yang_lengkap', 'semak_carta_gantt', 'semak_carta_aliran', 'semak_senarai_rujukan_kajian_bibliografi', 'semak_cv_ringkas_pasukan_penyelidikan', 
+                'semak_salinan_sebelum_kelulusan_etika', 'semak_salinan_cadangan_penyelidikan_sepenuhnya', 'semak_salinan_kunci_maklumat', 'semak_salinan_borang_kebenaran', 
+                'semak_salinan_penepian_persetujuan', 'semak_salinan_surat_pemberitahuan_kepada_isn', 'semak_salinan_surat_tawaran_pengajian_daripada_institusi', 
+                'semak_salinan_dokumen_dokumen_sokongan', 'semak_salinan_soal_selidik'], 'integer'],
         ];
     }
 
@@ -102,6 +106,20 @@ class PermohonanPenyelidikan extends \yii\db\ActiveRecord
             'pengecualian_persetujuan' => GeneralLabel::pengecualian_persetujuan,
             'tarikh_pengisytiharan' => GeneralLabel::tarikh,
             'pengisytiharan' => GeneralLabel::perakuan_pemohon_penyelidikan_isn,
+            'semak_borang_permohonan_yang_lengkap' => GeneralLabel::semak_borang_permohonan_yang_lengkap,
+            'semak_carta_gantt' => GeneralLabel::semak_carta_gantt,
+            'semak_carta_aliran' => GeneralLabel::semak_carta_aliran,
+            'semak_senarai_rujukan_kajian_bibliografi' => GeneralLabel::semak_senarai_rujukan_kajian_bibliografi,
+            'semak_cv_ringkas_pasukan_penyelidikan' => GeneralLabel::semak_cv_ringkas_pasukan_penyelidikan,
+            'semak_salinan_sebelum_kelulusan_etika' => GeneralLabel::semak_salinan_sebelum_kelulusan_etika,
+            'semak_salinan_cadangan_penyelidikan_sepenuhnya' => GeneralLabel::semak_salinan_cadangan_penyelidikan_sepenuhnya,
+            'semak_salinan_kunci_maklumat' => GeneralLabel::semak_salinan_kunci_maklumat,
+            'semak_salinan_borang_kebenaran' => GeneralLabel::semak_salinan_borang_kebenaran,
+            'semak_salinan_pengecualian_persetujuan' => GeneralLabel::semak_salinan_pengecualian_persetujuan,
+            'semak_salinan_surat_pemberitahuan_kepada_isn' => GeneralLabel::semak_salinan_surat_pemberitahuan_kepada_isn,
+            'semak_salinan_surat_tawaran_pengajian_daripada_institusi' => GeneralLabel::semak_salinan_surat_tawaran_pengajian_daripada_institusi,
+            'semak_salinan_dokumen_dokumen_sokongan' => GeneralLabel::semak_salinan_dokumen_dokumen_sokongan,
+            'semak_salinan_soal_selidik' => GeneralLabel::semak_salinan_soal_selidik,
         ];
     }
     

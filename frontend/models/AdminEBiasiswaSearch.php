@@ -57,8 +57,8 @@ class AdminEBiasiswaSearch extends AdminEBiasiswa
 
         $query->andFilterWhere([
             'admin_e_biasiswa_id' => $this->admin_e_biasiswa_id,
-            'tarikh_mula' => $this->tarikh_mula,
-            'tarikh_tamat' => $this->tarikh_tamat,
+            //'tarikh_mula' => $this->tarikh_mula,
+            //'tarikh_tamat' => $this->tarikh_tamat,
             'aktif' => $this->aktif,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -66,7 +66,9 @@ class AdminEBiasiswaSearch extends AdminEBiasiswa
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'nama', $this->nama]);
+        $query->andFilterWhere(['like', 'nama', $this->nama])
+                ->andFilterWhere(['like', 'tarikh_mula', $this->tarikh_mula])
+                ->andFilterWhere(['like', 'tarikh_tamat', $this->tarikh_tamat]);
 
         return $dataProvider;
     }

@@ -251,6 +251,11 @@ use app\models\general\GeneralMessage;
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?php endif; ?>
+        <?php
+        if(!$model->isNewRecord){
+            echo '&nbsp;&nbsp;' . Html::a(GeneralLabel::aktiviti_psikologi, Url::to(['/psikologi-aktiviti/index', 'psikologi_profil_id' => $model->psikologi_profil_id]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
+        }
+        ?>
     </div>
 
     <?php ActiveForm::end(); ?>

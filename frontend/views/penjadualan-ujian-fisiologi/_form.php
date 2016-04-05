@@ -139,6 +139,11 @@ use app\models\general\GeneralLabel;
         ],
         [
             'attributes' => [
+                'ujian' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>255]],
+            ]
+        ],
+        [
+            'attributes' => [
                 'catitan_ringkas' => ['type'=>Form::INPUT_TEXTAREA,'options'=>['maxlength'=>255]],
             ]
         ],

@@ -55,7 +55,7 @@ class PenjadualanUjianFisiologi extends \yii\db\ActiveRecord
             [['bilangan_atlet'], 'integer', 'min' => 1, 'max' => 100],
             [['tarikh_masa'], 'safe'],
             [['perkhidmatan', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80],
-            [['catitan_ringkas'], 'string', 'max' => 255]
+            [['catitan_ringkas', 'ujian'], 'string', 'max' => 255]
         ];
     }
 
@@ -76,7 +76,7 @@ class PenjadualanUjianFisiologi extends \yii\db\ActiveRecord
             'acara' => GeneralLabel::acara,
             'tempat' => GeneralLabel::tempat,
             'bilangan_atlet' => GeneralLabel::bilangan_atlet,
-
+            'ujian' => GeneralLabel::ujian,
         ];
     }
     

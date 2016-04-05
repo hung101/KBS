@@ -49,8 +49,9 @@ class PendaftaranGym extends \yii\db\ActiveRecord
     {
         return [
             [['atlet_id', 'tarikh', 'sukan'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
-            ['tarikh', 'compare', 'compareValue' => date('Y-m-d H:i:s'), 'operator' => '>='],
+            [['atlet_id'], 'safe'],
+            [['jumlah_atlet'], 'integer'],
+            ['tarikh', 'compare', 'compareValue' => date('Y-m-d H:i:s'), 'operator' => '>=', 'on' => 'create'],
             [['sukan'], 'string', 'max' => 30]
         ];
     }
@@ -65,6 +66,7 @@ class PendaftaranGym extends \yii\db\ActiveRecord
             'atlet_id' => GeneralLabel::atlet_id,
             'tarikh' => GeneralLabel::tarikh,
             'sukan' => GeneralLabel::sukan,
+            'jumlah_atlet' => GeneralLabel::jumlah_atlet,
         ];
     }
     

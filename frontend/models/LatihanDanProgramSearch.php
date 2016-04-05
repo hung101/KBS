@@ -58,14 +58,15 @@ class LatihanDanProgramSearch extends LatihanDanProgram
 
         $query->andFilterWhere([
             'latihan_dan_program_id' => $this->latihan_dan_program_id,
-            'tarikh_kursus' => $this->tarikh_kursus,
+            //'tarikh_kursus' => $this->tarikh_kursus,
             'bilangan_ahli_yang_menyertai' => $this->bilangan_ahli_yang_menyertai,
         ]);
 
         $query->andFilterWhere(['like', 'nama_kursus', $this->nama_kursus])
                 ->andFilterWhere(['like', 'tbl_ref_kategori_kursus.desc', $this->kategori_kursus])
             ->andFilterWhere(['like', 'lokasi_kursus', $this->lokasi_kursus])
-            ->andFilterWhere(['like', 'penganjuran_kursus', $this->penganjuran_kursus]);
+            ->andFilterWhere(['like', 'penganjuran_kursus', $this->penganjuran_kursus])
+                ->andFilterWhere(['like', 'tarikh_kursus', $this->tarikh_kursus]);
 
         return $dataProvider;
     }

@@ -5,9 +5,11 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PenjadualanUjianFisiologi;
 use frontend\models\PenjadualanUjianFisiologiSearch;
+use app\models\IsnLaporanFisiologiJumlahBilanganUjian;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\BaseUrl;
 
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
@@ -170,5 +172,61 @@ class PenjadualanUjianFisiologiController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+   
+    public function actionLaporanFisiologiJumlahBilanganUjian()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanFisiologiJumlahBilanganUjian();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-fisiologi-jumlah-bilangan-ujian'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'sukan' => $model->sukan
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-fisiologi-jumlah-bilangan-ujian'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'sukan' => $model->sukan
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_fisiologi_jumlah_bilangan_ujian', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanFisiologiJumlahBilanganUjian($tarikh_dari, $tarikh_hingga, $sukan, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'SUKAN' => $sukan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanFisiologiJumlahBilanganUjian', $format, $controls, 'laporan_fisiologi_jumlah_bilangan_ujian');
     }
 }

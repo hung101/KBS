@@ -5,9 +5,11 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PendaftaranGym;
 use frontend\models\PendaftaranGymSearch;
+use app\models\IsnLaporanGymJumlahAtlet;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\BaseUrl;
 
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
@@ -65,8 +67,22 @@ class PendaftaranGymController extends Controller
         
         $model = $this->findModel($id);
         
-        $ref = Atlet::findOne(['atlet_id' => $model->atlet_id]);
-        $model->atlet_id = $ref['nameAndIC'];
+        //$ref = Atlet::findOne(['atlet_id' => $model->atlet_id]);
+        //$model->atlet_id = $ref['nameAndIC'];
+        
+        // get list of Atlet Name & IC instead of atletid
+        $AtletListID = explode(',', $model->atlet_id);
+        $AtletListName = "";
+        
+        foreach($AtletListID as $AtletID){
+            $ref = Atlet::findOne(['atlet_id' => $AtletID]);
+            if($AtletListName != ""){
+                $AtletListName .= ', ';
+            }
+            $AtletListName .= $ref['nameAndIC'];
+        }
+        
+        $model->atlet_id = $AtletListName;
         
         $ref = RefSukan::findOne(['id' => $model->sukan]);
         $model->sukan = $ref['desc'];
@@ -91,15 +107,23 @@ class PendaftaranGymController extends Controller
         }
         
         $model = new PendaftaranGym();
+        
+        $model->scenario = 'create';
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pendaftaran_gym_id]);
-        } else {
-            return $this->render('create', [
+        if ($model->load(Yii::$app->request->post())) {
+            $model->jumlah_atlet = count($model->atlet_id);
+            
+            $model->atlet_id = implode(",",$model->atlet_id);
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->pendaftaran_gym_id]);
+            }
+        }
+        
+        return $this->render('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -116,14 +140,20 @@ class PendaftaranGymController extends Controller
         
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pendaftaran_gym_id]);
-        } else {
-            return $this->render('update', [
+        if ($model->load(Yii::$app->request->post())) {
+            $model->jumlah_atlet = count($model->atlet_id);
+            
+            $model->atlet_id = implode(",",$model->atlet_id);
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->pendaftaran_gym_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -153,5 +183,54 @@ class PendaftaranGymController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionLaporanGymJumlahAtlet()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanGymJumlahAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-gym-jumlah-atlet'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-gym-jumlah-atlet'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_gym_jumlah_atlet', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanGymJumlahAtlet($tarikh_dari, $tarikh_hingga, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanGymJumlahAtlet', $format, $controls, 'laporan_gym_jumlah_atlet');
     }
 }

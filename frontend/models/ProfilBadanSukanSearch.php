@@ -57,7 +57,7 @@ class ProfilBadanSukanSearch extends ProfilBadanSukan
 
         $query->andFilterWhere([
             'profil_badan_sukan' => $this->profil_badan_sukan,
-            'tarikh_lulus_pendaftaran' => $this->tarikh_lulus_pendaftaran,
+            //'tarikh_lulus_pendaftaran' => $this->tarikh_lulus_pendaftaran,
             'no_telefon_pejabat' => $this->no_telefon_pejabat,
             'no_faks_pejabat' => $this->no_faks_pejabat,
         ]);
@@ -69,7 +69,8 @@ class ProfilBadanSukanSearch extends ProfilBadanSukan
             ->andFilterWhere(['like', 'alamat_tetap_badan_sukan_1', $this->alamat_tetap_badan_sukan_1])
             ->andFilterWhere(['like', 'alamat_surat_menyurat_badan_sukan_1', $this->alamat_surat_menyurat_badan_sukan_1])
             ->andFilterWhere(['like', 'emel_badan_sukan', $this->emel_badan_sukan])
-            ->andFilterWhere(['like', 'pengiktirafan_yang_pernah_diterima_badan_sukan', $this->pengiktirafan_yang_pernah_diterima_badan_sukan]);
+            ->andFilterWhere(['like', 'pengiktirafan_yang_pernah_diterima_badan_sukan', $this->pengiktirafan_yang_pernah_diterima_badan_sukan])
+                ->andFilterWhere(['like', 'tarikh_lulus_pendaftaran', $this->tarikh_lulus_pendaftaran]);
 
         return $dataProvider;
     }

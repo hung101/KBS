@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\PsikologiProfil;
@@ -35,18 +36,25 @@ class PsikologiAktivitiController extends Controller
      * Lists all PsikologiAktiviti models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($psikologi_profil_id)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryPar = Yii::$app->request->queryParams;
+        
+        if($psikologi_profil_id!=""){
+            $queryPar['PsikologiAktivitiSearch']['psikologi_profil_id'] = $psikologi_profil_id;
+        }
+        
         $searchModel = new PsikologiAktivitiSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryPar);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'psikologi_profil_id' => $psikologi_profil_id,
         ]);
     }
 
@@ -63,8 +71,12 @@ class PsikologiAktivitiController extends Controller
         
         $model = $this->findModel($id);
         
-        $ref = PsikologiProfil::findOne(['psikologi_profil_id' => $model->psikologi_profil_id]);
-        $model->psikologi_profil_id = $ref['nama'];
+        /*$ref = PsikologiProfil::findOne(['psikologi_profil_id' => $model->psikologi_profil_id]);
+        $model->psikologi_profil_id = $ref['nama'];*/
+        
+        $model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATETIME);
+        
+        $model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATETIME);
         
         return $this->render('view', [
             'model' => $model,
@@ -77,13 +89,17 @@ class PsikologiAktivitiController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($psikologi_profil_id)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = new PsikologiAktiviti();
+        
+        if($psikologi_profil_id!=""){
+            $model->psikologi_profil_id = $psikologi_profil_id;
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->psikologi_aktiviti_id]);
@@ -91,6 +107,7 @@ class PsikologiAktivitiController extends Controller
             return $this->render('create', [
                 'model' => $model,
                 'readonly' => false,
+                'psikologi_profil_id' => $psikologi_profil_id,
             ]);
         }
     }

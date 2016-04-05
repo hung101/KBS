@@ -19,7 +19,7 @@ class BajetPenyelidikanSumbanganSearch extends BajetPenyelidikanSumbangan
     {
         return [
             [['bajet_penyelidikan_id', 'permohonana_penyelidikan_id'], 'integer'],
-            [['jenis_bajet', 'tahun_1'], 'safe'],
+            [['jenis_bajet', 'tahun_1', 'session_id'], 'safe'],
             [['jumlah'], 'number'],
         ];
     }
@@ -64,7 +64,8 @@ class BajetPenyelidikanSumbanganSearch extends BajetPenyelidikanSumbangan
             'jumlah' => $this->jumlah,
         ]);
 
-        $query->andFilterWhere(['like', 'tbl_ref_jenis_bajet_sumbangan.desc', $this->jenis_bajet]);
+        $query->andFilterWhere(['like', 'tbl_ref_jenis_bajet_sumbangan.desc', $this->jenis_bajet])
+                 ->andFilterWhere(['like', 'session_id', $this->session_id]);
 
         return $dataProvider;
     }

@@ -52,7 +52,8 @@ class PsikologiAktiviti extends \yii\db\ActiveRecord
             [['psikologi_profil_id', 'nama_aktiviti', 'tarikh_mula', 'tarikh_tamat'], 'required', 'skipOnEmpty' => true],
             [['psikologi_profil_id'], 'integer'],
             [['tarikh_mula', 'tarikh_tamat'], 'safe'],
-            [['nama_aktiviti'], 'string', 'max' => 80]
+            [['nama_aktiviti'], 'string', 'max' => 80],
+            [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh_mula', 'operator'=>'>='],
         ];
     }
 
