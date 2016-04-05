@@ -1442,6 +1442,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tarikh_mesyuarat = "Tarikh Mesyuarat";
         const tarikh_muat_naik = "Tarikh Muat Naik";
         const tarikh_mula = "Tarikh Mula";
+        const tarikh_pembayaran_insentif = "Tarikh Pembayaran Insentif";
         const tarikh_mula_dilantik = "Tarikh Mula Dilantik";
         const tarikh_mula_kejohanan = "Tarikh Mula Kejohanan";
         const tarikh_mula_lesen= "Tarikh Mula Lesen";
@@ -2420,7 +2421,7 @@ if($session->get('language') == "EN") {
         const kenyataan_aduan = "Statement Of Complaint";
         const kepakaran_pengalaman = "Expertise/Experience";
         const keperluan_bengkel_telah = "Requirements of the workshops have been prepared, that is, teaching aids, stationery, manuals technical and Executive";
-        const keputusan = "The results of the";
+        const keputusan = "Result";
         const keputusan_acara = "The Results Of The Event";
         const keputusan_analisi_tubuh_badan_id = "Analisi Decision Body ID";
         const keputusan_cgpa = "Results/CGPA";
@@ -3224,6 +3225,7 @@ if($session->get('language') == "EN") {
         const tarikh_mesyuarat = "Meeting Dates";
         const tarikh_muat_naik = "Date Of Upload";
         const tarikh_mula = "Start Date";
+        const tarikh_pembayaran_insentif = "Incentive Payment Date";
         const tarikh_mula_dilantik = "Date He Was First Appointed";
         const tarikh_mula_kejohanan = "Start Date Of The Tournament";
         const tarikh_mula_lesen= "Start Date Of License";

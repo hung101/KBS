@@ -49,7 +49,8 @@ use app\models\general\GeneralVariable;
                             'autoclose'=>true,
                         ]
                     ],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>3],
+                    'label'=>GeneralLabel::tarikh_pembayaran_insentif],
                 'tarikh_tamat' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
