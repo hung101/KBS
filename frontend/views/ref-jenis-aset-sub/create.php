@@ -1,12 +1,14 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefJenisAsetSub */
 
-$this->title = 'Create Ref Jenis Aset Sub';
+$this->title = GeneralLabel::createTitle.' '.'Ref Jenis Aset Sub';
 $this->params['breadcrumbs'][] = ['label' => 'Ref Jenis Aset Subs', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefStatusElaun */
 
-$this->title = 'Create Ref Status Elaun';
+$this->title = GeneralLabel::createTitle.' '.'Ref Status Elaun';
 $this->params['breadcrumbs'][] = ['label' => 'Ref Status Elauns', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

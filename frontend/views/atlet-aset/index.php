@@ -1,5 +1,7 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
@@ -20,6 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="atlet-aset-index">
     
     <?php
+
+use app\models\general\GeneralLabel;
         $template = '{view}';
         
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['update'])){

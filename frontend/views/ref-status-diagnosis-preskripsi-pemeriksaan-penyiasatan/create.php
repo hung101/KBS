@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefStatusDiagnosisPreskripsiPemeriksaanPenyiasatan */
 
-$this->title = 'Create Ref Status Diagnosis Preskripsi Pemeriksaan Penyiasatan';
+$this->title = GeneralLabel::createTitle.' '.'Ref Status Diagnosis Preskripsi Pemeriksaan Penyiasatan';
 $this->params['breadcrumbs'][] = ['label' => 'Ref Status Diagnosis Preskripsi Pemeriksaan Penyiasatans', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -1,12 +1,14 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BspBorang11 */
 
-$this->title = 'Create Bsp Borang11';
+$this->title = GeneralLabel::createTitle.' '.'Bsp Borang11';
 $this->params['breadcrumbs'][] = ['label' => 'Bsp Borang11s', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

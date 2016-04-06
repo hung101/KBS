@@ -1,12 +1,14 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AkkSijilCpr */
 
-$this->title = 'Create Akk Sijil Cpr';
+$this->title = GeneralLabel::createTitle.' '.'Akk Sijil Cpr';
 $this->params['breadcrumbs'][] = ['label' => 'Akk Sijil Cprs', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefNamaInsentif */
 
-$this->title = 'Create Ref Nama Insentif';
+$this->title = GeneralLabel::createTitle.' '.'Ref Nama Insentif';
 $this->params['breadcrumbs'][] = ['label' => 'Ref Nama Insentifs', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

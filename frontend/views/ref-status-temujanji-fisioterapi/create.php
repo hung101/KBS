@@ -1,12 +1,14 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefStatusTemujanjiFisioterapi */
 
-$this->title = 'Create Ref Status Temujanji Fisioterapi';
+$this->title = GeneralLabel::createTitle.' '.'Ref Status Temujanji Fisioterapi';
 $this->params['breadcrumbs'][] = ['label' => 'Ref Status Temujanji Fisioterapis', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

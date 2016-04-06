@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefShuttle */
 
-$this->title = 'Create Ref Shuttle';
+$this->title = GeneralLabel::createTitle.' '.'Ref Shuttle';
 $this->params['breadcrumbs'][] = ['label' => 'Ref Shuttles', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

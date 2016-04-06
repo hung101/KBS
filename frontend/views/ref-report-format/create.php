@@ -1,12 +1,14 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefReportFormat */
 
-$this->title = 'Create Ref Report Format';
+$this->title = GeneralLabel::createTitle.' '.'Ref Report Format';
 $this->params['breadcrumbs'][] = ['label' => 'Ref Report Formats', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefRatingSoalanPenilaianPeserta */
 
-$this->title = 'Create Ref Rating Soalan Penilaian Peserta';
+$this->title = GeneralLabel::createTitle.' '.'Ref Rating Soalan Penilaian Peserta';
 $this->params['breadcrumbs'][] = ['label' => 'Ref Rating Soalan Penilaian Pesertas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
