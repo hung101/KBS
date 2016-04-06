@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\BspPertukaranProgramPengajian */
 
-//$this->title = 'Update Bsp Pertukaran Program Pengajian: ' . ' ' . $model->bsp_pertukaran_program_pengajian_id;
+//$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::bsp_pertukaran_program_pengajian.': ' . ' ' . $model->bsp_pertukaran_program_pengajian_id;
 $this->title = GeneralLabel::updateTitle . ' Pertukaran Program Pengajian';
-$this->params['breadcrumbs'][] = ['label' => 'Pertukaran Program Pengajian', 'url' => Url::to(['index', 'bsp_pemohon_id' => $model->bsp_pemohon_id])];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pertukaran_program_pengajian, 'url' => Url::to(['index', 'bsp_pemohon_id' => $model->bsp_pemohon_id])];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Pertukaran Program Pengajian', 'url' => ['view', 'id' => $model->bsp_pertukaran_program_pengajian_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

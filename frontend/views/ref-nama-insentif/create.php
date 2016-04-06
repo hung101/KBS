@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefNamaInsentif */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Nama Insentif';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Nama Insentifs', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::nama_insentif;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::nama_insentif, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-nama-insentif-create">

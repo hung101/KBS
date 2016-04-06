@@ -8,9 +8,9 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PendaftaranGym */
 
-//$this->title = 'Update Pendaftaran Gym: ' . ' ' . $model->pendaftaran_gym_id;
+//$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::pendaftaran_gym.': ' . ' ' . $model->pendaftaran_gym_id;
 $this->title = GeneralLabel::updateTitle . ' Pendaftaran GYM';
-$this->params['breadcrumbs'][] = ['label' => 'Pendaftaran GYM', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pendaftaran_gym, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Pendaftaran GYM', 'url' => ['view', 'id' => $model->pendaftaran_gym_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

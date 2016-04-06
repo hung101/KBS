@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->bsp_pembayaran_id;
 $this->title = GeneralLabel::viewTitle . ' Pembayaran Biasiswa Sukan Persekutuan';
-$this->params['breadcrumbs'][] = ['label' => 'Pembayaran Biasiswa Sukan Persekutuan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pembayaran_biasiswa_sukan_persekutuan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-pembayaran-view">

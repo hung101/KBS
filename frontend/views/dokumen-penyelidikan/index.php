@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\DokumenPenyelidikanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Dokumen Penyelidikan';
+$this->title = GeneralLabel::dokumen_penyelidikan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="dokumen-penyelidikan-index">

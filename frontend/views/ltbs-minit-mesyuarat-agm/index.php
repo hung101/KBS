@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel app\models\LtbsMinitMesyuaratAgmSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Minit Mesyuarat Agong';
+$this->title = GeneralLabel::minit_mesyuarat_agong;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ltbs-minit-mesyuarat-agm-index">

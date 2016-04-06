@@ -8,9 +8,9 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\AtletPencapaian */
 
-//$this->title = 'Update Atlet Pencapaian: ' . ' ' . $model->pencapaian_id;
+//$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::atlet_pencapaian.': ' . ' ' . $model->pencapaian_id;
 $this->title = GeneralLabel::updateTitle . ' Pencapaian';
-$this->params['breadcrumbs'][] = ['label' => 'Pencapaian', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pencapaian, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Pencapaian', 'url' => ['view', 'id' => $model->pencapaian_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

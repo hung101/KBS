@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\KeputusanAnalisiTubuhBadanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Keputusan Analisi Tubuh Badan';
+$this->title = GeneralLabel::keputusan_analisi_tubuh_badan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="keputusan-analisi-tubuh-badan-index">

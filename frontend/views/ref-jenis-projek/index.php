@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $searchModel frontend\models\RefJenisProjekSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Jenis Projeks';
+$this->title = GeneralLabel::jenis_projek;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-jenis-projek-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Jenis Projek', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::jenis_projek, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

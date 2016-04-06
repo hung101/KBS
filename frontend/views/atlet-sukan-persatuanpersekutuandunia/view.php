@@ -15,7 +15,7 @@ use app\models\general\GeneralVariable;
 
 //$this->title = $model->persatuan_persekutuan_dunia_id;
 $this->title = GeneralLabel::viewTitle . ' Persatuan/Persekutuan Dunia';
-$this->params['breadcrumbs'][] = ['label' => 'Persatuan/Persekutuan Dunia', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::persatuanpersekutuan_dunia, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-sukan-persatuanpersekutuandunia-view">

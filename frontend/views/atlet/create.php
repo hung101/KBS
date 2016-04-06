@@ -12,7 +12,7 @@ use yii\helpers\Url;
 /* @var $model app\models\Atlet */
 
 $this->title = GeneralLabel::atlet;
-//$this->params['breadcrumbs'][] = ['label' => 'Atlets', 'url' => ['index']];
+//$this->params['breadcrumbs'][] = ['label' => GeneralLabel::atlet, 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-create">

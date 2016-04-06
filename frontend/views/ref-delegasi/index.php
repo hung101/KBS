@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefDelegasiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Delegasis';
+$this->title = GeneralLabel::delegasi;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-delegasi-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Delegasi', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::delegasi, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

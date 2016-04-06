@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefShuttle */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Shuttles', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::shuttle, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-shuttle-view">

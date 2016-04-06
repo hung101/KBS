@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefNamaSukanPersatuanPersekutuandunia */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Nama Sukan Persatuan Persekutuandunia';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Nama Sukan Persatuan Persekutuandunias', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::nama_sukan_persatuan_persekutuandunia;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::nama_sukan_persatuan_persekutuandunia, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-nama-sukan-persatuan-persekutuandunia-create">

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\BspPerlanjutanSebabSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Sebab Pelanjutan';
+$this->title = GeneralLabel::sebab_pelanjutan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-perlanjutan-sebab-index">

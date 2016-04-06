@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefHubunganSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Hubungans';
+$this->title = GeneralLabel::hubungan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-hubungan-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Hubungan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::hubungan, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel app\models\LtbsNotisAgmSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Notis Mesyuarat Agong';
+$this->title = GeneralLabel::notis_mesyuarat_agong;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ltbs-notis-agm-index">

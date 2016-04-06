@@ -7,7 +7,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanSoalanMaklumBalasPeserta */
 
-$this->title = 'Tambah Penilaian Prestasi Kejohanan';
+$this->title = GeneralLabel::tambah_penilaian_prestasi_kejohanan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::penilaian_prestasi_kejohanan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -15,7 +15,7 @@ use app\models\general\GeneralVariable;
 
 //$this->title = $model->donator_id;
 $this->title = GeneralLabel::viewTitle . ' Donator';
-$this->params['breadcrumbs'][] = ['label' => 'Donator', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::donator, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-perubatan-donator-view">

@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefKategoriKosPerhimpunanKem */
 
-$this->title = 'Update Ref Kategori Kos Perhimpunan Kem: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Kategori Kos Perhimpunan Kems', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::kategori_kos_perhimpunan_kem.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kategori_kos_perhimpunan_kem, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

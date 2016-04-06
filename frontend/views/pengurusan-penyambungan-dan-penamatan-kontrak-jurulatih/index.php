@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanPenyambunganDanPenamatanKontrakJurulatihSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pelanjutan Dan Penamatan Kontrak Jurulatih';
+$this->title = GeneralLabel::pelanjutan_dan_penamatan_kontrak_jurulatih;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-penyambungan-dan-penamatan-kontrak-jurulatih-index">

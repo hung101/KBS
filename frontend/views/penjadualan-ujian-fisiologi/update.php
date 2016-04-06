@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PenjadualanUjianFisiologi */
 
-//$this->title = 'Update Penjadualan Ujian Fisiologi: ' . ' ' . $model->penjadualan_ujian_fisiologi_id;
+//$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::penjadualan_ujian_fisiologi.': ' . ' ' . $model->penjadualan_ujian_fisiologi_id;
 $this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::penjadualan_ujian_fisiologi;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::penjadualan_ujian_fisiologi, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::penjadualan_ujian_fisiologi, 'url' => ['view', 'id' => $model->penjadualan_ujian_fisiologi_id]];

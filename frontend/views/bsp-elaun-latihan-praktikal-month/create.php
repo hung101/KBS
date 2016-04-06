@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BspElaunLatihanPraktikalMonth */
 
-$this->title = 'Tambah Praktikal';
-$this->params['breadcrumbs'][] = ['label' => 'Praktikal', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_praktikal;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::praktikal, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-elaun-latihan-praktikal-month-create">

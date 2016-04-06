@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefAnthropometricsUjian */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Anthropometrics Ujians', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::anthropometrics_ujian, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-anthropometrics-ujian-view">

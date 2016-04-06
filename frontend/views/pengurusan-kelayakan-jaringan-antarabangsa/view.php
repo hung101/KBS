@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->pengurusan_kelayakan_jaringan_antarabangsa_id;
 $this->title = GeneralLabel::viewTitle . ' Pengurusan Kelayakan Jaringan Antarabangsa';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Kelayakan Jaringan Antarabangsa', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_kelayakan_jaringan_antarabangsa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-kelayakan-jaringan-antarabangsa-view">

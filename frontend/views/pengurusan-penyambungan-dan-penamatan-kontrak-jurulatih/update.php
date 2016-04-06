@@ -8,9 +8,9 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanPenyambunganDanPenamatanKontrakJurulatih */
 
-//$this->title = 'Update Pengurusan Penyambungan Dan Penamatan Kontrak Jurulatih: ' . ' ' . $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id;
+//$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih.': ' . ' ' . $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id;
 $this->title = GeneralLabel::updateTitle . ' Pelanjutan Dan Penamatan Kontrak Jurulatih';
-$this->params['breadcrumbs'][] = ['label' => 'Pelanjutan Dan Penamatan Kontrak Jurulatih', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pelanjutan_dan_penamatan_kontrak_jurulatih, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Pelanjutan Dan Penamatan Kontrak Jurulatih', 'url' => ['view', 'id' => $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefRatingSoalanPenilaianPeserta */
 
-$this->title = 'Update Ref Rating Soalan Penilaian Peserta: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Rating Soalan Penilaian Pesertas', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::rating_soalan_penilaian_peserta.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::rating_soalan_penilaian_peserta, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

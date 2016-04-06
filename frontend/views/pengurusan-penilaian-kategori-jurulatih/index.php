@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanPenilaianKategoriJurulatihSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Kategori Penilaian Jurulatih';
+$this->title = GeneralLabel::kategori_penilaian_jurulatih;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-penilaian-kategori-jurulatih-index">

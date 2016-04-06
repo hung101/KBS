@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanPenilaianKategoriJurulatih */
 
-$this->title = 'Tambah Kategori Penilaian Jurulatih';
-$this->params['breadcrumbs'][] = ['label' => 'Kategori Penilaian Jurulatih', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_kategori_penilaian_jurulatih;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kategori_penilaian_jurulatih, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-penilaian-kategori-jurulatih-create">

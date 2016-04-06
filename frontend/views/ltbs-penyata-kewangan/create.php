@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\LtbsPenyataKewangan */
 
 $this->title =  'Penyata Kewangan';
-$this->params['breadcrumbs'][] = ['label' => 'Penyata Kewangan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penyata_kewangan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = GeneralLabel::createTitle;
 ?>
 <div class="ltbs-penyata-kewangan-create">

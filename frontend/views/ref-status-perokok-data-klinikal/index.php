@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefStatusPerokokDataKlinikalSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Status Perokok Data Klinikals';
+$this->title = GeneralLabel::status_perokok_data_klinikal;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-perokok-data-klinikal-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Status Perokok Data Klinikal', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::status_perokok_data_klinikal, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

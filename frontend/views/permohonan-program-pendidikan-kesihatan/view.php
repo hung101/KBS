@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->permohonan_program_pendidikan_kesihatan_id;
 $this->title = GeneralLabel::viewTitle . ' Permohonan Program Pendidikan Kesihatan';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan Program Pendidikan Kesihatan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_program_pendidikan_kesihatan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-program-pendidikan-kesihatan-view">

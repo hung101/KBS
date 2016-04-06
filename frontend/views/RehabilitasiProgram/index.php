@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RehabilitasiProgramSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Rehabilitasi Program';
+$this->title = GeneralLabel::rehabilitasi_program;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="rehabilitasi-program-index">

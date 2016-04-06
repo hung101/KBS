@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\User */
 
 $this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::user;
-$this->params['breadcrumbs'][] = ['label' => 'Admin - User', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::admin_user, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-create">

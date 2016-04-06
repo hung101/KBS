@@ -16,7 +16,7 @@ use app\models\general\GeneralVariable;
 /* @var $searchModel app\models\AtletKarierSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Karier';
+$this->title = GeneralLabel::karier;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-karier-index">

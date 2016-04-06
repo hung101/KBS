@@ -110,7 +110,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_bantuan_yang_dipohon,
                 ],
-                'label' => 'Jumlah Bantuan Yang Dipohon'
+                'label' => GeneralLabel::jumlah_bantuan_yang_dipohon
             ],
             //'kelulusan',
             [

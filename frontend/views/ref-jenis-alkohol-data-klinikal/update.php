@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefJenisAlkoholDataKlinikal */
 
-$this->title = 'Update Ref Jenis Alkohol Data Klinikal: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Jenis Alkohol Data Klinikals', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::jenis_alkohol_data_klinikal.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::jenis_alkohol_data_klinikal, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

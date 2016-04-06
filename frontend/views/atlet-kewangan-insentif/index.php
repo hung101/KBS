@@ -15,7 +15,7 @@ use app\models\general\GeneralLabel;
 /* @var $searchModel app\models\AtletKewanganInsentifSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Insentif';
+$this->title = GeneralLabel::insentif;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-kewangan-insentif-index">

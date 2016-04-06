@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanPerhubunganDalamDanLuarNegaraMesyuaratSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pengurusan Perhubungan Dalam Dan Luar Negara Mesyuarat';
+$this->title = GeneralLabel::pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-perhubungan-dalam-dan-luar-negara-mesyuarat-index">

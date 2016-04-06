@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanProgramBinaanKos */
 
-$this->title = 'Tambah Pengurusan Program Binaan Kos';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Program Binaan Kos', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_pengurusan_program_binaan_kos;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_program_binaan_kos, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-program-binaan-kos-create">

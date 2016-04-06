@@ -14,8 +14,8 @@ use app\models\general\GeneralVariable;
 /* @var $model app\models\AtletAset */
 
 //$this->title = $model->aset_id;
-$this->title = 'Aset';
-$this->params['breadcrumbs'][] = ['label' => 'Atlet Aset', 'url' => ['index']];
+$this->title = GeneralLabel::aset;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::atlet_aset, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-aset-view">

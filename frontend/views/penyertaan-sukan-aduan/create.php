@@ -7,7 +7,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PenyertaanSukanAduan */
 
-$this->title = 'Penambahan Aduan';
+$this->title = GeneralLabel::penambahan_aduan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::aduan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

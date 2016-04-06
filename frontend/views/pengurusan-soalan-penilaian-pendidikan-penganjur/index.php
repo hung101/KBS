@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanSoalanPenilaianPendidikanPenganjurSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pengurusan Soalan Penilaian Pendidikan Penganjur/Instructor';
+$this->title = GeneralLabel::pengurusan_soalan_penilaian_pendidikan_penganjurinstructor;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-soalan-penilaian-pendidikan-penganjur-index">

@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\BspPertukaranProgramPengajianSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pertukaran Program Pengajian';
+$this->title = GeneralLabel::pertukaran_program_pengajian;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-pertukaran-program-pengajian-index">

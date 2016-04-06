@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\LtbsSenaraiNamaHadirJawatankuasa */
 
-$this->title = 'Tambah Kehadiran Mesyuarat Jawatankuasa Menetapkan Mesyuarat Agong';
-$this->params['breadcrumbs'][] = ['label' => 'Senarai Kehadiran Mesyuarat Jawatankuasa Menetapkan Mesyuarat Agong', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_kehadiran_mesyuarat_jawatankuasa_menetapkan_mesyuarat_agong;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::senarai_kehadiran_mesyuarat_jawatankuasa_menetapkan_mesyuarat_agong, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ltbs-senarai-nama-hadir-jawatankuasa-create">

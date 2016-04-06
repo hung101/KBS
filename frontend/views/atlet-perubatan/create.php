@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AtletPerubatan */
 
-$this->title = 'Perubatan';
-$this->params['breadcrumbs'][] = ['label' => 'Atlet Perubatans', 'url' => ['index']];
+$this->title = GeneralLabel::perubatan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::atlet_perubatans, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-perubatan-create">

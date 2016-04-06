@@ -8,8 +8,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\AkkSijilCpr */
 
-$this->title = GeneralLabel::createTitle.' '.'Akk Sijil Cpr';
-$this->params['breadcrumbs'][] = ['label' => 'Akk Sijil Cprs', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::akk_sijil_cpr;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::akk_sijil_cpr, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="akk-sijil-cpr-create">

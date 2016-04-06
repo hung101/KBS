@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel app\models\LtbsAhliGabunganSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Senarai Ahli Gabungan';
+$this->title = GeneralLabel::senarai_ahli_gabungan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ltbs-ahli-gabungan-index">

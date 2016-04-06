@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\DokumenPenyelidikan */
 
 $this->title = $model->dokumen_penyelidikan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Dokumen Penyelidikans', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::dokumen_penyelidikan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="dokumen-penyelidikan-view">

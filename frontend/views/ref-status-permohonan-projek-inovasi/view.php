@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefStatusPermohonanProjekInovasi */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Status Permohonan Projek Inovasis', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::status_permohonan_projek_inovasi, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-permohonan-projek-inovasi-view">

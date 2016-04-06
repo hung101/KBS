@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefStatusElaunSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Status Elauns';
+$this->title = GeneralLabel::status_elaun;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-elaun-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Status Elaun', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::status_elaun, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

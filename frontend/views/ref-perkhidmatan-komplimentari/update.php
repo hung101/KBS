@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPerkhidmatanKomplimentari */
 
-$this->title = 'Update Ref Perkhidmatan Komplimentari: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Perkhidmatan Komplimentaris', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::perkhidmatan_komplimentari.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::perkhidmatan_komplimentari, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

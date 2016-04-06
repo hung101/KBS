@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AtletPencapaianRekods */
 
-$this->title = 'Tambah Keputusan';
-$this->params['breadcrumbs'][] = ['label' => 'Keputusan', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_keputusan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::keputusan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-pencapaian-rekods-create">

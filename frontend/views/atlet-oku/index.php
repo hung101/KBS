@@ -15,7 +15,7 @@ use app\models\general\GeneralLabel;
 /* @var $searchModel app\models\AtletOkuSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'OKU';
+$this->title = GeneralLabel::oku;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-oku-index">

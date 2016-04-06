@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefJenisBankAkaun */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Jenis Bank Akaun';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Jenis Bank Akauns', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::jenis_bank_akaun;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::jenis_bank_akaun, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-jenis-bank-akaun-create">

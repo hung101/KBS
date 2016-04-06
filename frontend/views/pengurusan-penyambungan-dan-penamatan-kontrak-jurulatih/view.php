@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id;
 $this->title = GeneralLabel::viewTitle . ' Pelanjutan Dan Penamatan Kontrak Jurulatih';
-$this->params['breadcrumbs'][] = ['label' => 'Pelanjutan Dan Penamatan Kontrak Jurulatih', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pelanjutan_dan_penamatan_kontrak_jurulatih, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-penyambungan-dan-penamatan-kontrak-jurulatih-view">

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Admin - User';
+$this->title = GeneralLabel::admin_user;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">

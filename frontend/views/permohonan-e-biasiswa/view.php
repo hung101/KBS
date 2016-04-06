@@ -13,7 +13,7 @@ use app\models\UserPeranan;
 
 //$this->title = $model->permohonan_e_biasiswa_id;
 $this->title = GeneralLabel::viewTitle . ' Permohonan e-Biasiswa';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan e-Biasiswa', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebiasiswa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebiasiswa-view">

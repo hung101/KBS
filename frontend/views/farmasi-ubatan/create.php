@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\FarmasiUbatan */
 
-$this->title = 'Tambah Ubatan';
-$this->params['breadcrumbs'][] = ['label' => 'Ubatan', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_ubatan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::ubatan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="farmasi-ubatan-create">

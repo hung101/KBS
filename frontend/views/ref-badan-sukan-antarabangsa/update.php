@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefBadanSukanAntarabangsa */
 
-$this->title = 'Update Ref Badan Sukan Antarabangsa: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Badan Sukan Antarabangsas', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::badan_sukan_antarabangsa.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::badan_sukan_antarabangsa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

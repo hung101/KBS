@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\SenaraiAtlet */
 
-$this->title = 'Tambah Atlet';
-$this->params['breadcrumbs'][] = ['label' => 'Senarai Atlet', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_atlet;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::senarai_atlet, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="senarai-atlet-create">

@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanPerhubunganDalamDanLuarNegaraMesyuarat */
 
-$this->title = 'Tambah Pengurusan Perhubungan Dalam Dan Luar Negara Mesyuarat';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Perhubungan Dalam Dan Luar Negara Mesyuarat', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-perhubungan-dalam-dan-luar-negara-mesyuarat-create">

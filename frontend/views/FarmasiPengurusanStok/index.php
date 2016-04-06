@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\FarmasiPengurusanStokSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pengurusan Stok';
+$this->title = GeneralLabel::pengurusan_stok;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="farmasi-pengurusan-stok-index">

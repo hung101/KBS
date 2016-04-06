@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefStatusJournal */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Status Journal';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Status Journals', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::status_journal;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::status_journal, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-journal-create">

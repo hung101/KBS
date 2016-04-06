@@ -8,7 +8,7 @@ use app\models\general\GeneralMessage;
 /* @var $this yii\web\View */
 /* @var $model app\models\PenilaianPestasi */
 
-//$this->title = 'Update Penilaian Pestasi: ' . ' ' . $model->penilaian_pestasi_id;
+//$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::penilaian_pestasi.': ' . ' ' . $model->penilaian_pestasi_id;
 $this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::penilaian_pestasi;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::penilaian_pestasi, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::penilaian_pestasi, 'url' => ['view', 'id' => $model->penilaian_pestasi_id]];

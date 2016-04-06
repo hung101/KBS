@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanSoalanPenilaianPendidikanPenganjur */
 
-$this->title = 'Tambah Pengurusan Soalan Penilaian Pendidikan Penganjur/Instructor';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Soalan Penilaian Pendidikan Penganjur/Instructor', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_pengurusan_soalan_penilaian_pendidikan_penganjurinstructor;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_soalan_penilaian_pendidikan_penganjurinstructor, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-soalan-penilaian-pendidikan-penganjur-create">

@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanEBantuanCadanganKertasKerja */
 
-$this->title = 'Tambah Permohonan e-Bantuan Cadangan Kertas Kerja';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan e-Bantuan Cadangan Kertas Kerja', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_permohonan_ebantuan_cadangan_kertas_kerja;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebantuan_cadangan_kertas_kerja, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebantuan-cadangan-kertas-kerja-create">

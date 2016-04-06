@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\BspPenjaminSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Penjamin Biasiswa Sukan Persekutuan';
+$this->title = GeneralLabel::penjamin_biasiswa_sukan_persekutuan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-penjamin-index">

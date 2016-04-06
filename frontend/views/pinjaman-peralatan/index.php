@@ -11,7 +11,7 @@ use common\models\general\GeneralFunction;
 /* @var $searchModel frontend\models\PinjamanPeralatanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pinjaman Peralatan';
+$this->title = GeneralLabel::pinjaman_peralatan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pinjaman-peralatan-index">

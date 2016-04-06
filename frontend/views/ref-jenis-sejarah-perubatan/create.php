@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefJenisSejarahPerubatan */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Jenis Sejarah Perubatan';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Jenis Sejarah Perubatans', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::jenis_sejarah_perubatan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::jenis_sejarah_perubatan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-jenis-sejarah-perubatan-create">

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel app\models\LtbsPenyataKewanganSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Penyata Kewangan';
+$this->title = GeneralLabel::penyata_kewangan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ltbs-penyata-kewangan-index">

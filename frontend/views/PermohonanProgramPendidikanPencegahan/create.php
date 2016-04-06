@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanProgramPendidikanPencegahan */
 
-$this->title = 'Tambah Permohonan Program Pendidikan Pencegahan';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan Program Pendidikan Pencegahan', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_permohonan_program_pendidikan_pencegahan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_program_pendidikan_pencegahan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-program-pendidikan-pencegahan-create">

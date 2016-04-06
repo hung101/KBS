@@ -8,9 +8,9 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\SixStep */
 
-//$this->title = 'Update Six Step: ' . ' ' . $model->six_step_id;
+//$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::six_step.': ' . ' ' . $model->six_step_id;
 $this->title = GeneralLabel::updateTitle . ' Six Step';
-$this->params['breadcrumbs'][] = ['label' => 'Six Steps', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::six_steps, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Six Step', 'url' => ['view', 'id' => $model->six_step_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

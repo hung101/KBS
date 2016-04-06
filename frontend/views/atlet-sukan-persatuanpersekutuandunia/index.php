@@ -15,7 +15,7 @@ use app\models\general\GeneralLabel;
 /* @var $searchModel app\models\AtletSukanPersatuanpersekutuanduniaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Persatuan/Persekutuan Dunia';
+$this->title = GeneralLabel::persatuanpersekutuan_dunia;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-sukan-persatuanpersekutuandunia-index">

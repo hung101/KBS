@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefJantina */
 
-$this->title = 'Update Ref Jantina: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Jantinas', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::jantina.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::jantina, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

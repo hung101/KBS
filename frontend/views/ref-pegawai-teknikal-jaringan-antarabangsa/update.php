@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPegawaiTeknikalJaringanAntarabangsa */
 
-$this->title = 'Update Ref Pegawai Teknikal Jaringan Antarabangsa: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Pegawai Teknikal Jaringan Antarabangsas', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::pegawai_teknikal_jaringan_antarabangsa.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pegawai_teknikal_jaringan_antarabangsa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

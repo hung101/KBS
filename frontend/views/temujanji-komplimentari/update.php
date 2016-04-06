@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\TemujanjiKomplimentari */
 
-//$this->title = 'Update Temujanji Komplimentari: ' . ' ' . $model->temujanji_komplimentari_id;
+//$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::temujanji_komplimentari.': ' . ' ' . $model->temujanji_komplimentari_id;
 $this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::temujanji_komplimentori;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::temujanji_komplimentori, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::temujanji_komplimentori, 'url' => ['view', 'id' => $model->temujanji_komplimentari_id]];

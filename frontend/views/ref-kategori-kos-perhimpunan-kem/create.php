@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefKategoriKosPerhimpunanKem */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Kategori Kos Perhimpunan Kem';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Kategori Kos Perhimpunan Kems', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::kategori_kos_perhimpunan_kem;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kategori_kos_perhimpunan_kem, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-kategori-kos-perhimpunan-kem-create">

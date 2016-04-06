@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PlDiagnosisPreskripsiPemeriksaan */
 
-$this->title = 'Update Pl Diagnosis Preskripsi Pemeriksaan: ' . ' ' . $model->pl_diagnosis_preskripsi_pemeriksaan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Pl Diagnosis Preskripsi Pemeriksaans', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::pl_diagnosis_preskripsi_pemeriksaan.': ' . ' ' . $model->pl_diagnosis_preskripsi_pemeriksaan_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pl_diagnosis_preskripsi_pemeriksaans, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->pl_diagnosis_preskripsi_pemeriksaan_id, 'url' => ['view', 'id' => $model->pl_diagnosis_preskripsi_pemeriksaan_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

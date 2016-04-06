@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\LtbsMinitMesyuaratJawatankuasaDokumenMuatNaik */
 
 $this->title = $model->dokumen_muat_naik_id;
-$this->params['breadcrumbs'][] = ['label' => 'Ltbs Minit Mesyuarat Jawatankuasa Dokumen Muat Naiks', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::ltbs_minit_mesyuarat_jawatankuasa_dokumen_muat_naiks, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ltbs-minit-mesyuarat-jawatankuasa-dokumen-muat-naik-view">

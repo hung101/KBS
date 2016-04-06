@@ -11,7 +11,7 @@ use common\models\general\GeneralFunction;
 /* @var $searchModel frontend\models\BspPembayaranSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pembayaran Biasiswa Sukan Persekutuan';
+$this->title = GeneralLabel::pembayaran_biasiswa_sukan_persekutuan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-pembayaran-index">

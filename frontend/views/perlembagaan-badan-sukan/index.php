@@ -12,7 +12,7 @@ use common\models\general\GeneralFunction;
 /* @var $searchModel app\models\PerlembagaanBadanSukanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Perlembagaan Badan Sukan';
+$this->title = GeneralLabel::perlembagaan_badan_sukan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="perlembagaan-badan-sukan-index">

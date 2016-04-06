@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanPelaksanaanKekurangan */
 
-$this->title = 'Update Elaporan Pelaksanaan Kekurangan: ' . ' ' . $model->elaporan_pelaksanaan_kekurangan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Elaporan Pelaksanaan Kekurangans', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::elaporan_pelaksanaan_kekurangan.': ' . ' ' . $model->elaporan_pelaksanaan_kekurangan_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::elaporan_pelaksanaan_kekurangan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->elaporan_pelaksanaan_kekurangan_id, 'url' => ['view', 'id' => $model->elaporan_pelaksanaan_kekurangan_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

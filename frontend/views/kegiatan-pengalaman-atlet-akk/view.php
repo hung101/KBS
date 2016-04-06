@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\KegiatanPengalamanAtletAkk */
 
 $this->title = $model->kegiatan_pengalaman_atlet_akk_id;
-$this->params['breadcrumbs'][] = ['label' => 'Kegiatan Pengalaman Atlet Akks', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kegiatan_pengalaman_atlet_akks, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="kegiatan-pengalaman-atlet-akk-view">

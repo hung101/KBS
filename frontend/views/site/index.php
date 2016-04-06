@@ -4,7 +4,7 @@ use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
-$this->title = 'KEMENTERIAN BELIA DAN SUKAN MALAYSIA - Dashboard';
+$this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
 ?>
 <div class="site-index">
 

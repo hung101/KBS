@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefStatusAduan */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Status Aduan';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Status Aduans', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::status_aduan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::status_aduan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-aduan-create">

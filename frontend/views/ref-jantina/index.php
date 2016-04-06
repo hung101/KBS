@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefJantinaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Jantinas';
+$this->title = GeneralLabel::jantina;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-jantina-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Jantina', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::jantina, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

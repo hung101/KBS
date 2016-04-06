@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefPemohonJaringanAntarabangsa */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Pemohon Jaringan Antarabangsas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pemohon_jaringan_antarabangsa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-pemohon-jaringan-antarabangsa-view">

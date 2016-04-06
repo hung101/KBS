@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefStatusPermohonanProjekInovasi */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Status Permohonan Projek Inovasi';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Status Permohonan Projek Inovasis', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::status_permohonan_projek_inovasi;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::status_permohonan_projek_inovasi, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-permohonan-projek-inovasi-create">

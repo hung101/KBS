@@ -15,7 +15,7 @@ use app\models\general\GeneralVariable;
 
 //$this->title = $model->pencapaian_id;
 $this->title = GeneralLabel::viewTitle . ' Pencapaian';
-$this->params['breadcrumbs'][] = ['label' => 'Pencapaian', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pencapaian, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-pencapaian-view">

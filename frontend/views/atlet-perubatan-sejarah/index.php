@@ -16,7 +16,7 @@ use app\models\general\GeneralVariable;
 /* @var $searchModel app\models\AtletPerubatanSejarahSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Sejarah Perubatan';
+$this->title = GeneralLabel::sejarah_perubatan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-perubatan-sejarah-index">

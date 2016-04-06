@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BspPrestasiSukan */
 
-$this->title = 'Update Bsp Prestasi Sukan: ' . ' ' . $model->bsp_prestasi_sukan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Bsp Prestasi Sukans', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::bsp_prestasi_sukan.': ' . ' ' . $model->bsp_prestasi_sukan_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bsp_prestasi_sukans, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->bsp_prestasi_sukan_id, 'url' => ['view', 'id' => $model->bsp_prestasi_sukan_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

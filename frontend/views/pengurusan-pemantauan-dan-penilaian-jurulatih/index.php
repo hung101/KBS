@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanPemantauanDanPenilaianJurulatihSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Penilaian Jurulatih';
+$this->title = GeneralLabel::penilaian_jurulatih;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-pemantauan-dan-penilaian-jurulatih-index">

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel app\models\AtletPerubatanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Atlet Perubatans';
+$this->title = GeneralLabel::atlet_perubatans;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-perubatan-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['create'])): ?>
         <p>
-            <?= Html::a('Create Atlet Perubatan', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::create.' '.GeneralLabel::atlet_perubatan, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PermohonanEBantuanJawatankuasaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Jawatankuasa Kerja Yang Terkini';
+$this->title = GeneralLabel::jawatankuasa_kerja_yang_terkini;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebantuan-jawatankuasa-index">

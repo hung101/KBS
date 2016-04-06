@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\BspPertukaranProgramPengajian */
 
 $this->title = GeneralLabel::createTitle . ' Pertukaran Program Pengajian';
-$this->params['breadcrumbs'][] = ['label' => 'Pertukaran Program Pengajian', 'url' => Url::to(['index', 'bsp_pemohon_id' => $bsp_pemohon_id])];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pertukaran_program_pengajian, 'url' => Url::to(['index', 'bsp_pemohon_id' => $bsp_pemohon_id])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-pertukaran-program-pengajian-create">

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefStatusPermohonanEBiasiswaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Status Permohonan Ebiasiswas';
+$this->title = GeneralLabel::status_permohonan_ebiasiswa;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-permohonan-ebiasiswa-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Status Permohonan Ebiasiswa', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::status_permohonan_ebiasiswa, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

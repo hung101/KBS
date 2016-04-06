@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PlDiagnosisPreskripsiPemeriksaan */
 
 $this->title = $model->pl_diagnosis_preskripsi_pemeriksaan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Pl Diagnosis Preskripsi Pemeriksaans', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pl_diagnosis_preskripsi_pemeriksaans, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pl-diagnosis-preskripsi-pemeriksaan-view">

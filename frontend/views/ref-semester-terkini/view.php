@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefSemesterTerkini */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Semester Terkinis', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::semester_terkini, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-semester-terkini-view">

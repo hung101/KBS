@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefStatusTemujanjiKomplimentari */
 
-$this->title = 'Update Ref Status Temujanji Komplimentari: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Status Temujanji Komplimentaris', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::status_temujanji_komplimentari.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::status_temujanji_komplimentari, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

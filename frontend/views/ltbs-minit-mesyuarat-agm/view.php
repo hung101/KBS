@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //this->title = $model->mesyuarat_agm_id;
 $this->title =  'Minit Mesyuarat Agong';
-$this->params['breadcrumbs'][] = ['label' => 'Minit Mesyuarat Agong', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::minit_mesyuarat_agong, 'url' => ['index']];
 $this->params['breadcrumbs'][] = GeneralLabel::viewTitle;
 ?>
 <div class="ltbs-minit-mesyuarat-agm-view">

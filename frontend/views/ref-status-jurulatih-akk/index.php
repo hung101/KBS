@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\models\RefStatusJurulatihAkkSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Status Jurulatih Akks';
+$this->title = GeneralLabel::status_jurulatih_akk;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-jurulatih-akk-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Status Jurulatih Akk', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::status_jurulatih_akk, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

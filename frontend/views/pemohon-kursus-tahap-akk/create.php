@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PemohonKursusTahapAkk */
 
-$this->title = 'Tambah Sains Sukan';
-$this->params['breadcrumbs'][] = ['label' => 'Sains Sukan', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_sains_sukan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::sains_sukan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pemohon-kursus-tahap-akk-create">

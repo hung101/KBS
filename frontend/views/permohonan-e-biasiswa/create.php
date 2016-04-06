@@ -9,7 +9,7 @@ use app\models\UserPeranan;
 /* @var $model app\models\PermohonanEBiasiswa */
 
 $this->title = GeneralLabel::createTitle . ' Permohonan e-Biasiswa';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan e-Biasiswa', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebiasiswa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebiasiswa-create">

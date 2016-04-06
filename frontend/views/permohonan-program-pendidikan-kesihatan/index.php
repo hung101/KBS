@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PermohonanProgramPendidikanKesihatanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Permohonan Program Pendidikan Kesihatan';
+$this->title = GeneralLabel::permohonan_program_pendidikan_kesihatan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-program-pendidikan-kesihatan-index">

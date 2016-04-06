@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AtletPendidikan */
 
-$this->title = 'Tambah Pendidikan';
-//$this->params['breadcrumbs'][] = ['label' => 'Atlet Pendidikans', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_pendidikan;
+//$this->params['breadcrumbs'][] = ['label' => GeneralLabel::atlet_pendidikans, 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-pendidikan-create">

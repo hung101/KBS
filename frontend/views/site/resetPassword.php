@@ -1,4 +1,7 @@
 <?php
+
+use app\models\general\GeneralLabel;
+
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
@@ -6,7 +9,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\ResetPasswordForm */
 
-$this->title = 'Reset password';
+$this->title = GeneralLabel::reset_password;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-reset-password">
@@ -16,12 +19,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
+            <?php
+
+use app\models\general\GeneralLabel;
+ $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
                 <?= $form->field($model, 'password')->passwordInput() ?>
                 <div class="form-group">
                     <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
                 </div>
-            <?php ActiveForm::end(); ?>
+            <?php
+
+use app\models\general\GeneralLabel;
+ ActiveForm::end(); ?>
         </div>
     </div>
 </div>

@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PerkhidmatanAnalisaPerlawananBiomekanik */
 
 $this->title = GeneralLabel::createTitle . ' Perkhidmatan Analisa Perlawanan/Biomekanik';
-$this->params['breadcrumbs'][] = ['label' => 'Perkhidmatan Analisa Perlawanan/Biomekanik', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::perkhidmatan_analisa_perlawananbiomekanik, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="perkhidmatan-analisa-perlawanan-biomekanik-create">

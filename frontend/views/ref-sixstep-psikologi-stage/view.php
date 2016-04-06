@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefSixstepPsikologiStage */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Sixstep Psikologi Stages', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::sixstep_psikologi_stage, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-sixstep-psikologi-stage-view">

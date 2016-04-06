@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefUbat */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Ubats', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::ubat, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-ubat-view">

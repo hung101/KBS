@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefSebabPermohonanPertukaranPengajian */
 
-$this->title = 'Update Ref Sebab Permohonan Pertukaran Pengajian: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Sebab Permohonan Pertukaran Pengajians', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::sebab_permohonan_pertukaran_pengajian.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::sebab_permohonan_pertukaran_pengajian, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

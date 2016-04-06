@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefSixstepSatelitStatus */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Sixstep Satelit Statuses', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::sixstep_satelit_statuses, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-sixstep-satelit-status-view">

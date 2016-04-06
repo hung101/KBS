@@ -1,4 +1,7 @@
 <?php
+
+use app\models\general\GeneralLabel;
+
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
@@ -6,7 +9,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
-$this->title = 'Login';
+$this->title = GeneralLabel::login;
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
@@ -16,7 +19,10 @@ $this->title = 'Login';
 
     <div class="row">
         <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+            <?php
+
+use app\models\general\GeneralLabel;
+ $form = ActiveForm::begin(['id' => 'login-form']); ?>
                 <?= $form->field($model, 'username') ?>
                 <?= $form->field($model, 'password')->passwordInput() ?>
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>
@@ -27,7 +33,10 @@ $this->title = 'Login';
                     <?= Html::submitButton('Log Masuk', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                     <!-- <?= Html::a('Log Masuk Kali Pertama', ['new-password'], ['class' => 'btn btn-warning']) ?> -->
                 </div>
-            <?php ActiveForm::end(); ?>
+            <?php
+
+use app\models\general\GeneralLabel;
+ ActiveForm::end(); ?>
         </div>
     </div>
 </div>

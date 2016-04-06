@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\LtbsKejohananProgramAktiviti */
 
 //$this->title = $model->kejohanan_program_aktiviti_id;
-$this->title = 'Laporan Aktiviti Badan Sukan';
-$this->params['breadcrumbs'][] = ['label' => 'Laporan Aktiviti Badan Sukan', 'url' => ['index']];
+$this->title = GeneralLabel::laporan_aktiviti_badan_sukan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::laporan_aktiviti_badan_sukan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = GeneralLabel::viewTitle;
 ?>
 <div class="ltbs-kejohanan-program-aktiviti-view">

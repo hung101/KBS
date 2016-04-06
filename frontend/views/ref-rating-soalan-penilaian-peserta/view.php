@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefRatingSoalanPenilaianPeserta */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Rating Soalan Penilaian Pesertas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::rating_soalan_penilaian_peserta, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-rating-soalan-penilaian-peserta-view">

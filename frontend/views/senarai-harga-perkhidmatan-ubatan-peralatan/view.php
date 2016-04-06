@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->senarai_harga_perkhidmatan_ubatan_peralatan_id;
 $this->title = GeneralLabel::viewTitle . ' Senarai Harga Perkhidmatan/Ubatan/Peralatan';
-$this->params['breadcrumbs'][] = ['label' => 'Senarai Harga Perkhidmatan/Ubatan/Peralatan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::senarai_harga_perkhidmatanubatanperalatan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="senarai-harga-perkhidmatan-ubatan-peralatan-view">

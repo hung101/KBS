@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefBank */
 
-$this->title = 'Update Ref Bank: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Banks', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::bank.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bank, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

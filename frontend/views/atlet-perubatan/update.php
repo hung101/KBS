@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AtletPerubatan */
 
-//$this->title = 'Update Perubatan: ' . ' ' . $model->perubatan_id;
-$this->title = 'Perubatan';
-$this->params['breadcrumbs'][] = ['label' => 'Atlet Perubatans', 'url' => ['index']];
+//$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::perubatan.': ' . ' ' . $model->perubatan_id;
+$this->title = GeneralLabel::perubatan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::atlet_perubatans, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->perubatan_id, 'url' => ['view', 'id' => $model->perubatan_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

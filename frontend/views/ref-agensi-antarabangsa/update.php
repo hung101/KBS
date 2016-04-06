@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefAgensiAntarabangsa */
 
-$this->title = 'Update Ref Agensi Antarabangsa: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Agensi Antarabangsas', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::agensi_antarabangsa.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::agensi_antarabangsa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\InformasiPersatuan */
 
-$this->title = 'Tambah Informasi Persatuan';
-$this->params['breadcrumbs'][] = ['label' => 'Informasi Persatuan', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_informasi_persatuan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::informasi_persatuan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="informasi-persatuan-create">

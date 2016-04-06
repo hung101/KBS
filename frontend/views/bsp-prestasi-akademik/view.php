@@ -13,8 +13,8 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->bsp_prestasi_akademik_id;
 $this->title = GeneralLabel::viewTitle . ' Prestasi Akademik';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan e-Biasiswa', 'url' => ['permohonan-e-biasiswa/view', 'id' => $model->bsp_pemohon_id]];
-$this->params['breadcrumbs'][] = ['label' => 'Prestasi Akademik', 'url' => Url::to(['index', 'bsp_pemohon_id' => $model->bsp_pemohon_id])];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebiasiswa, 'url' => ['permohonan-e-biasiswa/view', 'id' => $model->bsp_pemohon_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::prestasi_akademik, 'url' => Url::to(['index', 'bsp_pemohon_id' => $model->bsp_pemohon_id])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-prestasi-akademik-view">

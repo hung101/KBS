@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->elaporan_pelaksaan_id;
 $this->title = GeneralLabel::viewTitle . ' E-Laporan Pelaksanaan / Program / Aktiviti';
-$this->params['breadcrumbs'][] = ['label' => 'E-Laporan Pelaksanaan / Program / Aktiviti', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::elaporan_pelaksanaan_program_aktiviti, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="elaporan-pelaksanaan-view">

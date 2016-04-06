@@ -11,7 +11,7 @@ use common\models\general\GeneralFunction;
 /* @var $searchModel app\models\LtbsKejohananProgramAktivitiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Laporan Aktiviti Badan Sukan';
+$this->title = GeneralLabel::laporan_aktiviti_badan_sukan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ltbs-kejohanan-program-aktiviti-index">

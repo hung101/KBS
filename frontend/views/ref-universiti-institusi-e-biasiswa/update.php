@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefUniversitiInstitusiEBiasiswa */
 
-$this->title = 'Update Ref Universiti Institusi Ebiasiswa: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Universiti Institusi Ebiasiswas', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::universiti_institusi_ebiasiswa.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::universiti_institusi_ebiasiswa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

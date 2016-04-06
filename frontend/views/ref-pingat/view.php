@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefPingat */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Pingats', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pingat, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-pingat-view">

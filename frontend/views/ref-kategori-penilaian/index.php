@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefKategoriPenilaianSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Kategori Penilaians';
+$this->title = GeneralLabel::kategori_penilaian;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-kategori-penilaian-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Kategori Penilaian', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::kategori_penilaian, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

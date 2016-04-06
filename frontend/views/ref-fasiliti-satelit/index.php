@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefFasilitiSatelitSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Fasiliti Satelits';
+$this->title = GeneralLabel::fasiliti_satelit;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-fasiliti-satelit-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Fasiliti Satelit', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::fasiliti_satelit, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

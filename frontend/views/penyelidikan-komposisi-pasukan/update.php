@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PenyelidikanKomposisiPasukan */
 
-$this->title = 'Update Penyelidikan Komposisi Pasukan: ' . ' ' . $model->penyelidikan_komposisi_pasukan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Penyelidikan Komposisi Pasukans', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::penyelidikan_komposisi_pasukan.': ' . ' ' . $model->penyelidikan_komposisi_pasukan_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penyelidikan_komposisi_pasukan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->penyelidikan_komposisi_pasukan_id, 'url' => ['view', 'id' => $model->penyelidikan_komposisi_pasukan_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

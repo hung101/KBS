@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanPelaksanaanKerjasama */
 
-$this->title = 'Tambah Kerjasama';
-$this->params['breadcrumbs'][] = ['label' => 'Kerjasama', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_kerjasama;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kerjasama, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="elaporan-pelaksanaan-kerjasama-create">

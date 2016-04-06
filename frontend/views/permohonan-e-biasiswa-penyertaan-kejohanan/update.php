@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanEBiasiswaPenyertaanKejohanan */
 
-$this->title = 'Update Permohonan Ebiasiswa Penyertaan Kejohanan: ' . ' ' . $model->penyertaan_kejohanan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan Ebiasiswa Penyertaan Kejohanans', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::permohonan_ebiasiswa_penyertaan_kejohanan.': ' . ' ' . $model->penyertaan_kejohanan_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebiasiswa_penyertaan_kejohanans, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->penyertaan_kejohanan_id, 'url' => ['view', 'id' => $model->penyertaan_kejohanan_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

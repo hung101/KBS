@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefStatusTemujanjiKomplimentari */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Status Temujanji Komplimentaris', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::status_temujanji_komplimentari, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-temujanji-komplimentari-view">

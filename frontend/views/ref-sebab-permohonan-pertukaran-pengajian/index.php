@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefSebabPermohonanPertukaranPengajianSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Sebab Permohonan Pertukaran Pengajians';
+$this->title = GeneralLabel::sebab_permohonan_pertukaran_pengajian;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-sebab-permohonan-pertukaran-pengajian-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Sebab Permohonan Pertukaran Pengajian', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::sebab_permohonan_pertukaran_pengajian, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

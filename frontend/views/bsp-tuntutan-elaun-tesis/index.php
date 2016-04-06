@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\BspTuntutanElaunTesisSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tuntutan Elaun Tesis';
+$this->title = GeneralLabel::tuntutan_elaun_tesis;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-tuntutan-elaun-tesis-index">

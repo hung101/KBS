@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\LtbsAhliGabungan */
 
 $this->title =  'Ahli Gabungan';
-$this->params['breadcrumbs'][] = ['label' => 'Senarai Ahli Gabungan', 'url' => Url::to(['index', 'profil_badan_sukan_id' => $profil_badan_sukan_id])];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::senarai_ahli_gabungan, 'url' => Url::to(['index', 'profil_badan_sukan_id' => $profil_badan_sukan_id])];
 $this->params['breadcrumbs'][] = GeneralLabel::createTitle;
 ?>
 <div class="ltbs-ahli-gabungan-create">

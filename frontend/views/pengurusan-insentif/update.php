@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanInsentif */
 
-//$this->title = 'Update Pengurusan Insentif: ' . ' ' . $model->pengurusan_insentif_id;
+//$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::pengurusan_insentif.': ' . ' ' . $model->pengurusan_insentif_id;
 $this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::pengurusan_insentif;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_insentif, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_insentif, 'url' => ['view', 'id' => $model->pengurusan_insentif_id]];

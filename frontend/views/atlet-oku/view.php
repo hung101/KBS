@@ -15,7 +15,7 @@ use app\models\general\GeneralVariable;
 
 //$this->title = $model->oku_id;
 $this->title = GeneralLabel::viewTitle . ' OKU';
-$this->params['breadcrumbs'][] = ['label' => 'OKU', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::oku, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-oku-view">

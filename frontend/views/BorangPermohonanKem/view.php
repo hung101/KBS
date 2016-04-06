@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\BorangPermohonanKem */
 
 $this->title = $model->borang_permohonan_kem_id;
-$this->params['breadcrumbs'][] = ['label' => 'Borang Permohonan Kems', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::borang_permohonan_kem, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="borang-permohonan-kem-view">

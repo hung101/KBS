@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\ElaporanPelaksanaanKekuranganSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Elaporan Pelaksanaan Kekurangans';
+$this->title = GeneralLabel::elaporan_pelaksanaan_kekurangan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="elaporan-pelaksanaan-kekurangan-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Elaporan Pelaksanaan Kekurangan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::elaporan_pelaksanaan_kekurangan, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

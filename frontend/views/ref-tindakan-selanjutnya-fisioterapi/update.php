@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefTindakanSelanjutnyaFisioterapi */
 
-$this->title = 'Update Ref Tindakan Selanjutnya Fisioterapi: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Tindakan Selanjutnya Fisioterapis', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::tindakan_selanjutnya_fisioterapi.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::tindakan_selanjutnya_fisioterapi, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

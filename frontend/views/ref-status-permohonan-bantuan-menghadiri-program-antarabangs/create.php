@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefStatusPermohonanBantuanMenghadiriProgramAntarabangs */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Status Permohonan Bantuan Menghadiri Program Antarabangs';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Status Permohonan Bantuan Menghadiri Program Antarabangs', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::status_permohonan_bantuan_menghadiri_program_antarabangs;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::status_permohonan_bantuan_menghadiri_program_antarabangs, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-permohonan-bantuan-menghadiri-program-antarabangs-create">

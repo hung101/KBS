@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PengurusanPerhimpunanKem */
 
 $this->title = GeneralLabel::createTitle . ' Bantuan Geran Penganjuran';
-$this->params['breadcrumbs'][] = ['label' => 'Bantuan Geran Penganjuran', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bantuan_geran_penganjuran, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-perhimpunan-kem-create">

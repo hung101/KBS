@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefTahapPenganjuran */
 
-$this->title = 'Update Ref Tahap Penganjuran: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Tahap Penganjurans', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::tahap_penganjuran.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::tahap_penganjuran, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

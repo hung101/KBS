@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\MaklumatKongresDiLuarNegaraSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Maklumat Kongres Di Luar Negara';
+$this->title = GeneralLabel::maklumat_kongres_di_luar_negara;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="maklumat-kongres-di-luar-negara-index">

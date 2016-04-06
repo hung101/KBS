@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $searchModel frontend\models\RefDokumenPenyelidikanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Dokumen Penyelidikans';
+$this->title = GeneralLabel::dokumen_penyelidikan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-dokumen-penyelidikan-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Dokumen Penyelidikan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::dokumen_penyelidikan, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\SenaraiAtlet */
 
 $this->title = $model->senarai_atlet_id;
-$this->params['breadcrumbs'][] = ['label' => 'Senarai Atlets', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::senarai_atlet, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="senarai-atlet-view">

@@ -1,5 +1,8 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -7,7 +10,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\RefReportFormat */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Report Formats', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::report_format, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-report-format-view">

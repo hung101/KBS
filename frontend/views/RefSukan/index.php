@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefSukanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Admin - Sukan';
+$this->title = GeneralLabel::admin_sukan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-sukan-index">

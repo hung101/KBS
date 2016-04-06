@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PermohonanProgramPendidikanKesihatan */
 
 $this->title = GeneralLabel::createTitle . ' Permohonan Program Pendidikan Kesihatan';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan Program Pendidikan Kesihatan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_program_pendidikan_kesihatan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-program-pendidikan-kesihatan-create">

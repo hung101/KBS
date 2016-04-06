@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PermohonanEBantuanSenaraiAktivitiProjekSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Senarai Aktiviti / Projek Yang Dijalankan';
+$this->title = GeneralLabel::senarai_aktiviti_projek_yang_dijalankan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebantuan-senarai-aktiviti-projek-index">

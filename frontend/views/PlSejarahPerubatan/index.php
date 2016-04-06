@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PlSejarahPerubatanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Sejarah Perubatan';
+$this->title = GeneralLabel::sejarah_perubatan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pl-sejarah-perubatan-index">

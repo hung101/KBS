@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\SatelitSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Satelit';
+$this->title = GeneralLabel::satelit;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="satelit-index">

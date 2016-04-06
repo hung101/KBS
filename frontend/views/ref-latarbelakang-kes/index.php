@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefLatarbelakangKesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Latarbelakang Kes';
+$this->title = GeneralLabel::kes_latarbelakang;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-latarbelakang-kes-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Latarbelakang Kes', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::latarbelakang_kes, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

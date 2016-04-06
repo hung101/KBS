@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\SoalanPenilaian */
 
-$this->title = 'Tambah Soalan Penilaian';
-$this->params['breadcrumbs'][] = ['label' => 'Soalan Penilaian', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_soalan_penilaian;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::soalan_penilaian, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="soalan-penilaian-create">

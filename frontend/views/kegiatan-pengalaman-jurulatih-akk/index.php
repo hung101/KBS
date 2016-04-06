@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\KegiatanPengalamanJurulatihAkkSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Kegiatan/Pengalaman Sebagai Jurulatih';
+$this->title = GeneralLabel::kegiatanpengalaman_sebagai_jurulatih;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="kegiatan-pengalaman-jurulatih-akk-index">

@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanEBantuanSenaraiAktivitiProjek */
 
-$this->title = 'Tambah Senarai Aktiviti / Projek Yang Dijalankan';
-$this->params['breadcrumbs'][] = ['label' => 'Senarai Aktiviti / Projek Yang Dijalankan', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_senarai_aktiviti_projek_yang_dijalankan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::senarai_aktiviti_projek_yang_dijalankan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebantuan-senarai-aktiviti-projek-create">

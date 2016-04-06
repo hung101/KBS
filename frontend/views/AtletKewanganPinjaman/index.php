@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel app\models\AtletKewanganPinjamanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pinjaman';
+$this->title = GeneralLabel::pinjaman;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-kewangan-pinjaman-index">

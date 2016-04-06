@@ -16,7 +16,7 @@ use app\models\general\GeneralVariable;
 /* @var $searchModel app\models\AtletAsetSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Aset';
+$this->title = GeneralLabel::aset;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-aset-index">

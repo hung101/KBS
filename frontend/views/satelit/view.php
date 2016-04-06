@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->satelit_id;
 $this->title = GeneralLabel::viewTitle . ' Satelit';
-$this->params['breadcrumbs'][] = ['label' => 'Satelit', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::satelit, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="satelit-view">

@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefTemasya */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Temasya';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Temasyas', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::temasya;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::temasya, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-temasya-create">

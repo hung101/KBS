@@ -10,7 +10,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\Atlet */
 
 $this->title = $model->atlet_id;
-$this->params['breadcrumbs'][] = ['label' => 'Atlets', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::atlet, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-view">

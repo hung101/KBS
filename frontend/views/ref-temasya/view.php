@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefTemasya */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Temasyas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::temasya, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-temasya-view">

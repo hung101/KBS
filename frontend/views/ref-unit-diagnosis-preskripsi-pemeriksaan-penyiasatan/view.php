@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefUnitDiagnosisPreskripsiPemeriksaanPenyiasatan */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Unit Diagnosis Preskripsi Pemeriksaan Penyiasatans', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::unit_diagnosis_preskripsi_pemeriksaan_penyiasatan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-unit-diagnosis-preskripsi-pemeriksaan-penyiasatan-view">

@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PermohonanEBantuanSenaraiPermohonan */
 
 $this->title = $model->senarai_permohonan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan Ebantuan Senarai Permohonans', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebantuan_senarai_permohonans, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebantuan-senarai-permohonan-view">

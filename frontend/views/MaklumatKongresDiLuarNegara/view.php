@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\MaklumatKongresDiLuarNegara */
 
 $this->title = $model->maklumat_kongres_di_luar_negara_id;
-$this->params['breadcrumbs'][] = ['label' => 'Maklumat Kongres Di Luar Negaras', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::maklumat_kongres_di_luar_negara, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="maklumat-kongres-di-luar-negara-view">

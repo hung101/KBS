@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanDokumenMediaProgramSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pengurusan Dokumen Media Program';
+$this->title = GeneralLabel::pengurusan_dokumen_media_program;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-dokumen-media-program-index">

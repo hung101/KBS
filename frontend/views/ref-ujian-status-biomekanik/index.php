@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefUjianStatusBiomekanikSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Ujian Status Biomekaniks';
+$this->title = GeneralLabel::ujian_status_biomekanik;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-ujian-status-biomekanik-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Ujian Status Biomekanik', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::ujian_status_biomekanik, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

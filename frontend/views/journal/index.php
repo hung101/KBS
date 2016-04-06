@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\JournalSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Penerbitan';
+$this->title = GeneralLabel::penerbitan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="journal-index">

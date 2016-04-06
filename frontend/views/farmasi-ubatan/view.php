@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\FarmasiUbatan */
 
 $this->title = $model->farmasi_ubatan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Farmasi Ubatans', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::farmasi_ubatans, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="farmasi-ubatan-view">

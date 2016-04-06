@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\BspPrestasiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Prestasi Semester';
+$this->title = GeneralLabel::prestasi_semester;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-prestasi-index">

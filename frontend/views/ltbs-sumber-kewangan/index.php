@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\LtbsSumberKewanganSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Sumber Kewangan';
+$this->title = GeneralLabel::sumber_kewangan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ltbs-sumber-kewangan-index">

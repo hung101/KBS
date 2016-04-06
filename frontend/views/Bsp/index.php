@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\BspSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pemohon Biasiswa Sukan Persekutuan';
+$this->title = GeneralLabel::pemohon_biasiswa_sukan_persekutuan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-index">

@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\LtbsNotisAgm */
 
 //$this->title = $model->tbl_ltbs_id;
-$this->title = 'Notis Mesyuarat Agong';
-$this->params['breadcrumbs'][] = ['label' => 'Notis Mesyuarat Agong', 'url' => ['index']];
+$this->title = GeneralLabel::notis_mesyuarat_agong;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::notis_mesyuarat_agong, 'url' => ['index']];
 $this->params['breadcrumbs'][] = GeneralLabel::viewTitle;
 ?>
 <div class="ltbs-notis-agm-view">

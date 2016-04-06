@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanPerganjuranInstructor */
 
-$this->title = 'Tambah Instruktur';
-$this->params['breadcrumbs'][] = ['label' => 'Instruktur', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_instruktur;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::instruktur, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-perganjuran-instructor-create">

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PermohonanPerganjuranInstructorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Instruktur';
+$this->title = GeneralLabel::instruktur;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-perganjuran-instructor-index">

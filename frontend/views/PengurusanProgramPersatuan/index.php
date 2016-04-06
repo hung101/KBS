@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanProgramPersatuanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pengurusan Program Persatuan';
+$this->title = GeneralLabel::pengurusan_program_persatuan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-program-persatuan-index">

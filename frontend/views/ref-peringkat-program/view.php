@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefPeringkatProgram */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Peringkat Programs', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::peringkat_program, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-peringkat-program-view">

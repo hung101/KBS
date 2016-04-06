@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefBankSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Banks';
+$this->title = GeneralLabel::bank;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-bank-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Bank', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::bank, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

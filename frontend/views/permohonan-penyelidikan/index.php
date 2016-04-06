@@ -11,7 +11,7 @@ use common\models\general\GeneralFunction;
 /* @var $searchModel frontend\models\PermohonanPenyelidikanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Permohonan Penyelidikan';
+$this->title = GeneralLabel::permohonan_penyelidikan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-penyelidikan-index">

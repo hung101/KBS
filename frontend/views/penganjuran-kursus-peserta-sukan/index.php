@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\models\PenganjuranKursusPesertaSukanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Penganjuran Kursus Peserta Sukans';
+$this->title = GeneralLabel::penganjuran_kursus_peserta_sukan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="penganjuran-kursus-peserta-sukan-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Penganjuran Kursus Peserta Sukan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::penganjuran_kursus_peserta_sukan, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

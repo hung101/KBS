@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\BiomekanikAnthropometrics */
 
 $this->title = $model->biomekanik_anthropometrics_id;
-$this->params['breadcrumbs'][] = ['label' => 'Biomekanik Anthropometrics', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::biomekanik_anthropometrics, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="biomekanik-anthropometrics-view">

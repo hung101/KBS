@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefSixstepSuaianFizikalStage */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Sixstep Suaian Fizikal Stage';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Sixstep Suaian Fizikal Stages', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::sixstep_suaian_fizikal_stage;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::sixstep_suaian_fizikal_stage, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-sixstep-suaian-fizikal-stage-create">

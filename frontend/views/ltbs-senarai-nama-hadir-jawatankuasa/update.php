@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\LtbsSenaraiNamaHadirJawatankuasa */
 
-$this->title = 'Update Ltbs Senarai Nama Hadir Jawatankuasa: ' . ' ' . $model->senarai_nama_hadi_id;
-$this->params['breadcrumbs'][] = ['label' => 'Ltbs Senarai Nama Hadir Jawatankuasas', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::ltbs_senarai_nama_hadir_jawatankuasa.': ' . ' ' . $model->senarai_nama_hadi_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::ltbs_senarai_nama_hadir_jawatankuasas, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->senarai_nama_hadi_id, 'url' => ['view', 'id' => $model->senarai_nama_hadi_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

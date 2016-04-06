@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefStatusSukanAtlet */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Status Sukan Atlets', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::status_sukan_atlet, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-sukan-atlet-view">

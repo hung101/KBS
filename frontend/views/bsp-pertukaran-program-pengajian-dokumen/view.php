@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->bsp_pertukaran_program_pengajian_dokumen_id;
 $this->title = GeneralLabel::viewTitle . ' Dokumen Pertukaran Program Pengajian';
-$this->params['breadcrumbs'][] = ['label' => 'Dokumen Pertukaran Program Pengajian', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::dokumen_pertukaran_program_pengajian, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-pertukaran-program-pengajian-dokumen-view">

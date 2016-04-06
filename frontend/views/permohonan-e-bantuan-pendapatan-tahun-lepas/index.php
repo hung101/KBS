@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PermohonanEBantuanPendapatanTahunLepasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pendapatan Tahun Lepas';
+$this->title = GeneralLabel::pendapatan_tahun_lepas;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebantuan-pendapatan-tahun-lepas-index">

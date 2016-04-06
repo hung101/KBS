@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\KegiatanPengalamanJurulatihAkk */
 
-$this->title = 'Update Kegiatan Pengalaman Jurulatih Akk: ' . ' ' . $model->kegiatan_pengalaman_jurulatih_akk_id;
-$this->params['breadcrumbs'][] = ['label' => 'Kegiatan Pengalaman Jurulatih Akks', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::kegiatan_pengalaman_jurulatih_akk.': ' . ' ' . $model->kegiatan_pengalaman_jurulatih_akk_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kegiatan_pengalaman_jurulatih_akks, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->kegiatan_pengalaman_jurulatih_akk_id, 'url' => ['view', 'id' => $model->kegiatan_pengalaman_jurulatih_akk_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

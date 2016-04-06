@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PenyelidikanKomposisiPasukan */
 
-$this->title = 'Tambah Penyelidikan Komposisi Pasukan';
-$this->params['breadcrumbs'][] = ['label' => 'Penyelidikan Komposisi Pasukan', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_penyelidikan_komposisi_pasukan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penyelidikan_komposisi_pasukan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="penyelidikan-komposisi-pasukan-create">

@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefBahasa */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Bahasa';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Bahasas', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::bahasa;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bahasa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-bahasa-create">

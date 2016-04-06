@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefNegara */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Negaras', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::negara, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-negara-view">

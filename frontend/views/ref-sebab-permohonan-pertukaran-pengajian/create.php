@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefSebabPermohonanPertukaranPengajian */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Sebab Permohonan Pertukaran Pengajian';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Sebab Permohonan Pertukaran Pengajians', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::sebab_permohonan_pertukaran_pengajian;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::sebab_permohonan_pertukaran_pengajian, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-sebab-permohonan-pertukaran-pengajian-create">

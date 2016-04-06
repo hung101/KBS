@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $searchModel frontend\models\RefAcaraSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Admin - Acara';
+$this->title = GeneralLabel::admin_acara;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-acara-index">

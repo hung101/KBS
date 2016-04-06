@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\KelayakanAkademiAkk */
 
-$this->title = 'Tambah Kelayakan Akademi AKK';
-$this->params['breadcrumbs'][] = ['label' => 'Kelayakan Akademi AKK', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_kelayakan_akademi_akk;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kelayakan_akademi_akk, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="kelayakan-akademi-akk-create">

@@ -11,7 +11,7 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = GeneralLabel::atlet;
-$this->params['breadcrumbs'][] = ['label' => 'Atlets', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::atlet, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div>

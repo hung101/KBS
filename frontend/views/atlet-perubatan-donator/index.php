@@ -15,7 +15,7 @@ use app\models\general\GeneralLabel;
 /* @var $searchModel app\models\AtletPerubatanDonatorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Donator';
+$this->title = GeneralLabel::donator;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-perubatan-donator-index">

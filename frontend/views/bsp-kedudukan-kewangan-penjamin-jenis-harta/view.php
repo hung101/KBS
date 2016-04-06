@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->bsp_kedudukan_kewangan_penjamin_jenis_harta_id;
 $this->title = GeneralLabel::viewTitle . ' Kedudukan Kewangan Penjamin (Jenis Harta)';
-$this->params['breadcrumbs'][] = ['label' => 'Kedudukan Kewangan Penjamin (Jenis Harta)', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kedudukan_kewangan_penjamin_jenis_harta, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-kedudukan-kewangan-penjamin-jenis-harta-view">

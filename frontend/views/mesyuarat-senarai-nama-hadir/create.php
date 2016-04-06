@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\MesyuaratSenaraiNamaHadir */
 
-$this->title = 'Nama Ahli';
-$this->params['breadcrumbs'][] = ['label' => 'Senarai Nama Ahli', 'url' => ['index']];
+$this->title = GeneralLabel::nama_pegawai_coach;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::senarai_nama_ahli, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mesyuarat-senarai-nama-hadir-create">

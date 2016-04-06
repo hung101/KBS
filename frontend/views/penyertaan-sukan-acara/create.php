@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PenyertaanSukanAcara */
 
-$this->title = 'Tambah Penyertaan Acara Sukan';
-$this->params['breadcrumbs'][] = ['label' => 'Penyertaan Acara Sukan', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_penyertaan_acara_sukan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penyertaan_acara_sukan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="penyertaan-sukan-acara-create">

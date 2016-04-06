@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefBadanSukanAntarabangsaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Badan Sukan Antarabangsas';
+$this->title = GeneralLabel::badan_sukan_antarabangsa;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-badan-sukan-antarabangsa-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Badan Sukan Antarabangsa', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::badan_sukan_antarabangsa, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

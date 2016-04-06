@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefKategoriSukan */
 
-$this->title = 'Update Ref Kategori Sukan: ' . ' ' . $model->ref_kategori_sukan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Kategori Sukans', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::kategori_sukan.': ' . ' ' . $model->ref_kategori_sukan_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kategori_sukan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->ref_kategori_sukan_id, 'url' => ['view', 'id' => $model->ref_kategori_sukan_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

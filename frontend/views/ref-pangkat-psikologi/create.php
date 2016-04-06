@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPangkatPsikologi */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Pangkat Psikologi';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Pangkat Psikologis', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::pangkat_psikologi;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pangkat_psikologi, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-pangkat-psikologi-create">

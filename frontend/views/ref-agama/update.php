@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefAgama */
 
-$this->title = 'Update Ref Agama: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Agamas', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::agama.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::agama, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

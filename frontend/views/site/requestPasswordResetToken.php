@@ -1,4 +1,7 @@
 <?php
+
+use app\models\general\GeneralLabel;
+
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
@@ -6,7 +9,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\PasswordResetRequestForm */
 
-$this->title = 'Request password reset';
+$this->title = GeneralLabel::request_password_reset;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-request-password-reset">
@@ -16,12 +19,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
+            <?php
+
+use app\models\general\GeneralLabel;
+ $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
                 <?= $form->field($model, 'email') ?>
                 <div class="form-group">
                     <?= Html::submitButton('Send', ['class' => 'btn btn-primary']) ?>
                 </div>
-            <?php ActiveForm::end(); ?>
+            <?php
+
+use app\models\general\GeneralLabel;
+ ActiveForm::end(); ?>
         </div>
     </div>
 </div>

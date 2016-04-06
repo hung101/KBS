@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefStatusDiagnosisPreskripsiPemeriksaanPenyiasatanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Status Diagnosis Preskripsi Pemeriksaan Penyiasatans';
+$this->title = GeneralLabel::status_diagnosis_preskripsi_pemeriksaan_penyiasatan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-diagnosis-preskripsi-pemeriksaan-penyiasatan-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Status Diagnosis Preskripsi Pemeriksaan Penyiasatan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::status_diagnosis_preskripsi_pemeriksaan_penyiasatan, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

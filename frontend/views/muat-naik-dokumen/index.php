@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\MuatNaikDokumenSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Muat Naik Dokumen';
+$this->title = GeneralLabel::muat_naik_dokumen;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="muat-naik-dokumen-index">

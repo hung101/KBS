@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\UjianSaringanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Maklumat Bakat';
+$this->title = GeneralLabel::maklumat_bakat;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ujian-saringan-index">

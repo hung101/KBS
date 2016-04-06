@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PermohonanPerkhidmatanAnalisaPerlawananDanBimekanikSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Permohonan Perkhidmatan Analisa Perlawanan Dan Biomekanik';
+$this->title = GeneralLabel::permohonan_perkhidmatan_analisa_perlawanan_dan_biomekanik;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik-index">

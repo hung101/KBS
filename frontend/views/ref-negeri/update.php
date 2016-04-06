@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefNegeri */
 
-$this->title = 'Update Ref Negeri: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Negeris', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::negeri.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::alamat_badan_sukan_negeri, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

@@ -1,5 +1,8 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 use kartik\tabs\TabsX;
 use yii\helpers\Url;
@@ -15,15 +18,18 @@ if($this->context->action->id == "create"){
     $disabledTabs = 'disabled';
 }
 
-$this->title = 'Jurulatih';
-$this->params['breadcrumbs'][] = ['label' => 'Senarai Jurulatih', 'url' => ['index']];
+$this->title = GeneralLabel::jurulatih;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::senarai_jurulatih, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-create">
     
     <h1><?= Html::encode($this->title) ?></h1>
     
-    <?php 
+    <?php
+
+use app\models\general\GeneralLabel;
+ 
     $items = [
         [
             'label'=>'<i class="glyphicon glyphicon-user"></i> Peribadi',

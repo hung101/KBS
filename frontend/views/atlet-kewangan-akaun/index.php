@@ -15,7 +15,7 @@ use app\models\general\GeneralLabel;
 /* @var $searchModel app\models\AtletKewanganAkaunSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Akaun';
+$this->title = GeneralLabel::akaun;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-kewangan-akaun-index">

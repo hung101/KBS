@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\InformasiPermohonan */
 
 $this->title = GeneralLabel::createTitle . ' Lampiran Perbelanjaan/Resit';
-$this->params['breadcrumbs'][] = ['label' => 'Lampiran Perbelanjaan/Resit', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::lampiran_perbelanjaanresit, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="informasi-permohonan-create">

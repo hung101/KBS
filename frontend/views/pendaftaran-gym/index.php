@@ -13,7 +13,7 @@ use app\models\Atlet;
 /* @var $searchModel frontend\models\PendaftaranGymSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pendaftaran GYM';
+$this->title = GeneralLabel::pendaftaran_gym;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pendaftaran-gym-index">

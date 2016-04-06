@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefKategoriPesertaProgramBinaan */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Kategori Peserta Program Binaan';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Kategori Peserta Program Binaans', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::kategori_peserta_program_binaan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kategori_peserta_program_binaan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-kategori-peserta-program-binaan-create">

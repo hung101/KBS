@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel app\models\LtbsSenaraiNamaHadirJawatankuasaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Senarai Kehadiran Mesyuarat Jawatankuasa Menetapkan Mesyuarat Agong';
+$this->title = GeneralLabel::senarai_kehadiran_mesyuarat_jawatankuasa_menetapkan_mesyuarat_agong;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ltbs-senarai-nama-hadir-jawatankuasa-index">

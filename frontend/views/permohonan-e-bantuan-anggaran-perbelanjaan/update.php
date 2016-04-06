@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanEBantuanAnggaranPerbelanjaan */
 
-$this->title = 'Update Permohonan Ebantuan Anggaran Perbelanjaan: ' . ' ' . $model->anggaran_perbelanjaan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan Ebantuan Anggaran Perbelanjaans', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::permohonan_ebantuan_anggaran_perbelanjaan.': ' . ' ' . $model->anggaran_perbelanjaan_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebantuan_anggaran_perbelanjaans, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->anggaran_perbelanjaan_id, 'url' => ['view', 'id' => $model->anggaran_perbelanjaan_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

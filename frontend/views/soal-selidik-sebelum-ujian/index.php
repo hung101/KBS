@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\SoalSelidikSebelumUjianSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Soal Selidik Sebelum Ujian';
+$this->title = GeneralLabel::fisiologi_sistem_pangkalan_data_atlet_dan_journal;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="soal-selidik-sebelum-ujian-index">

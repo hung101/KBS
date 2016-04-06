@@ -8,8 +8,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefReportFormat */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Report Format';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Report Formats', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::report_format;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::report_format, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-report-format-create">

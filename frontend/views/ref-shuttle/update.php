@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefShuttle */
 
-$this->title = 'Update Ref Shuttle: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Shuttles', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::shuttle.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::shuttle, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

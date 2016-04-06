@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefJenisBajetSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Jenis Bajets';
+$this->title = GeneralLabel::jenis_bajet;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-jenis-bajet-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Jenis Bajet', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::jenis_bajet, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

@@ -1,4 +1,7 @@
 <?php
+
+use app\models\general\GeneralLabel;
+
 use yii\helpers\Html;
 //use yii\widgets\ActiveForm;
 use kartik\widgets\ActiveForm;
@@ -9,7 +12,7 @@ use kartik\builder\FormGrid;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\SignupForm */
 
-$this->title = 'Tambah User';
+$this->title = GeneralLabel::tambah_user;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-signup">
@@ -19,7 +22,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]); ?>
+            <?php
+
+use app\models\general\GeneralLabel;
+ $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]); ?>
                 <?= $form->field($model, 'username') ?>
                 <?= $form->field($model, 'email') ?>
                 <?= $form->field($model, 'password')->passwordInput() ?>
@@ -28,7 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="form-group">
                     <?= Html::submitButton('Hantar', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
                 </div>
-            <?php ActiveForm::end(); ?>
+            <?php
+
+use app\models\general\GeneralLabel;
+ ActiveForm::end(); ?>
         </div>
     </div>
 </div>

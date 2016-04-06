@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\BorangPenilaian */
 
 $this->title = $model->borang_penilaian_id;
-$this->params['breadcrumbs'][] = ['label' => 'Borang Penilaians', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::borang_penilaian, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="borang-penilaian-view">

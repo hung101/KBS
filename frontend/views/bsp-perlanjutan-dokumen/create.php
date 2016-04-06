@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BspPerlanjutanDokumen */
 
-$this->title = 'Tambah Dokumen Pelanjutan';
-$this->params['breadcrumbs'][] = ['label' => 'Dokumen Pelanjutan', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_dokumen_pelanjutan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::dokumen_pelanjutan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-perlanjutan-dokumen-create">

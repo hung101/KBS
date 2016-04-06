@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanKomposisiPenyertaan */
 
-$this->title = 'Tambah e-Laporan Komposisi Penyertaan';
-$this->params['breadcrumbs'][] = ['label' => 'e-Laporan Komposisi Penyertaan', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_elaporan_komposisi_penyertaan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::elaporan_komposisi_penyertaan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="elaporan-komposisi-penyertaan-create">

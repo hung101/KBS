@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefLatarbelakangKes */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Latarbelakang Kes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kes_latarbelakang, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-latarbelakang-kes-view">

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\BspPertukaranProgramPengajianDokumenSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Dokumen Pertukaran Program Pengajian';
+$this->title = GeneralLabel::dokumen_pertukaran_program_pengajian;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-pertukaran-program-pengajian-dokumen-index">

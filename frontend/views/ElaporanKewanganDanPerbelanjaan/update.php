@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanKewanganDanPerbelanjaan */
 
-$this->title = 'Update Elaporan Kewangan Dan Perbelanjaan: ' . ' ' . $model->elaporan_kewangan_dan_perbelanjaan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Elaporan Kewangan Dan Perbelanjaans', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::elaporan_kewangan_dan_perbelanjaan.': ' . ' ' . $model->elaporan_kewangan_dan_perbelanjaan_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::elaporan_kewangan_dan_perbelanjaans, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->elaporan_kewangan_dan_perbelanjaan_id, 'url' => ['view', 'id' => $model->elaporan_kewangan_dan_perbelanjaan_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

@@ -13,7 +13,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->ahli_gabungan_id;
 $this->title =  'Ahli Gabungan';
-$this->params['breadcrumbs'][] = ['label' => 'Senarai Ahli Gabungan', 'url' => Url::to(['index', 'profil_badan_sukan_id' => $profil_badan_sukan_id])];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::senarai_ahli_gabungan, 'url' => Url::to(['index', 'profil_badan_sukan_id' => $profil_badan_sukan_id])];
 $this->params['breadcrumbs'][] = GeneralLabel::viewTitle;
 ?>
 <div class="ltbs-ahli-gabungan-view">

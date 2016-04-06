@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BspElaunLatihanPraktikalMonth */
 
-$this->title = 'Update Bsp Elaun Latihan Praktikal Month: ' . ' ' . $model->bsp_elaun_latihan_praktikal_month_id;
-$this->params['breadcrumbs'][] = ['label' => 'Bsp Elaun Latihan Praktikal Months', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::bsp_elaun_latihan_praktikal_month.': ' . ' ' . $model->bsp_elaun_latihan_praktikal_month_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bsp_elaun_latihan_praktikal_months, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->bsp_elaun_latihan_praktikal_month_id, 'url' => ['view', 'id' => $model->bsp_elaun_latihan_praktikal_month_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

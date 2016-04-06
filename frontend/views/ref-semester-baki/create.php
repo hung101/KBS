@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefSemesterBaki */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Semester Baki';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Semester Bakis', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::semester_baki;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::semester_baki, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-semester-baki-create">

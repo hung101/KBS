@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\BspKedudukanKewanganPenjaminSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Kedudukan Kewangan Penjamin';
+$this->title = GeneralLabel::kedudukan_kewangan_penjamin;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-kedudukan-kewangan-penjamin-index">

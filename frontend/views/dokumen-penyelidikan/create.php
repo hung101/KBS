@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\DokumenPenyelidikan */
 
-$this->title = 'Tambah Dokumen Penyelidikan';
-$this->params['breadcrumbs'][] = ['label' => 'Dokumen Penyelidikan', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_dokumen_penyelidikan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::dokumen_penyelidikan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="dokumen-penyelidikan-create">

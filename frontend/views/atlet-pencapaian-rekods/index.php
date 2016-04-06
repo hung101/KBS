@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\AtletPencapaianRekodsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Atlet Pencapaian Rekods';
+$this->title = GeneralLabel::atlet_pencapaian_rekods;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-pencapaian-rekods-index">
@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Atlet Pencapaian Rekods', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::atlet_pencapaian_rekods, ['create'], ['class' => 'btn btn-success']) ?>
     </p>-->
 
     <?= GridView::widget([

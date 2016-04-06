@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\SoalSelidikSebelumUjianSoalanJawapanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Soal Selidik Sebelum Ujian Soalan Jawapans';
+$this->title = GeneralLabel::soal_selidik_sebelum_ujian_soalan_jawapan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="soal-selidik-sebelum-ujian-soalan-jawapan-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Soal Selidik Sebelum Ujian Soalan Jawapan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::soal_selidik_sebelum_ujian_soalan_jawapan, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefSijilSpkkSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Sijil Spkks';
+$this->title = GeneralLabel::sijil_spkk;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-sijil-spkk-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Sijil Spkk', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::sijil_spkk, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

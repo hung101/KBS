@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\BspElaunLatihanPraktikalMonth */
 
 $this->title = $model->bsp_elaun_latihan_praktikal_month_id;
-$this->params['breadcrumbs'][] = ['label' => 'Bsp Elaun Latihan Praktikal Months', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bsp_elaun_latihan_praktikal_months, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-elaun-latihan-praktikal-month-view">

@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefProgramSemasaSukanAtlet */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Program Semasa Sukan Atlet';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Program Semasa Sukan Atlets', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::program_semasa_sukan_atlet;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::program_semasa_sukan_atlet, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-program-semasa-sukan-atlet-create">

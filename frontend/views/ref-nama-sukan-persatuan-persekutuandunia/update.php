@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefNamaSukanPersatuanPersekutuandunia */
 
-$this->title = 'Update Ref Nama Sukan Persatuan Persekutuandunia: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Nama Sukan Persatuan Persekutuandunias', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::nama_sukan_persatuan_persekutuandunia.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::nama_sukan_persatuan_persekutuandunia, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

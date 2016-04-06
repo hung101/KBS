@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BorangPermohonanKem */
 
-$this->title = 'Tambah Borang Permohonan Kem';
-$this->params['breadcrumbs'][] = ['label' => 'Borang Permohonan Kem', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_borang_permohonan_kem;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::borang_permohonan_kem, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="borang-permohonan-kem-create">

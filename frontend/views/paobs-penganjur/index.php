@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel app\models\PaobsPenganjurSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Penganjuran Acara Sukan Yang Disanksi';
+$this->title = GeneralLabel::penganjuran_acara_sukan_yang_disanksi;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="paobs-penganjur-index">

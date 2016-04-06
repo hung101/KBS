@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\BspPerlanjutanSebab */
 
 $this->title = GeneralLabel::createTitle . ' Sebab Pelanjutan';
-$this->params['breadcrumbs'][] = ['label' => 'Sebab Pelanjutan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::sebab_pelanjutan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-perlanjutan-sebab-create">

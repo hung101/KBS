@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\BiomekanikUjianSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ujian Biomekanik';
+$this->title = GeneralLabel::ujian_biomekanik;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="biomekanik-ujian-index">

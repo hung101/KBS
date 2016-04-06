@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel app\models\EkemudahanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'e-Kemudahan';
+$this->title = GeneralLabel::ekemudahan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ekemudahan-index">

@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefJantina */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Jantina';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Jantinas', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::jantina;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::jantina, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-jantina-create">

@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefSijilSpkk */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Sijil Spkks', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::sijil_spkk, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-sijil-spkk-view">

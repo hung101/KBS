@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPemohonJaringanAntarabangsa */
 
-$this->title = 'Update Ref Pemohon Jaringan Antarabangsa: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Pemohon Jaringan Antarabangsas', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::pemohon_jaringan_antarabangsa.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pemohon_jaringan_antarabangsa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

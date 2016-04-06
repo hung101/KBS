@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\Satelit */
 
 $this->title = GeneralLabel::createTitle . ' Satelit';
-$this->params['breadcrumbs'][] = ['label' => 'Satelit', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::satelit, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="satelit-create">

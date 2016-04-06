@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BspPrestasiSukan */
 
-$this->title = 'Tambah Prestasi Sukan';
-$this->params['breadcrumbs'][] = ['label' => 'Prestasi Sukan', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_prestasi_sukan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::prestasi_sukan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-prestasi-sukan-create">

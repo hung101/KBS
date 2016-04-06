@@ -15,7 +15,7 @@ use app\models\general\GeneralVariable;
 
 //$this->title = $model->kursus_tertinggi_id;
 $this->title = GeneralLabel::viewTitle . ' Kelayakan Kursus Tertinggi';
-$this->params['breadcrumbs'][] = ['label' => 'Kelayakan Kursus Tertinggi', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kelayakan_kursus_tertinggi, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="jurulatih-kursus-tertinggi-view">

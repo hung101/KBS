@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\BspTamatPengesahanPengajian */
 
-//$this->title = 'Update Bsp Pengesahan Tamat Pengajian: ' . ' ' . $model->bsp_tamat_pengesahan_pengajian_id;
+//$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::bsp_pengesahan_tamat_pengajian.': ' . ' ' . $model->bsp_tamat_pengesahan_pengajian_id;
 $this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::pengesahan_tamat_pengajian;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengesahan_tamat_pengajian, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::pengesahan_tamat_pengajian, 'url' => ['view', 'id' => $model->bsp_tamat_pengesahan_pengajian_id]];

@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\FarmasiUbatan */
 
-$this->title = 'Update Farmasi Ubatan: ' . ' ' . $model->farmasi_ubatan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Farmasi Ubatans', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::farmasi_ubatan.': ' . ' ' . $model->farmasi_ubatan_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::farmasi_ubatans, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->farmasi_ubatan_id, 'url' => ['view', 'id' => $model->farmasi_ubatan_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

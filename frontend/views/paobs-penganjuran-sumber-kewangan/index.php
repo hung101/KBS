@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PaobsPenganjuranSumberKewanganSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Paobs Penganjuran Sumber Kewangans';
+$this->title = GeneralLabel::paobs_penganjuran_sumber_kewangan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="paobs-penganjuran-sumber-kewangan-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Paobs Penganjuran Sumber Kewangan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::paobs_penganjuran_sumber_kewangan, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\LtbsAhliJawatankuasaKecilSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ahli Jawatankuasa Kecil / Biro ';
+$this->title = GeneralLabel::ahli_jawatankuasa_kecil_biro_;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ltbs-ahli-jawatankuasa-kecil-index">

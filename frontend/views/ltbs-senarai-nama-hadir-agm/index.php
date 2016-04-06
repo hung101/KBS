@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel app\models\LtbsSenaraiNamaHadirAgmSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Senarai Nama Kehadiran Mesyuarat Agong';
+$this->title = GeneralLabel::senarai_nama_kehadiran_mesyuarat_agong;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ltbs-senarai-nama-hadir-agm-index">

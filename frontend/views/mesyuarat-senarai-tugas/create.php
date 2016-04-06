@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\MesyuaratSenaraiTugas */
 
-$this->title = 'Mesyuarat - Senarai Tugas';
-$this->params['breadcrumbs'][] = ['label' => 'Mesyuarat - Senarai Tugas', 'url' => ['index']];
+$this->title = GeneralLabel::mesyuarat_senarai_tugas;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::mesyuarat_senarai_tugas, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mesyuarat-senarai-tugas-create">

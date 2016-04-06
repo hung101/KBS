@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\BspElaunLatihanPraktikalMonthSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Praktikal';
+$this->title = GeneralLabel::praktikal;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-elaun-latihan-praktikal-month-index">

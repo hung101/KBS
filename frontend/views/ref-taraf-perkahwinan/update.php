@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefTarafPerkahwinan */
 
-$this->title = 'Update Ref Taraf Perkahwinan: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Taraf Perkahwinans', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::taraf_perkahwinan.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::taraf_perkahwinan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

@@ -9,9 +9,9 @@ use app\models\UserPeranan;
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanEBiasiswa */
 
-//$this->title = 'Update Permohonan Ebiasiswa: ' . ' ' . $model->permohonan_e_biasiswa_id;
+//$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::permohonan_ebiasiswa.': ' . ' ' . $model->permohonan_e_biasiswa_id;
 $this->title = GeneralLabel::updateTitle . ' Permohonan e-Biasiswa';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan e-Biasiswa', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebiasiswa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Permohonan e-Biasiswa', 'url' => ['view', 'id' => $model->permohonan_e_biasiswa_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

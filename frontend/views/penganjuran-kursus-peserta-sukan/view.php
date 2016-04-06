@@ -1,5 +1,8 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -7,7 +10,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\PenganjuranKursusPesertaSukan */
 
 $this->title = $model->penganjuran_kursus_peserta_sukan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Penganjuran Kursus Peserta Sukans', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penganjuran_kursus_peserta_sukan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="penganjuran-kursus-peserta-sukan-view">
@@ -30,7 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'readonly' => $readonly,
     ]) ?>
 
-    <?php /*echo DetailView::widget([
+    <?php
+
+use app\models\general\GeneralLabel;
+ /*echo DetailView::widget([
         'model' => $model,
         'attributes' => [
             'penganjuran_kursus_peserta_sukan_id',

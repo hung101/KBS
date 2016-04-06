@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PermohonanEBantuanObjektifPertubuhanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Objektif Pertubuhan';
+$this->title = GeneralLabel::objektif_pertubuhan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebantuan-objektif-pertubuhan-index">

@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $searchModel frontend\models\RefTindakanSelanjutnyaRehabilitasiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Tindakan Selanjutnya Rehabilitasis';
+$this->title = GeneralLabel::tindakan_selanjutnya_rehabilitasi;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-tindakan-selanjutnya-rehabilitasi-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Tindakan Selanjutnya Rehabilitasi', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::tindakan_selanjutnya_rehabilitasi, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

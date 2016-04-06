@@ -7,10 +7,10 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanPerganjuran */
 
-//$this->title = 'Tambah Permohonan Kursus Teknikal ';
+//$this->title = GeneralLabel::tambah_permohonan_kursus_teknikal_;
 $this->title = GeneralLabel::createTitle . ' Permohonan Penganjuran';
-//$this->params['breadcrumbs'][] = ['label' => 'Permohonan Kursus Teknikal', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan Penganjuran', 'url' => ['index']];
+//$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_kursus_teknikal, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_penganjuran, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-perganjuran-create">

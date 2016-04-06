@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefJenisBantuanSueSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Jenis Bantuan Sues';
+$this->title = GeneralLabel::jenis_bantuan_sue;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-jenis-bantuan-sue-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Jenis Bantuan Sue', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::jenis_bantuan_sue, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

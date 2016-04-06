@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\models\RefJawatanPasukanPenyelidikanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Jawatan Pasukan Penyelidikans';
+$this->title = GeneralLabel::jawatan_pasukan_penyelidikan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-jawatan-pasukan-penyelidikan-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Jawatan Pasukan Penyelidikan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::jawatan_pasukan_penyelidikan, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

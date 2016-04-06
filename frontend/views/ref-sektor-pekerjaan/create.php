@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefSektorPekerjaan */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Sektor Pekerjaan';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Sektor Pekerjaans', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::sektor_pekerjaan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::sektor_pekerjaan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-sektor-pekerjaan-create">

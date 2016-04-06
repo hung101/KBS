@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefKategoriPenilaianJurulatih */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Kategori Penilaian Jurulatih';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Kategori Penilaian Jurulatihs', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::kategori_penilaian_jurulatih;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kategori_penilaian_jurulatih, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-kategori-penilaian-jurulatih-create">

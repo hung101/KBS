@@ -7,9 +7,9 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\BspBorangBorang */
 
-$this->title = 'Muat Turun Borang-Borang';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan e-Biasiswa', 'url' => ['permohonan-e-biasiswa/view', 'id' => $bsp_pemohon_id]];
-//$this->params['breadcrumbs'][] = ['label' => 'Bsp Borang Borangs', 'url' => ['index']];
+$this->title = GeneralLabel::muat_turun_borangborang;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebiasiswa, 'url' => ['permohonan-e-biasiswa/view', 'id' => $bsp_pemohon_id]];
+//$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bsp_borang_borangs, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-borang-borang-create">

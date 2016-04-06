@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\SenaraiHargaPerkhidmatanUbatanPeralatan */
 
 $this->title = GeneralLabel::createTitle . ' Perkhidmatan/Ubatan/Peralatan';
-$this->params['breadcrumbs'][] = ['label' => 'Senarai Harga Perkhidmatan/Ubatan/Peralatan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::senarai_harga_perkhidmatanubatanperalatan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="senarai-harga-perkhidmatan-ubatan-peralatan-create">

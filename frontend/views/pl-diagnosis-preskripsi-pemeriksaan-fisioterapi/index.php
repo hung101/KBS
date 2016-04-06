@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PlDiagnosisPreskripsiPemeriksaanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Diagnosis/Preskripsi/Pemeriksaan/Penyiasatan';
+$this->title = GeneralLabel::diagnosispreskripsipemeriksaanpenyiasatan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pl-diagnosis-preskripsi-pemeriksaan-index">

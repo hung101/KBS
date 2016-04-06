@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefSebabPermohonanPertukaranPengajian */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Sebab Permohonan Pertukaran Pengajians', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::sebab_permohonan_pertukaran_pengajian, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-sebab-permohonan-pertukaran-pengajian-view">

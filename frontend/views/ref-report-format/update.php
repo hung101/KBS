@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefReportFormat */
 
-$this->title = 'Update Ref Report Format: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Report Formats', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::report_format.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::report_format, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

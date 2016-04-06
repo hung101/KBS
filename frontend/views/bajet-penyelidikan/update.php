@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BajetPenyelidikan */
 
-$this->title = 'Update Bajet Penyelidikan: ' . ' ' . $model->bajet_penyelidikan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Bajet Penyelidikans', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::bajet_penyelidikan.': ' . ' ' . $model->bajet_penyelidikan_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bajet_penyelidikan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->bajet_penyelidikan_id, 'url' => ['view', 'id' => $model->bajet_penyelidikan_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

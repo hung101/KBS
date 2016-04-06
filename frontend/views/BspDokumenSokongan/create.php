@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BspDokumenSokongan */
 
-$this->title = 'Tambah Dokumen Sokongan Biasiswa Sukan Persekutuan';
-$this->params['breadcrumbs'][] = ['label' => 'Dokumen Sokongan Biasiswa Sukan Persekutuan', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_dokumen_sokongan_biasiswa_sukan_persekutuan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::dokumen_sokongan_biasiswa_sukan_persekutuan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-dokumen-sokongan-create">

@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->sumber_kewangan_id;
 $this->title = GeneralLabel::viewTitle . ' Sumber Kewangan';
-$this->params['breadcrumbs'][] = ['label' => 'Sumber Kewangan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::sumber_kewangan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ltbs-sumber-kewangan-view">

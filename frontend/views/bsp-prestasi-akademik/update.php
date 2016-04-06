@@ -9,10 +9,10 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\BspPrestasiAkademik */
 
-//$this->title = 'Update Bsp Prestasi Akademik: ' . ' ' . $model->bsp_prestasi_akademik_id;
+//$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::bsp_prestasi_akademik.': ' . ' ' . $model->bsp_prestasi_akademik_id;
 $this->title = GeneralLabel::updateTitle . ' Prestasi Akademik';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan e-Biasiswa', 'url' => ['permohonan-e-biasiswa/view', 'id' => $model->bsp_pemohon_id]];
-$this->params['breadcrumbs'][] = ['label' => 'Prestasi Akademik', 'url' => Url::to(['index', 'bsp_pemohon_id' => $model->bsp_pemohon_id])];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebiasiswa, 'url' => ['permohonan-e-biasiswa/view', 'id' => $model->bsp_pemohon_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::prestasi_akademik, 'url' => Url::to(['index', 'bsp_pemohon_id' => $model->bsp_pemohon_id])];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Prestasi Akademik', 'url' => ['view', 'id' => $model->bsp_prestasi_akademik_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

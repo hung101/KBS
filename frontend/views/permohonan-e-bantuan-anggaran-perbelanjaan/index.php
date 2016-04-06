@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PermohonanEBantuanAnggaranPerbelanjaanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Anggaran Perbelanjaan Program / Aktiviti Yang Dipohon';
+$this->title = GeneralLabel::anggaran_perbelanjaan_program_aktiviti_yang_dipohon;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebantuan-anggaran-perbelanjaan-index">

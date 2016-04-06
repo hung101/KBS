@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PermohonanEBantuanCadanganKertasKerjaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Permohonan e-Bantuan Cadangan Kertas Kerja';
+$this->title = GeneralLabel::permohonan_ebantuan_cadangan_kertas_kerja;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebantuan-cadangan-kertas-kerja-index">

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\SenaraiJurulatihSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Senarai Jurulatih';
+$this->title = GeneralLabel::senarai_jurulatih;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="senarai-jurulatih-index">

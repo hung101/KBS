@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefSixstepPsikologiStatus */
 
-$this->title = 'Update Ref Sixstep Psikologi Status: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Sixstep Psikologi Statuses', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::sixstep_psikologi_status.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::sixstep_psikologi_statuses, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

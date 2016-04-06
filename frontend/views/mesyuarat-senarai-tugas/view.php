@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\MesyuaratSenaraiTugas */
 
 $this->title = $model->senarai_tugas_id;
-$this->params['breadcrumbs'][] = ['label' => 'Mesyuarat Senarai Tugas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::mesyuarat_senarai_tugas, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mesyuarat-senarai-tugas-view">

@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\MaklumatKongresDiLuarNegara */
 
-$this->title = 'Update Maklumat Kongres Di Luar Negara: ' . ' ' . $model->maklumat_kongres_di_luar_negara_id;
-$this->params['breadcrumbs'][] = ['label' => 'Maklumat Kongres Di Luar Negaras', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::maklumat_kongres_di_luar_negara.': ' . ' ' . $model->maklumat_kongres_di_luar_negara_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::maklumat_kongres_di_luar_negara, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->maklumat_kongres_di_luar_negara_id, 'url' => ['view', 'id' => $model->maklumat_kongres_di_luar_negara_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

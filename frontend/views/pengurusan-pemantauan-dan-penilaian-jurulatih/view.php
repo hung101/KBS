@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->pengurusan_pemantauan_dan_penilaian_jurulatih_id;
 $this->title = GeneralLabel::viewTitle . ' Penilaian Jurulatih';
-$this->params['breadcrumbs'][] = ['label' => 'Penilaian Jurulatih', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penilaian_jurulatih, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-pemantauan-dan-penilaian-jurulatih-view">

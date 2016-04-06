@@ -13,7 +13,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->bsp_tuntutan_elaun_tesis_od;
 $this->title = GeneralLabel::viewTitle . ' Tuntutan Elaun Tesis';
-$this->params['breadcrumbs'][] = ['label' => 'Tuntutan Elaun Tesis', 'url' => Url::to(['index', 'bsp_pemohon_id' => $model->bsp_pemohon_id])];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::tuntutan_elaun_tesis, 'url' => Url::to(['index', 'bsp_pemohon_id' => $model->bsp_pemohon_id])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-tuntutan-elaun-tesis-view">

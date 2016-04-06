@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefDarjah */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Darjahs', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::darjah, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-darjah-view">

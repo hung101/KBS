@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\BspPembayaran */
 
 $this->title = GeneralLabel::createTitle . ' Pembayaran Biasiswa Sukan Persekutuan';
-$this->params['breadcrumbs'][] = ['label' => 'Pembayaran Biasiswa Sukan Persekutuan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pembayaran_biasiswa_sukan_persekutuan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-pembayaran-create">

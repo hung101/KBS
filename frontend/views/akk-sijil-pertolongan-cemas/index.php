@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\models\AkkSijilPertolonganCemasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Akk Sijil Pertolongan Cemas';
+$this->title = GeneralLabel::akk_sijil_pertolongan_cemas;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="akk-sijil-pertolongan-cemas-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Akk Sijil Pertolongan Cemas', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::akk_sijil_pertolongan_cemas, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

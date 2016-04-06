@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanPenilaianJurulatih */
 
-$this->title = 'Tambah Pengurusan Penilaian Jurulatih';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Penilaian Jurulatih', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_pengurusan_penilaian_jurulatih;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_penilaian_jurulatih, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-penilaian-jurulatih-create">

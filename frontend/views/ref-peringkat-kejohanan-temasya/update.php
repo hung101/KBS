@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPeringkatKejohananTemasya */
 
-$this->title = 'Update Ref Peringkat Kejohanan Temasya: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Peringkat Kejohanan Temasyas', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::peringkat_kejohanan_temasya.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::peringkat_kejohanan_temasya, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

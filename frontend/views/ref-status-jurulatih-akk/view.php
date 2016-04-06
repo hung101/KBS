@@ -1,5 +1,8 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -7,7 +10,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\RefStatusJurulatihAkk */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Status Jurulatih Akks', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::status_jurulatih_akk, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-jurulatih-akk-view">

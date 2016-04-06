@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefBadanSukanAntarabangsa */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Badan Sukan Antarabangsa';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Badan Sukan Antarabangsas', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::badan_sukan_antarabangsa;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::badan_sukan_antarabangsa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-badan-sukan-antarabangsa-create">

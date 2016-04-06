@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\MuatNaikDokumen */
 
 $this->title = GeneralLabel::createTitle . ' Muat Naik Dokumen';
-$this->params['breadcrumbs'][] = ['label' => 'Muat Naik Dokumen', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::muat_naik_dokumen, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="muat-naik-dokumen-create">

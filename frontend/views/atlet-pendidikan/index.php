@@ -16,7 +16,7 @@ use app\models\general\GeneralVariable;
 /* @var $searchModel app\models\AtletPendidikanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pendidikan';
+$this->title = GeneralLabel::pendidikan;
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\BorangPenilaianSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Borang Penilaian';
+$this->title = GeneralLabel::borang_penilaian;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="borang-penilaian-index">

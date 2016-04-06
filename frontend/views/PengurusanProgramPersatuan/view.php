@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PengurusanProgramPersatuan */
 
 $this->title = $model->pengurusan_program_persatuan;
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Program Persatuans', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_program_persatuan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-program-persatuan-view">

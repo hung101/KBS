@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPerkhidmatanSatelit */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Perkhidmatan Satelit';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Perkhidmatan Satelits', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::perkhidmatan_satelit;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::perkhidmatan_satelit, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-perkhidmatan-satelit-create">

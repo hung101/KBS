@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanEBantuanJawatankuasa */
 
-$this->title = 'Update Permohonan Ebantuan Jawatankuasa: ' . ' ' . $model->jawatankuasa_id;
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan Ebantuan Jawatankuasas', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::permohonan_ebantuan_jawatankuasa.': ' . ' ' . $model->jawatankuasa_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebantuan_jawatankuasas, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->jawatankuasa_id, 'url' => ['view', 'id' => $model->jawatankuasa_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

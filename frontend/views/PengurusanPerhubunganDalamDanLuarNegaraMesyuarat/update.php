@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanPerhubunganDalamDanLuarNegaraMesyuarat */
 
-$this->title = 'Update Pengurusan Perhubungan Dalam Dan Luar Negara Mesyuarat: ' . ' ' . $model->pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat_id;
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Perhubungan Dalam Dan Luar Negara Mesyuarats', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat.': ' . ' ' . $model->pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat_id, 'url' => ['view', 'id' => $model->pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

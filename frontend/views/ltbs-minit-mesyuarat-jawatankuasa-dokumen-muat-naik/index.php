@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\LtbsMinitMesyuaratJawatankuasaDokumenMuatNaikSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Muat Naik Minit Mesyuarat Jawatankuasa Menetapkan Mesyuarat Agong';
+$this->title = GeneralLabel::muat_naik_minit_mesyuarat_jawatankuasa_menetapkan_mesyuarat_agong;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ltbs-minit-mesyuarat-jawatankuasa-dokumen-muat-naik-index">

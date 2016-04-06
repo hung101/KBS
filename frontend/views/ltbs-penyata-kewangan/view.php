@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\LtbsPenyataKewangan */
 
 //$this->title = $model->penyata_kewangan_id;
-$this->title = 'Penyata Kewangan';
-$this->params['breadcrumbs'][] = ['label' => 'Penyata Kewangan', 'url' => ['index']];
+$this->title = GeneralLabel::penyata_kewangan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penyata_kewangan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = GeneralLabel::viewTitle;
 ?>
 <div class="ltbs-penyata-kewangan-view">

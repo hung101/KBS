@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BorangPenilaian */
 
-$this->title = 'Tambah Borang Penilaian';
-$this->params['breadcrumbs'][] = ['label' => 'Borang Penilaian', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_borang_penilaian;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::borang_penilaian, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="borang-penilaian-create">

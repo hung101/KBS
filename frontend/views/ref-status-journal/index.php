@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefStatusJournalSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Status Journals';
+$this->title = GeneralLabel::status_journal;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-journal-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Status Journal', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::status_journal, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

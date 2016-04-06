@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->pengurusan_kemudahan_dan_peralatan_id;
 $this->title = GeneralLabel::viewTitle . ' Pengurusan Kemudahan Dan Peralatan';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Kemudahan Dan Peralatan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_kemudahan_dan_peralatan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-kemudahan-dan-peralatan-view">

@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanPenilaianKategoriJurulatih */
 
-$this->title = 'Update Pengurusan Penilaian Kategori Jurulatih: ' . ' ' . $model->pengurusan_penilaian_kategori_jurulatih_id;
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Penilaian Kategori Jurulatihs', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::pengurusan_penilaian_kategori_jurulatih.': ' . ' ' . $model->pengurusan_penilaian_kategori_jurulatih_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_penilaian_kategori_jurulatihs, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->pengurusan_penilaian_kategori_jurulatih_id, 'url' => ['view', 'id' => $model->pengurusan_penilaian_kategori_jurulatih_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

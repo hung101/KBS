@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPemohonJaringanAntarabangsa */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Pemohon Jaringan Antarabangsa';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Pemohon Jaringan Antarabangsas', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::pemohon_jaringan_antarabangsa;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pemohon_jaringan_antarabangsa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-pemohon-jaringan-antarabangsa-create">

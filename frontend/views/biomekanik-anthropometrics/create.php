@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BiomekanikAnthropometrics */
 
-$this->title = 'Tambah Biomekanik Anthropometrics';
-$this->params['breadcrumbs'][] = ['label' => 'Biomekanik Anthropometrics', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_biomekanik_anthropometrics;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::biomekanik_anthropometrics, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="biomekanik-anthropometrics-create">

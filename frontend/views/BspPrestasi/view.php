@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\BspPrestasi */
 
 $this->title = $model->bsp_prestasi_id;
-$this->params['breadcrumbs'][] = ['label' => 'Bsp Prestasis', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bsp_prestasis, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-prestasi-view">

@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AtletKarier */
 
-//$this->title = 'Update Atlet Karier: ' . ' ' . $model->karier_atlet_id;
-$this->title = 'Update Pendidikan';
-$this->params['breadcrumbs'][] = ['label' => 'Atlet Kariers', 'url' => ['index']];
+//$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::atlet_karier.': ' . ' ' . $model->karier_atlet_id;
+$this->title = GeneralLabel::updateTitle.' '.'Pendidikan';
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::atlet_kariers, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->karier_atlet_id, 'url' => ['view', 'id' => $model->karier_atlet_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

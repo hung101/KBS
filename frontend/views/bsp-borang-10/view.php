@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\BspBorang10 */
 
 $this->title = $model->bsp_borang_10_id;
-$this->params['breadcrumbs'][] = ['label' => 'Bsp Borang10s', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bsp_borang10, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-borang10-view">

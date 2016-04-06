@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\models\RefReportFormatSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Report Formats';
+$this->title = GeneralLabel::report_format;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-report-format-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Report Format', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::report_format, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

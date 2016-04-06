@@ -8,8 +8,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPeralatanPinjaman */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Peralatan Pinjaman';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Peralatan Pinjamen', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::peralatan_pinjaman;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::peralatan_pinjamen, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-peralatan-pinjaman-create">

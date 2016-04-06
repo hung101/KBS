@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\LtbsMinitMesyuaratJawatankuasaDokumenMuatNaik */
 
-$this->title = 'Update Ltbs Minit Mesyuarat Jawatankuasa Dokumen Muat Naik: ' . ' ' . $model->dokumen_muat_naik_id;
-$this->params['breadcrumbs'][] = ['label' => 'Ltbs Minit Mesyuarat Jawatankuasa Dokumen Muat Naiks', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::ltbs_minit_mesyuarat_jawatankuasa_dokumen_muat_naik.': ' . ' ' . $model->dokumen_muat_naik_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::ltbs_minit_mesyuarat_jawatankuasa_dokumen_muat_naiks, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->dokumen_muat_naik_id, 'url' => ['view', 'id' => $model->dokumen_muat_naik_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

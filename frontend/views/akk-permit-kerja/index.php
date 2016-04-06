@@ -9,7 +9,7 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\models\AkkPermitKerjaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Akk Permit Kerjas';
+$this->title = GeneralLabel::akk_permit_kerja;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="akk-permit-kerja-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Akk Permit Kerja', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::akk_permit_kerja, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

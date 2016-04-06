@@ -10,7 +10,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\BspPenjamin */
 
 $this->title = GeneralLabel::createTitle . ' Penjamin Biasiswa Sukan Persekutuan';
-$this->params['breadcrumbs'][] = ['label' => 'Penjamin Biasiswa Sukan Persekutuan', 'url' => Url::to(['index', 'bsp_pemohon_id' => $bsp_pemohon_id])];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penjamin_biasiswa_sukan_persekutuan, 'url' => Url::to(['index', 'bsp_pemohon_id' => $bsp_pemohon_id])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-penjamin-create">

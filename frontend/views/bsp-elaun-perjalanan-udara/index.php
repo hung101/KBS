@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\BspElaunPerjalananUdaraSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Elaun Perjalanan Udara';
+$this->title = GeneralLabel::elaun_perjalanan_udara;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-elaun-perjalanan-udara-index">

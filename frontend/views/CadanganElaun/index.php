@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\CadanganElaunSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Cadangan Elaun';
+$this->title = GeneralLabel::cadangan_elaun;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cadangan-elaun-index">

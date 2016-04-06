@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefTempatPenjadualanUjianFisiologi */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Tempat Penjadualan Ujian Fisiologis', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::tempat_penjadualan_ujian_fisiologi, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-tempat-penjadualan-ujian-fisiologi-view">

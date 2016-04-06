@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\SoalSelidikSebelumUjian */
 
 $this->title = GeneralLabel::createTitle . ' Soal Selidik Sebelum Ujian';
-$this->params['breadcrumbs'][] = ['label' => 'Soal Selidik Sebelum Ujian', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::fisiologi_sistem_pangkalan_data_atlet_dan_journal, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="soal-selidik-sebelum-ujian-create">

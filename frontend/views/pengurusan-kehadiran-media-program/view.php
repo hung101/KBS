@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PengurusanKehadiranMediaProgram */
 
 $this->title = $model->pengurusan_kehadiran_media_program_id;
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Kehadiran Media Programs', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_kehadiran_media_program, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-kehadiran-media-program-view">

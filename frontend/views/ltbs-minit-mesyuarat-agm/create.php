@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\LtbsMinitMesyuaratAgm */
 
 $this->title =  'Minit Mesyuarat Agong';
-$this->params['breadcrumbs'][] = ['label' => 'Minit Mesyuarat Agong', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::minit_mesyuarat_agong, 'url' => ['index']];
 $this->params['breadcrumbs'][] = GeneralLabel::createTitle;
 ?>
 <div class="ltbs-minit-mesyuarat-agm-create">

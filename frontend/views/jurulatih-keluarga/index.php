@@ -15,7 +15,7 @@ use app\models\general\GeneralLabel;
 /* @var $searchModel frontend\models\JurulatihKeluargaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Maklumat Keluarga';
+$this->title = GeneralLabel::maklumat_keluarga;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="jurulatih-keluarga-index">

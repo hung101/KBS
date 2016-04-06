@@ -1,5 +1,8 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -7,7 +10,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\AkkPermitKerja */
 
 $this->title = $model->akk_permit_kerja_id;
-$this->params['breadcrumbs'][] = ['label' => 'Akk Permit Kerjas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::akk_permit_kerja, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="akk-permit-kerja-view">
@@ -30,7 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'readonly' => $readonly,
     ]) ?>
 
-    <?php /*echo DetailView::widget([
+    <?php
+
+use app\models\general\GeneralLabel;
+ /*echo DetailView::widget([
         'model' => $model,
         'attributes' => [
             'akk_permit_kerja_id',

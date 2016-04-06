@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefParlimen */
 
-$this->title = 'Update Ref Parlimen: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Parlimens', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::parlimen.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::alamat_parlimen, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

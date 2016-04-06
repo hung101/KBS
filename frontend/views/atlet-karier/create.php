@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AtletKarier */
 
-$this->title = 'Tambah Karier';
-$this->params['breadcrumbs'][] = ['label' => 'Atlet Kariers', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_karier;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::atlet_kariers, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-karier-create">

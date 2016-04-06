@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefUbatSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Ubats';
+$this->title = GeneralLabel::ubat;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-ubat-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Ubat', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::ubat, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

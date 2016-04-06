@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\ElaporanPelaksanaanGambarSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Gambar';
+$this->title = GeneralLabel::gambar;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="elaporan-pelaksanaan-gambar-index">

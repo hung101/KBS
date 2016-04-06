@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel app\models\LtbsAhliJawatankuasaIndukKecilSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ahli Jawatankuasa Induk';
+$this->title = GeneralLabel::ahli_jawatan_induk_id;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ltbs-ahli-jawatankuasa-induk-kecil-index">

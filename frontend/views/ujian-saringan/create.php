@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\UjianSaringan */
 
 $this->title = GeneralLabel::createTitle . ' Maklumat Bakat';
-$this->params['breadcrumbs'][] = ['label' => 'Maklumat Bakat', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::maklumat_bakat, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ujian-saringan-create">

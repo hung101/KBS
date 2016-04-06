@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPingat */
 
-$this->title = 'Update Ref Pingat: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Pingats', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::pingat.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pingat, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

@@ -8,8 +8,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\SoalSelidikSebelumUjianSoalanJawapan */
 
-$this->title = GeneralLabel::createTitle.' '.'Soal Selidik Sebelum Ujian Soalan Jawapan';
-$this->params['breadcrumbs'][] = ['label' => 'Soal Selidik Sebelum Ujian Soalan Jawapans', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::soal_selidik_sebelum_ujian_soalan_jawapan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::soal_selidik_sebelum_ujian_soalan_jawapan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="soal-selidik-sebelum-ujian-soalan-jawapan-create">

@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RehabilitasiProgram */
 
-$this->title = 'Tambah Rehabilitasi Program';
-$this->params['breadcrumbs'][] = ['label' => 'Rehabilitasi Program', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_rehabilitasi_program;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::rehabilitasi_program, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="rehabilitasi-program-create">

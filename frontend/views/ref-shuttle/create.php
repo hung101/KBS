@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefShuttle */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Shuttle';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Shuttles', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::shuttle;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::shuttle, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-shuttle-create">

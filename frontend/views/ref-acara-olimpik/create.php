@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefAcaraOlimpik */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Acara Olimpik';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Acara Olimpiks', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::acara_olimpik;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::acara_olimpik, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-acara-olimpik-create">

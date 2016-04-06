@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Jurulatih */
 
-$this->title = 'Tambah Maklumat Jurulatih';
-$this->params['breadcrumbs'][] = ['label' => 'Maklumat Jurulatih', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_maklumat_jurulatih;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::maklumat_jurulatih, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="jurulatih-create">

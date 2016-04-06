@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefWaktuKetikaDiperlukanSukarelawan */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Waktu Ketika Diperlukan Sukarelawans', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::waktu_ketika_diperlukan_sukarelawan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-waktu-ketika-diperlukan-sukarelawan-view">

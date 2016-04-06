@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\FarmasiPengurusanStok */
 
 $this->title = $model->farmasi_pengurusan_stok;
-$this->params['breadcrumbs'][] = ['label' => 'Farmasi Pengurusan Stoks', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::farmasi_pengurusan_stok, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="farmasi-pengurusan-stok-view">

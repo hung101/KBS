@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefStatusHaidDataKlinikal */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Status Haid Data Klinikals', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::status_haid_data_klinikal, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-haid-data-klinikal-view">

@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefUnitDiagnosisPreskripsiPemeriksaanPenyiasatan */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Unit Diagnosis Preskripsi Pemeriksaan Penyiasatan';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Unit Diagnosis Preskripsi Pemeriksaan Penyiasatans', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::unit_diagnosis_preskripsi_pemeriksaan_penyiasatan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::unit_diagnosis_preskripsi_pemeriksaan_penyiasatan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-unit-diagnosis-preskripsi-pemeriksaan-penyiasatan-create">

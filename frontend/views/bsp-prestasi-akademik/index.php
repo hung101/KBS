@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\BspPrestasiAkademikSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Prestasi Akademik';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan e-Biasiswa', 'url' => ['permohonan-e-biasiswa/view', 'id' => $bsp_pemohon_id]];
+$this->title = GeneralLabel::prestasi_akademik;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebiasiswa, 'url' => ['permohonan-e-biasiswa/view', 'id' => $bsp_pemohon_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-prestasi-akademik-index">

@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\LtbsSenaraiNamaHadirAgm */
 
 $this->title = $model->senarai_nama_hadir_id;
-$this->params['breadcrumbs'][] = ['label' => 'Ltbs Senarai Nama Hadir Agms', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::ltbs_senarai_nama_hadir_agms, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ltbs-senarai-nama-hadir-agm-view">

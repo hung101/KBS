@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\KemudahPakaianPeralatanTiket */
 
-$this->title = 'Kemudahan Pakaian/Peralatan/Tiket Kapal Terbang';
-$this->params['breadcrumbs'][] = ['label' => 'Kemudahan Pakaian/Peralatan/Tiket Kapal Terbang', 'url' => ['index']];
+$this->title = GeneralLabel::kemudahan_pakaianperalatantiket_kapal_terbang;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kemudahan_pakaianperalatantiket_kapal_terbang, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="kemudah-pakaian-peralatan-tiket-create">

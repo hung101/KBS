@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->bsp_perlanjutan_sebab_id;
 $this->title = GeneralLabel::viewTitle . ' Sebab Pelanjutan';
-$this->params['breadcrumbs'][] = ['label' => 'Sebab Pelanjutan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::sebab_pelanjutan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-perlanjutan-sebab-view">

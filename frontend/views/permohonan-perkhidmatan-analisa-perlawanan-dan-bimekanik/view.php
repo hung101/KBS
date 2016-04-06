@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id;
 $this->title = GeneralLabel::viewTitle . ' Permohonan Perkhidmatan Analisa Perlawanan Dan Biomekanik';
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan Perkhidmatan Analisa Perlawanan Dan Biomekanik', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_perkhidmatan_analisa_perlawanan_dan_biomekanik, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik-view">

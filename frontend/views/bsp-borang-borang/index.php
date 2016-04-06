@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\BspBorangBorangSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Bsp Borang Borangs';
+$this->title = GeneralLabel::bsp_borang_borangs;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-borang-borang-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Bsp Borang Borang', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::bsp_borang_borang, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

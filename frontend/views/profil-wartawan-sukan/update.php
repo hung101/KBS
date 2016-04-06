@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\ProfilWartawanSukan */
 
-//$this->title = 'Update Profil Wartawan Sukan: ' . ' ' . $model->profil_wartawan_sukan_id;
+//$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::profil_wartawan_sukan.': ' . ' ' . $model->profil_wartawan_sukan_id;
 $this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::profil_wartawan_sukan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::profil_wartawan_sukan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::profil_wartawan_sukan, 'url' => ['view', 'id' => $model->profil_wartawan_sukan_id]];

@@ -17,7 +17,7 @@ use app\models\general\GeneralLabel;
 /* @var $searchModel frontend\models\AtletPencapaianRekodsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pencapaian';
+$this->title = GeneralLabel::pencapaian;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-pencapaian-index">

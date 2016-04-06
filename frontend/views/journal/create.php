@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\Journal */
 
 $this->title = GeneralLabel::createTitle . ' Penerbitan';
-$this->params['breadcrumbs'][] = ['label' => 'Penerbitan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penerbitan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="journal-create">

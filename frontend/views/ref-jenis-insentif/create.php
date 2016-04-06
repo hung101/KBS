@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefJenisInsentif */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Jenis Insentif';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Jenis Insentifs', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::jenis_insentif;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::jenis_insentif, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-jenis-insentif-create">

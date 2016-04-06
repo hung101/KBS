@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\AtletPencapaianRekods */
 
 $this->title = $model->pencapaian_rekods_id;
-$this->params['breadcrumbs'][] = ['label' => 'Atlet Pencapaian Rekods', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::atlet_pencapaian_rekods, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-pencapaian-rekods-view">

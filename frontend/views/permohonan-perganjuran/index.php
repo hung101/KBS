@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PermohonanPerganjuranSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-//$this->title = 'Permohonan Kursus Teknikal ';
+//$this->title = GeneralLabel::permohonan_kursus_teknikal_;
 $this->title = 'Pemohonan Penganjuran';
 $this->params['breadcrumbs'][] = $this->title;
 ?>

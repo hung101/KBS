@@ -15,7 +15,7 @@ use app\models\general\GeneralLabel;
 /* @var $searchModel frontend\models\PendidikanJurulatihPendidikanJurulatihSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pendidikan';
+$this->title = GeneralLabel::pendidikan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="jurulatih-pendidikan-index">

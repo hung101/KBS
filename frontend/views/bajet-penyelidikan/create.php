@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BajetPenyelidikan */
 
-$this->title = 'Tambah Bajet Penyelidikan';
-$this->params['breadcrumbs'][] = ['label' => 'Bajet Penyelidikan', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_bajet_penyelidikan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bajet_penyelidikan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bajet-penyelidikan-create">

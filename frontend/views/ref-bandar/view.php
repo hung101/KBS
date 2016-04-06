@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefBandar */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Bandars', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::alamat_badan_sukan_bandar, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-bandar-view">

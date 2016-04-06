@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PemberianSuplemenMakananJusRundinganPendidikanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pemberian Suplemen/Jus';
+$this->title = GeneralLabel::pemberian_suplemenjus;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pemberian-suplemen-makanan-jus-rundingan-pendidikan-index">

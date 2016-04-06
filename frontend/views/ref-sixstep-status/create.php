@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefSixstepStatus */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Sixstep Status';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Sixstep Statuses', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::sixstep_status;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::sixstep_statuses, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-sixstep-status-create">

@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PengurusanPerhubunganDalamDanLuarNegaraMesyuarat */
 
 $this->title = $model->pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat_id;
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Perhubungan Dalam Dan Luar Negara Mesyuarats', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-perhubungan-dalam-dan-luar-negara-mesyuarat-view">

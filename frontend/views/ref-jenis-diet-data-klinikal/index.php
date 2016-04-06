@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefJenisDietDataKlinikalSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Jenis Diet Data Klinikals';
+$this->title = GeneralLabel::jenis_diet_data_klinikal;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-jenis-diet-data-klinikal-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Jenis Diet Data Klinikal', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::jenis_diet_data_klinikal, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

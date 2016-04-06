@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPeringkatKejohananTemasya */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Peringkat Kejohanan Temasya';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Peringkat Kejohanan Temasyas', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::peringkat_kejohanan_temasya;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::peringkat_kejohanan_temasya, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-peringkat-kejohanan-temasya-create">

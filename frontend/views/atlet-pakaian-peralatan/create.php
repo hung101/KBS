@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\AtletPakaianPeralatan */
 
 $this->title = GeneralLabel::createTitle . ' Peralatan Sukan';
-$this->params['breadcrumbs'][] = ['label' => 'Peralatan Sukan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::peralatan_sukan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-pakaian-peralatan-create">

@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\KegiatanPengalamanAtletAkk */
 
-$this->title = 'Tambah Kegiatan/Pengalaman Atlet AKK';
-$this->params['breadcrumbs'][] = ['label' => 'Kegiatan/Pengalaman Atlet AKK', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_kegiatanpengalaman_atlet_akk;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kegiatanpengalaman_atlet_akk, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="kegiatan-pengalaman-atlet-akk-create">

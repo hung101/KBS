@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefUbat */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Ubat';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Ubats', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::ubat;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::ubat, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-ubat-create">

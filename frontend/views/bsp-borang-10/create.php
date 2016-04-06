@@ -8,8 +8,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\BspBorang10 */
 
-$this->title = GeneralLabel::createTitle.' '.'Bsp Borang10';
-$this->params['breadcrumbs'][] = ['label' => 'Bsp Borang10s', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::bsp_borang10;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bsp_borang10, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-borang10-create">

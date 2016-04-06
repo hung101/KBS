@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PermohonanEBantuanPendapatanTahunLepas */
 
 $this->title = $model->pendapatan_tahun_lepas_id;
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan Ebantuan Pendapatan Tahun Lepas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebantuan_pendapatan_tahun_lepas, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebantuan-pendapatan-tahun-lepas-view">

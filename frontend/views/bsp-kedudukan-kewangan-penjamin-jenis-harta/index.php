@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\BspKedudukanKewanganPenjaminJenisHartaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Kedudukan Kewangan Penjamin (Jenis Harta)';
+$this->title = GeneralLabel::kedudukan_kewangan_penjamin_jenis_harta;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-kedudukan-kewangan-penjamin-jenis-harta-index">

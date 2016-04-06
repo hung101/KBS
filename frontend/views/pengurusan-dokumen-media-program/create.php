@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanDokumenMediaProgram */
 
-$this->title = 'Tambah Pengurusan Dokumen Media Program';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Dokumen Media Program', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_pengurusan_dokumen_media_program;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_dokumen_media_program, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-dokumen-media-program-create">

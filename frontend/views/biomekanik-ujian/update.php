@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BiomekanikUjian */
 
-$this->title = 'Update Biomekanik Ujian: ' . ' ' . $model->biomekanik_ujian_id;
-$this->params['breadcrumbs'][] = ['label' => 'Biomekanik Ujians', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::biomekanik_ujian.': ' . ' ' . $model->biomekanik_ujian_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::biomekanik_ujian, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->biomekanik_ujian_id, 'url' => ['view', 'id' => $model->biomekanik_ujian_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

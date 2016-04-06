@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\BspKedudukanKewanganPenjamin */
 
 $this->title = GeneralLabel::createTitle . ' Kedudukan Kewangan Penjamin';
-//$this->params['breadcrumbs'][] = ['label' => 'Kedudukan Kewangan Penjamin', 'url' => ['index']];
+//$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kedudukan_kewangan_penjamin, 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-kedudukan-kewangan-penjamin-create">

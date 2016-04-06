@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->journal_id;
 $this->title = GeneralLabel::viewTitle . ' Penerbitan';
-$this->params['breadcrumbs'][] = ['label' => 'Penerbitan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penerbitan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="journal-view">

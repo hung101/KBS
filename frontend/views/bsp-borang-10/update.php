@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BspBorang10 */
 
-$this->title = 'Update Bsp Borang10: ' . ' ' . $model->bsp_borang_10_id;
-$this->params['breadcrumbs'][] = ['label' => 'Bsp Borang10s', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::bsp_borang10.': ' . ' ' . $model->bsp_borang_10_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bsp_borang10, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->bsp_borang_10_id, 'url' => ['view', 'id' => $model->bsp_borang_10_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

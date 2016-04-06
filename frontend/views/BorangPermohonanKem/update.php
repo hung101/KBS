@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BorangPermohonanKem */
 
-$this->title = 'Update Borang Permohonan Kem: ' . ' ' . $model->borang_permohonan_kem_id;
-$this->params['breadcrumbs'][] = ['label' => 'Borang Permohonan Kems', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::borang_permohonan_kem.': ' . ' ' . $model->borang_permohonan_kem_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::borang_permohonan_kem, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->borang_permohonan_kem_id, 'url' => ['view', 'id' => $model->borang_permohonan_kem_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefSixstepSatelitStageSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Sixstep Satelit Stages';
+$this->title = GeneralLabel::sixstep_satelit_stage;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-sixstep-satelit-stage-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Sixstep Satelit Stage', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::sixstep_satelit_stage, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

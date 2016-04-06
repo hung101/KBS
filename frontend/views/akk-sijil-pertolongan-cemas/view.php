@@ -1,5 +1,8 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -7,7 +10,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\AkkSijilPertolonganCemas */
 
 $this->title = $model->akk_sijil_pertolongan_cemas_id;
-$this->params['breadcrumbs'][] = ['label' => 'Akk Sijil Pertolongan Cemas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::akk_sijil_pertolongan_cemas, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="akk-sijil-pertolongan-cemas-view">
@@ -30,7 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'readonly' => $readonly,
     ]) ?>
 
-    <?php /*echo DetailView::widget([
+    <?php
+
+use app\models\general\GeneralLabel;
+ /*echo DetailView::widget([
         'model' => $model,
         'attributes' => [
             'akk_sijil_pertolongan_cemas_id',

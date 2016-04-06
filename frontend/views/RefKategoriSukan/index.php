@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefKategoriSukanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Kategori Sukan';
+$this->title = GeneralLabel::kategori_sukan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-kategori-sukan-index">

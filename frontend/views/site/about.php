@@ -1,8 +1,11 @@
 <?php
+
+use app\models\general\GeneralLabel;
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-$this->title = 'About';
+$this->title = GeneralLabel::about;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">

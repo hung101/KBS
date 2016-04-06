@@ -59,14 +59,14 @@ AppAsset::register($this);
                 'label' => $language_string,
                 'items' => [
                      '<li class="dropdown-header">Select Your Language</li>',
-                     ['label' => 'English', 'url' => '/kbs/frontend/web/language/change?language=EN'],
-                     ['label' => 'Bahasa', 'url' => '/kbs/frontend/web/language/change?language=BM'],
+                     ['label' => GeneralLabel::english, 'url' => '/kbs/frontend/web/language/change?language=EN'],
+                     ['label' => GeneralLabel::bahasa, 'url' => '/kbs/frontend/web/language/change?language=BM'],
                 ],
             ];
             
             if (Yii::$app->user->isGuest) {
-                //$topMenuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-                $topMenuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+                //$topMenuItems[] = ['label' => GeneralLabel::signup, 'url' => ['/site/signup']];
+                $topMenuItems[] = ['label' => GeneralLabel::login, 'url' => ['/site/login']];
                 
             } else {
                 // Login User System
@@ -86,7 +86,7 @@ AppAsset::register($this);
             ['label' => 'New Arrivals', 'url' => ['product/index', 'tag' => 'new']],
             ['label' => 'Most Popular', 'url' => ['product/index', 'tag' => 'popular']],
         ]];
-                $sideMenuItems[] = ['label' => 'Jurulatih', 'url' => ['/atlet/index'],'items' => [
+                $sideMenuItems[] = ['label' => GeneralLabel::jurulatih, 'url' => ['/atlet/index'],'items' => [
             ['label' => 'New Arrivals', 'url' => ['product/index', 'tag' => 'new']],
             ['label' => 'Most Popular', 'url' => ['product/index', 'tag' => 'popular']],
         ]];
@@ -454,23 +454,23 @@ AppAsset::register($this);
                             'label' => 'Laporan Tahunan Badan Sukan',
                             'items' => [
                                 ['label' => GeneralLabel::maklumat_mesyuarat_agung_tahunan, 'url' => ['/ltbs-minit-mesyuarat-jawatankuasa/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-minit-mesyuarat-jawatankuasa']['module'])],
-                                //['label' => 'Notis Mesyuarat Agong', 'url' => ['/ltbs-notis-agm/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-notis-agm']['module'])],
-                                //['label' => 'Minit Mesyuarat Agong', 'url' => ['/ltbs-minit-mesyuarat-agm/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-minit-mesyuarat-agm']['module'])],
-                                //['label' => 'Ahli Jawatankuasa Induk', 'url' => ['/ltbs-ahli-jawatankuasa-induk-kecil/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-ahli-jawatankuasa-induk-kecil']['module'])],
-                                //['label' => 'Ahli Jawatankuasa Kecil / Biro ', 'url' => ['/ltbs-ahli-jawatankuasa-kecil/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-ahli-jawatankuasa-kecil']['module'])],
-                                //['label' => 'Senarai Ahli Gabungan', 'url' => ['/ltbs-ahli-gabungan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-ahli-gabungan']['module'])],
-                                ['label' => 'Laporan Aktiviti Badan Sukan', 'url' => ['/ltbs-kejohanan-program-aktiviti/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-kejohanan-program-aktiviti']['module'])],
-                                ['label' => 'Penyata Kewangan', 'url' => ['/ltbs-penyata-kewangan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-penyata-kewangan']['module'])],
-                                ['label' => 'Sumber Kewangan', 'url' => ['/ltbs-sumber-kewangan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-sumber-kewangan']['module'])],
+                                //['label' => GeneralLabel::notis_mesyuarat_agong, 'url' => ['/ltbs-notis-agm/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-notis-agm']['module'])],
+                                //['label' => GeneralLabel::minit_mesyuarat_agong, 'url' => ['/ltbs-minit-mesyuarat-agm/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-minit-mesyuarat-agm']['module'])],
+                                //['label' => GeneralLabel::ahli_jawatan_induk_id, 'url' => ['/ltbs-ahli-jawatankuasa-induk-kecil/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-ahli-jawatankuasa-induk-kecil']['module'])],
+                                //['label' => GeneralLabel::ahli_jawatankuasa_kecil_biro_, 'url' => ['/ltbs-ahli-jawatankuasa-kecil/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-ahli-jawatankuasa-kecil']['module'])],
+                                //['label' => GeneralLabel::senarai_ahli_gabungan, 'url' => ['/ltbs-ahli-gabungan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-ahli-gabungan']['module'])],
+                                ['label' => GeneralLabel::laporan_aktiviti_badan_sukan, 'url' => ['/ltbs-kejohanan-program-aktiviti/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-kejohanan-program-aktiviti']['module'])],
+                                ['label' => GeneralLabel::penyata_kewangan, 'url' => ['/ltbs-penyata-kewangan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-penyata-kewangan']['module'])],
+                                ['label' => GeneralLabel::sumber_kewangan, 'url' => ['/ltbs-sumber-kewangan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-sumber-kewangan']['module'])],
                             ],
                         ],*/
-                        //['label' => 'Perlembagaan Badan Sukan', 'url' => ['/perlembagaan-badan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['perlembagaan-badan-sukan']['module'])],
+                        //['label' => GeneralLabel::perlembagaan_badan_sukan, 'url' => ['/perlembagaan-badan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['perlembagaan-badan-sukan']['module'])],
                         ['label' => GeneralLabel::penganjuran_acara_oleh_badan_sukan, 'url' => ['/paobs-penganjuran/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['paobs-penganjuran']['module'])],
                         /*[
                             'label' => GeneralLabel::penganjuran_acara_oleh_badan_sukan,
                             'items' => [
                                 ['label' => GeneralLabel::penganjuran_acara_sukan, 'url' => ['/paobs-penganjuran/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['paobs-penganjuran']['module'])],
-                                ['label' => 'Penganjuran Acara Sukan Yang Disanksi', 'url' => ['/paobs-penganjur/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['paobs-penganjur']['module'])],
+                                ['label' => GeneralLabel::penganjuran_acara_sukan_yang_disanksi, 'url' => ['/paobs-penganjur/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['paobs-penganjur']['module'])],
                             ],
                         ],*/
                         ['label' => GeneralLabel::latihan_pendidikan_badan_sukan, 'url' => ['/latihan-dan-program/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['latihan-dan-program']['module'])],
@@ -527,19 +527,19 @@ AppAsset::register($this);
                             'label' => GeneralLabel::ebiasiswa,
                             'items' => [
                                 ['label' => GeneralLabel::permohonan_ebiasiswa, 'url' => ['/permohonan-e-biasiswa/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
-                                //['label' => 'Penjamin Biasiswa Sukan Persekutuan', 'url' => ['/bsp-penjamin/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
-                                //['label' => 'Kedudukan Kewangan Penjamin', 'url' => ['/bsp-kedudukan-kewangan-penjamin/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
-                                //['label' => 'Kedudukan Kewangan Penjamin (Jenis Harta)', 'url' => ['/bsp-kedudukan-kewangan-penjamin-jenis-harta/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
-                                //['label' => 'Prestasi Akademik', 'url' => ['/bsp-prestasi-akademik/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
-                                //['label' => 'Tuntutan Elaun Tesis', 'url' => ['/bsp-tuntutan-elaun-tesis/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
-                                //['label' => 'Elaun Latihan Praktikal', 'url' => ['/bsp-elaun-latihan-praktikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
-                                //['label' => 'Elaun Perjalanan Udara', 'url' => ['/bsp-elaun-perjalanan-udara/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
-                                //['label' => 'Pelanjutan', 'url' => ['/bsp-perlanjutan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
-                                //['label' => 'Sebab Pelanjutan', 'url' => ['/bsp-perlanjutan-sebab/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
-                                //['label' => 'Pertukaran Program Pengajian', 'url' => ['/bsp-pertukaran-program-pengajian/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
-                                //['label' => 'Sebab Pertukaran Program Pengajian', 'url' => ['/bsp-pertukaran-program-pengajian-sebab/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
-                                //['label' => 'Dokumen Pertukaran Program Pengajian', 'url' => ['/bsp-pertukaran-program-pengajian-dokumen/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
-                                //['label' => 'Pembayaran Biasiswa Sukan Persekutuan', 'url' => ['/bsp-pembayaran/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['bsp-pembayaran']['module'])],
+                                //['label' => GeneralLabel::penjamin_biasiswa_sukan_persekutuan, 'url' => ['/bsp-penjamin/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                //['label' => GeneralLabel::kedudukan_kewangan_penjamin, 'url' => ['/bsp-kedudukan-kewangan-penjamin/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                //['label' => GeneralLabel::kedudukan_kewangan_penjamin_jenis_harta, 'url' => ['/bsp-kedudukan-kewangan-penjamin-jenis-harta/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                //['label' => GeneralLabel::prestasi_akademik, 'url' => ['/bsp-prestasi-akademik/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                //['label' => GeneralLabel::tuntutan_elaun_tesis, 'url' => ['/bsp-tuntutan-elaun-tesis/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                //['label' => GeneralLabel::elaun_latihan_praktikal, 'url' => ['/bsp-elaun-latihan-praktikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                //['label' => GeneralLabel::elaun_perjalanan_udara, 'url' => ['/bsp-elaun-perjalanan-udara/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                //['label' => GeneralLabel::pelanjutan, 'url' => ['/bsp-perlanjutan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                //['label' => GeneralLabel::sebab_pelanjutan, 'url' => ['/bsp-perlanjutan-sebab/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                //['label' => GeneralLabel::pertukaran_program_pengajian, 'url' => ['/bsp-pertukaran-program-pengajian/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                //['label' => GeneralLabel::sebab_pertukaran_program_pengajian, 'url' => ['/bsp-pertukaran-program-pengajian-sebab/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                //['label' => GeneralLabel::dokumen_pertukaran_program_pengajian, 'url' => ['/bsp-pertukaran-program-pengajian-dokumen/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['module'])],
+                                //['label' => GeneralLabel::pembayaran_biasiswa_sukan_persekutuan, 'url' => ['/bsp-pembayaran/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['bsp-pembayaran']['module'])],
                                 ['label' => GeneralLabel::pengesahan_tamat_pengajian, 'url' => ['/bsp-tamat-pengesahan-pengajian/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['bsp-tamat-pengesahan-pengajian']['module'])],
                                 ['label' => GeneralLabel::bendahari_ipt, 'url' => ['/bsp-bendahari-ipt/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['bsp-bendahari-ipt']['module'])],
                                 [

@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanProgramPersatuan */
 
-$this->title = 'Update Pengurusan Program Persatuan: ' . ' ' . $model->pengurusan_program_persatuan;
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Program Persatuans', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::pengurusan_program_persatuan.': ' . ' ' . $model->pengurusan_program_persatuan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_program_persatuan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->pengurusan_program_persatuan, 'url' => ['view', 'id' => $model->pengurusan_program_persatuan]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

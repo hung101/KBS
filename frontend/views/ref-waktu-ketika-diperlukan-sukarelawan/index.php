@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefWaktuKetikaDiperlukanSukarelawanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Waktu Ketika Diperlukan Sukarelawans';
+$this->title = GeneralLabel::waktu_ketika_diperlukan_sukarelawan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-waktu-ketika-diperlukan-sukarelawan-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Waktu Ketika Diperlukan Sukarelawan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::waktu_ketika_diperlukan_sukarelawan, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

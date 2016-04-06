@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefSixstepStatusSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Sixstep Statuses';
+$this->title = GeneralLabel::sixstep_statuses;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-sixstep-status-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Sixstep Status', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::sixstep_status, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

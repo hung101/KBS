@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\BspBendahariIpt */
 
-//$this->title = 'Update Bsp Bendahari Ipt: ' . ' ' . $model->bsp_bendahari_ipt_id;
+//$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::bsp_bendahari_ipt.': ' . ' ' . $model->bsp_bendahari_ipt_id;
 $this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::persatuan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::persatuan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::persatuan, 'url' => ['view', 'id' => $model->id]];

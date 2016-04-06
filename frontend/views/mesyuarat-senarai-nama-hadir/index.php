@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel app\models\MesyuaratSenaraiNamaHadirSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Senarai Nama Ahli';
+$this->title = GeneralLabel::senarai_nama_ahli;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mesyuarat-senarai-nama-hadir-index">

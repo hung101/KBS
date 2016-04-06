@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefAnthropometricsUjian */
 
-$this->title = 'Update Ref Anthropometrics Ujian: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Anthropometrics Ujians', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::anthropometrics_ujian.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::anthropometrics_ujian, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

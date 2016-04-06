@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AtletKewanganPinjaman */
 
-$this->title = 'Tambah Pinjaman';
-$this->params['breadcrumbs'][] = ['label' => 'Pinjamen', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_pinjaman;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pinjamen, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-kewangan-pinjaman-create">

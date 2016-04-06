@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\TempahanKursusPersatuan */
 
-$this->title = 'Update Tempahan Kursus Persatuan: ' . ' ' . $model->tempahan_kursus_persatuan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Tempahan Kursus Persatuans', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::tempahan_kursus_persatuan.': ' . ' ' . $model->tempahan_kursus_persatuan_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::tempahan_kursus_persatuan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->tempahan_kursus_persatuan_id, 'url' => ['view', 'id' => $model->tempahan_kursus_persatuan_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

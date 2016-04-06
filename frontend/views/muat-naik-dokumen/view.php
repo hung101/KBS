@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->muat_naik_dokumen_id;
 $this->title = GeneralLabel::viewTitle . ' Muat Naik Dokumen';
-$this->params['breadcrumbs'][] = ['label' => 'Muat Naik Dokumen', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::muat_naik_dokumen, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="muat-naik-dokumen-view">

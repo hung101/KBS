@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefNegeriSokonganEBantuan */
 
-$this->title = 'Update Ref Negeri Sokongan Ebantuan: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Negeri Sokongan Ebantuans', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::negeri_sokongan_ebantuan.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::negeri_sokongan_ebantuan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

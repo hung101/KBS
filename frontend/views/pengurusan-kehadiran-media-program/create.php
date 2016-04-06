@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanKehadiranMediaProgram */
 
-$this->title = 'Tambah Pengurusan Kehadiran Media Program';
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Kehadiran Media Program', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_pengurusan_kehadiran_media_program;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_kehadiran_media_program, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-kehadiran-media-program-create">

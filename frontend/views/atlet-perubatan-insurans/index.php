@@ -15,7 +15,7 @@ use app\models\general\GeneralLabel;
 /* @var $searchModel app\models\AtletPerubatanInsuransSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Insurans';
+$this->title = GeneralLabel::insurans;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-perubatan-insurans-index">

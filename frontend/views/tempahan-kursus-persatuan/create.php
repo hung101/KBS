@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\TempahanKursusPersatuan */
 
-$this->title = 'Tambah Tempahan Kursus Persatuan';
-$this->params['breadcrumbs'][] = ['label' => 'Tempahan Kursus Persatuan', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_tempahan_kursus_persatuan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::tempahan_kursus_persatuan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tempahan-kursus-persatuan-create">

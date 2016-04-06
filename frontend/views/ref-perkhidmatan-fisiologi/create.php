@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPerkhidmatanFisiologi */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Perkhidmatan Fisiologi';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Perkhidmatan Fisiologis', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::perkhidmatan_fisiologi;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::perkhidmatan_fisiologi, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-perkhidmatan-fisiologi-create">

@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\KeputusanUjianSaringan */
 
-$this->title = 'Update Keputusan Ujian Saringan: ' . ' ' . $model->keputusan_ujian_saringan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Keputusan Ujian Saringans', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::keputusan_ujian_saringan.': ' . ' ' . $model->keputusan_ujian_saringan_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::keputusan_ujian_saringan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->keputusan_ujian_saringan_id, 'url' => ['view', 'id' => $model->keputusan_ujian_saringan_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

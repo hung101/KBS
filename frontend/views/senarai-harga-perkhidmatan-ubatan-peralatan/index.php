@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\SenaraiHargaPerkhidmatanUbatanPeralatanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Senarai Harga Perkhidmatan/Ubatan/Peralatan';
+$this->title = GeneralLabel::senarai_harga_perkhidmatanubatanperalatan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="senarai-harga-perkhidmatan-ubatan-peralatan-index">

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanPerhimpunanKemSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Bantuan Geran Penganjuran';
+$this->title = GeneralLabel::bantuan_geran_penganjuran;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-perhimpunan-kem-index">

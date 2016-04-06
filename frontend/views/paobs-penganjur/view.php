@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->penganjur_id;
 $this->title =  'Penganjuran Acara Sukan Yang Disanksi';
-$this->params['breadcrumbs'][] = ['label' => 'Penganjuran Acara Sukan Yang Disanksi', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penganjuran_acara_sukan_yang_disanksi, 'url' => ['index']];
 $this->params['breadcrumbs'][] = GeneralLabel::viewTitle;
 ?>
 <div class="paobs-penganjur-view">

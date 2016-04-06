@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefJawatanPesertaPerhimpunanKem */
 
-$this->title = 'Update Ref Jawatan Peserta Perhimpunan Kem: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Jawatan Peserta Perhimpunan Kems', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::jawatan_peserta_perhimpunan_kem.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::jawatan_peserta_perhimpunan_kem, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

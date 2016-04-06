@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanKewanganDanPerbelanjaan */
 
-$this->title = 'Tambah e-Laporan Kewangan Dan Perbelanjaan';
-$this->params['breadcrumbs'][] = ['label' => 'e-Laporan Kewangan Dan Perbelanjaan', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_elaporan_kewangan_dan_perbelanjaan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::elaporan_kewangan_dan_perbelanjaan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="elaporan-kewangan-dan-perbelanjaan-create">

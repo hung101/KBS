@@ -11,9 +11,9 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\BspBorangBorang */
 
 //$this->title = $model->bsp_borang_borang_id;
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan e-Biasiswa', 'url' => ['permohonan-e-biasiswa/view', 'id' => $model->bsp_pemohon_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebiasiswa, 'url' => ['permohonan-e-biasiswa/view', 'id' => $model->bsp_pemohon_id]];
 $this->title = GeneralLabel::viewTitle . ' Muat Turun Borang-Borang';
-//$this->params['breadcrumbs'][] = ['label' => 'Bsp Borang Borangs', 'url' => ['index']];
+//$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bsp_borang_borangs, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-borang-borang-view">

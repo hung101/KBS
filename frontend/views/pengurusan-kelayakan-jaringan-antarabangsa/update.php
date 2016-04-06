@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanKelayakanJaringanAntarabangsa */
 
-$this->title = 'Update Pengurusan Kelayakan Jaringan Antarabangsa: ' . ' ' . $model->pengurusan_kelayakan_jaringan_antarabangsa_id;
-$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Kelayakan Jaringan Antarabangsas', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::pengurusan_kelayakan_jaringan_antarabangsa.': ' . ' ' . $model->pengurusan_kelayakan_jaringan_antarabangsa_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_kelayakan_jaringan_antarabangsa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->pengurusan_kelayakan_jaringan_antarabangsa_id, 'url' => ['view', 'id' => $model->pengurusan_kelayakan_jaringan_antarabangsa_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

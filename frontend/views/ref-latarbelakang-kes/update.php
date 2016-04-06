@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefLatarbelakangKes */
 
-$this->title = 'Update Ref Latarbelakang Kes: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Latarbelakang Kes', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::latarbelakang_kes.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kes_latarbelakang, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

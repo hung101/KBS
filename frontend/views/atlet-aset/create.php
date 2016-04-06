@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AtletAset */
 
-$this->title = 'Tambah Aset';
-$this->params['breadcrumbs'][] = ['label' => 'Atlet Asets', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_aset;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::atlet_asets, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-aset-create">

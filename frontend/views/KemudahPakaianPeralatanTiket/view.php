@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\KemudahPakaianPeralatanTiket */
 
 $this->title = $model->kemudah_pakaian_peralatan_tiket_id;
-$this->params['breadcrumbs'][] = ['label' => 'Kemudah Pakaian Peralatan Tikets', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kemudah_pakaian_peralatan_tikets, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="kemudah-pakaian-peralatan-tiket-view">

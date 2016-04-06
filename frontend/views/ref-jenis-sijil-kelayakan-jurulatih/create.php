@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefJenisSijilKelayakanJurulatih */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Jenis Sijil Kelayakan Jurulatih';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Jenis Sijil Kelayakan Jurulatihs', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::jenis_sijil_kelayakan_jurulatih;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::jenis_sijil_kelayakan_jurulatih, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-jenis-sijil-kelayakan-jurulatih-create">

@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PemberianSuplemenMakananJusRundinganPendidikan */
 
 $this->title = $model->pemberian_suplemen_makanan_jus_rundingan_pendidikan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Pemberian Suplemen Makanan Jus Rundingan Pendidikans', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pemberian_suplemen_makanan_jus_rundingan_pendidikans, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pemberian-suplemen-makanan-jus-rundingan-pendidikan-view">

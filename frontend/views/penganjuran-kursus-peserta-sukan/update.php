@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PenganjuranKursusPesertaSukan */
 
-$this->title = 'Update Penganjuran Kursus Peserta Sukan: ' . ' ' . $model->penganjuran_kursus_peserta_sukan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Penganjuran Kursus Peserta Sukans', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::penganjuran_kursus_peserta_sukan.': ' . ' ' . $model->penganjuran_kursus_peserta_sukan_id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penganjuran_kursus_peserta_sukan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->penganjuran_kursus_peserta_sukan_id, 'url' => ['view', 'id' => $model->penganjuran_kursus_peserta_sukan_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

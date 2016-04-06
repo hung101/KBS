@@ -1,12 +1,15 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefFasilitiSatelit */
 
-$this->title = 'Update Ref Fasiliti Satelit: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Fasiliti Satelits', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::fasiliti_satelit.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::fasiliti_satelit, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

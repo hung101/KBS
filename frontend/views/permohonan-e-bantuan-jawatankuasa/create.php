@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanEBantuanJawatankuasa */
 
-$this->title = 'Tambah Jawatankuasa Kerja Yang Terkini';
-$this->params['breadcrumbs'][] = ['label' => 'Jawatankuasa Kerja Yang Terkini', 'url' => ['index']];
+$this->title = GeneralLabel::tambah_jawatankuasa_kerja_yang_terkini;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::jawatankuasa_kerja_yang_terkini, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebantuan-jawatankuasa-create">

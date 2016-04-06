@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\MesyuaratSenaraiTugasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Mesyuarat - Senarai Tugas';
+$this->title = GeneralLabel::mesyuarat_senarai_tugas;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mesyuarat-senarai-tugas-index">

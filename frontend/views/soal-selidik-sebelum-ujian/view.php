@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->soal_selidik_sebelum_ujian_id;
 $this->title = GeneralLabel::viewTitle . ' Soal Selidik Sebelum Ujian';
-$this->params['breadcrumbs'][] = ['label' => 'Soal Selidik Sebelum Ujian', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::fisiologi_sistem_pangkalan_data_atlet_dan_journal, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="soal-selidik-sebelum-ujian-view">

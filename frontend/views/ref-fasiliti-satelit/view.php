@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\RefFasilitiSatelit */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Fasiliti Satelits', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::fasiliti_satelit, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-fasiliti-satelit-view">

@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefStatusPermohonanEBiasiswa */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Status Permohonan Ebiasiswa';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Status Permohonan Ebiasiswas', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::status_permohonan_ebiasiswa;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::status_permohonan_ebiasiswa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-permohonan-ebiasiswa-create">

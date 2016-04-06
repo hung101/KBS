@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->penilaian_prestasi_atlet_id;
 $this->title = GeneralLabel::viewTitle . ' Penilaian Prestasi Atlet';
-$this->params['breadcrumbs'][] = ['label' => 'Penilaian Prestasi Atlet', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penilaian_prestasi_atlet, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="penilaian-prestasi-atlet-view">

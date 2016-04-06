@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefStatusHaidDataKlinikal */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Status Haid Data Klinikal';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Status Haid Data Klinikals', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::status_haid_data_klinikal;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::status_haid_data_klinikal, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-haid-data-klinikal-create">

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\BorangPermohonanKemSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Borang Permohonan Kem';
+$this->title = GeneralLabel::borang_permohonan_kem;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="borang-permohonan-kem-index">

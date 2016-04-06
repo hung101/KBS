@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PeralatanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Peralatan';
+$this->title = GeneralLabel::peralatan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="peralatan-index">

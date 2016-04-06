@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\FarmasiUbatanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ubatan';
+$this->title = GeneralLabel::ubatan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="farmasi-ubatan-index">

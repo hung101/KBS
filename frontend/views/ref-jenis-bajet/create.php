@@ -1,13 +1,16 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefJenisBajet */
 
-$this->title = GeneralLabel::createTitle.' '.'Ref Jenis Bajet';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Jenis Bajets', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::jenis_bajet;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::jenis_bajet, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-jenis-bajet-create">

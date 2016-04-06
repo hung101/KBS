@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->user_peranan_id;
 $this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::user_peranan;
-$this->params['breadcrumbs'][] = ['label' => 'Admin - User Peranan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::admin_user_peranan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-peranan-view">
