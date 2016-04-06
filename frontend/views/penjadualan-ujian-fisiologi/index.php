@@ -11,7 +11,7 @@ use common\models\general\GeneralFunction;
 /* @var $searchModel frontend\models\PenjadualanUjianFisiologiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Penjadualan Ujian Fisiologi';
+$this->title = GeneralLabel::penjadualan_ujian_fisiologi;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="penjadualan-ujian-fisiologi-index">
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['penjadualan-ujian-fisiologi']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Penjadualan Ujian Fisiologi', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::penjadualan_ujian_fisiologi, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

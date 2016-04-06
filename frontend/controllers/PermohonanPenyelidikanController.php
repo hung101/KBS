@@ -103,6 +103,90 @@ class PermohonanPenyelidikanController extends Controller
         
         $model->akademik_kontrak_tarikh_tamat = GeneralFunction::convert($model->akademik_kontrak_tarikh_tamat);
         
+        if($model->semak_borang_permohonan_yang_lengkap == 1){
+            $model->semak_borang_permohonan_yang_lengkap = GeneralLabel::semak_borang_permohonan_yang_lengkap;
+        } else {
+            $model->semak_borang_permohonan_yang_lengkap = null;
+        }
+        
+        if($model->semak_carta_gantt == 1){
+            $model->semak_carta_gantt = GeneralLabel::semak_carta_gantt;
+        } else {
+            $model->semak_carta_gantt = null;
+        }
+        
+        if($model->semak_carta_aliran == 1){
+            $model->semak_carta_aliran = GeneralLabel::semak_carta_aliran;
+        } else {
+            $model->semak_carta_aliran = null;
+        }
+        
+        if($model->semak_senarai_rujukan_kajian_bibliografi == 1){
+            $model->semak_senarai_rujukan_kajian_bibliografi = GeneralLabel::semak_senarai_rujukan_kajian_bibliografi;
+        } else {
+            $model->semak_senarai_rujukan_kajian_bibliografi = null;
+        }
+        
+        if($model->semak_cv_ringkas_pasukan_penyelidikan == 1){
+            $model->semak_cv_ringkas_pasukan_penyelidikan = GeneralLabel::semak_cv_ringkas_pasukan_penyelidikan;
+        } else {
+            $model->semak_cv_ringkas_pasukan_penyelidikan = null;
+        }
+        
+        if($model->semak_salinan_sebelum_kelulusan_etika == 1){
+            $model->semak_salinan_sebelum_kelulusan_etika = GeneralLabel::semak_salinan_sebelum_kelulusan_etika;
+        } else {
+            $model->semak_salinan_sebelum_kelulusan_etika = null;
+        }
+        
+        if($model->semak_salinan_cadangan_penyelidikan_sepenuhnya == 1){
+            $model->semak_salinan_cadangan_penyelidikan_sepenuhnya = GeneralLabel::semak_salinan_cadangan_penyelidikan_sepenuhnya;
+        } else {
+            $model->semak_salinan_cadangan_penyelidikan_sepenuhnya = null;
+        }
+        
+        if($model->semak_salinan_kunci_maklumat == 1){
+            $model->semak_salinan_kunci_maklumat = GeneralLabel::semak_salinan_kunci_maklumat;
+        } else {
+            $model->semak_salinan_kunci_maklumat = null;
+        }
+        
+        if($model->semak_salinan_borang_kebenaran == 1){
+            $model->semak_salinan_borang_kebenaran = GeneralLabel::semak_salinan_borang_kebenaran;
+        } else {
+            $model->semak_salinan_borang_kebenaran = null;
+        }
+        
+        if($model->semak_salinan_penepian_persetujuan == 1){
+            $model->semak_salinan_penepian_persetujuan = GeneralLabel::semak_salinan_penepian_persetujuan;
+        } else {
+            $model->semak_salinan_penepian_persetujuan = null;
+        }
+        
+        if($model->semak_salinan_surat_pemberitahuan_kepada_isn == 1){
+            $model->semak_salinan_surat_pemberitahuan_kepada_isn = GeneralLabel::semak_salinan_surat_pemberitahuan_kepada_isn;
+        } else {
+            $model->semak_salinan_surat_pemberitahuan_kepada_isn = null;
+        }
+        
+        if($model->semak_salinan_surat_tawaran_pengajian_daripada_institusi == 1){
+            $model->semak_salinan_surat_tawaran_pengajian_daripada_institusi = GeneralLabel::semak_salinan_surat_tawaran_pengajian_daripada_institusi;
+        } else {
+            $model->semak_salinan_surat_tawaran_pengajian_daripada_institusi = null;
+        }
+        
+        if($model->semak_salinan_dokumen_dokumen_sokongan == 1){
+            $model->semak_salinan_dokumen_dokumen_sokongan = GeneralLabel::semak_salinan_dokumen_dokumen_sokongan;
+        } else {
+            $model->semak_salinan_dokumen_dokumen_sokongan = null;
+        }
+        
+        if($model->semak_salinan_soal_selidik == 1){
+            $model->semak_salinan_soal_selidik = GeneralLabel::semak_salinan_soal_selidik;
+        } else {
+            $model->semak_salinan_soal_selidik = null;
+        }
+        
         $queryPar = null;
         
         $queryPar['PenyelidikanKomposisiPasukanSearch']['permohonana_penyelidikan_id'] = $id;

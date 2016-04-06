@@ -64,8 +64,8 @@ class ElaporanPelaksanaanSearch extends ElaporanPelaksanaan
             'jumlah_bantuan_peruntukan' => $this->jumlah_bantuan_peruntukan,
             'jumlah_perbelanjaan' => $this->jumlah_perbelanjaan,
             'tarikh_cek_eft' => $this->tarikh_cek_eft,
-            'tarikh_pelaksanaan_mula' => $this->tarikh_pelaksanaan_mula,
-            'tarikh_pelaksanaan_akhir' => $this->tarikh_pelaksanaan_akhir,
+            //'tarikh_pelaksanaan_mula' => $this->tarikh_pelaksanaan_mula,
+            //'tarikh_pelaksanaan_akhir' => $this->tarikh_pelaksanaan_akhir,
             'lelaki' => $this->lelaki,
             'perempuan' => $this->perempuan,
             'l_melayu' => $this->l_melayu,
@@ -86,6 +86,8 @@ class ElaporanPelaksanaanSearch extends ElaporanPelaksanaan
             ->andFilterWhere(['like', 'dirasmikan_oleh', $this->dirasmikan_oleh])
             ->andFilterWhere(['like', 'rumusan_program', $this->rumusan_program])
             ->andFilterWhere(['like', 'muat_naik', $this->muat_naik])
+                ->andFilterWhere(['like', 'tarikh_pelaksanaan_mula', $this->tarikh_pelaksanaan_mula])
+                ->andFilterWhere(['like', 'tarikh_pelaksanaan_akhir', $this->tarikh_pelaksanaan_akhir])
                 ->andFilterWhere(['like', 'tbl_ref_parlimen.desc', $this->alamat_tempat_pelaksanaan_parlimen]);
 
         return $dataProvider;

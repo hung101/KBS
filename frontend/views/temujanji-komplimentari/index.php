@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\TemujanjiKomplimentariSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Temujanji Komplimentari';
+$this->title = GeneralLabel::temujanji_komplimentori;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="temujanji-komplimentari-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['temujanji-komplimentari']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Temujanji Komplimentari', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::temujanji_komplimentori, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

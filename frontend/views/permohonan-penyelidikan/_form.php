@@ -708,6 +708,121 @@ use app\models\general\GeneralMessage;
         </div>
     </div>
     
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong><?=GeneralLabel::borang_cadangan_penyelidikan?></strong>
+        </div>
+        <div class="panel-body">
+            <?php
+                echo FormGrid::widget([
+                    'model' => $model,
+                    'form' => $form,
+                    'autoGenerateColumns' => true,
+                    'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'semak_borang_permohonan_yang_lengkap' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>6]],
+                            ],
+                        ],
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'semak_carta_gantt' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>6]],
+                            ],
+                        ],
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'semak_carta_aliran' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>6]],
+                            ],
+                        ],
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'semak_senarai_rujukan_kajian_bibliografi' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>6]],
+                            ],
+                        ],
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'semak_cv_ringkas_pasukan_penyelidikan' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>6]],
+                            ],
+                        ],
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'semak_salinan_sebelum_kelulusan_etika' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>6]],
+                            ],
+                        ],
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'semak_salinan_cadangan_penyelidikan_sepenuhnya' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>6]],
+                            ],
+                        ],
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'semak_salinan_kunci_maklumat' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>6]],
+                            ],
+                        ],
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'semak_salinan_borang_kebenaran' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>6]],
+                            ],
+                        ],
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'semak_salinan_penepian_persetujuan' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>6]],
+                            ],
+                        ],
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'semak_salinan_surat_pemberitahuan_kepada_isn' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>6]],
+                            ],
+                        ],
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'semak_salinan_surat_tawaran_pengajian_daripada_institusi' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>6]],
+                            ],
+                        ],
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'semak_salinan_dokumen_dokumen_sokongan' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>6]],
+                            ],
+                        ],
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'semak_salinan_soal_selidik' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>6]],
+                            ],
+                        ],
+                    ]
+                ]);
+            ?>
+        </div>
+    </div>
+    
     <br>
     
     <?php

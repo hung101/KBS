@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PenjadualanUjianFisiologi */
 
 //$this->title = 'Update Penjadualan Ujian Fisiologi: ' . ' ' . $model->penjadualan_ujian_fisiologi_id;
-$this->title = GeneralLabel::updateTitle . ' Penjadualan Ujian Fisiologi';
-$this->params['breadcrumbs'][] = ['label' => 'Penjadualan Ujian Fisiologi', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Penjadualan Ujian Fisiologi', 'url' => ['view', 'id' => $model->penjadualan_ujian_fisiologi_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::penjadualan_ujian_fisiologi;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penjadualan_ujian_fisiologi, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::penjadualan_ujian_fisiologi, 'url' => ['view', 'id' => $model->penjadualan_ujian_fisiologi_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="penjadualan-ujian-fisiologi-update">

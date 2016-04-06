@@ -7,6 +7,8 @@ use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 use common\models\general\GeneralFunction;
 
+use app\models\Atlet;
+
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\PendaftaranGymSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -53,7 +55,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
                 ],
-                'value' => 'refAtlet.name_penuh'
+                'value' => 'refAtlet.name_penuh',
+                'value'=>function ($model) {
+                    $AtletListID = explode(',', $model->atlet_id);
+                    $AtletListName = "";
+
+                    foreach($AtletListID as $AtletID){
+                        $ref = Atlet::findOne(['atlet_id' => $AtletID]);
+                        if($AtletListName != ""){
+                            $AtletListName .= ', ';
+                        }
+                        $AtletListName .= $ref['nameAndIC'];
+                    }
+                    
+                    return $AtletListName;
+                },
             ],
             //'tarikh',
             [

@@ -12,6 +12,7 @@ use yii\web\UploadedFile;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefJantina;
@@ -79,6 +80,8 @@ class PsikologiProfilController extends Controller
         
         $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
         $model->alamat_bandar = $ref['desc'];
+        
+        $model->tarikh_lahir = GeneralFunction::convert($model->tarikh_lahir);
         
         return $this->render('view', [
             'model' => $model,

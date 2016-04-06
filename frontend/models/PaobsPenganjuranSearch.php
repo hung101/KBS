@@ -59,7 +59,7 @@ class PaobsPenganjuranSearch extends PaobsPenganjuran
 
         $query->andFilterWhere([
             'penganjuran_id' => $this->penganjuran_id,
-            'tarikh_aktiviti' => $this->tarikh_aktiviti,
+            //'tarikh_aktiviti' => $this->tarikh_aktiviti,
             'bilangan_peserta' => $this->bilangan_peserta,
             'negara_peserta' => $this->negara_peserta,
             'kos_aktiviti' => $this->kos_aktiviti,
@@ -71,7 +71,8 @@ class PaobsPenganjuranSearch extends PaobsPenganjuran
             ->andFilterWhere(['like', 'pemilik_lokasi', $this->pemilik_lokasi])
             ->andFilterWhere(['like', 'sumber_kewangan', $this->sumber_kewangan])
             ->andFilterWhere(['like', 'surat_sokongan', $this->surat_sokongan])
-            ->andFilterWhere(['like', 'laporan_penganjuran', $this->laporan_penganjuran]);
+            ->andFilterWhere(['like', 'laporan_penganjuran', $this->laporan_penganjuran])
+                ->andFilterWhere(['like', 'tarikh_aktiviti', $this->tarikh_aktiviti]);
 
         return $dataProvider;
     }

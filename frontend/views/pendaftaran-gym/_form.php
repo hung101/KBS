@@ -9,6 +9,8 @@ use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
 use yii\helpers\Url;
 use kartik\widgets\DepDrop;
+use kartik\widgets\Select2;
+use yii\helpers\Json;
 
 // table reference
 use app\models\Atlet;
@@ -55,7 +57,7 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],],
                     'columnOptions'=>['colspan'=>4]],
-                'atlet_id' => [
+                /*'atlet_id' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\DepDrop', 
                     'options'=>[
@@ -70,15 +72,18 @@ use app\models\general\GeneralMessage;
                             ] : null,
                         ],
                         'data'=>ArrayHelper::map(AtletSukan::find()->joinWith(['refAtlet'])->asArray()->all(),'atlet_id', 'nameAndIC'),
-                        'options'=>['prompt'=>''],
-                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                        'options'=>['prompt'=>'', 'multiple' => true],
+                        'select2Options'=>[
+                            'pluginOptions'=>['allowClear'=>true],
+                        ],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'sukan')],
                             'initialize' => true,
                             'placeholder' => Placeholder::atlet,
-                            'url'=>Url::to(['/atlet-sukan/atlets-by-sukan'])],
+                            'url'=>Url::to(['/atlet-sukan/atlets-by-sukan']),
+                            'params'=>['input-type-1', 'input-type-2']]
                         ],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>4]],*/
                 'tarikh' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -96,6 +101,23 @@ use app\models\general\GeneralMessage;
         
     ]
 ]);
+       
+    // Additional input fields passed as params to the child dropdown's pluginOptions
+    echo Html::hiddenInput('atlet_list_param', $model->atlet_id, ['id'=>'atlet_list_param']);
+    
+    echo $form->field($model, 'atlet_id')->widget(DepDrop::classname(), [
+        'type'=>DepDrop::TYPE_SELECT2,
+        'data'=>ArrayHelper::map(AtletSukan::find()->joinWith(['refAtlet'])->asArray()->all(),'atlet_id', 'nameAndIC'),
+        'options'=>['prompt'=>'', 'multiple' => true, 'id'=>'atletListID'],
+        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+        'pluginOptions'=>[
+            'depends'=>[Html::getInputId($model, 'sukan')],
+            'initialize' => true,
+            'placeholder' => Placeholder::atlet,
+            'url'=>Url::to(['/atlet-sukan/atlets-by-sukan']),
+            'params'=>['atlet_list_param']
+        ]
+    ]);
     ?>
 
     <!--<?= $form->field($model, 'atlet_id')->textInput() ?>
@@ -113,3 +135,16 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+if($model->atlet_id){
+    $AtletListID = explode(',',$model->atlet_id);
+    $AtletListID = Json::encode($AtletListID);
+    
+    $this->registerJs("
+    $('#atletListID').on('depdrop.change', function(event) {
+        $('#atletListID').val($AtletListID);
+    });
+    ");
+}
+?>
