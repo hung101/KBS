@@ -86,9 +86,9 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const aktiviti_dan_kejayaan_yang_dicapai = "Aktiviti Dan Kejayaan Yang Dicapai";
         const alahan = "Alahan";
         const alamat = "Alamat";
-        const alamat_1 = "Alamat 1";
-        const alamat_2 = "Alamat 2";
-        const alamat_3 = "Alamat 3";
+        const alamat_1 = "Alamat";
+        const alamat_2 = "";
+        const alamat_3 = "";
         const alamat_badan_sukan_1 = "Alamat Badan Sukan";
         const alamat_badan_sukan_2 = "";
         const alamat_badan_sukan_3 = "";
@@ -2603,9 +2603,9 @@ if($session->get('language') == "EN") {
         const aktiviti_dan_kejayaan_yang_dicapai = "Activities And Achievement";
         const alahan = "Allergy";
         const alamat = "Address";
-        const alamat_1 = "Address 1";
-        const alamat_2 = "Address 2";
-        const alamat_3 = "Address 3";
+        const alamat_1 = "Address";
+        const alamat_2 = "";
+        const alamat_3 = "";
         const alamat_badan_sukan_1 = "Address Of Body Sport";
         const alamat_badan_sukan_2 = "";
         const alamat_badan_sukan_3 = "";
