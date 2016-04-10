@@ -34,8 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     <?php
-
-use app\models\general\GeneralLabel;
  /*echo DetailView::widget([
         'model' => $model,
         'attributes' => [

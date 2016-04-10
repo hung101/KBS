@@ -23,8 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-lg-5">
             <?php
-
-use app\models\general\GeneralLabel;
  $form = ActiveForm::begin(['id' => 'contact-form']); ?>
                 <?= $form->field($model, 'name') ?>
                 <?= $form->field($model, 'email') ?>
@@ -37,8 +35,6 @@ use app\models\general\GeneralLabel;
                     <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
                 </div>
             <?php
-
-use app\models\general\GeneralLabel;
  ActiveForm::end(); ?>
         </div>
     </div>
