@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_bsp_pembayaran".
@@ -48,11 +49,11 @@ class BspPembayaran extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['bsp_pemohon_id', 'tarikh', 'bayaran','semester'], 'required', 'skipOnEmpty' => true],
-            [['bsp_pemohon_id'], 'integer'],
+            [['bsp_pemohon_id', 'tarikh', 'bayaran','semester'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['bsp_pemohon_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
-            [['bayaran'], 'number'],
-            [['catatan'], 'string', 'max' => 255]
+            [['bayaran'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

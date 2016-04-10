@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_pengurusan_kontraktor".
@@ -55,13 +56,13 @@ class PengurusanKontraktor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_kontraktor', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'telefon_pejabat', 'telefon_bimbit', 'peralatan_yang_dibekal'], 'required', 'skipOnEmpty' => true],
-            [['nama_kontraktor', 'peralatan_yang_dibekal'], 'string', 'max' => 80],
-            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90],
-            [['alamat_negeri'], 'string', 'max' => 30],
-            [['alamat_bandar'], 'string', 'max' => 40],
-            [['alamat_poskod'], 'string', 'max' => 5],
-            [['telefon_pejabat', 'telefon_bimbit'], 'string', 'max' => 14]
+            [['nama_kontraktor', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'telefon_pejabat', 'telefon_bimbit', 'peralatan_yang_dibekal'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama_kontraktor', 'peralatan_yang_dibekal'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['telefon_pejabat', 'telefon_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

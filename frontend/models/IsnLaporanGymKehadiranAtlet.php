@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 
 class IsnLaporanGymKehadiranAtlet extends Model

@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_atlet_sukan_persatuanpersekutuandunia".
@@ -52,12 +53,12 @@ class AtletSukanPersatuanpersekutuandunia extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'jenis', 'name_persatuan_persekutuan_dunia', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
-            [['jenis', 'alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30],
-            [['name_persatuan_persekutuan_dunia', 'emel'], 'string', 'max' => 100],
-            [['no_telefon'], 'string', 'max' => 14],
-            [['laman_web'], 'string', 'max' => 120]
+            [['atlet_id', 'jenis', 'name_persatuan_persekutuan_dunia', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jenis', 'alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['name_persatuan_persekutuan_dunia', 'emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['laman_web'], 'string', 'max' => 120, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

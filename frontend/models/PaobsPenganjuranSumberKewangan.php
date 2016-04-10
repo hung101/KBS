@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_paobs_penganjuran_sumber_kewangan".
@@ -42,11 +43,11 @@ class PaobsPenganjuranSumberKewangan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['penganjuran_id', 'created_by', 'updated_by'], 'integer'],
-            [['sumber', 'jumlah'], 'required', 'skipOnEmpty' => true],
-            [['jumlah'], 'number'],
+            [['penganjuran_id', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['sumber', 'jumlah'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jumlah'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['created', 'updated'], 'safe'],
-            [['sumber', 'session_id'], 'string', 'max' => 100]
+            [['sumber', 'session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

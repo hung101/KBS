@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_ujian_saringan".
@@ -64,19 +65,19 @@ class UjianSaringan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'sekolah', 'no_kad_pengenalan'], 'required', 'skipOnEmpty' => true],
-            [['berat_badan', 'ketinggian', 'tinggi_duduk', 'panjang_depa', 'body_mass_index'], 'number'],
-            [['nama', 'sekolah'], 'string', 'max' => 80],
-            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90],
-            [['alamat_negeri', 'darjah'], 'string', 'max' => 30],
-            [['alamat_bandar'], 'string', 'max' => 40],
-            [['alamat_poskod'], 'string', 'max' => 5],
-            [['jantina'], 'string', 'max' => 1],
-            [['no_telefon'], 'string', 'max' => 14],
-            [['catatan'], 'string', 'max' => 255],
-            [['no_kad_pengenalan'], 'string', 'max' => 12],
-            [['no_kad_pengenalan'], 'integer'],
-            [['umur'], 'integer'],
+            [['nama', 'sekolah', 'no_kad_pengenalan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['berat_badan', 'ketinggian', 'tinggi_duduk', 'panjang_depa', 'body_mass_index'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['nama', 'sekolah'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_negeri', 'darjah'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['umur'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['bangsa', 'sukan', 'tarikh_lahir', 'maklumat_program'], 'safe'],
         ];
     }

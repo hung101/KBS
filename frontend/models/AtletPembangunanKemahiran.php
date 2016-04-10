@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_atlet_pembangunan_kemahiran".
@@ -48,10 +49,10 @@ class AtletPembangunanKemahiran extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'jenis_kemahiran', 'tarikh_mula', 'tarikh_tamat', 'penganjur', 'lokasi'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
-            [['jenis_kemahiran'], 'string', 'max' => 30],
-            [['nama_kemahiran'], 'string', 'max' => 100]
+            [['atlet_id', 'jenis_kemahiran', 'tarikh_mula', 'tarikh_tamat', 'penganjur', 'lokasi'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jenis_kemahiran'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_kemahiran'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

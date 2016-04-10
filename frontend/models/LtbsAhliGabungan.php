@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_ltbs_ahli_gabungan".
@@ -49,12 +50,12 @@ class LtbsAhliGabungan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['peringkat_badan_sukan', 'alamat_badan_sukan_1', 'alamat_badan_sukan_negeri', 'alamat_badan_sukan_bandar', 'alamat_badan_sukan_poskod', 'nama_penuh_presiden_badan_sukan', 'no_tel_bimbit_presiden_badan_sukan', 'no_tel_bimbit_setiausaha_badan_sukan', 'nama_penuh_setiausaha_badan_sukan', 'status'], 'required', 'skipOnEmpty' => true],
-            [['nama_badan_sukan', 'nama_penuh_presiden_badan_sukan', 'nama_penuh_setiausaha_badan_sukan'], 'string', 'max' => 80],
-            [['alamat_badan_sukan_1', 'alamat_badan_sukan_2', 'alamat_badan_sukan_3'], 'string', 'max' => 30],
-            [['emel_presiden_badan_sukan', 'emel_setiausaha_badan_sukan'], 'email'],
-            [['alamat_badan_sukan_poskod'], 'string', 'max' => 5],
-            [['profil_badan_sukan_id', 'status'], 'integer']
+            [['peringkat_badan_sukan', 'alamat_badan_sukan_1', 'alamat_badan_sukan_negeri', 'alamat_badan_sukan_bandar', 'alamat_badan_sukan_poskod', 'nama_penuh_presiden_badan_sukan', 'no_tel_bimbit_presiden_badan_sukan', 'no_tel_bimbit_setiausaha_badan_sukan', 'nama_penuh_setiausaha_badan_sukan', 'status'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama_badan_sukan', 'nama_penuh_presiden_badan_sukan', 'nama_penuh_setiausaha_badan_sukan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_badan_sukan_1', 'alamat_badan_sukan_2', 'alamat_badan_sukan_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel_presiden_badan_sukan', 'emel_setiausaha_badan_sukan'], 'email', 'message' => GeneralMessage::yii_validation_email],
+            [['alamat_badan_sukan_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['profil_badan_sukan_id', 'status'], 'integer', 'message' => GeneralMessage::yii_validation_integer]
         ];
     }
 

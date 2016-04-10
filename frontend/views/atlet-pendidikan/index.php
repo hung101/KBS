@@ -24,8 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="atlet-pendidikan-index">
     
     <?php
-
-use app\models\general\GeneralLabel;
         $template = '{view}';
         
         // Update Access

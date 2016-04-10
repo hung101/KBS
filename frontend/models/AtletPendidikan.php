@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_atlet_pendidikan".
@@ -63,18 +64,18 @@ class AtletPendidikan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis_peringkatan_pendidikan', 'nama', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'tahun_mula', 'tahun_tamat'], 'required', 'skipOnEmpty' => true],
-            [['no_telefon', 'no_faks', 'created_by', 'updated_by'], 'integer'],
+            [['jenis_peringkatan_pendidikan', 'nama', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'tahun_mula', 'tahun_tamat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['no_telefon', 'no_faks', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tahun_mula', 'tahun_tamat', 'tahun_mula_biasiswa', 'tahun_tamat_biasiswa', 'created', 'updated'], 'safe'],
-            [['jumlah_biasiswa'], 'number'],
-            [['atlet_id', 'jenis_peringkatan_pendidikan'], 'string', 'max' => 20],
-            [['kursus', 'fakulti', 'nama', 'alamat_bandar'], 'string', 'max' => 40],
-            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30],
-            [['pelajar_id_no'], 'string', 'max' => 15],
-            [['keputusan_cgpa'], 'string', 'max' => 100],
-            [['biasiswa_tajaan'], 'string', 'max' => 2],
-            [['alamat_poskod'], 'string', 'max' => 5],
-            [['jenis_biasiswa', 'alamat_negeri'], 'string', 'max' => 30]
+            [['jumlah_biasiswa'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['atlet_id', 'jenis_peringkatan_pendidikan'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kursus', 'fakulti', 'nama', 'alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['pelajar_id_no'], 'string', 'max' => 15, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['keputusan_cgpa'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['biasiswa_tajaan'], 'string', 'max' => 2, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jenis_biasiswa', 'alamat_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

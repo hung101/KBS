@@ -78,18 +78,24 @@ class Sukarelawan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'no_kad_pengenalan', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'tarikh_lahir', 'jantina', 'no_tel_bimbit', 'status', 'kebatasan_fizikal', 'kelulusan_akademi', 'bidang_kepakaran', 'pekerjaan_semasa', 'alamat_majikan_1', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 'bidang_diminati', 'waktu_ketika_diperlukan', 'menyatakan_waktu_ketika_diperlukan', 'clause'], 'required', 'skipOnEmpty' => true],
+            [['nama', 'no_kad_pengenalan', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 
+                'tarikh_lahir', 'jantina', 'no_tel_bimbit', 'status', 'kebatasan_fizikal', 'kelulusan_akademi', 
+                'bidang_kepakaran', 'pekerjaan_semasa', 'alamat_majikan_1', 'alamat_majikan_negeri', 
+                'alamat_majikan_bandar', 'alamat_majikan_poskod', 'bidang_diminati', 'waktu_ketika_diperlukan', 
+                'menyatakan_waktu_ketika_diperlukan', 'clause'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir'], 'safe'],
-            [['kebatasan_fizikal'], 'integer'],
-            [['nama', 'menyatakan_jika_ada_kebatasan_fizikal', 'kelulusan_akademi', 'bidang_kepakaran', 'pekerjaan_semasa', 'nama_majikan', 'bidang_diminati', 'waktu_ketika_diperlukan', 'menyatakan_waktu_ketika_diperlukan'], 'string', 'max' => 80],
-            [['no_kad_pengenalan'], 'string', 'max' => 12],
-            [['alamat_1', 'alamat_2', 'alamat_3', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3'], 'string', 'max' => 90],
-            [['alamat_negeri', 'status', 'alamat_majikan_negeri', 'saiz_baju'], 'string', 'max' => 30],
-            [['alamat_bandar', 'alamat_majikan_bandar'], 'string', 'max' => 40],
-            [['alamat_poskod', 'alamat_majikan_poskod'], 'string', 'max' => 5],
-            [['jantina'], 'string', 'max' => 1],
-            [['no_tel_bimbit'], 'string', 'max' => 14],
-            [['emel', 'facebook', 'muatnaik', 'bidang_diminati_lain_lain'], 'string', 'max' => 100],
+            [['kebatasan_fizikal'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama', 'menyatakan_jika_ada_kebatasan_fizikal', 'kelulusan_akademi', 'bidang_kepakaran', 
+                'pekerjaan_semasa', 'nama_majikan', 'bidang_diminati', 'waktu_ketika_diperlukan', 
+                'menyatakan_waktu_ketika_diperlukan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_1', 'alamat_2', 'alamat_3', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_negeri', 'status', 'alamat_majikan_negeri', 'saiz_baju'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_bandar', 'alamat_majikan_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod', 'alamat_majikan_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_tel_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel', 'facebook', 'muatnaik', 'bidang_diminati_lain_lain'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }

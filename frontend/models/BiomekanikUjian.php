@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_biomekanik_ujian".
@@ -48,10 +49,10 @@ class BiomekanikUjian extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh', 'biomekanik_ujian'], 'required', 'skipOnEmpty' => true],
-            [['perkhidmatan_analisa_perlawanan_biomekanik_id'], 'integer'],
+            [['tarikh', 'biomekanik_ujian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['perkhidmatan_analisa_perlawanan_biomekanik_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
-            [['biomekanik_ujian'], 'string', 'max' => 80]
+            [['biomekanik_ujian'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

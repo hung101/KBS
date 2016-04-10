@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_pengurusan_kemudahan_aduan_kerosakan".
@@ -48,10 +49,10 @@ class PengurusanKemudahanAduanKerosakan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pengurusan_kemudahan_aduan_id', 'jenis_kerosakan', 'lokasi_kerosakan'], 'required', 'skipOnEmpty' => true],
-            [['pengurusan_kemudahan_aduan_id'], 'integer'],
-            [['jenis_kerosakan'], 'string', 'max' => 30],
-            [['lokasi_kerosakan'], 'string', 'max' => 90]
+            [['pengurusan_kemudahan_aduan_id', 'jenis_kerosakan', 'lokasi_kerosakan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pengurusan_kemudahan_aduan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jenis_kerosakan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['lokasi_kerosakan'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

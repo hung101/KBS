@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_atlet_perubatan_donator".
@@ -48,10 +49,10 @@ class AtletPerubatanDonator extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'no_donator_dokumen', 'jenis_organ'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
-            [['no_donator_dokumen'], 'string', 'max' => 20],
-            [['jenis_organ'], 'string', 'max' => 30]
+            [['atlet_id', 'no_donator_dokumen', 'jenis_organ'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['no_donator_dokumen'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jenis_organ'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

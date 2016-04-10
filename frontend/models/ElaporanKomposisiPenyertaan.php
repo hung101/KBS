@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_elaporan_komposisi_penyertaan".
@@ -49,10 +50,10 @@ class ElaporanKomposisiPenyertaan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['elaporan_pelaksaan_id', 'kumpulan_penyertaan', 'jenis_komposisi', 'bilangan'], 'required', 'skipOnEmpty' => true],
-            [['elaporan_pelaksaan_id', 'bilangan'], 'integer'],
-            [['kumpulan_penyertaan'], 'string', 'max' => 80],
-            [['jenis_komposisi'], 'string', 'max' => 30]
+            [['elaporan_pelaksaan_id', 'kumpulan_penyertaan', 'jenis_komposisi', 'bilangan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['elaporan_pelaksaan_id', 'bilangan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['kumpulan_penyertaan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jenis_komposisi'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

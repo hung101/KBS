@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_ltbs_ahli_jawatankuasa_induk_kecil".
@@ -58,16 +59,16 @@ class LtbsAhliJawatankuasaIndukKecil extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jawatan', 'nama_penuh', 'no_kad_pengenalan', 'jantina', 'bangsa', 'umur', 'no_tel', 'tarikh_mula_memegang_jawatan', 'status'], 'required', 'skipOnEmpty' => true],
-            [['umur', 'profil_badan_sukan_id', 'status'], 'integer'],
-            [['emel'], 'email'],
+            [['jawatan', 'nama_penuh', 'no_kad_pengenalan', 'jantina', 'bangsa', 'umur', 'no_tel', 'tarikh_mula_memegang_jawatan', 'status'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['umur', 'profil_badan_sukan_id', 'status'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['tarikh_mula_memegang_jawatan'], 'safe'],
-            [['jenis_jawatankuasa', 'nama_majikan'], 'string', 'max' => 30],
-            [['nama_jawatankuasa', 'jawatan', 'pekerjaan'], 'string', 'max' => 50],
-            [['nama_penuh', 'pengiktirafan_yang_diterima', 'kursus_yang_pernah_diikuti_oleh_pemegang_jawatan'], 'string', 'max' => 100],
-            [['no_kad_pengenalan'], 'string', 'max' => 12],
-            [['jantina'], 'string', 'max' => 1],
-            [['bangsa'], 'string', 'max' => 25]
+            [['jenis_jawatankuasa', 'nama_majikan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_jawatankuasa', 'jawatan', 'pekerjaan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_penuh', 'pengiktirafan_yang_diterima', 'kursus_yang_pernah_diikuti_oleh_pemegang_jawatan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['bangsa'], 'string', 'max' => 25, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

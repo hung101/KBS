@@ -45,13 +45,13 @@ class AdminEBiasiswa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['aktif', 'nama', 'tarikh_mula', 'tarikh_tamat', 'tarikh_semakan_panggilan_temuduga', 'tarikh_semakan_keputusan_temuduga', 'tawaran_biasiswa_tarikh_masa', 'tawaran_biasiswa_tempat'], 'required', 'skipOnEmpty' => true],
+            [['aktif', 'nama', 'tarikh_mula', 'tarikh_tamat', 'tarikh_semakan_panggilan_temuduga', 'tarikh_semakan_keputusan_temuduga', 'tawaran_biasiswa_tarikh_masa', 'tawaran_biasiswa_tempat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_mula', 'tarikh_tamat', 'created', 'updated'], 'safe'],
-            [['aktif', 'created_by', 'updated_by'], 'integer'],
-            [['nama'], 'string', 'max' => 80],
+            [['aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik_syarat_kelayakan'], 'validateFileUpload', 'skipOnEmpty' => false],
             //[['tarikh_mula'], 'compare', 'compareAttribute'=>'tarikh_tamat', 'operator'=>'<=', 'skipOnEmpty'=>true],
-            [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh_mula', 'operator'=>'>='],
+            [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh_mula', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
 

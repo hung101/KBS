@@ -6,7 +6,7 @@ use Yii;
 use yii\base\Model;
 
 use app\models\general\GeneralLabel;
-
+use app\models\general\GeneralMessage;
 
 class PjsLaporanPenganjuranAcara extends Model
 {
@@ -18,9 +18,9 @@ class PjsLaporanPenganjuranAcara extends Model
     public function rules()
     {
         return [
-            [['format'], 'required'],
+            [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_dari', 'tarikh_hingga', 'peringkat'], 'safe'],
-            [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true],
+            [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
 

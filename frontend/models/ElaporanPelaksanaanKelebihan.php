@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_elaporan_pelaksanaan_kelebihan".
@@ -41,11 +42,11 @@ class ElaporanPelaksanaanKelebihan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['kelebihan'], 'required', 'skipOnEmpty' => true],
-            [['elaporan_pelaksaan_id', 'created_by', 'updated_by'], 'integer'],
+            [['kelebihan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['elaporan_pelaksaan_id', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
-            [['kelebihan'], 'string', 'max' => 255],
-            [['session_id'], 'string', 'max' => 100]
+            [['kelebihan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_atlet_kewangan_insentif".
@@ -51,12 +52,12 @@ class AtletKewanganInsentif extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'tarikh_mula', 'tarikh_tamat', 'jenis_insentif', 'jumlah', 'kejohanan', 'pencapaian'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
+            [['atlet_id', 'tarikh_mula', 'tarikh_tamat', 'jenis_insentif', 'jumlah', 'kejohanan', 'pencapaian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_mula', 'rekods'], 'safe'],
-            [['jumlah'], 'number'],
-            [['jenis_insentif', 'pencapaian'], 'string', 'max' => 30],
-            [['kejohanan'], 'string', 'max' => 60]
+            [['jumlah'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['jenis_insentif', 'pencapaian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kejohanan'], 'string', 'max' => 60, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

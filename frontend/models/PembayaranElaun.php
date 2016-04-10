@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_pembayaran_elaun".
@@ -52,13 +53,13 @@ class PembayaranElaun extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [[ 'atlet_id', 'kategori_elaun', 'tempoh_elaun', 'tarikh_mula', 'tarikh_tamat', 'jumlah_elaun', 'status_elaun', 'kelulusan'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id', 'kelulusan'], 'integer'],
-            [['jumlah_elaun'], 'number'],
-            [['kategori_elaun'], 'string', 'max' => 30],
-            [['jumlah_elaun'], 'string', 'max' => 10],
-            [['tempoh_elaun'], 'string', 'max' => 20],
-            [['sebab_elaun'], 'string', 'max' => 100]
+            [[ 'atlet_id', 'kategori_elaun', 'tempoh_elaun', 'tarikh_mula', 'tarikh_tamat', 'jumlah_elaun', 'status_elaun', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jumlah_elaun'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['kategori_elaun'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jumlah_elaun'], 'string', 'max' => 10, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempoh_elaun'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['sebab_elaun'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

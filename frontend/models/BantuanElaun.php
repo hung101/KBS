@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_bantuan_elaun".
@@ -68,21 +69,23 @@ class BantuanElaun extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'jenis_bantuan', 'tarikh', 'nama_persatuan', 'tarikh_mula_dilantik', 'tarikh_tamat_dilantik', 'no_kad_pengenalan', 'tarikh_lahir', 'umur', 'jantina', 'kewarganegara', 'bangsa', 'agama', 'kelayakan_akademi', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'kontrak', 'jumlah_elaun', 'status_permohonan'], 'required', 'skipOnEmpty' => true],
+            [['nama', 'jenis_bantuan', 'tarikh', 'nama_persatuan', 'tarikh_mula_dilantik', 'tarikh_tamat_dilantik', 'no_kad_pengenalan', 
+                'tarikh_lahir', 'umur', 'jantina', 'kewarganegara', 'bangsa', 'agama', 'kelayakan_akademi', 'alamat_1', 'alamat_negeri', 
+                'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'kontrak', 'jumlah_elaun', 'status_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir'], 'safe'],
-            [['umur'], 'integer'],
-            [['jumlah_elaun'], 'number'],
-            [['nama', 'kelayakan_akademi'], 'string', 'max' => 80],
-            [['muatnaik_gambar', 'emel', 'muatnaik_dokumen'], 'string', 'max' => 100],
-            [['no_kad_pengenalan'], 'string', 'max' => 12],
-            [['jantina'], 'string', 'max' => 1],
-            [['kewarganegara', 'alamat_negeri', 'status_permohonan'], 'string', 'max' => 30],
-            [['bangsa', 'agama'], 'string', 'max' => 25],
-            [['alamat_1', 'alamat_2', 'alamat_3', 'kontrak'], 'string', 'max' => 90],
-            [['alamat_bandar'], 'string', 'max' => 40],
-            [['alamat_poskod'], 'string', 'max' => 5],
-            [['no_tel_bimbit', 'no_tel_persatuan_pejabat'], 'string', 'max' => 14],
-            [['catatan'], 'string', 'max' => 255]
+            [['umur'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jumlah_elaun'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['nama', 'kelayakan_akademi'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['muatnaik_gambar', 'emel', 'muatnaik_dokumen'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kewarganegara', 'alamat_negeri', 'status_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['bangsa', 'agama'], 'string', 'max' => 25, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_1', 'alamat_2', 'alamat_3', 'kontrak'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_tel_bimbit', 'no_tel_persatuan_pejabat'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

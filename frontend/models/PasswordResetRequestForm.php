@@ -4,6 +4,8 @@ namespace frontend\models;
 use common\models\User;
 use yii\base\Model;
 
+use app\models\general\GeneralMessage;
+
 /**
  * Password reset request form
  */

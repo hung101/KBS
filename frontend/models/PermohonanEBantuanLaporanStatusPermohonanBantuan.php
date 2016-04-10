@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 
 class PermohonanEBantuanLaporanStatusPermohonanBantuan extends Model
@@ -25,8 +26,8 @@ class PermohonanEBantuanLaporanStatusPermohonanBantuan extends Model
         return [
             [['format'], 'required'],
             [['jumlah_dilulus_dari', 'jumlah_dilulus_hingga', 'jumlah_dipohon_dari', 'jumlah_dipohon_hingga', 'negeri', 'tarikh_terima_dari', 'tarikh_terima_hingga'], 'safe'],
-            [['jumlah_dilulus_dari', 'jumlah_dilulus_hingga', 'jumlah_dipohon_dari', 'jumlah_dipohon_hingga'], 'number'],
-            [['tarikh_terima_hingga'], 'compare', 'compareAttribute'=>'tarikh_terima_dari', 'operator'=>'>=', 'skipOnEmpty'=>true],
+            [['jumlah_dilulus_dari', 'jumlah_dilulus_hingga', 'jumlah_dipohon_dari', 'jumlah_dipohon_hingga'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['tarikh_terima_hingga'], 'compare', 'compareAttribute'=>'tarikh_terima_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
 

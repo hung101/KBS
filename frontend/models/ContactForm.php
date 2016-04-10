@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * ContactForm is the model behind the contact form.
@@ -25,9 +26,9 @@ class ContactForm extends Model
     {
         return [
             // name, email, subject and body are required
-            [['name', 'email', 'subject', 'body'], 'required', 'skipOnEmpty' => true],
+            [['name', 'email', 'subject', 'body'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             // email has to be a valid email address
-            ['email', 'email'],
+            ['email', 'email', 'message' => GeneralMessage::yii_validation_email],
             // verifyCode needs to be entered correctly
             ['verifyCode', 'captcha'],
         ];

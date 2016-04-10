@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_atlet_keluarga".
@@ -54,15 +55,15 @@ class AtletKeluarga extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'nama', 'hubungan', 'no_kad_pengenalan', 'tarikh_lahir', 'bangsa', 'agama'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
+            [['atlet_id', 'nama', 'hubungan', 'no_kad_pengenalan', 'tarikh_lahir', 'bangsa', 'agama'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_lahir'], 'safe'],
-            [['nama', 'pekerjaan'], 'string', 'max' => 80],
-            [['hubungan'], 'string', 'max' => 20],
-            [['no_kad_pengenalan'], 'string', 'max' => 12],
-            [['bangsa'], 'string', 'max' => 25],
-            [['agama'], 'string', 'max' => 15],
-            [['no_tel'], 'string', 'max' => 14]
+            [['nama', 'pekerjaan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['hubungan'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['bangsa'], 'string', 'max' => 25, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['agama'], 'string', 'max' => 15, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_tel'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

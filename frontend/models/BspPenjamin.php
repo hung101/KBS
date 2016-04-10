@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_bsp_penjamin".
@@ -70,16 +71,17 @@ class BspPenjamin extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'no_kad_pengenalan', 'alamat_tetap_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'no_telefon_bimbit'], 'required', 'skipOnEmpty' => true],
-            [['bsp_pemohon_id'], 'integer'],
-            [['nama'], 'string', 'max' => 80],
-            [['no_kad_pengenalan'], 'string', 'max' => 12],
-            [['alamat_tetap_1', 'alamat_tetap_2', 'alamat_tetap_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 'alamat_pejabat_1', 'alamat_pejabat_2', 'alamat_pejabat_3'], 'string', 'max' => 90],
-            [['alamat_negeri', 'alamat_surat_menyurat_negeri', 'alamat_pejabat_negeri'], 'string', 'max' => 30],
-            [['alamat_bandar', 'alamat_surat_menyurat_bandar', 'alamat_pejabat_bandar'], 'string', 'max' => 40],
-            [['alamat_poskod', 'alamat_surat_menyurat_poskod', 'alamat_pejabat_poskod'], 'string', 'max' => 5],
-            [['no_telefon_rumah', 'no_telefon_pejabat', 'no_telefon_bimbit'], 'string', 'max' => 14],
-            [['email'], 'string', 'max' => 100]
+            [['nama', 'no_kad_pengenalan', 'alamat_tetap_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod',
+                'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'no_telefon_bimbit'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['bsp_pemohon_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_tetap_1', 'alamat_tetap_2', 'alamat_tetap_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 'alamat_pejabat_1', 'alamat_pejabat_2', 'alamat_pejabat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_negeri', 'alamat_surat_menyurat_negeri', 'alamat_pejabat_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_bandar', 'alamat_surat_menyurat_bandar', 'alamat_pejabat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod', 'alamat_surat_menyurat_poskod', 'alamat_pejabat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon_rumah', 'no_telefon_pejabat', 'no_telefon_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['email'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

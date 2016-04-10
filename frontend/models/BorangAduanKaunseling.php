@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_borang_aduan_kaunseling".
@@ -61,11 +62,11 @@ class BorangAduanKaunseling extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_pengadu', 'tarikh_aduan', 'no_aduan', 'status_aduan', 'aduan_kategori'], 'required', 'skipOnEmpty' => true],
+            [['nama_pengadu', 'tarikh_aduan', 'no_aduan', 'status_aduan', 'aduan_kategori'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_aduan'], 'safe'],
-            [['nama_pengadu'], 'string', 'max' => 80],
-            [['no_aduan', 'status_aduan', 'aduan_kategori'], 'string', 'max' => 30],
-            [['penyataan_aduan', 'tindakan_yang_telah_diambil', 'dokumen_berkaitan_yang_dilampirkan', 'bantuan_yang_anda_perlukan', 'rujukan_aduan_kepada_cawangan_yang_berkaitan', 'rujuk_aduan_kepada_atlet', 'tiada_sebarang_tindakan', 'maklumbalas_kepada_pengadu', 'tindakan_susulan', 'aduan_dimajukan_kepada_agensi_lain', 'catatan'], 'string', 'max' => 255]
+            [['nama_pengadu'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_aduan', 'status_aduan', 'aduan_kategori'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['penyataan_aduan', 'tindakan_yang_telah_diambil', 'dokumen_berkaitan_yang_dilampirkan', 'bantuan_yang_anda_perlukan', 'rujukan_aduan_kepada_cawangan_yang_berkaitan', 'rujuk_aduan_kepada_atlet', 'tiada_sebarang_tindakan', 'maklumbalas_kepada_pengadu', 'tindakan_susulan', 'aduan_dimajukan_kepada_agensi_lain', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

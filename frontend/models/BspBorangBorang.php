@@ -55,9 +55,9 @@ class BspBorangBorang extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['bsp_pemohon_id', 'created_by', 'updated_by'], 'integer'],
+            [['bsp_pemohon_id', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
-            [['bsp_01', 'bsp_02', 'bsp_03', 'bsp_04', 'bsp_05', 'bsp_07', 'bsp_08', 'bsp_09', 'bsp_12', 'bsp_13', 'bsp_14'], 'string', 'max' => 255],
+            [['bsp_01', 'bsp_02', 'bsp_03', 'bsp_04', 'bsp_05', 'bsp_07', 'bsp_08', 'bsp_09', 'bsp_12', 'bsp_13', 'bsp_14'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['bsp_03', 'bsp_04', 'bsp_05'],'validateFileUploadWithRequired', 'skipOnEmpty' => false],
             [['bsp_01', 'bsp_02', 'bsp_07', 'bsp_08', 'bsp_09', 'bsp_12', 'bsp_13', 'bsp_14'],'validateFileUpload', 'skipOnEmpty' => false],
         ];

@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_pengurusan_kemudahan_sedia_ada".
@@ -55,11 +56,14 @@ class PengurusanKemudahanSediaAda extends \yii\db\ActiveRecord
     {
         return [
             [['lokasi', 'jenis_kemudahan', 'pengurusan_kemudahan_venue_id','kadar_sewaan_sejam_siang','kadar_sewaan_sehari_siang','kadar_sewaan_seminggu_siang','kadar_sewaan_sebulan_siang',
-                'kadar_sewaan_sejam_malam','kadar_sewaan_sehari_malam','kadar_sewaan_seminggu_malam','kadar_sewaan_sebulan_malam', 'sukan_rekreasi'], 'required', 'skipOnEmpty' => true],
+                'kadar_sewaan_sejam_malam','kadar_sewaan_sehari_malam','kadar_sewaan_seminggu_malam','kadar_sewaan_sebulan_malam', 
+                'sukan_rekreasi'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['pengurusan_kemudahan_venue_id', 'jumlah_kapasiti', 'bilangan_kekerapan_penyenggaran', 'kekerapan_penggunaan',
-                'kekerapan_kerosakan_berlaku', 'jenis_kemudahan', 'sukan_rekreasi'], 'integer'],
-            [['cost_pembaikian','kadar_sewaan_sejam_siang','kadar_sewaan_sehari_siang','kadar_sewaan_seminggu_siang','kadar_sewaan_sebulan_siang','kadar_sewaan_sejam_malam','kadar_sewaan_sehari_malam','kadar_sewaan_seminggu_malam','kadar_sewaan_sebulan_malam'], 'number'],
-            [['keluasan_padang', 'size'], 'string', 'max' => 50],
+                'kekerapan_kerosakan_berlaku', 'jenis_kemudahan', 'sukan_rekreasi'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['cost_pembaikian','kadar_sewaan_sejam_siang','kadar_sewaan_sehari_siang','kadar_sewaan_seminggu_siang',
+                'kadar_sewaan_sebulan_siang','kadar_sewaan_sejam_malam','kadar_sewaan_sehari_malam','kadar_sewaan_seminggu_malam',
+                'kadar_sewaan_sebulan_malam'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['keluasan_padang', 'size'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['gambar_1', 'gambar_2', 'gambar_3', 'gambar_4', 'gambar_5'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }

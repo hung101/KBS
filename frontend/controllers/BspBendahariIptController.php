@@ -3,8 +3,8 @@
 namespace frontend\controllers;
 
 use Yii;
-use app\models\User;
-use frontend\models\UserSearch;
+use app\models\BspBendahariIpt;
+use frontend\models\BspBendahariIptSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -47,9 +47,9 @@ class BspBendahariIptController extends Controller
         
         $queryPar = Yii::$app->request->queryParams;
         
-        $queryPar['UserSearch']['peranan'] = UserPeranan::PERANAN_KBS_E_BIASISWA_BENDAHARI_IPT;
+        $queryPar['BspBendahariIptSearch']['peranan'] = UserPeranan::PERANAN_KBS_E_BIASISWA_BENDAHARI_IPT;
         
-        $searchModel = new UserSearch();
+        $searchModel = new BspBendahariIptSearch();
         $dataProvider = $searchModel->search($queryPar);
 
         return $this->render('index', [
@@ -103,10 +103,9 @@ class BspBendahariIptController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
-        $model = new User();
+        $model = new BspBendahariIpt();
         
         $model->peranan = UserPeranan::PERANAN_KBS_E_BIASISWA_BENDAHARI_IPT;
-        return $this->redirect(array(GeneralVariable::loginPagePath));
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             
@@ -181,7 +180,7 @@ class BspBendahariIptController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne($id)) !== null) {
+        if (($model = BspBendahariIpt::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

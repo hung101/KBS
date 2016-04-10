@@ -12,15 +12,20 @@ use app\models\BspBendahariIpt;
  */
 class BspBendahariIptSearch extends BspBendahariIpt
 {
+    public $nama_peranan;
+    public $ipt_bendahari_e_biasiswa_desc;
+    public $urusetia_negeri_e_bantuan_desc;
+    public $urusetia_kategori_program_e_bantuan_desc;
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['bsp_bendahari_ipt_id'], 'integer'],
-            [['nama_pelajar', 'no_kad_pengenalan', 'no_uni_matrix'], 'safe'],
-            [['yuran_pengajian'], 'number'],
+            [['id', 'status', 'peranan', 'ipt_bendahari_e_biasiswa', 'urusetia_negeri_e_bantuan', 'urusetia_kategori_program_e_bantuan'], 'integer'],
+            [['username', 'jabatan_id', 'auth_key', 'password_hash', 'password_reset_token', 'full_name', 'tel_mobile_no', 'tel_no', 'email', 
+                'no_kad_pengenalan', 'nama_peranan', 'ipt_bendahari_e_biasiswa_desc', 'urusetia_kategori_program_e_bantuan_desc', 'urusetia_negeri_e_bantuan_desc'], 'safe'],
         ];
     }
 
@@ -42,13 +47,46 @@ class BspBendahariIptSearch extends BspBendahariIpt
      */
     public function search($params)
     {
-        $query = BspBendahariIpt::find();
+        $query = BspBendahariIpt::find()
+                ->joinWith(['refJabatanUser'])
+                ->joinWith(['refUserPeranan'])
+                ->joinWith(['refUniversitiInstitusiEBiasiswa'])
+                ->joinWith(['refNegeri'])
+                ->joinWith(['refKategoriProgram']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
         $this->load($params);
+
+        $dataProvider->sort->attributes['nama_peranan'] = [
+            // The tables are the ones our relation are configured to
+            // in my case they are prefixed with "tbl_"
+            'asc' => ['tbl_user_peranan.nama_peranan' => SORT_ASC],
+            'desc' => ['tbl_user_peranan.nama_peranan' => SORT_DESC],
+        ];
+        
+        $dataProvider->sort->attributes['ipt_bendahari_e_biasiswa_desc'] = [
+            // The tables are the ones our relation are configured to
+            // in my case they are prefixed with "tbl_"
+            'asc' => ['tbl_ref_universiti_institusi_e_biasiswa.desc' => SORT_ASC],
+            'desc' => ['tbl_ref_universiti_institusi_e_biasiswa.desc' => SORT_DESC],
+        ];
+        
+        $dataProvider->sort->attributes['urusetia_negeri_e_bantuan_desc'] = [
+            // The tables are the ones our relation are configured to
+            // in my case they are prefixed with "tbl_"
+            'asc' => ['tbl_ref_negeri.desc' => SORT_ASC],
+            'desc' => ['tbl_ref_negeri.desc' => SORT_DESC],
+        ];
+        
+        $dataProvider->sort->attributes['urusetia_kategori_program_e_bantuan_desc'] = [
+            // The tables are the ones our relation are configured to
+            // in my case they are prefixed with "tbl_"
+            'asc' => ['tbl_ref_kategori_program.desc' => SORT_ASC],
+            'desc' => ['tbl_ref_kategori_program.desc' => SORT_DESC],
+        ];
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to any records when validation fails
@@ -57,13 +95,29 @@ class BspBendahariIptSearch extends BspBendahariIpt
         }
 
         $query->andFilterWhere([
-            'bsp_bendahari_ipt_id' => $this->bsp_bendahari_ipt_id,
-            'yuran_pengajian' => $this->yuran_pengajian,
+            'id' => $this->id,
+            //'jabatan_id' => $this->jabatan_id,
+            'peranan' => $this->peranan,
+            'status' => $this->status,
+            'ipt_bendahari_e_biasiswa' => $this->ipt_bendahari_e_biasiswa,
+            'urusetia_negeri_e_bantuan' => $this->urusetia_negeri_e_bantuan,
+            'urusetia_kategori_program_e_bantuan' => $this->urusetia_kategori_program_e_bantuan,
         ]);
 
-        $query->andFilterWhere(['like', 'nama_pelajar', $this->nama_pelajar])
-            ->andFilterWhere(['like', 'no_kad_pengenalan', $this->no_kad_pengenalan])
-            ->andFilterWhere(['like', 'no_uni_matrix', $this->no_uni_matrix]);
+        $query->andFilterWhere(['like', 'username', $this->username])
+            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
+            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
+            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
+            ->andFilterWhere(['like', 'full_name', $this->full_name])
+            ->andFilterWhere(['like', 'tel_mobile_no', $this->tel_mobile_no])
+            ->andFilterWhere(['like', 'tel_no', $this->tel_no])
+            ->andFilterWhere(['like', 'email', $this->email])
+                ->andFilterWhere(['like', 'tbl_ref_jabatan_user.desc', $this->jabatan_id])
+                ->andFilterWhere(['like', 'tbl_user_peranan.nama_peranan', $this->nama_peranan])
+                ->andFilterWhere(['like', 'no_kad_pengenalan', $this->no_kad_pengenalan])
+                ->andFilterWhere(['like', 'tbl_ref_universiti_institusi_e_biasiswa.desc', $this->ipt_bendahari_e_biasiswa_desc])
+                ->andFilterWhere(['like', 'tbl_ref_negeri.desc', $this->urusetia_negeri_e_bantuan_desc])
+                ->andFilterWhere(['like', 'tbl_ref_kategori_program.desc', $this->urusetia_kategori_program_e_bantuan_desc]);
 
         return $dataProvider;
     }

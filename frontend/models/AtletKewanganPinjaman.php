@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_atlet_kewangan_pinjaman".
@@ -52,13 +53,13 @@ class AtletKewanganPinjaman extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'nama_bank', 'jenis_pinjaman', 'nilai_pinjaman', 'tahun_tamat', 'tahun_permulaan'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id', 'tahun_tamat'], 'integer'],
-            [['nilai_pinjaman'], 'number'],
+            [['atlet_id', 'nama_bank', 'jenis_pinjaman', 'nilai_pinjaman', 'tahun_tamat', 'tahun_permulaan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'tahun_tamat'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nilai_pinjaman'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tahun_permulaan'], 'safe'],
-            [['nama_bank'], 'string', 'max' => 100],
-            [['jenis_pinjaman'], 'string', 'max' => 30],
-            [['no_akaun'], 'string', 'max' => 20]
+            [['nama_bank'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jenis_pinjaman'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_akaun'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

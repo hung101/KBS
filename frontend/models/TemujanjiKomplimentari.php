@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_temujanji_komplimentari".
@@ -51,12 +52,12 @@ class TemujanjiKomplimentari extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id','jantina', 'jenis_sukan', 'perkhidmatan', 'tarikh_khidmat','lokasi', 'pegawai_yang_bertanggungjawab', 'status_temujanji'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
+            [['atlet_id','jantina', 'jenis_sukan', 'perkhidmatan', 'tarikh_khidmat','lokasi', 'pegawai_yang_bertanggungjawab', 'status_temujanji'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_khidmat'], 'safe'],
-            [['perkhidmatan', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80],
-            [['status_temujanji'], 'string', 'max' => 30],
-            [['catitan_ringkas'], 'string', 'max' => 255]
+            [['perkhidmatan', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['status_temujanji'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

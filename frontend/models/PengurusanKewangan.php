@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_pengurusan_kewangan".
@@ -57,11 +58,11 @@ class PengurusanKewangan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_acara_program', 'tarikh_acara', 'kategori_penggunaan', 'harga_penggunaan', 'jumlah_bajet', 'jumlah_penggunaan', 'bajet_keseluruhan', 'penggunaan_keseluruhan', 'baki'], 'required', 'skipOnEmpty' => true],
+            [['nama_acara_program', 'tarikh_acara', 'kategori_penggunaan', 'harga_penggunaan', 'jumlah_bajet', 'jumlah_penggunaan', 'bajet_keseluruhan', 'penggunaan_keseluruhan', 'baki'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_acara'], 'safe'],
-            [['harga_penggunaan', 'jumlah_bajet', 'jumlah_penggunaan', 'bajet_keseluruhan', 'penggunaan_keseluruhan', 'baki'], 'number'],
-            [['nama_acara_program', 'kategori_acara', 'kategori_penggunaan'], 'string', 'max' => 80],
-            [['objektif', 'catatan'], 'string', 'max' => 255]
+            [['harga_penggunaan', 'jumlah_bajet', 'jumlah_penggunaan', 'bajet_keseluruhan', 'penggunaan_keseluruhan', 'baki'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['nama_acara_program', 'kategori_acara', 'kategori_penggunaan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['objektif', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

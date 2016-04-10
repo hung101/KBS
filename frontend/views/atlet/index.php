@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
         $template = '{view}';
         
-        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['update'])){
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['tawaran'])){
             $template .= ' {update}';
         }
         

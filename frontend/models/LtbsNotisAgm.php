@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_ltbs_notis_agm".
@@ -50,7 +51,7 @@ class LtbsNotisAgm extends \yii\db\ActiveRecord
         return [
             [['nama_mesyuarat_agong', 'tahun'], 'required', 'skipOnEmpty' => true],
             ['notis_agm','validateFileUpload', 'skipOnEmpty' => false],
-            [['tahun'], 'string', 'max' => 4],
+            [['tahun'], 'string', 'max' => 4, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
 

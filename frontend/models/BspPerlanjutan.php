@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_bsp_perlanjutan".
@@ -49,10 +50,10 @@ class BspPerlanjutan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh', 'tempoh_mohon_perlanjutan', 'permohonan_pelanjutan'], 'required', 'skipOnEmpty' => true],
-            [['bsp_pemohon_id'], 'integer'],
+            [['tarikh', 'tempoh_mohon_perlanjutan', 'permohonan_pelanjutan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['bsp_pemohon_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
-            [['tempoh_mohon_perlanjutan', 'permohonan_pelanjutan'], 'string', 'max' => 30]
+            [['tempoh_mohon_perlanjutan', 'permohonan_pelanjutan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

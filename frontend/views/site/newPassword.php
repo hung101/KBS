@@ -21,7 +21,6 @@ $this->title = GeneralLabel::new_password;
         <div class="col-lg-5">
             <?php
 
-use app\models\general\GeneralLabel;
  $form = ActiveForm::begin(['id' => 'login-form']); ?>
                 <?= $form->field($model, 'password')->passwordInput() ?>
                 <?= $form->field($model, 'confirm_password')->passwordInput() ?>
@@ -29,8 +28,6 @@ use app\models\general\GeneralLabel;
                     <?= Html::submitButton('Hantar', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>
             <?php
-
-use app\models\general\GeneralLabel;
  ActiveForm::end(); ?>
         </div>
     </div>

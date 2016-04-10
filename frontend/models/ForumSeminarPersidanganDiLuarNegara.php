@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_forum_seminar_persidangan_di_luar_negara".
@@ -50,11 +51,11 @@ class ForumSeminarPersidanganDiLuarNegara extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis_program','nama', 'nama_program', 'tarikh', 'persatuan', 'jawatan', 'nama_wakil_persatuan_1', 'nama_wakil_persatuan_2', 'amaun', 'negara', 'status_permohonan'], 'required', 'skipOnEmpty' => true],
-            [['amaun'], 'number'],
-            [['nama'], 'string', 'max' => 80],
-            [['negara', 'status_permohonan'], 'string', 'max' => 30],
-            [['catatan'], 'string', 'max' => 255]
+            [['jenis_program','nama', 'nama_program', 'tarikh', 'persatuan', 'jawatan', 'nama_wakil_persatuan_1', 'nama_wakil_persatuan_2', 'amaun', 'negara', 'status_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['amaun'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['nama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['negara', 'status_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

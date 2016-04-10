@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_bsp_tamat_pengesahan_pengajian".
@@ -52,10 +53,11 @@ class BspTamatPengesahanPengajian extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_ipts', 'pengajian', 'bidang'], 'required', 'skipOnEmpty' => true],
+            [['nama_ipts', 'pengajian', 'bidang'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_tamat'], 'safe'],
-            [['nama_ipts', 'pengajian', 'bidang'], 'string', 'max' => 80],
-            [['cgpa_pngk'], 'string', 'max' => 30],
+            [['nama_ipts', 'pengajian', 'bidang'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['cgpa_pngk'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['cgpa_pngk'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }

@@ -54,10 +54,10 @@ class FarmasiPermohonanUbatan extends \yii\db\ActiveRecord
     {
         return [
             //[['atlet_id', 'tarikh_pemberian', 'pegawai_yang_bertanggungjawab', 'kelulusan'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id', 'kelulusan'], 'integer'],
+            [['atlet_id', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_pemberian'], 'safe'],
-            [['pegawai_yang_bertanggungjawab'], 'string', 'max' => 80],
-            [['catitan_ringkas'], 'string', 'max' => 255],
+            [['pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }

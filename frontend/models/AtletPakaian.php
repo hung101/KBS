@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_atlet_pakaian".
@@ -48,8 +49,8 @@ class AtletPakaian extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'kuantiti', 'tarikh_serahan', 'jenis_pakaian', 'saiz_pakaian', 'sukan'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id', 'jenama'], 'integer'],
+            [['atlet_id', 'kuantiti', 'tarikh_serahan', 'jenis_pakaian', 'saiz_pakaian', 'sukan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'jenama'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
         ];
     }
 

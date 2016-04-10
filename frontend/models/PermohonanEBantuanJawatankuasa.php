@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_permohonan_e_bantuan_jawatankuasa".
@@ -48,9 +49,9 @@ class PermohonanEBantuanJawatankuasa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jawatan', 'nama'], 'required', 'skipOnEmpty' => true],
-            [['permohonan_e_bantuan_id'], 'integer'],
-            [['jawatan', 'nama'], 'string', 'max' => 80]
+            [['jawatan', 'nama'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['permohonan_e_bantuan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jawatan', 'nama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

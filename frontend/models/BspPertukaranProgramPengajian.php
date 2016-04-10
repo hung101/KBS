@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_bsp_pertukaran_program_pengajian".
@@ -52,10 +53,10 @@ class BspPertukaranProgramPengajian extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh', 'bidang_pengajian_kursus', 'fakulti', 'tarikh_mula_pengajian', 'tarikh_tamat_pengajian', 'tempoh_perlanjutan_semester'], 'required', 'skipOnEmpty' => true],
-            [['bsp_pemohon_id', 'tempoh_perlanjutan_semester'], 'integer'],
+            [['tarikh', 'bidang_pengajian_kursus', 'fakulti', 'tarikh_mula_pengajian', 'tarikh_tamat_pengajian', 'tempoh_perlanjutan_semester'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['bsp_pemohon_id', 'tempoh_perlanjutan_semester'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh', 'tarikh_mula_pengajian', 'tarikh_tamat_pengajian'], 'safe'],
-            [['bidang_pengajian_kursus', 'fakulti'], 'string', 'max' => 80]
+            [['bidang_pengajian_kursus', 'fakulti'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

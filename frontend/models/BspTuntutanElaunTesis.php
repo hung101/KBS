@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_bsp_tuntutan_elaun_tesis".
@@ -50,10 +51,10 @@ class BspTuntutanElaunTesis extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh', 'tajuk_tesis'], 'required', 'skipOnEmpty' => true],
-            [['bsp_pemohon_id'], 'integer'],
+            [['tarikh', 'tajuk_tesis'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['bsp_pemohon_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
-            [['tajuk_tesis'], 'string', 'max' => 90],
+            [['tajuk_tesis'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }

@@ -53,11 +53,11 @@ class PerlembagaanBadanSukan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh_kelulusan', 'status'], 'required', 'skipOnEmpty' => true],
+            [['tarikh_kelulusan', 'status'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_kelulusan_Terkini', 'tarikh_pindaan', 'tarikh_kelulusan'], 'safe'],
-            [['bilangan_pindaan_perlembagaan_dilakukan'], 'string', 'max' => 50],
-            [['profil_badan_sukan_id', 'status'], 'integer'],
-            //[['muat_naik'], 'string', 'max' => 100],
+            [['bilangan_pindaan_perlembagaan_dilakukan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['profil_badan_sukan_id', 'status'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            //[['muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }

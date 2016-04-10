@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_elaun_jurulatih".
@@ -48,10 +49,10 @@ class ElaunJurulatih extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis_elaun', 'jumlah_elaun'], 'required', 'skipOnEmpty' => true],
-            [['elaun_jurulatih_id', 'gaji_dan_elaun_jurulatih_id'], 'integer'],
-            [['jumlah_elaun'], 'number'],
-            [['jenis_elaun'], 'string', 'max' => 80]
+            [['jenis_elaun', 'jumlah_elaun'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['elaun_jurulatih_id', 'gaji_dan_elaun_jurulatih_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jumlah_elaun'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['jenis_elaun'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

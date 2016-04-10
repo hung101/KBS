@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_atlet_karier".
@@ -62,18 +63,18 @@ class AtletKarier extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'syarikat', 'jawatan_kerja', 'pendapatan', 'tahun_mula', 'tahun_tamat', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'tel_no'], 'required', 'skipOnEmpty' => true],
-            [['tel_no', 'created_by', 'updated_by'], 'integer'],
-            [['pendapatan'], 'number'],
+            [['atlet_id', 'syarikat', 'jawatan_kerja', 'pendapatan', 'tahun_mula', 'tahun_tamat', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'tel_no'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tel_no', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['pendapatan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tahun_mula', 'tahun_tamat', 'created', 'updated'], 'safe'],
-            [['atlet_id', 'socso_no', 'income_tax_no'], 'string', 'max' => 20],
-            [['syarikat', 'emel'], 'string', 'max' => 100],
-            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30],
-            [['laman_web'], 'string', 'max' => 120],
-            [['jawatan_kerja', 'alamat_negeri'], 'string', 'max' => 30],
-            [['alamat_bandar'], 'string', 'max' => 40],
-            [['kwsp_no'], 'string', 'max' => 10],
-            [['alamat_poskod'], 'string', 'max' => 5]
+            [['atlet_id', 'socso_no', 'income_tax_no'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['syarikat', 'emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['laman_web'], 'string', 'max' => 120, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jawatan_kerja', 'alamat_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kwsp_no'], 'string', 'max' => 10, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

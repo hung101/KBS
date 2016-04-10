@@ -55,10 +55,10 @@ class BspBorang10 extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['bsp_borang_borang_id', 'created_by', 'updated_by'], 'integer'],
+            [['bsp_borang_borang_id', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
-            [['bsp_10'], 'string', 'max' => 255],
-            [['session_id'], 'string', 'max' => 100],
+            [['bsp_10'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['bsp_10'],'validateFileUploadWithRequired', 'skipOnEmpty' => false],
         ];
     }

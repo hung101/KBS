@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 
 class EKemudahanLaporanKuantitiKemudahan extends Model
@@ -17,7 +18,7 @@ class EKemudahanLaporanKuantitiKemudahan extends Model
     public function rules()
     {
         return [
-            [['format'], 'required'],
+            [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['negeri', 'kategori'], 'safe'],
         ];
     }

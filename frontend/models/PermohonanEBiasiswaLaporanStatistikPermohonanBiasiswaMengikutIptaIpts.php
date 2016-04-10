@@ -6,7 +6,7 @@ use Yii;
 use yii\base\Model;
 
 use app\models\general\GeneralLabel;
-
+use app\models\general\GeneralMessage;
 
 class PermohonanEBiasiswaLaporanStatistikPermohonanBiasiswaMengikutIptaIpts extends Model
 {
@@ -15,7 +15,7 @@ class PermohonanEBiasiswaLaporanStatistikPermohonanBiasiswaMengikutIptaIpts exte
     public function rules()
     {
         return [
-            [['format'], 'required'],
+            [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
         ];
     }
 

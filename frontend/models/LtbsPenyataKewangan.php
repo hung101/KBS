@@ -51,8 +51,8 @@ class LtbsPenyataKewangan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['penyata_penerimaan_dan_pembayaran', 'penyata_pendapatan_dan_perbelanjaan', 'kunci_kira_kira'], 'string', 'max' => 100],
-            [['profil_badan_sukan_id'], 'integer'],
+            [['penyata_penerimaan_dan_pembayaran', 'penyata_pendapatan_dan_perbelanjaan', 'kunci_kira_kira'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['profil_badan_sukan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['penyata_penerimaan_dan_pembayaran', 'penyata_pendapatan_dan_perbelanjaan', 'kunci_kira_kira'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }

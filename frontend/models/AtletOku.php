@@ -7,6 +7,7 @@ use Yii;
 use app\models\general\GeneralVariable;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_atlet_oku".
@@ -50,9 +51,9 @@ class AtletOku extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'jenis_kurang_upaya', 'negara', 'tahun', 'status'], 'required', 'skipOnEmpty' => true],
-            [['jenis_kurang_upaya', 'jenis_kurang_upaya_pendengaran'], 'string', 'max' => 50],
-            [['tahun'], 'integer', 'min' => GeneralVariable::yearMin, 'max' => GeneralVariable::yearMax]
+            [['atlet_id', 'jenis_kurang_upaya', 'negara', 'tahun', 'status'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jenis_kurang_upaya', 'jenis_kurang_upaya_pendengaran'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tahun'], 'integer', 'min' => GeneralVariable::yearMin, 'max' => GeneralVariable::yearMax, 'message' => GeneralMessage::yii_validation_integer, 'tooBig' => GeneralMessage::yii_validation_integer_max, 'tooSmall' => GeneralMessage::yii_validation_integer_min]
         ];
     }
 
