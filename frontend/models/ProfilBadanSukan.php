@@ -68,7 +68,8 @@ class ProfilBadanSukan extends \yii\db\ActiveRecord
             [['alamat_tetap_badan_sukan_poskod', 'alamat_surat_menyurat_badan_sukan_poskod'], 'string', 'max' => 5],
             [['no_pendaftaran_sijil_pendaftaran'], 'string', 'max' => 100],
             [['bilangan_pindaan_perlembagaan_dilakukan'], 'string', 'max' => 50],
-            [['muat_naik_perlembagaan_terkini', 'gambar'],'validateFileUpload', 'skipOnEmpty' => false]
+            [['muat_naik_perlembagaan_terkini', 'gambar'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['emel_badan_sukan'], 'email'],
         ];
     }
 

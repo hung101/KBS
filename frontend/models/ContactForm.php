@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * ContactForm is the model behind the contact form.

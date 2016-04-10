@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_ref_kategori_program_liputan_perubatan_sukan".

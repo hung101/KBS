@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_bsp_bendahari_ipt".
@@ -17,12 +18,15 @@ use app\models\general\GeneralLabel;
  */
 class BspBendahariIpt extends \yii\db\ActiveRecord
 {
+    public $new_password;
+    public $password_confirm;
+    
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'tbl_bsp_bendahari_ipt';
+        return 'tbl_user';
     }
     
     public function behaviors()
@@ -49,9 +53,10 @@ class BspBendahariIpt extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'peranan', 'full_name', 'status', 'ipt_bendahari_e_biasiswa'], 'required', 'skipOnEmpty' => true],
-            [['jabatan_id', 'peranan', 'status', 'profil_badan_sukan', 'ipt_bendahari_e_biasiswa', 'no_kad_pengenalan'], 'integer'],
+            [['username', 'peranan', 'full_name', 'status', 'ipt_bendahari_e_biasiswa'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required ],
+            [['jabatan_id', 'peranan', 'status', 'profil_badan_sukan', 'ipt_bendahari_e_biasiswa', 'no_kad_pengenalan', 'tel_mobile_no', 'tel_no'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['email'], 'email'],
             [['auth_key'], 'string', 'max' => 32],
             [['full_name', 'new_password', 'password_confirm'], 'string', 'max' => 50],
             [['tel_mobile_no', 'tel_no'], 'string', 'max' => 14],
@@ -131,5 +136,26 @@ class BspBendahariIpt extends \yii\db\ActiveRecord
      */
     public function getRefUserPeranan(){
         return $this->hasOne(UserPeranan::className(), ['user_peranan_id' => 'peranan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefUniversitiInstitusiEBiasiswa(){
+        return $this->hasOne(RefUniversitiInstitusiEBiasiswa::className(), ['id' => 'ipt_bendahari_e_biasiswa']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefNegeri(){
+        return $this->hasOne(RefNegeri::className(), ['id' => 'urusetia_negeri_e_bantuan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKategoriProgram(){
+        return $this->hasOne(RefKategoriProgram::className(), ['id' => 'urusetia_kategori_program_e_bantuan']);
     }
 }

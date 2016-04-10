@@ -20,8 +20,6 @@ $this->title = GeneralLabel::login;
     <div class="row">
         <div class="col-lg-5">
             <?php
-
-use app\models\general\GeneralLabel;
  $form = ActiveForm::begin(['id' => 'login-form']); ?>
                 <?= $form->field($model, 'username') ?>
                 <?= $form->field($model, 'password')->passwordInput() ?>
@@ -34,8 +32,6 @@ use app\models\general\GeneralLabel;
                     <!-- <?= Html::a('Log Masuk Kali Pertama', ['new-password'], ['class' => 'btn btn-warning']) ?> -->
                 </div>
             <?php
-
-use app\models\general\GeneralLabel;
  ActiveForm::end(); ?>
         </div>
     </div>

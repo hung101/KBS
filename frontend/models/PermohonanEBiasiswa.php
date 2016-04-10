@@ -90,7 +90,7 @@ class PermohonanEBiasiswa extends \yii\db\ActiveRecord
             [['muat_naik_gambar'], 'string', 'max' => 100, 'skipOnEmpty' => true],
             [['nama', 'oku_lain_lain', 'universiti_institusi', 'program_pengajian', 'kursus_bidang_pengajian', 'falkulti', 'sukan', 'nyatakan_nama_penaja'], 'string', 'max' => 80, 'skipOnEmpty' => true],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'skipOnEmpty' => true],
-            [['no_kad_pengenalan'], 'integer'],
+            [['no_kad_pengenalan', 'png_semasa', 'pngk_semasa'], 'integer'],
             [['jantina'], 'string', 'max' => 1, 'skipOnEmpty' => true],
             [['keturunan'], 'string', 'max' => 25, 'skipOnEmpty' => true],
             [['agama', 'taraf_perkahwinan'], 'string', 'max' => 15, 'skipOnEmpty' => true],

@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_latihan_dan_program_peserta".
@@ -60,7 +61,9 @@ class LatihanDanProgramPeserta extends \yii\db\ActiveRecord
             [['no_kad_pengenalan'], 'string', 'max' => 12],
             [['no_pendaftaran_sukan'], 'string', 'max' => 30],
             [['no_tel_bimbit'], 'string', 'max' => 14],
-            [['emel'], 'string', 'max' => 100]
+            [['no_tel_bimbit', 'no_kad_pengenalan', 'tempoh_memegang_jawatan'], 'integer'],
+            [['emel'], 'string', 'max' => 100],
+            [['emel'], 'email']
         ];
     }
 

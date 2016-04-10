@@ -1757,6 +1757,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const permohonan_program_binaan = "Permohonan Program Binaan";
         const permohonan_ubatan = "Permohonan Ubatan";
         const pertukaran_pengajian = "Pertukaran Pengajian";
+        const perubatan_sukan = "Perubatan Sukan";
         const pesakit_luar_sistem_pendaftaran_dan_temujanji_atlet_pesakit_luar_sistem_proses_rawatan_pesakit_luar_pengurusan_rekod_pemeriksaan_perubatan_pesakit_luar_sistem_pemberian_ubat_kepada_psk = "Pesakit Luar Sistem Pendaftaran Dan Temujanji Atlet, Pesakit Luar Sistem Proses Rawatan, Pesakit Luar Pengurusan Rekod Pemeriksaan Perubatan, Pesakit Luar Sistem Pemberian Ubat Kepada Psk";
         const persetujuan = "Persetujuan";
         const pjs = "PJS";
@@ -4274,6 +4275,7 @@ if($session->get('language') == "EN") {
         const permohonan_program_binaan = "Application Of Construction Program";
         const permohonan_ubatan = "Application Of Medicine";
         const pertukaran_pengajian = "Exchange Study";
+        const perubatan_sukan = "Medical Sport";
         const pesakit_luar_sistem_pendaftaran_dan_temujanji_atlet_pesakit_luar_sistem_proses_rawatan_pesakit_luar_pengurusan_rekod_pemeriksaan_perubatan_pesakit_luar_sistem_pemberian_ubat_kepada_psk = "Outpatient Registration System And An Appointment Athlete, Outpatient Treatment Process Systems, Outpatient Medical Examination Records Management, Outpatient Drug Provision System To PSK";
         const persetujuan = "Informed Consent";
         const pjs = "PJS";
@@ -4336,7 +4338,7 @@ if($session->get('language') == "EN") {
         const bahagian_elaporan = "Part Elaporan";
         const bahagian_jurulatih = "Part Of The Coach";
         const bahagian_penerbitan = "Division Publication";
-        const bahasa = "Language";
+        const bahasa = "Bahasa";
         const bandar = "City";
         const bidang_diminati_sukarelawan = "The Field You're Interested In Volunteer";
         const cawangan_elaporan = "Elaporan Branch";

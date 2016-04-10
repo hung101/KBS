@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_pengurusan_kemudahan_venue".
@@ -68,7 +69,8 @@ class PengurusanKemudahanVenue extends \yii\db\ActiveRecord
             [['keluasan_venue'], 'string', 'max' => 50],
             [['emel'], 'string', 'max' => 100],
             [['emel'], 'email'],
-            [['no_telefon', 'no_faks'], 'string', 'max' => 14]
+            [['no_telefon', 'no_faks'], 'string', 'max' => 14],
+            [['no_telefon', 'no_faks'], 'integer']
         ];
     }
 

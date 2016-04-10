@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_bsp_bendahari_ipt".
@@ -55,9 +56,11 @@ class PermohonanEBantuanUrusetia extends \yii\db\ActiveRecord
             [['username', 'peranan', 'full_name', 'status', 'ipt_bendahari_e_biasiswa'], 'required', 'skipOnEmpty' => true],
             [['username','jabatan_id', 'peranan', 'status', 'profil_badan_sukan', 'ipt_bendahari_e_biasiswa', 'no_kad_pengenalan', 'urusetia_negeri_e_bantuan', 'urusetia_kategori_program_e_bantuan'], 'integer'],
             [['password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['email'], 'email'],
             [['auth_key'], 'string', 'max' => 32],
             [['full_name', 'new_password', 'password_confirm'], 'string', 'max' => 50],
             [['tel_mobile_no', 'tel_no'], 'string', 'max' => 14],
+            [['tel_mobile_no', 'tel_no'], 'integer'],
             [['no_kad_pengenalan', 'username'], 'string', 'max' => 12],
             ['new_password', 'validatePassword'],
             ['new_password', 'string', 'min' => 12],

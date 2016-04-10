@@ -59,8 +59,8 @@ AppAsset::register($this);
                 'label' => $language_string,
                 'items' => [
                      '<li class="dropdown-header">Select Your Language</li>',
-                     ['label' => GeneralLabel::english, 'url' => '/kbs/frontend/web/language/change?language=EN'],
-                     ['label' => GeneralLabel::bahasa, 'url' => '/kbs/frontend/web/language/change?language=BM'],
+                     ['label' => GeneralLabel::english, 'url' => ['/language/change','language'=>"EN"]],
+                     ['label' => GeneralLabel::bahasa, 'url' => ['/language/change','language'=>"BM"]],
                 ],
             ];
             
@@ -298,151 +298,164 @@ AppAsset::register($this);
                 
                 if(isset(Yii::$app->user->identity->peranan_akses['ISN'])){
                     $sideMenuItems[] = ['label' => GeneralLabel::isn, 'url' => ['#'],'items' => [
-                        ['label' => GeneralLabel::mesyuarat, 'url' => ['/mesyuarat/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['mesyuarat']['module'])],
-                        ['label' => GeneralLabel::hpt_pangkalan_data_laporan_bulanan, 'url' => ['/six-step/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['six-step']['module'])],
                         [
-                            'label' => GeneralLabel::suaian_fizikal_sistem_pendaftaran_atlet_di_gym,
+                            'label' => GeneralLabel::sains_sukan,
                             'items' => [
-                                ['label' => GeneralLabel::suaian_fizikal_sistem_pendaftaran_atlet_di_gym, 'url' => ['/pendaftaran-gym/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pendaftaran-gym']['module'])],
+                                ['label' => GeneralLabel::mesyuarat, 'url' => ['/mesyuarat/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['mesyuarat']['module'])],
+                                ['label' => GeneralLabel::hpt_pangkalan_data_laporan_bulanan, 'url' => ['/six-step/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['six-step']['module'])],
                                 [
-                                    'label' => GeneralLabel::laporan,
+                                    'label' => GeneralLabel::suaian_fizikal_sistem_pendaftaran_atlet_di_gym,
                                     'items' => [
-                                        ['label' => GeneralLabel::laporan_gym_jumlah_atlet, 'url' => ['/pendaftaran-gym/laporan-gym-jumlah-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pendaftaran-gym']['module'])],
+                                        ['label' => GeneralLabel::suaian_fizikal_sistem_pendaftaran_atlet_di_gym, 'url' => ['/pendaftaran-gym/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pendaftaran-gym']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_gym_jumlah_atlet, 'url' => ['/pendaftaran-gym/laporan-gym-jumlah-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pendaftaran-gym']['module'])],
+                                            ],
+                                        ],
                                     ],
                                 ],
-                            ],
-                        ],
-                        [
-                            'label' => GeneralLabel::suaian_fizikal_sistem_pinjaman_peralatan,
-                            'items' => [
-                                ['label' => GeneralLabel::suaian_fizikal_sistem_pinjaman_peralatan, 'url' => ['/pinjaman-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pinjaman-peralatan']['module'])],
                                 [
-                                    'label' => GeneralLabel::laporan,
+                                    'label' => GeneralLabel::suaian_fizikal_sistem_pinjaman_peralatan,
                                     'items' => [
-                                        ['label' => GeneralLabel::laporan_gym_kehadiran_atlet, 'url' => ['/pinjaman-peralatan/laporan-gym-kehadiran-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pinjaman-peralatan']['module'])],
+                                        ['label' => GeneralLabel::suaian_fizikal_sistem_pinjaman_peralatan, 'url' => ['/pinjaman-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pinjaman-peralatan']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_gym_kehadiran_atlet, 'url' => ['/pinjaman-peralatan/laporan-gym-kehadiran-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pinjaman-peralatan']['module'])],
+                                            ],
+                                        ],
                                     ],
                                 ],
-                            ],
-                        ],
-                        ['label' => GeneralLabel::suaian_fizikal_sistem_pengurusan_kemudahan_dan_peralatan, 'url' => ['/pengurusan-kemudahan-dan-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pengurusan-kemudahan-dan-peralatan']['module'])],
-                        ['label' => GeneralLabel::suaian_fizikal_sistem_pengurusan_dan_analisis_pembekal, 'url' => ['/pengurusan-kontraktor/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pengurusan-kontraktor']['module'])],
-                        ['label' => GeneralLabel::suaian_fizikal_sistem_sixstep, 'url' => ['/six-step-suaian-fizikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['six-step-suaian-fizikal']['module'])],
-                        ['label' => GeneralLabel::psikologi_sukan_sistem_sixstep, 'url' => ['/six-step-psikologi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['six-step-psikologi']['module'])],
-                        [
-                            'label' => GeneralLabel::pengurusan_sesi_dengan_keselamatan_encryption,
-                            'items' => [
-                                ['label' => GeneralLabel::profil_psikologi, 'url' => ['/psikologi-profil/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['psikologi-profil']['module'])],
-                                //['label' => GeneralLabel::aktiviti_psikologi, 'url' => ['/psikologi-aktiviti/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['psikologi-aktiviti']['module'])],
-                            ],
-                        ],
-                        [
-                            'label' => GeneralLabel::fisiologi_sistem_penjadualan_ujian_fisiologi,
-                            'items' => [
-                                ['label' => GeneralLabel::penjadualan_ujian_fisiologi, 'url' => ['/penjadualan-ujian-fisiologi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penjadualan-ujian-fisiologi']['module'])],
+                                ['label' => GeneralLabel::suaian_fizikal_sistem_pengurusan_kemudahan_dan_peralatan, 'url' => ['/pengurusan-kemudahan-dan-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pengurusan-kemudahan-dan-peralatan']['module'])],
+                                ['label' => GeneralLabel::suaian_fizikal_sistem_pengurusan_dan_analisis_pembekal, 'url' => ['/pengurusan-kontraktor/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pengurusan-kontraktor']['module'])],
+                                ['label' => GeneralLabel::suaian_fizikal_sistem_sixstep, 'url' => ['/six-step-suaian-fizikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['six-step-suaian-fizikal']['module'])],
+                                ['label' => GeneralLabel::psikologi_sukan_sistem_sixstep, 'url' => ['/six-step-psikologi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['six-step-psikologi']['module'])],
                                 [
-                                    'label' => GeneralLabel::laporan,
+                                    'label' => GeneralLabel::pengurusan_sesi_dengan_keselamatan_encryption,
                                     'items' => [
-                                        ['label' => GeneralLabel::laporan_fisiologi_jumlah_bilangan_ujian, 'url' => ['/penjadualan-ujian-fisiologi/laporan-fisiologi-jumlah-bilangan-ujian'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penjadualan-ujian-fisiologi']['module'])],
+                                        ['label' => GeneralLabel::profil_psikologi, 'url' => ['/psikologi-profil/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['psikologi-profil']['module'])],
+                                        //['label' => GeneralLabel::aktiviti_psikologi, 'url' => ['/psikologi-aktiviti/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['psikologi-aktiviti']['module'])],
                                     ],
                                 ],
-                            ],
-                        ],
-                        ['label' => GeneralLabel::fisiologi_sistem_pangkalan_data_atlet_dan_journal, 'url' => ['/soal-selidik-sebelum-ujian/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['soal-selidik-sebelum-ujian']['module'])],
-                        ['label' => GeneralLabel::fisiologi_sistem_sixstep, 'url' => ['/six-step-fisiologi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['six-step-fisiologi']['module'])],
-                        ['label' => GeneralLabel::biomekanik_sistem_permohonan_perkhidmatan_analisa_perlawanan_dan_biomekanik, 'url' => ['/permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik']['module'])],
-                        ['label' => GeneralLabel::biomekanik_sistem_pangkalan_data, 'url' => ['/perkhidmatan-analisa-perlawanan-biomekanik/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['perkhidmatan-analisa-perlawanan-biomekanik']['module'])],
-                        ['label' => GeneralLabel::biomekanik_sistem_pengurusan_peralatan, 'url' => ['/pinjaman-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pinjaman-peralatan']['module'])],
-                        ['label' => GeneralLabel::biomekanik_analisa_impak_biomekanik_dan_analisa_sukan_terhadap_prestasi_atlet, 'url' => ['/permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik']['module'])],
-                        ['label' => GeneralLabel::biomekanik_sistem_permohonan_khidmat_biomekanik_secara_atas_talian, 'url' => ['/permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik']['module'])],
-                        ['label' => GeneralLabel::biomekanik_sistem_six_step, 'url' => ['/six-step-biomekanik/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['six-step-biomekanik']['module'])],
-                        ['label' => GeneralLabel::pemakanan_sistem_permohonan_khidmat_analisis_tubuh_badan, 'url' => ['/permohonan-perkhidmatan-permakanan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-permakanan']['module'])],
-                        ['label' => GeneralLabel::pemakanan_sistem_permohonan_khidmat_pemberian_suplemen_dan_makanan, 'url' => ['/permohonan-perkhidmatan-permakanan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-permakanan']['module'])],
-                        ['label' => GeneralLabel::pemakanan_sistem_pinjaman_barangan_dan_peralatan, 'url' => ['/pinjaman-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pinjaman-peralatan']['module'])],
-                        ['label' => GeneralLabel::pemakanan_sistem_permohonan_khidmat_rundingan_pendidikan, 'url' => ['/permohonan-perkhidmatan-permakanan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-permakanan']['module'])],
-                        ['label' => GeneralLabel::sistem_pengurusan_pengenalpastian_bakat_yang_telah_disaringkan, 'url' => ['/ujian-saringan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['ujian-saringan']['module'])],
-                        ['label' => GeneralLabel::satelit_sistem_laporan_pusat, 'url' => ['/satelit/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['satelit']['module'])],
-                        ['label' => GeneralLabel::satelit_sistem_six_step, 'url' => ['/six-step-satelit/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['six-step-satelit']['module'])],
-                        ['label' => GeneralLabel::penyelidikan_sistem_pengurusan_geran_penyelidikan_penyelidikan_sistem_penyelarasan_penyelidikan, 'url' => ['/permohonan-penyelidikan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-penyelidikan']['module'])],
-                        ['label' => GeneralLabel::penyelidikan_sistem_pengurusan_penerbitan, 'url' => ['/journal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['journal']['module'])],
-                        ['label' => GeneralLabel::teknologi_instrumentasi_sistem_permohonan_projek_inovasi, 'url' => ['/permohonan-inovasi-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-inovasi-peralatan']['module'])],
-                        ['label' => GeneralLabel::permohonan_membaiki_peralatan, 'url' => ['/permohonan-membaiki-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-membaiki-peralatan']['module'])],
-                        [
-                            'label' => GeneralLabel::pesakit_luar_sistem_pendaftaran_dan_temujanji_atlet_pesakit_luar_sistem_proses_rawatan_pesakit_luar_pengurusan_rekod_pemeriksaan_perubatan_pesakit_luar_sistem_pemberian_ubat_kepada_psk,
-                            'items' => [
-                                ['label' => GeneralLabel::temujanji, 'url' => ['/pl-temujanji/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji']['module'])],
-                                //['label' => GeneralLabel::data_klinikal, 'url' => ['/pl-data-klinikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-data-klinikal']['module'])],
                                 [
-                                    'label' => GeneralLabel::laporan,
+                                    'label' => GeneralLabel::fisiologi_sistem_penjadualan_ujian_fisiologi,
                                     'items' => [
-                                        ['label' => GeneralLabel::laporan_temujanji_kedatangan_pesakit, 'url' => ['/pl-temujanji/laporan-temujanji-kedatangan-pesakit'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji']['module'])],
-                                        ['label' => GeneralLabel::laporan_temujanji_kedatangan_pegawai, 'url' => ['/pl-temujanji/laporan-temujanji-kedatangan-pegawai'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji']['module'])],
+                                        ['label' => GeneralLabel::penjadualan_ujian_fisiologi, 'url' => ['/penjadualan-ujian-fisiologi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penjadualan-ujian-fisiologi']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_fisiologi_jumlah_bilangan_ujian, 'url' => ['/penjadualan-ujian-fisiologi/laporan-fisiologi-jumlah-bilangan-ujian'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penjadualan-ujian-fisiologi']['module'])],
+                                            ],
+                                        ],
                                     ],
                                 ],
+                                ['label' => GeneralLabel::fisiologi_sistem_pangkalan_data_atlet_dan_journal, 'url' => ['/soal-selidik-sebelum-ujian/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['soal-selidik-sebelum-ujian']['module'])],
+                                ['label' => GeneralLabel::fisiologi_sistem_sixstep, 'url' => ['/six-step-fisiologi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['six-step-fisiologi']['module'])],
+                                ['label' => GeneralLabel::biomekanik_sistem_permohonan_perkhidmatan_analisa_perlawanan_dan_biomekanik, 'url' => ['/permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik']['module'])],
+                                ['label' => GeneralLabel::biomekanik_sistem_pangkalan_data, 'url' => ['/perkhidmatan-analisa-perlawanan-biomekanik/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['perkhidmatan-analisa-perlawanan-biomekanik']['module'])],
+                                ['label' => GeneralLabel::biomekanik_sistem_pengurusan_peralatan, 'url' => ['/pinjaman-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pinjaman-peralatan']['module'])],
+                                ['label' => GeneralLabel::biomekanik_analisa_impak_biomekanik_dan_analisa_sukan_terhadap_prestasi_atlet, 'url' => ['/permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik']['module'])],
+                                ['label' => GeneralLabel::biomekanik_sistem_permohonan_khidmat_biomekanik_secara_atas_talian, 'url' => ['/permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik']['module'])],
+                                ['label' => GeneralLabel::biomekanik_sistem_six_step, 'url' => ['/six-step-biomekanik/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['six-step-biomekanik']['module'])],
+                                ['label' => GeneralLabel::pemakanan_sistem_permohonan_khidmat_analisis_tubuh_badan, 'url' => ['/permohonan-perkhidmatan-permakanan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-permakanan']['module'])],
+                                ['label' => GeneralLabel::pemakanan_sistem_permohonan_khidmat_pemberian_suplemen_dan_makanan, 'url' => ['/permohonan-perkhidmatan-permakanan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-permakanan']['module'])],
+                                ['label' => GeneralLabel::pemakanan_sistem_pinjaman_barangan_dan_peralatan, 'url' => ['/pinjaman-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pinjaman-peralatan']['module'])],
+                                ['label' => GeneralLabel::pemakanan_sistem_permohonan_khidmat_rundingan_pendidikan, 'url' => ['/permohonan-perkhidmatan-permakanan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-permakanan']['module'])],
+                                ['label' => GeneralLabel::sistem_pengurusan_pengenalpastian_bakat_yang_telah_disaringkan, 'url' => ['/ujian-saringan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['ujian-saringan']['module'])],
+                                ['label' => GeneralLabel::satelit_sistem_laporan_pusat, 'url' => ['/satelit/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['satelit']['module'])],
+                                ['label' => GeneralLabel::satelit_sistem_six_step, 'url' => ['/six-step-satelit/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['six-step-satelit']['module'])],
+                                ['label' => GeneralLabel::penyelidikan_sistem_pengurusan_geran_penyelidikan_penyelidikan_sistem_penyelarasan_penyelidikan, 'url' => ['/permohonan-penyelidikan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-penyelidikan']['module'])],
+                                ['label' => GeneralLabel::penyelidikan_sistem_pengurusan_penerbitan, 'url' => ['/journal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['journal']['module'])],
+                                ['label' => GeneralLabel::teknologi_instrumentasi_sistem_permohonan_projek_inovasi, 'url' => ['/permohonan-inovasi-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-inovasi-peralatan']['module'])],
+                                ['label' => GeneralLabel::permohonan_membaiki_peralatan, 'url' => ['/permohonan-membaiki-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-membaiki-peralatan']['module'])],
+                        
                             ],
                         ],
-                        ['label' => GeneralLabel::farmasi_rekod_permohonan_ubatan_di_kaunter_oleh_atlet_otc_drug, 'url' => ['/farmasi-permohonan-ubatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['module'])],
-                        ['label' => GeneralLabel::makmal_perubatan_permohonan_khidmat_ujian_makmal_melalui_sistem, 'url' => ['/pl-temujanji-makmal-perubatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-makmal-perubatan']['module'])],
-                        ['label' => GeneralLabel::permohonan_penyiasatan_makmal_dan_pengimejan_pengimejan_pengurusan_pangkalan_data_atlet_imej, 'url' => ['/pl-temujanji/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji']['module'])],
-                        ['label' => GeneralLabel::caj_perkhidmatan_senarai_harga_perkhidmatan_caj_perkhidmatan_senarai_harga_ubatan, 'url' => ['/senarai-harga-perkhidmatan-ubatan-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['senarai-harga-perkhidmatan-ubatan-peralatan']['module'])],
                         [
-                            'label' => GeneralLabel::fisioterapi_sistem_permohonan_khidmat_rawatan_fisioterapi,
+                            'label' => GeneralLabel::perubatan_sukan,
                             'items' => [
-                                ['label' => GeneralLabel::temujanji_fisioterapi, 'url' => ['/pl-temujanji-fisioterapi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-fisioterapi']['module'])],
-                                ['label' => GeneralLabel::laporan_temujanji_fisioterapi, 'url' => ['/pl-temujanji-fisioterapi/laporan-temujanji-fisioterapi'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-fisioterapi']['module'])],
-                            ],
-                        ],
-                        [
-                            'label' => GeneralLabel::rehabilitasi_permohonan_khidmat_rawatan_rehabilitasi,
-                            'items' => [
-                                ['label' => GeneralLabel::temujanji_rehabilitasi, 'url' => ['/pl-temujanji-rehabilitasi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-rehabilitasi']['module'])],
-                                ['label' => GeneralLabel::laporan_temujanji_rehabilitasi, 'url' => ['/pl-temujanji-rehabilitasi/laporan-temujanji-rehabilitasi'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-rehabilitasi']['module'])],
-                            ],
-                        ],
-                        [
-                            'label' => GeneralLabel::liputan_perubatan_dalam_dan_luar_negara,
-                            'items' => [
-                                ['label' => GeneralLabel::permohonan_liputan_perubatan_sukan, 'url' => ['/farmasi-permohonan-liputan-perubatan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['module'])],
-                                ['label' => GeneralLabel::permohonan_ubatan, 'url' => ['/farmasi-permohonan-ubatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['module'])],
                                 [
-                                    'label' => GeneralLabel::laporan,
+                                    'label' => GeneralLabel::pesakit_luar_sistem_pendaftaran_dan_temujanji_atlet_pesakit_luar_sistem_proses_rawatan_pesakit_luar_pengurusan_rekod_pemeriksaan_perubatan_pesakit_luar_sistem_pemberian_ubat_kepada_psk,
                                     'items' => [
-                                        ['label' => GeneralLabel::laporan_ringkasan_statistik, 'url' => ['/farmasi-permohonan-liputan-perubatan-sukan/laporan-ringkasan-statistik'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['module'])],
-                                        ['label' => GeneralLabel::laporan_ringkasan_statistik_bulanan, 'url' => ['/farmasi-permohonan-liputan-perubatan-sukan/laporan-ringkasan-statistik-bulanan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['module'])],
-                                        ['label' => GeneralLabel::laporan_bulanan_secara_detail, 'url' => ['/farmasi-permohonan-liputan-perubatan-sukan/laporan-bulanan-secara-detail'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['module'])],
+                                        ['label' => GeneralLabel::temujanji, 'url' => ['/pl-temujanji/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji']['module'])],
+                                        //['label' => GeneralLabel::data_klinikal, 'url' => ['/pl-data-klinikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-data-klinikal']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_temujanji_kedatangan_pesakit, 'url' => ['/pl-temujanji/laporan-temujanji-kedatangan-pesakit'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji']['module'])],
+                                                ['label' => GeneralLabel::laporan_temujanji_kedatangan_pegawai, 'url' => ['/pl-temujanji/laporan-temujanji-kedatangan-pegawai'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji']['module'])],
+                                            ],
+                                        ],
                                     ],
                                 ],
-                            ],
-                        ],
-                        ['label' => GeneralLabel::pendidikan_sistem_permohonan_program_pendidikan_kesihatan_kepada_atlet_dan_staf, 'url' => ['/permohonan-program-pendidikan-kesihatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-program-pendidikan-kesihatan']['module'])],
-                        [
-                            'label' => GeneralLabel::komplementari_sistem_permohonan_perkhidmatan_perkhidmatan_komplementari,
-                            'items' => [
-                                ['label' => GeneralLabel::temujanji_komplimentori, 'url' => ['/temujanji-komplimentari/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['temujanji-komplimentari']['module'])],
+                                ['label' => GeneralLabel::farmasi_rekod_permohonan_ubatan_di_kaunter_oleh_atlet_otc_drug, 'url' => ['/farmasi-permohonan-ubatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['module'])],
+                                ['label' => GeneralLabel::makmal_perubatan_permohonan_khidmat_ujian_makmal_melalui_sistem, 'url' => ['/pl-temujanji-makmal-perubatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-makmal-perubatan']['module'])],
+                                ['label' => GeneralLabel::permohonan_penyiasatan_makmal_dan_pengimejan_pengimejan_pengurusan_pangkalan_data_atlet_imej, 'url' => ['/pl-temujanji/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji']['module'])],
+                                ['label' => GeneralLabel::caj_perkhidmatan_senarai_harga_perkhidmatan_caj_perkhidmatan_senarai_harga_ubatan, 'url' => ['/senarai-harga-perkhidmatan-ubatan-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['senarai-harga-perkhidmatan-ubatan-peralatan']['module'])],
                                 [
-                                    'label' => GeneralLabel::laporan,
+                                    'label' => GeneralLabel::fisioterapi_sistem_permohonan_khidmat_rawatan_fisioterapi,
                                     'items' => [
-                                        ['label' => GeneralLabel::laporan_komplimentori, 'url' => ['/temujanji-komplimentari/laporan-komplimentori'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['temujanji-komplimentari']['module'])],
+                                        ['label' => GeneralLabel::temujanji_fisioterapi, 'url' => ['/pl-temujanji-fisioterapi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-fisioterapi']['module'])],
+                                        ['label' => GeneralLabel::laporan_temujanji_fisioterapi, 'url' => ['/pl-temujanji-fisioterapi/laporan-temujanji-fisioterapi'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-fisioterapi']['module'])],
                                     ],
                                 ],
-                            ],
-                        ],
-                        [
-                            'label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk,
-                            'items' => [
-                                ['label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, 'url' => ['/akademi-akk/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['akademi-akk']['module'])],
-                                ['label' => GeneralLabel::cce, 'url' => ['/kursus/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['kursus']['module'])],
-                                ['label' => GeneralLabel::penganjuran_kursus, 'url' => ['/penganjuran-kursus/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['module'])],
-                                //['label' => GeneralLabel::penganjuran_kursus_senarai_peserta, 'url' => ['/penganjuran-kursus-peserta/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-peserta']['module'])],
-                                //['label' => GeneralLabel::penganjuran_kursus_penganjur, 'url' => ['/penganjuran-kursus-penganjur/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-penganjur']['module'])],
                                 [
-                                    'label' => GeneralLabel::laporan,
+                                    'label' => GeneralLabel::rehabilitasi_permohonan_khidmat_rawatan_rehabilitasi,
                                     'items' => [
-                                        ['label' => GeneralLabel::laporan_senarai_kursus, 'url' => ['/penganjuran-kursus/laporan-senarai-kursus'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['module'])],
-                                        ['label' => GeneralLabel::laporan_senarai_peserta, 'url' => ['/penganjuran-kursus/laporan-senarai-peserta'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['module'])],
+                                        ['label' => GeneralLabel::temujanji_rehabilitasi, 'url' => ['/pl-temujanji-rehabilitasi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-rehabilitasi']['module'])],
+                                        ['label' => GeneralLabel::laporan_temujanji_rehabilitasi, 'url' => ['/pl-temujanji-rehabilitasi/laporan-temujanji-rehabilitasi'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-rehabilitasi']['module'])],
                                     ],
                                 ],
+                                [
+                                    'label' => GeneralLabel::liputan_perubatan_dalam_dan_luar_negara,
+                                    'items' => [
+                                        ['label' => GeneralLabel::permohonan_liputan_perubatan_sukan, 'url' => ['/farmasi-permohonan-liputan-perubatan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['module'])],
+                                        ['label' => GeneralLabel::permohonan_ubatan, 'url' => ['/farmasi-permohonan-ubatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_ringkasan_statistik, 'url' => ['/farmasi-permohonan-liputan-perubatan-sukan/laporan-ringkasan-statistik'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['module'])],
+                                                ['label' => GeneralLabel::laporan_ringkasan_statistik_bulanan, 'url' => ['/farmasi-permohonan-liputan-perubatan-sukan/laporan-ringkasan-statistik-bulanan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['module'])],
+                                                ['label' => GeneralLabel::laporan_bulanan_secara_detail, 'url' => ['/farmasi-permohonan-liputan-perubatan-sukan/laporan-bulanan-secara-detail'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['module'])],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                                ['label' => GeneralLabel::pendidikan_sistem_permohonan_program_pendidikan_kesihatan_kepada_atlet_dan_staf, 'url' => ['/permohonan-program-pendidikan-kesihatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-program-pendidikan-kesihatan']['module'])],
+                                [
+                                    'label' => GeneralLabel::komplementari_sistem_permohonan_perkhidmatan_perkhidmatan_komplementari,
+                                    'items' => [
+                                        ['label' => GeneralLabel::temujanji_komplimentori, 'url' => ['/temujanji-komplimentari/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['temujanji-komplimentari']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_komplimentori, 'url' => ['/temujanji-komplimentari/laporan-komplimentori'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['temujanji-komplimentari']['module'])],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                                [
+                                    'label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk,
+                                    'items' => [
+                                        ['label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, 'url' => ['/akademi-akk/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['akademi-akk']['module'])],
+                                        ['label' => GeneralLabel::cce, 'url' => ['/kursus/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['kursus']['module'])],
+                                        ['label' => GeneralLabel::penganjuran_kursus, 'url' => ['/penganjuran-kursus/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['module'])],
+                                        //['label' => GeneralLabel::penganjuran_kursus_senarai_peserta, 'url' => ['/penganjuran-kursus-peserta/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-peserta']['module'])],
+                                        //['label' => GeneralLabel::penganjuran_kursus_penganjur, 'url' => ['/penganjuran-kursus-penganjur/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-penganjur']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_senarai_kursus, 'url' => ['/penganjuran-kursus/laporan-senarai-kursus'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['module'])],
+                                                ['label' => GeneralLabel::laporan_senarai_peserta, 'url' => ['/penganjuran-kursus/laporan-senarai-peserta'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['module'])],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                                
                             ],
                         ],
+                        
                     ]];
                 }
                 

@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_tempahan_kemudahan".
@@ -65,6 +66,7 @@ class TempahanKemudahan extends \yii\db\ActiveRecord
         return [
             [['nama', 'no_kad_pengenalan', 'no_tel', 'emel', 'kemudahan', 'bayaran_sewa', 'jenis_kadar', 'quantity_kadar', 'tarikh_mula', 'tarikh_akhir', 'jumlah_orang', 'status'], 'required', 'skipOnEmpty' => true],
             [['tarikh_mula'], 'safe'],
+            [['emel'], 'email'],
             [['nama', 'venue', 'nama_pemilik'], 'string', 'max' => 80],
             [['quantity_kadar'], 'string', 'max' => 11, 'skipOnEmpty' => true],
             [['no_kad_pengenalan'], 'string', 'max' => 12],
@@ -74,8 +76,8 @@ class TempahanKemudahan extends \yii\db\ActiveRecord
             [['location_alamat_negeri'], 'string', 'max' => 3],
             [['email_pemilik'], 'string', 'max' => 100],
             //[['lelaki', 'wanita', 'melayu', 'cina', 'india', 'lain_lain', 'jumlah_orang'], 'string', 'max' => 11],
-            [['lelaki', 'wanita', 'melayu', 'cina', 'india', 'lain_lain', 'jumlah_orang', 'kemudahan', 'jenis_kadar', 'quantity_kadar', 'public_user_pemohon_id', 'public_user_pemilik_id', 'kategori_hakmilik'], 'integer', 'skipOnEmpty' => true],
-            [['kadar_sewaan_sejam_siang','kadar_sewaan_sehari_siang','kadar_sewaan_seminggu_siang','kadar_sewaan_sebulan_siang','kadar_sewaan_sejam_malam','kadar_sewaan_sehari_malam','kadar_sewaan_seminggu_malam','kadar_sewaan_sebulan_malam'], 'number'],
+            [['lelaki', 'wanita', 'melayu', 'cina', 'india', 'lain_lain', 'jumlah_orang', 'kemudahan', 'jenis_kadar', 'quantity_kadar', 'public_user_pemohon_id', 'public_user_pemilik_id', 'kategori_hakmilik', 'no_kad_pengenalan', 'no_tel'], 'integer', 'skipOnEmpty' => true],
+            [['kadar_sewaan_sejam_siang','kadar_sewaan_sehari_siang','kadar_sewaan_seminggu_siang','kadar_sewaan_sebulan_siang','kadar_sewaan_sejam_malam','kadar_sewaan_sehari_malam','kadar_sewaan_seminggu_malam','kadar_sewaan_sebulan_malam', 'no_kad_pengenalan', 'no_tel'], 'number'],
             [['catatan'], 'string', 'max' => 255]
         ];
     }

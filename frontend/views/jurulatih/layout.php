@@ -27,8 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     
     <?php
-
-use app\models\general\GeneralLabel;
  
     $items = [
         [

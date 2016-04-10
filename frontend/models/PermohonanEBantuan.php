@@ -89,6 +89,7 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
             [['alamat_1', 'alamat_2', 'alamat_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], 'string', 'max' => 90],
             [['alamat_bandar', 'alamat_surat_menyurat_bandar'], 'string', 'max' => 40],
             [['alamat_poskod', 'alamat_surat_menyurat_poskod', 'alamat_parlimen', 'alamat_surat_menyurat_parlimen'], 'string', 'max' => 5],
+            [['alamat_poskod', 'alamat_surat_menyurat_poskod', 'no_telefon_pejabat', 'no_telefon_bimbit', 'no_fax'], 'integer'],
             [['no_telefon_pejabat', 'no_telefon_bimbit', 'no_fax'], 'string', 'max' => 14],
             [['email'], 'string', 'max' => 100],
             [['objektif_pertubuhan', 'aktiviti_dan_kejayaan_yang_dicapai', 'catatan_admin'], 'string', 'max' => 255],
