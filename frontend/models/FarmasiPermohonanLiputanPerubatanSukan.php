@@ -57,13 +57,13 @@ class FarmasiPermohonanLiputanPerubatanSukan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_program', 'tarikh_program', 'tempat_program', 'nama_pemohon', 'no_tel_pemohon', 'pegawai_bertugas', 'kelulusan_ceo', 'kelulusan_pbu', 'kategori_program'], 'required', 'skipOnEmpty' => true],
+            [['nama_program', 'tarikh_program', 'tempat_program', 'nama_pemohon', 'no_tel_pemohon', 'pegawai_bertugas', 'kelulusan_ceo', 'kelulusan_pbu', 'kategori_program'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_program'], 'safe'],
-            [['kelulusan_ceo', 'kelulusan_pbu', 'kategori_program'], 'integer'],
-            [['nama_program', 'nama_pemohon', 'pegawai_bertugas'], 'string', 'max' => 80],
-            [['tempat_program'], 'string', 'max' => 90],
-            [['no_tel_pemohon'], 'string', 'max' => 14],
-            [['muat_naik'], 'string', 'max' => 100],
+            [['kelulusan_ceo', 'kelulusan_pbu', 'kategori_program'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_program', 'nama_pemohon', 'pegawai_bertugas'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat_program'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_tel_pemohon'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }

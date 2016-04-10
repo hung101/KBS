@@ -51,11 +51,11 @@ class FarmasiPengurusanStok extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_ubat', 'dos', 'harga', 'kuantiti', 'jumlah_harga'], 'required', 'skipOnEmpty' => true],
-            [['harga', 'jumlah_harga'], 'number'],
-            [['kuantiti'], 'integer'],
-            [['nama_ubat'], 'string', 'max' => 80],
-            [['dos'], 'string', 'max' => 30]
+            [['nama_ubat', 'dos', 'harga', 'kuantiti', 'jumlah_harga'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['harga', 'jumlah_harga'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['kuantiti'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_ubat'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['dos'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

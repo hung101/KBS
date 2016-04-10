@@ -51,11 +51,11 @@ class AtletPakaianPeralatan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'tarikh_serahan', 'peralatan','jenis_sukan', 'jenama'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
-            [['jenis_sukan', 'jenama'], 'string', 'max' => 30],
-            [['model'], 'string', 'max' => 50],
-            [['saiz', 'warna'], 'string', 'max' => 10]
+            [['atlet_id', 'tarikh_serahan', 'peralatan','jenis_sukan', 'jenama'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jenis_sukan', 'jenama'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['model'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['saiz', 'warna'], 'string', 'max' => 10, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

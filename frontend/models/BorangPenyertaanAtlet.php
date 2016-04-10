@@ -49,10 +49,10 @@ class BorangPenyertaanAtlet extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'nama_program', 'tarikh_program'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
+            [['atlet_id', 'nama_program', 'tarikh_program'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_program'], 'safe'],
-            [['nama_program'], 'string', 'max' => 80]
+            [['nama_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

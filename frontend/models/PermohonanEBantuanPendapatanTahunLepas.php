@@ -50,11 +50,11 @@ class PermohonanEBantuanPendapatanTahunLepas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis_pendapatan', 'butir_butir', 'jumlah_pendapatan'], 'required', 'skipOnEmpty' => true],
-            [['permohonan_e_bantuan_id'], 'integer'],
-            [['jumlah_pendapatan'], 'number'],
-            [['jenis_pendapatan'], 'string', 'max' => 80],
-            [['butir_butir'], 'string', 'max' => 255]
+            [['jenis_pendapatan', 'butir_butir', 'jumlah_pendapatan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['permohonan_e_bantuan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jumlah_pendapatan'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['jenis_pendapatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['butir_butir'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

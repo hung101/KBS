@@ -49,9 +49,9 @@ class AtletKewanganElaun extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'jenis_elaun', 'jumlah_elaun', 'tarikh_mula', 'tarikh_tamat'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
-            [['jumlah_elaun'], 'number'],
+            [['atlet_id', 'jenis_elaun', 'jumlah_elaun', 'tarikh_mula', 'tarikh_tamat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jumlah_elaun'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tarikh_mula', 'tarikh_tamat'], 'safe']
         ];
     }

@@ -54,11 +54,11 @@ class AtletSukan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'jurulatih_id', 'nama_sukan', 'acara'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
+            [['atlet_id', 'jurulatih_id', 'nama_sukan', 'acara'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tahun_umur_permulaan', 'tarikh_mula_menyertai_program_msn', 'cawangan', 'negeri_diwakili', 'status', 'tarikh_tamat_menyertai_program_msn'], 'safe'],
-            [['nama_sukan', 'acara', 'program_semasa'], 'string', 'max' => 100],
-            [['no_lesen_sukan', 'atlet_persekutuan_dunia_id'], 'string', 'max' => 20]
+            [['nama_sukan', 'acara', 'program_semasa'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_lesen_sukan', 'atlet_persekutuan_dunia_id'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

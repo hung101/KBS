@@ -53,12 +53,12 @@ class PermohonanInovasiPeralatan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh_permohonan', 'pemohon', 'nama_peralatan', 'ringkasan_inovasi_peralatan', 'pegawai_yang_bertanggungjawab', 'status_permohonan'], 'required', 'skipOnEmpty' => true],
+            [['tarikh_permohonan', 'pemohon', 'nama_peralatan', 'ringkasan_inovasi_peralatan', 'pegawai_yang_bertanggungjawab', 'status_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_permohonan'], 'safe'],
-            [['pemohon', 'nama_peralatan', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80],
-            [['ringkasan_inovasi_peralatan', 'catitan_ringkas'], 'string', 'max' => 255],
-            [['status_permohonan'], 'string', 'max' => 30],
-            [['bahagian_cawangan_pusat'], 'integer'],
+            [['pemohon', 'nama_peralatan', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['ringkasan_inovasi_peralatan', 'catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['status_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['bahagian_cawangan_pusat'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
         ];
     }
 

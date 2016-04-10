@@ -52,10 +52,10 @@ class BspPrestasiAkademik extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh', 'png', 'pngk'], 'required', 'skipOnEmpty' => true],
-            [['bsp_pemohon_id', 'bsp_borang_borang_id', 'semester'], 'integer'],
+            [['tarikh', 'png', 'pngk'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['bsp_pemohon_id', 'bsp_borang_borang_id', 'semester'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
-            [['png', 'pngk'], 'number'],
+            [['png', 'pngk'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }

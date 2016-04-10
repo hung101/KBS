@@ -54,13 +54,13 @@ class CadanganElaun extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet', 'elaun_semasa', 'elaun_cadangan', 'tarikh_mula', 'tarikh_tamat', 'jenis_kelulusan'], 'required', 'skipOnEmpty' => true],
-            [['atlet'], 'integer'],
-            [['elaun_semasa', 'elaun_cadangan'], 'number'],
+            [['atlet', 'elaun_semasa', 'elaun_cadangan', 'tarikh_mula', 'tarikh_tamat', 'jenis_kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['elaun_semasa', 'elaun_cadangan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tarikh_mula', 'tarikh_tamat'], 'safe'],
-            [['ulasan'], 'string', 'max' => 255],
-            [['jenis_kelulusan'], 'string', 'max' => 30],
-            [['muat_naik'], 'string', 'max' => 100]
+            [['ulasan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jenis_kelulusan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

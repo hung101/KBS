@@ -48,9 +48,9 @@ class BspPertukaranProgramPengajianSebab extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['sebab'], 'required', 'skipOnEmpty' => true],
-            [['bsp_pertukaran_program_pengajian_sebab_id', 'bsp_pertukaran_program_pengajian_id'], 'integer'],
-            [['sebab'], 'string', 'max' => 255]
+            [['sebab'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['bsp_pertukaran_program_pengajian_sebab_id', 'bsp_pertukaran_program_pengajian_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['sebab'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

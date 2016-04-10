@@ -51,10 +51,10 @@ class BspPertukaranProgramPengajianDokumen extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_dokumen'], 'required', 'skipOnEmpty' => true],
-            [['bsp_pertukaran_program_pengajian_id'], 'integer'],
-            [['nama_dokumen'], 'string', 'max' => 80],
-            [['upload'], 'string', 'max' => 100],
+            [['nama_dokumen'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['bsp_pertukaran_program_pengajian_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_dokumen'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['upload'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['upload'], 'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }

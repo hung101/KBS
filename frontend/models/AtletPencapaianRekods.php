@@ -54,13 +54,13 @@ class AtletPencapaianRekods extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh', 'peringkat', 'opponent', 'jenis_rekod', 'result'], 'required', 'skipOnEmpty' => true],
-            [['pencapaian_id'], 'integer'],
+            [['tarikh', 'peringkat', 'opponent', 'jenis_rekod', 'result'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pencapaian_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
-            [['peringkat'], 'string', 'max' => 30],
-            [['opponent'], 'string', 'max' => 80],
-            [['result', 'personal_best', 'season_best'], 'string', 'max' => 100],
-            [['venue'], 'string', 'max' => 90]
+            [['peringkat'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['opponent'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['result', 'personal_best', 'season_best'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['venue'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

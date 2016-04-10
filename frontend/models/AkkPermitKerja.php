@@ -56,11 +56,11 @@ class AkkPermitKerja extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['no_permit', 'tahun', 'tarikh_tamat'], 'required'],
-            [['akademi_akk_id', 'created_by', 'updated_by'], 'integer'],
+            [['no_permit', 'tahun', 'tarikh_tamat'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['akademi_akk_id', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tahun', 'tarikh_tamat', 'created', 'updated'], 'safe'],
-            [['no_permit'], 'string', 'max' => 30],
-            [['permit', 'session_id'], 'string', 'max' => 100],
+            [['no_permit'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['permit', 'session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['permit'], 'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }

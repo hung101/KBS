@@ -51,11 +51,11 @@ class AtletKewanganAkaun extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'nama_bank', 'no_akaun', 'jenis_akaun'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
-            [['nama_bank', 'cawangan'], 'string', 'max' => 100],
-            [['no_akaun'], 'string', 'max' => 20],
-            [['jenis_akaun'], 'string', 'max' => 30]
+            [['atlet_id', 'nama_bank', 'no_akaun', 'jenis_akaun'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_bank', 'cawangan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_akaun'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jenis_akaun'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

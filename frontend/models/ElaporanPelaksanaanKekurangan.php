@@ -42,10 +42,10 @@ class ElaporanPelaksanaanKekurangan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['elaporan_pelaksaan_id', 'created_by', 'updated_by'], 'integer'],
+            [['elaporan_pelaksaan_id', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
-            [['kekurangan'], 'string', 'max' => 255],
-            [['session_id'], 'string', 'max' => 100]
+            [['kekurangan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

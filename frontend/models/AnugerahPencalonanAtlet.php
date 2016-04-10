@@ -74,12 +74,12 @@ class AnugerahPencalonanAtlet extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_atlet', 'tahun_pencalonan', 'nama_sukan', 'nama_acara', 'status_pencalonan', 'kejayaan', 'ulasan_kejayaan', 'sifat_kepimpinan_ketua_pasukan', 'sifat_kepimpinan_jurulatih', 'sifat_kepimpinan_asia_tenggara', 'sifat_kepimpinan_penolong_jurulatih', 'sifat_kepimpinan_pegawai_teknikal', 'nama_sukan_sebelum_dicalon', 'memenangi_kategori_dalam_anugerah_sukan', 'nama_kategori', 'tahun', 'kelulusan'], 'required', 'skipOnEmpty' => true],
+            [['nama_atlet', 'tahun_pencalonan', 'nama_sukan', 'nama_acara', 'status_pencalonan', 'kejayaan', 'ulasan_kejayaan', 'sifat_kepimpinan_ketua_pasukan', 'sifat_kepimpinan_jurulatih', 'sifat_kepimpinan_asia_tenggara', 'sifat_kepimpinan_penolong_jurulatih', 'sifat_kepimpinan_pegawai_teknikal', 'nama_sukan_sebelum_dicalon', 'memenangi_kategori_dalam_anugerah_sukan', 'nama_kategori', 'tahun', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tahun_pencalonan', 'tahun'], 'safe'],
-            [['sifat_kepimpinan_ketua_pasukan', 'sifat_kepimpinan_jurulatih', 'sifat_kepimpinan_asia_tenggara', 'sifat_kepimpinan_penolong_jurulatih', 'sifat_kepimpinan_pegawai_teknikal', 'memenangi_kategori_dalam_anugerah_sukan', 'kelulusan'], 'integer'],
-            [['nama_atlet', 'nama_sukan', 'nama_acara', 'susan_ranking_kebangsaan', 'susan_ranking_asia', 'susan_ranking_asia_tenggara', 'susan_ranking_dunia', 'nama_sukan_sebelum_dicalon', 'mewakili', 'pencalonan_olahragawan_tahun', 'pencalonan_olahragawati_tahun', 'pencalonan_pasukan_lelaki_kebangsaan_tahun', 'pencalonan_pasukan_wanita_kebangsaan_tahun', 'pencalonan_olahragawan_harapan_tahun', 'pencalonan_olahragawati_harapan_tahun', 'nama_kategori'], 'string', 'max' => 80],
-            [['status_pencalonan'], 'string', 'max' => 30],
-            [['kejayaan', 'ulasan_kejayaan'], 'string', 'max' => 255]
+            [['sifat_kepimpinan_ketua_pasukan', 'sifat_kepimpinan_jurulatih', 'sifat_kepimpinan_asia_tenggara', 'sifat_kepimpinan_penolong_jurulatih', 'sifat_kepimpinan_pegawai_teknikal', 'memenangi_kategori_dalam_anugerah_sukan', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_atlet', 'nama_sukan', 'nama_acara', 'susan_ranking_kebangsaan', 'susan_ranking_asia', 'susan_ranking_asia_tenggara', 'susan_ranking_dunia', 'nama_sukan_sebelum_dicalon', 'mewakili', 'pencalonan_olahragawan_tahun', 'pencalonan_olahragawati_tahun', 'pencalonan_pasukan_lelaki_kebangsaan_tahun', 'pencalonan_pasukan_wanita_kebangsaan_tahun', 'pencalonan_olahragawan_harapan_tahun', 'pencalonan_olahragawati_harapan_tahun', 'nama_kategori'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['status_pencalonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kejayaan', 'ulasan_kejayaan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

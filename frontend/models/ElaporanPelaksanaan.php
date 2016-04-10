@@ -68,21 +68,21 @@ class ElaporanPelaksanaan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['kelulusan','kategori_elaporan', 'nama_projek_program_aktiviti_kejohanan', 'peringkat', 'nama_penganjur_persatuan_kerjasama', 'jumlah_bantuan_peruntukan', 'tarikh_pelaksanaan_mula', 'tarikh_pelaksanaan_akhir', 'dirasmikan_oleh', 'lelaki', 'perempuan', 'l_melayu', 'l_cina', 'l_india', 'l_lain_lain', 'p_melayu', 'p_cina', 'p_india', 'p_lain_lain', 'jumlah_penyertaan'], 'required', 'skipOnEmpty' => true],
-            [['jumlah_bantuan_peruntukan', 'jumlah_perbelanjaan'], 'number'],
+            [['kelulusan','kategori_elaporan', 'nama_projek_program_aktiviti_kejohanan', 'peringkat', 'nama_penganjur_persatuan_kerjasama', 'jumlah_bantuan_peruntukan', 'tarikh_pelaksanaan_mula', 'tarikh_pelaksanaan_akhir', 'dirasmikan_oleh', 'lelaki', 'perempuan', 'l_melayu', 'l_cina', 'l_india', 'l_lain_lain', 'p_melayu', 'p_cina', 'p_india', 'p_lain_lain', 'jumlah_penyertaan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jumlah_bantuan_peruntukan', 'jumlah_perbelanjaan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tarikh_cek_eft', 'tarikh_pelaksanaan_mula', 'tarikh_pelaksanaan_akhir'], 'safe'],
-            [['lelaki', 'perempuan', 'l_melayu', 'l_cina', 'l_india', 'l_lain_lain', 'p_melayu', 'p_cina', 'p_india', 'p_lain_lain', 'jumlah_penyertaan', 'bahagian', 'cawangan', 'user_public_id', 'kategori_elaporan', 'permohonan_e_bantuan_id', 'kelulusan'], 'integer'],
-            [['peringkat', 'rumusan_program'], 'string', 'max' => 30],
-            [['nama_projek_program_aktiviti_kejohanan', 'nama_penganjur_persatuan_kerjasama', 'dirasmikan_oleh', 'creator_nama'], 'string', 'max' => 80],
-            [['no_cek_eft'], 'string', 'max' => 50],
-            [['objektif_pelaksaan'], 'string', 'max' => 255],
-            [['alamat_tempat_pelaksanaan_1', 'alamat_tempat_pelaksanaan_2', 'alamat_tempat_pelaksanaan_3'], 'string', 'max' => 30],
-            [['alamat_tempat_pelaksanaan_bandar', 'alamat_tempat_pelaksanaan_poskod'], 'string', 'max' => 5],
-            [['alamat_tempat_pelaksanaan_negeri', 'alamat_tempat_pelaksanaan_parlimen'], 'string', 'max' => 3],
-            [['creator_mobile_no'], 'string', 'max' => 14],
-            [['muat_naik', 'creator_emel'], 'string', 'max' => 100],
+            [['lelaki', 'perempuan', 'l_melayu', 'l_cina', 'l_india', 'l_lain_lain', 'p_melayu', 'p_cina', 'p_india', 'p_lain_lain', 'jumlah_penyertaan', 'bahagian', 'cawangan', 'user_public_id', 'kategori_elaporan', 'permohonan_e_bantuan_id', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['peringkat', 'rumusan_program'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_projek_program_aktiviti_kejohanan', 'nama_penganjur_persatuan_kerjasama', 'dirasmikan_oleh', 'creator_nama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_cek_eft'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['objektif_pelaksaan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_tempat_pelaksanaan_1', 'alamat_tempat_pelaksanaan_2', 'alamat_tempat_pelaksanaan_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_tempat_pelaksanaan_bandar', 'alamat_tempat_pelaksanaan_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_tempat_pelaksanaan_negeri', 'alamat_tempat_pelaksanaan_parlimen'], 'string', 'max' => 3, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['creator_mobile_no'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['muat_naik', 'creator_emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             //[['tarikh_pelaksanaan_mula'], 'compare', 'compareAttribute'=>'tarikh_pelaksanaan_akhir', 'operator'=>'<=', 'skipOnEmpty'=>true],
-            [['tarikh_pelaksanaan_akhir'], 'compare', 'compareAttribute'=>'tarikh_pelaksanaan_mula', 'operator'=>'>='],
+            [['tarikh_pelaksanaan_akhir'], 'compare', 'compareAttribute'=>'tarikh_pelaksanaan_mula', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
 

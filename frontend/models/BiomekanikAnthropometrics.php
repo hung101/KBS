@@ -49,11 +49,11 @@ class BiomekanikAnthropometrics extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['anthropometrics', 'cm_kg'], 'required', 'skipOnEmpty' => true],
-            [['perkhidmatan_analisa_perlawanan_biomekanik_id'], 'integer'],
-            [['cm_kg'], 'number'],
-            [['anthropometrics'], 'string', 'max' => 80],
-            [['catatan'], 'string', 'max' => 80]
+            [['anthropometrics', 'cm_kg'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['perkhidmatan_analisa_perlawanan_biomekanik_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['cm_kg'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['anthropometrics'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

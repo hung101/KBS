@@ -53,13 +53,13 @@ class LtbsMinitMesyuaratJawatankuasa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh', 'tempat', 'mengikut_perlembagaan', 'kehadiran_ahli_yang_layak_mengundi', 'status'], 'required', 'skipOnEmpty' => true],
+            [['tarikh', 'tempat', 'mengikut_perlembagaan', 'kehadiran_ahli_yang_layak_mengundi', 'status'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh', 'masa'], 'safe'],
-            [['jumlah_ahli_yang_hadir', 'korum_mesyuarat_jumlah_ahli_yang_hadir', 'profil_badan_sukan_id', 'status'], 'integer'],
-            [['tempat'], 'string', 'max' => 30],
-            [['tempat'], 'string', 'max' => 30],
-            [['mengikut_perlembagaan'], 'string', 'max' => 255],
-            [['agenda_mesyuarat', 'keputusan_mesyuarat'], 'string', 'max' => 255],
+            [['jumlah_ahli_yang_hadir', 'korum_mesyuarat_jumlah_ahli_yang_hadir', 'profil_badan_sukan_id', 'status'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tempat'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['mengikut_perlembagaan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['agenda_mesyuarat', 'keputusan_mesyuarat'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['minit_ajk_muat_naik', 'notis_agm_muat_naik', 'minit_agm_muat_naik', 'laporan_kewangan_muat_naik', 'laporan_aktiviti_muat_naik'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }

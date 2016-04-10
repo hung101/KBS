@@ -15,7 +15,7 @@ class PermohonanEBiasiswaLaporanStatistikPermohonanBiasiswaMengikutPeringkatPeng
     public function rules()
     {
         return [
-            [['format'], 'required'],
+            [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
         ];
     }
 

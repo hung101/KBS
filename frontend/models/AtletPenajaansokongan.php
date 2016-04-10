@@ -58,17 +58,17 @@ class AtletPenajaansokongan extends \yii\db\ActiveRecord
     {
         return [
             //[['atlet_id', 'nama_syarikat', 'no_telefon', 'peribadi_yang_bertanggungjawab', 'jenis_kontrak', 'nilai_kontrak', 'tahun_permulaan'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
-            [['nilai_kontrak'], 'number'],
-            [['tahun_permulaan', 'tahun_akhir'], 'integer'],
-            [['tahun_permulaan', 'tahun_akhir'], 'string', 'max' => 4],
-            [['nama_syarikat', 'emel', 'barang_yang_penyokong'], 'string', 'max' => 100],
-            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90],
-            [['no_telefon'], 'string', 'max' => 14],
-            [['peribadi_yang_bertanggungjawab'], 'string', 'max' => 80],
-            [['jenis_kontrak', 'alamat_negeri'], 'string', 'max' => 30],
-            [['alamat_bandar'], 'string', 'max' => 40],
-            [['alamat_poskod'], 'string', 'max' => 5],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nilai_kontrak'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['tahun_permulaan', 'tahun_akhir'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tahun_permulaan', 'tahun_akhir'], 'string', 'max' => 4, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_syarikat', 'emel', 'barang_yang_penyokong'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['peribadi_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jenis_kontrak', 'alamat_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
 

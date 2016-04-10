@@ -49,8 +49,8 @@ class BspElaunLatihanPraktikalMonth extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['bulan', 'jumlah_hari'], 'required', 'skipOnEmpty' => true],
-            [['bsp_elaun_latihan_praktikal_id', 'jumlah_hari'], 'integer'],
+            [['bulan', 'jumlah_hari'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['bsp_elaun_latihan_praktikal_id', 'jumlah_hari'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['bulan'], 'safe']
         ];
     }

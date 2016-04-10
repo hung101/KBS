@@ -65,12 +65,12 @@ class PlDataKlinikal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id', 'usia_kali_pertama_haid', 'bilangan_kanak_kanak', 'perokok_tempoh', 'alkohol', 'berat_badan_turun', 'berat_badan_naik'], 'integer'],
+            [['atlet_id'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'usia_kali_pertama_haid', 'bilangan_kanak_kanak', 'perokok_tempoh', 'alkohol', 'berat_badan_turun', 'berat_badan_naik'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['haid_kali_terakhir_hari_pertama', 'kali_terakhir_bersalin'], 'safe'],
-            [['penglihatan_tanpa_cermin_mata_kiri', 'penglihatan_tanpa_cermin_mata_kanan', 'penglihatan_cermin_mata_kiri', 'penglihatan_cermin_mata_kanan', 'status_haid', 'status_perokok', 'jenis_alkohol', 'diet_harian'], 'string', 'max' => 30],
-            [['haid_kitaran'], 'string', 'max' => 20],
-            [['masalah_haid','supplements'], 'string', 'max' => 255]
+            [['penglihatan_tanpa_cermin_mata_kiri', 'penglihatan_tanpa_cermin_mata_kanan', 'penglihatan_cermin_mata_kiri', 'penglihatan_cermin_mata_kanan', 'status_haid', 'status_perokok', 'jenis_alkohol', 'diet_harian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['haid_kitaran'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['masalah_haid','supplements'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

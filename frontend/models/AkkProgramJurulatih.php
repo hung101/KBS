@@ -52,12 +52,12 @@ class AkkProgramJurulatih extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jurulatih','penganjur', 'nama_program', 'tarikh_program', 'tempat_program', 'kod_kursus', 'tahap'], 'required', 'skipOnEmpty' => true],
-            [['peningkatan_kerjaya_jurulatih_id'], 'integer'],
+            [['jurulatih','penganjur', 'nama_program', 'tarikh_program', 'tempat_program', 'kod_kursus', 'tahap'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['peningkatan_kerjaya_jurulatih_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_program'], 'safe'],
-            [['nama_program'], 'string', 'max' => 80],
-            [['tempat_program'], 'string', 'max' => 90],
-            [['kod_kursus', 'tahap'], 'string', 'max' => 30]
+            [['nama_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat_program'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kod_kursus', 'tahap'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

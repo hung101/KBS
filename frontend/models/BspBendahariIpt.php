@@ -54,16 +54,16 @@ class BspBendahariIpt extends \yii\db\ActiveRecord
     {
         return [
             [['username', 'peranan', 'full_name', 'status', 'ipt_bendahari_e_biasiswa'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required ],
-            [['jabatan_id', 'peranan', 'status', 'profil_badan_sukan', 'ipt_bendahari_e_biasiswa', 'no_kad_pengenalan', 'tel_mobile_no', 'tel_no'], 'integer'],
-            [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
-            [['email'], 'email'],
-            [['auth_key'], 'string', 'max' => 32],
-            [['full_name', 'new_password', 'password_confirm'], 'string', 'max' => 50],
-            [['tel_mobile_no', 'tel_no'], 'string', 'max' => 14],
-            [['no_kad_pengenalan'], 'string', 'max' => 12],
+            [['jabatan_id', 'peranan', 'status', 'profil_badan_sukan', 'ipt_bendahari_e_biasiswa', 'no_kad_pengenalan', 'tel_mobile_no', 'tel_no'], 'integer', 'message' => GeneralMessage::yii_validation_integer ],
+            [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['email'], 'email', 'message' => GeneralMessage::yii_validation_email],
+            [['auth_key'], 'string', 'max' => 32, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['full_name', 'new_password', 'password_confirm'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tel_mobile_no', 'tel_no'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'string', 'min' => 12, 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min],
             ['new_password', 'validatePassword'],
-            ['new_password', 'string', 'min' => 6],
-            [['username'], 'unique']
+            ['new_password', 'string', 'min' => 6, 'tooShort' => GeneralMessage::yii_validation_string_min],
+            [['username'], 'unique', 'message' => GeneralMessage::yii_validation_unique]
         ];
     }
 
@@ -101,7 +101,7 @@ class BspBendahariIpt extends \yii\db\ActiveRecord
         if(isset($this->new_password)){
             if(trim($this->new_password) != trim($this->password_confirm)){
                 //$this->addError('new_password', 'Sila semak Taip Semula Kata Laluan yang berbeza daripada Kata Laluan');
-                $this->addError('password_confirm', 'Kata laluan tidak sepadan');
+                $this->addError('password_confirm', GeneralMessage::custom_validation_password_equal);
             }
         }
     }

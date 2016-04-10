@@ -53,11 +53,11 @@ class LtbsMinitMesyuaratAgm extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh', 'tempat', 'jumlah_ahli_yang_hadir', 'jumlah_ahli_yang_layak_mengundi', 'agenda_mesyuarat', 'keputusan_mesyuarat'], 'required', 'skipOnEmpty' => true],
+            [['tarikh', 'tempat', 'jumlah_ahli_yang_hadir', 'jumlah_ahli_yang_layak_mengundi', 'agenda_mesyuarat', 'keputusan_mesyuarat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh', 'masa'], 'safe'],
-            [['jumlah_ahli_yang_hadir', 'jumlah_ahli_yang_layak_mengundi'], 'integer'],
-            [['tempat'], 'string', 'max' => 30],
-            [['agenda_mesyuarat', 'keputusan_mesyuarat'], 'string', 'max' => 255]
+            [['jumlah_ahli_yang_hadir', 'jumlah_ahli_yang_layak_mengundi'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tempat'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['agenda_mesyuarat', 'keputusan_mesyuarat'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

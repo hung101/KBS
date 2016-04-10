@@ -58,14 +58,14 @@ class AtletAset extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'jenis_aset', 'jenis_harta_pengangkutan_perniagaan', 'nilai_harta_pengangkutan'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id', 'created_by', 'updated_by'], 'integer'],
-            [['nilai_harta_pengangkutan'], 'number'],
+            [['atlet_id', 'jenis_aset', 'jenis_harta_pengangkutan_perniagaan', 'nilai_harta_pengangkutan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nilai_harta_pengangkutan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['nama_bank','jenis_pinjaman','tarikh_mula','tarikh_tamat','no_akaun', 'nilai_pinjaman', 'daftar_alamat_negeri', 'daftar_alamat_bandar', 'daftar_alamat_poskod', 'created', 'updated'], 'safe'],
-            [['jenis_aset', 'jenis_harta_pengangkutan_perniagaan'], 'string', 'max' => 30],
-            [['daftar_no_pengangkutan'], 'string', 'max' => 10],
-            [['daftar_alamat_1', 'daftar_alamat_2', 'daftar_alamat_3'], 'string', 'max' => 30],
-            [['nama_syarikat_perniagaan', 'produk_perkhidmatan_perniagaan'], 'string', 'max' => 100]
+            [['jenis_aset', 'jenis_harta_pengangkutan_perniagaan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['daftar_no_pengangkutan'], 'string', 'max' => 10, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['daftar_alamat_1', 'daftar_alamat_2', 'daftar_alamat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_syarikat_perniagaan', 'produk_perkhidmatan_perniagaan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

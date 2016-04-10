@@ -50,10 +50,10 @@ class AtletPerubatanDoktor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'nama_doktor', 'no_telefon', 'hospital_klinik'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id', 'no_telefon'], 'integer'],
-            [['nama_doktor'], 'string', 'max' => 80],
-            [['hospital_klinik'], 'string', 'max' => 100]
+            [['atlet_id', 'nama_doktor', 'no_telefon', 'hospital_klinik'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'no_telefon'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_doktor'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['hospital_klinik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

@@ -49,9 +49,9 @@ class BspPrestasi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['bsp_pemohon_id'], 'required', 'skipOnEmpty' => true],
-            [['bsp_pemohon_id'], 'integer'],
-            [['laporan_ulasan', 'nyatakan_sebab_sebab_tidak_menyertai_kejohanan'], 'string', 'max' => 255]
+            [['bsp_pemohon_id'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['bsp_pemohon_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['laporan_ulasan', 'nyatakan_sebab_sebab_tidak_menyertai_kejohanan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

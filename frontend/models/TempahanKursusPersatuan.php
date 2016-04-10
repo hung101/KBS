@@ -51,11 +51,11 @@ class TempahanKursusPersatuan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh', 'jenis_tempahan', 'unit_tempahan', 'kos_tempahan'], 'required', 'skipOnEmpty' => true],
-            [['kursus_persatuan_id', 'unit_tempahan'], 'integer'],
+            [['tarikh', 'jenis_tempahan', 'unit_tempahan', 'kos_tempahan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['kursus_persatuan_id', 'unit_tempahan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
-            [['kos_tempahan'], 'number'],
-            [['jenis_tempahan'], 'string', 'max' => 30]
+            [['kos_tempahan'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['jenis_tempahan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

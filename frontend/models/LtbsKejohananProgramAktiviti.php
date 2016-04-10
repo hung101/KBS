@@ -50,12 +50,12 @@ class LtbsKejohananProgramAktiviti extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_kejohanana_program_aktiviti_yang_disertai', 'tarikh_kejohanan_program_aktiviti_yang_disertai', 'lokasi_tempat_kejohanan_program_aktiviti_yang_disertai', 'bilangan_peserta_yang_menyertai', 'kos_kejohanan_program_aktiviti_yang_disertai'], 'required', 'skipOnEmpty' => true],
+            [['nama_kejohanana_program_aktiviti_yang_disertai', 'tarikh_kejohanan_program_aktiviti_yang_disertai', 'lokasi_tempat_kejohanan_program_aktiviti_yang_disertai', 'bilangan_peserta_yang_menyertai', 'kos_kejohanan_program_aktiviti_yang_disertai'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_kejohanan_program_aktiviti_yang_disertai'], 'safe'],
-            [['lokasi_tempat_kejohanan_program_aktiviti_yang_disertai'], 'string', 'max' => 90],
-            [['bilangan_peserta_yang_menyertai', 'profil_badan_sukan_id'], 'integer'],
-            [['kos_kejohanan_program_aktiviti_yang_disertai'], 'number'],
-            [['nama_kejohanana_program_aktiviti_yang_disertai'], 'string', 'max' => 80]
+            [['lokasi_tempat_kejohanan_program_aktiviti_yang_disertai'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['bilangan_peserta_yang_menyertai', 'profil_badan_sukan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['kos_kejohanan_program_aktiviti_yang_disertai'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['nama_kejohanana_program_aktiviti_yang_disertai'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

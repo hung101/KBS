@@ -54,16 +54,16 @@ class PengurusanKemudahanAduan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pengurusan_kemudahan_venue_id', 'kategori_aduan', 'tarikh_aduan', 'nama_pengadu'], 'required', 'skipOnEmpty' => true],
-            [['pengurusan_kemudahan_venue_id'], 'integer'],
+            [['pengurusan_kemudahan_venue_id', 'kategori_aduan', 'tarikh_aduan', 'nama_pengadu'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pengurusan_kemudahan_venue_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_aduan'], 'safe'],
-            [['kategori_aduan'], 'string', 'max' => 30],
-            [['emel_pengadu'], 'string', 'max' => 100],
-            [['emel_pengadu'], 'email'],
-            [['tel_bimbit_pengadu'], 'string', 'max' => 14],
-            [['tel_bimbit_pengadu'], 'integer'],
-            [['venue', 'peralatan', 'nama_pengadu'], 'string', 'max' => 80],
-            [['kenyataan_aduan', 'tindakan_ulasan'], 'string', 'max' => 255]
+            [['kategori_aduan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel_pengadu'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel_pengadu'], 'email', 'message' => GeneralMessage::yii_validation_email],
+            [['tel_bimbit_pengadu'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tel_bimbit_pengadu'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['venue', 'peralatan', 'nama_pengadu'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kenyataan_aduan', 'tindakan_ulasan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

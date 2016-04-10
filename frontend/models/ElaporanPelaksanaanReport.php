@@ -22,9 +22,9 @@ class ElaporanPelaksanaanReport extends Model
     public function rules()
     {
         return [
-            [['format'], 'required'],
+            [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['nama_penganjur', 'nama_program', 'negeri', 'tarikh_dari', 'tarikh_pada'], 'safe'],
-            [['tarikh_pada'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true],
+            [['tarikh_pada'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
 

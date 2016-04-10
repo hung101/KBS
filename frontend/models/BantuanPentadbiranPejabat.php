@@ -58,16 +58,16 @@ class BantuanPentadbiranPejabat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'status_permohonan'], 'required', 'skipOnEmpty' => true],
+            [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'status_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir', 'tarikh'], 'safe'],
-            [['nama', 'nama_sue', 'jawatan', 'persatuan'], 'string', 'max' => 80],
-            [['no_kad_pengenalan'], 'string', 'max' => 12],
-            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90],
-            [['alamat_negeri', 'status_permohonan'], 'string', 'max' => 30],
-            [['alamat_bandar'], 'string', 'max' => 40],
-            [['alamat_poskod'], 'string', 'max' => 5],
-            [['no_tel_bimbit'], 'string', 'max' => 14],
-            [['catatan'], 'string', 'max' => 255]
+            [['nama', 'nama_sue', 'jawatan', 'persatuan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_negeri', 'status_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_tel_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

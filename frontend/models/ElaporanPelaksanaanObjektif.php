@@ -48,9 +48,9 @@ class ElaporanPelaksanaanObjektif extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['objektif_pelaksanaan'], 'required', 'skipOnEmpty' => true],
-            [['elaporan_pelaksaan_id'], 'integer'],
-            [['objektif_pelaksanaan'], 'string', 'max' => 255]
+            [['objektif_pelaksanaan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['elaporan_pelaksaan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['objektif_pelaksanaan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

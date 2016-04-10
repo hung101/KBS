@@ -32,10 +32,10 @@ class BspKedudukanKewanganPenjaminJenisHarta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis_harta', 'jumlah_ekar_kaki_persegi', 'nilai'], 'required', 'skipOnEmpty' => true],
-            [['bsp_kedudukan_kewangan_penjamin_id', 'jumlah_ekar_kaki_persegi'], 'integer'],
-            [['nilai'], 'number'],
-            [['jenis_harta'], 'string', 'max' => 30]
+            [['jenis_harta', 'jumlah_ekar_kaki_persegi', 'nilai'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['bsp_kedudukan_kewangan_penjamin_id', 'jumlah_ekar_kaki_persegi'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nilai'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['jenis_harta'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
     

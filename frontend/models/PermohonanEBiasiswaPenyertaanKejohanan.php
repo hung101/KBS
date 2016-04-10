@@ -55,12 +55,12 @@ class PermohonanEBiasiswaPenyertaanKejohanan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['sukan', 'tarikh_mula', 'tarikh_akhir', 'kejohanan_mewakili', 'acara', 'nama_kejohanan', 'tempat', 'pencapaian'], 'required', 'skipOnEmpty' => true],
-            [['permohonan_e_biasiswa_id'], 'integer'],
+            [['sukan', 'tarikh_mula', 'tarikh_akhir', 'kejohanan_mewakili', 'acara', 'nama_kejohanan', 'tempat', 'pencapaian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['permohonan_e_biasiswa_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_mula', 'tarikh_akhir'], 'safe'],
-            [['sukan', 'anjuran', 'acara', 'nama_kejohanan'], 'string', 'max' => 80],
-            [['kejohanan_mewakili', 'pencapaian'], 'string', 'max' => 30],
-            [['tempat'], 'string', 'max' => 90]
+            [['sukan', 'anjuran', 'acara', 'nama_kejohanan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kejohanan_mewakili', 'pencapaian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

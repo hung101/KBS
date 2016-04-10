@@ -51,7 +51,7 @@ class LtbsNotisAgm extends \yii\db\ActiveRecord
         return [
             [['nama_mesyuarat_agong', 'tahun'], 'required', 'skipOnEmpty' => true],
             ['notis_agm','validateFileUpload', 'skipOnEmpty' => false],
-            [['tahun'], 'string', 'max' => 4],
+            [['tahun'], 'string', 'max' => 4, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
 

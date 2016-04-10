@@ -51,12 +51,12 @@ class BspPrestasiSukan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['bsp_pemohon_id', 'tarikh', 'kejohanan_yang_disertai', 'lokasi_kejohanan', 'pencapaian'], 'required', 'skipOnEmpty' => true],
-            [['bsp_pemohon_id'], 'integer'],
+            [['bsp_pemohon_id', 'tarikh', 'kejohanan_yang_disertai', 'lokasi_kejohanan', 'pencapaian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['bsp_pemohon_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
-            [['kejohanan_yang_disertai'], 'string', 'max' => 80],
-            [['lokasi_kejohanan'], 'string', 'max' => 90],
-            [['pencapaian'], 'string', 'max' => 30]
+            [['kejohanan_yang_disertai'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['lokasi_kejohanan'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['pencapaian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

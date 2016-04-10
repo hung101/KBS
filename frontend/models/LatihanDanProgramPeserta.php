@@ -55,15 +55,15 @@ class LatihanDanProgramPeserta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'no_kad_pengenalan', 'nama_badan_sukan', 'no_pendaftaran_sukan', 'jawatan', 'tempoh_memegang_jawatan', 'no_tel_bimbit'], 'required', 'skipOnEmpty' => true],
-            [['latihan_dan_program_id', 'ahli_jawatan_induk_id', 'ahli_jawatan_kecil_id'], 'integer'],
-            [['nama', 'nama_badan_sukan', 'jawatan', 'tempoh_memegang_jawatan'], 'string', 'max' => 80],
-            [['no_kad_pengenalan'], 'string', 'max' => 12],
-            [['no_pendaftaran_sukan'], 'string', 'max' => 30],
-            [['no_tel_bimbit'], 'string', 'max' => 14],
-            [['no_tel_bimbit', 'no_kad_pengenalan', 'tempoh_memegang_jawatan'], 'integer'],
-            [['emel'], 'string', 'max' => 100],
-            [['emel'], 'email']
+            [['nama', 'no_kad_pengenalan', 'nama_badan_sukan', 'no_pendaftaran_sukan', 'jawatan', 'tempoh_memegang_jawatan', 'no_tel_bimbit'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['latihan_dan_program_id', 'ahli_jawatan_induk_id', 'ahli_jawatan_kecil_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama', 'nama_badan_sukan', 'jawatan', 'tempoh_memegang_jawatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_pendaftaran_sukan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_tel_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_tel_bimbit', 'no_kad_pengenalan', 'tempoh_memegang_jawatan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email]
         ];
     }
 

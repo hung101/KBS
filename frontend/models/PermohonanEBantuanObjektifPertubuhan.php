@@ -48,9 +48,9 @@ class PermohonanEBantuanObjektifPertubuhan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['objektif'], 'required', 'skipOnEmpty' => true],
-            [['permohonan_e_bantuan_id'], 'integer'],
-            [['objektif'], 'string', 'max' => 80]
+            [['objektif'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['permohonan_e_bantuan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['objektif'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

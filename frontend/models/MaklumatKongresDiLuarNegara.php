@@ -56,13 +56,13 @@ class MaklumatKongresDiLuarNegara extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat_id', 'tajuk', 'tempat', 'masa', 'tarikh_penerbangan', 'tiket_penerbangan', 'jumlah_penerbangan', 'nama_pegawai_terlibat'], 'required', 'skipOnEmpty' => true],
-            [['pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat_id'], 'integer'],
+            [['pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat_id', 'tajuk', 'tempat', 'masa', 'tarikh_penerbangan', 'tiket_penerbangan', 'jumlah_penerbangan', 'nama_pegawai_terlibat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pengurusan_perhubungan_dalam_dan_luar_negara_mesyuarat_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['masa', 'tarikh_penerbangan'], 'safe'],
-            [['jumlah_penerbangan', 'lain_lain', 'jumlah_kos_lain_lain'], 'number'],
-            [['tajuk', 'nama_pegawai_terlibat'], 'string', 'max' => 80],
-            [['tempat'], 'string', 'max' => 90],
-            [['tiket_penerbangan'], 'string', 'max' => 50]
+            [['jumlah_penerbangan', 'lain_lain', 'jumlah_kos_lain_lain'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['tajuk', 'nama_pegawai_terlibat'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tiket_penerbangan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

@@ -49,11 +49,11 @@ class LtbsSumberKewangan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis', 'sumber', 'jumlah'], 'required', 'skipOnEmpty' => true],
-            [['profil_badan_sukan_id'], 'integer'],
-            [['jumlah'], 'number'],
-            [['jenis'], 'string', 'max' => 30],
-            [['sumber'], 'string', 'max' => 100]
+            [['jenis', 'sumber', 'jumlah'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['profil_badan_sukan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jumlah'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['jenis'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['sumber'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

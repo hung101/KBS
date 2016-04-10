@@ -58,19 +58,19 @@ class PengurusanKemudahanVenue extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_venue',  'pemilik', 'kategori_hakmilik', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_telefon', 'emel', 'status'], 'required', 'skipOnEmpty' => true],
-            [['nama_venue', 'pemilik', 'sewaan'], 'string', 'max' => 80],
-            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90],
-            [['alamat_negeri', 'status'], 'string', 'max' => 30],
-            [['alamat_bandar'], 'string', 'max' => 40],
-            [['tahun_pembinaan', 'tahun_siap_pembinaan', 'kategori_hakmilik', 'public_user_id'], 'integer'],
-            [['kos_project'], 'number'],
-            [['alamat_poskod'], 'string', 'max' => 5],
-            [['keluasan_venue'], 'string', 'max' => 50],
-            [['emel'], 'string', 'max' => 100],
-            [['emel'], 'email'],
-            [['no_telefon', 'no_faks'], 'string', 'max' => 14],
-            [['no_telefon', 'no_faks'], 'integer']
+            [['nama_venue',  'pemilik', 'kategori_hakmilik', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_telefon', 'emel', 'status'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama_venue', 'pemilik', 'sewaan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_negeri', 'status'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tahun_pembinaan', 'tahun_siap_pembinaan', 'kategori_hakmilik', 'public_user_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['kos_project'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['keluasan_venue'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
+            [['no_telefon', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon', 'no_faks'], 'integer', 'message' => GeneralMessage::yii_validation_integer]
         ];
     }
 

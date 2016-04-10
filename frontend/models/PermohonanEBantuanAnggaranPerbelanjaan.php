@@ -49,10 +49,10 @@ class PermohonanEBantuanAnggaranPerbelanjaan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['butir_butir_perbelanjaan', 'jumlah_perbelanjaan'], 'required', 'skipOnEmpty' => true],
-            [['permohonan_e_bantuan_id'], 'integer'],
-            [['jumlah_perbelanjaan', 'jumlah_disokong', 'jumlah_diperakuankan'], 'number'],
-            [['butir_butir_perbelanjaan'], 'string', 'max' => 255]
+            [['butir_butir_perbelanjaan', 'jumlah_perbelanjaan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['permohonan_e_bantuan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jumlah_perbelanjaan', 'jumlah_disokong', 'jumlah_diperakuankan'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['butir_butir_perbelanjaan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

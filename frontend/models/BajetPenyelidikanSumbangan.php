@@ -52,10 +52,10 @@ class BajetPenyelidikanSumbangan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis_bajet', 'tahun_1','tahun_2','tahun_3'], 'required', 'skipOnEmpty' => true],
-            [['permohonana_penyelidikan_id', 'jenis_bajet'], 'integer'],
-            [['jumlah','tahun_1','tahun_2','tahun_3'], 'number'],
-            [['catatan'], 'string', 'max' => 255]
+            [['jenis_bajet', 'tahun_1','tahun_2','tahun_3'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['permohonana_penyelidikan_id', 'jenis_bajet'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jumlah','tahun_1','tahun_2','tahun_3'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

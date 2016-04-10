@@ -49,9 +49,9 @@ class PengurusanKemudahanPeralatanSediaAda extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pengurusan_kemudahan_venue_id', 'nama_peralatan', 'kuantiti'], 'required', 'skipOnEmpty' => true],
-            [['pengurusan_kemudahan_venue_id', 'kuantiti', 'jenama'], 'integer'],
-            [['nama_peralatan'], 'string', 'max' => 80]
+            [['pengurusan_kemudahan_venue_id', 'nama_peralatan', 'kuantiti'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pengurusan_kemudahan_venue_id', 'kuantiti', 'jenama'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_peralatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

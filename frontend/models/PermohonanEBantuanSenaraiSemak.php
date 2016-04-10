@@ -54,8 +54,8 @@ class PermohonanEBantuanSenaraiSemak extends \yii\db\ActiveRecord
     {
         return [
             [['kertas_kerja_projek_program','salinan_sijil_pendaftaran_persatuan_pertubuhan','salinan_perlembagaan_persatuan_pertubuhan','salinan_buku_bank'], 'validateFileUpload', 'skipOnEmpty' => false],
-            [['permohonan_e_bantuan_id'], 'integer'],
-            [['kertas_kerja_projek_program', 'salinan_sijil_pendaftaran_persatuan_pertubuhan', 'salinan_perlembagaan_persatuan_pertubuhan', 'salinan_buku_bank'], 'string', 'max' => 100]
+            [['permohonan_e_bantuan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['kertas_kerja_projek_program', 'salinan_sijil_pendaftaran_persatuan_pertubuhan', 'salinan_perlembagaan_persatuan_pertubuhan', 'salinan_buku_bank'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

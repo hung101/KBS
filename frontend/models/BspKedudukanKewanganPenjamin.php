@@ -58,13 +58,13 @@ class BspKedudukanKewanganPenjamin extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pendapatan_bulanan', 'perkerjaan'], 'required', 'skipOnEmpty' => true],
-            [['bsp_penjamin_id', 'jumlah_anak'], 'integer'],
-            [['pendapatan_bulanan', 'pinjaman_perumahan_baki_terkini', 'sebagai_penjamin_siberhutang', 'lain_lain_pinjaman_tanggungan'], 'number'],
-            [['perkerjaan', 'pertalian_keluarga_dengan_pelajar'], 'string', 'max' => 90],
-            [['nama_alamat_majikan', 'pelajar_lain_selain_daripada_penerima_di_atas'], 'string', 'max' => 255],
-            [['nama_isteri_suami'], 'string', 'max' => 80],
-            [['no_kp_isteri_suami'], 'string', 'max' => 12]
+            [['pendapatan_bulanan', 'perkerjaan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['bsp_penjamin_id', 'jumlah_anak'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['pendapatan_bulanan', 'pinjaman_perumahan_baki_terkini', 'sebagai_penjamin_siberhutang', 'lain_lain_pinjaman_tanggungan'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['perkerjaan', 'pertalian_keluarga_dengan_pelajar'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_alamat_majikan', 'pelajar_lain_selain_daripada_penerima_di_atas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_isteri_suami'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kp_isteri_suami'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

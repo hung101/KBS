@@ -51,11 +51,11 @@ class PermohonanEBantuanSenaraiPermohonan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_program', 'tahun', 'jumlah_kelulusan'], 'required', 'skipOnEmpty' => true],
-            [['permohonan_e_bantuan_id', 'tahun'], 'integer'],
-            [['jumlah_kelulusan'], 'number'],
-            [['nama_program'], 'string', 'max' => 80],
-            [['penghantaran_laporan'], 'string', 'max' => 100]
+            [['nama_program', 'tahun', 'jumlah_kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['permohonan_e_bantuan_id', 'tahun'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jumlah_kelulusan'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['nama_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['penghantaran_laporan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

@@ -49,10 +49,10 @@ class ElaporanDokumenSokongan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['elaporan_pelaksaan_id', 'nama', 'muat_nail'], 'required', 'skipOnEmpty' => true],
-            [['elaporan_pelaksaan_id'], 'integer'],
-            [['nama'], 'string', 'max' => 80],
-            [['muat_nail'], 'string', 'max' => 100]
+            [['elaporan_pelaksaan_id', 'nama', 'muat_nail'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['elaporan_pelaksaan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['muat_nail'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

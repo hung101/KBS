@@ -54,10 +54,10 @@ class BorangPenilaianKaunseling extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['profil_konsultan_id', 'atlet', 'diagnosis', 'kategori_permasalahan'], 'required', 'skipOnEmpty' => true],
-            [['profil_konsultan_id', 'atlet'], 'integer'],
+            [['profil_konsultan_id', 'atlet', 'diagnosis', 'kategori_permasalahan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['profil_konsultan_id', 'atlet'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_temujanji'], 'safe'],
-            [['diagnosis', 'preskripsi', 'cadangan', 'rujukan', 'tindakan_selanjutnya', 'kategori_permasalahan'], 'string', 'max' => 80]
+            [['diagnosis', 'preskripsi', 'cadangan', 'rujukan', 'tindakan_selanjutnya', 'kategori_permasalahan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

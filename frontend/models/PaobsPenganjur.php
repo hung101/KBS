@@ -59,15 +59,15 @@ class PaobsPenganjur extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_penganjur', 'no_pendaftaran_syarikat', 'tarikh_penubuhan_syarikat', 'alamat_penganjur_1', 'alamat_penganjur_negeri', 'alamat_penganjur_bandar', 'alamat_penganjur_poskod', 'no_telefon_penganjur', 'nama_aktiviti', 'jenis_sukan', 'tarikh_aktiviti', 'alamat_lokasi', 'bilangan_peserta', 'kos_aktiviti'], 'required', 'skipOnEmpty' => true],
-            [['penganjuran_id', 'no_telefon_penganjur', 'no_faks_penganjur', 'bilangan_peserta', 'negara_peserta'], 'integer'],
+            [['nama_penganjur', 'no_pendaftaran_syarikat', 'tarikh_penubuhan_syarikat', 'alamat_penganjur_1', 'alamat_penganjur_negeri', 'alamat_penganjur_bandar', 'alamat_penganjur_poskod', 'no_telefon_penganjur', 'nama_aktiviti', 'jenis_sukan', 'tarikh_aktiviti', 'alamat_lokasi', 'bilangan_peserta', 'kos_aktiviti'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['penganjuran_id', 'no_telefon_penganjur', 'no_faks_penganjur', 'bilangan_peserta', 'negara_peserta'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_penubuhan_syarikat', 'tarikh_aktiviti'], 'safe'],
-            [['kos_aktiviti', 'sumber_kewangan'], 'number'],
-            [['profil_syarikat', 'surat_sokongan'], 'string', 'max' => 255],
-            [['nama_penganjur', 'nama_aktiviti'], 'string', 'max' => 80],
-            [['no_pendaftaran_syarikat', 'jenis_sukan', 'alamat_penganjur_1', 'alamat_penganjur_2', 'alamat_penganjur_3'], 'string', 'max' => 30],
-            [['sijil_pendaftaran', 'emel_penganjur', 'kertas_cadangan_pelaksanaan', 'laporan_penganjuran'], 'string', 'max' => 100],
-            [['alamat_lokasi', 'pemilik_lokasi'], 'string', 'max' => 90],
+            [['kos_aktiviti', 'sumber_kewangan'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['profil_syarikat', 'surat_sokongan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_penganjur', 'nama_aktiviti'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_pendaftaran_syarikat', 'jenis_sukan', 'alamat_penganjur_1', 'alamat_penganjur_2', 'alamat_penganjur_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['sijil_pendaftaran', 'emel_penganjur', 'kertas_cadangan_pelaksanaan', 'laporan_penganjuran'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_lokasi', 'pemilik_lokasi'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['surat_sokongan', 'laporan_penganjuran', 'kertas_cadangan_pelaksanaan'],'validateFileUpload', 'skipOnEmpty' => false],
             [['sijil_pendaftaran'],'validateFileUploadWithRequired', 'skipOnEmpty' => false],
         ];

@@ -52,10 +52,10 @@ class AtletPerubatan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'kumpulan_darah'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
-            [['kumpulan_darah'], 'string', 'max' => 60],
-            [['alergi_makanan', 'alergi_perubatan', 'alergi_jenis_lain', 'penyakit_semula_jadi'], 'string', 'max' => 255],
+            [['atlet_id', 'kumpulan_darah'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['kumpulan_darah'], 'string', 'max' => 60, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alergi_makanan', 'alergi_perubatan', 'alergi_jenis_lain', 'penyakit_semula_jadi'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['penyakit_lain_lain'], 'safe'],
         ];
     }

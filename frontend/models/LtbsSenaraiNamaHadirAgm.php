@@ -53,13 +53,13 @@ class LtbsSenaraiNamaHadirAgm extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_penuh', 'no_kad_pengenalan', 'jantina', 'kategori_keahlian'], 'required', 'skipOnEmpty' => true],
-            [['mesyuarat_agm_id', 'kehadiran'], 'integer'],
-            [['nama_penuh'], 'string', 'max' => 100],
-            [['no_kad_pengenalan'], 'string', 'max' => 12],
-            [['jantina'], 'string', 'max' => 1],
-            [['jawatan'], 'string', 'max' => 50],
-            [['kategori_keahlian'], 'string', 'max' => 30]
+            [['nama_penuh', 'no_kad_pengenalan', 'jantina', 'kategori_keahlian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['mesyuarat_agm_id', 'kehadiran'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_penuh'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jawatan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kategori_keahlian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

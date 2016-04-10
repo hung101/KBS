@@ -51,11 +51,11 @@ class AtletPembangunanKursuskem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'tarikh_mula', 'tarikh_tamat', 'nama_kursus_kem', 'penganjur'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
+            [['atlet_id', 'tarikh_mula', 'tarikh_tamat', 'nama_kursus_kem', 'penganjur'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_mula', 'jenis'], 'safe'],
-            [['lokasi'], 'string', 'max' => 90],
-            [['nama_kursus_kem'], 'string', 'max' => 40]
+            [['lokasi'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_kursus_kem'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

@@ -48,9 +48,9 @@ class ElaporanPelaksanaanKerjasama extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_kerjasama'], 'required', 'skipOnEmpty' => true],
-            [['elaporan_pelaksaan_id'], 'integer'],
-            [['nama_kerjasama'], 'string', 'max' => 80]
+            [['nama_kerjasama'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['elaporan_pelaksaan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_kerjasama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

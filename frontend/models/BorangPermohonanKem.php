@@ -51,11 +51,11 @@ class BorangPermohonanKem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_program', 'tarikh_program', 'tempat', 'objektif', 'cadangan'], 'required', 'skipOnEmpty' => true],
+            [['nama_program', 'tarikh_program', 'tempat', 'objektif', 'cadangan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_program'], 'safe'],
-            [['nama_program'], 'string', 'max' => 80],
-            [['tempat'], 'string', 'max' => 90],
-            [['objektif', 'cadangan'], 'string', 'max' => 255]
+            [['nama_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['objektif', 'cadangan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 
