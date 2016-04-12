@@ -49,9 +49,9 @@ class ElaporanPelaksanaanGambar extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tajuk'], 'required', 'skipOnEmpty' => true],
-            [['elaporan_pelaksaan_id'], 'integer'],
-            [['tajuk'], 'string', 'max' => 100],
+            [['tajuk'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['elaporan_pelaksaan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tajuk'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik_gambar'], 'validateFileUpload', 'skipOnEmpty' => false],
             [['muat_naik_gambar'], 'file', 'extensions'=>'jpg, png', 'maxSize' => 1024 * 1024 * 3],
         ];

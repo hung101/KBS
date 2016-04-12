@@ -34,25 +34,25 @@ class SignupEBantuanForm extends Model
     {
         return [
             ['username', 'filter', 'filter' => 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\PublicUser', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'max' => 30],
+            ['username', 'required', 'message' => GeneralMessage::yii_validation_required],
+            ['username', 'unique', 'targetClass' => '\common\models\PublicUser', 'message' => GeneralMessage::yii_validation_unique],
+            ['username', 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
 
             ['email', 'filter', 'filter' => 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
-            ['email', 'unique', 'targetClass' => '\common\models\PublicUser', 'message' => 'This email address has already been taken.'],
+            ['email', 'required', 'message' => GeneralMessage::yii_validation_required],
+            ['email', 'email', 'message' => GeneralMessage::yii_validation_email],
+            ['email', 'unique', 'targetClass' => '\common\models\PublicUser', 'message' => GeneralMessage::yii_validation_unique],
             
-            [['tel_bimbit_no', 'tel_no'], 'required', 'skipOnEmpty' => true],
-            [['tel_bimbit_no', 'tel_no'], 'number'],
-            ['full_name', 'string', 'max' => 80],
+            [['tel_bimbit_no', 'tel_no'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tel_bimbit_no', 'tel_no'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            ['full_name', 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
 
-            ['password', 'required'],
-            ['password', 'string', 'min' => 12],
+            ['password', 'required', 'message' => GeneralMessage::yii_validation_required],
+            ['password', 'string', 'min' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             
-            [['nama_persatuan_e_bantuan', 'jawatan_e_bantuan'], 'required'],
-            [['nama_persatuan_e_bantuan', 'jawatan_e_bantuan'], 'string', 'max' => 80],
-            ['sijil_pendaftaran', 'string', 'max' => 255],
+            [['nama_persatuan_e_bantuan', 'jawatan_e_bantuan'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['nama_persatuan_e_bantuan', 'jawatan_e_bantuan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            ['sijil_pendaftaran', 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['sijil_pendaftaran'],'validateFileUploadWithRequired', 'skipOnEmpty' => false],
         ];
     }

@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralMessage;
+
 /**
  * This is the model class for table "tbl_ref_sukan".
  *
@@ -44,9 +46,9 @@ class RefSukan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ref_kategori_sukan_id','nama_sukan', 'aktif'], 'required'],
-            [['aktif'], 'integer'],
-            [['nama_sukan'], 'string', 'max' => 80]
+            [['ref_kategori_sukan_id','nama_sukan', 'aktif'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['aktif'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_sukan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

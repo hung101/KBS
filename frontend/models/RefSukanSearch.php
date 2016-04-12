@@ -57,20 +57,20 @@ class RefSukanSearch extends RefSukan
             return $dataProvider;
         }
 
-        $query->joinWith('refKategoriSukan');
+        $query->joinWith(['refKategoriSukan' => function($query) { $query->from('tbl_ref_kategori_sukan rks');}]);
 
         $query->andFilterWhere([
-            'id' => GeneralLabel::id,
-            'aktif' => GeneralLabel::aktif,
-            'created_by' => GeneralLabel::created_by,
-            'updated_by' => GeneralLabel::updated_by,
-            'created' => GeneralLabel::created,
-            'updated' => GeneralLabel::updated,
+            'tbl_ref_sukan.id' => $this->id,
+            'tbl_ref_sukan.aktif' => $this->aktif,
+            'tbl_ref_sukan.created_by' => $this->created_by,
+            'tbl_ref_sukan.updated_by' => $this->updated_by,
+            'tbl_ref_sukan.created' => $this->created,
+            'tbl_ref_sukan.updated' => $this->updated,
 
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc])
-            ->andFilterWhere(['like', 'tbl_ref_kategori_sukan.desc', $this->ref_kategori_sukan_id]);
+        $query->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->desc])
+            ->andFilterWhere(['like', 'rks.desc', $this->ref_kategori_sukan_id]);
 
         return $dataProvider;
     }

@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
  // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(GeneralLabel::create.' '.GeneralLabel::jenis_aset_sub, ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::createTitle.' '.GeneralLabel::jenis_aset_sub, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

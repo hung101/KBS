@@ -6,6 +6,8 @@ use yii\base\InvalidParamException;
 use yii\base\Model;
 use Yii;
 
+use app\models\general\GeneralMessage;
+
 /**
  * Password reset form
  */
@@ -44,8 +46,8 @@ class ResetPasswordForm extends Model
     public function rules()
     {
         return [
-            ['password', 'required'],
-            ['password', 'string', 'min' => 6],
+            ['password', 'required', 'message' => GeneralMessage::yii_validation_required],
+            ['password', 'string', 'min' => 6, 'tooShort' => GeneralMessage::yii_validation_string_min],
         ];
     }
 

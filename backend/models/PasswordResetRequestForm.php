@@ -3,6 +3,7 @@ namespace backend\models;
 
 use common\models\User;
 use yii\base\Model;
+use app\models\general\GeneralMessage;
 
 /**
  * Password reset request form
@@ -18,8 +19,8 @@ class PasswordResetRequestForm extends Model
     {
         return [
             ['email', 'filter', 'filter' => 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
+            ['email', 'required', 'message' => GeneralMessage::yii_validation_required],
+            ['email', 'email', 'message' => GeneralMessage::yii_validation_email],
             ['email', 'exist',
                 'targetClass' => '\common\models\User',
                 'filter' => ['status' => User::STATUS_ACTIVE],

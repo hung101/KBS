@@ -5,6 +5,8 @@ use common\models\PublicUser;
 use yii\base\Model;
 use Yii;
 
+use app\models\general\GeneralMessage;
+
 /**
  * Signup form
  */
@@ -34,25 +36,25 @@ class SignupEKemudahanForm extends Model
     {
         return [
             ['username', 'filter', 'filter' => 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\PublicUser', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 12, 'max' => 12],
-            [['username'], 'integer'],
+            ['username', 'required', 'message' => GeneralMessage::yii_validation_required],
+            ['username', 'unique', 'targetClass' => '\common\models\PublicUser', 'message' => GeneralMessage::yii_validation_unique],
+            ['username', 'string', 'min' => 12, 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['username'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
 
             ['email', 'filter', 'filter' => 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
-            //['email', 'unique', 'targetClass' => '\common\models\PublicUser', 'message' => 'This email address has already been taken.'],
+            ['email', 'required', 'message' => GeneralMessage::yii_validation_required],
+            ['email', 'email', 'message' => GeneralMessage::yii_validation_email],
+            //['email', 'unique', 'targetClass' => '\common\models\PublicUser', 'message' => GeneralMessage::yii_validation_unique],
 
-            ['password', 'required'],
-            ['password', 'string', 'min' => 12],
+            ['password', 'required', 'message' => GeneralMessage::yii_validation_required],
+            ['password', 'string', 'min' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             
-            [['tel_bimbit_no', 'jenis_pengguna_e_kemudahan'], 'required'],
-            [['kategory_hakmilik_e_kemudahan', 'tel_no', 'full_name'], 'required', 'skipOnEmpty' => true],
-            [['tel_bimbit_no', 'tel_no', 'fax_no'], 'number'],
-            ['full_name', 'string', 'max' => 80],
+            [['tel_bimbit_no', 'jenis_pengguna_e_kemudahan'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['kategory_hakmilik_e_kemudahan', 'tel_no', 'full_name'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tel_bimbit_no', 'tel_no', 'fax_no'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            ['full_name', 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             
-            [['jenis_pengguna_e_kemudahan', 'kategory_hakmilik_e_kemudahan'], 'integer'],
+            [['jenis_pengguna_e_kemudahan', 'kategory_hakmilik_e_kemudahan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
         ];
     }
     
