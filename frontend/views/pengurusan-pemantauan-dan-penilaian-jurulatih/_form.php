@@ -134,7 +134,10 @@ use app\models\general\GeneralMessage;
                 'header' => '<h3 id="modalTitle"></h3>',
                 'id' => 'modal',
                 'size' => 'modal-lg',
-                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE]
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+                'options' => [
+                    'tabindex' => false // important for Select2 to work properly
+                ],
             ]);
             
             echo '<div id="modalContent"></div>';

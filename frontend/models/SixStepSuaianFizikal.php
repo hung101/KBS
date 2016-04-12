@@ -71,6 +71,7 @@ class SixStepSuaianFizikal extends \yii\db\ActiveRecord
             'acara' => GeneralLabel::acara,
             'stage' => GeneralLabel::stage,
             'status' => GeneralLabel::status,
+            'muat_naik' => GeneralLabel::muat_naik,
         ];
     }
     

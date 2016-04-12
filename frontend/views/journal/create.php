@@ -7,7 +7,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\Journal */
 
-$this->title = GeneralLabel::createTitle . ' Penerbitan';
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::penerbitan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::penerbitan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

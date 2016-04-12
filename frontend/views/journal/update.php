@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\Journal */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::journal.': ' . ' ' . $model->journal_id;
-$this->title = GeneralLabel::updateTitle . ' Penerbitan';
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::penerbitan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::penerbitan, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Penerbitan', 'url' => ['view', 'id' => $model->journal_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::penerbitan, 'url' => ['view', 'id' => $model->journal_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="journal-update">

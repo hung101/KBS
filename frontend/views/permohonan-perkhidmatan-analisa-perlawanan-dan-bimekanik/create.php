@@ -7,7 +7,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanPerkhidmatanAnalisaPerlawananDanBimekanik */
 
-$this->title = GeneralLabel::createTitle . ' Permohonan Perkhidmatan Analisa Perlawanan Dan Biomekanik';
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::permohonan_perkhidmatan_analisa_perlawanan_dan_biomekanik;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_perkhidmatan_analisa_perlawanan_dan_biomekanik, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

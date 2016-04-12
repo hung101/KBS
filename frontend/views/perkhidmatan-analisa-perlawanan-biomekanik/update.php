@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PerkhidmatanAnalisaPerlawananBiomekanik */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::perkhidmatan_analisa_perlawanan_biomekanik.': ' . ' ' . $model->perkhidmatan_analisa_perlawanan_biomekanik_id;
-$this->title = GeneralLabel::updateTitle . ' Perkhidmatan Analisa Perlawanan/Biomekanik';
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::perkhidmatan_analisa_perlawananbiomekanik;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::perkhidmatan_analisa_perlawananbiomekanik, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Perkhidmatan Analisa Perlawanan/Biomekanik', 'url' => ['view', 'id' => $model->perkhidmatan_analisa_perlawanan_biomekanik_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::perkhidmatan_analisa_perlawananbiomekanik, 'url' => ['view', 'id' => $model->perkhidmatan_analisa_perlawanan_biomekanik_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="perkhidmatan-analisa-perlawanan-biomekanik-update">

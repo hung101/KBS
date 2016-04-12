@@ -168,7 +168,7 @@ use app\models\general\GeneralMessage;
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?php if(!$model->isNewRecord): ?>
-        <?= Html::a('Perkhidmatan Permakanan', ['perkhidmatan-permakanan/load', 'permohonan_perkhidmatan_permakanan_id' => $model->permohonan_perkhidmatan_permakanan_id], ['class' => 'btn btn-success', 'target'=>'_blank']) ?>
+        <?= Html::a(GeneralLabel::perkhidmatan_permakanan, ['perkhidmatan-permakanan/load', 'permohonan_perkhidmatan_permakanan_id' => $model->permohonan_perkhidmatan_permakanan_id], ['class' => 'btn btn-success', 'target'=>'_blank']) ?>
         <?php endif; ?>
         <?php endif; ?>
     </div>

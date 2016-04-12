@@ -154,7 +154,10 @@ use app\models\general\GeneralMessage;
                 'header' => '<h3 id="modalTitle"></h3>',
                 'id' => 'modal',
                 'size' => 'modal-lg',
-                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE]
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+                'options' => [
+                    'tabindex' => false // important for Select2 to work properly
+                ],
             ]);
             
             echo '<div id="modalContent"></div>';
@@ -164,7 +167,7 @@ use app\models\general\GeneralMessage;
     
     
     
-    <h3>Senarai Nama Ahli</h3>
+    <h3><?=GeneralLabel::senarai_nama_ahli?></h3>
     
     <?php Pjax::begin(['id' => 'senaraiNamaAhliGrid', 'timeout' => 100000]); ?>
 
@@ -198,13 +201,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['mesyuarat-senarai-nama-hadir/update', 'id' => $model->senarai_nama_hadir_id]).'", "'.GeneralLabel::updateTitle . ' Senarai Nama Ahli");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['mesyuarat-senarai-nama-hadir/update', 'id' => $model->senarai_nama_hadir_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::senarai_nama_ahli.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['mesyuarat-senarai-nama-hadir/view', 'id' => $model->senarai_nama_hadir_id]).'", "'.GeneralLabel::viewTitle . ' Senarai Nama Ahli");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['mesyuarat-senarai-nama-hadir/view', 'id' => $model->senarai_nama_hadir_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::senarai_nama_ahli.'");',
                         ]);
                     }
                 ],
@@ -226,7 +229,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['mesyuarat-senarai-nama-hadir/create', 'mesyuarat_id' => $mesyuarat_id]).'", "'.GeneralLabel::createTitle . ' Senarai Nama Ahli");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['mesyuarat-senarai-nama-hadir/create', 'mesyuarat_id' => $mesyuarat_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::senarai_nama_ahli.'");',
                         'class' => 'btn btn-success',
                         ]);
         ?>
@@ -236,7 +239,7 @@ use app\models\general\GeneralMessage;
      <br>
     <br>
     
-    <h3>Senarai Tugas</h3>
+    <h3><?=GeneralLabel::senarai_tugas?></h3>
     
     <?php Pjax::begin(['id' => 'senaraiTugasGrid', 'timeout' => 100000]); ?>
 
@@ -277,13 +280,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['mesyuarat-senarai-tugas/update', 'id' => $model->senarai_tugas_id]).'", "'.GeneralLabel::updateTitle . ' Senarai Nama Ahli");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['mesyuarat-senarai-tugas/update', 'id' => $model->senarai_tugas_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::senarai_tugas.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['mesyuarat-senarai-tugas/view', 'id' => $model->senarai_tugas_id]).'", "'.GeneralLabel::viewTitle . ' Senarai Nama Ahli");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['mesyuarat-senarai-tugas/view', 'id' => $model->senarai_tugas_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::senarai_tugas.'");',
                         ]);
                     }
                 ],
@@ -298,7 +301,7 @@ use app\models\general\GeneralMessage;
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['mesyuarat-senarai-tugas/create', 'mesyuarat_id' => $mesyuarat_id]).'", "'.GeneralLabel::createTitle . ' Senarai Tugas");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['mesyuarat-senarai-tugas/create', 'mesyuarat_id' => $mesyuarat_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::senarai_tugas.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

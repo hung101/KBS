@@ -167,14 +167,17 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     
-    <h3>Diagnosis/Preskripsi/Pemeriksaan/Penyiasatan</h3>
+    <h3><?=GeneralLabel::diagnosispreskripsipemeriksaanpenyiasatan?></h3>
     
     <?php 
             Modal::begin([
                 'header' => '<h3 id="modalTitle"></h3>',
                 'id' => 'modal',
                 'size' => 'modal-lg',
-                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE]
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+                'options' => [
+                    'tabindex' => false // important for Select2 to work properly
+                ],
             ]);
             
             echo '<div id="modalContent"></div>';
@@ -219,13 +222,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pl-diagnosis-preskripsi-pemeriksaan-makmal-perubatan/update', 'id' => $model->pl_diagnosis_preskripsi_pemeriksaan_id]).'", "'.GeneralLabel::updateTitle . ' Diagnosis/Preskripsi/Pemeriksaan/Penyiasatan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pl-diagnosis-preskripsi-pemeriksaan-makmal-perubatan/update', 'id' => $model->pl_diagnosis_preskripsi_pemeriksaan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::diagnosispreskripsipemeriksaanpenyiasatan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pl-diagnosis-preskripsi-pemeriksaan-makmal-perubatan/view', 'id' => $model->pl_diagnosis_preskripsi_pemeriksaan_id]).'", "'.GeneralLabel::viewTitle . ' Diagnosis/Preskripsi/Pemeriksaan/Penyiasatan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pl-diagnosis-preskripsi-pemeriksaan-makmal-perubatan/view', 'id' => $model->pl_diagnosis_preskripsi_pemeriksaan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::diagnosispreskripsipemeriksaanpenyiasatan.'");',
                         ]);
                     }
                 ],
@@ -244,7 +247,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pl-diagnosis-preskripsi-pemeriksaan-makmal-perubatan/create', 'pl_temujanji_id' => $pl_temujanji_id]).'", "'.GeneralLabel::createTitle . ' Diagnosis/Preskripsi/Pemeriksaan/Penyiasatan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pl-diagnosis-preskripsi-pemeriksaan-makmal-perubatan/create', 'pl_temujanji_id' => $pl_temujanji_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::diagnosispreskripsipemeriksaanpenyiasatan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

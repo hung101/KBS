@@ -95,14 +95,17 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     
-    <h3>Soalan</h3>
+    <h3><?=GeneralLabel::soalan?></h3>
     
     <?php 
             Modal::begin([
                 'header' => '<h3 id="modalTitle"></h3>',
                 'id' => 'modal',
                 'size' => 'modal-lg',
-                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE]
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+                'options' => [
+                    'tabindex' => false // important for Select2 to work properly
+                ],
             ]);
             
             echo '<div id="modalContent"></div>';
@@ -148,13 +151,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['soal-selidik-sebelum-ujian-soalan-jawapan/update', 'id' => $model->soal_selidik_sebelum_ujian_soalan_jawapan_id]).'", "'.GeneralLabel::updateTitle . ' Soalan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['soal-selidik-sebelum-ujian-soalan-jawapan/update', 'id' => $model->soal_selidik_sebelum_ujian_soalan_jawapan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::soalan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['soal-selidik-sebelum-ujian-soalan-jawapan/view', 'id' => $model->soal_selidik_sebelum_ujian_soalan_jawapan_id]).'", "'.GeneralLabel::viewTitle . ' Soalan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['soal-selidik-sebelum-ujian-soalan-jawapan/view', 'id' => $model->soal_selidik_sebelum_ujian_soalan_jawapan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::soalan.'");',
                         ]);
                     }
                 ],
@@ -175,7 +178,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['soal-selidik-sebelum-ujian-soalan-jawapan/create', 'soal_selidik_sebelum_ujian_id' => $soal_selidik_sebelum_ujian_id]).'", "'.GeneralLabel::createTitle . ' Soalan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['soal-selidik-sebelum-ujian-soalan-jawapan/create', 'soal_selidik_sebelum_ujian_id' => $soal_selidik_sebelum_ujian_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::soalan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

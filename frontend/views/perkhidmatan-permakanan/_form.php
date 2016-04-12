@@ -70,14 +70,17 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     
-    <h3>Keputusan Analisi Tubuh Badan</h3>
+    <h3><?=GeneralLabel::keputusan_analisi_tubuh_badan?></h3>
     
     <?php 
             Modal::begin([
                 'header' => '<h3 id="modalTitle"></h3>',
                 'id' => 'modal',
                 'size' => 'modal-lg',
-                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE]
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+                'options' => [
+                    'tabindex' => false // important for Select2 to work properly
+                ],
             ]);
             
             echo '<div id="modalContent"></div>';
@@ -122,13 +125,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['keputusan-analisi-tubuh-badan/update', 'id' => $model->keputusan_analisi_tubuh_badan_id]).'", "'.GeneralLabel::updateTitle . ' Keputusan Analisi Tubuh Badan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['keputusan-analisi-tubuh-badan/update', 'id' => $model->keputusan_analisi_tubuh_badan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::keputusan_analisi_tubuh_badan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['keputusan-analisi-tubuh-badan/view', 'id' => $model->keputusan_analisi_tubuh_badan_id]).'", "'.GeneralLabel::viewTitle . ' Keputusan Analisi Tubuh Badan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['keputusan-analisi-tubuh-badan/view', 'id' => $model->keputusan_analisi_tubuh_badan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::keputusan_analisi_tubuh_badan.'");',
                         ]);
                     }
                 ],
@@ -147,7 +150,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['keputusan-analisi-tubuh-badan/create', 'perkhidmatan_permakanan_id' => $perkhidmatan_permakanan_id]).'", "'.GeneralLabel::createTitle . ' Keputusan Analisi Tubuh Badan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['keputusan-analisi-tubuh-badan/create', 'perkhidmatan_permakanan_id' => $perkhidmatan_permakanan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::keputusan_analisi_tubuh_badan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -155,7 +158,7 @@ use app\models\general\GeneralMessage;
     
     <?php Pjax::end(); ?>
     
-    <h3>Pemberian Suplemen/Jus</h3>
+    <h3><?=GeneralLabel::pemberian_suplemenjus?></h3>
     
     <?php Pjax::begin(['id' => 'pemberianSuplemenJusGrid', 'timeout' => 100000]); ?>
 
@@ -187,13 +190,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pemberian-suplemen-makanan-jus-rundingan-pendidikan/update', 'id' => $model->pemberian_suplemen_makanan_jus_rundingan_pendidikan_id]).'", "'.GeneralLabel::updateTitle . ' Pemberian Suplemen/Jus");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pemberian-suplemen-makanan-jus-rundingan-pendidikan/update', 'id' => $model->pemberian_suplemen_makanan_jus_rundingan_pendidikan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::pemberian_suplemenjus.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pemberian-suplemen-makanan-jus-rundingan-pendidikan/view', 'id' => $model->pemberian_suplemen_makanan_jus_rundingan_pendidikan_id]).'", "'.GeneralLabel::viewTitle . ' Pemberian Suplemen/Jus");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pemberian-suplemen-makanan-jus-rundingan-pendidikan/view', 'id' => $model->pemberian_suplemen_makanan_jus_rundingan_pendidikan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::pemberian_suplemenjus.');',
                         ]);
                     }
                 ],
@@ -208,7 +211,7 @@ use app\models\general\GeneralMessage;
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pemberian-suplemen-makanan-jus-rundingan-pendidikan/create', 'perkhidmatan_permakanan_id' => $perkhidmatan_permakanan_id]).'", "'.GeneralLabel::createTitle . ' Pemberian Suplemen/Jus");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pemberian-suplemen-makanan-jus-rundingan-pendidikan/create', 'perkhidmatan_permakanan_id' => $perkhidmatan_permakanan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::pemberian_suplemenjus.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

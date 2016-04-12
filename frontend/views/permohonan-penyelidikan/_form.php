@@ -110,7 +110,10 @@ use app\models\general\GeneralMessage;
                 'header' => '<h3 id="modalTitle"></h3>',
                 'id' => 'modal',
                 'size' => 'modal-lg',
-                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE]
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+                'options' => [
+                    'tabindex' => false // important for Select2 to work properly
+                ],
             ]);
             
             echo '<div id="modalContent"></div>';
@@ -404,7 +407,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     
-    <h3>Dokumen Penyelidikan</h3>
+    <h3><?=GeneralLabel::dokumen_penyelidikan?></h3>
     
     <?php Pjax::begin(['id' => 'dokumenPenyelidikanGrid', 'timeout' => 100000]); ?>
 
@@ -453,13 +456,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['dokumen-penyelidikan/update', 'id' => $model->dokumen_penyelidikan_id]).'", "'.GeneralLabel::updateTitle . ' Dokumen Penyelidikan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['dokumen-penyelidikan/update', 'id' => $model->dokumen_penyelidikan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::dokumen_penyelidikan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['dokumen-penyelidikan/view', 'id' => $model->dokumen_penyelidikan_id]).'", "'.GeneralLabel::viewTitle . ' Dokumen Penyelidikan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['dokumen-penyelidikan/view', 'id' => $model->dokumen_penyelidikan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::dokumen_penyelidikan.'");',
                         ]);
                     }
                 ],
@@ -475,7 +478,7 @@ use app\models\general\GeneralMessage;
         <?php 
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['dokumen-penyelidikan/create', 'permohonana_penyelidikan_id' => $permohonana_penyelidikan_id]).'", "'.GeneralLabel::createTitle . ' Dokumen Penyelidikan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['dokumen-penyelidikan/create', 'permohonana_penyelidikan_id' => $permohonana_penyelidikan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::dokumen_penyelidikan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -483,7 +486,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     
-    <h3>Bajet Penyelidikan</h3>
+    <h3><?=GeneralLabel::bajet_penyelidikan?></h3>
     
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -524,13 +527,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bajet-penyelidikan/update', 'id' => $model->bajet_penyelidikan_id]).'", "'.GeneralLabel::updateTitle . ' Bajet Penyelidikan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bajet-penyelidikan/update', 'id' => $model->bajet_penyelidikan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::bajet_penyelidikan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bajet-penyelidikan/view', 'id' => $model->bajet_penyelidikan_id]).'", "'.GeneralLabel::viewTitle . ' Bajet Penyelidikan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bajet-penyelidikan/view', 'id' => $model->bajet_penyelidikan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::bajet_penyelidikan.'");',
                         ]);
                     }
                 ],
@@ -562,7 +565,7 @@ use app\models\general\GeneralMessage;
         <?php 
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bajet-penyelidikan/create', 'permohonana_penyelidikan_id' => $permohonana_penyelidikan_id]).'", "'.GeneralLabel::createTitle . ' Bajet Penyelidikan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bajet-penyelidikan/create', 'permohonana_penyelidikan_id' => $permohonana_penyelidikan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::bajet_penyelidikan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -609,13 +612,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bajet-penyelidikan-sumbangan/update', 'id' => $model->bajet_penyelidikan_id]).'", "'.GeneralLabel::updateTitle . ' Bajet Penyelidikan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bajet-penyelidikan-sumbangan/update', 'id' => $model->bajet_penyelidikan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::bajet_penyelidikan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bajet-penyelidikan-sumbangan/view', 'id' => $model->bajet_penyelidikan_id]).'", "'.GeneralLabel::viewTitle . ' Bajet Penyelidikan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bajet-penyelidikan-sumbangan/view', 'id' => $model->bajet_penyelidikan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::bajet_penyelidikan.'");',
                         ]);
                     }
                 ],
@@ -647,7 +650,7 @@ use app\models\general\GeneralMessage;
         <?php 
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bajet-penyelidikan-sumbangan/create', 'permohonana_penyelidikan_id' => $permohonana_penyelidikan_id]).'", "'.GeneralLabel::createTitle . ' Bajet Penyelidikan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bajet-penyelidikan-sumbangan/create', 'permohonana_penyelidikan_id' => $permohonana_penyelidikan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::bajet_penyelidikan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

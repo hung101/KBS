@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\SoalSelidikSebelumUjian */
 
 //$this->title = $model->soal_selidik_sebelum_ujian_id;
-$this->title = GeneralLabel::viewTitle . ' Soal Selidik Sebelum Ujian';
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::fisiologi_sistem_pangkalan_data_atlet_dan_journal;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::fisiologi_sistem_pangkalan_data_atlet_dan_journal, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

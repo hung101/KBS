@@ -11,6 +11,9 @@ use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
 
+use app\models\RefSoalanSoalSelidik;
+use app\models\RefJawapanSoalSelidik;
+
 /**
  * SoalSelidikSebelumUjianSoalanJawapanController implements the CRUD actions for SoalSelidikSebelumUjianSoalanJawapan model.
  */
@@ -58,8 +61,16 @@ class SoalSelidikSebelumUjianSoalanJawapanController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $model = $this->findModel($id);
+        
+        $ref = RefSoalanSoalSelidik::findOne(['id' => $model->soalan]);
+        $model->soalan = $ref['desc'];
+        
+        $ref = RefJawapanSoalSelidik::findOne(['id' => $model->jawapan]);
+        $model->jawapan = $ref['desc'];
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

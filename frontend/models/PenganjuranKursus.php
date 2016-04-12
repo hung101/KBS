@@ -83,6 +83,7 @@ class PenganjuranKursus extends \yii\db\ActiveRecord
             'nama_kursus' => GeneralLabel::nama_kursus,
             'kod_kursus' => GeneralLabel::kod_kursus,
             'penganjur' => GeneralLabel::penganjur,
+            'tempoh_kursus' => GeneralLabel::tempoh_kursus,
         ];
     }
     

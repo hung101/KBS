@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['perkhidmatan-analisa-perlawanan-biomekanik']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Perkhidmatan Analisa Perlawanan/Biomekanik', ['create', 'permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id' => ''], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::perkhidmatan_analisa_perlawananbiomekanik, ['create', 'permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id' => ''], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

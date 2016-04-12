@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PermohonanPerkhidmatanPermakanan */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::permohonan_perkhidmatan_permakanan.': ' . ' ' . $model->permohonan_perkhidmatan_permakanan_id;
-$this->title = GeneralLabel::updateTitle . ' Permohonan Perkhidmatan Permakanan';
+$this->title = GeneralLabel::updateTitle .' '.GeneralLabel::permohonan_perkhidmatan_permakanan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_perkhidmatan_permakanan, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Permohonan Perkhidmatan Permakanan', 'url' => ['view', 'id' => $model->permohonan_perkhidmatan_permakanan_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle .' '.GeneralLabel::permohonan_perkhidmatan_permakanan, 'url' => ['view', 'id' => $model->permohonan_perkhidmatan_permakanan_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-perkhidmatan-permakanan-update">

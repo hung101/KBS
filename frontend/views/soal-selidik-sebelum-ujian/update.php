@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\SoalSelidikSebelumUjian */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::soal_selidik_sebelum_ujian.': ' . ' ' . $model->soal_selidik_sebelum_ujian_id;
-$this->title = GeneralLabel::updateTitle . ' Soal Selidik Sebelum Ujian';
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::fisiologi_sistem_pangkalan_data_atlet_dan_journal;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::fisiologi_sistem_pangkalan_data_atlet_dan_journal, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Soal Selidik Sebelum Ujian', 'url' => ['view', 'id' => $model->soal_selidik_sebelum_ujian_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::fisiologi_sistem_pangkalan_data_atlet_dan_journal, 'url' => ['view', 'id' => $model->soal_selidik_sebelum_ujian_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="soal-selidik-sebelum-ujian-update">

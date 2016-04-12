@@ -125,14 +125,17 @@ use app\models\general\GeneralMessage;
     }
     ?>
     
-    <h3>Ubatan</h3>
+    <h3><?=GeneralLabel::ubatan?></h3>
     
     <?php 
             Modal::begin([
                 'header' => '<h3 id="modalTitle"></h3>',
                 'id' => 'modal',
                 'size' => 'modal-lg',
-                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE]
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+                'options' => [
+                    'tabindex' => false // important for Select2 to work properly
+                ],
             ]);
             
             echo '<div id="modalContent"></div>';
@@ -174,13 +177,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['farmasi-ubatan/update', 'id' => $model->farmasi_ubatan_id]).'", "'.GeneralLabel::updateTitle . ' Ubatan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['farmasi-ubatan/update', 'id' => $model->farmasi_ubatan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::ubatan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['farmasi-ubatan/view', 'id' => $model->farmasi_ubatan_id]).'", "'.GeneralLabel::viewTitle . ' Ubatan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['farmasi-ubatan/view', 'id' => $model->farmasi_ubatan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::ubatan.'");',
                         ]);
                     }
                 ],
@@ -199,7 +202,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['farmasi-ubatan/create', 'farmasi_permohonan_ubatan_id' => $farmasi_permohonan_ubatan_id]).'", "'.GeneralLabel::createTitle . ' Ubatan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['farmasi-ubatan/create', 'farmasi_permohonan_ubatan_id' => $farmasi_permohonan_ubatan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::ubatan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

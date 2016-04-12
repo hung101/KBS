@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\Journal */
 
 //$this->title = $model->journal_id;
-$this->title = GeneralLabel::viewTitle . ' Penerbitan';
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::penerbitan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::penerbitan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

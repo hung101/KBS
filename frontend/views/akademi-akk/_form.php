@@ -43,7 +43,10 @@ use common\models\general\GeneralFunction;
                 'header' => '<h3 id="modalTitle"></h3>',
                 'id' => 'modal',
                 'size' => 'modal-lg',
-                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE]
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+                'options' => [
+                    'tabindex' => false // important for Select2 to work properly
+                ],
             ]);
             
             echo '<div id="modalContent"></div>';
@@ -578,7 +581,7 @@ use common\models\general\GeneralFunction;
     
     <br>-->
     
-    <h3>Kelayakan Sukan Spesifik</h3>
+    <h3><?=GeneralLabel::kelayakan_sukan_spesifik?></h3>
     
     <?php Pjax::begin(['id' => 'kelayakanSukanSpesifikAkkGrid', 'timeout' => 100000]); ?>
 
@@ -610,13 +613,13 @@ use common\models\general\GeneralFunction;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['kelayakan-sukan-spesifik-akk/update', 'id' => $model->kelayakan_sukan_spesifik_akk_id]).'", "'.GeneralLabel::updateTitle . ' Kelayakan Sukan Spesifik");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['kelayakan-sukan-spesifik-akk/update', 'id' => $model->kelayakan_sukan_spesifik_akk_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::kelayakan_sukan_spesifik.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['kelayakan-sukan-spesifik-akk/view', 'id' => $model->kelayakan_sukan_spesifik_akk_id]).'", "'.GeneralLabel::viewTitle . ' Kelayakan Sukan Spesifik");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['kelayakan-sukan-spesifik-akk/view', 'id' => $model->kelayakan_sukan_spesifik_akk_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::kelayakan_sukan_spesifik.'");',
                         ]);
                     }
                 ],
@@ -629,7 +632,7 @@ use common\models\general\GeneralFunction;
     <p>
     <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['kelayakan-sukan-spesifik-akk/create', 'akademi_akk_id' => $akademi_akk_id]).'", "'.GeneralLabel::createTitle . ' Kelayakan Sukan Spesifik");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['kelayakan-sukan-spesifik-akk/create', 'akademi_akk_id' => $akademi_akk_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::kelayakan_sukan_spesifik.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -639,7 +642,7 @@ use common\models\general\GeneralFunction;
     
     <br>
     
-    <h3>Sains Sukan</h3>
+    <h3><?=GeneralLabel::sains_sukan?></h3>
     
     <?php Pjax::begin(['id' => 'pemohonKursusTahapAkkGrid', 'timeout' => 100000]); ?>
 
@@ -677,13 +680,13 @@ use common\models\general\GeneralFunction;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pemohon-kursus-tahap-akk/update', 'id' => $model->pemohon_kursus_tahap_akk_id]).'", "'.GeneralLabel::updateTitle . ' Sains Sukan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pemohon-kursus-tahap-akk/update', 'id' => $model->pemohon_kursus_tahap_akk_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::sains_sukan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pemohon-kursus-tahap-akk/view', 'id' => $model->pemohon_kursus_tahap_akk_id]).'", "'.GeneralLabel::viewTitle . ' Sains Sukan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pemohon-kursus-tahap-akk/view', 'id' => $model->pemohon_kursus_tahap_akk_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::sains_sukan.'");',
                         ]);
                     }
                 ],
@@ -697,7 +700,7 @@ use common\models\general\GeneralFunction;
     <?php 
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pemohon-kursus-tahap-akk/create', 'akademi_akk_id' => $akademi_akk_id]).'", "'.GeneralLabel::createTitle . ' Sains Sukan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pemohon-kursus-tahap-akk/create', 'akademi_akk_id' => $akademi_akk_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::sains_sukan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -708,7 +711,7 @@ use common\models\general\GeneralFunction;
     <br>
     <br>
     
-    <pre style="text-align: center"><strong>SIJIL TAMBAHAN YANG DIKEHENDAKI BAGI SUKAN AKUATIK SAHAJA</strong></pre>
+    <pre style="text-align: center"><strong><?=GeneralLabel::sijil_tambahan_yang_dikehendaki_bagi_sukan_akuatik_sahaja?></strong></pre>
     
     <div class="panel panel-default">
         <div class="panel-body">
@@ -963,7 +966,7 @@ use common\models\general\GeneralFunction;
     <br>
     <br>
     
-    <pre style="text-align: center"><strong>UNTUK KEGUNAAN PENGELUARAN LESEN</strong></pre>
+    <pre style="text-align: center"><strong>UNTUK KEGUNAAN PENGELUARAN LESEN<?=GeneralLabel::untuk_kegunaan_pengeluaran_lesen?></strong></pre>
     
     <div class="panel panel-default">
         <div class="panel-body">

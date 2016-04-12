@@ -112,7 +112,7 @@ use app\models\general\GeneralMessage;
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?php endif; ?>
         <?php if(!$model->isNewRecord): ?>
-        <?= Html::a('Perkhidmatan Analisa Perlawanan/Biomekanik', ['perkhidmatan-analisa-perlawanan-biomekanik/load', 'permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id' => $model->permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id], ['class' => 'btn btn-success', 'target'=>'_blank']) ?>
+        <?= Html::a(GeneralLabel::perkhidmatan_analisa_perlawananbiomekanik, ['perkhidmatan-analisa-perlawanan-biomekanik/load', 'permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id' => $model->permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id], ['class' => 'btn btn-success', 'target'=>'_blank']) ?>
         <?php endif; ?>
     </div>
 

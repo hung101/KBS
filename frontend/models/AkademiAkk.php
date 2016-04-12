@@ -119,6 +119,17 @@ class AkademiAkk extends \yii\db\ActiveRecord
             'tarikh_mula_lesen' => GeneralLabel::tarikh_mula_lesen,
             'tarikh_tamat_lesen' => GeneralLabel::tarikh_tamat_lesen,
             'no_sijil_spkk' => GeneralLabel::no_sijil_spkk,
+            'jantina' => GeneralLabel::jantina,
+            'bangsa' => GeneralLabel::bangsa,
+            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_2' => GeneralLabel::alamat_2,
+            'alamat_3' => GeneralLabel::alamat_3,
+            'alamat_negeri' => GeneralLabel::alamat_negeri,
+            'alamat_bandar' => GeneralLabel::alamat_bandar,
+            'alamat_poskod' => GeneralLabel::alamat_poskod,
+            'jenis_sukan' => GeneralLabel::jenis_sukan,
+            'tahun' => GeneralLabel::tahun,
+            'status_jurulatih' => GeneralLabel::status_jurulatih,
         ];
     }
     

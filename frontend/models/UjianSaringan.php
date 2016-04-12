@@ -106,6 +106,10 @@ class UjianSaringan extends \yii\db\ActiveRecord
             'panjang_depa' => GeneralLabel::panjang_depa,
             'body_mass_index' => GeneralLabel::body_mass_index,
             'catatan' => GeneralLabel::catatan,
+            'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
+            'maklumat_program' => GeneralLabel::maklumat_program,
+            'umur' => GeneralLabel::umur,
+            'bangsa' => GeneralLabel::bangsa,
         ];
     }
     

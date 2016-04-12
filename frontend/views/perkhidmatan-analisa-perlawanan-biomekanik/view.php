@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PerkhidmatanAnalisaPerlawananBiomekanik */
 
 //$this->title = $model->perkhidmatan_analisa_perlawanan_biomekanik_id;
-$this->title = GeneralLabel::viewTitle . ' Perkhidmatan Analisa Perlawanan/Biomekanik';
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::perkhidmatan_analisa_perlawananbiomekanik;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::perkhidmatan_analisa_perlawananbiomekanik, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
