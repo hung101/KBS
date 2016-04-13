@@ -54,9 +54,9 @@ class PenyertaanSukan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['kategori_penilaian', 'nama_temasya', 'nama_sukan', 'tempat_penginapan', 'tempat_latihan', 'nama_atlet', 'nama_pegawai', 'jawatan_pegawai', 'nama_pengurus_sukan', 'nama_sukarelawan'], 'required', 'skipOnEmpty' => true],
-            [['nama_sukan', 'nama_atlet', 'nama_pegawai', 'jawatan_pegawai', 'nama_pengurus_sukan', 'nama_sukarelawan'], 'string', 'max' => 80],
-            [['tempat_penginapan', 'tempat_latihan'], 'string', 'max' => 90]
+            [['kategori_penilaian', 'nama_temasya', 'nama_sukan', 'tempat_penginapan', 'tempat_latihan', 'nama_atlet', 'nama_pegawai', 'jawatan_pegawai', 'nama_pengurus_sukan', 'nama_sukarelawan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama_sukan', 'nama_atlet', 'nama_pegawai', 'jawatan_pegawai', 'nama_pengurus_sukan', 'nama_sukarelawan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat_penginapan', 'tempat_latihan'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

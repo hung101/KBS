@@ -52,10 +52,10 @@ class PengurusanBeritaAntarabangsa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['kategori_berita', 'nama_berita', 'tarikh_berita'], 'required', 'skipOnEmpty' => true],
+            [['kategori_berita', 'nama_berita', 'tarikh_berita'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_berita'], 'safe'],
-            [['kategori_berita', 'nama_berita'], 'string', 'max' => 80],
-            [['muatnaik'], 'string', 'max' => 100],
+            [['kategori_berita', 'nama_berita'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['muatnaik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }

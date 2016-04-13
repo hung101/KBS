@@ -59,15 +59,15 @@ class PenyelidikanKomposisiPasukan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'jawatan', 'gelaran', 'pasukan', 'telefon_no', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'institusi_universiti_syarikat'], 'required', 'skipOnEmpty' => true],
-            [['permohonana_penyelidikan_id', 'gelaran'], 'integer'],
-            [['nama', 'institusi_universiti_syarikat'], 'string', 'max' => 80],
-            [['pasukan', 'jawatan', 'alamat_negeri'], 'string', 'max' => 30],
-            [['telefon_no'], 'string', 'max' => 14],
-            [['emel'], 'string', 'max' => 100],
-            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90],
-            [['alamat_bandar'], 'string', 'max' => 40],
-            [['alamat_poskod'], 'string', 'max' => 5]
+            [['nama', 'jawatan', 'gelaran', 'pasukan', 'telefon_no', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'institusi_universiti_syarikat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['permohonana_penyelidikan_id', 'gelaran'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama', 'institusi_universiti_syarikat'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['pasukan', 'jawatan', 'alamat_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['telefon_no'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

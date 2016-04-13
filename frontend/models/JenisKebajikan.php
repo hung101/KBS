@@ -52,10 +52,11 @@ class JenisKebajikan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis_kebajikan', 'perkara', 'sukan_sea_para_asean', 'sukan_asia_komenwel_para_asia_ead', 'sukan_olimpik_paralimpik', 'kejohanan_asia_dunia'], 'required', 'skipOnEmpty' => true],
-            [['sukan_sea_para_asean', 'sukan_asia_komenwel_para_asia_ead', 'sukan_olimpik_paralimpik', 'kejohanan_asia_dunia'], 'number'],
-            [['jenis_kebajikan'], 'string', 'max' => 30],
-            [['perkara'], 'string', 'max' => 100]
+            [['jenis_kebajikan', 'perkara', 'sukan_sea_para_asean', 'sukan_asia_komenwel_para_asia_ead', 'sukan_olimpik_paralimpik',
+                'kejohanan_asia_dunia'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['sukan_sea_para_asean', 'sukan_asia_komenwel_para_asia_ead', 'sukan_olimpik_paralimpik', 'kejohanan_asia_dunia'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['jenis_kebajikan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['perkara'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

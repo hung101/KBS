@@ -51,11 +51,11 @@ class PengurusanJkkJkpProgram extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pengurusan_jkk_jkp_id', 'tarikh_mula_program', 'tarikh_tamat_program', 'lokasi_program', 'nama_program', 'nama_pesserta'], 'required', 'skipOnEmpty' => true],
-            [['pengurusan_jkk_jkp_id'], 'integer'],
+            [['pengurusan_jkk_jkp_id', 'tarikh_mula_program', 'tarikh_tamat_program', 'lokasi_program', 'nama_program', 'nama_pesserta'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pengurusan_jkk_jkp_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_mula_program', 'tarikh_tamat_program'], 'safe'],
-            [['lokasi_program'], 'string', 'max' => 30],
-            [['nama_program', 'nama_pesserta'], 'string', 'max' => 80]
+            [['lokasi_program'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_program', 'nama_pesserta'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

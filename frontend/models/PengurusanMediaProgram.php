@@ -52,11 +52,11 @@ class PengurusanMediaProgram extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh_mula', 'tarikh_tamat', 'nama_program', 'tempat', 'cawangan'], 'required', 'skipOnEmpty' => true],
+            [['tarikh_mula', 'tarikh_tamat', 'nama_program', 'tempat', 'cawangan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_mula'], 'safe'],
-            [['nama_program', 'cawangan', 'maklumat_msn_negeri'], 'string', 'max' => 80],
-            [['tempat'], 'string', 'max' => 90],
-            [['catatan'], 'string', 'max' => 255]
+            [['nama_program', 'cawangan', 'maklumat_msn_negeri'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

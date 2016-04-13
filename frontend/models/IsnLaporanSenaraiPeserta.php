@@ -17,7 +17,7 @@ class IsnLaporanSenaraiPeserta extends Model
     public function rules()
     {
         return [
-            [['format', 'penganjuran_kursus_id'], 'required'],
+            [['format', 'penganjuran_kursus_id'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['penganjuran_kursus_id'], 'safe'],
         ];
     }

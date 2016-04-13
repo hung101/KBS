@@ -51,10 +51,10 @@ class KursusPersatuan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_kursus', 'tarikh', 'activiti', 'tempat', 'pegawai_terlibat'], 'required', 'skipOnEmpty' => true],
+            [['nama_kursus', 'tarikh', 'activiti', 'tempat', 'pegawai_terlibat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh'], 'safe'],
-            [['nama_kursus', 'activiti', 'pegawai_terlibat'], 'string', 'max' => 80],
-            [['tempat'], 'string', 'max' => 90]
+            [['nama_kursus', 'activiti', 'pegawai_terlibat'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

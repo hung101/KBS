@@ -55,10 +55,10 @@ class JurulatihKesihatan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jurulatih_id', 'tinggi', 'berat'], 'required', 'skipOnEmpty' => true],
-            [['jurulatih_id'], 'integer'],
-            [['tinggi', 'berat'], 'number'],
-            [['masalah_kesihatan', 'catatan', 'pembedahan', 'alahan', 'sejarah_perubatan', 'kecacatan'], 'string', 'max' => 255]
+            [['jurulatih_id', 'tinggi', 'berat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jurulatih_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tinggi', 'berat'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['masalah_kesihatan', 'catatan', 'pembedahan', 'alahan', 'sejarah_perubatan', 'kecacatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

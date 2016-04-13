@@ -59,16 +59,16 @@ class Journal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_penulis', 'telefon_no', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'tarikh_journal', 'bahagian', 'artikel_journal'], 'required', 'skipOnEmpty' => true],
+            [['nama_penulis', 'telefon_no', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'tarikh_journal', 'bahagian', 'artikel_journal'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_journal'], 'safe'],
             [['artikel_journal'], 'string'],
-            [['nama_penulis'], 'string', 'max' => 80],
-            [['telefon_no'], 'string', 'max' => 14],
-            [['emel'], 'string', 'max' => 100],
-            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90],
-            [['alamat_negeri', 'bahagian', 'status_journal'], 'string', 'max' => 30],
-            [['alamat_bandar'], 'string', 'max' => 40],
-            [['alamat_poskod'], 'string', 'max' => 5]
+            [['nama_penulis'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['telefon_no'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_negeri', 'bahagian', 'status_journal'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

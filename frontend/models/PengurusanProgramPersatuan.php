@@ -48,9 +48,9 @@ class PengurusanProgramPersatuan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['bantuan_tahun', 'nama_persatuan'], 'required', 'skipOnEmpty' => true],
+            [['bantuan_tahun', 'nama_persatuan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['bantuan_tahun'], 'safe'],
-            [['nama_persatuan'], 'string', 'max' => 80]
+            [['nama_persatuan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

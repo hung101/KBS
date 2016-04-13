@@ -302,7 +302,23 @@ AppAsset::register($this);
                             'label' => GeneralLabel::sains_sukan,
                             'items' => [
                                 ['label' => GeneralLabel::mesyuarat, 'url' => ['/mesyuarat/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['mesyuarat']['module'])],
-                                ['label' => GeneralLabel::hpt_pangkalan_data_laporan_bulanan, 'url' => ['/six-step/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['six-step']['module'])],
+                                //['label' => GeneralLabel::hpt_pangkalan_data_laporan_bulanan, 'url' => ['/six-step/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['six-step']['module'])],
+                                [
+                                    'label' => GeneralLabel::hpt_pangkalan_data_laporan_bulanan,
+                                    'items' => [
+                                        ['label' => GeneralLabel::pengurusan_kewangan_hpt, 'url' => ['/pengurusan-kewangan-hpt/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pengurusan-kewangan-hpt']['module'])],
+                                        ['label' => GeneralLabel::soal_selidik_sebelum_ujian_hpt, 'url' => ['/soal-selidik-sebelum-ujian-hpt/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['soal-selidik-sebelum-ujian-hpt']['module'])],
+                                        ['label' => GeneralLabel::perancangan_program_hpt, 'url' => ['/perancangan-program-hpt/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['perancangan-program-hpt']['module'])],
+                                        ['label' => GeneralLabel::six_step_hpt, 'url' => ['/six-step/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['six-step']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_senarai_program_setiap_bulan, 'url' => ['/perancangan-program-hpt/laporan-senarai-program-setiap-bulan-hpt'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['perancangan-program-hpt']['module'])],
+                                                ['label' => GeneralLabel::laporan_bilangan_program_bagi_setiap_bulan, 'url' => ['/perancangan-program-hpt/laporan-bilangan-program-bagi-setiap-bulan-hpt'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['perancangan-program-hpt']['module'])],
+                                            ],
+                                        ],
+                                    ],
+                                ],
                                 [
                                     'label' => GeneralLabel::suaian_fizikal_sistem_pendaftaran_atlet_di_gym,
                                     'items' => [

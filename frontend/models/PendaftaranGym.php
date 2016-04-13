@@ -49,11 +49,11 @@ class PendaftaranGym extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'tarikh', 'sukan'], 'required', 'skipOnEmpty' => true],
+            [['atlet_id', 'tarikh', 'sukan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id'], 'safe'],
-            [['jumlah_atlet'], 'integer'],
-            ['tarikh', 'compare', 'compareValue' => date('Y-m-d H:i:s'), 'operator' => '>=', 'on' => 'create'],
-            [['sukan'], 'string', 'max' => 30]
+            [['jumlah_atlet'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            ['tarikh', 'compare', 'compareValue' => date('Y-m-d H:i:s'), 'operator' => '>=', 'on' => 'create', 'message' => GeneralMessage::yii_validation_compare],
+            [['sukan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

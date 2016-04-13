@@ -50,11 +50,11 @@ class PengurusanMaklumBalasPeserta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_penganjuran_kursus', 'jantina', 'bangsa'], 'required', 'skipOnEmpty' => true],
+            [['nama_penganjuran_kursus', 'jantina', 'bangsa'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_kursus'], 'safe'],
-            [['nama_penganjuran_kursus'], 'string', 'max' => 80],
-            [['kod_kursus'], 'string', 'max' => 30],
-            [['catatan'], 'string', 'max' => 255]
+            [['nama_penganjuran_kursus'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kod_kursus'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

@@ -52,10 +52,10 @@ class JurulatihSpkk extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jurulatih_id', 'jenis_spkk', 'tahap', 'sukan'], 'required', 'skipOnEmpty' => true],
-            [['jurulatih_id'], 'integer'],
-            [['jenis_spkk', 'tahap'], 'string', 'max' => 30],
-            [['muatnaik_sijil'], 'string', 'max' => 100],
+            [['jurulatih_id', 'jenis_spkk', 'tahap', 'sukan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jurulatih_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jenis_spkk', 'tahap'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['muatnaik_sijil'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik_sijil'], 'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }

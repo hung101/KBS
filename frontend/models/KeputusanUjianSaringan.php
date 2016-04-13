@@ -51,10 +51,10 @@ class KeputusanUjianSaringan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ujian_saringan_id', 'jenis_ujian_saringan', 'percubaan_1', 'terbaik'], 'required', 'skipOnEmpty' => true],
-            [['ujian_saringan_id'], 'integer'],
-            [['percubaan_1', 'percubaan_2', 'terbaik'], 'number'],
-            [['jenis_ujian_saringan'], 'string', 'max' => 80]
+            [['ujian_saringan_id', 'jenis_ujian_saringan', 'percubaan_1', 'terbaik'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['ujian_saringan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['percubaan_1', 'percubaan_2', 'terbaik'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['jenis_ujian_saringan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

@@ -59,14 +59,14 @@ class PengurusanProgramBinaan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_program', 'kategori_permohonan', 'jenis_permohonan', 'sukan', 'tempat', 'tahap', 'negeri', 'daerah', 'tarikh_mula', 'tarikh_tamat', 'sokongan_pn', 'kelulusan'], 'required', 'skipOnEmpty' => true],
+            [['nama_program', 'kategori_permohonan', 'jenis_permohonan', 'sukan', 'tempat', 'tahap', 'negeri', 'daerah', 'tarikh_mula', 'tarikh_tamat', 'sokongan_pn', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_mula', 'tarikh_tamat'], 'safe'],
-            [['sokongan_pn', 'kelulusan'], 'integer'],
-            [['nama_ppn', 'pengurus_pn', 'sukan'], 'string', 'max' => 80],
-            [['kategori_permohonan', 'jenis_permohonan', 'tahap', 'negeri'], 'string', 'max' => 30],
-            [['tempat'], 'string', 'max' => 90],
-            [['nama_program'], 'string', 'max' => 100],
-            [['daerah'], 'string', 'max' => 40]
+            [['sokongan_pn', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_ppn', 'pengurus_pn', 'sukan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kategori_permohonan', 'jenis_permohonan', 'tahap', 'negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_program'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['daerah'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

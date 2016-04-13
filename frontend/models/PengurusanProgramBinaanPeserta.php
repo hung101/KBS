@@ -51,11 +51,11 @@ class PengurusanProgramBinaanPeserta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['kategori_peserta', 'nama_peserta', 'jantina', 'peranan_peserta'], 'required', 'skipOnEmpty' => true],
-            [['pengurusan_program_binaan_id', 'atlet_id', 'jurulatih_id', 'peranan_peserta'], 'integer'],
-            [['kategori_peserta'], 'string', 'max' => 30],
-            [['nama_peserta'], 'string', 'max' => 80],
-            [['jantina'], 'string', 'max' => 1]
+            [['kategori_peserta', 'nama_peserta', 'jantina', 'peranan_peserta'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pengurusan_program_binaan_id', 'atlet_id', 'jurulatih_id', 'peranan_peserta'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['kategori_peserta'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_peserta'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

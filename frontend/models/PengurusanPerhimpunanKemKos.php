@@ -52,11 +52,11 @@ class PengurusanPerhimpunanKemKos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['kategori_kos', 'anggaran_kos_per_kategori', 'revised_kos_per_kategori', 'approved_kos_per_kategori'], 'required', 'skipOnEmpty' => true],
-            [['pengurusan_perhimpunan_kem_id'], 'integer'],
-            [['anggaran_kos_per_kategori', 'revised_kos_per_kategori', 'approved_kos_per_kategori'], 'number'],
-            [['kategori_kos'], 'string', 'max' => 30],
-            [['catatan'], 'string', 'max' => 255]
+            [['kategori_kos', 'anggaran_kos_per_kategori', 'revised_kos_per_kategori', 'approved_kos_per_kategori'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pengurusan_perhimpunan_kem_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['anggaran_kos_per_kategori', 'revised_kos_per_kategori', 'approved_kos_per_kategori'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['kategori_kos'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

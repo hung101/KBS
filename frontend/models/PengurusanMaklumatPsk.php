@@ -50,10 +50,10 @@ class PengurusanMaklumatPsk extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_sponsor', 'jumlah_sponsor', 'tarikh_sponsor_mula', 'tarikh_sponsor_tamat'], 'required', 'skipOnEmpty' => true],
-            [['jumlah_sponsor'], 'integer'],
+            [['nama_sponsor', 'jumlah_sponsor', 'tarikh_sponsor_mula', 'tarikh_sponsor_tamat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jumlah_sponsor'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_sponsor_mula', 'tarikh_sponsor_tamat'], 'safe'],
-            [['nama_sponsor'], 'string', 'max' => 80]
+            [['nama_sponsor'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

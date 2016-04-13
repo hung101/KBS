@@ -55,12 +55,12 @@ class PemohonKursusTahapAkk extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tahap', 'tahun_lulus', 'no_sijil', 'kod_kursus', 'tempat'], 'required', 'skipOnEmpty' => true],
-            [['akademi_akk_id'], 'integer'],
+            [['tahap', 'tahun_lulus', 'no_sijil', 'kod_kursus', 'tempat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['akademi_akk_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tahun_lulus'], 'safe'],
-            [['tahap', 'no_sijil', 'kod_kursus'], 'string', 'max' => 30],
-            [['tempat'], 'string', 'max' => 80],
-            [['muatnaik_sijil'], 'string', 'max' => 100],
+            [['tahap', 'no_sijil', 'kod_kursus'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['muatnaik_sijil'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik_sijil'], 'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }

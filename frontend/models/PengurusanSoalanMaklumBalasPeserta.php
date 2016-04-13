@@ -49,9 +49,9 @@ class PengurusanSoalanMaklumBalasPeserta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_temasya','kategori_penilaian', 'soalan', 'rating'], 'required', 'skipOnEmpty' => true],
-            [['pengurusan_maklum_balas_peserta_id', 'rating'], 'integer'],
-            [['soalan'], 'string', 'max' => 255]
+            [['nama_temasya','kategori_penilaian', 'soalan', 'rating'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pengurusan_maklum_balas_peserta_id', 'rating'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['soalan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

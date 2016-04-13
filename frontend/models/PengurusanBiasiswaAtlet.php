@@ -51,11 +51,11 @@ class PengurusanBiasiswaAtlet extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'tarikh_mula', 'tarikh_akhir', 'nama_biasiswa_sponsor', 'jumlah_penajaan'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
+            [['atlet_id', 'tarikh_mula', 'tarikh_akhir', 'nama_biasiswa_sponsor', 'jumlah_penajaan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_mula', 'tarikh_akhir'], 'safe'],
-            [['jumlah_penajaan'], 'number'],
-            [['nama_biasiswa_sponsor'], 'string', 'max' => 80]
+            [['jumlah_penajaan'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['nama_biasiswa_sponsor'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

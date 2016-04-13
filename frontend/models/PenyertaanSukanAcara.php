@@ -53,11 +53,11 @@ class PenyertaanSukanAcara extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_acara', 'tarikh_acara', 'keputusan_acara', 'jumlah_pingat', 'rekod_baru'], 'required', 'skipOnEmpty' => true],
-            [['penyertaan_sukan_id', 'jumlah_pingat', 'rekod_baru'], 'integer'],
+            [['nama_acara', 'tarikh_acara', 'keputusan_acara', 'jumlah_pingat', 'rekod_baru'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['penyertaan_sukan_id', 'jumlah_pingat', 'rekod_baru'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_acara'], 'safe'],
-            [['nama_acara', 'keputusan_acara'], 'string', 'max' => 80],
-            [['catatan_rekod_baru'], 'string', 'max' => 255]
+            [['nama_acara', 'keputusan_acara'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan_rekod_baru'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

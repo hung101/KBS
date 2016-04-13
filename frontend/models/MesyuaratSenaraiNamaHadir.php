@@ -49,10 +49,10 @@ class MesyuaratSenaraiNamaHadir extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'status', 'no_tel', 'jawatan', 'organisasi', 'kehadiran'], 'required', 'skipOnEmpty' => true],
-            [['mesyuarat_id', 'kehadiran'], 'integer'],
-            [['emel'], 'email'],
-            [['nama'], 'string', 'max' => 100]
+            [['nama', 'status', 'no_tel', 'jawatan', 'organisasi', 'kehadiran'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['mesyuarat_id', 'kehadiran'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
+            [['nama'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

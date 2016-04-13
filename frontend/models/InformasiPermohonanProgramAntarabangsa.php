@@ -51,10 +51,10 @@ class InformasiPermohonanProgramAntarabangsa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['butiran_permohonan', 'amaun'], 'required', 'skipOnEmpty' => true],
-            [['amaun'], 'number'],
-            [['butiran_permohonan'], 'string', 'max' => 80],
-            [['muatnaik_dokumen'], 'string', 'max' => 100],
+            [['butiran_permohonan', 'amaun'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['amaun'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['butiran_permohonan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['muatnaik_dokumen'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik_dokumen'], 'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }

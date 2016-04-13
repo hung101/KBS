@@ -53,12 +53,12 @@ class MesyuaratSenaraiTugas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name_tugas', 'tarikh_tamat', 'pegawai', 'atlet_id', 'status'], 'required', 'skipOnEmpty' => true],
-            [['mesyuarat_id', 'atlet_id'], 'integer'],
+            [['name_tugas', 'tarikh_tamat', 'pegawai', 'atlet_id', 'status'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['mesyuarat_id', 'atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_tamat'], 'safe'],
-            [['name_tugas', 'persatuan'], 'string', 'max' => 100],
-            [['pegawai'], 'string', 'max' => 20],
-            [['status'], 'string', 'max' => 30]
+            [['name_tugas', 'persatuan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['pegawai'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['status'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

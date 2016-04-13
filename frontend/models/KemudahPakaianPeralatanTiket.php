@@ -54,12 +54,12 @@ class KemudahPakaianPeralatanTiket extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'kategori_permohonan', 'tarikh_diperlukan_pergi', 'tarikh_dijangka_dipulangkan_balik', 'kelulusan'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id', 'kelulusan'], 'integer'],
+            [['atlet_id', 'kategori_permohonan', 'tarikh_diperlukan_pergi', 'tarikh_dijangka_dipulangkan_balik', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_diperlukan_pergi', 'tarikh_dijangka_dipulangkan_balik'], 'safe'],
-            [['kategori_permohonan'], 'string', 'max' => 30],
-            [['destinasi_daripada', 'destinasi_ke'], 'string', 'max' => 90],
-            [['ulasan_permohonan'], 'string', 'max' => 255]
+            [['kategori_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['destinasi_daripada', 'destinasi_ke'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['ulasan_permohonan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

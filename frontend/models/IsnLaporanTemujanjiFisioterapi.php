@@ -21,9 +21,9 @@ class IsnLaporanTemujanjiFisioterapi extends Model
     public function rules()
     {
         return [
-            [['format'], 'required'],
+            [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_dari', 'tarikh_hingga', 'pegawai_bertanggungjawab', 'sukan', 'bahagian_kecederaan'], 'safe'],
-            [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true],
+            [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
 

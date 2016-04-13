@@ -60,11 +60,13 @@ class PengurusanKejohananTemasya extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh_kejohanan', 'nama_kejohanan_temasya', 'peringkat', 'nama_sukan', 'nama_acara', 'lokasi_kejohanan', 'nama_ketua_kontijen', 'nama_atlet', 'nama_pegawai', 'nama_doktor', 'nama_fisio', 'tarikh_penginapan_mula', 'tarikh_penginapan_akhir', 'tarikh_perjalanan_pesawat', 'tarikh_pulang_perjalanan_pesawat'], 'required', 'skipOnEmpty' => true],
+            [['tarikh_kejohanan', 'nama_kejohanan_temasya', 'peringkat', 'nama_sukan', 'nama_acara', 'lokasi_kejohanan', 'nama_ketua_kontijen', 'nama_atlet', 
+                'nama_pegawai', 'nama_doktor', 'nama_fisio', 'tarikh_penginapan_mula', 'tarikh_penginapan_akhir', 'tarikh_perjalanan_pesawat', 
+                'tarikh_pulang_perjalanan_pesawat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_kejohanan', 'tarikh_penginapan_mula', 'tarikh_penginapan_akhir', 'tarikh_perjalanan_pesawat', 'tarikh_pulang_perjalanan_pesawat'], 'safe'],
-            [['nama_sukan', 'nama_acara', 'nama_ketua_kontijen', 'nama_atlet', 'nama_pegawai', 'nama_doktor', 'nama_fisio'], 'string', 'max' => 80],
-            [['lokasi_kejohanan'], 'string', 'max' => 90],
-            [['catatan_pesawat'], 'string', 'max' => 255]
+            [['nama_sukan', 'nama_acara', 'nama_ketua_kontijen', 'nama_atlet', 'nama_pegawai', 'nama_doktor', 'nama_fisio'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['lokasi_kejohanan'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan_pesawat'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

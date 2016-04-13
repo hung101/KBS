@@ -52,10 +52,10 @@ class PengurusanDokumenMediaProgram extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['kategori_dokumen', 'nama_dokumen'], 'required', 'skipOnEmpty' => true],
-            [['pengurusan_media_program_id'], 'integer'],
-            [['kategori_dokumen', 'nama_dokumen'], 'string', 'max' => 80],
-            [['muatnaik'], 'string', 'max' => 100],
+            [['kategori_dokumen', 'nama_dokumen'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pengurusan_media_program_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['kategori_dokumen', 'nama_dokumen'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['muatnaik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik'], 'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }

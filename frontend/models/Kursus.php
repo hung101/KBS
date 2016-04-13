@@ -52,11 +52,11 @@ class Kursus extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_kursus', 'tempat', 'tarikh', 'penganjur', 'kod_kursus'], 'required', 'skipOnEmpty' => true],
+            [['nama_kursus', 'tempat', 'tarikh', 'penganjur', 'kod_kursus'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh'], 'safe'],
-            [['nama_kursus', 'penganjur', 'pengkhususan'], 'string', 'max' => 80],
-            [['tempat'], 'string', 'max' => 90],
-            [['kod_kursus'], 'string', 'max' => 30]
+            [['nama_kursus', 'penganjur', 'pengkhususan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kod_kursus'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

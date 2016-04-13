@@ -50,9 +50,9 @@ class PengurusanKejohananTemasyaMain extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_temasya', 'nama_pertandingan', 'tarikh'], 'required', 'skipOnEmpty' => true],
+            [['nama_temasya', 'nama_pertandingan', 'tarikh'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh'], 'safe'],
-            [['nama_temasya', 'nama_pertandingan'], 'string', 'max' => 80]
+            [['nama_temasya', 'nama_pertandingan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

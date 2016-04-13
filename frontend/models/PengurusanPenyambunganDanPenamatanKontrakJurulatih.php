@@ -61,10 +61,10 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatih extends \yii\db\ActiveR
     public function rules()
     {
         return [
-            [['jurulatih', 'tarikh_mula', 'status_permohonan', 'tarikh_tamat'], 'required', 'skipOnEmpty' => true],
-            [['jurulatih'], 'integer'],
+            [['jurulatih', 'tarikh_mula', 'status_permohonan', 'tarikh_tamat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jurulatih'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             //[[ 'muat_naik_document'], 'string', 'max' => 100],
-            [['status_permohonan'], 'string', 'max' => 30],
+            [['status_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik_document'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }

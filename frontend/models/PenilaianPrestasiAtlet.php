@@ -57,12 +57,12 @@ class PenilaianPrestasiAtlet extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'nama_sukan', 'nama_acara', 'break_record', 'maklumat_shakam_shakar'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id', 'break_record'], 'integer'],
+            [['atlet_id', 'nama_sukan', 'nama_acara', 'break_record', 'maklumat_shakam_shakar'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'break_record'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tahun_penilaian', 'jadual_latihan'], 'safe'],
-            [['tahap_kesihatan', 'tahap_kecederaan', 'nama_sukan', 'nama_acara', 'keputusan'], 'string', 'max' => 80],
-            [['sasaran'], 'string', 'max' => 50],
-            [['maklumat_shakam_shakar', 'ulasan', 'tindakan'], 'string', 'max' => 255]
+            [['tahap_kesihatan', 'tahap_kecederaan', 'nama_sukan', 'nama_acara', 'keputusan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['sasaran'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['maklumat_shakam_shakar', 'ulasan', 'tindakan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

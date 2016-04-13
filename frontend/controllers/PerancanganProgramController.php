@@ -15,6 +15,9 @@ use app\models\general\Upload;
 // contant values
 use app\models\general\GeneralVariable;
 
+// table reference
+use app\models\RefJenisProgramHpt;
+
 /**
  * PerancanganProgramController implements the CRUD actions for PerancanganProgram model.
  */
@@ -62,8 +65,13 @@ class PerancanganProgramController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $model = $this->findModel($id);
+        
+        $ref = RefJenisProgram::findOne(['id' => $model->jenis_program]);
+        $model->jenis_program = $ref['desc'];
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

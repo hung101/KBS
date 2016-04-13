@@ -50,9 +50,9 @@ class PengurusanPenilaianKategoriJurulatih extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['penilaian_kategori', 'penilaian_sub_kategori', 'markah_penilaian'], 'required', 'skipOnEmpty' => true],
-            [['pengurusan_pemantauan_dan_penilaian_jurulatih_id', 'markah_penilaian'], 'integer'],
-            [['penilaian_kategori', 'penilaian_sub_kategori'], 'string', 'max' => 80]
+            [['penilaian_kategori', 'penilaian_sub_kategori', 'markah_penilaian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pengurusan_pemantauan_dan_penilaian_jurulatih_id', 'markah_penilaian'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['penilaian_kategori', 'penilaian_sub_kategori'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

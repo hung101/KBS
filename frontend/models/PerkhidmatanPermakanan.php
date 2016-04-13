@@ -50,11 +50,11 @@ class PerkhidmatanPermakanan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh', 'pegawai_yang_bertanggungjawab'], 'required', 'skipOnEmpty' => true],
-            [['permohonan_perkhidmatan_permakanan_id'], 'integer'],
+            [['tarikh', 'pegawai_yang_bertanggungjawab'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['permohonan_perkhidmatan_permakanan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
-            [['pegawai_yang_bertanggungjawab'], 'string', 'max' => 80],
-            [['catitan_ringkas'], 'string', 'max' => 255]
+            [['pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

@@ -50,10 +50,10 @@ class PengurusanPenilaianJurulatih extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pengurusan_pemantauan_dan_penilaian_jurulatih_id', 'penilaian_oleh', 'nama', 'tarikh_dinilai'], 'required', 'skipOnEmpty' => true],
-            [['pengurusan_pemantauan_dan_penilaian_jurulatih_id'], 'integer'],
+            [['pengurusan_pemantauan_dan_penilaian_jurulatih_id', 'penilaian_oleh', 'nama', 'tarikh_dinilai'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pengurusan_pemantauan_dan_penilaian_jurulatih_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_dinilai'], 'safe'],
-            [['penilaian_oleh', 'nama'], 'string', 'max' => 80]
+            [['penilaian_oleh', 'nama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

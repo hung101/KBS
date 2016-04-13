@@ -51,11 +51,11 @@ class PenganjuranKursusPenganjur extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['kategori_kursus', 'nama_kursus', 'kod_kursus', 'tarikh', 'tempat'], 'required', 'skipOnEmpty' => true],
+            [['kategori_kursus', 'nama_kursus', 'kod_kursus', 'tarikh', 'tempat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh'], 'safe'],
-            [['kategori_kursus', 'nama_kursus'], 'string', 'max' => 80],
-            [['kod_kursus'], 'string', 'max' => 30],
-            [['tempat'], 'string', 'max' => 90]
+            [['kategori_kursus', 'nama_kursus'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kod_kursus'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

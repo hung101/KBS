@@ -62,12 +62,13 @@ class PengurusanPerhimpunanKem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_ppn', 'pengurus_pn', 'nama_penganjuran', 'kategori_penganjuran', 'sub_kategori_penganjuran', 'tahap_penganjuran', 'negeri', 'kategori_sukan', 'tarikh_penganjuran', 'activiti', 'tempat', 'jumlah_peserta', 'sokongan_pn', 'kelulusan'], 'required', 'skipOnEmpty' => true],
+            [['nama_ppn', 'pengurus_pn', 'nama_penganjuran', 'kategori_penganjuran', 'sub_kategori_penganjuran', 'tahap_penganjuran', 'negeri', 
+                'kategori_sukan', 'tarikh_penganjuran', 'activiti', 'tempat', 'jumlah_peserta', 'sokongan_pn', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_penganjuran', 'kategori_geran_bantuan'], 'safe'],
-            [['jumlah_peserta', 'sokongan_pn', 'kelulusan'], 'integer'],
-            [['nama_ppn', 'pengurus_pn', 'nama_penganjuran', 'kategori_penganjuran', 'sub_kategori_penganjuran', 'tahap_penganjuran', 'kategori_sukan', 'activiti'], 'string', 'max' => 80],
-            [['negeri'], 'string', 'max' => 30],
-            [['tempat'], 'string', 'max' => 90],
+            [['jumlah_peserta', 'sokongan_pn', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_ppn', 'pengurus_pn', 'nama_penganjuran', 'kategori_penganjuran', 'sub_kategori_penganjuran', 'tahap_penganjuran', 'kategori_sukan', 'activiti'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }

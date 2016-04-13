@@ -51,11 +51,11 @@ class Peralatan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_peralatan', 'kuantiti_unit'], 'required', 'skipOnEmpty' => true],
-            [['permohonan_peralatan_id'], 'integer'],
-            [['nama_peralatan'], 'string', 'max' => 80],
-            [['spesifikasi', 'kuantiti_unit'], 'string', 'max' => 30],
-            [['catatan'], 'string', 'max' => 255]
+            [['nama_peralatan', 'kuantiti_unit'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['permohonan_peralatan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_peralatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['spesifikasi', 'kuantiti_unit'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

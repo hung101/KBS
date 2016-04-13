@@ -65,12 +65,12 @@ class PengurusanInsentif extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'nama_insentif', 'kumpulan', 'rekod_baru', 'nama_sukan', 'kelayakan_pingat', 'jumlah_insentif', 'sgar_nama_jurulatih', 'category_insentif', 'kelulusan'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id', 'kelulusan'], 'integer'],
-            [['jumlah_insentif', 'jumlah_sgar', 'jumlah_sikap', 'jumlah_siso', 'jumlah_sito'], 'number'],
+            [['atlet_id', 'nama_insentif', 'kumpulan', 'rekod_baru', 'nama_sukan', 'kelayakan_pingat', 'jumlah_insentif', 'sgar_nama_jurulatih', 'category_insentif', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jumlah_insentif', 'jumlah_sgar', 'jumlah_sikap', 'jumlah_siso', 'jumlah_sito'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['siso_tarikh_kelayakan', 'sisi_tarikh_olimpik'], 'safe'],
-            [['nama_insentif', 'nama_sukan', 'sgar_nama_jurulatih', 'sikap_nama_persatuan', 'sito_nama_acara_di_olimpik'], 'string', 'max' => 80],
-            [['kumpulan', 'rekod_baru', 'kelayakan_pingat', 'sito_pingat', 'category_insentif'], 'string', 'max' => 30]
+            [['nama_insentif', 'nama_sukan', 'sgar_nama_jurulatih', 'sikap_nama_persatuan', 'sito_nama_acara_di_olimpik'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kumpulan', 'rekod_baru', 'kelayakan_pingat', 'sito_pingat', 'category_insentif'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

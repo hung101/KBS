@@ -52,10 +52,10 @@ class PengurusanKpi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_sukan', 'nama_acara', 'jumlah_sasaran_pingat', 'jumlah_pingat_yang_telah_dimenangi', 'rekod_baru_yang_dicipta', 'senarai_atlet_yang_memenangi'], 'required', 'skipOnEmpty' => true],
-            [['jumlah_sasaran_pingat', 'jumlah_pingat_yang_telah_dimenangi'], 'integer'],
+            [['nama_sukan', 'nama_acara', 'jumlah_sasaran_pingat', 'jumlah_pingat_yang_telah_dimenangi', 'rekod_baru_yang_dicipta', 'senarai_atlet_yang_memenangi'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jumlah_sasaran_pingat', 'jumlah_pingat_yang_telah_dimenangi'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['senarai_atlet_yang_memenangi'], 'safe'],
-            [['nama_sukan', 'nama_acara', 'rekod_baru_yang_dicipta'], 'string', 'max' => 80],
+            [['nama_sukan', 'nama_acara', 'rekod_baru_yang_dicipta'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             //[['senarai_atlet_yang_memenangi'], 'string', 'max' => 255]
         ];
     }

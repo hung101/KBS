@@ -63,13 +63,13 @@ class GeranBantuanGaji extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_jurulatih', 'tarikh_mula', 'tarikh_tamat', 'status_permohonan', 'kategori_geran', 'jumlah_geran', 'status_geran', 'kelulusan'], 'required', 'skipOnEmpty' => true],
-            [['jumlah_geran'], 'number'],
-            [['kelulusan'], 'integer'],
-            [['muatnaik_gambar'], 'string', 'max' => 100],
-            [['nama_jurulatih', 'cawangan', 'sub_cawangan', 'program_msn', 'lain_lain_program', 'pusat_latihan', 'nama_sukan', 'nama_acara'], 'string', 'max' => 80],
-            [['status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 'kategori_geran', 'status_geran'], 'string', 'max' => 30],
-            [['catatan'], 'string', 'max' => 255]
+            [['nama_jurulatih', 'tarikh_mula', 'tarikh_tamat', 'status_permohonan', 'kategori_geran', 'jumlah_geran', 'status_geran', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jumlah_geran'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['muatnaik_gambar'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_jurulatih', 'cawangan', 'sub_cawangan', 'program_msn', 'lain_lain_program', 'pusat_latihan', 'nama_sukan', 'nama_acara'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 'kategori_geran', 'status_geran'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

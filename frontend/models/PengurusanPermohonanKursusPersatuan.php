@@ -64,19 +64,19 @@ class PengurusanPermohonanKursusPersatuan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'kelayakan_akademi', 'perkerjaan', 'nama_majikan', 'yuran_program', 'kelulusan'], 'required', 'skipOnEmpty' => true],
+            [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'kelayakan_akademi', 'perkerjaan', 'nama_majikan', 'yuran_program', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir'], 'safe'],
-            [['yuran_program'], 'number'],
-            [['kelulusan'], 'integer'],
-            [['nama', 'kelayakan_akademi', 'perkerjaan', 'nama_majikan'], 'string', 'max' => 80],
-            [['no_kad_pengenalan'], 'string', 'max' => 12],
-            [['jantina'], 'string', 'max' => 1],
-            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90],
-            [['alamat_negeri'], 'string', 'max' => 30],
-            [['alamat_bandar'], 'string', 'max' => 40],
-            [['alamat_poskod'], 'string', 'max' => 5],
-            [['no_tel_bimbit'], 'string', 'max' => 14],
-            [['emel', 'facebook'], 'string', 'max' => 100]
+            [['yuran_program'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama', 'kelayakan_akademi', 'perkerjaan', 'nama_majikan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_tel_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel', 'facebook'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

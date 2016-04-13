@@ -52,15 +52,15 @@ class PenganjuranKursus extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis_kursus','kod_kursus', 'tarikh_kursus_mula', 'tarikh_kursus_tamat', 'penganjur', 'tempat_kursus', 'negeri', 'nama_penyelaras', 'no_telefon', 'kuota_kursus', 'nama_kursus'], 'required', 'skipOnEmpty' => true],
+            [['jenis_kursus','kod_kursus', 'tarikh_kursus_mula', 'tarikh_kursus_tamat', 'penganjur', 'tempat_kursus', 'negeri', 'nama_penyelaras', 'no_telefon', 'kuota_kursus', 'nama_kursus'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_kursus_mula', 'tarikh_kursus_tamat'], 'safe'],
-            [['kuota_kursus'], 'integer'],
-            [['tempat_kursus'], 'string', 'max' => 90],
-            [['tempoh_kursus'], 'string', 'max' => 100],
-            [['kod_kursus','negeri'], 'string', 'max' => 30],
-            [['nama_penyelaras', 'nama_kursus', 'penganjur'], 'string', 'max' => 80],
-            [['no_telefon'], 'string', 'max' => 14],
-            [['tarikh_kursus_tamat'], 'compare', 'compareAttribute'=>'tarikh_kursus_mula', 'operator'=>'>='],
+            [['kuota_kursus'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tempat_kursus'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempoh_kursus'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kod_kursus','negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_penyelaras', 'nama_kursus', 'penganjur'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tarikh_kursus_tamat'], 'compare', 'compareAttribute'=>'tarikh_kursus_mula', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
 

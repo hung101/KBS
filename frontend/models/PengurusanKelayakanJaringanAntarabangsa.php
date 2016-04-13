@@ -51,11 +51,11 @@ class PengurusanKelayakanJaringanAntarabangsa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_kursus', 'tarikh', 'tempat', 'tahap_kelayakan'], 'required', 'skipOnEmpty' => true],
-            [['pengurusan_jaringan_antarabangsa_id'], 'integer'],
+            [['nama_kursus', 'tarikh', 'tempat', 'tahap_kelayakan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pengurusan_jaringan_antarabangsa_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
-            [['nama_kursus', 'tahap_kelayakan'], 'string', 'max' => 80],
-            [['tempat'], 'string', 'max' => 90]
+            [['nama_kursus', 'tahap_kelayakan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

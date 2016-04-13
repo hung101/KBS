@@ -56,13 +56,13 @@ class PermohonanBimbinganKaunseling extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'tarikh_temujanji', 'nama_pemohon_rujukan', 'kes_latarbelakang'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id', 'bil_adik_beradik'], 'integer'],
+            [['atlet_id', 'tarikh_temujanji', 'nama_pemohon_rujukan', 'kes_latarbelakang'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'bil_adik_beradik'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_rujukan'], 'safe'],
-            [['status_permohonan', 'kes_latarbelakang'], 'string', 'max' => 30],
-            [['nama_pemohon_rujukan', 'pekerjaan_bapa', 'pekerjaan_ibu'], 'string', 'max' => 80],
-            [['notis'], 'string', 'max' => 255],
-            [['no_telefon'], 'string', 'max' => 14]
+            [['status_permohonan', 'kes_latarbelakang'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_pemohon_rujukan', 'pekerjaan_bapa', 'pekerjaan_ibu'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['notis'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

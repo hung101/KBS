@@ -56,15 +56,15 @@ class JurulatihKeluarga extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jurulatih_id', 'nama_suami_isteri_waris', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'no_telefon'], 'required', 'skipOnEmpty' => true],
-            [['jurulatih_id'], 'integer'],
-            [['nama_suami_isteri_waris'], 'string', 'max' => 80],
-            [['alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], 'string', 'max' => 90],
-            [['alamat_surat_menyurat_negeri'], 'string', 'max' => 30],
-            [['alamat_surat_menyurat_bandar'], 'string', 'max' => 40],
-            [['alamat_surat_menyurat_poskod'], 'string', 'max' => 5],
-            [['emel'], 'string', 'max' => 100],
-            [['no_telefon', 'no_telefon_bimbit'], 'string', 'max' => 14]
+            [['jurulatih_id', 'nama_suami_isteri_waris', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'no_telefon'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jurulatih_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_suami_isteri_waris'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_surat_menyurat_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_surat_menyurat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_surat_menyurat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon', 'no_telefon_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

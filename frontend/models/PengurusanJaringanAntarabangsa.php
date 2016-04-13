@@ -73,16 +73,22 @@ class PengurusanJaringanAntarabangsa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_badan_sukan', 'negara', 'nama_pemohon', 'no_kad_pengenalan', 'jantina', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'pegawai_teknikal', 'permohonan', 'jenis_program', 'no_telefon', 'no_tel_bimbit', 'nama_majikan', 'alamat_majikan_1', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 'jawatan_di_persatuan'], 'required', 'skipOnEmpty' => true],
-            [['nama_badan_sukan', 'negara', 'nama_pemohon', 'pegawai_teknikal', 'permohonan', 'nama_majikan', 'jawatan_di_persatuan', 'tahap_kelayakan_sekarang'], 'string', 'max' => 80],
-            [['no_kad_pengenalan'], 'string', 'max' => 12],
-            [['jantina'], 'string', 'max' => 1],
-            [['alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3'], 'string', 'max' => 90],
-            [['alamat_surat_menyurat_negeri', 'jenis_program', 'alamat_majikan_negeri'], 'string', 'max' => 30],
-            [['alamat_surat_menyurat_bandar', 'alamat_majikan_bandar'], 'string', 'max' => 40],
-            [['alamat_surat_menyurat_poskod', 'alamat_majikan_poskod'], 'string', 'max' => 5],
-            [['no_telefon', 'no_tel_bimbit', 'no_faks'], 'string', 'max' => 14],
-            [['emel'], 'string', 'max' => 100]
+            [['nama_badan_sukan', 'negara', 'nama_pemohon', 'no_kad_pengenalan', 'jantina', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri', 
+                'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'pegawai_teknikal', 'permohonan', 'jenis_program', 'no_telefon', 
+                'no_tel_bimbit', 'nama_majikan', 'alamat_majikan_1', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 
+                'jawatan_di_persatuan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama_badan_sukan', 'negara', 'nama_pemohon', 'pegawai_teknikal', 'permohonan', 'nama_majikan', 'jawatan_di_persatuan', 
+                'tahap_kelayakan_sekarang'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 'alamat_majikan_1', 'alamat_majikan_2', 
+                'alamat_majikan_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_surat_menyurat_negeri', 'jenis_program', 'alamat_majikan_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_surat_menyurat_bandar', 'alamat_majikan_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_surat_menyurat_poskod', 'alamat_majikan_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon', 'no_tel_bimbit', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email]
         ];
     }
 

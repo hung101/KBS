@@ -52,12 +52,12 @@ class PengurusanPenginapan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'nama_pegawai', 'tarikh_masa_penginapan_mula', 'tarikh_masa_penginapan_akhir', 'lokasi', 'nama_penginapan'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
+            [['atlet_id', 'nama_pegawai', 'tarikh_masa_penginapan_mula', 'tarikh_masa_penginapan_akhir', 'lokasi', 'nama_penginapan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_masa_penginapan_mula', 'tarikh_masa_penginapan_akhir'], 'safe'],
-            [['nama_pegawai', 'nama_penginapan'], 'string', 'max' => 80],
-            [['lokasi'], 'string', 'max' => 90],
-            [['catatan'], 'string', 'max' => 255]
+            [['nama_pegawai', 'nama_penginapan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['lokasi'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

@@ -51,12 +51,12 @@ class JurulatihPendidikan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jurulatih_id', 'tahun', 'sekolah_kolej_universiti', 'gred'], 'required', 'skipOnEmpty' => true],
-            [['jurulatih_id'], 'integer'],
+            [['jurulatih_id', 'tahun', 'sekolah_kolej_universiti', 'gred'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jurulatih_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             //[['tahun'], 'safe'],
-            [['tahun'], 'integer','min'=>GeneralVariable::yearMin,'max'=>GeneralVariable::yearMax],
-            [['sekolah_kolej_universiti'], 'string', 'max' => 80],
-            [['gred'], 'string', 'max' => 255]
+            [['tahun'], 'integer','min'=>GeneralVariable::yearMin,'max'=>GeneralVariable::yearMax, 'message' => GeneralMessage::yii_validation_integer, 'tooBig' => GeneralMessage::yii_validation_integer_max, 'tooSmall' => GeneralMessage::yii_validation_integer_min],
+            [['sekolah_kolej_universiti'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['gred'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

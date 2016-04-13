@@ -56,8 +56,8 @@ class PenganjuranPemantuan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['permohonan_pendahuluan_pelagai', 'menghantar_surat_cuti_tanpa', 'keperluan_bengkel_telah', 'membuat_tempahan_penginapan', 'membuat_tempahan_tempat_untuk', 'mengesahan_kehadiran_panel', 'mengesahan_pendaftaran_panel', 'memberi_taklimat', 'mengumpul_dan_membukukan', 'membuat_pelarasan_kewangan'], 'required', 'skipOnEmpty' => true],
-            [['permohonan_pendahuluan_pelagai', 'menghantar_surat_cuti_tanpa', 'keperluan_bengkel_telah', 'membuat_tempahan_penginapan', 'membuat_tempahan_tempat_untuk', 'mengesahan_kehadiran_panel', 'mengesahan_pendaftaran_panel', 'memberi_taklimat', 'mengumpul_dan_membukukan', 'membuat_pelarasan_kewangan'], 'integer']
+            [['permohonan_pendahuluan_pelagai', 'menghantar_surat_cuti_tanpa', 'keperluan_bengkel_telah', 'membuat_tempahan_penginapan', 'membuat_tempahan_tempat_untuk', 'mengesahan_kehadiran_panel', 'mengesahan_pendaftaran_panel', 'memberi_taklimat', 'mengumpul_dan_membukukan', 'membuat_pelarasan_kewangan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['permohonan_pendahuluan_pelagai', 'menghantar_surat_cuti_tanpa', 'keperluan_bengkel_telah', 'membuat_tempahan_penginapan', 'membuat_tempahan_tempat_untuk', 'mengesahan_kehadiran_panel', 'mengesahan_pendaftaran_panel', 'memberi_taklimat', 'mengumpul_dan_membukukan', 'membuat_pelarasan_kewangan'], 'integer', 'message' => GeneralMessage::yii_validation_integer]
         ];
     }
 

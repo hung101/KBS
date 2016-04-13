@@ -52,11 +52,11 @@ class PengurusanKehadiranMediaProgram extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_wartawan'], 'required', 'skipOnEmpty' => true],
-            [['pengurusan_media_program_id'], 'integer'],
-            [['program', 'nama_wartawan', 'agensi'], 'string', 'max' => 80],
-            [['emel'], 'string', 'max' => 100],
-            [['no_telefon'], 'string', 'max' => 14]
+            [['nama_wartawan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pengurusan_media_program_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['program', 'nama_wartawan', 'agensi'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

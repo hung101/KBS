@@ -50,11 +50,11 @@ class PemberianSuplemenMakananJusRundinganPendidikan extends \yii\db\ActiveRecor
     public function rules()
     {
         return [
-            [['atlet', 'nama_suplemen_makanan_jus_rundingan_pendidikan', 'kuantiti_ml_g'], 'required', 'skipOnEmpty' => true],
-            [['perkhidmatan_permakanan_id', 'kuantiti_ml_g', 'kategori_atlet', 'acara', 'sukan'], 'integer'],
+            [['atlet', 'nama_suplemen_makanan_jus_rundingan_pendidikan', 'kuantiti_ml_g'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['perkhidmatan_permakanan_id', 'kuantiti_ml_g', 'kategori_atlet', 'acara', 'sukan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_suplemen_makanan_jus_rundingan_pendidikan'], 'safe'],
-            [['harga'], 'number'],
-            [['nama_suplemen_makanan_jus_rundingan_pendidikan'], 'string', 'max' => 80],
+            [['harga'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['nama_suplemen_makanan_jus_rundingan_pendidikan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
 

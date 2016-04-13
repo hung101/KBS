@@ -51,10 +51,10 @@ class PenyertaanSukanAduan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_pengadu', 'tarikh_aduan', 'status_aduan', 'aduan_kategori', 'penyataan_aduan'], 'required', 'skipOnEmpty' => true],
+            [['nama_pengadu', 'tarikh_aduan', 'status_aduan', 'aduan_kategori', 'penyataan_aduan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_aduan'], 'safe'],
-            [['nama_pengadu', 'aduan_kategori', 'penyataan_aduan'], 'string', 'max' => 80],
-            [['status_aduan'], 'string', 'max' => 30]
+            [['nama_pengadu', 'aduan_kategori', 'penyataan_aduan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['status_aduan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

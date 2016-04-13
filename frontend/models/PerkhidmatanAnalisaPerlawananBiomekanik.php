@@ -54,12 +54,12 @@ class PerkhidmatanAnalisaPerlawananBiomekanik extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['perkhidmatan', 'tarikh', 'pegawai_yang_bertanggungjawab', 'status_ujian'], 'required', 'skipOnEmpty' => true],
-            [['permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id'], 'integer'],
+            [['perkhidmatan', 'tarikh', 'pegawai_yang_bertanggungjawab', 'status_ujian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
-            [['perkhidmatan', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80],
-            [['status_ujian'], 'string', 'max' => 30],
-            [['catitan_ringkas'], 'string', 'max' => 255],
+            [['perkhidmatan', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['status_ujian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik_video'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }

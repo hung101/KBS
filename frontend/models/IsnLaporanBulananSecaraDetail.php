@@ -19,9 +19,9 @@ class IsnLaporanBulananSecaraDetail extends Model
     public function rules()
     {
         return [
-            [['format','tahun'], 'required'],
+            [['format','tahun'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['kategori_program_id'], 'safe'],
-            [['tahun'], 'integer', 'min'=>GeneralVariable::yearMin, 'max'=>GeneralVariable::yearMax],
+            [['tahun'], 'integer', 'min'=>GeneralVariable::yearMin, 'max'=>GeneralVariable::yearMax, 'message' => GeneralMessage::yii_validation_integer, 'tooBig' => GeneralMessage::yii_validation_integer_max, 'tooSmall' => GeneralMessage::yii_validation_integer_min],
         ];
     }
 

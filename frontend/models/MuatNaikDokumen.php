@@ -51,10 +51,10 @@ class MuatNaikDokumen extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['kategori_muat_naik'], 'required', 'skipOnEmpty' => true],
+            [['kategori_muat_naik'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_muat_naik'], 'safe'],
-            [['kategori_muat_naik'], 'string', 'max' => 80],
-            [['muat_naik_dokumen'], 'string', 'max' => 100],
+            [['kategori_muat_naik'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['muat_naik_dokumen'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik_dokumen'], 'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }

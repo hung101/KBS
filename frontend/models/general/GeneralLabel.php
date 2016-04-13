@@ -1647,6 +1647,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_ahli_jawatankuasa_induk = "Laporan Ahli Jawatankuasa Induk";
         const laporan_ahli_jawatankuasa_kecil_biro = "Laporan Ahli Jawatankuasa Kecil / Biro";
         const laporan_badan_sukan = "Laporan Badan Sukan";
+        const laporan_bilangan_program_bagi_setiap_bulan = "Laporan Bilangan Program Bagi Setip Bulan";
         const laporan_gym_jumlah_atlet = "Laporan GYM Jumlah Atlet";
         const laporan_gym_kehadiran_atlet = "Laporan GYM Kehadiran Atlet";
         const laporan_kuantiti_kemudahan = "Laporan Kuantiti Kemudahan";
@@ -1658,6 +1659,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_prestasi_akademik = "Laporan Prestasi Akademik";
         const laporan_senarai_penerima_biasiswa = "Laporan Senarai Penerima Biasiswa";
         const laporan_senarai_peserta = "Laporan Senarai Peserta";
+        const laporan_senarai_program_setiap_bulan = "Laporan Senarai Program Setiap Bulan";
         const laporan_sesi_kaunseling = "Laporan Sesi Kaunseling";
         const laporan_senarai_kursus = "Laporan Senarai Kursus";
         const laporan_statistik_permohonan_biasiswa_mengikut_ipta_ipts = "Laporan Statistik Permohonan Biasiswa Mengikut IPTA / IPTS";
@@ -1709,6 +1711,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pengurusan_kemudahan = "Pengurusan Kemudahan";
         const pengurusan_kemudahan_aduan_pemeriksa = "Pengurusan Kemudahan Aduan Pemeriksa";
         const pengurusan_kewangan = "Pengurusan Kewangan";
+        const pengurusan_kewangan_hpt = "Pengurusan Kewangan HPT";
         const pengurusan_kpi = "Pengurusan KPI";
         const pengurusan_maklumat_psk = "Pengurusan Maklumat PSK";
         const pengurusan_media = "Pengurusan Media";
@@ -1744,6 +1747,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const penyelidikan_sistem_pengurusan_geran_penyelidikan_penyelidikan_sistem_penyelarasan_penyelidikan = "Penyelidikan Sistem Pengurusan Geran Penyelidikan, Penyelidikan Sistem Penyelarasan Penyelidikan";
         const penyelidikan_sistem_pengurusan_penerbitan = "Penyelidikan Sistem Pengurusan Penerbitan";
         const perancangan_program = "Perancangan Program";
+        const perancangan_program_hpt = "Perancangan Program HPT";
         const perlantikan_jurulatih_baru_pengurusan_profil_jurulatih_pengurusan_program_latihan_jurulatih = "Perlantikan Jurulatih Baru, Pengurusan Profil Jurulatih, Pengurusan Program Latihan Jurulatih";
         const permohonan_biasiswa = "Permohonan Biasiswa";
         const permohonan_bimbingan_kaunseling = "Permohonan Bimbingan Kaunseling";
@@ -2201,7 +2205,9 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const senarai_harga_perkhidmatan_ubatan_peralatan = "Senarai Harga Perkhidmatan Ubatan Peralatan";
         const senarai_jurulatih = "Senarai Jurulatih";
         const six_step = "Six Step";
+        const six_step_hpt = "Six Step HPT";
         const soal_selidik_sebelum_ujian = "Soal Selidik Sebelum Ujian";
+        const soal_selidik_sebelum_ujian_hpt = "Soal Selidik Sebelum Ujian HPT";
         const soalan_penilaian = "Soalan Penilaian";
         const tempahan_kemudahan = "Tempahan Kemudahan";
         const tempahan_kursus_persatuan = "Tempahan Kursus Persatuan";
@@ -4170,6 +4176,7 @@ if($session->get('language') == "EN") {
         const laporan_ahli_jawatankuasa_induk = "Report Of The Main Committee Member";
         const laporan_ahli_jawatankuasa_kecil_biro = "Report Of The Committee For Small/Bureau";
         const laporan_badan_sukan = "Report GYM of Athlete";
+        const laporan_bilangan_program_bagi_setiap_bulan = "Report For Number of Program By Month";
         const laporan_gym_jumlah_atlet = "Report GYM of Athlete";
         const laporan_gym_kehadiran_atlet = "Report Attendance GYM Athlete";
         const laporan_kuantiti_kemudahan = "Report The Quantity Of Facility";
@@ -4181,6 +4188,7 @@ if($session->get('language') == "EN") {
         const laporan_prestasi_akademik = "Academic Performance Report";
         const laporan_senarai_penerima_biasiswa = "Scholarship Recipients List Report";
         const laporan_senarai_peserta = "Participant List Report";
+        const laporan_senarai_program_setiap_bulan = "Report List Program By Month";
         const laporan_sesi_kaunseling = "Counselling Session Report";
         const laporan_senarai_kursus = "List Of Courses Report";
         const laporan_statistik_permohonan_biasiswa_mengikut_ipta_ipts = "Statistical Report In Accordance With The Scholarship Application IPTA/IPTS";
@@ -4232,6 +4240,7 @@ if($session->get('language') == "EN") {
         const pengurusan_kemudahan = "Facilities Management";
         const pengurusan_kemudahan_aduan_pemeriksa = "Facilities Management Complaints Examiner";
         const pengurusan_kewangan = "Financial Management";
+        const pengurusan_kewangan_hpt = "Financial Management HPT";
         const pengurusan_kpi = "KPI Management";
         const pengurusan_maklumat_psk = "Information Management The NSAS";
         const pengurusan_media = "Media Management";
@@ -4267,6 +4276,7 @@ if($session->get('language') == "EN") {
         const penyelidikan_sistem_pengurusan_geran_penyelidikan_penyelidikan_sistem_penyelarasan_penyelidikan = "Research Grant Management Systems Research, Research Research Coordination System";
         const penyelidikan_sistem_pengurusan_penerbitan = "Research On Production Management System";
         const perancangan_program = "Planning Program";
+        const perancangan_program_hpt = "Planning Program HPT";
         const perlantikan_jurulatih_baru_pengurusan_profil_jurulatih_pengurusan_program_latihan_jurulatih = "The Appointment Of The New Coach, Coach Profile Management, Management Coach Training Program";
         const permohonan_biasiswa = "Scholarship Application";
         const permohonan_bimbingan_kaunseling = "Application Of Guidance Counseling";
@@ -4726,7 +4736,9 @@ if($session->get('language') == "EN") {
         const senarai_harga_perkhidmatan_ubatan_peralatan = "The List Price Of The Medicine Service Equipment";
         const senarai_jurulatih = "List Of Coach";
         const six_step = "Six Step";
+        const six_step_hpt = "Six Step HPT";
         const soal_selidik_sebelum_ujian = "Questionnaire Before The Test";
+        const soal_selidik_sebelum_ujian_hpt = "Questionnaire Before The Test HPT";
         const soalan_penilaian = "Evaluation Question";
         const tempahan_kemudahan = "Facilities Booking";
         const tempahan_kursus_persatuan = "Most Courses In Association";

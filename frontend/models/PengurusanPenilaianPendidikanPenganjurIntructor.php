@@ -50,10 +50,10 @@ class PengurusanPenilaianPendidikanPenganjurIntructor extends \yii\db\ActiveReco
     public function rules()
     {
         return [
-            [['nama_penganjuran_kursus', 'kod_kursus', 'tarikh_kursus', 'instructor'], 'required', 'skipOnEmpty' => true],
+            [['nama_penganjuran_kursus', 'kod_kursus', 'tarikh_kursus', 'instructor'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_kursus'], 'safe'],
-            [['nama_penganjuran_kursus', 'instructor'], 'string', 'max' => 80],
-            [['kod_kursus'], 'string', 'max' => 30]
+            [['nama_penganjuran_kursus', 'instructor'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kod_kursus'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

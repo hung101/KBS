@@ -67,6 +67,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pengurusanKemudahanSediaAdaFolder = "pengurusan_kemudahan_sedia_ada";
         const pengurusanPerhimpunanKemFolder = "pengurusan_perhimpunan_kem";
         const perancanganProgramFolder = "perancangan_program";
+        const perancanganProgramHPTFolder = "perancangan_program_hpt";
         const permohonanBiasiswaFolder = "permohonan_biasiswa";
         const permohonanPendidikanFolder = "permohonan_pendidikan";
         const permohonanPenyelidikanFolder = "permohonan_penyelidikan";

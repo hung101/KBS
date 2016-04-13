@@ -50,10 +50,10 @@ class PengurusanShuttleBus extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'tarikh_mula', 'tarikh_akhir', 'pilihan_shuttle'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
+            [['atlet_id', 'tarikh_mula', 'tarikh_akhir', 'pilihan_shuttle'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_mula', 'tarikh_akhir', 'catatan'], 'safe'],
-            [['pilihan_shuttle'], 'string', 'max' => 80]
+            [['pilihan_shuttle'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 
