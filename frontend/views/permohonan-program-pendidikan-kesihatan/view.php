@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PermohonanProgramPendidikanKesihatan */
 
 //$this->title = $model->permohonan_program_pendidikan_kesihatan_id;
-$this->title = GeneralLabel::viewTitle . ' Permohonan Program Pendidikan Kesihatan';
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::permohonan_program_pendidikan_kesihatan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_program_pendidikan_kesihatan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
