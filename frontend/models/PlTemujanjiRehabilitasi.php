@@ -54,14 +54,14 @@ class PlTemujanjiRehabilitasi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh_temujanji', 'doktor_pegawai_perubatan', 'status_temujanji', 'pegawai_yang_bertanggungjawab'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id', 'nama_rehabilitasi', 'kategori_pesakit_luar', 'tindakan_selanjutnya'], 'integer'],
+            [['tarikh_temujanji', 'doktor_pegawai_perubatan', 'status_temujanji', 'pegawai_yang_bertanggungjawab'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'nama_rehabilitasi', 'kategori_pesakit_luar', 'tindakan_selanjutnya'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_temujanji'], 'safe'],
-            [['doktor_pegawai_perubatan', 'makmal_perubatan', 'pegawai_yang_bertanggungjawab', 'nama_pesakit_luar'], 'string', 'max' => 80],
-            [['status_temujanji'], 'string', 'max' => 30],
-            [['catitan_ringkas', 'maklumbalas'], 'string', 'max' => 255],
-            [['no_kad_pengenalan'], 'string', 'min' => 12, 'max' => 12],
-            [['no_kad_pengenalan'], 'integer'],
+            [['doktor_pegawai_perubatan', 'makmal_perubatan', 'pegawai_yang_bertanggungjawab', 'nama_pesakit_luar'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['status_temujanji'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catitan_ringkas', 'maklumbalas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'string', 'min' => 12, 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min],
+            [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['muat_naik', 'gambar'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }

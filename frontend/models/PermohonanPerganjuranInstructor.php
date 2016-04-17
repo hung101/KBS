@@ -48,9 +48,9 @@ class PermohonanPerganjuranInstructor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_instructor'], 'required', 'skipOnEmpty' => true],
-            [['permohonan_perganjuran_id'], 'integer'],
-            [['nama_instructor'], 'string', 'max' => 80]
+            [['nama_instructor'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['permohonan_perganjuran_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_instructor'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

@@ -63,20 +63,20 @@ class PsikologiProfil extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'pangkat', 'no_kad_pengenalan', 'tarikh_lahir', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit'], 'required', 'skipOnEmpty' => true],
+            [['nama', 'pangkat', 'no_kad_pengenalan', 'tarikh_lahir', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir'], 'safe'],
-            [['nama'], 'string', 'max' => 80],
-            [['pangkat'], 'integer'],
-            [['no_kad_pengenalan'], 'string', 'max' => 12],
-            [['jantina'], 'string', 'max' => 1],
-            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30],
-            [['alamat_negeri'], 'string', 'max' => 3],
-            [['alamat_bandar'], 'string', 'max' => 5],
-            [['alamat_poskod'], 'string', 'max' => 5],
-            [['no_tel_bimbit'], 'string', 'max' => 14],
-            [['emel', 'facebook'], 'string', 'max' => 100],
-            [['catatan'], 'string', 'max' => 255],
-            [['pengalaman_pertandingan'], 'string', 'max' => 50],
+            [['nama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['pangkat'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_negeri'], 'string', 'max' => 3, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_bandar'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_tel_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel', 'facebook'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['pengalaman_pertandingan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             //[['muat_naik'], 'string', 'max' => 100],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false]
         ];

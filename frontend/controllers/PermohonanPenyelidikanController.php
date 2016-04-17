@@ -158,7 +158,7 @@ class PermohonanPenyelidikanController extends Controller
         }
         
         if($model->semak_salinan_penepian_persetujuan == 1){
-            $model->semak_salinan_penepian_persetujuan = GeneralLabel::semak_salinan_penepian_persetujuan;
+            $model->semak_salinan_penepian_persetujuan = GeneralLabel::semak_salinan_pengecualian_persetujuan;
         } else {
             $model->semak_salinan_penepian_persetujuan = null;
         }

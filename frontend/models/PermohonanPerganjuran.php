@@ -51,11 +51,11 @@ class PermohonanPerganjuran extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh_kursus', 'tempat_kursus', 'aktiviti', 'kelulusan'], 'required', 'skipOnEmpty' => true],
+            [['tarikh_kursus', 'tempat_kursus', 'aktiviti', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_kursus'], 'safe'],
-            [['kelulusan'], 'integer'],
-            [['tempat_kursus'], 'string', 'max' => 90],
-            [['aktiviti', 'nama_instructor'], 'string', 'max' => 80]
+            [['kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tempat_kursus'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['aktiviti', 'nama_instructor'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

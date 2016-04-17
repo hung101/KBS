@@ -50,11 +50,11 @@ class PlSejarahPerubatan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'tarikh', 'nama_perubatan', 'butiran_perubatan'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
+            [['atlet_id', 'tarikh', 'nama_perubatan', 'butiran_perubatan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
-            [['nama_perubatan'], 'string', 'max' => 80],
-            [['butiran_perubatan'], 'string', 'max' => 255]
+            [['nama_perubatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['butiran_perubatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

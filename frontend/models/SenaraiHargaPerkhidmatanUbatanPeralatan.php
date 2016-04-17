@@ -49,10 +49,10 @@ class SenaraiHargaPerkhidmatanUbatanPeralatan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_perkhidmatan_ubatan_peralatan', 'harga'], 'required', 'skipOnEmpty' => true],
-            [['harga'], 'number'],
-            [['nama_perkhidmatan_ubatan_peralatan'], 'string', 'max' => 80],
-            [['catitan_ringkas'], 'string', 'max' => 255]
+            [['nama_perkhidmatan_ubatan_peralatan', 'harga'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['harga'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['nama_perkhidmatan_ubatan_peralatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

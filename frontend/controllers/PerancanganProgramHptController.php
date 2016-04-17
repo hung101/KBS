@@ -5,17 +5,19 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PerancanganProgramHpt;
 use frontend\models\PerancanganProgramHptSearch;
-use app\models\IsnLaporanBilanganProgramBagiSetipBulanHPT;
+use app\models\IsnLaporanBilanganProgramBagiSetiapBulanHPT;
 use app\models\IsnLaporanSenaraiProgramSetiapBulanHPT;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\BaseUrl;
 
 use app\models\general\Upload;
 
 // contant values
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefJenisProgramHpt;
@@ -172,13 +174,13 @@ class PerancanganProgramHptController extends Controller
         }
     }
     
-    public function actionLaporanBilanganProgramBagiSetipBulanHpt()
+    public function actionLaporanBilanganProgramBagiSetiapBulanHpt()
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
-        $model = new IsnLaporanBilanganProgramBagiSetipBulanHPT();
+        $model = new IsnLaporanBilanganProgramBagiSetiapBulanHPT();
         $model->format = 'html';
 
         if ($model->load(Yii::$app->request->post())) {
@@ -205,7 +207,7 @@ class PerancanganProgramHptController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanBilanganProgramBagiSetipBulanHpt($tarikh_dari, $tarikh_hingga, $format)
+    public function actionGenerateLaporanBilanganProgramBagiSetiapBulanHpt($tarikh_dari, $tarikh_hingga, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -218,7 +220,7 @@ class PerancanganProgramHptController extends Controller
             'TO_DATE' => $tarikh_hingga,
         );
         
-        GeneralFunction::generateReport('/spsb/ISN/LaporanBilanganProgramBagiSetipBulanHPT', $format, $controls, 'laporan_bilangan_program_bagi_setiap_bulan_hpt');
+        GeneralFunction::generateReport('/spsb/ISN/LaporanBilanganProgramBagiSetiapBulanHPT', $format, $controls, 'laporan_bilangan_program_bagi_setiap_bulan_hpt');
     }
     
     public function actionLaporanSenaraiProgramSetiapBulanHpt()

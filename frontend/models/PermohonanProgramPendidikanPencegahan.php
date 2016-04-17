@@ -53,12 +53,12 @@ class PermohonanProgramPendidikanPencegahan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id_staff_id', 'program', 'tarikh_permohonan', 'status_permohonan', 'kategori_permohonan', 'kelulusan'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id_staff_id', 'kelulusan'], 'integer'],
+            [['atlet_id_staff_id', 'program', 'tarikh_permohonan', 'status_permohonan', 'kategori_permohonan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id_staff_id', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_permohonan'], 'safe'],
-            [['program'], 'string', 'max' => 80],
-            [['status_permohonan', 'kategori_permohonan'], 'string', 'max' => 30],
-            [['catitan_ringkas'], 'string', 'max' => 255]
+            [['program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['status_permohonan', 'kategori_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

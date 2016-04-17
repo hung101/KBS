@@ -53,7 +53,8 @@ class RefStatusTempahanKemudahan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['report_flag', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['desc'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['report_flag', 'aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
             [['desc'], 'string', 'max' => 80]
         ];

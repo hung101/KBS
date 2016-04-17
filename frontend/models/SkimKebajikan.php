@@ -56,14 +56,14 @@ class SkimKebajikan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis_bantuan_skak', 'jumlah_bantuan', 'nama_pemohon', 'nama_penerima', 'jenis_sukan', 'kelulusan'], 'required', 'skipOnEmpty' => true],
-            [['jumlah_bantuan'], 'number'],
+            [['jenis_bantuan_skak', 'jumlah_bantuan', 'nama_pemohon', 'nama_penerima', 'jenis_sukan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jumlah_bantuan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tarikh_kejadian'], 'safe'],
-            [['kelulusan'], 'integer'],
-            [['jenis_bantuan_skak', 'jenis_sukan', 'jenis_bantuan_lain_yang_diterima'], 'string', 'max' => 30],
-            [['nama_pemohon', 'nama_penerima'], 'string', 'max' => 80],
-            [['masalah_dihadapi'], 'string', 'max' => 100],
-            [['lokasi_kejadian'], 'string', 'max' => 90]
+            [['kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jenis_bantuan_skak', 'jenis_sukan', 'jenis_bantuan_lain_yang_diterima'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_pemohon', 'nama_penerima'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['masalah_dihadapi'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['lokasi_kejadian'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

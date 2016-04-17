@@ -35,8 +35,8 @@ class RefReportFormat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['desc', 'file_extension'], 'required'],
-            [['aktif', 'created_by', 'updated_by'], 'integer'],
+            [['desc', 'file_extension'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
             [['desc'], 'string', 'max' => 80],
             [['file_extension'], 'string', 'max' => 10]

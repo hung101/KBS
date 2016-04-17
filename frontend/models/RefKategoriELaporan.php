@@ -29,6 +29,24 @@ class RefKategoriELaporan extends \yii\db\ActiveRecord
     {
         return 'tbl_ref_kategori_e_laporan';
     }
+    
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior',
+            [
+                'class' => \yii\behaviors\BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'updated',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -36,10 +54,10 @@ class RefKategoriELaporan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['desc'], 'required'],
-            [['show_public', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['desc'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['show_public', 'aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
-            [['desc'], 'string', 'max' => 80]
+            [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

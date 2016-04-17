@@ -76,8 +76,12 @@ class UjianSaringan extends \yii\db\ActiveRecord
             [['no_telefon'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['no_kad_pengenalan', 'antropometrik_tidak_mengambil_bahagian', 'koordinasi_tidak_mengambil_bahagian', 'kuasa_tidak_mengambil_bahagian', 'kelenturan_tidak_mengambil_bahagian', 'kepantasan_tidak_mengambil_bahagian'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['melontar_dan_menerima'], 'integer', 'max' => 10, 'min' => 0, 'message' => GeneralMessage::yii_validation_integer, 'tooBig' => GeneralMessage::yii_validation_integer_max, 'tooSmall' => GeneralMessage::yii_validation_integer_min],
             [['umur'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['lompat_jauh_berdiri'], 'number', 'max' => 320, 'message' => GeneralMessage::yii_validation_number, 'tooBig' => GeneralMessage::yii_validation_integer_max],
+            [['jangkauan_meluntur'], 'number', 'max' => 60, 'message' => GeneralMessage::yii_validation_number, 'tooBig' => GeneralMessage::yii_validation_integer_max],
+            [['lari_pecut_20_meter'], 'number', 'max' => 10, 'message' => GeneralMessage::yii_validation_number, 'tooBig' => GeneralMessage::yii_validation_integer_max],
             [['bangsa', 'sukan', 'tarikh_lahir', 'maklumat_program'], 'safe'],
         ];
     }
@@ -110,6 +114,15 @@ class UjianSaringan extends \yii\db\ActiveRecord
             'maklumat_program' => GeneralLabel::maklumat_program,
             'umur' => GeneralLabel::umur,
             'bangsa' => GeneralLabel::bangsa,
+            'antropometrik_tidak_mengambil_bahagian' => GeneralLabel::tidak_mengambil_bahagian,
+            'koordinasi_tidak_mengambil_bahagian' => GeneralLabel::tidak_mengambil_bahagian,
+            'melontar_dan_menerima' => GeneralLabel::melontar_dan_menerima,
+            'kuasa_tidak_mengambil_bahagian' => GeneralLabel::tidak_mengambil_bahagian,
+            'lompat_jauh_berdiri' => GeneralLabel::lompat_jauh_berdiri,
+            'kelenturan_tidak_mengambil_bahagian' => GeneralLabel::tidak_mengambil_bahagian,
+            'jangkauan_meluntur' => GeneralLabel::jangkauan_meluntur,
+            'kepantasan_tidak_mengambil_bahagian' => GeneralLabel::tidak_mengambil_bahagian,
+            'lari_pecut_20_meter' => GeneralLabel::lari_pecut_20_meter,
         ];
     }
     

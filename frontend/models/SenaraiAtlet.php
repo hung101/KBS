@@ -49,8 +49,8 @@ class SenaraiAtlet extends \yii\db\ActiveRecord
     {
         return [
             [['atlet'], 'required', 'skipOnEmpty' => true],
-            [['pengurusan_jkk_jkp_program_id'], 'integer'],
-            [['atlet'], 'string', 'max' => 80]
+            [['pengurusan_jkk_jkp_program_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['atlet'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

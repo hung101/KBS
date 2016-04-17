@@ -53,7 +53,7 @@ class SoalSelidikSebelumUjianSoalanJawapanHpt extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['soal_selidik_sebelum_ujian_id', 'soalan', 'jawapan', 'created_by', 'updated_by'], 'integer'],
+            [['soal_selidik_sebelum_ujian_id', 'soalan', 'jawapan', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe']
         ];
     }

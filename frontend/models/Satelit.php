@@ -51,11 +51,11 @@ class Satelit extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'tarikh', 'sukan', 'perkhidmatan', 'fasiliti'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id'], 'integer'],
+            [['atlet_id', 'tarikh', 'sukan', 'perkhidmatan', 'fasiliti'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
-            [['sukan'], 'string', 'max' => 30],
-            [['perkhidmatan', 'fasiliti'], 'string', 'max' => 80]
+            [['sukan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['perkhidmatan', 'fasiliti'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

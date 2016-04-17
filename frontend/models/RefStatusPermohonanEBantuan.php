@@ -32,6 +32,24 @@ class RefStatusPermohonanEBantuan extends \yii\db\ActiveRecord
     {
         return 'tbl_ref_status_permohonan_e_bantuan';
     }
+    
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior',
+            [
+                'class' => \yii\behaviors\BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'updated',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -39,8 +57,8 @@ class RefStatusPermohonanEBantuan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['desc'], 'required'],
-            [['aktif', 'created_by', 'updated_by'], 'integer'],
+            [['desc'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
             [['desc'], 'string', 'max' => 80]
         ];

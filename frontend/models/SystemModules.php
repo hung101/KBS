@@ -55,11 +55,11 @@ class SystemModules extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category', 'module_name', 'action', 'sort'], 'required'],
-            [['sort', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['category', 'module_name', 'action', 'sort'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['sort', 'aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
-            [['category'], 'string', 'max' => 30],
-            [['module_name', 'action'], 'string', 'max' => 255],
+            [['category'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['module_name', 'action'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['category', 'action'], 'unique', 'targetAttribute' => ['category', 'action'], 'message' => 'The combination of Category and Action has already been taken.']
         ];
     }

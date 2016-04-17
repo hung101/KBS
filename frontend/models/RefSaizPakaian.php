@@ -53,8 +53,8 @@ class RefSaizPakaian extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ref_jenis_pakaian_id', 'desc'], 'required'],
-            [['ref_jenis_pakaian_id', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['ref_jenis_pakaian_id', 'desc'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['ref_jenis_pakaian_id', 'aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
             [['desc'], 'string', 'max' => 80]
         ];

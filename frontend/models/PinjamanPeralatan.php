@@ -52,12 +52,12 @@ class PinjamanPeralatan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'nama_peralatan', 'kuantiti', 'tarikh_diberi'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id', 'kuantiti'], 'integer'],
+            [['atlet_id', 'nama_peralatan', 'kuantiti', 'tarikh_diberi'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'kuantiti'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             //[['tarikh_diberi'], 'safe'],
-            [['nama_peralatan'], 'string', 'max' => 80],
-            [['tempoh_pinjaman'], 'string', 'max' => 50],
-            [['tarikh_dipulang'], 'compare', 'compareAttribute'=>'tarikh_diberi', 'operator'=>'>='],
+            [['nama_peralatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempoh_pinjaman'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tarikh_dipulang'], 'compare', 'compareAttribute'=>'tarikh_diberi', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
 

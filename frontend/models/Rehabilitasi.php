@@ -52,10 +52,10 @@ class Rehabilitasi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pl_diagnosis_preskripsi_pemeriksaan_id', 'tarikh', 'masalah_yang_dikenal_pasti', 'matlamat_rehabilitasi'], 'required', 'skipOnEmpty' => true],
-            [['pl_diagnosis_preskripsi_pemeriksaan_id'], 'integer'],
+            [['pl_diagnosis_preskripsi_pemeriksaan_id', 'tarikh', 'masalah_yang_dikenal_pasti', 'matlamat_rehabilitasi'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pl_diagnosis_preskripsi_pemeriksaan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
-            [['kesan_klinikal', 'masalah_yang_dikenal_pasti', 'potensi_rehabilitasi', 'matlamat_rehabilitasi'], 'string', 'max' => 255]
+            [['kesan_klinikal', 'masalah_yang_dikenal_pasti', 'potensi_rehabilitasi', 'matlamat_rehabilitasi'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

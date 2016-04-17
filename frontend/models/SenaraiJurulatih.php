@@ -48,9 +48,9 @@ class SenaraiJurulatih extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jurulatih'], 'required', 'skipOnEmpty' => true],
-            [['pengurusan_jkk_jkp_program_id'], 'integer'],
-            [['jurulatih'], 'string', 'max' => 80]
+            [['jurulatih'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pengurusan_jkk_jkp_program_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jurulatih'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

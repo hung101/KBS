@@ -47,7 +47,7 @@ class ResetPasswordForm extends Model
     public function rules()
     {
         return [
-            ['password', 'required'],
+            ['password', 'required', 'message' => GeneralMessage::yii_validation_required],
             ['password', 'string', 'min' => 6],
         ];
     }

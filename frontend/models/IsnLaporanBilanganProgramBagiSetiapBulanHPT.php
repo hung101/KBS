@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
 
-class IsnLaporanBilanganProgramBagiSetipBulanHPT extends Model
+class IsnLaporanBilanganProgramBagiSetiapBulanHPT extends Model
 {
     public $tarikh_dari;
     public $tarikh_hingga;

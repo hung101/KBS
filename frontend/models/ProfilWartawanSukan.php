@@ -51,11 +51,11 @@ class ProfilWartawanSukan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'agensi', 'no_tel', 'aktif'], 'required', 'skipOnEmpty' => true],
-            [['aktif'], 'integer'],
-            [['nama', 'agensi'], 'string', 'max' => 80],
-            [['emel'], 'string', 'max' => 100],
-            [['no_tel'], 'string', 'max' => 14]
+            [['nama', 'agensi', 'no_tel', 'aktif'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['aktif'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama', 'agensi'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_tel'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

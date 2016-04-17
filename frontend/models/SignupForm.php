@@ -30,17 +30,17 @@ class SignupForm extends Model
     {
         return [
             ['username', 'filter', 'filter' => 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['username', 'required', 'message' => GeneralMessage::yii_validation_required],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => GeneralMessage::yii_validation_unique],
+            ['username', 'string', 'min' => 2, 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min],
 
             ['email', 'filter', 'filter' => 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'required', 'message' => GeneralMessage::yii_validation_required],
+            ['email', 'email', 'message' => GeneralMessage::yii_validation_email],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => GeneralMessage::yii_validation_unique],
 
-            ['password', 'required'],
-            ['password', 'string', 'min' => 6],
+            ['password', 'required', 'message' => GeneralMessage::yii_validation_required],
+            ['password', 'string', 'min' => 6, 'tooShort' => GeneralMessage::yii_validation_string_min],
         ];
     }
 

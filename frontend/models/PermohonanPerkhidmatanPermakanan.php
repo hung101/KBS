@@ -53,11 +53,11 @@ class PermohonanPerkhidmatanPermakanan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'tarikh', 'sukan', 'tujuan', 'kategori_permohonan', 'jenis_perkhidmatan', 'kelulusan'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id', 'kelulusan'], 'integer'],
+            [['atlet_id', 'tarikh', 'sukan', 'tujuan', 'kategori_permohonan', 'jenis_perkhidmatan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
-            [['sukan', 'kategori_permohonan'], 'string', 'max' => 30],
-            [['tujuan', 'jenis_perkhidmatan'], 'string', 'max' => 80]
+            [['sukan', 'kategori_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tujuan', 'jenis_perkhidmatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

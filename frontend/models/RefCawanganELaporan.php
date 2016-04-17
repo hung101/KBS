@@ -33,6 +33,17 @@ class RefCawanganELaporan extends \yii\db\ActiveRecord
     {
         return [
             'bedezign\yii2\audit\AuditTrailBehavior',
+            [
+                'class' => \yii\behaviors\BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'updated',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
         ];
     }
 
@@ -42,9 +53,10 @@ class RefCawanganELaporan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ref_bahagian_e_laporan_id', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['desc'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['ref_bahagian_e_laporan_id', 'aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
-            [['desc'], 'string', 'max' => 80]
+            [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

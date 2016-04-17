@@ -55,13 +55,13 @@ class PermohonanPeralatan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cawangan', 'negeri', 'sukan', 'program', 'tarikh', 'aktiviti', 'jumlah_peralatan', 'kelulusan'], 'required', 'skipOnEmpty' => true],
+            [['cawangan', 'negeri', 'sukan', 'program', 'tarikh', 'aktiviti', 'jumlah_peralatan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh'], 'safe'],
-            [['jumlah_peralatan', 'kelulusan'], 'integer'],
-            [['cawangan', 'aktiviti'], 'string', 'max' => 80],
-            [['negeri', 'sukan'], 'string', 'max' => 30],
-            [['program'], 'string', 'max' => 90],
-            [['nota_urus_setia'], 'string', 'max' => 255]
+            [['jumlah_peralatan', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['cawangan', 'aktiviti'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['negeri', 'sukan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['program'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nota_urus_setia'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

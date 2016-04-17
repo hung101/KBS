@@ -50,13 +50,13 @@ class PlDiagnosisPreskripsiPemeriksaan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis_diagnosis_preskripsi_pemeriksaan', 'status_diagnosis_preskripsi_pemeriksaan', 'catitan_ringkas'], 'required', 'skipOnEmpty' => true],
-            [['pl_temujanji_id', 'unit'], 'integer'],
-            [['harga'], 'number'],
+            [['jenis_diagnosis_preskripsi_pemeriksaan', 'status_diagnosis_preskripsi_pemeriksaan', 'catitan_ringkas'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pl_temujanji_id', 'unit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['harga'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tarikh'], 'safe'],
-            [['jenis_diagnosis_preskripsi_pemeriksaan', 'status_diagnosis_preskripsi_pemeriksaan'], 'string', 'max' => 30],
-            [['pegawai_yang_bertanggungjawab'], 'string', 'max' => 80],
-            [['catitan_ringkas'], 'string', 'max' => 255]
+            [['jenis_diagnosis_preskripsi_pemeriksaan', 'status_diagnosis_preskripsi_pemeriksaan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

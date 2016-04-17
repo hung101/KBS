@@ -52,10 +52,10 @@ class RefJenisAsetSub extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ref_jenis_aset_id', 'desc'], 'required'],
-            [['ref_jenis_aset_id', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['ref_jenis_aset_id', 'desc'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['ref_jenis_aset_id', 'aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
-            [['desc'], 'string', 'max' => 80]
+            [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

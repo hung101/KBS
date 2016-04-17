@@ -8,6 +8,7 @@ use yii\base\Model;
 use app\models\general\GeneralVariable;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 
 class IsnLaporanBulananSecaraDetail extends Model

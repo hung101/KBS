@@ -225,17 +225,8 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'berat_badan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'id'=>'beratBadanId', 'class'=>'number calculateBMI']],
-                'ketinggian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'id'=>'ketinggianId', 'class'=>'number calculateBMI']],
                 'tinggi_duduk' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'class'=>'number']],
-            ]
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
                 'panjang_depa' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10, 'class'=>'number']],
-                'body_mass_index' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10, 'id'=>'BMIId', 'class'=>'number', 'disabled'=>true]],
             ]
         ],
         [
@@ -248,6 +239,229 @@ use app\models\general\GeneralMessage;
     ]
 ]);
     ?>
+    
+    <h3><?=GeneralLabel::ujian_ujian?></h3>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong><?=GeneralLabel::antropometrik?></strong>
+        </div>
+        <div class="panel-body">
+            <?php
+                if(!$readonly){
+                    echo FormGrid::widget([
+                        'model' => $model,
+                        'form' => $form,
+                        'autoGenerateColumns' => true,
+                        'rows' => [
+                            [
+                                'columns'=>12,
+                                'autoGenerateColumns'=>false, // override columns setting
+                                'attributes' => [
+                                    'antropometrik_tidak_mengambil_bahagian' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>3],'options'=>['id'=>'antropometrikCheckId']],
+                                ]
+                            ],
+                        ]
+                    ]);
+                }
+                ?>
+            <?php
+                echo FormGrid::widget([
+                    'model' => $model,
+                    'form' => $form,
+                    'autoGenerateColumns' => true,
+                    'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'berat_badan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'id'=>'beratBadanId', 'class'=>'number calculateBMI']],
+                                'ketinggian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'id'=>'ketinggianId', 'class'=>'number calculateBMI']],
+                                'body_mass_index' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10, 'id'=>'BMIId', 'class'=>'number', 'disabled'=>true]],
+                            ],
+                        ],
+                    ]
+                ]);
+            ?>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong><?=GeneralLabel::koordinasi?></strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+                    if(!$readonly){
+                        echo FormGrid::widget([
+                            'model' => $model,
+                            'form' => $form,
+                            'autoGenerateColumns' => true,
+                            'rows' => [
+                                [
+                                    'columns'=>12,
+                                    'autoGenerateColumns'=>false, // override columns setting
+                                    'attributes' => [
+                                        'koordinasi_tidak_mengambil_bahagian' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>3],'options'=>['id'=>'koordinasiCheckId']],
+                                    ]
+                                ],
+                            ]
+                        ]);
+                    }
+                    ?>
+                    <?php
+                        echo FormGrid::widget([
+                            'model' => $model,
+                            'form' => $form,
+                            'autoGenerateColumns' => true,
+                            'rows' => [
+                                [
+                                    'columns'=>12,
+                                    'autoGenerateColumns'=>false, // override columns setting
+                                    'attributes' => [
+                                        'melontar_dan_menerima' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>2, 'id'=>'melontarDanMenerimaId']],
+                                    ],
+                                ],
+                            ]
+                        ]);
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong><?=GeneralLabel::kuasa?></strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+                    if(!$readonly){
+                        echo FormGrid::widget([
+                            'model' => $model,
+                            'form' => $form,
+                            'autoGenerateColumns' => true,
+                            'rows' => [
+                                [
+                                    'columns'=>12,
+                                    'autoGenerateColumns'=>false, // override columns setting
+                                    'attributes' => [
+                                        'kuasa_tidak_mengambil_bahagian' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>3],'options'=>['id'=>'kuasaCheckId']],
+                                    ]
+                                ],
+                            ]
+                        ]);
+                    }
+                    ?>
+                    <?php
+                        echo FormGrid::widget([
+                            'model' => $model,
+                            'form' => $form,
+                            'autoGenerateColumns' => true,
+                            'rows' => [
+                                [
+                                    'columns'=>12,
+                                    'autoGenerateColumns'=>false, // override columns setting
+                                    'attributes' => [
+                                        'lompat_jauh_berdiri' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'id'=>'lompatJauhBerdiriId']],
+                                    ],
+                                ],
+                            ]
+                        ]);
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong><?=GeneralLabel::kelenturan?></strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+                    if(!$readonly){
+                        echo FormGrid::widget([
+                            'model' => $model,
+                            'form' => $form,
+                            'autoGenerateColumns' => true,
+                            'rows' => [
+                                [
+                                    'columns'=>12,
+                                    'autoGenerateColumns'=>false, // override columns setting
+                                    'attributes' => [
+                                        'kelenturan_tidak_mengambil_bahagian' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>3],'options'=>['id'=>'kelenturanCheckId']],
+                                    ]
+                                ],
+                            ]
+                        ]);
+                    }
+                    ?>
+                    <?php
+                        echo FormGrid::widget([
+                            'model' => $model,
+                            'form' => $form,
+                            'autoGenerateColumns' => true,
+                            'rows' => [
+                                [
+                                    'columns'=>12,
+                                    'autoGenerateColumns'=>false, // override columns setting
+                                    'attributes' => [
+                                        'jangkauan_meluntur' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'id'=>'jangkauanMelunturId']],
+                                    ],
+                                ],
+                            ]
+                        ]);
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong><?=GeneralLabel::kepantasan?></strong>
+                </div>
+                <div class="panel-body">
+                    
+                    <?php
+                    if(!$readonly){
+                        echo FormGrid::widget([
+                            'model' => $model,
+                            'form' => $form,
+                            'autoGenerateColumns' => true,
+                            'rows' => [
+                                [
+                                    'columns'=>12,
+                                    'autoGenerateColumns'=>false, // override columns setting
+                                    'attributes' => [
+                                        'kepantasan_tidak_mengambil_bahagian' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>3],'options'=>['id'=>'kepantasanCheckId']],
+                                    ]
+                                ],
+                            ]
+                        ]);
+                    }
+                    ?>
+                    <?php
+                        echo FormGrid::widget([
+                            'model' => $model,
+                            'form' => $form,
+                            'autoGenerateColumns' => true,
+                            'rows' => [
+                                [
+                                    'columns'=>12,
+                                    'autoGenerateColumns'=>false, // override columns setting
+                                    'attributes' => [
+                                        'lari_pecut_20_meter' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'id'=>'lariPecut20MeterId']],
+                                    ],
+                                ],
+                            ]
+                        ]);
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 
     <!--<?= $form->field($model, 'nama')->textInput(['maxlength' => 80]) ?>
 
@@ -304,6 +518,21 @@ $script = <<< JS
         if($("#noKadPengenalanId").val() != ""){
             getAgeFromICNo($("#noKadPengenalanId").val());
         }
+        
+        $( "#antropometrikCheckId" ).trigger( "click" );
+        $( "#antropometrikCheckId" ).trigger( "click" );
+        
+        $( "#koordinasiCheckId" ).trigger( "click" );
+        $( "#koordinasiCheckId" ).trigger( "click" );
+        
+        $( "#kuasaCheckId" ).trigger( "click" );
+        $( "#kuasaCheckId" ).trigger( "click" );
+        
+        $( "#kelenturanCheckId" ).trigger( "click" );
+        $( "#kelenturanCheckId" ).trigger( "click" );
+        
+        $( "#kepantasanCheckId" ).trigger( "click" );
+        $( "#kepantasanCheckId" ).trigger( "click" );
     });
         
     $(".calculateBMI").keyup(function (e) {
@@ -345,6 +574,55 @@ $script = <<< JS
         var form = $(this);
         
         $("form#{$model->formName()} input").prop("disabled", false);
+    });
+        
+    $("#antropometrikCheckId").click( function(){
+        if( $(this).is(':checked') ) {
+            //$("#beratBadanId").val("");
+            //$("#ketinggianId").val("");
+            //$("#BMIId").val("");
+            $("#beratBadanId").prop("disabled", true);
+            $("#ketinggianId").prop("disabled", true);
+        } else {
+            $("#beratBadanId").prop("disabled", false);
+            $("#ketinggianId").prop("disabled", false);
+        }
+    });
+        
+    $("#koordinasiCheckId").click( function(){
+        if( $(this).is(':checked') ) {
+            //$("#melontarDanMenerimaId").val("");
+            $("#melontarDanMenerimaId").prop("disabled", true);
+        } else {
+            $("#melontarDanMenerimaId").prop("disabled", false);
+        }
+    });
+        
+    $("#kuasaCheckId").click( function(){
+        if( $(this).is(':checked') ) {
+            //$("#lompatJauhBerdiriId").val("");
+            $("#lompatJauhBerdiriId").prop("disabled", true);
+        } else {
+            $("#lompatJauhBerdiriId").prop("disabled", false);
+        }
+    });
+        
+    $("#kelenturanCheckId").click( function(){
+        if( $(this).is(':checked') ) {
+            //("#jangkauanMelunturId").val("");
+            $("#jangkauanMelunturId").prop("disabled", true);
+        } else {
+            $("#jangkauanMelunturId").prop("disabled", false);
+        }
+    });
+        
+    $("#kepantasanCheckId").click( function(){
+        if( $(this).is(':checked') ) {
+            //$("#lariPecut20MeterId").val("");
+            $("#lariPecut20MeterId").prop("disabled", true);
+        } else {
+            $("#lariPecut20MeterId").prop("disabled", false);
+        }
     });
         
 JS;

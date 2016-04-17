@@ -56,7 +56,7 @@ class RefAcara extends \yii\db\ActiveRecord
             [['ref_sukan_id', 'desc', 'aktif'], 'required'],
             [['ref_sukan_id', 'aktif', 'created_by', 'updated_by'], 'integer'],
             [['created', 'updated'], 'safe'],
-            [['desc'], 'string', 'max' => 80]
+            [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

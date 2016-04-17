@@ -50,11 +50,11 @@ class PsikologiAktiviti extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['psikologi_profil_id', 'nama_aktiviti', 'tarikh_mula', 'tarikh_tamat'], 'required', 'skipOnEmpty' => true],
-            [['psikologi_profil_id'], 'integer'],
+            [['psikologi_profil_id', 'nama_aktiviti', 'tarikh_mula', 'tarikh_tamat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['psikologi_profil_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_mula', 'tarikh_tamat'], 'safe'],
-            [['nama_aktiviti'], 'string', 'max' => 80],
-            [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh_mula', 'operator'=>'>='],
+            [['nama_aktiviti'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh_mula', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
 

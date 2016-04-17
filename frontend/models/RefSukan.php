@@ -48,8 +48,8 @@ class RefSukan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ref_kategori_sukan_id','desc', 'aktif'], 'required'],
-            [['aktif'], 'integer'],
+            [['ref_kategori_sukan_id','desc', 'aktif'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['aktif'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['desc'], 'string', 'max' => 80]
         ];
     }
