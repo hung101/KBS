@@ -369,8 +369,32 @@ AppAsset::register($this);
                                 ['label' => GeneralLabel::fisiologi_sistem_pangkalan_data_atlet_dan_journal, 'url' => ['/soal-selidik-sebelum-ujian/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['soal-selidik-sebelum-ujian']['module'])],
                                 ['label' => GeneralLabel::fisiologi_sistem_sixstep, 'url' => ['/six-step-fisiologi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['six-step-fisiologi']['module'])],
                                 ['label' => GeneralLabel::biomekanik_sistem_permohonan_perkhidmatan_analisa_perlawanan_dan_biomekanik, 'url' => ['/permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik']['module'])],
-                                ['label' => GeneralLabel::biomekanik_sistem_pangkalan_data, 'url' => ['/perkhidmatan-analisa-perlawanan-biomekanik/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['perkhidmatan-analisa-perlawanan-biomekanik']['module'])],
-                                ['label' => GeneralLabel::biomekanik_sistem_pengurusan_peralatan, 'url' => ['/pinjaman-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pinjaman-peralatan']['module'])],
+                                //['label' => GeneralLabel::biomekanik_sistem_pangkalan_data, 'url' => ['/perkhidmatan-analisa-perlawanan-biomekanik/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['perkhidmatan-analisa-perlawanan-biomekanik']['module'])],
+                                [
+                                    'label' => GeneralLabel::biomekanik_sistem_pangkalan_data,
+                                    'items' => [
+                                        ['label' => GeneralLabel::perkhidmatan_analisa_perlawananbiomekanik, 'url' => ['/perkhidmatan-analisa-perlawanan-biomekanik/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['perkhidmatan-analisa-perlawanan-biomekanik']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_perkhidmatan_biomekanik_mengikut_atlet, 'url' => ['/perkhidmatan-analisa-perlawanan-biomekanik/laporan-perkhidmatan-biomekanik-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['perkhidmatan-analisa-perlawanan-biomekanik']['module'])],
+                                                ['label' => GeneralLabel::laporan_perkhidmatan_biomekanik_bilangan, 'url' => ['/perkhidmatan-analisa-perlawanan-biomekanik/laporan-perkhidmatan-biomekanik-bilangan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['perkhidmatan-analisa-perlawanan-biomekanik']['module'])],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                                [
+                                    'label' => GeneralLabel::biomekanik_sistem_pengurusan_peralatan,
+                                    'items' => [
+                                        ['label' => GeneralLabel::pinjaman_peralatan, 'url' => ['/pinjaman-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pinjaman-peralatan']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_gym_kehadiran_atlet, 'url' => ['/pinjaman-peralatan/laporan-gym-kehadiran-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pinjaman-peralatan']['module'])],
+                                            ],
+                                        ],
+                                    ],
+                                ],
                                 ['label' => GeneralLabel::biomekanik_analisa_impak_biomekanik_dan_analisa_sukan_terhadap_prestasi_atlet, 'url' => ['/permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik']['module'])],
                                 ['label' => GeneralLabel::biomekanik_sistem_permohonan_khidmat_biomekanik_secara_atas_talian, 'url' => ['/permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-analisa-perlawanan-dan-bimekanik']['module'])],
                                 ['label' => GeneralLabel::biomekanik_sistem_six_step, 'url' => ['/six-step-biomekanik/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['six-step-biomekanik']['module'])],

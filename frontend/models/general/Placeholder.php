@@ -107,7 +107,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kategoriBerita = "-- Pilih Kategori Berita --";
         const kategoriDokumen = "-- Pilih Kategori Dokumen --";
         const kategoriElaun = "-- Pilih Kategori Elaun --";
-        const kategoriELaporan = " -- Pilih Ketegori E-Laporan -- ";
+        const kategoriELaporan = " -- Pilih Ketegori e-Laporan -- ";
         const kategoriGeran = " -- Pilih Ketegori Geran -- ";
         const kategoriGeranBantuan = " -- Pilih Ketegori Geran Bantuan -- ";
         const kategoriHakmilik = " -- Pilih Ketegori Hakmilik -- ";
@@ -258,7 +258,7 @@ if($session->get('language') == "EN") {
         const atlet = "-- Select Athletes --";
         const badanSukan = "-- Select Sports Bodies --";
         const badanSukanAntarabangsa = "-- Select International Sports Bodies --";
-        const bahagian = " -- Select Part -- ";
+        const bahagian = " -- Select Division -- ";
         const bahagianCawanganPusat = " -- Pilih Division / Branch / Center -- ";
         const bahagianKecederaan = " -- Select Part Injuries -- ";
         const bahasa = " -- Select A Language -- ";

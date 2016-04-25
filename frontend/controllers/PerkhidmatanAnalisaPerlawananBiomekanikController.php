@@ -9,15 +9,21 @@ use app\models\BiomekanikUjian;
 use frontend\models\BiomekanikUjianSearch;
 use app\models\BiomekanikAnthropometrics;
 use frontend\models\BiomekanikAnthropometricsSearch;
+use app\models\PermohonanPerkhidmatanAnalisaPerlawananDanBimekanik;
+use app\models\IsnLaporanPerkhidmatanBiomekanikAtlet;
+use app\models\IsnLaporanPerkhidmatanBiomekanikBilangan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\Json;
+use yii\helpers\BaseUrl;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 
 // table reference
+use app\models\Atlet;
 use app\models\RefPerkhidmatanBiomekanik;
 use app\models\RefUjianStatusBiomekanik;
 
@@ -69,6 +75,9 @@ class PerkhidmatanAnalisaPerlawananBiomekanikController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        $ref = Atlet::findOne(['atlet_id' => $model->atlet_id]);
+        $model->atlet_id = $ref['nameAndIC'];
         
         $ref = RefPerkhidmatanBiomekanik::findOne(['id' => $model->perkhidmatan]);
         $model->perkhidmatan = $ref['desc'];
@@ -125,6 +134,10 @@ class PerkhidmatanAnalisaPerlawananBiomekanikController extends Controller
         $model = new PerkhidmatanAnalisaPerlawananBiomekanik();
         
         $model->permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id = $permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id;
+        
+        if (($modelPermohonan = PermohonanPerkhidmatanAnalisaPerlawananDanBimekanik::findOne($permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id)) !== null) {
+            $model->atlet_id = $modelPermohonan->atlet_id;
+        }
         
         $queryPar = null;
         
@@ -184,6 +197,10 @@ class PerkhidmatanAnalisaPerlawananBiomekanikController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        if (($modelPermohonan = PermohonanPerkhidmatanAnalisaPerlawananDanBimekanik::findOne($model->permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id)) !== null) {
+            $model->atlet_id = $modelPermohonan->atlet_id;
+        }
         
         $queryPar = null;
         
@@ -270,5 +287,103 @@ class PerkhidmatanAnalisaPerlawananBiomekanikController extends Controller
             $img->update();
 
             return $this->redirect(['update', 'id' => $id]);
+    }
+    
+    public function actionLaporanPerkhidmatanBiomekanikAtlet()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanPerkhidmatanBiomekanikAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-perkhidmatan-biomekanik-atlet'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-perkhidmatan-biomekanik-atlet'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_perkhidmatan_biomekanik_atlet', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanPerkhidmatanBiomekanikAtlet($tarikh_dari, $tarikh_hingga, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanPerkhidmatanBiomekanikAtlet', $format, $controls, 'laporan_perkhidmatan_biomekanik_atlet');
+    }
+    
+    public function actionLaporanPerkhidmatanBiomekanikBilangan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanPerkhidmatanBiomekanikBilangan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-perkhidmatan-biomekanik-bilangan'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-perkhidmatan-biomekanik-bilangan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_perkhidmatan_biomekanik_bilangan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanPerkhidmatanBiomekanikBilangan($tarikh_dari, $tarikh_hingga, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanPerkhidmatanBiomekanikBilangan', $format, $controls, 'laporan_perkhidmatan_biomekanik_bilangan');
     }
 }

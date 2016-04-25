@@ -11,6 +11,7 @@ use kartik\datecontrol\DateControl;
 // table reference
 use app\models\Atlet;
 use app\models\RefPerkhidmatanBiomekanik;
+use app\models\RefStatusPermohonanPerkhidmatanBimekanik;
 
 // contant values
 use app\models\general\Placeholder;
@@ -91,7 +92,26 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>6]]
             ],
         ],
-        
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'status' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan-perkhidmatan-bimekanik/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefStatusPermohonanPerkhidmatanBimekanik::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::status],],
+                    'columnOptions'=>['colspan'=>6]]
+            ],
+        ],
     ]
 ]);
     ?>

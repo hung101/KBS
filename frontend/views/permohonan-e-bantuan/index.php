@@ -106,11 +106,13 @@ $this->params['breadcrumbs'][] = $this->title;
             //'jumlah_bantuan_yang_dipohon',
             [
                 'attribute' => 'jumlah_bantuan_yang_dipohon',
+                'contentOptions' => ['class' => 'gribview-column-number'],
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_bantuan_yang_dipohon,
                 ],
-                'label' => GeneralLabel::jumlah_bantuan_yang_dipohon
+                'label' => GeneralLabel::jumlah_bantuan_yang_dipohon,
+                'format'=>['decimal',2]
             ],
             //'kelulusan',
             [
@@ -137,10 +139,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'jumlah_diluluskan',
+                'contentOptions' => ['class' => 'gribview-column-number'],
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_diluluskan,
-                ]
+                ],
+                'format'=>['decimal',2]
             ],
 
             //['class' => 'yii\grid\ActionColumn'],

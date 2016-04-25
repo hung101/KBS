@@ -19,7 +19,7 @@ class PerkhidmatanAnalisaPerlawananBiomekanikSearch extends PerkhidmatanAnalisaP
     {
         return [
             [['perkhidmatan_analisa_perlawanan_biomekanik_id', 'permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id'], 'integer'],
-            [['perkhidmatan', 'tarikh', 'pegawai_yang_bertanggungjawab', 'status_ujian', 'catitan_ringkas'], 'safe'],
+            [['perkhidmatan', 'tarikh', 'pegawai_yang_bertanggungjawab', 'status_ujian', 'catitan_ringkas', 'atlet_id'], 'safe'],
         ];
     }
 
@@ -42,7 +42,8 @@ class PerkhidmatanAnalisaPerlawananBiomekanikSearch extends PerkhidmatanAnalisaP
     public function search($params)
     {
         $query = PerkhidmatanAnalisaPerlawananBiomekanik::find()
-                ->joinWith(['refPerkhidmatanBiomekanik']);
+                ->joinWith(['refPerkhidmatanBiomekanik'])
+                ->joinWith(['refAtlet']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -65,7 +66,8 @@ class PerkhidmatanAnalisaPerlawananBiomekanikSearch extends PerkhidmatanAnalisaP
         $query->andFilterWhere(['like', 'tbl_ref_perkhidmatan_biomekanik.desc', $this->perkhidmatan])
             ->andFilterWhere(['like', 'pegawai_yang_bertanggungjawab', $this->pegawai_yang_bertanggungjawab])
             ->andFilterWhere(['like', 'status_ujian', $this->status_ujian])
-            ->andFilterWhere(['like', 'catitan_ringkas', $this->catitan_ringkas]);
+            ->andFilterWhere(['like', 'catitan_ringkas', $this->catitan_ringkas])
+                ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id]);
 
         return $dataProvider;
     }

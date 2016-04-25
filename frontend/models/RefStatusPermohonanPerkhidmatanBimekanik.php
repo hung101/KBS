@@ -4,10 +4,8 @@ namespace app\models;
 
 use Yii;
 
-use app\models\general\GeneralMessage;
-
 /**
- * This is the model class for table "tbl_ref_bahagian_e_laporan".
+ * This is the model class for table "tbl_ref_status_permohonan_perkhidmatan_bimekanik".
  *
  * @property integer $id
  * @property string $desc
@@ -17,21 +15,14 @@ use app\models\general\GeneralMessage;
  * @property string $created
  * @property string $updated
  */
-class RefBahagianELaporan extends \yii\db\ActiveRecord
+class RefStatusPermohonanPerkhidmatanBimekanik extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
-    public static function tableName() 
+    public static function tableName()
     {
-        return 'tbl_ref_bahagian_e_laporan';
-    }
-
-    public function behaviors()
-    {
-        return [
-            //'bedezign\yii2\audit\AuditTrailBehavior',
-        ];
+        return 'tbl_ref_status_permohonan_perkhidmatan_bimekanik';
     }
 
     /**
@@ -40,9 +31,10 @@ class RefBahagianELaporan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['desc'], 'required'],
+            [['aktif', 'created_by', 'updated_by'], 'integer'],
             [['created', 'updated'], 'safe'],
-            [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['desc'], 'string', 'max' => 80]
         ];
     }
 

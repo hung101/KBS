@@ -31,7 +31,7 @@ class ElaporanPelaksanaanKelebihan extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            'bedezign\yii2\audit\AuditTrailBehavior',
+            //'bedezign\yii2\audit\AuditTrailBehavior',
         ];
     }
 

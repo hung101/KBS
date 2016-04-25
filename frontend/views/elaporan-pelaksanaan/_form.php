@@ -339,7 +339,7 @@ use app\models\general\GeneralMessage;
     <br>
     <br>
     
-    <h3>Rumusan - Kekurangan</h3>
+    <h3><?=GeneralLabel::rumusan_kekurangan;?></h3>
     
     <?php 
             Modal::begin([
@@ -389,13 +389,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-kekurangan/update', 'id' => $model->elaporan_pelaksanaan_kekurangan_id]).'", "'.GeneralLabel::updateTitle . ' Rumusan - Kekurangan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-kekurangan/update', 'id' => $model->elaporan_pelaksanaan_kekurangan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::rumusan_kekurangan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-kekurangan/view', 'id' => $model->elaporan_pelaksanaan_kekurangan_id]).'", "'.GeneralLabel::viewTitle . ' Rumusan - Kekurangan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-kekurangan/view', 'id' => $model->elaporan_pelaksanaan_kekurangan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::rumusan_kekurangan.'");',
                         ]);
                     }
                 ],
@@ -416,7 +416,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-kekurangan/create', 'elaporan_pelaksaan_id' => $elaporan_pelaksaan_id]).'", "'.GeneralLabel::createTitle . ' Rumusan - Kekurangan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-kekurangan/create', 'elaporan_pelaksaan_id' => $elaporan_pelaksaan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::rumusan_kekurangan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -425,7 +425,7 @@ use app\models\general\GeneralMessage;
     <br>
     <br>
     
-    <h3>Rumusan - Kelebihan</h3>
+    <h3><?=GeneralLabel::rumusan_kelebihan;?></h3>
     
     <?php Pjax::begin(['id' => 'kelebihanGrid', 'timeout' => 100000]); ?>
 
@@ -459,13 +459,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-kelebihan/update', 'id' => $model->elaporan_pelaksanaan_kelebihan_id]).'", "'.GeneralLabel::updateTitle . ' Rumusan - Kelebihan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-kelebihan/update', 'id' => $model->elaporan_pelaksanaan_kelebihan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::rumusan_kelebihan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-kelebihan/view', 'id' => $model->elaporan_pelaksanaan_kelebihan_id]).'", "'.GeneralLabel::viewTitle . ' Rumusan - Kelebihan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-kelebihan/view', 'id' => $model->elaporan_pelaksanaan_kelebihan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::rumusan_kelebihan.'");',
                         ]);
                     }
                 ],
@@ -481,7 +481,7 @@ use app\models\general\GeneralMessage;
         <?php 
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-kelebihan/create', 'elaporan_pelaksaan_id' => $elaporan_pelaksaan_id]).'", "'.GeneralLabel::createTitle . ' Rumusan - Kelebihan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-kelebihan/create', 'elaporan_pelaksaan_id' => $elaporan_pelaksaan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::rumusan_kelebihan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -490,7 +490,7 @@ use app\models\general\GeneralMessage;
     <br>
     <br>
     
-    <h3>Kerjasama</h3>
+    <h3><?=GeneralLabel::kerjasama;?></h3>
     
     <?php Pjax::begin(['id' => 'kerjasamaGrid', 'timeout' => 100000]); ?>
 
@@ -519,13 +519,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-kerjasama/update', 'id' => $model->elaporan_pelaksanaan_kerjasama_id]).'", "'.GeneralLabel::updateTitle . ' Kerjasama");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-kerjasama/update', 'id' => $model->elaporan_pelaksanaan_kerjasama_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::kerjasama.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-kerjasama/view', 'id' => $model->elaporan_pelaksanaan_kerjasama_id]).'", "'.GeneralLabel::viewTitle . ' Kerjasama");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-kerjasama/view', 'id' => $model->elaporan_pelaksanaan_kerjasama_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::kerjasama.'");',
                         ]);
                     }
                 ],
@@ -541,7 +541,7 @@ use app\models\general\GeneralMessage;
         <?php 
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-kerjasama/create', 'elaporan_pelaksaan_id' => $elaporan_pelaksaan_id]).'", "'.GeneralLabel::createTitle . ' Kerjasama");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-kerjasama/create', 'elaporan_pelaksaan_id' => $elaporan_pelaksaan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::kerjasama.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -550,7 +550,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     <br>
-    <h3>Objektif Pelaksanaan</h3>
+    <h3><?=GeneralLabel::objektif_pelaksanaan;?></h3>
     
     <?php Pjax::begin(['id' => 'objektifGrid', 'timeout' => 100000]); ?>
 
@@ -579,13 +579,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-objektif/update', 'id' => $model->elaporan_pelaksanaan_objektif_id]).'", "'.GeneralLabel::updateTitle . ' Objektif Pelaksanaan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-objektif/update', 'id' => $model->elaporan_pelaksanaan_objektif_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::objektif_pelaksanaan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-objektif/view', 'id' => $model->elaporan_pelaksanaan_objektif_id]).'", "'.GeneralLabel::viewTitle . ' Objektif Pelaksanaan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-objektif/view', 'id' => $model->elaporan_pelaksanaan_objektif_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::objektif_pelaksanaan.'");',
                         ]);
                     }
                 ],
@@ -600,7 +600,7 @@ use app\models\general\GeneralMessage;
     <p>
         <?php 
             echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-objektif/create', 'elaporan_pelaksaan_id' => $elaporan_pelaksaan_id]).'", "'.GeneralLabel::createTitle . ' Objektif Pelaksanaan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-objektif/create', 'elaporan_pelaksaan_id' => $elaporan_pelaksaan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::objektif_pelaksanaan.'");',
                         'class' => 'btn btn-success',
                         ]);
         ?>
@@ -609,11 +609,11 @@ use app\models\general\GeneralMessage;
     
     <br>
     <br>
-    <h3>Gambar</h3>
+    <h3><?=GeneralLabel::gambar;?></h3>
     
     <div class="alert alert-warning alert-dismissible" role="alert">
   <!--<strong>Note:</strong> Mininum 4 gambar dan 10 gambar maksimum. Hanya format .jpg atau .png sahaja-->
-        <strong>Note:</strong> Mininum 4 gambar dan 10 gambar maksimum.
+        <strong><?=GeneralLabel::nota;?>:</strong> <?=GeneralMessage::minimum_4_gambar_dan_10_gambar_maksimum;?>.
 </div>
 
     <?php Pjax::begin(['id' => 'gambarGrid', 'timeout' => 100000]); ?>
@@ -658,13 +658,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-gambar/update', 'id' => $model->elaporan_pelaksanaan_gambar_id]).'", "'.GeneralLabel::updateTitle . ' Gambar");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-gambar/update', 'id' => $model->elaporan_pelaksanaan_gambar_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::gambar.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-gambar/view', 'id' => $model->elaporan_pelaksanaan_gambar_id]).'", "'.GeneralLabel::viewTitle . ' Gambar");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-gambar/view', 'id' => $model->elaporan_pelaksanaan_gambar_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::gambar.'");',
                         ]);
                     }
                 ],
@@ -679,7 +679,7 @@ use app\models\general\GeneralMessage;
     <p>
         <?php 
             echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-gambar/create', 'elaporan_pelaksaan_id' => $elaporan_pelaksaan_id]).'", "'.GeneralLabel::createTitle . ' Gambar");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['elaporan-pelaksanaan-gambar/create', 'elaporan_pelaksaan_id' => $elaporan_pelaksaan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::gambar.'");',
                         'class' => 'btn btn-success',
                         ]);
         ?>

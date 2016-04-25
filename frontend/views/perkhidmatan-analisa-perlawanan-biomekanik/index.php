@@ -48,6 +48,14 @@ $this->params['breadcrumbs'][] = $this->title;
             //'permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id',
             //'perkhidmatan',
             [
+                'attribute' => 'atlet_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
+                ],
+                'value' => 'refAtlet.name_penuh'
+            ],
+            [
                 'attribute' => 'perkhidmatan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',

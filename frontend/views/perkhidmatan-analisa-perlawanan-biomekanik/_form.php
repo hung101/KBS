@@ -13,6 +13,7 @@ use yii\widgets\Pjax;
 use kartik\datecontrol\DateControl;
 
 // table reference
+use app\models\Atlet;
 use app\models\RefPerkhidmatanBiomekanik;
 use app\models\RefUjianStatusBiomekanik;
 
@@ -41,6 +42,34 @@ use app\models\general\GeneralMessage;
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
     <?php
+    echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'atlet_id' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                                'options' => ['placeholder' => Placeholder::atlet],],
+                            'columnOptions'=>['colspan'=>6]],
+                    ],
+                ],
+            ]
+        ]);
+    
         echo FormGrid::widget([
     'model' => $model,
     'form' => $form,

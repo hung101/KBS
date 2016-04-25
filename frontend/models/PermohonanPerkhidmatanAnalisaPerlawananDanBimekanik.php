@@ -52,7 +52,7 @@ class PermohonanPerkhidmatanAnalisaPerlawananDanBimekanik extends \yii\db\Active
     {
         return [
             [['atlet_id', 'tarikh', 'tujuan', 'perkhidmatan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['atlet_id', 'status'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
             [['tujuan', 'perkhidmatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
@@ -70,7 +70,7 @@ class PermohonanPerkhidmatanAnalisaPerlawananDanBimekanik extends \yii\db\Active
             'sukan' => GeneralLabel::sukan,
             'tujuan' => GeneralLabel::tujuan,
             'perkhidmatan' => GeneralLabel::perkhidmatan,
-
+            'status' => GeneralLabel::status,
         ];
     }
     

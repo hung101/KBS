@@ -55,7 +55,7 @@ class PerkhidmatanAnalisaPerlawananBiomekanik extends \yii\db\ActiveRecord
     {
         return [
             [['perkhidmatan', 'tarikh', 'pegawai_yang_bertanggungjawab', 'status_ujian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id', 'atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
             [['perkhidmatan', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['status_ujian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -78,7 +78,7 @@ class PerkhidmatanAnalisaPerlawananBiomekanik extends \yii\db\ActiveRecord
             'status_ujian' => GeneralLabel::status_ujian,
             'catitan_ringkas' => GeneralLabel::catitan_ringkas,
             'muat_naik_video' => GeneralLabel::muat_naik_video,
-
+            'atlet_id' => GeneralLabel::atlet,
         ];
     }
     
@@ -91,6 +91,13 @@ class PerkhidmatanAnalisaPerlawananBiomekanik extends \yii\db\ActiveRecord
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
         }
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefAtlet(){
+        return $this->hasOne(Atlet::className(), ['atlet_id' => 'atlet_id']);
     }
     
     public function getRefPerkhidmatanBiomekanik()

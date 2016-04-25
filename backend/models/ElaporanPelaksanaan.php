@@ -45,7 +45,7 @@ class ElaporanPelaksanaan extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            'bedezign\yii2\audit\AuditTrailBehavior',
+            //'bedezign\yii2\audit\AuditTrailBehavior',
             [
                 'class' => \yii\behaviors\BlameableBehavior::className(),
                 'createdByAttribute' => 'created_by',

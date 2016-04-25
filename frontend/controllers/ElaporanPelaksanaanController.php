@@ -92,6 +92,7 @@ class ElaporanPelaksanaanController extends Controller
                     , 'nama_penganjur' => $model->nama_penganjur
                     , 'nama_program' => $model->nama_program
                     , 'negeri' => $model->negeri
+                    , 'e_laporan_kategori' => $model->e_laporan_kategori
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_pada' => $model->tarikh_pada
                     , 'format' => $model->format
@@ -102,6 +103,7 @@ class ElaporanPelaksanaanController extends Controller
                     , 'nama_penganjur' => $model->nama_penganjur
                     , 'nama_program' => $model->nama_program
                     , 'negeri' => $model->negeri
+                    , 'e_laporan_kategori' => $model->e_laporan_kategori
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_pada' => $model->tarikh_pada
                     , 'format' => $model->format
@@ -117,7 +119,7 @@ class ElaporanPelaksanaanController extends Controller
         ]);
     }
 
-    public function actionGenerateReport($nama_penganjur, $nama_program, $negeri, $tarikh_dari, $tarikh_pada, $format)
+    public function actionGenerateReport($nama_penganjur, $nama_program, $negeri, $e_laporan_kategori, $tarikh_dari, $tarikh_pada, $format)
     {
 
         if($nama_penganjur == "") $nama_penganjur = array();
@@ -128,6 +130,9 @@ class ElaporanPelaksanaanController extends Controller
 
         if($negeri == "") $negeri = array();
         else $negeri = array(intval($negeri));
+        
+        if($e_laporan_kategori == "") $e_laporan_kategori = array();
+        else $e_laporan_kategori = array(intval($e_laporan_kategori));
 
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -139,6 +144,7 @@ class ElaporanPelaksanaanController extends Controller
             'NAMA_PENGANJUR' => $nama_penganjur,
             'NAMA_PROGRAM' => $nama_program,
             'NEGERI' => $negeri,
+            'E_LAPORAN_KATEGORI' => $e_laporan_kategori,
             'START_FROM_DATE' => $tarikh_dari,
             'START_TO_DATE' => $tarikh_pada,
         );

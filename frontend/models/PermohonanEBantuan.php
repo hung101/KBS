@@ -92,6 +92,7 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
             [['alamat_poskod', 'alamat_surat_menyurat_poskod', 'no_telefon_pejabat', 'no_telefon_bimbit', 'no_fax'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon_pejabat', 'no_telefon_bimbit', 'no_fax'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['email'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['email'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['objektif_pertubuhan', 'aktiviti_dan_kejayaan_yang_dicapai', 'catatan_admin'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik_pb4', 'muat_naik_pb5', 'muat_naik_pb6'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
