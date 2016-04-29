@@ -1,0 +1,47 @@
+ISN Note 12 April 2016
+-----------------------
+1. HPT Pangkalan Data Laporan Bulanan
+	- Add (copy)Pengurusan Kewangan from URS MSN 2.2.2
+	- Add (copy)Soal Selidik from ISN
+	- Add (copy)Perancangan Program URS MSN 1.1.14
+		- Laporan Senarai Program Setiap Bulan (List of program details)
+		- Laporan Bilangan Program Bagi Setip Bulan (Total of program break by jenis program)
+	- Add Mesyuarat (already exist just add the link under submenu HPT)
+
+
+
+
+
+Change DB
+----------
+- add tbl_pengurusan_kewangan_hpt copy from tbl_pengurusan_kewangan
+- add tbl_soal_selidik_sebelum_ujian_hpt copy from tbl_soal_selidik_sebelum_ujian
+- add tbl_soal_selidik_sebelum_ujian_soalan_jawapan_hpt copy from tbl_soal_selidik_sebelum_ujian_soalan_jawapan
+- add tbl_perancangan_program_hpt copy from tbl_perancangan_program
+
+Ref
+----
+- add tbl_ref_kategori_penggunaan_hpt copy from tbl_ref_kategori_penggunaan
+- add tbl_ref_soalan_soal_selidik_hpt copy from tbl_ref_soalan_soal_selidik
+- add tbl_ref_jawapan_soal_selidik_hpt copy from tbl_ref_jawapan_soal_selidik
+- add tbl_ref_jenis_program_hpt copy from tbl_ref_jenis_program
+
+
+ISN Changes Update 19 April 2016
+---------------------------------
+
+Change DB
+----------
+- alter tbl_permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik add status
+- alter tbl_perkhidmatan_analisa_perlawanan_biomekanik add atlet_id
+
+
+Ref
+----
+- add tbl_ref_status_permohonan_perkhidmatan_bimekanik
+
+Report
+------
+- add PerkhidmatanBiomekanikAtlet.jrxml
+- add PerkhidmatanBiomekanikBilangan.jrxml
+		

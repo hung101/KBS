@@ -19,6 +19,8 @@ use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Atlet;
+use app\models\RefAtletTahap;
+use app\models\RefSukan;
 
 /**
  * FarmasiPermohonanUbatanController implements the CRUD actions for FarmasiPermohonanUbatan model.
@@ -71,6 +73,12 @@ class FarmasiPermohonanUbatanController extends Controller
         
         $ref = Atlet::findOne(['atlet_id' => $model->atlet_id]);
         $model->atlet_id = $ref['nameAndIC'];
+        
+        $ref = RefAtletTahap::findOne(['id' => $model->kategori_atlet]);
+        $model->kategori_atlet = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->jenis_sukan]);
+        $model->jenis_sukan = $ref['desc'];
         
         $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         $model->kelulusan = $YesNo;

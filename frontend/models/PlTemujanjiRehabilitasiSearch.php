@@ -19,7 +19,7 @@ class PlTemujanjiRehabilitasiSearch extends PlTemujanjiRehabilitasi
     {
         return [
             [['pl_temujanji_id', 'atlet_id'], 'integer'],
-            [['tarikh_temujanji', 'doktor_pegawai_perubatan', 'makmal_perubatan', 'status_temujanji', 'pegawai_yang_bertanggungjawab', 'catitan_ringkas', 'nama_rehabilitasi'], 'safe'],
+            [['tarikh_temujanji', 'doktor_pegawai_perubatan', 'makmal_perubatan', 'status_temujanji', 'pegawai_yang_bertanggungjawab', 'catitan_ringkas', 'nama_rehabilitasi', 'no_kad_pengenalan', 'nama_pesakit_luar'], 'safe'],
         ];
     }
 
@@ -68,7 +68,9 @@ class PlTemujanjiRehabilitasiSearch extends PlTemujanjiRehabilitasi
             ->andFilterWhere(['like', 'tbl_ref_status_temujanji_pesakit_luar.desc', $this->status_temujanji])
             ->andFilterWhere(['like', 'tbl_ref_nama_rehabilitasi.desc', $this->nama_rehabilitasi])
             ->andFilterWhere(['like', 'pegawai_yang_bertanggungjawab', $this->pegawai_yang_bertanggungjawab])
-            ->andFilterWhere(['like', 'catitan_ringkas', $this->catitan_ringkas]);
+            ->andFilterWhere(['like', 'catitan_ringkas', $this->catitan_ringkas])
+                ->andFilterWhere(['like', 'no_kad_pengenalan', $this->no_kad_pengenalan])
+                ->andFilterWhere(['like', 'nama_pesakit_luar', $this->nama_pesakit_luar]);
 
         return $dataProvider;
     }

@@ -19,7 +19,7 @@ class PengurusanKemudahanDanPeralatanSearch extends PengurusanKemudahanDanPerala
     {
         return [
             [['pengurusan_kemudahan_dan_peralatan_id'], 'integer'],
-            [['kerja', 'masa', 'catatan_ringkas', 'tindakan_yang_diambil', 'hasil', 'ketidakpatuhan'], 'safe'],
+            [['kerja', 'masa', 'catatan_ringkas', 'tindakan_yang_diambil', 'hasil', 'ketidakpatuhan', 'status'], 'safe'],
         ];
     }
 
@@ -42,7 +42,8 @@ class PengurusanKemudahanDanPeralatanSearch extends PengurusanKemudahanDanPerala
     public function search($params)
     {
         $query = PengurusanKemudahanDanPeralatan::find()
-                ->joinWith(['refKerjaPengurusanKemudahanPeralatan']);
+                ->joinWith(['refKerjaPengurusanKemudahanPeralatan'])
+                ->joinWith(['refStatusPengurusanKemudahan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -65,7 +66,8 @@ class PengurusanKemudahanDanPeralatanSearch extends PengurusanKemudahanDanPerala
             ->andFilterWhere(['like', 'catatan_ringkas', $this->catatan_ringkas])
             ->andFilterWhere(['like', 'tindakan_yang_diambil', $this->tindakan_yang_diambil])
             ->andFilterWhere(['like', 'hasil', $this->hasil])
-            ->andFilterWhere(['like', 'ketidakpatuhan', $this->ketidakpatuhan]);
+            ->andFilterWhere(['like', 'ketidakpatuhan', $this->ketidakpatuhan])
+                ->andFilterWhere(['like', 'tbl_ref_status_pengurusan_kemudahan.desc', $this->status]);
 
         return $dataProvider;
     }

@@ -15,6 +15,7 @@ use app\models\RefPerkhidmatanKomplimentari;
 use app\models\Atlet;
 use app\models\RefJuruUrut;
 use app\models\RefStatusTemujanjiKomplimentari;
+use app\models\RefLokasiKomplimentari;
 
 
 // contant values
@@ -115,7 +116,20 @@ use app\models\general\GeneralMessage;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'lokasi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>90]],
+                'lokasi' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-lokasi-komplimentari/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefLokasiKomplimentari::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::lokasi],],
+                    'columnOptions'=>['colspan'=>4]],
             ]
         ],
         [

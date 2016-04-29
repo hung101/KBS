@@ -10,8 +10,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\AkademiAkk */
 
 //$this->title = $model->akademi_akk_id;
-$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::akademi_kejurulatihan_kebangsaan_akk;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::permohonan_lesen;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_lesen, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="akademi-akk-view">

@@ -18,8 +18,8 @@ class PlTemujanjiMakmalPerubatanSearch extends PlTemujanjiMakmalPerubatan
     public function rules()
     {
         return [
-            [['pl_temujanji_id', 'atlet_id'], 'integer'],
-            [['tarikh_temujanji', 'doktor_pegawai_perubatan', 'makmal_perubatan', 'status_temujanji', 'pegawai_yang_bertanggungjawab', 'catitan_ringkas', 'catatan_tambahan'], 'safe'],
+            [['pl_temujanji_id'], 'integer'],
+            [['tarikh_temujanji', 'doktor_pegawai_perubatan', 'makmal_perubatan', 'status_temujanji', 'pegawai_yang_bertanggungjawab', 'catitan_ringkas', 'catatan_tambahan', 'atlet_id'], 'safe'],
         ];
     }
 
@@ -43,7 +43,8 @@ class PlTemujanjiMakmalPerubatanSearch extends PlTemujanjiMakmalPerubatan
     {
         $query = PlTemujanjiMakmalPerubatan::find()
                 ->joinWith(['refStatusTemujanjiPesakitLuar'])
-                ->joinWith(['refPegawaiPerubatan']);
+                ->joinWith(['refPegawaiPerubatan'])
+                ->joinWith(['atlet']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -59,7 +60,7 @@ class PlTemujanjiMakmalPerubatanSearch extends PlTemujanjiMakmalPerubatan
 
         $query->andFilterWhere([
             'pl_temujanji_id' => $this->pl_temujanji_id,
-            'atlet_id' => $this->atlet_id,
+            //'atlet_id' => $this->atlet_id,
             'tarikh_temujanji' => $this->tarikh_temujanji,
         ]);
 
@@ -68,7 +69,8 @@ class PlTemujanjiMakmalPerubatanSearch extends PlTemujanjiMakmalPerubatan
             ->andFilterWhere(['like', 'tbl_ref_status_temujanji_pesakit_luar.desc', $this->status_temujanji])
             ->andFilterWhere(['like', 'tbl_ref_pegawai_perubatan.desc', $this->pegawai_yang_bertanggungjawab])
             ->andFilterWhere(['like', 'catitan_ringkas', $this->catitan_ringkas])
-                ->andFilterWhere(['like', 'catatan_tambahan', $this->catatan_tambahan]);
+                ->andFilterWhere(['like', 'catatan_tambahan', $this->catatan_tambahan])
+                ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id]);
 
         return $dataProvider;
     }

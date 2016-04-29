@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::temujanji, ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::pendaftaran_temujanji, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 
@@ -60,11 +60,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             [
-                'attribute' => 'doktor_pegawai_perubatan',
+                'attribute' => 'atlet_id',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::doktor_pegawai_perubatan,
-                ]
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_atlet,
+                ],
+                'value' => 'atlet.name_penuh'
             ],
             //'makmal_perubatan',
             //'status_temujanji',

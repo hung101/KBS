@@ -12,6 +12,7 @@ use kartik\datecontrol\DateControl;
 
 // table reference
 use app\models\RefKerjaPengurusanKemudahanPeralatan;
+use app\models\RefStatusPengurusanKemudahan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -94,7 +95,26 @@ use app\models\general\GeneralMessage;
                 'ketidakpatuhan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>255]],
             ],
         ],
-        
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'status' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-pengurusan-kemudahan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefStatusPengurusanKemudahan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::status],],
+                    'columnOptions'=>['colspan'=>6]],
+            ],
+        ],
     ]
 ]);
     ?>

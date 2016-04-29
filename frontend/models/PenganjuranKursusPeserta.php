@@ -97,10 +97,10 @@ class PenganjuranKursusPeserta extends \yii\db\ActiveRecord
         return [
             [['kategori_kursus', 'nama_kursus', 'kod_kursus', 'tarikh', 'tempat', 'yuran', 'nama_penuh', 'jantina', 'taraf_perkahwinan', 'kaum', 
                 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'pekerjaan', 'nama_majikan', 'alamat_majikan_1', 
-                'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 'no_tel_majikan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+                'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 'no_tel_majikan', 'kelulusan', 'sukan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh', 'tahun_berkhidmat_mula', 'tahun_berkhidmat_tamat'], 'safe'],
             [['yuran'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['kelulusan', 'sukan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['kategori_kursus', 'nama_kursus', 'tempat', 'nama_penuh', 'pekerjaan', 'nama_majikan', 'kelulusan_akademi', 'nama_kelulusan', 'kelulusan_sukan_spesifik', 'nama_sukan_akademi', 'kelulusan_sains_sukan', 'sijil_spkk_msn', 'lesen_kejurulatihan_msn', 'lantikan', 'nama_sukan_jurulatih'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kod_kursus', 'alamat_negeri', 'alamat_majikan_negeri', 'status_jurulatih', 'no_lesen'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik_gambar', 'emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -175,6 +175,7 @@ class PenganjuranKursusPeserta extends \yii\db\ActiveRecord
             'dokumen_lampiran' => GeneralLabel::dokumen_lampiran,
             'kelulusan' => GeneralLabel::kelulusan,
             'maklumat_persamaan_taraf' => GeneralLabel::maklumat_persamaan_taraf,
+            'sukan' => GeneralLabel::sukan,
         ];
     }
     

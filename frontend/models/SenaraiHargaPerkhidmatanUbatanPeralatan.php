@@ -51,8 +51,9 @@ class SenaraiHargaPerkhidmatanUbatanPeralatan extends \yii\db\ActiveRecord
         return [
             [['nama_perkhidmatan_ubatan_peralatan', 'harga'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['harga'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['nama_perkhidmatan_ubatan_peralatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['nama_perkhidmatan_ubatan_peralatan', 'dikemaskini_oleh'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tarikh'], 'safe'],
         ];
     }
 
@@ -66,7 +67,8 @@ class SenaraiHargaPerkhidmatanUbatanPeralatan extends \yii\db\ActiveRecord
             'nama_perkhidmatan_ubatan_peralatan' => GeneralLabel::nama_perkhidmatan_ubatan_peralatan,
             'harga' => GeneralLabel::harga,
             'catitan_ringkas' => GeneralLabel::catitan_ringkas,
-
+            'tarikh' => GeneralLabel::tarikh,
+            'dikemaskini_oleh' => GeneralLabel::dikemaskini_oleh,
         ];
     }
 }

@@ -9,6 +9,8 @@ use app\models\PlDiagnosisPreskripsiPemeriksaan;
 use frontend\models\PlDiagnosisPreskripsiPemeriksaanSearch;
 use app\models\IsnLaporanTemujanjiKedatanganPesakit;
 use app\models\IsnLaporanTemujanjiKedatanganPegawai;
+use app\models\IsnLaporanTemujanjiMengikutSukan;
+use app\models\IsnLaporanTemujanjiMengikutStatus;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -23,6 +25,8 @@ use app\models\Atlet;
 use app\models\RefJenisTemujanjiPesakitLuar;
 use app\models\RefStatusTemujanjiPesakitLuar;
 use app\models\RefPegawaiPerubatan;
+use app\models\RefAtletTahap;
+use app\models\RefSukan;
 
 /**
  * PlTemujanjiController implements the CRUD actions for PlTemujanji model.
@@ -85,11 +89,23 @@ class PlTemujanjiController extends Controller
         $ref = RefPegawaiPerubatan::findOne(['id' => $model->pegawai_yang_bertanggungjawab]);
         $model->pegawai_yang_bertanggungjawab = $ref['desc'];
         
+        $ref = RefAtletTahap::findOne(['id' => $model->kategori_atlet]);
+        $model->kategori_atlet = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->jenis_sukan]);
+        $model->jenis_sukan = $ref['desc'];
+        
         $model->kehadiran_pesakit = GeneralLabel::getYesNoLabel($model->kehadiran_pesakit);
         
         $model->kehadiran_pegawai_bertanggungjawab = GeneralLabel::getYesNoLabel($model->kehadiran_pegawai_bertanggungjawab);
         
         $model->tarikh_temujanji = GeneralFunction::convert($model->tarikh_temujanji, GeneralFunction::TYPE_DATETIME);
+        
+        $model->masa_pendaftaran = GeneralFunction::convert($model->masa_pendaftaran, GeneralFunction::TYPE_DATETIME);
+        
+        $model->masa_rawatan = GeneralFunction::convert($model->masa_rawatan, GeneralFunction::TYPE_DATETIME);
+        
+        $model->masa_selesai = GeneralFunction::convert($model->masa_selesai, GeneralFunction::TYPE_DATETIME);
         
         $queryPar = null;
         
@@ -229,6 +245,8 @@ class PlTemujanjiController extends Controller
                 $report_url = BaseUrl::to(['generate-laporan-temujanji-kedatangan-pesakit'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'status' => $model->status
+                    , 'sukan' => $model->sukan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -236,6 +254,8 @@ class PlTemujanjiController extends Controller
                 return $this->redirect(['generate-laporan-temujanji-kedatangan-pesakit'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'status' => $model->status
+                    , 'sukan' => $model->sukan
                     , 'format' => $model->format
                 ]);
             }
@@ -247,7 +267,7 @@ class PlTemujanjiController extends Controller
         ]);
     }
 
-    public function actionGenerateLaporanTemujanjiKedatanganPesakit($tarikh_dari, $tarikh_hingga, $format)
+    public function actionGenerateLaporanTemujanjiKedatanganPesakit($tarikh_dari, $tarikh_hingga, $status, $sukan, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -255,9 +275,17 @@ class PlTemujanjiController extends Controller
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($status == "") $status = array();
+        else $status = array($status);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'STATUS' => $status,
+            'SUKAN' => $sukan,
         );
         
         GeneralFunction::generateReport('/spsb/ISN/LaporanTemujanjiKedatanganPesakit', $format, $controls, 'laporan_temujanji_kedatangan_pesakit');
@@ -279,6 +307,8 @@ class PlTemujanjiController extends Controller
                 $report_url = BaseUrl::to(['generate-laporan-temujanji-kedatangan-pegawai'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'status' => $model->status
+                    , 'sukan' => $model->sukan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -286,6 +316,8 @@ class PlTemujanjiController extends Controller
                 return $this->redirect(['generate-laporan-temujanji-kedatangan-pegawai'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'status' => $model->status
+                    , 'sukan' => $model->sukan
                     , 'format' => $model->format
                 ]);
             }
@@ -297,7 +329,7 @@ class PlTemujanjiController extends Controller
         ]);
     }
 
-    public function actionGenerateLaporanTemujanjiKedatanganPegawai($tarikh_dari, $tarikh_hingga, $format)
+    public function actionGenerateLaporanTemujanjiKedatanganPegawai($tarikh_dari, $tarikh_hingga, $status, $sukan, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -305,11 +337,143 @@ class PlTemujanjiController extends Controller
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($status == "") $status = array();
+        else $status = array($status);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'STATUS' => $status,
+            'SUKAN' => $sukan,
         );
         
         GeneralFunction::generateReport('/spsb/ISN/LaporanTemujanjiKedatanganPegawai', $format, $controls, 'laporan_temujanji_kedatangan_pegawai');
+    }
+    
+    public function actionLaporanTemujanjiMengikutSukan()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanTemujanjiMengikutSukan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-temujanji-mengikut-sukan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'status' => $model->status
+                    , 'sukan' => $model->sukan
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-temujanji-mengikut-sukan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'status' => $model->status
+                    , 'sukan' => $model->sukan
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_temujanji_mengikut_sukan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanTemujanjiMengikutSukan($tarikh_dari, $tarikh_hingga, $status, $sukan, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($status == "") $status = array();
+        else $status = array($status);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'STATUS' => $status,
+            'SUKAN' => $sukan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanTemujanjiMengikutSukan', $format, $controls, 'laporan_temujanji_mengikut_sukan');
+    }
+    
+    public function actionLaporanTemujanjiMengikutStatus()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanTemujanjiMengikutStatus();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-temujanji-mengikut-status'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'status' => $model->status
+                    , 'sukan' => $model->sukan
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-temujanji-mengikut-status'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'status' => $model->status
+                    , 'sukan' => $model->sukan
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_temujanji_mengikut_status', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanTemujanjiMengikutStatus($tarikh_dari, $tarikh_hingga, $status, $sukan, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($status == "") $status = array();
+        else $status = array($status);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'STATUS' => $status,
+            'SUKAN' => $sukan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanTemujanjiMengikutStatus', $format, $controls, 'laporan_temujanji_mengikut_status');
     }
 }

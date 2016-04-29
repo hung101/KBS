@@ -147,6 +147,9 @@ class PenganjuranKursusPesertaController extends Controller
         $ref = RefSukan::findOne(['id' => $model->nama_sukan_jurulatih]);
         $model->nama_sukan_jurulatih = $ref['desc'];
         
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
         $model->kelulusan = GeneralLabel::getYesNoLabel($model->kelulusan);
         
         return $this->render('view', [

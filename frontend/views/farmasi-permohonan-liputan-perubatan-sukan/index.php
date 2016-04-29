@@ -47,6 +47,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'permohonan_liputan_perubatan_sukan_id',
             //'nama_program',
+            [
+                'attribute' => 'nama_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_program,
+                ]
+            ],
             //'tarikh_program',
             [
                 'attribute' => 'tarikh_program',
@@ -82,7 +89,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
             // 'no_tel_pemohon',
+            [
+                'attribute' => 'no_tel_pemohon',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_tel_pemohon,
+                ]
+            ],
             // 'pegawai_bertugas',
+            [
+                'attribute' => 'pegawai_bertugas',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pegawai_bertugas,
+                ]
+            ],
             // 'muat_naik',
             //'kelulusan_ceo',
             [

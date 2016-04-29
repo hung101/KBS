@@ -7,7 +7,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PlTemujanji */
 
-$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::temujanji_makmal_perubatan;
+$this->title = GeneralLabel::pendaftaran_temujanji_baru;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::temujanji_makmal_perubatan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

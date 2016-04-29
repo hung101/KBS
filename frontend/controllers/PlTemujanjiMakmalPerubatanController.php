@@ -9,6 +9,7 @@ use app\models\PlDiagnosisPreskripsiPemeriksaanMakmalPerubatan;
 use frontend\models\PlDiagnosisPreskripsiPemeriksaanMakmalPerubatanSearch;
 use app\models\IsnLaporanTemujanjiKedatanganPesakit;
 use app\models\IsnLaporanTemujanjiKedatanganPegawai;
+use app\models\IsnLaporanTemujanjiMakmalPerubatan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -23,6 +24,8 @@ use app\models\Atlet;
 use app\models\RefJenisTemujanjiPesakitLuar;
 use app\models\RefStatusTemujanjiPesakitLuar;
 use app\models\RefPegawaiPerubatan;
+use app\models\RefAtletTahap;
+use app\models\RefSukan;
 
 /**
  * PlTemujanjiMakmalPerubatanController implements the CRUD actions for PlTemujanjiMakmalPerubatan model.
@@ -84,6 +87,12 @@ class PlTemujanjiMakmalPerubatanController extends Controller
         
         $ref = RefPegawaiPerubatan::findOne(['id' => $model->pegawai_yang_bertanggungjawab]);
         $model->pegawai_yang_bertanggungjawab = $ref['desc'];
+        
+        $ref = RefAtletTahap::findOne(['id' => $model->kategori_atlet]);
+        $model->kategori_atlet = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->jenis_sukan]);
+        $model->jenis_sukan = $ref['desc'];
         
         $model->kehadiran_pesakit = GeneralLabel::getYesNoLabel($model->kehadiran_pesakit);
         
@@ -311,5 +320,67 @@ class PlTemujanjiMakmalPerubatanController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/ISN/LaporanTemujanjiKedatanganPegawai', $format, $controls, 'laporan_temujanji_kedatangan_pegawai');
+    }
+    
+    public function actionLaporanTemujanjiMakmalPerubatan()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanTemujanjiMakmalPerubatan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-temujanji-makmal-perubatan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'pegawai_bertanggungjawab' => $model->pegawai_bertanggungjawab
+                    , 'sukan' => $model->sukan
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-temujanji-makmal-perubatan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'pegawai_bertanggungjawab' => $model->pegawai_bertanggungjawab
+                    , 'sukan' => $model->sukan
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_temujanji_makmal_perubatan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanTemujanjiMakmalPerubatan($tarikh_dari, $tarikh_hingga, $pegawai_bertanggungjawab, $sukan, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($pegawai_bertanggungjawab == "") $pegawai_bertanggungjawab = array();
+        else $pegawai_bertanggungjawab = array($pegawai_bertanggungjawab);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'PEGAWAI' => $pegawai_bertanggungjawab,
+            'SUKAN' => $sukan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanTemujanjiMakmalPerubatan', $format, $controls, 'laporan_temujanji_makmal_perubatan');
     }
 }

@@ -61,7 +61,7 @@ class PaobsPenganjuran extends \yii\db\ActiveRecord
         return [
             [['nama_aktiviti', 'jenis_sukan', 'peringkat_sukan', 'tarikh_aktiviti', 'alamat_lokasi_1', 'alamat_lokasi_negeri', 'alamat_lokasi_bandar', 'alamat_lokasi_poskod', 'pemilik_lokasi', 'bilangan_peserta', 'kos_aktiviti'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_aktiviti'], 'safe'],
-            [['bilangan_peserta', 'negara_peserta', 'peringkat_sukan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['bilangan_peserta', 'negara_peserta', 'peringkat_sukan', 'alamat_lokasi_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['kos_aktiviti'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['nama_aktiviti'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_lokasi_1','alamat_lokasi_2','alamat_lokasi_3','jenis_sukan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],

@@ -81,7 +81,7 @@ class GeranBantuanGajiSearch extends GeranBantuanGaji
             ->andFilterWhere(['like', 'tbl_ref_kategori_geran_jurulatih.desc', $this->kategori_geran])
             ->andFilterWhere(['like', 'status_geran', $this->status_geran])
             ->andFilterWhere(['like', 'catatan', $this->catatan])
-                ->andFilterWhere(['like', 'tbl_ref_kelulusan', $this->kelulusan]);
+                ->andFilterWhere(['like', 'tbl_ref_kelulusan.desc', $this->kelulusan]);
 
         return $dataProvider;
     }

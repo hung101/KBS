@@ -13,13 +13,15 @@ class IsnLaporanTemujanjiKedatanganPegawai extends Model
 {
     public $tarikh_dari;
     public $tarikh_hingga;
+    public $status;
+    public $sukan;
     public $format;
 
     public function rules()
     {
         return [
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga'], 'safe'],
+            [['tarikh_dari', 'tarikh_hingga', 'status', 'sukan'], 'safe'],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
@@ -29,6 +31,8 @@ class IsnLaporanTemujanjiKedatanganPegawai extends Model
         return [
             'tarikh_dari' => GeneralLabel::tarikh_dari,
             'tarikh_hingga' => GeneralLabel::tarikh_hingga,
+            'status' => GeneralLabel::status,
+            'sukan' => GeneralLabel::sukan,
             'format' => GeneralLabel::format,
         ];
     }

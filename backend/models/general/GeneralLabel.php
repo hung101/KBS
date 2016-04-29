@@ -236,7 +236,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const bila = "Bila";
         const bilangan = "Bilangan";
         const bilangan_ahli_yang_menyertai = "Bilangan Ahli Yang Menyertai";
-        const bilangan_atlet = "Bilangan Atlet (N) = (1-100)";
+        const bilangan_atlet = "Bilangan Atlet (N)";
         const bilangan_cawangan_badan_gabungan = "Bilangan Cawangan / Badan Gabungan";
         const bilangan_kanak_kanak = "Bilangan Kanak Kanak";
         const bilangan_keahlian = "Bilangan Keahlian";
@@ -632,7 +632,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kelulusan_ceo = "Kelulusan CEO";
         const kelulusan_echics = "Kelulusan Echic";
         const kelulusan_pbu = "Kelulusan PBU";
-        const kelulusan_sains_sukan = "Kelulusan Sains Sukan";
+        const kelulusan_sains_sukan = "Kelulusan Kursus";
         const kelulusan_sukan_spesifik = "Kelulusan Sukan Spesifik";
         const kemahiran_id = "Kemahiran ID";
         const kemudah_pakaian_peralatan_tiket_id = "Kemudahan/Pakaian/Peralatan Tiket ID";
@@ -708,7 +708,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_penganjuran = "Laporan Penganjuran";
         const laporan_ringkasan_statistik = "Laporan Ringkasan Statistik";
         const laporan_ringkasan_statistik_bulanan = "Laporan Bilangan Program";
-        const laporan_temujanji_fisioterapi = "Laporan Temujanji Fisioterapi";
+        const laporan_temujanji_fisioterapi = "Laporan Temujanji Fisioterapi / Rehabilitasi";
         const laporan_temujanji_kedatangan_pegawai = "Laporan Temujanji Kedatangan Pegawai";
         const laporan_temujanji_kedatangan_pesakit = "Laporan Temujanji Kedatangan Pesakit";
         const laporan_temujanji_rehabilitasi = "Laporan Temujanji Rehabilitasi";
@@ -1600,7 +1600,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const admin_ebiasiswa = "Admin : e-Biasiswa";
         const administration = "Administration";
         const aduan = "Aduan";
-        const akademi_kejurulatihan_kebangsaan_akk = "Permohonan Lesen";
+        const akademi_kejurulatihan_kebangsaan_akk = "Akademi";
         const aktiviti_psikologi = "Aktiviti Psikologi";
         const antropometrik = "Antropometrik";
         const anugerah_pelaksaan_majlis = "Anugerah Pelaksaan Majlis";
@@ -1634,7 +1634,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const fisiologi_sistem_pangkalan_data_atlet_dan_journal = "Soal Selidik Sebelum Ujian";
         const fisiologi_sistem_penjadualan_ujian_fisiologi = "Fisiologi Sistem Penjadualan Ujian Fisiologi";
         const fisiologi_sistem_sixstep = "Fisiologi Sistem ‘SIX-Step’";
-        const fisioterapi_diagnosis = "Fisioterapi Diagnosis";
+        const fisioterapi_diagnosis = "Fisioterapi / Rehabilitasi Diagnosis";
         const fisioterapi_sistem_permohonan_khidmat_rawatan_fisioterapi = "Fisioterapi Sistem Permohonan Khidmat Rawatan Fisioterapi";
         const geran_bantuan_gaji = "Geran Bantuan Gaji";
         const hpt_pangkalan_data_laporan_bulanan = "HPT Pangkalan Data Laporan Bulanan";
@@ -1988,7 +1988,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const status_geran_jurulatih = "Status Geran Jurulatih";
         const status_haid_data_klinikal = "Status Haid Data Klinikal";
         const status_jkk_jkp = "Status Jkk Jkp";
-        const status_jurulatih_akk = "Status Jurulatih Akk";
+        const status_jurulatih_akk = "Status Jurulatih AKK";
         const status_laporan_mesyuarat_agung = "Status Laporan Mesyuarat Agung";
         const status_mou_mao_antarabangsa = "Status Mou Mao Antarabangsa";
         const status_oku = "Status Oku";
@@ -2791,7 +2791,7 @@ if($session->get('language') == "EN") {
         const bila = "When";
         const bilangan = "The number of";
         const bilangan_ahli_yang_menyertai = "The Number Of Members Participating In";
-        const bilangan_atlet = "Number Of Athletes (N) = (1-100)";
+        const bilangan_atlet = "Number Of Athletes (N)";
         const bilangan_cawangan_badan_gabungan = "Number Of Branches/Body Combination";
         const bilangan_kanak_kanak = "The Number Of Children";
         const bilangan_keahlian = "Number Of Membership";
@@ -3263,7 +3263,7 @@ if($session->get('language') == "EN") {
         const laporan_penganjuran = "Report Recommendations:";
         const laporan_ringkasan_statistik = "Report Summary Statistic";
         const laporan_ringkasan_statistik_bulanan = "Report Number of Programs";
-        const laporan_temujanji_fisioterapi = "Report Physiotherapy Appointment";
+        const laporan_temujanji_fisioterapi = "Report Physiotherapy / Rehabilitation Appointment";
         const laporan_temujanji_kedatangan_pegawai = "Report Officer Presence";
         const laporan_temujanji_kedatangan_pesakit = "Report Patient Presence";
         const laporan_temujanji_rehabilitasi = "Report Rehabilitation Appointment";
@@ -4189,7 +4189,7 @@ if($session->get('language') == "EN") {
         const fisiologi_sistem_pangkalan_data_atlet_dan_journal = "Database Systems Physiology athletes and Journal";
         const fisiologi_sistem_penjadualan_ujian_fisiologi = "Physiology The Physiology Test Tabulation System";
         const fisiologi_sistem_sixstep = "Physiological Systems ' SIX-Step '";
-        const fisioterapi_diagnosis = "Physiotherapy Diagnosis";
+        const fisioterapi_diagnosis = "Physiotherapy / Rehabilitation Diagnosis";
         const fisioterapi_sistem_permohonan_khidmat_rawatan_fisioterapi = "Physiotherapist Physiotherapy Treatment Service Application System";
         const geran_bantuan_gaji = "Grant Of Salary";
         const hpt_pangkalan_data_laporan_bulanan = "HPT Database Monthly Report";
@@ -4545,7 +4545,7 @@ if($session->get('language') == "EN") {
         const status_geran_jurulatih = "Coach Grant Status";
         const status_haid_data_klinikal = "Clinical Data Menstrual Status";
         const status_jkk_jkp = "Cmc Consists Of A Status";
-        const status_jurulatih_akk = "The Status Of Coach Akk";
+        const status_jurulatih_akk = "The Status Of Coach AKK";
         const status_laporan_mesyuarat_agung = "Status Report Of The General Meeting";
         const status_mou_mao_antarabangsa = "Status Of Mou Mao International";
         const status_oku = "The Status Of Disabled Person";

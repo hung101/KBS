@@ -202,6 +202,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const bahagian = "Bahagian";
         const bahagian_cawangan_pusat = "Bahagian / Cawangan / Pusat";
         const bahagian_kecederaan = "Bahagian Kecederaan";
+        const bahagian_pusat_unit = "Bahagian / Pusat / Unit";
         const bahasa_ibu = "Bahasa Ibunda";
         const bajet_keseluruhan = "Bajet Keseluruhan";
         const bajet_penyelidikan_id = "Bajet Penyelidikan ID";
@@ -293,6 +294,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const bsp_prestasi_sukan_id = "Bsp Prestasi Sukan ID";
         const bsp_tamat_pengesahan_pengajian_id = "Bsp Tamat Pengesahan Pengajian ID";
         const bsp_tuntutan_elaun_tesis_od = "Bsp Tuntutan Elaun Tesis Od";
+        const buah = "Buah";
         const bulan = "Bulan";
         const butir_butir = "Butir-butir";
         const butir_butir_perbelanjaan = "Butir-butir Perbelanjaan";
@@ -311,7 +313,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const catatan_tambahan = "Catatan Tambahan";
         const category = "Category";
         const category_insentif = "Kategory Insentif";
-        const catitan_ringkas = "Catitan Ringkas";
+        const catitan_ringkas = "Catatan Ringkas";
         const cawangan = "Cawangan";
         const cawangan_dan_alamat_bank = "Cawangan Dan Alamat Bank";
         const cgpa_pngk = "CGPA / PNGK";
@@ -344,6 +346,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const diagnosis = "Diagnosis";
         const diet_harian = "Diet Harian";
         const dihubungi = "Dihubungi";
+        const dikemaskini_oleh = "Dikemaskini Oleh";
         const dirasmikan_oleh = "Dirasmikan Oleh";
         const disahkan = "Disahkan";
         const disclaimer = "Adalah disahkan bahawa maklumat yang dikemukakan adalah benar. Jika tidak, Permohonan ini tidak akan dipertimbangkan dan dibatalkan serta merta";
@@ -399,6 +402,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const forum_seminar_persidangan_di_luar_negara_id = "Forum Seminar Persidangan Di Luar Negara ID";
         const full_name = "Nama Penuh";
         const gaji_dan_elaun_jurulatih_id = "Gaji Dan Elaun Jurulatih ID";
+        const gaji_elaun = "Gaji / Elaun";
         const gambar = "Gambar";
         const gambar_1 = "Gambar 1";
         const gambar_2 = "Gambar 2";
@@ -434,6 +438,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const isu = "Isu";
         const jabatan_id = "Jabatan";
         const jadual_latihan = "Jadual Latihan";
+        const jadual_pegawai = "Jadual Pegawai";
         const jangka_waktu_mula = "Jangka Waktu Mula";
         const jangka_waktu_tamat = "Jangka Waktu Tamat";
         const jangkauan_meluntur = "Jangkauan Meluntur (cm)";
@@ -472,6 +477,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jenis_harta_pengangkutan_perniagaan = "Jenis Harta/Pengangkutan/Perniagaan";
         const jenis_insentif = "Jenis Insentif";
         const jenis_jawatankuasa = "Jenis Jawatankuasa";
+        const jenis_jus = "Jenis Jus";
         const jenis_kadar = "Jenis Kadar";
         const jenis_kebajikan = "Jenis Kebajikan";
         const jenis_kebajikan_id = "Jenis Kebajikan ID";
@@ -501,6 +507,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jenis_sejarah_perubatan = "Jenis Sejarah Perubatan";
         const jenis_spkk = "Jenis Sijil";
         const jenis_sukan = "Jenis Sukan";
+        const jenis_tahap_kursus = "Jenis / Tahap Kursus";
         const jenis_tempahan = "Jenis Tempahan";
         const jenis_ujian_saringan = "Jenis Ujian Saringan";
         const journal_id = "Journal ID";
@@ -550,6 +557,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jumlah_sponsor = "Jumlah Sponsor";
         const jumlah_tuntutan = "Jumlah Tuntutan";
         const jurulatih = "Jurulatih";
+        const jurulatih_di_negeri = "Jurulatih Di Negeri";
         const jurulatih_id = "Jurulatih ID";
         const jurulatih_keluarga_id = "Jurulatih Keluarga ID";
         const jurulatih_kesihatan_id = "Jurulatih Kesihatan ID";
@@ -594,9 +602,10 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kategori_permasalahan = "Kategori Masalah";
         const kategori_permohonan = "Kategori Permohonan";
         const kategori_persatuan = "Kategori Persatuan";
-        const kategori_pesakit_luar = "Kategori Pesakit Luar";
+        const kategori_pesakit_luar = "Kategori Pesakit";
         const kategori_peserta = "Kategori Peserta";
         const kategori_program = "Kategori Program";
+        const kategori_rawatan = "Kategori Rawatan";
         const kategori_sukan = "Kategori Sukan";
         const kaum = "Kaum";
         const kaunseling_id = "Kaunseling ID";
@@ -632,7 +641,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kelulusan_ceo = "Kelulusan CEO";
         const kelulusan_echics = "Kelulusan Echic";
         const kelulusan_pbu = "Kelulusan PBU";
-        const kelulusan_sains_sukan = "Kelulusan Sains Sukan";
+        const kelulusan_sains_sukan = "Kelulusan Kursus";
         const kelulusan_sukan_spesifik = "Kelulusan Sukan Spesifik";
         const kemahiran_id = "Kemahiran ID";
         const kemudah_pakaian_peralatan_tiket_id = "Kemudahan/Pakaian/Peralatan Tiket ID";
@@ -700,8 +709,10 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laman_web = "Laman Web";
         const lantikan = "Lantikan";
         const laporan_aktiviti_muat_naik = "Laporan Aktiviti";
+        const laporan_bulanan_program_pendidikan = "Laporan Bulanan Program Pendidikan";
         const laporan_bulanan_secara_detail = "Laporan Bulanan";
         const laporan_fisiologi_jumlah_bilangan_ujian = "Laporan Fisiologi Jumlah Bilangan Ujian";
+        const laporan_jadual_pegawai_temujanji = "Jadual Pegawai Temujanji";
         const laporan_kesihatan = "Laporan Kesihatan";
         const laporan_kewangan_muat_naik = "Laporan Kewangan";
         const laporan_komplimentori = "Laporan Komplimentori";
@@ -710,9 +721,15 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_perkhidmatan_biomekanik_mengikut_atlet = "Laporan Perkhidmatan Biomekanik Mengikut Atlet";
         const laporan_ringkasan_statistik = "Laporan Ringkasan Statistik";
         const laporan_ringkasan_statistik_bulanan = "Laporan Bilangan Program";
-        const laporan_temujanji_fisioterapi = "Laporan Temujanji Fisioterapi";
+        const laporan_ringkasan_statistik_komplimentari = "Laporan Ringkasan Statistik Komplimentari";
+        const laporan_ringkasan_statistik_program_pendidikan = "Laporan Ringkasan Statistik Program Pendidikan";
+        const laporan_temujanji_fisioterapi = "Laporan Temujanji Fisioterapi / Rehabilitasi";
         const laporan_temujanji_kedatangan_pegawai = "Laporan Temujanji Kedatangan Pegawai";
         const laporan_temujanji_kedatangan_pesakit = "Laporan Temujanji Kedatangan Pesakit";
+        const laporan_temujanji_makmal_perubatan = "Laporan Temujanji Makmal Perubatan";
+        const laporan_temujanji_mengikut_sukan = "Laporan Temujanji Mengikut Sukan";
+        const laporan_temujanji_mengikut_status = "Laporan Temujanji Mengikut Status";
+        const laporan_temujanji_penyiasatan = "Laporan Temujanji Penyiasatan";
         const laporan_temujanji_rehabilitasi = "Laporan Temujanji Rehabilitasi";
         const laporan_ulasan = "Laporan Ulasan";
         const lari_pecut_20_meter = "Lari Pecut 20 Meter (saat)";
@@ -746,6 +763,9 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const mana = "Mana";
         const markah_penilaian = "Markah Penilaian";
         const masa = "Masa";
+        const masa_pendaftaran = "Masa Pendaftaran";
+        const masa_rawatan = "Masa Rawatan";
+        const masa_selesai = "Masa Selesai";
         const masalah_dihadapi = "Masalah Dihadapi";
         const masalah_haid = "Masalah Haid";
         const masalah_kesihatan = "Masalah Kesihatan";
@@ -824,6 +844,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const nama_jawatankuasa = "Nama Jawatankuasa";
         const nama_jurulatih = "Nama Jurulatih";
         const nama_jurulatih_dinilai = "Nama Jurulatih";
+        const nama_jus = "Nama Jus";
         const nama_kategori = "Nama Kategori";
         const nama_kecemasan = "Nama";
         const nama_kejohanan = "Nama Kejohanan";
@@ -899,7 +920,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const nama_sukan_pertandingan = "Nama Sukan/Pertandingan";
         const nama_sukan_sebelum_dicalon = "Nama Sukan Sebelum Dicalon";
         const nama_sukarelawan = "Nama Sukarelawan";
-        const nama_suplemen_makanan_jus_rundingan_pendidikan = "Nama Suplemen/Jus";
+        const nama_suplemen_makanan_jus_rundingan_pendidikan = "Nama Makanan Tambahan";
         const nama_syarikat = "Nama Syarikat";
         const nama_syarikat_perniagaan = "Nama Syarikat Perniagaan";
         const nama_temasya = "Nama Temasya";
@@ -1191,6 +1212,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const permohonan_perkhidmatan_permakanan_id = "Permohonan Perkhidmatan Permakanan ID";
         const permohonan_program_pendidikan_kesihatan_id = "Permohonan Program Pendidikan Kesihatan ID";
         const permohonana_penyelidikan_id = "Permohonana Penyelidikan ID";
+        const permohonan_lesen = "permohonan Lesen";
         const perokok_tempoh = "Perokok Tempoh (Tahun)";
         const persatuan = "Persatuan";
         const persatuan_pemohon = "Persatuan Pemohon";
@@ -1233,9 +1255,11 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const psikologi_aktiviti_id = "Psikologi Aktiviti ID";
         const psikologi_profil_id = "Pegawai Psikologi";
         const pusat_latihan = "Pusat Latihan";
+        const pusat_satelit = "Pusat Satelit";
         const quantity_kadar = "Kuantiti";
         const rating = "Rating";
-        const rawatan_fisioterapi = "Rawatan Fisioterapi";
+        const rawatan = "Rawatan";
+        const rawatan_fisioterapi = "Rawatan Fisioterapi / Rehabilitasi";
         const rawatan_rehabilitasi = "Rawatan Rehabilitasi";
         const ref_bahagian_e_laporan_id = "Bahagian E Laporan";
         const ref_jenis_aset_id = "Jenis Aset ID";
@@ -1359,7 +1383,9 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const status_journal = "Status Journal";
         const status_jurulatih = "Status Jurulatih";
         const status_keaktifan_jurulatih = "Status Keaktifan Jurulatih";
+        const status_kejurulatihan = "Status Kejurulatihan";
         const status_pencalonan = "Status Pencalonan";
+        const status_perlesenan = "Status Perlesenan";
         const status_permohonan = "Status Permohonan";
         const status_perokok = "Status Perokok";
         const status_pilihan = "Status Pilihan";
@@ -1422,6 +1448,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tahun_tamat_pengajian = "Tahun Tamat Pengajian";
         const tahun_umur_permulaan = "Umur Mula Menceburi Sukan";
         const tajuk = "Tajuk";
+        const tajuk_laporan = "Tajuk Laporan";
         const tajuk_mou_moa = "Tajuk MOU - MOA";
         const tajuk_penyelidikan = "Tajuk Penyelidikan";
         const tajuk_tesis = "Tajuk Tesis";
@@ -1605,7 +1632,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const admin_ebiasiswa = "Admin : e-Biasiswa";
         const administration = "Administration";
         const aduan = "Aduan";
-        const akademi_kejurulatihan_kebangsaan_akk = "Permohonan Lesen";
+        const akademi_kejurulatihan_kebangsaan_akk = "Kejurulatihan (AKK)";
         const aktiviti_psikologi = "Aktiviti Psikologi";
         const antropometrik = "Antropometrik";
         const anugerah_pelaksaan_majlis = "Anugerah Pelaksaan Majlis";
@@ -1635,13 +1662,14 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const efasiliti_ekemudahan = "e-Fasiliti / e-Kemudahan";
         const elaporan = "e-Laporan";
         const farmasi_rekod_permohonan_ubatan_di_kaunter_oleh_atlet_otc_drug = "Farmasi Rekod Permohonan Ubatan Di Kaunter Oleh Atlet (Otc Drug)";
-        const fisio_doktor_bertanggungjawab = "Fisio / Doktor Bertanggungjawab";
+        const fisio_doktor_bertanggungjawab = "Doktor Bertanggungjawab";
         const fisiologi_sistem_pangkalan_data_atlet_dan_journal = "Soal Selidik Sebelum Ujian";
         const fisiologi_sistem_penjadualan_ujian_fisiologi = "Fisiologi Sistem Penjadualan Ujian Fisiologi";
         const fisiologi_sistem_sixstep = "Fisiologi Sistem ‘SIX-Step’";
-        const fisioterapi_diagnosis = "Fisioterapi Diagnosis";
-        const fisioterapi_sistem_permohonan_khidmat_rawatan_fisioterapi = "Fisioterapi Sistem Permohonan Khidmat Rawatan Fisioterapi";
+        const fisioterapi_diagnosis = "Fisioterapi / Rehabilitasi Diagnosis";
+        const fisioterapi_sistem_permohonan_khidmat_rawatan_fisioterapi = "Sistem Permohonan Khidmat Rawatan Fisioterapi / Rehabilitasi";
         const geran_bantuan_gaji = "Geran Bantuan Gaji";
+        const hpt_laporan_bulanan_pegawai = "HPT Laporan Bulanan Pegawai";
         const hpt_pangkalan_data_laporan_bulanan = "HPT Pangkalan Data Laporan Bulanan";
         const isn = "ISN";
         const jawatankuasa_tertinggi_sukan_malaysia_teknikal_dan_pertandingan = "Jawatankuasa Tertinggi Sukan Malaysia Teknikal dan Pertandingan";
@@ -1666,17 +1694,24 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_gym_jumlah_atlet = "Laporan GYM Kehadiran Atlet";
         const laporan_gym_kehadiran_atlet = "Laporan Pinjaman Peralatan GYM";
         const laporan_kuantiti_kemudahan = "Laporan Kuantiti Kemudahan";
+        const laporan_kursus_sains_sukan = "Laporan Kursus";
         const laporan_pelaksanaan_program = "Laporan Pelaksanaan Program";
         const laporan_penganjuran_acara = "Laporan Penganjuran Acara";
         const laporan_pengguna_dan_hasil_bagi_kombes = "Laporan Pengguna Dan Hasil Bagi Kombes";
         const laporan_pengguna_dan_hasil_bagi_kombes_tahunan = "Laporan Pengguna Dan Hasil Bagi Kombes Tahunan";
         const laporan_penyata_bayaran_pelajar = "Laporan Penyata Bayaran Pelajar";
         const laporan_prestasi_akademik = "Laporan Prestasi Akademik";
+        const laporan_senarai_harga_perkhidmatan_ubatan_peralatan = "Laporan Senarai Harga Perkhidmatan / Ubatan / Peralatan";
+        const laporan_senarai_hpt_laporan_bulanan_pegawai = "Laporan Senarai HPT Laporan Bulanan Pegawai";
         const laporan_senarai_penerima_biasiswa = "Laporan Senarai Penerima Biasiswa";
         const laporan_senarai_peserta = "Laporan Senarai Peserta";
         const laporan_senarai_program_setiap_bulan = "Laporan Senarai Program Setiap Bulan";
         const laporan_sesi_kaunseling = "Laporan Sesi Kaunseling";
         const laporan_senarai_kursus = "Laporan Senarai Kursus";
+        const laporan_skim_pelesenan_kejurulatihan_kebangsaan = "Laporan Skim Pelesenan Kejurulatihan Kebangsaan";
+        const laporan_statistik_analisi_tubuh_badan = "Laporan Statistik Analisi Tubuh Badan";
+        const laporan_statistik_makanan_tambahan = "Laporan Statistik Makanan Tambahan";
+        const laporan_statistik_pengurusan_kemudahan = "Laporan Statistik Pengurusan Kemudahan";
         const laporan_statistik_permohonan_biasiswa_mengikut_ipta_ipts = "Laporan Statistik Permohonan Biasiswa Mengikut IPTA / IPTS";
         const laporan_statistik_permohonan_biasiswa_mengikut_jantina = "Laporan Statistik Permohonan Biasiswa Mengikut Jantina";
         const laporan_statistik_permohonan_biasiswa_mengikut_kaum = "Laporan Statistik Permohonan Biasiswa Mengikut Kaum";
@@ -1684,6 +1719,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_statistik_permohonan_biasiswa_mengikut_status = "Laporan Statistik Permohonan Biasiswa Mengikut Status";
         const laporan_statistik_permohonan_biasiswa_mengikut_sukan = "Laporan Statistik Permohonan Biasiswa Mengikut Sukan";
         const laporan_statistik_permohonan_biasiswa_mengikut_universiti_institusi = "Laporan Statistik Permohonan Biasiswa Mengikut Universiti / Institusi";
+        const laporan_statistik_program = "Laporan Statistik Program";
         const laporan_status_permohonan_bantuan = "Laporan Status Permohonan Bantuan";
         const latihan_pendidikan_badan_sukan = "Latihan Pendidikan & Badan Sukan";
         const liputan_perubatan_dalam_dan_luar_negara = "Liputan Perubatan Dalam Dan Luar Negara";
@@ -1806,7 +1842,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const teknologi_instrumentasi_sistem_permohonan_projek_inovasi = "Teknologi Instrumentasi Sistem Permohonan Projek Inovasi";
         const tempahan = "Tempahan";
         const temujanji = "Temujanji";
-        const temujanji_fisioterapi = "Temujanji Fisioterapi";
+        const temujanji_fisioterapi = "Temujanji Fisioterapi / Rehabilitasi";
         const temujanji_komplimentori = "Temujanji Komplimentori";
         const temujanji_makmal_perubatan = "Temujanji Makmal Perubatan";
         const temujanji_rehabilitasi = "Temujanji Rehabilitasi";
@@ -1945,6 +1981,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pegawai_perubatan_rehabilitasi = "Pegawai Perubatan Rehabilitasi";
         const pegawai_teknikal_jaringan_antarabangsa = "Pegawai Teknikal Jaringan Antarabangsa";
         const pemohon_jaringan_antarabangsa = "Pemohon Jaringan Antarabangsa";
+        const pendaftaran_temujanji = "Pendaftaran Temujanji";
+        const pendaftaran_temujanji_baru = "Pendaftaran Temujanji Baru";
         const pengajian_ebiasiswa = "Pengajian Ebiasiswa";
         const penyakit = "Penyakit";
         const peralatan_kemudahan = "Peralatan Kemudahan";
@@ -1993,7 +2031,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const status_geran_jurulatih = "Status Geran Jurulatih";
         const status_haid_data_klinikal = "Status Haid Data Klinikal";
         const status_jkk_jkp = "Status Jkk Jkp";
-        const status_jurulatih_akk = "Status Jurulatih Akk";
+        const status_jurulatih_akk = "Status Jurulatih AKK";
         const status_laporan_mesyuarat_agung = "Status Laporan Mesyuarat Agung";
         const status_mou_mao_antarabangsa = "Status Mou Mao Antarabangsa";
         const status_oku = "Status Oku";
@@ -2125,7 +2163,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kelayakan_akademi_akk = "Kelayakan Akademi Akk";
         const kelayakan_sukan_spesifik_akk = "Kelayakan Sukan Spesifik Akk";
         const kemudah_pakaian_peralatan_tiket = "Kemudah Pakaian Peralatan Tiket";
-        const keputusan_analisi_tubuh_badan = "Keputusan Analisi Tubuh Badan";
+        const keputusan_analisi_tubuh_badan = "Analisi Tubuh Badan";
         const keputusan_ujian_saringan = "Keputusan Ujian Saringan";
         const latihan_dan_program = "Latihan Dan Program";
         const latihan_dan_program_peserta = "Latihan Dan Program Peserta";
@@ -2231,6 +2269,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tempahan_kemudahan = "Tempahan Kemudahan";
         const tempahan_kursus_persatuan = "Tempahan Kursus Persatuan";
         const temujanji_komplimentari = "Temujanji Komplimentari";
+        const temujanji_penyiasatan = "Temujanji Penyiasatan";
 
         //update title label end
 
@@ -2294,6 +2333,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jenis_bantuan_skaks = "Jenis Bantuan Skak";
         const jenis_pinjamen = "Jenis Pinjamen";
         const kategori_elaporans = "Kategori e-Laporan";
+        const kategori_jurulatih = "Kategori Jurulatih";
         const kategori_kursuses = "Kategori Kursuse";
         const kaunseling = "Kaunseling";
         const kedudukan_kewangan_penjamin = "Kedudukan Kewangan Penjamin";
@@ -2337,8 +2377,9 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pelanjutan = "Pelanjutan";
         const pelanjutan_dan_penamatan_kontrak_jurulatih = "Pelanjutan Dan Penamatan Kontrak Jurulatih";
         const pembayaran_biasiswa_sukan_persekutuan = "Pembayaran Biasiswa Sukan Persekutuan";
+        const pemberian_jus = "Pemberian Jus Pemulihan";
         const pemberian_suplemen_makanan_jus_rundingan_pendidikans = "Pemberian Suplemen Makanan Jus Rundingan Pendidikans";
-        const pemberian_suplemenjus = "Pemberian Suplemen/Jus";
+        const pemberian_suplemenjus = "Pemberian Makanan Tambahan";
         const pemohon_kursus_tahap_akks = "Pemohon Kursus Tahap Akk";
         const pemohonan_biasiswa_sukan_persekutuan = "Pemohonan Biasiswa Sukan Persekutuan";
         const penajaan_sokongan = "Penajaan Sokongan";
@@ -2525,11 +2566,11 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kementerian_belia_dan_sukan_malaysia_dashboard = "KEMENTERIAN BELIA DAN SUKAN MALAYSIA - Dashboard";
         const request_password_reset = "Request password reset";
         const reset_password = "Reset password";
+        const tambah_tempoh = "Tambah Tempoh";
         const tambah_user = "Tambah User";
         const tambah_tempahan_kursus_persatuan = "Tambah Tempahan Kursus Persatuan";
 
         // title others end
-
 
         // index.php create button start
 
@@ -2564,6 +2605,12 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
                     $return = "Tolak";
                 } 
             }
+            
+            return $return;
+        }
+        
+        public static function getFileUploadHint(){
+            $return = "Saiz fail tidak melebihi "  . ini_get('upload_max_filesize') . ". Jenis fail: .pdf .doc .docx .key .ppt .pptx .pps .ppsx .odt .xls, .xlsx .zip";
             
             return $return;
         }
@@ -2763,6 +2810,7 @@ if($session->get('language') == "EN") {
         const bahagian = "Division";
         const bahagian_cawangan_pusat = "Division / Branch / Center";
         const bahagian_kecederaan = "Part Injury";
+        const bahagian_pusat_unit = "Division / Centre / Unit";
         const bahasa_ibu = "Native Language";
         const bajet_keseluruhan = "Overall Budget";
         const bajet_penyelidikan_id = "Research Budget ID";
@@ -2854,6 +2902,7 @@ if($session->get('language') == "EN") {
         const bsp_prestasi_sukan_id = "Bsp Performance Sports ID";
         const bsp_tamat_pengesahan_pengajian_id = "Bsp Study Verification Expired ID";
         const bsp_tuntutan_elaun_tesis_od = "Bsp Od Thesis Allowances Claimed";
+        const buah = "Fruit";
         const bulan = "Month";
         const butir_butir = "Detail";
         const butir_butir_perbelanjaan = "Details of Expense";
@@ -2905,6 +2954,7 @@ if($session->get('language') == "EN") {
         const diagnosis = "Diagnosis";
         const diet_harian = "Daily Diet";
         const dihubungi = "Be contacted";
+        const dikemaskini_oleh = "Updated By";
         const dirasmikan_oleh = "Launched By";
         const disahkan = "Validated";
         const disclaimer = "It is certified that the information given is true. If not, this application will not be considered and cancelled immediately";
@@ -2960,6 +3010,7 @@ if($session->get('language') == "EN") {
         const forum_seminar_persidangan_di_luar_negara_id = "Forum Seminars Overseas Conference ID";
         const full_name = "Full Name";
         const gaji_dan_elaun_jurulatih_id = "Salaries And Allowances Coach ID";
+        const gaji_elaun = "Salaru / Elaun";
         const gambar = "Picture";
         const gambar_1 = "Picture 1";
         const gambar_2 = "Picture 2";
@@ -2995,6 +3046,7 @@ if($session->get('language') == "EN") {
         const isu = "The issue of";
         const jabatan_id = "Department";
         const jadual_latihan = "Training Schedule";
+        const jadual_pegawai = "Schedule Officer";
         const jangka_waktu_mula = "Period Start";
         const jangka_waktu_tamat = "Period End";
         const jangkauan_meluntur = "Bleaching Range (cm)";
@@ -3033,6 +3085,7 @@ if($session->get('language') == "EN") {
         const jenis_harta_pengangkutan_perniagaan = "Property Type/Transportation/Business";
         const jenis_insentif = "Types Of Incentive";
         const jenis_jawatankuasa = "Type Of Committee";
+        const jenis_jus = "The Type Of Juice";
         const jenis_kadar = "The Type Of Rate";
         const jenis_kebajikan = "Types Of Welfare";
         const jenis_kebajikan_id = "Types Of Welfare ID";
@@ -3062,6 +3115,7 @@ if($session->get('language') == "EN") {
         const jenis_sejarah_perubatan = "Types Of Medical History";
         const jenis_spkk = "Type Of Certificate";
         const jenis_sukan = "Kinds Of Sport";
+        const jenis_tahap_kursus = "Type / Level Courses";
         const jenis_tempahan = "Types Of Reservation";
         const jenis_ujian_saringan = "Types Of Screening Test";
         const journal_id = "Journal ID";
@@ -3111,6 +3165,7 @@ if($session->get('language') == "EN") {
         const jumlah_sponsor = "The Number Of Sponsor";
         const jumlah_tuntutan = "Total Claim";
         const jurulatih = "Coach";
+        const jurulatih_di_negeri = "Coach State";
         const jurulatih_id = "Coach ID";
         const jurulatih_keluarga_id = "Family Trainer ID";
         const jurulatih_kesihatan_id = "Health Coach ID";
@@ -3158,6 +3213,7 @@ if($session->get('language') == "EN") {
         const kategori_pesakit_luar = "Category Of Patient";
         const kategori_peserta = "Categories Of Participant";
         const kategori_program = "Program Category";
+        const kategori_rawatan = "Treatment Category";
         const kategori_sukan = "Sports Category";
         const kaum = "Tribe";
         const kaunseling_id = "Counseling ID";
@@ -3261,8 +3317,10 @@ if($session->get('language') == "EN") {
         const laman_web = "Website";
         const lantikan = "The appointment of";
         const laporan_aktiviti_muat_naik = "Activity Report";
+        const laporan_bulanan_program_pendidikan = "Monthly Education Program Report";
         const laporan_bulanan_secara_detail = "Monthly Report";
         const laporan_fisiologi_jumlah_bilangan_ujian = "Report Physiology Total Number of Test";
+        const laporan_jadual_pegawai_temujanji = "Jadual Pegawai Temujanji";
         const laporan_kesihatan = "Medical Report";
         const laporan_kewangan_muat_naik = "Financial Reporting";
         const laporan_komplimentori = "Report Complimentory";
@@ -3271,9 +3329,15 @@ if($session->get('language') == "EN") {
         const laporan_perkhidmatan_biomekanik_mengikut_atlet = "Report Services Biomechanics By Athletes";
         const laporan_ringkasan_statistik = "Report Summary Statistic";
         const laporan_ringkasan_statistik_bulanan = "Report Number of Programs";
-        const laporan_temujanji_fisioterapi = "Report Physiotherapy Appointment";
+        const laporan_ringkasan_statistik_komplimentari = "Complementary Statistics Summary Report";
+        const laporan_ringkasan_statistik_program_pendidikan = "Statistical Summary Report Education Program";
+        const laporan_temujanji_fisioterapi = "Report Physiotherapy / Rehabilitation Appointment";
         const laporan_temujanji_kedatangan_pegawai = "Report Officer Presence";
         const laporan_temujanji_kedatangan_pesakit = "Report Patient Presence";
+        const laporan_temujanji_makmal_perubatan = "Report Appointment of Laboratory Medicine";
+        const laporan_temujanji_mengikut_sukan = "Appointment Report by Sports";
+        const laporan_temujanji_mengikut_status = "Appointment Report by Status";
+        const laporan_temujanji_penyiasatan = "Report Appointment Investigation ";
         const laporan_temujanji_rehabilitasi = "Report Rehabilitation Appointment";
         const laporan_ulasan = "The Report Review";
         const lari_pecut_20_meter = "20-meter sprint (second)";
@@ -3307,6 +3371,9 @@ if($session->get('language') == "EN") {
         const mana = "Mana";
         const markah_penilaian = "Scores Of Valuation";
         const masa = "Time";
+        const masa_pendaftaran = "Registration Time";
+        const masa_rawatan = "Treatment Time";
+        const masa_selesai = "Finish Time";
         const masalah_dihadapi = "Problem Was Encountered";
         const masalah_haid = "Menstrual Problem";
         const masalah_kesihatan = "Health Problem";
@@ -3385,6 +3452,7 @@ if($session->get('language') == "EN") {
         const nama_jawatankuasa = "The Name Of The Committee";
         const nama_jurulatih = "Name Of Trainer";
         const nama_jurulatih_dinilai = "Name Of Trainer";
+        const nama_jus = "Juice Name";
         const nama_kategori = "The Name Of The Category";
         const nama_kecemasan = "The name of the";
         const nama_kejohanan = "The Name Of The Tournament";
@@ -3460,7 +3528,7 @@ if($session->get('language') == "EN") {
         const nama_sukan_pertandingan = "Name Sport/Competition";
         const nama_sukan_sebelum_dicalon = "The Name Of The Sport Before Nominated";
         const nama_sukarelawan = "The Name Of The Volunteer";
-        const nama_suplemen_makanan_jus_rundingan_pendidikan = "The Name Of The Supplement/Juice";
+        const nama_suplemen_makanan_jus_rundingan_pendidikan = "The Name Of The Supplement";
         const nama_syarikat = "Name Of Company";
         const nama_syarikat_perniagaan = "Name Of Company Business";
         const nama_temasya = "The Name Of The";
@@ -3752,6 +3820,7 @@ if($session->get('language') == "EN") {
         const permohonan_perkhidmatan_permakanan_id = "Food Hygiene Service Application ID";
         const permohonan_program_pendidikan_kesihatan_id = "Health Education Program Application ID";
         const permohonana_penyelidikan_id = "Research ID Permohonana";
+        const permohonan_lesen = "permohonan Lesen";
         const perokok_tempoh = "Smoker Period (Year)";
         const persatuan = "Association";
         const persatuan_pemohon = "Association Of The Applicant";
@@ -3794,9 +3863,11 @@ if($session->get('language') == "EN") {
         const psikologi_aktiviti_id = "Psychological Activity ID";
         const psikologi_profil_id = "Officers Of Psychology";
         const pusat_latihan = "Training Centre";
+        const pusat_satelit = "Satelite Centre";
         const quantity_kadar = "Quantity";
         const rating = "Rating";
-        const rawatan_fisioterapi = "Physiotherapy Treatment";
+        const rawatan = "Treatment";
+        const rawatan_fisioterapi = "Physiotherapy / Rehabilitation Treatment";
         const rawatan_rehabilitasi = "Rehabilitation Treatmenti";
         const ref_bahagian_e_laporan_id = "E Division Report";
         const ref_jenis_aset_id = "Type Of Asset ID";
@@ -3920,7 +3991,9 @@ if($session->get('language') == "EN") {
         const status_journal = "The Status Of The Journal";
         const status_jurulatih = "The Status Of Coach";
         const status_keaktifan_jurulatih = "The Status Of Keaktifan Coach";
+        const status_kejurulatihan = "Coaching Status";
         const status_pencalonan = "Nomination Status";
+        const status_perlesenan = "Licensing Status";
         const status_permohonan = "Status Of Application";
         const status_perokok = "Status Of Smoker";
         const status_pilihan = "Status Option";
@@ -3983,6 +4056,7 @@ if($session->get('language') == "EN") {
         const tahun_tamat_pengajian = "Year Of Graduation";
         const tahun_umur_permulaan = "Start Age Sport";
         const tajuk = "The title of the";
+        const tajuk_laporan = "Title Of Report";
         const tajuk_mou_moa = "Title Of MOU-MOA";
         const tajuk_penyelidikan = "Title Research";
         const tajuk_tesis = "Title Of Thesis";
@@ -4196,13 +4270,14 @@ if($session->get('language') == "EN") {
         const efasiliti_ekemudahan = "e-Facility/e-Facility";
         const elaporan = "e-Report";
         const farmasi_rekod_permohonan_ubatan_di_kaunter_oleh_atlet_otc_drug = "Pharmacy Medicine Application Record At The Counter By Athlete (Otc Drug)";
-        const fisio_doktor_bertanggungjawab = "Physio / Doctor In Charge";
+        const fisio_doktor_bertanggungjawab = "Doctor In Charge";
         const fisiologi_sistem_pangkalan_data_atlet_dan_journal = "Database Systems Physiology athletes and Journal";
         const fisiologi_sistem_penjadualan_ujian_fisiologi = "Physiology The Physiology Test Tabulation System";
         const fisiologi_sistem_sixstep = "Physiological Systems ' SIX-Step '";
-        const fisioterapi_diagnosis = "Physiotherapy Diagnosis";
-        const fisioterapi_sistem_permohonan_khidmat_rawatan_fisioterapi = "Physiotherapist Physiotherapy Treatment Service Application System";
+        const fisioterapi_diagnosis = "Physiotherapy / Rehabilitation Diagnosis";
+        const fisioterapi_sistem_permohonan_khidmat_rawatan_fisioterapi = "System Application Service Treatment Physiotherapy / Rehabilitation";
         const geran_bantuan_gaji = "Grant Of Salary";
+        const hpt_laporan_bulanan_pegawai = "HPT Official Monthly Report";
         const hpt_pangkalan_data_laporan_bulanan = "HPT Database Monthly Report";
         const isn = "ISN";
         const jawatankuasa_tertinggi_sukan_malaysia_teknikal_dan_pertandingan = "The highest Committee for technical and Sports Competition";
@@ -4227,17 +4302,24 @@ if($session->get('language') == "EN") {
         const laporan_gym_jumlah_atlet = "Report GYM Athlete Attandance";
         const laporan_gym_kehadiran_atlet = "Report GYM Equipment Loan";
         const laporan_kuantiti_kemudahan = "Report The Quantity Of Facility";
+        const laporan_kursus_sains_sukan = "Report of Sports Science Course";
         const laporan_pelaksanaan_program = "Programme Implementation Report";
         const laporan_penganjuran_acara = "Event Report";
         const laporan_pengguna_dan_hasil_bagi_kombes = "Report Users And Revenue For Sr.";
         const laporan_pengguna_dan_hasil_bagi_kombes_tahunan = "Consumer Reports And Results For Annual Sr.";
         const laporan_penyata_bayaran_pelajar = "Student Payment Statement";
         const laporan_prestasi_akademik = "Academic Performance Report";
+        const laporan_senarai_harga_perkhidmatan_ubatan_peralatan = "Report List Price Services / Medicine / Equipment";
+        const laporan_senarai_hpt_laporan_bulanan_pegawai = "List HPT Monthly Report Officer";
         const laporan_senarai_penerima_biasiswa = "Scholarship Recipients List Report";
         const laporan_senarai_peserta = "Participant List Report";
         const laporan_senarai_program_setiap_bulan = "Report List Program By Month";
         const laporan_sesi_kaunseling = "Counselling Session Report";
         const laporan_senarai_kursus = "List Of Courses Report";
+        const laporan_skim_pelesenan_kejurulatihan_kebangsaan = "Report of the National Coaching Licensing Scheme";
+        const laporan_statistik_analisi_tubuh_badan = "Body Analytics Statistical Report";
+        const laporan_statistik_makanan_tambahan = "Statistical Report Supplement";
+        const laporan_statistik_pengurusan_kemudahan = "Report Facilities Management Statistical";
         const laporan_statistik_permohonan_biasiswa_mengikut_ipta_ipts = "Statistical Report In Accordance With The Scholarship Application IPTA/IPTS";
         const laporan_statistik_permohonan_biasiswa_mengikut_jantina = "Statistical Report Scholarship Application By Gender";
         const laporan_statistik_permohonan_biasiswa_mengikut_kaum = "Statistical Reports Racial Scholarship Application";
@@ -4245,6 +4327,7 @@ if($session->get('language') == "EN") {
         const laporan_statistik_permohonan_biasiswa_mengikut_status = "Statistical Report In Accordance With The Status Of The Scholarship Application";
         const laporan_statistik_permohonan_biasiswa_mengikut_sukan = "Statistical Report By Sports Scholarship Application";
         const laporan_statistik_permohonan_biasiswa_mengikut_universiti_institusi = "Statistical Report In Accordance With The Scholarship Application Universities/Institution";
+        const laporan_statistik_program = "Report Program Statistical";
         const laporan_status_permohonan_bantuan = "Application Status Report";
         const latihan_pendidikan_badan_sukan = "Training & Education Sports Body";
         const liputan_perubatan_dalam_dan_luar_negara = "Medical Coverage In And Outside The Country";
@@ -4367,7 +4450,7 @@ if($session->get('language') == "EN") {
         const teknologi_instrumentasi_sistem_permohonan_projek_inovasi = "Instrumentation Technology Innovation System";
         const tempahan = "Booking";
         const temujanji = "Appointment";
-        const temujanji_fisioterapi = "Physiotherapy Appointment";
+        const temujanji_fisioterapi = "Physiotherapy / Rehabilitation Appointment";
         const temujanji_komplimentori = "Appointment Complimentory";
         const temujanji_makmal_perubatan = "Appointment of Laboratory Medicine";
         const temujanji_rehabilitasi = "Rehabilitation Appointment";
@@ -4508,6 +4591,8 @@ if($session->get('language') == "EN") {
         const pegawai_perubatan_rehabilitasi = "Rehabilitation Medical Officer";
         const pegawai_teknikal_jaringan_antarabangsa = "Technical Officer, International Relation";
         const pemohon_jaringan_antarabangsa = "The Applicant Is An International Network";
+        const pendaftaran_temujanji = "Registration Appointment";
+        const pendaftaran_temujanji_baru = "Registration New Appointment";
         const pengajian_ebiasiswa = "Study Ebiasiswa";
         const penyakit = "Disease";
         const peralatan_kemudahan = "Equipment Facility";
@@ -4556,7 +4641,7 @@ if($session->get('language') == "EN") {
         const status_geran_jurulatih = "Coach Grant Status";
         const status_haid_data_klinikal = "Clinical Data Menstrual Status";
         const status_jkk_jkp = "Cmc Consists Of A Status";
-        const status_jurulatih_akk = "The Status Of Coach Akk";
+        const status_jurulatih_akk = "The Status Of Coach AKK";
         const status_laporan_mesyuarat_agung = "Status Report Of The General Meeting";
         const status_mou_mao_antarabangsa = "Status Of Mou Mao International";
         const status_oku = "The Status Of Disabled Person";
@@ -4688,7 +4773,7 @@ if($session->get('language') == "EN") {
         const kelayakan_akademi_akk = "Akk Academy Qualification";
         const kelayakan_sukan_spesifik_akk = "Specific Qualifications Akk";
         const kemudah_pakaian_peralatan_tiket = "Kemudah Clothing Ticket Equipment";
-        const keputusan_analisi_tubuh_badan = "Bodily Analisi Result";
+        const keputusan_analisi_tubuh_badan = "Bodily Analisi";
         const keputusan_ujian_saringan = "Screening Test Result";
         const latihan_dan_program = "Training And Program";
         const latihan_dan_program_peserta = "Training And Program Participant";
@@ -4794,6 +4879,7 @@ if($session->get('language') == "EN") {
         const tempahan_kemudahan = "Facilities Booking";
         const tempahan_kursus_persatuan = "Most Courses In Association";
         const temujanji_komplimentari = "An Appointment For";
+        const temujanji_penyiasatan = "Appointment Of Investigation";
 
         // update.php label end
 
@@ -4864,6 +4950,7 @@ if($session->get('language') == "EN") {
         const jenis_bantuan_skaks = "Type Of Assistance Skak";
         const jenis_pinjamen = "Type Pinjamen";
         const kategori_elaporans = "Category e-Laporan";
+        const kategori_jurulatih = "Category Coach";
         const kategori_kursuses = "Category Kursuse";
         const kaunseling = "Counseling";
         const kedudukan_kewangan_penjamin = "The Financial Position Of The Guarantor";
@@ -4907,8 +4994,9 @@ if($session->get('language') == "EN") {
         const pelanjutan = "Extension of";
         const pelanjutan_dan_penamatan_kontrak_jurulatih = "Extension Or Termination Of The Contract Of Coach";
         const pembayaran_biasiswa_sukan_persekutuan = "The Payment Of The Federal Sports Scholarship";
+        const pemberian_jus = "Giving Juice Recovery";
         const pemberian_suplemen_makanan_jus_rundingan_pendidikans = "Grant Of Food Supplements Juice Consultation Pendidikan";
-        const pemberian_suplemenjus = "Grant Of Supplements/Juice";
+        const pemberian_suplemenjus = "Grant Of Supplements";
         const pemohon_kursus_tahap_akks = "Applicants Of Course Level Akk";
         const pemohonan_biasiswa_sukan_persekutuan = "The Application Of The Federal Sports Scholarship";
         const penajaan_sokongan = "Sponsorship Support";
@@ -5097,6 +5185,7 @@ if($session->get('language') == "EN") {
         const kementerian_belia_dan_sukan_malaysia_dashboard = "The MINISTRY Of YOUTH And SPORTS MALAYSIA-Dashboard";
         const request_password_reset = "Request password reset";
         const reset_password = "Reset password";
+        const tambah_tempoh = "Extend";
         const tambah_user = "Add User";
         const tambah_tempahan_kursus_persatuan = "Add The Latest Course Association";
 
@@ -5130,6 +5219,12 @@ if($session->get('language') == "EN") {
                     $return = "Reject";
                 } 
             }
+            
+            return $return;
+        }
+        
+        public static function getFileUploadHint(){
+            $return = "File size should not exceed "  . ini_get('upload_max_filesize') . ". File type: .pdf .doc .docx .key .ppt .pptx .pps .ppsx .odt .xls, .xlsx .zip";
             
             return $return;
         }

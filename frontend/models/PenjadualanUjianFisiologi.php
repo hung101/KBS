@@ -52,8 +52,8 @@ class PenjadualanUjianFisiologi extends \yii\db\ActiveRecord
     {
         return [
             [['perkhidmatan', 'tarikh_masa', 'pegawai_yang_bertanggungjawab', 'kategori_sukan', 'sukan', 'acara', 'tempat', 'bilangan_atlet'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id', 'kategori_sukan', 'sukan', 'acara', 'tempat'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['bilangan_atlet'], 'integer', 'min' => 1, 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['atlet_id', 'kategori_sukan', 'sukan', 'acara', 'tempat', 'bilangan_atlet'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            //[['bilangan_atlet'], 'integer', 'min' => 1, 'max' => 100, 'tooBig' => GeneralMessage::yii_validation_integer_max, 'tooSmall' => GeneralMessage::yii_validation_integer_min],
             [['tarikh_masa'], 'safe'],
             [['perkhidmatan', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catitan_ringkas', 'ujian'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]

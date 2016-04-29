@@ -54,8 +54,8 @@ class PlTemujanji extends \yii\db\ActiveRecord
     {
         return [
             [['atlet_id', 'tarikh_temujanji', 'status_temujanji', 'pegawai_yang_bertanggungjawab', 'catitan_ringkas'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id', 'kehadiran_pesakit', 'kehadiran_pegawai_bertanggungjawab'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['tarikh_temujanji'], 'safe'],
+            [['atlet_id', 'kehadiran_pesakit', 'kehadiran_pegawai_bertanggungjawab', 'kategori_atlet', 'jenis_sukan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tarikh_temujanji', 'masa_pendaftaran', 'masa_rawatan', 'masa_selesai'], 'safe'],
             [['doktor_pegawai_perubatan', 'makmal_perubatan', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['status_temujanji'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catitan_ringkas', 'catatan_tambahan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
@@ -69,7 +69,7 @@ class PlTemujanji extends \yii\db\ActiveRecord
     {
         return [
             'pl_temujanji_id' => GeneralLabel::pl_temujanji_id,
-            'atlet_id' => GeneralLabel::atlet_id,
+            'atlet_id' => GeneralLabel::nama_atlet,
             'tarikh_temujanji' => GeneralLabel::tarikh_temujanji,
             'doktor_pegawai_perubatan' => GeneralLabel::doktor_pegawai_perubatan,
             'makmal_perubatan' => GeneralLabel::makmal_perubatan,
@@ -79,6 +79,11 @@ class PlTemujanji extends \yii\db\ActiveRecord
             'kehadiran_pesakit' => GeneralLabel::kehadiran_pesakit,
             'kehadiran_pegawai_bertanggungjawab' => GeneralLabel::kehadiran_pegawai_bertanggungjawab,
             'catatan_tambahan' => GeneralLabel::catatan_tambahan,
+            'kategori_atlet' => GeneralLabel::kategori_atlet,
+            'jenis_sukan' => GeneralLabel::jenis_sukan,
+            'masa_pendaftaran' => GeneralLabel::masa_pendaftaran,
+            'masa_rawatan' => GeneralLabel::masa_rawatan,
+            'masa_selesai' => GeneralLabel::masa_selesai,
         ];
     }
     
@@ -90,5 +95,12 @@ class PlTemujanji extends \yii\db\ActiveRecord
     public function getRefPegawaiPerubatan()
     {
         return $this->hasOne(RefPegawaiPerubatan::className(), ['id' => 'pegawai_yang_bertanggungjawab']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAtlet(){
+        return $this->hasOne(Atlet::className(), ['atlet_id' => 'atlet_id']);
     }
 }

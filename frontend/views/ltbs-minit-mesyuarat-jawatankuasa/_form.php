@@ -165,7 +165,7 @@ use app\models\general\Placeholder;
                     'columns'=>12,
                     'autoGenerateColumns'=>false, // override columns setting
                     'attributes' => [
-                        'minit_ajk_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                        'minit_ajk_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3], 'hint'=>GeneralLabel::getFileUploadHint()],
                     ],
                 ],
             ]
@@ -198,7 +198,7 @@ use app\models\general\Placeholder;
                     'columns'=>12,
                     'autoGenerateColumns'=>false, // override columns setting
                     'attributes' => [
-                        'notis_agm_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                        'notis_agm_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3], 'hint'=>GeneralLabel::getFileUploadHint()],
                     ],
                 ],
             ]
@@ -231,7 +231,7 @@ use app\models\general\Placeholder;
                     'columns'=>12,
                     'autoGenerateColumns'=>false, // override columns setting
                     'attributes' => [
-                        'minit_agm_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                        'minit_agm_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3], 'hint'=>GeneralLabel::getFileUploadHint()],
                     ],
                 ],
             ]
@@ -264,7 +264,7 @@ use app\models\general\Placeholder;
                     'columns'=>12,
                     'autoGenerateColumns'=>false, // override columns setting
                     'attributes' => [
-                        'laporan_kewangan_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                        'laporan_kewangan_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3], 'hint'=>GeneralLabel::getFileUploadHint()],
                     ],
                 ],
             ]
@@ -298,7 +298,7 @@ use app\models\general\Placeholder;
                     'columns'=>12,
                     'autoGenerateColumns'=>false, // override columns setting
                     'attributes' => [
-                        'laporan_aktiviti_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                        'laporan_aktiviti_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3], 'hint'=>GeneralLabel::getFileUploadHint()],
                     ],
                 ],
             ]

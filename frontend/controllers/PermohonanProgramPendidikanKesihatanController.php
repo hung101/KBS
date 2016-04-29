@@ -5,14 +5,18 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PermohonanProgramPendidikanKesihatan;
 use frontend\models\PermohonanProgramPendidikanKesihatanSearch;
+use app\models\IsnLaporanRingkasanStatistikProgramPendidikan;
+use app\models\IsnLaporanBulananProgramPendidikan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\BaseUrl;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * PermohonanProgramPendidikanKesihatanController implements the CRUD actions for PermohonanProgramPendidikanKesihatan model.
@@ -189,4 +193,92 @@ class PermohonanProgramPendidikanKesihatanController extends Controller
 
             return $this->redirect(['update', 'id' => $id]);
     }
+    
+    public function actionLaporanRingkasanStatistikProgramPendidikan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanRingkasanStatistikProgramPendidikan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-ringkasan-statistik-program-pendidikan'
+                    , 'tahun' => $model->tahun
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-ringkasan-statistik-program-pendidikan'
+                    , 'tahun' => $model->tahun
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_ringkasan_statistik_program_pendidikan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanRingkasanStatistikProgramPendidikan($tahun, $format)
+    {
+        if($tahun == "") $tahun = array();
+        else $tahun = array($tahun);
+        
+        $controls = array(
+            'YEAR' => $tahun,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanRingkasanStatistikProgramPendidikan', $format, $controls, 'laporan_ringkasan_statistik_program_pendidikan');
+    }
+    
+    public function actionLaporanBulananProgramPendidikan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanBulananProgramPendidikan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-bulanan-program-pendidikan'
+                    , 'tahun' => $model->tahun
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-bulanan-program-pendidikan'
+                    , 'tahun' => $model->tahun
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_bulanan_program_pendidikan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanBulananProgramPendidikan($tahun, $format)
+    {
+        if($tahun == "") $tahun = array();
+        else $tahun = array($tahun);
+        
+        $controls = array(
+            'YEAR' => $tahun,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanBulananProgramPendidikan', $format, $controls, 'laporan_bulanan_program_pendidikan');
+    }
 }
+
+    

@@ -54,8 +54,8 @@ class PlTemujanjiFisioterapi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh_temujanji', 'doktor_pegawai_perubatan', 'status_temujanji', 'pegawai_yang_bertanggungjawab'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id', 'nama_fisioterapi', 'kategori_pesakit_luar', 'tindakan_selanjutnya'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tarikh_temujanji', 'doktor_pegawai_perubatan', 'status_temujanji', 'pegawai_yang_bertanggungjawab', 'kategori_rawatan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'nama_fisioterapi', 'kategori_pesakit_luar', 'tindakan_selanjutnya', 'kategori_rawatan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_temujanji'], 'safe'],
             [['doktor_pegawai_perubatan', 'makmal_perubatan', 'pegawai_yang_bertanggungjawab', 'nama_pesakit_luar'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['status_temujanji'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -80,13 +80,14 @@ class PlTemujanjiFisioterapi extends \yii\db\ActiveRecord
             'status_temujanji' => GeneralLabel::status_temujanji,
             'pegawai_yang_bertanggungjawab' => GeneralLabel::pegawai_perubatan_pakar_perubatan_sukan,
             'catitan_ringkas' => GeneralLabel::catitan_ringkas,
-            'nama_fisioterapi' => GeneralLabel::nama_fisioterapi,
+            'nama_fisioterapi' => GeneralLabel::pegawai_bertanggungjawab,
             'nama_pesakit_luar' => GeneralLabel::nama_pesakit_luar,
             'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
             'kategori_pesakit_luar' => GeneralLabel::kategori_pesakit_luar,
             'muat_naik' => GeneralLabel::muat_naik,
             'tindakan_selanjutnya' => GeneralLabel::tindakan_selanjutnya,
             'maklumbalas' => GeneralLabel::maklumbalas,
+            'kategori_rawatan' => GeneralLabel::kategori_rawatan,
         ];
     }
     
@@ -100,6 +101,11 @@ class PlTemujanjiFisioterapi extends \yii\db\ActiveRecord
         return $this->hasOne(RefNamaFisioterapi::className(), ['id' => 'nama_fisioterapi']);
     }
     
+    public function getRefKategoriRawatan()
+    {
+        return $this->hasOne(RefKategoriRawatan::className(), ['id' => 'kategori_rawatan']);
+    }
+    
     /**
      * Validate upload file cannot be empty
      */
@@ -109,5 +115,9 @@ class PlTemujanjiFisioterapi extends \yii\db\ActiveRecord
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
         }
+    }
+    
+    public function getRefAtlet(){
+        return $this->hasOne(Atlet::className(), ['atlet_id' => 'atlet_id']);
     }
 }

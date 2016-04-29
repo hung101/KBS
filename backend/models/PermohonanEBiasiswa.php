@@ -89,6 +89,7 @@ class PermohonanEBiasiswa extends \yii\db\ActiveRecord
             [['nama', 'oku_lain_lain', 'universiti_institusi', 'program_pengajian', 'kursus_bidang_pengajian', 'falkulti', 'sukan', 'nyatakan_nama_penaja'], 'string', 'max' => 80, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['png_semasa', 'pngk_semasa'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['jantina'], 'string', 'max' => 1, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['keturunan'], 'string', 'max' => 25, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['agama', 'taraf_perkahwinan'], 'string', 'max' => 15, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],

@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\AkademiAkk */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::akademi_akk.': ' . ' ' . $model->akademi_akk_id;
-$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::akademi_kejurulatihan_kebangsaan_akk;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, 'url' => ['view', 'id' => $model->akademi_akk_id]];
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::permohonan_lesen;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_lesen, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::permohonan_lesen, 'url' => ['view', 'id' => $model->akademi_akk_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="akademi-akk-update">

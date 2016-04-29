@@ -44,6 +44,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const eLaporanGambarSubFolder = "gambar";
         const farmasiPermohonanLiputanPerubatanSukanFolder = "farmasi_permohonan_liputan_perubatan_sukan";
         const farmasiPermohonanUbatanFolder = "farmasi_permohonan_ubatan";
+        const hptLaporanBulananPegawaiFolder = "hpt_laporan_bulanan_pegawai";
         const jurulatihFolder = "jurulatih";
         const jurulatihKelayakan = "jurulatih_kelayakan";
         const informasiPermohonanFolder = "informasi_permohonan";
@@ -100,22 +101,22 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
             
             switch($error_code){
                 case 0:
-                    $error_desc = "There is no error, the file uploaded with success";
+                    $error_desc = "Tidak ada kesilapan, fail telah berjaya dimuat naik";
                     break;
                 case 1: // The uploaded file exceeds the upload_max_filesize directive in php.ini
-                    $error_desc = "The uploaded file exceeds the upload limit size " . ini_get('upload_max_filesize');
+                    $error_desc = "Fail yang dimuat naik melebihi saiz had muat naik " . ini_get('upload_max_filesize');
                     break;
                 case 2:
-                    $error_desc = "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form";
+                    $error_desc = "Fail yang dimuat naik melebihi arahan MAX_FILE_SIZE yang dinyatakan di dalam borang HTML";
                     break;
                 case 3:
-                    $error_desc = "The uploaded file was only partially uploaded";
+                    $error_desc = "Fail yang dimuat naik telah dimuat naik dengan sepenuhnya";
                     break;
                 case 4:
-                    $error_desc = "No file was uploaded";
+                    $error_desc = "Tiada fail telah dimuat naik";
                     break;
                 case 6:
-                    $error_desc = "Missing a temporary folder";
+                    $error_desc = "Hilang folder sementara";
                     break;
             }
             
@@ -157,6 +158,7 @@ if($session->get('language') == "EN") {
         const eLaporanGambarSubFolder = "gambar";
         const farmasiPermohonanLiputanPerubatanSukanFolder = "farmasi_permohonan_liputan_perubatan_sukan";
         const farmasiPermohonanUbatanFolder = "farmasi_permohonan_ubatan";
+        const hptLaporanBulananPegawaiFolder = "hpt_laporan_bulanan_pegawai";
         const jurulatihFolder = "jurulatih";
         const jurulatihKelayakan = "jurulatih_kelayakan";
         const informasiPermohonanFolder = "informasi_permohonan";

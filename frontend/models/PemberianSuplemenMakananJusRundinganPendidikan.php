@@ -71,7 +71,7 @@ class PemberianSuplemenMakananJusRundinganPendidikan extends \yii\db\ActiveRecor
             'acara' => GeneralLabel::acara,
             'atlet' => GeneralLabel::atlet,
             'nama_suplemen_makanan_jus_rundingan_pendidikan' => GeneralLabel::nama_suplemen_makanan_jus_rundingan_pendidikan,
-            'kuantiti_ml_g' => GeneralLabel::kuantiti_ml_g,
+            'kuantiti_ml_g' => GeneralLabel::kuantiti,
             'harga' => GeneralLabel::harga,
 
         ];

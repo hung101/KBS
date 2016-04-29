@@ -17,6 +17,7 @@ use app\models\RefSukan;
 use app\models\RefKategoriSukan;
 use app\models\RefAcara;
 use app\models\RefTempatPenjadualanUjianFisiologi;
+use app\models\RefKategoriAtletFisiologi;
 
 // contant values
 use app\models\general\Placeholder;
@@ -42,6 +43,20 @@ use app\models\general\GeneralLabel;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'kategori_atlet' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-atlet-fisiologi/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefKategoriAtletFisiologi::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kategori],],
+                    'columnOptions'=>['colspan'=>3]],
                 'kategori_sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -56,6 +71,13 @@ use app\models\general\GeneralLabel;
                         'data'=>ArrayHelper::map(RefKategoriSukan::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],],
                     'columnOptions'=>['colspan'=>3]],
+                
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                 'sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',

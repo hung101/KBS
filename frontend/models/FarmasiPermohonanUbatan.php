@@ -54,7 +54,7 @@ class FarmasiPermohonanUbatan extends \yii\db\ActiveRecord
     {
         return [
             //[['atlet_id', 'tarikh_pemberian', 'pegawai_yang_bertanggungjawab', 'kelulusan'], 'required', 'skipOnEmpty' => true],
-            [['atlet_id', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['atlet_id', 'kelulusan', 'kategori_atlet', 'jenis_sukan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_pemberian'], 'safe'],
             [['pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -75,6 +75,8 @@ class FarmasiPermohonanUbatan extends \yii\db\ActiveRecord
             'catitan_ringkas' => GeneralLabel::catitan_ringkas,
             'kelulusan' => GeneralLabel::kelulusan,
             'muat_naik' => GeneralLabel::muat_naik,
+            'kategori_atlet' => GeneralLabel::kategori_atlet,
+            'jenis_sukan' => GeneralLabel::jenis_sukan,
         ];
     }
     
@@ -83,6 +85,13 @@ class FarmasiPermohonanUbatan extends \yii\db\ActiveRecord
      */
     public function getRefKelulusan(){
         return $this->hasOne(RefKelulusan::className(), ['id' => 'kelulusan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAtlet(){
+        return $this->hasOne(Atlet::className(), ['atlet_id' => 'atlet_id']);
     }
     
     /**

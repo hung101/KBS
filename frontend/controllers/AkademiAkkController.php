@@ -21,10 +21,13 @@ use app\models\AkkSijilCpr;
 use frontend\models\AkkSijilCprSearch;
 use app\models\AkkPermitKerja;
 use frontend\models\AkkPermitKerjaSearch;
+use app\models\IsnLaporanSkimPelesenanKejurulatihanKebangsaan;
+use app\models\IsnLaporanKursusSainsSukan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\BaseUrl;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
@@ -38,6 +41,8 @@ use app\models\RefNegeri;
 use app\models\RefStatusJurulatihAkk;
 use app\models\RefJantina;
 use app\models\RefBangsa;
+use app\models\RefKategoriJurulatih;
+use app\models\RefStatusPerlesenanAkk;
 
 /**
  * AkademiAkkController implements the CRUD actions for AkademiAkk model.
@@ -114,6 +119,16 @@ class AkademiAkkController extends Controller
         
         $ref = RefStatusJurulatihAkk::findOne(['id' => $model->status_jurulatih]);
         $model->status_jurulatih = $ref['desc'];
+        
+        $ref = RefKategoriJurulatih::findOne(['id' => $model->kategori_jurulatih]);
+        $model->kategori_jurulatih = $ref['desc'];
+        
+        $ref = RefStatusPerlesenanAkk::findOne(['id' => $model->status_perlesenan]);
+        $model->status_perlesenan = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->jurulatih_di_negeri]);
+        $model->jurulatih_di_negeri = $ref['desc'];
+        
         
         $model->tarikh_lahir = GeneralFunction::convert($model->tarikh_lahir);
         
@@ -431,5 +446,140 @@ class AkademiAkkController extends Controller
             $img->update();
 
             return $this->redirect(['update', 'id' => $id]);
+    }
+    
+    public function actionLaporanSkimPelesenanKejurulatihanKebangsaan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanSkimPelesenanKejurulatihanKebangsaan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-skim-pelesenan-kejurulatihan-kebangsaan'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'kategori_perlesenan' => $model->kategori_perlesenan
+                    , 'status_perlesenan' => $model->status_perlesenan
+                    , 'sukan' => $model->sukan
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-skim-pelesenan-kejurulatihan-kebangsaan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'kategori_perlesenan' => $model->kategori_perlesenan
+                    , 'status_perlesenan' => $model->status_perlesenan
+                    , 'sukan' => $model->sukan
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_skim_pelesenan_kejurulatihan_kebangsaan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanSkimPelesenanKejurulatihanKebangsaan($tarikh_dari, $tarikh_hingga, $kategori_perlesenan, $status_perlesenan, $sukan, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($kategori_perlesenan == "") $kategori_perlesenan = array();
+        else $kategori_perlesenan = array($kategori_perlesenan);
+        
+        if($status_perlesenan == "") $status_perlesenan = array();
+        else $status_perlesenan = array($status_perlesenan);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'KATEGORI_PERLESENAN' => $kategori_perlesenan,
+            'STATUS_PERLESENAN' => $status_perlesenan,
+            'SUKAN' => $sukan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanSkimPelesenanKejurulatihanKebangsaan', $format, $controls, 'laporan_skim_pelesenan_kejurulatihan_kebangsaan');
+    }
+    
+    public function actionLaporanKursusSainsSukan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanKursusSainsSukan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-kursus-sains-sukan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                        , 'jenis_kursus' => $model->jenis_kursus
+                        , 'kategori_kursus' => $model->kategori_kursus
+                        , 'negeri' => $model->negeri
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-kursus-sains-sukan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                        , 'jenis_kursus' => $model->jenis_kursus
+                        , 'kategori_kursus' => $model->kategori_kursus
+                        , 'negeri' => $model->negeri
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_kursus_sains_sukan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanKursusSainsSukan($tarikh_dari, $tarikh_hingga, $jenis_kursus, $kategori_kursus, $negeri, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($jenis_kursus == "") $jenis_kursus = array();
+        else $jenis_kursus = array($jenis_kursus);
+        
+        if($kategori_kursus == "") $kategori_kursus = array();
+        else $kategori_kursus = array($kategori_kursus);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'JENIS_KURSUS' => $jenis_kursus,
+            'KATEGORI_KURSUS' => $kategori_kursus,
+            'NEGERI' => $negeri,
+            
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanKursusSainsSukan', $format, $controls, 'laporan_kursus_sains_sukan');
     }
 }

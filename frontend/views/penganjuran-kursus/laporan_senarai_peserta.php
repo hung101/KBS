@@ -51,8 +51,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(PenganjuranKursus::find()->all(),'penganjuran_kursus_id', 'nama_kursus'),
-                        'options' => ['placeholder' => Placeholder::penganjuranKursus],
+                        'data'=>ArrayHelper::map(PenganjuranKursus::find()->all(),'penganjuran_kursus_id', 'kod_kursus'),
+                        'options' => ['placeholder' => Placeholder::kodKursus],
                         'pluginOptions' => [
                                     'allowClear' => true
                                 ],],

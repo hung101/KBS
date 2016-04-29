@@ -8,11 +8,14 @@ use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
 use yii\helpers\Url;
+use kartik\widgets\DepDrop;
 
 // table reference
 use app\models\RefJenisKursusPenganjuran;
 use app\models\RefKategoriKursusPenganjuran;
 use app\models\RefNegeri;
+use app\models\RefKategoriKursusPenganjuranAkk;
+use app\models\RefBandar;
 
 // contant values
 use app\models\general\Placeholder;
@@ -40,22 +43,45 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                 'jenis_kursus' => [
+                'kategori_kursus_penganjuran' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-kursus-penganjuran/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-kursus-penganjuran-akk/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefKategoriKursusPenganjuran::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefKategoriKursusPenganjuranAkk::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kategoriKursus],],
                     'columnOptions'=>['colspan'=>3]],
-                'nama_kursus' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
-                'kod_kursus' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
+                 'jenis_kursus' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
+                    'options'=>[
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/ref-kategori-kursus-penganjuran/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                        ],
+                        'data'=>ArrayHelper::map(RefKategoriKursusPenganjuran::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options'=>['prompt'=>'',],
+                        'pluginOptions' => [
+                            'depends'=>[Html::getInputId($model, 'kategori_kursus_penganjuran')],
+                            'placeholder' => Placeholder::kursus,
+                            'url'=>Url::to(['/ref-kategori-kursus-penganjuran/sub-jenis-kursus-penganjuran'])],
+                        ],
+                    'columnOptions'=>['colspan'=>3]],
+                'nama_kursus' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                'kod_kursus' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>30]],
             ],
         ],
         [

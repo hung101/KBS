@@ -21,6 +21,9 @@ use app\models\RefNegeri;
 use app\models\RefStatusJurulatihAkk;
 use app\models\RefJantina;
 use app\models\RefBangsa;
+use app\models\RefKategoriJurulatih;
+use app\models\RefStatusPerlesenanAkk;
+use app\models\RefSukan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -135,7 +138,7 @@ use common\models\general\GeneralFunction;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Jurulatih::find()->all(),'jurulatih_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::jurulatih],
+                        'options' => ['placeholder' => Placeholder::jurulatih, 'id'=>'jurulatihId'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -189,8 +192,26 @@ use common\models\general\GeneralFunction;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ],
+                        'options' => ['id'=>'TarikhLahirID'],
                     ],
+                    'columnOptions'=>['colspan'=>3]],
+                'jurulatih_di_negeri' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::negeri],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 //'tempat_lahir' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>90]],
             ],
@@ -339,6 +360,23 @@ use common\models\general\GeneralFunction;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'kategori_jurulatih' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefKategoriJurulatih::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kategori],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
                 'status_jurulatih' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -373,7 +411,46 @@ use common\models\general\GeneralFunction;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
-                'jenis_sukan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+                'status_perlesenan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-perlesenan-akk/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefStatusPerlesenanAkk::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::status],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'jenis_sukan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::sukan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
                 'tahun' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>4]],
             ],
         ],
@@ -1072,7 +1149,84 @@ use common\models\general\GeneralFunction;
 </div>
 
 <?php
+$URLJurulatih = Url::to(['/jurulatih/get-jurulatih']);
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
 $script = <<< JS
+        
+$('#jurulatihId').change(function(){
+    
+    $.get('$URLJurulatih',{id:$(this).val()},function(data){
+        clearForm();
+        //$('#ahliJawatanKecilBiro').attr('value','');
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+            $('#akademiakk-no_kad_pengenalan').attr('value',data.ic_no);
+            $('#akademiakk-no_passport').attr('value',data.passport_no);
+            $("#akademiakk-jantina").val(data.jantina).trigger("change");
+            $("#akademiakk-bangsa").val(data.bangsa).trigger("change");
+        
+            var DOBVal = data.tarikh_lahir;
+            $("#TarikhLahirID-disp").val(formatDisplayDate(DOBVal));
+            $("#TarikhLahirID").val(formatSaveDate(DOBVal));
+        
+            $('#akademiakk-alamat_1').attr('value',data.alamat_rumah_1);
+            $('#akademiakk-alamat_2').attr('value',data.alamat_rumah_2);
+            $('#akademiakk-alamat_3').attr('value',data.alamat_rumah_3);
+            $('#akademiakk-alamat_negeri').val(data.alamat_rumah_negeri).trigger("change");
+            $('#akademiakk-alamat_bandar').val(data.alamat_rumah_bandar).trigger("change");
+            $('#akademiakk-alamat_poskod').attr('value',data.alamat_rumah_poskod);
+            $('#akademiakk-no_telefon').attr('value',data.no_telefon);
+            $('#akademiakk-emel').attr('value',data.emel);
+            $('#akademiakk-no_telefon_pejabat').attr('value',data.no_telefon_pejabat);
+            $('#akademiakk-nama_majikan').attr('value',data.nama_majikan);
+            $('#akademiakk-alamat_majikan_1').attr('value',data.alamat_majikan_1);
+            $('#akademiakk-alamat_majikan_2').attr('value',data.alamat_majikan_2);
+            $('#akademiakk-alamat_majikan_3').attr('value',data.alamat_majikan_3);
+            $('#akademiakk-alamat_majikan_negeri').val(data.alamat_majikan_negeri).trigger("change");
+            $('#akademiakk-alamat_majikan_bandar').val(data.alamat_majikan_bandar).trigger("change");
+            $('#akademiakk-alamat_majikan_poskod').attr('value',data.alamat_majikan_poskod);
+        
+            if(data.badanSukan !== null){ 
+                $('#latihandanprogrampeserta-nama_badan_sukan').attr('value',data.badanSukan.profil_badan_sukan);
+                $('#latihandanprogrampeserta-no_pendaftaran_sukan').attr('value',data.badanSukan.no_pendaftaran);
+            }
+
+            if(data.refJawatanInduk !== null) 
+                $('#latihandanprogrampeserta-jawatan').attr('value',data.refJawatanInduk.desc);
+
+            }
+        });
+});
+     
+function clearForm(){
+    $('#akademiakk-no_kad_pengenalan').attr('value','');
+    $('#akademiakk-no_passport').attr('value','');
+    $("#akademiakk-jantina").val('').trigger("change");
+    $("#akademiakk-bangsa").val('').trigger("change");
+
+    $("#TarikhLahirID-disp").val('');
+    $("#TarikhLahirID").val('');
+
+    $('#akademiakk-alamat_1').attr('value','');
+    $('#akademiakk-alamat_2').attr('value','');
+    $('#akademiakk-alamat_3').attr('value','');
+    $('#akademiakk-alamat_negeri').val('').trigger("change");
+    $('#akademiakk-alamat_bandar').val('').trigger("change");
+    $('#akademiakk-alamat_poskod').attr('value','');
+    $('#akademiakk-no_telefon').attr('value','');
+    $('#akademiakk-emel').attr('value','');
+    $('#akademiakk-no_telefon_pejabat').attr('value','');
+    $('#akademiakk-nama_majikan').attr('value','');
+    $('#akademiakk-alamat_majikan_1').attr('value','');
+    $('#akademiakk-alamat_majikan_2').attr('value','');
+    $('#akademiakk-alamat_majikan_3').attr('value','');
+    $('#akademiakk-alamat_majikan_negeri').val('').trigger("change");
+    $('#akademiakk-alamat_majikan_bandar').val('').trigger("change");
+    $('#akademiakk-alamat_majikan_poskod').attr('value','');
+}
         
 JS;
         

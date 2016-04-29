@@ -60,7 +60,7 @@ class LtbsAhliJawatankuasaIndukKecil extends \yii\db\ActiveRecord
     {
         return [
             [['jawatan', 'nama_penuh', 'no_kad_pengenalan', 'jantina', 'bangsa', 'umur', 'no_tel', 'tarikh_mula_memegang_jawatan', 'status'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['umur', 'profil_badan_sukan_id', 'status'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['umur', 'profil_badan_sukan_id', 'status', 'no_kad_pengenalan', 'no_tel'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['tarikh_mula_memegang_jawatan'], 'safe'],
             [['jenis_jawatankuasa', 'nama_majikan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],

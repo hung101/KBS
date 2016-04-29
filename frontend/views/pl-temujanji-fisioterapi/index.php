@@ -2,10 +2,13 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 use common\models\general\GeneralFunction;
+
+use app\models\RefStatusTemujanjiFisioterapi;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\PlTemujanjiFisioterapiSearch */
@@ -36,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-fisioterapi']['create'])): ?>
         <p>
             <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::temujanji_fisioterapi, ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Jadual Pegawai', ['laporan-jadual-pegawai-temujanji'], ['class' => 'btn btn-primary', 'target' => '_blank']) ?>
         </p>
     <?php endif; ?>
 
@@ -59,6 +63,36 @@ $this->params['breadcrumbs'][] = $this->title;
                     return GeneralFunction::convert($model->tarikh_temujanji, GeneralFunction::TYPE_DATETIME);
                 },
             ],
+            [
+                'attribute' => 'kategori_rawatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_rawatan,
+                ],
+                'value' => 'refKategoriRawatan.desc'
+            ],
+            /*[
+                'attribute' => 'nama_pesakit_luar',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pesakit_luar,
+                ],
+            ],*/
+            [
+                'attribute' => 'atlet_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_atlet,
+                ],
+                'value' => 'refAtlet.name_penuh'
+            ],
+            [
+                'attribute' => 'no_kad_pengenalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
+                ],
+            ],           
             //'doktor_pegawai_perubatan',
             //'makmal_perubatan',
             //'status_temujanji',
@@ -76,7 +110,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_temujanji,
                 ],
-                'value' => 'refStatusTemujanjiPesakitLuar.desc'
+                'value' => 'refStatusTemujanjiPesakitLuar.desc',
+                'filter' => Html::activeDropDownList($searchModel, 'status_temujanji', ArrayHelper::map(RefStatusTemujanjiFisioterapi::find()->asArray()->all(), 'id', 'desc'),['class'=>'form-control','prompt' => 'Select Category']),
             ],
             // 'pegawai_yang_bertanggungjawab',
             // 'catitan_ringkas',

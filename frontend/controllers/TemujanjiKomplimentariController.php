@@ -6,6 +6,7 @@ use Yii;
 use app\models\TemujanjiKomplimentari;
 use frontend\models\TemujanjiKomplimentariSearch;
 use app\models\IsnLaporanKomplimentori;
+use app\models\IsnLaporanRingkasanStatistikKomplimentari;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -21,6 +22,7 @@ use app\models\RefPerkhidmatanKomplimentari;
 use app\models\Atlet;
 use app\models\RefJuruUrut;
 use app\models\RefStatusTemujanjiKomplimentari;
+use app\models\RefLokasiKomplimentari;
 
 /**
  * TemujanjiKomplimentariController implements the CRUD actions for TemujanjiKomplimentari model.
@@ -89,6 +91,8 @@ class TemujanjiKomplimentariController extends Controller
         $ref = RefStatusTemujanjiKomplimentari::findOne(['id' => $model->status_temujanji]);
         $model->status_temujanji = $ref['desc'];
         
+        $ref = RefLokasiKomplimentari::findOne(['id' => $model->lokasi]);
+        $model->lokasi = $ref['desc'];
         
         return $this->render('view', [
             'model' => $model,
@@ -230,5 +234,48 @@ class TemujanjiKomplimentariController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/ISN/LaporanKomplimentori', $format, $controls, 'laporan_komplimentori');
+    }
+    
+    public function actionLaporanRingkasanStatistikKomplimentari()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanRingkasanStatistikKomplimentari();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-ringkasan-statistik-komplimentari'
+                    , 'tahun' => $model->tahun
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-ringkasan-statistik-komplimentari'
+                    , 'tahun' => $model->tahun
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_ringkasan_statistik_komplimentari', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanRingkasanStatistikKomplimentari($tahun, $format)
+    {
+        if($tahun == "") $tahun = array();
+        else $tahun = array($tahun);
+        
+        $controls = array(
+            'YEAR' => $tahun,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanRingkasanStatistikKomplimentari', $format, $controls, 'laporan_ringkasan_statistik_komplimentari');
     }
 }

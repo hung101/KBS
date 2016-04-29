@@ -75,7 +75,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
             // 'no_tel_pemohon',
+            [
+                'attribute' => 'no_tel_pemohon',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_tel_pemohon,
+                ]
+            ],
             // 'pegawai_bertugas',
+            [
+                'attribute' => 'pegawai_bertugas',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pegawai_bertugas,
+                ]
+            ],
             // 'muat_naik',
             //'kelulusan_ceo',
             [

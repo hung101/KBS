@@ -8,6 +8,7 @@ use frontend\models\PlTemujanjiFisioterapiSearch;
 use app\models\PlDiagnosisPreskripsiPemeriksaanFisioterapi;
 use frontend\models\PlDiagnosisPreskripsiPemeriksaanFisioterapiSearch;
 use app\models\IsnLaporanTemujanjiFisioterapi;
+use app\models\IsnLaporanJadualPegawaiTemujanji;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -26,6 +27,7 @@ use app\models\RefPegawaiPerubatanFisioterapi;
 use app\models\RefNamaFisioterapi;
 use app\models\RefKategoriPesakitLuar;
 use app\models\RefTindakanSelanjutnyaFisioterapi;
+use app\models\RefKategoriRawatan;
 
 /**
  * PlTemujanjiFisioterapiController implements the CRUD actions for PlTemujanjiFisioterapi model.
@@ -58,6 +60,29 @@ class PlTemujanjiFisioterapiController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    
+    /**
+     * Lists all PlTemujanjiFisioterapi models.
+     * @return mixed
+     */
+    public function actionPegawaiSchedule($pegawai_id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $queryPar = Yii::$app->request->queryParams;
+        
+        $queryPar['PlTemujanjiFisioterapiSearch']['nama_fisioterapi'] = $pegawai_id;
+        
+        $searchModel = new PlTemujanjiFisioterapiSearch();
+        $dataProvider = $searchModel->search($queryPar);
+
+        return $this->render('pegawai_schedule', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -96,6 +121,9 @@ class PlTemujanjiFisioterapiController extends Controller
         
         $ref = RefPegawaiPerubatanFisioterapi::findOne(['id' => $model->pegawai_yang_bertanggungjawab]);
         $model->pegawai_yang_bertanggungjawab = $ref['desc'];
+        
+        $ref = RefKategoriRawatan::findOne(['id' => $model->kategori_rawatan]);
+        $model->kategori_rawatan = $ref['desc'];
         
         $model->tarikh_temujanji = GeneralFunction::convert($model->tarikh_temujanji, GeneralFunction::TYPE_DATETIME);
         
@@ -279,6 +307,8 @@ class PlTemujanjiFisioterapiController extends Controller
                     , 'pegawai_bertanggungjawab' => $model->pegawai_bertanggungjawab
                     , 'sukan' => $model->sukan
                     , 'bahagian_kecederaan' => $model->bahagian_kecederaan
+                    , 'atlet' => $model->atlet
+                    , 'rawatan' => $model->rawatan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -289,6 +319,8 @@ class PlTemujanjiFisioterapiController extends Controller
                     , 'pegawai_bertanggungjawab' => $model->pegawai_bertanggungjawab
                     , 'sukan' => $model->sukan
                     , 'bahagian_kecederaan' => $model->bahagian_kecederaan
+                    , 'atlet' => $model->atlet
+                    , 'rawatan' => $model->rawatan
                     , 'format' => $model->format
                 ]);
             }
@@ -300,7 +332,7 @@ class PlTemujanjiFisioterapiController extends Controller
         ]);
     }
 
-    public function actionGenerateLaporanTemujanjiFisioterapi($tarikh_dari, $tarikh_hingga, $pegawai_bertanggungjawab, $sukan, $bahagian_kecederaan, $format)
+    public function actionGenerateLaporanTemujanjiFisioterapi($tarikh_dari, $tarikh_hingga, $pegawai_bertanggungjawab, $sukan, $bahagian_kecederaan, $atlet, $rawatan, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -317,14 +349,66 @@ class PlTemujanjiFisioterapiController extends Controller
         if($bahagian_kecederaan == "") $bahagian_kecederaan = array();
         else $bahagian_kecederaan = array($bahagian_kecederaan);
         
+        if($atlet == "") $atlet = array();
+        else $atlet = array($atlet);
+        
+        if($rawatan == "") $rawatan = array();
+        else $rawatan = array($rawatan);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
             'PEGAWAI' => $pegawai_bertanggungjawab,
             'SUKAN' => $sukan,
             'KECEDERAAN' => $bahagian_kecederaan,
+            'ATLET' => $atlet,
+            'RAWATAN' => $rawatan,
         );
         
         GeneralFunction::generateReport('/spsb/ISN/LaporanTemujanjiFisioterapi', $format, $controls, 'laporan_temujanji_fisioterapi');
+    }
+    
+    public function actionLaporanJadualPegawaiTemujanji()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanJadualPegawaiTemujanji();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-jadual-pegawai-temujanji'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-jadual-pegawai-temujanji'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_jadual_pegawai_temujanji', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanJadualPegawaiTemujanji($tarikh_dari, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanJadualPegawaiTemujanji', $format, $controls, 'laporan_jadual_pegawai_temujanji');
     }
 }

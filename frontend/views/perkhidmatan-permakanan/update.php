@@ -24,6 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProviderKeputusanAnalisiTubuhBadan' => $dataProviderKeputusanAnalisiTubuhBadan,
         'searchModelPemberianSuplemenMakananJusRundinganPendidikan' => $searchModelPemberianSuplemenMakananJusRundinganPendidikan,
         'dataProviderPemberianSuplemenMakananJusRundinganPendidikan' => $dataProviderPemberianSuplemenMakananJusRundinganPendidikan,
+        'searchModelPemberianJusPemulihan' => $searchModelPemberianJusPemulihan,
+        'dataProviderPemberianJusPemulihan' => $dataProviderPemberianJusPemulihan,
         'readonly' => $readonly,
     ]) ?>
 

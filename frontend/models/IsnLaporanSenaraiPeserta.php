@@ -25,7 +25,7 @@ class IsnLaporanSenaraiPeserta extends Model
     public function attributeLabels()
     {
         return [
-            'penganjuran_kursus_id' => GeneralLabel::penganjuran_kursus,
+            'penganjuran_kursus_id' => GeneralLabel::kod_kursus,
             'format' => GeneralLabel::format,
         ];
     }

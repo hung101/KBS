@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\PengurusanKemudahanDanPeralatanSearch */
@@ -34,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['pengurusan-kemudahan-dan-peralatan']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Pengurusan Kemudahan Dan Peralatan', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::pengurusan_kemudahan_dan_peralatan, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 
@@ -59,7 +60,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::masa,
-                ]
+                ],
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->masa, GeneralFunction::TYPE_DATETIME);
+                },
             ],
             [
                 'attribute' => 'catatan_ringkas',
@@ -71,6 +75,14 @@ $this->params['breadcrumbs'][] = $this->title;
             //'tindakan_yang_diambil',
             // 'hasil',
             // 'ketidakpatuhan',
+            [
+                'attribute' => 'status',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kerja,
+                ],
+                'value' => 'refStatusPengurusanKemudahan.desc'
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

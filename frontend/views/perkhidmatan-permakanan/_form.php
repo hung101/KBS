@@ -174,7 +174,7 @@ use app\models\general\GeneralMessage;
             //'perkhidmatan_permakanan_id',
             'nama_suplemen_makanan_jus_rundingan_pendidikan',
             'kuantiti_ml_g',
-            'harga',
+            //'harga',
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',
@@ -196,7 +196,7 @@ use app\models\general\GeneralMessage;
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pemberian-suplemen-makanan-jus-rundingan-pendidikan/view', 'id' => $model->pemberian_suplemen_makanan_jus_rundingan_pendidikan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::pemberian_suplemenjus.');',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pemberian-suplemen-makanan-jus-rundingan-pendidikan/view', 'id' => $model->pemberian_suplemen_makanan_jus_rundingan_pendidikan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::pemberian_suplemenjus.'");',
                         ]);
                     }
                 ],
@@ -212,6 +212,76 @@ use app\models\general\GeneralMessage;
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
                         'onclick' => 'loadModalRenderAjax("'.Url::to(['pemberian-suplemen-makanan-jus-rundingan-pendidikan/create', 'perkhidmatan_permakanan_id' => $perkhidmatan_permakanan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::pemberian_suplemenjus.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <h3><?=GeneralLabel::pemberian_jus?></h3>
+    
+    <?php Pjax::begin(['id' => 'pemberianJusPemulihanGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPemberianJusPemulihan,
+        //'filterModel' => $searchModelPemberianJusPemulihan,
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
+        'id' => 'pemberianJusPemulihanGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'pemberian_jus_pemulihan_id',
+            //'perkhidmatan_permakanan_id',
+            //'kategori_atlet',
+            //'sukan',
+            //'acara',
+            // 'atlet',
+            'nama_jus',
+            // 'jenis_jus',
+            'kuantiti',
+            // 'berat_badan',
+            // 'buah',
+            // 'session_id',
+            // 'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['pemberian-jus-pemulihan/delete', 'id' => $model->pemberian_jus_pemulihan_id]).'", "'.GeneralMessage::confirmDelete.'", "pemberianJusPemulihanGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pemberian-jus-pemulihan/update', 'id' => $model->pemberian_jus_pemulihan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::pemberian_jus.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pemberian-jus-pemulihan/view', 'id' => $model->pemberian_jus_pemulihan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::pemberian_jus.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pemberian-jus-pemulihan/create', 'perkhidmatan_permakanan_id' => $perkhidmatan_permakanan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::pemberian_jus.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

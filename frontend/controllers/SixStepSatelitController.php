@@ -18,6 +18,7 @@ use app\models\RefAcara;
 use app\models\Atlet;
 use app\models\RefSixstepSatelitStage;
 use app\models\RefSixstepSatelitStatus;
+use app\models\RefFasilitiSatelit;
 
 /**
  * SixStepSatelitController implements the CRUD actions for SixStepSatelit model.
@@ -85,6 +86,9 @@ class SixStepSatelitController extends Controller
         
         $ref = RefSixstepSatelitStatus::findOne(['id' => $model->status]);
         $model->status = $ref['desc'];
+        
+        $ref = RefFasilitiSatelit::findOne(['id' => $model->pusat_satelit]);
+        $model->pusat_satelit = $ref['desc'];
         
         return $this->render('view', [
             'model' => $model,

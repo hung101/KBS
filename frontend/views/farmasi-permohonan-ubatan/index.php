@@ -60,6 +60,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             [
+                'attribute' => 'atlet_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
+                ],
+                'value' => 'atlet.name_penuh'
+            ],
+            [
                 'attribute' => 'pegawai_yang_bertanggungjawab',
                 'filterInputOptions' => [
                     'class'       => 'form-control',

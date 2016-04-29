@@ -55,7 +55,7 @@ class LtbsAhliGabungan extends \yii\db\ActiveRecord
             [['alamat_badan_sukan_1', 'alamat_badan_sukan_2', 'alamat_badan_sukan_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel_presiden_badan_sukan', 'emel_setiausaha_badan_sukan'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['alamat_badan_sukan_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['profil_badan_sukan_id', 'status'], 'integer', 'message' => GeneralMessage::yii_validation_integer]
+            [['profil_badan_sukan_id', 'status', 'alamat_badan_sukan_poskod', 'no_tel_bimbit_presiden_badan_sukan', 'no_tel_bimbit_setiausaha_badan_sukan'], 'integer', 'message' => GeneralMessage::yii_validation_integer]
         ];
     }
 

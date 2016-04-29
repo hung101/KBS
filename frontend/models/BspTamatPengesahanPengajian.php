@@ -57,7 +57,7 @@ class BspTamatPengesahanPengajian extends \yii\db\ActiveRecord
             [['tarikh_tamat'], 'safe'],
             [['nama_ipts', 'pengajian', 'bidang'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['cgpa_pngk'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['cgpa_pngk'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['cgpa_pngk'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }

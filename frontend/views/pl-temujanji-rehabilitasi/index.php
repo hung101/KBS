@@ -59,6 +59,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     return GeneralFunction::convert($model->tarikh_temujanji, GeneralFunction::TYPE_DATETIME);
                 },
             ],
+            [
+                'attribute' => 'nama_pesakit_luar',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pesakit_luar,
+                ],
+            ],
+            [
+                'attribute' => 'no_kad_pengenalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
+                ],
+            ],  
             //'doktor_pegawai_perubatan',
             //'makmal_perubatan',
             //'status_temujanji',

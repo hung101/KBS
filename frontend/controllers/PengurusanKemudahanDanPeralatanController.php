@@ -5,14 +5,18 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PengurusanKemudahanDanPeralatan;
 use frontend\models\PengurusanKemudahanDanPeralatanSearch;
+use app\models\IsnLaporanStatistikPengurusanKemudahan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\BaseUrl;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefKerjaPengurusanKemudahanPeralatan;
+use app\models\RefStatusPengurusanKemudahan;
 
 /**
  * PengurusanKemudahanDanPeralatanController implements the CRUD actions for PengurusanKemudahanDanPeralatan model.
@@ -65,6 +69,11 @@ class PengurusanKemudahanDanPeralatanController extends Controller
         
         $ref = RefKerjaPengurusanKemudahanPeralatan::findOne(['id' => $model->kerja]);
         $model->kerja = $ref['desc'];
+        
+        $ref = RefStatusPengurusanKemudahan::findOne(['id' => $model->status]);
+        $model->status = $ref['desc'];
+        
+        $model->masa = GeneralFunction::convert($model->masa, GeneralFunction::TYPE_DATETIME);
         
         return $this->render('view', [
             'model' => $model,
@@ -150,5 +159,60 @@ class PengurusanKemudahanDanPeralatanController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionLaporanStatistikPengurusanKemudahan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanStatistikPengurusanKemudahan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-pengurusan-kemudahan'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'status' => $model->status
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-pengurusan-kemudahan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'status' => $model->status
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_pengurusan_kemudahan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikPengurusanKemudahan($tarikh_dari, $tarikh_hingga, $status, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($status == "") $status = array();
+        else $status = array($status);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'STATUS' => $status,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanStatistikPengurusanKemudahan', $format, $controls, 'laporan_statistik_pengurusan_kemudahan');
     }
 }

@@ -72,7 +72,7 @@ class PermohonanPerkhidmatanPermakanan extends \yii\db\ActiveRecord
             'tarikh' => GeneralLabel::tarikh,
             'sukan' => GeneralLabel::sukan,
             'tujuan' => GeneralLabel::tujuan,
-            'kategori_permohonan' => GeneralLabel::kategori_permohonan,
+            'kategori_permohonan' => GeneralLabel::kategori_atlet,
             'jenis_perkhidmatan' => GeneralLabel::jenis_perkhidmatan,
             'kelulusan' => GeneralLabel::kelulusan,
 

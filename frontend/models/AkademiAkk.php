@@ -68,11 +68,12 @@ class AkademiAkk extends \yii\db\ActiveRecord
     {
         return [
             [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'tempat_lahir', 'no_telefon', 'kategori_pensijilan', 'jenis_sukan', 'tahun',
-                'jantina', 'bangsa', 'status_jurulatih', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+                'jantina', 'bangsa', 'kategori_jurulatih', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir', 'tarikh_terima_borang', 'tarikh_mula_lesen', 'tarikh_tamat_lesen'], 'safe'],
-            [['jantina', 'bangsa', 'status_jurulatih'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jantina', 'bangsa', 'status_jurulatih', 'no_kad_pengenalan', 'alamat_poskod', 'no_telefon', 'no_telefon_pejabat', 'alamat_majikan_poskod', 'kategori_jurulatih', 'jurulatih_di_negeri','status_perlesenan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['nama', 'nama_majikan', 'jenis_sukan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['senarai_nama_peserta', 'emel'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['senarai_nama_peserta'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik_gambar', 'emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_passport'], 'string', 'max' => 15, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -129,7 +130,10 @@ class AkademiAkk extends \yii\db\ActiveRecord
             'alamat_poskod' => GeneralLabel::alamat_poskod,
             'jenis_sukan' => GeneralLabel::jenis_sukan,
             'tahun' => GeneralLabel::tahun,
-            'status_jurulatih' => GeneralLabel::status_jurulatih,
+            'status_jurulatih' => GeneralLabel::status_kejurulatihan,
+            'kategori_jurulatih' => GeneralLabel::kategori_jurulatih,
+            'jurulatih_di_negeri' => GeneralLabel::jurulatih_di_negeri,
+            'status_perlesenan' => GeneralLabel::status_perlesenan,
         ];
     }
     

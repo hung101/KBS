@@ -18,6 +18,8 @@ use common\models\general\GeneralFunction;
 // table reference
 use app\models\RefJenisKursusPenganjuran;
 use app\models\RefNegeri;
+use app\models\RefKategoriKursusPenganjuranAkk;
+use app\models\RefKategoriKursusPenganjuran;
 
 /**
  * PenganjuranKursusController implements the CRUD actions for PenganjuranKursus model.
@@ -68,11 +70,14 @@ class PenganjuranKursusController extends Controller
         
         $model = $this->findModel($id);
         
-        $ref = RefJenisKursusPenganjuran::findOne(['id' => $model->jenis_kursus]);
+        $ref = RefKategoriKursusPenganjuran::findOne(['id' => $model->jenis_kursus]);
         $model->jenis_kursus = $ref['desc'];
         
         $ref = RefNegeri::findOne(['id' => $model->negeri]);
         $model->negeri = $ref['desc'];
+        
+        $ref = RefKategoriKursusPenganjuranAkk::findOne(['id' => $model->kategori_kursus_penganjuran]);
+        $model->kategori_kursus_penganjuran = $ref['desc'];
         
         $model->tarikh_kursus_mula = GeneralFunction::convert($model->tarikh_kursus_mula);
         
@@ -96,6 +101,8 @@ class PenganjuranKursusController extends Controller
         }
         
         $model = new PenganjuranKursus();
+        
+        $model->load(Yii::$app->request->post());
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->penganjuran_kursus_id]);
@@ -120,6 +127,8 @@ class PenganjuranKursusController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        $model->load(Yii::$app->request->post());
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->penganjuran_kursus_id]);

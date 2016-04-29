@@ -565,9 +565,9 @@ $('#tempahankemudahan-venue').change(function(){
         
             if(data.refKategoriHakmilik !== null){ 
                 if(data.refKategoriHakmilik.tempahan_display_flag == "0"){
-                    $( "#butiranTempahan" ).hide();
+                    //$( "#butiranTempahan" ).hide();
                 } else {
-                    $( "#butiranTempahan" ).show();
+                    //$( "#butiranTempahan" ).show();
                 }
             }
         }

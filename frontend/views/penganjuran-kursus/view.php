@@ -13,7 +13,7 @@ use app\models\general\GeneralMessage;
 //$this->title = $model->penganjuran_kursus_id;
 $this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::penganjuran_kursus;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::akademi_kejurulatihan_kebangsaan_akk, 'url' => ['akademi-akk/index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::cce, 'url' => ['kursus/index']];
+//$this->params['breadcrumbs'][] = ['label' => GeneralLabel::cce, 'url' => ['kursus/index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::penganjuran_kursus, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

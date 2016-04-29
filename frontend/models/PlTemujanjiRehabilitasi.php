@@ -80,7 +80,7 @@ class PlTemujanjiRehabilitasi extends \yii\db\ActiveRecord
             'status_temujanji' => GeneralLabel::status_temujanji,
             'pegawai_yang_bertanggungjawab' => GeneralLabel::pegawai_perubatan_pakar_perubatan_sukan,
             'catitan_ringkas' => GeneralLabel::catitan_ringkas,
-            'nama_rehabilitasi' => GeneralLabel::nama_rehabilitasi,
+            'nama_rehabilitasi' => GeneralLabel::pegawai_bertanggungjawab,
             'nama_pesakit_luar' => GeneralLabel::nama_pesakit_luar,
             'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
             'kategori_pesakit_luar' => GeneralLabel::kategori_pesakit_luar,

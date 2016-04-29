@@ -147,12 +147,12 @@ class ProfilBadanSukanController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->profil_badan_sukan]);
             }
-        } else {
-            return $this->render('create', [
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -196,12 +196,12 @@ class ProfilBadanSukanController extends Controller
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->profil_badan_sukan]);
             }
-        } else {
-            return $this->render('update', [
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

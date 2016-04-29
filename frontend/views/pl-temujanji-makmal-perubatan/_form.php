@@ -17,6 +17,8 @@ use app\models\Atlet;
 use app\models\RefJenisTemujanjiPesakitLuar;
 use app\models\RefStatusTemujanjiPesakitLuar;
 use app\models\RefPegawaiPerubatan;
+use app\models\RefAtletTahap;
+use app\models\RefSukan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -52,6 +54,34 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'kategori_atlet' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-atlet-tahap/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefAtletTahap::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::tahapAtlet],],
+                    'columnOptions'=>['colspan'=>3]],
+                'jenis_sukan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::sukan],],
+                    'columnOptions'=>['colspan'=>4]],
                 'atlet_id' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -65,13 +95,8 @@ use app\models\general\GeneralMessage;
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::atlet],],
-                    'columnOptions'=>['colspan'=>6]],
-                'kehadiran_pesakit' => [
-                    'type'=>Form::INPUT_RADIO_LIST, 
-                    'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
-                    'value'=>false,
-                    'options'=>['inline'=>true],
-                    'columnOptions'=>['colspan'=>2]],
+                    'columnOptions'=>['colspan'=>5]],
+                
             ]
         ],
         [
@@ -89,6 +114,12 @@ use app\models\general\GeneralMessage;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
+                'kehadiran_pesakit' => [
+                    'type'=>Form::INPUT_RADIO_LIST, 
+                    'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
+                    'value'=>false,
+                    'options'=>['inline'=>true],
+                    'columnOptions'=>['colspan'=>2]],
                 //'doktor_pegawai_perubatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
             ]
         ],

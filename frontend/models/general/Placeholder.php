@@ -31,6 +31,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const bandar = " -- Pilih Bandar -- ";
         const bank = "-- Pilih Bank --";
         const bangsa = " -- Pilih Bangsa -- ";
+        const beratBadan = " -- Pilih Berat Badan -- ";
         const bidangDiminati = " -- Pilih Bidang Diminati -- ";
         const bidangKonsultansi = " -- Pilih Bidang Konsultansi -- ";
         const biomekanikUjian = " -- Pilih Biomekanik Ujian -- ";
@@ -90,6 +91,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jenisRekod = "-- Pilih Jenis Rekod --";
         const jenisSejarahPerubatan = "-- Pilih Jenis Sejarah Perubatan --";
         const jenisSijil = "-- Pilih Jenis Sijil --";
+        const jenisTahapKursus= "-- Pilih Jenis Tahap / Kursus --";
         const jenisTempahan = "-- Pilih Jenis Tempahan --";
         const jenisTemujanji = "-- Pilih Jenis Temujanji --";
         const jurulatih = "-- Pilih Jurulatih --";
@@ -142,6 +144,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kumpulan = "-- Pilih Kumpulan --";
         const kumpulanDarah = "-- Pilih Kumpulan Darah --";
         const kursus = "-- Pilih Kursus --";
+        const kodKursus = "-- Pilih Kod Kursus --";
         const lantikan = "-- Pilih Lantikan--";
         const laporan = "-- Pilih Laporan --";
         const latarbelakangKes = "-- Pilih Latarbelakang Kes --";
@@ -190,8 +193,10 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const program = "-- Pilih Program --";
         const programPengajian = "-- Pilih Program Pengajian --";
         const programSemasa = "-- Pilih Program Semasa --";
+        const pusatSatelit = "-- Pilih Pusat Satelit --";
         const rating = "-- Pilih Rating --";
         const rekodBaru = "-- Pilih Rekod Baru --";
+        const rawatan = "-- Pilih Rawatan --";
         const rawatanFisioterapi = "-- Pilih Rawatan Fisioterapi --";
         const rawatanRehabilitasi = "-- Pilih Rawatan Rehabilitasi --";
         const saizPakaian = "-- Pilih Saiz Pakaian --";
@@ -265,6 +270,7 @@ if($session->get('language') == "EN") {
         const bandar = " -- Select City -- ";
         const bank = "-- Select Bank --";
         const bangsa = " -- Select Race -- ";
+        const beratBadan = " -- Select Body Weight -- ";
         const bidangDiminati = " -- Select Areas Of Interest -- ";
         const bidangKonsultansi = " -- Select Field Of Consultancy -- ";
         const biomekanikUjian = " -- Select The Biomechanics Test -- ";
@@ -324,6 +330,7 @@ if($session->get('language') == "EN") {
         const jenisRekod = "-- Select Record Type --";
         const jenisSejarahPerubatan = "-- Select The Type Of History Of Medicine --";
         const jenisSijil = "-- Select The Type Of Certificate --";
+        const jenisTahapKursus= "-- Select Type / Level Courses --";
         const jenisTempahan = "-- Select The Type Of Reservation --";
         const jenisTemujanji = "-- Select The Type Of Appointment --";
         const jurulatih = "-- Choose A Coach --";
@@ -376,6 +383,7 @@ if($session->get('language') == "EN") {
         const kumpulan = "-- Select The Group --";
         const kumpulanDarah = "-- Select Blood Group --";
         const kursus = "-- Select Course --";
+        const kodKursus = "-- Select Code Course --";
         const lantikan = "-- Select Appointment--";
         const laporan = "-- Select Report --";
         const latarbelakangKes = "-- Select The Background To The Case --";
@@ -424,8 +432,10 @@ if($session->get('language') == "EN") {
         const program = "-- Select Program --";
         const programPengajian = "-- Select Study Programs --";
         const programSemasa = "-- Select The Current Program --";
+        const pusatSatelit = "-- Select Satelite Centre --";
         const rating = "-- Select Rating --";
         const rekodBaru = "-- Select The New Record --";
+        const rawatan = "-- Select Treatment --";
         const rawatanFisioterapi = "-- Select Physiotherapy Treatment --";
         const rawatanRehabilitasi = "-- Select Rehabilitation Treatment --";
         const saizPakaian = "-- Select The Size Of Clothing --";

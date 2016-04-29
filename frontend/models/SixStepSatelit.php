@@ -49,8 +49,9 @@ class SixStepSatelit extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'stage', 'status'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id', 'kategori_atlet', 'sukan', 'acara'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['atlet_id', 'stage', 'status', 'tarikh','pusat_satelit'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh'], 'safe'],
+            [['atlet_id', 'kategori_atlet', 'sukan', 'acara', 'pusat_satelit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['stage', 'status'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
@@ -68,7 +69,8 @@ class SixStepSatelit extends \yii\db\ActiveRecord
             'acara' => GeneralLabel::acara,
             'stage' => GeneralLabel::stage,
             'status' => GeneralLabel::status,
-
+            'tarikh' => GeneralLabel::tarikh,
+            'pusat_satelit' => GeneralLabel::pusat_satelit,
         ];
     }
     

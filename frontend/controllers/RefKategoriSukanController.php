@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 /**
  * RefKategoriSukanController implements the CRUD actions for RefKategoriSukan model.
  */
-class RefkategoriSukanController extends Controller
+class RefKategoriSukanController extends Controller
 {
     public function behaviors()
     {
@@ -63,7 +63,7 @@ class RefkategoriSukanController extends Controller
         $model = new RefKategoriSukan();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ref_kategori_sukan_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -82,7 +82,7 @@ class RefkategoriSukanController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->ref_kategori_sukan_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,

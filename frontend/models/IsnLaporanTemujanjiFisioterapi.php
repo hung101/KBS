@@ -16,13 +16,15 @@ class IsnLaporanTemujanjiFisioterapi extends Model
     public $pegawai_bertanggungjawab;
     public $sukan;
     public $bahagian_kecederaan;
+    public $atlet;
+    public $rawatan;
     public $format;
 
     public function rules()
     {
         return [
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga', 'pegawai_bertanggungjawab', 'sukan', 'bahagian_kecederaan'], 'safe'],
+            [['tarikh_dari', 'tarikh_hingga', 'pegawai_bertanggungjawab', 'sukan', 'bahagian_kecederaan', 'atlet', 'rawatan'], 'safe'],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
@@ -35,6 +37,8 @@ class IsnLaporanTemujanjiFisioterapi extends Model
             'pegawai_bertanggungjawab' => GeneralLabel::pegawai_yang_bertanggungjawab,
             'sukan' => GeneralLabel::sukan,
             'bahagian_kecederaan' => GeneralLabel::bahagian_kecederaan,
+            'atlet' => GeneralLabel::atlet,
+            'rawatan' => GeneralLabel::rawatan,
             'format' => GeneralLabel::format,
         ];
     }

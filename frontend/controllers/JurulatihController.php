@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\web\Session;
+use yii\helpers\Json;
 
 use app\models\general\GeneralVariable;
 use app\models\general\Upload;
@@ -303,5 +304,12 @@ class JurulatihController extends Controller
             $img->update();
 
             return $this->redirect(['update', 'id' => $id]);
+    }
+    
+    public function actionGetJurulatih($id){
+        // find Ahli Jawatankuasa Induk
+        $model = Jurulatih::findOne($id);
+        
+        echo Json::encode($model);
     }
 }

@@ -65,6 +65,7 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatih extends \yii\db\ActiveR
             [['jurulatih'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             //[[ 'muat_naik_document'], 'string', 'max' => 100],
             [['status_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['gaji_elaun', 'program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik_document'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }
@@ -81,7 +82,8 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatih extends \yii\db\ActiveR
             'tarikh_tamat' => GeneralLabel::tarikh_tamat,
             'status_permohonan' => GeneralLabel::status_permohonan,
             'muat_naik_document' => GeneralLabel::muat_naik_document,
-
+            'gaji_elaun' => GeneralLabel::gaji_elaun,
+            'program' => GeneralLabel::program,
         ];
     }
     

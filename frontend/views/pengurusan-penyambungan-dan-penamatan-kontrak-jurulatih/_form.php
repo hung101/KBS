@@ -54,6 +54,17 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>6]],
             ],
         ],
+    ]
+]);
+        ?>
+    
+    <h4><?=GeneralLabel::tambah_tempoh?></h4>
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -79,6 +90,15 @@ use app\models\general\GeneralMessage;
                     ],
                     'columnOptions'=>['colspan'=>3]],
                 
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                 'gaji_elaun' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+                'program' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                 
             ],
         ],
     ]

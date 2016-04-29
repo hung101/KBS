@@ -8,6 +8,7 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use kartik\widgets\DepDrop;
 use yii\helpers\Url;
+use kartik\datecontrol\DateControl;
 
 // table reference
 use app\models\RefAtletTahap;
@@ -16,6 +17,7 @@ use app\models\RefAcara;
 use app\models\Atlet;
 use app\models\RefSixstepSatelitStage;
 use app\models\RefSixstepSatelitStatus;
+use app\models\RefFasilitiSatelit;
 
 
 // contant values
@@ -39,6 +41,36 @@ use app\models\general\GeneralLabel;
     'form' => $form,
     'autoGenerateColumns' => true,
     'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'tarikh' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                'pusat_satelit' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-fasiliti-satelit/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefFasilitiSatelit::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::pusatSatelit],],
+                    'columnOptions'=>['colspan'=>3]],
+            ],
+        ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
