@@ -16,6 +16,7 @@ use app\models\Atlet;
 use app\models\RefKategoriAtlet;
 use app\models\RefJenisJus;
 use app\models\RefBeratBadan;
+use app\models\RefNamaJus;
 
 // contant values
 use app\models\general\Placeholder;
@@ -137,7 +138,21 @@ use app\models\general\GeneralMessage;
                         'options' => ['placeholder' => Placeholder::jenis],
                         'pluginOptions' => ['allowClear' => true,],],
                     'columnOptions'=>['colspan'=>3]],
-                'nama_jus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                'nama_jus' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-nama-jus/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefNamaJus::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::namaJus],
+                        'pluginOptions' => ['allowClear' => true,],],
+                    'columnOptions'=>['colspan'=>3]],
                 'kuantiti' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>11]],
                 //'harga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
             ],
@@ -161,7 +176,7 @@ use app\models\general\GeneralMessage;
                         'options' => ['placeholder' => Placeholder::beratBadan],
                         'pluginOptions' => ['allowClear' => true,],],
                     'columnOptions'=>['colspan'=>3]],
-                'buah' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+                //'buah' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
             ],
         ],
     ]

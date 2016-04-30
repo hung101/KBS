@@ -13,6 +13,7 @@ use app\models\PemberianJusPemulihan;
 use frontend\models\PemberianJusPemulihanSearch;
 use app\models\IsnLaporanStatistikMakananTambahan;
 use app\models\IsnLaporanStatistikAnalisiTubuhBadan;
+use app\models\IsnLaporanStatistikJus;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -263,6 +264,9 @@ class PerkhidmatanPermakananController extends Controller
                 $report_url = BaseUrl::to(['generate-laporan-statistik-makanan-tambahan'
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'tarikh_dari' => $model->tarikh_dari
+                    , 'kategori_makanan_tambahan' => $model->kategori_makanan_tambahan
+                    , 'sukan' => $model->sukan
+                    , 'atlet' => $model->atlet
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -270,6 +274,9 @@ class PerkhidmatanPermakananController extends Controller
                 return $this->redirect(['generate-laporan-statistik-makanan-tambahan'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'kategori_makanan_tambahan' => $model->kategori_makanan_tambahan
+                    , 'sukan' => $model->sukan
+                    , 'atlet' => $model->atlet
                     , 'format' => $model->format
                 ]);
             }
@@ -281,7 +288,7 @@ class PerkhidmatanPermakananController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanStatistikMakananTambahan($tarikh_dari, $tarikh_hingga, $format)
+    public function actionGenerateLaporanStatistikMakananTambahan($tarikh_dari, $tarikh_hingga, $kategori_makanan_tambahan, $sukan, $atlet, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -289,9 +296,21 @@ class PerkhidmatanPermakananController extends Controller
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($kategori_makanan_tambahan == "") $kategori_makanan_tambahan = array();
+        else $kategori_makanan_tambahan = array($kategori_makanan_tambahan);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($atlet == "") $atlet = array();
+        else $atlet = array($atlet);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'KATEGORI_MAKANAN_TAMBAHAN' => $kategori_makanan_tambahan,
+            'SUKAN' => $sukan,
+            'ATLET' => $atlet,
         );
         
         GeneralFunction::generateReport('/spsb/ISN/LaporanStatistikMakananTambahan', $format, $controls, 'laporan_statistik_makanan_tambahan');
@@ -344,5 +363,78 @@ class PerkhidmatanPermakananController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/ISN/LaporanStatistikAnalisiTubuhBadan', $format, $controls, 'laporan_statistik_analisi_tubuh_badan');
+    }
+    
+    public function actionLaporanStatistikJus()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanStatistikJus();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-jus'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'jenis_jus' => $model->jenis_jus
+                    , 'nama_jus' => $model->nama_jus
+                    , 'sukan' => $model->sukan
+                    , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-jus'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'jenis_jus' => $model->jenis_jus
+                    , 'nama_jus' => $model->nama_jus
+                    , 'sukan' => $model->sukan
+                    , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_jus', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikJus($tarikh_dari, $tarikh_hingga, $jenis_jus, $nama_jus, $sukan, $atlet, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($jenis_jus == "") $jenis_jus = array();
+        else $jenis_jus = array($jenis_jus);
+        
+        if($nama_jus == "") $nama_jus = array();
+        else $nama_jus = array($nama_jus);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($atlet == "") $atlet = array();
+        else $atlet = array($atlet);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'JENIS_JUS' => $jenis_jus,
+            'NAMA_JUS' => $nama_jus,
+            'SUKAN' => $sukan,
+            'ATLET' => $atlet,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanStatistikJus', $format, $controls, 'laporan_statistik_jus');
     }
 }

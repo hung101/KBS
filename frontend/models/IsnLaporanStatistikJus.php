@@ -9,11 +9,12 @@ use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
 
-class IsnLaporanStatistikMakananTambahan extends Model
+class IsnLaporanStatistikJus extends Model
 {
     public $tarikh_dari;
     public $tarikh_hingga;
-    public $kategori_makanan_tambahan;
+    public $jenis_jus;
+    public $nama_jus;
     public $sukan;
     public $atlet;
     public $format;
@@ -22,7 +23,7 @@ class IsnLaporanStatistikMakananTambahan extends Model
     {
         return [
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga', 'kategori_makanan_tambahan', 'sukan', 'atlet'], 'safe'],
+            [['tarikh_dari', 'tarikh_hingga', 'jenis_jus', 'nama_jus', 'sukan', 'atlet'], 'safe'],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
@@ -33,7 +34,8 @@ class IsnLaporanStatistikMakananTambahan extends Model
             'tarikh_dari' => GeneralLabel::tarikh_dari,
             'tarikh_hingga' => GeneralLabel::tarikh_hingga,
             'format' => GeneralLabel::format,
-            'kategori_makanan_tambahan' => GeneralLabel::kategori_makanan_tambahan,
+            'jenis_jus' => GeneralLabel::jenis_jus,
+            'nama_jus' => GeneralLabel::nama_jus,
             'sukan' => GeneralLabel::sukan,
             'atlet' => GeneralLabel::atlet,
         ];

@@ -41,7 +41,8 @@ class PemberianJusPemulihanSearch extends PemberianJusPemulihan
      */
     public function search($params)
     {
-        $query = PemberianJusPemulihan::find();
+        $query = PemberianJusPemulihan::find()
+                ->joinWith(['refNamaJus']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -71,7 +72,7 @@ class PemberianJusPemulihanSearch extends PemberianJusPemulihan
 
         $query->andFilterWhere(['like', 'kategori_atlet', $this->kategori_atlet])
             ->andFilterWhere(['like', 'atlet', $this->atlet])
-            ->andFilterWhere(['like', 'nama_jus', $this->nama_jus])
+            ->andFilterWhere(['like', 'tbl_ref_nama_jus.desc', $this->nama_jus])
             ->andFilterWhere(['like', 'buah', $this->buah])
             ->andFilterWhere(['like', 'session_id', $this->session_id]);
 

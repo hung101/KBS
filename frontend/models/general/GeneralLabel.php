@@ -1710,6 +1710,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_senarai_kursus = "Laporan Senarai Kursus";
         const laporan_skim_pelesenan_kejurulatihan_kebangsaan = "Laporan Skim Pelesenan Kejurulatihan Kebangsaan";
         const laporan_statistik_analisi_tubuh_badan = "Laporan Statistik Analisi Tubuh Badan";
+        const laporan_statistik_jus = "Laporan Statistik Jus";
         const laporan_statistik_makanan_tambahan = "Laporan Statistik Makanan Tambahan";
         const laporan_statistik_pengurusan_kemudahan = "Laporan Statistik Pengurusan Kemudahan";
         const laporan_statistik_permohonan_biasiswa_mengikut_ipta_ipts = "Laporan Statistik Permohonan Biasiswa Mengikut IPTA / IPTS";
@@ -1936,6 +1937,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kategori_kos_perhimpunan_kem = "Kategori Kos Perhimpunan Kem";
         const kategori_kos_program_binaan = "Kategori Kos Program Binaan";
         const kategori_kursus_penganjuran = "Kategori Kursus Penganjuran";
+        const kategori_makanan_tambahan = "Kategori Makanan Tambahan";
         const kategori_masalah_kaunseling = "Kategori Masalah Kaunseling";
         const kategori_muatnaik = "Kategori Muatnaik";
         const kategori_oku_ebiasiswa = "Kategori Oku Ebiasiswa";
@@ -4318,6 +4320,7 @@ if($session->get('language') == "EN") {
         const laporan_senarai_kursus = "List Of Courses Report";
         const laporan_skim_pelesenan_kejurulatihan_kebangsaan = "Report of the National Coaching Licensing Scheme";
         const laporan_statistik_analisi_tubuh_badan = "Body Analytics Statistical Report";
+        const laporan_statistik_jus = "Juice Statistical Report";
         const laporan_statistik_makanan_tambahan = "Statistical Report Supplement";
         const laporan_statistik_pengurusan_kemudahan = "Report Facilities Management Statistical";
         const laporan_statistik_permohonan_biasiswa_mengikut_ipta_ipts = "Statistical Report In Accordance With The Scholarship Application IPTA/IPTS";
@@ -4546,6 +4549,7 @@ if($session->get('language') == "EN") {
         const kategori_kos_perhimpunan_kem = "Cost Category Rally Camp";
         const kategori_kos_program_binaan = "Category Of Cost Of Construction Program";
         const kategori_kursus_penganjuran = "Organisation Of Courses Category";
+        const kategori_makanan_tambahan = "Category Supplement";
         const kategori_masalah_kaunseling = "Category Problem Counseling";
         const kategori_muatnaik = "Upload Category";
         const kategori_oku_ebiasiswa = "Categories Of Disabled Persons Ebiasiswa";

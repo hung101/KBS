@@ -157,6 +157,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const namaFisioterapi = "-- Pilih Nama Fisioterapi --";
         const namaRehabilitasi = "-- Pilih Nama Rehabilitasi --";
         const namaInsentif = "-- Pilih Nama Insentif --";
+        const namaJus = "-- Pilih Nama Jus --";
         const namaPersatuanPersekutuandunia = "-- Pilih Nama Persatuan / Persekutuan Dunia --";
         const negara = " -- Pilih Negara -- ";
         const negeri = " -- Pilih Negeri -- ";
@@ -396,6 +397,7 @@ if($session->get('language') == "EN") {
         const namaFisioterapi = "-- Choose A Physiotherapy Name --";
         const namaRehabilitasi = "-- Select A Name Rehabilitation --";
         const namaInsentif = "-- Select The Name Of The Incentive --";
+        const namaJus = "-- Select Name Of Juice --";
         const namaPersatuanPersekutuandunia = "-- Select The Name Of Association/World Federation --";
         const negara = " -- Select Country -- ";
         const negeri = " -- Select State -- ";

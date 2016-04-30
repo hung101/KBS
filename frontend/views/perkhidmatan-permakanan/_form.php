@@ -235,7 +235,15 @@ use app\models\general\GeneralMessage;
             //'sukan',
             //'acara',
             // 'atlet',
-            'nama_jus',
+            //'nama_jus',
+            [
+                'attribute' => 'nama_jus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_jus,
+                ],
+                'value' => 'refNamaJus.desc'
+            ],
             // 'jenis_jus',
             'kuantiti',
             // 'berat_badan',

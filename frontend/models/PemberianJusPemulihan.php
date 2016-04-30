@@ -76,4 +76,11 @@ class PemberianJusPemulihan extends \yii\db\ActiveRecord
             'updated' => 'Updated',
         ];
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefNamaJus(){
+        return $this->hasOne(RefNamaJus::className(), ['id' => 'nama_jus']);
+    }
 }

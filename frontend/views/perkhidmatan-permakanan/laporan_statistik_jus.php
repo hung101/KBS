@@ -13,6 +13,7 @@ use app\models\RefReportFormat;
 use app\models\RefSukan;
 use app\models\Atlet;
 use app\models\RefJenisJus;
+use app\models\RefNamaJus;
 
 // contant values
 use app\models\general\Placeholder;
@@ -21,7 +22,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanPelaksaan */
 
-$this->title = GeneralLabel::laporan_statistik_makanan_tambahan;
+$this->title = GeneralLabel::laporan_statistik_jus;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="laporan-penganjuran-acara">
@@ -72,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'kategori_makanan_tambahan' => [
+                'jenis_jus' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -84,6 +85,27 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJenisJus::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::jenis],
+                        'pluginOptions' => ['allowClear' => true,],],
+                    'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'nama_jus' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-nama-jus/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefNamaJus::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jenis],
                         'pluginOptions' => ['allowClear' => true,],],
                     'columnOptions'=>['colspan'=>3]],
