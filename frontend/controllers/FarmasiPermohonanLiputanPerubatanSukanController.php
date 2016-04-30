@@ -16,11 +16,12 @@ use yii\helpers\BaseUrl;
 
 // table reference
 use app\models\RefKategoriProgramLiputanPerubatanSukan;
-use common\models\general\GeneralFunction;
+use app\models\RefKategoriNamaSukan;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * FarmasiPermohonanLiputanPerubatanSukanController implements the CRUD actions for FarmasiPermohonanLiputanPerubatanSukan model.
@@ -77,6 +78,9 @@ class FarmasiPermohonanLiputanPerubatanSukanController extends Controller
         
         $ref = RefKategoriProgramLiputanPerubatanSukan::findOne(['id' => $model->kategori_program]);
         $model->kategori_program = $ref['desc'];
+        
+        $ref = RefKategoriNamaSukan::findOne(['id' => $model->kategori_nama_sukan]);
+        $model->kategori_nama_sukan = $ref['desc'];
         
         $model->tarikh_program = GeneralFunction::convert($model->tarikh_program);
         

@@ -10,6 +10,7 @@ use yii\helpers\ArrayHelper;
 
 // table reference
 use app\models\RefKategoriProgramLiputanPerubatanSukan;
+use app\models\RefKategoriNamaSukan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -65,6 +66,30 @@ use app\models\general\GeneralMessage;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'kategori_nama_sukan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-nama-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefKategoriNamaSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kategoriProgram],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+                'jumlah_peserta_atlet' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>11]],
             ]
         ],
         [

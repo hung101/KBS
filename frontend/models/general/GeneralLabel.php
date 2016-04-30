@@ -360,6 +360,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const dokumen_penyelidikan_id = "Dokumen Penyelidikan ID";
         const dokumen_sokongan = "Dokumen Sokongan";
         const donator_id = "Donator ID";
+        const dosage_mg_ml = "Dosage mg / ml";
         const dos = "Dos";
         const e_biasiswa_id = "Pemohon";
         const ebantuan_id = "E-Bantuan ID";
@@ -547,6 +548,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jumlah_peralatan = "Jumlah Peralatan";
         const jumlah_perbelanjaan = "Jumlah Perbelanjaan (RM)";
         const jumlah_peserta = "Jumlah Peserta";
+        const jumlah_peserta_atlet = "Jumlah Peserta/Atlet";
         const jumlah_pingat = "Jumlah Pingat";
         const jumlah_pingat_yang_telah_dimenangi = "Jumlah Pingat Yang Telah Dimenangi";
         const jumlah_sasaran_pingat = "Jumlah Sasaran Pingat";
@@ -593,6 +595,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kategori_kos = "Kategori Kos";
         const kategori_kursus = "Kategori Kursus";
         const kategori_muat_naik = "Kategori Muat Naik";
+        const kategori_nama_sukan = "Kategori Nama Sukan";
         const kategori_oku = "Kategori OKU";
         const kategori_pengajian = "Kategori Pengajian";
         const kategori_penganjuran = "Kategori Penganjuran";
@@ -2970,6 +2973,7 @@ if($session->get('language') == "EN") {
         const dokumen_penyelidikan_id = "Research Document ID";
         const dokumen_sokongan = "Support Document";
         const donator_id = "Donator ID";
+        const dosage_mg_ml = "Dosage mg / ml";
         const dos = "DOS";
         const e_biasiswa_id = "The applicant";
         const ebantuan_id = "E-Help ID";
@@ -3157,6 +3161,7 @@ if($session->get('language') == "EN") {
         const jumlah_peralatan = "Total Equipment";
         const jumlah_perbelanjaan = "Total Expenditure (RM)";
         const jumlah_peserta = "The Number Of Participant";
+        const jumlah_peserta_atlet = "The Number Of Participant/Athlete";
         const jumlah_pingat = "Total Medal";
         const jumlah_pingat_yang_telah_dimenangi = "Total Medals Won";
         const jumlah_sasaran_pingat = "The Total Medal Target";
@@ -3203,6 +3208,7 @@ if($session->get('language') == "EN") {
         const kategori_kos = "Cost Category";
         const kategori_kursus = "Course Category";
         const kategori_muat_naik = "Upload Category";
+        const kategori_nama_sukan = "Name Category Sports";
         const kategori_oku = "Categories Of The DISABLED";
         const kategori_pengajian = "Category Study";
         const kategori_penganjuran = "Organizing Category";

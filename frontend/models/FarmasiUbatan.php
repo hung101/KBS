@@ -68,7 +68,7 @@ class FarmasiUbatan extends \yii\db\ActiveRecord
             'farmasi_ubatan_id' => GeneralLabel::farmasi_ubatan_id,
             'farmasi_permohonan_ubatan_id' => GeneralLabel::farmasi_permohonan_ubatan_id,
             'nama_ubat' => GeneralLabel::nama_ubat,
-            'size' => GeneralLabel::size,
+            'size' => GeneralLabel::dosage_mg_ml,
             'kuantiti' => GeneralLabel::kuantiti,
             'harga' => GeneralLabel::harga,
 
