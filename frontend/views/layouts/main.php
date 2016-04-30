@@ -422,6 +422,7 @@ AppAsset::register($this);
                                             'items' => [
                                                 ['label' => GeneralLabel::laporan_statistik_analisi_tubuh_badan, 'url' => ['/perkhidmatan-permakanan/laporan-statistik-analisi-tubuh-badan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-permakanan']['module'])],
                                                 ['label' => GeneralLabel::laporan_statistik_makanan_tambahan, 'url' => ['/perkhidmatan-permakanan/laporan-statistik-makanan-tambahan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-permakanan']['module'])],
+                                                ['label' => GeneralLabel::laporan_statistik_jus, 'url' => ['/perkhidmatan-permakanan/laporan-statistik-jus'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-permakanan']['module'])],
                                             ],
                                         ],
                                     ],
