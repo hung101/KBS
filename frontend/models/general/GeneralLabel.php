@@ -1212,7 +1212,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const permohonan_perkhidmatan_permakanan_id = "Permohonan Perkhidmatan Permakanan ID";
         const permohonan_program_pendidikan_kesihatan_id = "Permohonan Program Pendidikan Kesihatan ID";
         const permohonana_penyelidikan_id = "Permohonana Penyelidikan ID";
-        const permohonan_lesen = "permohonan Lesen";
+        const permohonan_lesen = "Permohonan Lesen";
         const perokok_tempoh = "Perokok Tempoh (Tahun)";
         const persatuan = "Persatuan";
         const persatuan_pemohon = "Persatuan Pemohon";
@@ -1683,7 +1683,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kemudahan_aduan = "Kemudahan Aduan";
         const kepantasan = "Kepantasan";
         const koordinasi = "Koordinasi";
-        const komplementari_sistem_permohonan_perkhidmatan_perkhidmatan_komplementari = "Komplementari Sistem Permohonan Perkhidmatan Perkhidmatan Komplementari";
+        const komplementari_sistem_permohonan_perkhidmatan_perkhidmatan_komplementari = "Komplementari Sistem Permohonan Perkhidmatan Komplementari";
         const kuasa = "Kuasa";
         const kursus_persatuan = "Kursus Persatuan";
         const laporan = "Laporan";
@@ -1843,7 +1843,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tempahan = "Tempahan";
         const temujanji = "Temujanji";
         const temujanji_fisioterapi = "Temujanji Fisioterapi / Rehabilitasi";
-        const temujanji_komplimentori = "Temujanji Komplimentori";
+        const temujanji_komplimentori = "Temujanji Komplimentari";
         const temujanji_makmal_perubatan = "Temujanji Makmal Perubatan";
         const temujanji_rehabilitasi = "Temujanji Rehabilitasi";
         const untuk_kegunaan_pejabat_sahaja = "UNTUK KEGUNAAN PEJABAT SAHAJA";
@@ -3820,7 +3820,7 @@ if($session->get('language') == "EN") {
         const permohonan_perkhidmatan_permakanan_id = "Food Hygiene Service Application ID";
         const permohonan_program_pendidikan_kesihatan_id = "Health Education Program Application ID";
         const permohonana_penyelidikan_id = "Research ID Permohonana";
-        const permohonan_lesen = "permohonan Lesen";
+        const permohonan_lesen = "License Application";
         const perokok_tempoh = "Smoker Period (Year)";
         const persatuan = "Association";
         const persatuan_pemohon = "Association Of The Applicant";
@@ -4291,7 +4291,7 @@ if($session->get('language') == "EN") {
         const kemudahan_aduan = "Facilities Complaint";
         const kepantasan = "Appropriateness";
         const koordinasi = "Coordination";
-        const komplementari_sistem_permohonan_perkhidmatan_perkhidmatan_komplementari = "Complementary Services Complementary Services Application System";
+        const komplementari_sistem_permohonan_perkhidmatan_perkhidmatan_komplementari = "Complementary Services Application System";
         const kuasa = "Power";
         const kursus_persatuan = "Courses Of The Association";
         const laporan = "Report";
