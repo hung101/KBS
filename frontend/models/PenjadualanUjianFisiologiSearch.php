@@ -63,7 +63,7 @@ class PenjadualanUjianFisiologiSearch extends PenjadualanUjianFisiologi
             //'tarikh_masa' => $this->tarikh_masa,
         ]);
 
-        $query->andFilterWhere(['like', 'tbl_ref_perkhidmatan_fisiologi.desc', $this->perkhidmatan])
+        $query->andFilterWhere(['like', 'perkhidmatan', $this->perkhidmatan])
             ->andFilterWhere(['like', 'pegawai_yang_bertanggungjawab', $this->pegawai_yang_bertanggungjawab])
             ->andFilterWhere(['like', 'catitan_ringkas', $this->catitan_ringkas])
                 ->andFilterWhere(['like', 'tarikh_masa', $this->tarikh_masa])

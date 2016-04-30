@@ -76,7 +76,7 @@ class PlTemujanjiFisioterapiSearch extends PlTemujanjiFisioterapi
                 ->andFilterWhere(['like', 'no_kad_pengenalan', $this->no_kad_pengenalan])
                 ->andFilterWhere(['like', 'nama_pesakit_luar', $this->nama_pesakit_luar])
                 ->andFilterWhere(['like', 'tbl_ref_kategori_rawatan.desc', $this->kategori_rawatan])
-                ->andFilterWhere(['like', 'tbl_ref_kategori_rawatan.desc', $this->kategori_rawatan]);
+                ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id]);
 
         return $dataProvider;
     }

@@ -42,7 +42,8 @@ class FarmasiPermohonanUbatanSearch extends FarmasiPermohonanUbatan
     public function search($params)
     {
         $query = FarmasiPermohonanUbatan::find()
-                ->joinWith(['refKelulusan']);
+                ->joinWith(['refKelulusan'])
+                ->joinWith(['atlet']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
