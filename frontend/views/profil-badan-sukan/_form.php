@@ -89,7 +89,7 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     
-    <?php // Laporan Kesihatan Upload
+    <?php // Sijil Pendaftaran Upload
     if($model->no_pendaftaran_sijil_pendaftaran){
         echo "<label>" . $model->getAttributeLabel('no_pendaftaran_sijil_pendaftaran') . "</label><br>";
         echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->no_pendaftaran_sijil_pendaftaran , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";

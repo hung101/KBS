@@ -20,7 +20,7 @@ use app\models\general\GeneralMessage;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\SignupForm */
 
-$this->title = 'Sign Up';
+$this->title = 'Daftar';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-signup">
@@ -55,7 +55,7 @@ $this->title = 'Sign Up';
     ]
 ]);
     ?>
-                <?= $form->field($model, 'username')->textInput(['maxlength' => 12]) ?>
+                <?= $form->field($model, 'username')->textInput(['maxlength' => 12])->hint('Sila guna No Kad Pengenalan. Cth: 744412-12-1111 -> 744412121111') ?>
                 <?= $form->field($model, 'password')->passwordInput() ?>
                 <?= $form->field($model, 'email')->textInput(['maxlength' => 100]) ?>
             <?= $form->field($model, 'full_name')->textInput(['maxlength' => 80]) ?>

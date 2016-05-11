@@ -9,7 +9,7 @@ use kartik\builder\FormGrid;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\SignupForm */
 
-$this->title = 'Sign Up';
+$this->title = 'Daftar';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-signup">
@@ -20,7 +20,7 @@ $this->title = 'Sign Up';
     <div class="row">
         <div class="col-lg-5">
             <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]); ?>
-                <?= $form->field($model, 'username')->textInput(['maxlength' => 12]) ?>
+                <?= $form->field($model, 'username')->textInput(['maxlength' => 12])->hint('Sila guna No Kad Pengenalan. Cth: 744412-12-1111 -> 744412121111') ?>
                 <?= $form->field($model, 'password')->passwordInput() ?>
                 <?= $form->field($model, 'email')->textInput(['maxlength' => 100]) ?>
             <?= $form->field($model, 'full_name')->textInput(['maxlength' => 80]) ?>

@@ -4,12 +4,13 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 
 use common\models\PublicUser;
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
-$this->title = 'Login';
+$this->title = GeneralLabel::login;
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">

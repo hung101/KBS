@@ -48,7 +48,7 @@ class SignupEBantuanForm extends Model
             ['full_name', 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
 
             ['password', 'required', 'message' => GeneralMessage::yii_validation_required],
-            ['password', 'string', 'min' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            ['password', 'string', 'min' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min],
             
             [['nama_persatuan_e_bantuan', 'jawatan_e_bantuan'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['nama_persatuan_e_bantuan', 'jawatan_e_bantuan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],

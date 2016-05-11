@@ -653,6 +653,7 @@ AppAsset::register($this);
                             'items' => [
                                 ['label' => GeneralLabel::permohonan_ebantuan, 'url' => ['/permohonan-e-bantuan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-bantuan']['module'])],
                                 ['label' => GeneralLabel::urusetia, 'url' => ['/permohonan-e-bantuan-urusetia/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-bantuan-urusetia']['module'])],
+                                ['label' => GeneralLabel::e_bantuan_public_user, 'url' => ['/public-user-e-bantuan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['public-user-e-bantuan']['module'])],
                                 ['label' => GeneralLabel::laporan_status_permohonan_bantuan, 'url' => ['/permohonan-e-bantuan/laporan-status-permohonan-bantuan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-bantuan']['module'])],
                             ],
                         ],
@@ -660,6 +661,7 @@ AppAsset::register($this);
                             'label' => GeneralLabel::elaporan,
                             'items' => [
                                 ['label' => GeneralLabel::elaporan, 'url' => ['/elaporan-pelaksanaan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['elaporan-pelaksanaan']['module'])],
+                                ['label' => GeneralLabel::e_laporan_public_user, 'url' => ['/public-user-e-laporan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['public-user-e-laporan']['module'])],
                                 ['label' => GeneralLabel::laporan_pelaksanaan_program, 'url' => ['/elaporan-pelaksanaan/report'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['elaporan-pelaksanaan']['module'])],
                             ],
                         ],
@@ -672,6 +674,7 @@ AppAsset::register($this);
                                 //['label' => GeneralLabel::kemudahan_aduan, 'url' => ['/pengurusan-kemudahan-aduan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['pengurusan-kemudahan-aduan']['module'])],
                                 //['label' => GeneralLabel::pengurusan_kemudahan_aduan_pemeriksa, 'url' => ['/pengurusan-kemudahan-aduan-pemeriksa/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['pengurusan-kemudahan-aduan-pemeriksa']['module'])],
                                 ['label' => GeneralLabel::tempahan, 'url' => ['/tempahan-kemudahan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['tempahan-kemudahan']['module'])],
+                                ['label' => GeneralLabel::e_kemudahan_public_user, 'url' => ['/public-user-e-kemudahan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['public-user-e-kemudahan']['module'])],
                                 [
                                     'label' => GeneralLabel::laporan,
                                     'items' => [
@@ -701,6 +704,7 @@ AppAsset::register($this);
                                 //['label' => GeneralLabel::pembayaran_biasiswa_sukan_persekutuan, 'url' => ['/bsp-pembayaran/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['bsp-pembayaran']['module'])],
                                 ['label' => GeneralLabel::pengesahan_tamat_pengajian, 'url' => ['/bsp-tamat-pengesahan-pengajian/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['bsp-tamat-pengesahan-pengajian']['module'])],
                                 ['label' => GeneralLabel::bendahari_ipt, 'url' => ['/bsp-bendahari-ipt/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['bsp-bendahari-ipt']['module'])],
+                                ['label' => GeneralLabel::e_biasiswa_public_user, 'url' => ['/public-user-e-biasiswa/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['KBS']['public-user-e-biasiswa']['module'])],
                                 [
                                     'label' => GeneralLabel::laporan,
                                     'items' => [
@@ -727,6 +731,7 @@ AppAsset::register($this);
                         ['label' => GeneralLabel::user, 'url' => ['/user/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['module'])],
                         ['label' => GeneralLabel::user_peranan, 'url' => ['/user-peranan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['Admin']['user-peranan']['module'])],
                         ['label' => GeneralLabel::admin_ebiasiswa, 'url' => ['/admin-e-biasiswa/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['Admin']['admin-e-biasiswa']['module'])],
+                        ['label' => GeneralLabel::admin_audit_log, 'url' => ['/audit/trail'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['Admin']['admin-audit']['module'])],
                     ]];
                 }
                 

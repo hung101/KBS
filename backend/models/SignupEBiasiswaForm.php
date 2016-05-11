@@ -32,7 +32,7 @@ class SignupEBiasiswaForm extends Model
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required', 'message' => GeneralMessage::yii_validation_required],
             ['username', 'unique', 'targetClass' => '\common\models\PublicUser', 'message' => GeneralMessage::yii_validation_unique],
-            ['username', 'string', 'min' => 12, 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            ['username', 'string', 'min' => 12, 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['username'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
 
             ['email', 'filter', 'filter' => 'trim'],
@@ -45,7 +45,7 @@ class SignupEBiasiswaForm extends Model
             ['full_name', 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
 
             ['password', 'required', 'message' => GeneralMessage::yii_validation_required],
-            ['password', 'string', 'min' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            ['password', 'string', 'min' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min],
         ];
     }
     

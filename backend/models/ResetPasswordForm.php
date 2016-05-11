@@ -1,7 +1,7 @@
 <?php
 namespace backend\models;
 
-use common\models\User;
+use common\models\PublicUser;
 use yii\base\InvalidParamException;
 use yii\base\Model;
 use Yii;
@@ -16,7 +16,7 @@ class ResetPasswordForm extends Model
     public $password;
 
     /**
-     * @var \common\models\User
+     * @var \common\models\PublicUser
      */
     private $_user;
 
@@ -31,11 +31,13 @@ class ResetPasswordForm extends Model
     public function __construct($token, $config = [])
     {
         if (empty($token) || !is_string($token)) {
-            throw new InvalidParamException('Password reset token cannot be blank.');
+            //throw new InvalidParamException('Password reset token cannot be blank.');
+            throw new InvalidParamException('Kata laluan token tidak boleh kosong. Sila menetapkan semula.');
         }
-        $this->_user = User::findByPasswordResetToken($token);
+        $this->_user = PublicUser::findByPasswordResetToken($token);
         if (!$this->_user) {
-            throw new InvalidParamException('Wrong password reset token.');
+            //throw new InvalidParamException('Wrong password reset token.');
+            throw new InvalidParamException('Token kata laluan set semula salah. Sila menetapkan semula.');
         }
         parent::__construct($config);
     }
@@ -47,7 +49,17 @@ class ResetPasswordForm extends Model
     {
         return [
             ['password', 'required', 'message' => GeneralMessage::yii_validation_required],
-            ['password', 'string', 'min' => 6, 'tooShort' => GeneralMessage::yii_validation_string_min],
+            ['password', 'string', 'min' => 12, 'tooShort' => GeneralMessage::yii_validation_string_min],
+        ];
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'password' => 'Kata Laluan',
         ];
     }
 

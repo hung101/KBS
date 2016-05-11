@@ -1,7 +1,7 @@
 <?php
 namespace backend\models;
 
-use common\models\User;
+use common\models\PublicUser;
 use yii\base\Model;
 use app\models\general\GeneralMessage;
 
@@ -22,10 +22,20 @@ class PasswordResetRequestForm extends Model
             ['email', 'required', 'message' => GeneralMessage::yii_validation_required],
             ['email', 'email', 'message' => GeneralMessage::yii_validation_email],
             ['email', 'exist',
-                'targetClass' => '\common\models\User',
-                'filter' => ['status' => User::STATUS_ACTIVE],
+                'targetClass' => '\common\models\PublicUser',
+                'filter' => ['status' => PublicUser::STATUS_ACTIVE],
                 'message' => 'There is no user with such email.'
             ],
+        ];
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'email' => 'E-mel',
         ];
     }
 
@@ -36,14 +46,14 @@ class PasswordResetRequestForm extends Model
      */
     public function sendEmail()
     {
-        /* @var $user User */
-        $user = User::findOne([
-            'status' => User::STATUS_ACTIVE,
+        /* @var $user PublicUser */
+        $user = PublicUser::findOne([
+            'status' => PublicUser::STATUS_ACTIVE,
             'email' => $this->email,
         ]);
 
         if ($user) {
-            if (!User::isPasswordResetTokenValid($user->password_reset_token)) {
+            if (!PublicUser::isPasswordResetTokenValid($user->password_reset_token)) {
                 $user->generatePasswordResetToken();
             }
 
@@ -51,7 +61,8 @@ class PasswordResetRequestForm extends Model
                 return \Yii::$app->mailer->compose(['html' => 'passwordResetToken-html', 'text' => 'passwordResetToken-text'], ['user' => $user])
                     ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
                     ->setTo($this->email)
-                    ->setSubject('Password reset for ' . \Yii::$app->name)
+                    //->setSubject('Password reset for ' . \Yii::$app->name)
+                    ->setSubject('Set semula kata laluan untuk ' . \Yii::$app->name)
                     ->send();
             }
         }

@@ -362,7 +362,11 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const donator_id = "Donator ID";
         const dosage_mg_ml = "Dosage mg / ml";
         const dos = "Dos";
+        const e_bantuan_public_user = "e-Bantuan : Pengguna Awam";
         const e_biasiswa_id = "Pemohon";
+        const e_biasiswa_public_user = "e-Biasiswa : Pengguna Awam";
+        const e_kemudahan_public_user = "e-Kemudahan : Pengguna Awam";
+        const e_laporan_public_user = "e-Laporan : Pengguna Awam";
         const ebantuan_id = "E-Bantuan ID";
         const ekemudahan_id = "Ekemudahan ID";
         const elaporan_dokumen_sokongan_id = "Elaporan Dokumen Sokongan ID";
@@ -498,6 +502,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jenis_pakaian = "Jenis Pakaian";
         const jenis_pendapatan = "Jenis Pendapatan";
         const jenis_penganjuran = "Jenis Penganjuran";
+        const jenis_pengguna = "Jenis Pengguna";
         const jenis_peringkatan_pendidikan = "Tahap Pendidikan";
         const jenis_perkhidmatan = "Jenis Perkhidmatan";
         const jenis_permohonan = "Jenis Permohonan";
@@ -1077,7 +1082,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pendapatan = "Pendapatan";
         const pendapatan_bulanan = "Pendapatan Bulanan (RM)";
         const pendapatan_tahun_lepas_id = "Pendapatan Tahun Lepas ID";
-        const pendidikan_atlet_id = "Pendidikan Atlet ID";
+        const pendidikan_atlet_id = "Pendidikan Atlet";
         const pengajian = "Pengajian";
         const pengalaman_pertandingan = "Pengalaman Pertandingan";
         const penganjur = "Penganjur";
@@ -1101,7 +1106,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pengurus_pn = "Pegawai PSK";
         const pengurusan_anjuran_id = "Pengurusan Anjuran ID";
         const pengurusan_berita_antarabangsa_id = "Pengurusan Berita Antarabangsa ID";
-        const pengurusan_biasiswa_atlet_id = "Pengurusan Biasiswa Atlet ID";
+        const pengurusan_biasiswa_atlet_id = "Pengurusan Biasiswa Atlet";
         const pengurusan_dokumen_media_program_id = "Pengurusan Dokumen Media Program ID";
         const pengurusan_insentif_id = "Pengurusan Insentif ID";
         const pengurusan_insuran_id = "Pengurusan Insuran ID";
@@ -2281,6 +2286,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
 
         //label
         const admin_acara = "Admin - Acara";
+        const admin_audit_log = "Admin : Audit Log";
         const admin_sukan = "Admin - Sukan";
         const admin_user = "Admin - User";
         const admin_user_peranan = "Admin - User Peranan";
@@ -2975,7 +2981,11 @@ if($session->get('language') == "EN") {
         const donator_id = "Donator ID";
         const dosage_mg_ml = "Dosage mg / ml";
         const dos = "DOS";
+        const e_bantuan_public_user = "e-Bantuan : Public User";
         const e_biasiswa_id = "The applicant";
+        const e_biasiswa_public_user = "e-Biasiswa : Public User";
+        const e_kemudahan_public_user = "e-Kemudahan : Public User";
+        const e_laporan_public_user = "e-Laporan : Public User";
         const ebantuan_id = "E-Help ID";
         const ekemudahan_id = "Ekemudahan ID";
         const elaporan_dokumen_sokongan_id = "Elaporan Supporting Documents ID";
@@ -3111,6 +3121,7 @@ if($session->get('language') == "EN") {
         const jenis_pakaian = "Types Of Clothing";
         const jenis_pendapatan = "Type Of Income";
         const jenis_penganjuran = "Type Of Organisation";
+        const jenis_pengguna = "Type Of User";
         const jenis_peringkatan_pendidikan = "Level Of Education";
         const jenis_perkhidmatan = "Type Of Service";
         const jenis_permohonan = "Type Of Application";
@@ -4470,7 +4481,7 @@ if($session->get('language') == "EN") {
         const user_peranan = "User Role";
         const latihan_dan_pendidikan_badan_sukan = "Training And Education Agency Sport";
         const elaporan_pelaksanaan_program_aktiviti = "e-Report / Program / Activities";
-        const kategori_hakmilik = "Title's Category";
+        const kategori_hakmilik = "Category Ownership";
         const penganjuran_acara_sukan = "Organizing Sporting Event";
         const ipt_bendahari_e_biasiswa_desc = "IPT";
         const status_permohonan_desc = "Status Of Application";
@@ -4903,6 +4914,7 @@ if($session->get('language') == "EN") {
         // label start
 
         const admin_acara = "Admin-Event";
+        const admin_audit_log = "Admin : Audit Log";
         const admin_sukan = "Admin-Sport";
         const admin_user = "Admin-User";
         const admin_user_peranan = "Admin-User Role";

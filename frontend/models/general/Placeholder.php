@@ -83,6 +83,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jenisPakaian = "-- Pilih Jenis Pakaian --";
         const jenisPendapatan = "-- Pilih Jenis Pendapatan --";
         const jenisPenganjuran = "-- Pilih Jenis Penganjuran --";
+        const jenisPengguna = "-- Pilih Jenis Pengguna --";
         const jenisPerkhidmatan = "-- Pilih Jenis Perkhidmatan --";
         const jenisPermohonan = "-- Pilih Jenis Permohonan --";
         const jenisPermohonanProgramBinaan = "-- Pilih Jenis Permohonan --";
@@ -323,6 +324,7 @@ if($session->get('language') == "EN") {
         const jenisPakaian = "-- Select The Type Of Clothing --";
         const jenisPendapatan = "-- Select The Type Of Income --";
         const jenisPenganjuran = "-- Select The Type Of Organisation --";
+        const jenisPengguna = "-- Select The Type Of User --";
         const jenisPerkhidmatan = "-- Select The Type Of Service --";
         const jenisPermohonan = "-- Select The Type Of Application --";
         const jenisPermohonanProgramBinaan = "-- Select The Type Of Application --";
@@ -352,7 +354,7 @@ if($session->get('language') == "EN") {
         const kategoriELaporan = " -- Choose Category E-Report -- ";
         const kategoriGeran = " -- Select The Category Of Grants -- ";
         const kategoriGeranBantuan = " -- Choose Grant Category -- ";
-        const kategoriHakmilik = " -- Select The Category Title -- ";
+        const kategoriHakmilik = " -- Select The Category Ownership -- ";
         const kategoriKeahlian = " -- Select A Membership Category -- ";
         const kategoriKecergasan = "-- Select Fitness Category --";
         const kategoriKos = "-- Select The Cost Category --";
