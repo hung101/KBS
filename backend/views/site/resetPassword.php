@@ -2,11 +2,13 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
+use app\models\general\GeneralLabel;
+
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\ResetPasswordForm */
 
-$this->title = 'Menetapkan semula kata laluan';
+$this->title = GeneralLabel::reset_password;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-reset-password">
@@ -19,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
                 <?= $form->field($model, 'password')->passwordInput() ?>
                 <div class="form-group">
-                    <?= Html::submitButton('Simpan', ['class' => 'btn btn-primary']) ?>
+                    <?= Html::submitButton(GeneralLabel::save, ['class' => 'btn btn-primary']) ?>
                 </div>
             <?php ActiveForm::end(); ?>
         </div>

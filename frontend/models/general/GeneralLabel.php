@@ -31,6 +31,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const no = "Tidak";*/
 
         const create = "Simpan";
+        const save = "Simpan";
         const update = "Kemas Kini";
     // eddie (print) start
         const print_pdf = "Cetak";
@@ -2575,8 +2576,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const about = "About";
         const contact = "Contact";
         const kementerian_belia_dan_sukan_malaysia_dashboard = "KEMENTERIAN BELIA DAN SUKAN MALAYSIA - Dashboard";
-        const request_password_reset = "Request password reset";
-        const reset_password = "Reset password";
+        const request_password_reset = "Permintaan menetapkan semula kata laluan";
+        const reset_password = "Menetapkan semula kata laluan";
         const tambah_tempoh = "Tambah Tempoh";
         const tambah_user = "Tambah User";
         const tambah_tempahan_kursus_persatuan = "Tambah Tempahan Kursus Persatuan";
@@ -2653,6 +2654,7 @@ if($session->get('language') == "EN") {
 
         const create = "Create";
         const update = "Update";
+        const save = "Save";
     // eddie (print) start
         const print_pdf = "Print";
         const print_spt = "Interview Calling List";

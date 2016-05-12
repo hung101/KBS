@@ -412,7 +412,7 @@ use app\models\general\GeneralVariable;
     </div>
     <?php ActiveForm::end(); ?>
     </div>
-    <?= Html::a('Kembali', ['site/e-kemudahan-home'], ['class' => 'btn btn-warning']) ?>
+    <!--<?= Html::a('Kembali', ['site/e-kemudahan-home'], ['class' => 'btn btn-warning']) ?>-->
 </div>
 
 <?php

@@ -1170,7 +1170,7 @@ use app\models\general\GeneralMessage;
         <?php endif; ?>
         <?php
             if(!$readonly){
-                echo Html::a('Kembali', ['site/e-bantuan-home'], ['class' => 'btn btn-warning']);
+                echo Html::a('Kembali Ke Senarai', ['site/e-bantuan-home'], ['class' => 'btn btn-warning']);
             }
         ?>
     </div>

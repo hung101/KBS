@@ -14,8 +14,10 @@ $this->title = 'e-Laporan';
 
     <div class="list-group">
         <?php 
-        echo '<a href="' . Url::to(["/elaporan-pelaksanaan/create", 'permohonan_e_bantuan_id' => '']). '" class="list-group-item">e-Laporan</a>';
-        echo '<a href="' . Url::to(['/elaporan-pelaksanaan/index']). '" class="list-group-item">Sejarah e-Laporan</a>';
+        //echo '<a href="' . Url::to(["/elaporan-pelaksanaan/create", 'permohonan_e_bantuan_id' => '']). '" class="list-group-item">e-Laporan</a>';
+        //echo '<a href="' . Url::to(['/elaporan-pelaksanaan/index']). '" class="list-group-item">Sejarah e-Laporan</a>';
+        
+        return Yii::$app->response->redirect(Url::to(['elaporan-pelaksanaan/index']));
         ?>
     </div>
 

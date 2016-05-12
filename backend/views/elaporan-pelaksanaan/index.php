@@ -104,6 +104,6 @@ $this->title = 'Sejarah';
         ],
     ]); ?>
     
-    <?= Html::a('Kembali', ['site/e-laporan-home'], ['class' => 'btn btn-warning']) ?>
+    <!--<?= Html::a('Kembali', ['site/e-laporan-home'], ['class' => 'btn btn-warning']) ?>-->
 
 </div>

@@ -48,7 +48,17 @@ class ResetPasswordForm extends Model
     {
         return [
             ['password', 'required', 'message' => GeneralMessage::yii_validation_required],
-            ['password', 'string', 'min' => 6],
+            ['password', 'string', 'min' => 12, 'tooShort' => GeneralMessage::yii_validation_string_min],
+        ];
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'password' => 'Kata Laluan',
         ];
     }
 

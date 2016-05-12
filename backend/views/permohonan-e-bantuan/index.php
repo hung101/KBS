@@ -11,7 +11,7 @@ use common\models\general\GeneralFunction;
 /* @var $searchModel frontend\models\PermohonanEBantuanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Sejarah Permohonan';
+$this->title = 'Permohonan Terdahulu';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebantuan-index">
@@ -103,6 +103,6 @@ $this->title = 'Sejarah Permohonan';
         ],
     ]); ?>
         
-        <?= Html::a('Kembali', ['site/e-bantuan-home'], ['class' => 'btn btn-warning']) ?>
+        <!--<?= Html::a('Kembali', ['site/e-bantuan-home'], ['class' => 'btn btn-warning']) ?>-->
 
 </div>

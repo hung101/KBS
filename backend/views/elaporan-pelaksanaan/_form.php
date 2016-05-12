@@ -704,7 +704,7 @@ use app\models\general\GeneralMessage;
                 if(\Yii::$app->user->identity->category_access == PublicUser::ACCESS_BANTUAN){
                     echo Html::a('Kembali', ['site/e-bantuan-home'], ['class' => 'btn btn-warning']);
                 } else if(\Yii::$app->user->identity->category_access == PublicUser::ACCESS_LAPORAN){
-                    echo Html::a('Kembali', ['site/e-laporan-home'], ['class' => 'btn btn-warning']);
+                    echo Html::a('Kembali Ke Senarai', ['site/e-laporan-home'], ['class' => 'btn btn-warning']);
                 }
             }
         ?>

@@ -67,8 +67,8 @@ $this->title = 'Pengurusan Iklan';
         ],
     ]); ?>
     
-    <p>
+    <!--<p>
         <?= Html::a('Kembali', ['site/e-kemudahan-home'], ['class' => 'btn btn-warning']) ?>
-    </p>
+    </p>-->
 
 </div>

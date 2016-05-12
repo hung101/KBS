@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PermohonanEBiasiswaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Permohonan e-Biasiswa';
+$this->title = 'Sejarah Permohonan';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebiasiswa-index">
@@ -96,6 +96,6 @@ $this->title = 'Permohonan e-Biasiswa';
         ],
     ]); ?>
     
-    <?= Html::a('Kembali', ['site/e-biasiswa-home'], ['class' => 'btn btn-warning']) ?>
+    <!--<?= Html::a('Permohonan e-Biasiswa', ['site/e-biasiswa-home'], ['class' => 'btn btn-warning']) ?>-->
 
 </div>
