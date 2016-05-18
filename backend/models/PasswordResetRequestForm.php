@@ -11,6 +11,21 @@ use app\models\general\GeneralMessage;
 class PasswordResetRequestForm extends Model
 {
     public $email;
+    
+    private $_access_id;
+    
+    /**
+     * Creates a form model given a access id.
+     *
+     * @param  string $access_id
+     */
+    public function __construct($access_id)
+    {
+        $this->_access_id = $access_id;
+        
+        parent::__construct();
+    }
+
 
     /**
      * @inheritdoc
@@ -23,7 +38,7 @@ class PasswordResetRequestForm extends Model
             ['email', 'email', 'message' => GeneralMessage::yii_validation_email],
             ['email', 'exist',
                 'targetClass' => '\common\models\PublicUser',
-                'filter' => ['status' => PublicUser::STATUS_ACTIVE],
+                'filter' => ['status' => PublicUser::STATUS_ACTIVE, 'category_access' => $this->_access_id],
                 'message' => 'Tiada pengguna dengan e-mel seperti.'
             ],
         ];
@@ -50,6 +65,7 @@ class PasswordResetRequestForm extends Model
         $user = PublicUser::findOne([
             'status' => PublicUser::STATUS_ACTIVE,
             'email' => $this->email,
+            'category_access' => $this->_access_id,
         ]);
 
         if ($user) {
@@ -59,7 +75,7 @@ class PasswordResetRequestForm extends Model
 
             if ($user->save()) {
                 return \Yii::$app->mailer->compose(['html' => 'passwordResetToken-html', 'text' => 'passwordResetToken-text'], ['user' => $user])
-                    ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
+                    //->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
                     ->setTo($this->email)
                     //->setSubject('Password reset for ' . \Yii::$app->name)
                     ->setSubject('Set semula kata laluan untuk ' . \Yii::$app->name)

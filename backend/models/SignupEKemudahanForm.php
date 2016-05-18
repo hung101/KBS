@@ -37,14 +37,18 @@ class SignupEKemudahanForm extends Model
         return [
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required', 'message' => GeneralMessage::yii_validation_required],
-            ['username', 'unique', 'targetClass' => '\common\models\PublicUser', 'message' => GeneralMessage::yii_validation_unique],
+            ['username', 'unique', 'targetClass' => '\common\models\PublicUser'
+                , 'filter' => ['category_access' => PublicUser::ACCESS_KEMUDAHAN]
+                , 'message' => GeneralMessage::yii_validation_unique],
             ['username', 'string', 'min' => 12, 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['username'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
 
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required', 'message' => GeneralMessage::yii_validation_required],
             ['email', 'email', 'message' => GeneralMessage::yii_validation_email],
-            //['email', 'unique', 'targetClass' => '\common\models\PublicUser', 'message' => GeneralMessage::yii_validation_unique],
+            ['email', 'unique', 'targetClass' => '\common\models\PublicUser'
+                , 'filter' => ['category_access' => PublicUser::ACCESS_KEMUDAHAN]
+                , 'message' => GeneralMessage::yii_validation_unique],
 
             ['password', 'required', 'message' => GeneralMessage::yii_validation_required],
             ['password', 'string', 'min' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min],

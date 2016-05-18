@@ -31,14 +31,18 @@ class SignupEBiasiswaForm extends Model
         return [
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required', 'message' => GeneralMessage::yii_validation_required],
-            ['username', 'unique', 'targetClass' => '\common\models\PublicUser', 'message' => GeneralMessage::yii_validation_unique],
+            ['username', 'unique', 'targetClass' => '\common\models\PublicUser'
+                , 'filter' => ['category_access' => PublicUser::ACCESS_BIASISWA]
+                , 'message' => GeneralMessage::yii_validation_unique],
             ['username', 'string', 'min' => 12, 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['username'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
 
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required', 'message' => GeneralMessage::yii_validation_required],
             ['email', 'email', 'message' => GeneralMessage::yii_validation_email],
-            //['email', 'unique', 'targetClass' => '\common\models\PublicUser', 'message' => GeneralMessage::yii_validation_unique],
+            ['email', 'unique', 'targetClass' => '\common\models\PublicUser'
+                , 'filter' => ['category_access' => PublicUser::ACCESS_BIASISWA]
+                , 'message' => GeneralMessage::yii_validation_unique],
             
             [['tel_bimbit_no', 'tel_no'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tel_bimbit_no', 'tel_no'], 'number', 'message' => GeneralMessage::yii_validation_number],

@@ -21,7 +21,7 @@ $this->title = 'Daftar';
         <div class="col-lg-5">
             <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]); ?>
                 <?= $form->field($model, 'username')->textInput(['maxlength' => 12])->hint('Sila guna No Kad Pengenalan. Cth: 744412-12-1111 -> 744412121111') ?>
-                <?= $form->field($model, 'password')->passwordInput() ?>
+                <?= $form->field($model, 'password')->passwordInput(['maxlength' => 160]) ?>
                 <?= $form->field($model, 'email')->textInput(['maxlength' => 100]) ?>
             <?= $form->field($model, 'full_name')->textInput(['maxlength' => 80]) ?>
             <?= $form->field($model, 'tel_bimbit_no')->textInput(['maxlength' => 14]) ?>

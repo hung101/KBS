@@ -15,6 +15,19 @@ class LoginFormPublic extends Model
     public $rememberMe = true;
 
     private $_user = false;
+    private $_access_id;
+    
+    /**
+     * Creates a form model given a access id.
+     *
+     * @param  string                          $access_id
+     */
+    public function __construct($access_id)
+    {
+        $this->_access_id = $access_id;
+        
+        parent::__construct();
+    }
 
 
     /**
@@ -71,7 +84,7 @@ class LoginFormPublic extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = PublicUser::findByUsername($this->username);
+            $this->_user = PublicUser::findByUsernameAndAccess($this->username, $this->_access_id);
         }
 
         return $this->_user;

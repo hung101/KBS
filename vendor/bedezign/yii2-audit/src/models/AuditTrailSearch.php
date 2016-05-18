@@ -15,12 +15,11 @@ class AuditTrailSearch extends AuditTrail
     /**
      * @return array
      */
-
     public function rules()
     {
         // Note: The model is used by both the entry and the trail index pages, hence the separate use of `id` and `entry_id`
         return [
-            [['id', 'user_id', 'entry_id', 'action', 'model', 'model_id', 'field', 'created', 'auditMap'], 'safe'],
+            [['id', 'user_id', 'entry_id', 'action', 'model', 'model_id', 'field', 'created'], 'safe'],
         ];
     }
 
@@ -56,8 +55,6 @@ class AuditTrailSearch extends AuditTrail
             return $dataProvider;
         }
 
-        $query->joinWith('auditMap');
-
         // adjust the query by adding the filters
         $userId = $this->user_id;
         if (strlen($this->user_id))
@@ -69,10 +66,12 @@ class AuditTrailSearch extends AuditTrail
         $query->andFilterWhere(['action' => $this->action]);
         $query->andFilterWhere(['like', 'model', $this->model]);
         $query->andFilterWhere(['model_id' => $this->model_id]);
-        $query->andFilterWhere(['field' => $this->field]);
+        if (is_array($this->field)) {
+            $query->andFilterWhere(['in', 'field', $this->field]);
+        } else {
+            $query->andFilterWhere(['field' => $this->field]);
+        }
         $query->andFilterWhere(['like', 'created', $this->created]);
-
-        $query->andFilterWhere(['like', 'audit_map.name', $this->auditMap]);
 
         return $dataProvider;
     }

@@ -82,10 +82,11 @@ class SiteController extends Controller
     public function actionLogin($access_id)
     {
         if (!\Yii::$app->user->isGuest) {
-            return $this->redirect(['e-biasiswa-home']);
+            //return $this->redirect(['e-biasiswa-home']);
+            return $this->redirect(['index']);
         }
 
-        $model = new LoginFormPublic();
+        $model = new LoginFormPublic($access_id);
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             if(\Yii::$app->user->identity->category_access == PublicUser::ACCESS_BIASISWA){
                 return $this->redirect(['e-biasiswa-home']);
@@ -235,9 +236,9 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionRequestPasswordReset()
+    public function actionRequestPasswordReset($access_id)
     {
-        $model = new PasswordResetRequestForm();
+        $model = new PasswordResetRequestForm($access_id);
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
                 //Yii::$app->getSession()->setFlash('success', 'Check your email for further instructions.');
@@ -255,10 +256,10 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionResetPassword($token)
+    public function actionResetPassword($token, $access_id)
     {
         try {
-            $model = new ResetPasswordForm($token);
+            $model = new ResetPasswordForm($token, null, $access_id);
         } catch (InvalidParamException $e) {
             throw new BadRequestHttpException($e->getMessage());
         }

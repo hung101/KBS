@@ -35,13 +35,17 @@ class SignupEBantuanForm extends Model
         return [
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required', 'message' => GeneralMessage::yii_validation_required],
-            ['username', 'unique', 'targetClass' => '\common\models\PublicUser', 'message' => GeneralMessage::yii_validation_unique],
+            ['username', 'unique', 'targetClass' => '\common\models\PublicUser'
+                , 'filter' => ['category_access' => PublicUser::ACCESS_BANTUAN]
+                , 'message' => GeneralMessage::yii_validation_unique],
             ['username', 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
 
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required', 'message' => GeneralMessage::yii_validation_required],
             ['email', 'email', 'message' => GeneralMessage::yii_validation_email],
-            ['email', 'unique', 'targetClass' => '\common\models\PublicUser', 'message' => GeneralMessage::yii_validation_unique],
+            ['email', 'unique', 'targetClass' => '\common\models\PublicUser'
+                , 'filter' => ['category_access' => PublicUser::ACCESS_BANTUAN]
+                , 'message' => GeneralMessage::yii_validation_unique],
             
             [['tel_bimbit_no', 'tel_no'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tel_bimbit_no', 'tel_no'], 'number', 'message' => GeneralMessage::yii_validation_number],

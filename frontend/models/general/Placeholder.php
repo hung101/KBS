@@ -49,6 +49,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jabatan = " -- Pilih Jabatan -- ";
         const jantina = " -- Pilih Jantina -- ";
         const jawatan = " -- Pilih Jawatan -- ";
+        const jawatankuasa = " -- Pilih Jawatankuasa -- ";
         const jawapan = " -- Pilih Jawapan -- ";
         const jenama = " -- Pilih Jenama -- ";
         const jenis = " -- Pilih Jenis -- ";
@@ -290,6 +291,7 @@ if($session->get('language') == "EN") {
         const jabatan = " -- Select Department -- ";
         const jantina = " -- Select Gender -- ";
         const jawatan = " -- Select Position -- ";
+        const jawatankuasa = " -- Select Committee -- ";
         const jawapan = " -- Select An Answer -- ";
         const jenama = " -- Select Brand -- ";
         const jenis = " -- Select The Type Of -- ";

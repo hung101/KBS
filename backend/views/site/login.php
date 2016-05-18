@@ -25,7 +25,7 @@ $this->title = GeneralLabel::login;
                 <?= $form->field($model, 'password')->passwordInput() ?>
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>
                 <div style="color:#999;margin:1em 0">
-                    Jika anda terlupa kata laluan anda, anda boleh <?= Html::a('menetapkan semula', ['site/request-password-reset']) ?>.
+                    Jika anda terlupa kata laluan anda, anda boleh <?= Html::a('menetapkan semula', ['site/request-password-reset', 'access_id' => $access_id]) ?>.
                 </div>
                 <div class="form-group">
                     <?= Html::submitButton('Log Masuk', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>

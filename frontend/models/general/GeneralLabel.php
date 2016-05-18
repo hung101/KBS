@@ -458,6 +458,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jawatan_pemohon = "Jawatan Pemohon";
         const jawatan_pencadang = "Jawatan Pencadang";
         const jawatan_pengesahan = "Jawatan Pengesahan";
+        const jawatankuasa = "Jawatankuasa";
         const jawatankuasa_bendahari = "Bendahari";
         const jawatankuasa_id = "Jawatankuasa ID";
         const jawatankuasa_naib_pengerusi = "Naib Pengerusi/Naib Presiden/Naib Yang Di Pertua";
@@ -1734,6 +1735,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const latihan_pendidikan_badan_sukan = "Latihan Pendidikan & Badan Sukan";
         const liputan_perubatan_dalam_dan_luar_negara = "Liputan Perubatan Dalam Dan Luar Negara";
         const maklumat_mesyuarat_agung_tahunan = "Maklumat Mesyuarat Agung Tahunan";
+        const maklumat_sukan_malaysia = "Maklumat Sukan Malaysia";
         const makmal_perubatan_permohonan_khidmat_ujian_makmal_melalui_sistem = "Makmal Perubatan Permohonan Khidmat Ujian Makmal Melalui Sistem";
         const merekod_maklumat_sukan_program_termasuk = "Merekod Maklumat Sukan / Program Termasuk";
         const mesyuarat = "Mesyuarat";
@@ -1763,7 +1765,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pengurusan_insentif = "Pengurusan Insentif";
         const pengurusan_insurans = "Pengurusan Insuran";
         const pengurusan_jaringan_antarabangsa = "Pengurusan Jaringan Antarabangsa";
-        const pengurusan_jawatankuasa_jawatankuasa_khas = "Pengurusan Jawatankuasa – Jawatankuasa Khas";
+        const pengurusan_jawatankuasa_jawatankuasa_khas = "Pengurusan Jawatankuasa Khas Sukan Malaysia";
+        const pengurusan_jawatankuasa_khas_sukan_malaysia = "Profil Ahli Jawatankuasa Khas Sukan Malaysia";
         const pengurusan_jawatankuasa_kerja_jkkjawatankuasa_program_jkp_lembaga_pengarah_lembaga_institut = "Pengurusan Jawatankuasa Kerja (JKK)/Jawatankuasa Program  (JKP)/ Lembaga Pengarah/ Lembaga Institut";
         const pengurusan_jkkjkp = "Pengurusan JKK/JKP";
         const pengurusan_jkkjkp_bajet = "Pengurusan JKK/JKP Bajet";
@@ -3078,6 +3081,7 @@ if($session->get('language') == "EN") {
         const jawatan_pemohon = "The Position Of The Applicant";
         const jawatan_pencadang = "The Position Of The Proposer";
         const jawatan_pengesahan = "Position Verification";
+        const jawatankuasa = "Committee";
         const jawatankuasa_bendahari = "Bursary";
         const jawatankuasa_id = "Committee ID";
         const jawatankuasa_naib_pengerusi = "Vice Chairman/Vice President/Vice President";
@@ -4354,6 +4358,7 @@ if($session->get('language') == "EN") {
         const latihan_pendidikan_badan_sukan = "Training & Education Sports Body";
         const liputan_perubatan_dalam_dan_luar_negara = "Medical Coverage In And Outside The Country";
         const maklumat_mesyuarat_agung_tahunan = "Annual General Meeting Information";
+        const maklumat_sukan_malaysia = "Malaysia Sports Information";
         const makmal_perubatan_permohonan_khidmat_ujian_makmal_melalui_sistem = "Medical Lab Services Application Through Laboratory Testing System";
         const merekod_maklumat_sukan_program_termasuk = "Recorded Sports Information/Programs Including";
         const mesyuarat = "Meeting";
@@ -4384,6 +4389,7 @@ if($session->get('language') == "EN") {
         const pengurusan_insurans = "Insurance Management";
         const pengurusan_jaringan_antarabangsa = "The International Network Management";
         const pengurusan_jawatankuasa_jawatankuasa_khas = "Management Committee – Special Committee";
+        const pengurusan_jawatankuasa_khas_sukan_malaysia = "Profile of the Special Committee Sports Malaysia";
         const pengurusan_jawatankuasa_kerja_jkkjawatankuasa_program_jkp_lembaga_pengarah_lembaga_institut = "Management Working Committee (JKKK)/Jawatankuasa Program (CMC)/Board Of Directors/Board Of The Institute";
         const pengurusan_jkkjkp = "Management CONSISTS Of A/CMC";
         const pengurusan_jkkjkp_bajet = "Budget Management CONSISTS Of A/CMC";

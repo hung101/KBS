@@ -21,7 +21,7 @@ $this->title = 'Daftar';
         <div class="col-lg-5">
             <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'options' => ['enctype' => 'multipart/form-data']]); ?>
                 <?= $form->field($model, 'username')->textInput(['maxlength' => 30])->hint('Sila guna No Pendaftaran Persatuan. Cth: ppm/001') ?>
-                <?= $form->field($model, 'password')->passwordInput() ?>
+                <?= $form->field($model, 'password')->passwordInput(['maxlength' => 160]) ?>
                 <?= $form->field($model, 'email')->textInput(['maxlength' => 100]) ?>
             <?= $form->field($model, 'full_name')->textInput(['maxlength' => 80]) ?>
             <?= $form->field($model, 'tel_bimbit_no')->textInput(['maxlength' => 14]) ?>

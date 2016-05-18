@@ -45,10 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             [
-                'attribute' => 'map',
-                'value' => 'map.name',
-            ],
-            [
                 'class' => 'yii\grid\DataColumn',
                 'attribute' => 'route',
                 'filter' => AuditEntrySearch::routeFilter(),

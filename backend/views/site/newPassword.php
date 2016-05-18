@@ -17,8 +17,8 @@ $this->title = 'Kata Laluan';
     <div class="row">
         <div class="col-lg-5">
             <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-                <?= $form->field($model, 'password')->passwordInput() ?>
-                <?= $form->field($model, 'confirm_password')->passwordInput() ?>
+                <?= $form->field($model, 'password')->passwordInput(['maxlength' => 160]) ?>
+                <?= $form->field($model, 'confirm_password')->passwordInput(['maxlength' => 160]) ?>
                 <div class="form-group">
                     <?= Html::submitButton('Hantar', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>

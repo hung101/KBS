@@ -97,6 +97,18 @@ class PublicUser extends ActiveRecord implements IdentityInterface
     {
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
+    
+    /**
+     * Finds user by username, access_id
+     *
+     * @param string $username
+     * @param string $access_id
+     * @return static|null
+     */
+    public static function findByUsernameAndAccess($username, $access_id)
+    {
+        return static::findOne(['username' => $username, 'category_access' => $access_id, 'status' => self::STATUS_ACTIVE]);
+    }
 
     /**
      * Finds user by password reset token
@@ -113,6 +125,26 @@ class PublicUser extends ActiveRecord implements IdentityInterface
         return static::findOne([
             'password_reset_token' => $token,
             'status' => self::STATUS_ACTIVE,
+        ]);
+    }
+    
+    /**
+     * Finds user by password reset token and access id
+     *
+     * @param string $token password reset token
+     * @param string $access_id
+     * @return static|null
+     */
+    public static function findByPasswordResetTokenAndAccess($token, $access_id)
+    {
+        if (!static::isPasswordResetTokenValid($token)) {
+            return null;
+        }
+
+        return static::findOne([
+            'password_reset_token' => $token,
+            'status' => self::STATUS_ACTIVE,
+            'category_access' => $access_id,
         ]);
     }
 
