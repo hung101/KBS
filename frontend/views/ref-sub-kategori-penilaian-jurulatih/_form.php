@@ -1,9 +1,14 @@
 <?php
 
-use yii\helpers\Html;
+use kartik\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use kartik\widgets\Select2;
 
 use app\models\general\GeneralLabel;
+use app\models\general\Placeholder;
+
+use app\models\RefKategoriPenilaianJurulatih;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefSubKategoriPenilaianJurulatih */
@@ -13,6 +18,21 @@ use app\models\general\GeneralLabel;
 <div class="ref-sub-kategori-penilaian-jurulatih-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    
+    <?= $form->field($model, 'ref_kategori_penilaian_jurulatih_id')->widget(Select2::classname(), [
+        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+        [
+            'append' => [
+                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-penilaian-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                'asButton' => true
+            ]
+        ] : null,
+        'data' => ArrayHelper::map(RefKategoriPenilaianJurulatih::find()->all(),'id', 'desc'),
+        'options' => ['placeholder' => Placeholder::kategoriPenilaian],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]); ?>
 
     <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>
 

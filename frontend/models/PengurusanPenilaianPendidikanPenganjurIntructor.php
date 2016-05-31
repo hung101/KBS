@@ -50,9 +50,11 @@ class PengurusanPenilaianPendidikanPenganjurIntructor extends \yii\db\ActiveReco
     public function rules()
     {
         return [
-            [['nama_penganjuran_kursus', 'kod_kursus', 'tarikh_kursus', 'instructor'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama_penganjuran_kursus', 'tarikh_kursus', 'instructor'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_kursus'], 'safe'],
-            [['nama_penganjuran_kursus', 'instructor'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['pengurusan_permohonan_kursus_persatuan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_penganjuran_kursus', 'instructor', 'nama_penyelaras'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat_kursus'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kod_kursus'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
@@ -64,11 +66,13 @@ class PengurusanPenilaianPendidikanPenganjurIntructor extends \yii\db\ActiveReco
     {
         return [
             'pengurusan_penilaian_pendidikan_penganjur_intructor_id' => GeneralLabel::pengurusan_penilaian_pendidikan_penganjur_intructor_id,
-            'nama_penganjuran_kursus' => GeneralLabel::nama_penganjuran_kursus,
+            'pengurusan_permohonan_kursus_persatuan_id' => GeneralLabel::tarikh_kursus,
+            'nama_penganjuran_kursus' => GeneralLabel::nama_kursus,
             'kod_kursus' => GeneralLabel::kod_kursus,
             'tarikh_kursus' => GeneralLabel::tarikh_kursus,
             'instructor' => GeneralLabel::instructor,
-
+            'nama_penyelaras' => GeneralLabel::nama_penyelaras,
+            'tempat_kursus' => GeneralLabel::tempat_kursus,
         ];
     }
 }

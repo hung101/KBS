@@ -7,12 +7,16 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use yii\helpers\Url;
 
 // table reference
 use app\models\Jurulatih;
 use app\models\RefStatusPermohonanGeranBantuanGajiJurulatih;
 use app\models\RefKategoriGeranJurulatih;
 use app\models\RefStatusGeranJurulatih;
+use app\models\RefStatusJurulatih;
+use app\models\RefSukan;
+use app\models\RefProgramJurulatih;
 
 // contant values
 use app\models\general\Placeholder;
@@ -30,6 +34,9 @@ use app\models\general\GeneralMessage;
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    
+    <?php echo $form->errorSummary($model); ?>
+    
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -52,9 +59,23 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Jurulatih::find()->all(),'jurulatih_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::jurulatih],],
+                        'options' => ['placeholder' => Placeholder::jurulatih, 'id'=>'jurulatihId'],],
                     'columnOptions'=>['colspan'=>6]],
                 //'muatnaik_gambar' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>2]],
+                'status_jurulatih' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefStatusJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::statusJurulatih],],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
        /*[
@@ -72,20 +93,88 @@ use app\models\general\GeneralMessage;
                 'lain_lain_program' => ['type'=>Form::INPUT_DROPDOWN_LIST,'items'=>[''=>'-- Pilih Lain-lain Program --'],'columnOptions'=>['colspan'=>4]],
                  'pusat_latihan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6]],
             ],
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                 'nama_sukan' => ['type'=>Form::INPUT_DROPDOWN_LIST,'items'=>[''=>'-- Pilih Sukan --'],'columnOptions'=>['colspan'=>5]],
-                'nama_acara' => ['type'=>Form::INPUT_DROPDOWN_LIST,'items'=>[''=>'-- Pilih Acara --'],'columnOptions'=>['colspan'=>5]],
-            ],
         ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                // 'status_jurulatih' => ['type'=>Form::INPUT_DROPDOWN_LIST,'items'=>[''=>'-- Pilih Status Jurulatih --'],'columnOptions'=>['colspan'=>3]],
+                'nama_sukan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::sukan],],
+                    'columnOptions'=>['colspan'=>4]],
+                'program_msn' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-program-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefProgramJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::program],],
+                    'columnOptions'=>['colspan'=>3]],
+                'agensi' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                 'tarikh_mula_kontrak' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                 'tarikh_tamat_kontrak' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                //'status_keaktifan_jurulatih' => ['type'=>Form::INPUT_DROPDOWN_LIST,'items'=>[''=>'-- Pilih Keaktifan Jurulatih --'],'columnOptions'=>['colspan'=>3]],
+            ],
+        ],
+        
+    ]
+]);
+        ?>
+    
+    <br>
+    <br>
+    <pre style="text-align: center"><strong>MAKLUMAT PEMBAYARAN GERAN BANTUAN</strong></pre>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                  'tarikh_mula' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -113,7 +202,7 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'kategori_geran' =>[
+                /*'kategori_geran' =>[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -126,8 +215,10 @@ use app\models\general\GeneralMessage;
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriGeranJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kategoriGeran],],
-                    'columnOptions'=>['colspan'=>4]],
-                'jumlah_geran' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
+                    'columnOptions'=>['colspan'=>4]],*/
+                'kadar' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12]],
+                'bulan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>3]],
+                'jumlah_geran' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12]],
                 'status_geran' =>[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -153,7 +244,7 @@ use app\models\general\GeneralMessage;
         ],
     ]
 ]);
-        ?>
+    ?>
     
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['status_permohonan']) || $readonly): ?>
     <?php
@@ -180,6 +271,20 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefStatusPermohonanGeranBantuanGajiJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::statusPermohonan],],
                     'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'rujukan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'status_terkini_pengeluaran_cek' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
             ]
         ],
     ]
@@ -244,8 +349,62 @@ use app\models\general\GeneralMessage;
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?php endif; ?>
+        <?= Html::a(GeneralLabel::backToList, ['index'], ['class' => 'btn btn-warning']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+$URLJurulatih = Url::to(['/jurulatih/get-jurulatih']);
+
+$script = <<< JS
+
+$('#geranbantuangaji-kadar').on("keyup", function(){calculateJumlahGeran();});
+$('#geranbantuangaji-bulan').on("keyup", function(){calculateJumlahGeran();});
+        
+function calculateJumlahGeran(){
+    var kadar = 0;
+    var bulan = 0;
+    var jumlah_geran = 0;
+        
+    if($('#geranbantuangaji-bulan').val() > 0){bulan = parseInt($('#geranbantuangaji-bulan').val());}
+    if($('#geranbantuangaji-kadar').val() > 0){kadar = parseFloat($('#geranbantuangaji-kadar').val());}
+    
+        
+    if(kadar > 0 && bulan >0){
+        // Total Geran
+        jumlah_geran = kadar * bulan;
+
+        //display at fields accordingly
+        $('#geranbantuangaji-jumlah_geran').val(jumlah_geran);
+    }
+}  
+        
+$('#jurulatihId').change(function(){
+    
+    $.get('$URLJurulatih',{id:$(this).val()},function(data){
+        clearForm();
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+            $('#geranbantuangaji-status_jurulatih').val(data.status_jurulatih).trigger("change");
+            $("#geranbantuangaji-nama_sukan").val(data.nama_sukan).trigger("change");
+            $("#geranbantuangaji-program_msn").val(data.program).trigger("change");
+        }
+    });
+});
+     
+function clearForm(){
+    $("#geranbantuangaji-status_jurulatih").val('').trigger("change");
+    $("#geranbantuangaji-nama_sukan").val('').trigger("change");
+    $("#geranbantuangaji-program_msn").val('').trigger("change");
+}
+        
+JS;
+        
+$this->registerJs($script);
+?>

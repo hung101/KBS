@@ -10,12 +10,17 @@ use frontend\models\ElaunJurulatihSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
+use app\models\general\Upload;
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Jurulatih;
 use app\models\RefBank;
+use app\models\RefSukan;
+use app\models\RefProgramJurulatih;
 
 /**
  * GajiDanElaunJurulatihController implements the CRUD actions for GajiDanElaunJurulatih model.
@@ -72,6 +77,12 @@ class GajiDanElaunJurulatihController extends Controller
         $ref = RefBank::findOne(['id' => $model->bank]);
         $model->bank = $ref['desc'];
         
+        $ref = RefProgramJurulatih::findOne(['id' => $model->program]);
+        $model->program = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->nama_sukan]);
+        $model->nama_sukan = $ref['desc'];
+        
         $queryPar = null;
         
         $queryPar['ElaunJurulatihSearch']['gaji_dan_elaun_jurulatih_id'] = $id;
@@ -117,7 +128,14 @@ class GajiDanElaunJurulatihController extends Controller
                 ElaunJurulatih::updateAll(['session_id' => ''], 'gaji_dan_elaun_jurulatih_id = "'.$model->gaji_dan_elaun_jurulatih_id.'"');
             }
             
-            return $this->redirect(['view', 'id' => $model->gaji_dan_elaun_jurulatih_id]);
+            $file = UploadedFile::getInstance($model, 'dokumen_muat_naik');
+            if($file){
+                $model->dokumen_muat_naik = Upload::uploadFile($file, Upload::gajiDanElaunJurulatihFolder, $model->gaji_dan_elaun_jurulatih_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->gaji_dan_elaun_jurulatih_id]);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -150,7 +168,14 @@ class GajiDanElaunJurulatihController extends Controller
         $dataProviderElaunJurulatih= $searchModelElaunJurulatih->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->gaji_dan_elaun_jurulatih_id]);
+            $file = UploadedFile::getInstance($model, 'dokumen_muat_naik');
+            if($file){
+                $model->dokumen_muat_naik = Upload::uploadFile($file, Upload::gajiDanElaunJurulatihFolder, $model->gaji_dan_elaun_jurulatih_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->gaji_dan_elaun_jurulatih_id]);
+            }
         } else {
             return $this->render('update', [
                 'model' => $model,

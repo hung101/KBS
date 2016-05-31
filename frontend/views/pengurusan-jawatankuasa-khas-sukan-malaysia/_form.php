@@ -52,7 +52,7 @@ use app\models\RefNegeri;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'temasya' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                'temasya' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80], 'hint'=>'Cth: Sukan Malaysia ke-18'],
                 'negeri' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -119,22 +119,119 @@ use app\models\RefNegeri;
     ]
 ]);
     ?>
+    
+    <h3>Ahli</h3>
+    
+    <?php 
+            Modal::begin([
+                'header' => '<h3 id="modalTitle"></h3>',
+                'id' => 'modal',
+                'size' => 'modal-lg',
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+                'options' => [
+                    'tabindex' => false // important for Select2 to work properly
+                ],
+            ]);
+            
+            echo '<div id="modalContent"></div>';
+            
+            Modal::end();
+        ?>
+    
+    <?php Pjax::begin(['id' => 'ahliGrid', 'timeout' => 100000]); ?>
 
-    <!--<?= $form->field($model, 'temasya')->textInput(['maxlength' => true]) ?>
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPengurusanJawatankuasaKhasSukanMalaysiaAhli,
+        //'filterModel' => $searchModelPengurusanJawatankuasaKhasSukanMalaysiaAhli,
+        'id' => 'ahliGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
 
-    <?= $form->field($model, 'tarikh_mula')->textInput() ?>
+            //'pengurusan_jawatankuasa_khas_sukan_malaysia_ahli_id',
+            //'nama',
+            [
+                'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ],
+            ],
+            //'jenis_keahlian',
+            [
+                'attribute' => 'jenis_keahlian',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_keahlian,
+                ],
+                'value' => 'refJenisKeahlian.desc'
+            ],
+            //'jenis_keahlian_nyatakan',
+            //'jawatan',
+            [
+                'attribute' => 'jawatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jawatan,
+                ],
+                'value' => 'refJawatanJawatankuasaKhas.desc'
+            ],
+            // 'agensi_organisasi',
+            // 'agensi_organisasi_nyatakan',
+            // 'negeri',
+            // 'session_id',
+            // 'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
 
-    <?= $form->field($model, 'tarikh_tamat')->textInput() ?>
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['pengurusan-jawatankuasa-khas-sukan-malaysia-ahli/delete', 'id' => $model->pengurusan_jawatankuasa_khas_sukan_malaysia_ahli_id]).'", "'.GeneralMessage::confirmDelete.'", "ahliGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
 
-    <?= $form->field($model, 'jawatankuasa')->textInput() ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
-
-    <?= $form->field($model, 'created')->textInput() ?>
-
-    <?= $form->field($model, 'updated')->textInput() ?>-->
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-jawatankuasa-khas-sukan-malaysia-ahli/update', 'id' => $model->pengurusan_jawatankuasa_khas_sukan_malaysia_ahli_id]).'", "'.GeneralLabel::updateTitle . ' Ahli");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-jawatankuasa-khas-sukan-malaysia-ahli/view', 'id' => $model->pengurusan_jawatankuasa_khas_sukan_malaysia_ahli_id]).'", "'.GeneralLabel::viewTitle . ' Ahli");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        $pengurusan_jawatankuasa_khas_sukan_malaysia_id = "";
+        
+        if(isset($model->pengurusan_jawatankuasa_khas_sukan_malaysia_id)){
+            $pengurusan_jawatankuasa_khas_sukan_malaysia_id = $model->pengurusan_jawatankuasa_khas_sukan_malaysia_id;
+        }
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-jawatankuasa-khas-sukan-malaysia-ahli/create', 'pengurusan_jawatankuasa_khas_sukan_malaysia_id' => $pengurusan_jawatankuasa_khas_sukan_malaysia_id]).'", "'.GeneralLabel::createTitle . ' Ahli");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
 
     <div class="form-group">
         <?php if(!$readonly): ?>

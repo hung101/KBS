@@ -57,9 +57,14 @@ use app\models\general\GeneralVariable;
                 ],
             ]) ?>
         <?php endif; ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['create']) && $model->approved == 0): ?>
+            <?= Html::a(GeneralLabel::send, ['approved', 'id' => $model->jurulatih_id], ['class' => 'btn btn-success']) ?>
+        <?php endif; ?>
+        <?= Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'window.print();' ]); ?>
     <?php endif; ?>
     <br>
     <br>
+    
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
@@ -111,6 +116,153 @@ use app\models\general\GeneralVariable;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'no_fail' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
+                'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                'status_permohonan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefStatusPermohonanJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::statusPermohonan],],
+                    'columnOptions'=>['colspan'=>3]],
+                
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'ic_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12]],
+                'status_keaktifan_jurulatih' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-keaktifan-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefKeaktifanJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::keaktifanJurulatih],],
+                    'columnOptions'=>['colspan'=>3]],
+                //'ic_no_lama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>8]],
+                //'ic_tentera' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>12]],
+                //'passport_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>15]],
+                'status_jurulatih' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefStatusJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::statusJurulatih],],
+                    'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'passport_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>15]],
+                'tamat_tempoh' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'no_visa' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
+                'tamat_visa_tempoh' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'no_permit_kerja' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
+                'tamat_permit_tempoh' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'nama_sukan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::sukan],],
+                    'columnOptions'=>['colspan'=>5]],
+                'nama_acara' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
+                    'options'=>[
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/ref-acara/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                        ],
+                        'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options'=>['prompt'=>'',],
+                        'pluginOptions' => [
+                            'depends'=>[Html::getInputId($model, 'nama_sukan')],
+                            'placeholder' => Placeholder::acara,
+                            'url'=>Url::to(['/ref-acara/subacaras'])],
+                        ],
+                    'columnOptions'=>['colspan'=>4]],
                 'bahagian' =>[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -159,26 +311,6 @@ use app\models\general\GeneralVariable;
                         'data'=>ArrayHelper::map(RefProgramJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::program],],
                     'columnOptions'=>['colspan'=>3]],
-                 'sub_cawangan_pelapis' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-sub-program-pelapis-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefSubProgramPelapisJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::subProgramPelapis],],
-                    'columnOptions'=>['colspan'=>3]],
-            ],
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
                 'lain_lain_program' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -193,104 +325,27 @@ use app\models\general\GeneralVariable;
                         'data'=>ArrayHelper::map(RefLainProgramJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::lainLainProgram],],
                     'columnOptions'=>['colspan'=>4]],
-                 'pusat_latihan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                 /*'sub_cawangan_pelapis' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sub-program-pelapis-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefSubProgramPelapisJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::subProgramPelapis],],
+                    'columnOptions'=>['colspan'=>3]],*/
             ],
         ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama_sukan' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],],
-                    'columnOptions'=>['colspan'=>5]],
-                'nama_acara' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\DepDrop', 
-                    'options'=>[
-                        'type'=>DepDrop::TYPE_SELECT2,
-                        'select2Options'=> [
-                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                            [
-                                'append' => [
-                                    'content' => Html::a(Html::icon('edit'), ['/ref-acara/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                    'asButton' => true
-                                ]
-                            ] : null,
-                        ],
-                        'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options'=>['prompt'=>'',],
-                        'pluginOptions' => [
-                            'depends'=>[Html::getInputId($model, 'nama_sukan')],
-                            'placeholder' => Placeholder::acara,
-                            'url'=>Url::to(['/ref-acara/subacaras'])],
-                        ],
-                    'columnOptions'=>['colspan'=>4]],
-            ],
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'status_jurulatih' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-status-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefStatusJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::statusJurulatih],],
-                    'columnOptions'=>['colspan'=>3]],
-                'status_permohonan' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefStatusPermohonanJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::statusPermohonan],],
-                    'columnOptions'=>['colspan'=>3]],
-                'status_keaktifan_jurulatih' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-keaktifan-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefKeaktifanJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::keaktifanJurulatih],],
-                    'columnOptions'=>['colspan'=>3]],
-            ],
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                'pusat_latihan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
             ],
         ],
         [
@@ -369,7 +424,13 @@ use app\models\general\GeneralVariable;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'tempat_lahir' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>90]],
+                'tempat_lahir' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>90]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                 'taraf_perkahwinan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -385,60 +446,6 @@ use app\models\general\GeneralVariable;
                         'options' => ['placeholder' => Placeholder::tarafPerkahwinan],],
                     'columnOptions'=>['colspan'=>3]],
                 'bil_tanggungan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>11]],
-            ]
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'ic_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>12]],
-                'ic_no_lama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>8]],
-                'ic_tentera' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>12]],
-            ]
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'passport_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>15]],
-                'tamat_tempoh' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=> DateControl::classname(),
-                    'ajaxConversion'=>false,
-                    'options'=>[
-                        'pluginOptions' => [
-                            'autoclose'=>true,
-                        ]
-                    ],
-                    'columnOptions'=>['colspan'=>3]],
-                'no_visa' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
-                'tamat_visa_tempoh' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=> DateControl::classname(),
-                    'ajaxConversion'=>false,
-                    'options'=>[
-                        'pluginOptions' => [
-                            'autoclose'=>true,
-                        ]
-                    ],
-                    'columnOptions'=>['colspan'=>3]],
-            ]
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'no_permit_kerja' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
-                'tamat_permit_tempoh' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=> DateControl::classname(),
-                    'ajaxConversion'=>false,
-                    'options'=>[
-                        'pluginOptions' => [
-                            'autoclose'=>true,
-                        ]
-                    ],
-                    'columnOptions'=>['colspan'=>3]],
             ]
         ],
         [
@@ -563,7 +570,7 @@ use app\models\general\GeneralVariable;
             'attributes' => [
                 'no_telefon' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
                 'no_telefon_bimbit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
-                'emel' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>100]],
+                //'emel' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>100]],
                 //'status' => ['type'=>Form::INPUT_DROPDOWN_LIST,'items'=>[''=>'-- Pilih Status --'],'columnOptions'=>['colspan'=>4]],
             ]
         ],
@@ -571,6 +578,7 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'jawatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>30]],
                 'sektor' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -585,15 +593,6 @@ use app\models\general\GeneralVariable;
                         'data'=>ArrayHelper::map(RefSektorPekerjaan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sektor],],
                     'columnOptions'=>['colspan'=>3]],
-                'jawatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>30]],
-            ]
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'no_telefon_pejabat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
-                'nama_majikan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
             ]
         ],
         [
@@ -654,115 +653,17 @@ use app\models\general\GeneralVariable;
                 'alamat_majikan_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5]],
             ]
         ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'no_telefon_pejabat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
+                //'nama_majikan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+            ]
+        ],
     ]
 ]);
     ?>
-
-    <!--<?= $form->field($model, 'gambar')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'cawangan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'sub_cawangan_pelapis')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'lain_lain_program')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'pusat_latihan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'nama_sukan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'nama_acara')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'status_jurulatih')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'status_permohonan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'status_keaktifan_jurulatih')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'nama')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'bangsa')->textInput(['maxlength' => 25]) ?>
-
-    <?= $form->field($model, 'agama')->textInput(['maxlength' => 15]) ?>
-
-    <?= $form->field($model, 'jantina')->textInput(['maxlength' => 1]) ?>
-
-    <?= $form->field($model, 'warganegara')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'tarikh_lahir')->textInput() ?>
-
-    <?= $form->field($model, 'tempat_lahir')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'taraf_perkahwinan')->textInput(['maxlength' => 15]) ?>
-
-    <?= $form->field($model, 'bil_tanggungan')->textInput() ?>
-
-    <?= $form->field($model, 'ic_no')->textInput(['maxlength' => 12]) ?>
-
-    <?= $form->field($model, 'ic_no_lama')->textInput(['maxlength' => 8]) ?>
-
-    <?= $form->field($model, 'ic_tentera')->textInput(['maxlength' => 12]) ?>
-
-    <?= $form->field($model, 'passport_no')->textInput(['maxlength' => 15]) ?>
-
-    <?= $form->field($model, 'tamat_tempoh')->textInput() ?>
-
-    <?= $form->field($model, 'no_visa')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'tamat_visa_tempoh')->textInput() ?>
-
-    <?= $form->field($model, 'no_permit_kerja')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'tamat_permit_tempoh')->textInput() ?>
-
-    <?= $form->field($model, 'alamat_rumah_1')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_rumah_2')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_rumah_3')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_rumah_negeri')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_rumah_bandar')->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'alamat_rumah_poskod')->textInput(['maxlength' => 5]) ?>
-
-    <?= $form->field($model, 'alamat_surat_menyurat_1')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_surat_menyurat_2')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_surat_menyurat_3')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_surat_menyurat_negeri')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_surat_menyurat_bandar')->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'alamat_surat_menyurat_poskod')->textInput(['maxlength' => 5]) ?>
-
-    <?= $form->field($model, 'no_telefon')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'emel')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'status')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'sektor')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'jawatan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'no_telefon_pejabat')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'nama_majikan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'alamat_majikan_1')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_majikan_2')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_majikan_3')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_majikan_negeri')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_majikan_bandar')->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'alamat_majikan_poskod')->textInput(['maxlength' => 5]) ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>

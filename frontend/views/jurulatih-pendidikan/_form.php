@@ -42,7 +42,7 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                 'gred' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>255]],
+                 'gred' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>255], 'hint'=>'Contoh: [2010][SMK Sek 1 Bandar Kinrara][5A 5B]. [2014][UiTM Perak][3.87/Second Class].'],
             ],
         ],
        

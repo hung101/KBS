@@ -19,7 +19,7 @@ class MuatNaikDokumenSearch extends MuatNaikDokumen
     {
         return [
             [['muat_naik_dokumen_id'], 'integer'],
-            [['kategori_muat_naik', 'muat_naik_dokumen', 'tarikh_muat_naik'], 'safe'],
+            [['kategori_muat_naik', 'muat_naik_dokumen', 'tarikh_muat_naik', 'temasya', 'tarikh_mula', 'tarikh_tamat'], 'safe'],
         ];
     }
 
@@ -62,7 +62,10 @@ class MuatNaikDokumenSearch extends MuatNaikDokumen
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_kategori_muatnaik.desc', $this->kategori_muat_naik])
-            ->andFilterWhere(['like', 'muat_naik_dokumen', $this->muat_naik_dokumen]);
+            ->andFilterWhere(['like', 'muat_naik_dokumen', $this->muat_naik_dokumen])
+                ->andFilterWhere(['like', 'temasya', $this->temasya])
+                ->andFilterWhere(['like', 'tarikh_mula', $this->tarikh_mula])
+                ->andFilterWhere(['like', 'tarikh_tamat', $this->tarikh_tamat]);
 
         return $dataProvider;
     }

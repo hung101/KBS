@@ -94,6 +94,7 @@ class ChartJs extends Widget
         ChartJsAsset::register($view);
 
         $js = ";var chartJS_{$id} = new Chart(document.getElementById('{$id}').getContext('2d')).{$type}({$data}, {$options});";
+        $js .= "var legend = chartJS_{$id}.generateLegend();$('#chartLegend_{$id}').append(legend);";
         $view->registerJs($js);
     }
 }

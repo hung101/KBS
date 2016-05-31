@@ -10,7 +10,7 @@ use app\models\general\GeneralLabel;
 
 $this->title = GeneralLabel::profil_badan_sukan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::profil_badan_sukan, 'url' => ['index']];
-$this->params['breadcrumbs'][] = GeneralLabel::createTitle;
+$this->params['breadcrumbs'][] = GeneralLabel::title;
 ?>
 <div class="profil-badan-sukan-create">
 

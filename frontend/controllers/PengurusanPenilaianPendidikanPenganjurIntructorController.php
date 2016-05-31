@@ -15,6 +15,8 @@ use app\models\general\GeneralVariable;
 
 // table reference
 use app\models\RefInstructorPenilaianPendidikan;
+use app\models\ProfilPanelPenasihatKpsk;
+use app\models\PengurusanPermohonanKursusPersatuan;
 
 /**
  * PengurusanPenilaianPendidikanPenganjurIntructorController implements the CRUD actions for PengurusanPenilaianPendidikanPenganjurIntructor model.
@@ -65,8 +67,11 @@ class PengurusanPenilaianPendidikanPenganjurIntructorController extends Controll
         
         $model = $this->findModel($id);
         
-        $ref = RefInstructorPenilaianPendidikan::findOne(['id' => $model->instructor]);
-        $model->instructor = $ref['desc'];
+        $ref = ProfilPanelPenasihatKpsk::findOne(['profil_panel_penasihat_kpsk_id' => $model->instructor]);
+        $model->instructor = $ref['nama'];
+        
+        $ref = PengurusanPermohonanKursusPersatuan::findOne(['pengurusan_permohonan_kursus_persatuan_id' => $model->pengurusan_permohonan_kursus_persatuan_id]);
+        $model->pengurusan_permohonan_kursus_persatuan_id = $ref['tarikh_kursus'];
         
         $queryPar = null;
         

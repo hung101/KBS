@@ -57,7 +57,7 @@ return [
             'marginHeader' => 0,
             'marginFooter' => 0,
             // refer settings section for all configuration options
-        ]
+        ],
         // eddie (print) end 
     ],
     'params' => $params,

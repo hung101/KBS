@@ -15,6 +15,8 @@ use kartik\datecontrol\DateControl;
 // table reference
 use app\models\Jurulatih;
 use app\models\RefBank;
+use app\models\RefSukan;
+use app\models\RefProgramJurulatih;
 
 // contant values
 use app\models\general\Placeholder;
@@ -39,7 +41,7 @@ use app\models\general\GeneralMessage;
         }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -62,16 +64,44 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Jurulatih::find()->all(),'jurulatih_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::jurulatih],],
+                        'options' => ['placeholder' => Placeholder::jurulatih, 'id'=>'jurulatihId'],],
                     'columnOptions'=>['colspan'=>6]],
-                //'no_kad_pengenalan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4]],
-                //'nama_sukan' => ['type'=>Form::INPUT_DROPDOWN_LIST,'items'=>[''=>'-- Pilih Sukan --'],'columnOptions'=>['colspan'=>5]],
+                'no_kad_pengenalan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3]],
+                'no_pekerja' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3]],
             ],
         ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'program' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-program-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefProgramJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::program],],
+                    'columnOptions'=>['colspan'=>3]],
+                'nama_sukan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::sukan],],
+                    'columnOptions'=>['colspan'=>3]],
                 'tarikh_mula' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -126,6 +156,38 @@ use app\models\general\GeneralMessage;
     ]
 ]);
         ?>
+    
+    <?php // Dokumen Muat Naik (Buku Akaun) Upload
+    if($model->dokumen_muat_naik){
+        echo "<label>" . $model->getAttributeLabel('dokumen_muat_naik') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->dokumen_muat_naik , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->gaji_dan_elaun_jurulatih_id, 'field'=> 'dokumen_muat_naik'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'dokumen_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
     
     <h3>Elaun Jurulatih</h3>
     
@@ -234,8 +296,42 @@ use app\models\general\GeneralMessage;
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?php endif; ?>
+        <?= Html::a(GeneralLabel::backToList, ['index'], ['class' => 'btn btn-warning']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$URLJurulatih = Url::to(['/jurulatih/get-jurulatih']);
+
+$script = <<< JS
+        
+$('#jurulatihId').change(function(){
+    
+    $.get('$URLJurulatih',{id:$(this).val()},function(data){
+        clearForm();
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+            $('#gajidanelaunjurulatih-no_kad_pengenalan').attr('value',data.ic_no);
+            $("#gajidanelaunjurulatih-program").val(data.program).trigger("change");
+            $("#gajidanelaunjurulatih-nama_sukan").val(data.nama_sukan).trigger("change");
+        }
+    });
+});
+     
+function clearForm(){
+    $('#gajidanelaunjurulatih-no_kad_pengenalan').attr('value','');
+    $("#gajidanelaunjurulatih-program").val('').trigger("change");
+    $("#gajidanelaunjurulatih-nama_sukan").val('').trigger("change");
+}
+        
+JS;
+        
+$this->registerJs($script);
+?>
+
+

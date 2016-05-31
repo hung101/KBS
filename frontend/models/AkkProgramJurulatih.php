@@ -79,4 +79,11 @@ class AkkProgramJurulatih extends \yii\db\ActiveRecord
 
         ];
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefAkkProgramJurulatihPeserta(){
+        return $this->hasMany(AkkProgramJurulatihPeserta::className(), ['akk_program_jurulatih_id' => 'akk_program_jurulatih_id']);
+    }
 }

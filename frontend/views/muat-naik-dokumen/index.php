@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\MuatNaikDokumenSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = GeneralLabel::muat_naik_dokumen;
+$this->title = GeneralLabel::maklumat_sukan_malaysia;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="muat-naik-dokumen-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['muat-naik-dokumen']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Muat Naik Dokumen', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::maklumat_sukan_malaysia, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 
@@ -46,6 +46,27 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'muat_naik_dokumen_id',
             //'kategori_muat_naik',
+            [
+                'attribute' => 'temasya',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::temasya,
+                ],
+            ],
+            [
+                'attribute' => 'tarikh_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_tamat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat,
+                ]
+            ],
             [
                 'attribute' => 'kategori_muat_naik',
                 'filterInputOptions' => [
@@ -74,13 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 },
             ],
-            [
-                'attribute' => 'tarikh_muat_naik',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_muat_naik,
-                ]
-            ],
+            
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

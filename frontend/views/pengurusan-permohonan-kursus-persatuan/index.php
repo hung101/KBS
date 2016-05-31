@@ -53,27 +53,41 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
             [
-                'attribute' => 'no_kad_pengenalan',
+                'attribute' => 'agensi',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::agensi,
                 ]
             ],
             [
-                'attribute' => 'tarikh_lahir',
+                'attribute' => 'tarikh_kursus',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_lahir,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_kursus,
+                ]
+            ],
+            [
+                'attribute' => 'no_perhubungan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_perhubungan,
+                ]
+            ],
+            [
+                'attribute' => 'emel',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::emel,
                 ]
             ],
             //'jantina',
             [
-                'attribute' => 'jantina',
+                'attribute' => 'kelulusan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jantina,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan,
                 ],
-                'value' => 'refJantina.desc'
+                'value' => 'refStatusPermohonanJkk.desc'
             ],
             // 'alamat_1',
             // 'alamat_2',

@@ -5,18 +5,24 @@ namespace frontend\controllers;
 use Yii;
 use app\models\GeranBantuanGaji;
 use frontend\models\GeranBantuanGajiSearch;
+use app\models\MsnLaporanMaklumatPembayaranGeranBantuan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\BaseUrl;
 
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Jurulatih;
 use app\models\RefStatusPermohonanGeranBantuanGajiJurulatih;
 use app\models\RefKategoriGeranJurulatih;
 use app\models\RefStatusGeranJurulatih;
+use app\models\RefStatusJurulatih;
+use app\models\RefSukan;
+use app\models\RefProgramJurulatih;
 
 /**
  * GeranBantuanGajiController implements the CRUD actions for GeranBantuanGaji model.
@@ -78,6 +84,15 @@ class GeranBantuanGajiController extends Controller
         
         $ref = RefStatusGeranJurulatih::findOne(['id' => $model->status_geran]);
         $model->status_geran = $ref['desc'];
+        
+        $ref = RefProgramJurulatih::findOne(['id' => $model->program_msn]);
+        $model->program_msn = $ref['desc'];
+        
+        $ref = RefStatusJurulatih::findOne(['id' => $model->status_jurulatih]);
+        $model->status_jurulatih = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->nama_sukan]);
+        $model->nama_sukan = $ref['desc'];
         
         $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         $model->kelulusan = $YesNo;
@@ -166,5 +181,78 @@ class GeranBantuanGajiController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionLaporanMaklumatPembayaranGeranBantuan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanMaklumatPembayaranGeranBantuan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-maklumat-pembayaran-geran-bantuan'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'jumlah_geran_dari' => $model->jumlah_geran_dari
+                    , 'jumlah_geran_hingga' => $model->jumlah_geran_hingga
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-maklumat-pembayaran-geran-bantuan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'jumlah_geran_dari' => $model->jumlah_geran_dari
+                    , 'jumlah_geran_hingga' => $model->jumlah_geran_hingga
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_maklumat_pembayaran_geran_bantuan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanMaklumatPembayaranGeranBantuan($tarikh_dari, $tarikh_hingga, $program, $sukan, $jumlah_geran_dari, $jumlah_geran_hingga, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($jumlah_geran_dari == "") $jumlah_geran_dari = array();
+        else $jumlah_geran_dari = array($jumlah_geran_dari);
+        
+        if($jumlah_geran_hingga == "") $jumlah_geran_hingga = array();
+        else $jumlah_geran_hingga = array($jumlah_geran_hingga);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'SUKAN' => $sukan,
+            'PROGRAM' => $program,
+            'JUMLAH_GERAN_DARI' => $jumlah_geran_dari,
+            'JUMLAH_GERAN_HINGGA' => $jumlah_geran_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanMaklumatPembayaranGeranBantuan', $format, $controls, 'laporan_maklumat_pembayaran_geran_bantuan');
     }
 }

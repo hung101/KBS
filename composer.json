@@ -15,7 +15,7 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">=5.4.0",
-        "yiisoft/yii2": "*",
+        "yiisoft/yii2": "2.0.8",
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
         "kartik-v/yii2-widgets": "*",
@@ -32,7 +32,11 @@
         "kartik-v/yii2-mpdf": "dev-master",
         "fxp/composer-asset-plugin": "*",
         "bedezign/yii2-audit": "*",
-        "zyx/zyx-phpmailer": "@stable"
+        "zyx/zyx-phpmailer": "@stable",
+        "bower-asset/admin-lte": "*",
+        "rmrevin/yii2-fontawesome": "~2.15",
+        "rmrevin/yii2-ionicon": "~1.2",
+        "2amigos/yii2-chartjs-widget" : "~2.0"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

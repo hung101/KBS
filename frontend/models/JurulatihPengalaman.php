@@ -50,10 +50,11 @@ class JurulatihPengalaman extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jurulatih_id', 'tahun', 'perkara_aktiviti'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jurulatih_id', 'tahun', 'tahun_akhir', 'perkara_aktiviti'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['jurulatih_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['tahun'], 'integer','min'=>GeneralVariable::yearMin,'max'=>GeneralVariable::yearMax, 'message' => GeneralMessage::yii_validation_integer, 'tooBig' => GeneralMessage::yii_validation_integer_max, 'tooSmall' => GeneralMessage::yii_validation_integer_min],
-            [['perkara_aktiviti'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['tahun', 'tahun_akhir'], 'integer','min'=>GeneralVariable::yearMin,'max'=>GeneralVariable::yearMax, 'message' => GeneralMessage::yii_validation_integer, 'tooBig' => GeneralMessage::yii_validation_integer_max, 'tooSmall' => GeneralMessage::yii_validation_integer_min],
+            [['perkara_aktiviti'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tahun_akhir'], 'compare', 'compareAttribute'=>'tahun', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
 
@@ -65,9 +66,9 @@ class JurulatihPengalaman extends \yii\db\ActiveRecord
         return [
             'jurulatih_pengalaman_id' => GeneralLabel::jurulatih_pengalaman_id,
             'jurulatih_id' => GeneralLabel::jurulatih_id,
-            'tahun' => GeneralLabel::tahun,
+            'tahun' => GeneralLabel::tahun_mula,
             'perkara_aktiviti' => GeneralLabel::perkara_aktiviti,
-
+            'tahun_akhir' => GeneralLabel::tahun_akhir,
         ];
     }
 }

@@ -19,7 +19,7 @@ class AkkProgramJurulatihSearch extends AkkProgramJurulatih
     {
         return [
             [['akk_program_jurulatih_id', 'peningkatan_kerjaya_jurulatih_id'], 'integer'],
-            [['nama_program', 'tarikh_program', 'tempat_program', 'kod_kursus', 'tahap'], 'safe'],
+            [['nama_program', 'tarikh_program', 'tempat_program', 'kod_kursus', 'tahap', 'jurulatih'], 'safe'],
         ];
     }
 
@@ -41,7 +41,8 @@ class AkkProgramJurulatihSearch extends AkkProgramJurulatih
      */
     public function search($params)
     {
-        $query = AkkProgramJurulatih::find();
+        $query = AkkProgramJurulatih::find()
+                ->joinWith(['refAkkProgramJurulatihPeserta']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -58,13 +59,15 @@ class AkkProgramJurulatihSearch extends AkkProgramJurulatih
         $query->andFilterWhere([
             'akk_program_jurulatih_id' => $this->akk_program_jurulatih_id,
             'peningkatan_kerjaya_jurulatih_id' => $this->peningkatan_kerjaya_jurulatih_id,
-            'tarikh_program' => $this->tarikh_program,
+            //'tarikh_program' => $this->tarikh_program,
         ]);
 
         $query->andFilterWhere(['like', 'nama_program', $this->nama_program])
             ->andFilterWhere(['like', 'tempat_program', $this->tempat_program])
             ->andFilterWhere(['like', 'kod_kursus', $this->kod_kursus])
-            ->andFilterWhere(['like', 'tahap', $this->tahap]);
+            ->andFilterWhere(['like', 'tahap', $this->tahap])
+                ->andFilterWhere(['like', 'tarikh_program', $this->tarikh_program])
+                ->andFilterWhere(['like', 'tbl_akk_program_jurulatih_peserta.jurulatih', $this->jurulatih]);
 
         return $dataProvider;
     }

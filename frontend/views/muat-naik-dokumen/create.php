@@ -7,8 +7,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\MuatNaikDokumen */
 
-$this->title = GeneralLabel::createTitle . ' Muat Naik Dokumen';
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::muat_naik_dokumen, 'url' => ['index']];
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::maklumat_sukan_malaysia;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::maklumat_sukan_malaysia, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="muat-naik-dokumen-create">

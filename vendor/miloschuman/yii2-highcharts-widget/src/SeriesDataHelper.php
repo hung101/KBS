@@ -6,7 +6,6 @@
  * @author Milo Schuman <miloschuman@gmail.com>
  * @link https://github.com/miloschuman/yii2-highcharts/
  * @license http://www.opensource.org/licenses/mit-license.php MIT License
- * @version 4.2.3
  */
 
 namespace miloschuman\highcharts;
@@ -97,6 +96,7 @@ class SeriesDataHelper extends Component implements JsonSerializable
         } elseif (is_array($data)) {
             $this->data = new ArrayDataProvider([
                 'allModels' => $data,
+                'pagination' => ['pageSize' => 0],
             ]);
         } else {
             throw new InvalidParamException('Data must be an array or extend BaseDataProvider');
@@ -177,8 +177,8 @@ class SeriesDataHelper extends Component implements JsonSerializable
         $data = [];
         foreach ($this->data->models as $model) {
             $row = [];
-            foreach ($this->columns as $column) {
-                $row[] = call_user_func($column[1], $model[$column[0]]);
+            foreach ($this->columns as $index => $column) {
+                $row[$index] = call_user_func($column[1], $model[$column[0]]);
             }
 
             $data[] = $row;

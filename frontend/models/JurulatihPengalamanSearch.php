@@ -19,7 +19,7 @@ class JurulatihPengalamanSearch extends JurulatihPengalaman
     {
         return [
             [['jurulatih_pengalaman_id', 'jurulatih_id'], 'integer'],
-            [['tahun', 'perkara_aktiviti'], 'safe'],
+            [['tahun', 'tahun_akhir', 'perkara_aktiviti'], 'safe'],
         ];
     }
 
@@ -58,10 +58,13 @@ class JurulatihPengalamanSearch extends JurulatihPengalaman
         $query->andFilterWhere([
             'jurulatih_pengalaman_id' => $this->jurulatih_pengalaman_id,
             'jurulatih_id' => $this->jurulatih_id,
-            'tahun' => $this->tahun,
+            //'tahun' => $this->tahun,
+            //'tahun' => $this->tahun,
         ]);
 
-        $query->andFilterWhere(['like', 'perkara_aktiviti', $this->perkara_aktiviti]);
+        $query->andFilterWhere(['like', 'perkara_aktiviti', $this->perkara_aktiviti])
+                ->andFilterWhere(['like', 'tahun', $this->tahun])
+                ->andFilterWhere(['like', 'tahun_akhir', $this->tahun_akhir]);
 
         return $dataProvider;
     }

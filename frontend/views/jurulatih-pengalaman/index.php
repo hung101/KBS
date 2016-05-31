@@ -25,12 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
         
         // Update Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update'])){
-            $template .= ' {update}';
+            //$template .= ' {update}';
         }
         
         // Delete Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['delete'])){
-            $template .= ' {delete}';
+            //$template .= ' {delete}';
         }
     ?>
 
@@ -58,7 +58,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'tahun',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun_mula,
+                ]
+            ],
+            [
+                'attribute' => 'tahun_akhir',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun_akhir,
                 ]
             ],
             [

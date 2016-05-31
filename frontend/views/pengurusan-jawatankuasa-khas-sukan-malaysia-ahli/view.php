@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-jawatankuasa-khas-sukan-malaysia-ahli-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <!--<h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->pengurusan_jawatankuasa_khas_sukan_malaysia_ahli_id], ['class' => 'btn btn-primary']) ?>
@@ -23,9 +23,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
+    </p>-->
+    
+    <?= $this->render('_form', [
+        'model' => $model,
+        'readonly' => $readonly,
+    ]) ?>
 
-    <?= DetailView::widget([
+    <?php /*echo DetailView::widget([
         'model' => $model,
         'attributes' => [
             'pengurusan_jawatankuasa_khas_sukan_malaysia_ahli_id',
@@ -36,11 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'agensi_organisasi',
             'agensi_organisasi_nyatakan',
             'negeri',
+            'session_id',
             'created_by',
             'updated_by',
             'created',
             'updated',
         ],
-    ]) ?>
+    ]);*/ ?>
 
 </div>

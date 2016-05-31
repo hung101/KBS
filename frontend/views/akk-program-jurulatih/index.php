@@ -20,17 +20,26 @@ $this->params['breadcrumbs'][] = $this->title;
         
         // Update Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['akk-program-jurulatih']['update'])){
-            $template .= ' {update}';
+            //$template .= ' {update}';
         }
         
         // Delete Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['akk-program-jurulatih']['delete'])){
-            $template .= ' {delete}';
+            //$template .= ' {delete}';
         }
     ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong><?=GeneralLabel::search_criteria?></strong>
+        </div>
+        <div class="panel-body">
+            <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+        </div>
+    </div>
+    
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['akk-program-jurulatih']['create'])): ?>
         <p>

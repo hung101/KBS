@@ -15,6 +15,7 @@ use app\models\general\GeneralVariable;
 
 // table reference
 use app\models\RefKategoriMuatnaik;
+use app\models\RefNegeri;
 
 /**
  * MuatNaikDokumenController implements the CRUD actions for MuatNaikDokumen model.
@@ -67,6 +68,10 @@ class MuatNaikDokumenController extends Controller
         
         $ref = RefKategoriMuatnaik::findOne(['id' => $model->kategori_muat_naik]);
         $model->kategori_muat_naik = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->negeri]);
+        $model->negeri = $ref['desc'];
+        
         
         return $this->render('view', [
             'model' => $model,

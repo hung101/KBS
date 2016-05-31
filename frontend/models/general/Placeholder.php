@@ -20,6 +20,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const ahliJawatankuasaInduk = " -- Pilih Ahli Jawatankuasa Induk -- ";
         const ahliJawatankuasaKecilBiro = " -- Pilih Ahli Jawatankuasa Kecil / Biro -- ";
         const ahliJKK_JKP = "-- Pilih Ahli JKK/JKP --";
+        const akademik = "-- Pilih Akademik --";
         const anthropometricsUjian =  "-- Pilih Anthropometrics Ujian --";
         const atlet = "-- Pilih Atlet --";
         const badanSukan = "-- Pilih Badan Sukan --";
@@ -70,6 +71,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jenisLesenMemandu = " -- Pilih Jenis Lesen Memandu -- ";
         const jenisPinjaman = "-- Pilih Jenis Pinjaman --";
         const jenisKadar = "-- Pilih Jenis Kadar --";
+        const jenisKeahlian = "-- Pilih Jenis Keahlian --";
         const jenisKebajikan = "-- Pilih Jenis Kebajikan --";
         const jenisKecederaanMasalahKesihatan = "-- Pilih Jenis Kecederaan / Masalah Kesihatan --";
         const jenisKemahiran = "-- Pilih Jenis Kemahiran --";
@@ -132,6 +134,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kategoriPersatuan = "-- Pilih Kategori Persatuan --";
         const kategoriPeserta = "-- Pilih Kategori Peserta --";
         const kategoriProgram = "-- Pilih Kategori Program --";
+        const kategoriSoalan = "-- Pilih Kategori Soalan --";
         const kategoriSukan = "-- Pilih Kategori Sukan --";
         const kawasanTemuduga = "-- Pilih Kawasan Temuduga --";
         const keaktifanJurulatih = "-- Pilih Keaktifan Jurulatih --";
@@ -143,6 +146,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kelulusanSainsSukan = "-- Pilih Kelulusan Sains Sukan --";
         const kelulusanSukanSpesifik = "-- Pilih Kelulusan Sukan Spesifik --";
         const kemudahan = " -- Pilih Kemudahan -- ";
+        const keputusan = " -- Pilih Keputusan -- ";
         const kumpulan = "-- Pilih Kumpulan --";
         const kumpulanDarah = "-- Pilih Kumpulan Darah --";
         const kursus = "-- Pilih Kursus --";
@@ -187,6 +191,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pegawai = " -- Pilih Pegawai -- ";
         const pegawaiTeknikal = " -- Pilih Pegawai Teknikal -- ";
         const pegawaiPsikologi = " -- Pilih Pegawai Psikologi -- ";
+        const penasihat = " -- Pilih Penasihat -- ";
         const penyakit = "-- Pilih Penyakit --";
         const permohonan = "-- Pilih Permohonan --";
         const permohonanPelanjutan = "-- Pilih Permohonan Pelanjutan --";
@@ -212,6 +217,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const sesiPermohonan = "-- Pilih Sesi Permohonan --";
         const shuttle = "-- Pilih Shuttle --";
         const sijilSPKK = "-- Pilih Sijil SPKK --";
+        const silibus = "-- Pilih Silibus --";
         const sokongan = "-- Pilih Sokongan --";
         const soalan = "-- Pilih Soalan --";
         const status = "-- Pilih Status --";
@@ -235,10 +241,12 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const sukanAkademi = "-- Pilih Sukan Akademi --";
         const sukanRekreasi = "-- Pilih Sukan / Rekreasi --";
         const tahap = "-- Pilih Tahap --";
+        const tahapAkademik = "-- Pilih Tahap Akademik --";
         const tahapAtlet = " -- Pilih Tahap -- ";
         const tahapPendidikan = " -- Pilih Tahap Pendidikan -- ";
         const tahapPenganjuran = " -- Pilih Tahap Penganjuran -- ";
         const tarafPerkahwinan = " -- Pilih Taraf Perkahwinan -- "; 
+        const tarikhKursus = " -- Pilih Tarikh Kursus -- "; 
         const temasya = " -- Pilih Temasya -- "; 
         const tempat = " -- Pilih Tempat -- "; 
         const tindakanSelanjutnya = " -- Pilih Tindakan Selanjutnya -- "; 
@@ -262,6 +270,7 @@ if($session->get('language') == "EN") {
         const ahliJawatankuasaInduk = " -- Select A Member Of The Main Committee -- ";
         const ahliJawatankuasaKecilBiro = " -- Select The Members Of The Subcommittee/Bureau -- ";
         const ahliJKK_JKP = "-- Select Members AS WELL/CMC --";
+        const akademik = "-- Select Academic --";
         const anthropometricsUjian =  "-- Select Test Anthropometrics --";
         const atlet = "-- Select Athletes --";
         const badanSukan = "-- Select Sports Bodies --";
@@ -312,6 +321,7 @@ if($session->get('language') == "EN") {
         const jenisLesenMemandu = " -- Select The Type Of Driving Licence -- ";
         const jenisPinjaman = "-- Select The Type Of Loan --";
         const jenisKadar = "-- Select The Type Of Rates --";
+        const jenisKeahlian = "-- Select The Type Of Member --";
         const jenisKebajikan = "-- Select The Type Of Welfare --";
         const jenisKecederaanMasalahKesihatan = "-- Select The Type Of Injury/Health Problems --";
         const jenisKemahiran = "-- Select The Type Of Skills --";
@@ -374,6 +384,7 @@ if($session->get('language') == "EN") {
         const kategoriPersatuan = "-- Select The Category Association --";
         const kategoriPeserta = "-- Select The Category Of Participants --";
         const kategoriProgram = "-- Select Program Category --";
+        const kategoriSoalan = "-- Select Category Question --";
         const kategoriSukan = "-- Select The Sports Category --";
         const kawasanTemuduga = "-- Select An Area Of The Interview --";
         const keaktifanJurulatih = "-- Select The Keaktifan Coach --";
@@ -385,6 +396,7 @@ if($session->get('language') == "EN") {
         const kelulusanSainsSukan = "-- Select The Approval Of Sports Science --";
         const kelulusanSukanSpesifik = "-- Select The Specific Approval --";
         const kemudahan = " -- Select Facilities -- ";
+        const keputusan = " -- Select Result -- ";
         const kumpulan = "-- Select The Group --";
         const kumpulanDarah = "-- Select Blood Group --";
         const kursus = "-- Select Course --";
@@ -429,6 +441,7 @@ if($session->get('language') == "EN") {
         const pegawai = " -- Select Officer -- ";
         const pegawaiTeknikal = " -- Select Technical Officer -- ";
         const pegawaiPsikologi = " -- Select The Officers Of Psychology -- ";
+        const penasihat = " -- Select Advisor -- ";
         const penyakit = "-- Select A Disease --";
         const permohonan = "-- Select Application --";
         const permohonanPelanjutan = "-- Select The Application Extension --";
@@ -454,6 +467,7 @@ if($session->get('language') == "EN") {
         const sesiPermohonan = "-- Select The Session Application --";
         const shuttle = "-- Select Shuttle --";
         const sijilSPKK = "-- Select The Certificate Is PRACTICED --";
+        const silibus = "-- Select Syllabus --";
         const sokongan = "-- Select Support --";
         const soalan = "-- Select Question --";
         const status = "-- Select Status --";
@@ -477,10 +491,12 @@ if($session->get('language') == "EN") {
         const sukanAkademi = "-- Select Sports Academy --";
         const sukanRekreasi = "-- Select Sport/Recreation --";
         const tahap = "-- Select The Level Of --";
+        const tahapAkademik = "-- Select Academic Level --";
         const tahapAtlet = " -- Select The Level Of -- ";
         const tahapPendidikan = " -- Select Education Level -- ";
         const tahapPenganjuran = " -- Select The Level Of Organisation Of -- ";
         const tarafPerkahwinan = " -- Select Marital Status -- "; 
+        const tarikhKursus = " -- Select Course Date -- ";
         const temasya = " -- Select Events -- "; 
         const tempat = " -- Select A Location -- "; 
         const tindakanSelanjutnya = " -- Select An Action -- "; 

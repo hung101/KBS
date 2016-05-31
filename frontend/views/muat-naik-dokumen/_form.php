@@ -10,6 +10,7 @@ use kartik\datecontrol\DateControl;
 
 // table reference
 use app\models\RefKategoriMuatnaik;
+use app\models\RefNegeri;
 
 // contant values
 use app\models\general\Placeholder;
@@ -38,6 +39,54 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'temasya' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80], 'hint'=>'Cth: Sukan Malaysia ke-18'],
+                'negeri' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::negeri],],
+                    'columnOptions'=>['colspan'=>3]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'tarikh_mula' =>  [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                'tarikh_tamat' =>  [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                 
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                
                  'kategori_muat_naik' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -53,7 +102,8 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefKategoriMuatnaik::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kategoriMuatNaik],],
                     'columnOptions'=>['colspan'=>4]],
-                 'tarikh_muat_naik' => [
+                'kategori_dokumen_nyatakan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+                 /*'tarikh_muat_naik' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
@@ -62,7 +112,7 @@ use app\models\general\GeneralMessage;
                             'autoclose'=>true,
                         ]
                     ],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>3]],*/
             ],
         ],
     ]

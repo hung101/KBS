@@ -19,7 +19,7 @@ class RefSubKategoriPenilaianJurulatihSearch extends RefSubKategoriPenilaianJuru
     {
         return [
             [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
-            [['desc', 'created', 'updated'], 'safe'],
+            [['desc', 'created', 'updated', 'ref_kategori_penilaian_jurulatih_id'], 'safe'],
         ];
     }
 
@@ -41,7 +41,8 @@ class RefSubKategoriPenilaianJurulatihSearch extends RefSubKategoriPenilaianJuru
      */
     public function search($params)
     {
-        $query = RefSubKategoriPenilaianJurulatih::find();
+        $query = RefSubKategoriPenilaianJurulatih::find()
+                ->joinWith('refKategoriPenilaianJurulatih');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -64,7 +65,8 @@ class RefSubKategoriPenilaianJurulatihSearch extends RefSubKategoriPenilaianJuru
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc]);
+        $query->andFilterWhere(['like', 'desc', $this->desc])
+                ->andFilterWhere(['like', 'tbl_ref_kategori_penilaian_jurulatih.desc', $this->ref_kategori_penilaian_jurulatih_id]);
 
         return $dataProvider;
     }

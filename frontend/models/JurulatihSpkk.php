@@ -52,9 +52,9 @@ class JurulatihSpkk extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jurulatih_id', 'jenis_spkk', 'tahap', 'sukan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jurulatih_id', 'jenis_spkk', 'tahap', 'sukan', 'no_sijil'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['jurulatih_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['jenis_spkk', 'tahap'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jenis_spkk', 'tahap', 'no_sijil'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik_sijil'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik_sijil'], 'validateFileUpload', 'skipOnEmpty' => false],
         ];
@@ -68,11 +68,11 @@ class JurulatihSpkk extends \yii\db\ActiveRecord
         return [
             'jurulatih_spkk_id' => GeneralLabel::jurulatih_spkk_id,
             'jurulatih_id' => GeneralLabel::jurulatih_id,
-            'jenis_spkk' => GeneralLabel::jenis_spkk,
+            'jenis_spkk' => GeneralLabel::sijil,
             'tahap' => GeneralLabel::tahap,
             'sukan' => GeneralLabel::sukan,
             'muatnaik_sijil' => GeneralLabel::muatnaik_sijil,
-
+            'no_sijil' => GeneralLabel::no_sijil,
         ];
     }
     

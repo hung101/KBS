@@ -20,12 +20,12 @@ $this->params['breadcrumbs'][] = $this->title;
         
         // Update Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['update'])){
-            $template .= ' {update}';
+            //$template .= ' {update}';
         }
         
         // Delete Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['delete'])){
-            $template .= ' {delete}';
+            //$template .= ' {delete}';
         }
     ?>
 
@@ -74,14 +74,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             // 'status_keaktifan_jurulatih',
             //'kategori_geran',
-            [
+            /*[
                 'attribute' => 'kategori_geran',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_geran,
                 ],
                 'value' => 'refKategoriGeranJurulatih.desc'
-            ],
+            ],*/
             [
                 'attribute' => 'jumlah_geran',
                 'filterInputOptions' => [

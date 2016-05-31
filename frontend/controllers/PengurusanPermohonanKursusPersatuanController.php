@@ -5,18 +5,24 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PengurusanPermohonanKursusPersatuan;
 use frontend\models\PengurusanPermohonanKursusPersatuanSearch;
+use app\models\PengurusanPermohonanKursusPersatuanPenasihat;
+use frontend\models\PengurusanPermohonanKursusPersatuanPenasihatSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 // contant values
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefJantina;
 use app\models\RefBandar;
 use app\models\RefNegeri;
+use app\models\RefTahapKpsk;
+use app\models\RefStatusPermohonanJkk;
 
 /**
  * PengurusanPermohonanKursusPersatuanController implements the CRUD actions for PengurusanPermohonanKursusPersatuan model.
@@ -76,10 +82,25 @@ class PengurusanPermohonanKursusPersatuanController extends Controller
         $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
         $model->alamat_bandar = $ref['desc'];
         
-        $model->kelulusan = GeneralLabel::getYesNoLabel($model->kelulusan);
+        $ref = RefTahapKpsk::findOne(['id' => $model->tahap]);
+        $model->tahap = $ref['desc'];
+        
+        $ref = RefStatusPermohonanJkk::findOne(['id' => $model->kelulusan]);
+        $model->kelulusan = $ref['desc'];
+        
+        //$model->kelulusan = GeneralLabel::getYesNoLabel($model->kelulusan);
+        
+        $queryPar = null;
+        
+        $queryPar['PengurusanPermohonanKursusPersatuanPenasihatSearch']['pengurusan_permohonan_kursus_persatuan_id'] = $id;
+        
+        $searchModelPengurusanPermohonanKursusPersatuanPenasihat  = new PengurusanPermohonanKursusPersatuanPenasihatSearch();
+        $dataProviderPengurusanPermohonanKursusPersatuanPenasihat = $searchModelPengurusanPermohonanKursusPersatuanPenasihat->search($queryPar);
         
         return $this->render('view', [
             'model' => $model,
+            'searchModelPengurusanPermohonanKursusPersatuanPenasihat' => $searchModelPengurusanPermohonanKursusPersatuanPenasihat,
+            'dataProviderPengurusanPermohonanKursusPersatuanPenasihat' => $dataProviderPengurusanPermohonanKursusPersatuanPenasihat,
             'readonly' => true,
         ]);
     }
@@ -96,12 +117,30 @@ class PengurusanPermohonanKursusPersatuanController extends Controller
         }
         
         $model = new PengurusanPermohonanKursusPersatuan();
+        
+        $queryPar = null;
+        
+        Yii::$app->session->open();
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['PengurusanPermohonanKursusPersatuanPenasihatSearch']['session_id'] = Yii::$app->session->id;
+        }
+        
+        $searchModelPengurusanPermohonanKursusPersatuanPenasihat  = new PengurusanPermohonanKursusPersatuanPenasihatSearch();
+        $dataProviderPengurusanPermohonanKursusPersatuanPenasihat = $searchModelPengurusanPermohonanKursusPersatuanPenasihat->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if(isset(Yii::$app->session->id)){
+                PengurusanPermohonanKursusPersatuanPenasihat::updateAll(['pengurusan_permohonan_kursus_persatuan_id' => $model->pengurusan_permohonan_kursus_persatuan_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PengurusanPermohonanKursusPersatuanPenasihat::updateAll(['session_id' => ''], 'pengurusan_permohonan_kursus_persatuan_id = "'.$model->pengurusan_permohonan_kursus_persatuan_id.'"');
+            }
+            
             return $this->redirect(['view', 'id' => $model->pengurusan_permohonan_kursus_persatuan_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'searchModelPengurusanPermohonanKursusPersatuanPenasihat' => $searchModelPengurusanPermohonanKursusPersatuanPenasihat,
+                'dataProviderPengurusanPermohonanKursusPersatuanPenasihat' => $dataProviderPengurusanPermohonanKursusPersatuanPenasihat,
                 'readonly' => false,
             ]);
         }
@@ -120,12 +159,21 @@ class PengurusanPermohonanKursusPersatuanController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        $queryPar = null;
+        
+        $queryPar['PengurusanPermohonanKursusPersatuanPenasihatSearch']['pengurusan_permohonan_kursus_persatuan_id'] = $id;
+        
+        $searchModelPengurusanPermohonanKursusPersatuanPenasihat  = new PengurusanPermohonanKursusPersatuanPenasihatSearch();
+        $dataProviderPengurusanPermohonanKursusPersatuanPenasihat = $searchModelPengurusanPermohonanKursusPersatuanPenasihat->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->pengurusan_permohonan_kursus_persatuan_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'searchModelPengurusanPermohonanKursusPersatuanPenasihat' => $searchModelPengurusanPermohonanKursusPersatuanPenasihat,
+                'dataProviderPengurusanPermohonanKursusPersatuanPenasihat' => $dataProviderPengurusanPermohonanKursusPersatuanPenasihat,
                 'readonly' => false,
             ]);
         }
@@ -162,5 +210,12 @@ class PengurusanPermohonanKursusPersatuanController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionGetKursus($id){
+        // find Ahli Jawatankuasa Induk
+        $model = PengurusanPermohonanKursusPersatuan::findOne($id);
+        
+        echo Json::encode($model);
     }
 }

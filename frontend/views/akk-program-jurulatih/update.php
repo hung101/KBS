@@ -20,6 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'searchModelAkkProgramJurulatihPeserta' => $searchModelAkkProgramJurulatihPeserta,
+        'dataProviderAkkProgramJurulatihPeserta' => $dataProviderAkkProgramJurulatihPeserta,
         'readonly' => $readonly,
     ]) ?>
 

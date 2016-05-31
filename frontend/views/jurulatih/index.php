@@ -20,12 +20,12 @@ $this->params['breadcrumbs'][] = $this->title;
         
         // Update Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update'])){
-            $template .= ' {update}';
+            //$template .= ' {update}';
         }
         
         // Delete Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['delete'])){
-            $template .= ' {delete}';
+            //$template .= ' {delete}';
         }
     ?>
 
@@ -52,7 +52,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
                 ]
             ],
-           // 'gambar',
+            [
+                'attribute' => 'ic_no',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::ic_no,
+                ],
+            ],
+            [
+                'attribute' => 'bahagian',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bahagian,
+                ],
+                'value' => 'refBahagianJurulatih.desc'
+            ],
             //'cawangan',
             [
                 'attribute' => 'cawangan',
@@ -62,17 +76,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refCawangan.desc'
             ],
-            //'sub_cawangan_pelapis',
-            [
-                'attribute' => 'sub_cawangan_pelapis',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sub_cawangan_pelapis,
-                ],
-                'value' => 'refSubProgramPelapisJurulatih.desc'
-            ],
-           // 'lain_lain_program',
-            // 'pusat_latihan',
             //'nama_sukan',
             [
                 'attribute' => 'nama_sukan',
@@ -91,6 +94,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refAcara.desc'
             ],
+            //'program',
+           // 'gambar',
+            
+            //'sub_cawangan_pelapis',
+            /*[
+                'attribute' => 'sub_cawangan_pelapis',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sub_cawangan_pelapis,
+                ],
+                'value' => 'refSubProgramPelapisJurulatih.desc'
+            ],*/
+           // 'lain_lain_program',
+            // 'pusat_latihan',
             // 'status_jurulatih',
             // 'status_permohonan',
             // 'status_keaktifan_jurulatih',

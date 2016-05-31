@@ -18,7 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Pengurusan Jawatankuasa Khas Sukan Malaysia Ahli', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -33,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'agensi_organisasi',
             // 'agensi_organisasi_nyatakan',
             // 'negeri',
+            // 'session_id',
             // 'created_by',
             // 'updated_by',
             // 'created',
@@ -41,5 +41,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-
 </div>

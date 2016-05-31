@@ -5,11 +5,14 @@ namespace frontend\controllers;
 use Yii;
 use app\models\AkkProgramJurulatih;
 use frontend\models\AkkProgramJurulatihSearch;
+use app\models\AkkProgramJurulatihPeserta;
+use frontend\models\AkkProgramJurulatihPesertaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Jurulatih;
@@ -70,8 +73,17 @@ class AkkProgramJurulatihController extends Controller
         $ref = RefTahapKerjayaJurulatih::findOne(['id' => $model->tahap]);
         $model->tahap = $ref['desc'];
         
+        $queryPar = null;
+        
+        $queryPar['AkkProgramJurulatihPesertaSearch']['akk_program_jurulatih_id'] = $id;
+        
+        $searchModelAkkProgramJurulatihPeserta  = new AkkProgramJurulatihPesertaSearch();
+        $dataProviderAkkProgramJurulatihPeserta = $searchModelAkkProgramJurulatihPeserta->search($queryPar);
+        
         return $this->render('view', [
             'model' => $model,
+            'searchModelAkkProgramJurulatihPeserta' => $searchModelAkkProgramJurulatihPeserta,
+            'dataProviderAkkProgramJurulatihPeserta' => $dataProviderAkkProgramJurulatihPeserta,
             'readonly' => true,
         ]);
     }
@@ -88,12 +100,30 @@ class AkkProgramJurulatihController extends Controller
         }
         
         $model = new AkkProgramJurulatih();
+        
+        $queryPar = null;
+        
+        Yii::$app->session->open();
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['AkkProgramJurulatihPesertaSearch']['session_id'] = Yii::$app->session->id;
+        }
+        
+        $searchModelAkkProgramJurulatihPeserta  = new AkkProgramJurulatihPesertaSearch();
+        $dataProviderAkkProgramJurulatihPeserta = $searchModelAkkProgramJurulatihPeserta->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if(isset(Yii::$app->session->id)){
+                AkkProgramJurulatihPeserta::updateAll(['akk_program_jurulatih_id' => $model->akk_program_jurulatih_id], 'session_id = "'.Yii::$app->session->id.'"');
+                AkkProgramJurulatihPeserta::updateAll(['session_id' => ''], 'akk_program_jurulatih_id = "'.$model->akk_program_jurulatih_id.'"');
+            }
+            
             return $this->redirect(['view', 'id' => $model->akk_program_jurulatih_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'searchModelAkkProgramJurulatihPeserta' => $searchModelAkkProgramJurulatihPeserta,
+                'dataProviderAkkProgramJurulatihPeserta' => $dataProviderAkkProgramJurulatihPeserta,
                 'readonly' => false,
             ]);
         }
@@ -112,12 +142,21 @@ class AkkProgramJurulatihController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        $queryPar = null;
+        
+        $queryPar['AkkProgramJurulatihPesertaSearch']['akk_program_jurulatih_id'] = $id;
+        
+        $searchModelAkkProgramJurulatihPeserta  = new AkkProgramJurulatihPesertaSearch();
+        $dataProviderAkkProgramJurulatihPeserta = $searchModelAkkProgramJurulatihPeserta->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->akk_program_jurulatih_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'searchModelAkkProgramJurulatihPeserta' => $searchModelAkkProgramJurulatihPeserta,
+                'dataProviderAkkProgramJurulatihPeserta' => $dataProviderAkkProgramJurulatihPeserta,
                 'readonly' => false,
             ]);
         }

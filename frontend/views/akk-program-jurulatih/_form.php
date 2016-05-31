@@ -7,6 +7,10 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use yii\helpers\Url;
+use yii\grid\GridView;
+use yii\bootstrap\Modal;
+use yii\widgets\Pjax;
 
 // table reference
 use app\models\Jurulatih;
@@ -26,6 +30,30 @@ use app\models\general\GeneralMessage;
 <div class="akk-program-jurulatih-form">
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
+    
+    <?php 
+            Modal::begin([
+                'header' => '<h3 id="modalTitle"></h3>',
+                'id' => 'modal',
+                'size' => 'modal-lg',
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+                'options' => [
+                    'tabindex' => false // important for Select2 to work properly
+                ],
+            ]);
+            
+            echo '<div id="modalContent"></div>';
+            
+            Modal::end();
+        ?>
+    
+    <?php
+        if(!$readonly){
+            $template = '{view} {update} {delete}';
+        } else {
+            $template = '{view}';
+        }
+    ?>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
     <?php
@@ -38,7 +66,7 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'jurulatih' => [
+                /*'jurulatih' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -54,7 +82,7 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>5]],
+                    'columnOptions'=>['colspan'=>5]],*/
                 'penganjur' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
             ],
         ],
@@ -103,6 +131,91 @@ use app\models\general\GeneralMessage;
     ]
 ]);
         ?>
+    
+    <h3>Jurulatih</h3>
+    
+    
+    
+    <?php Pjax::begin(['id' => 'akkProgramJurulatihPesertaGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderAkkProgramJurulatihPeserta,
+        //'filterModel' => $searchModelAkkProgramJurulatihPeserta,
+        'id' => 'akkProgramJurulatihPesertaGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'akk_program_jurulatih_peserta_id',
+            //'akk_program_jurulatih_id',
+            //'jurulatih',
+            [
+                'attribute' => 'jurulatih',
+                'value' => 'refJurulatih.nama'
+            ],
+            //'sukan',
+            [
+                'attribute' => 'sukan',
+                'value' => 'refSukan.desc'
+            ],
+            //'acara',
+            [
+                'attribute' => 'acara',
+                'value' => 'refAcara.desc'
+            ],
+            // 'session_id',
+            // 'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['akk-program-jurulatih-peserta/delete', 'id' => $model->akk_program_jurulatih_peserta_id]).'", "'.GeneralMessage::confirmDelete.'", "akkProgramJurulatihPesertaGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-program-jurulatih-peserta/update', 'id' => $model->akk_program_jurulatih_peserta_id]).'", "'.GeneralLabel::updateTitle . ' Jurulatih");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-program-jurulatih-peserta/view', 'id' => $model->akk_program_jurulatih_peserta_id]).'", "'.GeneralLabel::viewTitle . ' Jurulatih");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        $akk_program_jurulatih_id = "";
+        
+        if(isset($model->akk_program_jurulatih_id)){
+            $akk_program_jurulatih_id = $model->akk_program_jurulatih_id;
+        }
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['akk-program-jurulatih-peserta/create', 'akk_program_jurulatih_id' => $akk_program_jurulatih_id]).'", "'.GeneralLabel::createTitle . ' Jurulatih");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <?php Pjax::end(); ?>
+    
+    <br>
 
     <!--<?= $form->field($model, 'peningkatan_kerjaya_jurulatih_id')->textInput() ?>
 

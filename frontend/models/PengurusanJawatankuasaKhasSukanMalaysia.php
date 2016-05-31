@@ -26,6 +26,24 @@ class PengurusanJawatankuasaKhasSukanMalaysia extends \yii\db\ActiveRecord
     {
         return 'tbl_pengurusan_jawatankuasa_khas_sukan_malaysia';
     }
+    
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior',
+            [
+                'class' => \yii\behaviors\BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'updated',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -55,5 +73,12 @@ class PengurusanJawatankuasaKhasSukanMalaysia extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJawatankuasaKhas(){
+        return $this->hasOne(RefJawatankuasaKhas::className(), ['id' => 'jawatankuasa']);
     }
 }

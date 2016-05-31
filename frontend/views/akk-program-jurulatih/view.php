@@ -31,10 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
+        <?= Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'window.print();' ]); ?>
     </p>
     
     <?= $this->render('_form', [
         'model' => $model,
+        'searchModelAkkProgramJurulatihPeserta' => $searchModelAkkProgramJurulatihPeserta,
+        'dataProviderAkkProgramJurulatihPeserta' => $dataProviderAkkProgramJurulatihPeserta,
         'readonly' => $readonly,
     ]) ?>
 

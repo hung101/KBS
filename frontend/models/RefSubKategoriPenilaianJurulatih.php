@@ -52,8 +52,8 @@ class RefSubKategoriPenilaianJurulatih extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['desc'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['desc', 'ref_kategori_penilaian_jurulatih_id'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['aktif', 'created_by', 'updated_by', 'ref_kategori_penilaian_jurulatih_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
             [['desc'], 'string', 'max' => 80]
         ];
@@ -66,6 +66,7 @@ class RefSubKategoriPenilaianJurulatih extends \yii\db\ActiveRecord
     {
         return [
             'id' => GeneralLabel::id,
+            'ref_kategori_penilaian_jurulatih_id' => GeneralLabel::kategori_penilaian,
             'desc' => GeneralLabel::desc,
             'aktif' => GeneralLabel::aktif,
             'created_by' => GeneralLabel::created_by,
@@ -74,5 +75,9 @@ class RefSubKategoriPenilaianJurulatih extends \yii\db\ActiveRecord
             'updated' => GeneralLabel::updated,
 
         ];
+    }
+    
+    public function getRefKategoriPenilaianJurulatih() {
+        return $this->hasOne(RefKategoriPenilaianJurulatih::className(), ['id' => 'ref_kategori_penilaian_jurulatih_id']);
     }
 }

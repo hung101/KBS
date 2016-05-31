@@ -1647,53 +1647,6 @@
         ]
     },
     {
-        "name": "miloschuman/yii2-highcharts-widget",
-        "version": "v4.2.3",
-        "version_normalized": "4.2.3.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/miloschuman/yii2-highcharts.git",
-            "reference": "f7af817c44c209fb38236721e580b67e0e51e364"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/miloschuman/yii2-highcharts/zipball/f7af817c44c209fb38236721e580b67e0e51e364",
-            "reference": "f7af817c44c209fb38236721e580b67e0e51e364",
-            "shasum": ""
-        },
-        "require": {
-            "yiisoft/yii2": "*"
-        },
-        "time": "2016-02-11 18:21:07",
-        "type": "yii2-extension",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "miloschuman\\highcharts\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Milo Schuman",
-                "email": "miloschuman@gmail.com"
-            }
-        ],
-        "description": "Highcharts widget for Yii 2 Framework.",
-        "homepage": "https://github.com/miloschuman/yii2-highcharts",
-        "keywords": [
-            "extension",
-            "highcharts",
-            "highmaps",
-            "highstock",
-            "widget",
-            "yii2"
-        ]
-    },
-    {
         "name": "kartik-v/bootstrap-star-rating",
         "version": "v4.0.1",
         "version_normalized": "4.0.1.0",
@@ -2100,39 +2053,6 @@
             "email",
             "mail",
             "mailer"
-        ]
-    },
-    {
-        "name": "bower-asset/jquery",
-        "version": "2.2.3",
-        "version_normalized": "2.2.3.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/jquery/jquery-dist.git",
-            "reference": "af22a351b2ea5801ffb1695abb3bb34d5bed9198"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/af22a351b2ea5801ffb1695abb3bb34d5bed9198",
-            "reference": "af22a351b2ea5801ffb1695abb3bb34d5bed9198",
-            "shasum": ""
-        },
-        "type": "bower-asset-library",
-        "extra": {
-            "bower-asset-main": "dist/jquery.js",
-            "bower-asset-ignore": [
-                "package.json"
-            ]
-        },
-        "installation-source": "dist",
-        "license": [
-            "MIT"
-        ],
-        "keywords": [
-            "browser",
-            "javascript",
-            "jquery",
-            "library"
         ]
     },
     {
@@ -3277,6 +3197,245 @@
             "pdf",
             "utf8",
             "yii2"
+        ]
+    },
+    {
+        "name": "bower-asset/jquery",
+        "version": "2.2.4",
+        "version_normalized": "2.2.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/jquery/jquery-dist.git",
+            "reference": "c0185ab7c75aab88762c5aae780b9d83b80eda72"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/c0185ab7c75aab88762c5aae780b9d83b80eda72",
+            "reference": "c0185ab7c75aab88762c5aae780b9d83b80eda72",
+            "shasum": ""
+        },
+        "type": "bower-asset-library",
+        "extra": {
+            "bower-asset-main": "dist/jquery.js",
+            "bower-asset-ignore": [
+                "package.json"
+            ]
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "keywords": [
+            "browser",
+            "javascript",
+            "jquery",
+            "library"
+        ]
+    },
+    {
+        "name": "miloschuman/yii2-highcharts-widget",
+        "version": "v4.2.5",
+        "version_normalized": "4.2.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/miloschuman/yii2-highcharts.git",
+            "reference": "6951fef6cc72273f8e4278154eb756416d5caab4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/miloschuman/yii2-highcharts/zipball/6951fef6cc72273f8e4278154eb756416d5caab4",
+            "reference": "6951fef6cc72273f8e4278154eb756416d5caab4",
+            "shasum": ""
+        },
+        "require": {
+            "yiisoft/yii2": "*"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.4"
+        },
+        "time": "2016-05-26 17:42:51",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "miloschuman\\highcharts\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Milo Schuman",
+                "email": "miloschuman@gmail.com"
+            }
+        ],
+        "description": "Highcharts widget for Yii 2 Framework.",
+        "homepage": "https://github.com/miloschuman/yii2-highcharts",
+        "keywords": [
+            "extension",
+            "highcharts",
+            "highmaps",
+            "highstock",
+            "widget",
+            "yii2"
+        ]
+    },
+    {
+        "name": "bower-asset/admin-lte",
+        "version": "v2.3.3",
+        "version_normalized": "2.3.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/almasaeed2010/AdminLTE.git",
+            "reference": "8db979795044412a2e2b4e9659788c23cb59fcd3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/almasaeed2010/AdminLTE/zipball/8db979795044412a2e2b4e9659788c23cb59fcd3",
+            "reference": "8db979795044412a2e2b4e9659788c23cb59fcd3",
+            "shasum": ""
+        },
+        "type": "bower-asset-library",
+        "extra": {
+            "bower-asset-main": [
+                "index2.html",
+                "dist/css/AdminLTE.css",
+                "dist/js/app.js",
+                "build/less/AdminLTE.less"
+            ],
+            "bower-asset-ignore": [
+                "/.*",
+                "node_modules",
+                "bower_components",
+                "composer.json",
+                "documentation"
+            ]
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "description": "Admin dashboard and control panel template",
+        "keywords": [
+            "admin",
+            "backend",
+            "bootstrap",
+            "css",
+            "html",
+            "js",
+            "responsive",
+            "template",
+            "theme"
+        ]
+    },
+    {
+        "name": "rmrevin/yii2-fontawesome",
+        "version": "2.15.1",
+        "version_normalized": "2.15.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/rmrevin/yii2-fontawesome.git",
+            "reference": "d2777130bc926bc670a4e50c2f504a0fb782efb1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/rmrevin/yii2-fontawesome/zipball/d2777130bc926bc670a4e50c2f504a0fb782efb1",
+            "reference": "d2777130bc926bc670a4e50c2f504a0fb782efb1",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0",
+            "yiisoft/yii2": "2.0.*"
+        },
+        "time": "2016-05-28 21:18:32",
+        "type": "yii2-extension",
+        "extra": {
+            "asset-installer-paths": {
+                "npm-asset-library": "vendor/npm",
+                "bower-asset-library": "vendor/bower"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "rmrevin\\yii\\fontawesome\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Revin Roman",
+                "email": "roman@rmrevin.com",
+                "homepage": "https://rmrevin.com/"
+            }
+        ],
+        "description": "Asset Bundle for Yii2 with Font Awesome",
+        "keywords": [
+            "asset",
+            "awesome",
+            "bundle",
+            "font",
+            "yii"
+        ]
+    },
+    {
+        "name": "rmrevin/yii2-ionicon",
+        "version": "1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/rmrevin/yii2-ionicon.git",
+            "reference": "eb1296d5db4a766faf4d14e1235c1d84d48e68e8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/rmrevin/yii2-ionicon/zipball/eb1296d5db4a766faf4d14e1235c1d84d48e68e8",
+            "reference": "eb1296d5db4a766faf4d14e1235c1d84d48e68e8",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0",
+            "yiisoft/yii2": "2.0.*"
+        },
+        "time": "2016-05-22 20:07:18",
+        "type": "yii2-extension",
+        "extra": {
+            "asset-installer-paths": {
+                "npm-asset-library": "vendor/npm",
+                "bower-asset-library": "vendor/bower"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "rmrevin\\yii\\ionicon\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Revin Roman",
+                "email": "roman@rmrevin.com",
+                "homepage": "https://rmrevin.com/"
+            }
+        ],
+        "description": "Asset Bundle for Yii2 with Ionicon",
+        "keywords": [
+            "asset",
+            "bundle",
+            "font",
+            "icons",
+            "ionicon",
+            "social",
+            "yii"
         ]
     }
 ]

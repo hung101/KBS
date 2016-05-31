@@ -41,7 +41,8 @@ class PengurusanJawatankuasaKhasSukanMalaysiaSearch extends PengurusanJawatankua
      */
     public function search($params)
     {
-        $query = PengurusanJawatankuasaKhasSukanMalaysia::find();
+        $query = PengurusanJawatankuasaKhasSukanMalaysia::find()
+                ->joinWith(['refJawatankuasaKhas']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -59,14 +60,15 @@ class PengurusanJawatankuasaKhasSukanMalaysiaSearch extends PengurusanJawatankua
             'pengurusan_jawatankuasa_khas_sukan_malaysia_id' => $this->pengurusan_jawatankuasa_khas_sukan_malaysia_id,
             'tarikh_mula' => $this->tarikh_mula,
             'tarikh_tamat' => $this->tarikh_tamat,
-            'jawatankuasa' => $this->jawatankuasa,
+            //'jawatankuasa' => $this->jawatankuasa,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created' => $this->created,
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'temasya', $this->temasya]);
+        $query->andFilterWhere(['like', 'temasya', $this->temasya])
+                ->andFilterWhere(['like', 'tbl_ref_jawatankuasa_khas.desc', $this->jawatankuasa]);
 
         return $dataProvider;
     }

@@ -6,6 +6,8 @@ use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
+use kartik\widgets\DepDrop;
+use yii\helpers\Url;
 
 // table reference
 use app\models\RefKategoriPenilaianJurulatih;
@@ -53,19 +55,34 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>4]],
                 'penilaian_sub_kategori' => [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
                     'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-sub-kategori-penilaian-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/ref-sub-kategori-penilaian-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                        ],
                         'data'=>ArrayHelper::map(RefSubKategoriPenilaianJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::subKategoriPenilaian],],
+                        'options'=>['prompt'=>'',],
+                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                        'pluginOptions' => [
+                            'depends'=>[Html::getInputId($model, 'penilaian_kategori')],
+                            'initialize' => true,
+                            'placeholder' => Placeholder::subKategoriPenilaian,
+                            'url'=>Url::to(['/ref-sub-kategori-penilaian-jurulatih/subkategori'])],
+                        ],
                     'columnOptions'=>['colspan'=>5]],
-                'markah_penilaian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+                'markah_penilaian' => [
+                    'type'=>Form::INPUT_RADIO_LIST, 
+                    'items'=>['1'=>'1', '2'=>'2', '3'=>'3', '4'=>'4', '5'=>'5'],
+                    'value'=>false,
+                    'options'=>['inline'=>true],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
        

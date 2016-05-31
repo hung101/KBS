@@ -19,7 +19,7 @@ class JurulatihSearch extends Jurulatih
     {
         return [
             [['jurulatih_id', 'bil_tanggungan'], 'integer'],
-            [['gambar', 'cawangan', 'sub_cawangan_pelapis', 'lain_lain_program', 'pusat_latihan', 'nama_sukan', 'nama_acara', 'status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 'nama', 'bangsa', 'agama', 'jantina', 'warganegara', 'tarikh_lahir', 'tempat_lahir', 'taraf_perkahwinan', 'ic_no', 'ic_no_lama', 'ic_tentera', 'passport_no', 'tamat_tempoh', 'no_visa', 'tamat_visa_tempoh', 'no_permit_kerja', 'tamat_permit_tempoh', 'alamat_rumah_1', 'alamat_rumah_2', 'alamat_rumah_3', 'alamat_rumah_negeri', 'alamat_rumah_bandar', 'alamat_rumah_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'no_telefon', 'emel', 'status', 'sektor', 'jawatan', 'no_telefon_pejabat', 'nama_majikan', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod'], 'safe'],
+            [['gambar', 'cawangan', 'sub_cawangan_pelapis', 'lain_lain_program', 'pusat_latihan', 'nama_sukan', 'nama_acara', 'status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 'nama', 'bangsa', 'agama', 'jantina', 'warganegara', 'tarikh_lahir', 'tempat_lahir', 'taraf_perkahwinan', 'ic_no', 'ic_no_lama', 'ic_tentera', 'passport_no', 'tamat_tempoh', 'no_visa', 'tamat_visa_tempoh', 'no_permit_kerja', 'tamat_permit_tempoh', 'alamat_rumah_1', 'alamat_rumah_2', 'alamat_rumah_3', 'alamat_rumah_negeri', 'alamat_rumah_bandar', 'alamat_rumah_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'no_telefon', 'emel', 'status', 'sektor', 'jawatan', 'no_telefon_pejabat', 'nama_majikan', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 'bahagian'], 'safe'],
         ];
     }
 
@@ -45,7 +45,8 @@ class JurulatihSearch extends Jurulatih
                 ->joinWith(['refCawangan'])
                 ->joinWith(['refSubProgramPelapisJurulatih'])
                 ->joinWith(['refSukan'])
-                ->joinWith(['refAcara']);
+                ->joinWith(['refAcara'])
+                ->joinWith(['refBahagianJurulatih']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -115,7 +116,8 @@ class JurulatihSearch extends Jurulatih
             ->andFilterWhere(['like', 'alamat_majikan_3', $this->alamat_majikan_3])
             ->andFilterWhere(['like', 'alamat_majikan_negeri', $this->alamat_majikan_negeri])
             ->andFilterWhere(['like', 'alamat_majikan_bandar', $this->alamat_majikan_bandar])
-            ->andFilterWhere(['like', 'alamat_majikan_poskod', $this->alamat_majikan_poskod]);
+            ->andFilterWhere(['like', 'alamat_majikan_poskod', $this->alamat_majikan_poskod])
+                ->andFilterWhere(['like', 'tbl_ref_bahagian_jurulatih.desc', $this->bahagian]);
 
         return $dataProvider;
     }

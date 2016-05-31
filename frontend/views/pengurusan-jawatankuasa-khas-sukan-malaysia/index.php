@@ -75,7 +75,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jawatankuasa,
-                ]
+                ],
+                'value' => 'refJawatankuasaKhas.desc'
             ],
             // 'created_by',
             // 'updated_by',

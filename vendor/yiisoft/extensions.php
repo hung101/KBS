@@ -210,15 +210,6 @@ return array (
       '@dosamigos/chartjs' => $vendorDir . '/2amigos/yii2-chartjs-widget/src',
     ),
   ),
-  'miloschuman/yii2-highcharts-widget' => 
-  array (
-    'name' => 'miloschuman/yii2-highcharts-widget',
-    'version' => '4.2.3.0',
-    'alias' => 
-    array (
-      '@miloschuman/highcharts' => $vendorDir . '/miloschuman/yii2-highcharts-widget/src',
-    ),
-  ),
   'kartik-v/yii2-widget-rating' => 
   array (
     'name' => 'kartik-v/yii2-widget-rating',
@@ -362,6 +353,33 @@ return array (
     'alias' => 
     array (
       '@kartik/mpdf' => $vendorDir . '/kartik-v/yii2-mpdf',
+    ),
+  ),
+  'miloschuman/yii2-highcharts-widget' => 
+  array (
+    'name' => 'miloschuman/yii2-highcharts-widget',
+    'version' => '4.2.5.0',
+    'alias' => 
+    array (
+      '@miloschuman/highcharts' => $vendorDir . '/miloschuman/yii2-highcharts-widget/src',
+    ),
+  ),
+  'rmrevin/yii2-fontawesome' => 
+  array (
+    'name' => 'rmrevin/yii2-fontawesome',
+    'version' => '2.15.1.0',
+    'alias' => 
+    array (
+      '@rmrevin/yii/fontawesome' => $vendorDir . '/rmrevin/yii2-fontawesome',
+    ),
+  ),
+  'rmrevin/yii2-ionicon' => 
+  array (
+    'name' => 'rmrevin/yii2-ionicon',
+    'version' => '1.2.0.0',
+    'alias' => 
+    array (
+      '@rmrevin/yii/ionicon' => $vendorDir . '/rmrevin/yii2-ionicon',
     ),
   ),
 );

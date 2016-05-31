@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\MuatNaikDokumen */
 
 //$this->title = $model->muat_naik_dokumen_id;
-$this->title = GeneralLabel::viewTitle . ' Muat Naik Dokumen';
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::muat_naik_dokumen, 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::maklumat_sukan_malaysia;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::maklumat_sukan_malaysia, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="muat-naik-dokumen-view">

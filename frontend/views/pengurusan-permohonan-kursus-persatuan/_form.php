@@ -9,11 +9,16 @@ use yii\helpers\Url;
 use kartik\widgets\DepDrop;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use yii\grid\GridView;
+use yii\bootstrap\Modal;
+use yii\widgets\Pjax;
 
 // table reference
 use app\models\RefJantina;
 use app\models\RefBandar;
 use app\models\RefNegeri;
+use app\models\RefTahapKpsk;
+use app\models\RefStatusPermohonanJkk;
 
 // contant values
 use app\models\general\Placeholder;
@@ -29,8 +34,16 @@ use app\models\general\GeneralMessage;
 <div class="pengurusan-permohonan-kursus-persatuan-form">
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
+    
+    <?php
+        if(!$readonly){
+            $template = '{view} {update} {delete}';
+        } else {
+            $template = '{view}';
+        }
+    ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -41,9 +54,23 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
-                'no_kad_pengenalan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12]],
-                'tarikh_lahir' => [
+                'agensi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+                'kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>12,'value'=>'Pengurusan Sukan Kebangsaan', 'disabled'=>true]],
+                'tahap' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-tahap-kpsk/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefTahapKpsk::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::tahap],],
+                    'columnOptions'=>['colspan'=>2]],
+                'tarikh_kursus' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
@@ -53,6 +80,42 @@ use app\models\general\GeneralMessage;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'tempat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>90]],
+                'nama_penganjur' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+                'no_perhubungan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'bilangan_peserta' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>11]],
+                'yuran_program' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10], 'hint'=>'Minima Yuran Kursus KPSK ialah RM120'],
+                'jumlah_yuran' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10, 'disabled'=>true]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                'no_kad_pengenalan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12]],
+                /*'tarikh_lahir' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],*/
                 'jantina' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -147,16 +210,128 @@ use app\models\general\GeneralMessage;
                 'nama_majikan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
             ]
         ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'yuran_program' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
-            ]
-        ],
     ]
 ]);
         ?>
+    
+    <h3>Panel Penasihat KPSK</h3>
+    
+    <?php 
+            Modal::begin([
+                'header' => '<h3 id="modalTitle"></h3>',
+                'id' => 'modal',
+                'size' => 'modal-lg',
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+                'options' => [
+                    'tabindex' => false // important for Select2 to work properly
+                ],
+            ]);
+            
+            echo '<div id="modalContent"></div>';
+            
+            Modal::end();
+        ?>
+    
+    <?php Pjax::begin(['id' => 'pengurusanPermohonanKursusPersatuanPenasihatGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPengurusanPermohonanKursusPersatuanPenasihat,
+        //'filterModel' => $searchModelPengurusanPermohonanKursusPersatuanPenasihat,
+        'id' => 'pengurusanPermohonanKursusPersatuanPenasihatGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'pengurusan_permohonan_kursus_persatuan_penasihat_id',
+            //'pengurusan_permohonan_kursus_persatuan_id',
+            //'nama',
+            [
+                'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ],
+                'value' => 'refProfilPanelPenasihatKpsk.nama'
+            ],
+            //'silibus',
+            [
+                'attribute' => 'silibus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::silibus,
+                ],
+                'value' => 'refSilibus.desc'
+            ],
+            //'tarikh_mula_bertugas',
+            [
+                'attribute' => 'tarikh_mula_bertugas',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula_bertugas,
+                ],
+            ],
+            //'tarikh_tamat_bertugas',
+            [
+                'attribute' => 'tarikh_tamat_bertugas',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat_bertugas,
+                ],
+            ],
+            // 'catatan',
+            // 'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['pengurusan-permohonan-kursus-persatuan-penasihat/delete', 'id' => $model->pengurusan_permohonan_kursus_persatuan_penasihat_id]).'", "'.GeneralMessage::confirmDelete.'", "pengurusanPermohonanKursusPersatuanPenasihatGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-permohonan-kursus-persatuan-penasihat/update', 'id' => $model->pengurusan_permohonan_kursus_persatuan_penasihat_id]).'", "'.GeneralLabel::updateTitle . ' Panel Penasihat KPSK");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-permohonan-kursus-persatuan-penasihat/view', 'id' => $model->pengurusan_permohonan_kursus_persatuan_penasihat_id]).'", "'.GeneralLabel::viewTitle . ' Panel Penasihat KPSK");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        $pengurusan_permohonan_kursus_persatuan_id = "";
+        
+        if(isset($model->pengurusan_permohonan_kursus_persatuan_id)){
+            $pengurusan_permohonan_kursus_persatuan_id = $model->pengurusan_permohonan_kursus_persatuan_id;
+        }
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-permohonan-kursus-persatuan-penasihat/create', 'pengurusan_permohonan_kursus_persatuan_id' => $pengurusan_permohonan_kursus_persatuan_id]).'", "'.GeneralLabel::createTitle . ' Panel Penasihat KPSK");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
+    
     
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-permohonan-kursus-persatuan']['kelulusan']) || $readonly): ?>
     <?php
@@ -170,11 +345,44 @@ use app\models\general\GeneralMessage;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'kelulusan' =>[
-                    'type'=>Form::INPUT_RADIO_LIST, 
-                    'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
-                    'value'=>false,
-                    'options'=>['inline'=>true],
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan-jkk/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefStatusPermohonanJkk::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::statusPermohonan],],
+                    'columnOptions'=>['colspan'=>2]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'kod_kursus' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>30]],
+                'tarikh_kelulusan' =>[
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
                     'columnOptions'=>['colspan'=>3]],
+                'jumlah_diluluskan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>10]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'catatan' =>['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>255]],
             ]
         ],
     ]
@@ -227,3 +435,40 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+$script = <<< JS
+
+$('#pengurusanpermohonankursuspersatuan-bilangan_peserta').on("keyup", function(){calculateJumlahYuran();});
+$('#pengurusanpermohonankursuspersatuan-yuran_program').on("keyup", function(){calculateJumlahYuran();});
+        
+function calculateJumlahYuran(){
+    var bilangan_peserta = 0;
+    var yuran_program = 0;
+    var jumlah_yuran = 0;
+        
+    if($('#pengurusanpermohonankursuspersatuan-bilangan_peserta').val() > 0){bilangan_peserta = parseInt($('#pengurusanpermohonankursuspersatuan-bilangan_peserta').val());}
+    if($('#pengurusanpermohonankursuspersatuan-yuran_program').val() > 0){yuran_program = parseFloat($('#pengurusanpermohonankursuspersatuan-yuran_program').val());}
+    
+        
+    if(bilangan_peserta > 0 && yuran_program >0){
+        // Total Yuran
+        jumlah_yuran = bilangan_peserta * yuran_program;
+
+        //display at fields accordingly
+        $('#pengurusanpermohonankursuspersatuan-jumlah_yuran').val(jumlah_yuran);
+    }
+}
+    
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+        
+JS;
+        
+$this->registerJs($script);
+?>

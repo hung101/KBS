@@ -26,6 +26,22 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <h1><?= Html::encode($this->title) ?></h1>
     
+    <div class="panel panel-danger">
+        <div class="panel-body">
+            <strong>Semak Dokumen</strong>
+        </div>
+        <ul >
+            <li >Surat sokongan daripada PSK atau kelulusan Mesyuarat Jawatan Kuasa Kerja (JKK).</li>
+            <li >Surat Permohonan rasmi daripada jurulatih.</li>
+            <li >Resume Jurulatih.</li>
+            <li >Gambar berwarna ukuran passport.</li>
+            <li >Salinan kad pengenalan / passport.</li>
+            <li >Salinan Sijil Akademik Jurulatih.</li>
+            <li >Salinan Sijil Pendidikan Kejurulatihan.</li>
+            <li >Salinan Sijil Skim Persijilan Kejurulatihan Kebangsaan (SPKK) terkini. (Kursus Sains Sukan dan Kursus Sukan Spesifik)</li>
+          </ul>
+    </div>
+    
     <?php
  
     $items = [

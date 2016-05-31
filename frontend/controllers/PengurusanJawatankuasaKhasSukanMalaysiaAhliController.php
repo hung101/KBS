@@ -11,18 +11,28 @@ use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
 
+// table reference
+use app\models\RefNegeri;
+use app\models\RefJenisKeahlian;
+use app\models\RefJawatanJawatankuasaKhas;
+use app\models\RefAgensiOrganisasi;
+
+
 /**
  * PengurusanJawatankuasaKhasSukanMalaysiaAhliController implements the CRUD actions for PengurusanJawatankuasaKhasSukanMalaysiaAhli model.
  */
 class PengurusanJawatankuasaKhasSukanMalaysiaAhliController extends Controller
 {
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
+                    'delete' => ['POST'],
                 ],
             ],
         ];
@@ -58,8 +68,23 @@ class PengurusanJawatankuasaKhasSukanMalaysiaAhliController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
-        return $this->render('view', [
-            'model' => $this->findModel($id),
+        $model = $this->findModel($id);
+        
+        $ref = RefJenisKeahlian::findOne(['id' => $model->jenis_keahlian]);
+        $model->jenis_keahlian = $ref['desc'];
+        
+        $ref = RefJawatanJawatankuasaKhas::findOne(['id' => $model->jawatan]);
+        $model->jawatan = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->negeri]);
+        $model->negeri = $ref['desc'];
+        
+        $ref = RefAgensiOrganisasi::findOne(['id' => $model->agensi_organisasi]);
+        $model->agensi_organisasi = $ref['desc'];
+        
+        return $this->renderAjax('view', [
+            'model' => $model,
+            'readonly' => true,
         ]);
     }
 
@@ -68,19 +93,30 @@ class PengurusanJawatankuasaKhasSukanMalaysiaAhliController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($pengurusan_jawatankuasa_khas_sukan_malaysia_id)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = new PengurusanJawatankuasaKhasSukanMalaysiaAhli();
+        
+        Yii::$app->session->open();
+        
+        if($pengurusan_jawatankuasa_khas_sukan_malaysia_id != ''){
+            $model->pengurusan_jawatankuasa_khas_sukan_malaysia_id = $pengurusan_jawatankuasa_khas_sukan_malaysia_id;
+        } else {
+            if(isset(Yii::$app->session->id)){
+                $model->session_id = Yii::$app->session->id;
+            }
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pengurusan_jawatankuasa_khas_sukan_malaysia_ahli_id]);
+            return '1';
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
+                'readonly' => false,
             ]);
         }
     }
@@ -100,10 +136,11 @@ class PengurusanJawatankuasaKhasSukanMalaysiaAhliController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pengurusan_jawatankuasa_khas_sukan_malaysia_ahli_id]);
+            return '1';
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
+                'readonly' => false,
             ]);
         }
     }
@@ -122,7 +159,7 @@ class PengurusanJawatankuasaKhasSukanMalaysiaAhliController extends Controller
         
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        //return $this->redirect(['index']);
     }
 
     /**

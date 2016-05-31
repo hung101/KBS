@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ae9cee8395849e2d2e055c525313b894",
-    "content-hash": "5d8585ff7cf30f4fad0b34b50131909f",
+    "hash": "39ce0c1d47c315116e14086cb84aee82",
+    "content-hash": "9c5b199327947f878858d68a3e87d5aa",
     "packages": [
         {
             "name": "2amigos/yii2-chartjs-widget",
@@ -190,6 +190,52 @@
             "time": "2016-03-12 17:53:43"
         },
         {
+            "name": "bower-asset/admin-lte",
+            "version": "v2.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/almasaeed2010/AdminLTE.git",
+                "reference": "8db979795044412a2e2b4e9659788c23cb59fcd3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/almasaeed2010/AdminLTE/zipball/8db979795044412a2e2b4e9659788c23cb59fcd3",
+                "reference": "8db979795044412a2e2b4e9659788c23cb59fcd3",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "index2.html",
+                    "dist/css/AdminLTE.css",
+                    "dist/js/app.js",
+                    "build/less/AdminLTE.less"
+                ],
+                "bower-asset-ignore": [
+                    "/.*",
+                    "node_modules",
+                    "bower_components",
+                    "composer.json",
+                    "documentation"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Admin dashboard and control panel template",
+            "keywords": [
+                "admin",
+                "backend",
+                "bootstrap",
+                "css",
+                "html",
+                "js",
+                "responsive",
+                "template",
+                "theme"
+            ]
+        },
+        {
             "name": "bower-asset/bootstrap",
             "version": "v3.3.5",
             "source": {
@@ -293,16 +339,16 @@
         },
         {
             "name": "bower-asset/jquery",
-            "version": "2.2.3",
+            "version": "2.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jquery/jquery-dist.git",
-                "reference": "af22a351b2ea5801ffb1695abb3bb34d5bed9198"
+                "reference": "c0185ab7c75aab88762c5aae780b9d83b80eda72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/af22a351b2ea5801ffb1695abb3bb34d5bed9198",
-                "reference": "af22a351b2ea5801ffb1695abb3bb34d5bed9198",
+                "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/c0185ab7c75aab88762c5aae780b9d83b80eda72",
+                "reference": "c0185ab7c75aab88762c5aae780b9d83b80eda72",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -2265,20 +2311,23 @@
         },
         {
             "name": "miloschuman/yii2-highcharts-widget",
-            "version": "v4.2.3",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/miloschuman/yii2-highcharts.git",
-                "reference": "f7af817c44c209fb38236721e580b67e0e51e364"
+                "reference": "6951fef6cc72273f8e4278154eb756416d5caab4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/miloschuman/yii2-highcharts/zipball/f7af817c44c209fb38236721e580b67e0e51e364",
-                "reference": "f7af817c44c209fb38236721e580b67e0e51e364",
+                "url": "https://api.github.com/repos/miloschuman/yii2-highcharts/zipball/6951fef6cc72273f8e4278154eb756416d5caab4",
+                "reference": "6951fef6cc72273f8e4278154eb756416d5caab4",
                 "shasum": ""
             },
             "require": {
                 "yiisoft/yii2": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.4"
             },
             "type": "yii2-extension",
             "autoload": {
@@ -2306,7 +2355,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2016-02-11 18:21:07"
+            "time": "2016-05-26 17:42:51"
         },
         {
             "name": "mpdf/mpdf",
@@ -2502,6 +2551,110 @@
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
             "time": "2016-04-07 12:29:16"
+        },
+        {
+            "name": "rmrevin/yii2-fontawesome",
+            "version": "2.15.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rmrevin/yii2-fontawesome.git",
+                "reference": "d2777130bc926bc670a4e50c2f504a0fb782efb1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rmrevin/yii2-fontawesome/zipball/d2777130bc926bc670a4e50c2f504a0fb782efb1",
+                "reference": "d2777130bc926bc670a4e50c2f504a0fb782efb1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "2.0.*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "asset-installer-paths": {
+                    "npm-asset-library": "vendor/npm",
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "rmrevin\\yii\\fontawesome\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Revin Roman",
+                    "email": "roman@rmrevin.com",
+                    "homepage": "https://rmrevin.com/"
+                }
+            ],
+            "description": "Asset Bundle for Yii2 with Font Awesome",
+            "keywords": [
+                "asset",
+                "awesome",
+                "bundle",
+                "font",
+                "yii"
+            ],
+            "time": "2016-05-28 21:18:32"
+        },
+        {
+            "name": "rmrevin/yii2-ionicon",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rmrevin/yii2-ionicon.git",
+                "reference": "eb1296d5db4a766faf4d14e1235c1d84d48e68e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rmrevin/yii2-ionicon/zipball/eb1296d5db4a766faf4d14e1235c1d84d48e68e8",
+                "reference": "eb1296d5db4a766faf4d14e1235c1d84d48e68e8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "2.0.*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "asset-installer-paths": {
+                    "npm-asset-library": "vendor/npm",
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "rmrevin\\yii\\ionicon\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Revin Roman",
+                    "email": "roman@rmrevin.com",
+                    "homepage": "https://rmrevin.com/"
+                }
+            ],
+            "description": "Asset Bundle for Yii2 with Ionicon",
+            "keywords": [
+                "asset",
+                "bundle",
+                "font",
+                "icons",
+                "ionicon",
+                "social",
+                "yii"
+            ],
+            "time": "2016-05-22 20:07:18"
         },
         {
             "name": "setasign/fpdi",

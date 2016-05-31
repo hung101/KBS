@@ -108,9 +108,10 @@ class Jurulatih extends \yii\db\ActiveRecord
                 'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'no_telefon', 'no_telefon_bimbit', 'sektor', 'jawatan', 
                 'no_telefon_pejabat', 'alamat_majikan_1', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir', 'tamat_tempoh', 'tamat_visa_tempoh', 'tamat_permit_tempoh'], 'safe'],
-            [['bil_tanggungan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['bil_tanggungan', 'approved', 'nama_sukan', 'nama_acara', 'ic_no', 'ic_tentera', 'ic_no_lama',
+                'alamat_rumah_poskod', 'alamat_surat_menyurat_poskod', 'alamat_majikan_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['gambar', 'warganegara', 'emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['cawangan', 'sub_cawangan_pelapis', 'lain_lain_program', 'pusat_latihan', 'nama_sukan', 'nama_acara', 'nama', 'nama_majikan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['cawangan', 'sub_cawangan_pelapis', 'lain_lain_program', 'pusat_latihan', 'nama', 'nama_majikan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 'no_visa', 'no_permit_kerja', 'alamat_rumah_negeri', 'alamat_surat_menyurat_negeri', 'status', 'sektor', 'jawatan', 'alamat_majikan_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['bangsa'], 'string', 'max' => 25, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['agama', 'taraf_perkahwinan', 'passport_no'], 'string', 'max' => 15, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -140,8 +141,8 @@ class Jurulatih extends \yii\db\ActiveRecord
             'sub_cawangan_pelapis' => GeneralLabel::sub_cawangan_pelapis,
             'lain_lain_program' => GeneralLabel::lain_lain_program,
             'pusat_latihan' => GeneralLabel::pusat_latihan,
-            'nama_sukan' => GeneralLabel::nama_sukan,
-            'nama_acara' => GeneralLabel::nama_acara,
+            'nama_sukan' => GeneralLabel::sukan,
+            'nama_acara' => GeneralLabel::acara,
             'status_jurulatih' => GeneralLabel::status_jurulatih,
             'status_permohonan' => GeneralLabel::status_permohonan,
             'status_keaktifan_jurulatih' => GeneralLabel::status_keaktifan_jurulatih,
@@ -154,7 +155,7 @@ class Jurulatih extends \yii\db\ActiveRecord
             'tempat_lahir' => GeneralLabel::tempat_lahir,
             'taraf_perkahwinan' => GeneralLabel::taraf_perkahwinan,
             'bil_tanggungan' => GeneralLabel::bil_tanggungan,
-            'ic_no' => GeneralLabel::ic_no,
+            'ic_no' => GeneralLabel::no_kp_no_kp_lama,
             'ic_no_lama' => GeneralLabel::ic_no_lama,
             'ic_tentera' => GeneralLabel::ic_tentera,
             'passport_no' => GeneralLabel::passport_no,
@@ -180,7 +181,7 @@ class Jurulatih extends \yii\db\ActiveRecord
             'emel' => GeneralLabel::emel,
             'status' => GeneralLabel::status,
             'sektor' => GeneralLabel::sektor,
-            'jawatan' => GeneralLabel::jawatan,
+            'jawatan' => GeneralLabel::jawatan_hakiki,
             'no_telefon_pejabat' => GeneralLabel::no_telefon_pejabat,
             'nama_majikan' => GeneralLabel::nama_majikan,
             'alamat_majikan_1' => GeneralLabel::alamat_majikan_1,
@@ -246,5 +247,12 @@ class Jurulatih extends \yii\db\ActiveRecord
      */
     public function getRefAcara(){
         return $this->hasOne(RefAcara::className(), ['id' => 'nama_acara']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefBahagianJurulatih(){
+        return $this->hasOne(RefBahagianJurulatih::className(), ['id' => 'bahagian']);
     }
 }

@@ -247,6 +247,27 @@ class JurulatihController extends Controller
             ]);
         }
     }
+    
+    /**
+     * Updates an existing Jurulatih model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionApproved($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->approved = 1; // set approved
+        
+        $model->save();
+        
+        return $this->redirect(['view', 'id' => $model->jurulatih_id]);
+    }
 
     /**
      * Deletes an existing Jurulatih model.

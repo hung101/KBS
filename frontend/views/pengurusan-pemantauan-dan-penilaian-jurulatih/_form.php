@@ -64,7 +64,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Jurulatih::find()->all(),'jurulatih_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::jurulatih],],
+                        'options' => ['placeholder' => Placeholder::jurulatih, 'id'=>'jurulatihId'],],
                     'columnOptions'=>['colspan'=>5]],
                 'nama_sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -197,6 +197,18 @@ use app\models\general\GeneralMessage;
         ],
     ]); ?>
     
+    <?php 
+        $calculate_jumlah_markah = 0;
+        foreach($dataProviderPengurusanPenilaianKategoriJurulatih->models as $PPPKJLmodel){
+            $calculate_jumlah_markah += $PPPKJLmodel->markah_penilaian;
+        }
+        
+        $calculate_jumlah_permarkahan = (($calculate_jumlah_markah/180) * 0.05); // formula (x/180*5%)
+    ?>
+    
+    <h4>Jumlah Markah Penilaian: <?=$calculate_jumlah_markah?></h4>
+    <h4>Jumlah Permarkahan (x/180*5%): <?=$calculate_jumlah_permarkahan?></h4>
+    
     <?php if(!$readonly): ?>
     <p>
         <?php 
@@ -229,8 +241,41 @@ use app\models\general\GeneralMessage;
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?php endif; ?>
+        <?= Html::a(GeneralLabel::backToList, ['index'], ['class' => 'btn btn-warning']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$URLJurulatih = Url::to(['/jurulatih/get-jurulatih']);
+
+$script = <<< JS
+        
+$('#jurulatihId').change(function(){
+    
+    $.get('$URLJurulatih',{id:$(this).val()},function(data){
+        clearForm();
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+            $('#pengurusanpemantauandanpenilaianjurulatih-pusat_latihan').attr('value',data.pusat_latihan);
+            $("#pengurusanpemantauandanpenilaianjurulatih-nama_sukan").val(data.nama_sukan).trigger("change");
+            $("#pengurusanpemantauandanpenilaianjurulatih-nama_acara").val(data.nama_acara).trigger("change");
+        }
+    });
+});
+     
+function clearForm(){
+    $('#pengurusanpemantauandanpenilaianjurulatih-pusat_latihan').attr('value','');
+    $("#pengurusanpemantauandanpenilaianjurulatih-nama_sukan").val('').trigger("change");
+    $("#pengurusanpemantauandanpenilaianjurulatih-nama_acara").val('').trigger("change");
+}
+        
+JS;
+        
+$this->registerJs($script);
+?>
+

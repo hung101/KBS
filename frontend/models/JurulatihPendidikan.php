@@ -68,9 +68,9 @@ class JurulatihPendidikan extends \yii\db\ActiveRecord
         return [
             'jurulatih_pendidikan_id' => GeneralLabel::jurulatih_pendidikan_id,
             'jurulatih_id' => GeneralLabel::jurulatih_id,
-            'tahun' => GeneralLabel::tahun,
-            'sekolah_kolej_universiti' => GeneralLabel::sekolah_kolej_universiti,
-            'gred' => GeneralLabel::gred,
+            'tahun' => GeneralLabel::tahap_pendidikan,
+            'sekolah_kolej_universiti' => GeneralLabel::nama_institusi_sekolah,
+            'gred' => GeneralLabel::pencapaian,
 
         ];
     }

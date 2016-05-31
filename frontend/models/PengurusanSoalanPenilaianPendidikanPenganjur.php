@@ -64,7 +64,7 @@ class PengurusanSoalanPenilaianPendidikanPenganjur extends \yii\db\ActiveRecord
             'pengurusan_soalan_penilaian_pendidikan_penganjur_id' => GeneralLabel::pengurusan_soalan_penilaian_pendidikan_penganjur_id,
             'pengurusan_penilaian_pendidikan_penganjur_intructor_id' => GeneralLabel::pengurusan_penilaian_pendidikan_penganjur_intructor_id,
             'soalan' => GeneralLabel::soalan,
-            'rating' => GeneralLabel::rating,
+            'rating' => GeneralLabel::skala,
 
         ];
     }
