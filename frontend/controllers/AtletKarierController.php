@@ -10,6 +10,13 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Session;
 
+// contant values
+use app\models\general\GeneralVariable;
+
+// table reference
+use app\models\RefBandar;
+use app\models\RefNegeri;
+
 /**
  * AtletKarierController implements the CRUD actions for AtletKarier model.
  */
@@ -33,6 +40,10 @@ class AtletKarierController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $request = Yii::$app->request;
         
         $searchModel = new AtletKarierSearch();
@@ -56,6 +67,10 @@ class AtletKarierController extends Controller
      */
     public function actionTab()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         /*$searchModel = new AtletKarierSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -82,8 +97,21 @@ class AtletKarierController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        // get atlet details
+        $model = $this->findModel($id);
+        
+        $ref = \app\models\RefNegeri::findOne(['id' => $model->alamat_negeri]);
+        $model->alamat_negeri = $ref['desc'];
+        
+        $ref = \app\models\RefBandar::findOne(['id' => $model->alamat_bandar]);
+        $model->alamat_bandar = $ref['desc'];
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }
@@ -95,6 +123,10 @@ class AtletKarierController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new AtletKarier();
         
         // set Atlet Id
@@ -126,6 +158,10 @@ class AtletKarierController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -147,6 +183,10 @@ class AtletKarierController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $this->findModel($id)->delete();
 
         //return $this->redirect(['index']);

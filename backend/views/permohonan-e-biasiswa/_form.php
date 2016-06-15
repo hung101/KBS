@@ -334,7 +334,7 @@ use common\models\general\GeneralFunction;
                         'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'alamat_negeri')],
-                            'initialize' => true,
+                            //'initialize' => true,
                             'placeholder' => Placeholder::bandar,
                             'url'=>Url::to(['/ref-bandar/subbandars'])],
                         ],
@@ -815,72 +815,6 @@ use common\models\general\GeneralFunction;
 ]);
     }
     ?>
-    
-    
-
-    <!--<?= $form->field($model, 'muat_naik_gambar')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'nama')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'no_kad_pengenalan')->textInput(['maxlength' => 12]) ?>
-
-    <?= $form->field($model, 'jantina')->textInput(['maxlength' => 1]) ?>
-
-    <?= $form->field($model, 'keturunan')->textInput(['maxlength' => 25]) ?>
-
-    <?= $form->field($model, 'agama')->textInput(['maxlength' => 15]) ?>
-
-    <?= $form->field($model, 'taraf_perkahwinan')->textInput(['maxlength' => 15]) ?>
-
-    <?= $form->field($model, 'kawasan_temuduga_anda')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_1')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_2')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_3')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_negeri')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_bandar')->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'alamat_poskod')->textInput(['maxlength' => 5]) ?>
-
-    <?= $form->field($model, 'no_tel_bimbit')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'no_pendaftaran_oku')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'kategori_oku')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'oku_lain_lain')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'universiti_institusi')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'program_pengajian')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'kursus_bidang_pengajian')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'falkulti')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'kategori')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'tarikh_tamat')->textInput() ?>
-
-    <?= $form->field($model, 'semester_terkini')->textInput() ?>
-
-    <?= $form->field($model, 'baki_semester_yang_tinggal')->textInput() ?>
-
-    <?= $form->field($model, 'no_matriks')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'mendapat_pembiayaan_pendidikan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'sukan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'perakuan_pemohon')->textInput() ?>
-
-    <?= $form->field($model, 'kelulusan')->textInput() ?>
-
-    <?= $form->field($model, 'status_permohonan')->textInput(['maxlength' => 30]) ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>

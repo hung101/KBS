@@ -66,6 +66,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pengurusanMediaProgramFolder = "pengurusan_media_program";
         const pengurusanMediaProgramDokumenSubFolder = "dokumen_media_program";
         const pengurusanInsentifFolder = "pengurusan_insentif";
+        const pengurusanInsuranFolder = "pengurusan_insuran";
         const pengurusanKemudahanSediaAdaFolder = "pengurusan_kemudahan_sedia_ada";
         const pengurusanPerhimpunanKemFolder = "pengurusan_perhimpunan_kem";
         const perancanganProgramFolder = "perancangan_program";
@@ -181,6 +182,7 @@ if($session->get('language') == "EN") {
         const pengurusanMediaProgramFolder = "pengurusan_media_program";
         const pengurusanMediaProgramDokumenSubFolder = "dokumen_media_program";
         const pengurusanInsentifFolder = "pengurusan_insentif";
+        const pengurusanInsuranFolder = "pengurusan_insuran";
         const pengurusanKemudahanSediaAdaFolder = "pengurusan_kemudahan_sedia_ada";
         const pengurusanPerhimpunanKemFolder = "pengurusan_perhimpunan_kem";
         const perancanganProgramFolder = "perancangan_program";

@@ -19,7 +19,7 @@ class AtletPakaianSearch extends AtletPakaian
     {
         return [
             [['pakaian_id', 'atlet_id'], 'integer'],
-            [['jenis_pakaian', 'saiz_pakaian'], 'safe'],
+            [['jenis_pakaian', 'saiz_pakaian', 'tarikh_serahan'], 'safe'],
         ];
     }
 
@@ -63,7 +63,8 @@ class AtletPakaianSearch extends AtletPakaian
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_jenis_pakaian.desc', $this->jenis_pakaian])
-            ->andFilterWhere(['like', 'tbl_ref_saiz_pakaian.desc', $this->saiz_pakaian]);
+            ->andFilterWhere(['like', 'tbl_ref_saiz_pakaian.desc', $this->saiz_pakaian])
+                ->andFilterWhere(['like', 'tarikh_serahan', $this->tarikh_serahan]);
 
         return $dataProvider;
     }

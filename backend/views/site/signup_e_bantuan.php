@@ -30,6 +30,9 @@ $this->title = 'Daftar';
             <?php echo "<div class='required'>"; ?>
             <?= $form->field($model, 'sijil_pendaftaran')->fileInput() ?>
             <?php echo "</div>"; ?>
+            <?php echo "<div class='required'>"; ?>
+            <?= $form->field($model, 'perlembagaan_persatuan')->fileInput() ?>
+            <?php echo "</div>"; ?>
                 <div class="form-group">
                     <?= Html::submitButton('Hantar', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
                 </div>

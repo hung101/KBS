@@ -17,6 +17,7 @@ use app\models\RefJenisBiasiswa;
 use app\models\RefTahapPendidikan;
 use app\models\RefBandar;
 use app\models\RefNegeri;
+use app\models\RefJenisPencapaian;
 
 // contant values
 use app\models\general\Placeholder;
@@ -33,6 +34,8 @@ use app\models\general\GeneralVariable;
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>GeneralVariable::formAtletPendidikanID]); ?>
+    
+    <?php //echo $form->errorSummary($model); ?>
     
     <?php
         echo FormGrid::widget([
@@ -61,8 +64,33 @@ use app\models\general\GeneralVariable;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
-                'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>9]],
+                'jenis_pencapaian' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-pencapaian/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefJenisPencapaian::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::jenis],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>2]],
+                'keputusan_cgpa' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>7],'options'=>['maxlength'=>100]],
             ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                
+                'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>9]],
+            ]
         ],
         [
             'columns'=>12,
@@ -168,13 +196,20 @@ use app\models\general\GeneralVariable;
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'keputusan_cgpa' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>8],'options'=>['maxlength'=>100]],
-            ]
-        ],
+    ]
+]);
+    ?>
+    
+     <br>
+    <br>
+    <pre style="text-align: center"><strong>Maklumat Biasiswa</strong></pre>
+    
+     <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting

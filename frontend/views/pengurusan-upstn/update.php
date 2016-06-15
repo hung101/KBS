@@ -20,6 +20,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'searchModelPengurusanUpstnAtlet' => $searchModelPengurusanUpstnAtlet,
+        'dataProviderPengurusanUpstnAtlet' => $dataProviderPengurusanUpstnAtlet,
+        'searchModelPengurusanUpstnJurulatih' => $searchModelPengurusanUpstnJurulatih,
+        'dataProviderPengurusanUpstnJurulatih' => $dataProviderPengurusanUpstnJurulatih,
         'readonly' => $readonly,
     ]) ?>
 

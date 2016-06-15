@@ -140,6 +140,7 @@ class Placeholder{
     const namaAhli = "-- Pilih Nama Ahli --";
     const namaInsentif = "-- Pilih Nama Insentif --";
     const namaPersatuanPersekutuandunia = "-- Pilih Nama Persatuan / Persekutuan Dunia --";
+    const namaPpn = "-- Pilih PPN --";
     const negara = " -- Pilih Negara -- ";
     const negeri = " -- Pilih Negeri -- ";
     const negeriSokongan = " -- Pilih Negeri Sokongan -- ";

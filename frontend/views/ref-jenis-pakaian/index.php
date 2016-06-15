@@ -29,14 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            [
+            /*[
                 'attribute' => 'ref_sukan_id',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::ref_sukan_id,
                 ],
                 'value' => 'refSukan.desc',
-            ],
+            ],*/
             [
                 'attribute' => 'desc',
                 'filterInputOptions' => [

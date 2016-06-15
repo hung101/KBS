@@ -62,7 +62,7 @@ use app\models\general\GeneralVariable;
                     'columnOptions'=>['colspan'=>4]],
             ],
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -83,6 +83,13 @@ use app\models\general\GeneralVariable;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>4]],
+            ]
+        ],*/
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'name_persatuan_persekutuan_dunia' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>100]],
             ]
         ],
         [

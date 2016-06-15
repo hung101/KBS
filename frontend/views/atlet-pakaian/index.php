@@ -72,6 +72,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refSaizPakaian.desc'
             ],
+            [
+                'attribute' => 'tarikh_serahan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_serahan,
+                ],
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

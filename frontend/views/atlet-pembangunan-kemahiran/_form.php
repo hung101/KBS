@@ -60,6 +60,12 @@ use app\models\general\GeneralVariable;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                 'jenis_kemahiran' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -76,7 +82,8 @@ use app\models\general\GeneralVariable;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>3]],
+                'nama_kemahiran' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>8],'options'=>['maxlength'=>100], 'hint'=>'• cth. Teknikal = Bertukang/ Piping; Komunikasi = Bahasa Peranchis/Bahasa Isyarat; Komputer = Sijil Microsoft Office 2013/ Pengaturcaraan'],
             ]
         ],
         [

@@ -25,6 +25,7 @@ class UserPeranan extends \yii\db\ActiveRecord
     const PERANAN_PJS_PERSATUAN = 6;
     const PERANAN_KBS_E_BIASISWA_BENDAHARI_IPT = 7;
     const PERANAN_KBS_E_BANTUAN_URUSETIA = 8;
+    const PERANAN_MSN_ADUAN_PENYELIA = 9;
     
     /**
      * @inheritdoc

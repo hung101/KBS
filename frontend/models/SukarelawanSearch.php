@@ -43,7 +43,8 @@ class SukarelawanSearch extends Sukarelawan
     {
         $query = Sukarelawan::find()
                 ->joinWith(['refJantina'])
-                ->joinWith(['refBandar']);
+                ->joinWith(['refBandar'])
+                ->joinWith(['refNegeri']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -68,7 +69,7 @@ class SukarelawanSearch extends Sukarelawan
             ->andFilterWhere(['like', 'alamat_1', $this->alamat_1])
             ->andFilterWhere(['like', 'alamat_2', $this->alamat_2])
             ->andFilterWhere(['like', 'alamat_3', $this->alamat_3])
-            ->andFilterWhere(['like', 'alamat_negeri', $this->alamat_negeri])
+            ->andFilterWhere(['like', 'tbl_ref_negeri.desc', $this->alamat_negeri])
             ->andFilterWhere(['like', 'tbl_ref_bandar.desc', $this->alamat_bandar])
             ->andFilterWhere(['like', 'alamat_poskod', $this->alamat_poskod])
             ->andFilterWhere(['like', 'tbl_ref_jantina.desc', $this->jantina])

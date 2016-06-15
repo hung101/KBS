@@ -55,6 +55,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jenama = " -- Pilih Jenama -- ";
         const jenis = " -- Pilih Jenis -- ";
         const jenisAkaun = " -- Pilih Jenis Akaun -- ";
+        const jenisAktiviti = " -- Pilih Jenis Aktiviti -- ";
         const jenisAlkohol = " -- Pilih Jenis Alkohol -- ";
         const jenisAset = " -- Pilih Jenis Aset -- ";
         const jenisAsetSub = "-- Pilih Jenis Harta/Pengangkutan/Perniagaan --";
@@ -98,6 +99,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jenisTahapKursus= "-- Pilih Jenis Tahap / Kursus --";
         const jenisTempahan = "-- Pilih Jenis Tempahan --";
         const jenisTemujanji = "-- Pilih Jenis Temujanji --";
+        const jenisTuntutan = "-- Pilih Jenis Tuntutan --";
         const jurulatih = "-- Pilih Jurulatih --";
         const juruUrut = "-- Pilih Juru Urut --";
         const kaum = "-- Pilih Kaum --";
@@ -118,6 +120,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kategoriGeranBantuan = " -- Pilih Ketegori Geran Bantuan -- ";
         const kategoriHakmilik = " -- Pilih Ketegori Hakmilik -- ";
         const kategoriKeahlian = " -- Pilih Ketegori Keahlian -- ";
+        const kategoriKecacatan = "-- Pilih Kategori Kecacatan --";
         const kategoriKecergasan = "-- Pilih Kategori Kecergasan --";
         const kategoriKos = "-- Pilih Kategori Kos --";
         const kategoriKursus = "-- Pilih Kategori Kursus --";
@@ -136,8 +139,10 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kategoriProgram = "-- Pilih Kategori Program --";
         const kategoriSoalan = "-- Pilih Kategori Soalan --";
         const kategoriSukan = "-- Pilih Kategori Sukan --";
+        const kawasanKemudahan = "-- Pilih Kawasan / Kemudahan --";
         const kawasanTemuduga = "-- Pilih Kawasan Temuduga --";
         const keaktifanJurulatih = "-- Pilih Keaktifan Jurulatih --";
+        const kecenderungan = "-- Pilih Kecenderungan --";
         const kewarganegara = "-- Pilih Kewarganegara --";
         const kelulusan = "-- Pilih Kelulusan --";
         const kelulusanHQ = "-- Pilih Kelulusan HQ --";
@@ -165,6 +170,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const namaInsentif = "-- Pilih Nama Insentif --";
         const namaJus = "-- Pilih Nama Jus --";
         const namaPersatuanPersekutuandunia = "-- Pilih Nama Persatuan / Persekutuan Dunia --";
+        const namaPpn = "-- Pilih Nama PPN --";
         const negara = " -- Pilih Negara -- ";
         const negeri = " -- Pilih Negeri -- ";
         const negeriSokongan = " -- Pilih Negeri Sokongan -- ";
@@ -173,6 +179,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pencapaian = " -- Pilih Pecapaian -- ";
         const pangkat = " -- Pilih Pangkat -- ";
         const pejabatYangMendaftarkan = " -- Pilih Pejabat Yang Mendaftarkan -- ";
+        const pemeriksa = " -- Pilih Pemeriksa -- ";
         const pemohon = " -- Pilih Pemohon -- ";
         const pengajian = " -- Pilih Pengajian -- ";
         const penganjuranKursus = " -- Pilih Penganjuran Kursus -- ";
@@ -180,6 +187,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const peralatanKemudahan = " -- Pilih Peralatan Kemudahan -- ";
         const peranan = " -- Pilih Peranan -- ";
         const perananPeserta = " -- Pilih Peranan Peserta -- ";
+        const perkara  = " -- Pilih Perkara -- ";
         const perkhidmatan = " -- Pilih Perkhidmatan -- ";
         const perkhidmatanPemakanan = " -- Pilih Perkhidmatan Pemakanan -- ";
         const perkhidmatanSatelit = " -- Pilih Perkhidmatan Satelit -- ";
@@ -193,6 +201,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pegawaiPsikologi = " -- Pilih Pegawai Psikologi -- ";
         const penasihat = " -- Pilih Penasihat -- ";
         const penyakit = "-- Pilih Penyakit --";
+        const penyelia = "-- Pilih Penyelia --";
         const permohonan = "-- Pilih Permohonan --";
         const permohonanPelanjutan = "-- Pilih Permohonan Pelanjutan --";
         const persatuan = "-- Pilih Persatuan --";
@@ -249,6 +258,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tarikhKursus = " -- Pilih Tarikh Kursus -- "; 
         const temasya = " -- Pilih Temasya -- "; 
         const tempat = " -- Pilih Tempat -- "; 
+        const tindakan = " -- Pilih Tindakan -- "; 
         const tindakanSelanjutnya = " -- Pilih Tindakan Selanjutnya -- "; 
         const ubat = " -- Pilih Ubat -- "; 
         const unitDiagnosisPreskripsiPemeriksaanPenyiasatan = " -- Pilih Fisio atau Rehab -- "; 
@@ -305,6 +315,7 @@ if($session->get('language') == "EN") {
         const jenama = " -- Select Brand -- ";
         const jenis = " -- Select The Type Of -- ";
         const jenisAkaun = " -- Select Account Type -- ";
+        const jenisAktiviti = " -- Select Activity Type -- ";
         const jenisAlkohol = " -- Select The Type Of Alcohol -- ";
         const jenisAset = " -- Select The Type Of Assets -- ";
         const jenisAsetSub = "-- Select Property Type/Transportation/Business --";
@@ -348,6 +359,7 @@ if($session->get('language') == "EN") {
         const jenisTahapKursus= "-- Select Type / Level Courses --";
         const jenisTempahan = "-- Select The Type Of Reservation --";
         const jenisTemujanji = "-- Select The Type Of Appointment --";
+        const jenisTuntutan = "-- Select Type Of Claim --";
         const jurulatih = "-- Choose A Coach --";
         const juruUrut = "-- Choose Juru Massage --";
         const kaum = "-- Select Race --";
@@ -368,6 +380,7 @@ if($session->get('language') == "EN") {
         const kategoriGeranBantuan = " -- Choose Grant Category -- ";
         const kategoriHakmilik = " -- Select The Category Ownership -- ";
         const kategoriKeahlian = " -- Select A Membership Category -- ";
+        const kategoriKecacatan = "-- Select Disabled Category --";
         const kategoriKecergasan = "-- Select Fitness Category --";
         const kategoriKos = "-- Select The Cost Category --";
         const kategoriKursus = "-- Select A Course Category --";
@@ -386,8 +399,10 @@ if($session->get('language') == "EN") {
         const kategoriProgram = "-- Select Program Category --";
         const kategoriSoalan = "-- Select Category Question --";
         const kategoriSukan = "-- Select The Sports Category --";
+        const kawasanKemudahan = "-- Select Kawasan / Kemudahan --";
         const kawasanTemuduga = "-- Select An Area Of The Interview --";
         const keaktifanJurulatih = "-- Select The Keaktifan Coach --";
+        const kecenderungan = "-- Select Tendency --";
         const kewarganegara = "-- Choose Citizenship --";
         const kelulusan = "-- Select Approval --";
         const kelulusanHQ = "-- Select The Approval Of HQ --";
@@ -415,6 +430,7 @@ if($session->get('language') == "EN") {
         const namaInsentif = "-- Select The Name Of The Incentive --";
         const namaJus = "-- Select Name Of Juice --";
         const namaPersatuanPersekutuandunia = "-- Select The Name Of Association/World Federation --";
+        const namaPpn = "-- Select PPN Name --";
         const negara = " -- Select Country -- ";
         const negeri = " -- Select State -- ";
         const negeriSokongan = " -- Select State Support -- ";
@@ -423,6 +439,7 @@ if($session->get('language') == "EN") {
         const pencapaian = " -- Select Pecapaian -- ";
         const pangkat = " -- Select Rank -- ";
         const pejabatYangMendaftarkan = " -- Select The Register Office -- ";
+        const pemeriksa = " -- Select An Examiner -- ";
         const pemohon = " -- Select The Applicant -- ";
         const pengajian = " -- Select Study -- ";
         const penganjuranKursus = " -- Pilih A Organization Of Courses -- ";
@@ -430,6 +447,7 @@ if($session->get('language') == "EN") {
         const peralatanKemudahan = " -- Select Equipment Facilities -- ";
         const peranan = " -- Select Role -- ";
         const perananPeserta = " -- Select The Role Participants -- ";
+        const perkara  = " -- Select Matter -- ";
         const perkhidmatan = " -- Select The Services -- ";
         const perkhidmatanPemakanan = " -- Select Nutrition Service -- ";
         const perkhidmatanSatelit = " -- Select Satellite Service -- ";
@@ -443,6 +461,7 @@ if($session->get('language') == "EN") {
         const pegawaiPsikologi = " -- Select The Officers Of Psychology -- ";
         const penasihat = " -- Select Advisor -- ";
         const penyakit = "-- Select A Disease --";
+        const penyelia = "-- Select A Supervisor --";
         const permohonan = "-- Select Application --";
         const permohonanPelanjutan = "-- Select The Application Extension --";
         const persatuan = "-- Select Association --";
@@ -499,6 +518,7 @@ if($session->get('language') == "EN") {
         const tarikhKursus = " -- Select Course Date -- ";
         const temasya = " -- Select Events -- "; 
         const tempat = " -- Select A Location -- "; 
+        const tindakan = " -- Select An Action -- "; 
         const tindakanSelanjutnya = " -- Select An Action -- "; 
         const ubat = " -- Select Medication -- "; 
         const unitDiagnosisPreskripsiPemeriksaanPenyiasatan = " -- Select Physio or Rehab -- "; 

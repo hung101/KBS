@@ -18,6 +18,8 @@ use app\models\general\GeneralVariable;
 use app\models\RefPeringkatKejohananTemasya;
 use app\models\RefSukan;
 use app\models\RefAcara;
+use app\models\RefJenisRekod;
+use app\models\RefKeputusan;
 
 /**
  * AtletPencapaianController implements the CRUD actions for AtletPencapaian model.
@@ -137,6 +139,12 @@ class AtletPencapaianController extends Controller
         
         $ref = RefAcara::findOne(['id' => $model->nama_acara]);
         $model->nama_acara = $ref['desc'];
+        
+        $ref = RefJenisRekod::findOne(['id' => $model->jenis_rekod]);
+        $model->jenis_rekod = $ref['desc'];
+        
+        $ref = RefKeputusan::findOne(['id' => $model->pencapaian]);
+        $model->pencapaian = $ref['desc'];
         
         return $this->renderAjax('view', [
             'model' => $model,

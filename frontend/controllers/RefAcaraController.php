@@ -153,7 +153,13 @@ class RefAcaraController extends Controller
      * @return Array Bandars
      */
     public static function getAcarasBySukan($sukan_id) {
-        $data = RefAcara::find()->where(['ref_sukan_id'=>$sukan_id])->select(['id','desc AS name'])->asArray()->all();
+        $data = RefAcara::find()->where(['ref_sukan_id'=>$sukan_id])->select(['id','desc AS name','discipline'])->asArray()->all();
+        for($i=0; $i < count($data); $i++){
+            if(isset($data[$i]['discipline']) && $data[$i]['discipline'] != ""){
+                $data[$i]['name'] = $data[$i]['discipline'] . ' - ' . $data[$i]['name'];
+            }
+        }
+        
         $value = (count($data) == 0) ? ['' => ''] : $data;
 
         return $value;

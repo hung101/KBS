@@ -25,6 +25,7 @@ use app\models\RefStatusSukanAtlet;
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
+use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AtletSukan */
@@ -78,7 +79,7 @@ use app\models\general\GeneralVariable;
                                 ]
                             ] : null,
                         ],
-                        'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'disciplineAcara'),
                         'options'=>['prompt'=>'',],
                         'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
@@ -166,7 +167,7 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::programSemasa],
+                        'options' => ['placeholder' => Placeholder::program],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -223,6 +224,35 @@ use app\models\general\GeneralVariable;
         ],
     ]
 ]);
+    ?>
+    
+    <?php
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'kelulusan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80], 'hint'=>GeneralMessage::cth_jkk_bilangan_3_tahun_2015],
+                        'tarikh_kelulusan' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=> DateControl::classname(),
+                            'ajaxConversion'=>false,
+                            'options'=>[
+                                'pluginOptions' => [
+                                    'autoclose'=>true,
+                                ],
+                            ],
+                            'columnOptions'=>['colspan'=>3],
+                            'hint'=>'Cth. Tarikh JKB Bil3/2015'],
+                            
+                    ]
+                ]
+            ]
+        ]);
     ?>
 
     <!--<?= $form->field($model, 'atlet_id')->textInput() ?>

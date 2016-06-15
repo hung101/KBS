@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ProfilPanelPenasihatKpsk */

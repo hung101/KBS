@@ -56,9 +56,11 @@ class AtletSukan extends \yii\db\ActiveRecord
         return [
             [['atlet_id', 'jurulatih_id', 'nama_sukan', 'acara'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['tahun_umur_permulaan', 'tarikh_mula_menyertai_program_msn', 'cawangan', 'negeri_diwakili', 'status', 'tarikh_tamat_menyertai_program_msn'], 'safe'],
+            [['tahun_umur_permulaan', 'tarikh_mula_menyertai_program_msn', 'cawangan', 'negeri_diwakili', 'status', 'tarikh_tamat_menyertai_program_msn', 
+                'tarikh_kelulusan'], 'safe'],
             [['nama_sukan', 'acara', 'program_semasa'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['no_lesen_sukan', 'atlet_persekutuan_dunia_id'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['no_lesen_sukan', 'atlet_persekutuan_dunia_id'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kelulusan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 
@@ -71,18 +73,19 @@ class AtletSukan extends \yii\db\ActiveRecord
             'sukan_id' => GeneralLabel::sukan_id,
             'atlet_id' => GeneralLabel::atlet_id,
             'jurulatih_id' => GeneralLabel::jurulatih_id,
-            'nama_sukan' => GeneralLabel::nama_sukan,
+            'nama_sukan' => GeneralLabel::sukan,
             'acara' => GeneralLabel::acara,
             'tahun_umur_permulaan' => GeneralLabel::tahun_umur_permulaan,
-            'tarikh_mula_menyertai_program_msn' => GeneralLabel::tarikh_mula_menyertai_program_msn,
-            'tarikh_tamat_menyertai_program_msn' => GeneralLabel::tarikh_tamat_menyertai_program_msn,
-            'cawangan' => GeneralLabel::cawangan,
-            'program_semasa' => GeneralLabel::program_semasa,
+            'tarikh_mula_menyertai_program_msn' => GeneralLabel::tarikh_mula_lantikan,
+            'tarikh_tamat_menyertai_program_msn' => GeneralLabel::tarikh_tamat_lantikan,
+            'cawangan' => GeneralLabel::kumpulan_sukan,
+            'program_semasa' => GeneralLabel::program,
             'no_lesen_sukan' => GeneralLabel::no_lesen_sukan,
             'atlet_persekutuan_dunia_id' => GeneralLabel::atlet_persekutuan_dunia_id,
             'negeri_diwakili' => GeneralLabel::negeri_diwakili,
             'status' => GeneralLabel::status,
-
+            'kelulusan' => GeneralLabel::kelulusan,
+            'tarikh_kelulusan' => GeneralLabel::tarikh_kelulusan,
         ];
     }
     

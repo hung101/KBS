@@ -42,7 +42,8 @@ class PengurusanUpstnSearch extends PengurusanUpstn
     public function search($params)
     {
         $query = PengurusanUpstn::find()
-                ->joinWith(['refSukan']);
+                ->joinWith(['refSukan'])
+                ->joinWith(['refPpn']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -62,7 +63,7 @@ class PengurusanUpstnSearch extends PengurusanUpstn
             'masa' => $this->masa,
         ]);
 
-        $query->andFilterWhere(['like', 'nama_pengurus_sukan', $this->nama_pengurus_sukan])
+        $query->andFilterWhere(['like', 'tbl_ref_ppn.desc', $this->nama_pengurus_sukan])
             ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->nama_sukan])
             ->andFilterWhere(['like', 'tempat', $this->tempat])
             ->andFilterWhere(['like', 'kehadiran', $this->kehadiran])

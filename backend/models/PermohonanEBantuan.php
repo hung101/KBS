@@ -92,7 +92,7 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
             [['email'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['email'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['objektif_pertubuhan', 'aktiviti_dan_kejayaan_yang_dicapai', 'catatan_admin'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['muat_naik_pb4', 'muat_naik_pb5', 'muat_naik_pb6'],'validateFileUpload', 'skipOnEmpty' => false]
+            [['muat_naik_pb4', 'muat_naik_pb5', 'muat_naik_pb6', 'kertas_kerja'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }
 
@@ -122,8 +122,8 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
             'alamat_surat_menyurat_negeri' => 'Negeri',
             'alamat_surat_menyurat_bandar' => 'Bandar',
             'alamat_surat_menyurat_poskod' => 'Poskod',
-            'no_telefon_pejabat' => 'No Telefon Pejabat',
-            'no_telefon_bimbit' => 'No Telefon Bimbit',
+            'no_telefon_pejabat' => 'No Telefon (Pejabat/Rumah)',
+            'no_telefon_bimbit' => 'No Telefon (Bimbit)',
             'no_fax' => 'No Fax',
             'email' => 'Email',
             'bilangan_keahlian' => 'Bilangan Keahlian',
@@ -166,6 +166,7 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
             'jawatankuasa_naib_pengerusi' => 'Naib Pengerusi/Naib Presiden/Naib Yang Di Pertua',
             'jawatankuasa_setiausaha' => 'Setiausaha',
             'jawatankuasa_bendahari' => 'Bendahari',
+            'kertas_kerja' => 'Kertas Kerja',
         ];
     }
     

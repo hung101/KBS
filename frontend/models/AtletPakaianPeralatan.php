@@ -68,7 +68,7 @@ class AtletPakaianPeralatan extends \yii\db\ActiveRecord
             'peralatan_id' => GeneralLabel::peralatan_id,
             'atlet_id' => GeneralLabel::atlet_id,
             'jenis_sukan' => GeneralLabel::jenis_sukan,
-            'peralatan' => GeneralLabel::peralatan,
+            'peralatan' => GeneralLabel::nama_peralatan,
             'saiz' => GeneralLabel::saiz,
             'jenama' => GeneralLabel::jenama,
             'model' => GeneralLabel::model,
@@ -90,5 +90,12 @@ class AtletPakaianPeralatan extends \yii\db\ActiveRecord
      */
     public function getRefJenamaPeralatan(){
         return $this->hasOne(RefJenamaPeralatan::className(), ['id' => 'jenama']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefPeralatanPinjaman(){
+        return $this->hasOne(RefPeralatanPinjaman::className(), ['id' => 'peralatan']);
     }
 }

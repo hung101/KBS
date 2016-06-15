@@ -64,10 +64,10 @@ class AtletKarier extends \yii\db\ActiveRecord
     {
         return [
             [['atlet_id', 'syarikat', 'jawatan_kerja', 'pendapatan', 'tahun_mula', 'tahun_tamat', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'tel_no'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tel_no', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['atlet_id', 'tel_no', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['pendapatan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tahun_mula', 'tahun_tamat', 'created', 'updated'], 'safe'],
-            [['atlet_id', 'socso_no', 'income_tax_no'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['socso_no', 'income_tax_no'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['syarikat', 'emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['laman_web'], 'string', 'max' => 120, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -87,7 +87,7 @@ class AtletKarier extends \yii\db\ActiveRecord
             'karier_atlet_id' => GeneralLabel::karier_atlet_id,
             'atlet_id' => GeneralLabel::atlet_id,
             'syarikat' => GeneralLabel::syarikat,
-            'alamat_1' => GeneralLabel::alamat_1,
+            'alamat_1' => GeneralLabel::alamat_majikan_1,
             'alamat_2' => GeneralLabel::alamat_2,
             'alamat_3' => GeneralLabel::alamat_3,
             'alamat_negeri' => GeneralLabel::alamat_negeri,

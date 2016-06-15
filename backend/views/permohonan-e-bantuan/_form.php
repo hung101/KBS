@@ -58,13 +58,24 @@ use app\models\general\GeneralMessage;
     ?>
     
     <div class="alert alert-success">
-        <strong>Tahniah!</strong> Sukacita dimaklumkan permohonan anda telah berjaya diluluskan. Sila muat turun borang PB-4 and muat naik selepas dilengkap. 
+        <strong>Tahniah!</strong> Dimaklumkan permohonan anda telah diluluskan. Surat kelulusan 
+akan dihantar ke alamat surat menyurat. Sila muat turun borang Surat Setuju Terima (PB-4) dan 
+kemukakan kepada urus setia dalam tempoh 14 hari dari tarikh penerimaan surat kelulusan untuk 
+tujuan penyelarasan dan pembayaran. Kegagalan mengemukakan dokumen tersebut di dalam tempoh yang 
+ditetapkan akan menyebabkan kelulusan ini terbatal.
         <?php //echo '&nbsp;&nbsp;' . Html::a('Muat Turun PB-4', 'javascript:void(0);', ['class'=>'btn btn-warning', 'onclick' => 'viewUpload("'.\Yii::$app->request->BaseUrl.'/downloads/permohonan-e-bantuan/pb4.pdf");']);?>
         <?= Html::a('Muat Turun PB-4', ['print', 'id' => $model->permohonan_e_bantuan_id, 'template' => 'SURAT_SETUJU_TERIMA_BANTUAN'], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
     </div>
     
     <div class="alert alert-warning">
-            <strong>Perhatian - </strong> Sila muat turun borang PB-6 selepas program dilaksanakan and muat naik selepas dilengkap. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $model->permohonan_e_bantuan_id, 'template' => 'LAPORAN_PELAKSANAAN_PROGRAM'], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>&nbsp;&nbsp;<?= Html::a('Isi e-Laporan', ['elaporan-pelaksanaan/load', 'permohonan_e_bantuan_id' => $model->permohonan_e_bantuan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?><?php //echo '&nbsp;&nbsp;' . Html::a('Muat Turun PB-6', 'javascript:void(0);', ['class'=>'btn btn-warning', 'onclick' => 'viewUpload("'.\Yii::$app->request->BaseUrl.'/downloads/permohonan-e-bantuan/pb6.pdf");']);?>
+            <strong>Perhatian - </strong> Sila muat turun borang Laporan Pelaksanaan Program (PB-6) dan 
+penyata perbelanjaan seperti dilampir yang berkaitan dengan program yang dilaksanakan dibawah 
+peruntukan ini sama ada dalam bentuk resit pembelian barangan yang lengkap, bil terperinci 
+(itemised bill), laporan program, gambar program atau lain-lain bentuk laporan yang disahkan yang 
+menggambarkan penggunaan peruntukan ini secara sah, berhemah dan berintegriti. Dokumen tersebut 
+perlu dikemukakan kepada urus setia Pengurusan Pemberian Bantuan JBSN dan muat naik dalam tempoh 
+14 hari selepas program dijalankan atau 14 hari selepas peruntukan bantuan ini dikeluarkan, yang 
+mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $model->permohonan_e_bantuan_id, 'template' => 'LAPORAN_PELAKSANAAN_PROGRAM'], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>&nbsp;&nbsp;<?= Html::a('Isi e-Laporan', ['elaporan-pelaksanaan/load', 'permohonan_e_bantuan_id' => $model->permohonan_e_bantuan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?><?php //echo '&nbsp;&nbsp;' . Html::a('Muat Turun PB-6', 'javascript:void(0);', ['class'=>'btn btn-warning', 'onclick' => 'viewUpload("'.\Yii::$app->request->BaseUrl.'/downloads/permohonan-e-bantuan/pb6.pdf");']);?>
     </div>
     
     <?php
@@ -824,6 +835,38 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     
+    <?php // Kertas Kerja
+        if($model->kertas_kerja){
+            echo "<label>" . $model->getAttributeLabel('kertas_kerja') . "</label><br>";
+            echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->kertas_kerja , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+            if(!$readonly){
+                echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->permohonan_e_bantuan_id, 'field'=> 'kertas_kerja'], 
+                [
+                    'class'=>'btn btn-danger', 
+                    'data' => [
+                        'confirm' => GeneralMessage::confirmRemove,
+                        'method' => 'post',
+                    ]
+                ]).'<p>';
+            }
+        } else {
+            echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'kertas_kerja' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                        ],
+                    ],
+                ]
+            ]);
+        }
+    ?>
+    
     
     <br>
     
@@ -1156,7 +1199,8 @@ use app\models\general\GeneralMessage;
 
     <div class="form-group">
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? 'Hantar' : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::save : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton('Hantar', ['class' => 'btn btn-primary']) ?>
             <?php if(!$model->isNewRecord): ?>
             <?php 
             /*if(!$model->isNewRecord){

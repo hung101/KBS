@@ -54,8 +54,12 @@ class PengurusanUpstn extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_pengurus_sukan', 'nama_sukan', 'tarikh_lawatan', 'tempat', 'kehadiran', 'isu'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_lawatan', 'masa'], 'safe'],
+            [['nama_pengurus_sukan', 'nama_sukan', 'tarikh_lawatan', 'tempat', 'kehadiran', 'isu', 'negeri', 'l_melayu', 'l_cina',
+                'l_india', 'l_lain_lain', 'w_melayu', 'w_cina', 'w_india', 'w_lain_lain', 'u12_lelaki', 'u12_wanita', 'u15_lelaki',
+                'u15_wanita', 'u18_lelaki', 'u18_wanita', 'u21_lelaki', 'u21_wanita'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh_lawatan', 'masa', 'negeri'], 'safe'],
+            [['l_melayu', 'l_cina', 'l_india', 'l_lain_lain', 'w_melayu', 'w_cina', 'w_india', 'w_lain_lain', 'u12_lelaki', 'u12_wanita', 'u15_lelaki',
+                'u15_wanita', 'u18_lelaki', 'u18_wanita', 'u21_lelaki', 'u21_wanita'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_pengurus_sukan', 'nama_sukan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kehadiran', 'isu', 'ulasan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
@@ -69,15 +73,32 @@ class PengurusanUpstn extends \yii\db\ActiveRecord
     {
         return [
             'pengurusan_upstn_id' => GeneralLabel::pengurusan_upstn_id,
-            'nama_pengurus_sukan' => GeneralLabel::nama_pengurus_sukan,
+            'nama_pengurus_sukan' => GeneralLabel::nama_ppn,
             'nama_sukan' => GeneralLabel::nama_sukan,
-            'tarikh_lawatan' => GeneralLabel::tarikh_lawatan,
+            'tarikh_lawatan' => GeneralLabel::tarikh_pemantauan,
             'masa' => GeneralLabel::masa,
-            'tempat' => GeneralLabel::tempat,
+            'tempat' => GeneralLabel::pusat_latihan,
             'kehadiran' => GeneralLabel::kehadiran,
             'isu' => GeneralLabel::isu,
             'ulasan' => GeneralLabel::ulasan,
-
+            'negeri' => GeneralLabel::negeri,
+            'l_melayu' => GeneralLabel::melayu,
+            'l_cina' => GeneralLabel::cina,
+            'l_india' => GeneralLabel::india,
+            'l_lain_lain' => GeneralLabel::lain_lain,
+            'w_melayu' => GeneralLabel::melayu,
+            'w_cina' => GeneralLabel::cina,
+            'w_india' => GeneralLabel::india,
+            'w_lain_lain' => GeneralLabel::lain_lain,
+            'u12_lelaki' => GeneralLabel::lelaki,
+            'u12_wanita' => GeneralLabel::wanita,
+            'u15_lelaki' => GeneralLabel::lelaki,
+            'u15_wanita' => GeneralLabel::wanita,
+            'u18_lelaki' => GeneralLabel::lelaki,
+            'u18_wanita' => GeneralLabel::wanita,
+            'u21_lelaki' => GeneralLabel::lelaki,
+            'u21_wanita' => GeneralLabel::wanita,
+            
         ];
     }
     
@@ -86,5 +107,12 @@ class PengurusanUpstn extends \yii\db\ActiveRecord
      */
     public function getRefSukan(){
         return $this->hasOne(RefSukan::className(), ['id' => 'nama_sukan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefPpn(){
+        return $this->hasOne(RefPpn::className(), ['id' => 'nama_pengurus_sukan']);
     }
 }

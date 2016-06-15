@@ -25,6 +25,7 @@ class SignupEBantuanForm extends Model
     public $nama_persatuan_e_bantuan;
     public $jawatan_e_bantuan;
     public $sijil_pendaftaran;
+    public $perlembagaan_persatuan;
     
 
     /**
@@ -56,8 +57,8 @@ class SignupEBantuanForm extends Model
             
             [['nama_persatuan_e_bantuan', 'jawatan_e_bantuan'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['nama_persatuan_e_bantuan', 'jawatan_e_bantuan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            ['sijil_pendaftaran', 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['sijil_pendaftaran'],'validateFileUploadWithRequired', 'skipOnEmpty' => false],
+            [['sijil_pendaftaran', 'perlembagaan_persatuan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['sijil_pendaftaran', 'perlembagaan_persatuan'],'validateFileUploadWithRequired', 'skipOnEmpty' => false],
         ];
     }
     
@@ -73,7 +74,8 @@ class SignupEBantuanForm extends Model
             'password' => 'Kata Laluan',
             'nama_persatuan_e_bantuan' => 'Nama Persatuan',
             'jawatan_e_bantuan' => 'Jawatan',
-            'sijil_pendaftaran' => 'Sijil Pendaftaran',
+            'sijil_pendaftaran' => 'Sijil Pendaftaran Persatuan',
+            'perlembagaan_persatuan' => 'Perlembagaan Persatuan',
         ];
     }
 
@@ -99,9 +101,15 @@ class SignupEBantuanForm extends Model
             
             if ($user->save()) {
                 $file = UploadedFile::getInstance($this, 'sijil_pendaftaran');
-                $filename = $user->id;
+                $filename = 'sijil_pendaftaran-' . $user->id;
                 if($file){
                     $user->sijil_pendaftaran = Upload::uploadFile($file, Upload::eBantuanPublicUserFolder, $filename);
+                }
+                
+                $file = UploadedFile::getInstance($this, 'perlembagaan_persatuan');
+                $filename = 'perlembagaan_persatuan-' . $user->id;
+                if($file){
+                    $user->perlembagaan_persatuan = Upload::uploadFile($file, Upload::eBantuanPublicUserFolder, $filename);
                 }
                 
                 if ($user->save()) {

@@ -178,7 +178,7 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     
-    <h3>Pengurusan Kemudahan</h3>
+    <h3>Maklumat Fasiliti</h3>
     
     <?php 
             Modal::begin([
@@ -242,13 +242,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kemudahan-sedia-ada/update', 'id' => $model->pengurusan_kemudahan_sedia_ada_id]).'", "'.GeneralLabel::updateTitle . ' Pengurusan Kemudahan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kemudahan-sedia-ada/update', 'id' => $model->pengurusan_kemudahan_sedia_ada_id]).'", "'.GeneralLabel::updateTitle . ' Pengurusan Fasiliti");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kemudahan-sedia-ada/view', 'id' => $model->pengurusan_kemudahan_sedia_ada_id]).'", "'.GeneralLabel::viewTitle . ' Pengurusan Kemudahan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kemudahan-sedia-ada/view', 'id' => $model->pengurusan_kemudahan_sedia_ada_id]).'", "'.GeneralLabel::viewTitle . ' Pengurusan Fasiliti");',
                         ]);
                     }
                 ],
@@ -269,7 +269,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kemudahan-sedia-ada/create', 'pengurusan_kemudahan_venue_id' => $pengurusan_kemudahan_venue_id]).'", "'.GeneralLabel::createTitle . ' Pengurusan Kemudahan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kemudahan-sedia-ada/create', 'pengurusan_kemudahan_venue_id' => $pengurusan_kemudahan_venue_id]).'", "'.GeneralLabel::createTitle . ' Pengurusan Fasiliti");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

@@ -89,7 +89,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pencapaian,
-                ]
+                ],
+                'value' => 'refKeputusan.desc'
             ],
             //'peringkat_kejohanan',
             

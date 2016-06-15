@@ -19,6 +19,7 @@ use app\models\RefNegeri;
 use app\models\RefBidangDiminatiSukarelawan;
 use app\models\RefWaktuKetikaDiperlukanSukarelawan;
 use app\models\RefTarafPerkahwinan;
+use app\models\RefBangsa;
 
 // contant values
 use app\models\general\Placeholder;
@@ -40,33 +41,29 @@ use app\models\general\GeneralVariable;
     <?php // muatnaik upload
     if($model->muatnaik){
         echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$model->muatnaik.'" width="200px">&nbsp;&nbsp;&nbsp;';
-        if(!$readonly){
-            echo Html::a(GeneralLabel::removeImage, ['deleteupload', 'id'=>$model->sukarelawan_id, 'field'=> 'muatnaik'], 
-            [
-                'class'=>'btn btn-danger', 
-                'data' => [
-                    'confirm' => GeneralMessage::confirmRemove,
-                    'method' => 'post',
-                ]
-            ]).'<p>';
-        }
-        echo '<br><br>';
-    } else {
+        echo '<br>';
+    } 
+    
+    if(!$readonly){
+        echo "<div class='required'>";
         echo FormGrid::widget([
-        'model' => $model,
-        'form' => $form,
-        'autoGenerateColumns' => true,
-        'rows' => [
-                [
-                    'columns'=>12,
-                    'autoGenerateColumns'=>false, // override columns setting
-                    'attributes' => [
-                        'muatnaik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>['accept' => 'image/*'], 'pluginOptions' => ['previewFileType' => 'image']],
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'muatnaik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                        ],
                     ],
-                ],
-            ]
-        ]);
+                ]
+            ]);
+        echo "</div>";
     }
+    
+    echo '<br>';
     ?>
     
     <?php
@@ -91,6 +88,13 @@ use app\models\general\GeneralVariable;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
+                 
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                 'jantina' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -105,6 +109,23 @@ use app\models\general\GeneralVariable;
                         'data'=>ArrayHelper::map(RefJantina::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jantina],],
                     'columnOptions'=>['colspan'=>2]],
+                'bangsa' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-bangsa/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefBangsa::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::bangsa],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
                  
             ],
         ],
@@ -218,136 +239,192 @@ use app\models\general\GeneralVariable;
                     'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
                     'value'=>false,
                     'options'=>['inline'=>true],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>2]],
                 'menyatakan_jika_ada_kebatasan_fizikal' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
             ]
         ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'kelulusan_akademi' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-kelulusan-akademik-sukarelawan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefKelulusanAkademikSukarelawan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kelulusanAkademik],],
-                    'columnOptions'=>['colspan'=>4]],
-                'bidang_kepakaran' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
-                'pekerjaan_semasa' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
-            ]
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'nama_majikan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
-            ]
-        ],
-         [
-            'attributes' => [
-                'alamat_majikan_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
-            ]
-        ],
-        [
-            'attributes' => [
-                'alamat_majikan_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
-            ]
-        ],
-        [
-            'attributes' => [
-                'alamat_majikan_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
-            ]
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'alamat_majikan_negeri' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
-                    'columnOptions'=>['colspan'=>3]],
-                'alamat_majikan_bandar' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\DepDrop', 
-                    'options'=>[
-                        'type'=>DepDrop::TYPE_SELECT2,
-                        'select2Options'=> [
-                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                            [
-                                'append' => [
-                                    'content' => Html::a(Html::icon('edit'), ['/ref-bandar/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                    'asButton' => true
-                                ]
-                            ] : null,
-                        ],
-                        'data'=>ArrayHelper::map(RefBandar::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options'=>['prompt'=>'',],
-                        'pluginOptions' => [
-                            'depends'=>[Html::getInputId($model, 'alamat_majikan_negeri')],
-                            'placeholder' => Placeholder::bandar,
-                            'url'=>Url::to(['/ref-bandar/subbandars'])],
-                        ],
-                    'columnOptions'=>['colspan'=>3]],
-                'alamat_majikan_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5]],
-            ]
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'bidang_diminati' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-bidang-diminati-sukarelawan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefBidangDiminatiSukarelawan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::bidangDiminati],],
-                    'columnOptions'=>['colspan'=>3]],
-                'bidang_diminati_lain_lain' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100]],
-                'waktu_ketika_diperlukan' =>[
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-waktu-ketika-diperlukan-sukarelawan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefWaktuKetikaDiperlukanSukarelawan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::waktuKetikaDiperlukan],],
-                    'columnOptions'=>['colspan'=>3]],
-                'menyatakan_waktu_ketika_diperlukan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
-            ]
-        ],
+        
+        
     ]
 ]);
         ?>
+    
+    <br>
+    <br>
+    <pre style="text-align: center"><strong>MAKLUMAT AKADEMIK</strong></pre>
+    
+    <?php 
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'kelulusan_akademi' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-kelulusan-akademik-sukarelawan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefKelulusanAkademikSukarelawan::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::kelulusanAkademik],],
+                            'columnOptions'=>['colspan'=>4]],
+                        
+                    ]
+                ],
+            ]
+        ]);
+    ?>
+    
+    <br>
+    <br>
+    <pre style="text-align: center"><strong>MAKLUMAT PEKERJAAN</strong></pre>
+    
+    <?php 
+        echo FormGrid::widget([
+                'model' => $model,
+                'form' => $form,
+                'autoGenerateColumns' => true,
+                'rows' => [
+                    [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'pekerjaan_semasa' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                    ]
+                ],
+                        [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'nama_majikan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                    ]
+                ],
+                 [
+                    'attributes' => [
+                        'alamat_majikan_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                    ]
+                ],
+                [
+                    'attributes' => [
+                        'alamat_majikan_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                    ]
+                ],
+                [
+                    'attributes' => [
+                        'alamat_majikan_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'alamat_majikan_negeri' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::negeri],],
+                            'columnOptions'=>['colspan'=>3]],
+                        'alamat_majikan_bandar' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\DepDrop', 
+                            'options'=>[
+                                'type'=>DepDrop::TYPE_SELECT2,
+                                'select2Options'=> [
+                                    'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                    [
+                                        'append' => [
+                                            'content' => Html::a(Html::icon('edit'), ['/ref-bandar/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                            'asButton' => true
+                                        ]
+                                    ] : null,
+                                ],
+                                'data'=>ArrayHelper::map(RefBandar::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                'options'=>['prompt'=>'',],
+                                'pluginOptions' => [
+                                    'depends'=>[Html::getInputId($model, 'alamat_majikan_negeri')],
+                                    'placeholder' => Placeholder::bandar,
+                                    'url'=>Url::to(['/ref-bandar/subbandars'])],
+                                ],
+                            'columnOptions'=>['colspan'=>3]],
+                        'alamat_majikan_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'pengalaman_sukarelawan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>255]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'bidang_diminati' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-bidang-diminati-sukarelawan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefBidangDiminatiSukarelawan::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::kecenderungan],],
+                            'columnOptions'=>['colspan'=>3]],
+                        'bidang_diminati_lain_lain' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'bidang_kepakaran' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'waktu_ketika_diperlukan' =>[
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-waktu-ketika-diperlukan-sukarelawan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefWaktuKetikaDiperlukanSukarelawan::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::waktuKetikaDiperlukan],],
+                            'columnOptions'=>['colspan'=>3]],
+                        'menyatakan_waktu_ketika_diperlukan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+                    ]
+                ],
+            ]
+        ]);
+    ?>
     
     <?php // muatnaik upload
     if($model->isNewRecord){

@@ -10,6 +10,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Session;
 
+use app\models\RefJenisPencapaian;
+
 /**
  * AtletPendidikanController implements the CRUD actions for AtletPendidikan model.
  */
@@ -98,6 +100,9 @@ class AtletPendidikanController extends Controller
         
         $ref = \app\models\RefJenisBiasiswa::findOne(['id' => $atletPendidikan->jenis_biasiswa]);
         $atletPendidikan->jenis_biasiswa = $ref['desc'];
+        
+        $ref = \app\models\RefJenisPencapaian::findOne(['id' => $atletPendidikan->jenis_pencapaian]);
+        $atletPendidikan->jenis_pencapaian = $ref['desc'];
         
         return $this->renderAjax('view', [
             'model' => $atletPendidikan,

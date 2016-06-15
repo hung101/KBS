@@ -19,7 +19,8 @@ class AtletPencapaianSearch extends AtletPencapaian
     {
         return [
             [['pencapaian_id', 'atlet_id', 'insentif_id'], 'integer'],
-            [['nama_kejohanan_temasya', 'peringkat_kejohanan', 'tarikh_mula_kejohanan', 'tarikh_tamat_kejohanan', 'nama_sukan', 'nama_acara', 'lokasi_kejohanan', 'pencapaian'], 'safe'],
+            [['nama_kejohanan_temasya', 'peringkat_kejohanan', 'tarikh_mula_kejohanan', 'tarikh_tamat_kejohanan', 'nama_sukan', 'nama_acara', 'lokasi_kejohanan', 
+                'pencapaian', 'jenis_rekod'], 'safe'],
         ];
     }
 
@@ -41,7 +42,9 @@ class AtletPencapaianSearch extends AtletPencapaian
      */
     public function search($params)
     {
-        $query = AtletPencapaian::find();
+        $query = AtletPencapaian::find()
+                ->joinWith(['refJenisRekod'])
+                ->joinWith(['refKeputusan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -67,7 +70,8 @@ class AtletPencapaianSearch extends AtletPencapaian
             ->andFilterWhere(['like', 'peringkat_kejohanan', $this->peringkat_kejohanan])
             ->andFilterWhere(['like', 'nama_sukan', $this->nama_sukan])
             ->andFilterWhere(['like', 'nama_acara', $this->nama_acara])
-                ->andFilterWhere(['like', 'pencapaian', $this->nama_acara])
+                ->andFilterWhere(['like', 'tbl_ref_keputusan.desc', $this->nama_acara])
+                 ->andFilterWhere(['like', 'tbl_ref_jenis_rekod.desc', $this->jenis_rekod])
             ->andFilterWhere(['like', 'lokasi_kejohanan', $this->lokasi_kejohanan]);
 
         return $dataProvider;

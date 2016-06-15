@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 
 // table reference
 use app\models\RefJenisKebajikan;
+use app\models\RefPerkara;
+use app\models\RefSukanSkimKebajikan;
 
 /**
  * JenisKebajikanController implements the CRUD actions for JenisKebajikan model.
@@ -55,6 +57,12 @@ class JenisKebajikanController extends Controller
         
         $ref = RefJenisKebajikan::findOne(['id' => $model->jenis_kebajikan]);
         $model->jenis_kebajikan = $ref['desc'];
+        
+        $ref = RefPerkara::findOne(['id' => $model->perkara]);
+        $model->perkara = $ref['desc'];
+        
+        $ref = RefSukanSkimKebajikan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
         
         return $this->render('view', [
             'model' => $model,

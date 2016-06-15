@@ -70,13 +70,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'refJantina.desc'
             ],
             //'alamat_bandar',
-            [
+            /*[
                 'attribute' => 'alamat_bandar',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::alamat_bandar,
                 ],
                 'value' => 'refBandar.desc'
+            ],*/
+            [
+                'attribute' => 'alamat_negeri',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::alamat_negeri,
+                ],
+                'value' => 'refNegeri.desc'
             ],
             // 'no_tel_bimbit',
             // 'status',

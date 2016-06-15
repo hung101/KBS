@@ -55,7 +55,7 @@ class AtletPencapaian extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'nama_kejohanan_temasya', 'peringkat_kejohanan', 'tarikh_mula_kejohanan', 'tarikh_tamat_kejohanan', 'nama_sukan', 'nama_acara', 'lokasi_kejohanan', 'pencapaian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'nama_kejohanan_temasya', 'peringkat_kejohanan', 'tarikh_mula_kejohanan', 'tarikh_tamat_kejohanan', 'nama_sukan', 'nama_acara', 'lokasi_kejohanan', 'pencapaian', 'jenis_rekod'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id', 'insentif_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_mula_kejohanan', 'tarikh_tamat_kejohanan'], 'safe'],
             [['nama_kejohanan_temasya'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -82,7 +82,21 @@ class AtletPencapaian extends \yii\db\ActiveRecord
             'lokasi_kejohanan' => GeneralLabel::lokasi_kejohanan,
             'pencapaian' => GeneralLabel::pencapaian,
             'insentif_id' => GeneralLabel::insentif_id,
-
+            'jenis_rekod' => GeneralLabel::jenis_rekod,
         ];
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJenisRekod(){
+        return $this->hasOne(RefJenisRekod::className(), ['id' => 'jenis_rekod']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKeputusan(){
+        return $this->hasOne(RefKeputusan::className(), ['id' => 'pencapaian']);
     }
 }

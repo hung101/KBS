@@ -16,7 +16,12 @@ use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 
 // table reference
-use app\models\RefJenisProgramHpt;
+use app\models\RefJenisProgram;
+use app\models\RefBahagianProgram;
+use app\models\RefCawangan;
+use app\models\RefProgramSemasaSukanAtlet;
+use app\models\RefJenisAktiviti;
+use app\models\RefStatusProgram;
 
 /**
  * PerancanganProgramController implements the CRUD actions for PerancanganProgram model.
@@ -67,8 +72,20 @@ class PerancanganProgramController extends Controller
         
         $model = $this->findModel($id);
         
-        $ref = RefJenisProgram::findOne(['id' => $model->jenis_program]);
+        $ref = RefBahagianProgram::findOne(['id' => $model->bahagian]);
+        $model->bahagian = $ref['desc'];
+        
+        $ref = RefCawangan::findOne(['id' => $model->cawangan]);
+        $model->cawangan = $ref['desc'];
+        
+        $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->jenis_program]);
         $model->jenis_program = $ref['desc'];
+        
+        $ref = RefJenisAktiviti::findOne(['id' => $model->jenis_aktiviti]);
+        $model->jenis_aktiviti = $ref['desc'];
+        
+        $ref = RefStatusProgram::findOne(['id' => $model->status_program]);
+        $model->status_program = $ref['desc'];
         
         return $this->render('view', [
             'model' => $model,

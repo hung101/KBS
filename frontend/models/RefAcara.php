@@ -56,7 +56,8 @@ class RefAcara extends \yii\db\ActiveRecord
             [['ref_sukan_id', 'desc', 'aktif'], 'required'],
             [['ref_sukan_id', 'aktif', 'created_by', 'updated_by'], 'integer'],
             [['created', 'updated'], 'safe'],
-            [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['desc'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['discipline'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 
@@ -76,6 +77,18 @@ class RefAcara extends \yii\db\ActiveRecord
             'updated' => GeneralLabel::updated,
 
         ];
+    }
+    
+    public function getDisciplineAcara(){
+        $returnValue = "";
+        
+        if($this->discipline != ""){
+            $returnValue = $this->discipline . ' - ' . $this->desc;
+        } else {
+            $returnValue = $this->desc;
+        }
+        
+        return $returnValue;
     }
 
     public function getRefSukan() {

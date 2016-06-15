@@ -59,23 +59,23 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::ic_no,
                 ],
             ],
-            [
+            /*[
                 'attribute' => 'bahagian',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bahagian,
                 ],
                 'value' => 'refBahagianJurulatih.desc'
-            ],
+            ],*/
             //'cawangan',
-            [
+            /*[
                 'attribute' => 'cawangan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::cawangan,
                 ],
                 'value' => 'refCawangan.desc'
-            ],
+            ],*/
             //'nama_sukan',
             [
                 'attribute' => 'nama_sukan',
@@ -87,12 +87,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             //'nama_acara',
             [
-                'attribute' => 'nama_acara',
+                'attribute' => 'program',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_acara,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program,
                 ],
-                'value' => 'refAcara.desc'
+                'value' => 'refProgramJurulatih.desc'
             ],
             //'program',
            // 'gambar',

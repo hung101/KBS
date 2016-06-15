@@ -19,7 +19,7 @@ class AtletPakaianPeralatanSearch extends AtletPakaianPeralatan
     {
         return [
             [['peralatan_id', 'atlet_id'], 'integer'],
-            [['jenis_sukan', 'saiz', 'model', 'jenama', 'warna'], 'safe'],
+            [['jenis_sukan', 'saiz', 'model', 'jenama', 'warna', 'peralatan', 'tarikh_serahan'], 'safe'],
         ];
     }
 
@@ -43,7 +43,8 @@ class AtletPakaianPeralatanSearch extends AtletPakaianPeralatan
     {
         $query = AtletPakaianPeralatan::find()
                 ->joinWith(['refSukan'])
-                ->joinWith(['refJenamaPeralatan']);
+                ->joinWith(['refJenamaPeralatan'])
+                ->joinWith(['refPeralatanPinjaman']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -66,7 +67,9 @@ class AtletPakaianPeralatanSearch extends AtletPakaianPeralatan
             ->andFilterWhere(['like', 'saiz', $this->saiz])
                 ->andFilterWhere(['like', 'model', $this->model])
             ->andFilterWhere(['like', 'tbl_ref_jenama_peralatan.desc', $this->jenama])
-            ->andFilterWhere(['like', 'warna', $this->warna]);
+                ->andFilterWhere(['like', 'tbl_ref_peralatan_pinjaman.desc', $this->peralatan])
+            ->andFilterWhere(['like', 'warna', $this->warna])
+                ->andFilterWhere(['like', 'tarikh_serahan', $this->tarikh_serahan]);
 
         return $dataProvider;
     }

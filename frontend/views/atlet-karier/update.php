@@ -9,7 +9,7 @@ use yii\helpers\Html;
 /* @var $model app\models\AtletKarier */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::atlet_karier.': ' . ' ' . $model->karier_atlet_id;
-$this->title = GeneralLabel::updateTitle.' '.'Pendidikan';
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::karier;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::atlet_kariers, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->karier_atlet_id, 'url' => ['view', 'id' => $model->karier_atlet_id]];
 $this->params['breadcrumbs'][] = 'Update';

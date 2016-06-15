@@ -54,6 +54,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'anugerah_id',
             //'atlet_id',
+            //'kategori',
+            [
+                'attribute' => 'kategori',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori,
+                ],
+                'value' => 'refKategoriAnugerah.desc'
+            ],
             [
                 'attribute' => 'tahun',
                 'filterInputOptions' => [
@@ -70,15 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refKategoriAnugerah.desc'
             ],*/
-            //'kategori',
-            [
-                'attribute' => 'kategori',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori,
-                ],
-                'value' => 'refAcara.desc'
-            ],
+            
             // 'insentif_id',
 
             //['class' => 'yii\grid\ActionColumn'],

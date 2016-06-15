@@ -56,8 +56,8 @@ class SkimKebajikan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis_bantuan_skak', 'jumlah_bantuan', 'nama_pemohon', 'nama_penerima', 'jenis_sukan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['jumlah_bantuan'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['jenis_bantuan_skak', 'jumlah_bantuan', 'nama_pemohon', 'nama_penerima', 'jenis_sukan', 'kelulusan', 'perkara', 'sukan', 'jenis_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jumlah_bantuan', 'jumlah_kos_perubatan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tarikh_kejadian'], 'safe'],
             [['kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jenis_bantuan_skak', 'jenis_sukan', 'jenis_bantuan_lain_yang_diterima'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -74,7 +74,7 @@ class SkimKebajikan extends \yii\db\ActiveRecord
     {
         return [
             'skim_kebajikan_id' => GeneralLabel::skim_kebajikan_id,
-            'jenis_bantuan_skak' => GeneralLabel::jenis_bantuan_skak,
+            'jenis_bantuan_skak' => GeneralLabel::jenis_bantuan,
             'jumlah_bantuan' => GeneralLabel::jumlah_bantuan,
             'nama_pemohon' => GeneralLabel::nama_pemohon,
             'nama_penerima' => GeneralLabel::nama_penerima,

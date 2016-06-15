@@ -119,8 +119,8 @@ class AtletSukanPersatuanpersekutuanduniaController extends Controller
         $ref = RefJenisSukanPersatuanPersekutuandunia::findOne(['id' => $model->jenis]);
         $model->jenis = $ref['desc'];
         
-        $ref = RefNamaSukanPersatuanPersekutuandunia::findOne(['id' => $model->name_persatuan_persekutuan_dunia]);
-        $model->name_persatuan_persekutuan_dunia = $ref['desc'];
+        //$ref = RefNamaSukanPersatuanPersekutuandunia::findOne(['id' => $model->name_persatuan_persekutuan_dunia]);
+        //$model->name_persatuan_persekutuan_dunia = $ref['desc'];
         
         $ref = RefNegeri::findOne(['id' => $model->alamat_negeri]);
         $model->alamat_negeri = $ref['desc'];

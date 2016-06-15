@@ -5,11 +5,14 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PermohonanBimbinganKaunseling;
 use frontend\models\PermohonanBimbinganKaunselingSearch;
+use app\models\MsnLaporanBimbinganKaunselingKesRujukan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\BaseUrl;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefStatusPermohonan;
@@ -138,5 +141,72 @@ class PermohonanBimbinganKaunselingController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionLaporanBimbinganKaunselingKesRujukan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanBimbinganKaunselingKesRujukan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-bimbingan-kaunseling-kes-rujukan'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'nama_ppn' => $model->nama_ppn
+                    , 'sukan' => $model->sukan
+                    , 'negeri' => $model->negeri
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-bimbingan-kaunseling-kes-rujukan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'nama_ppn' => $model->nama_ppn
+                    , 'sukan' => $model->sukan
+                    , 'negeri' => $model->negeri
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_bimbingan_kaunseling_kes_rujukan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanBimbinganKaunselingKesRujukan($tarikh_dari, $tarikh_hingga, $nama_ppn, $sukan, $negeri, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($nama_ppn == "") $nama_ppn = array();
+        else $nama_ppn = array($nama_ppn);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'SUKAN' => $sukan,
+            'NAMA_PPN' => $nama_ppn,
+            'NEGERI' => $negeri,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanBimbinganKaunselingKesRujukan', $format, $controls, 'laporan_bimbingan_kaunseling_kes_rujukan');
     }
 }

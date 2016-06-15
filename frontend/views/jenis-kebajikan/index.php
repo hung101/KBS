@@ -59,9 +59,39 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::perkara,
+                ],
+                'value' => 'refPerkara.desc'
+            ],
+            [
+                'attribute' => 'sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
+                'value' => 'refSukanSkimKebajikan.desc'
+            ],
+            [
+                'attribute' => 'jumlah',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah,
                 ]
             ],
             [
+                'attribute' => 'maksimum',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::maksimum,
+                ]
+            ],
+            [
+                'attribute' => 'peratus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::peratus,
+                ]
+            ],
+            /*[
                 'attribute' => 'sukan_sea_para_asean',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -74,7 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan_asia_komenwel_para_asia_ead,
                 ]
-            ],
+            ],*/
             // 'sukan_olimpik_paralimpik',
             // 'kejohanan_asia_dunia',
 

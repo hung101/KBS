@@ -44,6 +44,7 @@ use app\models\RefStatusPermohonanEBantuan;
 use app\models\RefPeringkatProgram;
 use app\models\RefPejabatYangMendaftarkan;
 use app\models\RefParlimen;
+use app\models\UserPublic;
 
 /**
  * PermohonanEBantuanController implements the CRUD actions for PermohonanEBantuan model.
@@ -437,17 +438,22 @@ class PermohonanEBantuanController extends Controller
             
             $file = UploadedFile::getInstance($model, 'muat_naik_pb4');
             if($file){
-                $model->muat_naik_pb4 = Upload::uploadFile($file, Upload::eBantuanFolder, $model->permohonan_e_bantuan_id);
+                $model->muat_naik_pb4 = Upload::uploadFile($file, Upload::eBantuanFolder, 'muat_naik_pb4-' . $model->permohonan_e_bantuan_id);
             }
             
             $file = UploadedFile::getInstance($model, 'muat_naik_pb5');
             if($file){
-                $model->muat_naik_pb5 = Upload::uploadFile($file, Upload::eBantuanFolder, $model->permohonan_e_bantuan_id);
+                $model->muat_naik_pb5 = Upload::uploadFile($file, Upload::eBantuanFolder, 'muat_naik_pb5-' . $model->permohonan_e_bantuan_id);
             }
             
             $file = UploadedFile::getInstance($model, 'muat_naik_pb6');
             if($file){
-                $model->muat_naik_pb6 = Upload::uploadFile($file, Upload::eBantuanFolder, $model->permohonan_e_bantuan_id);
+                $model->muat_naik_pb6 = Upload::uploadFile($file, Upload::eBantuanFolder, 'muat_naik_pb6-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'kertas_kerja');
+            if($file){
+                $model->kertas_kerja = Upload::uploadFile($file, Upload::eBantuanFolder, 'kertas_kerja-' . $model->permohonan_e_bantuan_id);
             }
             
             if($model->save()){
@@ -515,24 +521,58 @@ class PermohonanEBantuanController extends Controller
         
         $searchModelAP = new PermohonanEBantuanAnggaranPerbelanjaanSearch();
         $dataProviderAP = $searchModelAP->search($queryPar);
+        
+        $boolStatusPermohonanChanged = 0;
+        
+        if($model->load(Yii::$app->request->post()) && ($model->status_permohonan != $model->getOldAttribute('status_permohonan'))){
+            $boolStatusPermohonanChanged = 1;
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $email = "";
+            
+            if(isset($model->user_public_id)){
+                $modelPublicUser = UserPublic::findOne($model->user_public_id);
+                $email = $modelPublicUser->email;
+            } else {
+                $email = $model->email;
+            }
+            
+            if($boolStatusPermohonanChanged && $email != ""){
+                if($model->status_permohonan == RefStatusPermohonanEBantuan::STATUS_LULUS){
+                    Yii::$app->mailer->compose()
+                    ->setTo($email)
+                    ->setSubject('SPSB: Permohonan e-Bantuan')
+                    ->setTextBody('Sukacita dimaklumkan bahawa permohonan tuan telah DILULUSKAN. Surat Kelulusan akan dihantar kepada alamat persatuan tuan dalam tempoh 14 hari.')->send();
+                } elseif($model->status_permohonan == RefStatusPermohonanEBantuan::STATUS_TOLAK){
+                     Yii::$app->mailer->compose()
+                    ->setTo($email)
+                    ->setSubject('SPSB: Permohonan e-Bantuan')
+                    ->setTextBody('Dimaklumkan bahawa permohonan tuan TIDAK BERJAYA.')->send();
+                }
+            }
+            
             // set e-Bantuan ID
             //$model->ebantuan_id =  $model->permohonan_e_bantuan_id . '/' . date("Y") . '/' . $model->no_pendaftaran . '/' . $model->nama_pertubuhan_persatuan;
             //$model->save();
             $file = UploadedFile::getInstance($model, 'muat_naik_pb4');
             if($file){
-                $model->muat_naik_pb4 = Upload::uploadFile($file, Upload::eBantuanFolder, $model->permohonan_e_bantuan_id);
+                $model->muat_naik_pb4 = Upload::uploadFile($file, Upload::eBantuanFolder, 'muat_naik_pb4-' . $model->permohonan_e_bantuan_id);
             }
             
             $file = UploadedFile::getInstance($model, 'muat_naik_pb5');
             if($file){
-                $model->muat_naik_pb5 = Upload::uploadFile($file, Upload::eBantuanFolder, $model->permohonan_e_bantuan_id);
+                $model->muat_naik_pb5 = Upload::uploadFile($file, Upload::eBantuanFolder, 'muat_naik_pb5-' . $model->permohonan_e_bantuan_id);
             }
             
             $file = UploadedFile::getInstance($model, 'muat_naik_pb6');
             if($file){
-                $model->muat_naik_pb6 = Upload::uploadFile($file, Upload::eBantuanFolder, $model->permohonan_e_bantuan_id);
+                $model->muat_naik_pb6 = Upload::uploadFile($file, Upload::eBantuanFolder, 'muat_naik_pb6-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'kertas_kerja');
+            if($file){
+                $model->kertas_kerja = Upload::uploadFile($file, Upload::eBantuanFolder, 'kertas_kerja-' . $model->permohonan_e_bantuan_id);
             }
             
             if($model->save()){
@@ -576,6 +616,8 @@ class PermohonanEBantuanController extends Controller
         self::actionDeleteupload($id, 'muat_naik_pb5');
         
         self::actionDeleteupload($id, 'muat_naik_pb6');
+        
+        self::actionDeleteupload($id, 'kertas_kerja');
         
         $this->findModel($id)->delete();
 

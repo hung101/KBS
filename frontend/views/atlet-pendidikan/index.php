@@ -56,6 +56,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             [
+                'attribute' => 'jenis_pencapaian',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_pencapaian,
+                ],
+                'value' => 'refJenisPencapaian.desc'
+            ],
+            //'pendidikan_atlet_id',
+            //'atlet_id',
+            //'jenis_peringkatan_pendidikan',
+            [
                 'attribute' => 'jenis_peringkatan_pendidikan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -63,9 +74,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'tahapPendidikan.desc'
             ],
-            //'pendidikan_atlet_id',
-            //'atlet_id',
-            //'jenis_peringkatan_pendidikan',
             [
                 'attribute' => 'nama',
                 'filterInputOptions' => [
@@ -73,17 +81,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
                 ]
             ],
-            [
+            /*[
                 'attribute' => 'kursus',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kursus,
                 ]
-            ],
+            ],*/
             //'fakulti',
             // 'alamat_1',
             // 'no_telefon',
-            [
+            /*[
                 'attribute' => 'tahun_mula',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -96,7 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun_tamat,
                 ]
-            ],
+            ],*/
             // 'pelajar_id_no',
             // 'keputusan_cgpa',
             // 'biasiswa_tajaan',

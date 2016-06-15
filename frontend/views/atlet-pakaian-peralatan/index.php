@@ -64,6 +64,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'refSukan.desc'
             ],
             [
+                'attribute' => 'peralatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::peralatan,
+                ],
+                'value' => 'refPeralatanPinjaman.desc'
+            ],
+            [
                 'attribute' => 'saiz',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -91,6 +99,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::warna,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_serahan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_serahan,
                 ]
             ],
 

@@ -18,7 +18,11 @@ class AtletSearch extends Atlet
     public function rules()
     {
         return [
-            [['atlet_id', 'name_penuh', 'tarikh_lahir', 'tempat_lahir_bandar', 'tempat_lahir_negeri', 'bangsa', 'agama', 'jantina', 'taraf_perkahwinan', 'bahasa_ibu', 'no_sijil_lahir', 'ic_no', 'ic_no_lama', 'passport_no', 'passport_tempat_dikeluarkan', 'lesen_memandu_no', 'lesen_tamat_tempoh', 'jenis_lesen', 'emel', 'facebook', 'twitter', 'alamat_rumah_1', 'alamat_rumah_2', 'alamat_rumah_3', 'alamat_surat_menyurat_1','alamat_surat_menyurat_2','alamat_surat_menyurat_3','dari_bahagian', 'sumber', 'negeri_diwakili', 'nama_kecemasan', 'pertalian_kecemasan', 'tawaran'], 'safe'],
+            [['atlet_id', 'name_penuh', 'tarikh_lahir', 'tempat_lahir_bandar', 'tempat_lahir_negeri', 'bangsa', 'agama', 'jantina', 
+                'taraf_perkahwinan', 'bahasa_ibu', 'no_sijil_lahir', 'ic_no', 'ic_no_lama', 'passport_no', 'passport_tempat_dikeluarkan', 
+                'lesen_memandu_no', 'lesen_tamat_tempoh', 'jenis_lesen', 'emel', 'facebook', 'twitter', 'alamat_rumah_1', 'alamat_rumah_2', 
+                'alamat_rumah_3', 'alamat_surat_menyurat_1','alamat_surat_menyurat_2','alamat_surat_menyurat_3','dari_bahagian', 'sumber', 
+                'negeri_diwakili', 'nama_kecemasan', 'pertalian_kecemasan', 'tawaran'], 'safe'],
             [['umur', 'tel_bimbit_no_1', 'tel_bimbit_no_2', 'tel_no', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan'], 'integer'],
             [['tinggi', 'berat'], 'number'],
         ];
@@ -42,7 +46,8 @@ class AtletSearch extends Atlet
      */
     public function search($params)
     {
-        $query = Atlet::find();
+        $query = Atlet::find()
+                ->joinWith(['refStatusTawaran']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -56,11 +61,11 @@ class AtletSearch extends Atlet
             return $dataProvider;
         }
 
-        if($this->tawaran == "ya") {
+        /*if($this->tawaran == "ya") {
             $this->tawaran = 1;
         } else if ($this->tawaran == "tidak") {
             $this->tawaran = 0;
-        }
+        }*/
 
         $query->andFilterWhere([
             'tarikh_lahir' => $this->tarikh_lahir,
@@ -73,7 +78,7 @@ class AtletSearch extends Atlet
             'tel_no' => $this->tel_no,
             'tel_no_kecemasan' => $this->tel_no_kecemasan,
             'tel_bimbit_no_kecemasan' => $this->tel_bimbit_no_kecemasan,
-            'tawaran' => $this->tawaran,
+            //'tawaran' => $this->tawaran,
         ]);
 
         $query->andFilterWhere(['like', 'atlet_id', $this->atlet_id])
@@ -105,7 +110,8 @@ class AtletSearch extends Atlet
             ->andFilterWhere(['like', 'sumber', $this->sumber])
             ->andFilterWhere(['like', 'negeri_diwakili', $this->negeri_diwakili])
             ->andFilterWhere(['like', 'nama_kecemasan', $this->nama_kecemasan])
-            ->andFilterWhere(['like', 'pertalian_kecemasan', $this->pertalian_kecemasan]);
+            ->andFilterWhere(['like', 'pertalian_kecemasan', $this->pertalian_kecemasan])
+                ->andFilterWhere(['like', 'tbl_ref_status_tawaran.desc', $this->tawaran]);
 
         return $dataProvider;
     }

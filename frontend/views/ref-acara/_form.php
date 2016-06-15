@@ -24,6 +24,8 @@ use app\models\general\Placeholder;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'discipline')->textInput() ?>
+    
     <?= $form->field($model, 'desc')->textInput() ?>
 
     <?= $form->field($model, 'ref_sukan_id')->widget(Select2::classname(), [

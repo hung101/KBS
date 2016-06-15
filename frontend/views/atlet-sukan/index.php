@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['create'])): ?>
         <p>
-            <?= Html::button(GeneralLabel::createTitle . ' Sukan', ['value'=>Url::to(['create']),'class' => 'btn btn-success', 'onclick' => 'updateRenderAjax("'.Url::to(['create']).'", "'.GeneralVariable::tabSukanID.'");']) ?>
+            <?= Html::button(GeneralLabel::createTitle . ' ' . GeneralLabel::nama_acara_program, ['value'=>Url::to(['create']),'class' => 'btn btn-success', 'onclick' => 'updateRenderAjax("'.Url::to(['create']).'", "'.GeneralVariable::tabSukanID.'");']) ?>
         </p>
     <?php endif; ?>
     
@@ -85,6 +85,20 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             // 'no_lesen_sukan',
             // 'atlet_persekutuan_dunia_id',
+            [
+                'attribute' => 'tarikh_mula_menyertai_program_msn',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula_menyertai_program_msn,
+                ],
+            ],
+            [
+                'attribute' => 'tarikh_tamat_menyertai_program_msn',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat_menyertai_program_msn,
+                ],
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

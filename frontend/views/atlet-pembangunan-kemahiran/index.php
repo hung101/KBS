@@ -64,6 +64,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'refJenisKemahiran.desc'
             ],
             [
+                'attribute' => 'nama_kemahiran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_kemahiran,
+                ]
+            ],
+            /*[
                 'attribute' => 'penganjur',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -76,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::lokasi,
                 ]
-            ],
+            ],*/
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

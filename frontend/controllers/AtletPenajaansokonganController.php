@@ -45,13 +45,21 @@ class AtletPenajaansokonganController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $request = Yii::$app->request;
+        
         $searchModel = new AtletPenajaansokonganSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
+        $renderContent = $this->renderAjax('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+
+        if($request->get('typeJson') != NULL){
+            return json_encode($renderContent);
+        }else {
+            return $renderContent;
+        }
     }
     
     /**
@@ -152,13 +160,13 @@ class AtletPenajaansokonganController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate()
+    public function actionUpdate($id)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
-        $session = new Session;
+        /*$session = new Session;
         $session->open();
 
         if(isset($session['atlet_id'])){
@@ -189,6 +197,18 @@ class AtletPenajaansokonganController extends Controller
             return json_encode($renderContent);
         }else {
             return $renderContent;
+        }*/
+        
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            //return $this->redirect(['view', 'id' => $model->karier_atlet_id]);
+            return self::actionView($model->penajaan_sokongan_id);
+        } else {
+            return $this->renderAjax('update', [
+                'model' => $model,
+                'readonly' => false,
+            ]);
         }
     }
 
@@ -206,7 +226,8 @@ class AtletPenajaansokonganController extends Controller
         
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        //return $this->redirect(['index']);
+        return self::actionIndex();
     }
 
     /**

@@ -51,9 +51,10 @@ class PerancanganProgram extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh_mula', 'tarikh_tamat', 'jenis_program', 'nama_program'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_mula', 'tarikh_tamat'], 'safe'],
+            [['tarikh_mula', 'tarikh_tamat', 'jenis_program', 'nama_program', 'bahagian', 'cawangan', 'jenis_aktiviti', 'status_program'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh_mula', 'tarikh_tamat', 'tarikh_kelulusan', 'status_program'], 'safe'],
             [['nama_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kelulusan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lokasi'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
@@ -69,11 +70,16 @@ class PerancanganProgram extends \yii\db\ActiveRecord
             'perancangan_program_id' => GeneralLabel::perancangan_program_id,
             'tarikh_mula' => GeneralLabel::tarikh_mula,
             'tarikh_tamat' => GeneralLabel::tarikh_tamat,
-            'nama_program' => GeneralLabel::nama_program,
+            'nama_program' => GeneralLabel::nama_program_aktiviti,
             'jenis_program' => GeneralLabel::jenis_program,
-            'lokasi' => GeneralLabel::lokasi,
+            'lokasi' => GeneralLabel::tempat,
             'muat_naik' => GeneralLabel::muat_naik,
-
+            'bahagian' => GeneralLabel::bahagian,
+            'cawangan' => GeneralLabel::cawangan,
+            'jenis_aktiviti' => GeneralLabel::jenis_aktiviti,
+            'tarikh_kelulusan' => GeneralLabel::tarikh_kelulusan,
+            'kelulusan' => GeneralLabel::kelulusan,
+            'status_program' => GeneralLabel::status_program,
         ];
     }
     

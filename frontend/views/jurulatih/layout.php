@@ -6,6 +6,9 @@ use app\models\general\GeneralLabel;
 use yii\helpers\Html;
 use kartik\tabs\TabsX;
 use yii\helpers\Url;
+use yii\web\Session;
+
+use app\models\Jurulatih;
 
 use app\models\general\GeneralVariable;
 
@@ -26,21 +29,35 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <h1><?= Html::encode($this->title) ?></h1>
     
-    <div class="panel panel-danger">
-        <div class="panel-body">
-            <strong>Semak Dokumen</strong>
-        </div>
-        <ul >
-            <li >Surat sokongan daripada PSK atau kelulusan Mesyuarat Jawatan Kuasa Kerja (JKK).</li>
-            <li >Surat Permohonan rasmi daripada jurulatih.</li>
-            <li >Resume Jurulatih.</li>
-            <li >Gambar berwarna ukuran passport.</li>
-            <li >Salinan kad pengenalan / passport.</li>
-            <li >Salinan Sijil Akademik Jurulatih.</li>
-            <li >Salinan Sijil Pendidikan Kejurulatihan.</li>
-            <li >Salinan Sijil Skim Persijilan Kejurulatihan Kebangsaan (SPKK) terkini. (Kursus Sains Sukan dan Kursus Sukan Spesifik)</li>
-          </ul>
-    </div>
+    <?php
+        // Show some atlet info top of all tabs
+        // 
+        // get Atlet Id
+    
+        $jurulatih_id = "";
+        
+        $session = new Session;
+        $session->open();
+        if(isset($session['jurulatih_id'])){
+            $jurulatih_id = $session['jurulatih_id'];
+        }
+        $session->close();
+        
+        $modelJurulatih = null;
+        
+        if ($jurulatih_id != "" && ($modelJurulatih = Jurulatih::findOne($jurulatih_id)) !== null) {
+        }
+        
+    ?>
+    
+    <?php
+        if($modelJurulatih !== null && $modelJurulatih->gambar){
+            echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$modelJurulatih->gambar.'" width="200px">&nbsp;&nbsp;&nbsp;';
+        }
+    ?>
+    
+    <br>
+    <br>
     
     <?php
  
@@ -102,3 +119,19 @@ echo TabsX::widget([
 ?>
 
 </div>
+<br>
+<div class="panel panel-danger">
+        <div class="panel-body">
+            <strong>Senarai Dokumen</strong>
+        </div>
+        <ol>
+            <li >Surat sokongan daripada PSK atau kelulusan Mesyuarat Jawatan Kuasa Kerja (JKK).</li>
+            <li >Surat Permohonan rasmi daripada jurulatih.</li>
+            <li >Resume Jurulatih.</li>
+            <li >Gambar berwarna ukuran passport.</li>
+            <li >Salinan kad pengenalan / passport.</li>
+            <li >Salinan Sijil Akademik Jurulatih.</li>
+            <li >Salinan Sijil Pendidikan Kejurulatihan.</li>
+            <li >Salinan Sijil Skim Persijilan Kejurulatihan Kebangsaan (SPKK) terkini. (Kursus Sains Sukan dan Kursus Sukan Spesifik)</li>
+          </ol>
+    </div>

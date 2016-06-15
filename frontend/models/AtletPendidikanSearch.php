@@ -20,7 +20,9 @@ class AtletPendidikanSearch extends AtletPendidikan
     {
         return [
             [['pendidikan_atlet_id', 'no_telefon', 'created_by', 'updated_by'], 'integer'],
-            [['atlet_id', 'jenis_peringkatan_pendidikan', 'kursus', 'fakulti', 'nama', 'alamat_1', 'tahun_mula', 'tahun_tamat', 'pelajar_id_no', 'keputusan_cgpa', 'biasiswa_tajaan', 'jenis_biasiswa', 'created', 'updated'], 'safe'],
+            [['atlet_id', 'jenis_peringkatan_pendidikan', 'kursus', 'fakulti', 'nama', 'alamat_1', 
+                'tahun_mula', 'tahun_tamat', 'pelajar_id_no', 'keputusan_cgpa', 'biasiswa_tajaan', 
+                'jenis_biasiswa', 'created', 'updated', 'jenis_pencapaian'], 'safe'],
             [['jumlah_biasiswa'], 'number'],
         ];
     }
@@ -45,7 +47,8 @@ class AtletPendidikanSearch extends AtletPendidikan
     {
         
         $query = AtletPendidikan::find()
-                ->joinWith(['tahapPendidikan']);
+                ->joinWith(['tahapPendidikan'])
+                ->joinWith(['refJenisPencapaian']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -90,7 +93,8 @@ class AtletPendidikanSearch extends AtletPendidikan
             ->andFilterWhere(['like', 'pelajar_id_no', $this->pelajar_id_no])
             ->andFilterWhere(['like', 'keputusan_cgpa', $this->keputusan_cgpa])
             ->andFilterWhere(['like', 'biasiswa_tajaan', $this->biasiswa_tajaan])
-            ->andFilterWhere(['like', 'jenis_biasiswa', $this->jenis_biasiswa]);
+            ->andFilterWhere(['like', 'jenis_biasiswa', $this->jenis_biasiswa])
+                ->andFilterWhere(['like', 'tbl_ref_jenis_pencapaian.desc', $this->jenis_pencapaian]);
         
         // Filter by atlet id
         $session = new Session;

@@ -22,6 +22,7 @@ use app\models\RefAgama;
 use app\models\RefTarafPerkahwinan;
 use app\models\RefJenisLesenMemandu;
 use app\models\RefBahasa;
+use app\models\RefStatusTawaran;
 
 use app\models\general\GeneralLabel;
 use app\models\general\Upload;
@@ -130,8 +131,14 @@ class AtletController extends Controller
         $YesNo = GeneralLabel::getYesNoLabel($atlet->tid);
         $atlet->tid = $YesNo;
         
-        $YesNo = GeneralLabel::getYesNoLabel($atlet->tawaran);
-        $atlet->tawaran = $YesNo;
+        /*$YesNo = GeneralLabel::getYesNoLabel($atlet->tawaran);
+        $atlet->tawaran = $YesNo;*/
+        
+        $ref = RefStatusTawaran::findOne(['id' => $atlet->tawaran]);
+        $atlet->tawaran = $ref['desc'];
+        
+        $YesNo = GeneralLabel::getYesNoLabel($atlet->cacat);
+        $atlet->cacat = $YesNo;
         
         return $this->render('layout', [
             'model' => $atlet,
@@ -150,12 +157,24 @@ class AtletController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $session = new Session;
+        $session->open();
+        
+        $session->remove('atlet_id');
+        
+        $session->close();
+        
         $model = new Atlet();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'gambar');
             if($file){
                 $model->gambar = Upload::uploadFile($file, Upload::atletFolder, $model->atlet_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'muat_naik_surat_persetujuan');
+            if($file){
+                $model->muat_naik_surat_persetujuan = Upload::uploadFile($file, Upload::atletFolder, 'muat_naik_surat_persetujuan-' . $model->atlet_id);
             }
             
             if($model->save()){
@@ -204,6 +223,11 @@ class AtletController extends Controller
                 $model->gambar = Upload::uploadFile($file, Upload::atletFolder, $model->atlet_id);
             }
             
+            $file = UploadedFile::getInstance($model, 'muat_naik_surat_persetujuan');
+            if($file){
+                $model->muat_naik_surat_persetujuan = Upload::uploadFile($file, Upload::atletFolder, 'muat_naik_surat_persetujuan-' . $model->atlet_id);
+            }
+            
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->atlet_id]);
             }
@@ -242,6 +266,11 @@ class AtletController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        // delete upload file
+        self::actionDeleteupload($id, 'gambar');
+        
+        self::actionDeleteupload($id, 'muat_naik_surat_persetujuan');
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -265,6 +294,28 @@ class AtletController extends Controller
     
     // Add function for delete image or file
     public function actionDeleteimg($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            return $this->redirect(['update', 'id' => $id]);
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));

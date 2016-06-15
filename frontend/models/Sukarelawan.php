@@ -82,8 +82,8 @@ class Sukarelawan extends \yii\db\ActiveRecord
                 'tarikh_lahir', 'jantina', 'no_tel_bimbit', 'status', 'kebatasan_fizikal', 'kelulusan_akademi', 
                 'bidang_kepakaran', 'pekerjaan_semasa', 'alamat_majikan_1', 'alamat_majikan_negeri', 
                 'alamat_majikan_bandar', 'alamat_majikan_poskod', 'bidang_diminati', 'waktu_ketika_diperlukan', 
-                'menyatakan_waktu_ketika_diperlukan', 'clause'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_lahir'], 'safe'],
+                'clause', 'bangsa'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh_lahir', 'bangsa'], 'safe'],
             [['kebatasan_fizikal'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama', 'menyatakan_jika_ada_kebatasan_fizikal', 'kelulusan_akademi', 'bidang_kepakaran', 
                 'pekerjaan_semasa', 'nama_majikan', 'bidang_diminati', 'waktu_ketika_diperlukan', 
@@ -96,7 +96,9 @@ class Sukarelawan extends \yii\db\ActiveRecord
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_tel_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel', 'facebook', 'muatnaik', 'bidang_diminati_lain_lain'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['muatnaik'],'validateFileUpload', 'skipOnEmpty' => false]
+            [['pengalaman_sukarelawan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            //[['muatnaik'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['muatnaik'], 'validateFileUploadWithRequired', 'skipOnEmpty' => false],
         ];
     }
 
@@ -134,12 +136,14 @@ class Sukarelawan extends \yii\db\ActiveRecord
             'alamat_majikan_negeri' => GeneralLabel::alamat_majikan_negeri,
             'alamat_majikan_bandar' => GeneralLabel::alamat_majikan_bandar,
             'alamat_majikan_poskod' => GeneralLabel::alamat_majikan_poskod,
-            'bidang_diminati' => GeneralLabel::bidang_diminati,
+            'bidang_diminati' => GeneralLabel::kecenderungan,
             'bidang_diminati_lain_lain' => GeneralLabel::bidang_diminati_lain_lain,
             'waktu_ketika_diperlukan' => GeneralLabel::waktu_ketika_diperlukan,
             'menyatakan_waktu_ketika_diperlukan' => GeneralLabel::menyatakan_waktu_ketika_diperlukan,
-            'muatnaik' => GeneralLabel::muatnaik,
+            'muatnaik' => GeneralLabel::gambar_muat_naik,
             'clause' => GeneralLabel::clause,
+            'pengalaman_sukarelawan' => GeneralLabel::pengalaman_sukarelawan,
+            'bangsa' => GeneralLabel::bangsa,
         ];
     }
     
@@ -155,6 +159,21 @@ class Sukarelawan extends \yii\db\ActiveRecord
     }
     
     /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUploadWithRequired($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+
+        if(!$file && $this->$attribute==""){
+            $this->addError($attribute, GeneralMessage::uploadEmptyError);
+        }
+    }
+    
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getRefJantina(){
@@ -166,5 +185,12 @@ class Sukarelawan extends \yii\db\ActiveRecord
      */
     public function getRefBandar(){
         return $this->hasOne(RefBandar::className(), ['id' => 'alamat_bandar']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefNegeri(){
+        return $this->hasOne(RefNegeri::className(), ['id' => 'alamat_negeri']);
     }
 }

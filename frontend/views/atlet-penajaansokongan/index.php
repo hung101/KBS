@@ -2,9 +2,14 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
+use yii\widgets\Pjax;
+use nirvana\showloading\ShowLoadingAsset;
+ShowLoadingAsset::register($this);
 
-use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use app\models\general\GeneralVariable;
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AtletPenajaansokonganSearch */
@@ -34,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::create.' '.GeneralLabel::atlet_penajaansokongan, ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::button(GeneralLabel::createTitle .' '.GeneralLabel::atlet_penajaansokongan, ['value'=>Url::to(['create']),'class' => 'btn btn-success', 'onclick' => 'updateRenderAjax("'.Url::to(['create']).'", "'.GeneralVariable::tabPenajaanID.'");']) ?>
         </p>
     <?php endif; ?>
 
@@ -44,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            [
+            /*[
                 'attribute' => 'penajaan_sokongan_id',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -57,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
                 ]
-            ],
+            ],*/
             [
                 'attribute' => 'nama_syarikat',
                 'filterInputOptions' => [
@@ -65,20 +70,48 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_syarikat,
                 ]
             ],
-            [
-                'attribute' => 'alamat',
+            /*[
+                'attribute' => 'alamat_1',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::alamat,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::alamat_1,
+                ]
+            ],*/
+            [
+                'attribute' => 'nilai_kontrak',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nilai_kontrak,
                 ]
             ],
             [
+                'attribute' => 'tahun_permulaan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun_permulaan,
+                ]
+            ],
+            [
+                'attribute' => 'tahun_akhir',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun_akhir,
+                ]
+            ],
+            [
+                'attribute' => 'barang_yang_penyokong',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::barang_yang_penyokong,
+                ]
+            ],
+            /*[
                 'attribute' => 'emel',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::emel,
                 ]
-            ],
+            ],*/
             // 'no_telefon',
             // 'peribadi_yang_bertanggungjawab',
             // 'jenis_kontrak',
@@ -87,7 +120,30 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'tahun_akhir',
             // 'barang_yang_penyokong',
 
+            //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', '#', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordAjax("'.$url.'", "'.GeneralVariable::tabPenajaanID.'", "'.GeneralMessage::confirmDelete.'");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', '#', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'updateRenderAjax("'.$url.'", "'.GeneralVariable::tabPenajaanID.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', '#', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'updateRenderAjax("'.$url.'", "'.GeneralVariable::tabPenajaanID.'");',
+                        ]);
+                    }
+                ],
                 'template' => $template,
             ],
         ],

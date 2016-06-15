@@ -2,12 +2,11 @@
 
 namespace app\models;
 
-use yii\web\UploadedFile;
-
 use Yii;
-
-use app\models\general\GeneralLabel;
+use yii\web\UploadedFile;
+use app\models\general\Upload;
 use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 
 /**
  * This is the model class for table "atlet".
@@ -91,12 +90,12 @@ class Atlet extends \yii\db\ActiveRecord
             [['tahap', 'tid', 'cawangan', 'name_penuh', 'tarikh_lahir', 'umur', 'tempat_lahir_bandar', 'tempat_lahir_negeri', 
                 'bangsa', 'agama', 'jantina', 'taraf_perkahwinan', 'tinggi', 'berat', 'tel_bimbit_no_1', 'tel_no', 'alamat_rumah_1', 'alamat_rumah_negeri', 
                 'alamat_rumah_bandar', 'alamat_rumah_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_negeri', 'alamat_surat_bandar', 'alamat_surat_poskod', 
-                'nama_kecemasan', 'pertalian_kecemasan', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_lahir', 'lesen_tamat_tempoh', 'passport_tamat_tempoh'], 'safe'],
-            [['umur', 'tel_bimbit_no_1', 'tel_bimbit_no_2', 'tel_no', 'tid', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+                'nama_kecemasan', 'pertalian_kecemasan', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan', 'ic_no', 'tempat_lahir_alamat_1', 'cacat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh_lahir', 'lesen_tamat_tempoh', 'passport_tamat_tempoh', 'kategori_kecacatan', 'cacat', 'tawaran'], 'safe'],
+            [['umur', 'tel_bimbit_no_1', 'tel_bimbit_no_2', 'tel_no', 'tid', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan', 'cacat'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tinggi', 'berat'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['lesen_memandu_no', 'dari_bahagian', 'sumber', 'pertalian_kecemasan'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['name_penuh', 'nama_kecemasan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['name_penuh', 'nama_kecemasan', 'jenis_kecederaan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat_lahir_bandar', 'alamat_rumah_bandar', 'alamat_surat_bandar'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat_lahir_negeri', 'alamat_rumah_negeri', 'alamat_surat_negeri', 'passport_tempat_dikeluarkan', 'negeri_diwakili'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['bangsa', 'bahasa_ibu'], 'string', 'max' => 25, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -106,9 +105,12 @@ class Atlet extends \yii\db\ActiveRecord
             [['alamat_rumah_poskod', 'alamat_surat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['ic_no_lama'], 'string', 'max' => 8, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jenis_lesen', 'emel', 'facebook', 'twitter'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tawaran_fail_rujukan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat_lahir_alamat_1'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_rumah_1','alamat_rumah_2','alamat_rumah_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['file'], 'safe'],
             [['file'], 'file', 'extensions' => 'png, jpg'],
+            [['muat_naik_surat_persetujuan'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -123,7 +125,7 @@ class Atlet extends \yii\db\ActiveRecord
             'tahap' => GeneralLabel::tahap,
             'tid' => GeneralLabel::tid,
             'cawangan' => GeneralLabel::cawangan,
-            'name_penuh' => GeneralLabel::name_penuh,
+            'name_penuh' => GeneralLabel::nama,
             'tarikh_lahir' => GeneralLabel::tarikh_lahir,
             'umur' => GeneralLabel::umur,
             'tempat_lahir_bandar' => GeneralLabel::tempat_lahir_bandar,
@@ -136,7 +138,7 @@ class Atlet extends \yii\db\ActiveRecord
             'berat' => GeneralLabel::berat,
             'bahasa_ibu' => GeneralLabel::bahasa_ibu,
             'no_sijil_lahir' => GeneralLabel::no_sijil_lahir,
-            'ic_no' => GeneralLabel::ic_no,
+            'ic_no' => GeneralLabel::no_kad_pengenalan_tentera_polis,
             'ic_no_lama' => GeneralLabel::ic_no_lama,
             'ic_tentera' => GeneralLabel::ic_tentera,
             'passport_no' => GeneralLabel::passport_no,
@@ -147,7 +149,7 @@ class Atlet extends \yii\db\ActiveRecord
             'jenis_lesen' => GeneralLabel::jenis_lesen,
             'tel_bimbit_no_1' => GeneralLabel::tel_bimbit_no_1,
             'tel_bimbit_no_2' => GeneralLabel::tel_bimbit_no_2,
-            'tel_no' => GeneralLabel::tel_no,
+            'tel_no' => GeneralLabel::no_tel_rumah,
             'emel' => GeneralLabel::emel,
             'facebook' => GeneralLabel::facebook,
             'twitter' => GeneralLabel::twitter,
@@ -169,10 +171,15 @@ class Atlet extends \yii\db\ActiveRecord
             'negeri_diwakili' => GeneralLabel::negeri_diwakili,
             'nama_kecemasan' => GeneralLabel::nama_kecemasan,
             'pertalian_kecemasan' => GeneralLabel::pertalian_kecemasan,
-            'tel_no_kecemasan' => GeneralLabel::tel_no_kecemasan,
+            'tel_no_kecemasan' => GeneralLabel::tel_no,
             'tel_bimbit_no_kecemasan' => GeneralLabel::tel_bimbit_no_kecemasan,
-            'tawaran' => GeneralLabel::tawaran,
-
+            'tawaran' => GeneralLabel::status_tawaran,
+            'tempat_lahir_alamat_1' => GeneralLabel::tempat_lahir_alamat, 
+            'cacat' => GeneralLabel::cacat, 
+            'kategori_kecacatan' => GeneralLabel::kategori_kecacatan, 
+            'jenis_kecederaan' => GeneralLabel::jenis_kecederaan, 
+            'tawaran_fail_rujukan' => GeneralLabel::tawaran_fail_rujukan, 
+            'muat_naik_surat_persetujuan' => GeneralLabel::muat_naik_surat_persetujuan, 
         ];
     }
     
@@ -186,6 +193,17 @@ class Atlet extends \yii\db\ActiveRecord
         }
     }
     
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+    }
+    
     public function getNameAndIC(){
         $returnValue = "";
         
@@ -196,5 +214,12 @@ class Atlet extends \yii\db\ActiveRecord
         }
         
         return $returnValue;
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusTawaran(){
+        return $this->hasOne(RefStatusTawaran::className(), ['id' => 'tawaran']);
     }
 }

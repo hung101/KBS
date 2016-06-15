@@ -349,17 +349,22 @@ class PermohonanEBantuanController extends Controller
             
             $file = UploadedFile::getInstance($model, 'muat_naik_pb4');
             if($file){
-                $model->muat_naik_pb4 = Upload::uploadFile($file, Upload::eBantuanFolder, $model->permohonan_e_bantuan_id);
+                $model->muat_naik_pb4 = Upload::uploadFile($file, Upload::eBantuanFolder, 'muat_naik_pb4-' . $model->permohonan_e_bantuan_id);
             }
             
             $file = UploadedFile::getInstance($model, 'muat_naik_pb5');
             if($file){
-                $model->muat_naik_pb5 = Upload::uploadFile($file, Upload::eBantuanFolder, $model->permohonan_e_bantuan_id);
+                $model->muat_naik_pb5 = Upload::uploadFile($file, Upload::eBantuanFolder, 'muat_naik_pb5-' . $model->permohonan_e_bantuan_id);
             }
             
             $file = UploadedFile::getInstance($model, 'muat_naik_pb6');
             if($file){
-                $model->muat_naik_pb6 = Upload::uploadFile($file, Upload::eBantuanFolder, $model->permohonan_e_bantuan_id);
+                $model->muat_naik_pb6 = Upload::uploadFile($file, Upload::eBantuanFolder, 'muat_naik_pb6-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'kertas_kerja');
+            if($file){
+                $model->kertas_kerja = Upload::uploadFile($file, Upload::eBantuanFolder, 'kertas_kerja-' . $model->permohonan_e_bantuan_id);
             }
             
             if($model->save()){
@@ -434,17 +439,22 @@ class PermohonanEBantuanController extends Controller
             //$model->save();
             $file = UploadedFile::getInstance($model, 'muat_naik_pb4');
             if($file){
-                $model->muat_naik_pb4 = Upload::uploadFile($file, Upload::eBantuanFolder, $model->permohonan_e_bantuan_id);
+                $model->muat_naik_pb4 = Upload::uploadFile($file, Upload::eBantuanFolder, 'muat_naik_pb4-' . $model->permohonan_e_bantuan_id);
             }
             
             $file = UploadedFile::getInstance($model, 'muat_naik_pb5');
             if($file){
-                $model->muat_naik_pb5 = Upload::uploadFile($file, Upload::eBantuanFolder, $model->permohonan_e_bantuan_id);
+                $model->muat_naik_pb5 = Upload::uploadFile($file, Upload::eBantuanFolder, 'muat_naik_pb5-' . $model->permohonan_e_bantuan_id);
             }
             
             $file = UploadedFile::getInstance($model, 'muat_naik_pb6');
             if($file){
-                $model->muat_naik_pb6 = Upload::uploadFile($file, Upload::eBantuanFolder, $model->permohonan_e_bantuan_id);
+                $model->muat_naik_pb6 = Upload::uploadFile($file, Upload::eBantuanFolder, 'muat_naik_pb6-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'kertas_kerja');
+            if($file){
+                $model->kertas_kerja = Upload::uploadFile($file, Upload::eBantuanFolder, 'kertas_kerja-' . $model->permohonan_e_bantuan_id);
             }
             
             if($model->save()){
@@ -488,6 +498,8 @@ class PermohonanEBantuanController extends Controller
         self::actionDeleteupload($id, 'muat_naik_pb5');
         
         self::actionDeleteupload($id, 'muat_naik_pb6');
+        
+        self::actionDeleteupload($id, 'kertas_kerja');
         
         $this->findModel($id)->delete();
 

@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['create'])): ?>
         <p>
-            <?= Html::button('Tambah Karier', ['value'=>Url::to(['create']),'class' => 'btn btn-success', 'onclick' => 'updateRenderAjax("'.Url::to(['create']).'", "'.GeneralVariable::tabKarrierID.'");']) ?>
+            <?= Html::button(GeneralLabel::createTitle . ' ' . GeneralLabel::karier, ['value'=>Url::to(['create']),'class' => 'btn btn-success', 'onclick' => 'updateRenderAjax("'.Url::to(['create']).'", "'.GeneralVariable::tabKarrierID.'");']) ?>
         </p>
     <?php endif; ?>
     
@@ -53,23 +53,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'karier_atlet_id',
             //'atlet_id',
-            [
-                'attribute' => 'syarikat',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::syarikat,
-                ]
-            ],
-            //'alamat',
-            [
-                'attribute' => 'laman_web',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::laman_web,
-                ]
-            ],
-            // 'tel_no',
-            // 'emel',
              [
                 'attribute' => 'jawatan_kerja',
                 'filterInputOptions' => [
@@ -77,6 +60,31 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jawatan_kerja,
                 ]
             ],
+            /*[
+                'attribute' => 'syarikat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::syarikat,
+                ]
+            ],*/
+            [
+                'attribute' => 'alamat_1',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::alamat_majikan_1,
+                ]
+            ],
+            //'alamat',
+            /*[
+                'attribute' => 'laman_web',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::laman_web,
+                ]
+            ],*/
+            // 'tel_no',
+            // 'emel',
+            
             // 'pendapatan',
             [
                 'attribute' => 'tahun_mula',
@@ -85,13 +93,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun_mula,
                 ]
             ],
-            [
+            /*[
                 'attribute' => 'tahun_tamat',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun_tamat,
                 ]
-            ],
+            ],*/
             // 'socso_no',
             // 'kwsp_no',
             // 'income_tax_no',

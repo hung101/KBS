@@ -22,6 +22,8 @@ use app\models\RefAgama;
 use app\models\RefTarafPerkahwinan;
 use app\models\RefJenisLesenMemandu;
 use app\models\RefBahasa;
+use app\models\RefKategoriKecacatan;
+use app\models\RefStatusTawaran;
 
 // contant values
 use app\models\general\Placeholder;
@@ -57,10 +59,11 @@ use app\models\general\GeneralVariable;
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL,
             'staticOnly'=>$readonly,
-            'options' => ['enctype' => 'multipart/form-data']]); ?>
+            'options' => ['enctype' => 'multipart/form-data'],
+            'id'=>$model->formName()]); ?>
     <?php
     if($model->gambar){
-        echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$model->gambar.'" width="200px">&nbsp;&nbsp;&nbsp;';
+        //echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$model->gambar.'" width="200px">&nbsp;&nbsp;&nbsp;';
         if(!$readonly){
             echo Html::a(GeneralLabel::removeImage, ['deleteimg', 'id'=>$model->atlet_id, 'field'=> 'gambar'], 
             [
@@ -82,7 +85,7 @@ use app\models\general\GeneralVariable;
                     'columns'=>12,
                     'autoGenerateColumns'=>false, // override columns setting
                     'attributes' => [
-                        'gambar' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>['accept' => 'image/*'], 'pluginOptions' => ['previewFileType' => 'image']],
+                        'gambar' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>['accept' => 'image/*'], 'pluginOptions' => ['previewFileType' => 'image'], 'hint'=>GeneralLabel::getFileUploadMaxSizeHint()],
                     ],
                 ],
             ]
@@ -101,8 +104,9 @@ use app\models\general\GeneralVariable;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 //'atlet_id' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>20]],
-                'name_penuh' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
-                'tahap' => [
+                'ic_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12, 'id'=>'NoICID']],
+                'name_penuh' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80], 'hint'=>GeneralMessage::seperti_dalam_kad_pengenalan],
+                /*'tahap' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -118,13 +122,13 @@ use app\models\general\GeneralVariable;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>2]],
-                'tid' => [
+                    'columnOptions'=>['colspan'=>2]],*/
+                /*'tid' => [
                     'type'=>Form::INPUT_RADIO_LIST, 
                     'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
                     'value'=>false,
                     'options'=>['inline'=>true],
-                    'columnOptions'=>['colspan'=>2]],
+                    'columnOptions'=>['colspan'=>2]],*/
                 'cawangan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -148,23 +152,6 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'jantina' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-jantina/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefJantina::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jantina],
-                        'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
-                    'columnOptions'=>['colspan'=>3]],
                 'tarikh_lahir' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -172,9 +159,18 @@ use app\models\general\GeneralVariable;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ],
+                        'options' => ['id'=>'TarikhLahirID'],
                     ],
                     'columnOptions'=>['colspan'=>3]],
+                'umur' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>3, 'disabled'=>true, 'id'=>'UmurID']],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'tempat_lahir_alamat_1' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>90]],
                 'tempat_lahir_negeri' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -221,7 +217,23 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'umur' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3]],
+                'jantina' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jantina/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefJantina::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::jantina],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
                 'bangsa' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -300,16 +312,16 @@ use app\models\general\GeneralVariable;
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'no_sijil_lahir' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>15]],
-                'ic_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12]],
-                'ic_no_lama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>8]],
-                'ic_tentera' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12]],
+                //'no_sijil_lahir' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>15]],
+                
+                //'ic_no_lama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>8]],
+                //'ic_tentera' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12]],
             ]
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -369,15 +381,6 @@ use app\models\general\GeneralVariable;
                 'tel_bimbit_no_1' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4]],
                 'tel_bimbit_no_2' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4]],
                 'tel_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4]],
-            ]
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'emel' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4]],
-                'facebook' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4]],
-                'twitter' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4]],
             ]
         ],
         [
@@ -442,6 +445,27 @@ use app\models\general\GeneralVariable;
                 'alamat_rumah_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5]],
             ]
         ],
+        
+        ]
+]);
+    ?>
+    
+    <br>
+    <br>
+    <pre style="text-align: center"><strong>Maklumat Alamat Surat Menyurat</strong></pre>
+    
+    
+    <?php if(!$readonly):?>
+    <input type="checkbox" id="sama_alamat"> <strong> <?=GeneralLabel::alamat_surat_sama_dengan_alamat_berdaftar?></strong> <br>
+    <?php endif;?>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        
         [
             'attributes' => [
                 'alamat_surat_menyurat_1' => ['type'=>Form::INPUT_TEXT],
@@ -514,7 +538,60 @@ use app\models\general\GeneralVariable;
                 'kumpulan' => ['type'=>Form::INPUT_DROPDOWN_LIST,'items'=>[''=>'-- Pilih Kumpulan --'],'columnOptions'=>['colspan'=>3]],
             ]
         ],*/
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'emel' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>100]],
+                'facebook' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>100]],
+                'twitter' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>100]],
+            ]
+        ],
+    ]
+]);
+    ?>
+    
+    <br>
+    <br>
+    <pre style="text-align: center"><strong>Maklumat OKU</strong></pre>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'cacat' => [
+                    'type'=>Form::INPUT_RADIO_LIST, 
+                    'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
+                    'value'=>false,
+                    'options'=>['inline'=>true],
+                    'columnOptions'=>['colspan'=>2]],
+                'kategori_kecacatan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-kecacatan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefKategoriKecacatan::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kategoriKecacatan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+                'jenis_kecederaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+            ]
         ]
+    ]
 ]);
     ?>
     
@@ -542,100 +619,89 @@ use app\models\general\GeneralVariable;
             'attributes' => [
                 'pertalian_kecemasan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3]],
                 'tel_no_kecemasan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4]],
-                'tel_bimbit_no_kecemasan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4]],
+                //'tel_bimbit_no_kecemasan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4]],
             ]
         ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'tawaran' => [
-                    'type'=>Form::INPUT_RADIO_LIST, 
-                    'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
-                    'value'=>false,
-                    'options'=>['inline'=>true],
-                    'columnOptions'=>['colspan'=>3]],
-            ]
-        ]
     ]
 ]);
     ?>
     
+    <hr>
     
-
-    <!--<?= $form->field($model, 'atlet_id', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 20]) ?>
-
-    <?= $form->field($model, 'name_penuh', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'tarikh_lahir', ['addClass' => 'form-control input-sm'])->textInput() ?>
-
-    <?= $form->field($model, 'umur', ['addClass' => 'form-control input-sm'])->textInput() ?>
-
-    <?= $form->field($model, 'tempat_lahir_bandar', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'tempat_lahir_negeri', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'bangsa', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 25]) ?>
-
-    <?= $form->field($model, 'agama', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 15]) ?>
-
-    <?= $form->field($model, 'jantina', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 1]) ?>
-
-    <?= $form->field($model, 'taraf_perkahwinan', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 15]) ?>
-
-    <?= $form->field($model, 'tinggi', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 6]) ?>
-
-    <?= $form->field($model, 'berat', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 6]) ?>
-
-    <?= $form->field($model, 'bahasa_ibu', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 25]) ?>
-
-    <?= $form->field($model, 'no_sijil_lahir', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 15]) ?>
-
-    <?= $form->field($model, 'ic_no', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 12]) ?>
-
-    <?= $form->field($model, 'ic_no_lama', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 8]) ?>
-
-    <?= $form->field($model, 'passport_no', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 15]) ?>
-
-    <?= $form->field($model, 'passport_tempat_dikeluarkan', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'lesen_memandu_no', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 20]) ?>
-
-    <?= $form->field($model, 'lesen_tamat_tempoh', ['addClass' => 'form-control input-sm'])->textInput() ?>
-
-    <?= $form->field($model, 'jenis_lesen', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'tel_bimbit_no_1', ['addClass' => 'form-control input-sm'])->textInput() ?>
-
-    <?= $form->field($model, 'tel_bimbit_no_2', ['addClass' => 'form-control input-sm'])->textInput() ?>
-
-    <?= $form->field($model, 'tel_no', ['addClass' => 'form-control input-sm'])->textInput() ?>
-
-    <?= $form->field($model, 'emel', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'facebook', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'twitter', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'alamat_rumah_1', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_surat_menyurat_1', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'kumpulan', ['addClass' => 'form-control input-sm'])->textInput() ?>
-
-    <?= $form->field($model, 'dari_bahagian', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 20]) ?>
-
-    <?= $form->field($model, 'sumber', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 20]) ?>
-
-    <?= $form->field($model, 'negeri_diwakili', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'nama_kecemasan', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'pertalian_kecemasan', ['addClass' => 'form-control input-sm'])->textInput(['maxlength' => 20]) ?>
-
-    <?= $form->field($model, 'tel_no_kecemasan', ['addClass' => 'form-control input-sm'])->textInput() ?>
-
-    <?= $form->field($model, 'tel_bimbit_no_kecemasan', ['addClass' => 'form-control input-sm'])->textInput() ?>-->
+    <?php
+    if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['tawaran'])){
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        /*'tawaran' => [
+                            'type'=>Form::INPUT_RADIO_LIST, 
+                            'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
+                            'value'=>false,
+                            'options'=>['inline'=>true],
+                            'columnOptions'=>['colspan'=>3]],*/
+                        'tawaran' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-status-tawaran/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefStatusTawaran::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::status],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>3]],
+                        'tawaran_fail_rujukan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>50]],
+                    ]
+                ]
+            ]
+        ]);
+    }
+    ?>
+    
+    <?php // Surat Persetujuan
+    if($model->muat_naik_surat_persetujuan){
+        echo "<label>" . $model->getAttributeLabel('muat_naik_surat_persetujuan') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->muat_naik_surat_persetujuan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->atlet_id, 'field'=> 'muat_naik_surat_persetujuan'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'muat_naik_surat_persetujuan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+    
 
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -646,4 +712,66 @@ use app\models\general\GeneralVariable;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+     
+$(document).ready(function(){
+    if($("#TarikhLahirID").val() != ""){
+        $("#UmurID").val(calculateAge($("#TarikhLahirID").val()));
+    }
+});
+        
+$("#NoICID").focusout(function(){
+    var DOBVal = "";
+    
+    if(this.value != ""){
+        DOBVal = getDOBFromICNo(this.value);
+    }
+    
+        
+    $("#TarikhLahirID-disp").val(formatSaveDate(DOBVal));
+    $("#TarikhLahirID").val(formatSaveDate(DOBVal));
+        
+       /* $('#TarikhLahirID').kvDatepicker({
+                format: 'mm/dd/yyyy',
+                startDate: '-3d'
+            });*/
+        
+    $("#UmurID").val(calculateAge(formatSaveDate(DOBVal)));
+        
+        
+    $("#TarikhLahirID").kvDatepicker("$DateDisplayFormat", new Date(DOBVal)).kvDatepicker({
+        format: "$DateDisplayFormat"
+    });
+});
+        
+$('#TarikhLahirID').change(function(){
+    $("#UmurID").val(calculateAge(this.value));
+});
+            
+$("#sama_alamat").change(function() {
+    if(this.checked) {
+        $("#atlet-alamat_surat_menyurat_1").val($("#atlet-alamat_rumah_1").val());
+        $("#atlet-alamat_surat_menyurat_2").val($("#atlet-alamat_rumah_2").val());
+        $("#atlet-alamat_surat_menyurat_3").val($("#atlet-alamat_rumah_3").val());
+        $("#atlet-alamat_surat_negeri").val($("#atlet-alamat_rumah_negeri").val()).trigger("change");
+        $("#atlet-alamat_surat_bandar").val($("#atlet-alamat_rumah_bandar").val()).trigger("change");
+        $("#atlet-alamat_surat_poskod").val($("#atlet-alamat_rumah_poskod").val());
+    }
+});
+
+JS;
+        
+$this->registerJs($script);
+?>
 

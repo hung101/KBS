@@ -175,6 +175,13 @@ class JurulatihController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $session = new Session;
+        $session->open();
+        
+        $session->remove('jurulatih_id');
+        
+        $session->close();
+        
         $model = new Jurulatih();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

@@ -19,8 +19,8 @@ class JenisKebajikanSearch extends JenisKebajikan
     {
         return [
             [['jenis_kebajikan_id'], 'integer'],
-            [['jenis_kebajikan', 'perkara'], 'safe'],
-            [['sukan_sea_para_asean', 'sukan_asia_komenwel_para_asia_ead', 'sukan_olimpik_paralimpik', 'kejohanan_asia_dunia'], 'number'],
+            [['jenis_kebajikan', 'perkara', 'perkara', 'sukan'], 'safe'],
+            [['sukan_sea_para_asean', 'sukan_asia_komenwel_para_asia_ead', 'sukan_olimpik_paralimpik', 'kejohanan_asia_dunia', 'jumlah', 'maksimum', 'peratus'], 'number'],
         ];
     }
 
@@ -43,7 +43,9 @@ class JenisKebajikanSearch extends JenisKebajikan
     public function search($params)
     {
         $query = JenisKebajikan::find()
-                ->joinWith(['refJenisKebajikan']);
+                ->joinWith(['refJenisKebajikan'])
+                ->joinWith(['refPerkara'])
+                ->joinWith(['refSukanSkimKebajikan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -66,7 +68,8 @@ class JenisKebajikanSearch extends JenisKebajikan
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_jenis_kebajikan.desc', $this->jenis_kebajikan])
-            ->andFilterWhere(['like', 'perkara', $this->perkara]);
+            ->andFilterWhere(['like', 'tbl_ref_perkara.desc', $this->perkara])
+                ->andFilterWhere(['like', 'tbl_ref_sukan_skim_kebajikan.desc', $this->perkara]);
 
         return $dataProvider;
     }

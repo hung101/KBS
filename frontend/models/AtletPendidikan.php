@@ -65,10 +65,10 @@ class AtletPendidikan extends \yii\db\ActiveRecord
     {
         return [
             [['jenis_peringkatan_pendidikan', 'nama', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'tahun_mula', 'tahun_tamat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['no_telefon', 'no_faks', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['tahun_mula', 'tahun_tamat', 'tahun_mula_biasiswa', 'tahun_tamat_biasiswa', 'created', 'updated'], 'safe'],
+            [['atlet_id', 'no_telefon', 'no_faks', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tahun_mula', 'tahun_tamat', 'tahun_mula_biasiswa', 'tahun_tamat_biasiswa', 'created', 'updated', 'jenis_pencapaian'], 'safe'],
             [['jumlah_biasiswa'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['atlet_id', 'jenis_peringkatan_pendidikan'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jenis_peringkatan_pendidikan'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kursus', 'fakulti', 'nama', 'alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['pelajar_id_no'], 'string', 'max' => 15, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -90,7 +90,7 @@ class AtletPendidikan extends \yii\db\ActiveRecord
             'jenis_peringkatan_pendidikan' => GeneralLabel::jenis_peringkatan_pendidikan,
             'kursus' => GeneralLabel::kursus,
             'fakulti' => GeneralLabel::fakulti,
-            'nama' => GeneralLabel::nama,
+            'nama' => GeneralLabel::nama_institusi_sekolah,
             'alamat_1' => GeneralLabel::alamat_1,
             'alamat_2' => GeneralLabel::alamat_2,
             'alamat_3' => GeneralLabel::alamat_3,
@@ -102,12 +102,13 @@ class AtletPendidikan extends \yii\db\ActiveRecord
             'tahun_mula' => GeneralLabel::tahun_mula,
             'tahun_tamat' => GeneralLabel::tahun_tamat,
             'pelajar_id_no' => GeneralLabel::pelajar_id_no,
-            'keputusan_cgpa' => GeneralLabel::keputusan_cgpa,
+            'keputusan_cgpa' => GeneralLabel::keputusan,
             'biasiswa_tajaan' => GeneralLabel::biasiswa_tajaan,
             'jenis_biasiswa' => GeneralLabel::jenis_biasiswa,
             'jumlah_biasiswa' => GeneralLabel::jumlah_biasiswa,
             'tahun_mula_biasiswa' => GeneralLabel::tahun_mula_biasiswa,
             'tahun_tamat_biasiswa' => GeneralLabel::tahun_tamat_biasiswa,
+            'jenis_pencapaian' => GeneralLabel::jenis_pencapaian,
             'created_by' => GeneralLabel::created_by,
             'updated_by' => GeneralLabel::updated_by,
             'created' => GeneralLabel::created,
@@ -121,5 +122,12 @@ class AtletPendidikan extends \yii\db\ActiveRecord
      */
     public function getTahapPendidikan(){
         return $this->hasOne(RefTahapPendidikan::className(), ['id' => 'jenis_peringkatan_pendidikan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJenisPencapaian(){
+        return $this->hasOne(RefJenisPencapaian::className(), ['id' => 'jenis_pencapaian']);
     }
 }

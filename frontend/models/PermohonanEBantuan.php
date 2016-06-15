@@ -94,7 +94,7 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
             [['email'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['email'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['objektif_pertubuhan', 'aktiviti_dan_kejayaan_yang_dicapai', 'catatan_admin'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['muat_naik_pb4', 'muat_naik_pb5', 'muat_naik_pb6'],'validateFileUpload', 'skipOnEmpty' => false]
+            [['muat_naik_pb4', 'muat_naik_pb5', 'muat_naik_pb6', 'kertas_kerja'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }
 
@@ -124,8 +124,8 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
             'alamat_surat_menyurat_negeri' => GeneralLabel::alamat_surat_menyurat_negeri,
             'alamat_surat_menyurat_bandar' => GeneralLabel::alamat_surat_menyurat_bandar,
             'alamat_surat_menyurat_poskod' => GeneralLabel::alamat_surat_menyurat_poskod,
-            'no_telefon_pejabat' => GeneralLabel::no_telefon_pejabat,
-            'no_telefon_bimbit' => GeneralLabel::no_telefon_bimbit,
+            'no_telefon_pejabat' => GeneralLabel::no_telefon_pejabat_rumah,
+            'no_telefon_bimbit' => GeneralLabel::no_telefon_bimbit_e_bantuan,
             'no_fax' => GeneralLabel::no_fax,
             'email' => GeneralLabel::email,
             'bilangan_keahlian' => GeneralLabel::bilangan_keahlian,
@@ -168,7 +168,7 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
             'jawatankuasa_naib_pengerusi' => GeneralLabel::jawatankuasa_naib_pengerusi,
             'jawatankuasa_setiausaha' => GeneralLabel::jawatankuasa_setiausaha,
             'jawatankuasa_bendahari' => GeneralLabel::jawatankuasa_bendahari,
-
+            'kertas_kerja' => GeneralLabel::kertas_kerja,
         ];
     }
     

@@ -50,7 +50,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pengurus_sukan,
-                ]
+                ],
+                'value' => 'refPpn.desc'
             ],
             //'nama_sukan',
             [

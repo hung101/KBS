@@ -69,12 +69,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
             [
+                'attribute' => 'tarikh_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_permohonan,
+                ]
+            ],
+            [
+                'attribute' => 'status_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan,
+                ],
+                'value'=>'refStatusPermohonanInsuran.desc'
+            ],
+            /*[
                 'attribute' => 'tarikh_tuntutan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tuntutan,
                 ]
-            ],
+            ],*/
             // 'pegawai_yang_bertanggungjawab',
 
             //['class' => 'yii\grid\ActionColumn'],
