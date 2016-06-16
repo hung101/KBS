@@ -52,9 +52,10 @@ class ForumSeminarPersidanganDiLuarNegara extends \yii\db\ActiveRecord
     {
         return [
             [['jenis_program','nama', 'nama_program', 'tarikh', 'persatuan', 'jawatan', 'nama_wakil_persatuan_1', 'nama_wakil_persatuan_2', 'amaun', 'negara', 'status_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['amaun'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['tarikh_kelulusan_jkb'], 'safe'],        
+            [['amaun', 'jumlah_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['nama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['negara', 'status_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['negara', 'status_permohonan', 'bilangan_jkb'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
@@ -75,13 +76,15 @@ class ForumSeminarPersidanganDiLuarNegara extends \yii\db\ActiveRecord
             'tarikh' => GeneralLabel::tarikh,
             'persatuan' => GeneralLabel::persatuan,
             'jawatan' => GeneralLabel::jawatan,
-            'nama_wakil_persatuan_1' => GeneralLabel::nama_wakil_persatuan_1,
+            'nama_wakil_persatuan_1' => GeneralLabel::nama_peserta_program,
             'nama_wakil_persatuan_2' => GeneralLabel::nama_wakil_persatuan_2,
-            'amaun' => GeneralLabel::amaun,
+            'amaun' => GeneralLabel::jumlah_dipohon,
             'negara' => GeneralLabel::negara,
             'status_permohonan' => GeneralLabel::status_permohonan,
             'catatan' => GeneralLabel::catatan,
-
+            'jumlah_diluluskan' => GeneralLabel::jumlah_diluluskan,
+            'tarikh_kelulusan_jkb' => GeneralLabel::tarikh_kelulusan_jkb,
+            'bilangan_jkb' => GeneralLabel::bilangan_jkb,
         ];
     }
     

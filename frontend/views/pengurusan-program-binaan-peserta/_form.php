@@ -51,9 +51,9 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriPesertaProgramBinaan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategoriPeserta],],
+                        'options' => ['placeholder' => Placeholder::jenis],],
                     'columnOptions'=>['colspan'=>4]],
-                'peranan_peserta' => [
+                /*'peranan_peserta' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -66,7 +66,7 @@ use app\models\general\GeneralVariable;
                         ] : null,
                         'data'=>ArrayHelper::map(RefPeranan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::perananPeserta],],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>3]],*/
                 'atlet_id' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',

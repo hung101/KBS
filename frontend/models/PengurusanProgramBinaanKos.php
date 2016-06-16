@@ -52,11 +52,12 @@ class PengurusanProgramBinaanKos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['kategori_kos', 'anggaran_kos_per_kategori', 'revised_kos_per_kategori', 'approved_kos_per_kategori'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['kategori_kos', 'anggaran_kos_per_kategori', 'revised_kos_per_kategori', 'approved_kos_per_kategori', 'perbelanjaan_dipohon', 'jumlah_dipohon', 'anggaran_perbelanjaan', 'jumlah_cadangan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['pengurusan_program_binaan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jumlah_dipohon', 'jumlah_cadangan', 'anggaran_perbelanjaan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['anggaran_kos_per_kategori', 'revised_kos_per_kategori', 'approved_kos_per_kategori'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['kategori_kos'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['catatan', 'catatan_cadangan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 
@@ -73,6 +74,11 @@ class PengurusanProgramBinaanKos extends \yii\db\ActiveRecord
             'revised_kos_per_kategori' => GeneralLabel::revised_kos_per_kategori,
             'approved_kos_per_kategori' => GeneralLabel::approved_kos_per_kategori,
             'catatan' => GeneralLabel::catatan,
+            'jumlah_dipohon' => GeneralLabel::jumlah,
+            'anggaran_perbelanjaan' => GeneralLabel::anggaran_perbelanjaan,
+            'jumlah_cadangan' => GeneralLabel::jumlah,
+            'catatan_cadangan' => GeneralLabel::catatan,
+            'perbelanjaan_dipohon' => GeneralLabel::perbelanjaan_dipohon,
 
         ];
     }

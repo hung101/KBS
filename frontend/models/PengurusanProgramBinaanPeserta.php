@@ -67,7 +67,7 @@ class PengurusanProgramBinaanPeserta extends \yii\db\ActiveRecord
         return [
             'pengurusan_program_binaan_peserta_id' => GeneralLabel::pengurusan_program_binaan_peserta_id,
             'pengurusan_program_binaan_id' => GeneralLabel::pengurusan_program_binaan_id,
-            'kategori_peserta' => GeneralLabel::kategori_peserta,
+            'kategori_peserta' => GeneralLabel::jenis_peserta,
             'atlet_id' => GeneralLabel::atlet_id,
             'jurulatih_id' => GeneralLabel::jurulatih_id,
             'nama_peserta' => GeneralLabel::nama_peserta,

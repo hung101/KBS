@@ -5,9 +5,11 @@ namespace frontend\controllers;
 use Yii;
 use app\models\AnugerahPencalonanAtlet;
 use frontend\models\AnugerahPencalonanAtletSearch;
+use app\models\MsnLaporanPencalonanAnugerahSukanNegaraAtlet;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\BaseUrl;
 
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
@@ -176,5 +178,54 @@ class AnugerahPencalonanAtletController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionLaporanPencalonanAnugerahSukanNegaraAtlet()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanPencalonanAnugerahSukanNegaraAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-pencalonan-anugerah-sukan-negara-atlet'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-pencalonan-anugerah-sukan-negara-atlet'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_pencalonan_anugerah_sukan_negara_atlet', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanPencalonanAnugerahSukanNegaraAtlet($tarikh_dari, $tarikh_hingga, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanPencalonanAnugerahSukanNegaraAtlet', $format, $controls, 'laporan_pencalonan_anugerah_sukan_negara_atlet');
     }
 }

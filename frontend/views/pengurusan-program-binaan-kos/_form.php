@@ -27,7 +27,7 @@ use app\models\general\GeneralMessage;
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     <?php
-        echo FormGrid::widget([
+        /*echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -69,8 +69,73 @@ use app\models\general\GeneralMessage;
             ],
         ],
     ]
-]);
+]);*/
     ?>
+    
+    <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Permohonan</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'perbelanjaan_dipohon' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                'jumlah_dipohon' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'catatan' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+            ],
+        ],
+    ]
+]);
+        ?>
+                </div>
+            </div>
+    
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['kelulusan']) || $readonly): ?>
+    <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Cadangan</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'anggaran_perbelanjaan' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'catatan_cadangan' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+            ],
+        ],
+    ]
+]);
+        ?>
+                </div>
+            </div>
+    <?php endif; ?>
 
     <!--<?= $form->field($model, 'pengurusan_program_binaan_id')->textInput() ?>
 

@@ -72,7 +72,7 @@ class BantuanElaun extends \yii\db\ActiveRecord
             [['nama', 'jenis_bantuan', 'tarikh', 'nama_persatuan', 'tarikh_mula_dilantik', 'tarikh_tamat_dilantik', 'no_kad_pengenalan', 
                 'tarikh_lahir', 'umur', 'jantina', 'kewarganegara', 'bangsa', 'agama', 'kelayakan_akademi', 'alamat_1', 'alamat_negeri', 
                 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'kontrak', 'jumlah_elaun', 'status_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_lahir'], 'safe'],
+            [['tarikh_lahir', 'kursus'], 'safe'],
             [['umur'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah_elaun'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['nama', 'kelayakan_akademi'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -124,11 +124,18 @@ class BantuanElaun extends \yii\db\ActiveRecord
             'no_tel_persatuan_pejabat' => GeneralLabel::no_tel_persatuan_pejabat,
             'emel' => GeneralLabel::emel,
             'kontrak' => GeneralLabel::kontrak,
-            'jumlah_elaun' => GeneralLabel::jumlah_elaun,
+            'jumlah_elaun' => GeneralLabel::jumlah_elaun_yang_dipohon,
             'muatnaik_dokumen' => GeneralLabel::muatnaik_dokumen,
             'status_permohonan' => GeneralLabel::status_permohonan,
             'catatan' => GeneralLabel::catatan,
-
+            'kursus' => GeneralLabel::kursus,
         ];
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJenisBantuanSue(){
+        return $this->hasOne(RefJenisBantuanSue::className(), ['id' => 'jenis_bantuan']);
     }
 }

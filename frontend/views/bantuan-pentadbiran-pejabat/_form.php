@@ -69,7 +69,20 @@ use app\models\general\GeneralVariable;
                         'data'=>ArrayHelper::map(RefJawatanBantuanPentadbiranPejabat::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jawatan],],
                     'columnOptions'=>['colspan'=>3]],
-                'persatuan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                'persatuan' =>[
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jawatan-bantuan-pentadbiran-pejabat/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefJawatanBantuanPentadbiranPejabat::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::persatuan],],
+                    'columnOptions'=>['colspan'=>4]],
             ],
         ],
         [
@@ -90,7 +103,7 @@ use app\models\general\GeneralVariable;
                 'nama_sue' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
             ],
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -106,7 +119,7 @@ use app\models\general\GeneralVariable;
                     ],
                     'columnOptions'=>['colspan'=>3]],
             ],
-        ],
+        ],*/
         [
             'attributes' => [
                 'alamat_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
@@ -172,18 +185,15 @@ use app\models\general\GeneralVariable;
                 'no_tel_bimbit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
             ]
         ],
-         [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'catatan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
-            ]
-        ],
     ]
 ]);
         ?>
     
     <h3>Lampiran Perbelanjaan/Resit</h3>
+    
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <strong>Nota:</strong> Setiap dokumen yang dimuatnaik perlu disahkan dan dihantar (pos) kepada Majlis Sukan Negara
+    </div>
     
     <?php 
             Modal::begin([
@@ -304,6 +314,13 @@ use app\models\general\GeneralVariable;
                         'data'=>ArrayHelper::map(RefStatusPermohonanBantuanPentadbiranPejabat::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::statusPermohonan],],
                     'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'catatan' =>['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
             ]
         ],
     ]

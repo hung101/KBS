@@ -75,7 +75,23 @@ use app\models\general\GeneralVariable;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'nama_persatuan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
+                'nama_persatuan' =>[
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-bantuan-sue/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefJenisBantuanSue::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::persatuan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>4]],
                  
             ],
         ],
@@ -248,6 +264,12 @@ use app\models\general\GeneralVariable;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                 'kelayakan_akademi' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -265,6 +287,23 @@ use app\models\general\GeneralVariable;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>5]],
+                'kursus' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kelayakan-akademik/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefKelayakanAkademik::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kursus],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
         [
@@ -367,7 +406,7 @@ use app\models\general\GeneralVariable;
                         'columns'=>12,
                         'autoGenerateColumns'=>false, // override columns setting
                         'attributes' => [
-                            'muatnaik_dokumen' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label],
+                            'muatnaik_dokumen' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label, 'hint' => 'Senarai semak dokumen yang perlu dilampirkan'],
                         ],
                     ],
                 ]

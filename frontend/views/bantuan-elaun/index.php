@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
             //'muatnaik_gambar',
-            [
+            /*[
                 'attribute' => 'no_kad_pengenalan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -65,6 +65,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_lahir,
+                ]
+            ],*/
+            [
+                'attribute' => 'jenis_bantuan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_bantuan,
+                ],
+                'value' => 'refJenisBantuanSue.desc'
+            ],
+            [
+                'attribute' => 'nama_persatuan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_persatuan,
                 ]
             ],
             // 'umur',

@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PenilaianPestasi;
 use app\models\PenilaianPestasiSearch;
+use app\models\PenilaianPrestasiAtletSasaran;
+use frontend\models\PenilaianPrestasiAtletSasaranSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -67,8 +69,17 @@ class PenilaianPestasiController extends Controller
         $ref = RefKejohanan::findOne(['id' => $model->kejohanan]);
         $model->kejohanan = $ref['desc'];
         
+        $queryPar = null;
+        
+        $queryPar['PenilaianPrestasiAtletSasaranSearch']['penilaian_pestasi_id'] = $id;
+        
+        $searchModelPenilaianPrestasiAtletSasaran  = new PenilaianPrestasiAtletSasaranSearch();
+        $dataProviderPenilaianPrestasiAtletSasaran = $searchModelPenilaianPrestasiAtletSasaran->search($queryPar);
+        
         return $this->render('view', [
             'model' => $model,
+            'searchModelPenilaianPrestasiAtletSasaran' => $searchModelPenilaianPrestasiAtletSasaran,
+            'dataProviderPenilaianPrestasiAtletSasaran' => $dataProviderPenilaianPrestasiAtletSasaran,
             'readonly' => true,
         ]);
     }
@@ -82,10 +93,26 @@ class PenilaianPestasiController extends Controller
     {
         $model = new PenilaianPestasi();
         
+        $queryPar = null;
+        
+        Yii::$app->session->open();
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['PenilaianPrestasiAtletSasaranSearch']['session_id'] = Yii::$app->session->id;
+        }
+        
+        $searchModelPenilaianPrestasiAtletSasaran  = new PenilaianPrestasiAtletSasaranSearch();
+        $dataProviderPenilaianPrestasiAtletSasaran = $searchModelPenilaianPrestasiAtletSasaran->search($queryPar);
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'laporan_kesihatan');
             if($file){
                 $model->laporan_kesihatan = Upload::uploadFile($file, Upload::pernilaianPrestasiFolder, $model->penilaian_pestasi_id);
+            }
+            
+            if(isset(Yii::$app->session->id)){
+                PenilaianPrestasiAtletSasaran::updateAll(['penilaian_pestasi_id' => $model->penilaian_pestasi_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PenilaianPrestasiAtletSasaran::updateAll(['session_id' => ''], 'penilaian_pestasi_id = "'.$model->penilaian_pestasi_id.'"');
             }
             
             if($model->save()){
@@ -95,6 +122,8 @@ class PenilaianPestasiController extends Controller
         
         return $this->render('create', [
             'model' => $model,
+            'searchModelPenilaianPrestasiAtletSasaran' => $searchModelPenilaianPrestasiAtletSasaran,
+            'dataProviderPenilaianPrestasiAtletSasaran' => $dataProviderPenilaianPrestasiAtletSasaran,
             'readonly' => false,
         ]);
     }
@@ -108,6 +137,13 @@ class PenilaianPestasiController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        
+        $queryPar = null;
+        
+        $queryPar['PenilaianPrestasiAtletSasaranSearch']['penilaian_pestasi_id'] = $id;
+        
+        $searchModelPenilaianPrestasiAtletSasaran  = new PenilaianPrestasiAtletSasaranSearch();
+        $dataProviderPenilaianPrestasiAtletSasaran = $searchModelPenilaianPrestasiAtletSasaran->search($queryPar);
 
         if ($model->load(Yii::$app->request->post())) {
             $file = UploadedFile::getInstance($model, 'laporan_kesihatan');
@@ -121,6 +157,8 @@ class PenilaianPestasiController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'searchModelPenilaianPrestasiAtletSasaran' => $searchModelPenilaianPrestasiAtletSasaran,
+                'dataProviderPenilaianPrestasiAtletSasaran' => $dataProviderPenilaianPrestasiAtletSasaran,
                 'readonly' => false,
             ]);
         }

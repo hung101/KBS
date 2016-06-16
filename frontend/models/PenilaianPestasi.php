@@ -53,7 +53,8 @@ class PenilaianPestasi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'tarikh', 'tahap_sihat', 'pencapaian_sukan_dalam_tahun_yang_dinilai', 'kategori_kecergasan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'tarikh', 'tahap_sihat', 'pencapaian_sukan_dalam_tahun_yang_dinilai', 'kategori_kecergasan', 'sukan', 'program', 'disiplin', 'acara',
+                'kejohanan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['elaun_yang_diterima'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['kejohanan'], 'safe'],

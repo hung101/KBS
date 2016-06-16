@@ -20,7 +20,9 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const ahliJawatankuasaInduk = " -- Pilih Ahli Jawatankuasa Induk -- ";
         const ahliJawatankuasaKecilBiro = " -- Pilih Ahli Jawatankuasa Kecil / Biro -- ";
         const ahliJKK_JKP = "-- Pilih Ahli JKK/JKP --";
+        const ajk = "-- Pilih AJK --";
         const akademik = "-- Pilih Akademik --";
+        const aktiviti = "-- Pilih Aktiviti --";
         const anthropometricsUjian =  "-- Pilih Anthropometrics Ujian --";
         const atlet = "-- Pilih Atlet --";
         const badanSukan = "-- Pilih Badan Sukan --";
@@ -39,6 +41,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const cawangan = " -- Pilih Cawangan -- ";
         const darjah = " -- Pilih Darjah -- ";
         const delegasi = " -- Pilih Delegasi -- ";
+        const disiplin = " -- Pilih Disiplin -- ";
         const doktor = " -- Pilih Doktor -- ";
         const dokumenPenyelidikan = " -- Pilih Dokumen Penyelidikan -- ";
         const format = " -- Pilih Format -- ";
@@ -105,6 +108,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kaum = "-- Pilih Kaum --";
         const kejohanan = "-- Pilih Kejohanan --";
         const kejohananMewakili = "-- Pilih Kejohanan Mewakili --";
+        const kejohananTemasya = "-- Pilih Kejohanan / Temasya --";
         const kelayakanAkademik = "-- Pilih Kelayakan Akademik --";
         const kelayakanPingat = "-- Pilih Kelayakan Pingat --";
         const kerja = "-- Pilih Kerja --";
@@ -205,6 +209,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const permohonan = "-- Pilih Permohonan --";
         const permohonanPelanjutan = "-- Pilih Permohonan Pelanjutan --";
         const persatuan = "-- Pilih Persatuan --";
+        const perwakilan = "-- Pilih Perwakilan --";
         const peserta = "-- Pilih Peserta --";
         const pingat = "-- Pilih Pingat --";
         const program = "-- Pilih Program --";
@@ -280,7 +285,9 @@ if($session->get('language') == "EN") {
         const ahliJawatankuasaInduk = " -- Select A Member Of The Main Committee -- ";
         const ahliJawatankuasaKecilBiro = " -- Select The Members Of The Subcommittee/Bureau -- ";
         const ahliJKK_JKP = "-- Select Members AS WELL/CMC --";
+        const ajk = "-- Select AJK --";
         const akademik = "-- Select Academic --";
+        const aktiviti = "-- Select Activity --";
         const anthropometricsUjian =  "-- Select Test Anthropometrics --";
         const atlet = "-- Select Athletes --";
         const badanSukan = "-- Select Sports Bodies --";
@@ -299,6 +306,7 @@ if($session->get('language') == "EN") {
         const cawangan = " -- Select Branch -- ";
         const darjah = " -- Select Degree -- ";
         const delegasi = " -- Select Delegation -- ";
+        const disiplin = " -- Select Discipline -- ";
         const doktor = " -- Select A Doctor -- ";
         const dokumenPenyelidikan = " -- Select A Research Document -- ";
         const format = " -- Select The Format -- ";
@@ -365,6 +373,7 @@ if($session->get('language') == "EN") {
         const kaum = "-- Select Race --";
         const kejohanan = "-- Select Tournament --";
         const kejohananMewakili = "-- Select The Tournament Represents --";
+        const kejohananTemasya = "-- Select Tournament / Festival --";
         const kelayakanAkademik = "-- Select Academic Qualifications --";
         const kelayakanPingat = "-- Select Qualification Medal --";
         const kerja = "-- Select Work --";
@@ -465,6 +474,7 @@ if($session->get('language') == "EN") {
         const permohonan = "-- Select Application --";
         const permohonanPelanjutan = "-- Select The Application Extension --";
         const persatuan = "-- Select Association --";
+        const perwakilan = "-- Select Representation --";
         const peserta = "-- Select Participants --";
         const pingat = "-- Select A Medal --";
         const program = "-- Select Program --";

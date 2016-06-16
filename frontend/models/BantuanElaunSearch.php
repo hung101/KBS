@@ -19,7 +19,9 @@ class BantuanElaunSearch extends BantuanElaun
     {
         return [
             [['bantuan_elaun_id', 'umur'], 'integer'],
-            [['nama', 'muatnaik_gambar', 'no_kad_pengenalan', 'tarikh_lahir', 'jantina', 'kewarganegara', 'bangsa', 'agama', 'kelayakan_akademi', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'emel', 'kontrak', 'muatnaik_dokumen', 'status_permohonan', 'catatan'], 'safe'],
+            [['nama', 'muatnaik_gambar', 'no_kad_pengenalan', 'tarikh_lahir', 'jantina', 'kewarganegara', 'bangsa', 'agama', 'kelayakan_akademi', 'alamat_1', 'alamat_2', 
+                'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'emel', 'kontrak', 'muatnaik_dokumen', 'status_permohonan', 
+                'catatan', 'jenis_bantuan', 'nama_persatuan'], 'safe'],
             [['jumlah_elaun'], 'number'],
         ];
     }
@@ -42,7 +44,8 @@ class BantuanElaunSearch extends BantuanElaun
      */
     public function search($params)
     {
-        $query = BantuanElaun::find();
+        $query = BantuanElaun::find()
+                ->joinWith(['refJenisBantuanSue']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -82,7 +85,9 @@ class BantuanElaunSearch extends BantuanElaun
             ->andFilterWhere(['like', 'kontrak', $this->kontrak])
             ->andFilterWhere(['like', 'muatnaik_dokumen', $this->muatnaik_dokumen])
             ->andFilterWhere(['like', 'status_permohonan', $this->status_permohonan])
-            ->andFilterWhere(['like', 'catatan', $this->catatan]);
+            ->andFilterWhere(['like', 'catatan', $this->catatan])
+                ->andFilterWhere(['like', 'tbl_ref_jenis_bantuan_sue.desc', $this->jenis_bantuan])
+                ->andFilterWhere(['like', 'nama_persatuan', $this->nama_persatuan]);
 
         return $dataProvider;
     }

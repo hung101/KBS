@@ -74,12 +74,20 @@ class AnugerahPencalonanAtlet extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_atlet', 'tahun_pencalonan', 'nama_sukan', 'nama_acara', 'status_pencalonan', 'kejayaan', 'ulasan_kejayaan', 'sifat_kepimpinan_ketua_pasukan', 'sifat_kepimpinan_jurulatih', 'sifat_kepimpinan_asia_tenggara', 'sifat_kepimpinan_penolong_jurulatih', 'sifat_kepimpinan_pegawai_teknikal', 'nama_sukan_sebelum_dicalon', 'memenangi_kategori_dalam_anugerah_sukan', 'nama_kategori', 'tahun', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama_atlet', 'kategori', 'no_kad_pengenalan', 'no_telefon_1', 'no_telefon_2', 'tahun_pencalonan', 'nama_sukan', 'nama_acara', 'status_pencalonan', 
+                'kejayaan', 'ulasan_kejayaan', 'sifat_kepimpinan_ketua_pasukan', 'sifat_kepimpinan_jurulatih', 'sifat_kepimpinan_asia_tenggara', 
+                'sifat_kepimpinan_penolong_jurulatih', 'sifat_kepimpinan_pegawai_teknikal', 'nama_sukan_sebelum_dicalon', 'memenangi_kategori_dalam_anugerah_sukan', 
+                'nama_kategori', 'tahun', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tahun_pencalonan', 'tahun'], 'safe'],
-            [['sifat_kepimpinan_ketua_pasukan', 'sifat_kepimpinan_jurulatih', 'sifat_kepimpinan_asia_tenggara', 'sifat_kepimpinan_penolong_jurulatih', 'sifat_kepimpinan_pegawai_teknikal', 'memenangi_kategori_dalam_anugerah_sukan', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['nama_atlet', 'nama_sukan', 'nama_acara', 'susan_ranking_kebangsaan', 'susan_ranking_asia', 'susan_ranking_asia_tenggara', 'susan_ranking_dunia', 'nama_sukan_sebelum_dicalon', 'mewakili', 'pencalonan_olahragawan_tahun', 'pencalonan_olahragawati_tahun', 'pencalonan_pasukan_lelaki_kebangsaan_tahun', 'pencalonan_pasukan_wanita_kebangsaan_tahun', 'pencalonan_olahragawan_harapan_tahun', 'pencalonan_olahragawati_harapan_tahun', 'nama_kategori'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['sifat_kepimpinan_ketua_pasukan', 'sifat_kepimpinan_jurulatih', 'sifat_kepimpinan_asia_tenggara', 'sifat_kepimpinan_penolong_jurulatih', 
+                'sifat_kepimpinan_pegawai_teknikal', 'memenangi_kategori_dalam_anugerah_sukan', 'kelulusan', 'no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_atlet', 'nama_sukan', 'nama_acara', 'susan_ranking_kebangsaan', 'susan_ranking_asia', 'susan_ranking_asia_tenggara', 'susan_ranking_dunia', 
+                'nama_sukan_sebelum_dicalon', 'mewakili', 'pencalonan_olahragawan_tahun', 'pencalonan_olahragawati_tahun', 'pencalonan_pasukan_lelaki_kebangsaan_tahun', 
+                'pencalonan_pasukan_wanita_kebangsaan_tahun', 'pencalonan_olahragawan_harapan_tahun', 'pencalonan_olahragawati_harapan_tahun', 'nama_kategori'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['status_pencalonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['kejayaan', 'ulasan_kejayaan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['kejayaan', 'ulasan_kejayaan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon_1', 'no_telefon_2'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
 
@@ -92,11 +100,11 @@ class AnugerahPencalonanAtlet extends \yii\db\ActiveRecord
             'anugerah_pencalonan_atlet' => GeneralLabel::anugerah_pencalonan_atlet,
             'nama_atlet' => GeneralLabel::nama_atlet,
             'tahun_pencalonan' => GeneralLabel::tahun_pencalonan,
-            'nama_sukan' => GeneralLabel::nama_sukan,
+            'nama_sukan' => GeneralLabel::sukan,
             'nama_acara' => GeneralLabel::nama_acara,
             'status_pencalonan' => GeneralLabel::status_pencalonan,
             'kejayaan' => GeneralLabel::kejayaan,
-            'ulasan_kejayaan' => GeneralLabel::ulasan_kejayaan,
+            'ulasan_kejayaan' => GeneralLabel::ulasan_pencapaian,
             'susan_ranking_kebangsaan' => GeneralLabel::susan_ranking_kebangsaan,
             'susan_ranking_asia' => GeneralLabel::susan_ranking_asia,
             'susan_ranking_asia_tenggara' => GeneralLabel::susan_ranking_asia_tenggara,
@@ -118,7 +126,10 @@ class AnugerahPencalonanAtlet extends \yii\db\ActiveRecord
             'nama_kategori' => GeneralLabel::nama_kategori,
             'tahun' => GeneralLabel::tahun,
             'kelulusan' => GeneralLabel::kelulusan,
-
+            'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
+            'no_telefon_1' => GeneralLabel::no_tel,
+            'no_telefon_2' => GeneralLabel::no_tel_bimbit,
+            'kategori' => GeneralLabel::kategori,
         ];
     }
     

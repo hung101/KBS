@@ -7,6 +7,10 @@ use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use kartik\datecontrol\DateControl;
+use yii\grid\GridView;
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 // table reference
 use app\models\Atlet;
@@ -27,6 +31,13 @@ use app\models\general\GeneralMessage;
 <div class="penilaian-pestasi-form">
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
+    <?php
+        if(!$readonly){
+            $template = '{view} {update} {delete}';
+        } else {
+            $template = '{view}';
+        }
+    ?>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
     <?php
@@ -35,7 +46,7 @@ use app\models\general\GeneralMessage;
     'form' => $form,
     'autoGenerateColumns' => true,
     'rows' => [
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -85,13 +96,101 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>4]],
                 'tahap_sihat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6]],
             ]
+        ],*/
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'sukan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'options' => ['placeholder' => Placeholder::sukan],],
+                    'columnOptions'=>['colspan'=>4]],
+                'program' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'options' => ['placeholder' => Placeholder::program],],
+                    'columnOptions'=>['colspan'=>4]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'disiplin' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'options' => ['placeholder' => Placeholder::disiplin],],
+                    'columnOptions'=>['colspan'=>4]],
+                'acara' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'options' => ['placeholder' => Placeholder::acara],],
+                    'columnOptions'=>['colspan'=>4]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'kejohanan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kejohanan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefKejohanan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kejohanan],],
+                    'columnOptions'=>['colspan'=>4]],
+            ],
         ],
     ]
 ]);
     ?>
     
     <?php // Laporan Kesihatan Upload
-    if($model->laporan_kesihatan){
+    /*if($model->laporan_kesihatan){
         echo "<label>" . $model->getAttributeLabel('laporan_kesihatan') . "</label><br>";
         echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->laporan_kesihatan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
         if(!$readonly){
@@ -119,11 +218,11 @@ use app\models\general\GeneralMessage;
                 ],
             ]
         ]);
-    }
+    }*/
     ?>
     
     <?php
-        echo FormGrid::widget([
+        /*echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -172,8 +271,95 @@ use app\models\general\GeneralMessage;
             ]
         ],
     ]
-]);
+]);*/
     ?>
+    
+    <h3>Penilaian Atlet</h3>
+    
+    <?php 
+            Modal::begin([
+                'header' => '<h3 id="modalTitle"></h3>',
+                'id' => 'modal',
+                'size' => 'modal-lg',
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+                'options' => [
+                    'tabindex' => false // important for Select2 to work properly
+                ],
+            ]);
+            
+            echo '<div id="modalContent"></div>';
+            
+            Modal::end();
+        ?>
+    
+    <?php Pjax::begin(['id' => 'penilaianPrestasiAtletSasaranGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPenilaianPrestasiAtletSasaran,
+        //'filterModel' => $searchModelPenilaianPrestasiAtletSasaran,
+        'id' => 'penilaianPrestasiAtletSasaranGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'penilaian_prestasi_atlet_sasaran_id',
+            //'penilaian_pestasi_id',
+            'atlet',
+            'sasaran',
+            'keputusan',
+            // 'session_id',
+            // 'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['penilaian-prestasi-atlet-sasaran/delete', 'id' => $model->penilaian_prestasi_atlet_sasaran_id]).'", "'.GeneralMessage::confirmDelete.'", "penilaianPrestasiAtletSasaranGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penilaian-prestasi-atlet-sasaran/update', 'id' => $model->penilaian_prestasi_atlet_sasaran_id]).'", "'.GeneralLabel::updateTitle . ' Penilaian Atlet");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penilaian-prestasi-atlet-sasaran/view', 'id' => $model->penilaian_prestasi_atlet_sasaran_id]).'", "'.GeneralLabel::viewTitle . ' Penilaian Atlet");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        $penilaian_pestasi_id = "";
+        
+        if(isset($model->penilaian_pestasi_id)){
+            $penilaian_pestasi_id = $model->penilaian_pestasi_id;
+        }
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penilaian-prestasi-atlet-sasaran/create', 'penilaian_pestasi_id' => $penilaian_pestasi_id]).'", "'.GeneralLabel::createTitle . ' Penilaian Atlet");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <?php Pjax::end(); ?>
+    
+    <br>
 
     <!--<?= $form->field($model, 'atlet_id')->textInput() ?>
 
