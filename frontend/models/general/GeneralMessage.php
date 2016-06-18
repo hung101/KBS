@@ -21,6 +21,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
             
             // yii validation general message BM
             const yii_validation_required = "{attribute} tidak boleh dikosongkan";
+            const yii_validation_required_either = "Salah satu mesti mengisi";
+            const yii_validation_required_only_one = "Hanya satu keperluan untuk mengisi";
             const yii_validation_integer = "{attribute} mesti integer";
             const yii_validation_integer_max = "{attribute} mestilah tidak lebih besar daripada {max}";
             const yii_validation_integer_min = "{attribute} mestilah tidak kurang daripada {min}";
@@ -55,6 +57,8 @@ if($session->get('language') == "EN") {
             
             // yii validation general message EN
             const yii_validation_required = "{attribute} cannot be blank";
+            const yii_validation_required_either = "Either one must be fill";
+            const yii_validation_required_only_one = "Only one need to fill";
             const yii_validation_integer = "{attribute} must be an integer";
             const yii_validation_integer_max = "{attribute} must be no greater than {max}";
             const yii_validation_integer_min = "{attribute} mmust be no less than {min}";

@@ -25,7 +25,7 @@ use app\models\general\GeneralLabel;
     'form' => $form,
     'autoGenerateColumns' => true,
     'rows' => [
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -40,10 +40,74 @@ use app\models\general\GeneralLabel;
             'attributes' => [
                 'catatan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>5]],
             ]
+        ],*/
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'nama_peralatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>true]],
+                
+            ],
         ],
     ]
 ]);
     ?>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong><?=GeneralLabel::permohonan?></strong>
+        </div>
+        <div class="panel-body">
+
+            <?php
+                echo FormGrid::widget([
+                    'model' => $model,
+                    'form' => $form,
+                    'autoGenerateColumns' => true,
+                    'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'harga_per_unit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                                'jumlah_unit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
+                                'bilangan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
+                                'jumlah' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                            ]
+                        ],
+                    ]
+                ]);
+            ?>
+        </div>
+    </div>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong><?=GeneralLabel::cadangan?></strong>
+        </div>
+        <div class="panel-body">
+
+            <?php
+                echo FormGrid::widget([
+                    'model' => $model,
+                    'form' => $form,
+                    'autoGenerateColumns' => true,
+                    'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'harga_per_unit_cadangan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                                'jumlah_unit_cadangan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
+                                'bilangan_cadangan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
+                                'jumlah_cadangan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                            ]
+                        ],
+                    ]
+                ]);
+            ?>
+        </div>
+    </div>
 
     <!--<?= $form->field($model, 'permohonan_peralatan_id')->textInput() ?>
 

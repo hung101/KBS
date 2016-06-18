@@ -88,8 +88,8 @@ class PermohonanPendidikan extends \yii\db\ActiveRecord
     {
         return [
             [['atlet_id', 'no_ic', 'umur', 'jantina', 'tinggi', 'berat', 'alamat_rumah_1', 'alamat_rumah_negeri', 'alamat_rumah_bandar', 'alamat_rumah_poskod', 'no_telefon_rumah', 'no_telefon_bimbit', 'nama_ibu_bapa_penjaga', 'tahap_pendidikan', 'sukan', 'acara', 'alamat_pendidikan_1', 'alamat_pendidikan_negeri', 'alamat_pendidikan_bandar', 'alamat_pendidikan_poskod', 'no_tel_pendidikan', 'kelulusan', 'nama_pengesahan', 'jawatan_pengesahan', 'no_telefon_pengesahan', 'sekolah_unit_sukan_pdd_psk_pengesahan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id', 'umur', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['tinggi', 'berat', 'tahun_program'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['atlet_id', 'umur', 'kelulusan', 'muet_band'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tinggi', 'berat', 'tahun_program', 'pngk_prau', 'pmn_prau_utk4_sem'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tahun_program', 'jenis_permohonan'], 'safe'],
             [['no_ic'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -99,7 +99,7 @@ class PermohonanPendidikan extends \yii\db\ActiveRecord
             [['alamat_rumah_poskod', 'alamat_pendidikan_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_telefon_rumah', 'no_telefon_bimbit', 'no_tel_pendidikan', 'no_fax_pendidikan', 'no_telefon_pencadang', 'no_telefon_pengesahan'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_ibu_bapa_penjaga', 'aliran', 'pilihan_aliran_spm', 'sukan', 'acara', 'nama_pencadang', 'jawatan_pencadang', 'sekolah_unit_sukan_pdd_psk_pencadang', 'nama_pengesahan', 'jawatan_pengesahan', 'sekolah_unit_sukan_pdd_psk_pengesahan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['keputusan_spm', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['keputusan_spm', 'catatan', 'pilihan_program'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
@@ -144,7 +144,7 @@ class PermohonanPendidikan extends \yii\db\ActiveRecord
             'alamat_pendidikan_poskod' => GeneralLabel::alamat_pendidikan_poskod,
             'no_tel_pendidikan' => GeneralLabel::no_tel_pendidikan,
             'no_fax_pendidikan' => GeneralLabel::no_fax_pendidikan,
-            'kelulusan' => GeneralLabel::kelulusan,
+            'kelulusan' => GeneralLabel::status_permohonan,
             'nama_pencadang' => GeneralLabel::nama_pencadang,
             'jawatan_pencadang' => GeneralLabel::jawatan_pencadang,
             'no_telefon_pencadang' => GeneralLabel::no_telefon_pencadang,
@@ -153,7 +153,10 @@ class PermohonanPendidikan extends \yii\db\ActiveRecord
             'jawatan_pengesahan' => GeneralLabel::jawatan_pengesahan,
             'no_telefon_pengesahan' => GeneralLabel::no_telefon_pengesahan,
             'sekolah_unit_sukan_pdd_psk_pengesahan' => GeneralLabel::sekolah_unit_sukan_pdd_psk_pengesahan,
-
+            'pilihan_program' => 'Pilihan Program',
+            'muet_band' => 'MUET BAND',
+            'pngk_prau' => 'PNGK / PRAU',
+            'pmn_prau_utk4_sem' => 'PMN / PRAU / UTK4 / SEM',
         ];
     }
     

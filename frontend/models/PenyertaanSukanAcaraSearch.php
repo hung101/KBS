@@ -19,7 +19,7 @@ class PenyertaanSukanAcaraSearch extends PenyertaanSukanAcara
     {
         return [
             [['penyertaan_sukan_acara_id', 'penyertaan_sukan_id', 'jumlah_pingat', 'rekod_baru'], 'integer'],
-            [['nama_acara', 'tarikh_acara', 'keputusan_acara', 'catatan_rekod_baru', 'session_id'], 'safe'],
+            [['nama_acara', 'tarikh_acara', 'keputusan_acara', 'catatan_rekod_baru', 'session_id', 'atlet'], 'safe'],
         ];
     }
 
@@ -42,7 +42,8 @@ class PenyertaanSukanAcaraSearch extends PenyertaanSukanAcara
     public function search($params)
     {
         $query = PenyertaanSukanAcara::find()
-                ->joinWith(['refAcara']);
+                ->joinWith(['refAcara'])
+                ->joinWith(['refAtlet']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -67,7 +68,8 @@ class PenyertaanSukanAcaraSearch extends PenyertaanSukanAcara
         $query->andFilterWhere(['like', 'tbl_ref_acara.desc', $this->nama_acara])
             ->andFilterWhere(['like', 'keputusan_acara', $this->keputusan_acara])
             ->andFilterWhere(['like', 'catatan_rekod_baru', $this->catatan_rekod_baru])
-                ->andFilterWhere(['like', 'session_id', $this->session_id]);
+                ->andFilterWhere(['like', 'session_id', $this->session_id])
+                ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet]);
 
         return $dataProvider;
     }

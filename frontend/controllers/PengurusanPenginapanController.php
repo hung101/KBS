@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PengurusanPenginapan;
 use frontend\models\PengurusanPenginapanSearch;
+use app\models\PengurusanPenginapanAtlet;
+use frontend\models\PengurusanPenginapanAtletSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -71,8 +73,17 @@ class PengurusanPenginapanController extends Controller
         $ref = Atlet::findOne(['atlet_id' => $model->atlet_id]);
         $model->atlet_id = $ref['nameAndIC'];
         
+        $queryPar = null;
+        
+        $queryPar['PengurusanPenginapanAtletSearch']['pengurusan_penginapan_id'] = $id;
+        
+        $searchModelPengurusanPenginapanAtlet  = new PengurusanPenginapanAtletSearch();
+        $dataProviderPengurusanPenginapanAtlet = $searchModelPengurusanPenginapanAtlet->search($queryPar);
+        
         return $this->render('view', [
             'model' => $model,
+            'searchModelPengurusanPenginapanAtlet' => $searchModelPengurusanPenginapanAtlet,
+            'dataProviderPengurusanPenginapanAtlet' => $dataProviderPengurusanPenginapanAtlet,
             'readonly' => true,
         ]);
     }
@@ -89,12 +100,30 @@ class PengurusanPenginapanController extends Controller
         }
         
         $model = new PengurusanPenginapan();
+        
+        $queryPar = null;
+        
+        Yii::$app->session->open();
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['PengurusanPenginapanAtletSearch']['session_id'] = Yii::$app->session->id;
+        }
+        
+        $searchModelPengurusanPenginapanAtlet  = new PengurusanPenginapanAtletSearch();
+        $dataProviderPengurusanPenginapanAtlet = $searchModelPengurusanPenginapanAtlet->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if(isset(Yii::$app->session->id)){
+                PengurusanPenginapanAtlet::updateAll(['pengurusan_penginapan_id' => $model->pengurusan_penginapan_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PengurusanPenginapanAtlet::updateAll(['session_id' => ''], 'pengurusan_penginapan_id = "'.$model->pengurusan_penginapan_id.'"');
+            }
+            
             return $this->redirect(['view', 'id' => $model->pengurusan_penginapan_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'searchModelPengurusanPenginapanAtlet' => $searchModelPengurusanPenginapanAtlet,
+                'dataProviderPengurusanPenginapanAtlet' => $dataProviderPengurusanPenginapanAtlet,
                 'readonly' => false,
             ]);
         }
@@ -113,12 +142,21 @@ class PengurusanPenginapanController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        $queryPar = null;
+        
+        $queryPar['PengurusanPenginapanAtletSearch']['pengurusan_penginapan_id'] = $id;
+        
+        $searchModelPengurusanPenginapanAtlet  = new PengurusanPenginapanAtletSearch();
+        $dataProviderPengurusanPenginapanAtlet = $searchModelPengurusanPenginapanAtlet->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->pengurusan_penginapan_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'searchModelPengurusanPenginapanAtlet' => $searchModelPengurusanPenginapanAtlet,
+                'dataProviderPengurusanPenginapanAtlet' => $dataProviderPengurusanPenginapanAtlet,
                 'readonly' => false,
             ]);
         }

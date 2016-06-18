@@ -17,6 +17,8 @@ use app\models\RefCawangan;
 use app\models\RefNegeri;
 use app\models\RefSukan;
 use app\models\RefProgram;
+use app\models\RefProgramSemasaSukanAtlet;
+use app\models\RefKelulusanPeralatan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -103,7 +105,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefProgram::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::program],],
                     'columnOptions'=>['colspan'=>5]],
                 'tarikh' => [
@@ -168,8 +170,9 @@ use app\models\general\GeneralMessage;
             //'peralatan_id',
             //'permohonan_peralatan_id',
             'nama_peralatan',
-            'spesifikasi',
-            'kuantiti_unit',
+            'harga_per_unit',
+            'jumlah_unit',
+            'jumlah',
             // 'catatan',
 
             //['class' => 'yii\grid\ActionColumn'],
@@ -202,7 +205,14 @@ use app\models\general\GeneralMessage;
     ]); ?>
     
     <?php 
-        echo "<label>" . $model->getAttributeLabel('jumlah_peralatan') . ": </label> &nbsp;" . $dataProvider->getTotalCount();
+        $calculate_jumlah_pendapatan = 0.00;
+        foreach($dataProvider->models as $PTLmodel){
+            $calculate_jumlah_pendapatan += $PTLmodel->jumlah;
+        }
+    ?>
+    
+    <?php 
+        echo "<label>" . $model->getAttributeLabel('jumlah_peralatan') . ": </label> &nbsp;" . $dataProvider->getTotalCount() . ", <label>Jumlah Keseluruhan: </label> RM" . $calculate_jumlah_pendapatan;
     ?>
     <?php Pjax::end(); ?>
     
@@ -224,6 +234,86 @@ use app\models\general\GeneralMessage;
     
     <br>
     
+    <h3>Penggunaan</h3>
+    
+    <?php Pjax::begin(['id' => 'permohonanPeralatanPenggunaanGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPermohonanPeralatanPenggunaan,
+        //'filterModel' => $searchModelPermohonanPeralatanPenggunaan,
+        'id' => 'permohonanPeralatanPenggunaanGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'permohonan_peralatan_penggunaan_id',
+            //'permohonan_peralatan_id',
+            'nama_peralatan',
+            'harga_per_unit',
+            'jumlah_unit',
+            'bilangan',
+            'jumlah',
+            // 'session_id',
+            // 'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['permohonan-peralatan-penggunaan/delete', 'id' => $model->permohonan_peralatan_penggunaan_id]).'", "'.GeneralMessage::confirmDelete.'", "permohonanPeralatanPenggunaanGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-peralatan-penggunaan/update', 'id' => $model->permohonan_peralatan_penggunaan_id]).'", "'.GeneralLabel::updateTitle . ' Penggunaan");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-peralatan-penggunaan/view', 'id' => $model->permohonan_peralatan_penggunaan_id]).'", "'.GeneralLabel::viewTitle . ' Penggunaan");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php 
+        $jumlah = 0.00;
+        foreach($dataProviderPermohonanPeralatanPenggunaan->models as $PTLmodel){
+            $jumlah += $PTLmodel->jumlah;
+        }
+    ?>
+    
+    <?php 
+        echo "<label>Jumlah Peralatan: </label> &nbsp;" . $dataProviderPermohonanPeralatanPenggunaan->getTotalCount() . ", <label>Jumlah Keseluruhan: </label> RM" . $jumlah;
+    ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-peralatan-penggunaan/create', 'permohonan_peralatan_id' => $permohonan_peralatan_id]).'", "'.GeneralLabel::createTitle . ' Penggunaan");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
+    <br>
+    
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -242,6 +332,7 @@ use app\models\general\GeneralMessage;
     ?>
     
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['kelulusan']) || $readonly): ?>
+    
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -252,7 +343,57 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'kelulusan' => ['type'=>Form::INPUT_RADIO_LIST, 'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],'options'=>['inline'=>true],'columnOptions'=>['colspan'=>3]],
+                'catatan_cadangan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>255]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'catatan_kelulusan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>255]],
+            ]
+        ],
+    ]
+]);
+    ?>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'jumlah_diluluskan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                'kelulusan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kelulusan-peralatan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefKelulusanPeralatan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kelulusan],],
+                    'columnOptions'=>['colspan'=>3]],
+                'bil_jkb' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                'tarikh_jkb' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                
             ]
         ],
     ]

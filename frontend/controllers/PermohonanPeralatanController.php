@@ -7,6 +7,8 @@ use app\models\PermohonanPeralatan;
 use frontend\models\PermohonanPeralatanSearch;
 use app\models\Peralatan;
 use frontend\models\PeralatanSearch;
+use app\models\PermohonanPeralatanPenggunaan;
+use frontend\models\PermohonanPeralatanPenggunaanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -16,6 +18,8 @@ use app\models\RefCawangan;
 use app\models\RefNegeri;
 use app\models\RefSukan;
 use app\models\RefProgram;
+use app\models\RefProgramSemasaSukanAtlet;
+use app\models\RefKelulusanPeralatan;
 
 // contant values
 use app\models\general\GeneralLabel;
@@ -61,9 +65,13 @@ class PermohonanPeralatanController extends Controller
     {
         $queryPar = null;
         $queryPar['PeralatanSearch']['permohonan_peralatan_id'] = $id;
+        $queryPar['PermohonanPeralatanPenggunaanSearch']['permohonan_peralatan_id'] = $id;
         
         $searchModel = new PeralatanSearch();
         $dataProvider = $searchModel->search($queryPar);
+        
+        $searchModelPermohonanPeralatanPenggunaan = new PermohonanPeralatanPenggunaanSearch();
+        $dataProviderPermohonanPeralatanPenggunaan = $searchModelPermohonanPeralatanPenggunaan->search($queryPar);
         
         $model = $this->findModel($id);
         
@@ -73,20 +81,25 @@ class PermohonanPeralatanController extends Controller
         $ref = RefNegeri::findOne(['id' => $model->negeri]);
         $model->negeri = $ref['desc'];
         
-        $ref = RefProgram::findOne(['id' => $model->program]);
+        $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program]);
         $model->program = $ref['desc'];
         
         $ref = RefSukan::findOne(['id' => $model->sukan]);
         $model->sukan = $ref['desc'];
         
-        $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
-        $model->kelulusan = $YesNo;
+        $ref = RefKelulusanPeralatan::findOne(['id' => $model->kelulusan]);
+        $model->kelulusan = $ref['desc'];
+        
+        /*$YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
+        $model->kelulusan = $YesNo;*/
         
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'searchModelPermohonanPeralatanPenggunaan' => $searchModelPermohonanPeralatanPenggunaan,
+            'dataProviderPermohonanPeralatanPenggunaan' => $dataProviderPermohonanPeralatanPenggunaan,
         ]);
     }
 
@@ -105,10 +118,14 @@ class PermohonanPeralatanController extends Controller
         
         if(isset(Yii::$app->session->id)){
             $queryPar['PeralatanSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['PermohonanPeralatanPenggunaanSearch']['session_id'] = Yii::$app->session->id;
         }
         
         $searchModel = new PeralatanSearch();
         $dataProvider = $searchModel->search($queryPar);
+        
+        $searchModelPermohonanPeralatanPenggunaan = new PermohonanPeralatanPenggunaanSearch();
+        $dataProviderPermohonanPeralatanPenggunaan = $searchModelPermohonanPeralatanPenggunaan->search($queryPar);
         
         $model->jumlah_peralatan = $dataProvider->getTotalCount();
         
@@ -118,6 +135,9 @@ class PermohonanPeralatanController extends Controller
             if(isset(Yii::$app->session->id)){
                 Peralatan::updateAll(['permohonan_peralatan_id' => $model->permohonan_peralatan_id], 'session_id = "'.Yii::$app->session->id.'"');
                 Peralatan::updateAll(['session_id' => ''], 'permohonan_peralatan_id = "'.$model->permohonan_peralatan_id.'"');
+                
+                PermohonanPeralatanPenggunaan::updateAll(['permohonan_peralatan_id' => $model->permohonan_peralatan_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PermohonanPeralatanPenggunaan::updateAll(['session_id' => ''], 'permohonan_peralatan_id = "'.$model->permohonan_peralatan_id.'"');
             }
             
             return $this->redirect(['view', 'id' => $model->permohonan_peralatan_id]);
@@ -127,6 +147,8 @@ class PermohonanPeralatanController extends Controller
                 'readonly' => false,
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
+                'searchModelPermohonanPeralatanPenggunaan' => $searchModelPermohonanPeralatanPenggunaan,
+                'dataProviderPermohonanPeralatanPenggunaan' => $dataProviderPermohonanPeralatanPenggunaan,
             ]);
         }
     }
@@ -141,9 +163,13 @@ class PermohonanPeralatanController extends Controller
     {
         $queryPar = null;
         $queryPar['PeralatanSearch']['permohonan_peralatan_id'] = $id;
+        $queryPar['PermohonanPeralatanPenggunaanSearch']['permohonan_peralatan_id'] = $id;
         
         $searchModel = new PeralatanSearch();
         $dataProvider = $searchModel->search($queryPar);
+        
+        $searchModelPermohonanPeralatanPenggunaan = new PermohonanPeralatanPenggunaanSearch();
+        $dataProviderPermohonanPeralatanPenggunaan = $searchModelPermohonanPeralatanPenggunaan->search($queryPar);
         
         $model = $this->findModel($id);
         
@@ -157,6 +183,8 @@ class PermohonanPeralatanController extends Controller
                 'readonly' => false,
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
+                'searchModelPermohonanPeralatanPenggunaan' => $searchModelPermohonanPeralatanPenggunaan,
+                'dataProviderPermohonanPeralatanPenggunaan' => $dataProviderPermohonanPeralatanPenggunaan,
             ]);
         }
     }

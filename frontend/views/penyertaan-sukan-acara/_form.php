@@ -10,6 +10,7 @@ use kartik\datecontrol\DateControl;
 
 // table reference
 use app\models\RefAcara;
+use app\models\Atlet;
 
 // contant values
 use app\models\general\Placeholder;
@@ -37,7 +38,20 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-               
+                'atlet' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'options' => ['placeholder' => Placeholder::atlet],],
+                    'columnOptions'=>['colspan'=>6]],
                  'nama_acara' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -51,7 +65,7 @@ use app\models\general\GeneralMessage;
                         ] : null,
                         'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::acara],],
-                    'columnOptions'=>['colspan'=>6]],
+                    'columnOptions'=>['colspan'=>3]],
                 'tarikh_acara' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -64,7 +78,7 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -80,7 +94,7 @@ use app\models\general\GeneralMessage;
                
                  'catatan_rekod_baru' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>255]],
             ],
-        ],
+        ],*/
     ]
 ]);
         ?>

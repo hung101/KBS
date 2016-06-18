@@ -17,6 +17,10 @@ use app\models\general\GeneralVariable;
 use app\models\RefKategoriPenilaian;
 use app\models\RefSukan;
 use app\models\Atlet;
+use app\models\PerancanganProgram;
+use app\models\RefJenisAktiviti;
+use app\models\RefPeringkatKejohananTemasya;
+use app\models\RefProgramSemasaSukanAtlet;
 
 /**
  * PenyertaanSukanController implements the CRUD actions for PenyertaanSukan model.
@@ -75,6 +79,15 @@ class PenyertaanSukanController extends Controller
         
         $ref = Atlet::findOne(['atlet_id' => $model->nama_atlet]);
         $model->nama_atlet = $ref['nameAndIC'];
+        
+        $ref = PerancanganProgram::findOne(['perancangan_program_id' => $model->nama_kejohanan]);
+        $model->nama_kejohanan = $ref['nama_program'];
+        
+        $ref = RefPeringkatKejohananTemasya::findOne(['id' => $model->peringkat]);
+        $model->peringkat = $ref['desc'];
+        
+        $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program]);
+        $model->program = $ref['desc'];
         
         $queryPar = null;
         

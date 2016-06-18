@@ -51,8 +51,9 @@ class Peralatan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_peralatan', 'kuantiti_unit'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['permohonan_peralatan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_peralatan', 'kuantiti_unit', 'harga_per_unit', 'jumlah_unit', 'bilangan', 'jumlah'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['permohonan_peralatan_id', 'jumlah_unit', 'bilangan', 'jumlah_unit_cadangan', 'bilangan_cadangan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['harga_per_unit', 'jumlah', 'harga_per_unit_cadangan', 'jumlah_cadangan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['nama_peralatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['spesifikasi', 'kuantiti_unit'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
@@ -71,7 +72,12 @@ class Peralatan extends \yii\db\ActiveRecord
             'spesifikasi' => GeneralLabel::spesifikasi,
             'kuantiti_unit' => GeneralLabel::kuantiti_unit,
             'catatan' => GeneralLabel::catatan,
-
+            'harga_per_unit_cadangan' => 'Harga (per unit) (RM)',
+            'harga_per_unit' => 'Harga (per unit) (RM)',
+            'jumlah_unit_cadangan' => 'Jumlah Unit',
+            'bilangan_cadangan' => 'Bilangan',
+            'jumlah_cadangan' => 'Jumlah (RM)',
+            'jumlah' => 'Jumlah (RM)',
         ];
     }
 }

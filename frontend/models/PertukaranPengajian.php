@@ -53,11 +53,13 @@ class PertukaranPengajian extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'sebab_pemohonan', 'kategori_pengajian', 'nama_pengajian_sekarang', 'nama_pertukaran_pengajian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'program', 'sukan', 'sebab_pemohonan', 'kategori_pengajian', 'nama_pengajian_sekarang', 'nama_pertukaran_pengajian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tarikh'], 'safe'],
             [['sebab_pemohonan', 'sebab_pertukaran', 'sebab_penangguhan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kategori_pengajian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_pengajian_sekarang', 'nama_pertukaran_pengajian'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_pengajian_sekarang', 'nama_pertukaran_pengajian', 'kejohanan_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 
@@ -75,7 +77,11 @@ class PertukaranPengajian extends \yii\db\ActiveRecord
             'nama_pertukaran_pengajian' => GeneralLabel::nama_pertukaran_pengajian,
             'sebab_pertukaran' => GeneralLabel::sebab_pertukaran,
             'sebab_penangguhan' => GeneralLabel::sebab_penangguhan,
-
+            'program' => GeneralLabel::program,
+            'sukan' => GeneralLabel::sukan,
+            'kejohanan_program' => GeneralLabel::kejohanan_program,
+            'tarikh' => GeneralLabel::tarikh,
+            'tempat' => GeneralLabel::tempat,
         ];
     }
     

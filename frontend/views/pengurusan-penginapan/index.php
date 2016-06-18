@@ -46,14 +46,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pengurusan_penginapan_id',
             //'atlet_id',
-            [
+            /*[
                 'attribute' => 'atlet_id',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
                 ],
                 'value' => 'refAtlet.name_penuh'
-            ],
+            ],*/
             //'nama_pegawai',
             [
                 'attribute' => 'nama_pegawai',

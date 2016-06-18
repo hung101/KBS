@@ -120,6 +120,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                             'items' => [
                                 ['label' => GeneralLabel::permohonan_kemudahan_ticket_kapal_terbang, 'url' => ['/permohonan-kemudahan-ticket-kapal-terbang/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['module'])],
                                 ['label' => GeneralLabel::permohonan_peralatan, 'url' => ['/permohonan-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['module'])],
+                                ['label' => GeneralLabel::inventori, 'url' => ['/inventori/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['inventori']['module'])],
                             ],
                         ],
                         ['label' => GeneralLabel::skim_kebajikan, 'url' => ['/skim-kebajikan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['skim-kebajikan']['module'])],
@@ -195,7 +196,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                 ['label' => GeneralLabel::profil_wartawan_sukan, 'url' => ['/profil-wartawan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-wartawan-sukan']['module'])],
                             ],
                         ],
-                        ['label' => GeneralLabel::pengurusan_kejohanan_temasya_yang_disertai_oleh_atlet, 'url' => ['/pengurusan-kejohanan-temasya-main/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kejohanan-temasya-main']['module'])],
+                        //['label' => GeneralLabel::pengurusan_kejohanan_temasya_yang_disertai_oleh_atlet, 'url' => ['/pengurusan-kejohanan-temasya-main/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kejohanan-temasya-main']['module'])],
                         ['label' => GeneralLabel::pengurusan_mesyuarat_perbincangan_secara_online, 'url' => ['/mesyuarat/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat']['module'])],
                         [
                             'label' => GeneralLabel::pengurusan_jaringan_antarabangsa,
@@ -302,7 +303,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                             ],
                         ],
                         ['label' => GeneralLabel::pengurusan_kewangan, 'url' => ['/pengurusan-perhimpunan-kem/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-perhimpunan-kem']['module'])],
-                        ['label' => GeneralLabel::kemasukan_dan_pengumpulan_data_maklumat_sukan_yang_dianjurkan, 'url' => ['/pengurusan-kejohanan-temasya-main/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kejohanan-temasya-main']['module'])],
+                        //['label' => GeneralLabel::kemasukan_dan_pengumpulan_data_maklumat_sukan_yang_dianjurkan, 'url' => ['/pengurusan-kejohanan-temasya-main/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kejohanan-temasya-main']['module'])],
                         ['label' => GeneralLabel::penilaian_prestasi, 'url' => ['/penyertaan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['module'])],
                         ['label' => GeneralLabel::perancangan_program, 'url' => ['/perancangan-program/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
                         [
@@ -330,11 +331,31 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                 ],
                             ],
                         ],
+                        [
+                            'label' => GeneralLabel::pengurusan_teknikal_dan_kepegawaian,
+                            'items' => [
+                                ['label' => GeneralLabel::maklumat_pegawai_teknikal, 'url' => ['/maklumat-pegawai-teknikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['maklumat-pegawai-teknikal']['module'])],
+                                ['label' => GeneralLabel::manual_silibus_kurikulum_teknikal_kepegawaian, 'url' => ['/manual-silibus-kurikulum-teknikal-kepegawaian/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['manual-silibus-kurikulum-teknikal-kepegawaian']['module'])],
+                                [
+                                    'label' => GeneralLabel::geran_bantuan,
+                                    'items' => [
+                                        ['label' => GeneralLabel::bantuan_penganjuran_kursus_bengkel_seminar, 'url' => ['/bantuan-penganjuran-kursus/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus']['module'])],
+                                        ['label' => GeneralLabel::bantuan_penyertaan_pegawai_teknikal, 'url' => ['/bantuan-penyertaan-pegawai-teknikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penyertaan-pegawai-teknikal']['module'])],
+                                        ['label' => GeneralLabel::bantuan_penganjuran_kursus_pegawai_teknikal, 'url' => ['/bantuan-penganjuran-kursus-pegawai-teknikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus-pegawai-teknikal']['module'])],
+                                    ],
+                                ],
+                                [
+                                    'label' => GeneralLabel::laporan,
+                                    'items' => [
+                                        ['label' => GeneralLabel::laporan_maklumat_pembayaran_geran_bantuan, 'url' => ['/geran-bantuan-gaji/laporan-maklumat-pembayaran-geran-bantuan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['module'])],
+                                    ],
+                                ],
+                            ],
+                        ],
                         //['label' => GeneralLabel::pengurusan_bantuan_geran_penganjuran, 'url' => ['/pengurusan-perhimpunan-kem/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-perhimpunan-kem']['module'])],
-                        ['label' => GeneralLabel::bantuan_penganjuran_kursus_bengkel_seminar, 'url' => ['/bantuan-penganjuran-kursus/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus']['module'])],
-                        ['label' => GeneralLabel::bantuan_penyertaan_pegawai_teknikal, 'url' => ['/bantuan-penyertaan-pegawai-teknikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penyertaan-pegawai-teknikal']['module'])],
-                        ['label' => GeneralLabel::bantuan_penganjuran_kursus_pegawai_teknikal, 'url' => ['/bantuan-penganjuran-kursus-pegawai-teknikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus-pegawai-teknikal']['module'])],
-                        ['label' => GeneralLabel::pengurusan_anjuran_kejohanan, 'url' => ['/pengurusan-perhimpunan-kem/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-perhimpunan-kem']['module'])],
+                        
+                        //['label' => GeneralLabel::pengurusan_anjuran_kejohanan, 'url' => ['/pengurusan-perhimpunan-kem/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-perhimpunan-kem']['module'])],
+                        ['label' => GeneralLabel::bantuan_penganjuran_kejohanan, 'url' => ['/bantuan-penganjuran-kejohanan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['module'])],
                         //['label' => GeneralLabel::pengurusan_bantuan_geran_penganjuran, 'url' => ['/pengurusan-perhimpunan-kem/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-perhimpunan-kem']['module'])],
                         //['label' => GeneralLabel::pengurusan_bantuan_geran_teknikal_dan_kepegawaian, 'url' => ['/pengurusan-perhimpunan-kem/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-perhimpunan-kem']['module'])],
                         [

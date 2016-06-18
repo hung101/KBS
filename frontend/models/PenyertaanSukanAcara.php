@@ -53,8 +53,8 @@ class PenyertaanSukanAcara extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_acara', 'tarikh_acara', 'keputusan_acara', 'jumlah_pingat', 'rekod_baru'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['penyertaan_sukan_id', 'jumlah_pingat', 'rekod_baru'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_acara', 'tarikh_acara', 'keputusan_acara', 'jumlah_pingat', 'rekod_baru', 'atlet'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['penyertaan_sukan_id', 'jumlah_pingat', 'rekod_baru', 'atlet'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_acara'], 'safe'],
             [['nama_acara', 'keputusan_acara'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan_rekod_baru'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
@@ -75,7 +75,7 @@ class PenyertaanSukanAcara extends \yii\db\ActiveRecord
             'jumlah_pingat' => GeneralLabel::jumlah_pingat,
             'rekod_baru' => GeneralLabel::rekod_baru,
             'catatan_rekod_baru' => GeneralLabel::catatan_rekod_baru,
-
+            'atlet' => GeneralLabel::atlet,
         ];
     }
     
@@ -84,5 +84,12 @@ class PenyertaanSukanAcara extends \yii\db\ActiveRecord
      */
     public function getRefAcara(){
         return $this->hasOne(RefAcara::className(), ['id' => 'nama_acara']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefAtlet(){
+        return $this->hasOne(Atlet::className(), ['atlet_id' => 'atlet']);
     }
 }

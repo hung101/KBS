@@ -8,6 +8,7 @@ use frontend\models\PerancanganProgramSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 use yii\web\UploadedFile;
 
 use app\models\general\Upload;
@@ -185,5 +186,12 @@ class PerancanganProgramController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionGetProgram($id){
+        // find Ahli Jawatankuasa Induk
+        $model = PerancanganProgram::findOne($id);
+        
+        echo Json::encode($model);
     }
 }

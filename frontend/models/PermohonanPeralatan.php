@@ -56,12 +56,13 @@ class PermohonanPeralatan extends \yii\db\ActiveRecord
     {
         return [
             [['cawangan', 'negeri', 'sukan', 'program', 'tarikh', 'aktiviti', 'jumlah_peralatan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh'], 'safe'],
+            [['tarikh', 'tarikh_jkb'], 'safe'],
             [['jumlah_peralatan', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['cawangan', 'aktiviti'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jumlah_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['cawangan', 'aktiviti', 'bil_jkb'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['negeri', 'sukan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['program'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nota_urus_setia'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['nota_urus_setia', 'catatan_cadangan', 'catatan_kelulusan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 
@@ -79,9 +80,13 @@ class PermohonanPeralatan extends \yii\db\ActiveRecord
             'tarikh' => GeneralLabel::tarikh,
             'aktiviti' => GeneralLabel::aktiviti,
             'jumlah_peralatan' => GeneralLabel::jumlah_peralatan,
-            'nota_urus_setia' => GeneralLabel::nota_urus_setia,
+            'nota_urus_setia' => 'Catatan (Permohonan)',
             'kelulusan' => GeneralLabel::kelulusan,
-
+            'bil_jkb' => 'Bil. JKB',
+            'tarikh_jkb' => 'Tarikh JKB',
+            'jumlah_diluluskan' => 'Jumlah Diluluskan (RM)',
+            'catatan_cadangan' => 'Catatan (Cadangan)',
+            'catatan_kelulusan' => 'Catatan (Kelulusan)',
         ];
     }
     
@@ -103,7 +108,7 @@ class PermohonanPeralatan extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getRefProgram(){
-        return $this->hasOne(RefProgram::className(), ['id' => 'program']);
+        return $this->hasOne(RefProgramSemasaSukanAtlet::className(), ['id' => 'program']);
     }
     
     /**
@@ -115,6 +120,6 @@ class PermohonanPeralatan extends \yii\db\ActiveRecord
     
     public function getRefKelulusan()
     {
-        return $this->hasOne(RefKelulusan::className(), ['id' => 'kelulusan']);
+        return $this->hasOne(RefKelulusanPeralatan::className(), ['id' => 'kelulusan']);
     }
 }

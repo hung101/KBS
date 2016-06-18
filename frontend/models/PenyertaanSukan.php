@@ -54,9 +54,10 @@ class PenyertaanSukan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['kategori_penilaian', 'nama_temasya', 'nama_sukan', 'tempat_penginapan', 'tempat_latihan', 'nama_atlet', 'nama_pegawai', 'jawatan_pegawai', 'nama_pengurus_sukan', 'nama_sukarelawan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['nama_sukan', 'nama_atlet', 'nama_pegawai', 'jawatan_pegawai', 'nama_pengurus_sukan', 'nama_sukarelawan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tempat_penginapan', 'tempat_latihan'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['peringkat', 'program', 'nama_sukan', 'tempat_penginapan', 'nama_atlet',
+               'tarikh_mula', 'tarikh_tamat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama_sukan', 'nama_kejohanan', 'nama_pegawai', 'jawatan_pegawai', 'nama_pengurus_sukan', 'nama_sukarelawan', 'nama_temasya'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat_penginapan', 'tempat_latihan'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
 
@@ -69,16 +70,40 @@ class PenyertaanSukan extends \yii\db\ActiveRecord
             'penyertaan_sukan_id' => GeneralLabel::penyertaan_sukan_id,
             'kategori_penilaian' => GeneralLabel::kategori_penilaian,
             'nama_temasya' => GeneralLabel::nama_temasya,
-            'nama_sukan' => GeneralLabel::nama_sukan,
-            'tempat_penginapan' => GeneralLabel::tempat_penginapan,
+            'nama_sukan' => GeneralLabel::sukan,
+            'tempat_penginapan' => GeneralLabel::tempat,
             'tempat_latihan' => GeneralLabel::tempat_latihan,
             'nama_atlet' => GeneralLabel::nama_atlet,
             'nama_pegawai' => GeneralLabel::nama_pegawai,
             'jawatan_pegawai' => GeneralLabel::jawatan_pegawai,
             'nama_pengurus_sukan' => GeneralLabel::nama_pengurus_sukan,
             'nama_sukarelawan' => GeneralLabel::nama_sukarelawan,
-
+            'nama_sukan' => GeneralLabel::sukan,
+            'program' => GeneralLabel::program,
+            'tarikh_mula' => GeneralLabel::tarikh_mula,
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,
         ];
+    }
+    
+    public function beforeValidate()
+    {
+         if (parent::beforeValidate())
+         {
+            if (($this->nama_kejohanan==null)&&($this->nama_temasya==null))      
+            {
+                    $this->addError('nama_kejohanan', GeneralMessage::yii_validation_required_either);
+                    $this->addError('nama_temasya', GeneralMessage::yii_validation_required_either);
+                    return false;
+            } else if (($this->nama_kejohanan!=null)&&($this->nama_temasya!=null))      
+            {
+                    $this->addError('nama_kejohanan', GeneralMessage::yii_validation_required_only_one);
+                    $this->addError('nama_temasya', GeneralMessage::yii_validation_required_only_one);
+                    return false;
+            }
+
+            return true;
+         }
+         return false;
     }
     
     /**

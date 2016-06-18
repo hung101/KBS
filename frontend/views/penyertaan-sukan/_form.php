@@ -10,11 +10,16 @@ use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\bootstrap\Modal;
 use yii\widgets\Pjax;
+use kartik\datecontrol\DateControl;
 
 // table reference
 use app\models\RefKategoriPenilaian;
 use app\models\RefSukan;
 use app\models\Atlet;
+use app\models\PerancanganProgram;
+use app\models\RefJenisAktiviti;
+use app\models\RefPeringkatKejohananTemasya;
+use app\models\RefProgramSemasaSukanAtlet;
 
 // contant values
 use app\models\general\Placeholder;
@@ -41,6 +46,8 @@ use app\models\general\GeneralMessage;
     ?>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    
+    <?php //echo $form->errorSummary($model); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -51,29 +58,7 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                 'kategori_penilaian' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-penilaian/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefKategoriPenilaian::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategoriPenilaian],],
-                    'columnOptions'=>['colspan'=>4]],
-                'nama_temasya' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
-            ],
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-               
-                 'nama_sukan' => [
+                'nama_sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -87,7 +72,112 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],],
                     'columnOptions'=>['colspan'=>4]],
+                'program' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-program-semasa-sukan-atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::program],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>4]],
+                
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                /* 'kategori_penilaian' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-penilaian/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefKategoriPenilaian::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kategoriPenilaian],],
+                    'columnOptions'=>['colspan'=>4]],*/
+                'nama_kejohanan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-penilaian/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(PerancanganProgram::find()->where('jenis_aktiviti = :id1 OR jenis_aktiviti = :id2', [':id1' => RefJenisAktiviti::KEJOHANAN_DALAM_NEGARA, ':id2' => RefJenisAktiviti::KEJOHANAN_LUAR_NEGARA])->all(),'perancangan_program_id', 'nama_program'),
+                        'options' => ['placeholder' => Placeholder::kejohanan, 'id'=>'kejohananId'],],
+                    'columnOptions'=>['colspan'=>5]],
+                'nama_temasya' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>true]],
+                
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+               
+                 
                 'tempat_penginapan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>90]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'tarikh_mula' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                'tarikh_tamat' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                'peringkat' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-peringkat-kejohanan-temasya/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefPeringkatKejohananTemasya::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::peringkat],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>4]],
             ],
         ],
         [
@@ -96,7 +186,7 @@ use app\models\general\GeneralMessage;
             'attributes' => [
                
                  'tempat_latihan' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>90]],
-                'nama_atlet' => [
+                /*'nama_atlet' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -109,7 +199,7 @@ use app\models\general\GeneralMessage;
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::atlet],],
-                    'columnOptions'=>['colspan'=>6]],
+                    'columnOptions'=>['colspan'=>6]],*/
             ],
         ],
         [
@@ -164,11 +254,19 @@ use app\models\general\GeneralMessage;
             //'penyertaan_sukan_id',
             //'nama_acara',
             [
+                'attribute' => 'atlet',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet,
+                ],
+                'value' => 'refAtlet.name_penuh'
+            ],
+            [
                 'attribute' => 'nama_acara',
                 'value' => 'refAcara.desc'
             ],
             'tarikh_acara',
-            'keputusan_acara',
+            //'keputusan_acara',
             // 'jumlah_pingat',
             // 'rekod_baru',
             // 'catatan_rekod_baru',
@@ -247,3 +345,41 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$URL = Url::to(['/perancangan-program/get-program']);
+
+$script = <<< JS
+        
+$('#kejohananId').change(function(){
+    
+    $.get('$URL',{id:$(this).val()},function(data){
+        clearForm();
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+            $('#penyertaansukan-tempat_penginapan').attr('value',data.lokasi);
+            $("#penyertaansukan-tarikh_mula-disp").val(formatDisplayDate(data.tarikh_mula));
+            $("#penyertaansukan-tarikh_mula").val(formatSaveDate(data.tarikh_mula));
+            $("#penyertaansukan-tarikh_tamat-disp").val(formatDisplayDate(data.tarikh_tamat));
+            $("#penyertaansukan-tarikh_tamat").val(formatSaveDate(data.tarikh_tamat));
+        }
+    });
+    
+});
+     
+function clearForm(){
+    $('#penyertaansukan-tempat_penginapan').attr('value','');
+        
+    $("#penyertaansukan-tarikh_mula-disp").val('');
+    $("#penyertaansukan-tarikh_mula").val('');
+        
+    $("#penyertaansukan-tarikh_tamat-disp").val('');
+    $("#penyertaansukan-tarikh_tamat").val('');
+}
+        
+JS;
+        
+$this->registerJs($script);
+?>

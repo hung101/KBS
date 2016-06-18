@@ -44,6 +44,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const disiplin = " -- Pilih Disiplin -- ";
         const doktor = " -- Pilih Doktor -- ";
         const dokumenPenyelidikan = " -- Pilih Dokumen Penyelidikan -- ";
+        const elemen = " -- Pilih Elemen -- ";
         const format = " -- Pilih Format -- ";
         const fasilitiSatelit = " -- Pilih Fasiliti Satelit -- ";
         const fisio = " -- Pilih Fisio -- ";
@@ -249,11 +250,13 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const statusTugas = "-- Pilih Status Tugas --";
         const statusUjian = "-- Pilih Status Ujian --";
         const stage = "-- Pilih Stage --";
+        const subElemen = "-- Pilih Sub-Elemen --";
         const subKategoriPenilaian = "-- Pilih Sub Kategori Penilaian --";
         const subProgramPelapis = "-- Pilih Sub Program Pelapis --";
         const sukan = "-- Pilih Sukan --";
         const sukanAkademi = "-- Pilih Sukan Akademi --";
         const sukanRekreasi = "-- Pilih Sukan / Rekreasi --";
+        const sumberKewangan  = "-- Pilih Sumber Kewangan --";
         const tahap = "-- Pilih Tahap --";
         const tahapAkademik = "-- Pilih Tahap Akademik --";
         const tahapAtlet = " -- Pilih Tahap -- ";
@@ -309,6 +312,7 @@ if($session->get('language') == "EN") {
         const disiplin = " -- Select Discipline -- ";
         const doktor = " -- Select A Doctor -- ";
         const dokumenPenyelidikan = " -- Select A Research Document -- ";
+        const elemen = " -- Select Element -- ";
         const format = " -- Select The Format -- ";
         const fasilitiSatelit = " -- Select Satellite Facility -- ";
         const fisio = " -- Select Physio -- ";
@@ -514,11 +518,13 @@ if($session->get('language') == "EN") {
         const statusTugas = "-- Select The Task Status --";
         const statusUjian = "-- Select The Status Test --";
         const stage = "-- Select Stage --";
+        const subElemen = "-- Select Sub-Element --";
         const subKategoriPenilaian = "-- Select Sub Category Assessment --";
         const subProgramPelapis = "-- Select The Sub Programme Will Become --";
         const sukan = "-- Select Sport --";
         const sukanAkademi = "-- Select Sports Academy --";
         const sukanRekreasi = "-- Select Sport/Recreation --";
+        const sumberKewangan  = "-- Select Source Of Income --";
         const tahap = "-- Select The Level Of --";
         const tahapAkademik = "-- Select Academic Level --";
         const tahapAtlet = " -- Select The Level Of -- ";

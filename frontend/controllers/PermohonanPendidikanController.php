@@ -25,6 +25,7 @@ use app\models\RefSukan;
 use app\models\RefAcara;
 use app\models\RefBandar;
 use app\models\RefNegeri;
+use app\models\RefStatusPermohonanPendidikan;
 
 /**
  * PermohonanPendidikanController implements the CRUD actions for PermohonanPendidikan model.
@@ -105,8 +106,11 @@ class PermohonanPendidikanController extends Controller
         $ref = RefBandar::findOne(['id' => $model->alamat_pendidikan_bandar]);
         $model->alamat_pendidikan_bandar = $ref['desc'];
         
-        $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
-        $model->kelulusan = $YesNo;
+        /*$YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
+        $model->kelulusan = $YesNo;*/
+        
+        $ref = RefStatusPermohonanPendidikan::findOne(['id' => $model->kelulusan]);
+        $model->kelulusan = $ref['desc'];
         
         return $this->render('view', [
             'model' => $model,
