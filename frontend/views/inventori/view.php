@@ -3,30 +3,40 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\Inventori */
 
-$this->title = $model->inventori_id;
-$this->params['breadcrumbs'][] = ['label' => 'Inventoris', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::inventori;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::inventori, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="inventori-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->inventori_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->inventori_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['inventori']['update'])): ?>
+            <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->inventori_id], ['class' => 'btn btn-primary']) ?>
+        <?php endif; ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['inventori']['delete'])): ?>
+            <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->inventori_id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => GeneralMessage::confirmDelete,
+                    'method' => 'post',
+                ],
+            ]) ?>
+        <?php endif; ?>
+        <?= Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'window.print();' ]); ?>
     </p>
     
     <?= $this->render('_form', [
         'model' => $model,
+        'searchModelInventoriPeralatan' => $searchModelInventoriPeralatan,
+        'dataProviderInventoriPeralatan' => $dataProviderInventoriPeralatan,
         'readonly' => $readonly,
     ]) ?>
 

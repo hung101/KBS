@@ -5,9 +5,17 @@ namespace frontend\controllers;
 use Yii;
 use app\models\Inventori;
 use frontend\models\InventoriSearch;
+use app\models\InventoriPeralatan;
+use frontend\models\InventoriPeralatanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+
+// table reference
+use app\models\RefProgramSemasaSukanAtlet;
+use app\models\RefSukan;
+use app\models\RefNegeri;
+use app\models\RefBandar;
 
 /**
  * InventoriController implements the CRUD actions for Inventori model.
@@ -51,8 +59,31 @@ class InventoriController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        
+        $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program]);
+        $model->program = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->alamat_pembekal_negeri]);
+        $model->alamat_pembekal_negeri = $ref['desc'];
+        
+        $ref = RefBandar::findOne(['id' => $model->alamat_pembekal_bandar]);
+        $model->alamat_pembekal_bandar = $ref['desc'];
+        
+        $queryPar = null;
+        
+        $queryPar['InventoriPeralatanSearch']['inventori_id'] = $id;
+        
+        $searchModelInventoriPeralatan = new InventoriPeralatanSearch();
+        $dataProviderInventoriPeralatan = $searchModelInventoriPeralatan->search($queryPar);
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'searchModelInventoriPeralatan' => $searchModelInventoriPeralatan,
+            'dataProviderInventoriPeralatan' => $dataProviderInventoriPeralatan,
             'readonly' => true,
         ]);
     }
@@ -65,12 +96,32 @@ class InventoriController extends Controller
     public function actionCreate()
     {
         $model = new Inventori();
+        
+        $queryPar = null;
+        
+        Yii::$app->session->open();
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['InventoriPeralatanSearch']['session_id'] = Yii::$app->session->id;
+        }
+        
+        $searchModelInventoriPeralatan = new InventoriPeralatanSearch();
+        $dataProviderInventoriPeralatan = $searchModelInventoriPeralatan->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // update all the temporary session id with Pertukaran Program Pengajian Dokumen/Sebab
+            if(isset(Yii::$app->session->id)){
+                InventoriPeralatan::updateAll(['inventori_id' => $model->inventori_id], 'session_id = "'.Yii::$app->session->id.'"');
+                InventoriPeralatan::updateAll(['session_id' => ''], 'inventori_id = "'.$model->inventori_id.'"');
+                
+            }
+            
             return $this->redirect(['view', 'id' => $model->inventori_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'searchModelInventoriPeralatan' => $searchModelInventoriPeralatan,
+                'dataProviderInventoriPeralatan' => $dataProviderInventoriPeralatan,
                 'readonly' => false,
             ]);
         }
@@ -85,12 +136,21 @@ class InventoriController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        
+        $queryPar = null;
+        
+        $queryPar['InventoriPeralatanSearch']['inventori_id'] = $id;
+        
+        $searchModelInventoriPeralatan = new InventoriPeralatanSearch();
+        $dataProviderInventoriPeralatan = $searchModelInventoriPeralatan->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->inventori_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'searchModelInventoriPeralatan' => $searchModelInventoriPeralatan,
+                'dataProviderInventoriPeralatan' => $dataProviderInventoriPeralatan,
                 'readonly' => false,
             ]);
         }

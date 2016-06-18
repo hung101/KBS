@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="inventori-peralatan-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <!--<h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->inventori_peralatan_id], ['class' => 'btn btn-primary']) ?>
@@ -23,9 +23,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
+    </p>-->
+    
+    <?= $this->render('_form', [
+        'model' => $model,
+        'readonly' => $readonly,
+    ]) ?>
 
-    <?= DetailView::widget([
+    <?php /*echo DetailView::widget([
         'model' => $model,
         'attributes' => [
             'inventori_peralatan_id',
@@ -41,6 +46,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'created',
             'updated',
         ],
-    ]) ?>
+    ]);*/ ?>
 
 </div>

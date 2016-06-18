@@ -46,8 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'inventori_id',
             'tarikh',
-            'program',
-            'sukan',
+            //'program',
+            //'sukan',
             'no_co',
             // 'alamat_pembekal_1',
             // 'alamat_pembekal_2',

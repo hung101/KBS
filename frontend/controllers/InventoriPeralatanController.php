@@ -51,8 +51,9 @@ class InventoriPeralatanController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
+        return $this->renderAjax('view', [
             'model' => $this->findModel($id),
+            'readonly' => true,
         ]);
     }
 
@@ -61,15 +62,26 @@ class InventoriPeralatanController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($inventori_id)
     {
         $model = new InventoriPeralatan();
+        
+        Yii::$app->session->open();
+        
+        if($inventori_id != ''){
+            $model->inventori_id = $inventori_id;
+        } else {
+            if(isset(Yii::$app->session->id)){
+                $model->session_id = Yii::$app->session->id;
+            }
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->inventori_peralatan_id]);
+            return '1';
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
+                'readonly' => false,
             ]);
         }
     }
@@ -85,10 +97,11 @@ class InventoriPeralatanController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->inventori_peralatan_id]);
+            return '1';
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
+                'readonly' => false,
             ]);
         }
     }
@@ -103,7 +116,7 @@ class InventoriPeralatanController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        //return $this->redirect(['index']);
     }
 
     /**

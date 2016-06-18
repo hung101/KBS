@@ -8,7 +8,10 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use kartik\datecontrol\DateControl;
 use kartik\widgets\DepDrop;
+use yii\grid\GridView;
+use yii\bootstrap\Modal;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 // table reference
 use app\models\RefProgramSemasaSukanAtlet;
@@ -20,6 +23,7 @@ use app\models\RefBandar;
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
+use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Inventori */
@@ -29,6 +33,14 @@ use app\models\general\GeneralVariable;
 <div class="inventori-form">
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
+    
+    <?php
+        if(!$readonly){
+            $template = '{view} {update} {delete}';
+        } else {
+            $template = '{view}';
+        }
+    ?>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
     <?php
@@ -159,6 +171,96 @@ use app\models\general\GeneralVariable;
     ]
 ]);
     ?>
+    
+    <h3>Peralatan</h3>
+    
+    <?php 
+            Modal::begin([
+                'header' => '<h3 id="modalTitle"></h3>',
+                'id' => 'modal',
+                'size' => 'modal-lg',
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+                'options' => [
+                    'tabindex' => false // important for Select2 to work properly
+                ],
+            ]);
+            
+            echo '<div id="modalContent"></div>';
+            
+            Modal::end();
+        ?>
+    
+
+    <?php Pjax::begin(['id' => 'inventoriPeralatanGrid', 'timeout' => 100000]); ?>
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderInventoriPeralatan,
+        //'filterModel' => $searchModelInventoriPeralatan,
+        'id' => 'inventoriPeralatanGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'inventori_peralatan_id',
+            //'inventori_id',
+            'nama_peralatan',
+            'no_inv_do',
+            'kuantiti',
+            'harga_per_unit',
+            'jumlah',
+            // 'session_id',
+            // 'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['inventori-peralatan/delete', 'id' => $model->inventori_peralatan_id]).'", "'.GeneralMessage::confirmDelete.'", "inventoriPeralatanGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['inventori-peralatan/update', 'id' => $model->inventori_peralatan_id]).'", "'.GeneralLabel::updateTitle . ' Peralatan");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['inventori-peralatan/view', 'id' => $model->inventori_peralatan_id]).'", "'.GeneralLabel::viewTitle . ' Peralatan");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+    <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        $inventori_id = "";
+        
+        if(isset($model->inventori_id)){
+            $inventori_id = $model->inventori_id;
+        }
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['inventori-peralatan/create', 'inventori_id' => $inventori_id]).'", "'.GeneralLabel::createTitle . ' Peralatan");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
 
     <div class="form-group">
         <?php if(!$readonly): ?>

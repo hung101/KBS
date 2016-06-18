@@ -17,6 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'searchModelInventoriPeralatan' => $searchModelInventoriPeralatan,
+        'dataProviderInventoriPeralatan' => $dataProviderInventoriPeralatan,
         'readonly' => $readonly,
     ]) ?>
 
