@@ -45,40 +45,43 @@ AppAsset::register($this);
             
             if (!Yii::$app->user->isGuest) {
                 $url_home = '/site';
-                if(Yii::$app->user->identity->category_access == PublicUser::ACCESS_BIASISWA){
-                    $url_home = '/site/e-biasiswa-home';
-                    $sideMenuItems = [
-                        ['label' => 'Permohonan e-Biasiswa', 'url' => ['/site/e-biasiswa-home']],
-                        ['label' => 'Sejarah Permohonan', 'url' => ['/permohonan-e-biasiswa/index']],
-                    ];
-                } else if(Yii::$app->user->identity->category_access == PublicUser::ACCESS_KEMUDAHAN){
-                    $url_home = '/site/e-kemudahan-home';
-                    $ref = RefKategoriHakmilik::findOne(['id' => \Yii::$app->user->identity->kategory_hakmilik_e_kemudahan]);
-        
-                    if(\Yii::$app->user->identity->jenis_pengguna_e_kemudahan == SignupEKemudahanForm::PEMILIK){
-                        $sideMenuItems[] = ['label' => 'Pengurusan Iklan', 'url' => ['/pengurusan-kemudahan-venue/index']];
-                        if($ref['tempahan_display_flag']){
-                            $sideMenuItems[] = ['label' => 'Pengurusan Tempahan', 'url' => ['/tempahan-kemudahan/index']];
-                        }
-                    }elseif(\Yii::$app->user->identity->jenis_pengguna_e_kemudahan == SignupEKemudahanForm::PENGGUNA){
+                
+                if(Yii::$app->user->identity->email_verified == 1){
+                    if(Yii::$app->user->identity->category_access == PublicUser::ACCESS_BIASISWA){
+                        $url_home = '/site/e-biasiswa-home';
                         $sideMenuItems = [
-                            ['label' => 'Tempahan', 'url' => ['/tempahan-kemudahan/create']],
-                            ['label' => 'Sejarah Tempahan', 'url' => ['/tempahan-kemudahan/index']],
+                            ['label' => 'Permohonan e-Biasiswa', 'url' => ['/site/e-biasiswa-home']],
+                            ['label' => 'Sejarah Permohonan', 'url' => ['/permohonan-e-biasiswa/index']],
+                        ];
+                    } else if(Yii::$app->user->identity->category_access == PublicUser::ACCESS_KEMUDAHAN){
+                        $url_home = '/site/e-kemudahan-home';
+                        $ref = RefKategoriHakmilik::findOne(['id' => \Yii::$app->user->identity->kategory_hakmilik_e_kemudahan]);
+
+                        if(\Yii::$app->user->identity->jenis_pengguna_e_kemudahan == SignupEKemudahanForm::PEMILIK){
+                            $sideMenuItems[] = ['label' => 'Pengurusan Iklan', 'url' => ['/pengurusan-kemudahan-venue/index']];
+                            if($ref['tempahan_display_flag']){
+                                $sideMenuItems[] = ['label' => 'Pengurusan Tempahan', 'url' => ['/tempahan-kemudahan/index']];
+                            }
+                        }elseif(\Yii::$app->user->identity->jenis_pengguna_e_kemudahan == SignupEKemudahanForm::PENGGUNA){
+                            $sideMenuItems = [
+                                ['label' => 'Tempahan', 'url' => ['/tempahan-kemudahan/create']],
+                                ['label' => 'Sejarah Tempahan', 'url' => ['/tempahan-kemudahan/index']],
+                            ];
+                        }
+                    }  else if(Yii::$app->user->identity->category_access == PublicUser::ACCESS_BANTUAN){
+                        $url_home = '/site/e-bantuan-home';
+                        $sideMenuItems = [
+                            ['label' => 'Permohonan', 'url' => ['/permohonan-e-bantuan/create']],
+                            ['label' => 'Permohonan Terdahulu', 'url' => ['/permohonan-e-bantuan/index']],
+                        ];
+                    } else if(Yii::$app->user->identity->category_access == PublicUser::ACCESS_LAPORAN){
+                        $url_home = '/site/e-laporan-home';
+
+                        $sideMenuItems = [
+                            ['label' => 'e-Laporan', 'url' => ['/elaporan-pelaksanaan/create', 'permohonan_e_bantuan_id' => '']],
+                            ['label' => 'Sejarah e-Laporan', 'url' => ['/elaporan-pelaksanaan/index']],
                         ];
                     }
-                }  else if(Yii::$app->user->identity->category_access == PublicUser::ACCESS_BANTUAN){
-                    $url_home = '/site/e-bantuan-home';
-                    $sideMenuItems = [
-                        ['label' => 'Permohonan', 'url' => ['/permohonan-e-bantuan/create']],
-                        ['label' => 'Permohonan Terdahulu', 'url' => ['/permohonan-e-bantuan/index']],
-                    ];
-                } else if(Yii::$app->user->identity->category_access == PublicUser::ACCESS_LAPORAN){
-                    $url_home = '/site/e-laporan-home';
-                    
-                    $sideMenuItems = [
-                        ['label' => 'e-Laporan', 'url' => ['/elaporan-pelaksanaan/create', 'permohonan_e_bantuan_id' => '']],
-                        ['label' => 'Sejarah e-Laporan', 'url' => ['/elaporan-pelaksanaan/index']],
-                    ];
                 }
                 /*$menuItems = [
                     ['label' => 'Home', 'url' => [$url_home]],

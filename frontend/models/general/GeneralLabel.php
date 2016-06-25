@@ -414,6 +414,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const elaun_yang_diterima = "Elaun Yang Diterima";
         const email = "Emel";
         const email_pemilik = "Emel";
+        const email_verification = "Pengesahan E-mel";
+        const email_verification_message = "Anda perlu mengesahkan alamat e-mel anda sebelum anda boleh menghantar permohonan. E-mel telah dihantar kepada alamat e-mel yang berdaftar. Sila buka dan klik pada link menyediakan untuk mengaktifkan akaun anda";
         const emel = "Emel";
         const emel_badan_sukan = "Emel Badan Sukan";
         const emel_pengadu = "Emel Pengadu";
@@ -3225,6 +3227,8 @@ if($session->get('language') == "EN") {
         const elaun_yang_diterima = "Allowance";
         const email = "Email";
         const email_pemilik = "Email";
+        const email_verification = "Email Verification";
+        const email_verification_message = "You must verify your email address before you can send application. An email has been sent to the registered address. Please open it and click on the provide link to activate your account";
         const emel = "Email";
         const emel_badan_sukan = "Email Body Sport";
         const emel_pengadu = "Email The Complainant";

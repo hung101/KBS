@@ -88,16 +88,20 @@ class SiteController extends Controller
 
         $model = new LoginFormPublic($access_id);
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            if(\Yii::$app->user->identity->category_access == PublicUser::ACCESS_BIASISWA){
-                return $this->redirect(['e-biasiswa-home']);
-            } else if(\Yii::$app->user->identity->category_access == PublicUser::ACCESS_KEMUDAHAN){
-                return $this->redirect(['e-kemudahan-home']);
-            } else if(\Yii::$app->user->identity->category_access == PublicUser::ACCESS_BANTUAN){
-                return $this->redirect(['e-bantuan-home']);
-            } else if(\Yii::$app->user->identity->category_access == PublicUser::ACCESS_LAPORAN){
-                return $this->redirect(['e-laporan-home']);
+            if(Yii::$app->user->identity->email_verified == 1){
+                if(\Yii::$app->user->identity->category_access == PublicUser::ACCESS_BIASISWA){
+                    return $this->redirect(['e-biasiswa-home']);
+                } else if(\Yii::$app->user->identity->category_access == PublicUser::ACCESS_KEMUDAHAN){
+                    return $this->redirect(['e-kemudahan-home']);
+                } else if(\Yii::$app->user->identity->category_access == PublicUser::ACCESS_BANTUAN){
+                    return $this->redirect(['e-bantuan-home']);
+                } else if(\Yii::$app->user->identity->category_access == PublicUser::ACCESS_LAPORAN){
+                    return $this->redirect(['e-laporan-home']);
+                } else {
+                    return $this->goHome();
+                }
             } else {
-                return $this->goHome();
+                return $this->redirect(['email-verification']);
             }
         } else {
             return $this->render('login', [
@@ -178,7 +182,11 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
-                    return $this->redirect(['e-kemudahan-home']);
+                    if(Yii::$app->user->identity->email_verified == 1){
+                        return $this->redirect(['e-kemudahan-home']);
+                    } else {
+                        return $this->redirect(['email-verification']);
+                    }
                 }
             }
         }
@@ -194,7 +202,11 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
-                    return $this->redirect(['e-biasiswa-home']);
+                    if(Yii::$app->user->identity->email_verified == 1){
+                        return $this->redirect(['e-biasiswa-home']);
+                    } else {
+                        return $this->redirect(['email-verification']);
+                    }
                 }
             }
         }
@@ -210,7 +222,11 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
-                    return $this->redirect(['e-bantuan-home']);
+                    if(Yii::$app->user->identity->email_verified == 1){
+                        return $this->redirect(['e-bantuan-home']);
+                    } else {
+                        return $this->redirect(['email-verification']);
+                    }
                 }
             }
         }
@@ -220,13 +236,67 @@ class SiteController extends Controller
         ]);
     }
     
+    public function actionEmailVerification()
+    {
+        $user = PublicUser::findOne([
+            'id' => Yii::$app->user->identity->id,
+        ]);
+        
+        if(!Yii::$app->user->identity->email_verify_token || Yii::$app->user->identity->email_verify_token == ""){
+            $user->generateEmailVerifyToken();
+            
+            if ($user->save()) {
+                \Yii::$app->mailer->compose(['html' => 'emailVerification-html', 'text' => 'emailVerification-text'], ['user' => $user])
+                    ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
+                    ->setTo(Yii::$app->user->identity->email)
+                    //->setSubject('Password reset for ' . \Yii::$app->name)
+                    ->setSubject('Pengesahan E-mel ' . \Yii::$app->name)
+                    ->send();
+                
+                Yii::$app->getSession()->setFlash('success', 'E-mel telah dihantar kepada alamat e-mel yang berdaftar. Sila buka dan klik pada link menyediakan untuk mengaktifkan akaun anda.');
+            }
+        }
+
+        return $this->render('email_verification', [
+            'model' => $user,
+        ]);
+    }
+    
+    public function actionVerifyEmail($token, $access_id, $email)
+    {
+        $category_access = 0;
+        
+        if($user = PublicUser::findOne([
+            'email_verify_token' => $token,
+            'email' => $email,
+            'category_access' => $access_id,
+        ])){
+            //verified
+            $user->email_verified = 1;
+            $category_access = $user->category_access;
+                    
+            if($user->save()){
+                Yii::$app->getSession()->setFlash('success', 'Akaun anda telah diaktifkan.');
+            }
+        } else {
+            // cannot verify
+            Yii::$app->getSession()->setFlash('error', 'Maaf, kami tidak dapat untuk mengesahkan e-mel anda. Sila daftar semula.');
+        }
+
+        return $this->redirect(['login', 'access_id'=>$category_access]);
+    }
+    
     public function actionSignupELaporan()
     {
         $model = new SignupELaporanForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
-                    return $this->redirect(['e-laporan-home']);
+                    if(Yii::$app->user->identity->email_verified == 1){
+                        return $this->redirect(['e-laporan-home']);
+                    } else {
+                        return $this->redirect(['email-verification']);
+                    }
                 }
             }
         }

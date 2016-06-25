@@ -21,6 +21,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
             
             // yii validation general message BM
             const yii_validation_required = "{attribute} tidak boleh dikosongkan";
+            const yii_validation_required_either = "Salah satu mesti mengisi";
+            const yii_validation_required_only_one = "Hanya satu keperluan untuk mengisi";
             const yii_validation_integer = "{attribute} mesti integer";
             const yii_validation_integer_max = "{attribute} mestilah tidak lebih besar daripada {max}";
             const yii_validation_integer_min = "{attribute} mestilah tidak kurang daripada {min}";
@@ -36,6 +38,11 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
             const custom_validation_nyatakan_oku_lain = "Sila nyatakan OKU Lain-lain";
             
             const minimum_4_gambar_dan_10_gambar_maksimum = "Minimum 4 gambar dan 10 gambar maksimum";
+            
+            // hints BM
+            const cth_jkk_bilangan_3_tahun_2015 = "Cth. JKK Bilangan 3 Tahun 2015";
+            const cth_tarikh_jkb_bil3_2015 = "Cth. Tarikh JKB Bil3/2015";
+            const seperti_dalam_kad_pengenalan = "Seperti dalam kad pengenalan";
 	}
 }
 
@@ -50,6 +57,8 @@ if($session->get('language') == "EN") {
             
             // yii validation general message EN
             const yii_validation_required = "{attribute} cannot be blank";
+            const yii_validation_required_either = "Either one must be fill";
+            const yii_validation_required_only_one = "Only one need to fill";
             const yii_validation_integer = "{attribute} must be an integer";
             const yii_validation_integer_max = "{attribute} must be no greater than {max}";
             const yii_validation_integer_min = "{attribute} mmust be no less than {min}";
@@ -65,6 +74,11 @@ if($session->get('language') == "EN") {
             const custom_validation_nyatakan_oku_lain = "Please describe other disability";
             
             const minimum_4_gambar_dan_10_gambar_maksimum = "Minimum 4 pictures dan 10 pictures maximum";
+            
+            // hints EN
+            const cth_jkk_bilangan_3_tahun_2015 = "sample JKK Bilangan 3 Tahun 2015";
+            const cth_tarikh_jkb_bil3_2015 = "sample Tarikh JKB Bil3/2015";
+            const seperti_dalam_kad_pengenalan = "Same as IC";
 	}
 
 }

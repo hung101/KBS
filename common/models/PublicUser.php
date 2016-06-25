@@ -225,6 +225,14 @@ class PublicUser extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
     }
+    
+    /**
+     * Generates new email verify token
+     */
+    public function generateEmailVerifyToken()
+    {
+        $this->email_verify_token = Yii::$app->security->generateRandomString() . '_' . time();
+    }
 
     /**
      * Removes password reset token
