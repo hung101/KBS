@@ -274,6 +274,10 @@ class SiteController extends Controller
             //verified
             $user->email_verified = 1;
             $category_access = $user->category_access;
+            
+            if (!\Yii::$app->user->isGuest) {
+                Yii::$app->user->logout();
+            }
                     
             if($user->save()){
                 Yii::$app->getSession()->setFlash('success', 'Akaun anda telah diaktifkan.');
