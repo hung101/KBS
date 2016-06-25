@@ -41,7 +41,8 @@ class PenilaianPrestasiAtletSasaranSearch extends PenilaianPrestasiAtletSasaran
      */
     public function search($params)
     {
-        $query = PenilaianPrestasiAtletSasaran::find();
+        $query = PenilaianPrestasiAtletSasaran::find()
+                ->joinWith(['refAtlet']);
 
         // add conditions that should always apply here
 

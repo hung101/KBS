@@ -7,13 +7,15 @@ use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use kartik\datecontrol\DateControl;
+use yii\helpers\Url;
 
 // table reference
 use app\models\Atlet;
-use app\models\RefJenisBantuanSkak;
+use app\models\RefJenisKebajikan;
 use app\models\RefSukan;
 use app\models\RefPerkara;
 use app\models\RefSukanSkimKebajikan;
+use app\models\RefJenisPermohonanSkim;
 
 // contant values
 use app\models\general\Placeholder;
@@ -29,7 +31,7 @@ use app\models\general\GeneralVariable;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -47,12 +49,12 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-bantuan-skak/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-kebajikan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJenisBantuanSkak::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jenisBantuan],],
+                        'data'=>ArrayHelper::map(RefJenisKebajikan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::jenisBantuan,'id'=>'jenisBantuanId'],],
                     'columnOptions'=>['colspan'=>3]],
                 'perkara' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -66,7 +68,7 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefPerkara::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::perkara],],
+                        'options' => ['placeholder' => Placeholder::perkara,'id'=>'perkaraId'],],
                     'columnOptions'=>['colspan'=>3]],
                 'sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -80,7 +82,7 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSukanSkimKebajikan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],],
+                        'options' => ['placeholder' => Placeholder::sukan,'id'=>'sukanId'],],
                     'columnOptions'=>['colspan'=>3]],
                 'jumlah_kos_perubatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>10]],
             ],
@@ -96,14 +98,14 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan-skim-kebajikan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-permohonan-skim/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukanSkimKebajikan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jenisPermohonan],],
+                        'data'=>ArrayHelper::map(RefJenisPermohonanSkim::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::jenisPermohonan,'id'=>'jenisPermohonanId'],],
                     'columnOptions'=>['colspan'=>3]],
-               'jumlah_bantuan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>10,'disabled' => true]],
+               'jumlah_bantuan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>10]],
             ]
         ],
         [
@@ -242,3 +244,72 @@ use app\models\general\GeneralVariable;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$URL = Url::to(['/jenis-kebajikan/get-tetapan']);
+
+$JUMLAH = RefJenisPermohonanSkim::JUMLAH;
+$MAKSIMUM = RefJenisPermohonanSkim::MAKSIMUM;
+$PERATUSA_DARIPADA_KOS_PERUBATAN = RefJenisPermohonanSkim::PERATUSA_DARIPADA_KOS_PERUBATAN;
+
+$script = <<< JS
+
+    $('#jenisBantuanId').change(function(){
+        calculateJumlahBantuan();
+    });
+
+    $('#perkaraId').change(function(){
+        calculateJumlahBantuan();
+    });
+        
+    $('#sukanId').change(function(){
+        calculateJumlahBantuan();
+    });
+        
+    $('#jenisPermohonanId').change(function(){
+        calculateJumlahBantuan();
+    });
+     
+    // enable all the disabled field before submit
+    $('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+        var form = $(this);
+        
+        $("form#{$model->formName()} input").prop("disabled", false);
+    });
+        
+    function calculateJumlahBantuan(){
+        if($('#jenisBantuanId').val() != "" &&
+            $('#perkaraId').val() != "" &&
+            $('#sukanId').val() != "" &&
+            $('#jenisPermohonanId').val() != ""){
+        
+            $.get('$URL',{jenisBantuanId:$('#jenisBantuanId').val(), perkaraId:$('#perkaraId').val(), sukanId:$('#sukanId').val()},function(data){
+
+                var data = $.parseJSON(data);
+
+                if(data !== null){
+                    var jumlahBantuan = 0;
+                    if($('#jenisPermohonanId').val() == $JUMLAH){
+                        jumlahBantuan = data.jumlah;
+                    } else if($('#jenisPermohonanId').val() == $MAKSIMUM){
+                        if($('#skimkebajikan-jumlah_kos_perubatan').val() > data.maksimum){
+                            jumlahBantuan = data.maksimum;
+                        } else {
+                            jumlahBantuan = $('#skimkebajikan-jumlah_kos_perubatan').val();
+                        }
+                    } else if($('#jenisPermohonanId').val() == $PERATUSA_DARIPADA_KOS_PERUBATAN){
+                        jumlahBantuan = (data.peratus / 100) * $('#skimkebajikan-jumlah_kos_perubatan').val();
+                    }
+                
+                    $('#skimkebajikan-jumlah_bantuan').attr('value',jumlahBantuan);
+                } else {
+                }
+            });
+        }
+    }
+JS;
+        
+$this->registerJs($script);
+?>
+

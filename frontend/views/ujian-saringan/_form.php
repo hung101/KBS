@@ -275,8 +275,8 @@ use app\models\general\GeneralMessage;
                             'columns'=>12,
                             'autoGenerateColumns'=>false, // override columns setting
                             'attributes' => [
-                                'berat_badan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'id'=>'beratBadanId', 'class'=>'number calculateBMI']],
-                                'ketinggian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'id'=>'ketinggianId', 'class'=>'number calculateBMI']],
+                                'berat_badan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'id'=>'beratBadanId', 'class'=>'number calculateBMI'],'hint'=>'Sila masukkan titik perpuluhan tepat (cth: 67.32)'],
+                                'ketinggian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'id'=>'ketinggianId', 'class'=>'number calculateBMI'],'hint'=>'Sila masukkan titik perpuluhan tepat (cth: 183.5)'],
                                 'body_mass_index' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10, 'id'=>'BMIId', 'class'=>'number', 'disabled'=>true]],
                             ],
                         ],
@@ -407,7 +407,7 @@ use app\models\general\GeneralMessage;
                                     'columns'=>12,
                                     'autoGenerateColumns'=>false, // override columns setting
                                     'attributes' => [
-                                        'jangkauan_meluntur' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'id'=>'jangkauanMelunturId']],
+                                        'jangkauan_meluntur' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'id'=>'jangkauanMelunturId'],'hint'=>'Sila masukkan titik perpuluhan tepat (cth: 54.5)'],
                                     ],
                                 ],
                             ]
@@ -451,7 +451,7 @@ use app\models\general\GeneralMessage;
                                     'columns'=>12,
                                     'autoGenerateColumns'=>false, // override columns setting
                                     'attributes' => [
-                                        'lari_pecut_20_meter' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'id'=>'lariPecut20MeterId']],
+                                        'lari_pecut_20_meter' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6, 'id'=>'lariPecut20MeterId'],'hint'=>'Sila masukkan titik perpuluhan tepat (cth: 8.25)'],
                                     ],
                                 ],
                             ]
@@ -540,7 +540,7 @@ $script = <<< JS
             var height = $("#ketinggianId").val() / 100; //convert to meter
             var height2 = height * height;
             var BMI = $("#beratBadanId").val() / height2;
-            $("#BMIId").val(BMI.toFixed(2));
+            $("#BMIId").val(BMI.toFixed(1));
         }
     }); 
         

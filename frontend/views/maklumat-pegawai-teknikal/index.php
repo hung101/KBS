@@ -45,16 +45,46 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id',
             //'bantuan_penganjuran_kursus_pegawai_teknikal_id',
-            'badan_sukan',
-            'sukan',
-            'nama',
+            //'badan_sukan',
+            [
+                'attribute' => 'badan_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::badan_sukan,
+                ],
+                'value' => 'refProfilBadanSukan.nama_badan_sukan'
+            ],
+            //'sukan',
+            [
+                'attribute' => 'sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
+                'value' => 'refSukan.desc'
+            ],
+            //'nama',
+            [
+                'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ],
+            ],
             // 'alamat_1',
             // 'alamat_2',
             // 'alamat_3',
             // 'alamat_negeri',
             // 'alamat_bandar',
             // 'alamat_poskod',
-            'no_kad_pengenalan',
+            //'no_kad_pengenalan',
+            [
+                'attribute' => 'no_kad_pengenalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
+                ],
+            ],
             // 'umur',
             // 'no_passport',
             // 'jantina',

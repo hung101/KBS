@@ -8,6 +8,7 @@ use app\models\JenisKebajikanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 // table reference
 use app\models\RefJenisKebajikan;
@@ -136,5 +137,13 @@ class JenisKebajikanController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionGetTetapan($jenisBantuanId, $perkaraId, $sukanId){
+        // find Ahli Jawatankuasa Induk
+        $model = JenisKebajikan::find()->where('jenis_kebajikan = :jenisBantuanId AND perkara = :perkaraId AND sukan = :sukanId', 
+                                                [':jenisBantuanId' => $jenisBantuanId, ':perkaraId' => $perkaraId, ':sukanId' => $sukanId])->one();
+        
+        echo Json::encode($model);
     }
 }

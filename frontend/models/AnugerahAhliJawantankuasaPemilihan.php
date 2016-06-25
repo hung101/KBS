@@ -55,4 +55,18 @@ class AnugerahAhliJawantankuasaPemilihan extends \yii\db\ActiveRecord
             'updated' => 'Updated',
         ];
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefPerwakilan(){
+        return $this->hasOne(RefPerwakilan::className(), ['id' => 'perwakilan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJawatanJawatankuasaPemilihan(){
+        return $this->hasOne(RefJawatanJawatankuasaPemilihan::className(), ['id' => 'jawatan']);
+    }
 }

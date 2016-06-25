@@ -12,14 +12,6 @@ use kartik\datecontrol\DateControl;
 
 // table reference
 use app\models\ProfilBadanSukan;
-use app\models\RefJantina;
-use app\models\RefJenisBantuanSue;
-use app\models\RefBandar;
-use app\models\RefNegeri;
-use app\models\RefBangsa;
-use app\models\RefAgama;
-use app\models\RefStatusPermohonanSue;
-use app\models\RefNegara;
 
 // contant values
 use app\models\general\Placeholder;
@@ -38,7 +30,7 @@ use app\models\general\GeneralVariable;
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
-    
+    <?php echo $form->errorSummary($model); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -67,7 +59,60 @@ use app\models\general\GeneralVariable;
                         ],],
                     'columnOptions'=>['colspan'=>4]],
                  'jilid_versi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
-                'tarikh' => [
+                
+                
+            ],
+        ],
+    ]
+]);
+    ?>
+    
+    <?php // Muat Naik
+    
+    $label = $model->getAttributeLabel('muat_naik');
+    
+    if($model->muat_naik){
+        echo "<div class='required'>";
+        echo "<label>" . $model->getAttributeLabel('muat_naik') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->muat_naik , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+        
+        $label = false;
+    }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+    }
+        
+    ?>
+    
+    <?php if($readonly): ?>
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                 'tarikh' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
@@ -81,18 +126,11 @@ use app\models\general\GeneralVariable;
                 
             ],
         ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                 'muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
-                
-            ],
-        ],
     ]
 ]);
     ?>
-
+    <?php endif; ?>
+    
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

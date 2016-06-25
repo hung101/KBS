@@ -465,6 +465,7 @@ class AkademiAkkController extends Controller
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'kategori_perlesenan' => $model->kategori_perlesenan
                     , 'status_perlesenan' => $model->status_perlesenan
+                    , 'kategori_jurulatih' => $model->kategori_jurulatih
                     , 'sukan' => $model->sukan
                     , 'format' => $model->format
                 ], true);
@@ -475,6 +476,7 @@ class AkademiAkkController extends Controller
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'kategori_perlesenan' => $model->kategori_perlesenan
                     , 'status_perlesenan' => $model->status_perlesenan
+                    , 'kategori_jurulatih' => $model->kategori_jurulatih
                     , 'sukan' => $model->sukan
                     , 'format' => $model->format
                 ]);
@@ -487,7 +489,7 @@ class AkademiAkkController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanSkimPelesenanKejurulatihanKebangsaan($tarikh_dari, $tarikh_hingga, $kategori_perlesenan, $status_perlesenan, $sukan, $format)
+    public function actionGenerateLaporanSkimPelesenanKejurulatihanKebangsaan($tarikh_dari, $tarikh_hingga, $kategori_perlesenan, $status_perlesenan, $kategori_jurulatih, $sukan, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -501,6 +503,9 @@ class AkademiAkkController extends Controller
         if($status_perlesenan == "") $status_perlesenan = array();
         else $status_perlesenan = array($status_perlesenan);
         
+        if($kategori_jurulatih == "") $kategori_jurulatih = array();
+        else $kategori_jurulatih = array($kategori_jurulatih);
+        
         if($sukan == "") $sukan = array();
         else $sukan = array($sukan);
         
@@ -509,6 +514,7 @@ class AkademiAkkController extends Controller
             'TO_DATE' => $tarikh_hingga,
             'KATEGORI_PERLESENAN' => $kategori_perlesenan,
             'STATUS_PERLESENAN' => $status_perlesenan,
+            'KATEGORI_JURULATIH' => $kategori_jurulatih,
             'SUKAN' => $sukan,
         );
         

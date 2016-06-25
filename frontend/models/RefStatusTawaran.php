@@ -17,6 +17,10 @@ use Yii;
  */
 class RefStatusTawaran extends \yii\db\ActiveRecord
 {
+    const DALAM_PROSES = 1;
+    const LULUS_TAWARAN = 2;
+    const TIDAK_DILULUSKAN = 3;
+    
     /**
      * @inheritdoc
      */

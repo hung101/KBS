@@ -46,6 +46,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const dokumenPenyelidikan = " -- Pilih Dokumen Penyelidikan -- ";
         const elemen = " -- Pilih Elemen -- ";
         const format = " -- Pilih Format -- ";
+        const fasa = " -- Pilih Fasa -- ";
         const fasilitiSatelit = " -- Pilih Fasiliti Satelit -- ";
         const fisio = " -- Pilih Fisio -- ";
         const gelaran = " -- Pilih Gelaran -- ";
@@ -187,7 +188,9 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pemeriksa = " -- Pilih Pemeriksa -- ";
         const pemohon = " -- Pilih Pemohon -- ";
         const pengajian = " -- Pilih Pengajian -- ";
+        const penganjur = " -- Pilih Penganjur -- ";
         const penganjuranKursus = " -- Pilih Penganjuran Kursus -- ";
+        const pengerusiMesyuarat = " -- Pilih Pengerusi Mesyuarat -- ";
         const peralatan = " -- Pilih Peralatan -- ";
         const peralatanKemudahan = " -- Pilih Peralatan Kemudahan -- ";
         const peranan = " -- Pilih Peranan -- ";
@@ -314,6 +317,7 @@ if($session->get('language') == "EN") {
         const dokumenPenyelidikan = " -- Select A Research Document -- ";
         const elemen = " -- Select Element -- ";
         const format = " -- Select The Format -- ";
+        const fasa = " -- Select Fasa -- ";
         const fasilitiSatelit = " -- Select Satellite Facility -- ";
         const fisio = " -- Select Physio -- ";
         const gelaran = " -- Pilih Title -- ";
@@ -455,7 +459,9 @@ if($session->get('language') == "EN") {
         const pemeriksa = " -- Select An Examiner -- ";
         const pemohon = " -- Select The Applicant -- ";
         const pengajian = " -- Select Study -- ";
-        const penganjuranKursus = " -- Pilih A Organization Of Courses -- ";
+        const penganjur = " -- Select Organizer -- ";
+        const penganjuranKursus = " -- Select A Organization Of Courses -- ";
+        const pengerusiMesyuarat = " -- Select Chairman Of The Meeting -- ";
         const peralatan = " -- Select Equipment -- ";
         const peralatanKemudahan = " -- Select Equipment Facilities -- ";
         const peranan = " -- Select Role -- ";

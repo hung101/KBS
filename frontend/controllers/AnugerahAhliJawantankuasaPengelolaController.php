@@ -9,6 +9,10 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+// table reference
+use app\models\RefAjk;
+use app\models\RefBahagianAjk;
+
 /**
  * AnugerahAhliJawantankuasaPengelolaController implements the CRUD actions for AnugerahAhliJawantankuasaPengelola model.
  */
@@ -51,8 +55,16 @@ class AnugerahAhliJawantankuasaPengelolaController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        
+        $ref = RefAjk::findOne(['id' => $model->ajk]);
+        $model->ajk = $ref['desc'];
+        
+        $ref = RefBahagianAjk::findOne(['id' => $model->bahagian]);
+        $model->bahagian = $ref['desc'];
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

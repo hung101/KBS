@@ -64,7 +64,7 @@ class AnugerahPencalonanJurulatih extends \yii\db\ActiveRecord
             'no_kad_pengenalan' => 'No Kad Pengenalan',
             'no_telefon_1' => 'No Telefon 1',
             'no_telefon_2' => 'No Telefon 2',
-            'sijil_kejurulatihan_spesifik' => 'Sijil Kejurulatihan Spesifik',
+            'sijil_kejurulatihan_spesifik' => 'Sijil Kejurulatihan Spesifik (Tahap)',
             'ulasan_pencapaian' => 'Ulasan Pencapaian',
             'kelulusan' => 'Kelulusan',
             'created_by' => 'Created By',
@@ -72,5 +72,26 @@ class AnugerahPencalonanJurulatih extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSukan(){
+        return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKategoriPencalonanJurulatih(){
+        return $this->hasOne(RefKategoriPencalonanJurulatih::className(), ['id' => 'kategori']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJurulatih(){
+        return $this->hasOne(Jurulatih::className(), ['jurulatih_id' => 'nama_jurulatih']);
     }
 }

@@ -59,7 +59,7 @@ class AtletKeluargaController extends Controller
         $session->close();
         
         $searchModel = new AtletKeluargaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryPar);
 
         $renderContent = $this->renderAjax('index', [
             'searchModel' => $searchModel,

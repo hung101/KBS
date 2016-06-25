@@ -3,6 +3,11 @@
 namespace app\models;
 
 use Yii;
+use yii\web\UploadedFile;
+use app\models\general\Upload;
+use app\models\general\GeneralMessage;
+
+use app\models\general\GeneralLabel;
 
 /**
  * This is the model class for table "tbl_manual_silibus_kurikulum_teknikal_kepegawaian".
@@ -33,11 +38,12 @@ class ManualSilibusKurikulumTeknikalKepegawaian extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh', 'persatuan_sukan', 'jilid_versi', 'muat_naik'], 'required'],
+            [['tarikh', 'persatuan_sukan', 'jilid_versi'], 'required'],
             [['tarikh', 'created', 'updated'], 'safe'],
             [['created_by', 'updated_by'], 'integer'],
             [['persatuan_sukan', 'jilid_versi'], 'string', 'max' => 30],
             [['muat_naik'], 'string', 'max' => 255],
+            [['muat_naik'], 'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -57,5 +63,27 @@ class ManualSilibusKurikulumTeknikalKepegawaian extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+
+        if(!$file && $this->$attribute==""){
+            $this->addError($attribute, GeneralMessage::uploadEmptyError);
+        }
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefProfilBadanSukan(){
+        return $this->hasOne(ProfilBadanSukan::className(), ['profil_badan_sukan' => 'persatuan_sukan']);
     }
 }

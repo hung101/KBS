@@ -8,7 +8,11 @@ use frontend\models\KelayakanSukanSpesifikAkkSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use yii\helpers\Json;
+use yii\helpers\BaseUrl;
 
+use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 
 /**
@@ -88,13 +92,20 @@ class KelayakanSukanSpesifikAkkController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return '1';
-        } else {
-            return $this->renderAjax('create', [
+            $file = UploadedFile::getInstance($model, 'muat_naik');
+            if($file){
+                $model->muat_naik = Upload::uploadFile($file, Upload::kelayakanSukanSpesifikAkkFolder, $model->kelayakan_sukan_spesifik_akk_id);
+            }
+            
+            if($model->save()){
+                return '1';
+            }
+        } 
+        
+        return $this->renderAjax('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -112,13 +123,20 @@ class KelayakanSukanSpesifikAkkController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return '1';
-        } else {
-            return $this->renderAjax('update', [
+            $file = UploadedFile::getInstance($model, 'muat_naik');
+            if($file){
+                $model->muat_naik = Upload::uploadFile($file, Upload::kelayakanSukanSpesifikAkkFolder, $model->kelayakan_sukan_spesifik_akk_id);
+            }
+            
+            if($model->save()){
+                return '1';
+            }
+        } 
+        
+        return $this->renderAjax('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -133,9 +151,12 @@ class KelayakanSukanSpesifikAkkController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        // delete upload file
+        self::actionDeleteupload($id, 'muat_naik');
+        
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        //return $this->redirect(['index']);
     }
 
     /**
@@ -152,5 +173,27 @@ class KelayakanSukanSpesifikAkkController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            return $this->redirect(['update', 'id' => $id]);
     }
 }

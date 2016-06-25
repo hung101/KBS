@@ -47,33 +47,36 @@ $this->params['breadcrumbs'][] = $this->title;
             //'penilaian_pestasi_id',
             //'atlet_id',
             [
-                'attribute' => 'atlet_id',
+                'attribute' => 'kejohanan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kejohanan,
                 ],
-                'value' => 'atlet.name_penuh'
+                'value' => 'refPerancanganProgram.nama_program'
             ],
             [
-                'attribute' => 'tahap_sihat',
+                'attribute' => 'program',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahap_sihat,
-                ]
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program,
+                ],
+                'value' => 'refProgramSemasaSukanAtlet.desc'
             ],
             [
-                'attribute' => 'pencapaian_sukan_dalam_tahun_yang_dinilai',
+                'attribute' => 'sukan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pencapaian_sukan_dalam_tahun_yang_dinilai,
-                ]
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
+                'value' => 'refSukan.desc'
             ],
             [
-                'attribute' => 'kecederaan_jika_ada',
+                'attribute' => 'acara',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kecederaan_jika_ada,
-                ]
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::acara,
+                ],
+                'value' => 'refAcara.desc'
             ],
             // 'laporan_kesihatan',
             // 'elaun_yang_diterima',

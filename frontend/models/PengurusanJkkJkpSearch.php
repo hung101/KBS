@@ -70,7 +70,7 @@ class PengurusanJkkJkpSearch extends PengurusanJkkJkp
         $query->andFilterWhere(['like', 'nama_setiausaha_jkk_jkp', $this->nama_setiausaha_jkk_jkp])
             ->andFilterWhere(['like', 'tbl_ref_status_jkk_jkp.desc', $this->status])
             ->andFilterWhere(['like', 'tbl_ref_jenis_cawangan_kuasa_jkk_jkp.desc', $this->jenis_cawangan_kuasa])
-            ->andFilterWhere(['like', 'tlb_ref_nama_ahli_jkk_jkp.desc', $this->nama_pegawai_coach])
+            ->andFilterWhere(['like', 'nama_pegawai_coach', $this->nama_pegawai_coach])
             ->andFilterWhere(['like', 'jawatan', $this->jawatan])
             ->andFilterWhere(['like', 'sukan', $this->sukan])
             ->andFilterWhere(['like', 'nama_acara', $this->nama_acara])

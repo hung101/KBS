@@ -18,6 +18,8 @@ use app\models\general\GeneralLabel;
 use app\models\RefSukan;
 use app\models\RefAcara;
 use app\models\RefStatusPencalonan;
+use app\models\Atlet;
+use app\models\RefKategoriPencalonanAtlet;
 
 /**
  * AnugerahPencalonanAtletController implements the CRUD actions for AnugerahPencalonanAtlet model.
@@ -89,6 +91,12 @@ class AnugerahPencalonanAtletController extends Controller
         
         $ref = RefSukan::findOne(['id' => $model->nama_sukan_sebelum_dicalon]);
         $model->nama_sukan_sebelum_dicalon = $ref['desc'];
+        
+        $ref = RefKategoriPencalonanAtlet::findOne(['id' => $model->kategori]);
+        $model->kategori = $ref['desc'];
+        
+        $ref = Atlet::findOne(['atlet_id' => $model->nama_atlet]);
+        $model->nama_atlet = $ref['name_penuh'];
         
         $model->memenangi_kategori_dalam_anugerah_sukan = GeneralLabel::getYesNoLabel($model->memenangi_kategori_dalam_anugerah_sukan);
         

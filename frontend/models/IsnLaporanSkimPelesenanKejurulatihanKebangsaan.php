@@ -14,6 +14,7 @@ class IsnLaporanSkimPelesenanKejurulatihanKebangsaan extends Model
     public $tarikh_dari;
     public $tarikh_hingga;
     public $kategori_perlesenan;
+    public $kategori_jurulatih;
     public $status_perlesenan;
     public $sukan;
     public $format;
@@ -22,7 +23,7 @@ class IsnLaporanSkimPelesenanKejurulatihanKebangsaan extends Model
     {
         return [
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga', 'kategori_perlesenan', 'status_perlesenan', 'sukan'], 'safe'],
+            [['tarikh_dari', 'tarikh_hingga', 'kategori_perlesenan', 'status_perlesenan', 'sukan', 'kategori_jurulatih'], 'safe'],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
@@ -33,6 +34,7 @@ class IsnLaporanSkimPelesenanKejurulatihanKebangsaan extends Model
             'tarikh_dari' => GeneralLabel::tarikh_dari,
             'tarikh_hingga' => GeneralLabel::tarikh_hingga,
             'kategori_perlesenan' => GeneralLabel::kategori_pensijilan,
+            'kategori_jurulatih' => GeneralLabel::kategori_jurulatih,
             'status_perlesenan' => GeneralLabel::status_perlesenan,
             'sukan' => GeneralLabel::sukan,
             'format' => GeneralLabel::format,

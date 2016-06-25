@@ -147,7 +147,10 @@ use app\models\general\GeneralMessage;
     
     <?php Pjax::begin(['id' => 'pengurusanPenilaianKategoriJurulatihGrid', 'timeout' => 100000]); ?>
 
-    <?= GridView::widget([
+    <?php 
+    $dataProviderPengurusanPenilaianKategoriJurulatih->pagination->pageSize=0;
+    
+    echo GridView::widget([
         'dataProvider' => $dataProviderPengurusanPenilaianKategoriJurulatih,
         //'filterModel' => $searchModelPengurusanPenilaianKategoriJurulatih,
         'id' => 'pengurusanPenilaianKategoriJurulatihGrid',
@@ -207,7 +210,7 @@ use app\models\general\GeneralMessage;
     ?>
     
     <h4>Jumlah Markah Penilaian: <?=$calculate_jumlah_markah?></h4>
-    <h4>Jumlah Permarkahan (x/180*5%): <?=$calculate_jumlah_permarkahan?></h4>
+    <h4>Jumlah Permarkahan (x/180*5%): <?=number_format($calculate_jumlah_permarkahan, 4)?></h4>
     
     <?php if(!$readonly): ?>
     <p>

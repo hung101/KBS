@@ -19,6 +19,9 @@ use app\models\RefSukan;
 use app\models\RefAtletTahap;
 use app\models\RefNegeri;
 use app\models\RefProgramSemasaSukanAtlet;
+use app\models\PerancanganProgram;
+use app\models\RefJenisAktiviti;
+use app\models\RefStatusPermohonanProgramBinaan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -120,15 +123,8 @@ use app\models\general\GeneralMessage;
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::aktiviti],],
+                        'data'=>ArrayHelper::map(PerancanganProgram::find()->where('jenis_aktiviti = :id1', [':id1' => RefJenisAktiviti::PROGRAM_BINAAN])->all(),'perancangan_program_id', 'nama_program'),
+                        'options' => ['placeholder' => Placeholder::program],],
                     'columnOptions'=>['colspan'=>4]],
                 'nama_aktiviti' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>7],'options'=>['maxlength'=>true]],
             ],
@@ -414,11 +410,11 @@ use app\models\general\GeneralMessage;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan-program-binaan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefStatusPermohonanProgramBinaan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::statusPermohonan],],
                     'columnOptions'=>['colspan'=>4]],
                 'jumlah_yang_diluluskan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
@@ -445,32 +441,6 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     <?php endif; ?>
-
-    <!--<?= $form->field($model, 'nama_ppn')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'pengurus_pn')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'kategori_permohonan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'jenis_permohonan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'sukan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'tempat')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'tahap')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'negeri')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'daerah')->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'tarikh_mula')->textInput() ?>
-
-    <?= $form->field($model, 'tarikh_tamat')->textInput() ?>
-
-    <?= $form->field($model, 'sokongan_pn')->textInput() ?>
-
-    <?= $form->field($model, 'kelulusan')->textInput() ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>

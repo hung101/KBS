@@ -47,8 +47,20 @@ class AtletPenajaansokonganController extends Controller
         
         $request = Yii::$app->request;
         
+        $queryPar = Yii::$app->request->queryParams;
+        
+        // Filter by atlet id
+        $session = new Session;
+        $session->open();
+
+        if(isset($session['atlet_id'])){
+            $queryPar['AtletPenajaansokonganSearch']['atlet_id'] = $session['atlet_id'];
+        }
+        
+        $session->close();
+        
         $searchModel = new AtletPenajaansokonganSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryPar);
 
         $renderContent = $this->renderAjax('index', [
             'searchModel' => $searchModel,

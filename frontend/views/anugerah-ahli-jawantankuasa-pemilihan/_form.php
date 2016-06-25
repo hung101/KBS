@@ -16,7 +16,8 @@ use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
 
 // table reference
-use app\models\RefSukan;
+use app\models\RefJawatanJawatankuasaPemilihan;
+use app\models\RefPerwakilan;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AnugerahAhliJawantankuasaPemilihan */
@@ -45,11 +46,11 @@ use app\models\RefSukan;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-perwakilan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefPerwakilan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::perwakilan],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -63,11 +64,11 @@ use app\models\RefSukan;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jawatan-jawatankuasa-pemilihan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefJawatanJawatankuasaPemilihan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jawatan],
                         'pluginOptions' => [
                             'allowClear' => true

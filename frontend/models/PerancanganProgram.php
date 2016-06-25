@@ -52,11 +52,12 @@ class PerancanganProgram extends \yii\db\ActiveRecord
     {
         return [
             [['tarikh_mula', 'tarikh_tamat', 'jenis_program', 'nama_program', 'bahagian', 'cawangan', 'jenis_aktiviti', 'status_program'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_mula', 'tarikh_tamat', 'tarikh_kelulusan', 'status_program'], 'safe'],
+            [['tarikh_mula', 'tarikh_tamat', 'tarikh_kelulusan', 'status_program', 'sukan'], 'safe'],
             [['nama_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kelulusan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lokasi'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
@@ -79,7 +80,8 @@ class PerancanganProgram extends \yii\db\ActiveRecord
             'jenis_aktiviti' => GeneralLabel::jenis_aktiviti,
             'tarikh_kelulusan' => GeneralLabel::tarikh_kelulusan,
             'kelulusan' => GeneralLabel::kelulusan,
-            'status_program' => GeneralLabel::status_program,
+            'status_program' => GeneralLabel::status_kelulusan,
+            'sukan' => GeneralLabel::sukan,
         ];
     }
     
@@ -92,5 +94,12 @@ class PerancanganProgram extends \yii\db\ActiveRecord
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
         }
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusProgram(){
+        return $this->hasOne(RefStatusProgram::className(), ['id' => 'status_program']);
     }
 }

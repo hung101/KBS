@@ -14,6 +14,7 @@ use app\models\RefSukan;
 use app\models\RefAcara;
 use app\models\RefStatusPencalonan;
 use app\models\Atlet;
+use app\models\RefKategoriPencalonanAtlet;
 
 // contant values
 use app\models\general\Placeholder;
@@ -49,11 +50,11 @@ use app\models\general\GeneralMessage;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-pencalonan-atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'data'=>ArrayHelper::map(RefKategoriPencalonanAtlet::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kategori],
                         'pluginOptions' => [
                             'allowClear' => true

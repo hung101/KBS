@@ -41,7 +41,9 @@ class AnugerahAhliJawantankuasaPemilihanSearch extends AnugerahAhliJawantankuasa
      */
     public function search($params)
     {
-        $query = AnugerahAhliJawantankuasaPemilihan::find();
+        $query = AnugerahAhliJawantankuasaPemilihan::find()
+                ->joinWith(['refPerwakilan'])
+                ->joinWith(['refJawatanJawatankuasaPemilihan']);
 
         // add conditions that should always apply here
 
@@ -66,9 +68,9 @@ class AnugerahAhliJawantankuasaPemilihanSearch extends AnugerahAhliJawantankuasa
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'perwakilan', $this->perwakilan])
+        $query->andFilterWhere(['like', 'tbl_ref_perwakilan.desc', $this->perwakilan])
             ->andFilterWhere(['like', 'nama', $this->nama])
-            ->andFilterWhere(['like', 'jawatan', $this->jawatan]);
+            ->andFilterWhere(['like', 'tbl_ref_jawatan_jawatankuasa_pemilihan.desc', $this->jawatan]);
 
         return $dataProvider;
     }

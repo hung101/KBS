@@ -3,11 +3,15 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+// contant values
+use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\AnugerahAhliJawantankuasaPengelola */
 
-$this->title = $model->anugerah_ahli_jawantankuasa_pengelola_id;
-$this->params['breadcrumbs'][] = ['label' => 'Anugerah Ahli Jawantankuasa Pengelolas', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::anugerah_ahli_jawantankuasa_pengelola;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::anugerah_ahli_jawantankuasa_pengelola, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="anugerah-ahli-jawantankuasa-pengelola-view">

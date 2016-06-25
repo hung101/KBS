@@ -146,4 +146,18 @@ class AnugerahPencalonanAtlet extends \yii\db\ActiveRecord
     public function getRefAcara(){
         return $this->hasOne(RefAcara::className(), ['id' => 'nama_acara']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKategoriPencalonanAtlet(){
+        return $this->hasOne(RefKategoriPencalonanAtlet::className(), ['id' => 'kategori']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefAtlet(){
+        return $this->hasOne(Atlet::className(), ['atlet_id' => 'nama_atlet']);
+    }
 }

@@ -41,7 +41,8 @@ class ManualSilibusKurikulumTeknikalKepegawaianSearch extends ManualSilibusKurik
      */
     public function search($params)
     {
-        $query = ManualSilibusKurikulumTeknikalKepegawaian::find();
+        $query = ManualSilibusKurikulumTeknikalKepegawaian::find()
+                ->joinWith(['refProfilBadanSukan']);
 
         // add conditions that should always apply here
 
@@ -67,7 +68,7 @@ class ManualSilibusKurikulumTeknikalKepegawaianSearch extends ManualSilibusKurik
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'persatuan_sukan', $this->persatuan_sukan])
+        $query->andFilterWhere(['like', 'tbl_profil_badan_sukan.nama_badan_sukan', $this->persatuan_sukan])
             ->andFilterWhere(['like', 'jilid_versi', $this->jilid_versi])
             ->andFilterWhere(['like', 'muat_naik', $this->muat_naik]);
 

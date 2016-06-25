@@ -3,11 +3,14 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+// contant values
+use app\models\general\GeneralLabel;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\MaklumatPegawaiTeknikal */
 
 $this->title = $model->bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Maklumat Pegawai Teknikals', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Maklumat Pegawai Teknikal', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="maklumat-pegawai-teknikal-view">

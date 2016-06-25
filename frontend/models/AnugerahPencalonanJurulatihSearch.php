@@ -18,8 +18,8 @@ class AnugerahPencalonanJurulatihSearch extends AnugerahPencalonanJurulatih
     public function rules()
     {
         return [
-            [['anugerah_pencalonan_jurulatih_id', 'kategori', 'sijil_kejurulatihan_spesifik', 'kelulusan', 'created_by', 'updated_by'], 'integer'],
-            [['sukan', 'nama_jurulatih', 'no_kad_pengenalan', 'no_telefon_1', 'no_telefon_2', 'ulasan_pencapaian', 'created', 'updated'], 'safe'],
+            [['anugerah_pencalonan_jurulatih_id', 'sijil_kejurulatihan_spesifik', 'kelulusan', 'created_by', 'updated_by'], 'integer'],
+            [['sukan', 'nama_jurulatih', 'no_kad_pengenalan', 'no_telefon_1', 'no_telefon_2', 'ulasan_pencapaian', 'created', 'updated', 'kategori'], 'safe'],
         ];
     }
 
@@ -41,7 +41,10 @@ class AnugerahPencalonanJurulatihSearch extends AnugerahPencalonanJurulatih
      */
     public function search($params)
     {
-        $query = AnugerahPencalonanJurulatih::find();
+        $query = AnugerahPencalonanJurulatih::find()
+                ->joinWith(['refSukan'])
+                ->joinWith(['refKategoriPencalonanJurulatih'])
+                ->joinWith(['refJurulatih']);
 
         // add conditions that should always apply here
 
@@ -60,7 +63,7 @@ class AnugerahPencalonanJurulatihSearch extends AnugerahPencalonanJurulatih
         // grid filtering conditions
         $query->andFilterWhere([
             'anugerah_pencalonan_jurulatih_id' => $this->anugerah_pencalonan_jurulatih_id,
-            'kategori' => $this->kategori,
+            //'kategori' => $this->kategori,
             'sijil_kejurulatihan_spesifik' => $this->sijil_kejurulatihan_spesifik,
             'kelulusan' => $this->kelulusan,
             'created_by' => $this->created_by,
@@ -69,12 +72,13 @@ class AnugerahPencalonanJurulatihSearch extends AnugerahPencalonanJurulatih
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'sukan', $this->sukan])
-            ->andFilterWhere(['like', 'nama_jurulatih', $this->nama_jurulatih])
+        $query->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
+            ->andFilterWhere(['like', 'tbl_jurulatih.nama', $this->nama_jurulatih])
             ->andFilterWhere(['like', 'no_kad_pengenalan', $this->no_kad_pengenalan])
             ->andFilterWhere(['like', 'no_telefon_1', $this->no_telefon_1])
             ->andFilterWhere(['like', 'no_telefon_2', $this->no_telefon_2])
-            ->andFilterWhere(['like', 'ulasan_pencapaian', $this->ulasan_pencapaian]);
+            ->andFilterWhere(['like', 'ulasan_pencapaian', $this->ulasan_pencapaian])
+                ->andFilterWhere(['like', 'tbl_ref_kategori_pencalonan_jurulatih.desc', $this->kategori]);
 
         return $dataProvider;
     }

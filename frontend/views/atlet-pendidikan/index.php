@@ -54,18 +54,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'id' => GeneralVariable::listPendidikanID,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            [
-                'attribute' => 'jenis_pencapaian',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_pencapaian,
-                ],
-                'value' => 'refJenisPencapaian.desc'
-            ],
-            //'pendidikan_atlet_id',
-            //'atlet_id',
-            //'jenis_peringkatan_pendidikan',
             [
                 'attribute' => 'jenis_peringkatan_pendidikan',
                 'filterInputOptions' => [
@@ -81,6 +69,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
                 ]
             ],
+            [
+                'attribute' => 'jenis_pencapaian',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_pencapaian,
+                ],
+                'value' => 'refJenisPencapaian.desc'
+            ],
+            //'pendidikan_atlet_id',
+            //'atlet_id',
+            //'jenis_peringkatan_pendidikan',
+            
             /*[
                 'attribute' => 'kursus',
                 'filterInputOptions' => [

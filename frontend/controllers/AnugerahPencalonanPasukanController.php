@@ -10,9 +10,19 @@ use frontend\models\AnugerahPencalonanPasukanPemainSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use yii\helpers\Json;
+use yii\helpers\BaseUrl;
 
+use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
+
+use app\models\RefSukan;
+use app\models\RefAcara;
+use app\models\RefStatusPencalonan;
+use app\models\Atlet;
+use app\models\RefKategoriPencalonanPasukan;
 
 /**
  * AnugerahPencalonanPasukanController implements the CRUD actions for AnugerahPencalonanPasukan model.
@@ -63,8 +73,16 @@ class AnugerahPencalonanPasukanController extends Controller
         $searchModelAnugerahPencalonanPasukanPemain  = new AnugerahPencalonanPasukanPemainSearch();
         $dataProviderAnugerahPencalonanPasukanPemain = $searchModelAnugerahPencalonanPasukanPemain->search($queryPar);
         
+        $model = $this->findModel($id);
+        
+        $ref = RefKategoriPencalonanPasukan::findOne(['id' => $model->kategori]);
+        $model->kategori = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'searchModelAnugerahPencalonanPasukanPemain' => $searchModelAnugerahPencalonanPasukanPemain,
             'dataProviderAnugerahPencalonanPasukanPemain' => $dataProviderAnugerahPencalonanPasukanPemain,
             'readonly' => true,
@@ -97,7 +115,14 @@ class AnugerahPencalonanPasukanController extends Controller
                 AnugerahPencalonanPasukanPemain::updateAll(['session_id' => ''], 'anugerah_pencalonan_pasukan_id = "'.$model->anugerah_pencalonan_pasukan_id.'"');
             }
             
-            return $this->redirect(['view', 'id' => $model->anugerah_pencalonan_pasukan_id]);
+            $file = UploadedFile::getInstance($model, 'gambar_pasukan');
+            if($file){
+                $model->gambar_pasukan = Upload::uploadFile($file, Upload::anugerahPencalonanPasukanFolder, $model->anugerah_pencalonan_pasukan_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->anugerah_pencalonan_pasukan_id]);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -126,7 +151,14 @@ class AnugerahPencalonanPasukanController extends Controller
         $dataProviderAnugerahPencalonanPasukanPemain = $searchModelAnugerahPencalonanPasukanPemain->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->anugerah_pencalonan_pasukan_id]);
+            $file = UploadedFile::getInstance($model, 'gambar_pasukan');
+            if($file){
+                $model->gambar_pasukan = Upload::uploadFile($file, Upload::anugerahPencalonanPasukanFolder, $model->anugerah_pencalonan_pasukan_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->anugerah_pencalonan_pasukan_id]);
+            }
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -145,6 +177,9 @@ class AnugerahPencalonanPasukanController extends Controller
      */
     public function actionDelete($id)
     {
+        // delete upload file
+        self::actionDeleteupload($id, 'gambar_pasukan');
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -164,5 +199,27 @@ class AnugerahPencalonanPasukanController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            return $this->redirect(['update', 'id' => $id]);
     }
 }

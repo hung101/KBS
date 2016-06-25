@@ -41,7 +41,9 @@ class AnugerahPencalonanPasukanSearch extends AnugerahPencalonanPasukan
      */
     public function search($params)
     {
-        $query = AnugerahPencalonanPasukan::find();
+        $query = AnugerahPencalonanPasukan::find()
+                ->joinWith(['refSukan'])
+                ->joinWith(['refKategoriPencalonanPasukan']);
 
         // add conditions that should always apply here
 
@@ -66,8 +68,8 @@ class AnugerahPencalonanPasukanSearch extends AnugerahPencalonanPasukan
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'kategori', $this->kategori])
-            ->andFilterWhere(['like', 'sukan', $this->sukan])
+        $query->andFilterWhere(['like', 'tbl_ref_kategori_pencalonan_pasukan.desc', $this->kategori])
+            ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
             ->andFilterWhere(['like', 'nama_pasukan', $this->nama_pasukan])
             ->andFilterWhere(['like', 'gambar_pasukan', $this->gambar_pasukan])
             ->andFilterWhere(['like', 'ulasan_pencapaian', $this->ulasan_pencapaian]);

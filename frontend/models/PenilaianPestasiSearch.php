@@ -19,7 +19,8 @@ class PenilaianPestasiSearch extends PenilaianPestasi
     {
         return [
             [['penilaian_pestasi_id'], 'integer'],
-            [['tahap_sihat', 'atlet_id', 'pencapaian_sukan_dalam_tahun_yang_dinilai', 'kecederaan_jika_ada', 'laporan_kesihatan', 'skim_hadiah_kemenangan_sukan'], 'safe'],
+            [['tahap_sihat', 'atlet_id', 'pencapaian_sukan_dalam_tahun_yang_dinilai', 'kecederaan_jika_ada', 'laporan_kesihatan', 'skim_hadiah_kemenangan_sukan', 'sukan',
+                'program', 'acara', 'kejohanan'], 'safe'],
             [['elaun_yang_diterima'], 'number'],
         ];
     }
@@ -43,7 +44,11 @@ class PenilaianPestasiSearch extends PenilaianPestasi
     public function search($params)
     {
         $query = PenilaianPestasi::find()
-                ->joinWith(['atlet']);
+                ->joinWith(['atlet'])
+                ->joinWith(['refSukan'])
+                ->joinWith(['refProgramSemasaSukanAtlet'])
+                ->joinWith(['refAcara'])
+                ->joinWith(['refPerancanganProgram']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -68,7 +73,11 @@ class PenilaianPestasiSearch extends PenilaianPestasi
             ->andFilterWhere(['like', 'pencapaian_sukan_dalam_tahun_yang_dinilai', $this->pencapaian_sukan_dalam_tahun_yang_dinilai])
             ->andFilterWhere(['like', 'kecederaan_jika_ada', $this->kecederaan_jika_ada])
             ->andFilterWhere(['like', 'laporan_kesihatan', $this->laporan_kesihatan])
-            ->andFilterWhere(['like', 'skim_hadiah_kemenangan_sukan', $this->skim_hadiah_kemenangan_sukan]);
+            ->andFilterWhere(['like', 'skim_hadiah_kemenangan_sukan', $this->skim_hadiah_kemenangan_sukan])
+                ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
+                ->andFilterWhere(['like', 'tbl_ref_program_semasa_sukan_atlet.desc', $this->program])
+                ->andFilterWhere(['like', 'tbl_ref_acara.desc', $this->acara])
+                ->andFilterWhere(['like', 'tbl_perancangan_program.nama_program', $this->kejohanan]);
 
         return $dataProvider;
     }

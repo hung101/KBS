@@ -27,6 +27,10 @@ use app\models\RefJenisPermohonanProgramBinaan;
 use app\models\RefSukan;
 use app\models\RefAtletTahap;
 use app\models\RefNegeri;
+use app\models\RefProgramSemasaSukanAtlet;
+use app\models\PerancanganProgram;
+use app\models\RefJenisAktiviti;
+use app\models\RefStatusPermohonanProgramBinaan;
 
 /**
  * PengurusanProgramBinaanController implements the CRUD actions for PengurusanProgramBinaan model.
@@ -97,6 +101,15 @@ class PengurusanProgramBinaanController extends Controller
         
         $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         $model->kelulusan = $YesNo;
+        
+        $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program]);
+        $model->program = $ref['desc'];
+        
+        $ref = PerancanganProgram::findOne(['perancangan_program_id' => $model->aktiviti]);
+        $model->aktiviti = $ref['nama_program'];
+        
+        $ref = RefStatusPermohonanProgramBinaan::findOne(['id' => $model->status_permohonan]);
+        $model->status_permohonan = $ref['desc'];
         
         $queryPar = null;
         

@@ -16,6 +16,8 @@ use app\models\ElaporanPelaksanaanKekurangan;
 use frontend\models\ElaporanPelaksanaanKekuranganSearch;
 use app\models\ElaporanPelaksanaanKelebihan;
 use frontend\models\ElaporanPelaksanaanKelebihanSearch;
+use app\models\PermohonanEBantuan;
+use backend\models\PermohonanEBantuanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -71,6 +73,25 @@ class ElaporanPelaksanaanController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+    
+    
+    /**
+     * Creates a new PermohonanEBantuanSenaraiSemak model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionLoad($permohonan_e_bantuan_id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        if (($model = ElaporanPelaksanaan::findOne(['permohonan_e_bantuan_id' => $permohonan_e_bantuan_id])) !== null) {
+            return self::actionUpdate($model->elaporan_pelaksaan_id);
+        } else {
+            return self::actionCreate($permohonan_e_bantuan_id);
+        }
     }
 
     // eddie (jasper) start
@@ -243,7 +264,7 @@ class ElaporanPelaksanaanController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($permohonan_e_bantuan_id=null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -273,6 +294,19 @@ class ElaporanPelaksanaanController extends Controller
             $model->creator_mobile_no = Yii::$app->user->identity->tel_mobile_no;
         } else if(Yii::$app->user->identity->tel_no){
             $model->creator_mobile_no = Yii::$app->user->identity->tel_no;
+        }
+        
+        if($permohonan_e_bantuan_id != ""){
+            $model->permohonan_e_bantuan_id = $permohonan_e_bantuan_id; //link to Permohonan e-Bantuan
+            
+            
+            if (($modelPermohonanEBantuan = PermohonanEBantuan::findOne(['permohonan_e_bantuan_id' => $permohonan_e_bantuan_id])) !== null) {
+                $model->nama_projek_program_aktiviti_kejohanan = $modelPermohonanEBantuan->nama_program;
+                
+                $model->nama_penganjur_persatuan_kerjasama = $modelPermohonanEBantuan->nama_pertubuhan_persatuan;
+                
+                $model->jumlah_bantuan_peruntukan = $modelPermohonanEBantuan->jumlah_diluluskan;
+            }
         }
         
         $searchModelGambar = new ElaporanPelaksanaanGambarSearch();

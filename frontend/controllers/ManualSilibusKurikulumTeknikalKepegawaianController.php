@@ -8,6 +8,13 @@ use frontend\models\ManualSilibusKurikulumTeknikalKepegawaianSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+
+use app\models\general\Upload;
+use app\models\general\GeneralVariable;
+
+// table reference
+use app\models\ProfilBadanSukan;
 
 /**
  * ManualSilibusKurikulumTeknikalKepegawaianController implements the CRUD actions for ManualSilibusKurikulumTeknikalKepegawaian model.
@@ -35,6 +42,10 @@ class ManualSilibusKurikulumTeknikalKepegawaianController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $searchModel = new ManualSilibusKurikulumTeknikalKepegawaianSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -51,8 +62,17 @@ class ManualSilibusKurikulumTeknikalKepegawaianController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->persatuan_sukan]);
+        $model->persatuan_sukan = $ref['nama_badan_sukan'];
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }
@@ -64,10 +84,23 @@ class ManualSilibusKurikulumTeknikalKepegawaianController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new ManualSilibusKurikulumTeknikalKepegawaian();
+        
+        $model->tarikh = new \yii\db\Expression('NOW()');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->manual_silibus_kurikulum_teknikal_kepegawaian_id]);
+            $file = UploadedFile::getInstance($model, 'muat_naik');
+            if($file){
+                $model->muat_naik = Upload::uploadFile($file, Upload::manualSilibusKurikulumTeknikalKepegawaianFolder, $model->manual_silibus_kurikulum_teknikal_kepegawaian_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->manual_silibus_kurikulum_teknikal_kepegawaian_id]);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -84,9 +117,35 @@ class ManualSilibusKurikulumTeknikalKepegawaianController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
+        
+         $existingMuatNaik = $model->muat_naik;
+        
+        if($model->load(Yii::$app->request->post())){
+            $file = UploadedFile::getInstance($model, 'muat_naik');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if($file){
+                //valid file to upload
+                //upload file to server
+                
+                // delete upload file
+                if($existingMuatNaik != ""){
+                    self::actionDeleteupload($id, 'muat_naik');
+                }
+                
+                $model->muat_naik = Upload::uploadFile($file, Upload::manualSilibusKurikulumTeknikalKepegawaianFolder, $model->manual_silibus_kurikulum_teknikal_kepegawaian_id);
+            } else {
+                //invalid file to upload
+                //remain existing file
+                $model->muat_naik = $existingMuatNaik;
+            }
+        }
+
+        if (Yii::$app->request->post() && $model->save()) {
             return $this->redirect(['view', 'id' => $model->manual_silibus_kurikulum_teknikal_kepegawaian_id]);
         } else {
             return $this->render('update', [
@@ -104,6 +163,12 @@ class ManualSilibusKurikulumTeknikalKepegawaianController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        self::actionDeleteupload($id, 'muat_naik');
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -123,5 +188,27 @@ class ManualSilibusKurikulumTeknikalKepegawaianController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            //return $this->redirect(['update', 'id' => $id]);
     }
 }

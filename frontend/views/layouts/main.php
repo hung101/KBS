@@ -112,49 +112,253 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                 
                 if(isset(Yii::$app->user->identity->peranan_akses['MSN'])){
                     $sideMenuItems[] = ['label' => GeneralLabel::msn, 'url' => ['#'],'items' => [
-                        ['label' => GeneralLabel::atlet, 'url' => ['/atlet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['module'])],
-                        ['label' => GeneralLabel::pembayaran_elaun, 'url' => ['/pembayaran-elaun/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['module'])],
-                        ['label' => GeneralLabel::penilaian_pestasi, 'url' => ['/penilaian-pestasi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['module'])],
                         [
-                            'label' => GeneralLabel::pengurusan_semua_kemudahan_atlet, 
+                            'label' => GeneralLabel::sistem_pengurusan_atlet, 
                             'items' => [
-                                ['label' => GeneralLabel::permohonan_kemudahan_ticket_kapal_terbang, 'url' => ['/permohonan-kemudahan-ticket-kapal-terbang/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['module'])],
-                                ['label' => GeneralLabel::permohonan_peralatan, 'url' => ['/permohonan-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['module'])],
-                                ['label' => GeneralLabel::inventori, 'url' => ['/inventori/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['inventori']['module'])],
-                            ],
-                        ],
-                        ['label' => GeneralLabel::skim_kebajikan, 'url' => ['/skim-kebajikan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['skim-kebajikan']['module'])],
-                        ['label' => GeneralLabel::jenis_kebajikan, 'url' => ['/jenis-kebajikan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['jenis-kebajikan']['module'])],
-                        //['label' => GeneralLabel::pengurusan_insurans, 'url' => ['/pengurusan-insuran/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-insuran']['module'])],
-                        [
-                            'label' => GeneralLabel::pengurusan_insurans,
-                            'items' => [
-                                ['label' => GeneralLabel::pengurusan_insurans, 'url' => ['/pengurusan-insuran/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-insuran']['module'])],
-                                ['label' => GeneralLabel::laporan_tuntutan_insurans, 'url' => ['/pengurusan-insuran/laporan-tuntutan-insurans'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-insuran']['module'])],
-                            ],
-                        ],
-                        //['label' => GeneralLabel::pengurusan_insentif, 'url' => ['/pengurusan-insentif/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-insentif']['module'])],
-                        
-                        [
-                            'label' => GeneralLabel::pengurusan_insentif,
-                            'items' => [
-                                ['label' => GeneralLabel::pengurusan_insentif_tetapan, 'url' => ['/pengurusan-insentif-tetapan/load'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-insentif-tetapan']['module'])],
-                                ['label' => GeneralLabel::pembayaran_insentif, 'url' => ['/pembayaran-insentif/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-insentif']['module'])],
-                            ],
-                        ],
-                        [
-                            'label' => GeneralLabel::permohonan_program_binaan,
-                            'items' => [
-                                ['label' => GeneralLabel::permohonan_program_binaan, 'url' => ['/pengurusan-program-binaan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['module'])],
-                                ['label' => GeneralLabel::borang_penyertaan_atlet, 'url' => ['/borang-penyertaan-atlet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-penyertaan-atlet']['module'])],
                                 [
-                                    'label' => GeneralLabel::laporan,
+                                    'label' => GeneralLabel::atlet, 
                                     'items' => [
-                                        ['label' => GeneralLabel::laporan_senarai_penganjuran_program_binaan, 'url' => ['/pengurusan-program-binaan/laporan-senarai-penganjuran-program-binaan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['module'])],
-                                        ['label' => GeneralLabel::laporan_statistik_program_binaan_mengikut_negeri, 'url' => ['/pengurusan-program-binaan/laporan-statistik-program-binaan-mengikut-negeri'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['module'])],
-                                        ['label' => GeneralLabel::laporan_statistik_program_binaan_mengikut_sukan, 'url' => ['/pengurusan-program-binaan/laporan-statistik-program-binaan-mengikut-sukan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['module'])],
+                                        ['label' => GeneralLabel::atlet, 'url' => ['/atlet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_senarai_atlet, 'url' => ['/atlet/laporan-senarai-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['module'])],
+                                                ['label' => GeneralLabel::laporan_statistik_atlet, 'url' => ['/atlet/laporan-statistik-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['module'])],
+                                            ],
+                                        ],
                                     ],
                                 ],
+                                ['label' => GeneralLabel::pengurusan_tawaran_atlet, 'url' => ['/atlet/tawaran'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['tawaran'])],
+                                ['label' => GeneralLabel::pembayaran_elaun, 'url' => ['/pembayaran-elaun/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['module'])],
+                                [
+                                    'label' => GeneralLabel::pengurusan_semua_kemudahan_atlet, 
+                                    'items' => [
+                                        ['label' => GeneralLabel::permohonan_kemudahan_ticket_kapal_terbang, 'url' => ['/permohonan-kemudahan-ticket-kapal-terbang/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['module'])],
+                                        ['label' => GeneralLabel::permohonan_peralatan, 'url' => ['/permohonan-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['module'])],
+                                        ['label' => GeneralLabel::inventori, 'url' => ['/inventori/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['inventori']['module'])],
+                                    ],
+                                ],
+                                [
+                                    'label' => GeneralLabel::skim_insentif_dan_kebajikan, 
+                                    'items' => [
+                                        ['label' => GeneralLabel::skim_kebajikan, 'url' => ['/skim-kebajikan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['skim-kebajikan']['module'])],
+                                        ['label' => GeneralLabel::jenis_kebajikan, 'url' => ['/jenis-kebajikan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['jenis-kebajikan']['module'])],
+                                        [
+                                            'label' => GeneralLabel::pengurusan_insentif,
+                                            'items' => [
+                                                ['label' => GeneralLabel::pengurusan_insentif_tetapan, 'url' => ['/pengurusan-insentif-tetapan/load'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-insentif-tetapan']['module'])],
+                                                ['label' => GeneralLabel::pembayaran_insentif, 'url' => ['/pembayaran-insentif/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-insentif']['module'])],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                                [
+                                    'label' => GeneralLabel::pengurusan_insurans,
+                                    'items' => [
+                                        ['label' => GeneralLabel::pengurusan_insurans, 'url' => ['/pengurusan-insuran/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-insuran']['module'])],
+                                        ['label' => GeneralLabel::laporan_tuntutan_insurans, 'url' => ['/pengurusan-insuran/laporan-tuntutan-insurans'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-insuran']['module'])],
+                                    ],
+                                ],
+                                [
+                                    'label' => GeneralLabel::pengurusan_pendidikan_atlet,
+                                    'items' => [
+                                        ['label' => GeneralLabel::permohonan_pendidikan, 'url' => ['/permohonan-pendidikan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-pendidikan']['module'])],
+                                        ['label' => GeneralLabel::pertukaran_pengajian, 'url' => ['/pertukaran-pengajian/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pertukaran-pengajian']['module'])],
+                                        ['label' => GeneralLabel::permohonan_biasiswa, 'url' => ['/permohonan-biasiswa/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-biasiswa']['module'])],
+                                        ['label' => GeneralLabel::pengurusan_pengangkutan, 'url' => ['/pengurusan-shuttle-bus/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-shuttle-bus']['module'])],
+                                        ['label' => GeneralLabel::pengurusan_sajian_makan, 'url' => ['/pengurusan-sajian-makan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-sajian-makan']['module'])],
+                                        ['label' => GeneralLabel::pengurusan_penginapan, 'url' => ['/pengurusan-penginapan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penginapan']['module'])],
+                                        ['label' => GeneralLabel::pengurusan_biasiswa_atlet, 'url' => ['/pengurusan-biasiswa-atlet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-biasiswa-atlet']['module'])],
+                                    ],
+                                ],
+                                [
+                                    'label' => GeneralLabel::kejohanan_temasya_atlet,
+                                    'items' => [
+                                        [
+                                            'label' => GeneralLabel::merekod_maklumat_sukan_program_termasuk,
+                                            'items' => [
+                                                ['label' => GeneralLabel::penilaian_prestasi_kejohanan, 'url' => ['/penyertaan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['module'])],
+                                                ['label' => GeneralLabel::aduan, 'url' => ['/penyertaan-sukan-aduan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan-aduan']['module'])],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                                ['label' => GeneralLabel::perancangan_program, 'url' => ['/perancangan-program/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
+                                [
+                                    'label' => GeneralLabel::pengurusan_jawatankuasa_kerja_jkkjawatankuasa_program_jkp_lembaga_pengarah_lembaga_institut,
+                                    'items' => [
+                                        ['label' => GeneralLabel::pengurusan_jkkjkp, 'url' => ['/pengurusan-jkk-jkp/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-jkk-jkp']['module'])],
+                                        ['label' => GeneralLabel::pengurusan_mesyuarat_jawatankuasa_kerja_jkk, 'url' => ['/mesyuarat-jkk/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat-jkk']['module'])],
+                                        ['label' => GeneralLabel::pengurusan_jkkjkp_program, 'url' => ['/pengurusan-jkk-jkp-program/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-jkk-jkp-program']['module'])],
+                                        ['label' => GeneralLabel::pengurusan_jkkjkp_bajet, 'url' => ['/pengurusan-jkk-jkp-bajet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-jkk-jkp-bajet']['module'])],
+                                    ],
+                                ],
+                                [
+                                    'label' => GeneralLabel::prestasi_atlet,
+                                    'items' => [
+                                        ['label' => GeneralLabel::penilaian_pestasi, 'url' => ['/penilaian-pestasi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['module'])],
+                                    ],
+                                ],
+                                [
+                                    'label' => GeneralLabel::program_binaan,
+                                    'items' => [
+                                        ['label' => GeneralLabel::permohonan_program_binaan, 'url' => ['/pengurusan-program-binaan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['module'])],
+                                        ['label' => GeneralLabel::borang_penyertaan_atlet, 'url' => ['/borang-penyertaan-atlet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-penyertaan-atlet']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_senarai_penganjuran_program_binaan, 'url' => ['/pengurusan-program-binaan/laporan-senarai-penganjuran-program-binaan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['module'])],
+                                                ['label' => GeneralLabel::laporan_statistik_program_binaan_mengikut_negeri, 'url' => ['/pengurusan-program-binaan/laporan-statistik-program-binaan-mengikut-negeri'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['module'])],
+                                                ['label' => GeneralLabel::laporan_statistik_program_binaan_mengikut_sukan, 'url' => ['/pengurusan-program-binaan/laporan-statistik-program-binaan-mengikut-sukan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['module'])],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                                [
+                                    'label' => GeneralLabel::pengurusan_usptn,
+                                    'items' => [
+                                        ['label' => GeneralLabel::pengurusan_usptn, 'url' => ['/pengurusan-upstn/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_statistik_pemantauan, 'url' => ['/pengurusan-upstn/laporan-statistik-pemantauan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
+                                                ['label' => GeneralLabel::laporan_usptn_lawatan_pemantauan, 'url' => ['/pengurusan-upstn/laporan-usptn-lawatan-pemantauan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
+                                                ['label' => GeneralLabel::laporan_usptn_pecahan_kaum, 'url' => ['/pengurusan-upstn/laporan-usptn-pecahan-kaum'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
+                                                ['label' => GeneralLabel::laporan_usptn_pecahan_umur, 'url' => ['/pengurusan-upstn/laporan-usptn-pecahan-umur'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
+                                                ['label' => GeneralLabel::laporan_usptn_perjumpaan_atlet, 'url' => ['/pengurusan-upstn/laporan-usptn-perjumpaan-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
+                                                ['label' => GeneralLabel::laporan_usptn_perjumpaan_jurulatih, 'url' => ['/pengurusan-upstn/laporan-usptn-perjumpaan-jurulatih'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                                ['label' => GeneralLabel::senarai_jurulatih, 'url' => ['/jurulatih/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['module'])],
+                                ['label' => GeneralLabel::pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih, 'url' => ['/pengurusan-penyambungan-dan-penamatan-kontrak-jurulatih/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penyambungan-dan-penamatan-kontrak-jurulatih']['module'])],
+                                ['label' => GeneralLabel::pengurusan_bayaran_elaun_dan_gaji_jurulatih_sambilan, 'url' => ['/gaji-dan-elaun-jurulatih/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['gaji-dan-elaun-jurulatih']['module'])],
+                                [
+                                    'label' => GeneralLabel::geran_bantuan_gaji,
+                                    'items' => [
+                                        ['label' => GeneralLabel::geran_bantuan_gaji, 'url' => ['/geran-bantuan-gaji/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_maklumat_pembayaran_geran_bantuan, 'url' => ['/geran-bantuan-gaji/laporan-maklumat-pembayaran-geran-bantuan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['module'])],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                                ['label' => GeneralLabel::pengurusan_pemantauan_dan_penilaian_jurulatih, 'url' => ['/pengurusan-pemantauan-dan-penilaian-jurulatih/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-pemantauan-dan-penilaian-jurulatih']['module'])],
+                                ['label' => GeneralLabel::peningkatan_kerjaya_jurulatih, 'url' => ['/akk-program-jurulatih/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['akk-program-jurulatih']['module'])], 
+                            ],
+                        ],
+                        [
+                            'label' => GeneralLabel::sistem_pengurusan_kejohanan,
+                            'items' => [
+                                [
+                                    'label' => GeneralLabel::urusetia_kejohanan,
+                                    'items' => [
+                                        ['label' => GeneralLabel::bantuan_penganjuran_kejohanan, 'url' => ['/bantuan-penganjuran-kejohanan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['module'])],
+                                    ],
+                                ],
+                                [
+                                    'label' => GeneralLabel::pengurusan_teknikal_dan_kepegawaian,
+                                    'items' => [
+                                        ['label' => GeneralLabel::maklumat_pegawai_teknikal, 'url' => ['/maklumat-pegawai-teknikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['maklumat-pegawai-teknikal']['module'])],
+                                        ['label' => GeneralLabel::manual_silibus_kurikulum_teknikal_kepegawaian, 'url' => ['/manual-silibus-kurikulum-teknikal-kepegawaian/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['manual-silibus-kurikulum-teknikal-kepegawaian']['module'])],
+                                        [
+                                            'label' => GeneralLabel::geran_bantuan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::bantuan_penganjuran_kursus_bengkel_seminar, 'url' => ['/bantuan-penganjuran-kursus/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus']['module'])],
+                                                ['label' => GeneralLabel::bantuan_penyertaan_pegawai_teknikal, 'url' => ['/bantuan-penyertaan-pegawai-teknikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penyertaan-pegawai-teknikal']['module'])],
+                                                ['label' => GeneralLabel::bantuan_penganjuran_kursus_pegawai_teknikal, 'url' => ['/bantuan-penganjuran-kursus-pegawai-teknikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus-pegawai-teknikal']['module'])],
+                                            ],
+                                        ],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_maklumat_pembayaran_geran_bantuan, 'url' => ['/geran-bantuan-gaji/laporan-maklumat-pembayaran-geran-bantuan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['module'])],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                                [
+                                    'label' => GeneralLabel::pengurusan_jawatankuasa_jawatankuasa_khas,
+                                    'items' => [
+                                        ['label' => GeneralLabel::pengurusan_jawatankuasa_khas_sukan_malaysia, 'url' => ['/pengurusan-jawatankuasa-khas-sukan-malaysia/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-jawatankuasa-khas-sukan-malaysia']['module'])],
+                                        ['label' => GeneralLabel::maklumat_sukan_malaysia, 'url' => ['/muat-naik-dokumen/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['muat-naik-dokumen']['module'])],
+                                        ['label' => GeneralLabel::profil_delegasi_teknikal, 'url' => ['/profil-delegasi-teknikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-delegasi-teknikal']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_profil_ahli_jawatankuasa_khas_sukan_malaysia, 'url' => ['/pengurusan-jawatankuasa-khas-sukan-malaysia/laporan-profil-ahli-jawatankuasa-khas-sukan-malaysia'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-jawatankuasa-khas-sukan-malaysia']['module'])],
+                                                ['label' => GeneralLabel::laporan_delegasi_teknikal, 'url' => ['/profil-delegasi-teknikal/laporan-delegasi-teknikal'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-delegasi-teknikal']['module'])],
+                                                ['label' => GeneralLabel::laporan_statistik_delegasi_teknikal, 'url' => ['/profil-delegasi-teknikal/laporan-statistik-delegasi-teknikal'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-delegasi-teknikal']['module'])],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                        [
+                            'label' => GeneralLabel::sistem_pengurusan_sukan,
+                            'items' => [
+                                [
+                                    //'label' => GeneralLabel::program_persatuan_sukan_kebangsaan_input_oleh_cawangan,
+                                    'label' => GeneralLabel::pengurusan_maklumat_psk,
+                                    'items' => [
+                                        ['label' => GeneralLabel::pengurusan_maklumat_psk, 'url' => ['/pengurusan-maklumat-psk/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-maklumat-psk']['module'])],
+                                        ['label' => GeneralLabel::permohonan_pelantikan_sue, 'url' => ['/permohonan-pelantikan-sue/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['forum-seminar-persidangan-di-luar-negara']['module'])],
+                                        ['label' => GeneralLabel::bantuan_elaun_sueelaun_penyelarasemolumen_psk, 'url' => ['/bantuan-elaun/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-elaun']['module'])],
+                                        ['label' => GeneralLabel::bantuan_pentadbiran_pejabat, 'url' => ['/bantuan-pentadbiran-pejabat/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-pentadbiran-pejabat']['module'])],
+                                        ['label' => GeneralLabel::bantuan_menghadiri_program_antarabangsa, 'url' => ['/forum-seminar-persidangan-di-luar-negara/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['forum-seminar-persidangan-di-luar-negara']['module'])],
+                                        //['label' => GeneralLabel::permohonan_penganjuran_programkursusbengkel, 'url' => ['/pengurusan-permohonan-pendidikan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-permohonan-pendidikan']['module'])],
+                                        //['label' => GeneralLabel::pengurusan_penilaian_pendidikan_penganjurintructor, 'url' => ['/pengurusan-penilaian-pendidikan-penganjur-intructor/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penilaian-pendidikan-penganjur-intructor']['module'])],
+                                        //['label' => GeneralLabel::kehadiran_peserta, 'url' => ['/pengurusan-maklum-balas-peserta/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-maklum-balas-peserta']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::notis_kontrak_setiausaha_eksekutif_persatuan, 'url' => ['/permohonan-pelantikan-sue/notis-kontrak-setiausaha-eksekutif-persatuan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['forum-seminar-persidangan-di-luar-negara']['module'])],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                                ['label' => GeneralLabel::delegasi_teknikal_pengurusan_delegasi_teknikal_serta_analisa, 'url' => ['/pengurusan-perhimpunan-kem/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-perhimpunan-kem']['module'])],
+                                [
+                                    'label' => GeneralLabel::sukarelawan,
+                                    'items' => [
+                                        ['label' => GeneralLabel::sukarelawan, 'url' => ['/sukarelawan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['sukarelawan']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_senarai_sukarelawan, 'url' => ['/sukarelawan/laporan-senarai-sukarelawan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['sukarelawan']['module'])],
+                                                ['label' => GeneralLabel::laporan_statistik_sukarelawan_mengikut_negeri, 'url' => ['/sukarelawan/laporan-statistik-sukarelawan-mengikut-negeri'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['sukarelawan']['module'])],
+                                                ['label' => GeneralLabel::laporan_statistik_sukarelawan_mengikut_jantina, 'url' => ['/sukarelawan/laporan-statistik-sukarelawan-mengikut-jantina'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['sukarelawan']['module'])],
+                                                ['label' => GeneralLabel::laporan_statistik_sukarelawan_mengikut_umur, 'url' => ['/sukarelawan/laporan-statistik-sukarelawan-mengikut-umur'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['sukarelawan']['module'])],
+                                                ['label' => GeneralLabel::laporan_statistik_sukarelawan_mengikut_kecenderungan, 'url' => ['/sukarelawan/laporan-statistik-sukarelawan-mengikut-kecenderungan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['sukarelawan']['module'])],
+                                                ['label' => GeneralLabel::laporan_statistik_sukarelawan_mengikut_keterbatasan_fizikal, 'url' => ['/sukarelawan/laporan-statistik-sukarelawan-mengikut-keterbatasan-fizikal'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['sukarelawan']['module'])],
+                                                ['label' => GeneralLabel::laporan_statistik_sukarelawan_mengikut_bangsa, 'url' => ['/sukarelawan/laporan-statistik-sukarelawan-mengikut-bangsa'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['sukarelawan']['module'])],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                                [
+                                    'label' => GeneralLabel::pengurusan_anugerah_sukan,
+                                    'items' => [
+                                        ['label' => GeneralLabel::anugerah_pencalonan_atlet, 'url' => ['/anugerah-pencalonan-atlet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['anugerah-pencalonan-atlet']['module'])],
+                                        ['label' => GeneralLabel::anugerah_pencalonan_jurulatih, 'url' => ['/anugerah-pencalonan-jurulatih/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['anugerah-pencalonan-atlet']['module'])],
+                                        ['label' => GeneralLabel::anugerah_pencalonan_pasukan, 'url' => ['/anugerah-pencalonan-pasukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['anugerah-pencalonan-atlet']['module'])],
+                                        ['label' => GeneralLabel::anugerah_pencalonan_lain, 'url' => ['/anugerah-pencalonan-lain/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['anugerah-pencalonan-atlet']['module'])],
+                                        //['label' => GeneralLabel::anugerah_pelaksaan_majlis, 'url' => ['/anugerah-pelaksaan-majlis/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['anugerah-pelaksaan-majlis']['module'])],
+                                        ['label' => GeneralLabel::anugerah_ahli_jawantankuasa_pemilihan, 'url' => ['/anugerah-ahli-jawantankuasa-pemilihan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['anugerah-pelaksaan-majlis']['module'])],
+                                        ['label' => GeneralLabel::anugerah_ahli_jawantankuasa_pengelola, 'url' => ['/anugerah-ahli-jawantankuasa-pengelola/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['anugerah-pelaksaan-majlis']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_pencalonan_anugerah_sukan_negara_atlet, 'url' => ['/anugerah-pencalonan-atlet/laporan-pencalonan-anugerah-sukan-negara-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['anugerah-pencalonan-atlet']['module'])],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                                
                             ],
                         ],
                         [
@@ -175,39 +379,6 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                             ],
                         ],
                         [
-                            'label' => GeneralLabel::pengurusan_pendidikan_atlet,
-                            'items' => [
-                                ['label' => GeneralLabel::permohonan_pendidikan, 'url' => ['/permohonan-pendidikan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-pendidikan']['module'])],
-                                ['label' => GeneralLabel::pertukaran_pengajian, 'url' => ['/pertukaran-pengajian/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pertukaran-pengajian']['module'])],
-                                ['label' => GeneralLabel::permohonan_biasiswa, 'url' => ['/permohonan-biasiswa/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-biasiswa']['module'])],
-                                ['label' => GeneralLabel::pengurusan_pengangkutan, 'url' => ['/pengurusan-shuttle-bus/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-shuttle-bus']['module'])],
-                                ['label' => GeneralLabel::pengurusan_sajian_makan, 'url' => ['/pengurusan-sajian-makan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-sajian-makan']['module'])],
-                                ['label' => GeneralLabel::pengurusan_penginapan, 'url' => ['/pengurusan-penginapan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penginapan']['module'])],
-                                ['label' => GeneralLabel::pengurusan_biasiswa_atlet, 'url' => ['/pengurusan-biasiswa-atlet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-biasiswa-atlet']['module'])],
-                            ],
-                        ],
-                        ['label' => GeneralLabel::pengurusan_kewangan, 'url' => ['/pengurusan-kewangan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kewangan']['module'])],
-                        ['label' => GeneralLabel::penilaian_prestasi, 'url' => ['/penilaian-pestasi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['module'])],
-                        ['label' => GeneralLabel::perancangan_program, 'url' => ['/perancangan-program/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
-                        [
-                            'label' => GeneralLabel::pengurusan_media,
-                            'items' => [
-                                ['label' => GeneralLabel::pengurusan_media, 'url' => ['/pengurusan-media-program/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-media-program']['module'])],
-                                ['label' => GeneralLabel::profil_wartawan_sukan, 'url' => ['/profil-wartawan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-wartawan-sukan']['module'])],
-                            ],
-                        ],
-                        //['label' => GeneralLabel::pengurusan_kejohanan_temasya_yang_disertai_oleh_atlet, 'url' => ['/pengurusan-kejohanan-temasya-main/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kejohanan-temasya-main']['module'])],
-                        ['label' => GeneralLabel::pengurusan_mesyuarat_perbincangan_secara_online, 'url' => ['/mesyuarat/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat']['module'])],
-                        [
-                            'label' => GeneralLabel::pengurusan_jaringan_antarabangsa,
-                            'items' => [
-                                ['label' => GeneralLabel::pengurusan_jaringan_antarabangsa, 'url' => ['/pengurusan-jaringan-antarabangsa/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-jaringan-antarabangsa']['module'])],
-                                ['label' => GeneralLabel::pengurusan_berita_antarabangsa, 'url' => ['/pengurusan-berita-antarabangsa/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-berita-antarabangsa']['module'])],
-                                ['label' => GeneralLabel::pengurusan_anjuran, 'url' => ['/pengurusan-anjuran/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-anjuran']['module'])],
-                                ['label' => GeneralLabel::pengurusan_mou_moa_antarabangsa, 'url' => ['/pengurusan-mou-moa-antarabangsa/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-mou-moa-antarabangsa']['module'])],
-                            ],
-                        ],
-                        [
                             'label' => GeneralLabel::pengurusan_venue_latihan_kemudahan_serta_spesifikasi_teknikal,
                             'items' => [
                                 ['label' => GeneralLabel::pengurusan_venue, 'url' => ['/pengurusan-kemudahan-venue/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kemudahan-venue']['module'])],
@@ -224,22 +395,22 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                         ['label' => GeneralLabel::laporan_aduan_kerosakan, 'url' => ['/borang-aduan-kerosakan/laporan-aduan-kerosakan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-aduan-kerosakan']['module'])],
                                     ],
                                 ],
+                                [
+                                    'label' => GeneralLabel::profil_pusat_latihan,
+                                    'items' => [
+                                        ['label' => GeneralLabel::profil_pusat_latihan, 'url' => ['/profil-pusat-latihan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_pusat_latihan, 'url' => ['/profil-pusat-latihan/laporan-pusat-latihan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['module'])],
+                                            ],
+                                        ],
+                                    ],
+                                ],
                             ],
                         ],
-                        ['label' => GeneralLabel::penyelidikan_program_latihan, 'url' => ['/atlet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['module'])],
-                        [
-                            'label' => GeneralLabel::pengurusan_jawatankuasa_kerja_jkkjawatankuasa_program_jkp_lembaga_pengarah_lembaga_institut,
-                            'items' => [
-                                ['label' => GeneralLabel::pengurusan_jkkjkp, 'url' => ['/pengurusan-jkk-jkp/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-jkk-jkp']['module'])],
-                                ['label' => GeneralLabel::pengurusan_jkkjkp_program, 'url' => ['/pengurusan-jkk-jkp-program/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-jkk-jkp-program']['module'])],
-                                ['label' => GeneralLabel::pengurusan_jkkjkp_bajet, 'url' => ['/pengurusan-jkk-jkp-bajet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-jkk-jkp-bajet']['module'])],
-                            ],
-                        ],
-                        ['label' => GeneralLabel::pengkomputeran_penilaian_presatasi_sukan_dan_program_latihan, 'url' => ['/atlet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['module'])],
-                        ['label' => GeneralLabel::pengurusan_perhimpunan_kem_atlet, 'url' => ['/pengurusan-perhimpunan-kem/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-perhimpunan-kem']['module'])],
-                        ['label' => GeneralLabel::pengurusan_kpi, 'url' => ['/pengurusan-kpi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kpi']['module'])],
-                        [
-                            'label' => GeneralLabel::pengurusan_pusat_latihan,
+                        /*[
+                            'label' => GeneralLabel::pengurusan_pusat_latihan,*/
                             /*'items' => [
                                 ['label' => GeneralLabel::pengurusan_venue, 'url' => ['/pengurusan-kemudahan-venue/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kemudahan-venue']['module'])],
                                 ['label' => GeneralLabel::pengurusan_kemudahan, 'url' => ['/pengurusan-kemudahan-sedia-ada/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kemudahan-sedia-ada']['module'])],
@@ -247,7 +418,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                 ['label' => GeneralLabel::kemudahan_aduan, 'url' => ['/pengurusan-kemudahan-aduan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kemudahan-aduan']['module'])],
                                 ['label' => GeneralLabel::pengurusan_kemudahan_aduan_pemeriksa, 'url' => ['/pengurusan-kemudahan-aduan-pemeriksa/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kemudahan-aduan-pemeriksa']['module'])],
                             ],*/
-                            'items' => [
+                            /*'items' => [
                                 ['label' => GeneralLabel::profil_pusat_latihan, 'url' => ['/profil-pusat-latihan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['module'])],
                                 [
                                     'label' => GeneralLabel::laporan,
@@ -256,56 +427,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                     ],
                                 ],
                             ],
-                        ],
-                        ['label' => GeneralLabel::pengurusan_kejohanan, 'url' => ['/pengurusan-perhimpunan-kem/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-perhimpunan-kem']['module'])],
-                        ['label' => GeneralLabel::pengurusan_program_binaan, 'url' => ['/pengurusan-program-binaan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['module'])],
-                        //['label' => GeneralLabel::pengurusan_usptn, 'url' => ['/pengurusan-upstn/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-                        [
-                            'label' => GeneralLabel::pengurusan_usptn,
-                            'items' => [
-                                ['label' => GeneralLabel::pengurusan_usptn, 'url' => ['/pengurusan-upstn/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-                                [
-                                    'label' => GeneralLabel::laporan,
-                                    'items' => [
-                                        ['label' => GeneralLabel::laporan_statistik_pemantauan, 'url' => ['/pengurusan-upstn/laporan-statistik-pemantauan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-                                        ['label' => GeneralLabel::laporan_usptn_lawatan_pemantauan, 'url' => ['/pengurusan-upstn/laporan-usptn-lawatan-pemantauan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-                                        ['label' => GeneralLabel::laporan_usptn_pecahan_kaum, 'url' => ['/pengurusan-upstn/laporan-usptn-pecahan-kaum'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-                                        ['label' => GeneralLabel::laporan_usptn_pecahan_umur, 'url' => ['/pengurusan-upstn/laporan-usptn-pecahan-umur'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-                                        ['label' => GeneralLabel::laporan_usptn_perjumpaan_atlet, 'url' => ['/pengurusan-upstn/laporan-usptn-perjumpaan-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-                                        ['label' => GeneralLabel::laporan_usptn_perjumpaan_jurulatih, 'url' => ['/pengurusan-upstn/laporan-usptn-perjumpaan-jurulatih'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-                                    ],
-                                ],
-                            ],
-                        ],
-                        ['label' => GeneralLabel::perlantikan_jurulatih_baru_pengurusan_profil_jurulatih_pengurusan_program_latihan_jurulatih, 'url' => ['/jurulatih/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['module'])],
-                        ['label' => GeneralLabel::pengurusan_pemantauan_dan_penilaian_jurulatih, 'url' => ['/pengurusan-pemantauan-dan-penilaian-jurulatih/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-pemantauan-dan-penilaian-jurulatih']['module'])],
-                        ['label' => GeneralLabel::pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih, 'url' => ['/pengurusan-penyambungan-dan-penamatan-kontrak-jurulatih/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penyambungan-dan-penamatan-kontrak-jurulatih']['module'])],
-                        ['label' => GeneralLabel::pengurusan_bayaran_elaun_dan_gaji_jurulatih_sambilan, 'url' => ['/gaji-dan-elaun-jurulatih/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['gaji-dan-elaun-jurulatih']['module'])],
-                        //['label' => GeneralLabel::geran_bantuan_gaji, 'url' => ['/geran-bantuan-gaji/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['module'])],
-                        [
-                            'label' => GeneralLabel::geran_bantuan_gaji,
-                            'items' => [
-                                ['label' => GeneralLabel::geran_bantuan_gaji, 'url' => ['/geran-bantuan-gaji/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['module'])],
-                                [
-                                    'label' => GeneralLabel::laporan,
-                                    'items' => [
-                                        ['label' => GeneralLabel::laporan_maklumat_pembayaran_geran_bantuan, 'url' => ['/geran-bantuan-gaji/laporan-maklumat-pembayaran-geran-bantuan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['module'])],
-                                    ],
-                                ],
-                            ],
-                        ],
-                        ['label' => GeneralLabel::peningkatan_kerjaya_jurulatih, 'url' => ['/akk-program-jurulatih/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['akk-program-jurulatih']['module'])],
-                        [
-                            'label' => GeneralLabel::merekod_maklumat_sukan_program_termasuk,
-                            'items' => [
-                                ['label' => GeneralLabel::penilaian_prestasi_kejohanan, 'url' => ['/penyertaan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['module'])],
-                                ['label' => GeneralLabel::aduan, 'url' => ['/penyertaan-sukan-aduan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan-aduan']['module'])],
-                            ],
-                        ],
-                        ['label' => GeneralLabel::pengurusan_kewangan, 'url' => ['/pengurusan-perhimpunan-kem/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-perhimpunan-kem']['module'])],
-                        //['label' => GeneralLabel::kemasukan_dan_pengumpulan_data_maklumat_sukan_yang_dianjurkan, 'url' => ['/pengurusan-kejohanan-temasya-main/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kejohanan-temasya-main']['module'])],
-                        ['label' => GeneralLabel::penilaian_prestasi, 'url' => ['/penyertaan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['module'])],
-                        ['label' => GeneralLabel::perancangan_program, 'url' => ['/perancangan-program/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
+                        ],*/
                         [
                             'label' => GeneralLabel::pengurusan_media,
                             'items' => [
@@ -313,103 +435,82 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                 ['label' => GeneralLabel::profil_wartawan_sukan, 'url' => ['/profil-wartawan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-wartawan-sukan']['module'])],
                             ],
                         ],
-                        ['label' => GeneralLabel::pengurusan_mesyuarat_perbincangan_secara_online, 'url' => ['/mesyuarat/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat']['module'])],
                         [
-                            'label' => GeneralLabel::pengurusan_anugerah_sukan,
+                            'label' => GeneralLabel::pengurusan_jaringan_antarabangsa,
                             'items' => [
-                                ['label' => GeneralLabel::anugerah_pencalonan_atlet, 'url' => ['/anugerah-pencalonan-atlet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['anugerah-pencalonan-atlet']['module'])],
-                                ['label' => GeneralLabel::anugerah_pencalonan_jurulatih, 'url' => ['/anugerah-pencalonan-jurulatih/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['anugerah-pencalonan-atlet']['module'])],
-                                ['label' => GeneralLabel::anugerah_pencalonan_pasukan, 'url' => ['/anugerah-pencalonan-pasukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['anugerah-pencalonan-atlet']['module'])],
-                                //['label' => GeneralLabel::anugerah_pelaksaan_majlis, 'url' => ['/anugerah-pelaksaan-majlis/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['anugerah-pelaksaan-majlis']['module'])],
-                                ['label' => GeneralLabel::anugerah_ahli_jawantankuasa_pemilihan, 'url' => ['/anugerah-ahli-jawantankuasa-pemilihan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['anugerah-pelaksaan-majlis']['module'])],
-                                ['label' => GeneralLabel::anugerah_ahli_jawantankuasa_pengelola, 'url' => ['/anugerah-ahli-jawantankuasa-pengelola/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['anugerah-pelaksaan-majlis']['module'])],
-                                [
-                                    'label' => GeneralLabel::laporan,
-                                    'items' => [
-                                        ['label' => GeneralLabel::laporan_pencalonan_anugerah_sukan_negara_atlet, 'url' => ['/anugerah-pencalonan-atlet/laporan-pencalonan-anugerah-sukan-negara-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['anugerah-pencalonan-atlet']['module'])],
-                                    ],
-                                ],
+                                ['label' => GeneralLabel::pengurusan_jaringan_antarabangsa, 'url' => ['/pengurusan-jaringan-antarabangsa/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-jaringan-antarabangsa']['module'])],
+                                ['label' => GeneralLabel::pengurusan_berita_antarabangsa, 'url' => ['/pengurusan-berita-antarabangsa/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-berita-antarabangsa']['module'])],
+                                ['label' => GeneralLabel::pengurusan_anjuran, 'url' => ['/pengurusan-anjuran/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-anjuran']['module'])],
+                                ['label' => GeneralLabel::pengurusan_mou_moa_antarabangsa, 'url' => ['/pengurusan-mou-moa-antarabangsa/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-mou-moa-antarabangsa']['module'])],
                             ],
                         ],
-                        [
-                            'label' => GeneralLabel::pengurusan_teknikal_dan_kepegawaian,
+                        
+                        
+                        
+                        //['label' => GeneralLabel::pengurusan_insurans, 'url' => ['/pengurusan-insuran/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-insuran']['module'])],
+                        
+                        //['label' => GeneralLabel::pengurusan_insentif, 'url' => ['/pengurusan-insentif/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-insentif']['module'])],
+                        
+                        
+                        
+                        
+                        
+                        // TEMP ['label' => GeneralLabel::pengurusan_kewangan, 'url' => ['/pengurusan-kewangan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kewangan']['module'])],
+                        //['label' => GeneralLabel::penilaian_prestasi, 'url' => ['/penilaian-pestasi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['module'])],
+                        //['label' => GeneralLabel::perancangan_program, 'url' => ['/perancangan-program/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
+                        
+                        //['label' => GeneralLabel::pengurusan_kejohanan_temasya_yang_disertai_oleh_atlet, 'url' => ['/pengurusan-kejohanan-temasya-main/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kejohanan-temasya-main']['module'])],
+                        //['label' => GeneralLabel::pengurusan_mesyuarat_perbincangan_secara_online, 'url' => ['/mesyuarat/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat']['module'])],
+                        
+                        
+                        //['label' => GeneralLabel::penyelidikan_program_latihan, 'url' => ['/atlet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['module'])],
+                        
+                        //['label' => GeneralLabel::pengkomputeran_penilaian_presatasi_sukan_dan_program_latihan, 'url' => ['/atlet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['module'])],
+                        //['label' => GeneralLabel::pengurusan_perhimpunan_kem_atlet, 'url' => ['/pengurusan-perhimpunan-kem/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-perhimpunan-kem']['module'])],
+                        //['label' => GeneralLabel::pengurusan_kpi, 'url' => ['/pengurusan-kpi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kpi']['module'])],
+                        
+                        //['label' => GeneralLabel::pengurusan_kejohanan, 'url' => ['/pengurusan-perhimpunan-kem/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-perhimpunan-kem']['module'])],
+                        //['label' => GeneralLabel::pengurusan_program_binaan, 'url' => ['/pengurusan-program-binaan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['module'])],
+                        //['label' => GeneralLabel::pengurusan_usptn, 'url' => ['/pengurusan-upstn/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
+                        
+                        //['label' => GeneralLabel::geran_bantuan_gaji, 'url' => ['/geran-bantuan-gaji/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['module'])],
+                        
+                        
+                        //['label' => GeneralLabel::pengurusan_kewangan, 'url' => ['/pengurusan-perhimpunan-kem/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-perhimpunan-kem']['module'])],
+                        //['label' => GeneralLabel::kemasukan_dan_pengumpulan_data_maklumat_sukan_yang_dianjurkan, 'url' => ['/pengurusan-kejohanan-temasya-main/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kejohanan-temasya-main']['module'])],
+                        //['label' => GeneralLabel::penilaian_prestasi, 'url' => ['/penyertaan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['module'])],
+                        /*[
+                            'label' => GeneralLabel::pengurusan_media,
                             'items' => [
-                                ['label' => GeneralLabel::maklumat_pegawai_teknikal, 'url' => ['/maklumat-pegawai-teknikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['maklumat-pegawai-teknikal']['module'])],
-                                ['label' => GeneralLabel::manual_silibus_kurikulum_teknikal_kepegawaian, 'url' => ['/manual-silibus-kurikulum-teknikal-kepegawaian/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['manual-silibus-kurikulum-teknikal-kepegawaian']['module'])],
-                                [
-                                    'label' => GeneralLabel::geran_bantuan,
-                                    'items' => [
-                                        ['label' => GeneralLabel::bantuan_penganjuran_kursus_bengkel_seminar, 'url' => ['/bantuan-penganjuran-kursus/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus']['module'])],
-                                        ['label' => GeneralLabel::bantuan_penyertaan_pegawai_teknikal, 'url' => ['/bantuan-penyertaan-pegawai-teknikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penyertaan-pegawai-teknikal']['module'])],
-                                        ['label' => GeneralLabel::bantuan_penganjuran_kursus_pegawai_teknikal, 'url' => ['/bantuan-penganjuran-kursus-pegawai-teknikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus-pegawai-teknikal']['module'])],
-                                    ],
-                                ],
-                                [
-                                    'label' => GeneralLabel::laporan,
-                                    'items' => [
-                                        ['label' => GeneralLabel::laporan_maklumat_pembayaran_geran_bantuan, 'url' => ['/geran-bantuan-gaji/laporan-maklumat-pembayaran-geran-bantuan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['module'])],
-                                    ],
-                                ],
+                                ['label' => GeneralLabel::pengurusan_media, 'url' => ['/pengurusan-media-program/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-media-program']['module'])],
+                                ['label' => GeneralLabel::profil_wartawan_sukan, 'url' => ['/profil-wartawan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-wartawan-sukan']['module'])],
                             ],
-                        ],
+                        ],*/
+                        // TEMP ['label' => GeneralLabel::pengurusan_mesyuarat_perbincangan_secara_online, 'url' => ['/mesyuarat/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat']['module'])],
+                        
+                        
                         //['label' => GeneralLabel::pengurusan_bantuan_geran_penganjuran, 'url' => ['/pengurusan-perhimpunan-kem/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-perhimpunan-kem']['module'])],
                         
                         //['label' => GeneralLabel::pengurusan_anjuran_kejohanan, 'url' => ['/pengurusan-perhimpunan-kem/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-perhimpunan-kem']['module'])],
-                        ['label' => GeneralLabel::bantuan_penganjuran_kejohanan, 'url' => ['/bantuan-penganjuran-kejohanan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['module'])],
                         //['label' => GeneralLabel::pengurusan_bantuan_geran_penganjuran, 'url' => ['/pengurusan-perhimpunan-kem/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-perhimpunan-kem']['module'])],
                         //['label' => GeneralLabel::pengurusan_bantuan_geran_teknikal_dan_kepegawaian, 'url' => ['/pengurusan-perhimpunan-kem/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-perhimpunan-kem']['module'])],
-                        [
-                            'label' => GeneralLabel::pengurusan_jawatankuasa_jawatankuasa_khas,
-                            'items' => [
-                                ['label' => GeneralLabel::pengurusan_jawatankuasa_khas_sukan_malaysia, 'url' => ['/pengurusan-jawatankuasa-khas-sukan-malaysia/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-jawatankuasa-khas-sukan-malaysia']['module'])],
-                                ['label' => GeneralLabel::maklumat_sukan_malaysia, 'url' => ['/muat-naik-dokumen/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['muat-naik-dokumen']['module'])],
-                                ['label' => GeneralLabel::profil_delegasi_teknikal, 'url' => ['/profil-delegasi-teknikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-delegasi-teknikal']['module'])],
-                                [
-                                    'label' => GeneralLabel::laporan,
-                                    'items' => [
-                                        ['label' => GeneralLabel::laporan_profil_ahli_jawatankuasa_khas_sukan_malaysia, 'url' => ['/pengurusan-jawatankuasa-khas-sukan-malaysia/laporan-profil-ahli-jawatankuasa-khas-sukan-malaysia'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-jawatankuasa-khas-sukan-malaysia']['module'])],
-                                        ['label' => GeneralLabel::laporan_delegasi_teknikal, 'url' => ['/profil-delegasi-teknikal/laporan-delegasi-teknikal'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-delegasi-teknikal']['module'])],
-                                        ['label' => GeneralLabel::laporan_statistik_delegasi_teknikal, 'url' => ['/profil-delegasi-teknikal/laporan-statistik-delegasi-teknikal'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-delegasi-teknikal']['module'])],
-                                    ],
-                                ],
-                            ],
-                        ],
+                        
                         //['label' => GeneralLabel::jawatankuasa_tertinggi_sukan_malaysia_teknikal_dan_pertandingan, 'url' => ['/muat-naik-dokumen/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat']['module'])],
                         //['label' => GeneralLabel::pengurusan_penstruktur_kurikulum_silibus_pegawai_teknikal, 'url' => ['/permohonan-perganjuran/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-perganjuran']['module'])],
                         //['label' => GeneralLabel::pengurusan_pembekalan_penyediaan_sukatanmanual_teknikal_dan_kepegawaian, 'url' => ['/permohonan-perganjuran/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-perganjuran']['module'])],
                         //['label' => GeneralLabel::pengurusan_maklumat_psk, 'url' => ['/pengurusan-maklumat-psk/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-maklumat-psk']['module'])],
-                        [
-                            //'label' => GeneralLabel::program_persatuan_sukan_kebangsaan_input_oleh_cawangan,
-                            'label' => GeneralLabel::pengurusan_maklumat_psk,
-                            'items' => [
-                                ['label' => GeneralLabel::pengurusan_maklumat_psk, 'url' => ['/pengurusan-maklumat-psk/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-maklumat-psk']['module'])],
-                                ['label' => GeneralLabel::permohonan_pelantikan_sue, 'url' => ['/permohonan-pelantikan-sue/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['forum-seminar-persidangan-di-luar-negara']['module'])],
-                                ['label' => GeneralLabel::bantuan_elaun_sueelaun_penyelarasemolumen_psk, 'url' => ['/bantuan-elaun/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-elaun']['module'])],
-                                ['label' => GeneralLabel::bantuan_pentadbiran_pejabat, 'url' => ['/bantuan-pentadbiran-pejabat/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-pentadbiran-pejabat']['module'])],
-                                ['label' => GeneralLabel::bantuan_menghadiri_program_antarabangsa, 'url' => ['/forum-seminar-persidangan-di-luar-negara/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['forum-seminar-persidangan-di-luar-negara']['module'])],
-                                //['label' => GeneralLabel::permohonan_penganjuran_programkursusbengkel, 'url' => ['/pengurusan-permohonan-pendidikan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-permohonan-pendidikan']['module'])],
-                                //['label' => GeneralLabel::pengurusan_penilaian_pendidikan_penganjurintructor, 'url' => ['/pengurusan-penilaian-pendidikan-penganjur-intructor/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penilaian-pendidikan-penganjur-intructor']['module'])],
-                                //['label' => GeneralLabel::kehadiran_peserta, 'url' => ['/pengurusan-maklum-balas-peserta/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-maklum-balas-peserta']['module'])],
-                                [
-                                    'label' => GeneralLabel::laporan,
-                                    'items' => [
-                                        ['label' => GeneralLabel::notis_kontrak_setiausaha_eksekutif_persatuan, 'url' => ['/permohonan-pelantikan-sue/notis-kontrak-setiausaha-eksekutif-persatuan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['forum-seminar-persidangan-di-luar-negara']['module'])],
-                                    ],
-                                ],
-                            ],
-                        ],
-                        ['label' => GeneralLabel::delegasi_teknikal_pengurusan_delegasi_teknikal_serta_analisa, 'url' => ['/pengurusan-perhimpunan-kem/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-perhimpunan-kem']['module'])],
-                        [
+                        
+                        /*[
                             'label' => GeneralLabel::pengurusan_media,
                             'items' => [
                                 ['label' => GeneralLabel::pengurusan_media, 'url' => ['/pengurusan-media-program/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-media-program']['module'])],
                                 ['label' => GeneralLabel::profil_wartawan_sukan, 'url' => ['/profil-wartawan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-wartawan-sukan']['module'])],
                             ],
-                        ],
-                        ['label' => GeneralLabel::pengurusan_kewangan, 'url' => ['/pengurusan-kewangan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kewangan']['module'])],
-                        ['label' => GeneralLabel::penilaian_prestasi, 'url' => ['/penilaian-prestasi-atlet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-prestasi-atlet']['module'])],
-                        ['label' => GeneralLabel::perancangan_program, 'url' => ['/perancangan-program/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
-                        ['label' => GeneralLabel::pengurusan_mesyuarat_perbincangan_secara_online, 'url' => ['/mesyuarat/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat']['module'])],
+                        ],*/
+                        //['label' => GeneralLabel::pengurusan_kewangan, 'url' => ['/pengurusan-kewangan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kewangan']['module'])],
+                        //['label' => GeneralLabel::penilaian_prestasi, 'url' => ['/penilaian-prestasi-atlet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-prestasi-atlet']['module'])],
+                        //['label' => GeneralLabel::perancangan_program, 'url' => ['/perancangan-program/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
+                        //['label' => GeneralLabel::pengurusan_mesyuarat_perbincangan_secara_online, 'url' => ['/mesyuarat/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat']['module'])],
                         /*[
                             'label' => GeneralLabel::pengurusan_venue_latihan_kemudahan_serta_spesifikasi_teknikal,
                             'items' => [
@@ -422,25 +523,8 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                             ],
                         ],*/
                         //['label' => GeneralLabel::sukarelawan, 'url' => ['/sukarelawan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['sukarelawan']['module'])],
-                        [
-                            'label' => GeneralLabel::sukarelawan,
-                            'items' => [
-                                ['label' => GeneralLabel::sukarelawan, 'url' => ['/sukarelawan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['sukarelawan']['module'])],
-                                [
-                                    'label' => GeneralLabel::laporan,
-                                    'items' => [
-                                        ['label' => GeneralLabel::laporan_senarai_sukarelawan, 'url' => ['/sukarelawan/laporan-senarai-sukarelawan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['sukarelawan']['module'])],
-                                        ['label' => GeneralLabel::laporan_statistik_sukarelawan_mengikut_negeri, 'url' => ['/sukarelawan/laporan-statistik-sukarelawan-mengikut-negeri'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['sukarelawan']['module'])],
-                                        ['label' => GeneralLabel::laporan_statistik_sukarelawan_mengikut_jantina, 'url' => ['/sukarelawan/laporan-statistik-sukarelawan-mengikut-jantina'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['sukarelawan']['module'])],
-                                        ['label' => GeneralLabel::laporan_statistik_sukarelawan_mengikut_umur, 'url' => ['/sukarelawan/laporan-statistik-sukarelawan-mengikut-umur'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['sukarelawan']['module'])],
-                                        ['label' => GeneralLabel::laporan_statistik_sukarelawan_mengikut_kecenderungan, 'url' => ['/sukarelawan/laporan-statistik-sukarelawan-mengikut-kecenderungan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['sukarelawan']['module'])],
-                                        ['label' => GeneralLabel::laporan_statistik_sukarelawan_mengikut_keterbatasan_fizikal, 'url' => ['/sukarelawan/laporan-statistik-sukarelawan-mengikut-keterbatasan-fizikal'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['sukarelawan']['module'])],
-                                        ['label' => GeneralLabel::laporan_statistik_sukarelawan_mengikut_bangsa, 'url' => ['/sukarelawan/laporan-statistik-sukarelawan-mengikut-bangsa'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['sukarelawan']['module'])],
-                                    ],
-                                ],
-                            ],
-                        ],
-                        [
+                        
+                        /* TEMP[
                             'label' => GeneralLabel::pengurusan_modal_program_kursus_pengurusan_sukan_kebangsaan,
                             'items' => [
                                 //['label' => GeneralLabel::kursus_persatuan, 'url' => ['/kursus-persatuan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['kursus-persatuan']['module'])],
@@ -466,8 +550,8 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                 ],
                                 //['label' => GeneralLabel::kehadiran_peserta, 'url' => ['/pengurusan-maklum-balas-peserta/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-maklum-balas-peserta']['module'])],
                             ],
-                        ],
-                    ]];
+                        ],*/
+                    ]]; 
                 }
                 
                 if(isset(Yii::$app->user->identity->peranan_akses['ISN'])){

@@ -90,7 +90,7 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
                 $(document).find('#modal').modal('hide');
                 $(\$form).trigger("reset");
                 $.pjax.defaults.timeout = 100000;
-                $.pjax.reload({container:'#akkProgramJurulatihPesertaGrid'});
+                $.pjax.reload({container:'#anugerahPencalonanPasukanPemainGrid'});
             }
         }).fail(function()
         {

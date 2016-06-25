@@ -15,6 +15,7 @@ use app\models\RefCawangan;
 use app\models\RefProgramSemasaSukanAtlet;
 use app\models\RefJenisAktiviti;
 use app\models\RefStatusProgram;
+use app\models\RefSukan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -99,6 +100,20 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
+                    'columnOptions'=>['colspan'=>3]],
+                'sukan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::sukan],],
                     'columnOptions'=>['colspan'=>3]],
                 'jenis_program' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -226,7 +241,15 @@ use app\models\general\GeneralMessage;
                             ],
                             'columnOptions'=>['colspan'=>3]],
                     ]
-                ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                         'catatan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+
+                    ],
+                ],
             ]
         ]);
     }

@@ -51,7 +51,8 @@ class SixStepPsikologi extends \yii\db\ActiveRecord
         return [
             [['atlet_id', 'stage', 'status'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id', 'kategori_atlet', 'sukan', 'acara'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['stage', 'status'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['stage', 'status'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 
@@ -68,7 +69,7 @@ class SixStepPsikologi extends \yii\db\ActiveRecord
             'acara' => GeneralLabel::acara,
             'stage' => GeneralLabel::stage,
             'status' => GeneralLabel::status,
-
+            'catatan' => GeneralLabel::catatan,
         ];
     }
     

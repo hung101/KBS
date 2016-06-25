@@ -6,12 +6,14 @@ use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
+use kartik\widgets\Select2;
 
 // table reference
 use app\models\RefJabatanUser;
 use app\models\RefStatusUser;
 use app\models\UserPeranan;
 use app\models\ProfilBadanSukan;
+use app\models\RefSukan;
 
 
 // contant values
@@ -30,6 +32,7 @@ use app\models\general\GeneralMessage;
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly,'options'=>['autocomplete'=>'off']]); ?>
+    <?php //echo $form->errorSummary($model); ?>
     <?php 
     if(!isset($model->oldAttributes['username']) || $model->oldAttributes['username'] != "admin"){
         echo FormGrid::widget([
@@ -158,7 +161,34 @@ use app\models\general\GeneralMessage;
         ],
     ]
 ]);
+        
+        // selected sukan list
+        $sukan_selected = null;
+        if(isset($model->sukan) && $model->sukan != ''){
+            $sukan_selected=explode(',',$model->sukan);
+        }
+        
+        // Senarai Atlet Yang Memenangi
+        echo '<label class="control-label">'.$model->getAttributeLabel('sukan').'</label>';
+        echo Select2::widget([
+            'model' => $model,
+            'id' => 'user-sukan',
+            'name' => 'User[sukan]',
+            'value' => $sukan_selected, // initial value
+            'data' => ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
+            'options' => ['placeholder' => Placeholder::sukan, 'multiple' => true],
+            'pluginOptions' => [
+                'tags' => true,
+                'maximumInputLength' => 10
+            ],
+            'disabled' => $readonly
+        ]);
+        
+        
+        
         ?>
+    
+    <br>
 
     <!--<?= $form->field($model, 'username')->textInput(['maxlength' => 255]) ?>
 

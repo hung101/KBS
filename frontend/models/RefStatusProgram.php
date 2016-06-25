@@ -17,6 +17,11 @@ use Yii;
  */
 class RefStatusProgram extends \yii\db\ActiveRecord
 {
+    const LULUS = 1;
+    const DALAM_PROSES = 2;
+    const KIV = 3;
+    const TIDAK_LULUS = 4;
+    
     /**
      * @inheritdoc
      */

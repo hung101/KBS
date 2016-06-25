@@ -18,6 +18,11 @@ use app\models\general\Upload;
 use app\models\Atlet;
 use app\models\RefKategoriKecergasan;
 use app\models\RefKejohanan;
+use app\models\RefSukan;
+use app\models\RefAcara;
+use app\models\RefProgramSemasaSukanAtlet;
+use app\models\PerancanganProgram;
+use app\models\RefJenisAktiviti;
 
 /**
  * PenilaianPestasiController implements the CRUD actions for PenilaianPestasi model.
@@ -66,8 +71,20 @@ class PenilaianPestasiController extends Controller
         $ref = RefKategoriKecergasan::findOne(['id' => $model->kategori_kecergasan]);
         $model->kategori_kecergasan = $ref['desc'];
         
-        $ref = RefKejohanan::findOne(['id' => $model->kejohanan]);
-        $model->kejohanan = $ref['desc'];
+        //$ref = RefKejohanan::findOne(['id' => $model->kejohanan]);
+        //$model->kejohanan = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefAcara::findOne(['id' => $model->acara]);
+        $model->acara = $ref['desc'];
+        
+        $ref = PerancanganProgram::findOne(['perancangan_program_id' => $model->kejohanan]);
+        $model->kejohanan = $ref['nama_program'];
+        
+        $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program]);
+        $model->program = $ref['desc'];
         
         $queryPar = null;
         

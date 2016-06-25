@@ -84,8 +84,14 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
+        
+        $model->scenario = 'create';
+        
+        if ($model->load(Yii::$app->request->post())) {
+            $model->sukan = implode(",",$model->sukan);
+        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if (Yii::$app->request->post() && $model->validate()) {
             
             $model->setPassword($model->new_password);
             $model->generateAuthKey();
@@ -110,11 +116,16 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        
+        if ($model->load(Yii::$app->request->post()) && $model->sukan) {
+            $model->sukan = implode(",",$model->sukan);
+        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if (Yii::$app->request->post() && $model->validate()) {
             //$model->password_hash = Yii::$app->security->generatePasswordHash($model->new_password);
             if($model->new_password != ''){
                 $model->setPassword($model->new_password);
+                $model->login_attempted = 0; //reset login attempt
             }
             
             if($model->save()){

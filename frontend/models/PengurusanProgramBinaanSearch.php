@@ -12,14 +12,17 @@ use app\models\PengurusanProgramBinaan;
  */
 class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
 {
+    public $status_permohonan_id;
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['pengurusan_program_binaan_id'], 'integer'],
-            [['nama_ppn', 'pengurus_pn', 'kategori_permohonan', 'jenis_permohonan', 'sukan', 'tempat', 'tahap', 'negeri', 'daerah', 'tarikh_mula', 'tarikh_tamat', 'sokongan_pn', 'kelulusan'], 'safe'],
+            [['pengurusan_program_binaan_id', 'status_permohonan_id'], 'integer'],
+            [['nama_ppn', 'pengurus_pn', 'kategori_permohonan', 'jenis_permohonan', 'sukan', 'tempat', 'tahap', 'negeri', 'daerah', 'tarikh_mula', 'tarikh_tamat',
+                'sokongan_pn', 'kelulusan', 'status_permohonan', 'aktiviti', 'nama_aktiviti'], 'safe'],
         ];
     }
 
@@ -45,7 +48,9 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
                 ->joinWith(['refKategoriPermohonan'])
                 ->joinWith(['refJenisPermohonan'])
                 ->joinWith(['refSokongPn'])
-                ->joinWith(['refKelulusanProgramBinaan']);
+                ->joinWith(['refKelulusanProgramBinaan'])
+                ->joinWith(['refStatusPermohonanProgramBinaan'])
+                ->joinWith(['refPerancanganProgram']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -65,6 +70,7 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
             'tarikh_tamat' => $this->tarikh_tamat,
             //'sokongan_pn' => $this->sokongan_pn,
             //'kelulusan' => $this->kelulusan,
+            'status_permohonan' => $this->status_permohonan_id,
         ]);
 
         $query->andFilterWhere(['like', 'nama_ppn', $this->nama_ppn])
@@ -77,7 +83,10 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
             ->andFilterWhere(['like', 'tempat', $this->tempat])
             ->andFilterWhere(['like', 'tahap', $this->tahap])
             ->andFilterWhere(['like', 'negeri', $this->negeri])
-            ->andFilterWhere(['like', 'daerah', $this->daerah]);
+            ->andFilterWhere(['like', 'daerah', $this->daerah])
+                ->andFilterWhere(['like', 'nama_aktiviti', $this->nama_aktiviti])
+                ->andFilterWhere(['like', 'tbl_ref_status_permohonan_program_binaan.desc', $this->status_permohonan])
+                ->andFilterWhere(['like', 'tbl_perancangan_program.nama_program', $this->aktiviti]);
 
         return $dataProvider;
     }

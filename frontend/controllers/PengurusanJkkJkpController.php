@@ -74,8 +74,8 @@ class PengurusanJkkJkpController extends Controller
         $ref = RefStatusJkkJkp::findOne(['id' => $model->status]);
         $model->status = $ref['desc'];
         
-        $ref = RefNamaAhliJkkJkp::findOne(['id' => $model->nama_pegawai_coach]);
-        $model->nama_pegawai_coach = $ref['desc'];
+        //$ref = RefNamaAhliJkkJkp::findOne(['id' => $model->nama_pegawai_coach]);
+        //$model->nama_pegawai_coach = $ref['desc'];
         
         $ref = RefJawatanJkkJkp::findOne(['id' => $model->jawatan]);
         $model->jawatan = $ref['desc'];

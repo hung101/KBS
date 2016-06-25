@@ -28,9 +28,32 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'anugerah_ahli_jawantankuasa_pemilihan_id',
-            'perwakilan',
-            'nama',
-            'jawatan',
+            //'perwakilan',
+            [
+                'attribute' => 'perwakilan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::perwakilan,
+                ],
+                'value' => 'refPerwakilan.desc'
+            ],
+            //'nama',
+            [
+                'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ],
+            ],
+            //'jawatan',
+            [
+                'attribute' => 'jawatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jawatan,
+                ],
+                'value' => 'refJawatanJawatankuasaPemilihan.desc'
+            ],
             //'created_by',
             // 'updated_by',
             // 'created',

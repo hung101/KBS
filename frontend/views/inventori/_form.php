@@ -242,6 +242,17 @@ use app\models\general\GeneralMessage;
         ],
     ]); ?>
     
+    <?php 
+        $jumlah = 0.00;
+        foreach($dataProviderInventoriPeralatan->models as $PTLmodel){
+            $jumlah += $PTLmodel->jumlah;
+        }
+    ?>
+    
+    <?php 
+        echo "<label>Jumlah Keseluruhan: </label> RM" . $jumlah;
+    ?>
+    
     <?php Pjax::end(); ?>
     
     <?php if(!$readonly): ?>

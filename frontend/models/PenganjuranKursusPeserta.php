@@ -101,7 +101,9 @@ class PenganjuranKursusPeserta extends \yii\db\ActiveRecord
             [['tarikh', 'tahun_berkhidmat_mula', 'tahun_berkhidmat_tamat'], 'safe'],
             [['yuran'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['kelulusan', 'sukan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['kategori_kursus', 'nama_kursus', 'tempat', 'nama_penuh', 'pekerjaan', 'nama_majikan', 'kelulusan_akademi', 'nama_kelulusan', 'kelulusan_sukan_spesifik', 'nama_sukan_akademi', 'kelulusan_sains_sukan', 'sijil_spkk_msn', 'lesen_kejurulatihan_msn', 'lantikan', 'nama_sukan_jurulatih'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kategori_kursus', 'nama_kursus', 'tempat', 'nama_penuh', 'pekerjaan', 'nama_majikan', 'kelulusan_akademi', 'nama_kelulusan', 
+                'kelulusan_sukan_spesifik', 'nama_sukan_akademi', 'kelulusan_sains_sukan', 'sijil_spkk_msn', 'lesen_kejurulatihan_msn', 
+                'lantikan', 'nama_sukan_jurulatih', 'catatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kod_kursus', 'alamat_negeri', 'alamat_majikan_negeri', 'status_jurulatih', 'no_lesen'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik_gambar', 'emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -176,6 +178,7 @@ class PenganjuranKursusPeserta extends \yii\db\ActiveRecord
             'kelulusan' => GeneralLabel::kelulusan,
             'maklumat_persamaan_taraf' => GeneralLabel::maklumat_persamaan_taraf,
             'sukan' => GeneralLabel::sukan,
+            'catatan' => GeneralLabel::catatan,
         ];
     }
     

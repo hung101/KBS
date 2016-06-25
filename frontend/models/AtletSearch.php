@@ -12,6 +12,10 @@ use app\models\Atlet;
  */
 class AtletSearch extends Atlet
 {
+    public $tawaran_id;
+    public $sukan;
+    public $program;
+    
     /**
      * @inheritdoc
      */
@@ -22,8 +26,8 @@ class AtletSearch extends Atlet
                 'taraf_perkahwinan', 'bahasa_ibu', 'no_sijil_lahir', 'ic_no', 'ic_no_lama', 'passport_no', 'passport_tempat_dikeluarkan', 
                 'lesen_memandu_no', 'lesen_tamat_tempoh', 'jenis_lesen', 'emel', 'facebook', 'twitter', 'alamat_rumah_1', 'alamat_rumah_2', 
                 'alamat_rumah_3', 'alamat_surat_menyurat_1','alamat_surat_menyurat_2','alamat_surat_menyurat_3','dari_bahagian', 'sumber', 
-                'negeri_diwakili', 'nama_kecemasan', 'pertalian_kecemasan', 'tawaran'], 'safe'],
-            [['umur', 'tel_bimbit_no_1', 'tel_bimbit_no_2', 'tel_no', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan'], 'integer'],
+                'negeri_diwakili', 'nama_kecemasan', 'pertalian_kecemasan', 'tawaran', 'sukan', 'program'], 'safe'],
+            [['umur', 'tel_bimbit_no_1', 'tel_bimbit_no_2', 'tel_no', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan', 'tawaran_id'], 'integer'],
             [['tinggi', 'berat'], 'number'],
         ];
     }
@@ -47,11 +51,30 @@ class AtletSearch extends Atlet
     public function search($params)
     {
         $query = Atlet::find()
-                ->joinWith(['refStatusTawaran']);
+                ->joinWith(['refStatusTawaran'])
+                 ->joinWith(['refAtletSukan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        
+        // Important: here is how we set up the sorting
+        // The key is the attribute name on our "TourSearch" instance
+        $dataProvider->sort->attributes['sukan'] = [
+            // The tables are the ones our relation are configured to
+            // in my case they are prefixed with "tbl_"
+            'asc' => ['tbl_atlet_sukan.nama_sukan' => SORT_ASC],
+            'desc' => ['tbl_atlet_sukan.nama_sukan' => SORT_DESC],
+        ];
+        
+        // Important: here is how we set up the sorting
+        // The key is the attribute name on our "TourSearch" instance
+        $dataProvider->sort->attributes['program'] = [
+            // The tables are the ones our relation are configured to
+            // in my case they are prefixed with "tbl_"
+            'asc' => ['tbl_atlet_sukan.program_semasa' => SORT_ASC],
+            'desc' => ['tbl_atlet_sukan.program_semasa' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -78,8 +101,11 @@ class AtletSearch extends Atlet
             'tel_no' => $this->tel_no,
             'tel_no_kecemasan' => $this->tel_no_kecemasan,
             'tel_bimbit_no_kecemasan' => $this->tel_bimbit_no_kecemasan,
-            //'tawaran' => $this->tawaran,
+            //'tawaran' => $this->tawaran_id,
+            'tawaran' => $this->tawaran,
         ]);
+        
+        
 
         $query->andFilterWhere(['like', 'atlet_id', $this->atlet_id])
             ->andFilterWhere(['like', 'name_penuh', $this->name_penuh])
@@ -111,7 +137,25 @@ class AtletSearch extends Atlet
             ->andFilterWhere(['like', 'negeri_diwakili', $this->negeri_diwakili])
             ->andFilterWhere(['like', 'nama_kecemasan', $this->nama_kecemasan])
             ->andFilterWhere(['like', 'pertalian_kecemasan', $this->pertalian_kecemasan])
-                ->andFilterWhere(['like', 'tbl_ref_status_tawaran.desc', $this->tawaran]);
+                //->andFilterWhere(['like', 'tbl_ref_status_tawaran.desc', $this->tawaran])
+                ->andFilterWhere(['like', 'tbl_atlet_sukan.nama_sukan', $this->sukan])
+                ->andFilterWhere(['like', 'tbl_atlet_sukan.program_semasa', $this->program]);
+        
+        // add filter base on sukan access role in tbl_user->sukan - START
+        if(Yii::$app->user->identity->sukan){
+            $sukan_access=explode(',',Yii::$app->user->identity->sukan);
+            
+            $arr_sukan_filter = array();
+            
+            for($i = 0; $i < count($sukan_access); $i++){
+                $arr_sukan = null;
+                $arr_sukan = array('tbl_atlet_sukan.nama_sukan'=>$sukan_access[$i]); 
+                    array_push($arr_sukan_filter,$arr_sukan);
+            }
+            
+            //$query->andFilterWhere(['tbl_atlet_sukan.nama_sukan'=>$arr_sukan_filter]);
+        }
+        // add filter base on sukan access role in tbl_user->sukan - END
 
         return $dataProvider;
     }

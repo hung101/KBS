@@ -3,6 +3,10 @@
 namespace app\models;
 
 use Yii;
+use yii\web\UploadedFile;
+use app\models\general\Upload;
+use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 
 /**
  * This is the model class for table "tbl_maklumat_pegawai_teknikal".
@@ -71,6 +75,7 @@ class MaklumatPegawaiTeknikal extends \yii\db\ActiveRecord
             [['alamat_e_mail', 'tahap_kelayakan_sukan_peringkat_kebangsaan', 'tahap_kelayakan_sukan_peringkat_antarabangsa', 'session_id'], 'string', 'max' => 100],
             [['gred'], 'string', 'max' => 10],
             [['tempat'], 'string', 'max' => 90],
+            [['tahap_kelayakan_sukan_peringkat_kebangsaan', 'tahap_kelayakan_sukan_peringkat_antarabangsa'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -85,18 +90,18 @@ class MaklumatPegawaiTeknikal extends \yii\db\ActiveRecord
             'badan_sukan' => 'Badan Sukan',
             'sukan' => 'Sukan',
             'nama' => 'Nama',
-            'alamat_1' => 'Alamat 1',
-            'alamat_2' => 'Alamat 2',
-            'alamat_3' => 'Alamat 3',
-            'alamat_negeri' => 'Alamat Negeri',
-            'alamat_bandar' => 'Alamat Bandar',
-            'alamat_poskod' => 'Alamat Poskod',
+            'alamat_1' => 'Alamat',
+            'alamat_2' => '',
+            'alamat_3' => '',
+            'alamat_negeri' => 'Negeri',
+            'alamat_bandar' => 'Bandar',
+            'alamat_poskod' => 'Poskod',
             'no_kad_pengenalan' => 'No Kad Pengenalan',
             'umur' => 'Umur',
             'no_passport' => 'No Passport',
             'jantina' => 'Jantina',
             'no_telefon' => 'No Telefon',
-            'alamat_e_mail' => 'Alamat E Mail',
+            'alamat_e_mail' => 'Alamat E-Mail',
             'tahap_akademik' => 'Tahap Akademik',
             'tahap_kelayakan_sukan_peringkat_kebangsaan' => 'Tahap Kelayakan Sukan Peringkat Kebangsaan',
             'tahap_kelayakan_sukan_peringkat_antarabangsa' => 'Tahap Kelayakan Sukan Peringkat Antarabangsa',
@@ -105,7 +110,7 @@ class MaklumatPegawaiTeknikal extends \yii\db\ActiveRecord
             'no_faks' => 'No Faks',
             'jawatan' => 'Jawatan',
             'gred' => 'Gred',
-            'nama_kejohanan_kursus' => 'Nama Kejohanan Kursus',
+            'nama_kejohanan_kursus' => 'Nama Kejohanan / Kursus',
             'tarikh_mula' => 'Tarikh Mula',
             'tarikh_tamat' => 'Tarikh Tamat',
             'tempat' => 'Tempat',
@@ -115,5 +120,30 @@ class MaklumatPegawaiTeknikal extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefProfilBadanSukan(){
+        return $this->hasOne(ProfilBadanSukan::className(), ['profil_badan_sukan' => 'badan_sukan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSukan(){
+        return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
     }
 }

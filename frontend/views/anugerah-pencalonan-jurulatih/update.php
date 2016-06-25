@@ -2,13 +2,17 @@
 
 use yii\helpers\Html;
 
+// contant values
+use app\models\general\GeneralLabel;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\AnugerahPencalonanJurulatih */
 
-$this->title = 'Update Anugerah Pencalonan Jurulatih: ' . $model->anugerah_pencalonan_jurulatih_id;
-$this->params['breadcrumbs'][] = ['label' => 'Anugerah Pencalonan Jurulatihs', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->anugerah_pencalonan_jurulatih_id, 'url' => ['view', 'id' => $model->anugerah_pencalonan_jurulatih_id]];
-$this->params['breadcrumbs'][] = 'Update';
+
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::anugerah_pencalonan_jurulatih;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::anugerah_pencalonan_jurulatih, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::anugerah_pencalonan_jurulatih, 'url' => ['view', 'id' => $model->anugerah_pencalonan_jurulatih_id]];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="anugerah-pencalonan-jurulatih-update">
 

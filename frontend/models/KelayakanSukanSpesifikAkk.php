@@ -3,7 +3,8 @@
 namespace app\models;
 
 use Yii;
-
+use yii\web\UploadedFile;
+use app\models\general\Upload;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
@@ -55,7 +56,8 @@ class KelayakanSukanSpesifikAkk extends \yii\db\ActiveRecord
             [['akademi_akk_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tahun_lulus'], 'safe'],
             [['nama_kursus', 'persatuan_sukan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tahap'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['tahap'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -71,7 +73,18 @@ class KelayakanSukanSpesifikAkk extends \yii\db\ActiveRecord
             'tahap' => GeneralLabel::tahap,
             'tahun_lulus' => GeneralLabel::tahun_lulus,
             'persatuan_sukan' => GeneralLabel::persatuan_sukan,
-
+            'muat_naik' => GeneralLabel::muat_naik,
         ];
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
     }
 }

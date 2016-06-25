@@ -12,6 +12,13 @@ use yii\filters\VerbFilter;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
 
+use app\models\RefSukan;
+use app\models\RefAcara;
+use app\models\RefStatusPencalonan;
+use app\models\Jurulatih;
+use app\models\RefKategoriPencalonanJurulatih;
+use app\models\RefTahapKelayakanJurulatih;
+
 /**
  * AnugerahPencalonanJurulatihController implements the CRUD actions for AnugerahPencalonanJurulatih model.
  */
@@ -62,8 +69,22 @@ class AnugerahPencalonanJurulatihController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $model = $this->findModel($id);
+        
+        $ref = RefKategoriPencalonanJurulatih::findOne(['id' => $model->kategori]);
+        $model->kategori = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = Jurulatih::findOne(['jurulatih_id' => $model->nama_jurulatih]);
+        $model->nama_jurulatih = $ref['nameAndIC'];
+        
+        $ref = RefTahapKelayakanJurulatih::findOne(['id' => $model->sijil_kejurulatihan_spesifik]);
+        $model->sijil_kejurulatihan_spesifik = $ref['desc'];
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

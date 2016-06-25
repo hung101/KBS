@@ -12,14 +12,16 @@ use app\models\PerancanganProgram;
  */
 class PerancanganProgramSearch extends PerancanganProgram
 {
+    public $status_program_id;
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['perancangan_program_id'], 'integer'],
-            [['tarikh_tamat', 'nama_program', 'muat_naik'], 'safe'],
+            [['perancangan_program_id', 'status_program_id'], 'integer'],
+            [['tarikh_tamat', 'nama_program', 'muat_naik', 'tarikh_mula', 'status_program'], 'safe'],
         ];
     }
 
@@ -41,7 +43,8 @@ class PerancanganProgramSearch extends PerancanganProgram
      */
     public function search($params)
     {
-        $query = PerancanganProgram::find();
+        $query = PerancanganProgram::find()
+                ->joinWith(['refStatusProgram']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,11 +60,14 @@ class PerancanganProgramSearch extends PerancanganProgram
 
         $query->andFilterWhere([
             'perancangan_program_id' => $this->perancangan_program_id,
-            'tarikh_tamat' => $this->tarikh_tamat,
+            'status_program' => $this->status_program_id,
         ]);
 
         $query->andFilterWhere(['like', 'nama_program', $this->nama_program])
-            ->andFilterWhere(['like', 'muat_naik', $this->muat_naik]);
+            ->andFilterWhere(['like', 'muat_naik', $this->muat_naik])
+                ->andFilterWhere(['like', 'tarikh_tamat', $this->tarikh_tamat])
+                ->andFilterWhere(['like', 'tarikh_mula', $this->tarikh_mula])
+                ->andFilterWhere(['like', 'tbl_ref_status_program.desc', $this->status_program]);
 
         return $dataProvider;
     }

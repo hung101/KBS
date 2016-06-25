@@ -13,6 +13,7 @@ use app\models\RefReportFormat;
 use app\models\RefStatusPerlesenanAkk;
 use app\models\RefKategoriPensijilanAkademiAkk;
 use app\models\RefSukan;
+use app\models\RefKategoriJurulatih;
 
 // contant values
 use app\models\general\Placeholder;
@@ -129,6 +130,29 @@ $this->params['breadcrumbs'][] = $this->title;
                         ] : null,
                         'data'=>ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'kategori_jurulatih' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefKategoriJurulatih::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kategori],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],

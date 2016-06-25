@@ -22,6 +22,7 @@ class RefJenisAktiviti extends \yii\db\ActiveRecord
     const KEJOHANAN_LUAR_NEGARA = 2;
     const PENDEDAHAN_LATIHAN_DALAM_NEGARA = 3;
     const PENDEDAHAN_LATIHAN_LUAR_NEGARA = 4;
+    const PROGRAM_BINAAN = 5;
     
     /**
      * @inheritdoc

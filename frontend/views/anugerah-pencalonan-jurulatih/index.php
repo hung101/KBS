@@ -28,10 +28,42 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'anugerah_pencalonan_jurulatih_id',
-            'kategori',
-            'sukan',
-            'nama_jurulatih',
-            'no_kad_pengenalan',
+            //'kategori',
+            [
+                'attribute' => 'kategori',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori,
+                ],
+                'value' => 'refKategoriPencalonanJurulatih.desc'
+            ],
+            //'sukan',
+            [
+                'attribute' => 'sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
+                'value' => 'refSukan.desc'
+            ],
+            //'nama_jurulatih',
+            [
+                'attribute' => 'nama_jurulatih',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_jurulatih,
+                ],
+                'value' => 'refJurulatih.nama'
+            ],
+            //'no_kad_pengenalan',
+            [
+                'attribute' => 'no_kad_pengenalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
+                ],
+                //'value' => 'refKategoriPencalonanAtlet.desc'
+            ],
             // 'no_telefon_1',
             // 'no_telefon_2',
             // 'sijil_kejurulatihan_spesifik',

@@ -28,9 +28,32 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'anugerah_pencalonan_pasukan_id',
-            'kategori',
-            'sukan',
-            'nama_pasukan',
+            //'kategori',
+            [
+                'attribute' => 'kategori',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori,
+                ],
+                'value' => 'refKategoriPencalonanPasukan.desc'
+            ],
+            //'sukan',
+            [
+                'attribute' => 'sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
+                'value' => 'refSukan.desc'
+            ],
+            //'nama_pasukan',
+            [
+                'attribute' => 'nama_pasukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pasukan,
+                ],
+            ],
             //'gambar_pasukan',
             // 'ulasan_pencapaian',
             // 'created_by',

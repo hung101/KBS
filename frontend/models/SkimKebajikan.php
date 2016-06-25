@@ -84,7 +84,7 @@ class SkimKebajikan extends \yii\db\ActiveRecord
             'lokasi_kejadian' => GeneralLabel::lokasi_kejadian,
             'jenis_bantuan_lain_yang_diterima' => GeneralLabel::jenis_bantuan_lain_yang_diterima,
             'kelulusan' => GeneralLabel::kelulusan,
-
+            'jumlah_kos_perubatan' => 'Jumlah Kos Perubatan (RM)'
         ];
     }
     
@@ -104,6 +104,6 @@ class SkimKebajikan extends \yii\db\ActiveRecord
     
     public function getRefJenisBantuanSKAK()
     {
-        return $this->hasOne(RefJenisBantuanSkak::className(), ['id' => 'jenis_bantuan_skak']);
+        return $this->hasOne(RefJenisKebajikan::className(), ['id' => 'jenis_bantuan_skak']);
     }
 }

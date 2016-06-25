@@ -46,7 +46,9 @@ class AnugerahPencalonanAtletSearch extends AnugerahPencalonanAtlet
     {
         $query = AnugerahPencalonanAtlet::find()
                 ->joinWith(['refSukan'])
-                ->joinWith(['refAcara']);
+                ->joinWith(['refAcara'])
+                ->joinWith(['refKategoriPencalonanAtlet'])
+                ->joinWith(['refAtlet']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -73,7 +75,7 @@ class AnugerahPencalonanAtletSearch extends AnugerahPencalonanAtlet
             'kelulusan' => $this->kelulusan,
         ]);
 
-        $query->andFilterWhere(['like', 'nama_atlet', $this->nama_atlet])
+        $query->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->nama_atlet])
             ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->nama_sukan])
             ->andFilterWhere(['like', 'tbl_ref_acara.desc', $this->nama_acara])
             ->andFilterWhere(['like', 'status_pencalonan', $this->status_pencalonan])
@@ -92,7 +94,7 @@ class AnugerahPencalonanAtletSearch extends AnugerahPencalonanAtlet
             ->andFilterWhere(['like', 'pencalonan_olahragawan_harapan_tahun', $this->pencalonan_olahragawan_harapan_tahun])
             ->andFilterWhere(['like', 'pencalonan_olahragawati_harapan_tahun', $this->pencalonan_olahragawati_harapan_tahun])
             ->andFilterWhere(['like', 'nama_kategori', $this->nama_kategori])
-                ->andFilterWhere(['like', 'kategori', $this->kategori]);
+                ->andFilterWhere(['like', 'tbl_ref_kategori_pencalonan_atlet.desc', $this->kategori]);
 
         return $dataProvider;
     }

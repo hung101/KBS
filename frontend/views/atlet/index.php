@@ -12,6 +12,8 @@ use app\models\general\GeneralLabel;
 use app\models\general\Placeholder;
 
 use app\models\RefStatusTawaran;
+use app\models\RefSukan;
+use app\models\RefProgramSemasaSukanAtlet;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AtletSearch */
@@ -25,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
         $template = '{view}';
         
-        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['tawaran'])){
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['update'])){
             $template .= ' {update}';
         }
         
@@ -49,9 +51,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            [
+           /* [
                 'class' => 'yii\grid\CheckboxColumn',
-            ],
+            ],*/
             ['class' => 'yii\grid\SerialColumn'],
             //'atlet_id',
             [
@@ -86,12 +88,45 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],*/
             [
+                'attribute' => 'sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
+                //'value' => 'refAtletSukan.nama_sukan'
+                'value'=>function ($model) {
+                    if(isset($model->refAtletSukan[0]->nama_sukan) && $sukanModel = RefSukan::find()->where(['=', 'id', $model->refAtletSukan[0]->nama_sukan])->one()){
+                        return $sukanModel->desc;
+                    } else {
+                        return "";
+                    }
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'sukan', ArrayHelper::map(RefSukan::find()->asArray()->all(), 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Sukan --']),
+            ],
+            [
+                'attribute' => 'program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program,
+                ],
+                //'value' => 'refAtletSukan.nama_sukan'
+                'value'=>function ($model) {
+                    if(isset($model->refAtletSukan[0]->program_semasa) && $programModel = RefProgramSemasaSukanAtlet::find()->where(['=', 'id', $model->refAtletSukan[0]->program_semasa])->one()){
+                        return $programModel->desc;
+                    } else {
+                        return "";
+                    }
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'program', ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->asArray()->all(), 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Program --']),
+            ],
+            [
                 'attribute' => 'tawaran',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tawaran,
                 ],
-                'value' => 'refStatusTawaran.desc'
+                'value' => 'refStatusTawaran.desc',
+                'filter' => Html::activeDropDownList($searchModel, 'tawaran', ArrayHelper::map(RefStatusTawaran::find()->asArray()->all(), 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Status --']),
             ],
             /*[
                 'attribute' => 'tarikh_lahir',
@@ -170,7 +205,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-        <div class="row">
+        <!--<div class="row">
             <div class="col-lg-2">
                 <?php 
         //echo Html::dropDownList('action','',ArrayHelper::map(RefStatusTawaran::find()->all(),'id', 'desc'),['class'=>'dropdown',]);
@@ -187,7 +222,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-lg-2">
                 <?=Html::submitButton(GeneralLabel::send, ['class' => 'btn btn-info',]);?>
             </div>
-        </div>
+        </div>-->
     
     
     <?= Html::endForm();?> 

@@ -54,6 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ->where('atlet_id = :atlet_id', [':atlet_id' => $atlet_id])->orderBy(['created' => SORT_DESC,])->one();
     ?>
     
+    <h3><?=$modelAtlet->name_penuh?></h3>
     
     <?php
         if($modelAtlet !== null && $modelAtlet->gambar){

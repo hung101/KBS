@@ -55,4 +55,18 @@ class AnugerahAhliJawantankuasaPengelola extends \yii\db\ActiveRecord
             'updated' => 'Updated',
         ];
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefAjk(){
+        return $this->hasOne(RefAjk::className(), ['id' => 'ajk']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefBahagianAjk(){
+        return $this->hasOne(RefBahagianAjk::className(), ['id' => 'bahagian']);
+    }
 }

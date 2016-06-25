@@ -39,3 +39,5 @@ div.required label:after {
 .chart-legend ul{
     list-style: none;
 }
+
+.CGridViewContainer { width: 100%; overflow: auto; }

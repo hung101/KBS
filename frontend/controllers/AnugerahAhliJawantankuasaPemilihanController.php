@@ -12,6 +12,9 @@ use yii\filters\VerbFilter;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
 
+use app\models\RefJawatanJawatankuasaPemilihan;
+use app\models\RefPerwakilan;
+
 /**
  * AnugerahAhliJawantankuasaPemilihanController implements the CRUD actions for AnugerahAhliJawantankuasaPemilihan model.
  */
@@ -54,8 +57,16 @@ class AnugerahAhliJawantankuasaPemilihanController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        
+        $ref = RefJawatanJawatankuasaPemilihan::findOne(['id' => $model->jawatan]);
+        $model->jawatan = $ref['desc'];
+        
+        $ref = RefPerwakilan::findOne(['id' => $model->perwakilan]);
+        $model->perwakilan = $ref['desc'];
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

@@ -60,7 +60,7 @@ class AtletOkuController extends Controller
         $session->close();
         
         $searchModel = new AtletOkuSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryPar);
 
         $renderContent = $this->renderAjax('index', [
             'searchModel' => $searchModel,

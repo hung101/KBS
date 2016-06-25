@@ -60,4 +60,11 @@ class PenilaianPrestasiAtletSasaran extends \yii\db\ActiveRecord
             'updated' => 'Updated',
         ];
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefAtlet(){
+        return $this->hasOne(Atlet::className(), ['atlet_id' => 'atlet']);
+    }
 }

@@ -58,7 +58,7 @@ class JurulatihKeluargaController extends Controller
         $session->close();
         
         $searchModel = new JurulatihKeluargaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryPar);
 
         $renderContent = $this->renderAjax('index', [
             'searchModel' => $searchModel,

@@ -11,8 +11,11 @@ use yii\filters\VerbFilter;
 
 // table reference
 use app\models\Atlet;
-use app\models\RefJenisBantuanSkak;
+use app\models\RefJenisKebajikan;
 use app\models\RefSukan;
+use app\models\RefPerkara;
+use app\models\RefSukanSkimKebajikan;
+use app\models\RefJenisPermohonanSkim;
 
 // contant values
 use app\models\general\GeneralLabel;
@@ -64,8 +67,17 @@ class SkimKebajikanController extends Controller
         $ref = RefSukan::findOne(['id' => $model->jenis_sukan]);
         $model->jenis_sukan = $ref['desc'];
         
-        $ref = RefJenisBantuanSkak::findOne(['id' => $model->jenis_bantuan_skak]);
+        $ref = RefJenisKebajikan::findOne(['id' => $model->jenis_bantuan_skak]);
         $model->jenis_bantuan_skak = $ref['desc'];
+        
+        $ref = RefPerkara::findOne(['id' => $model->perkara]);
+        $model->perkara = $ref['desc'];
+        
+        $ref = RefSukanSkimKebajikan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefJenisPermohonanSkim::findOne(['id' => $model->jenis_permohonan]);
+        $model->jenis_permohonan = $ref['desc'];
         
         $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         $model->kelulusan = $YesNo;

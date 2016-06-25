@@ -3,9 +3,10 @@
 namespace app\models;
 
 use Yii;
-
-use app\models\general\GeneralLabel;
+use yii\web\UploadedFile;
+use app\models\general\Upload;
 use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 
 /**
  * This is the model class for table "tbl_anugerah_pencalonan_pasukan".
@@ -30,6 +31,24 @@ class AnugerahPencalonanPasukan extends \yii\db\ActiveRecord
     {
         return 'tbl_anugerah_pencalonan_pasukan';
     }
+    
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior',
+            [
+                'class' => \yii\behaviors\BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'updated',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -44,6 +63,7 @@ class AnugerahPencalonanPasukan extends \yii\db\ActiveRecord
             [['nama_pasukan'], 'string', 'max' => 80],
             [['gambar_pasukan'], 'string', 'max' => 100],
             [['ulasan_pencapaian'], 'string', 'max' => 255],
+            [['gambar_pasukan'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -64,5 +84,30 @@ class AnugerahPencalonanPasukan extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSukan(){
+        return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKategoriPencalonanPasukan(){
+        return $this->hasOne(RefKategoriPencalonanPasukan::className(), ['id' => 'kategori']);
     }
 }

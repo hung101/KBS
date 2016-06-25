@@ -35,7 +35,7 @@ use app\models\general\GeneralMessage;
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
     
-    <?php echo $form->errorSummary($model); ?>
+    <?php //echo $form->errorSummary($model); ?>
     
     <?php
         echo FormGrid::widget([

@@ -41,7 +41,9 @@ class MaklumatPegawaiTeknikalSearch extends MaklumatPegawaiTeknikal
      */
     public function search($params)
     {
-        $query = MaklumatPegawaiTeknikal::find();
+        $query = MaklumatPegawaiTeknikal::find()
+                ->joinWith(['refProfilBadanSukan'])
+                ->joinWith(['refSukan']);
 
         // add conditions that should always apply here
 
@@ -70,8 +72,8 @@ class MaklumatPegawaiTeknikalSearch extends MaklumatPegawaiTeknikal
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'badan_sukan', $this->badan_sukan])
-            ->andFilterWhere(['like', 'sukan', $this->sukan])
+        $query->andFilterWhere(['like', 'tbl_profil_badan_sukan.nama_badan_sukan', $this->badan_sukan])
+            ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
             ->andFilterWhere(['like', 'nama', $this->nama])
             ->andFilterWhere(['like', 'alamat_1', $this->alamat_1])
             ->andFilterWhere(['like', 'alamat_2', $this->alamat_2])

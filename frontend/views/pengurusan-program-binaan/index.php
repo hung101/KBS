@@ -48,28 +48,43 @@ $this->params['breadcrumbs'][] = $this->title;
             //'nama_ppn',
             //'pengurus_pn',
             //'kategori_permohonan',
-            [
+            /*[
                 'attribute' => 'kategori_permohonan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_permohonan,
                 ],
                 'value' => 'refKategoriPermohonan.desc'
-            ],
+            ],*/
             //'jenis_permohonan',
-            [
+            /*[
                 'attribute' => 'jenis_permohonan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_permohonan,
                 ],
                 'value' => 'refJenisPermohonan.desc'
-            ],
+            ],*/
             // 'sukan',
             // 'tempat',
             // 'tahap',
             // 'negeri',
             // 'daerah',
+            [
+                'attribute' => 'aktiviti',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::aktiviti,
+                ],
+                'value' => 'refPerancanganProgram.nama_program'
+            ],
+            [
+                'attribute' => 'nama_aktiviti',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_aktiviti,
+                ]
+            ],
              [
                 'attribute' => 'tarikh_mula',
                 'filterInputOptions' => [
@@ -85,22 +100,30 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
             // 'sokongan_pn',
-            [
+            /*[
                 'attribute' => 'sokongan_pn',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sokongan_pn,
                 ],
                 'value' => 'refSokongPn.desc'
-            ],
+            ],*/
             //'kelulusan',
-            [
+            /*[
                 'attribute' => 'kelulusan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelulusan,
                 ],
                 'value' => 'refKelulusanProgramBinaan.desc'
+            ],*/
+            [
+                'attribute' => 'status_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan,
+                ],
+                'value' => 'refStatusPermohonanProgramBinaan.desc'
             ],
 
             //['class' => 'yii\grid\ActionColumn'],

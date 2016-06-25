@@ -46,6 +46,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'perancangan_program_id',
             [
+                'attribute' => 'tarikh_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
+                ]
+            ],
+            [
                 'attribute' => 'tarikh_tamat',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -77,6 +84,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         return "";
                     }
                 },
+            ],
+            [
+                'attribute' => 'status_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_program,
+                ],
+                    'value' => 'refStatusProgram.desc'
             ],
 
             //['class' => 'yii\grid\ActionColumn'],

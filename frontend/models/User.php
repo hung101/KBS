@@ -61,14 +61,17 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [['username', 'jabatan_id', 'peranan', 'full_name', 'status', 'ipt_bendahari_e_biasiswa'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['jabatan_id', 'peranan', 'status', 'profil_badan_sukan', 'ipt_bendahari_e_biasiswa', 'no_kad_pengenalan', 'username'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jabatan_id', 'peranan', 'status', 'profil_badan_sukan', 'ipt_bendahari_e_biasiswa', 'no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['username'], 'integer', 'message' => GeneralMessage::yii_validation_integer, 'on' => 'create'],
+            [['password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['auth_key'], 'string', 'max' => 32, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['full_name', 'new_password', 'password_confirm'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['sukan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tel_mobile_no', 'tel_no'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tel_mobile_no', 'tel_no'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['email'], 'email', 'message' => GeneralMessage::yii_validation_email],
-            [['no_kad_pengenalan', 'username'], 'string', 'min' => 12, 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min],
+            [['no_kad_pengenalan'], 'string', 'min' => 12, 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min],
+            [['username'], 'string', 'min' => 12, 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min, 'on' => 'create'],
             ['new_password', 'validatePassword'],
             ['new_password', 'string', 'min' => 12, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['username'], 'unique', 'message' => GeneralMessage::yii_validation_unique]
@@ -98,7 +101,7 @@ class User extends \yii\db\ActiveRecord
             'status' => GeneralLabel::status,
             'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
             'ipt_bendahari_e_biasiswa' => GeneralLabel::ipt_bendahari_e_biasiswa,
-
+            'sukan' => GeneralLabel::sukan,
         ];
     }
     

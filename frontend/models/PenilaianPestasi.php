@@ -89,4 +89,32 @@ class PenilaianPestasi extends \yii\db\ActiveRecord
     public function getAtlet(){
         return $this->hasOne(Atlet::className(), ['atlet_id' => 'atlet_id']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSukan(){
+        return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefProgramSemasaSukanAtlet(){
+        return $this->hasOne(RefProgramSemasaSukanAtlet::className(), ['id' => 'program']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefAcara(){
+        return $this->hasOne(RefAcara::className(), ['id' => 'acara']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefPerancanganProgram(){
+        return $this->hasOne(PerancanganProgram::className(), ['perancangan_program_id' => 'kejohanan']);
+    }
 }
