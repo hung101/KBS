@@ -54,8 +54,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ->where('atlet_id = :atlet_id', [':atlet_id' => $atlet_id])->orderBy(['created' => SORT_DESC,])->one();
     ?>
     
+    <?php if($modelAtlet !== null && $modelAtlet->name_penuh): ?>
     <h3><?=$modelAtlet->name_penuh?></h3>
-    
+    <?php endif; ?>
     <?php
         if($modelAtlet !== null && $modelAtlet->gambar){
             echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$modelAtlet->gambar.'" width="200px">&nbsp;&nbsp;&nbsp;';

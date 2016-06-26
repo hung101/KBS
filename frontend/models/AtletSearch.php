@@ -153,7 +153,7 @@ class AtletSearch extends Atlet
                     array_push($arr_sukan_filter,$arr_sukan);
             }
             
-            //$query->andFilterWhere(['tbl_atlet_sukan.nama_sukan'=>$arr_sukan_filter]);
+            $query->andFilterWhere(['tbl_atlet_sukan.nama_sukan'=>$arr_sukan_filter]);
         }
         // add filter base on sukan access role in tbl_user->sukan - END
 
