@@ -13,6 +13,7 @@ use app\models\PermohonanEBiasiswa;
 class PermohonanEBiasiswaSearch extends PermohonanEBiasiswa
 {
     public $status_permohonan_desc;
+    public $no_ic;
     
     /**
      * @inheritdoc
@@ -20,7 +21,7 @@ class PermohonanEBiasiswaSearch extends PermohonanEBiasiswa
     public function rules()
     {
         return [
-            [['permohonan_e_biasiswa_id', 'semester_terkini', 'baki_semester_yang_tinggal', 'perakuan_pemohon', 'kelulusan', 'universiti_institusi', 'status_permohonan'], 'integer'],
+            [['permohonan_e_biasiswa_id', 'semester_terkini', 'baki_semester_yang_tinggal', 'perakuan_pemohon', 'kelulusan', 'universiti_institusi', 'status_permohonan', 'no_ic'], 'integer'],
             [['admin_e_biasiswa_id','muat_naik_gambar', 'nama', 'no_kad_pengenalan', 'jantina', 'keturunan', 'agama', 'taraf_perkahwinan', 'kawasan_temuduga_anda', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'no_pendaftaran_oku', 'kategori_oku', 'oku_lain_lain', 'program_pengajian', 'kursus_bidang_pengajian', 'falkulti', 'kategori', 'tarikh_tamat', 'no_matriks', 'mendapat_pembiayaan_pendidikan', 'sukan', 'status_permohonan_desc'], 'safe'],
         ];
     }
@@ -76,6 +77,7 @@ class PermohonanEBiasiswaSearch extends PermohonanEBiasiswa
             'kelulusan' => $this->kelulusan,
             'universiti_institusi' => $this->universiti_institusi,
             'status_permohonan' => $this->status_permohonan,
+            'no_kad_pengenalan' => $this->no_ic,
         ]);
 
         $query->andFilterWhere(['like', 'muat_naik_gambar', $this->muat_naik_gambar])

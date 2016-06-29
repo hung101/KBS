@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
             //'muat_naik',
-            [
+            /*[
                 'attribute' => 'muat_naik',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -84,7 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return "";
                     }
                 },
-            ],
+            ],*/
             [
                 'attribute' => 'status_program',
                 'filterInputOptions' => [

@@ -18,6 +18,10 @@ use common\models\general\GeneralFunction;
 use app\models\RefStatusPermohonan;
 use app\models\RefLatarbelakangKes;
 use app\models\Atlet;
+use app\models\ProfilBadanSukan;
+use app\models\RefCawangan;
+use app\models\Jurulatih;
+use app\models\RefProgramSemasaSukanAtlet;
 
 /**
  * PermohonanBimbinganKaunselingController implements the CRUD actions for PermohonanBimbinganKaunseling model.
@@ -68,6 +72,18 @@ class PermohonanBimbinganKaunselingController extends Controller
         
         $ref = Atlet::findOne(['atlet_id' => $model->atlet_id]);
         $model->atlet_id = $ref['nameAndIC'];
+        
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->persatuan]);
+        $model->persatuan = $ref['nama_badan_sukan'];
+        
+        $ref = RefCawangan::findOne(['id' => $model->cawangan]);
+        $model->cawangan = $ref['desc'];
+        
+        $ref = Jurulatih::findOne(['jurulatih_id' => $model->jurulatih]);
+        $model->jurulatih = $ref['nameAndIC'];
+        
+        $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program]);
+        $model->program = $ref['desc'];
         
         return $this->render('view', [
             'model' => $model,

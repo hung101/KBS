@@ -10,6 +10,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
+use app\models\general\GeneralVariable;
+
 use app\models\general\Upload;
 
 /**
@@ -35,6 +37,10 @@ class LtbsNotisAgmController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $searchModel = new LtbsNotisAgmSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -51,6 +57,10 @@ class LtbsNotisAgmController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         return $this->renderAjax('view', [
             'model' => $this->findModel($id),
             'readonly' => true,
@@ -64,6 +74,10 @@ class LtbsNotisAgmController extends Controller
      */
     public function actionCreate($mesyuarat_id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new LtbsNotisAgm();
         
         /*if($model->load(Yii::$app->request->post())){
@@ -112,6 +126,10 @@ class LtbsNotisAgmController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
         $existingNotisAGM = $model->notis_agm;
         
@@ -154,6 +172,10 @@ class LtbsNotisAgmController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $this->findModel($id)->delete();
 
         //return $this->redirect(['index']);

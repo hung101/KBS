@@ -72,6 +72,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refAcara.desc'
             ],
+            [
+                'attribute' => 'jurulatih_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jurulatih,
+                ],
+                'value' => 'refJurulatih.nama'
+            ],
             // 'tahun_umur_permulaan',
             // 'tahun_menyertai_program_msn',
             //'program_semasa',

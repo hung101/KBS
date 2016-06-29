@@ -88,9 +88,9 @@ class Journal extends \yii\db\ActiveRecord
             'alamat_negeri' => GeneralLabel::alamat_negeri,
             'alamat_bandar' => GeneralLabel::alamat_bandar,
             'alamat_poskod' => GeneralLabel::alamat_poskod,
-            'tarikh_journal' => GeneralLabel::tarikh_journal,
-            'bahagian' => GeneralLabel::bahagian,
-            'artikel_journal' => GeneralLabel::artikel_journal,
+            'tarikh_journal' => GeneralLabel::tarikh_hantar,
+            'bahagian' => GeneralLabel::jenis_terbitan,
+            'artikel_journal' => GeneralLabel::tajuk_artikel,
             'status_journal' => GeneralLabel::status_journal,
 
         ];

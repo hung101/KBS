@@ -20,6 +20,16 @@ use app\models\general\GeneralMessage;
  */
 class RefProgramSemasaSukanAtlet extends \yii\db\ActiveRecord
 {
+    const SENIOR = 1;
+    const PELAPIS_KEBANGSAAN = 2;
+    const PELAPIS_SERANTAU = 3;
+    const PELAPIS_NEGERI = 4;
+    const BAKAT = 5;
+    const SENIOR_PARALIMPIK = 6;
+    const PELAPIS_PARALIMPIK = 7;
+    const BAKAT_PARALIMPIK = 8;
+    const PODIUM = 9;
+    
     /**
      * @inheritdoc
      */

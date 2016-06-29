@@ -52,7 +52,7 @@ class SoalSelidikSebelumUjian extends \yii\db\ActiveRecord
         return [
             [['atlet_id', 'tarikh', 'pemilihan_ujian', 'pegawai_bertanggungjawab'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['tarikh'], 'safe'],
+            [['tarikh', 'jenis_sukan'], 'safe'],
             [['soalan', 'pemilihan_ujian', 'pegawai_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jawapan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
@@ -73,7 +73,7 @@ class SoalSelidikSebelumUjian extends \yii\db\ActiveRecord
             'catatan' => GeneralLabel::catatan,
             'soalan' => GeneralLabel::soalan,
             'jawapan' => GeneralLabel::jawapan,
-
+            'jenis_sukan' => GeneralLabel::jenis_sukan,
         ];
     }
     

@@ -12,14 +12,16 @@ use app\models\PermohonanBimbinganKaunseling;
  */
 class PermohonanBimbinganKaunselingSearch extends PermohonanBimbinganKaunseling
 {
+    public $atlet;
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['permohonan_bimbingan_kaunseling_id', 'bil_adik_beradik'], 'integer'],
-            [['status_permohonan', 'atlet_id', 'tarikh_rujukan', 'nama_pemohon_rujukan', 'kes_latarbelakang', 'notis', 'pekerjaan_bapa', 'pekerjaan_ibu', 'no_telefon'], 'safe'],
+            [['permohonan_bimbingan_kaunseling_id', 'bil_adik_beradik', 'atlet'], 'integer'],
+            [['status_permohonan', 'atlet_id', 'tarikh_rujukan', 'nama_pemohon_rujukan', 'kes_latarbelakang', 'notis', 'pekerjaan_bapa', 'pekerjaan_ibu', 'no_telefon', 'tarikh_temujanji'], 'safe'],
         ];
     }
 
@@ -43,7 +45,8 @@ class PermohonanBimbinganKaunselingSearch extends PermohonanBimbinganKaunseling
     {
         $query = PermohonanBimbinganKaunseling::find()
                 ->joinWith(['atlet'])
-                ->joinWith(['refStatusPermohonan']);
+                ->joinWith(['refStatusPermohonan'])
+                ->joinWith(['refLatarbelakangKes']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -62,16 +65,18 @@ class PermohonanBimbinganKaunselingSearch extends PermohonanBimbinganKaunseling
             //'atlet_id' => $this->atlet_id,
             'tarikh_rujukan' => $this->tarikh_rujukan,
             'bil_adik_beradik' => $this->bil_adik_beradik,
+            'tbl_permohonan_bimbingan_kaunseling.atlet_id' => $this->atlet,
         ]);
 
         $query->andFilterWhere(['like', 'status_permohonan', $this->status_permohonan])
             ->andFilterWhere(['like', 'nama_pemohon_rujukan', $this->nama_pemohon_rujukan])
-            ->andFilterWhere(['like', 'kes_latarbelakang', $this->kes_latarbelakang])
             ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id])
             ->andFilterWhere(['like', 'notis', $this->notis])
             ->andFilterWhere(['like', 'pekerjaan_bapa', $this->pekerjaan_bapa])
             ->andFilterWhere(['like', 'pekerjaan_ibu', $this->pekerjaan_ibu])
-            ->andFilterWhere(['like', 'no_telefon', $this->no_telefon]);
+            ->andFilterWhere(['like', 'no_telefon', $this->no_telefon])
+                ->andFilterWhere(['like', 'tarikh_temujanji', $this->tarikh_temujanji])
+                ->andFilterWhere(['like', 'tbl_ref_latarbelakang_kes.desc', $this->kes_latarbelakang]);
 
         return $dataProvider;
     }

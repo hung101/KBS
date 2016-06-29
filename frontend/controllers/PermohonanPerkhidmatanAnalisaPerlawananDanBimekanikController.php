@@ -15,6 +15,7 @@ use app\models\general\GeneralVariable;
 use app\models\Atlet;
 use app\models\RefPerkhidmatanBiomekanik;
 use app\models\RefStatusPermohonanPerkhidmatanBimekanik;
+use app\models\RefSukan;
 
 /**
  * PermohonanPerkhidmatanAnalisaPerlawananDanBimekanikController implements the CRUD actions for PermohonanPerkhidmatanAnalisaPerlawananDanBimekanik model.
@@ -73,6 +74,9 @@ class PermohonanPerkhidmatanAnalisaPerlawananDanBimekanikController extends Cont
         
         $ref = RefStatusPermohonanPerkhidmatanBimekanik::findOne(['id' => $model->status]);
         $model->status = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->jenis_sukan]);
+        $model->jenis_sukan = $ref['desc'];
         
         return $this->render('view', [
             'model' => $model,

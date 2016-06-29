@@ -17,6 +17,7 @@ use app\models\general\GeneralVariable;
 use app\models\Atlet;
 use app\models\RefSoalanSoalSelidik;
 use app\models\RefJawapanSoalSelidik;
+use app\models\RefSukan;
 
 /**
  * SoalSelidikSebelumUjianController implements the CRUD actions for SoalSelidikSebelumUjian model.
@@ -82,6 +83,9 @@ class SoalSelidikSebelumUjianController extends Controller
         
         $ref = RefJawapanSoalSelidik::findOne(['id' => $model->jawapan]);
         $model->jawapan = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->jenis_sukan]);
+        $model->jenis_sukan = $ref['desc'];
         
         return $this->render('view', [
             'model' => $model,

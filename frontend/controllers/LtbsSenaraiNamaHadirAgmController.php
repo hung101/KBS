@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use app\models\general\GeneralVariable;
+
 /**
  * LtbsSenaraiNamaHadirAgmController implements the CRUD actions for LtbsSenaraiNamaHadirAgm model.
  */
@@ -32,6 +34,10 @@ class LtbsSenaraiNamaHadirAgmController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $searchModel = new LtbsSenaraiNamaHadirAgmSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -48,6 +54,10 @@ class LtbsSenaraiNamaHadirAgmController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         return $this->renderAjax('view', [
             'model' => $this->findModel($id),
             'readonly' => true,
@@ -61,6 +71,10 @@ class LtbsSenaraiNamaHadirAgmController extends Controller
      */
     public function actionCreate($mesyuarat_agm_id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new LtbsSenaraiNamaHadirAgm();
         
         Yii::$app->session->open();
@@ -92,6 +106,10 @@ class LtbsSenaraiNamaHadirAgmController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -113,6 +131,10 @@ class LtbsSenaraiNamaHadirAgmController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $this->findModel($id)->delete();
 
         //return $this->redirect(['index']);

@@ -13,6 +13,7 @@ use yii\helpers\BaseUrl;
 
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
+use app\models\general\GeneralLabel;
 
 // table reference
 use app\models\Atlet;
@@ -76,6 +77,9 @@ class PinjamanPeralatanController extends Controller
         $model->tarikh_diberi = GeneralFunction::convert($model->tarikh_diberi, GeneralFunction::TYPE_DATETIME);
         
         $model->tarikh_dipulang = GeneralFunction::convert($model->tarikh_dipulang, GeneralFunction::TYPE_DATETIME);
+        
+        $YesNo = GeneralLabel::getYesNoLabel($model->pulang);
+        $model->pulang = $YesNo;
         
         return $this->render('view', [
             'model' => $model,

@@ -42,6 +42,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions'=>function($model){
+                if($model->pulang == false && date('Y-m-d H:i:s') > $model->tarikh_dipulang){
+                    return ['class' => 'danger'];
+                }
+        },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 

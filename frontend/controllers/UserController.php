@@ -88,7 +88,12 @@ class UserController extends Controller
         $model->scenario = 'create';
         
         if ($model->load(Yii::$app->request->post())) {
-            $model->sukan = implode(",",$model->sukan);
+            //$stringlens = strlen($model->sukan);
+            if(is_array($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } else {
+                $model->sukan = "";
+            }
         }
 
         if (Yii::$app->request->post() && $model->validate()) {
@@ -118,7 +123,12 @@ class UserController extends Controller
         $model = $this->findModel($id);
         
         if ($model->load(Yii::$app->request->post()) && $model->sukan) {
-            $model->sukan = implode(",",$model->sukan);
+            //$stringlens = $model->sukan;
+            if(is_array($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } else {
+                $model->sukan = "";
+            }
         }
 
         if (Yii::$app->request->post() && $model->validate()) {

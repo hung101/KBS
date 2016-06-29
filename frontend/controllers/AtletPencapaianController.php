@@ -7,6 +7,8 @@ use app\models\AtletPencapaian;
 use frontend\models\AtletPencapaianSearch;
 use app\models\AtletPencapaianRekods;
 use frontend\models\AtletPencapaianRekodsSearch;
+use app\models\PenilaianPestasi;
+use app\models\PenilaianPestasiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -58,16 +60,22 @@ class AtletPencapaianController extends Controller
 
         if(isset($session['atlet_id'])){
             $queryPar['AtletPencapaianSearch']['atlet_id'] = $session['atlet_id'];
+            $queryPar['PenilaianPestasiSearch']['atlet'] = $session['atlet_id'];
         }
         
         $session->close();
         
         $searchModel = new AtletPencapaianSearch();
         $dataProvider = $searchModel->search($queryPar);
+        
+        $searchModelPP = new PenilaianPestasiSearch();
+        $dataProviderPP = $searchModelPP->search($queryPar);
 
         $renderContent = $this->renderAjax('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'searchModelPP' => $searchModelPP,
+            'dataProviderPP' => $dataProviderPP,
         ]);
 
         if($request->get('typeJson') != NULL){

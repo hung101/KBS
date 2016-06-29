@@ -12,13 +12,15 @@ use app\models\PengurusanPemantauanDanPenilaianJurulatih;
  */
 class PengurusanPemantauanDanPenilaianJurulatihSearch extends PengurusanPemantauanDanPenilaianJurulatih
 {
+    public $jurulatih;
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['pengurusan_pemantauan_dan_penilaian_jurulatih_id'], 'integer'],
+            [['pengurusan_pemantauan_dan_penilaian_jurulatih_id', 'jurulatih'], 'integer'],
             [['nama_jurulatih_dinilai', 'nama_sukan', 'nama_acara', 'pusat_latihan'], 'safe'],
         ];
     }
@@ -60,6 +62,7 @@ class PengurusanPemantauanDanPenilaianJurulatihSearch extends PengurusanPemantau
 
         $query->andFilterWhere([
             'pengurusan_pemantauan_dan_penilaian_jurulatih_id' => $this->pengurusan_pemantauan_dan_penilaian_jurulatih_id,
+            'nama_jurulatih_dinilai' => $this->jurulatih,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_jurulatih.nama', $this->nama_jurulatih_dinilai])

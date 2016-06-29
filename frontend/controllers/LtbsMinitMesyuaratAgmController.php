@@ -11,6 +11,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use app\models\general\GeneralVariable;
+
 /**
  * LtbsMinitMesyuaratAgmController implements the CRUD actions for LtbsMinitMesyuaratAgm model.
  */
@@ -34,6 +36,10 @@ class LtbsMinitMesyuaratAgmController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $searchModel = new LtbsMinitMesyuaratAgmSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -50,6 +56,10 @@ class LtbsMinitMesyuaratAgmController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $queryPar = null;
         
         $queryPar['LtbsSenaraiNamaHadirAgmSearch']['mesyuarat_agm_id'] = $id;
@@ -72,6 +82,10 @@ class LtbsMinitMesyuaratAgmController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new LtbsMinitMesyuaratAgm();
         
         $queryPar = null;
@@ -112,6 +126,10 @@ class LtbsMinitMesyuaratAgmController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
         
         $queryPar = null;
@@ -141,6 +159,10 @@ class LtbsMinitMesyuaratAgmController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

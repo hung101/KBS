@@ -18,13 +18,16 @@ class IsnLaporanJadualPegawaiTemujanji extends Model
     public $bahagian_kecederaan;
     public $atlet;
     public $rawatan;
+    public $status_temujanji;
+    public $kategori_rawatan;
+    
     public $format;
 
     public function rules()
     {
         return [
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga', 'pegawai_bertanggungjawab', 'sukan', 'bahagian_kecederaan', 'atlet', 'rawatan'], 'safe'],
+            [['tarikh_dari', 'tarikh_hingga', 'pegawai_bertanggungjawab', 'sukan', 'bahagian_kecederaan', 'atlet', 'rawatan', 'status_temujanji', 'kategori_rawatan'], 'safe'],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
@@ -39,6 +42,8 @@ class IsnLaporanJadualPegawaiTemujanji extends Model
             'bahagian_kecederaan' => GeneralLabel::bahagian_kecederaan,
             'atlet' => GeneralLabel::atlet,
             'rawatan' => GeneralLabel::rawatan,
+            'status_temujanji' => GeneralLabel::status_temujanji,
+            'kategori_rawatan' => GeneralLabel::kategori_rawatan,
             'format' => GeneralLabel::format,
         ];
     }

@@ -53,7 +53,7 @@ class PermohonanPerkhidmatanAnalisaPerlawananDanBimekanik extends \yii\db\Active
         return [
             [['atlet_id', 'tarikh', 'tujuan', 'perkhidmatan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id', 'status'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['tarikh'], 'safe'],
+            [['tarikh', 'jenis_sukan'], 'safe'],
             [['tujuan', 'perkhidmatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
@@ -71,6 +71,7 @@ class PermohonanPerkhidmatanAnalisaPerlawananDanBimekanik extends \yii\db\Active
             'tujuan' => GeneralLabel::tujuan,
             'perkhidmatan' => GeneralLabel::perkhidmatan,
             'status' => GeneralLabel::status,
+            'jenis_sukan' => GeneralLabel::jenis_sukan,
         ];
     }
     
@@ -86,5 +87,10 @@ class PermohonanPerkhidmatanAnalisaPerlawananDanBimekanik extends \yii\db\Active
      */
     public function getRefPerkhidmatanBiomekanik(){
         return $this->hasOne(RefPerkhidmatanBiomekanik::className(), ['id' => 'perkhidmatan']);
+    }
+    
+    public function getRefSukan()
+    {
+        return $this->hasOne(RefSukan::className(), ['id' => 'jenis_sukan']);
     }
 }

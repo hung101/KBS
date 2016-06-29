@@ -20,6 +20,7 @@ use yii\web\UploadedFile;
 
 use app\models\general\Upload;
 use common\models\general\GeneralFunction;
+use app\models\general\GeneralVariable;
 
 // table reference
 use app\models\ProfilBadanSukan;
@@ -48,6 +49,10 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
      */
     public function actionIndex($profil_badan_sukan_id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $queryPar = Yii::$app->request->queryParams;
         
         if($profil_badan_sukan_id!=""){
@@ -71,6 +76,9 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
         
         $model = $this->findModel($id);
         
@@ -124,6 +132,10 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
      */
     public function actionCreate($profil_badan_sukan_id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new LtbsMinitMesyuaratJawatankuasa();
         
         $queryPar = null;
@@ -226,6 +238,10 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
         
         $queryPar = null;
@@ -305,6 +321,10 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         // delete upload file
         self::actionDeleteupload($id, 'minit_ajk_muat_naik');
         
@@ -340,6 +360,10 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
     // Add function for delete image or file
     public function actionDeleteupload($id, $field)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }

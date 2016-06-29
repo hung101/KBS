@@ -115,8 +115,17 @@ class PersatuanController extends Controller
         
         $model->peranan = UserPeranan::PERANAN_PJS_PERSATUAN;
         $model->from_module = GeneralVariable::modulePJSPersatuan;
+        
+        if ($model->load(Yii::$app->request->post())) {
+            //$stringlens = strlen($model->sukan);
+            if(is_array($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } else {
+                $model->sukan = "";
+            }
+        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if (Yii::$app->request->post() && $model->validate()) {
             
             $model->setPassword($model->new_password);
             $model->generateAuthKey();
@@ -145,8 +154,17 @@ class PersatuanController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        if ($model->load(Yii::$app->request->post()) && $model->sukan) {
+            //$stringlens = $model->sukan;
+            if(is_array($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } else {
+                $model->sukan = "";
+            }
+        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if (Yii::$app->request->post() && $model->validate()) {
             //$model->password_hash = Yii::$app->security->generatePasswordHash($model->new_password);
             if($model->new_password != ''){
                 $model->setPassword($model->new_password);

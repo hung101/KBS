@@ -56,18 +56,18 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             //'status_permohonan',
             [
-                'attribute' => 'status_permohonan',
+                'attribute' => 'kes_latarbelakang',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kes_latarbelakang,
                 ],
-                'value' => 'refStatusPermohonan.desc'
+                'value' => 'refLatarbelakangKes.desc'
             ],
             [
-                'attribute' => 'tarikh_rujukan',
+                'attribute' => 'tarikh_temujanji',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_rujukan,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_temujanji,
                 ]
             ],
             //'nama_pemohon_rujukan',

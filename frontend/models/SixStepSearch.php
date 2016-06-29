@@ -12,13 +12,14 @@ use app\models\SixStep;
  */
 class SixStepSearch extends SixStep
 {
+    public $atlet;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['six_step_id'], 'integer'],
+            [['six_step_id', 'atlet'], 'integer'],
             [['stage', 'status', 'atlet_id'], 'safe'],
         ];
     }
@@ -60,6 +61,7 @@ class SixStepSearch extends SixStep
 
         $query->andFilterWhere([
             'six_step_id' => $this->six_step_id,
+            'tbl_six_step.atlet_id' => $this->atlet,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_sixstep_stage.desc', $this->stage])

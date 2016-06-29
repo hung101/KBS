@@ -14,6 +14,7 @@ use app\models\RefStatusDiagnosisPreskripsiPemeriksaanPenyiasatan;
 use app\models\RefUnitDiagnosisPreskripsiPemeriksaanPenyiasatan;
 use app\models\RefBahagianKecederaan;
 use app\models\RefRawatanFisioterapi;
+use app\models\RefPegawaiPerubatanFisioterapi;
 
 // contant values
 use app\models\general\Placeholder;
@@ -93,7 +94,23 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'pegawai_yang_bertanggungjawab' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                'pegawai_yang_bertanggungjawab' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-pegawai-perubatan-fisioterapi/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefPegawaiPerubatanFisioterapi::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::pegawai],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>5]],
                 'rawatan_fisioterapi' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',

@@ -12,13 +12,14 @@ use app\models\PembayaranInsentif;
  */
 class PembayaranInsentifSearch extends PembayaranInsentif
 {
+    public $atlet;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['pembayaran_insentif_id', 'rekod_baharu', 'created_by', 'updated_by'], 'integer'],
+            [['pembayaran_insentif_id', 'rekod_baharu', 'created_by', 'updated_by', 'atlet'], 'integer'],
             [['kejohanan', 'jenis_insentif', 'pingat', 'kumpulan_temasya_kejohanan', 'kelulusan', 'tarikh_kelulusan', 'tarikh_pembayaran_insentif', 'created', 'updated'], 'safe'],
             [['jumlah'], 'number'],
         ];
@@ -46,7 +47,8 @@ class PembayaranInsentifSearch extends PembayaranInsentif
                 ->joinWith(['refJenisInsentif'])
                 ->joinWith(['refPingatInsentif'])
                 ->joinWith(['refPengurusanInsentifTetapanShakamShakar'])
-                ->joinWith(['refKelulusan']);
+                ->joinWith(['refKelulusan'])
+                ->joinWith(['refPembayaranInsentifAtlet']);
 
         // add conditions that should always apply here
 
@@ -76,6 +78,7 @@ class PembayaranInsentifSearch extends PembayaranInsentif
             'updated_by' => $this->updated_by,
             'created' => $this->created,
             'updated' => $this->updated,
+            'tbl_pembayaran_insentif_atlet.atlet' => $this->atlet,
         ]);
 
         $query->andFilterWhere(['like', 'kejohanan', $this->kejohanan])

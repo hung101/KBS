@@ -205,6 +205,6 @@ class PengurusanDokumenMediaProgramController extends Controller
             $img->$field = NULL;
             $img->update();
 
-            return $this->redirect(['update', 'id' => $id]);
+            //return $this->redirect(['update', 'id' => $id]);
     }
 }

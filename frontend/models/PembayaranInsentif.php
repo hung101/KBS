@@ -100,4 +100,11 @@ class PembayaranInsentif extends \yii\db\ActiveRecord
     public function getRefKelulusan(){
         return $this->hasOne(RefKelulusan::className(), ['id' => 'kelulusan']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefPembayaranInsentifAtlet(){
+        return $this->hasMany(PembayaranInsentifAtlet::className(), ['pembayaran_insentif_id' => 'pembayaran_insentif_id']);
+    }
 }

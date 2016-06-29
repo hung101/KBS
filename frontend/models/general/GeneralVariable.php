@@ -22,7 +22,9 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tabPerubatanDoktorID = "perubatan_doktor_tab";
         const tabPerubatanInsuransID = "perubatan_insurans_tab";
         const tabPerubatanDonatorID = "perubatan_donator_tab";
+        const tabPerubatanRekodsID = "perubatan_rekods_tab";
         const tabKewanganAkaunID = "kewangan_akaun_tab";
+        const tabKewanganBiasiswaID  = "kewangan_biasiswa_tab";
         const tabKewanganElaunID = "kewangan_elaun_tab";
         const tabKewanganInsentifID = "kewangan_insentif_tab";
         const tabPembangunanKursuskemID = "pembangunan_kursuskem_tab";
@@ -95,6 +97,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tabKelayakanKursusTertinggiID = "kelayakan_kursus_tertinggi_tab";
         const tabKesihatanID = "kesihatan_tab";
         const tabKeluargaJurulatihID = "keluarga_jurulatih_tab";
+        const tabJurulatihAtletID = "jurulatih_atlet_tab";
+        const tabJurulatihPenilaianID = "jurulatih_penilaian_tab";
         
         // Jurulatih List Content IDs
         const listKelayakanID = "kelayakan_list";
@@ -146,7 +150,9 @@ if($session->get('language') == "EN") {
         const tabPerubatanDoktorID = "perubatan_doktor_tab";
         const tabPerubatanInsuransID = "perubatan_insurans_tab";
         const tabPerubatanDonatorID = "perubatan_donator_tab";
+        const tabPerubatanRekodsID = "perubatan_rekods_tab";
         const tabKewanganAkaunID = "kewangan_akaun_tab";
+        const tabKewanganBiasiswaID  = "kewangan_biasiswa_tab";
         const tabKewanganElaunID = "kewangan_elaun_tab";
         const tabKewanganInsentifID = "kewangan_insentif_tab";
         const tabPembangunanKursuskemID = "pembangunan_kursuskem_tab";
@@ -219,6 +225,8 @@ if($session->get('language') == "EN") {
         const tabKelayakanKursusTertinggiID = "kelayakan_kursus_tertinggi_tab";
         const tabKesihatanID = "kesihatan_tab";
         const tabKeluargaJurulatihID = "keluarga_jurulatih_tab";
+        const tabJurulatihAtletID = "jurulatih_atlet_tab";
+        const tabJurulatihPenilaianID = "jurulatih_penilaian_tab";
         
         // Jurulatih List Content IDs
         const listKelayakanID = "kelayakan_list";

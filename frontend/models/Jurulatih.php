@@ -266,4 +266,18 @@ class Jurulatih extends \yii\db\ActiveRecord
     public function getRefProgramJurulatih(){
         return $this->hasOne(RefProgramJurulatih::className(), ['id' => 'program']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusJurulatih(){
+        return $this->hasOne(RefStatusJurulatih::className(), ['id' => 'status_jurulatih']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJurulatihSpkk(){
+        return $this->hasMany(JurulatihSpkk::className(), ['jurulatih_id' => 'jurulatih_id']);
+    }
 }

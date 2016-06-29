@@ -32,6 +32,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
             const yii_validation_string_min = "{attribute} mesti mengandungi sekurang-kurangnya {min} aksara";
             const yii_validation_unique = '{attribute} "{value}" telah diambil';
             const yii_validation_compare = '{attribute} mesti lebih besar daripada atau sama dengan "{compareAttribute}"';
+            const yii_validation_compare_max = '{attribute} mesti lebih kecil daripada atau sama dengan "{compareAttribute}"';
             
             // custom validation general message BM
             const custom_validation_password_equal = "Kata laluan tidak sepadan";

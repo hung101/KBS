@@ -21,6 +21,7 @@ use app\models\RefNamaFisioterapi;
 use app\models\RefKategoriPesakitLuar;
 use app\models\RefTindakanSelanjutnyaFisioterapi;
 use app\models\RefKategoriRawatan;
+use app\models\RefSukan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -56,6 +57,7 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                
                 'kategori_pesakit_luar' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -72,6 +74,20 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
+                    'columnOptions'=>['colspan'=>3]],
+                'jenis_sukan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::sukan],],
                     'columnOptions'=>['colspan'=>3]],
                 'atlet_id' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -90,6 +106,7 @@ use app\models\general\GeneralMessage;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>6]],
+                
                 //'no_kad_pengenalan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12]],
             ]
         ],

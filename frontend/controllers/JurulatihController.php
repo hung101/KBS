@@ -56,18 +56,30 @@ class JurulatihController extends Controller
      * Lists all Jurulatih models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($filter_type = null, $id = null, $id2 = null, $desc = null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryPar = Yii::$app->request->queryParams;
+        
+        if(isset($filter_type) && isset($id)){
+            if($filter_type == 'sijil'){
+                $queryPar['JurulatihSearch']['sijil'] = $id;
+                $queryPar['JurulatihSearch']['tahap'] = $id2;
+            } else {
+                $queryPar['JurulatihSearch'][$filter_type] = $id;
+            }
+        }
+        
         $searchModel = new JurulatihSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryPar);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'desc' => $desc,
         ]);
     }
 

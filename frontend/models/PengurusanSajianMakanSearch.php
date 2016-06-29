@@ -59,12 +59,12 @@ class PengurusanSajianMakanSearch extends PengurusanSajianMakan
         $query->andFilterWhere([
             'pengurusan_sajian_makan_id' => $this->pengurusan_sajian_makan_id,
             //'atlet_id' => $this->atlet_id,
-            'tarikh_mula' => $this->tarikh_mula,
-            'tarikh_akhir' => $this->tarikh_akhir,
         ]);
 
         $query->andFilterWhere(['like', 'bilangan_tempahan_makan', $this->bilangan_tempahan_makan])
-                ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id]);
+                ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id])
+                ->andFilterWhere(['like', 'tarikh_mula', $this->tarikh_mula])
+                ->andFilterWhere(['like', 'tarikh_akhir', $this->tarikh_akhir]);
 
         return $dataProvider;
     }

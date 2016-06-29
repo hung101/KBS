@@ -21,6 +21,7 @@ use app\models\RefCawangan;
 use app\models\RefNegeri;
 use app\models\RefProgramSemasaSukanAtlet;
 use app\models\RefStatusSukanAtlet;
+use app\models\RefSource;
 
 /**
  * AtletSukanController implements the CRUD actions for AtletSukan model.
@@ -140,6 +141,9 @@ class AtletSukanController extends Controller
         
         $ref = RefStatusSukanAtlet::findOne(['id' => $model->status]);
         $model->status = $ref['desc'];
+        
+        $ref = RefSource::findOne(['id' => $model->source]);
+        $model->source = $ref['desc'];
         
         return $this->renderAjax('view', [
             'model' => $model,

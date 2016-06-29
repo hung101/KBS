@@ -12,13 +12,15 @@ use app\models\SixStepSatelit;
  */
 class SixStepSatelitSearch extends SixStepSatelit
 {
+    public $atlet;
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['six_step_id'], 'integer'],
+            [['six_step_id', 'atlet'], 'integer'],
             [['stage', 'status', 'atlet_id'], 'safe'],
         ];
     }
@@ -60,6 +62,7 @@ class SixStepSatelitSearch extends SixStepSatelit
 
         $query->andFilterWhere([
             'six_step_id' => $this->six_step_id,
+            'tbl_six_step_satelit.atlet_id' => $this->atlet,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_sixstep_satelit_stage.desc', $this->stage])

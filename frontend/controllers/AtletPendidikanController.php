@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use Yii;
 use app\models\AtletPendidikan;
 use app\models\AtletPendidikanSearch;
+use app\models\PertukaranPengajian;
+use frontend\models\PertukaranPengajianSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,15 +37,35 @@ class AtletPendidikanController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
         
         $request = Yii::$app->request;
         
+        $queryPar = Yii::$app->request->queryParams;
+        
+        // Filter by atlet id
+        $session = new Session;
+        $session->open();
+
+        if(isset($session['atlet_id'])){
+            $queryPar['PertukaranPengajianSearch']['atlet'] = $session['atlet_id'];
+        }
+        
+        $session->close();
+        
         $searchModel = new AtletPendidikanSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryPar);
+        
+        $searchModelPP = new PertukaranPengajianSearch();
+        $dataProviderPP = $searchModelPP->search($queryPar);
         
         $renderContent = $this->renderAjax('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'searchModelPP' => $searchModelPP,
+            'dataProviderPP' => $dataProviderPP,
         ]);
 
         if($request->get('typeJson') != NULL){

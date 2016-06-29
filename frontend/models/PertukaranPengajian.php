@@ -98,4 +98,11 @@ class PertukaranPengajian extends \yii\db\ActiveRecord
     public function getRefPengajian(){
         return $this->hasOne(RefPengajian::className(), ['id' => 'nama_pertukaran_pengajian']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSebabPermohonanPertukaranPengajian(){
+        return $this->hasOne(RefSebabPermohonanPertukaranPengajian::className(), ['id' => 'sebab_pemohonan']);
+    }
 }

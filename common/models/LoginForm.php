@@ -3,6 +3,7 @@ namespace common\models;
 
 use Yii;
 use yii\base\Model;
+use app\models\UserPeranan;
 
 /**
  * Login form
@@ -62,6 +63,12 @@ class LoginForm extends Model
             Yii::$app->user->authTimeout = Yii::$app->params['expiryTimeout'];
 
             $user = $this->getUser();
+            
+            if($user->expiry_date && ($user->expiry_date < date("Y-m-d")) && $user->peranan == UserPeranan::PERANAN_PJS_PERSATUAN){
+                $this->addError('username', 'Akaun anda disekat kerana tidak menghantarkan MYKB.');
+                return false;
+            }
+            
             if($user->login_attempted < 3) {
                 $is_login = Yii::$app->user->login($user, $this->rememberMe ? 3600 * 24 * 30 : 0);
                 if($is_login) {
@@ -79,7 +86,8 @@ class LoginForm extends Model
                     return false;
                 }
             } else {
-                $this->addError('password', 'Your account is block due to maximum login attemption, please reset your password.');
+                //$this->addError('password', 'Your account is block due to maximum login attemption, please reset your password.');
+                $this->addError('password', 'Akaun anda disekat kerana cubaan login maksimum, sila hubungi admin.');
                 return false;
             }
 // eddie end

@@ -14,6 +14,7 @@ use app\models\general\GeneralLabel;
 
 // table reference
 use app\models\RefAcara;
+use app\models\Atlet;
 
 /**
  * PenyertaanSukanAcaraController implements the CRUD actions for PenyertaanSukanAcara model.
@@ -66,6 +67,9 @@ class PenyertaanSukanAcaraController extends Controller
         
         $ref = RefAcara::findOne(['id' => $model->nama_acara]);
         $model->nama_acara = $ref['desc'];
+        
+        $ref = Atlet::findOne(['atlet_id' => $model->atlet]);
+        $model->atlet = $ref['nameAndIC'];
         
         $model->rekod_baru = GeneralLabel::getYesNoLabel($model->rekod_baru);
         

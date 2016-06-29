@@ -60,11 +60,11 @@ class BorangPenyertaanAtletSearch extends BorangPenyertaanAtlet
         $query->andFilterWhere([
             'borang_penyertaan_atlet_id' => $this->borang_penyertaan_atlet_id,
             //'atlet_id' => $this->atlet_id,
-            'tarikh_program' => $this->tarikh_program,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_pengurusan_program_binaan.nama_program', $this->nama_program])
-                ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id]);
+                ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id])
+                ->andFilterWhere(['like', 'tarikh_program', $this->tarikh_program]);
 
         return $dataProvider;
     }

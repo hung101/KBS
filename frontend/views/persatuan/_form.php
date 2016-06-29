@@ -6,6 +6,8 @@ use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
+use kartik\widgets\Select2;
+use kartik\datecontrol\DateControl;
 
 // table reference
 use app\models\RefJabatanUser;
@@ -14,6 +16,7 @@ use app\models\UserPeranan;
 use app\models\ProfilBadanSukan;
 use app\models\RefKategoriProgram;
 use app\models\RefNegeri;
+use app\models\RefSukan;
 
 
 // contant values
@@ -103,6 +106,22 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>3]],
                 'tel_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
                 'email' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'expiry_date' =>[
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ],
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
                 'status' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -124,7 +143,32 @@ use app\models\general\GeneralMessage;
         ],
     ]
 ]);
+        
+        // selected sukan list
+        $sukan_selected = null;
+        if(isset($model->sukan) && $model->sukan != ''){
+            $sukan_selected=explode(',',$model->sukan);
+        }
+        
+        // Senarai Atlet Yang Memenangi
+        echo '<label class="control-label">'.$model->getAttributeLabel('sukan').'</label>';
+        echo Select2::widget([
+            'model' => $model,
+            'id' => 'persatuan-sukan',
+            'name' => 'Persatuan[sukan]',
+            'value' => $sukan_selected, // initial value
+            'data' => ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
+            'options' => ['placeholder' => Placeholder::sukan, 'multiple' => true],
+            'pluginOptions' => [
+                'tags' => true,
+                'maximumInputLength' => 10
+            ],
+            'disabled' => $readonly
+        ]);
         ?>
+    
+    <br>
+    <br>
 
     <!--<?= $form->field($model, 'username')->textInput(['maxlength' => 255]) ?>
 

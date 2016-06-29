@@ -58,7 +58,7 @@ use app\models\general\GeneralMessage;
     ?>
     
     <div class="alert alert-success">
-        <strong>Tahniah!</strong> Dimaklumkan permohonan anda telah diluluskan. Surat kelulusan 
+        <strong>Tahniah!</strong> Permohonan anda diluluskan. Surat kelulusan 
 akan dihantar ke alamat surat menyurat. Sila muat turun borang Surat Setuju Terima (PB-4) dan 
 kemukakan kepada urus setia dalam tempoh 14 hari dari tarikh penerimaan surat kelulusan untuk 
 tujuan penyelarasan dan pembayaran. Kegagalan mengemukakan dokumen tersebut di dalam tempoh yang 
@@ -69,9 +69,9 @@ ditetapkan akan menyebabkan kelulusan ini terbatal.
     
     <div class="alert alert-warning">
             <strong>Perhatian - </strong> Sila muat turun borang Laporan Pelaksanaan Program (PB-6) dan 
-penyata perbelanjaan seperti dilampir yang berkaitan dengan program yang dilaksanakan dibawah 
+penyata perbelanjaan seperti dilampirkan yang berkaitan dengan program yang dilaksanakan dibawah 
 peruntukan ini sama ada dalam bentuk resit pembelian barangan yang lengkap, bil terperinci 
-(itemised bill), laporan program, gambar program atau lain-lain bentuk laporan yang disahkan yang 
+(<i>itemised bill</i>), laporan program, gambar program atau lain-lain bentuk laporan yang disahkan yang 
 menggambarkan penggunaan peruntukan ini secara sah, berhemah dan berintegriti. Dokumen tersebut 
 perlu dikemukakan kepada urus setia Pengurusan Pemberian Bantuan JBSN dan muat naik dalam tempoh 
 14 hari selepas program dijalankan atau 14 hari selepas peruntukan bantuan ini dikeluarkan, yang 

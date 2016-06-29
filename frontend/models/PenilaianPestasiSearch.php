@@ -12,13 +12,14 @@ use app\models\PenilaianPestasi;
  */
 class PenilaianPestasiSearch extends PenilaianPestasi
 {
+    public $atlet;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['penilaian_pestasi_id'], 'integer'],
+            [['penilaian_pestasi_id', 'atlet'], 'integer'],
             [['tahap_sihat', 'atlet_id', 'pencapaian_sukan_dalam_tahun_yang_dinilai', 'kecederaan_jika_ada', 'laporan_kesihatan', 'skim_hadiah_kemenangan_sukan', 'sukan',
                 'program', 'acara', 'kejohanan'], 'safe'],
             [['elaun_yang_diterima'], 'number'],
@@ -48,7 +49,8 @@ class PenilaianPestasiSearch extends PenilaianPestasi
                 ->joinWith(['refSukan'])
                 ->joinWith(['refProgramSemasaSukanAtlet'])
                 ->joinWith(['refAcara'])
-                ->joinWith(['refPerancanganProgram']);
+                ->joinWith(['refPerancanganProgram'])
+                ->joinWith(['refPenilaianPrestasiAtletSasaran']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -66,6 +68,7 @@ class PenilaianPestasiSearch extends PenilaianPestasi
             'penilaian_pestasi_id' => $this->penilaian_pestasi_id,
             //'atlet_id' => $this->atlet_id,
             'elaun_yang_diterima' => $this->elaun_yang_diterima,
+            'tbl_penilaian_prestasi_atlet_sasaran.atlet' => $this->atlet,
         ]);
 
         $query->andFilterWhere(['like', 'tahap_sihat', $this->tahap_sihat])

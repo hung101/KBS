@@ -62,7 +62,7 @@ class PermohonanBiasiswaSearch extends PermohonanBiasiswa
             'permohonan_biasiswa_id' => $this->permohonan_biasiswa_id,
             //'atlet_id' => $this->atlet_id,
             //'sukan' => $this->sukan,
-            'umur' => $this->umur,
+            'tbl_permohonan_biasiswa.umur' => $this->umur,
             'kelulusan' => $this->kelulusan,
         ]);
 

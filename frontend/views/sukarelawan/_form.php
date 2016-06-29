@@ -77,7 +77,7 @@ use app\models\general\GeneralVariable;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
-                'no_kad_pengenalan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12]],
+                'no_kad_pengenalan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12, 'id'=>'NoICID']],
                 'tarikh_lahir' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -85,7 +85,8 @@ use app\models\general\GeneralVariable;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ],
+                        'options' => ['id'=>'TarikhLahirID'],
                     ],
                     'columnOptions'=>['colspan'=>3]],
                  
@@ -445,66 +446,6 @@ use app\models\general\GeneralVariable;
     }
     ?>
 
-    <!--<?= $form->field($model, 'nama')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'no_kad_pengenalan')->textInput(['maxlength' => 12]) ?>
-
-    <?= $form->field($model, 'alamat_1')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_2')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_3')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_negeri')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_bandar')->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'alamat_poskod')->textInput(['maxlength' => 5]) ?>
-
-    <?= $form->field($model, 'tarikh_lahir')->textInput() ?>
-
-    <?= $form->field($model, 'jantina')->textInput(['maxlength' => 1]) ?>
-
-    <?= $form->field($model, 'no_tel_bimbit')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'status')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'emel')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'facebook')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'kebatasan_fizikal')->textInput() ?>
-
-    <?= $form->field($model, 'menyatakan_jika_ada_kebatasan_fizikal')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'kelulusan_akademi')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'bidang_kepakaran')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'pekerjaan_semasa')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'nama_majikan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'alamat_majikan_1')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_majikan_2')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_majikan_3')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_majikan_negeri')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_majikan_bandar')->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'alamat_majikan_poskod')->textInput(['maxlength' => 5]) ?>
-
-    <?= $form->field($model, 'bidang_diminati')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'waktu_ketika_diperlukan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'menyatakan_waktu_ketika_diperlukan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'muatnaik')->textInput(['maxlength' => 100]) ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -514,3 +455,79 @@ use app\models\general\GeneralVariable;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+     
+     // submit form
+     $.ajax({
+          url: form.attr('action'),
+          type: "POST",
+            data:  new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+          success: function (response) {
+               // do something with response
+               
+                if(response != 1){
+                    $('#modalContent').html(response);
+                } else {
+                    $(document).find('#modal').modal('hide');
+                    form.trigger("reset");
+                    $.pjax.defaults.timeout = 100000;
+                    $.pjax.reload({container:'#ahliGrid'});
+                }
+          }
+     });
+     return false;
+});
+     
+$(document).ready(function(){
+    if($("#TarikhLahirID").val() != ""){
+        $("#UmurID").val(calculateAge($("#TarikhLahirID").val()));
+    }
+});
+        
+$("#NoICID").focusout(function(){
+    var DOBVal = "";
+    
+    if(this.value != ""){
+        DOBVal = getDOBFromICNo(this.value);
+    }
+    
+        
+    $("#TarikhLahirID-disp").val(formatDisplayDate(DOBVal));
+    $("#TarikhLahirID").val(formatSaveDate(DOBVal));
+        
+       /* $('#TarikhLahirID').kvDatepicker({
+                format: 'mm/dd/yyyy',
+                startDate: '-3d'
+            });*/
+        
+    //$("#UmurID").val(calculateAge(formatSaveDate(DOBVal)));
+        
+        
+    $("#TarikhLahirID").kvDatepicker("$DateDisplayFormat", new Date(DOBVal)).kvDatepicker({
+        format: "$DateDisplayFormat"
+    });
+});
+        
+$('#TarikhLahirID').change(function(){
+    //$("#UmurID").val(calculateAge(this.value));
+});
+
+JS;
+        
+$this->registerJs($script);
+?>
+
+

@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\PertukaranPengajianSearch */
@@ -57,21 +58,45 @@ $this->params['breadcrumbs'][] = $this->title;
             //'sebab_pemohonan',
             //'kategori_pengajian',
             [
+                'attribute' => 'sebab_pemohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sebab_pemohonan,
+                ],
+                'value' => 'refSebabPermohonanPertukaranPengajian.desc'
+            ],
+            [
+                'attribute' => 'created',
+                'label' => GeneralLabel::tarikh,
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                ],
+                'format' => 'raw',
+                'value'=>function ($model) {
+                    if($model->created){
+                        return date('Y-m-d',strtotime($model->created));
+                    } else {
+                        return '';
+                    }
+                },
+            ],
+            /*[
                 'attribute' => 'nama_pengajian_sekarang',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pengajian_sekarang,
                 ]
-            ],
+            ],*/
             //'nama_pertukaran_pengajian',
-            [
+            /*[
                 'attribute' => 'nama_pertukaran_pengajian',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pertukaran_pengajian,
                 ],
                 'value' => 'refPengajian.desc'
-            ],
+            ],*/
             // 'sebab_pertukaran',
             // 'sebab_penangguhan',
 

@@ -28,6 +28,7 @@ use app\models\RefNamaFisioterapi;
 use app\models\RefKategoriPesakitLuar;
 use app\models\RefTindakanSelanjutnyaFisioterapi;
 use app\models\RefKategoriRawatan;
+use app\models\RefSukan;
 
 /**
  * PlTemujanjiFisioterapiController implements the CRUD actions for PlTemujanjiFisioterapi model.
@@ -124,6 +125,9 @@ class PlTemujanjiFisioterapiController extends Controller
         
         $ref = RefKategoriRawatan::findOne(['id' => $model->kategori_rawatan]);
         $model->kategori_rawatan = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->jenis_sukan]);
+        $model->jenis_sukan = $ref['desc'];
         
         $model->tarikh_temujanji = GeneralFunction::convert($model->tarikh_temujanji, GeneralFunction::TYPE_DATETIME);
         

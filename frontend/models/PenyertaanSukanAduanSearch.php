@@ -59,13 +59,13 @@ class PenyertaanSukanAduanSearch extends PenyertaanSukanAduan
 
         $query->andFilterWhere([
             'penyertaan_sukan_aduan_id' => $this->penyertaan_sukan_aduan_id,
-            'tarikh_aduan' => $this->tarikh_aduan,
         ]);
 
         $query->andFilterWhere(['like', 'nama_pengadu', $this->nama_pengadu])
             ->andFilterWhere(['like', 'tbl_ref_status_aduan_penyertaan_sukan.desc', $this->status_aduan])
             ->andFilterWhere(['like', 'tbl_ref_kategori_aduan_penyertaan_sukan.desc', $this->aduan_kategori])
-            ->andFilterWhere(['like', 'penyataan_aduan', $this->penyataan_aduan]);
+            ->andFilterWhere(['like', 'penyataan_aduan', $this->penyataan_aduan])
+                ->andFilterWhere(['like', 'tarikh_aduan', $this->tarikh_aduan]);
 
         return $dataProvider;
     }

@@ -44,6 +44,48 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::atlet, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
+        
+        <?php
+        $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->all();
+        
+        // add filter base on sukan access role in tbl_user->sukan - START
+        if(Yii::$app->user->identity->sukan){
+            $sukan_access=explode(',',Yii::$app->user->identity->sukan);
+            
+            $arr_sukan_filter = array();
+            
+            for($i = 0; $i < count($sukan_access); $i++){
+                $arr_sukan = null;
+                $arr_sukan = array('id'=>$sukan_access[$i]); 
+                    array_push($arr_sukan_filter,$arr_sukan);
+            }
+            
+            $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andFilterWhere(['id'=>$arr_sukan_filter])->all();
+        }
+        // add filter base on sukan access role in tbl_user->sukan - END
+        
+    ?>
+    
+    <?php
+        $program_list = RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->andWhere('podium = :podium', [':podium' => 0])->all();
+        
+        // add filter base on sukan access role Atlet -> Podium Kemas Kini - START
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])){
+            $sukan_access=explode(',',Yii::$app->user->identity->sukan);
+            
+            $arr_sukan_filter = array();
+            
+            for($i = 0; $i < count($sukan_access); $i++){
+                $arr_sukan = null;
+                $arr_sukan = array('id'=>$sukan_access[$i]); 
+                    array_push($arr_sukan_filter,$arr_sukan);
+            }
+            
+            $program_list = RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->all();
+        }
+        // add filter base on sukan access role Atlet -> Podium Kemas Kini - END
+        
+    ?>
     
     <?php Pjax::begin(['timeout' => false, 'enablePushState' => false,]); ?>
     <?=Html::beginForm(['atlet/bulk'],'post');?>
@@ -101,7 +143,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return "";
                     }
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'sukan', ArrayHelper::map(RefSukan::find()->asArray()->all(), 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Sukan --']),
+                'filter' => Html::activeDropDownList($searchModel, 'sukan', ArrayHelper::map($sukan_list, 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Sukan --']),
             ],
             [
                 'attribute' => 'program',
@@ -117,7 +159,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return "";
                     }
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'program', ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->asArray()->all(), 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Program --']),
+                'filter' => Html::activeDropDownList($searchModel, 'program', ArrayHelper::map($program_list, 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Program --']),
             ],
             [
                 'attribute' => 'tawaran',
@@ -192,13 +234,30 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn',
                 'buttons' => [
                     'delete' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-                        'title' => Yii::t('yii', 'Delete'),
-                        'data-confirm' => GeneralMessage::confirmDelete,
-                        'data-method'=>'post',
-                        ]);
+                        return (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM && !isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])) ? '' :
+                                Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                        'title' => Yii::t('yii', 'Delete'),
+                                        'data-confirm' => GeneralMessage::confirmDelete,
+                                        'data-method'=>'post',
+                                        ]);
 
                     },
+                    'update' => function ($url, $model) {
+                         $options = [
+                            'title' => Yii::t('yii', 'Update'),
+                            'aria-label' => Yii::t('yii', 'Update'),
+                            'data-pjax' => '0',
+                            ];
+                        return (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM && !isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])) ? '' :Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
+                    },
+                    'view' => function ($url, $model) {
+                        $options = [
+                            'title' => Yii::t('yii', 'View'),
+                            'aria-label' => Yii::t('yii', 'View'),
+                            'data-pjax' => '0',
+                            ];
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, $options);
+                    }
                 ],
                 'template' => $template,
             ],

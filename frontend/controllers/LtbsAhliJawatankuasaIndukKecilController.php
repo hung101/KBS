@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
 
+use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
 
 // table reference
@@ -42,6 +43,10 @@ class LtbsAhliJawatankuasaIndukKecilController extends Controller
      */
     public function actionIndex($profil_badan_sukan_id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $queryParams = Yii::$app->request->queryParams;
         
         if($profil_badan_sukan_id!=""){
@@ -65,6 +70,10 @@ class LtbsAhliJawatankuasaIndukKecilController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         // get details
         $model = $this->findModel($id);
         
@@ -101,6 +110,10 @@ class LtbsAhliJawatankuasaIndukKecilController extends Controller
      */
     public function actionCreate($profil_badan_sukan_id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new LtbsAhliJawatankuasaIndukKecil();
         
         if(Yii::$app->user->identity->profil_badan_sukan){
@@ -129,6 +142,10 @@ class LtbsAhliJawatankuasaIndukKecilController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -156,6 +173,10 @@ class LtbsAhliJawatankuasaIndukKecilController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -178,6 +199,10 @@ class LtbsAhliJawatankuasaIndukKecilController extends Controller
     }
     
     public function actionGetAhliJawatankuasaInduk($id){
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         // find Ahli Jawatankuasa Induk
         $model = LtbsAhliJawatankuasaIndukKecil::find()->joinWith('badanSukan')->joinWith('refJawatanInduk')->where(['ahli_jawatan_id' => $id])->asArray()->one();
         
@@ -190,6 +215,10 @@ class LtbsAhliJawatankuasaIndukKecilController extends Controller
      * @return mixed
      */
     public function actionGetAhliJawatankuasaIndukByBadansukan(){
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $out = [];
         if (isset($_POST['depdrop_parents'])) {
             $parents = $_POST['depdrop_parents'];

@@ -27,6 +27,7 @@ use common\models\general\GeneralFunction;
 use app\models\Atlet;
 use app\models\RefPerkhidmatanBiomekanik;
 use app\models\RefUjianStatusBiomekanik;
+use app\models\RefSukan;
 
 /**
  * PerkhidmatanAnalisaPerlawananBiomekanikController implements the CRUD actions for PerkhidmatanAnalisaPerlawananBiomekanik model.
@@ -85,6 +86,9 @@ class PerkhidmatanAnalisaPerlawananBiomekanikController extends Controller
         
         $ref = RefUjianStatusBiomekanik::findOne(['id' => $model->status_ujian]);
         $model->status_ujian = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
         
         $queryPar = null;
         

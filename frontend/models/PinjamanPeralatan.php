@@ -53,6 +53,7 @@ class PinjamanPeralatan extends \yii\db\ActiveRecord
     {
         return [
             [['atlet_id', 'nama_peralatan', 'kuantiti', 'tarikh_diberi'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pulang'], 'safe'],
             [['atlet_id', 'kuantiti'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             //[['tarikh_diberi'], 'safe'],
             [['nama_peralatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],

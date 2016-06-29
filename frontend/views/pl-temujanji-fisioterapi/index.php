@@ -86,13 +86,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refAtlet.name_penuh'
             ],
-            [
+            /*[
                 'attribute' => 'no_kad_pengenalan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
                 ],
-            ],           
+            ],  */         
             //'doktor_pegawai_perubatan',
             //'makmal_perubatan',
             //'status_temujanji',

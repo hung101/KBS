@@ -7,6 +7,8 @@ use app\models\Atlet;
 use app\models\AtletSearch;
 use app\models\MsnLaporanSenaraiAtlet;
 use app\models\MsnLaporanStatistikAtlet;
+use app\models\User;
+use frontend\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
@@ -26,6 +28,7 @@ use app\models\RefTarafPerkahwinan;
 use app\models\RefJenisLesenMemandu;
 use app\models\RefBahasa;
 use app\models\RefStatusTawaran;
+use app\models\UserPeranan;
 
 use app\models\general\GeneralLabel;
 use app\models\general\Upload;
@@ -80,7 +83,7 @@ class AtletController extends Controller
         
         $queryPar = Yii::$app->request->queryParams;
         
-        $queryPar['AtletSearch']['tawaran'] = RefStatusTawaran::DALAM_PROSES;
+        //$queryPar['AtletSearch']['tawaran'] = RefStatusTawaran::DALAM_PROSES;
         
         $searchModel = new AtletSearch();
         $dataProvider = $searchModel->search($queryPar);
@@ -213,6 +216,11 @@ class AtletController extends Controller
                 $session['atlet_id'] = $model->atlet_id;
                 
                 $session->close();
+                
+                // send out email to pengurus sukan if is PSK key in
+                if(Yii::$app->user->identity->peranan ==  UserPeranan::PERANAN_PJS_PERSATUAN){
+                    $modelPengurusSukan = User::find()->where()->all();
+                }
                 
                 return $this->redirect(['view', 'id' => $model->atlet_id]);
             }

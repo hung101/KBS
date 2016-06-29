@@ -116,5 +116,110 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
     
     <?php Pjax::end(); ?>
+        
+        <br>
+        <br>
+        
+    <!--<p>
+        <?= Html::button('<span class="glyphicon glyphicon-refresh"></span>', ['value'=>Url::to(['index']),'class' => 'btn btn-info', 'onclick' => 'updateRenderAjax("'.Url::to(['index']).'", "'.GeneralVariable::tabKewanganInsentifID.'");']) ?>
+    </p>-->
+    
+    <!-- Kaunseling Rekod - START -->
+    <div class="panel panel-default copyright-wrap" id="penukaran_rekods-list">
+        <div class="panel-heading"><a data-toggle="collapse" href="#penukaran_rekods-body">Rekod Insentif</a>
+            <button type="button" class="close" data-target="#penukaran_rekods-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        </div>
+        <div id="penukaran_rekods-body" class="panel-collapse collapse">
+            <div class="panel-body">
+                <?= GridView::widget([
+            'dataProvider' => $dataProviderPI,
+            //'filterModel' => $searchModelPI,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+                [
+                'attribute' => 'kejohanan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kejohanan,
+                ],
+            ],
+            //'jenis_insentif',
+            [
+                'attribute' => 'jenis_insentif',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_insentif,
+                ],
+                'value' => 'refJenisInsentif.desc'
+            ],
+            //'pingat',
+            [
+                'attribute' => 'pingat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pingat,
+                ],
+                'value' => 'refPingatInsentif.desc'
+            ],
+            //'kumpulan_temasya_kejohanan',
+            [
+                'attribute' => 'kumpulan_temasya_kejohanan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kumpulan_temasya_kejohanan,
+                ],
+                'value' => 'refPengurusanInsentifTetapanShakamShakar.kumpulan_temasya_kejohanan'
+            ],
+            // 'rekod_baharu',
+            //'jumlah',
+            [
+                'attribute' => 'jumlah',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah,
+                ],
+            ],
+            //'kelulusan',
+            [
+                'attribute' => 'kelulusan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelulusan,
+                ],
+                'value' => 'refKelulusan.desc'
+            ],
+                ['class' => 'yii\grid\ActionColumn',
+                    'buttons' => [
+                        'view' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', '', ['value'=>Url::to(['/pembayaran-insentif/view', 'id' => $model->pembayaran_insentif_id]), 'class' => 'custom_button']);
+                        },
+                    ],
+                    'template' => '',
+                ],
+            ],
+        ]); ?>
+            </div>
+        </div>
+    </div>
+    <!-- Kaunseling Rekod - END -->
+</div>
+
+
+
+
+<?php
+$script = <<< JS
+        
+$(function(){
+$('.custom_button').click(function(){
+        window.open($(this).attr('value'), "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no");
+        return false;
+});});
+     
+
+JS;
+        
+$this->registerJs($script);
+?>
 
 </div>

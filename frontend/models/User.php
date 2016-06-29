@@ -66,7 +66,7 @@ class User extends \yii\db\ActiveRecord
             [['password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['auth_key'], 'string', 'max' => 32, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['full_name', 'new_password', 'password_confirm'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['sukan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['sukan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tel_mobile_no', 'tel_no'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tel_mobile_no', 'tel_no'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['email'], 'email', 'message' => GeneralMessage::yii_validation_email],

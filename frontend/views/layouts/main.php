@@ -119,13 +119,13 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                     'label' => GeneralLabel::atlet, 
                                     'items' => [
                                         ['label' => GeneralLabel::atlet, 'url' => ['/atlet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['module'])],
-                                        [
+                                        /*[
                                             'label' => GeneralLabel::laporan,
                                             'items' => [
                                                 ['label' => GeneralLabel::laporan_senarai_atlet, 'url' => ['/atlet/laporan-senarai-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['module'])],
                                                 ['label' => GeneralLabel::laporan_statistik_atlet, 'url' => ['/atlet/laporan-statistik-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['module'])],
                                             ],
-                                        ],
+                                        ],*/
                                     ],
                                 ],
                                 ['label' => GeneralLabel::pengurusan_tawaran_atlet, 'url' => ['/atlet/tawaran'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['tawaran'])],
@@ -313,6 +313,33 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                         //['label' => GeneralLabel::permohonan_penganjuran_programkursusbengkel, 'url' => ['/pengurusan-permohonan-pendidikan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-permohonan-pendidikan']['module'])],
                                         //['label' => GeneralLabel::pengurusan_penilaian_pendidikan_penganjurintructor, 'url' => ['/pengurusan-penilaian-pendidikan-penganjur-intructor/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penilaian-pendidikan-penganjur-intructor']['module'])],
                                         //['label' => GeneralLabel::kehadiran_peserta, 'url' => ['/pengurusan-maklum-balas-peserta/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-maklum-balas-peserta']['module'])],
+                                        [
+                                            'label' => GeneralLabel::pengurusan_modal_program_kursus_pengurusan_sukan_kebangsaan,
+                                            'items' => [
+                                                //['label' => GeneralLabel::kursus_persatuan, 'url' => ['/kursus-persatuan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['kursus-persatuan']['module'])],
+                                                ['label' => GeneralLabel::profil_panel_penasihat_kpsk, 'url' => ['/profil-panel-penasihat-kpsk/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-panel-penasihat-kpsk']['module'])],
+                                                ['label' => GeneralLabel::borang_profil_peserta_kpsk, 'url' => ['/borang-profil-peserta-kpsk/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-profil-peserta-kpsk']['module'])],
+                                                ['label' => GeneralLabel::pengurusan_permohonan_kursus_persatuan, 'url' => ['/pengurusan-permohonan-kursus-persatuan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-permohonan-kursus-persatuan']['module'])],
+                                                [
+                                                    'label' => GeneralLabel::penilaian,
+                                                    'items' => [
+                                                        ['label' => GeneralLabel::pengurusan_penilaian_pendidikan_penganjurintructor, 'url' => ['/pengurusan-penilaian-pendidikan-penganjur-intructor/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penilaian-pendidikan-penganjur-intructor']['module'])],
+                                                        ['label' => GeneralLabel::penilaian_penganjur_kursus, 'url' => ['/penilaian-penganjur-kursus/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-penganjur-kursus']['module'])],
+                                                        ['label' => GeneralLabel::penilaian_peserta_terhadap_kursus, 'url' => ['/penilaian-peserta-terhadap-kursus/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-peserta-terhadap-kursus']['module'])],
+                                                    ],
+                                                ],
+                                                [
+                                                    'label' => GeneralLabel::laporan,
+                                                    'items' => [
+                                                        ['label' => GeneralLabel::laporan_statistik_kehadiran_peserta_mengikut_kursus_jantina, 'url' => ['/borang-profil-peserta-kpsk/laporan-statistik-kehadiran-peserta-mengikut-kursus-jantina'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-profil-peserta-kpsk']['module'])],
+                                                        ['label' => GeneralLabel::laporan_statistik_kehadiran_peserta_mengikut_kursus_bangsa, 'url' => ['/borang-profil-peserta-kpsk/laporan-statistik-kehadiran-peserta-mengikut-kursus-bangsa'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-profil-peserta-kpsk']['module'])],
+                                                        ['label' => GeneralLabel::laporan_statistik_kehadiran_peserta_mengikut_kursus_umur, 'url' => ['/borang-profil-peserta-kpsk/laporan-statistik-kehadiran-peserta-mengikut-kursus-umur'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-profil-peserta-kpsk']['module'])],
+                                                        ['label' => GeneralLabel::laporan_statistik_keputusan_peserta_mengikut_kursus, 'url' => ['/borang-profil-peserta-kpsk/laporan-statistik-keputusan-peserta-mengikut-kursus'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-profil-peserta-kpsk']['module'])],
+                                                    ],
+                                                ],
+                                                //['label' => GeneralLabel::kehadiran_peserta, 'url' => ['/pengurusan-maklum-balas-peserta/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-maklum-balas-peserta']['module'])],
+                                            ],
+                                        ],
                                         [
                                             'label' => GeneralLabel::laporan,
                                             'items' => [
@@ -524,33 +551,6 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                         ],*/
                         //['label' => GeneralLabel::sukarelawan, 'url' => ['/sukarelawan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['sukarelawan']['module'])],
                         
-                        /* TEMP[
-                            'label' => GeneralLabel::pengurusan_modal_program_kursus_pengurusan_sukan_kebangsaan,
-                            'items' => [
-                                //['label' => GeneralLabel::kursus_persatuan, 'url' => ['/kursus-persatuan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['kursus-persatuan']['module'])],
-                                ['label' => GeneralLabel::profil_panel_penasihat_kpsk, 'url' => ['/profil-panel-penasihat-kpsk/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-panel-penasihat-kpsk']['module'])],
-                                ['label' => GeneralLabel::borang_profil_peserta_kpsk, 'url' => ['/borang-profil-peserta-kpsk/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-profil-peserta-kpsk']['module'])],
-                                ['label' => GeneralLabel::pengurusan_permohonan_kursus_persatuan, 'url' => ['/pengurusan-permohonan-kursus-persatuan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-permohonan-kursus-persatuan']['module'])],
-                                [
-                                    'label' => GeneralLabel::penilaian,
-                                    'items' => [
-                                        ['label' => GeneralLabel::pengurusan_penilaian_pendidikan_penganjurintructor, 'url' => ['/pengurusan-penilaian-pendidikan-penganjur-intructor/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penilaian-pendidikan-penganjur-intructor']['module'])],
-                                        ['label' => GeneralLabel::penilaian_penganjur_kursus, 'url' => ['/penilaian-penganjur-kursus/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-penganjur-kursus']['module'])],
-                                        ['label' => GeneralLabel::penilaian_peserta_terhadap_kursus, 'url' => ['/penilaian-peserta-terhadap-kursus/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-peserta-terhadap-kursus']['module'])],
-                                    ],
-                                ],
-                                [
-                                    'label' => GeneralLabel::laporan,
-                                    'items' => [
-                                        ['label' => GeneralLabel::laporan_statistik_kehadiran_peserta_mengikut_kursus_jantina, 'url' => ['/borang-profil-peserta-kpsk/laporan-statistik-kehadiran-peserta-mengikut-kursus-jantina'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-profil-peserta-kpsk']['module'])],
-                                        ['label' => GeneralLabel::laporan_statistik_kehadiran_peserta_mengikut_kursus_bangsa, 'url' => ['/borang-profil-peserta-kpsk/laporan-statistik-kehadiran-peserta-mengikut-kursus-bangsa'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-profil-peserta-kpsk']['module'])],
-                                        ['label' => GeneralLabel::laporan_statistik_kehadiran_peserta_mengikut_kursus_umur, 'url' => ['/borang-profil-peserta-kpsk/laporan-statistik-kehadiran-peserta-mengikut-kursus-umur'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-profil-peserta-kpsk']['module'])],
-                                        ['label' => GeneralLabel::laporan_statistik_keputusan_peserta_mengikut_kursus, 'url' => ['/borang-profil-peserta-kpsk/laporan-statistik-keputusan-peserta-mengikut-kursus'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-profil-peserta-kpsk']['module'])],
-                                    ],
-                                ],
-                                //['label' => GeneralLabel::kehadiran_peserta, 'url' => ['/pengurusan-maklum-balas-peserta/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-maklum-balas-peserta']['module'])],
-                            ],
-                        ],*/
                     ]]; 
                 }
                 
@@ -1051,6 +1051,10 @@ if(isset($sideMenuItems)){
             </div>
             <div class="col-sm-10">
                 <?= Breadcrumbs::widget([
+                    'homeLink' => [ 
+                      'label' => Yii::t('yii', GeneralLabel::home_page),
+                      'url' => Yii::$app->homeUrl,
+                    ],
                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                 ]) ?>
                 <?= Alert::widget() ?>

@@ -106,6 +106,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'linkOptions'=>['data-url'=>Url::to(['/jurulatih-keluarga','typeJson'=>'1'])],
             'headerOptions' => ['class'=>$disabledTabs]
         ],
+        [
+            'label'=>'<i class="glyphicon glyphicon-list-alt"></i> Atlet',
+            'options' => ['id' => GeneralVariable::tabJurulatihAtletID],
+            'linkOptions'=>['data-url'=>Url::to(['/jurulatih-atlet','typeJson'=>'1'])],
+            'headerOptions' => ['class'=>$disabledTabs]
+        ],
+        [
+            'label'=>'<i class="glyphicon glyphicon-stats"></i> Penilaian',
+            'options' => ['id' => GeneralVariable::tabJurulatihPenilaianID],
+            'linkOptions'=>['data-url'=>Url::to(['/jurulatih-penilaian','typeJson'=>'1'])],
+            'headerOptions' => ['class'=>$disabledTabs]
+        ],
     ];
 
 // Above

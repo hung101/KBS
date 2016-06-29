@@ -57,7 +57,7 @@ class AtletSukan extends \yii\db\ActiveRecord
             [['atlet_id', 'jurulatih_id', 'nama_sukan', 'acara'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tahun_umur_permulaan', 'tarikh_mula_menyertai_program_msn', 'cawangan', 'negeri_diwakili', 'status', 'tarikh_tamat_menyertai_program_msn', 
-                'tarikh_kelulusan'], 'safe'],
+                'tarikh_kelulusan', 'source'], 'safe'],
             [['nama_sukan', 'acara', 'program_semasa'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_lesen_sukan', 'atlet_persekutuan_dunia_id'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kelulusan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
@@ -115,5 +115,12 @@ class AtletSukan extends \yii\db\ActiveRecord
      */
     public function getRefAtlet(){
         return $this->hasOne(Atlet::className(), ['atlet_id' => 'atlet_id']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJurulatih(){
+        return $this->hasOne(Jurulatih::className(), ['jurulatih_id' => 'jurulatih_id']);
     }
 }

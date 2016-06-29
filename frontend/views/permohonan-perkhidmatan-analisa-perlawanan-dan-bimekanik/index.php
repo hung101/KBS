@@ -55,6 +55,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'refAtlet.name_penuh'
             ],
             [
+                'attribute' => 'jenis_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
+                'value' => 'refSukan.desc'
+            ],
+            [
                 'attribute' => 'tarikh',
                 'filterInputOptions' => [
                     'class'       => 'form-control',

@@ -12,14 +12,16 @@ use app\models\PertukaranPengajian;
  */
 class PertukaranPengajianSearch extends PertukaranPengajian
 {
+    public $atlet;
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['pertukaran_pengajian_id'], 'integer'],
-            [['sebab_pemohonan', 'atlet_id', 'kategori_pengajian', 'nama_pengajian_sekarang', 'nama_pertukaran_pengajian', 'sebab_pertukaran', 'sebab_penangguhan'], 'safe'],
+            [['pertukaran_pengajian_id', 'atlet'], 'integer'],
+            [['sebab_pemohonan', 'atlet_id', 'kategori_pengajian', 'nama_pengajian_sekarang', 'nama_pertukaran_pengajian', 'sebab_pertukaran', 'sebab_penangguhan', 'created'], 'safe'],
         ];
     }
 
@@ -43,6 +45,7 @@ class PertukaranPengajianSearch extends PertukaranPengajian
     {
         $query = PertukaranPengajian::find()
                 ->joinWith(['refPengajian'])
+                ->joinWith(['refSebabPermohonanPertukaranPengajian'])
                 ->joinWith(['refAtlet']);
 
         $dataProvider = new ActiveDataProvider([
@@ -60,14 +63,16 @@ class PertukaranPengajianSearch extends PertukaranPengajian
         $query->andFilterWhere([
             'pertukaran_pengajian_id' => $this->pertukaran_pengajian_id,
             //'atlet_id' => $this->atlet_id,
+            'tbl_pertukaran_pengajian.atlet_id' => $this->atlet,
         ]);
 
-        $query->andFilterWhere(['like', 'sebab_pemohonan', $this->sebab_pemohonan])
+        $query->andFilterWhere(['like', 'tbl_ref_sebab_permohonan_pertukaran_pengajian.desc', $this->sebab_pemohonan])
             ->andFilterWhere(['like', 'kategori_pengajian', $this->kategori_pengajian])
             ->andFilterWhere(['like', 'nama_pengajian_sekarang', $this->nama_pengajian_sekarang])
             ->andFilterWhere(['like', 'tbl_ref_pengajian.desc', $this->nama_pertukaran_pengajian])
             ->andFilterWhere(['like', 'sebab_pertukaran', $this->sebab_pertukaran])
             ->andFilterWhere(['like', 'sebab_penangguhan', $this->sebab_penangguhan])
+                ->andFilterWhere(['like', 'tbl_pertukaran_pengajian.created', $this->created])
             ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id]);
 
         return $dataProvider;

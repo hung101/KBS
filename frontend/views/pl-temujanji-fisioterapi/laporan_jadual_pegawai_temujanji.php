@@ -9,12 +9,12 @@ use kartik\builder\FormGrid;
 use kartik\datecontrol\DateControl;
 
 // table reference
-use app\models\RefPegawaiPerubatanFisioterapi;
-use app\models\RefSukan;
-use app\models\RefBahagianKecederaan;
-use app\models\RefReportFormat;
 use app\models\Atlet;
-use app\models\RefRawatanFisioterapi;
+use app\models\RefJenisTemujanjiFisioterapi;
+use app\models\RefStatusTemujanjiFisioterapi;
+use app\models\RefKategoriRawatan;
+use app\models\RefSukan;
+use app\models\RefReportFormat;
 
 // contant values
 use app\models\general\Placeholder;

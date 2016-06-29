@@ -190,6 +190,14 @@ $this->params['breadcrumbs'][] = $this->title;
                  'linkOptions'=>['data-url'=>Url::to(['/atlet-perubatan-donator','typeJson'=>'1'])],
                  'headerOptions' => ['class'=>$disabledTabs]
              ],
+             [
+                 'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Rekod',
+                 'encode'=>false,
+                 'content'=>'&nbsp;',
+                 'options' => ['tab_id' => GeneralVariable::tabPerubatanRekodsID],
+                 'linkOptions'=>['data-url'=>Url::to(['/atlet-perubatan-rekods','typeJson'=>'1'])],
+                 'headerOptions' => ['class'=>$disabledTabs]
+             ],
         ],
         ],
         [
@@ -226,6 +234,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPenajaanID],
                     'linkOptions'=>['data-url'=>Url::to(['/atlet-penajaansokongan','typeJson'=>'1'])],
+                    'headerOptions' => ['class'=>$disabledTabs]
+                ],
+                [
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Biasiswa',
+                    'encode'=>false,
+                    'content'=>'&nbsp;',
+                    'options' => ['tab_id' => GeneralVariable::tabKewanganBiasiswaID],
+                    'linkOptions'=>['data-url'=>Url::to(['/atlet-kewangan-biasiswa','typeJson'=>'1'])],
                     'headerOptions' => ['class'=>$disabledTabs]
                 ],
             ],

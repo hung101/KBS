@@ -103,4 +103,13 @@ class PermohonanBimbinganKaunseling extends \yii\db\ActiveRecord
     public function getRefStatusPermohonan(){
         return $this->hasOne(RefStatusPermohonan::className(), ['id' => 'status_permohonan']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefLatarbelakangKes(){
+        return $this->hasOne(RefLatarbelakangKes::className(), ['id' => 'kes_latarbelakang']);
+    }
+    
+    
 }

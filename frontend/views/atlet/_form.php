@@ -24,6 +24,7 @@ use app\models\RefJenisLesenMemandu;
 use app\models\RefBahasa;
 use app\models\RefKategoriKecacatan;
 use app\models\RefStatusTawaran;
+use app\models\RefProgramSemasaSukanAtlet;
 
 // contant values
 use app\models\general\Placeholder;
@@ -40,10 +41,12 @@ use app\models\general\GeneralVariable;
     <h1>Peribadi</h1>
     
     <?php if($readonly): ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['update'])): ?>
+        <?php if( ( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['update'])) || 
+                (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])) ): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->atlet_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['delete'])): ?>
+        <?php if( ( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['delete']))  || 
+                (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->atlet_id], [
                 'class' => 'btn btn-danger',
                 'data' => [

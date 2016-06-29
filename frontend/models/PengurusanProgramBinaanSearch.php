@@ -66,8 +66,6 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
 
         $query->andFilterWhere([
             'pengurusan_program_binaan_id' => $this->pengurusan_program_binaan_id,
-            'tarikh_mula' => $this->tarikh_mula,
-            'tarikh_tamat' => $this->tarikh_tamat,
             //'sokongan_pn' => $this->sokongan_pn,
             //'kelulusan' => $this->kelulusan,
             'status_permohonan' => $this->status_permohonan_id,
@@ -86,7 +84,9 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
             ->andFilterWhere(['like', 'daerah', $this->daerah])
                 ->andFilterWhere(['like', 'nama_aktiviti', $this->nama_aktiviti])
                 ->andFilterWhere(['like', 'tbl_ref_status_permohonan_program_binaan.desc', $this->status_permohonan])
-                ->andFilterWhere(['like', 'tbl_perancangan_program.nama_program', $this->aktiviti]);
+                ->andFilterWhere(['like', 'tbl_perancangan_program.nama_program', $this->aktiviti])
+                ->andFilterWhere(['like', 'tbl_pengurusan_program_binaan.tarikh_mula', $this->tarikh_mula])
+                ->andFilterWhere(['like', 'tbl_pengurusan_program_binaan.tarikh_tamat', $this->tarikh_tamat]);
 
         return $dataProvider;
     }

@@ -107,14 +107,26 @@ class PenjadualanUjianFisiologiController extends Controller
         
         $model = new PenjadualanUjianFisiologi();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->penjadualan_ujian_fisiologi_id]);
-        } else {
-            return $this->render('create', [
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->ujian){
+                $model->ujian = implode(",",$model->ujian);
+            }
+            if($model->ujian_sub){
+                $model->ujian_sub = implode(",",$model->ujian_sub);
+            }
+            if($model->peralatan){
+                $model->peralatan = implode(",",$model->peralatan);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->penjadualan_ujian_fisiologi_id]);
+            }
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -131,14 +143,26 @@ class PenjadualanUjianFisiologiController extends Controller
         
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->penjadualan_ujian_fisiologi_id]);
-        } else {
-            return $this->render('update', [
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->ujian){
+                $model->ujian = implode(",",$model->ujian);
+            }
+            if($model->ujian_sub){
+                $model->ujian_sub = implode(",",$model->ujian_sub);
+            }
+            if($model->peralatan){
+                $model->peralatan = implode(",",$model->peralatan);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->penjadualan_ujian_fisiologi_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

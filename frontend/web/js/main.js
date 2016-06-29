@@ -244,6 +244,10 @@ function getDurationBetweenDatetime(fromDatetimeMoment, toDatetimeMoment){
             durationMessage += m + ' Minit ';
         }
         
+        if(h <= 0 && m <= 0){
+            durationMessage = (d + 1) + ' Hari ';
+        }
+        
         return durationMessage;
     }
 }

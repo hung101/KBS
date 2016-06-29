@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use app\models\general\GeneralVariable;
+
 /**
  * LtbsSenaraiNamaHadirJawatankuasaController implements the CRUD actions for LtbsSenaraiNamaHadirJawatankuasa model.
  */
@@ -32,6 +34,10 @@ class LtbsSenaraiNamaHadirJawatankuasaController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $searchModel = new LtbsSenaraiNamaHadirJawatankuasaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -48,6 +54,10 @@ class LtbsSenaraiNamaHadirJawatankuasaController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         return $this->renderAjax('view', [
             'model' => $this->findModel($id),
             'readonly' => true,
@@ -61,6 +71,10 @@ class LtbsSenaraiNamaHadirJawatankuasaController extends Controller
      */
     public function actionCreate($mesyuarat_id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new LtbsSenaraiNamaHadirJawatankuasa();
         
         Yii::$app->session->open();
@@ -92,6 +106,10 @@ class LtbsSenaraiNamaHadirJawatankuasaController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -113,6 +131,10 @@ class LtbsSenaraiNamaHadirJawatankuasaController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $this->findModel($id)->delete();
 
         //return $this->redirect(['index']);

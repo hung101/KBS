@@ -9,6 +9,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use kartik\widgets\DepDrop;
 use kartik\datecontrol\DateControl;
+use kartik\widgets\Select2;
 
 // table reference
 use app\models\Atlet;
@@ -18,6 +19,9 @@ use app\models\RefKategoriSukan;
 use app\models\RefAcara;
 use app\models\RefTempatPenjadualanUjianFisiologi;
 use app\models\RefKategoriAtletFisiologi;
+use app\models\RefTujuanUjianFisiologiSub;
+use app\models\RefTujuanUjianFisiologi;
+use app\models\RefPeralatanUjianFisiologi;
 
 // contant values
 use app\models\general\Placeholder;
@@ -159,11 +163,93 @@ use app\models\general\GeneralLabel;
                 'bilangan_atlet' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>3]],
             ],
         ],
-        [
-            'attributes' => [
-                'ujian' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>255]],
-            ]
-        ],
+        
+    ]
+]);
+        
+        
+        // Additional input fields passed as params to the child dropdown's pluginOptions
+    
+    // selected sukan list
+        $sukan_selected = null;
+        if(isset($model->ujian) && $model->ujian != ''){
+            $sukan_selected=explode(',',$model->ujian);
+        }
+        
+        // Senarai Atlet Yang Memenangi
+        echo '<label class="control-label">'.$model->getAttributeLabel('ujian').'</label>';
+        echo Select2::widget([
+            'model' => $model,
+            'id' => 'penjadualanujianfisiologi-ujian',
+            'name' => 'PenjadualanUjianFisiologi[ujian]',
+            'value' => $sukan_selected, // initial value
+            'data' => ArrayHelper::map(RefTujuanUjianFisiologi::find()->all(),'id', 'desc'),
+            'options' => ['placeholder' => " -- Pilih Ujian -- ", 'multiple' => true],
+            'pluginOptions' => [
+                'tags' => true,
+                'maximumInputLength' => 10
+            ],
+            'disabled' => $readonly
+        ]);
+        
+        echo "<br>";
+        
+        // selected sukan list
+        $sukan_selected = null;
+        if(isset($model->ujian_sub) && $model->ujian_sub != ''){
+            $sukan_selected=explode(',',$model->ujian_sub);
+        }
+        
+         // Senarai Atlet Yang Memenangi
+        echo '<label class="control-label">'.$model->getAttributeLabel('ujian_sub').'</label>';
+        echo Select2::widget([
+            'model' => $model,
+            'id' => 'penjadualanujianfisiologi-ujian_sub',
+            'name' => 'PenjadualanUjianFisiologi[ujian_sub]',
+            'value' => $sukan_selected, // initial value
+            'data' => ArrayHelper::map(RefTujuanUjianFisiologiSub::find()->all(),'id', 'desc'),
+            'options' => ['placeholder' => " -- Pilih Ujian Sub -- ", 'multiple' => true],
+            'pluginOptions' => [
+                'tags' => true,
+                'maximumInputLength' => 10
+            ],
+            'disabled' => $readonly
+        ]);
+        
+        echo "<br>";
+        
+         // selected sukan list
+        $sukan_selected = null;
+        if(isset($model->peralatan) && $model->peralatan != ''){
+            $sukan_selected=explode(',',$model->peralatan);
+        }
+        
+         // Senarai Atlet Yang Memenangi
+        echo '<label class="control-label">'.$model->getAttributeLabel('peralatan').'</label>';
+        echo Select2::widget([
+            'model' => $model,
+            'id' => 'penjadualanujianfisiologi-peralatan',
+            'name' => 'PenjadualanUjianFisiologi[peralatan]',
+            'value' => $sukan_selected, // initial value
+            'data' => ArrayHelper::map(RefPeralatanUjianFisiologi::find()->all(),'id', 'desc'),
+            'options' => ['placeholder' => " -- Pilih Peralatan -- ", 'multiple' => true],
+            'pluginOptions' => [
+                'tags' => true,
+                'maximumInputLength' => 10
+            ],
+            'disabled' => $readonly
+        ]);
+        
+        echo "<br>";
+        
+        
+        
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        
         [
             'attributes' => [
                 'catitan_ringkas' => ['type'=>Form::INPUT_TEXTAREA,'options'=>['maxlength'=>255]],
@@ -173,7 +259,9 @@ use app\models\general\GeneralLabel;
     ]
 ]);
     ?>
-
+    
+    
+    
     <!--<?= $form->field($model, 'atlet_id')->textInput() ?>
 
     <?= $form->field($model, 'perkhidmatan')->textInput(['maxlength' => 80]) ?>

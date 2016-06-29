@@ -58,7 +58,7 @@ class PlTemujanjiFisioterapi extends \yii\db\ActiveRecord
             [['atlet_id', 'nama_fisioterapi', 'kategori_pesakit_luar', 'tindakan_selanjutnya', 'kategori_rawatan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_temujanji'], 'safe'],
             [['doktor_pegawai_perubatan', 'makmal_perubatan', 'pegawai_yang_bertanggungjawab', 'nama_pesakit_luar'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['status_temujanji'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['status_temujanji', 'jenis_sukan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catitan_ringkas', 'maklumbalas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'min' => 12, 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
@@ -88,6 +88,7 @@ class PlTemujanjiFisioterapi extends \yii\db\ActiveRecord
             'tindakan_selanjutnya' => GeneralLabel::tindakan_selanjutnya,
             'maklumbalas' => GeneralLabel::maklumbalas,
             'kategori_rawatan' => GeneralLabel::kategori_rawatan,
+            'jenis_sukan' => GeneralLabel::jenis_sukan,
         ];
     }
     

@@ -170,7 +170,7 @@ use app\models\general\GeneralMessage;
     ?>
     
     <?php // Muat Naik
-    if($model->muat_naik){
+    /*if($model->muat_naik){
         echo "<div><label>" . $model->getAttributeLabel('muat_naik') . "</label></div>";
         echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->muat_naik , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
         if(!$readonly){
@@ -198,7 +198,7 @@ use app\models\general\GeneralMessage;
                 ],
             ]
         ]);
-    }
+    }*/
     ?>
     
     <?php

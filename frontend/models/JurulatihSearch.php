@@ -12,15 +12,20 @@ use app\models\Jurulatih;
  */
 class JurulatihSearch extends Jurulatih
 {
+    public $sijil;
+    public $tahap;
+    public $sukan;
+    public $program_id;
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['jurulatih_id', 'bil_tanggungan'], 'integer'],
-            [['gambar', 'cawangan', 'sub_cawangan_pelapis', 'lain_lain_program', 'pusat_latihan', 'nama_sukan', 'nama_acara', 'status_jurulatih', 
-                'status_permohonan', 'status_keaktifan_jurulatih', 'nama', 'bangsa', 'agama', 'jantina', 'warganegara', 'tarikh_lahir', 'tempat_lahir', 
+            [['jurulatih_id', 'bil_tanggungan', 'status_jurulatih', 'status_keaktifan_jurulatih', 'sijil', 'tahap', 'sukan', 'program_id'], 'integer'],
+            [['gambar', 'cawangan', 'sub_cawangan_pelapis', 'lain_lain_program', 'pusat_latihan', 'nama_sukan', 'nama_acara', 
+                'status_permohonan', 'nama', 'bangsa', 'agama', 'jantina', 'warganegara', 'tarikh_lahir', 'tempat_lahir', 
                 'taraf_perkahwinan', 'ic_no', 'ic_no_lama', 'ic_tentera', 'passport_no', 'tamat_tempoh', 'no_visa', 'tamat_visa_tempoh', 'no_permit_kerja', 
                 'tamat_permit_tempoh', 'alamat_rumah_1', 'alamat_rumah_2', 'alamat_rumah_3', 'alamat_rumah_negeri', 'alamat_rumah_bandar', 'alamat_rumah_poskod', 
                 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_bandar', 
@@ -53,7 +58,8 @@ class JurulatihSearch extends Jurulatih
                 ->joinWith(['refSukan'])
                 ->joinWith(['refAcara'])
                 ->joinWith(['refBahagianJurulatih'])
-                ->joinWith(['refProgramJurulatih']);
+                ->joinWith(['refProgramJurulatih'])
+                ->joinWith(['refJurulatihSpkk']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -74,6 +80,12 @@ class JurulatihSearch extends Jurulatih
             'tamat_tempoh' => $this->tamat_tempoh,
             'tamat_visa_tempoh' => $this->tamat_visa_tempoh,
             'tamat_permit_tempoh' => $this->tamat_permit_tempoh,
+            'status_jurulatih' => $this->status_jurulatih,
+            'status_keaktifan_jurulatih' => $this->status_keaktifan_jurulatih,
+            'tbl_jurulatih_spkk.jenis_spkk' => $this->sijil,
+            'tbl_jurulatih_spkk.tahap' => $this->tahap,
+            'nama_sukan' => $this->sukan,
+            'program' => $this->program_id,
         ]);
 
         $query->andFilterWhere(['like', 'gambar', $this->gambar])
@@ -83,9 +95,9 @@ class JurulatihSearch extends Jurulatih
             ->andFilterWhere(['like', 'pusat_latihan', $this->pusat_latihan])
             ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->nama_sukan])
             ->andFilterWhere(['like', 'tbl_ref_acara.desc', $this->nama_acara])
-            ->andFilterWhere(['like', 'status_jurulatih', $this->status_jurulatih])
+            //->andFilterWhere(['like', 'status_jurulatih', $this->status_jurulatih])
             ->andFilterWhere(['like', 'status_permohonan', $this->status_permohonan])
-            ->andFilterWhere(['like', 'status_keaktifan_jurulatih', $this->status_keaktifan_jurulatih])
+            //->andFilterWhere(['like', 'status_keaktifan_jurulatih', $this->status_keaktifan_jurulatih])
             ->andFilterWhere(['like', 'nama', $this->nama])
             ->andFilterWhere(['like', 'bangsa', $this->bangsa])
             ->andFilterWhere(['like', 'agama', $this->agama])

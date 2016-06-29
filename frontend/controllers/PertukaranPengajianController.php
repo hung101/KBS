@@ -16,6 +16,7 @@ use app\models\Atlet;
 use app\models\RefSebabPermohonanPertukaranPengajian;
 use app\models\RefPengajian;
 use app\models\RefKategoriPengajian;
+use app\models\PerancanganProgram;
 
 /**
  * PertukaranPengajianController implements the CRUD actions for PertukaranPengajian model.
@@ -77,6 +78,9 @@ class PertukaranPengajianController extends Controller
         
         $ref = RefPengajian::findOne(['id' => $model->nama_pertukaran_pengajian]);
         $model->nama_pertukaran_pengajian = $ref['desc'];
+        
+        $ref = PerancanganProgram::findOne(['perancangan_program_id' => $model->kejohanan_program]);
+        $model->kejohanan_program = $ref['nama_program'];
         
         return $this->render('view', [
             'model' => $model,

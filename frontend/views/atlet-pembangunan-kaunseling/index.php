@@ -106,5 +106,78 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
     
     <?php Pjax::end(); ?>
+        
+        <br>
+        <br>
+        
+    <!--<p>
+        <?= Html::button('<span class="glyphicon glyphicon-refresh"></span>', ['value'=>Url::to(['index']),'class' => 'btn btn-info', 'onclick' => 'updateRenderAjax("'.Url::to(['index']).'", "'.GeneralVariable::tabPembangunanKaunselingID.'");']) ?>
+    </p>-->
+    
+    <!-- Kaunseling Rekod - START -->
+    <div class="panel panel-default copyright-wrap" id="kaseling_rekods-list">
+        <div class="panel-heading"><a data-toggle="collapse" href="#kaseling_rekods-body">Rekod Kaunseling</a>
+            <button type="button" class="close" data-target="#kaseling_rekods-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        </div>
+        <div id="kaseling_rekods-body" class="panel-collapse collapse">
+            <div class="panel-body">
+                <?= GridView::widget([
+            'dataProvider' => $dataProviderPBK,
+            //'filterModel' => $searchModelPBK,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+                [
+                'attribute' => 'atlet_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
+                ],
+                'value' => 'atlet.name_penuh'
+            ],
+            [
+                'attribute' => 'kes_latarbelakang',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kes_latarbelakang,
+                ],
+                'value' => 'refLatarbelakangKes.desc'
+            ],
+            [
+                'attribute' => 'tarikh_temujanji',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_temujanji,
+                ]
+            ],
+                ['class' => 'yii\grid\ActionColumn',
+                    'buttons' => [
+                        'view' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', '', ['value'=>Url::to(['/permohonan-bimbingan-kaunseling/view', 'id' => $model->permohonan_bimbingan_kaunseling_id]), 'class' => 'custom_button']);
+                        },
+                    ],
+                    'template' => '',
+                ],
+            ],
+        ]); ?>
+            </div>
+        </div>
+    </div>
+    <!-- Kaunseling Rekod - END -->
 
 </div>
+
+
+<?php
+$script = <<< JS
+        
+$(function(){
+$('.custom_button').click(function(){
+        window.open($(this).attr('value'), "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no");
+        return false;
+});});
+     
+
+JS;
+        
+$this->registerJs($script);
+?>

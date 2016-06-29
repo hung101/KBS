@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use app\models\general\GeneralVariable;
+
 use app\models\RefPeringkatBadanSukan;
 use app\models\RefNegeri;
 use app\models\RefBandar;
@@ -38,6 +40,10 @@ class LtbsAhliGabunganController extends Controller
      */
     public function actionIndex($profil_badan_sukan_id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $queryParams = Yii::$app->request->queryParams;
         
         if($profil_badan_sukan_id!=""){
@@ -61,6 +67,10 @@ class LtbsAhliGabunganController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         // get details
         $model = $this->findModel($id);
         
@@ -95,6 +105,10 @@ class LtbsAhliGabunganController extends Controller
      */
     public function actionCreate($profil_badan_sukan_id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new LtbsAhliGabungan();
         
         if(Yii::$app->user->identity->profil_badan_sukan){
@@ -123,6 +137,10 @@ class LtbsAhliGabunganController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -150,6 +168,10 @@ class LtbsAhliGabunganController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

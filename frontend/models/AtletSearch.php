@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Atlet;
+use app\models\RefProgramSemasaSukanAtlet;
 
 /**
  * AtletSearch represents the model behind the search form about `app\models\Atlet`.
@@ -15,6 +16,7 @@ class AtletSearch extends Atlet
     public $tawaran_id;
     public $sukan;
     public $program;
+    public $jurulatih;
     
     /**
      * @inheritdoc
@@ -27,7 +29,7 @@ class AtletSearch extends Atlet
                 'lesen_memandu_no', 'lesen_tamat_tempoh', 'jenis_lesen', 'emel', 'facebook', 'twitter', 'alamat_rumah_1', 'alamat_rumah_2', 
                 'alamat_rumah_3', 'alamat_surat_menyurat_1','alamat_surat_menyurat_2','alamat_surat_menyurat_3','dari_bahagian', 'sumber', 
                 'negeri_diwakili', 'nama_kecemasan', 'pertalian_kecemasan', 'tawaran', 'sukan', 'program'], 'safe'],
-            [['umur', 'tel_bimbit_no_1', 'tel_bimbit_no_2', 'tel_no', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan', 'tawaran_id'], 'integer'],
+            [['umur', 'tel_bimbit_no_1', 'tel_bimbit_no_2', 'tel_no', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan', 'tawaran_id', 'jurulatih'], 'integer'],
             [['tinggi', 'berat'], 'number'],
         ];
     }
@@ -52,7 +54,11 @@ class AtletSearch extends Atlet
     {
         $query = Atlet::find()
                 ->joinWith(['refStatusTawaran'])
-                 ->joinWith(['refAtletSukan']);
+                ->joinWith(['refAtletSukan' => function($query) {
+                        $query->orderBy(['tbl_atlet_sukan.created' => SORT_DESC])->one();
+                    },
+                ]);
+                // ->joinWith(['refAtletSukan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -103,6 +109,7 @@ class AtletSearch extends Atlet
             'tel_bimbit_no_kecemasan' => $this->tel_bimbit_no_kecemasan,
             //'tawaran' => $this->tawaran_id,
             'tawaran' => $this->tawaran,
+            'tbl_atlet_sukan.jurulatih_id' => $this->jurulatih,
         ]);
         
         
@@ -156,6 +163,24 @@ class AtletSearch extends Atlet
             $query->andFilterWhere(['tbl_atlet_sukan.nama_sukan'=>$arr_sukan_filter]);
         }
         // add filter base on sukan access role in tbl_user->sukan - END
+        
+        // add filter base on sukan access role Atlet -> Podium Kemas Kini - START
+        if(!isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']) && !isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium'])){
+            $query->andFilterWhere(['<>', 'tbl_atlet_sukan.program_semasa', RefProgramSemasaSukanAtlet::PODIUM]);
+        }
+        // add filter base on sukan access role Atlet -> Podium Kemas Kini - END
+        
+        
+        // add filter base on view own created data role Atlet -> View Own Data - START
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['view_own_data'])){
+            $query->andFilterWhere(['tbl_atlet.created_by'=>Yii::$app->user->identity->id]);
+            
+            // see those atlet has not assign sukan & program yet
+            if(!isset($this->jurulatih)){
+                $query->orWhere(['tbl_atlet_sukan.nama_sukan' => ''])->orWhere(['tbl_atlet_sukan.nama_sukan' => NULL]);
+            }
+        }
+        // add filter base on view own created data role Atlet -> View Own Data - END
 
         return $dataProvider;
     }

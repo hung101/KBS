@@ -6,6 +6,12 @@ use yii\grid\GridView;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
 
+use app\models\Jurulatih;
+use app\models\RefStatusJurulatih;
+use app\models\RefKeaktifanJurulatih;
+use app\models\RefSukan;
+use app\models\RefProgramJurulatih;
+
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\JurulatihSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -29,8 +35,182 @@ $this->params['breadcrumbs'][] = $this->title;
         }
     ?>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) . (($desc !=null) ? ' - ' . $desc : '')?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    
+ <div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+        Status</a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse in">
+      <div class="btn-group btn-group-justified" role="group" aria-label="...">
+          <?php
+            //status Jurulatih
+            $modelStatuses = RefStatusJurulatih::find()->where(['=', 'aktif', 1])->all();
+            
+            foreach($modelStatuses as $modelStatus){
+                $countJurulatih = Jurulatih::find()->where(['=', 'status_jurulatih', $modelStatus->id])->count();
+                echo '<div class="btn-group" role="group">';
+                echo Html::a($modelStatus->desc . ' - ' . $countJurulatih, ['index','filter_type'=>'status_jurulatih', 'id'=>$modelStatus->id, 'desc'=>'Status : ' . $modelStatus->desc], ['class'=>'btn btn-info']);
+                echo '</div>';
+            }
+          ?>
+      </div>
+    </div>
+  </div>
+     
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+        Keaktifan</a>
+      </h4>
+    </div>
+    <div id="collapse2" class="panel-collapse collapse">
+      <div class="btn-group btn-group-justified" role="group" aria-label="...">
+          <?php
+            //Keaktifan Jurulatih
+            $modelStatuses = RefKeaktifanJurulatih::find()->where(['=', 'aktif', 1])->all();
+            
+            foreach($modelStatuses as $modelStatus){
+                $countJurulatih = Jurulatih::find()->where(['=', 'status_keaktifan_jurulatih', $modelStatus->id])->count();
+                echo '<div class="btn-group" role="group">';
+                echo Html::a($modelStatus->desc . ' - ' . $countJurulatih, ['index','filter_type'=>'status_keaktifan_jurulatih', 'id'=>$modelStatus->id, 'desc'=>'Keaktifan : ' . $modelStatus->desc], ['class'=>'btn btn-info']);
+                echo '</div>';
+            }
+          ?>
+      </div>
+    </div>
+  </div>
+     
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+        Sukan</a>
+      </h4>
+    </div>
+    <div id="collapse3" class="panel-collapse collapse">
+      
+          <?php
+            //Sukan Jurulatih
+            $modelStatuses = RefSukan::find()->where(['=', 'aktif', 1])->all();
+            
+            echo '<div class="btn-group btn-group-justified" role="group" aria-label="...">';
+            
+            $counter = 0;
+            
+            foreach($modelStatuses as $modelStatus){
+                $countJurulatih = Jurulatih::find()->where(['=', 'nama_sukan', $modelStatus->id])->count();
+                echo '<div class="btn-group" role="group">';
+                echo Html::a($modelStatus->desc . ' - ' . $countJurulatih, ['index','filter_type'=>'sukan', 'id'=>$modelStatus->id, 'desc'=>'Sukan : ' . $modelStatus->desc], ['class'=>'btn btn-info']);
+                echo '</div>';
+                $counter++;
+                if($counter%6==0){
+                    echo '</div>';
+                    echo '<div class="btn-group btn-group-justified" role="group" aria-label="...">';
+                }
+            }
+            
+            echo '</div>';
+          ?>
+    </div>
+  </div>
+     
+     <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+        Program</a>
+      </h4>
+    </div>
+    <div id="collapse4" class="panel-collapse collapse">
+      
+          <?php
+            //Program Jurulatih
+            $modelStatuses = RefProgramJurulatih::find()->where(['=', 'aktif', 1])->all();
+            
+            echo '<div class="btn-group btn-group-justified" role="group" aria-label="...">';
+            
+            $counter = 0;
+            
+            foreach($modelStatuses as $modelStatus){
+                $countJurulatih = Jurulatih::find()->where(['=', 'program', $modelStatus->id])->count();
+                echo '<div class="btn-group" role="group">';
+                echo Html::a($modelStatus->desc . ' - ' . $countJurulatih, ['index','filter_type'=>'program_id', 'id'=>$modelStatus->id, 'desc'=>'Program : ' . $modelStatus->desc], ['class'=>'btn btn-info']);
+                echo '</div>';
+                $counter++;
+                if($counter%6==0){
+                    echo '</div>';
+                    echo '<div class="btn-group btn-group-justified" role="group" aria-label="...">';
+                }
+            }
+            
+            echo '</div>';
+          ?>
+    </div>
+  </div>
+     
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+        Sijil</a>
+      </h4>
+    </div>
+    <div id="collapse5" class="panel-collapse collapse">
+      <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+            <?php
+                //Sijil Jurulatih
+                $countJurulatih = Jurulatih::find()->joinWith(['refJurulatihSpkk'])->where(['=', 'tbl_jurulatih_spkk.jenis_spkk', 1])->where(['=', 'tbl_jurulatih_spkk.tahap', 1])->groupBy('tbl_jurulatih.jurulatih_id')->count();
+            ?>
+          <?= Html::a('Sains Sukan I - ' . $countJurulatih, ['index','filter_type'=>'sijil', 'id'=>1, 'id2'=>1, 'desc'=>'Sijil : Sains Sukan I'], ['class'=>'btn btn-info']) ?>
+        </div>
+        <div class="btn-group" role="group">
+            <?php
+                //Sijil Jurulatih
+                $countJurulatih = Jurulatih::find()->joinWith(['refJurulatihSpkk'])->where(['=', 'tbl_jurulatih_spkk.jenis_spkk', 1])->where(['=', 'tbl_jurulatih_spkk.tahap', 2])->groupBy('tbl_jurulatih.jurulatih_id')->count();
+            ?>
+          <?= Html::a('Sains Sukan II - ' . $countJurulatih, ['index','filter_type'=>'sijil', 'id'=>1, 'id2'=>2, 'desc'=>'Sijil : Sains Sukan II'], ['class'=>'btn btn-info']) ?>
+        </div>
+        <div class="btn-group" role="group">
+            <?php
+                //Sijil Jurulatih
+                $countJurulatih = Jurulatih::find()->joinWith(['refJurulatihSpkk'])->where(['=', 'tbl_jurulatih_spkk.jenis_spkk', 1])->where(['=', 'tbl_jurulatih_spkk.tahap', 3])->groupBy('tbl_jurulatih.jurulatih_id')->count();
+            ?>
+          <?= Html::a('Sains Sukan III - ' . $countJurulatih, ['index','filter_type'=>'sijil', 'id'=>1, 'id2'=>3, 'desc'=>'Sijil : Sains Sukan III'], ['class'=>'btn btn-info']) ?>
+        </div>
+          <div class="btn-group" role="group">
+            <?php
+                //Sijil Jurulatih
+                $countJurulatih = Jurulatih::find()->joinWith(['refJurulatihSpkk'])->where(['=', 'tbl_jurulatih_spkk.jenis_spkk', 2])->where(['=', 'tbl_jurulatih_spkk.tahap', 1])->groupBy('tbl_jurulatih.jurulatih_id')->count();
+            ?>
+          <?= Html::a('Sukan Spesifik I - ' . $countJurulatih, ['index','filter_type'=>'sijil', 'id'=>2, 'id2'=>1, 'desc'=>'Sijil : Sukan Spesifik I'], ['class'=>'btn btn-info']) ?>
+        </div>
+          <div class="btn-group" role="group">
+            <?php
+                //Sijil Jurulatih
+                $countJurulatih = Jurulatih::find()->joinWith(['refJurulatihSpkk'])->where(['=', 'tbl_jurulatih_spkk.jenis_spkk', 2])->where(['=', 'tbl_jurulatih_spkk.tahap', 2])->groupBy('tbl_jurulatih.jurulatih_id')->count();
+            ?>
+          <?= Html::a('Sukan Spesifik II - ' . $countJurulatih, ['index','filter_type'=>'sijil', 'id'=>2, 'id2'=>2, 'desc'=>'Sijil : Sukan Spesifik II'], ['class'=>'btn btn-info']) ?>
+        </div>
+          <div class="btn-group" role="group">
+            <?php
+                //Sijil Jurulatih
+                $countJurulatih = Jurulatih::find()->joinWith(['refJurulatihSpkk'])->where(['=', 'tbl_jurulatih_spkk.jenis_spkk', 2])->where(['=', 'tbl_jurulatih_spkk.tahap', 3])->groupBy('tbl_jurulatih.jurulatih_id')->count();
+            ?>
+          <?= Html::a('Sukan Spesifik III - ' . $countJurulatih, ['index','filter_type'=>'sijil', 'id'=>2, 'id2'=>3, 'desc'=>'Sijil : Sukan Spesifik III'], ['class'=>'btn btn-info']) ?>
+        </div>
+      </div>
+    </div>
+  </div>
+     
+</div> 
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['create'])): ?>
         <p>

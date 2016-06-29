@@ -12,13 +12,15 @@ use app\models\PlTemujanji;
  */
 class PlTemujanjiSearch extends PlTemujanji
 {
+    public $atlet;
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['pl_temujanji_id'], 'integer'],
+            [['pl_temujanji_id', 'atlet'], 'integer'],
             [['tarikh_temujanji', 'doktor_pegawai_perubatan', 'makmal_perubatan', 'status_temujanji', 'pegawai_yang_bertanggungjawab', 'catitan_ringkas', 'catatan_tambahan', 'atlet_id'], 'safe'],
         ];
     }
@@ -62,6 +64,7 @@ class PlTemujanjiSearch extends PlTemujanji
             'pl_temujanji_id' => $this->pl_temujanji_id,
             //'atlet_id' => $this->atlet_id,
             'tarikh_temujanji' => $this->tarikh_temujanji,
+            'tbl_pl_temujanji.atlet_id' => $this->atlet,
         ]);
 
         $query->andFilterWhere(['like', 'doktor_pegawai_perubatan', $this->doktor_pegawai_perubatan])

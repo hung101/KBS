@@ -112,6 +112,8 @@ class TemujanjiKomplimentariController extends Controller
         }
         
         $model = new TemujanjiKomplimentari();
+        
+        $model->scenario = 'create';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->temujanji_komplimentari_id]);
