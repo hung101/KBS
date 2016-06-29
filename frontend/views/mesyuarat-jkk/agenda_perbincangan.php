@@ -232,7 +232,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\ActionColumn',
                     'buttons' => [
                         'view' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', '', ['value'=>Url::to(['/jurulatih/view', 'id' => $model->pengurusan_program_binaan_id]), 'class' => 'custom_button']);
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', '', ['value'=>Url::to(['/pengurusan-program-binaan/view', 'id' => $model->pengurusan_program_binaan_id]), 'class' => 'custom_button']);
                         },
                     ],
                     'template' => '{view}',
@@ -467,7 +467,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\ActionColumn',
                     'buttons' => [
                         'view' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', '', ['value'=>Url::to(['/profil-pusat-latihan/view', 'id' => $model->perancangan_program_id]), 'class' => 'custom_button']);
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', '', ['value'=>Url::to(['/perancangan-program/view', 'id' => $model->perancangan_program_id]), 'class' => 'custom_button']);
                         },
                     ],
                     'template' => '{view}',
