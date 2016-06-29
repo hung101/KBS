@@ -8,6 +8,7 @@ use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\widgets\Select2;
 use kartik\datecontrol\DateControl;
+use yii\helpers\Url;
 
 // table reference
 use app\models\RefJabatanUser;
@@ -99,7 +100,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
-                        'options' => ['placeholder' => Placeholder::persatuan],
+                        'options' => ['placeholder' => Placeholder::persatuan, 'id'=>'badanSukanId'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -120,6 +121,7 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ],
+                        'options' => ['id'=>'ExpiryDateID'],
                     ],
                     'columnOptions'=>['colspan'=>3]],
                 'status' => [
@@ -201,3 +203,37 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$URL = Url::to(['/profil-badan-sukan/get-badan-sukan']);
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$script = <<< JS
+        
+$('#badanSukanId').change(function(){
+    
+    $.get('$URL',{id:$(this).val()},function(data){
+        clearForm();
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+            var tarikhLulus = data.tarikh_lulus_pendaftaran;
+            var tarikhLulusAdd = new Date(tarikhLulus);
+            tarikhLulusAdd.setFullYear(tarikhLulusAdd.getFullYear() + 1); // plus 1 year
+        
+            $("#ExpiryDateID-disp").val(formatDisplayDate(tarikhLulusAdd));
+            $("#ExpiryDateID").val(formatSaveDate(tarikhLulusAdd));
+        }
+    });
+});
+     
+function clearForm(){
+    $("#ExpiryDateID-disp").val('');
+    $("#ExpiryDateID").val('');
+}
+        
+JS;
+        
+$this->registerJs($script);
+?>
