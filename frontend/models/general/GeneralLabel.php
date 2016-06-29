@@ -1263,7 +1263,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const penilaian = "Penilaian";
         const penilaian_kategori = "Kategori";
         const penilaian_oleh = "Pernilaian Oleh";
-        const penilaian_pestasi_id = "Penilaian Pestasi ID";
+        const penilaian_pestasi_id = "Penilaian Prestasi ID";
         const penilaian_penganjur_kursus = "Penilaian Penganjur Kursus";
         const penilaian_peserta_terhadap_kursus = "Penilaian Peserta Terhadap Kursus";
         const penilaian_prestasi_atlet_id = "Penilaian Prestasi Atlet ID";
@@ -1984,7 +1984,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pengurusan_usptn = "Pengurusan USPTN";
         const pengurusan_venue = "Pengurusan Fasiliti";
         const pengurusan_venue_latihan_kemudahan_serta_spesifikasi_teknikal = "Pengurusan Venue Latihan, Kemudahan Serta Spesifikasi Teknikal";
-        const penilaian_pestasi = "Penilaian Pestasi";
+        const penilaian_pestasi = "Penilaian Prestasi";
         const penilaian_prestasi = "Penilaian Prestasi";
         const penilaian_prestasi_kejohanan = "Pengurusan Kejohanan / Temasya Yang Disertai Oleh Atlet";
         const peningkatan_kerjaya_jurulatih = "Peningkatan Kerjaya Jurulatih";
@@ -4081,7 +4081,7 @@ if($session->get('language') == "EN") {
         const penilaian = "Valuation";
         const penilaian_kategori = "Category";
         const penilaian_oleh = "Evaluation By";
-        const penilaian_pestasi_id = "Evaluation Of Pestasi ID";
+        const penilaian_pestasi_id = "Evaluation Of Prestasi ID";
         const penilaian_penganjur_kursus = "Course Organizers Valuation";
         const penilaian_peserta_terhadap_kursus = "Participant evaluation of courses";
         const penilaian_prestasi_atlet_id = "Performance Evaluation Of The Athlete ' ID";
@@ -4802,7 +4802,7 @@ if($session->get('language') == "EN") {
         const pengurusan_usptn = "USPTN Management";
         const pengurusan_venue = "Venue Management";
         const pengurusan_venue_latihan_kemudahan_serta_spesifikasi_teknikal = "Management Training Venue, Facilities And Technical Specification";
-        const penilaian_pestasi = "Evaluation Pestasi";
+        const penilaian_pestasi = "Evaluation Prestasi";
         const penilaian_prestasi = "Performance Evaluation";
         const penilaian_prestasi_kejohanan = "Tournament Management / The Games Participated Athlete";
         const peningkatan_kerjaya_jurulatih = "Physiology Exam Scheduling";

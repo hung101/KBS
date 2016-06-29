@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PermohonanEBiasiswa;
 use frontend\models\PermohonanEBiasiswaSearch;
+use app\models\PermohonanBiasiswa;
+use frontend\models\PermohonanBiasiswaSearch;
 use app\models\Atlet;
 use app\models\AtletSearch;
 use yii\web\Controller;
@@ -53,16 +55,22 @@ class AtletKewanganBiasiswaController extends Controller
             if (($model = Atlet::findOne($session['atlet_id'])) !== null) {
                 $queryPar['PermohonanEBiasiswaSearch']['no_ic'] = $model->ic_no;
             }
+            $queryPar['PermohonanBiasiswaSearch']['atlet'] = $session['atlet_id'];
         }
         
         $session->close();
         
         $searchModelSS = new PermohonanEBiasiswaSearch();
         $dataProviderSS = $searchModelSS->search($queryPar);
-
+        
+        $searchModelBI = new PermohonanBiasiswaSearch();
+        $dataProviderBI = $searchModelBI->search($queryPar);
+        
         $renderContent = $this->renderAjax('index', [
             'searchModelSS' => $searchModelSS,
             'dataProviderSS' => $dataProviderSS,
+            'searchModelBI' => $searchModelBI,
+            'dataProviderBI' => $dataProviderBI,
         ]);
 
         if($request->get('typeJson') != NULL){

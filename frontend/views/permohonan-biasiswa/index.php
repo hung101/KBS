@@ -86,6 +86,30 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refJantina.desc'
             ],
+            [
+                'attribute' => 'jenis_biasiswa',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_biasiswa,
+                ],
+                'value' => 'refJenisBiasiswa.desc'
+            ],
+            [
+                'attribute' => 'kelulusan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelulusan,
+                ],
+                'value' => 'refKelulusan.desc'
+            ],
+            [
+                'attribute' => 'created',
+                'label' => GeneralLabel::tarikh_hantar,
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_hantar,
+                ],
+            ],
             // 'alamat_rumah_1',
             // 'alamat_rumah_2',
             // 'alamat_rumah_3',

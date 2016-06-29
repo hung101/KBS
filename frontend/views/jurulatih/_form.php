@@ -30,6 +30,7 @@ use app\models\RefStatusPermohonanJurulatih;
 use app\models\RefKeaktifanJurulatih;
 use app\models\RefSektorPekerjaan;
 use app\models\RefAgensiJurulatih;
+use app\models\RefStatusTawaran;
 
 // contant values
 use app\models\general\Placeholder;
@@ -732,6 +733,41 @@ use app\models\general\GeneralVariable;
         
     ]
 ]);
+    ?>
+    
+    <?php
+    if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['tawaran'])){
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'status_tawaran' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-status-tawaran/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefStatusTawaran::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::status],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>3]],
+                    ]
+                ]
+            ]
+        ]);
+    }
     ?>
 
     <div class="form-group">

@@ -34,6 +34,8 @@ use app\models\RefStatusJurulatih;
 use app\models\RefStatusPermohonanJurulatih;
 use app\models\RefKeaktifanJurulatih;
 use app\models\RefSektorPekerjaan;
+use app\models\RefStatusTawaran;
+use app\models\RefAgensiJurulatih;
 
 /**
  * JurulatihController implements the CRUD actions for Jurulatih model.
@@ -170,6 +172,12 @@ class JurulatihController extends Controller
         $ref = RefSektorPekerjaan::findOne(['id' => $model->sektor]);
         $model->sektor = $ref['desc'];
         
+        $ref = RefStatusTawaran::findOne(['id' => $model->status_tawaran]);
+        $model->status_tawaran = $ref['desc'];
+        
+         $ref = RefAgensiJurulatih::findOne(['id' => $model->agensi]);
+        $model->agensi = $ref['desc'];
+        
         return $this->render('layout', [
             'model' => $model,
             'readonly' => true,
@@ -195,6 +203,8 @@ class JurulatihController extends Controller
         $session->close();
         
         $model = new Jurulatih();
+        
+        $model->status_tawaran = RefStatusTawaran::DALAM_PROSES; //default
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'gambar');

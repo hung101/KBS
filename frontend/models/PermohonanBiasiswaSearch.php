@@ -12,14 +12,15 @@ use app\models\PermohonanBiasiswa;
  */
 class PermohonanBiasiswaSearch extends PermohonanBiasiswa
 {
+    public $atlet;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['permohonan_biasiswa_id', 'umur', 'kelulusan'], 'integer'],
-            [['no_ic', 'atlet_id', 'sukan', 'jantina', 'alamat_rumah_1', 'alamat_rumah_2', 'alamat_rumah_3', 'alamat_rumah_negeri', 'alamat_rumah_bandar', 'alamat_rumah_poskod', 'no_tel_rumah', 'no_tel_bimbit', 'alamat_pengajian_1', 'alamat_pengajian_2', 'alamat_pengajian_3', 'alamat_pengajian_negeri', 'alamat_pengajian_bandar', 'alamat_pengajian_poskod', 'no_tel_pengajian', 'no_fax_pengajian', 'jenis_biasiswa', 'muatnaik'], 'safe'],
+            [['permohonan_biasiswa_id', 'umur', 'atlet'], 'integer'],
+            [['no_ic', 'created', 'atlet_id', 'sukan', 'kelulusan', 'jantina', 'alamat_rumah_1', 'alamat_rumah_2', 'alamat_rumah_3', 'alamat_rumah_negeri', 'alamat_rumah_bandar', 'alamat_rumah_poskod', 'no_tel_rumah', 'no_tel_bimbit', 'alamat_pengajian_1', 'alamat_pengajian_2', 'alamat_pengajian_3', 'alamat_pengajian_negeri', 'alamat_pengajian_bandar', 'alamat_pengajian_poskod', 'no_tel_pengajian', 'no_fax_pengajian', 'jenis_biasiswa', 'muatnaik'], 'safe'],
         ];
     }
 
@@ -44,7 +45,9 @@ class PermohonanBiasiswaSearch extends PermohonanBiasiswa
         $query = PermohonanBiasiswa::find()
                 ->joinWith(['refAtlet'])
                 ->joinWith(['refSukan'])
-                ->joinWith(['refJantina']);
+                ->joinWith(['refJantina'])
+                ->joinWith(['refJenisBiasiswa'])
+                ->joinWith(['refKelulusan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -60,10 +63,10 @@ class PermohonanBiasiswaSearch extends PermohonanBiasiswa
 
         $query->andFilterWhere([
             'permohonan_biasiswa_id' => $this->permohonan_biasiswa_id,
-            //'atlet_id' => $this->atlet_id,
+            'tbl_permohonan_biasiswa.atlet_id' => $this->atlet,
             //'sukan' => $this->sukan,
             'tbl_permohonan_biasiswa.umur' => $this->umur,
-            'kelulusan' => $this->kelulusan,
+            //'kelulusan' => $this->kelulusan,
         ]);
 
         $query->andFilterWhere(['like', 'sukan', $this->sukan])
@@ -87,8 +90,10 @@ class PermohonanBiasiswaSearch extends PermohonanBiasiswa
             ->andFilterWhere(['like', 'alamat_pengajian_poskod', $this->alamat_pengajian_poskod])
             ->andFilterWhere(['like', 'no_tel_pengajian', $this->no_tel_pengajian])
             ->andFilterWhere(['like', 'no_fax_pengajian', $this->no_fax_pengajian])
-            ->andFilterWhere(['like', 'jenis_biasiswa', $this->jenis_biasiswa])
-            ->andFilterWhere(['like', 'muatnaik', $this->muatnaik]);
+            ->andFilterWhere(['like', 'tbl_ref_jenis_biasiswa.desc', $this->jenis_biasiswa])
+                ->andFilterWhere(['like', 'tbl_ref_kelulusan.desc', $this->kelulusan])
+            ->andFilterWhere(['like', 'muatnaik', $this->muatnaik])
+                ->andFilterWhere(['like', 'created', $this->created]);
 
         return $dataProvider;
     }

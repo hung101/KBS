@@ -83,7 +83,7 @@ class AtletController extends Controller
         
         $queryPar = Yii::$app->request->queryParams;
         
-        //$queryPar['AtletSearch']['tawaran'] = RefStatusTawaran::DALAM_PROSES;
+        $queryPar['AtletSearch']['tawaran'] = RefStatusTawaran::DALAM_PROSES;
         
         $searchModel = new AtletSearch();
         $dataProvider = $searchModel->search($queryPar);

@@ -142,4 +142,18 @@ class PermohonanBiasiswa extends \yii\db\ActiveRecord
     public function getRefJantina(){
         return $this->hasOne(RefJantina::className(), ['id' => 'jantina']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJenisBiasiswa(){
+        return $this->hasOne(RefJenisBiasiswa::className(), ['id' => 'jenis_biasiswa']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKelulusan(){
+        return $this->hasOne(RefKelulusan::className(), ['id' => 'kelulusan']);
+    }
 }

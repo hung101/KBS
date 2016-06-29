@@ -11,6 +11,7 @@ use app\models\RefStatusJurulatih;
 use app\models\RefKeaktifanJurulatih;
 use app\models\RefSukan;
 use app\models\RefProgramJurulatih;
+use app\models\RefStatusTawaran;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\JurulatihSearch */
@@ -63,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
   </div>
      
-  <div class="panel panel-default">
+  <!--<div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
@@ -80,6 +81,30 @@ $this->params['breadcrumbs'][] = $this->title;
                 $countJurulatih = Jurulatih::find()->where(['=', 'status_keaktifan_jurulatih', $modelStatus->id])->count();
                 echo '<div class="btn-group" role="group">';
                 echo Html::a($modelStatus->desc . ' - ' . $countJurulatih, ['index','filter_type'=>'status_keaktifan_jurulatih', 'id'=>$modelStatus->id, 'desc'=>'Keaktifan : ' . $modelStatus->desc], ['class'=>'btn btn-info']);
+                echo '</div>';
+            }
+          ?>
+      </div>
+    </div>
+  </div>-->
+  
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+        Status Tawaran</a>
+      </h4>
+    </div>
+    <div id="collapse2" class="panel-collapse collapse">
+      <div class="btn-group btn-group-justified" role="group" aria-label="...">
+          <?php
+            //Keaktifan Jurulatih
+            $modelStatuses = RefStatusTawaran::find()->where(['=', 'aktif', 1])->all();
+            
+            foreach($modelStatuses as $modelStatus){
+                $countJurulatih = Jurulatih::find()->where(['=', 'status_tawaran', $modelStatus->id])->count();
+                echo '<div class="btn-group" role="group">';
+                echo Html::a($modelStatus->desc . ' - ' . $countJurulatih, ['index','filter_type'=>'status_tawaran_id', 'id'=>$modelStatus->id, 'desc'=>'Status Tawaran : ' . $modelStatus->desc], ['class'=>'btn btn-info']);
                 echo '</div>';
             }
           ?>
@@ -273,6 +298,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program,
                 ],
                 'value' => 'refProgramJurulatih.desc'
+            ],
+            [
+                'attribute' => 'status_tawaran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_tawaran,
+                ],
+                'value' => 'refStatusTawaran.desc'
             ],
             //'program',
            // 'gambar',
