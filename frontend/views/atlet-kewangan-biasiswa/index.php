@@ -22,9 +22,9 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <h1><?= Html::encode($this->title) ?></h1>
     
-    <p>
+    <!--<p>
         <?= Html::button('<span class="glyphicon glyphicon-refresh"></span>', ['value'=>Url::to(['index']),'class' => 'btn btn-info', 'onclick' => 'updateRenderAjax("'.Url::to(['index']).'", "'.GeneralVariable::tabKewanganBiasiswaID.'");']) ?>
-    </p>
+    </p>-->
     
     <!-- e-Biasiswa - START -->
     <div class="panel panel-default copyright-wrap" id="kbs_biasiswa-list">
