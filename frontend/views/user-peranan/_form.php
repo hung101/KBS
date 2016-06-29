@@ -147,7 +147,7 @@ use app\models\general\GeneralMessage;
                         'aktif' => [
                             'type'=>Form::INPUT_RADIO_LIST, 
                             'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
-                            'value'=>false,
+                            'value'=>1,
                             'options'=>['inline'=>true],
                             'columnOptions'=>['colspan'=>3]],
                     ]

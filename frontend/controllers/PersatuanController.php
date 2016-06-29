@@ -130,6 +130,7 @@ class PersatuanController extends Controller
             $model->setPassword($model->new_password);
             $model->generateAuthKey();
             
+            
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -168,6 +169,7 @@ class PersatuanController extends Controller
             //$model->password_hash = Yii::$app->security->generatePasswordHash($model->new_password);
             if($model->new_password != ''){
                 $model->setPassword($model->new_password);
+                $model->login_attempted = 0; //reset login attempt
             }
             
             if($model->save()){

@@ -27,6 +27,7 @@ use app\models\RefStatusTemujanjiPesakitLuar;
 use app\models\RefPegawaiPerubatan;
 use app\models\RefAtletTahap;
 use app\models\RefSukan;
+use app\models\RefProgramSemasaSukanAtlet;
 
 /**
  * PlTemujanjiController implements the CRUD actions for PlTemujanji model.
@@ -89,7 +90,7 @@ class PlTemujanjiController extends Controller
         $ref = RefPegawaiPerubatan::findOne(['id' => $model->pegawai_yang_bertanggungjawab]);
         $model->pegawai_yang_bertanggungjawab = $ref['desc'];
         
-        $ref = RefAtletTahap::findOne(['id' => $model->kategori_atlet]);
+        $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->kategori_atlet]);
         $model->kategori_atlet = $ref['desc'];
         
         $ref = RefSukan::findOne(['id' => $model->jenis_sukan]);

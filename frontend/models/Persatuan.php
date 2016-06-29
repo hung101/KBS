@@ -54,7 +54,7 @@ class Persatuan extends \yii\db\ActiveRecord
     {
         return [
             [['username', 'peranan', 'full_name', 'status', 'ipt_bendahari_e_biasiswa', 'email', 'profil_badan_sukan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['jabatan_id', 'peranan', 'status', 'profil_badan_sukan', 'ipt_bendahari_e_biasiswa', 'no_kad_pengenalan', 'urusetia_negeri_e_bantuan', 'urusetia_kategori_program_e_bantuan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jabatan_id', 'peranan', 'status', 'profil_badan_sukan', 'ipt_bendahari_e_biasiswa', 'no_kad_pengenalan', 'urusetia_negeri_e_bantuan', 'urusetia_kategori_program_e_bantuan', 'login_attempted'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['password_hash', 'password_reset_token', 'email', 'sukan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['expiry_date'], 'safe'],
             [['email'], 'email', 'message' => GeneralMessage::yii_validation_email],

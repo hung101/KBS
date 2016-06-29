@@ -15,6 +15,7 @@ use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 use yii\web\Session;
 use yii\helpers\BaseUrl;
+use yii\helpers\Json;
 
 // table reference
 use app\models\RefJantina;
@@ -219,7 +220,18 @@ class AtletController extends Controller
                 
                 // send out email to pengurus sukan if is PSK key in
                 if(Yii::$app->user->identity->peranan ==  UserPeranan::PERANAN_PJS_PERSATUAN){
-                    $modelPengurusSukan = User::find()->where()->all();
+                    $modelPengurusSukan = User::find()->where(['peranan' => UserPeranan::PERANAN_MSN_PENGURUS_SUKAN])->all();
+                    foreach($modelPengurusSukan AS $modelPS){
+                        if($modelPS->email && $modelPS->email != ''){
+                            Yii::$app->mailer->compose()
+        ->setTo($modelPS->email)
+                                    ->setFrom('noreply@spsb.com')
+        ->setSubject('PSK telah memasukkan atlet baru')
+        ->setTextBody('Nama: ' . $model->name_penuh . '
+No Kad Pengenalan: ' . $model->ic_no . '
+')->send();
+                        }
+                    }
                 }
                 
                 return $this->redirect(['view', 'id' => $model->atlet_id]);
@@ -371,6 +383,16 @@ class AtletController extends Controller
             $img->update();
 
             return $this->redirect(['update', 'id' => $id]);
+    }
+    
+    public function actionGetAtlet($id){
+        // find Ahli Jawatankuasa Induk
+        $model = Atlet::find()->where(['tbl_atlet.atlet_id'=>$id])->joinWith(['refAtletSukan' => function($query) {
+                        $query->orderBy(['tbl_atlet_sukan.created' => SORT_DESC])->one();
+                    },
+                ])->asArray()->one();
+        
+        echo Json::encode($model);
     }
     
     public function actionLaporanSenaraiAtlet()

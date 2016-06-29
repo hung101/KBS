@@ -19,6 +19,7 @@ use app\models\RefStatusTemujanjiPesakitLuar;
 use app\models\RefPegawaiPerubatan;
 use app\models\RefAtletTahap;
 use app\models\RefSukan;
+use app\models\RefProgramSemasaSukanAtlet;
 
 // contant values
 use app\models\general\Placeholder;
@@ -54,6 +55,20 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'atlet_id' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'options' => ['placeholder' => Placeholder::atlet, 'id'=>'atletId'],],
+                    'columnOptions'=>['colspan'=>5]],
                 'kategori_atlet' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -61,11 +76,11 @@ use app\models\general\GeneralMessage;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-atlet-tahap/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-program-semasa-sukan-atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefAtletTahap::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::tahapAtlet],],
                     'columnOptions'=>['colspan'=>3]],
                 'jenis_sukan' => [
@@ -82,20 +97,7 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],],
                     'columnOptions'=>['colspan'=>4]],
-                'atlet_id' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::atlet],],
-                    'columnOptions'=>['colspan'=>5]],
+                
             ]
         ],
         [
@@ -347,3 +349,36 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$URLJurulatih = Url::to(['/atlet/get-atlet']);
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$script = <<< JS
+        
+$('#atletId').change(function(){
+    
+    $.get('$URLJurulatih',{id:$(this).val()},function(data){
+        clearForm();
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+        
+            if(data.refAtletSukan[0] !== null){ 
+                $('#pltemujanji-kategori_atlet').val(data.refAtletSukan[0].program_semasa).trigger("change");
+                $('#pltemujanji-jenis_sukan').val(data.refAtletSukan[0].nama_sukan).trigger("change");
+            }
+        }
+    });
+});
+     
+function clearForm(){
+    $("#pltemujanji-kategori_atlet").val('').trigger("change");
+    $("#pltemujanji-jenis_sukan").val('').trigger("change");
+}
+        
+JS;
+        
+$this->registerJs($script);
+?>
