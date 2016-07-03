@@ -23,6 +23,8 @@ use app\models\RefBangsa;
 use app\models\RefAgama;
 use app\models\RefStatusPermohonanSue;
 use app\models\RefNegara;
+use app\models\ProfilBadanSukan;
+use app\models\RefKursusBantuanElaun;
 
 /**
  * BantuanElaunController implements the CRUD actions for BantuanElaun model.
@@ -51,8 +53,14 @@ class BantuanElaunController extends Controller
             return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
         }
         
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if(Yii::$app->user->identity->profil_badan_sukan){
+            $queryParams['BantuanElaunSearch']['created_by'] = Yii::$app->user->identity->id;
+        }
+        
         $searchModel = new BantuanElaunSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -100,6 +108,12 @@ class BantuanElaunController extends Controller
         $ref = RefStatusPermohonanSue::findOne(['id' => $model->status_permohonan]);
         $model->status_permohonan = $ref['desc'];
         
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->nama_persatuan]);
+        $model->nama_persatuan = $ref['nama_badan_sukan'];
+        
+        $ref = RefKursusBantuanElaun::findOne(['id' => $model->kursus]);
+        $model->kursus = $ref['desc'];
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,
@@ -118,7 +132,14 @@ class BantuanElaunController extends Controller
         }
         
         $model = new BantuanElaun();
-
+        
+        
+        $model->status_permohonan = RefStatusPermohonanSue::DALAM_PROSES;
+        
+        if(Yii::$app->user->identity->profil_badan_sukan){
+            $model->nama_persatuan = Yii::$app->user->identity->profil_badan_sukan;
+        }
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'muatnaik_gambar');
             $filename = $model->bantuan_elaun_id . "-muatnaik_gambar";

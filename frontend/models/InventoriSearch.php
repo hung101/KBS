@@ -19,7 +19,7 @@ class InventoriSearch extends Inventori
     {
         return [
             [['inventori_id', 'created_by', 'updated_by'], 'integer'],
-            [['tarikh', 'program', 'sukan', 'no_co', 'alamat_pembekal_1', 'alamat_pembekal_2', 'alamat_pembekal_3', 'alamat_pembekal_negeri', 'alamat_pembekal_bandar', 'alamat_pembekal_poskod', 'perkara', 'created', 'updated'], 'safe'],
+            [['tarikh', 'program', 'sukan', 'no_co', 'negeri', 'alamat_pembekal_1', 'alamat_pembekal_2', 'alamat_pembekal_3', 'alamat_pembekal_negeri', 'alamat_pembekal_bandar', 'alamat_pembekal_poskod', 'perkara', 'created', 'updated'], 'safe'],
         ];
     }
 
@@ -41,7 +41,8 @@ class InventoriSearch extends Inventori
      */
     public function search($params)
     {
-        $query = Inventori::find();
+        $query = Inventori::find()
+                ->joinWith(['refNegeri']);
 
         // add conditions that should always apply here
 
@@ -76,7 +77,8 @@ class InventoriSearch extends Inventori
             ->andFilterWhere(['like', 'alamat_pembekal_negeri', $this->alamat_pembekal_negeri])
             ->andFilterWhere(['like', 'alamat_pembekal_bandar', $this->alamat_pembekal_bandar])
             ->andFilterWhere(['like', 'alamat_pembekal_poskod', $this->alamat_pembekal_poskod])
-            ->andFilterWhere(['like', 'perkara', $this->perkara]);
+            ->andFilterWhere(['like', 'perkara', $this->perkara])
+                ->andFilterWhere(['like', 'tbl_ref_negeri.desc', $this->negeri]);
 
         return $dataProvider;
     }

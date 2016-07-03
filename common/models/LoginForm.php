@@ -65,8 +65,8 @@ class LoginForm extends Model
             $user = $this->getUser();
             
             if($user->expiry_date && ($user->expiry_date < date("Y-m-d")) && $user->peranan == UserPeranan::PERANAN_PJS_PERSATUAN){
-                $user->login_attempted = 0;
-                $user->save();
+                //$user->login_attempted = 0;
+                //$user->save();
                 $this->addError('username', 'Akaun anda disekat kerana tidak menghantarkan MYKB.');
                 return false;
             }

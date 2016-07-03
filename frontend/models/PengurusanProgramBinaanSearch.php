@@ -20,7 +20,8 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
     public function rules()
     {
         return [
-            [['pengurusan_program_binaan_id', 'status_permohonan_id'], 'integer'],
+            [['jumlah_yang_diluluskan'], 'number'],
+            [['pengurusan_program_binaan_id', 'status_permohonan_id', 'created_by'], 'integer'],
             [['nama_ppn', 'pengurus_pn', 'kategori_permohonan', 'jenis_permohonan', 'sukan', 'tempat', 'tahap', 'negeri', 'daerah', 'tarikh_mula', 'tarikh_tamat',
                 'sokongan_pn', 'kelulusan', 'status_permohonan', 'aktiviti', 'nama_aktiviti'], 'safe'],
         ];
@@ -69,6 +70,7 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
             //'sokongan_pn' => $this->sokongan_pn,
             //'kelulusan' => $this->kelulusan,
             'status_permohonan' => $this->status_permohonan_id,
+            'tbl_pengurusan_program_binaan.created_by' => $this->created_by,
         ]);
 
         $query->andFilterWhere(['like', 'nama_ppn', $this->nama_ppn])
@@ -78,6 +80,7 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
             ->andFilterWhere(['like', 'rk1.desc', $this->sokongan_pn])
             ->andFilterWhere(['like', 'rk2.desc', $this->kelulusan])
             ->andFilterWhere(['like', 'sukan', $this->sukan])
+                ->andFilterWhere(['like', 'jumlah_yang_diluluskan', $this->jumlah_yang_diluluskan])
             ->andFilterWhere(['like', 'tempat', $this->tempat])
             ->andFilterWhere(['like', 'tahap', $this->tahap])
             ->andFilterWhere(['like', 'negeri', $this->negeri])

@@ -8,7 +8,7 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use kartik\widgets\DepDrop;
 use kartik\datecontrol\DateControl;
-
+use yii\web\Session;
 use yii\helpers\ArrayHelper;
 
 // table reference
@@ -39,6 +39,17 @@ use app\models\general\GeneralVariable;
 
 <div class="atlet-form">
     <h1>Peribadi</h1>
+    
+    <?php
+        $session = new Session;
+        $session->open();
+        
+        if(isset($model->refAtletSukan[0]->program_semasa)){
+            $session['program_semasa_id'] = $model->refAtletSukan[0]->program_semasa;
+        }
+        
+        $session->close();
+    ?>
     
     <?php if($readonly): ?>
         <?php if( ( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['update'])) || 

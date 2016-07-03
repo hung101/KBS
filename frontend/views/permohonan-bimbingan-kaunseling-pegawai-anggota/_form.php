@@ -10,8 +10,10 @@ use kartik\datecontrol\DateControl;
 
 // table reference
 use app\models\RefStatusPermohonan;
+use app\models\RefTarafPerkahwinan;
+use app\models\RefJantina;
 use app\models\RefLatarbelakangKes;
-use app\models\Atlet;
+use app\models\RefStatusJawatan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -28,8 +30,9 @@ use app\models\general\GeneralMessage;
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
     
     <pre style="text-align: center"><strong>MAKLUMAT PEMOHON / PERUJUK</strong></pre>
+    <?php echo new \yii\db\Expression('NOW()') ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -41,8 +44,8 @@ use app\models\general\GeneralMessage;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
-                'no_kad_pengenalan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
-                'umur' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>3, 'disabled'=>true]],
+                'no_kad_pengenalan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true, 'id'=>'NoICID']],
+                'umur' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>3, 'disabled'=>true, 'id'=>'UmurID']],
             ],
         ],
         
@@ -58,11 +61,11 @@ use app\models\general\GeneralMessage;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-jawatan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefStatusPermohonan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefStatusJawatan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::status],],
                     'columnOptions'=>['colspan'=>3]],
                 'no_fail_pekerja' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
@@ -105,7 +108,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefStatusPermohonan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefTarafPerkahwinan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::tarafPerkahwinan],],
                     'columnOptions'=>['colspan'=>3]],
                 'jantina' =>  [
@@ -119,7 +122,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefStatusPermohonan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefJantina::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jantina],],
                     'columnOptions'=>['colspan'=>3]],
             ],
@@ -161,11 +164,11 @@ use app\models\general\GeneralMessage;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-jawatan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefStatusPermohonan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefStatusJawatan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::status],],
                     'columnOptions'=>['colspan'=>3]],
                 'no_fail_pekerja_pegawai' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
@@ -204,11 +207,11 @@ use app\models\general\GeneralMessage;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-taraf-perkahwinan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefStatusPermohonan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefTarafPerkahwinan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::tarafPerkahwinan],],
                     'columnOptions'=>['colspan'=>3]],
                 'jantina_pegawai' =>  [
@@ -218,11 +221,11 @@ use app\models\general\GeneralMessage;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jantina/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefStatusPermohonan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefJantina::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jantina],],
                     'columnOptions'=>['colspan'=>3]],
             ],
@@ -266,7 +269,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefStatusPermohonan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefLatarbelakangKes::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kategori],],
                     'columnOptions'=>['colspan'=>3]],
             ],
@@ -319,7 +322,8 @@ use app\models\general\GeneralMessage;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ],
+                        'options'=>['disabled'=>true]
                     ],
                     'columnOptions'=>['colspan'=>3]],
                 'status_permohonan' =>  [
@@ -348,72 +352,6 @@ use app\models\general\GeneralMessage;
     ]
 ]);
     ?>
-    
-    
-
-    <!--<?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'jawatan')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'no_kad_pengenalan')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'umur')->textInput() ?>
-
-    <?= $form->field($model, 'no_telefon')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'emel')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'bahagian')->textInput() ?>
-
-    <?= $form->field($model, 'taraf_perkahwinan')->textInput() ?>
-
-    <?= $form->field($model, 'status_jawatan')->textInput() ?>
-
-    <?= $form->field($model, 'jantina')->textInput() ?>
-
-    <?= $form->field($model, 'tarikh_temujanji')->textInput() ?>
-
-    <?= $form->field($model, 'kategori_masalah')->textInput() ?>
-
-    <?= $form->field($model, 'catatan_kaunselor')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'tindakan_kaunselor')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'cadangan_kaunselor')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'tarikh_permohonan')->textInput() ?>
-
-    <?= $form->field($model, 'status_permohonan')->textInput() ?>
-
-    <?= $form->field($model, 'catatan_permohonan')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'nama_pegawai_anggota')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'no_kad_pengenalan_pegawai')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'umur_pegawai')->textInput() ?>
-
-    <?= $form->field($model, 'jawatan_pegawai')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'bahagian_pegawai')->textInput() ?>
-
-    <?= $form->field($model, 'no_tel_pegawai')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'emel_pegawai')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'taraf_perkahwinan_pegawai')->textInput() ?>
-
-    <?= $form->field($model, 'status_jawatan_pegawai')->textInput() ?>
-
-    <?= $form->field($model, 'jantina_pegawai')->textInput() ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
-
-    <?= $form->field($model, 'created')->textInput() ?>
-
-    <?= $form->field($model, 'updated')->textInput() ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -424,3 +362,56 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+     
+$(document).ready(function(){
+    if($("#NoICID").val() != ""){
+        var DOBVal = "";
+    
+        if(this.value != ""){
+            DOBVal = getDOBFromICNo($("#NoICID").val());
+        }
+    
+        $("#UmurID").val(calculateAge(DOBVal));
+    }
+});
+        
+$("#NoICID").focusout(function(){
+    var DOBVal = "";
+    
+    if(this.value != ""){
+        DOBVal = getDOBFromICNo(this.value);
+    }
+    
+        
+    $("#TarikhLahirID-disp").val(formatSaveDate(DOBVal));
+    $("#TarikhLahirID").val(formatSaveDate(DOBVal));
+        
+    $("#UmurID").val(calculateAge(formatSaveDate(DOBVal)));
+        
+        
+    $("#TarikhLahirID").kvDatepicker("$DateDisplayFormat", new Date(DOBVal)).kvDatepicker({
+        format: "$DateDisplayFormat"
+    });
+});
+        
+$('#TarikhLahirID').change(function(){
+    $("#UmurID").val(calculateAge(this.value));
+});
+           
+
+JS;
+        
+$this->registerJs($script);
+?>

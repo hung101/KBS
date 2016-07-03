@@ -20,6 +20,8 @@ use app\models\RefBangsa;
 use app\models\RefAgama;
 use app\models\RefStatusPermohonanSue;
 use app\models\RefNegara;
+use app\models\ProfilBadanSukan;
+use app\models\RefKursusBantuanElaun;
 
 // contant values
 use app\models\general\Placeholder;
@@ -36,7 +38,16 @@ use app\models\general\GeneralVariable;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data'], 'id'=>$model->formName()]); ?>
+    
+    <?php 
+    $disablePersatuan = false; // default
+    if(Yii::$app->user->identity->profil_badan_sukan){
+        $disablePersatuan = true;
+    }
+    ?>
+    
+    <?php echo $form->errorSummary($model); ?>
     
     <?php
         echo FormGrid::widget([
@@ -82,12 +93,12 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-bantuan-sue/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/profil-badan-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJenisBantuanSue::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::persatuan],
+                        'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
+                        'options' => ['placeholder' => Placeholder::badanSukan, 'disabled'=>$disablePersatuan],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -171,7 +182,7 @@ use app\models\general\GeneralVariable;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                  'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
-                'no_kad_pengenalan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>12]],
+                'no_kad_pengenalan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>12, 'id'=>'NoICID']],
                  
             ],
         ],
@@ -186,10 +197,11 @@ use app\models\general\GeneralVariable;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ],
+                        'options' => ['id'=>'TarikhLahirID'],
                     ],
                     'columnOptions'=>['colspan'=>3]],
-               'umur' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>3]],
+               'umur' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>3, 'id'=>'UmurID']],
                  'jantina' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -294,16 +306,16 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-kelayakan-akademik/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kursus-bantuan-elaun/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefKelayakanAkademik::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefKursusBantuanElaun::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kursus],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>4]],
             ],
         ],
         [
@@ -476,52 +488,6 @@ use app\models\general\GeneralVariable;
     ?>
     <?php endif; ?>
 
-   <!-- <?= $form->field($model, 'nama')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'muatnaik_gambar')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'no_kad_pengenalan')->textInput(['maxlength' => 12]) ?>
-
-    <?= $form->field($model, 'tarikh_lahir')->textInput() ?>
-
-    <?= $form->field($model, 'umur')->textInput() ?>
-
-    <?= $form->field($model, 'jantina')->textInput(['maxlength' => 1]) ?>
-
-    <?= $form->field($model, 'kewarganegara')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'bangsa')->textInput(['maxlength' => 25]) ?>
-
-    <?= $form->field($model, 'agama')->textInput(['maxlength' => 25]) ?>
-
-    <?= $form->field($model, 'kelayakan_akademi')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'alamat_1')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_2')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_3')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_negeri')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_bandar')->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'alamat_poskod')->textInput(['maxlength' => 5]) ?>
-
-    <?= $form->field($model, 'no_tel_bimbit')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'emel')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'kontrak')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'jumlah_elaun')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'muatnaik_dokumen')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'status_permohonan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'catatan')->textInput(['maxlength' => 255]) ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -531,3 +497,52 @@ use app\models\general\GeneralVariable;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+    
+$(document).ready(function(){
+    if($("#TarikhLahirID").val() != ""){
+        $("#UmurID").val(calculateAge($("#TarikhLahirID").val()));
+    }
+});
+        
+$("#NoICID").focusout(function(){
+    var DOBVal = "";
+    
+    if(this.value != ""){
+        DOBVal = getDOBFromICNo(this.value);
+    }
+    
+        
+    $("#TarikhLahirID-disp").val(formatSaveDate(DOBVal));
+    $("#TarikhLahirID").val(formatSaveDate(DOBVal));
+        
+        
+    $("#UmurID").val(calculateAge(formatSaveDate(DOBVal)));
+        
+        
+    $("#TarikhLahirID").kvDatepicker("$DateDisplayFormat", new Date(DOBVal)).kvDatepicker({
+        format: "$DateDisplayFormat"
+    });
+});
+        
+$('#TarikhLahirID').change(function(){
+    $("#UmurID").val(calculateAge(this.value));
+});
+           
+
+JS;
+        
+$this->registerJs($script);
+?>

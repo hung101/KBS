@@ -73,6 +73,9 @@ class InventoriController extends Controller
         $ref = RefBandar::findOne(['id' => $model->alamat_pembekal_bandar]);
         $model->alamat_pembekal_bandar = $ref['desc'];
         
+        $ref = RefNegeri::findOne(['id' => $model->negeri]);
+        $model->negeri = $ref['desc'];
+        
         $queryPar = null;
         
         $queryPar['InventoriPeralatanSearch']['inventori_id'] = $id;

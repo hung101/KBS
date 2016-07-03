@@ -125,6 +125,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refStatusPermohonanProgramBinaan.desc'
             ],
+            [
+                'attribute' => 'jumlah_yang_diluluskan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_yang_diluluskan,
+                ],
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

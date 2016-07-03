@@ -77,4 +77,131 @@ class GeneralFunction{
         
         echo $report;
     }
+    
+    public static function getWeekDayWord($date_time){
+        $week_day_no = date_format(date_create($date_time),"w");
+        
+	switch($week_day_no){
+            case 0:
+                $week_day_word = "Ahad";
+                break;
+            case 1:
+                $week_day_word = "Isnin";
+                break;
+            case 2:
+                $week_day_word = "Selasa";
+                break;
+            case 3:
+                $week_day_word = "Rabu";
+                break;
+            case 4:
+                $week_day_word = "Khamis";
+                break;
+            case 5:
+                $week_day_word = "Jumaat";
+                break;
+            case 6:
+                $week_day_word = "Sabtu";
+                break;
+            default:
+                $week_day_word = "";
+        }
+        
+        return $week_day_word; 
+    }
+    
+    public static function getMonthWord($date_time, $type = 1){
+        $month_no = date_format(date_create($date_time),"n");
+        
+	switch($month_no){
+            case 1:
+                if($type == 1){
+                    $month_word = "Jan";
+                } else {
+                    $month_word = "Januari";
+                }
+                break;
+            case 2:
+                if($type == 1){
+                    $month_word = "Feb";
+                } else {
+                    $month_word = "Februari";
+                }
+                break;
+            case 3:
+                if($type == 1){
+                    $month_word = "Mac";
+                } else {
+                    $month_word = "Mac";
+                }
+                break;
+            case 4:
+                if($type == 1){
+                    $month_word = "Apr";
+                } else {
+                    $month_word = "April";
+                }
+                break;
+            case 5:
+                if($type == 1){
+                    $month_word = "Mei";
+                } else {
+                    $month_word = "Mei";
+                }
+                break;
+            case 6:
+                if($type == 1){
+                    $month_word = "Jun";
+                } else {
+                    $month_word = "Jun";
+                }
+                break;
+            case 7:
+                if($type == 1){
+                    $month_word = "Jul";
+                } else {
+                    $month_word = "Julai";
+                }
+                break;
+            case 8:
+                if($type == 1){
+                    $month_word = "Ogo";
+                } else {
+                    $month_word = "Ogos";
+                }
+                break;
+            case 9:
+                if($type == 1){
+                    $month_word = "Sep";
+                } else {
+                    $month_word = "September";
+                }
+                break;
+            case 10:
+                if($type == 1){
+                    $month_word = "Okt";
+                } else {
+                    $month_word = "Oktober";
+                }
+                break;
+            case 11:
+                if($type == 1){
+                    $month_word = "Nov";
+                } else {
+                    $month_word = "November";
+                }
+                break;
+            case 12:
+                if($type == 1){
+                    $month_word = "Dis";
+                } else {
+                    $month_word = "Disember";
+                }
+                break;
+            default:
+                $month_word = "";
+        }
+        
+        return $month_word; 
+    }
 }

@@ -203,20 +203,28 @@ class PermohonanEBiasiswaController extends Controller
         $html_content = str_replace("[PDF_TEMPLATE_URL]",Yii::$app->request->hostInfo.Yii::$app->request->baseUrl.Yii::$app->params['pdf_template'],$html_content);
         
         if($template == 'SLIP_PANGGILAN_TEMUDUGA') {
+            $week_day_word = GeneralFunction::getWeekDayWord($model->tarikh_temuduga);
+            
+            $month_word = GeneralFunction::getMonthWord($model->tarikh_temuduga);
 
             $html_content = str_replace("[NAMA]",$model->nama,$html_content);
             $html_content = str_replace("[NO_KP]",$model->no_kad_pengenalan,$html_content);
             $html_content = str_replace("[UNIVERSITI_KOLEJ]",RefUniversitiInstitusiEBiasiswa::findOne(['id' => $model->universiti_institusi])['desc'],$html_content);
-            $html_content = str_replace("[TARIKH_TEMUDUGA]",date_format(date_create($model->tarikh_temuduga),"d M Y (l)"),$html_content);
+            $html_content = str_replace("[TARIKH_TEMUDUGA]",date_format(date_create($model->tarikh_temuduga),"d") . ' ' .$month_word . ' ' .date_format(date_create($model->tarikh_temuduga),"Y") . " (" .$week_day_word.")",$html_content);
             $html_content = str_replace("[MASA]",date_format(date_create($model->tarikh_temuduga),"g:i A"),$html_content);
             $html_content = str_replace("[TEMPAT]",$model->tempat_temuduga,$html_content);
 
         } elseif ($template == 'SLIP_BERJAYA_DAPAT_BIASISWA') {
-
+            $date_time = AdminEBiasiswa::findOne(['admin_e_biasiswa_id' => $model->admin_e_biasiswa_id])['tawaran_biasiswa_tarikh_masa'];
+            
+            $week_day_word = GeneralFunction::getWeekDayWord($date_time);
+            
+            $month_word = GeneralFunction::getMonthWord($date_time);
+            
             $html_content = str_replace("[NAMA]",$model->nama,$html_content);
             $html_content = str_replace("[NO_KP]",$model->no_kad_pengenalan,$html_content);
-            $html_content = str_replace("[TARIKH]",date_format(date_create(AdminEBiasiswa::findOne(['admin_e_biasiswa_id' => $model->admin_e_biasiswa_id])['tawaran_biasiswa_tarikh_masa']),"d M Y (l)"),$html_content);
-            $html_content = str_replace("[MASA]",date_format(date_create(AdminEBiasiswa::findOne(['admin_e_biasiswa_id' => $model->admin_e_biasiswa_id])['tawaran_biasiswa_tarikh_masa']),"g:i A"),$html_content);
+            $html_content = str_replace("[TARIKH]",date_format(date_create($date_time),"d") . ' ' .$month_word . ' ' .date_format(date_create($date_time),"Y") . " (" .$week_day_word.")",$html_content);
+            $html_content = str_replace("[MASA]",date_format(date_create($date_time),"g:i A"),$html_content);
             $html_content = str_replace("[TEMPAT]",AdminEBiasiswa::findOne(['admin_e_biasiswa_id' => $model->admin_e_biasiswa_id])['tawaran_biasiswa_tempat'],$html_content);
 
         }

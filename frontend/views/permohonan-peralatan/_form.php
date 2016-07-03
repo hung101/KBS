@@ -234,7 +234,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     
-    <h3>Penggunaan</h3>
+    <!--<h3>Penggunaan</h3>
     
     <?php Pjax::begin(['id' => 'permohonanPeralatanPenggunaanGrid', 'timeout' => 100000]); ?>
 
@@ -312,10 +312,10 @@ use app\models\general\GeneralMessage;
     <?php endif; ?>
     
     <br>
-    <br>
+    <br>-->
     
     <?php
-        echo FormGrid::widget([
+        /*echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -328,13 +328,13 @@ use app\models\general\GeneralMessage;
             ]
         ],
     ]
-]);
+]);*/
     ?>
     
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['kelulusan']) || $readonly): ?>
     
     <?php
-        echo FormGrid::widget([
+        /*echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -354,7 +354,7 @@ use app\models\general\GeneralMessage;
             ]
         ],
     ]
-]);
+]);*/
     ?>
     
     <?php

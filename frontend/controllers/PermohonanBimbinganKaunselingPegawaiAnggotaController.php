@@ -70,6 +70,8 @@ class PermohonanBimbinganKaunselingPegawaiAnggotaController extends Controller
     public function actionCreate()
     {
         $model = new PermohonanBimbinganKaunselingPegawaiAnggota();
+        
+        $model->tarikh_permohonan = new yii\db\Expression('NOW()');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->permohonan_bimbingan_kaunseling_pegawai_anggota_id]);

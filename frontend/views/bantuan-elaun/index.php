@@ -80,7 +80,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_persatuan,
-                ]
+                ],
+                'value' => 'refProfilBadanSukan.nama_badan_sukan'
+            ],
+            [
+                'attribute' => 'jumlah_elaun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_elaun,
+                ],
+            ],
+            [
+                'attribute' => 'status_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan,
+                ],
+                'value' => 'refStatusPermohonanSue.desc'
             ],
             // 'umur',
             // 'jantina',

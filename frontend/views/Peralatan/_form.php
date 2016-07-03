@@ -81,7 +81,7 @@ use app\models\general\GeneralLabel;
         </div>
     </div>
     
-    <div class="panel panel-default">
+    <!--<div class="panel panel-default">
         <div class="panel-heading">
             <strong><?=GeneralLabel::cadangan?></strong>
         </div>
@@ -107,7 +107,7 @@ use app\models\general\GeneralLabel;
                 ]);
             ?>
         </div>
-    </div>
+    </div>-->
 
     <!--<?= $form->field($model, 'permohonan_peralatan_id')->textInput() ?>
 

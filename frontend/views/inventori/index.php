@@ -49,6 +49,14 @@ $this->params['breadcrumbs'][] = $this->title;
             //'program',
             //'sukan',
             'no_co',
+            [
+                'attribute' => 'negeri',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::negeri,
+                ],
+                'value' => 'refNegeri.desc'
+            ],
             // 'alamat_pembekal_1',
             // 'alamat_pembekal_2',
             // 'alamat_pembekal_3',

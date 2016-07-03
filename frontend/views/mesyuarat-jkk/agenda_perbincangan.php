@@ -165,6 +165,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
                     ]
                 ],
+                [
+                'attribute' => 'status_tawaran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_tawaran,
+                ],
+                'value' => 'refStatusTawaran.desc'
+            ],
                 ['class' => 'yii\grid\ActionColumn',
                     'buttons' => [
                         'view' => function ($url, $model) {

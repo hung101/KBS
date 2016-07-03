@@ -5,6 +5,10 @@ namespace frontend\controllers;
 use Yii;
 use app\models\Persatuan;
 use frontend\models\PersatuanSearch;
+use app\models\BantuanElaun;
+use frontend\models\BantuanElaunSearch;
+use frontend\models\PengurusanProgramBinaan;
+use frontend\models\PengurusanProgramBinaanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -94,9 +98,24 @@ class PersatuanController extends Controller
         $ref = RefNegeri::findOne(['id' => $model->urusetia_negeri_e_bantuan]);
         $model->urusetia_negeri_e_bantuan = $ref['desc'];
         
+        $queryPar = Yii::$app->request->queryParams;
+        
+        $queryPar['BantuanElaunSearch']['created_by'] = $id;
+        $queryPar['PengurusanProgramBinaanSearch']['created_by'] = $id;
+        
+        $searchModelBE = new BantuanElaunSearch();
+        $dataProviderBE = $searchModelBE->search($queryPar);
+        
+        $searchModelPPB = new PengurusanProgramBinaanSearch();
+        $dataProviderPPB = $searchModelPPB->search($queryPar);
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,
+            'searchModelBE' => $searchModelBE,
+            'dataProviderBE' => $dataProviderBE,
+            'searchModelPPB' => $searchModelPPB,
+            'dataProviderPPB' => $dataProviderPPB,
         ]);
     }
 
@@ -164,6 +183,17 @@ class PersatuanController extends Controller
                 $model->sukan = "";
             }
         }
+        
+        $queryPar = Yii::$app->request->queryParams;
+        
+        $queryPar['BantuanElaunSearch']['created_by'] = $id;
+        $queryPar['PengurusanProgramBinaanSearch']['created_by'] = $id;
+        
+        $searchModelBE = new BantuanElaunSearch();
+        $dataProviderBE = $searchModelBE->search($queryPar);
+        
+        $searchModelPPB = new PengurusanProgramBinaanSearch();
+        $dataProviderPPB = $searchModelPPB->search($queryPar);
 
         if (Yii::$app->request->post() && $model->validate()) {
             //$model->password_hash = Yii::$app->security->generatePasswordHash($model->new_password);
@@ -179,6 +209,10 @@ class PersatuanController extends Controller
             return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
+                'searchModelBE' => $searchModelBE,
+                'dataProviderBE' => $dataProviderBE,
+                'searchModelPPB' => $searchModelPPB,
+                'dataProviderPPB' => $dataProviderPPB,
             ]);
         }
     }

@@ -81,6 +81,23 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],],
                     'columnOptions'=>['colspan'=>4]],
+                'negeri' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::negeri],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
                 
             ],
         ],
@@ -204,8 +221,8 @@ use app\models\general\GeneralMessage;
             'nama_peralatan',
             'no_inv_do',
             'kuantiti',
-            'harga_per_unit',
-            'jumlah',
+            //'harga_per_unit',
+            //'jumlah',
             // 'session_id',
             // 'created_by',
             // 'updated_by',

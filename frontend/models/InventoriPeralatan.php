@@ -37,7 +37,7 @@ class InventoriPeralatan extends \yii\db\ActiveRecord
     {
         return [
             [['inventori_id', 'kuantiti', 'created_by', 'updated_by'], 'integer'],
-            [['nama_peralatan', 'kuantiti', 'harga_per_unit', 'jumlah'], 'required'],
+            [['nama_peralatan', 'kuantiti'], 'required'],
             [['harga_per_unit', 'jumlah'], 'number'],
             [['created', 'updated'], 'safe'],
             [['nama_peralatan'], 'string', 'max' => 80],

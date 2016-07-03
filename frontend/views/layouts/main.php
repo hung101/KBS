@@ -119,13 +119,13 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                     'label' => GeneralLabel::atlet, 
                                     'items' => [
                                         ['label' => GeneralLabel::atlet, 'url' => ['/atlet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['module'])],
-                                        /*[
+                                        [
                                             'label' => GeneralLabel::laporan,
                                             'items' => [
                                                 ['label' => GeneralLabel::laporan_senarai_atlet, 'url' => ['/atlet/laporan-senarai-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['module'])],
                                                 ['label' => GeneralLabel::laporan_statistik_atlet, 'url' => ['/atlet/laporan-statistik-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['module'])],
                                             ],
-                                        ],*/
+                                        ],
                                     ],
                                 ],
                                 ['label' => GeneralLabel::pengurusan_tawaran_atlet, 'url' => ['/atlet/tawaran'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['tawaran'])],

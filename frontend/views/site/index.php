@@ -16,7 +16,7 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
     </div>-->
 
     <div class="body-content">
-        
+        <?php echo Yii::$app->formatter->asDatetime(date('Y-d-m h:i:s'));?>
         <h1>
         Dashboard
         <small><?= GeneralMessage::sistem_pengurusan_sukan_bersepadu ?></small>
@@ -125,9 +125,9 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                                 'name' => 'Peratus',
                                                 'data' => [
                                                     ['Senior - 1', 7.14],
-                                                    ['Pelapi Kebangsaan - 3', 21.42],
-                                                    ['Pelapi Serantau - 5', 35.71],
-                                                    ['Pelapi Negeri - 4', 28.57],
+                                                    ['Pelapis Kebangsaan - 3', 21.42],
+                                                    ['Pelapis Serantau - 5', 35.71],
+                                                    ['Pelapis Negeri - 4', 28.57],
                                                     ['Bakat - 1', 7.14]
                                                 ],
                                             ] // new closing bracket
@@ -152,9 +152,9 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                                 'name' => 'Peratus',
                                                 'data' => [
                                                     ['Senior - 1', 25],
-                                                    ['Pelapi Kebangsaan - 1', 25],
-                                                    ['Pelapi Serantau - 1', 25],
-                                                    ['Pelapi Negeri - 1', 25],
+                                                    ['Pelapis Kebangsaan - 1', 25],
+                                                    ['Pelapis Serantau - 1', 25],
+                                                    ['Pelapis Negeri - 1', 25],
                                                 ],
                                             ] // new closing bracket
                                         ],
@@ -289,7 +289,7 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                 <!-- /.col -->
                 <div class="col-md-4">
                   <p class="text-center">
-                    <strong>Jumlah Kelululsan Mengikut Program</strong>
+                    <strong>Jumlah Kelulusan Mengikut Program</strong>
                   </p>
                   <div class="progress-group">
                     <span class="progress-text">Senior</span>
@@ -301,7 +301,7 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                   </div>
                   <!-- /.progress-group -->
                   <div class="progress-group">
-                    <span class="progress-text">Pelapi Kebangsaan</span>
+                    <span class="progress-text">Pelapis Kebangsaan</span>
                     <span class="progress-number"><b>RM 43,133.15</b></span>
 
                     <div class="progress sm">
@@ -310,7 +310,7 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                   </div>
                   <!-- /.progress-group -->
                   <div class="progress-group">
-                    <span class="progress-text">Pelapi Serantau</span>
+                    <span class="progress-text">Pelapis Serantau</span>
                     <span class="progress-number"><b>RM 78,167.01</b></span>
 
                     <div class="progress sm">
@@ -319,7 +319,7 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                   </div>
                   <!-- /.progress-group -->
                   <div class="progress-group">
-                    <span class="progress-text">Pelapi Negeri</span>
+                    <span class="progress-text">Pelapis Negeri</span>
                     <span class="progress-number"><b>RM 47,300.20</b></span>
 
                     <div class="progress sm">

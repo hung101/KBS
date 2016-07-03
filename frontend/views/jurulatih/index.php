@@ -307,6 +307,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refStatusTawaran.desc'
             ],
+            [
+                'attribute' => 'created',
+                'label' => GeneralLabel::tarikh_hantar,
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_hantar,
+                ],
+            ],
             //'program',
            // 'gambar',
             

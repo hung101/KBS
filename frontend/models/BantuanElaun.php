@@ -73,13 +73,13 @@ class BantuanElaun extends \yii\db\ActiveRecord
                 'tarikh_lahir', 'umur', 'jantina', 'kewarganegara', 'bangsa', 'agama', 'kelayakan_akademi', 'alamat_1', 'alamat_negeri', 
                 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'kontrak', 'jumlah_elaun', 'status_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir', 'kursus'], 'safe'],
-            [['umur'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['umur', 'status_permohonan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah_elaun'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['nama', 'kelayakan_akademi'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik_gambar', 'emel', 'muatnaik_dokumen'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['kewarganegara', 'alamat_negeri', 'status_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kewarganegara', 'alamat_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['bangsa', 'agama'], 'string', 'max' => 25, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_1', 'alamat_2', 'alamat_3', 'kontrak'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -137,5 +137,19 @@ class BantuanElaun extends \yii\db\ActiveRecord
      */
     public function getRefJenisBantuanSue(){
         return $this->hasOne(RefJenisBantuanSue::className(), ['id' => 'jenis_bantuan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefProfilBadanSukan(){
+        return $this->hasOne(ProfilBadanSukan::className(), ['profil_badan_sukan' => 'nama_persatuan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusPermohonanSue(){
+        return $this->hasOne(RefStatusPermohonanSue::className(), ['id' => 'status_permohonan']);
     }
 }

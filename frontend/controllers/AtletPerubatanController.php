@@ -16,6 +16,7 @@ use app\models\general\GeneralVariable;
 // table reference
 use app\models\RefKumpulanDarah;
 use app\models\RefPenyakit;
+use app\models\RefProgramSemasaSukanAtlet;
 
 /**
  * AtletPerubatanController implements the CRUD actions for AtletPerubatan model.
@@ -130,15 +131,28 @@ class AtletPerubatanController extends Controller
             $model->atlet_id = $atlet_id;
         }
         
-        $session->close();
+        $readonly = true;
 
+        if( ( !isset($session['program_semasa_id']) || (isset($session['program_semasa_id']) && $session['program_semasa_id'] != RefProgramSemasaSukanAtlet::PODIUM) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['update'])) || 
+            (isset($session['program_semasa_id']) && $session['program_semasa_id'] == RefProgramSemasaSukanAtlet::PODIUM && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])) ){
+            $readonly = false;
+        } else {
+            $ref = RefKumpulanDarah::findOne(['id' => $model->kumpulan_darah]);
+            $model->kumpulan_darah = $ref['desc'];
+
+            $ref = RefPenyakit::findOne(['id' => $model->penyakit_semula_jadi]);
+            $model->penyakit_semula_jadi = $ref['desc'];
+        }
+
+        $session->close();
+                
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             //return $this->redirect(['view', 'id' => $model->perubatan_id]);
             return self::actionView($model->perubatan_id);
         } else {
             return $this->renderAjax('create', [
                 'model' => $model,
-                'readonly' => false,
+                'readonly' => $readonly,
             ]);
         }
     }
@@ -165,25 +179,43 @@ class AtletPerubatanController extends Controller
             $atlet_id = $session['atlet_id'];
         }
         
-        $session->close();
         
         $model = AtletPerubatan::find()
                 ->where(['atlet_id' => $atlet_id])
                 ->one();
+        
+        
+        
+        
         
         if ($model !== null) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 //return $this->redirect(['view', 'id' => $model->perubatan_id]);
                 return self::actionView($model->perubatan_id);
             } else {
+                $readonly = true;
+                
+                if( ( !isset($session['program_semasa_id']) || (isset($session['program_semasa_id']) && $session['program_semasa_id'] != RefProgramSemasaSukanAtlet::PODIUM) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['update'])) || 
+                    (isset($session['program_semasa_id']) && $session['program_semasa_id'] == RefProgramSemasaSukanAtlet::PODIUM && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])) ){
+                    $readonly = false;
+                } else {
+                    $ref = RefKumpulanDarah::findOne(['id' => $model->kumpulan_darah]);
+                    $model->kumpulan_darah = $ref['desc'];
+
+                    $ref = RefPenyakit::findOne(['id' => $model->penyakit_semula_jadi]);
+                    $model->penyakit_semula_jadi = $ref['desc'];
+                }
+                
                 $renderContent = $this->renderAjax('update', [
                     'model' => $model,
-                    'readonly' => false,
+                    'readonly' => $readonly,
                 ]);
             }
         } else {
             $renderContent = self::actionCreate();
         }
+        
+        $session->close();
         
         if(Yii::$app->request->get('typeJson') != NULL && Yii::$app->request->post() == NULL){
             return json_encode($renderContent);
@@ -198,6 +230,7 @@ class AtletPerubatanController extends Controller
                 'model' => $model,
             ]);
         }*/
+        
     }
 
     /**

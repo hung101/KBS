@@ -61,7 +61,8 @@ class JurulatihSearch extends Jurulatih
                 ->joinWith(['refBahagianJurulatih'])
                 ->joinWith(['refProgramJurulatih'])
                 ->joinWith(['refJurulatihSpkk'])
-                ->joinWith(['refStatusTawaran']);
+                ->joinWith(['refStatusTawaran'])
+                ->orderBy(['tbl_jurulatih.created' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

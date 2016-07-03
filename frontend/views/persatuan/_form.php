@@ -9,6 +9,7 @@ use yii\helpers\ArrayHelper;
 use kartik\widgets\Select2;
 use kartik\datecontrol\DateControl;
 use yii\helpers\Url;
+use yii\grid\GridView;
 
 // table reference
 use app\models\RefJabatanUser;
@@ -172,27 +173,181 @@ use app\models\general\GeneralMessage;
     <br>
     <br>
 
-    <!--<?= $form->field($model, 'username')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'jabatan_id')->textInput() ?>
-
-    <?= $form->field($model, 'peranan')->textInput() ?>
-
-    <?= $form->field($model, 'auth_key')->textInput(['maxlength' => 32]) ?>
-
-    <?= $form->field($model, 'password_hash')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'password_reset_token')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'full_name')->textInput(['maxlength' => 50]) ?>
-
-    <?= $form->field($model, 'tel_mobile_no')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'tel_no')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>-->
+    <?php if(isset($dataProviderBE)): ?>
+    <!-- Bantuan Elaun - START -->
+    <div class="panel panel-default copyright-wrap" id="bantuan_elaun-list">
+        <div class="panel-heading"><a data-toggle="collapse" href="#bantuan_elaun-body">Bantuan Elaun SUE/Elaun Penyelaras/Emolumen PSK Rekod</a>
+            <button type="button" class="close" data-target="#bantuan_elaun-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        </div>
+        <div id="bantuan_elaun-body" class="panel-collapse collapse">
+            <div class="panel-body">
+                <?= GridView::widget([
+            'dataProvider' => $dataProviderBE,
+            //'filterModel' => $searchModelBE,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+                [
+                'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ]
+            ],
+            //'muatnaik_gambar',
+            /*[
+                'attribute' => 'no_kad_pengenalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_lahir',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_lahir,
+                ]
+            ],*/
+            [
+                'attribute' => 'jenis_bantuan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_bantuan,
+                ],
+                'value' => 'refJenisBantuanSue.desc'
+            ],
+            [
+                'attribute' => 'nama_persatuan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_persatuan,
+                ],
+                'value' => 'refProfilBadanSukan.nama_badan_sukan'
+            ],
+            [
+                'attribute' => 'jumlah_elaun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_elaun,
+                ],
+            ],
+            [
+                'attribute' => 'status_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan,
+                ],
+                'value' => 'refStatusPermohonanSue.desc'
+            ],
+                ['class' => 'yii\grid\ActionColumn',
+                    'buttons' => [
+                        'view' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', '', ['value'=>Url::to(['/bantuan-elaun/view', 'id' => $model->bantuan_elaun_id]), 'class' => 'custom_button']);
+                        },
+                    ],
+                    'template' => '',
+                ],
+            ],
+        ]); ?>
+                
+            <?php 
+                $jumlahBE = 0.00;
+                foreach($dataProviderBE->models as $BEmodel){
+                    $jumlahBE += $BEmodel->jumlah_elaun;
+                }
+            ?>
+            <?php 
+                echo "<label>Jumlah Keseluruhan: </label> RM" . $jumlahBE;
+            ?>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bantuan Elaun - END -->
+    <?php endif; ?>
+    
+    <?php if(isset($dataProviderPPB)): ?>
+    <!-- Program Binaan - START -->
+    <div class="panel panel-default copyright-wrap" id="program_binaan-list">
+        <div class="panel-heading"><a data-toggle="collapse" href="#program_binaan-body">Program Binaan Rekod</a>
+            <button type="button" class="close" data-target="#program_binaan-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        </div>
+        <div id="program_binaan-body" class="panel-collapse collapse">
+            <div class="panel-body">
+                <?= GridView::widget([
+            'dataProvider' => $dataProviderPPB,
+            //'filterModel' => $searchModelPPB,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+                [
+                'attribute' => 'aktiviti',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::aktiviti,
+                ],
+                'value' => 'refPerancanganProgram.nama_program'
+            ],
+            [
+                'attribute' => 'nama_aktiviti',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_aktiviti,
+                ]
+            ],
+             [
+                'attribute' => 'tarikh_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
+                ]
+            ],
+             [
+                'attribute' => 'tarikh_tamat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat,
+                ]
+            ],
+            [
+                'attribute' => 'status_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan,
+                ],
+                'value' => 'refStatusPermohonanProgramBinaan.desc'
+            ],
+            [
+                'attribute' => 'jumlah_yang_diluluskan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_yang_diluluskan,
+                ],
+            ],
+                ['class' => 'yii\grid\ActionColumn',
+                    'buttons' => [
+                        'view' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', '', ['value'=>Url::to(['/pengurusan-program-binaan/view', 'id' => $model->pengurusan_program_binaan_id]), 'class' => 'custom_button']);
+                        },
+                    ],
+                    'template' => '',
+                ],
+            ],
+        ]); ?>
+                
+            <?php 
+                $jumlahPPB = 0.00;
+                foreach($dataProviderPPB->models as $PPBmodel){
+                    $jumlahPPB += $PPBmodel->jumlah_yang_diluluskan;
+                }
+            ?>
+            <?php 
+                echo "<label>Jumlah Keseluruhan: </label> RM" . $jumlahPPB;
+            ?>
+            </div>
+        </div>
+    </div>
+    <!-- Program Binaan - END -->
+    <?php endif; ?>
 
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -210,6 +365,12 @@ $DateDisplayFormat = GeneralVariable::displayDateFormat;
 
 $script = <<< JS
         
+$(function(){
+$('.custom_button').click(function(){
+        window.open($(this).attr('value'), "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no");
+        return false;
+});});
+        
 $('#badanSukanId').change(function(){
     
     $.get('$URL',{id:$(this).val()},function(data){
@@ -224,6 +385,7 @@ $('#badanSukanId').change(function(){
         
             $("#ExpiryDateID-disp").val(formatDisplayDate(tarikhLulusAdd));
             $("#ExpiryDateID").val(formatSaveDate(tarikhLulusAdd));
+        $('#persatuan-email').attr('value',data.emel_badan_sukan);
         }
     });
 });
@@ -231,6 +393,7 @@ $('#badanSukanId').change(function(){
 function clearForm(){
     $("#ExpiryDateID-disp").val('');
     $("#ExpiryDateID").val('');
+        $('#persatuan-email').attr('value','');
 }
         
 JS;

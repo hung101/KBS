@@ -45,7 +45,7 @@ class AtletSukanSearch extends AtletSukan
                 ->joinWith(['refSukan'])
                 ->joinWith(['refAcara'])
                 ->joinWith(['refProgramSemasaSukanAtlet'])
-                ->joinWith(['refJurulatih']);
+                ->joinWith(['refJurulatih'])->orderBy(['tbl_atlet_sukan.created' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

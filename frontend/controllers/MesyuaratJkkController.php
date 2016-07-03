@@ -86,6 +86,7 @@ class MesyuaratJkkController extends Controller
         $queryPar['PengurusanProgramBinaanSearch']['status_permohonan_id'] = RefStatusPermohonanProgramBinaan::SEDANG_DIPROSES;
         $queryPar['PermohonanPeralatanSearch']['kelulusan_id'] = RefKelulusanPeralatan::SEDANG_DIPROSES;
         $queryPar['PerancanganProgramSearch']['status_program_id'] = RefStatusProgram::DALAM_PROSES;
+        $queryPar['JurulatihSearch']['status_tawaran_id'] = RefStatusTawaran::DALAM_PROSES;
         
         $searchModelAtlet = new AtletSearch();
         $dataProviderAtlet = $searchModelAtlet->search($queryPar);

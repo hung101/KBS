@@ -116,6 +116,8 @@ class AtletController extends Controller
         // get atlet details
         $atlet = $this->findModel($id);
         
+        
+        
         // get atlet dropdown value's descriptions
         $ref = RefAtletTahap::findOne(['id' => $atlet->tahap]);
         $atlet->tahap = $ref['desc'];
@@ -334,7 +336,10 @@ No Kad Pengenalan: ' . $model->ic_no . '
      */
     protected function findModel($id)
     {
-        if (($model = Atlet::findOne($id)) !== null) {
+        if (($model = Atlet::find()->joinWith(['refAtletSukan' => function($query) {
+                        $query->orderBy(['tbl_atlet_sukan.created' => SORT_DESC])->one();
+                    },
+                ])->where(['tbl_atlet.atlet_id'=>$id])->one()) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

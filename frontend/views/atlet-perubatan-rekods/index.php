@@ -15,7 +15,7 @@ use common\models\general\GeneralFunction;
 /* @var $searchModel app\models\MesyuaratSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = "Perubatan : Rekods";
+$this->title = "Perubatan : Rekod";
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mesyuarat-index">

@@ -59,8 +59,14 @@ class PengurusanProgramBinaanController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if(Yii::$app->user->identity->profil_badan_sukan){
+            $queryParams['PengurusanProgramBinaanSearch']['created_by'] = Yii::$app->user->identity->id;
+        }
+        
         $searchModel = new PengurusanProgramBinaanSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -144,6 +150,8 @@ class PengurusanProgramBinaanController extends Controller
         }
         
         $model = new PengurusanProgramBinaan();
+        
+        $model->status_permohonan = RefStatusPermohonanProgramBinaan::SEDANG_DIPROSES;
         
         $queryPar = null;
         

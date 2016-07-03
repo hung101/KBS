@@ -82,7 +82,7 @@ class PermohonanEBiasiswaSearch extends PermohonanEBiasiswa
 
         $query->andFilterWhere(['like', 'muat_naik_gambar', $this->muat_naik_gambar])
             ->andFilterWhere(['like', 'nama', $this->nama])
-            ->andFilterWhere(['like', 'no_kad_pengenalan', $this->no_kad_pengenalan])
+            //->andFilterWhere(['like', 'no_kad_pengenalan', $this->no_kad_pengenalan])
             ->andFilterWhere(['like', 'tbl_ref_jantina.desc', $this->jantina])
             ->andFilterWhere(['like', 'keturunan', $this->keturunan])
             ->andFilterWhere(['like', 'agama', $this->agama])

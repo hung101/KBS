@@ -583,7 +583,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jumlah_disokong = "Disokong (RM)";
         const jumlah_ekar_kaki_persegi = "Jumlah/Ekar/Kaki Persegi";
         const jumlah_elaun = "Jumlah Elaun";
-        const jumlah_elaun_yang_dipohon = "Jumlah Elaun Yang Dipohon";
+        const jumlah_elaun_yang_dipohon = "Jumlah Elaun Yang Dipohon (RM)";
         const jumlah_geran = "Jumlah Geran";
         const jumlah_geran_dari = "Jumlah Geran Dari";
         const jumlah_geran_hingga = "Jumlah Geran Hingga";
@@ -614,6 +614,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jumlah_sito = "Jumlah SITO";
         const jumlah_sponsor = "Jumlah Sponsor";
         const jumlah_tuntutan = "Jumlah Tuntutan";
+        const jumlah_yang_diluluskan = "Jumlah Yang Diluluskan (RM)";
         const jumlah_yuran = "Jumlah Yuran";
         const jurulatih = "Jurulatih";
         const jurulatih_di_negeri = "Jurulatih Di Negeri";
@@ -2011,7 +2012,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const permohonan_ubatan = "Permohonan Ubatan";
         const pertukaran_pengajian = "Pertukaran Pengajian / Penangguhan / Pelepasan";
         const perubatan_sukan = "Perubatan Sukan";
-        const pesakit_luar_sistem_pendaftaran_dan_temujanji_atlet_pesakit_luar_sistem_proses_rawatan_pesakit_luar_pengurusan_rekod_pemeriksaan_perubatan_pesakit_luar_sistem_pemberian_ubat_kepada_psk = "Pesakit Luar Sistem Pendaftaran Dan Temujanji Atlet, Pesakit Luar Sistem Proses Rawatan, Pesakit Luar Pengurusan Rekod Pemeriksaan Perubatan, Pesakit Luar Sistem Pemberian Ubat Kepada Psk";
+        const pesakit_luar_sistem_pendaftaran_dan_temujanji_atlet_pesakit_luar_sistem_proses_rawatan_pesakit_luar_pengurusan_rekod_pemeriksaan_perubatan_pesakit_luar_sistem_pemberian_ubat_kepada_psk = "Pendaftaran Pesakit Luar / Atlet";
         const persetujuan = "Persetujuan";
         const pjs = "PJS";
         const profil_kaunselor = "Permohonan Ahli Psikologi / Kaunselor";
@@ -3401,7 +3402,7 @@ if($session->get('language') == "EN") {
         const jumlah_disokong = "Supported (RM)";
         const jumlah_ekar_kaki_persegi = "Total/Acre/Square Feet";
         const jumlah_elaun = "The Amount Of The Allowance";
-        const jumlah_elaun_yang_dipohon = "Total Allowance Applied";
+        const jumlah_elaun_yang_dipohon = "Total Allowance Applied (RM)";
         const jumlah_geran = "Total Grant";
         const jumlah_geran_dari = "Total Grant From";
         const jumlah_geran_hingga = "Total Grant To";
@@ -3432,6 +3433,7 @@ if($session->get('language') == "EN") {
         const jumlah_sito = "SITO Sum";
         const jumlah_sponsor = "The Number Of Sponsor";
         const jumlah_tuntutan = "Total Claim";
+        const jumlah_yang_diluluskan = "Total Approved Amount (RM)";
         const jumlah_yuran = "Total Fees";
         const jurulatih = "Coach";
         const jurulatih_di_negeri = "Coach State";
@@ -4829,7 +4831,7 @@ if($session->get('language') == "EN") {
         const permohonan_ubatan = "Application Of Medicine";
         const pertukaran_pengajian = "Study Exchange / Suspension / Discharge";
         const perubatan_sukan = "Medical Sport";
-        const pesakit_luar_sistem_pendaftaran_dan_temujanji_atlet_pesakit_luar_sistem_proses_rawatan_pesakit_luar_pengurusan_rekod_pemeriksaan_perubatan_pesakit_luar_sistem_pemberian_ubat_kepada_psk = "Outpatient Registration System And An Appointment Athlete, Outpatient Treatment Process Systems, Outpatient Medical Examination Records Management, Outpatient Drug Provision System To PSK";
+        const pesakit_luar_sistem_pendaftaran_dan_temujanji_atlet_pesakit_luar_sistem_proses_rawatan_pesakit_luar_pengurusan_rekod_pemeriksaan_perubatan_pesakit_luar_sistem_pemberian_ubat_kepada_psk = "Patient Registration / Athletes";
         const persetujuan = "Informed Consent";
         const pjs = "PJS";
         const profil_kaunselor = "Application Psychologist / Counsellor";

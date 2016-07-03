@@ -4,6 +4,9 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
+
 /**
  * This is the model class for table "tbl_inventori".
  *
@@ -40,6 +43,7 @@ class Inventori extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['sukan', 'tarikh', 'negeri'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh', 'created', 'updated'], 'safe'],
             [['perkara'], 'string'],
             [['created_by', 'updated_by'], 'integer'],
@@ -72,5 +76,12 @@ class Inventori extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefNegeri(){
+        return $this->hasOne(RefNegeri::className(), ['id' => 'negeri']);
     }
 }
