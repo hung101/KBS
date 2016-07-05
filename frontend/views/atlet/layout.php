@@ -147,7 +147,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'headerOptions' => ['class'=>$disabledTabs]
         ],*/
         [
-            'label'=>'<i class="glyphicon glyphicon-erase"></i> Perubatan',
+            'label'=>'<i class="glyphicon glyphicon-erase"></i> Perubatan & Sains Sukan',
             'headerOptions' => ['class'=>$disabledTabs],
             'items'=>[
              [

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\SixStepSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = GeneralLabel::six_steps;
+$this->title = GeneralLabel::hpt;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="six-step-index">

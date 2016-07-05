@@ -14,6 +14,7 @@ use app\models\RefTarafPerkahwinan;
 use app\models\RefJantina;
 use app\models\RefLatarbelakangKes;
 use app\models\RefStatusJawatan;
+use app\models\RefBahagianBimbinganKaunseling;
 
 // contant values
 use app\models\general\Placeholder;
@@ -30,7 +31,6 @@ use app\models\general\GeneralMessage;
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
     
     <pre style="text-align: center"><strong>MAKLUMAT PEMOHON / PERUJUK</strong></pre>
-    <?php echo new \yii\db\Expression('NOW()') ?>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     <?php
@@ -90,11 +90,11 @@ use app\models\general\GeneralMessage;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-bahagian-bimbingan-kaunseling/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefStatusPermohonan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefBahagianBimbinganKaunseling::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::bahagian],],
                     'columnOptions'=>['colspan'=>3]],
                 'taraf_perkahwinan' =>  [
@@ -193,11 +193,11 @@ use app\models\general\GeneralMessage;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-bahagian-bimbingan-kaunseling/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefStatusPermohonan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefBahagianBimbinganKaunseling::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::bahagian],],
                     'columnOptions'=>['colspan'=>3]],
                 'taraf_perkahwinan_pegawai' =>  [

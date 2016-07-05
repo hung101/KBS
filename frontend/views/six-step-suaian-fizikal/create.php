@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\SixStepSuaianFizikal */
 
 $this->title = GeneralLabel::createTitle . ' Six Step';
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::six_steps, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::suaian_fizikal, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="six-step-create">

@@ -184,7 +184,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const alamat_tetap_badan_sukan_bandar = "Bandar";
         const alamat_tetap_badan_sukan_negeri = "Negeri";
         const alamat_tetap_badan_sukan_poskod = "Poskod";
-        const alergi_jenis_lain = "Alahan Lain";
+        const alergi_jenis_lain = "Alahan Lain-lain";
         const alergi_makanan = "Alahan Makanan";
         const alergi_perubatan = "Alahan Ubat";
         const aliran = "Aliran";
@@ -269,6 +269,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const bilangan_peserta_yang_menyertai = "Bilangan Peserta";
         const bilangan_pindaan_perlembagaan_dilakukan = "Bilangan Pindaan Perlembagaan Sebelum Ini";
         const bilangan_tempahan_makan = "Bilangan Tempahan Makan";
+        const biomekanik = "Biomekanik";
         const biomekanik_anthropometrics_id = "Biomekanik Anthropometrics ID";
         const biomekanik_ujian = "Biomekanik Ujian";
         const biomekanik_ujian_id = "Biomekanik Ujian ID";
@@ -1381,6 +1382,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const program_pengajian = "Program Pengajian";
         const program_semasa = "Program Semasa";
         const proses_pemeriksaan = "Proses Pemeriksaan";
+        const psikologi = "Psikologi";
         const psikologi_aktiviti_id = "Psikologi Aktiviti ID";
         const psikologi_profil_id = "Pegawai Psikologi";
         const pusat_latihan = "Pusat Latihan";
@@ -1830,6 +1832,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const elaporan = "e-Laporan";
         const farmasi_rekod_permohonan_ubatan_di_kaunter_oleh_atlet_otc_drug = "Farmasi Rekod Permohonan Ubatan Di Kaunter Oleh Atlet (Otc Drug)";
         const fisio_doktor_bertanggungjawab = "Doktor Bertanggungjawab";
+        const fisiologi = "Fisiologi";
         const fisiologi_sistem_pangkalan_data_atlet_dan_journal = "Soal Selidik Sebelum Ujian";
         const fisiologi_sistem_penjadualan_ujian_fisiologi = "Fisiologi Sistem Penjadualan Ujian Fisiologi";
         const fisiologi_sistem_sixstep = "Fisiologi Sistem ‘SIX-Step’";
@@ -1837,6 +1840,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const fisioterapi_sistem_permohonan_khidmat_rawatan_fisioterapi = "Sistem Permohonan Khidmat Rawatan Fisioterapi / Rehabilitasi";
         const geran_bantuan = "Geran Bantuan";
         const geran_bantuan_gaji = "Geran Bantuan Gaji";
+        const hpt = "HPT";
         const hpt_laporan_bulanan_pegawai = "HPT Laporan Bulanan Pegawai";
         const hpt_pangkalan_data_laporan_bulanan = "HPT Pangkalan Data Laporan Bulanan";
         const isn = "ISN";
@@ -2032,6 +2036,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const sistem_pengurusan_pengenalpastian_bakat_yang_telah_disaringkan = "Sistem Pengurusan Pengenalpastian Bakat Yang Telah Disaringkan";
         const sistem_pengurusan_sukan = "Sistem Pengurusan Sukan";
         const skim_kebajikan = "Skim Kebajikan";
+        const suaian_fizikal = "Suaian Fizikal";
         const suaian_fizikal_sistem_pendaftaran_atlet_di_gym = "Suaian Fizikal – Sistem Pendaftaran Atlet di Gym";
         const suaian_fizikal_sistem_pengurusan_dan_analisis_pembekal = "Suaian Fizikal – Sistem Pengurusan dan Analisis Pembekal";
         const suaian_fizikal_sistem_pengurusan_kemudahan_dan_peralatan = "Suaian Fizikal – Sistem Pengurusan Kemudahan dan Peralatan";
@@ -2449,7 +2454,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const permohonan_perkhidmatan_permakanan = "Permohonan Perkhidmatan Pemakanan";
         const permohonan_program_pendidikan_kesihatan = "Permohonan Program Pendidikan Kesihatan";
         const permohonan_program_pendidikan_pencegahan = "Permohonan Program Pendidikan Pencegahan";
-        const perubatan = "Perubatan";
+        const perubatan = "Borang Perubatan";
         const pinjaman_peralatan = "Pinjaman Peralatan";
         const pl_data_klinikal = "Pl Data Klinikal";
         const pl_diagnosis_preskripsi_pemeriksaan = "Pl Diagnosis Preskripsi Pemeriksaan";
@@ -3088,6 +3093,7 @@ if($session->get('language') == "EN") {
         const bilangan_peserta_yang_menyertai = "Number Of Participant";
         const bilangan_pindaan_perlembagaan_dilakukan = "The Number Of The Previous Amendment Of Constitution";
         const bilangan_tempahan_makan = "The Number Of Dinner";
+        const biomekanik = "Biomechanic";
         const biomekanik_anthropometrics_id = "The Biomechanics Of Anthropometrics ID";
         const biomekanik_ujian = "The Biomechanics Test";
         const biomekanik_ujian_id = "The Biomechanics Test ID";
@@ -4200,6 +4206,7 @@ if($session->get('language') == "EN") {
         const program_pengajian = "Programme Of Study";
         const program_semasa = "Current Programme";
         const proses_pemeriksaan = "Process Inspection";
+        const psikologi = "Psychology";
         const psikologi_aktiviti_id = "Psychological Activity ID";
         const psikologi_profil_id = "Officers Of Psychology";
         const pusat_latihan = "Training Centre";
@@ -4649,6 +4656,7 @@ if($session->get('language') == "EN") {
         const elaporan = "e-Report";
         const farmasi_rekod_permohonan_ubatan_di_kaunter_oleh_atlet_otc_drug = "Pharmacy Medicine Application Record At The Counter By Athlete (Otc Drug)";
         const fisio_doktor_bertanggungjawab = "Doctor In Charge";
+        const fisiologi = "Physiology";
         const fisiologi_sistem_pangkalan_data_atlet_dan_journal = "Database Systems Physiology athletes and Journal";
         const fisiologi_sistem_penjadualan_ujian_fisiologi = "Physiology The Physiology Test Tabulation System";
         const fisiologi_sistem_sixstep = "Physiological Systems ' SIX-Step '";
@@ -4656,6 +4664,7 @@ if($session->get('language') == "EN") {
         const fisioterapi_sistem_permohonan_khidmat_rawatan_fisioterapi = "System Application Service Treatment Physiotherapy / Rehabilitation";
         const geran_bantuan = "Grants Help";
         const geran_bantuan_gaji = "Grant Of Salary";
+        const hpt = "HPT";
         const hpt_laporan_bulanan_pegawai = "HPT Official Monthly Report";
         const hpt_pangkalan_data_laporan_bulanan = "HPT Database Monthly Report";
         const isn = "ISN";
@@ -4851,6 +4860,7 @@ if($session->get('language') == "EN") {
         const sistem_pengurusan_pengenalpastian_bakat_yang_telah_disaringkan = "Identification Of Talent Management Systems That Have Been Disaringkan";
         const sistem_pengurusan_sukan = "Sport Management System";
         const skim_kebajikan = "Welfare Scheme";
+        const suaian_fizikal = "Physical Conditioning";
         const suaian_fizikal_sistem_pendaftaran_atlet_di_gym = "Physical modification of the registration system – in the Gym athletes '";
         const suaian_fizikal_sistem_pengurusan_dan_analisis_pembekal = "Modification of the Physical – management system and Supplier Analysis";
         const suaian_fizikal_sistem_pengurusan_kemudahan_dan_peralatan = "Modification of the Physical – facilities and equipment management system";
@@ -5270,7 +5280,7 @@ if($session->get('language') == "EN") {
         const permohonan_perkhidmatan_permakanan = "Food Hygiene Service Application";
         const permohonan_program_pendidikan_kesihatan = "Application Of Health Education Programme";
         const permohonan_program_pendidikan_pencegahan = "Application Of Preventive Education Programme";
-        const perubatan = "Medical";
+        const perubatan = "Medical Form";
         const pinjaman_peralatan = "Loan Equipment";
         const pl_data_klinikal = "Clinical Data Pl";
         const pl_diagnosis_preskripsi_pemeriksaan = "Pl Diagnosis Prescription Inspection";

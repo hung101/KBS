@@ -409,7 +409,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                             'label' => GeneralLabel::pengurusan_venue_latihan_kemudahan_serta_spesifikasi_teknikal,
                             'items' => [
                                 ['label' => GeneralLabel::pengurusan_venue, 'url' => ['/pengurusan-kemudahan-venue/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kemudahan-venue']['module'])],
-                                ['label' => GeneralLabel::pengurusan_kemudahan, 'url' => ['/pengurusan-kemudahan-sedia-ada/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kemudahan-sedia-ada']['module'])],
+                                //['label' => GeneralLabel::pengurusan_kemudahan, 'url' => ['/pengurusan-kemudahan-sedia-ada/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kemudahan-sedia-ada']['module'])],
                                 ['label' => GeneralLabel::pengurusan_peralatan, 'url' => ['/pengurusan-kemudahan-peralatan-sedia-ada/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-kemudahan-peralatan-sedia-ada']['module'])],
                                 ['label' => GeneralLabel::pengurusan_penyelia, 'url' => ['/pengurusan-penyelia/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penyelia']['module'])],
                                 ['label' => GeneralLabel::borang_aduan_kerosakan, 'url' => ['/borang-aduan-kerosakan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-aduan-kerosakan']['module'])],

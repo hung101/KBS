@@ -10,7 +10,7 @@ use app\models\general\GeneralLabel;
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::six_step.': ' . ' ' . $model->six_step_id;
 $this->title = GeneralLabel::updateTitle . ' Six Step';
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::six_steps, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::suaian_fizikal, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Six Step', 'url' => ['view', 'id' => $model->six_step_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

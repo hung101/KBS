@@ -2,13 +2,17 @@
 
 use yii\helpers\Html;
 
+// contant values
+use app\models\general\GeneralLabel;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanBimbinganKaunselingPegawaiAnggota */
 
-$this->title = 'Update Permohonan Bimbingan Kaunseling Pegawai Anggota: ' . $model->permohonan_bimbingan_kaunseling_pegawai_anggota_id;
-$this->params['breadcrumbs'][] = ['label' => 'Permohonan Bimbingan Kaunseling Pegawai Anggotas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->permohonan_bimbingan_kaunseling_pegawai_anggota_id, 'url' => ['view', 'id' => $model->permohonan_bimbingan_kaunseling_pegawai_anggota_id]];
-$this->params['breadcrumbs'][] = 'Update';
+
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::permohonan_bimbingan_kaunseling_pegawai_anggota;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_bimbingan_kaunseling_pegawai_anggota, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::permohonan_bimbingan_kaunseling_pegawai_anggota, 'url' => ['view', 'id' => $model->permohonan_bimbingan_kaunseling_pegawai_anggota_id]];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-bimbingan-kaunseling-pegawai-anggota-update">
 

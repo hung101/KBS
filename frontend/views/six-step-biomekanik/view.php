@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->six_step_id;
 $this->title = GeneralLabel::viewTitle . ' Six Step';
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::six_steps, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::biomekanik, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="six-step-view">

@@ -21,6 +21,10 @@ $this->title = GeneralLabel::pengurusan_tawaran_atlet;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-index">
+    
+    <?php
+        $template = '{view}';
+    ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -135,6 +139,36 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'pertalian_kecemasan',
             // 'tel_no_kecemasan',
             // 'tel_bimbit_no_kecemasan',
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM && !isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])) ? '' :
+                                Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                        'title' => Yii::t('yii', 'Delete'),
+                                        'data-confirm' => GeneralMessage::confirmDelete,
+                                        'data-method'=>'post',
+                                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                         $options = [
+                            'title' => Yii::t('yii', 'Update'),
+                            'aria-label' => Yii::t('yii', 'Update'),
+                            'data-pjax' => '0',
+                            ];
+                        return (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM && !isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])) ? '' :Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
+                    },
+                    'view' => function ($url, $model) {
+                        $options = [
+                            'title' => Yii::t('yii', 'View'),
+                            'aria-label' => Yii::t('yii', 'View'),
+                            'data-pjax' => '0',
+                            ];
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, $options);
+                    }
+                ],
+                'template' => $template,
+            ],
         ],
     ]); ?>
 

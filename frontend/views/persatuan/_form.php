@@ -19,6 +19,8 @@ use app\models\ProfilBadanSukan;
 use app\models\RefKategoriProgram;
 use app\models\RefNegeri;
 use app\models\RefSukan;
+use app\models\RefStatusPermohonanProgramBinaan;
+use app\models\RefStatusPermohonanSue;
 
 
 // contant values
@@ -253,11 +255,13 @@ use app\models\general\GeneralMessage;
             <?php 
                 $jumlahBE = 0.00;
                 foreach($dataProviderBE->models as $BEmodel){
-                    $jumlahBE += $BEmodel->jumlah_elaun;
+                    if($BEmodel->status_permohonan == RefStatusPermohonanSue::LULUS){
+                        $jumlahBE += $BEmodel->jumlah_elaun;
+                    }
                 }
             ?>
             <?php 
-                echo "<label>Jumlah Keseluruhan: </label> RM" . $jumlahBE;
+                echo "<label>Jumlah Dilulus: </label> RM" . $jumlahBE;
             ?>
             </div>
         </div>
@@ -337,17 +341,26 @@ use app\models\general\GeneralMessage;
             <?php 
                 $jumlahPPB = 0.00;
                 foreach($dataProviderPPB->models as $PPBmodel){
-                    $jumlahPPB += $PPBmodel->jumlah_yang_diluluskan;
+                    if($PPBmodel->status_permohonan == RefStatusPermohonanProgramBinaan::LULUS){
+                        $jumlahPPB += $PPBmodel->jumlah_yang_diluluskan;
+                    }
                 }
             ?>
             <?php 
-                echo "<label>Jumlah Keseluruhan: </label> RM" . $jumlahPPB;
+                echo "<label>Jumlah Dilulus: </label> RM" . $jumlahPPB;
             ?>
             </div>
         </div>
     </div>
     <!-- Program Binaan - END -->
     <?php endif; ?>
+    
+    <?php 
+        echo "<label>Jumlah Dilulus Keseluruhan: </label> RM" . ($jumlahPPB + $jumlahBE);
+    ?>
+    
+    <br>
+    <br>
 
     <div class="form-group">
         <?php if(!$readonly): ?>

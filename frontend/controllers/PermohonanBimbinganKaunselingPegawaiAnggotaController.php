@@ -14,6 +14,14 @@ use yii\helpers\BaseUrl;
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
 
+// table reference
+use app\models\RefStatusPermohonan;
+use app\models\RefTarafPerkahwinan;
+use app\models\RefJantina;
+use app\models\RefLatarbelakangKes;
+use app\models\RefStatusJawatan;
+use app\models\RefBahagianBimbinganKaunseling;
+
 /**
  * PermohonanBimbinganKaunselingPegawaiAnggotaController implements the CRUD actions for PermohonanBimbinganKaunselingPegawaiAnggota model.
  */
@@ -56,8 +64,41 @@ class PermohonanBimbinganKaunselingPegawaiAnggotaController extends Controller
      */
     public function actionView($id)
     {
+        
+        $model = $this->findModel($id);
+        
+        $ref = RefStatusPermohonan::findOne(['id' => $model->status_permohonan]);
+        $model->status_permohonan = $ref['desc'];
+        
+        $ref = RefTarafPerkahwinan::findOne(['id' => $model->taraf_perkahwinan]);
+        $model->taraf_perkahwinan = $ref['desc'];
+        
+        $ref = RefJantina::findOne(['id' => $model->jantina]);
+        $model->jantina = $ref['desc'];
+        
+        $ref = RefLatarbelakangKes::findOne(['id' => $model->kategori_masalah]);
+        $model->kategori_masalah = $ref['desc'];
+        
+        $ref = RefStatusJawatan::findOne(['id' => $model->status_jawatan]);
+        $model->status_jawatan = $ref['desc'];
+        
+        $ref = RefTarafPerkahwinan::findOne(['id' => $model->taraf_perkahwinan_pegawai]);
+        $model->taraf_perkahwinan_pegawai = $ref['desc'];
+        
+        $ref = RefJantina::findOne(['id' => $model->jantina_pegawai]);
+        $model->jantina_pegawai = $ref['desc'];
+        
+        $ref = RefStatusJawatan::findOne(['id' => $model->status_jawatan_pegawai]);
+        $model->status_jawatan_pegawai = $ref['desc'];
+        
+        $ref = RefBahagianBimbinganKaunseling::findOne(['id' => $model->bahagian]);
+        $model->bahagian = $ref['desc'];
+        
+        $ref = RefBahagianBimbinganKaunseling::findOne(['id' => $model->bahagian_pegawai]);
+        $model->bahagian_pegawai = $ref['desc'];
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }
@@ -71,7 +112,7 @@ class PermohonanBimbinganKaunselingPegawaiAnggotaController extends Controller
     {
         $model = new PermohonanBimbinganKaunselingPegawaiAnggota();
         
-        $model->tarikh_permohonan = new yii\db\Expression('NOW()');
+        $model->tarikh_permohonan = date("Y-m-d H:i:s");
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->permohonan_bimbingan_kaunseling_pegawai_anggota_id]);

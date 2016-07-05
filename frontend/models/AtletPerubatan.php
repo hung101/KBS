@@ -53,7 +53,7 @@ class AtletPerubatan extends \yii\db\ActiveRecord
     {
         return [
             [['atlet_id', 'kumpulan_darah'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['atlet_id', 'staf_perubatan_yang_bertanggungjawab'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['kumpulan_darah'], 'string', 'max' => 60, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alergi_makanan', 'alergi_perubatan', 'alergi_jenis_lain', 'penyakit_semula_jadi'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['penyakit_lain_lain'], 'safe'],
@@ -74,7 +74,7 @@ class AtletPerubatan extends \yii\db\ActiveRecord
             'alergi_jenis_lain' => GeneralLabel::alergi_jenis_lain,
             'penyakit_semula_jadi' => GeneralLabel::penyakit_semula_jadi,
             'penyakit_lain_lain' => GeneralLabel::penyakit_lain_lain,
-
+            'staf_perubatan_yang_bertanggungjawab' => GeneralLabel::staf_perubatan_yang_bertanggungjawab,
         ];
     }
 }
