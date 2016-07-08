@@ -129,15 +129,6 @@ return array (
       '@kartik/depdrop' => $vendorDir . '/kartik-v/yii2-widget-depdrop',
     ),
   ),
-  'kartik-v/yii2-widget-fileinput' => 
-  array (
-    'name' => 'kartik-v/yii2-widget-fileinput',
-    'version' => '1.0.4.0',
-    'alias' => 
-    array (
-      '@kartik/file' => $vendorDir . '/kartik-v/yii2-widget-fileinput',
-    ),
-  ),
   'kartik-v/yii2-widget-rangeinput' => 
   array (
     'name' => 'kartik-v/yii2-widget-rangeinput',
@@ -292,15 +283,6 @@ return array (
       '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base',
     ),
   ),
-  'kartik-v/yii2-widget-datepicker' => 
-  array (
-    'name' => 'kartik-v/yii2-widget-datepicker',
-    'version' => '1.3.9.0',
-    'alias' => 
-    array (
-      '@kartik/date' => $vendorDir . '/kartik-v/yii2-widget-datepicker',
-    ),
-  ),
   'kartik-v/yii2-grid' => 
   array (
     'name' => 'kartik-v/yii2-grid',
@@ -380,6 +362,33 @@ return array (
     'alias' => 
     array (
       '@rmrevin/yii/ionicon' => $vendorDir . '/rmrevin/yii2-ionicon',
+    ),
+  ),
+  'kartik-v/yii2-widget-datepicker' => 
+  array (
+    'name' => 'kartik-v/yii2-widget-datepicker',
+    'version' => '1.4.1.0',
+    'alias' => 
+    array (
+      '@kartik/date' => $vendorDir . '/kartik-v/yii2-widget-datepicker',
+    ),
+  ),
+  'kartik-v/yii2-widget-fileinput' => 
+  array (
+    'name' => 'kartik-v/yii2-widget-fileinput',
+    'version' => '1.0.5.0',
+    'alias' => 
+    array (
+      '@kartik/file' => $vendorDir . '/kartik-v/yii2-widget-fileinput',
+    ),
+  ),
+  'kartik-v/yii2-password' => 
+  array (
+    'name' => 'kartik-v/yii2-password',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@kartik/password' => $vendorDir . '/kartik-v/yii2-password',
     ),
   ),
 );

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use kartik\password\StrengthValidator;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
@@ -74,7 +75,12 @@ class User extends \yii\db\ActiveRecord
             [['username'], 'string', 'min' => 12, 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min, 'on' => 'create'],
             ['new_password', 'validatePassword'],
             ['new_password', 'string', 'min' => 12, 'tooShort' => GeneralMessage::yii_validation_string_min],
-            [['username'], 'unique', 'message' => GeneralMessage::yii_validation_unique]
+            [['username'], 'unique', 'message' => GeneralMessage::yii_validation_unique],
+            [['new_password'], StrengthValidator::className(), 'digit'=>1, 'special'=>1, 'lower' => 1, 'upper' => 0, 
+                'digitError'=>GeneralMessage::yii_validation_password_strength,
+                'specialError'=>GeneralMessage::yii_validation_password_strength,
+                'lowerError'=>GeneralMessage::yii_validation_password_strength,
+                'hasUserError'=>GeneralMessage::yii_validation_password_contain_username,]
         ];
     }
 

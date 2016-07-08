@@ -204,4 +204,8 @@ class GeneralFunction{
         
         return $month_word; 
     }
+    
+    public static function getCurrentTimestamp(){
+        return date('Y-m-d H:i:s');
+    }
 }

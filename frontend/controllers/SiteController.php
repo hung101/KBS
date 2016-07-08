@@ -210,6 +210,7 @@ class SiteController extends Controller
         }*/
 
         $model = new LoginForm();
+        $model->scenario = 'new-password';
         $user = new User();
 
         if ($model->load(Yii::$app->request->post())) {

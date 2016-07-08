@@ -363,6 +363,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const daftar_alamat_negeri = "Negeri";
         const daftar_alamat_poskod = "Poskod";
         const daftar_no_pengangkutan = "No Daftar Pengangkutan";
+        const dari = "Dari";
         const dari_bahagian = "Dari Bahagian";
         const darjah = "Darjah";
         const desc = "Penerangan";
@@ -677,6 +678,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kaunseling_id = "Kaunseling ID";
         const kawasan_kemudahan = "Kawasan / Kemudahan";
         const kawasan_temuduga_anda = "Kawasan Temuduga Anda";
+        const ke = "Ke";
         const kebatasan_fizikal = "Keterbatasan Fizikal";
         const kecacatan = "Kecacatan";
         const kecederaan_jika_ada = "Kecederaan Jika Ada";
@@ -1299,6 +1301,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const percubaan_1 = "Percubaan 1";
         const percubaan_2 = "Percubaan 2";
         const perempuan = "Perempuan";
+        const pergi = "Pergi";
         const peribadi_yang_bertanggungjawab = "Peribadi Yang Bertanggungjawab";
         const peringkat = "Peringkat";
         const peringkat_badan_sukan = "Peringkat Badan Sukan";
@@ -1385,6 +1388,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const psikologi = "Psikologi";
         const psikologi_aktiviti_id = "Psikologi Aktiviti ID";
         const psikologi_profil_id = "Pegawai Psikologi";
+        const pulang = "Pulang";
         const pusat_latihan = "Pusat Latihan";
         const pusat_satelit = "Pusat Satelit";
         const quantity_kadar = "Kuantiti";
@@ -1986,7 +1990,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pengurusan_sajian_makan = "Pengurusan Sajian Makan";
         const pengurusan_semua_kemudahan_atlet = "Pengurusan Semua Kemudahan Atlet";
         const pengurusan_sesi_dengan_keselamatan_encryption = "Pengurusan Sesi Dengan Keselamatan Encryption";
-        const pengurusan_usptn = "Pengurusan USPTN";
+        const pengurusan_usptn = "USPTN";
         const pengurusan_venue = "Pengurusan Fasiliti";
         const pengurusan_venue_latihan_kemudahan_serta_spesifikasi_teknikal = "Pengurusan Venue Latihan, Kemudahan Serta Spesifikasi Teknikal";
         const penilaian_pestasi = "Penilaian Prestasi";
@@ -2019,7 +2023,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pesakit_luar_sistem_pendaftaran_dan_temujanji_atlet_pesakit_luar_sistem_proses_rawatan_pesakit_luar_pengurusan_rekod_pemeriksaan_perubatan_pesakit_luar_sistem_pemberian_ubat_kepada_psk = "Pendaftaran Pesakit Luar / Atlet";
         const persetujuan = "Persetujuan";
         const pjs = "PJS";
-        const profil_kaunselor = "Permohonan Ahli Psikologi / Kaunselor";
+        const profil_kaunselor = "Profil Ahli Psikologi / Kaunselor";
         const profil_panel_penasihat_kpsk = "Profil Panel Penasihat KPSK";
         const profil_psikologi = "Profil Psikologi";
         const profil_wartawan_sukan = "Profil Wartawan Sukan";
@@ -3187,6 +3191,7 @@ if($session->get('language') == "EN") {
         const daftar_alamat_negeri = "State";
         const daftar_alamat_poskod = "Postal code";
         const daftar_no_pengangkutan = "No Express Transport";
+        const dari = "From";
         const dari_bahagian = "From Part";
         const darjah = "The degree of";
         const desc = "Description";
@@ -3501,6 +3506,7 @@ if($session->get('language') == "EN") {
         const kaunseling_id = "Counseling ID";
         const kawasan_kemudahan = "Area / Facility";
         const kawasan_temuduga_anda = "Area Of Your Interview";
+        const ke = "To";
         const kebatasan_fizikal = "Physical Kebatasan";
         const kecacatan = "A defect";
         const kecederaan_jika_ada = "Injury If Any";
@@ -4123,6 +4129,7 @@ if($session->get('language') == "EN") {
         const percubaan_1 = "Trial 1";
         const percubaan_2 = "Experiment 2";
         const perempuan = "Female";
+        const pergi = "Go";
         const peribadi_yang_bertanggungjawab = "Personally Responsible";
         const peringkat = "Level";
         const peringkat_badan_sukan = "Sports Body Level";
@@ -4209,6 +4216,7 @@ if($session->get('language') == "EN") {
         const psikologi = "Psychology";
         const psikologi_aktiviti_id = "Psychological Activity ID";
         const psikologi_profil_id = "Officers Of Psychology";
+        const pulang = "Return";
         const pusat_latihan = "Training Centre";
         const pusat_satelit = "Satelite Centre";
         const quantity_kadar = "Quantity";
@@ -4843,7 +4851,7 @@ if($session->get('language') == "EN") {
         const pesakit_luar_sistem_pendaftaran_dan_temujanji_atlet_pesakit_luar_sistem_proses_rawatan_pesakit_luar_pengurusan_rekod_pemeriksaan_perubatan_pesakit_luar_sistem_pemberian_ubat_kepada_psk = "Patient Registration / Athletes";
         const persetujuan = "Informed Consent";
         const pjs = "PJS";
-        const profil_kaunselor = "Application Psychologist / Counsellor";
+        const profil_kaunselor = "Profile Psychologist / Counsellor";
         const profil_panel_penasihat_kpsk = "Profile Advisory Panel KPSK";
         const profil_psikologi = "Psychological Profile";
         const profil_wartawan_sukan = "Sports Journalist Profile";

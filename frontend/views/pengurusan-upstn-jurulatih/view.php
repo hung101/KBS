@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanUpstnAtlet */
 
-$this->title = $model->pengurusan_upstn_atlet_id;
+$this->title = $model->pengurusan_upstn_jurulatih_id;
 $this->params['breadcrumbs'][] = ['label' => 'Pengurusan Upstn Atlets', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <!--<h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->pengurusan_upstn_atlet_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->pengurusan_upstn_atlet_id], [
+        <?= Html::a('Update', ['update', 'id' => $model->pengurusan_upstn_jurulatih_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->pengurusan_upstn_jurulatih_id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php /*echo DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'pengurusan_upstn_atlet_id',
+            'pengurusan_upstn_jurulatih_id',
             'pengurusan_upstn_id',
             'tarikh',
             'tempat',

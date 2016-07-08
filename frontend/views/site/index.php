@@ -16,7 +16,6 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
     </div>-->
 
     <div class="body-content">
-        <?php echo Yii::$app->formatter->asDatetime(date('Y-d-m h:i:s'));?>
         <h1>
         Dashboard
         <small><?= GeneralMessage::sistem_pengurusan_sukan_bersepadu ?></small>

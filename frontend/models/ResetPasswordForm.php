@@ -5,6 +5,7 @@ use common\models\User;
 use yii\base\InvalidParamException;
 use yii\base\Model;
 use Yii;
+use kartik\password\StrengthValidator;
 
 use app\models\general\GeneralMessage;
 
@@ -49,6 +50,11 @@ class ResetPasswordForm extends Model
         return [
             ['password', 'required', 'message' => GeneralMessage::yii_validation_required],
             ['password', 'string', 'min' => 12, 'tooShort' => GeneralMessage::yii_validation_string_min],
+            [['password'], StrengthValidator::className(), 'digit'=>1, 'special'=>1, 'lower' => 1, 'upper' => 0, 
+                'digitError'=>GeneralMessage::yii_validation_password_strength,
+                'specialError'=>GeneralMessage::yii_validation_password_strength,
+                'lowerError'=>GeneralMessage::yii_validation_password_strength,
+                'hasUserError'=>GeneralMessage::yii_validation_password_contain_username,]
         ];
     }
     

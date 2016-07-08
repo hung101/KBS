@@ -74,7 +74,7 @@ class PengurusanUpstnJurulatih extends \yii\db\ActiveRecord
             'pengurusan_upstn_id' => 'Pengurusan Upstn ID',
             'tarikh' => 'Tarikh',
             'tempat' => 'Tempat',
-            'peserta' => 'Peserta',
+            'peserta' => 'Bilangan Peserta',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

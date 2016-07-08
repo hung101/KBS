@@ -59,7 +59,7 @@ class PengurusanUpstnSearch extends PengurusanUpstn
 
         $query->andFilterWhere([
             'pengurusan_upstn_id' => $this->pengurusan_upstn_id,
-            'tarikh_lawatan' => $this->tarikh_lawatan,
+            //'tarikh_lawatan' => $this->tarikh_lawatan,
             'masa' => $this->masa,
         ]);
 
@@ -68,7 +68,8 @@ class PengurusanUpstnSearch extends PengurusanUpstn
             ->andFilterWhere(['like', 'tempat', $this->tempat])
             ->andFilterWhere(['like', 'kehadiran', $this->kehadiran])
             ->andFilterWhere(['like', 'isu', $this->isu])
-            ->andFilterWhere(['like', 'ulasan', $this->ulasan]);
+            ->andFilterWhere(['like', 'ulasan', $this->ulasan])
+                ->andFilterWhere(['like', 'tarikh_lawatan', $this->tarikh_lawatan]);
 
         return $dataProvider;
     }

@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanUpstnAtlet */
 
-$this->title = 'Update Pengurusan Upstn Atlet: ' . $model->pengurusan_upstn_atlet_id;
+$this->title = 'Update Pengurusan Upstn Atlet: ' . $model->pengurusan_upstn_jurulatih_id;
 $this->params['breadcrumbs'][] = ['label' => 'Pengurusan Upstn Atlets', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->pengurusan_upstn_atlet_id, 'url' => ['view', 'id' => $model->pengurusan_upstn_atlet_id]];
+$this->params['breadcrumbs'][] = ['label' => $model->pengurusan_upstn_jurulatih_id, 'url' => ['view', 'id' => $model->pengurusan_upstn_jurulatih_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="pengurusan-upstn-jurulatih-update">

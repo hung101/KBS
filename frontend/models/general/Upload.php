@@ -83,6 +83,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const plTemujanjiFisioterapiFolder = "pl_temujanji_fisioterapi";
         const plTemujanjiRehabilitasiFolder = "pl_temujanji_rehabilitasi";
         const profilBadanSukanFolder = "profil_badan_sukan";
+        const profilKonsultanFolder = "profil_konsultan";
         const profilPsikologiFolder = "profil_psikologi";
         const perlembagaanBadanSukanFolder = "perlembagaan_badan_sukan";
         const sukarelawanFolder = "sukarelawan";
@@ -203,6 +204,7 @@ if($session->get('language') == "EN") {
         const plTemujanjiFisioterapiFolder = "pl_temujanji_fisioterapi";
         const plTemujanjiRehabilitasiFolder = "pl_temujanji_rehabilitasi";
         const profilBadanSukanFolder = "profil_badan_sukan";
+        const profilKonsultanFolder = "profil_konsultan";
         const profilPsikologiFolder = "profil_psikologi";
         const perlembagaanBadanSukanFolder = "perlembagaan_badan_sukan";
         const sukarelawanFolder = "sukarelawan";

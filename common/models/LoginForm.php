@@ -4,6 +4,9 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use app\models\UserPeranan;
+use kartik\password\StrengthValidator;
+
+use app\models\general\GeneralMessage;
 
 /**
  * Login form
@@ -30,6 +33,12 @@ class LoginForm extends Model
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+            [['password'], StrengthValidator::className(), 'digit'=>1, 'special'=>1, 'lower' => 1, 'upper' => 0, 
+                'digitError'=>GeneralMessage::yii_validation_password_strength,
+                'specialError'=>GeneralMessage::yii_validation_password_strength,
+                'lowerError'=>GeneralMessage::yii_validation_password_strength,
+                'hasUserError'=>GeneralMessage::yii_validation_password_contain_username,
+                'on' => 'new-password']
         ];
     }
 
@@ -44,8 +53,11 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+            
+            if($user && $user->login_attempted > 2) {
+                $this->addError($attribute, 'Akaun anda disekat kerana cubaan login maksimum, sila hubungi admin.');
+            }else if (!$user || !$user->validatePassword($this->password)) {
+                $this->addError($attribute, 'Incorrect username or password, or account deactivated.');
             }
         }
     }

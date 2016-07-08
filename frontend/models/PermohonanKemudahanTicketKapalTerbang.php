@@ -61,12 +61,12 @@ class PermohonanKemudahanTicketKapalTerbang extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_pemohon', 'bahagian', 'jawatan', 'destinasi', 'tarikh', 'nama_program', 'no_fail_kelulusan', 'bil_penumpang', 'aktiviti', 'sukan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh'], 'safe'],
+            [['nama_pemohon', 'bahagian', 'jawatan', 'destinasi', 'tarikh', 'nama_program', 'bil_penumpang', 'aktiviti', 'sukan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh', 'tarikh_ke', 'pulang_tarikh_dari', 'pulang_tarikh_ke'], 'safe'],
             [['bil_penumpang', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_pemohon', 'jawatan', 'nama_program', 'aktiviti', 'atlet', 'jurulatih'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['bahagian', 'sukan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['destinasi'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['destinasi', 'pulang'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_fail_kelulusan', 'kod_perbelanjaan'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['pegawai_teknikal'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
@@ -82,8 +82,9 @@ class PermohonanKemudahanTicketKapalTerbang extends \yii\db\ActiveRecord
             'nama_pemohon' => GeneralLabel::nama_pemohon,
             'bahagian' => GeneralLabel::bahagian,
             'jawatan' => GeneralLabel::jawatan,
-            'destinasi' => GeneralLabel::destinasi,
-            'tarikh' => GeneralLabel::tarikh,
+            'destinasi' => GeneralLabel::lokasi,
+            'tarikh' => GeneralLabel::dari,
+            'tarikh_ke' => GeneralLabel::ke,
             'nama_program' => GeneralLabel::nama_program,
             'no_fail_kelulusan' => GeneralLabel::no_fail_kelulusan,
             'bil_penumpang' => GeneralLabel::bil_penumpang,
@@ -92,8 +93,11 @@ class PermohonanKemudahanTicketKapalTerbang extends \yii\db\ActiveRecord
             'sukan' => GeneralLabel::sukan,
             'atlet' => GeneralLabel::atlet,
             'jurulatih' => GeneralLabel::jurulatih,
-            'pegawai_teknikal' => GeneralLabel::pegawai_teknikal,
+            'pegawai_teknikal' => GeneralLabel::pegawai,
             'kelulusan' => GeneralLabel::kelulusan,
+            'pulang' => GeneralLabel::lokasi,
+            'pulang_tarikh_dari' => GeneralLabel::dari,
+            'pulang_tarikh_ke' => GeneralLabel::ke,
 
         ];
     }

@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\web\UploadedFile;
+use app\models\general\Upload;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
@@ -53,11 +55,13 @@ class ProfilKonsultan extends \yii\db\ActiveRecord
         return [
             [['nama_konsultan', 'ic_no', 'no_bimbit', 'umur', 'kategori_agensi', 'agensi', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod',
                 'no_tel_pejabat', 'no_kaunselor_berdaftar', 'tarikh', 'status_permohonan', 'emel'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['nama_konsultan', 'bidang_konsultansi', 'lain_lain'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_konsultan', 'bidang_konsultansi', 'lain_lain', 'agensi'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['ic_no'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kepakaran_pengalaman'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['no_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['no_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['gambar'], 'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -69,7 +73,7 @@ class ProfilKonsultan extends \yii\db\ActiveRecord
         return [
             'profil_konsultan_id' => GeneralLabel::profil_konsultan_id,
             'nama_konsultan' => GeneralLabel::nama_konsultan,
-            'ic_no' => GeneralLabel::ic_no,
+            'ic_no' => GeneralLabel::no_kad_pengenalan_tentera_polis,
             'emel' => GeneralLabel::emel,
             'no_bimbit' => GeneralLabel::no_bimbit,
             'bidang_konsultansi' => GeneralLabel::bidang_konsultansi,
@@ -89,5 +93,20 @@ class ProfilKonsultan extends \yii\db\ActiveRecord
             'tarikh' => GeneralLabel::tarikh,
             'status_permohonan' => GeneralLabel::status_permohonan,
         ];
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+
+        if(!$file && $this->$attribute==""){
+            $this->addError($attribute, GeneralMessage::uploadEmptyError);
+        }
     }
 }

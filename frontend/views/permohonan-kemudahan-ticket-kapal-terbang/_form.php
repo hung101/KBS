@@ -44,23 +44,7 @@ use app\models\general\GeneralVariable;
                 'jawatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4]],
             ],
         ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'destinasi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>9]],
-                'tarikh' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=> DateControl::classname(),
-                    'ajaxConversion'=>false,
-                    'options'=>[
-                        'pluginOptions' => [
-                            'autoclose'=>true,
-                        ]
-                    ],
-                    'columnOptions'=>['colspan'=>3]],
-            ]
-        ],
+        
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -155,6 +139,94 @@ use app\models\general\GeneralVariable;
     ]
 ]);
     ?>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong><?=GeneralLabel::pergi?></strong>
+        </div>
+        <div class="panel-body">
+            <?php
+                echo FormGrid::widget([
+                    'model' => $model,
+                    'form' => $form,
+                    'autoGenerateColumns' => true,
+                    'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'destinasi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6]],
+                                'tarikh' => [
+                                    'type'=>Form::INPUT_WIDGET, 
+                                    'widgetClass'=> DateControl::classname(),
+                                    'ajaxConversion'=>false,
+                                    'options'=>[
+                                        'pluginOptions' => [
+                                            'autoclose'=>true,
+                                        ]
+                                    ],
+                                    'columnOptions'=>['colspan'=>3]],
+                                'tarikh_ke' => [
+                                    'type'=>Form::INPUT_WIDGET, 
+                                    'widgetClass'=> DateControl::classname(),
+                                    'ajaxConversion'=>false,
+                                    'options'=>[
+                                        'pluginOptions' => [
+                                            'autoclose'=>true,
+                                        ]
+                                    ],
+                                    'columnOptions'=>['colspan'=>3]],
+                            ]
+                        ],
+                    ]
+                ]);
+            ?>
+        </div>
+    </div>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong><?=GeneralLabel::pulang?></strong>
+        </div>
+        <div class="panel-body">
+            <?php
+                echo FormGrid::widget([
+                    'model' => $model,
+                    'form' => $form,
+                    'autoGenerateColumns' => true,
+                    'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'pulang' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6]],
+                                'pulang_tarikh_dari' => [
+                                    'type'=>Form::INPUT_WIDGET, 
+                                    'widgetClass'=> DateControl::classname(),
+                                    'ajaxConversion'=>false,
+                                    'options'=>[
+                                        'pluginOptions' => [
+                                            'autoclose'=>true,
+                                        ]
+                                    ],
+                                    'columnOptions'=>['colspan'=>3]],
+                                'pulang_tarikh_ke' => [
+                                    'type'=>Form::INPUT_WIDGET, 
+                                    'widgetClass'=> DateControl::classname(),
+                                    'ajaxConversion'=>false,
+                                    'options'=>[
+                                        'pluginOptions' => [
+                                            'autoclose'=>true,
+                                        ]
+                                    ],
+                                    'columnOptions'=>['colspan'=>3]],
+                            ]
+                        ],
+                    ]
+                ]);
+            ?>
+        </div>
+    </div>
     
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['kelulusan']) || $readonly): ?>
     <?php

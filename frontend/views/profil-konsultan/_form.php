@@ -9,17 +9,21 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use kartik\widgets\DepDrop;
 use kartik\datecontrol\DateControl;
+use kartik\widgets\Select2;
 
 // table reference
 use app\models\RefBidangKonsultansi;
 use app\models\RefNegeri;
 use app\models\RefBandar;
+use app\models\RefKategoriAgensi;
+use app\models\RefStatusPermohonanKaunselor;
 
 // contant values
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ProfilKonsultan */
@@ -29,11 +33,47 @@ use app\models\general\GeneralMessage;
 <div class="profil-konsultan-form">
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
-    
 
     <pre style="text-align: center"><strong>MAKLUMAT PERIBADI</strong></pre>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    
+    <?php // Gambar Upload
+    
+    $label = $model->getAttributeLabel('gambar');
+    
+    if($model->gambar){
+        echo "<div class='required'>";
+        echo "<label>" . $model->getAttributeLabel('gambar') . "</label><br>";
+        echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$model->gambar.'" width="200px">&nbsp;&nbsp;&nbsp;';
+        echo '<br><br>';
+        echo "</div>";
+        
+        $label = false;
+    }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'gambar' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label,'options'=>['accept' => 'image/*'], 'pluginOptions' => ['previewFileType' => 'image'],'hint'=>''],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+    }
+        
+    ?>
+    <br>
+    
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -44,17 +84,18 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama_konsultan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                'nama_konsultan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                'ic_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12, 'id'=>'NoICID']],
             ],
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'ic_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>12]],
-                'umur' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>3, 'disabled' => true]],
+                
+                'umur' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>3, 'disabled' => true, 'id'=>'UmurID']],
             ],
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -89,27 +130,14 @@ use app\models\general\GeneralMessage;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-bidang-konsultansi/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-agensi/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefBidangKonsultansi::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefKategoriAgensi::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kategori],],
                     'columnOptions'=>['colspan'=>4]],
-                'agensi' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-bidang-konsultansi/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefBidangKonsultansi::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::agensi],],
-                    'columnOptions'=>['colspan'=>4]],
+                'agensi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
             ],
         ],
         [
@@ -186,8 +214,10 @@ use app\models\general\GeneralMessage;
     <br>
     <pre style="text-align: center"><strong>MAKLUMAT KEPAKARAN</strong></pre>
     
+    
     <?php
-        echo FormGrid::widget([
+    
+    echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -197,20 +227,51 @@ use app\models\general\GeneralMessage;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'no_kaunselor_berdaftar' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
-                'bidang_konsultansi' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+            ],
+        ],
+    ]
+]);
+    
+        // selected list
+        $selected = null;
+        if(isset($model->bidang_konsultansi) && $model->bidang_konsultansi != ''){
+            $selected=explode(',',$model->bidang_konsultansi);
+        }
+        
+        // Bidang Konsultasi
+        echo '<label class="control-label">'.$model->getAttributeLabel('bidang_konsultansi').'</label>';
+        echo Select2::widget([
+            'model' => $model,
+            'id' => 'profilkonsultan-bidang_konsultansi',
+            'name' => 'ProfilKonsultan[bidang_konsultansi]',
+            'value' => $selected, // initial value
+            'data' => ArrayHelper::map(RefBidangKonsultansi::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin']) && !$readonly) ? 
                         [
                             'append' => [
                                 'content' => Html::a(Html::icon('edit'), ['/ref-bidang-konsultansi/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefBidangKonsultansi::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::bidangKonsultansi],],
-                    'columnOptions'=>['colspan'=>4]],
+            'options' => ['placeholder' => Placeholder::bidangKonsultansi, 'multiple' => true],
+            'pluginOptions' => [
+                'tags' => true,
+                'maximumInputLength' => 10
+            ],
+            'disabled' => $readonly
+        ]);
+        
+        echo "<br>";
+    
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                 'lain_lain' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
             ],
         ],
@@ -244,11 +305,11 @@ use app\models\general\GeneralMessage;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-bidang-konsultansi/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan-kaunselor/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefBidangKonsultansi::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefStatusPermohonanKaunselor::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::statusPermohonan],],
                     'columnOptions'=>['colspan'=>4]],
                 'tarikh' => [
@@ -256,9 +317,12 @@ use app\models\general\GeneralMessage;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
+                        'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                                    'todayBtn' => true,
+                        ],
+                        'options'=>['disabled'=>true]
                     ],
                     'columnOptions'=>['colspan'=>3]],
             ],
@@ -266,16 +330,6 @@ use app\models\general\GeneralMessage;
     ]
 ]);
     ?>
-
-    <!--<?= $form->field($model, 'nama_konsultan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'ic_no')->textInput(['maxlength' => 12]) ?>
-
-    <?= $form->field($model, 'emel')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'no_bimbit')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'bidang_konsultansi')->textInput(['maxlength' => 80]) ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -286,3 +340,57 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+     
+$(document).ready(function(){
+    if($("#NoICID").val() != ""){
+        var DOBVal = "";
+    
+        if(this.value != ""){
+            DOBVal = getDOBFromICNo($("#NoICID").val());
+        }
+    
+        $("#UmurID").val(calculateAge(DOBVal));
+    }
+});
+        
+$("#NoICID").focusout(function(){
+    var DOBVal = "";
+    
+    if(this.value != ""){
+        DOBVal = getDOBFromICNo(this.value);
+    }
+    
+        
+    $("#TarikhLahirID-disp").val(formatSaveDate(DOBVal));
+    $("#TarikhLahirID").val(formatSaveDate(DOBVal));
+        
+    $("#UmurID").val(calculateAge(formatSaveDate(DOBVal)));
+        
+        
+    $("#TarikhLahirID").kvDatepicker("$DateDisplayFormat", new Date(DOBVal)).kvDatepicker({
+        format: "$DateDisplayFormat"
+    });
+});
+        
+$('#TarikhLahirID').change(function(){
+    $("#UmurID").val(calculateAge(this.value));
+});
+           
+
+JS;
+        
+$this->registerJs($script);
+?>
+
