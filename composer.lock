@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "04fe8ad925e23861d569a29bdf975946",
-    "content-hash": "01ed812d0ea0200533b16de3c3ad10f1",
+    "hash": "cc5571eb45bb0c62d5a06418b42250f0",
+    "content-hash": "61c926c5bff305d8ac5722b6797c6025",
     "packages": [
         {
             "name": "2amigos/yii2-chartjs-widget",
@@ -237,20 +237,20 @@
         },
         {
             "name": "bower-asset/bootstrap",
-            "version": "v3.3.5",
+            "version": "v3.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "16b48259a62f576e52c903c476bd42b90ab22482"
+                "reference": "81df608a40bf0629a1dc08e584849bb1e43e0b7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/16b48259a62f576e52c903c476bd42b90ab22482",
-                "reference": "16b48259a62f576e52c903c476bd42b90ab22482",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/81df608a40bf0629a1dc08e584849bb1e43e0b7a",
+                "reference": "81df608a40bf0629a1dc08e584849bb1e43e0b7a",
                 "shasum": ""
             },
             "require": {
-                "bower-asset/jquery": ">=1.9.1"
+                "bower-asset/jquery": ">=1.9.1,<3.0"
             },
             "type": "bower-asset-library",
             "extra": {
@@ -1439,22 +1439,27 @@
         },
         {
             "name": "kartik-v/yii2-widget-activeform",
-            "version": "v1.4.7",
+            "version": "v1.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-activeform.git",
-                "reference": "6acc1539c37d731c79a67989409ad76e389fd5f0"
+                "reference": "53c2f877f12ba0b79e8346b6cae50cbba2bcfc69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-activeform/zipball/6acc1539c37d731c79a67989409ad76e389fd5f0",
-                "reference": "6acc1539c37d731c79a67989409ad76e389fd5f0",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-activeform/zipball/53c2f877f12ba0b79e8346b6cae50cbba2bcfc69",
+                "reference": "53c2f877f12ba0b79e8346b6cae50cbba2bcfc69",
                 "shasum": ""
             },
             "require": {
                 "kartik-v/yii2-krajee-base": "~1.7"
             },
             "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "kartik\\form\\": ""
@@ -1482,7 +1487,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-12-11 19:07:50"
+            "time": "2016-04-27 18:38:05"
         },
         {
             "name": "kartik-v/yii2-widget-affix",
@@ -2507,6 +2512,50 @@
             "time": "2016-04-28 18:19:01"
         },
         {
+            "name": "nickcv/yii2-encrypter",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nickcv-ln/yii2-encrypter.git",
+                "reference": "eaedea577f10ba605c1408cb9901e591d8034a8b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nickcv-ln/yii2-encrypter/zipball/eaedea577f10ba605c1408cb9901e591d8034a8b",
+                "reference": "eaedea577f10ba605c1408cb9901e591d8034a8b",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "nickcv\\encrypter\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Puddu",
+                    "email": "n.puddu@outlook.com"
+                }
+            ],
+            "description": "Openssl Encrypter for Yii2",
+            "keywords": [
+                "Active Record",
+                "Behavior",
+                "encryption",
+                "extension",
+                "openssl",
+                "yii2"
+            ],
+            "time": "2015-02-04 09:50:53"
+        },
+        {
             "name": "nirvana-msu/yii2-showloading",
             "version": "dev-master",
             "source": {
@@ -2805,23 +2854,23 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.2",
+            "version": "v5.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "d8db871a54619458a805229a057ea2af33c753e8"
+                "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/d8db871a54619458a805229a057ea2af33c753e8",
-                "reference": "d8db871a54619458a805229a057ea2af33c753e8",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
+                "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9.1,<0.9.4"
+                "mockery/mockery": "~0.9.1"
             },
             "type": "library",
             "extra": {
@@ -2854,7 +2903,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2016-05-01 08:45:47"
+            "time": "2016-07-08 11:51:25"
         },
         {
             "name": "yiisoft/yii2",

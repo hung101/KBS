@@ -102,15 +102,6 @@ return array (
       '@kartik/tabs' => $vendorDir . '/kartik-v/yii2-tabs-x',
     ),
   ),
-  'kartik-v/yii2-widget-activeform' => 
-  array (
-    'name' => 'kartik-v/yii2-widget-activeform',
-    'version' => '1.4.7.0',
-    'alias' => 
-    array (
-      '@kartik/form' => $vendorDir . '/kartik-v/yii2-widget-activeform',
-    ),
-  ),
   'kartik-v/yii2-widget-datetimepicker' => 
   array (
     'name' => 'kartik-v/yii2-widget-datetimepicker',
@@ -389,6 +380,24 @@ return array (
     'alias' => 
     array (
       '@kartik/password' => $vendorDir . '/kartik-v/yii2-password',
+    ),
+  ),
+  'kartik-v/yii2-widget-activeform' => 
+  array (
+    'name' => 'kartik-v/yii2-widget-activeform',
+    'version' => '1.4.8.0',
+    'alias' => 
+    array (
+      '@kartik/form' => $vendorDir . '/kartik-v/yii2-widget-activeform',
+    ),
+  ),
+  'nickcv/yii2-encrypter' => 
+  array (
+    'name' => 'nickcv/yii2-encrypter',
+    'version' => '1.1.0.0',
+    'alias' => 
+    array (
+      '@nickcv/encrypter' => $vendorDir . '/nickcv/yii2-encrypter',
     ),
   ),
 );

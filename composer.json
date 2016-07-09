@@ -37,7 +37,8 @@
         "rmrevin/yii2-fontawesome": "~2.15",
         "rmrevin/yii2-ionicon": "~1.2",
         "2amigos/yii2-chartjs-widget" : "~2.0",
-        "kartik-v/yii2-password": "@dev"
+        "kartik-v/yii2-password": "@dev",
+        "nickcv/yii2-encrypter": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

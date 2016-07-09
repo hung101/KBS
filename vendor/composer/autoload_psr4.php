@@ -18,6 +18,7 @@ return array(
     'rmrevin\\yii\\ionicon\\' => array($vendorDir . '/rmrevin/yii2-ionicon'),
     'rmrevin\\yii\\fontawesome\\' => array($vendorDir . '/rmrevin/yii2-fontawesome'),
     'nirvana\\showloading\\' => array($vendorDir . '/nirvana-msu/yii2-showloading'),
+    'nickcv\\encrypter\\' => array($vendorDir . '/nickcv/yii2-encrypter'),
     'miloschuman\\highcharts\\' => array($vendorDir . '/miloschuman/yii2-highcharts-widget/src'),
     'kartik\\widgets\\' => array($vendorDir . '/kartik-v/yii2-widgets'),
     'kartik\\typeahead\\' => array($vendorDir . '/kartik-v/yii2-widget-typeahead'),

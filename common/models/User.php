@@ -87,8 +87,13 @@ class User extends ActiveRecord implements IdentityInterface
         //return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
         $UserModel = User::find()->where(['id' => $id, 'status' => self::STATUS_ACTIVE])->joinWith('refUserPeranan')->one();
         
-        $modelUserPeranan = UserPeranan::findOne(['user_peranan_id' => $UserModel->peranan, 'aktif' => 1]);
-        $UserModel->peranan_akses = json_decode($modelUserPeranan->peranan_akses, true);
+        if($UserModel){
+            $modelUserPeranan = UserPeranan::findOne(['user_peranan_id' => $UserModel->peranan, 'aktif' => 1]);
+            
+            if($modelUserPeranan){
+                $UserModel->peranan_akses = json_decode($modelUserPeranan->peranan_akses, true);
+            }
+        }
         
         return $UserModel;
     }
