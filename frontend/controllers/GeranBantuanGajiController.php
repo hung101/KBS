@@ -23,6 +23,7 @@ use app\models\RefStatusGeranJurulatih;
 use app\models\RefStatusJurulatih;
 use app\models\RefSukan;
 use app\models\RefProgramJurulatih;
+use app\models\RefKelulusanGeranBantuanGajiJurulatih;
 
 /**
  * GeranBantuanGajiController implements the CRUD actions for GeranBantuanGaji model.
@@ -94,8 +95,11 @@ class GeranBantuanGajiController extends Controller
         $ref = RefSukan::findOne(['id' => $model->nama_sukan]);
         $model->nama_sukan = $ref['desc'];
         
-        $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
-        $model->kelulusan = $YesNo;
+        $ref = RefKelulusanGeranBantuanGajiJurulatih::findOne(['id' => $model->kelulusan]);
+        $model->kelulusan = $ref['desc'];
+        
+        //$YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
+        //$model->kelulusan = $YesNo;
         
         return $this->render('view', [
             'model' => $model,

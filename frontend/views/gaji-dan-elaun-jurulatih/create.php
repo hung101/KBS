@@ -7,7 +7,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\GajiDanElaunJurulatih */
 
-$this->title = GeneralLabel::createTitle . ' Gaji Dan Elaun Jurulatih';
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::gaji_dan_elaun_jurulatih;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::gaji_dan_elaun_jurulatih, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -19,6 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'searchModelElaunJurulatih' => $searchModelElaunJurulatih,
         'dataProviderElaunJurulatih' => $dataProviderElaunJurulatih,
+        'searchModelGajiJurulatih' => $searchModelGajiJurulatih,
+        'dataProviderGajiJurulatih' => $dataProviderGajiJurulatih,
         'readonly' => $readonly,
     ]) ?>
 

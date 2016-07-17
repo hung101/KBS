@@ -3,36 +3,36 @@
 namespace frontend\controllers;
 
 use Yii;
-use app\models\ElaunJurulatih;
-use frontend\models\ElaunJurulatihSearch;
+use app\models\GajiJurulatih;
+use frontend\models\GajiJurulatihSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
 
-// table reference
-use app\models\RefJenisElaunJurulatih;
-
 /**
- * ElaunJurulatihController implements the CRUD actions for ElaunJurulatih model.
+ * GajiJurulatihController implements the CRUD actions for GajiJurulatih model.
  */
-class ElaunJurulatihController extends Controller
+class GajiJurulatihController extends Controller
 {
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
+                    'delete' => ['POST'],
                 ],
             ],
         ];
     }
 
     /**
-     * Lists all ElaunJurulatih models.
+     * Lists all GajiJurulatih models.
      * @return mixed
      */
     public function actionIndex()
@@ -41,7 +41,7 @@ class ElaunJurulatihController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
-        $searchModel = new ElaunJurulatihSearch();
+        $searchModel = new GajiJurulatihSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -51,7 +51,7 @@ class ElaunJurulatihController extends Controller
     }
 
     /**
-     * Displays a single ElaunJurulatih model.
+     * Displays a single GajiJurulatih model.
      * @param integer $id
      * @return mixed
      */
@@ -61,19 +61,14 @@ class ElaunJurulatihController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
-        $model = $this->findModel($id);
-        
-        $ref = RefJenisElaunJurulatih::findOne(['id' => $model->jenis_elaun]);
-        $model->jenis_elaun = $ref['desc'];
-        
         return $this->renderAjax('view', [
-            'model' => $model,
+            'model' => $this->findModel($id),
             'readonly' => true,
         ]);
     }
 
     /**
-     * Creates a new ElaunJurulatih model.
+     * Creates a new GajiJurulatih model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
@@ -83,7 +78,7 @@ class ElaunJurulatihController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
-        $model = new ElaunJurulatih();
+        $model = new GajiJurulatih();
         
         Yii::$app->session->open();
         
@@ -106,7 +101,7 @@ class ElaunJurulatihController extends Controller
     }
 
     /**
-     * Updates an existing ElaunJurulatih model.
+     * Updates an existing GajiJurulatih model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -130,7 +125,7 @@ class ElaunJurulatihController extends Controller
     }
 
     /**
-     * Deletes an existing ElaunJurulatih model.
+     * Deletes an existing GajiJurulatih model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -147,15 +142,15 @@ class ElaunJurulatihController extends Controller
     }
 
     /**
-     * Finds the ElaunJurulatih model based on its primary key value.
+     * Finds the GajiJurulatih model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ElaunJurulatih the loaded model
+     * @return GajiJurulatih the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ElaunJurulatih::findOne($id)) !== null) {
+        if (($model = GajiJurulatih::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

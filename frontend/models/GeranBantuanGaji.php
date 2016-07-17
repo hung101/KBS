@@ -63,13 +63,15 @@ class GeranBantuanGaji extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_jurulatih', 'tarikh_mula', 'tarikh_tamat', 'status_permohonan', 'kategori_geran', 'jumlah_geran', 'status_geran', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_mula_kontrak', 'tarikh_tamat_kontrak'], 'safe'],
+            [['nama_jurulatih', 'tarikh_mula', 'tarikh_tamat', 'status_permohonan', 'kategori_geran', 'jumlah_geran', 'status_geran', 'kelulusan',
+                'tarikh_mula_kontrak', 'tarikh_tamat_kontrak', 'agensi' ], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh_mula_kontrak', 'tarikh_tamat_kontrak', 'tarikh_cek'], 'safe'],
             [['jumlah_geran', 'kadar'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['kelulusan', 'bulan', 'nama_acara'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [[ 'bulan', 'nama_acara', 'nama_sukan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['muatnaik_gambar'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_jurulatih', 'cawangan', 'sub_cawangan', 'program_msn', 'lain_lain_program', 'pusat_latihan', 'nama_sukan', 'agensi'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max, 'skipOnEmpty' => true],
-            [['status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 'kategori_geran', 'status_geran'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['boucher', 'no_cek'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_jurulatih', 'cawangan', 'sub_cawangan', 'program_msn', 'lain_lain_program', 'pusat_latihan', 'agensi'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max, 'skipOnEmpty' => true],
+            [['kelulusan', 'status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 'kategori_geran', 'status_geran'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan', 'rujukan', 'status_terkini_pengeluaran_cek'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tarikh_tamat_kontrak'], 'compare', 'compareAttribute'=>'tarikh_mula_kontrak', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
             [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh_mula', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
@@ -92,8 +94,8 @@ class GeranBantuanGaji extends \yii\db\ActiveRecord
             'pusat_latihan' => GeneralLabel::pusat_latihan,
             'nama_sukan' => GeneralLabel::nama_sukan,
             'nama_acara' => GeneralLabel::nama_acara,
-            'tarikh_mula' => GeneralLabel::tarikh_mula,
-            'tarikh_tamat' => GeneralLabel::tarikh_tamat,
+            'tarikh_mula' => GeneralLabel::tarikh_mula_bayaran,
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat_bayaran,
             'status_jurulatih' => GeneralLabel::status_jurulatih,
             'status_permohonan' => GeneralLabel::status_permohonan,
             'status_keaktifan_jurulatih' => GeneralLabel::status_keaktifan_jurulatih,
@@ -109,6 +111,9 @@ class GeranBantuanGaji extends \yii\db\ActiveRecord
             'bulan' => GeneralLabel::bulan,
             'rujukan' => GeneralLabel::rujukan,
             'status_terkini_pengeluaran_cek' => GeneralLabel::status_terkini_pengeluaran_cek,
+            'boucher' => 'Boucher (BR)',
+            'no_cek' => 'No. Cek',
+            'tarikh_cek' => GeneralLabel::tarikh,
         ];
     }
     

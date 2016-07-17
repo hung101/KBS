@@ -17,6 +17,7 @@ use app\models\RefStatusGeranJurulatih;
 use app\models\RefStatusJurulatih;
 use app\models\RefSukan;
 use app\models\RefProgramJurulatih;
+use app\models\RefKelulusanGeranBantuanGajiJurulatih;
 
 // contant values
 use app\models\general\Placeholder;
@@ -74,7 +75,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefStatusJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::statusJurulatih],],
+                        'options' => ['placeholder' => Placeholder::statusJurulatih,'disabled'=>true],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],
@@ -110,7 +111,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],],
+                        'options' => ['placeholder' => Placeholder::sukan,'disabled'=>true],],
                     'columnOptions'=>['colspan'=>4]],
                 'program_msn' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -124,7 +125,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefProgramJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::program],],
+                        'options' => ['placeholder' => Placeholder::program,'disabled'=>true],],
                     'columnOptions'=>['colspan'=>3]],
                 'agensi' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
             ],
@@ -277,19 +278,55 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'rujukan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
+                'rujukan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255],'hint'=>'cth: JKB:BIL 01/2015 BTH 10.01.2015(110)'],
             ]
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'status_terkini_pengeluaran_cek' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
             ]
-        ],
+        ],*/
     ]
 ]);
     ?>
+    
+    <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Pengeluaran Cek</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+                        echo FormGrid::widget([
+                            'model' => $model,
+                            'form' => $form,
+                            'autoGenerateColumns' => true,
+                            'rows' => [
+                                [
+                                    'columns'=>12,
+                                    'autoGenerateColumns'=>false, // override columns setting
+                                    'attributes' => [
+                                        'boucher' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                                        'no_cek' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                                        'tarikh_cek' => [
+                                            'type'=>Form::INPUT_WIDGET, 
+                                            'widgetClass'=> DateControl::classname(),
+                                            'ajaxConversion'=>false,
+                                            'options'=>[
+                                                'pluginOptions' => [
+                                                    'autoclose'=>true,
+                                                ]
+                                            ],
+                                            'columnOptions'=>['colspan'=>3]],
+                                    ],
+                                ],
+                            ]
+                        ]);
+                    ?>
+                </div>
+            </div>
+    
     <?php endif; ?>
     
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['kelulusan']) || $readonly): ?>
@@ -303,7 +340,20 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'kelulusan' => ['type'=>Form::INPUT_RADIO_LIST, 'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],'options'=>['inline'=>true],'columnOptions'=>['colspan'=>3]],
+                'kelulusan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kelulusan-geran-bantuan-gaji-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefKelulusanGeranBantuanGajiJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kelulusan],],
+                    'columnOptions'=>['colspan'=>3]],
             ]
         ],
     ]

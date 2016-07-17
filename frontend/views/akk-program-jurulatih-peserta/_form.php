@@ -88,7 +88,7 @@ use app\models\RefAcara;
                         'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
                         'pluginOptions' => [
-                            'depends'=>[Html::getInputId($model, 'nama_sukan')],
+                            'depends'=>[Html::getInputId($model, 'sukan')],
                             'placeholder' => Placeholder::acara,
                             'url'=>Url::to(['/ref-acara/subacaras'])],
                         ],

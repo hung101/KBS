@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\GajiDanElaunJurulatih */
 
 //$this->title = $model->gaji_dan_elaun_jurulatih_id;
-$this->title = GeneralLabel::viewTitle . ' Gaji Dan Elaun Jurulatih';
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::gaji_dan_elaun_jurulatih;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::gaji_dan_elaun_jurulatih, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -20,16 +20,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['gaji-dan-elaun-jurulatih']['update'])): ?>
-            <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->gaji_dan_elaun_jurulatih_id], ['class' => 'btn btn-primary']) ?>
+            <?php //echo Html::a(GeneralLabel::update, ['update', 'id' => $model->gaji_dan_elaun_jurulatih_id], ['class' => 'btn btn-primary']); ?>
         <?php endif; ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['gaji-dan-elaun-jurulatih']['delete'])): ?>
-            <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->gaji_dan_elaun_jurulatih_id], [
+            <?php /*echo Html::a(GeneralLabel::delete, ['delete', 'id' => $model->gaji_dan_elaun_jurulatih_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
                     'confirm' => GeneralMessage::confirmDelete,
                     'method' => 'post',
                 ],
-            ]) ?>
+            ]);*/ ?>
         <?php endif; ?>
         <?= Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'window.print();' ]); ?>
     </p>
@@ -38,6 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'searchModelElaunJurulatih' => $searchModelElaunJurulatih,
         'dataProviderElaunJurulatih' => $dataProviderElaunJurulatih,
+        'searchModelGajiJurulatih' => $searchModelGajiJurulatih,
+        'dataProviderGajiJurulatih' => $dataProviderGajiJurulatih,
         'readonly' => $readonly,
     ]) ?>
 

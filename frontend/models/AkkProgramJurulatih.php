@@ -3,9 +3,10 @@
 namespace app\models;
 
 use Yii;
-
-use app\models\general\GeneralLabel;
+use yii\web\UploadedFile;
+use app\models\general\Upload;
 use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 
 /**
  * This is the model class for table "tbl_akk_program_jurulatih".
@@ -57,7 +58,9 @@ class AkkProgramJurulatih extends \yii\db\ActiveRecord
             [['tarikh_program'], 'safe'],
             [['nama_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat_program'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['kod_kursus', 'tahap'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['kod_kursus', 'tahap'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -76,7 +79,8 @@ class AkkProgramJurulatih extends \yii\db\ActiveRecord
             'tempat_program' => GeneralLabel::tempat_program,
             'kod_kursus' => GeneralLabel::kod_kursus,
             'tahap' => GeneralLabel::tahap,
-
+            'muat_naik' => GeneralLabel::muat_naik,
+            'catatan' => GeneralLabel::catatan,
         ];
     }
     
@@ -85,5 +89,16 @@ class AkkProgramJurulatih extends \yii\db\ActiveRecord
      */
     public function getRefAkkProgramJurulatihPeserta(){
         return $this->hasMany(AkkProgramJurulatihPeserta::className(), ['akk_program_jurulatih_id' => 'akk_program_jurulatih_id']);
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
     }
 }

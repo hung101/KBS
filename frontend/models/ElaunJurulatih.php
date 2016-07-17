@@ -52,7 +52,8 @@ class ElaunJurulatih extends \yii\db\ActiveRecord
             [['jenis_elaun', 'jumlah_elaun'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['elaun_jurulatih_id', 'gaji_dan_elaun_jurulatih_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah_elaun'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['jenis_elaun'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['jenis_elaun'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tarikh_mula', 'tarikh_tamat'], 'safe'],
         ];
     }
 
@@ -66,7 +67,8 @@ class ElaunJurulatih extends \yii\db\ActiveRecord
             'gaji_dan_elaun_jurulatih_id' => GeneralLabel::gaji_dan_elaun_jurulatih_id,
             'jenis_elaun' => GeneralLabel::jenis_elaun,
             'jumlah_elaun' => GeneralLabel::jumlah_elaun,
-
+            'tarikh_mula' => GeneralLabel::tarikh_mula,
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,
         ];
     }
     

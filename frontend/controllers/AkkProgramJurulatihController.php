@@ -10,7 +10,11 @@ use frontend\models\AkkProgramJurulatihPesertaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use yii\helpers\Json;
+use yii\helpers\BaseUrl;
 
+use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
 
@@ -118,15 +122,22 @@ class AkkProgramJurulatihController extends Controller
                 AkkProgramJurulatihPeserta::updateAll(['session_id' => ''], 'akk_program_jurulatih_id = "'.$model->akk_program_jurulatih_id.'"');
             }
             
-            return $this->redirect(['view', 'id' => $model->akk_program_jurulatih_id]);
-        } else {
-            return $this->render('create', [
+            $file = UploadedFile::getInstance($model, 'muat_naik');
+            if($file){
+                $model->muat_naik = Upload::uploadFile($file, Upload::akkProgramJurulatihFolder, $model->akk_program_jurulatih_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->akk_program_jurulatih_id]);
+            }
+        }
+        
+        return $this->render('create', [
                 'model' => $model,
                 'searchModelAkkProgramJurulatihPeserta' => $searchModelAkkProgramJurulatihPeserta,
                 'dataProviderAkkProgramJurulatihPeserta' => $dataProviderAkkProgramJurulatihPeserta,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -151,15 +162,22 @@ class AkkProgramJurulatihController extends Controller
         $dataProviderAkkProgramJurulatihPeserta = $searchModelAkkProgramJurulatihPeserta->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->akk_program_jurulatih_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'muat_naik');
+            if($file){
+                $model->muat_naik = Upload::uploadFile($file, Upload::akkProgramJurulatihFolder, $model->akk_program_jurulatih_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->akk_program_jurulatih_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelAkkProgramJurulatihPeserta' => $searchModelAkkProgramJurulatihPeserta,
                 'dataProviderAkkProgramJurulatihPeserta' => $dataProviderAkkProgramJurulatihPeserta,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -173,6 +191,9 @@ class AkkProgramJurulatihController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
+        
+        // delete upload file
+        self::actionDeleteupload($id, 'muat_naik');
         
         $this->findModel($id)->delete();
 
@@ -193,5 +214,27 @@ class AkkProgramJurulatihController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            return $this->redirect(['update', 'id' => $id]);
     }
 }

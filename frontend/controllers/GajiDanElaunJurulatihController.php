@@ -7,6 +7,8 @@ use app\models\GajiDanElaunJurulatih;
 use frontend\models\GajiDanElaunJurulatihSearch;
 use app\models\ElaunJurulatih;
 use frontend\models\ElaunJurulatihSearch;
+use app\models\GajiJurulatih;
+use frontend\models\GajiJurulatihSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -86,14 +88,20 @@ class GajiDanElaunJurulatihController extends Controller
         $queryPar = null;
         
         $queryPar['ElaunJurulatihSearch']['gaji_dan_elaun_jurulatih_id'] = $id;
+        $queryPar['GajiJurulatihSearch']['gaji_dan_elaun_jurulatih_id'] = $id;
         
         $searchModelElaunJurulatih = new ElaunJurulatihSearch();
         $dataProviderElaunJurulatih= $searchModelElaunJurulatih->search($queryPar);
+        
+        $searchModelGajiJurulatih = new GajiJurulatihSearch();
+        $dataProviderGajiJurulatih= $searchModelGajiJurulatih->search($queryPar);
         
         return $this->render('view', [
             'model' => $model,
             'searchModelElaunJurulatih' => $searchModelElaunJurulatih,
             'dataProviderElaunJurulatih' => $dataProviderElaunJurulatih,
+            'searchModelGajiJurulatih' => $searchModelGajiJurulatih,
+            'dataProviderGajiJurulatih' => $dataProviderGajiJurulatih,
             'readonly' => true,
         ]);
     }
@@ -117,15 +125,22 @@ class GajiDanElaunJurulatihController extends Controller
         
         if(isset(Yii::$app->session->id)){
             $queryPar['ElaunJurulatihSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['GajiJurulatihSearch']['session_id'] = Yii::$app->session->id;
         }
         
         $searchModelElaunJurulatih = new ElaunJurulatihSearch();
         $dataProviderElaunJurulatih= $searchModelElaunJurulatih->search($queryPar);
+        
+        $searchModelGajiJurulatih = new GajiJurulatihSearch();
+        $dataProviderGajiJurulatih= $searchModelGajiJurulatih->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             if(isset(Yii::$app->session->id)){
                 ElaunJurulatih::updateAll(['gaji_dan_elaun_jurulatih_id' => $model->gaji_dan_elaun_jurulatih_id], 'session_id = "'.Yii::$app->session->id.'"');
                 ElaunJurulatih::updateAll(['session_id' => ''], 'gaji_dan_elaun_jurulatih_id = "'.$model->gaji_dan_elaun_jurulatih_id.'"');
+                
+                GajiJurulatih::updateAll(['gaji_dan_elaun_jurulatih_id' => $model->gaji_dan_elaun_jurulatih_id], 'session_id = "'.Yii::$app->session->id.'"');
+                GajiJurulatih::updateAll(['session_id' => ''], 'gaji_dan_elaun_jurulatih_id = "'.$model->gaji_dan_elaun_jurulatih_id.'"');
             }
             
             $file = UploadedFile::getInstance($model, 'dokumen_muat_naik');
@@ -141,6 +156,8 @@ class GajiDanElaunJurulatihController extends Controller
                 'model' => $model,
                 'searchModelElaunJurulatih' => $searchModelElaunJurulatih,
                 'dataProviderElaunJurulatih' => $dataProviderElaunJurulatih,
+                'searchModelGajiJurulatih' => $searchModelGajiJurulatih,
+                'dataProviderGajiJurulatih' => $dataProviderGajiJurulatih,
                 'readonly' => false,
             ]);
         }
@@ -163,9 +180,13 @@ class GajiDanElaunJurulatihController extends Controller
         $queryPar = null;
         
         $queryPar['ElaunJurulatihSearch']['gaji_dan_elaun_jurulatih_id'] = $id;
+        $queryPar['GajiJurulatihSearch']['gaji_dan_elaun_jurulatih_id'] = $id;
         
         $searchModelElaunJurulatih = new ElaunJurulatihSearch();
         $dataProviderElaunJurulatih= $searchModelElaunJurulatih->search($queryPar);
+        
+        $searchModelGajiJurulatih = new GajiJurulatihSearch();
+        $dataProviderGajiJurulatih= $searchModelGajiJurulatih->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'dokumen_muat_naik');
@@ -181,6 +202,8 @@ class GajiDanElaunJurulatihController extends Controller
                 'model' => $model,
                 'searchModelElaunJurulatih' => $searchModelElaunJurulatih,
                 'dataProviderElaunJurulatih' => $dataProviderElaunJurulatih,
+                'searchModelGajiJurulatih' => $searchModelGajiJurulatih,
+                'dataProviderGajiJurulatih' => $dataProviderGajiJurulatih,
                 'readonly' => false,
             ]);
         }

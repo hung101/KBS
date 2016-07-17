@@ -22,6 +22,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const akademiAkkSijilPertolonganCemasFolder = "akk_sijil_pertolongan_cemas";
         const akademiAkkSijilCprFolder = "akk_sijil_cpr";
         const akademiAkkPermitKerjaFolder = "akk_permit_kerja";
+        const akkProgramJurulatihFolder = "akk_program_jurulatih";
         const anugerahPencalonanLainFolder = "anugerah_pencalonan_lain";
         const anugerahPencalonanPasukanFolder = "anugerah_pencalonan_pasukan";
         const atletFolder = "atlet";
@@ -144,6 +145,7 @@ if($session->get('language') == "EN") {
         const akademiAkkSijilPertolonganCemasFolder = "akk_sijil_pertolongan_cemas";
         const akademiAkkSijilCprFolder = "akk_sijil_cpr";
         const akademiAkkPermitKerjaFolder = "akk_permit_kerja";
+        const akkProgramJurulatihFolder = "akk_program_jurulatih";
         const anugerahPencalonanLainFolder = "anugerah_pencalonan_lain";
         const anugerahPencalonanPasukanFolder = "anugerah_pencalonan_pasukan";
         const atletFolder = "atlet";

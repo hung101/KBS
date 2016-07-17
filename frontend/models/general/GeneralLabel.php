@@ -586,7 +586,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jumlah_dipohon_hingga = "Hingga";
         const jumlah_disokong = "Disokong (RM)";
         const jumlah_ekar_kaki_persegi = "Jumlah/Ekar/Kaki Persegi";
-        const jumlah_elaun = "Jumlah Elaun";
+        const jumlah_elaun = "Jumlah Elaun (RM)";
         const jumlah_elaun_yang_dipohon = "Jumlah Elaun Yang Dipohon (RM)";
         const jumlah_geran = "Jumlah Geran";
         const jumlah_geran_dari = "Jumlah Geran Dari";
@@ -1669,6 +1669,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tarikh_pemantauan = "Tarikh Pemantauan";
         const tarikh_pembayaran = "Tarikh Pembayaran";
         const tarikh_pembayaran_insentif = "Tarikh Pembayaran Insentif";
+        const tarikh_mula_bayaran = "Tarikh Mula Bayaran";
         const tarikh_mula_bertugas = "Tarikh Mula Bertugas";
         const tarikh_mula_dilantik = "Tarikh Mula Dilantik";
         const tarikh_mula_kejohanan = "Tarikh Mula Kejohanan";
@@ -1706,6 +1707,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tarikh_sponsor_mula = "Tarikh Sponsor Mula";
         const tarikh_sponsor_tamat = "Tarikh Sponsor Tamat";
         const tarikh_tamat = "Tarikh Akhir";
+        const tarikh_tamat_bayaran = "Tarikh Tamat Bayaran";
         const tarikh_tamat_bertugas = "Tarikh Tamat Bertugas";
         const tarikh_tamat_dilantik = "Tarikh Tamat Dilantik";
         const tarikh_tamat_kejohanan = "Tarikh Tamat Kejohanan";
@@ -2375,7 +2377,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const farmasi_permohonan_ubatan = "Farmasi Permohonan Ubatan";
         const farmasi_ubatan = "Farmasi Ubatan";
         const forum_seminar_persidangan_di_luar_negara = "Forum Seminar Persidangan Di Luar Negara";
-        const gaji_dan_elaun_jurulatih = "Gaji Dan Elaun Jurulatih";
+        const gaji_dan_elaun_jurulatih = "Elaun dan Gaji Jurulatih";
         const informasi_permohonan = "Informasi Permohonan";
         const informasi_persatuan = "Informasi Persatuan";
         const journal = "Journal";
@@ -3430,7 +3432,7 @@ if($session->get('language') == "EN") {
         const jumlah_dipohon_hingga = "To";
         const jumlah_disokong = "Supported (RM)";
         const jumlah_ekar_kaki_persegi = "Total/Acre/Square Feet";
-        const jumlah_elaun = "The Amount Of The Allowance";
+        const jumlah_elaun = "The Amount Of The Allowance (RM)";
         const jumlah_elaun_yang_dipohon = "Total Allowance Applied (RM)";
         const jumlah_geran = "Total Grant";
         const jumlah_geran_dari = "Total Grant From";
@@ -4513,6 +4515,7 @@ if($session->get('language') == "EN") {
         const tarikh_pemantauan = "Date Monitoring";
         const tarikh_pembayaran = "Payment Date";
         const tarikh_pembayaran_insentif = "Incentive Payment Date";
+        const tarikh_mula_bayaran = "Date Start Paid";
         const tarikh_mula_bertugas = "Date Start Working";
         const tarikh_mula_dilantik = "Date He Was First Appointed";
         const tarikh_mula_kejohanan = "Start Date Of The Tournament";
@@ -4550,6 +4553,7 @@ if($session->get('language') == "EN") {
         const tarikh_sponsor_mula = "Date Start Sponsor";
         const tarikh_sponsor_tamat = "Date End Sponsor";
         const tarikh_tamat = "The Deadline";
+        const tarikh_tamat_bayaran = "End Date Paid";
         const tarikh_tamat_bertugas = "End Date Working";
         const tarikh_tamat_dilantik = "Expiry Date Appointed";
         const tarikh_tamat_kejohanan = "The Expiry Date Of The Tournament";

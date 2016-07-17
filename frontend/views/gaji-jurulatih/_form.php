@@ -8,9 +8,6 @@ use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
 
-// table reference
-use app\models\RefJenisElaunJurulatih;
-
 // contant values
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
@@ -18,11 +15,11 @@ use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\ElaunJurulatih */
+/* @var $model app\models\GajiJurulatih */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="elaun-jurulatih-form">
+<div class="gaji-jurulatih-form">
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
@@ -37,6 +34,7 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'jumlah' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
                 'tarikh_mula' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -57,35 +55,13 @@ use app\models\general\GeneralMessage;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'jenis_elaun' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-elaun-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefJenisElaunJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jenisElaun],],
-                    'columnOptions'=>['colspan'=>3]],
-                'jumlah_elaun' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
+                
             ],
         ],
        
     ]
 ]);
         ?>
-
-    <!--<?= $form->field($model, 'elaun_jurulatih_id')->textInput() ?>
-
-    <?= $form->field($model, 'gaji_dan_elaun_jurulatih_id')->textInput() ?>
-
-    <?= $form->field($model, 'jenis_elaun')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'jumlah_elaun')->textInput(['maxlength' => 10]) ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -121,7 +97,7 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
                     $(document).find('#modal').modal('hide');
                     form.trigger("reset");
                     $.pjax.defaults.timeout = 106000;
-                    $.pjax.reload({container:'#elaunJurulatihGrid'});
+                    $.pjax.reload({container:'#gajiJurulatihGrid'});
                 }
           }
      });
@@ -133,3 +109,4 @@ JS;
         
 $this->registerJs($script);
 ?>
+

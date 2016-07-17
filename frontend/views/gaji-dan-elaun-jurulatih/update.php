@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\GajiDanElaunJurulatih */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::gaji_dan_elaun_jurulatih.': ' . ' ' . $model->gaji_dan_elaun_jurulatih_id;
-$this->title = GeneralLabel::updateTitle . ' Gaji Dan Elaun Jurulatih';
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::gaji_dan_elaun_jurulatih;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::gaji_dan_elaun_jurulatih, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Gaji Dan Elaun Jurulatih', 'url' => ['view', 'id' => $model->gaji_dan_elaun_jurulatih_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::gaji_dan_elaun_jurulatih, 'url' => ['view', 'id' => $model->gaji_dan_elaun_jurulatih_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="gaji-dan-elaun-jurulatih-update">
@@ -22,6 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'searchModelElaunJurulatih' => $searchModelElaunJurulatih,
         'dataProviderElaunJurulatih' => $dataProviderElaunJurulatih,
+        'searchModelGajiJurulatih' => $searchModelGajiJurulatih,
+        'dataProviderGajiJurulatih' => $dataProviderGajiJurulatih,
         'readonly' => $readonly,
     ]) ?>
 

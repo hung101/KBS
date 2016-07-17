@@ -35,7 +35,8 @@ use app\models\general\GeneralMessage;
     
     <?php
         if(!$readonly){
-            $template = '{view} {update} {delete}';
+            //$template = '{view} {update} {delete}';
+             $template = '{view}';
         } else {
             $template = '{view}';
         }
@@ -157,39 +158,7 @@ use app\models\general\GeneralMessage;
 ]);
         ?>
     
-    <?php // Dokumen Muat Naik (Buku Akaun) Upload
-    if($model->dokumen_muat_naik){
-        echo "<label>" . $model->getAttributeLabel('dokumen_muat_naik') . "</label><br>";
-        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->dokumen_muat_naik , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
-        if(!$readonly){
-            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->gaji_dan_elaun_jurulatih_id, 'field'=> 'dokumen_muat_naik'], 
-            [
-                'class'=>'btn btn-danger', 
-                'data' => [
-                    'confirm' => GeneralMessage::confirmRemove,
-                    'method' => 'post',
-                ]
-            ]).'<p>';
-        }
-    } else {
-        echo FormGrid::widget([
-        'model' => $model,
-        'form' => $form,
-        'autoGenerateColumns' => true,
-        'rows' => [
-                [
-                    'columns'=>12,
-                    'autoGenerateColumns'=>false, // override columns setting
-                    'attributes' => [
-                        'dokumen_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
-                    ],
-                ],
-            ]
-        ]);
-    }
-    ?>
-    
-    <h3>Elaun Jurulatih</h3>
+    <h3>Gaji Jurulatih</h3>
     
     <?php 
             Modal::begin([
@@ -206,6 +175,77 @@ use app\models\general\GeneralMessage;
             
             Modal::end();
         ?>
+    
+    <?php Pjax::begin(['id' => 'gajiJurulatihGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderGajiJurulatih,
+        //'filterModel' => $searchModelGajiJurulatih,
+        'id' => 'gajiJurulatihGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'gaji_jurulatih_id',
+            //'gaji_dan_elaun_jurulatih_id',
+            'jumlah',
+            'tarikh_mula',
+            'tarikh_tamat',
+            // 'session_id',
+            // 'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['gaji-jurulatih/delete', 'id' => $model->gaji_jurulatih_id]).'", "'.GeneralMessage::confirmDelete.'", "gajiJurulatihGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['gaji-jurulatih/update', 'id' => $model->gaji_jurulatih_id]).'", "'.GeneralLabel::updateTitle . ' Gaji Jurulatih");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['gaji-jurulatih/view', 'id' => $model->gaji_jurulatih_id]).'", "'.GeneralLabel::viewTitle . ' Gaji Jurulatih");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        $gaji_dan_elaun_jurulatih_id = "";
+        
+        if(isset($model->gaji_dan_elaun_jurulatih_id)){
+            $gaji_dan_elaun_jurulatih_id = $model->gaji_dan_elaun_jurulatih_id;
+        }
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['gaji-jurulatih/create', 'gaji_dan_elaun_jurulatih_id' => $gaji_dan_elaun_jurulatih_id]).'", "'.GeneralLabel::createTitle . ' Gaji Jurulatih");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <?php Pjax::end(); ?>
+    
+    <br>
+    
+    <h3>Elaun Jurulatih</h3>
     
     <?php Pjax::begin(['id' => 'elaunJurulatihGrid', 'timeout' => 100000]); ?>
 
@@ -257,11 +297,6 @@ use app\models\general\GeneralMessage;
     <?php if(!$readonly): ?>
     <p>
         <?php 
-        $gaji_dan_elaun_jurulatih_id = "";
-        
-        if(isset($model->gaji_dan_elaun_jurulatih_id)){
-            $gaji_dan_elaun_jurulatih_id = $model->gaji_dan_elaun_jurulatih_id;
-        }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
                         'onclick' => 'loadModalRenderAjax("'.Url::to(['elaun-jurulatih/create', 'gaji_dan_elaun_jurulatih_id' => $gaji_dan_elaun_jurulatih_id]).'", "'.GeneralLabel::createTitle . ' Elaun Jurulatih");',
@@ -273,6 +308,38 @@ use app\models\general\GeneralMessage;
     <?php Pjax::end(); ?>
     
     <br>
+    
+    <?php // Dokumen Muat Naik (Buku Akaun) Upload
+    if($model->dokumen_muat_naik){
+        echo "<label>" . $model->getAttributeLabel('dokumen_muat_naik') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->dokumen_muat_naik , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->gaji_dan_elaun_jurulatih_id, 'field'=> 'dokumen_muat_naik'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'dokumen_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
 
     <!--<?= $form->field($model, 'nama_jurulatih')->textInput() ?>
 
