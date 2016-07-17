@@ -47,13 +47,20 @@ $this->params['breadcrumbs'][] = $this->title;
             //'akademi_akk_id',
             //'nama',
             [
+                'attribute' => 'nama_jurulatih',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ],
+            ],
+            /*[
                 'attribute' => 'nama',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
                 ],
                 'value' => 'refJurulatih.nama'
-            ],
+            ],*/
             //'muatnaik_gambar',
             [
                 'attribute' => 'no_kad_pengenalan',
@@ -89,7 +96,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_sukan,
-                ]
+                ],
+                'value' => 'refSukan.desc'
             ],
             [
                 'attribute' => 'tahun',

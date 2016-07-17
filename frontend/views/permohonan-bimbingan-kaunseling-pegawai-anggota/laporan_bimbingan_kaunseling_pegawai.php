@@ -10,9 +10,12 @@ use kartik\datecontrol\DateControl;
 
 // table reference
 use app\models\RefReportFormat;
-use app\models\RefSukan;
-use app\models\RefProgramMsn;
-use app\models\RefNegeri;
+use app\models\RefStatusPermohonan;
+use app\models\RefTarafPerkahwinan;
+use app\models\RefJantina;
+use app\models\RefLatarbelakangKes;
+use app\models\RefStatusJawatan;
+use app\models\RefBahagianBimbinganKaunseling;
 
 // contant values
 use app\models\general\Placeholder;
@@ -75,13 +78,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefLatarbelakangKes::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kategori],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
         [
@@ -95,11 +98,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-program-msn/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-jawatan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefProgramMsn::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefStatusJawatan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::status],],
                     'columnOptions'=>['colspan'=>3]],
             ],
@@ -115,13 +118,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-bahagian-bimbingan-kaunseling/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefBahagianBimbinganKaunseling::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::bahagian],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
         [
@@ -135,13 +138,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefTarafPerkahwinan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::tarafPerkahwinan],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
         [

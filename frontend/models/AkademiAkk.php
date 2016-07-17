@@ -67,12 +67,12 @@ class AkademiAkk extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'tempat_lahir', 'no_telefon', 'kategori_pensijilan', 'jenis_sukan', 'tahun',
+            [['nama_jurulatih', 'no_kad_pengenalan', 'tarikh_lahir', 'tempat_lahir', 'no_telefon', 'kategori_pensijilan', 'jenis_sukan', 'tahun',
                 'jantina', 'bangsa', 'kategori_jurulatih', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir', 'tarikh_terima_borang', 'tarikh_mula_lesen', 'tarikh_tamat_lesen'], 'safe'],
             [['jantina', 'bangsa', 'status_jurulatih', 'no_kad_pengenalan', 'alamat_poskod', 'no_telefon', 'no_telefon_pejabat', 'alamat_majikan_poskod', 'kategori_jurulatih', 'jurulatih_di_negeri','status_perlesenan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
-            [['nama', 'nama_majikan', 'jenis_sukan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama', 'nama_majikan', 'jenis_sukan', 'nama_jurulatih'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['senarai_nama_peserta'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik_gambar', 'emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -87,6 +87,7 @@ class AkademiAkk extends \yii\db\ActiveRecord
             [['tahun'], 'integer', 'min' => GeneralVariable::yearMin, 'max' => GeneralVariable::yearMax, 'message' => GeneralMessage::yii_validation_integer, 'tooBig' => GeneralMessage::yii_validation_integer_max, 'tooSmall' => GeneralMessage::yii_validation_integer_min],
             [['muatnaik_gambar'],'validateFileUpload', 'skipOnEmpty' => false],
             [['tarikh_tamat_lesen'], 'compare', 'compareAttribute'=>'tarikh_mula_lesen', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
+            //[['nama, nama_jurulatih'], 'validateJurulatihFreeText', 'skipOnEmpty' => false],
         ];
     }
 
@@ -98,7 +99,8 @@ class AkademiAkk extends \yii\db\ActiveRecord
         return [
             'akademi_akk_id' => GeneralLabel::akademi_akk_id,
             'senarai_nama_peserta' => GeneralLabel::senarai_nama_peserta,
-            'nama' => GeneralLabel::nama,
+            'nama' => 'Jurulatih MSN',
+            'nama_jurulatih' => 'Nama',
             'muatnaik_gambar' => GeneralLabel::muatnaik_gambar,
             'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
             'no_passport' => GeneralLabel::no_passport,
@@ -137,6 +139,19 @@ class AkademiAkk extends \yii\db\ActiveRecord
         ];
     }
     
+    public function validateJurulatihFreeText()
+    {
+        if (($this->nama==null)&&($this->nama_jurulatih==null))      
+        {
+                $this->addError('nama', GeneralMessage::yii_validation_required_either);
+                $this->addError('nama_jurulatih', GeneralMessage::yii_validation_required_either);
+        } else if (($this->nama!=null)&&($this->nama_jurulatih!=null))      
+        {
+                $this->addError('nama', GeneralMessage::yii_validation_required_only_one);
+                $this->addError('nama_jurulatih', GeneralMessage::yii_validation_required_only_one);
+        }
+    }
+    
     /**
      * Validate upload file cannot be empty
      */
@@ -156,5 +171,10 @@ class AkademiAkk extends \yii\db\ActiveRecord
     public function getRefKategoriPensijilanAkademiAkk()
     {
         return $this->hasOne(RefKategoriPensijilanAkademiAkk::className(), ['id' => 'kategori_pensijilan']);
+    }
+    
+    public function getRefSukan()
+    {
+        return $this->hasOne(RefSukan::className(), ['id' => 'jenis_sukan']);
     }
 }

@@ -127,7 +127,7 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'jenis_kontrak' => [
+                /*'jenis_kontrak' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -143,7 +143,8 @@ use app\models\general\GeneralVariable;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>4]],*/
+                'jenis_kontrak' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>9],'options'=>['maxlength'=>30]],  
                 'nilai_kontrak' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
             ]
         ],

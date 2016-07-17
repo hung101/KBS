@@ -16,7 +16,7 @@ use app\models\RefSukan;
 use app\models\RefAcara;
 use app\models\Atlet;
 use app\models\RefKategoriAtlet;
-use app\models\RefJenisJus;
+use app\models\RefKategoriMakananTambahan;
 
 /**
  * PemberianSuplemenMakananJusRundinganPendidikanController implements the CRUD actions for PemberianSuplemenMakananJusRundinganPendidikan model.
@@ -79,7 +79,7 @@ class PemberianSuplemenMakananJusRundinganPendidikanController extends Controlle
         $ref = Atlet::findOne(['atlet_id' => $model->atlet]);
         $model->atlet = $ref['nameAndIC'];
         
-        $ref = RefJenisJus::findOne(['id' => $model->kategori_makanan_tambahan]);
+        $ref = RefKategoriMakananTambahan::findOne(['id' => $model->kategori_makanan_tambahan]);
         $model->kategori_makanan_tambahan = $ref['desc'];
         
         return $this->renderAjax('view', [

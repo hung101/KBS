@@ -49,6 +49,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const fasa = " -- Pilih Fasa -- ";
         const fasilitiSatelit = " -- Pilih Fasiliti Satelit -- ";
         const fisio = " -- Pilih Fisio -- ";
+        const gajiElaun = " -- Pilih Gaji / Elaun -- ";
         const gelaran = " -- Pilih Gelaran -- ";
         const hubungan = " -- Pilih Hubungan -- ";
         const instructor = " -- Pilih Instructor -- ";
@@ -191,6 +192,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const penganjur = " -- Pilih Penganjur -- ";
         const penganjuranKursus = " -- Pilih Penganjuran Kursus -- ";
         const pengerusiMesyuarat = " -- Pilih Pengerusi Mesyuarat -- ";
+        const penilaian = " -- Pilih Penilaian -- ";
         const peralatan = " -- Pilih Peralatan -- ";
         const peralatanKemudahan = " -- Pilih Peralatan Kemudahan -- ";
         const peranan = " -- Pilih Peranan -- ";
@@ -238,6 +240,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const silibus = "-- Pilih Silibus --";
         const sokongan = "-- Pilih Sokongan --";
         const soalan = "-- Pilih Soalan --";
+        const stafPerubatan = "-- Pilih Staf Perubatan --";
         const status = "-- Pilih Status --";
         const statusAduan = "-- Pilih Status Aduan --";
         const statusDiagnosisPreskripsiPemeriksaanPenyiasatan = "-- Pilih Status Diagnosis/Preskripsi/Pemeriksaan/Penyiasatan --";
@@ -320,7 +323,8 @@ if($session->get('language') == "EN") {
         const fasa = " -- Select Fasa -- ";
         const fasilitiSatelit = " -- Select Satellite Facility -- ";
         const fisio = " -- Select Physio -- ";
-        const gelaran = " -- Pilih Title -- ";
+        const gajiElaun = " -- Select Salary / Allowance -- ";
+        const gelaran = " -- Select Title -- ";
         const hubungan = " -- Select Relationship -- ";
         const instructor = " -- Select Instructor -- ";
         const jabatan = " -- Select Department -- ";
@@ -462,6 +466,7 @@ if($session->get('language') == "EN") {
         const penganjur = " -- Select Organizer -- ";
         const penganjuranKursus = " -- Select A Organization Of Courses -- ";
         const pengerusiMesyuarat = " -- Select Chairman Of The Meeting -- ";
+        const penilaian = " -- Select Valuation -- ";
         const peralatan = " -- Select Equipment -- ";
         const peralatanKemudahan = " -- Select Equipment Facilities -- ";
         const peranan = " -- Select Role -- ";
@@ -509,6 +514,7 @@ if($session->get('language') == "EN") {
         const silibus = "-- Select Syllabus --";
         const sokongan = "-- Select Support --";
         const soalan = "-- Select Question --";
+        const stafPerubatan = "-- Select Staff Medical --";
         const status = "-- Select Status --";
         const statusAduan = "-- Select The Status Of The Complaint --";
         const statusDiagnosisPreskripsiPemeriksaanPenyiasatan = "-- Select The Status Diagnosis/Prescription/Inspection/Investigation --";

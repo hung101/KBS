@@ -17,6 +17,7 @@ use kartik\datecontrol\DateControl;
 use app\models\Jurulatih;
 use app\models\RefSukan;
 use app\models\RefAcara;
+use app\models\RefPenilaianJurulatih;
 
 // contant values
 use app\models\general\Placeholder;
@@ -64,7 +65,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Jurulatih::find()->all(),'jurulatih_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::jurulatih, 'id'=>'jurulatihId'],],
+                        'options' => ['placeholder' => Placeholder::jurulatih, 'id'=>'jurulatihId'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>5]],
                 'nama_sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -78,7 +82,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],],
+                        'options' => ['placeholder' => Placeholder::sukan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'nama_acara' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -109,7 +116,23 @@ use app\models\general\GeneralMessage;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'pusat_latihan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
-                'penilaian_oleh' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+                'penilaian_oleh' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-penilaian-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefPenilaianJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::penilaian],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
                 'tarikh_dinilai' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),

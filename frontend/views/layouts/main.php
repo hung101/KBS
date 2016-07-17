@@ -119,16 +119,20 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                     'label' => GeneralLabel::atlet, 
                                     'items' => [
                                         ['label' => GeneralLabel::atlet, 'url' => ['/atlet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['module'])],
+                                        ['label' => GeneralLabel::atlet_cacat, 'url' => ['/atlet/index-cacat'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet-cacat']['module'])],
                                         [
                                             'label' => GeneralLabel::laporan,
                                             'items' => [
                                                 ['label' => GeneralLabel::laporan_senarai_atlet, 'url' => ['/atlet/laporan-senarai-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['module'])],
                                                 ['label' => GeneralLabel::laporan_statistik_atlet, 'url' => ['/atlet/laporan-statistik-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['module'])],
+                                                ['label' => GeneralLabel::laporan_senarai_atlet_paralimpik, 'url' => ['/atlet/laporan-senarai-atlet-paralimpik'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet-cacat']['module'])],
+                                                ['label' => GeneralLabel::laporan_statistik_atlet_paralimpik, 'url' => ['/atlet/laporan-statistik-atlet-paralimpik'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet-cacat']['module'])],
                                             ],
                                         ],
                                     ],
                                 ],
                                 ['label' => GeneralLabel::pengurusan_tawaran_atlet, 'url' => ['/atlet/tawaran'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['tawaran'])],
+                                ['label' => GeneralLabel::pengurusan_tawaran_atlet_paralimpik, 'url' => ['/atlet/tawaran-paralimpik'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet-cacat']['tawaran'])],
                                 ['label' => GeneralLabel::pembayaran_elaun, 'url' => ['/pembayaran-elaun/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['module'])],
                                 [
                                     'label' => GeneralLabel::pengurusan_semua_kemudahan_atlet, 
@@ -675,6 +679,9 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                     'label' => GeneralLabel::pemakanan_sistem_permohonan_khidmat_analisis_tubuh_badan,
                                     'items' => [
                                         ['label' => GeneralLabel::perkhidmatan_permakanan, 'url' => ['/permohonan-perkhidmatan-permakanan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-permakanan']['module'])],
+                                        //['label' => GeneralLabel::pemakanan_sistem_permohonan_khidmat_pemberian_suplemen_dan_makanan, 'url' => ['/permohonan-perkhidmatan-permakanan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-permakanan']['module'])],
+                                        ['label' => GeneralLabel::pemakanan_sistem_pinjaman_barangan_dan_peralatan, 'url' => ['/pinjaman-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pinjaman-peralatan']['module'])],
+                                        //['label' => GeneralLabel::pemakanan_sistem_permohonan_khidmat_rundingan_pendidikan, 'url' => ['/permohonan-perkhidmatan-permakanan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-permakanan']['module'])],
                                         [
                                             'label' => GeneralLabel::laporan,
                                             'items' => [
@@ -685,9 +692,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                         ],
                                     ],
                                 ],
-                                ['label' => GeneralLabel::pemakanan_sistem_permohonan_khidmat_pemberian_suplemen_dan_makanan, 'url' => ['/permohonan-perkhidmatan-permakanan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-permakanan']['module'])],
-                                ['label' => GeneralLabel::pemakanan_sistem_pinjaman_barangan_dan_peralatan, 'url' => ['/pinjaman-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pinjaman-peralatan']['module'])],
-                                ['label' => GeneralLabel::pemakanan_sistem_permohonan_khidmat_rundingan_pendidikan, 'url' => ['/permohonan-perkhidmatan-permakanan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-permakanan']['module'])],
+                                
                                 //['label' => GeneralLabel::sistem_pengurusan_pengenalpastian_bakat_yang_telah_disaringkan, 'url' => ['/ujian-saringan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['ujian-saringan']['module'])],
                                 [
                                     'label' => GeneralLabel::sistem_pengurusan_pengenalpastian_bakat_yang_telah_disaringkan,
@@ -701,7 +706,19 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                         ],
                                     ],
                                 ],
-                                ['label' => GeneralLabel::satelit_sistem_laporan_pusat, 'url' => ['/satelit/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['satelit']['module'])],
+                                //['label' => GeneralLabel::satelit_sistem_laporan_pusat, 'url' => ['/satelit/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['satelit']['module'])],
+                                [
+                                    'label' => GeneralLabel::satelit_sistem_laporan_pusat,
+                                    'items' => [
+                                        ['label' => GeneralLabel::satelit_sistem_laporan_pusat, 'url' => ['/satelit/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['satelit']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_satelit_sistem_laporan_pusat, 'url' => ['/satelit/laporan-satelit-sistem-laporan-pusat'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['satelit']['module'])],
+                                            ],
+                                        ],
+                                    ],
+                                ],
                                 ['label' => GeneralLabel::satelit_sistem_six_step, 'url' => ['/six-step-satelit/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['six-step-satelit']['module'])],
                             ],
                         ],

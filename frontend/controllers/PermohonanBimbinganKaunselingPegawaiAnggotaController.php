@@ -48,6 +48,10 @@ class PermohonanBimbinganKaunselingPegawaiAnggotaController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $searchModel = new PermohonanBimbinganKaunselingPegawaiAnggotaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -64,6 +68,9 @@ class PermohonanBimbinganKaunselingPegawaiAnggotaController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
         
         $model = $this->findModel($id);
         
@@ -110,9 +117,15 @@ class PermohonanBimbinganKaunselingPegawaiAnggotaController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new PermohonanBimbinganKaunselingPegawaiAnggota();
         
-        $model->tarikh_permohonan = date("Y-m-d H:i:s");
+        $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
+        
+        $model->status_permohonan = RefStatusPermohonan::SEDANG_DISEMAK;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->permohonan_bimbingan_kaunseling_pegawai_anggota_id]);
@@ -132,6 +145,10 @@ class PermohonanBimbinganKaunselingPegawaiAnggotaController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -152,6 +169,10 @@ class PermohonanBimbinganKaunselingPegawaiAnggotaController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -188,9 +209,10 @@ class PermohonanBimbinganKaunselingPegawaiAnggotaController extends Controller
                 $report_url = BaseUrl::to(['generate-laporan-bimbingan-kaunseling-pegawai'
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'tarikh_dari' => $model->tarikh_dari
-                    , 'nama_ppn' => $model->nama_ppn
-                    , 'sukan' => $model->sukan
-                    , 'negeri' => $model->negeri
+                    , 'bahagian' => $model->bahagian
+                    , 'kategori_masalah' => $model->kategori_masalah
+                    , 'status_jawatan' => $model->status_jawatan
+                    , 'taraf_perkahwinan' => $model->taraf_perkahwinan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -198,9 +220,10 @@ class PermohonanBimbinganKaunselingPegawaiAnggotaController extends Controller
                 return $this->redirect(['generate-laporan-bimbingan-kaunseling-pegawai'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
-                    , 'nama_ppn' => $model->nama_ppn
-                    , 'sukan' => $model->sukan
-                    , 'negeri' => $model->negeri
+                    , 'bahagian' => $model->bahagian
+                    , 'kategori_masalah' => $model->kategori_masalah
+                    , 'status_jawatan' => $model->status_jawatan
+                    , 'taraf_perkahwinan' => $model->taraf_perkahwinan
                     , 'format' => $model->format
                 ]);
             }
@@ -212,7 +235,7 @@ class PermohonanBimbinganKaunselingPegawaiAnggotaController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanBimbinganKaunselingPegawai($tarikh_dari, $tarikh_hingga, $nama_ppn, $sukan, $negeri, $format)
+    public function actionGenerateLaporanBimbinganKaunselingPegawai($tarikh_dari, $tarikh_hingga, $bahagian, $kategori_masalah, $status_jawatan, $taraf_perkahwinan, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -220,21 +243,25 @@ class PermohonanBimbinganKaunselingPegawaiAnggotaController extends Controller
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
-        if($nama_ppn == "") $nama_ppn = array();
-        else $nama_ppn = array($nama_ppn);
+        if($bahagian == "") $bahagian = array();
+        else $bahagian = array($bahagian);
         
-        if($sukan == "") $sukan = array();
-        else $sukan = array($sukan);
+        if($kategori_masalah == "") $kategori_masalah = array();
+        else $kategori_masalah = array($kategori_masalah);
         
-        if($negeri == "") $negeri = array();
-        else $negeri = array($negeri);
+        if($status_jawatan == "") $status_jawatan = array();
+        else $status_jawatan = array($status_jawatan);
+        
+        if($taraf_perkahwinan == "") $taraf_perkahwinan = array();
+        else $taraf_perkahwinan = array($taraf_perkahwinan);
         
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
-            'SUKAN' => $sukan,
-            'NAMA_PPN' => $nama_ppn,
-            'NEGERI' => $negeri,
+            'BAHAGIAN' => $bahagian,
+            'KATEGORI_MASALAH' => $kategori_masalah,
+            'STATUS_JAWATAN' => $status_jawatan,
+            'TARAF_PERKAHWINAN' => $taraf_perkahwinan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanBimbinganKaunselingPegawai', $format, $controls, 'laporan_bimbingan_kaunseling_pegawai');

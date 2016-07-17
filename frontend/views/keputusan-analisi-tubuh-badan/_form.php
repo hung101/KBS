@@ -8,12 +8,14 @@ use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use kartik\widgets\DepDrop;
+use kartik\datecontrol\DateControl;
 
 // table reference
 use app\models\RefSukan;
 use app\models\RefAcara;
 use app\models\Atlet;
 use app\models\RefKategoriAtlet;
+use app\models\RefKandunganLemakBadan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -31,13 +33,14 @@ use app\models\general\GeneralMessage;
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
+    <?php //echo $form->errorSummary($model); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
     'rows' => [
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -115,13 +118,38 @@ use app\models\general\GeneralMessage;
                         'options' => ['placeholder' => Placeholder::atlet],],
                     'columnOptions'=>['colspan'=>6]],
             ],
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'fit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
-                'unfit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                'tarikh' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                'kandungan_lemak_badan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kandungan-lemak-badan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefKandunganLemakBadan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::jenis],
+                        'pluginOptions' => ['allowClear' => true,],],
+                    'columnOptions'=>['colspan'=>4]],
+                //'fit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                //'unfit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
                 'refer' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
             ],
         ],

@@ -33,6 +33,10 @@ $this->title = 'System Pengurusan Sukan Bersepadu';
               <h4 class="list-group-item-heading">e-Laporan</h4>
               <p class="list-group-item-text">Mengisi e-Laporan secara online</p>
             </a>
+            <a href="<?php echo Yii::$app->urlManagerFrontEnd->createUrl(['/site/login']); ?>" class="list-group-item">
+              <h4 class="list-group-item-heading">Badan Sukan</h4>
+              <p class="list-group-item-text">Pengurusan secara online</p>
+            </a>
         </div>
 
     </div>

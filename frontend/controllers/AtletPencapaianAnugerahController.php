@@ -15,6 +15,7 @@ use app\models\general\GeneralVariable;
 // table reference
 use app\models\RefKategoriAnugerah;
 use app\models\RefAcara;
+use app\models\RefSukan;
 
 /**
  * AtletPencapaianAnugerahController implements the CRUD actions for AtletPencapaianAnugerah model.
@@ -119,6 +120,9 @@ class AtletPencapaianAnugerahController extends Controller
         
         $ref = RefAcara::findOne(['id' => $model->nama_acara]);
         $model->nama_acara = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
         
         return $this->renderAjax('view', [
             'model' => $model,

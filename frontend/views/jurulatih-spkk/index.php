@@ -15,7 +15,7 @@ use app\models\general\GeneralLabel;
 /* @var $searchModel frontend\models\JurulatihSpkkSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = GeneralLabel::kelayakan;
+$this->title = GeneralLabel::skim_pensijilan_kejurulatihan_kebangsaan_spkk;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="jurulatih-spkk-index">
@@ -72,8 +72,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refTahapKelayakanJurulatih.desc'
             ],
-            //'muatnaik_sijil',
             [
+                'attribute' => 'sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
+                'value' => 'refSukan.desc'
+            ],
+            [
+                'attribute' => 'no_sijil',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_sijil,
+                ],
+            ],
+            //'muatnaik_sijil',
+            /*[
                 'attribute' => 'muatnaik_sijil',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -91,7 +106,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return "";
                     }
                 },
-            ],
+            ],*/
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

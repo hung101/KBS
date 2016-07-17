@@ -21,7 +21,8 @@ class PermohonanBimbinganKaunselingSearch extends PermohonanBimbinganKaunseling
     {
         return [
             [['permohonan_bimbingan_kaunseling_id', 'bil_adik_beradik', 'atlet'], 'integer'],
-            [['status_permohonan', 'atlet_id', 'tarikh_rujukan', 'nama_pemohon_rujukan', 'kes_latarbelakang', 'notis', 'pekerjaan_bapa', 'pekerjaan_ibu', 'no_telefon', 'tarikh_temujanji'], 'safe'],
+            [['status_permohonan', 'atlet_id', 'tarikh_rujukan', 'nama_pemohon_rujukan', 'kes_latarbelakang', 'notis', 'pekerjaan_bapa', 'pekerjaan_ibu', 
+                'no_telefon', 'tarikh_temujanji', 'jurulatih'], 'safe'],
         ];
     }
 
@@ -46,7 +47,8 @@ class PermohonanBimbinganKaunselingSearch extends PermohonanBimbinganKaunseling
         $query = PermohonanBimbinganKaunseling::find()
                 ->joinWith(['atlet'])
                 ->joinWith(['refStatusPermohonan'])
-                ->joinWith(['refLatarbelakangKes']);
+                ->joinWith(['refLatarbelakangKes'])
+                ->joinWith(['refJurulatih']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -71,6 +73,7 @@ class PermohonanBimbinganKaunselingSearch extends PermohonanBimbinganKaunseling
         $query->andFilterWhere(['like', 'status_permohonan', $this->status_permohonan])
             ->andFilterWhere(['like', 'nama_pemohon_rujukan', $this->nama_pemohon_rujukan])
             ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id])
+                ->andFilterWhere(['like', 'tbl_jurulatih.nama', $this->jurulatih])
             ->andFilterWhere(['like', 'notis', $this->notis])
             ->andFilterWhere(['like', 'pekerjaan_bapa', $this->pekerjaan_bapa])
             ->andFilterWhere(['like', 'pekerjaan_ibu', $this->pekerjaan_ibu])

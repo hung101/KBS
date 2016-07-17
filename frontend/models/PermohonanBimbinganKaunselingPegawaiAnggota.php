@@ -64,6 +64,7 @@ class PermohonanBimbinganKaunselingPegawaiAnggota extends \yii\db\ActiveRecord
                 'tarikh_temujanji'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['umur', 'bahagian', 'taraf_perkahwinan', 'status_jawatan', 'jantina', 'kategori_masalah', 'status_permohonan', 'umur_pegawai', 'bahagian_pegawai', 'taraf_perkahwinan_pegawai', 'status_jawatan_pegawai', 'jantina_pegawai', 'created_by', 'updated_by'], 'integer'],
             [['tarikh_temujanji', 'tarikh_permohonan', 'created', 'updated'], 'safe'],
+            [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['nama', 'jawatan', 'nama_pegawai_anggota', 'jawatan_pegawai'], 'string', 'max' => 80],
             [['no_kad_pengenalan', 'no_kad_pengenalan_pegawai'], 'string', 'max' => 12],
             [['no_telefon', 'no_tel_pegawai'], 'string', 'max' => 14],

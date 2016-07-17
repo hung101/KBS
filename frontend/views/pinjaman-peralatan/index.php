@@ -53,13 +53,20 @@ $this->params['breadcrumbs'][] = $this->title;
             //'pinjaman_peralatan_id',
             //'atlet_id',
             [
+                'attribute' => 'nama_pegawai',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pegawai,
+                ],
+            ],
+            /*[
                 'attribute' => 'atlet_id',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
                 ],
                 'value' => 'refAtlet.name_penuh'
-            ],
+            ],*/
             //'nama_peralatan',
             [
                 'attribute' => 'nama_peralatan',

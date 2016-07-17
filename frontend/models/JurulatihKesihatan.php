@@ -73,7 +73,7 @@ class JurulatihKesihatan extends \yii\db\ActiveRecord
             'tinggi' => GeneralLabel::tinggi,
             'berat' => GeneralLabel::berat,
             'masalah_kesihatan' => GeneralLabel::masalah_kesihatan,
-            'catatan' => GeneralLabel::catatan,
+            'catatan' => GeneralLabel::penyakit_penyakit_lain,
             'pembedahan' => GeneralLabel::pembedahan,
             'alahan' => GeneralLabel::alahan,
             'sejarah_perubatan' => GeneralLabel::sejarah_perubatan,

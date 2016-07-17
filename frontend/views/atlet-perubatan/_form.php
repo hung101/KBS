@@ -12,6 +12,7 @@ ShowLoadingAsset::register($this);
 // table reference
 use app\models\RefKumpulanDarah;
 use app\models\RefPenyakit;
+use app\models\RefStafPerubatanYangBertanggungjawab;
 
 // contant values
 use app\models\general\Placeholder;
@@ -83,7 +84,7 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'penyakit_semula_jadi' => [
+                /*'penyakit_semula_jadi' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -96,6 +97,23 @@ use app\models\general\GeneralVariable;
                         ] : null,
                         'data'=>ArrayHelper::map(RefPenyakit::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::penyakit],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],*/
+                'staf_perubatan_yang_bertanggungjawab' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-staf-perubatan-yang-bertanggungjawab/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefStafPerubatanYangBertanggungjawab::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::stafPerubatan],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],

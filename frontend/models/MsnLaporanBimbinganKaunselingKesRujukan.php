@@ -25,7 +25,7 @@ class MsnLaporanBimbinganKaunselingKesRujukan extends Model
     {
         return [
             [['format', 'jumlah_pemantauan'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga', 'nama_ppn', 'sukan', 'negeri'], 'safe'],
+            [['tarikh_dari', 'tarikh_hingga', 'nama_ppn', 'sukan', 'negeri', 'jenis_client', 'kategori_masalah'], 'safe'],
             [['jumlah_pemantauan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];

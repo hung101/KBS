@@ -25,6 +25,9 @@ use app\models\RefBahasa;
 use app\models\RefKategoriKecacatan;
 use app\models\RefStatusTawaran;
 use app\models\RefProgramSemasaSukanAtlet;
+use app\models\RefStatusAtlet;
+use app\models\RefJenisLesenParalimpik;
+use app\models\RefAgensiOku;
 
 // contant values
 use app\models\general\Placeholder;
@@ -35,6 +38,13 @@ use app\models\general\GeneralVariable;
 /* @var $this yii\web\View */
 /* @var $model app\models\Atlet */
 /* @var $form yii\widgets\ActiveForm */
+?>
+
+<?php
+        // Session
+        $session = new Session;
+        $session->open();
+        
 ?>
 
 <div class="atlet-form">
@@ -307,6 +317,23 @@ use app\models\general\GeneralVariable;
             'attributes' => [
                 'tinggi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
                 'berat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                'status_atlet' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefStatusAtlet::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::status],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
                 'bahasa_ibu' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -567,6 +594,8 @@ use app\models\general\GeneralVariable;
     
     <br>
     <br>
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet-cacat']['update']) || isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet-cacat']['create'])):?>
+    
     <pre style="text-align: center"><strong>Maklumat OKU</strong></pre>
     
     <?php
@@ -604,10 +633,87 @@ use app\models\general\GeneralVariable;
                     'columnOptions'=>['colspan'=>3]],
                 'jenis_kecederaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
             ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'jenis_lesen_paralimpik' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-lesen-paralimpik/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefJenisLesenParalimpik::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::jenis],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+                'no_lesen_ipc' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                'tarikh_luput' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ],
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'agensi' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-agensi-oku/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefAgensiOku::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::agensi],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+                'ms_negeri' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::negeri,],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+            ]
         ]
     ]
 ]);
     ?>
+    
+    
+    <?php endif; ?>
     
     <br>
     <br>
@@ -788,4 +894,6 @@ JS;
         
 $this->registerJs($script);
 ?>
+
+<?php $session->close(); ?>
 

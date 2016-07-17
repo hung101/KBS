@@ -47,6 +47,13 @@ class JurulatihKeluarga extends \yii\db\ActiveRecord
                 'updatedAtAttribute' => 'updated',
                 'value' => new \yii\db\Expression('NOW()'),
             ],
+            'encryption' => [
+                'class' => '\nickcv\encrypter\behaviors\EncryptionBehavior',
+                'attributes' => [
+                    'no_telefon',
+                    'no_telefon_bimbit',
+                ],
+            ],
         ];
     }
 
@@ -87,7 +94,7 @@ class JurulatihKeluarga extends \yii\db\ActiveRecord
             'emel' => GeneralLabel::emel,
             'no_telefon' => GeneralLabel::no_telefon,
             'no_telefon_bimbit' => GeneralLabel::no_telefon_bimbit,
-
+            'hubungan_keluargaan' => GeneralLabel::hubungan,
         ];
     }
 }

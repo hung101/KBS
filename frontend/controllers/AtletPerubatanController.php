@@ -17,6 +17,7 @@ use app\models\general\GeneralVariable;
 use app\models\RefKumpulanDarah;
 use app\models\RefPenyakit;
 use app\models\RefProgramSemasaSukanAtlet;
+use app\models\RefStafPerubatanYangBertanggungjawab;
 
 /**
  * AtletPerubatanController implements the CRUD actions for AtletPerubatan model.
@@ -102,6 +103,9 @@ class AtletPerubatanController extends Controller
         
         $ref = RefPenyakit::findOne(['id' => $model->penyakit_semula_jadi]);
         $model->penyakit_semula_jadi = $ref['desc'];
+        
+        $ref = RefStafPerubatanYangBertanggungjawab::findOne(['id' => $model->staf_perubatan_yang_bertanggungjawab]);
+        $model->staf_perubatan_yang_bertanggungjawab = $ref['desc'];
         
         return $this->renderAjax('view', [
             'model' => $model,

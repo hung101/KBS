@@ -53,10 +53,24 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
             [
+                'attribute' => 'no_kaunselor_berdaftar',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kaunselor_berdaftar,
+                ]
+            ],
+            /*[
                 'attribute' => 'ic_no',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::ic_no,
+                ]
+            ],*/
+            [
+                'attribute' => 'no_bimbit',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_bimbit,
                 ]
             ],
             [
@@ -67,10 +81,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
             [
-                'attribute' => 'no_bimbit',
+                'attribute' => 'agensi',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_bimbit,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::agensi,
                 ]
             ],
             // 'bidang_konsultansi',

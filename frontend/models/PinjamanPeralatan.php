@@ -52,11 +52,11 @@ class PinjamanPeralatan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'nama_peralatan', 'kuantiti', 'tarikh_diberi'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['pulang'], 'safe'],
+            [['atlet_id', 'nama_peralatan', 'nama_pegawai', 'kuantiti', 'tarikh_diberi'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pulang', 'sukan'], 'safe'],
             [['atlet_id', 'kuantiti'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             //[['tarikh_diberi'], 'safe'],
-            [['nama_peralatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_peralatan', 'nama_pegawai'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempoh_pinjaman'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tarikh_dipulang'], 'compare', 'compareAttribute'=>'tarikh_diberi', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
         ];
@@ -75,7 +75,8 @@ class PinjamanPeralatan extends \yii\db\ActiveRecord
             'tarikh_diberi' => GeneralLabel::tarikh_diberi,
             'tarikh_dipulang' => GeneralLabel::tarikh_dipulang,
             'tempoh_pinjaman' => GeneralLabel::tempoh_pinjaman,
-
+            'sukan' => GeneralLabel::sukan,
+            'nama_pegawai' => GeneralLabel::nama_pegawai,
         ];
     }
     

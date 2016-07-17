@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanPenyambunganDanPenamatanKontrakJurulatih */
 
-$this->title = GeneralLabel::createTitle . ' Pelanjutan Dan Penamatan Kontrak Jurulatih';
+$this->title = 'Tempoh Kontrak';
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::pelanjutan_dan_penamatan_kontrak_jurulatih, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

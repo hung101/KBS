@@ -21,8 +21,20 @@ if($this->context->action->id == "create"){
     $disabledTabs = 'disabled';
 }
 
+    // Session
+    $session = new Session;
+    $session->open();
+    
+    $index_view = 'index';
+    $label_title = GeneralLabel::senarai_atlet;
+    
+    if(isset($session['atlet_cacat']) &&  $session['atlet_cacat']){
+        $index_view = 'index-cacat';
+        $label_title = GeneralLabel::senarai_atlet_cacat;
+    }
+
 $this->title = GeneralLabel::atlet;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::senarai_atlet, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $label_title, 'url' => [$index_view]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-create">
@@ -36,12 +48,9 @@ $this->params['breadcrumbs'][] = $this->title;
     
         $atlet_id = "";
         
-        $session = new Session;
-        $session->open();
         if(isset($session['atlet_id'])){
             $atlet_id = $session['atlet_id'];
         }
-        $session->close();
         
         $modelAtlet = null;
         
@@ -76,12 +85,12 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="form-control-static"><?=$modelSukanProgram['refSukan']['desc']?></div>
             <?php endif; ?>
         </div>
-        <div class="col-lg-2">
+        <!--<div class="col-lg-2">
             <?php if(isset($modelSukanProgram['refAcara']['desc'])): ?>
             <label class="control-label"><?=GeneralLabel::discipline?></label>
             <div class="form-control-static"><?=$modelSukanProgram['refAcara']['discipline']?></div>
             <?php endif; ?>
-        </div>
+        </div>-->
     </div>
     
     <?php 
@@ -158,7 +167,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  'linkOptions'=>['data-url'=>Url::to(['/atlet-perubatan/update','typeJson'=>'1'])],
                  'headerOptions' => ['class'=>$disabledTabs]
              ],
-            [
+            /*[
                  'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Sejarah Perubatan',
                  'encode'=>false,
                  'content'=>'&nbsp;',
@@ -173,7 +182,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  'options' => ['tab_id' => GeneralVariable::tabPerubatanDoktorID],
                  'linkOptions'=>['data-url'=>Url::to(['/atlet-perubatan-doktor','typeJson'=>'1'])],
                  'headerOptions' => ['class'=>$disabledTabs]
-             ],
+             ],*/
                 [
                  'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Insurans',
                  'encode'=>false,
@@ -183,7 +192,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  'headerOptions' => ['class'=>$disabledTabs]
              ],
              [
-                 'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Pederma',
+                 'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Penderma',
                  'encode'=>false,
                  'content'=>'&nbsp;',
                  'options' => ['tab_id' => GeneralVariable::tabPerubatanDonatorID],
@@ -353,3 +362,5 @@ echo TabsX::widget([
 ?>
 
 </div>
+
+<?php $session->close(); ?>

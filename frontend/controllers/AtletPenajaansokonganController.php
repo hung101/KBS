@@ -123,8 +123,8 @@ class AtletPenajaansokonganController extends Controller
         $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
         $model->alamat_bandar = $ref['desc'];
         
-        $ref = RefJenisKontrakPenajaan::findOne(['id' => $model->jenis_kontrak]);
-        $model->jenis_kontrak = $ref['desc'];
+        //$ref = RefJenisKontrakPenajaan::findOne(['id' => $model->jenis_kontrak]);
+        //$model->jenis_kontrak = $ref['desc'];
         
         return $this->renderAjax('view', [
             'model' => $model,

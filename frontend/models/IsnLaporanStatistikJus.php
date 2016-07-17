@@ -17,13 +17,15 @@ class IsnLaporanStatistikJus extends Model
     public $nama_jus;
     public $sukan;
     public $atlet;
+    public $kategori_atlet;
+    public $jantina;
     public $format;
 
     public function rules()
     {
         return [
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga', 'jenis_jus', 'nama_jus', 'sukan', 'atlet'], 'safe'],
+            [['tarikh_dari', 'tarikh_hingga', 'jenis_jus', 'nama_jus', 'sukan', 'atlet', 'kategori_atlet', 'jantina'], 'safe'],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
@@ -38,6 +40,8 @@ class IsnLaporanStatistikJus extends Model
             'nama_jus' => GeneralLabel::nama_jus,
             'sukan' => GeneralLabel::sukan,
             'atlet' => GeneralLabel::atlet,
+            'kategori_atlet' => GeneralLabel::kategori_atlet,
+            'jantina' => GeneralLabel::jantina,
         ];
     }
 }

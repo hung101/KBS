@@ -52,7 +52,8 @@ class SixStepSatelit extends \yii\db\ActiveRecord
             [['atlet_id', 'stage', 'status', 'tarikh','pusat_satelit'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh'], 'safe'],
             [['atlet_id', 'kategori_atlet', 'sukan', 'acara', 'pusat_satelit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['stage', 'status'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['stage', 'status'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 
@@ -71,6 +72,7 @@ class SixStepSatelit extends \yii\db\ActiveRecord
             'status' => GeneralLabel::status,
             'tarikh' => GeneralLabel::tarikh,
             'pusat_satelit' => GeneralLabel::pusat_satelit,
+             'catatan' => GeneralLabel::catatan,
         ];
     }
     

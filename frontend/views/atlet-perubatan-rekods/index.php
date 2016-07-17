@@ -15,7 +15,7 @@ use common\models\general\GeneralFunction;
 /* @var $searchModel app\models\MesyuaratSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = "Perubatan : Rekod";
+$this->title = "Perubatan & Sains Sukan : Rekod";
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mesyuarat-index">
@@ -363,6 +363,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'atlet.name_penuh'
             ],
+            
+            [
+                'attribute' => 'jenis_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
+                'value' => 'refSukan.desc'
+            ],
+            [
+                'attribute' => 'kategori_atlet',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_atlet,
+                ],
+                'value' => 'refProgramSemasaSukanAtlet.desc'
+            ],
             //'makmal_perubatan',
             //'status_temujanji',
             [
@@ -373,6 +390,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refStatusTemujanjiPesakitLuar.desc'
             ],
+            [
+                'attribute' => 'makmal_perubatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::makmal_perubatan,
+                ],
+                'value' => 'refJenisTemujanjiPesakitLuar.desc'
+            ],
             // 'pegawai_yang_bertanggungjawab',
             [
                 'attribute' => 'pegawai_yang_bertanggungjawab',
@@ -382,14 +407,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refPegawaiPerubatan.desc'
             ],
-            // 'catitan_ringkas',
             [
+                'attribute' => 'kehadiran_pesakit',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kehadiran_pesakit,
+                ],
+                'value' => 'refStatusKehadiran.desc'
+            ],
+            // 'catitan_ringkas',
+            /*[
                 'attribute' => 'catatan_tambahan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::catatan_tambahan,
                 ]
-            ],
+            ],*/ 
                 ['class' => 'yii\grid\ActionColumn',
                     'buttons' => [
                         'view' => function ($url, $model) {

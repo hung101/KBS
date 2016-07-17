@@ -22,6 +22,11 @@ use app\models\ProfilBadanSukan;
 use app\models\RefCawangan;
 use app\models\Jurulatih;
 use app\models\RefProgramSemasaSukanAtlet;
+use app\models\RefAgensiKaunseling;
+use app\models\RefNegeri;
+use app\models\RefSukan;
+use app\models\RefJantina;
+use app\models\RefTarafPerkahwinan;
 
 /**
  * PermohonanBimbinganKaunselingController implements the CRUD actions for PermohonanBimbinganKaunseling model.
@@ -46,6 +51,10 @@ class PermohonanBimbinganKaunselingController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $searchModel = new PermohonanBimbinganKaunselingSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -62,6 +71,10 @@ class PermohonanBimbinganKaunselingController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
         
         $ref = RefStatusPermohonan::findOne(['id' => $model->status_permohonan]);
@@ -85,6 +98,24 @@ class PermohonanBimbinganKaunselingController extends Controller
         $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program]);
         $model->program = $ref['desc'];
         
+        $ref = RefAgensiKaunseling::findOne(['id' => $model->agensi]);
+        $model->agensi = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->negeri]);
+        $model->negeri = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan_atlet_jurulatih]);
+        $model->sukan_atlet_jurulatih = $ref['desc'];   
+        
+        $ref = RefJantina::findOne(['id' => $model->jantina]);
+        $model->jantina = $ref['desc'];  
+        
+        $ref = RefTarafPerkahwinan::findOne(['id' => $model->taraf_perkahwinan]);
+        $model->taraf_perkahwinan = $ref['desc'];  
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,
@@ -98,7 +129,15 @@ class PermohonanBimbinganKaunselingController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new PermohonanBimbinganKaunseling();
+        
+        $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
+        
+        $model->status_permohonan = RefStatusPermohonan::SEDANG_DISEMAK;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->permohonan_bimbingan_kaunseling_id]);
@@ -118,6 +157,10 @@ class PermohonanBimbinganKaunselingController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -138,6 +181,10 @@ class PermohonanBimbinganKaunselingController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -174,9 +221,8 @@ class PermohonanBimbinganKaunselingController extends Controller
                 $report_url = BaseUrl::to(['generate-laporan-bimbingan-kaunseling-kes-rujukan'
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'tarikh_dari' => $model->tarikh_dari
-                    , 'nama_ppn' => $model->nama_ppn
-                    , 'sukan' => $model->sukan
-                    , 'negeri' => $model->negeri
+                    , 'jenis_client' => $model->jenis_client
+                    , 'kategori_masalah' => $model->kategori_masalah
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -184,9 +230,8 @@ class PermohonanBimbinganKaunselingController extends Controller
                 return $this->redirect(['generate-laporan-bimbingan-kaunseling-kes-rujukan'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
-                    , 'nama_ppn' => $model->nama_ppn
-                    , 'sukan' => $model->sukan
-                    , 'negeri' => $model->negeri
+                    , 'jenis_client' => $model->jenis_client
+                    , 'kategori_masalah' => $model->kategori_masalah
                     , 'format' => $model->format
                 ]);
             }
@@ -198,7 +243,7 @@ class PermohonanBimbinganKaunselingController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanBimbinganKaunselingKesRujukan($tarikh_dari, $tarikh_hingga, $nama_ppn, $sukan, $negeri, $format)
+    public function actionGenerateLaporanBimbinganKaunselingKesRujukan($tarikh_dari, $tarikh_hingga, $jenis_client, $kategori_masalah, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -206,21 +251,17 @@ class PermohonanBimbinganKaunselingController extends Controller
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
-        if($nama_ppn == "") $nama_ppn = array();
-        else $nama_ppn = array($nama_ppn);
+        if($jenis_client == "") $jenis_client = array();
+        else $jenis_client = array($jenis_client);
         
-        if($sukan == "") $sukan = array();
-        else $sukan = array($sukan);
-        
-        if($negeri == "") $negeri = array();
-        else $negeri = array($negeri);
+        if($kategori_masalah == "") $kategori_masalah = array();
+        else $kategori_masalah = array($kategori_masalah);
         
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
-            'SUKAN' => $sukan,
-            'NAMA_PPN' => $nama_ppn,
-            'NEGERI' => $negeri,
+            'KATEGORI_MASALAH' => $kategori_masalah,
+            'JENIS_CLIENT' => $jenis_client,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanBimbinganKaunselingKesRujukan', $format, $controls, 'laporan_bimbingan_kaunseling_kes_rujukan');

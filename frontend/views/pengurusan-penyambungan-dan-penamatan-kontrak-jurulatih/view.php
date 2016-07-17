@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PengurusanPenyambunganDanPenamatanKontrakJurulatih */
 
 //$this->title = $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id;
-$this->title = GeneralLabel::viewTitle . ' Pelanjutan Dan Penamatan Kontrak Jurulatih';
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::pelanjutan_dan_penamatan_kontrak_jurulatih;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::pelanjutan_dan_penamatan_kontrak_jurulatih, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -24,13 +24,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penyambungan-dan-penamatan-kontrak-jurulatih']['delete'])): ?>
-            <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id], [
+            <?php /*echo Html::a(GeneralLabel::delete, ['delete', 'id' => $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
                     'confirm' => GeneralMessage::confirmDelete,
                     'method' => 'post',
                 ],
-            ]) ?>
+            ])*/ ?>
         <?php endif; ?>
         <?= Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'window.print();' ]); ?>
     </p>

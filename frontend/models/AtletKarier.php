@@ -63,7 +63,7 @@ class AtletKarier extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'syarikat', 'jawatan_kerja', 'pendapatan', 'tahun_mula', 'tahun_tamat', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'tel_no'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'syarikat', 'jawatan_kerja', 'pendapatan', 'tahun_mula', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'tel_no'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id', 'tel_no', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['pendapatan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tahun_mula', 'tahun_tamat', 'created', 'updated'], 'safe'],

@@ -70,7 +70,7 @@ use app\models\general\GeneralVariable;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL,'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL,'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data'], 'id'=>$model->formName()]); ?>
     
     <br>
     <pre style="text-align: center"><strong>MAKLUMAT PERIBADI</strong></pre>
@@ -130,7 +130,7 @@ use app\models\general\GeneralVariable;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
-                'ic_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12]],
+                'ic_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12, 'id'=>'NoICID']],
                 
                 
             ],
@@ -237,7 +237,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefBangsa::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::bangsa],],
+                        'options' => ['placeholder' => Placeholder::bangsa],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'agama' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -251,7 +254,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefAgama::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::agama],],
+                        'options' => ['placeholder' => Placeholder::agama],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'jantina' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -265,7 +271,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJantina::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jantina],],
+                        'options' => ['placeholder' => Placeholder::jantina],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'warganegara' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -279,7 +288,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegara::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negara],],
+                        'options' => ['placeholder' => Placeholder::negara],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
@@ -294,10 +306,11 @@ use app\models\general\GeneralVariable;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ],
+                        'options' => ['id'=>'TarikhLahirID'],
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'tempat_lahir' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>90]],
+                'tempat_lahir' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>90,'hint'=>'cth: Tapah, Perak @ Bandung, Indonesia']],
             ]
         ],
         [
@@ -316,7 +329,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefTarafPerkahwinan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::tarafPerkahwinan],],
+                        'options' => ['placeholder' => Placeholder::tarafPerkahwinan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'bil_tanggungan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>11]],
             ]
@@ -352,7 +368,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
+                        'options' => ['placeholder' => Placeholder::negeri],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'alamat_rumah_bandar' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -379,6 +398,20 @@ use app\models\general\GeneralVariable;
                 'alamat_rumah_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5]],
             ]
         ],
+    ]
+]);
+    ?>
+    
+    <?php if(!$readonly):?>
+    <input type="checkbox" id="sama_alamat"> <strong> <?=GeneralLabel::alamat_surat_sama_dengan_alamat_rumah?></strong> <br>
+    <?php endif;?>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'attributes' => [
                 'alamat_surat_menyurat_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
@@ -410,7 +443,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
+                        'options' => ['placeholder' => Placeholder::negeri],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'alamat_surat_menyurat_bandar' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -463,7 +499,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefAgensiJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::agensi],],
+                        'options' => ['placeholder' => Placeholder::agensi],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 /*'status_permohonan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -491,7 +530,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKeaktifanJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::keaktifanJurulatih],],
+                        'options' => ['placeholder' => Placeholder::keaktifanJurulatih],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 //'ic_no_lama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>8]],
                 //'ic_tentera' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>12]],
@@ -508,19 +550,23 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefStatusJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::statusJurulatih],],
+                        'options' => ['placeholder' => Placeholder::statusJurulatih],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
+        
     ]
 ]);
     ?>
     
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT SUKAN</strong></pre>
+    <!--<pre style="text-align: center"><strong>MAKLUMAT SUKAN</strong></pre>-->
     
     <?php
-        echo FormGrid::widget([
+        /*echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -541,8 +587,11 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],],
-                    'columnOptions'=>['colspan'=>3]],
+                        'options' => ['placeholder' => Placeholder::sukan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],*/
                 /*'nama_acara' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\DepDrop', 
@@ -565,7 +614,7 @@ use app\models\general\GeneralVariable;
                             'url'=>Url::to(['/ref-acara/subacaras'])],
                         ],
                     'columnOptions'=>['colspan'=>4]],*/
-                'bahagian' =>[
+                /*'bahagian' =>[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -577,7 +626,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefBahagianJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::bahagian],],
+                        'options' => ['placeholder' => Placeholder::bahagian],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'cawangan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -591,7 +643,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefCawangan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::cawangan],],
+                        'options' => ['placeholder' => Placeholder::cawangan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'program' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -605,11 +660,14 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefProgramJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::program],],
+                        'options' => ['placeholder' => Placeholder::program],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],
-        /*[
+        [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -628,14 +686,14 @@ use app\models\general\GeneralVariable;
                         'options' => ['placeholder' => Placeholder::lainLainProgram],],
                     'columnOptions'=>['colspan'=>4]],
             ],
-        ],*/
+        ],
         
     ]
-]);
+]);*/
     ?>
     
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT MAJIKAN</strong></pre>
+    <pre style="text-align: center"><strong>MAKLUMAT MAJIKAN (Jika berkenaan)</strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -660,7 +718,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSektorPekerjaan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sektor],],
+                        'options' => ['placeholder' => Placeholder::sektor],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
@@ -695,7 +756,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
+                        'options' => ['placeholder' => Placeholder::negeri],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'alamat_majikan_bandar' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -775,7 +839,87 @@ use app\models\general\GeneralVariable;
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?php endif; ?>
     </div>
+    
+    <br>
+    
+    <div class="panel panel-danger">
+        <div class="panel-body">
+            <strong>Senarai Dokumen</strong>
+        </div>
+        <ol>
+            <li >Surat sokongan daripada PSK atau kelulusan Mesyuarat Jawatan Kuasa Kerja (JKK).</li>
+            <li >Surat Permohonan rasmi daripada jurulatih.</li>
+            <li >Resume Jurulatih.</li>
+            <li >Gambar berwarna ukuran passport.</li>
+            <li >Salinan kad pengenalan / passport.</li>
+            <li >Salinan Sijil Akademik Jurulatih.</li>
+            <li >Salinan Sijil Pendidikan Kejurulatihan.</li>
+            <li >Salinan Sijil Skim Persijilan Kejurulatihan Kebangsaan (SPKK) terkini. (Kursus Sains Sukan dan Kursus Sukan Spesifik)</li>
+          </ol>
+    </div>
 
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+     
+$(document).ready(function(){
+    if($("#TarikhLahirID").val() != ""){
+        $("#UmurID").val(calculateAge($("#TarikhLahirID").val()));
+    }
+});
+        
+$("#NoICID").focusout(function(){
+    var DOBVal = "";
+    
+    if(this.value != ""){
+        DOBVal = getDOBFromICNo(this.value);
+    }
+    
+        
+    $("#TarikhLahirID-disp").val(formatSaveDate(DOBVal));
+    $("#TarikhLahirID").val(formatSaveDate(DOBVal));
+        
+       /* $('#TarikhLahirID').kvDatepicker({
+                format: 'mm/dd/yyyy',
+                startDate: '-3d'
+            });*/
+        
+    $("#UmurID").val(calculateAge(formatSaveDate(DOBVal)));
+        
+        
+    $("#TarikhLahirID").kvDatepicker("$DateDisplayFormat", new Date(DOBVal)).kvDatepicker({
+        format: "$DateDisplayFormat"
+    });
+});
+        
+$('#TarikhLahirID').change(function(){
+    $("#UmurID").val(calculateAge(this.value));
+});
+            
+$("#sama_alamat").change(function() {
+    if(this.checked) {
+        $("#jurulatih-alamat_surat_menyurat_1").val($("#jurulatih-alamat_rumah_1").val());
+        $("#jurulatih-alamat_surat_menyurat_2").val($("#jurulatih-alamat_rumah_2").val());
+        $("#jurulatih-alamat_surat_menyurat_3").val($("#jurulatih-alamat_rumah_3").val());
+        $("#jurulatih-alamat_surat_menyurat_negeri").val($("#jurulatih-alamat_rumah_negeri").val()).trigger("change");
+        $("#jurulatih-alamat_surat_menyurat_bandar").val($("#jurulatih-alamat_rumah_bandar").val()).trigger("change");
+        $("#jurulatih-alamat_surat_menyurat_poskod").val($("#jurulatih-alamat_rumah_poskod").val());
+    }
+});
+
+JS;
+        
+$this->registerJs($script);
+?>

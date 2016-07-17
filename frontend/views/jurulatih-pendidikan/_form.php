@@ -6,8 +6,12 @@ use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
 use nirvana\showloading\ShowLoadingAsset;
 ShowLoadingAsset::register($this);
+
+// table reference
+use app\models\RefTahapPendidikan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -34,7 +38,24 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'tahun' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>4]],
+                'tahun' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>4]],
+                'tahap_pendidikan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-tahap-pendidikan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefTahapPendidikan::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::tahapPendidikan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
                  'sekolah_kolej_universiti' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
             ],
         ],
@@ -42,7 +63,8 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                 'gred' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>255], 'hint'=>'Contoh: [2010][SMK Sek 1 Bandar Kinrara][5A 5B]. [2014][UiTM Perak][3.87/Second Class].'],
+                 //'gred' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>255], 'hint'=>'Contoh: [2010][SMK Sek 1 Bandar Kinrara][5A 5B]. [2014][UiTM Perak][3.87/Second Class].'],
+                 'gred' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>255], 'hint'=>'Contoh: SPM 1A,3B,2C. CGPA 3.28'],
             ],
         ],
        

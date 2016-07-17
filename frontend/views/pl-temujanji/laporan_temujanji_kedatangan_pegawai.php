@@ -12,6 +12,7 @@ use kartik\datecontrol\DateControl;
 use app\models\RefReportFormat;
 use app\models\RefStatusTemujanjiPesakitLuar;
 use app\models\RefSukan;
+use app\models\RefPegawaiPerubatan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -61,6 +62,29 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'pegawai' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-pegawai-perubatan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefPegawaiPerubatan::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::pegawai],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>4]],
             ]
         ],
         [

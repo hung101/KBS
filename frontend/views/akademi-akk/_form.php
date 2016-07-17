@@ -143,6 +143,13 @@ use common\models\general\GeneralFunction;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>6]],
+                'nama_jurulatih' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                 'no_kad_pengenalan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12]],
                 'no_passport' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>15]],
             ],
@@ -1163,6 +1170,7 @@ $('#jurulatihId').change(function(){
         var data = $.parseJSON(data);
         
         if(data !== null){
+            $('#akademiakk-nama_jurulatih').attr('value',data.nama);
             $('#akademiakk-no_kad_pengenalan').attr('value',data.ic_no);
             $('#akademiakk-no_passport').attr('value',data.passport_no);
             $("#akademiakk-jantina").val(data.jantina).trigger("change");
@@ -1202,6 +1210,7 @@ $('#jurulatihId').change(function(){
 });
      
 function clearForm(){
+    $('#akademiakk-nama_jurulatih').attr('value','');
     $('#akademiakk-no_kad_pengenalan').attr('value','');
     $('#akademiakk-no_passport').attr('value','');
     $("#akademiakk-jantina").val('').trigger("change");

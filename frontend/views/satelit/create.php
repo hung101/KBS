@@ -7,8 +7,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\Satelit */
 
-$this->title = GeneralLabel::createTitle . ' Satelit';
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::satelit, 'url' => ['index']];
+$this->title = GeneralLabel::createTitle;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::laporan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="satelit-create">

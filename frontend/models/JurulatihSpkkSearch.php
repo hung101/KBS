@@ -19,7 +19,7 @@ class JurulatihSpkkSearch extends JurulatihSpkk
     {
         return [
             [['jurulatih_spkk_id', 'jurulatih_id'], 'integer'],
-            [['jenis_spkk', 'tahap', 'muatnaik_sijil'], 'safe'],
+            [['jenis_spkk', 'tahap', 'muatnaik_sijil', 'sukan', 'no_sijil'], 'safe'],
         ];
     }
 
@@ -43,7 +43,8 @@ class JurulatihSpkkSearch extends JurulatihSpkk
     {
         $query = JurulatihSpkk::find()
                 ->joinWith(['refJenisSijilKelayakanJurulatih'])
-                ->joinWith(['refTahapKelayakanJurulatih']);
+                ->joinWith(['refTahapKelayakanJurulatih'])
+                ->joinWith(['refSukan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -64,6 +65,8 @@ class JurulatihSpkkSearch extends JurulatihSpkk
 
         $query->andFilterWhere(['like', 'tbl_ref_jenis_sijil_kelayakan_jurulatih.desc', $this->jenis_spkk])
             ->andFilterWhere(['like', 'tbl_ref_tahap_kelayakan_jurulatih.desc', $this->tahap])
+                ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
+                ->andFilterWhere(['like', 'no_sijil', $this->no_sijil])
             ->andFilterWhere(['like', 'muatnaik_sijil', $this->muatnaik_sijil]);
 
         return $dataProvider;

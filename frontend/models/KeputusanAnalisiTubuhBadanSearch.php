@@ -42,7 +42,8 @@ class KeputusanAnalisiTubuhBadanSearch extends KeputusanAnalisiTubuhBadan
     public function search($params)
     {
         $query = KeputusanAnalisiTubuhBadan::find()
-                ->joinWith(['refAtlet']);
+                ->joinWith(['refAtlet'])
+                ->joinWith(['refKandunganLemakBadan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

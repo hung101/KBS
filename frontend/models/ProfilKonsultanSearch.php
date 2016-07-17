@@ -19,7 +19,7 @@ class ProfilKonsultanSearch extends ProfilKonsultan
     {
         return [
             [['profil_konsultan_id'], 'integer'],
-            [['nama_konsultan', 'ic_no', 'emel', 'no_bimbit', 'bidang_konsultansi'], 'safe'],
+            [['nama_konsultan', 'ic_no', 'emel', 'no_bimbit', 'bidang_konsultansi', 'agensi', 'no_kaunselor_berdaftar'], 'safe'],
         ];
     }
 
@@ -63,7 +63,9 @@ class ProfilKonsultanSearch extends ProfilKonsultan
             ->andFilterWhere(['like', 'ic_no', $this->ic_no])
             ->andFilterWhere(['like', 'emel', $this->emel])
             ->andFilterWhere(['like', 'no_bimbit', $this->no_bimbit])
-            ->andFilterWhere(['like', 'bidang_konsultansi', $this->bidang_konsultansi]);
+            ->andFilterWhere(['like', 'bidang_konsultansi', $this->bidang_konsultansi])
+                ->andFilterWhere(['like', 'agensi', $this->agensi])
+                ->andFilterWhere(['like', 'no_kaunselor_berdaftar', $this->no_kaunselor_berdaftar]);
 
         return $dataProvider;
     }

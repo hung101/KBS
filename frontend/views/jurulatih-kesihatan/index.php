@@ -69,15 +69,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
             //'masalah_kesihatan',
-            [
+            /*[
                 'attribute' => 'masalah_kesihatan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::masalah_kesihatan,
                 ],
                 'value' => 'refMasalahKesihatan.desc'
-            ],
+            ],*/
             // 'catatan',
+            [
+                'attribute' => 'catatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::catatan,
+                ],
+            ],
             // 'pembedahan',
             // 'alahan',
             // 'sejarah_perubatan',

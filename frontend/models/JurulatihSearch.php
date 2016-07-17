@@ -31,7 +31,7 @@ class JurulatihSearch extends Jurulatih
                 'tamat_permit_tempoh', 'alamat_rumah_1', 'alamat_rumah_2', 'alamat_rumah_3', 'alamat_rumah_negeri', 'alamat_rumah_bandar', 'alamat_rumah_poskod', 
                 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_bandar', 
                 'alamat_surat_menyurat_poskod', 'no_telefon', 'emel', 'status', 'sektor', 'jawatan', 'no_telefon_pejabat', 'nama_majikan', 'alamat_majikan_1', 
-                'alamat_majikan_2', 'alamat_majikan_3', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 'bahagian', 'program', 'status_tawaran'], 'safe'],
+                'alamat_majikan_2', 'alamat_majikan_3', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 'bahagian', 'program', 'status_tawaran', 'created'], 'safe'],
         ];
     }
 
@@ -140,6 +140,7 @@ class JurulatihSearch extends Jurulatih
             ->andFilterWhere(['like', 'alamat_majikan_negeri', $this->alamat_majikan_negeri])
             ->andFilterWhere(['like', 'alamat_majikan_bandar', $this->alamat_majikan_bandar])
             ->andFilterWhere(['like', 'alamat_majikan_poskod', $this->alamat_majikan_poskod])
+                ->andFilterWhere(['like', 'tbl_jurulatih.created', $this->created])
                 ->andFilterWhere(['like', 'tbl_ref_bahagian_jurulatih.desc', $this->bahagian])
                 ->andFilterWhere(['like', 'tbl_ref_program_jurulatih.desc', $this->program])
                 ->andFilterWhere(['like', 'tbl_ref_status_tawaran.desc', $this->status_tawaran]);

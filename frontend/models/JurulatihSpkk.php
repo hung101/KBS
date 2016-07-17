@@ -104,4 +104,11 @@ class JurulatihSpkk extends \yii\db\ActiveRecord
     public function getRefTahapKelayakanJurulatih(){
         return $this->hasOne(RefTahapKelayakanJurulatih::className(), ['id' => 'tahap']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSukan(){
+        return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
+    }
 }

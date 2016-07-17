@@ -7,6 +7,7 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use yii\helpers\Url;
 
 // table reference
 use app\models\RefStatusPermohonan;
@@ -16,6 +17,11 @@ use app\models\ProfilBadanSukan;
 use app\models\RefCawangan;
 use app\models\Jurulatih;
 use app\models\RefProgramSemasaSukanAtlet;
+use app\models\RefAgensiKaunseling;
+use app\models\RefNegeri;
+use app\models\RefSukan;
+use app\models\RefJantina;
+use app\models\RefTarafPerkahwinan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -34,7 +40,202 @@ use app\models\general\GeneralMessage;
     
     <pre style="text-align: center"><strong>MAKLUMAT PEMOHON</strong></pre>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'agensi' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-agensi-kaunseling/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefAgensiKaunseling::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::agensi],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+            ],
+        ],
+    ]
+]);
+    ?>
+    
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>MSN</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+                        echo FormGrid::widget([
+                            'model' => $model,
+                            'form' => $form,
+                            'autoGenerateColumns' => true,
+                            'rows' => [
+                                [
+                                    'columns'=>12,
+                                    'autoGenerateColumns'=>false, // override columns setting
+                                    'attributes' => [
+                                        'cawangan' => [
+                                            'type'=>Form::INPUT_WIDGET, 
+                                            'widgetClass'=>'\kartik\widgets\Select2',
+                                            'options'=>[
+                                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                                [
+                                                    'append' => [
+                                                        'content' => Html::a(Html::icon('edit'), ['/ref-latarbelakang-kes/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                                        'asButton' => true
+                                                    ]
+                                                ] : null,
+                                                'data'=>ArrayHelper::map(RefCawangan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                                'options' => ['placeholder' => Placeholder::cawangan],
+                                                'pluginOptions' => [
+                                                    'allowClear' => true
+                                                ],],
+                                            'columnOptions'=>['colspan'=>3]],
+                                    ]
+                                ],
+                            ]
+                        ]);
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>ISN</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+                        echo FormGrid::widget([
+                            'model' => $model,
+                            'form' => $form,
+                            'autoGenerateColumns' => true,
+                            'rows' => [
+                                [
+                                    'columns'=>12,
+                                    'autoGenerateColumns'=>false, // override columns setting
+                                    'attributes' => [
+                                        'cawangan_isn' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                                    ],
+                                ],
+                            ]
+                        ]);
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>PSK</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+                        echo FormGrid::widget([
+                            'model' => $model,
+                            'form' => $form,
+                            'autoGenerateColumns' => true,
+                            'rows' => [
+                                [
+                                    'columns'=>12,
+                                    'autoGenerateColumns'=>false, // override columns setting
+                                    'attributes' => [
+                                        'sukan' => [
+                                            'type'=>Form::INPUT_WIDGET, 
+                                            'widgetClass'=>'\kartik\widgets\Select2',
+                                            'options'=>[
+                                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                                [
+                                                    'append' => [
+                                                        'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                                        'asButton' => true
+                                                    ]
+                                                ] : null,
+                                                'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                                'options' => ['placeholder' => Placeholder::sukan],
+                                                'pluginOptions' => [
+                                                    'allowClear' => true
+                                                ],],
+                                            'columnOptions'=>['colspan'=>6]],
+                                        'persatuan' => [
+                                            'type'=>Form::INPUT_WIDGET, 
+                                            'widgetClass'=>'\kartik\widgets\Select2',
+                                            'options'=>[
+                                                'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
+                                                'options' => ['placeholder' => Placeholder::persatuan],
+                                                'pluginOptions' => [
+                                                    'allowClear' => true
+                                                ],],
+                                            'columnOptions'=>['colspan'=>6]],
+                                    ],
+                                ],
+                            ]
+                        ]);
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Majlis Sukan Negeri</strong>
+                </div>
+                <div class="panel-body">
+                    
+                    <?php
+                        echo FormGrid::widget([
+                            'model' => $model,
+                            'form' => $form,
+                            'autoGenerateColumns' => true,
+                            'rows' => [
+                                [
+                                    'columns'=>12,
+                                    'autoGenerateColumns'=>false, // override columns setting
+                                    'attributes' => [
+                                        'negeri' => [
+                                            'type'=>Form::INPUT_WIDGET, 
+                                            'widgetClass'=>'\kartik\widgets\Select2',
+                                            'options'=>[
+                                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                                [
+                                                    'append' => [
+                                                        'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                                        'asButton' => true
+                                                    ]
+                                                ] : null,
+                                                'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                                'options' => ['placeholder' => Placeholder::negeri],
+                                                'pluginOptions' => [
+                                                    'allowClear' => true
+                                                ],],
+                                            'columnOptions'=>['colspan'=>3]],
+                                    ]
+                                ],
+                            ]
+                        ]);
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -58,40 +259,6 @@ use app\models\general\GeneralMessage;
                 'no_telefon' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
             ],
         ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'cawangan' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-latarbelakang-kes/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefCawangan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::cawangan],],
-                    'columnOptions'=>['colspan'=>3]],
-                'persatuan' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-latarbelakang-kes/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
-                        'options' => ['placeholder' => Placeholder::persatuan],],
-                    'columnOptions'=>['colspan'=>3]],
-            ],
-        ],
     ]
 ]);
     ?>
@@ -110,6 +277,46 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'program' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-program-semasa-sukan-atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::program],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+                'sukan_atlet_jurulatih' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::sukan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                 'atlet_id' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -122,7 +329,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::atlet],],
+                        'options' => ['placeholder' => Placeholder::atlet, 'id'=>'atletId'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>6]],
                 'jurulatih' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -136,7 +346,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Jurulatih::find()->all(),'jurulatih_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::jurulatih],],
+                        'options' => ['placeholder' => Placeholder::jurulatih, 'id'=>'jurulatihId'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>6]],
                 
             ],
@@ -145,21 +358,41 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'program' => [
+                'umur' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>3]],
+                'jantina' =>  [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-program-semasa-sukan-atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jantina/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::program],],
-                    'columnOptions'=>['colspan'=>6]],
-                
+                        'data'=>ArrayHelper::map(RefJantina::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::jantina],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+                'taraf_perkahwinan' =>  [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-taraf-perkahwinan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefTarafPerkahwinan::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::tarafPerkahwinan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
         [
@@ -188,8 +421,12 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefLatarbelakangKes::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::latarbelakangKes],],
+                        'options' => ['placeholder' => Placeholder::latarbelakangKes],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
+                'no_rujukan_kes' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
             ],
         ],
     ]
@@ -208,14 +445,43 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'diagnosis' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                'cadangan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                'tindakan_kaunselor' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'notis' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>255]],
+            ],
+        ],
+    ]
+]);
+    ?>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                 'tarikh_permohonan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
+                        'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                                    'todayBtn' => true,
+                        ],
+                        'options'=>['disabled'=>true]
                     ],
                     'columnOptions'=>['colspan'=>3]],
                 'status_permohonan' =>  [
@@ -230,7 +496,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefStatusPermohonan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::statusPermohonan],],
+                        'options' => ['placeholder' => Placeholder::statusPermohonan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],
@@ -245,25 +514,6 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
 
-    <!--<?= $form->field($model, 'atlet_id')->textInput() ?>
-
-    <?= $form->field($model, 'status_permohonan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'tarikh_rujukan')->textInput() ?>
-
-    <?= $form->field($model, 'nama_pemohon_rujukan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'kes_latarbelakang')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'notis')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'pekerjaan_bapa')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'pekerjaan_ibu')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'bil_adik_beradik')->textInput() ?>
-
-    <?= $form->field($model, 'no_telefon')->textInput(['maxlength' => 14]) ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -274,3 +524,76 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+$URLJurulatih = Url::to(['/jurulatih/get-jurulatih']);
+
+$URLAtlet = Url::to(['/atlet/get-atlet']);
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+    
+$('#jurulatihId').change(function(){
+    if($(this).val() != ''){
+        $("#atletId").val('').trigger("change");
+    
+        $.get('$URLJurulatih',{id:$(this).val()},function(data){
+            clearForm();
+
+            var data = $.parseJSON(data);
+
+            if(data !== null){
+                $('#permohonanbimbingankaunseling-umur').attr('value',calculateAge(data.tarikh_lahir));
+                $("#permohonanbimbingankaunseling-jantina").val(data.jantina).trigger("change");
+                $("#permohonanbimbingankaunseling-taraf_perkahwinan").val(data.taraf_perkahwinan).trigger("change");
+            }
+        });
+    }
+    
+});
+            
+$('#atletId').change(function(){
+            
+    if($(this).val() != ''){
+        $("#jurulatihId").val('').trigger("change");
+            
+        $.get('$URLAtlet',{id:$(this).val()},function(data){
+            clearForm();
+
+            var data = $.parseJSON(data);
+
+            if(data !== null){
+                $('#permohonanbimbingankaunseling-umur').attr('value',calculateAge(data.tarikh_lahir));
+                $("#permohonanbimbingankaunseling-jantina").val(data.jantina).trigger("change");
+                $("#permohonanbimbingankaunseling-taraf_perkahwinan").val(data.taraf_perkahwinan).trigger("change");
+            }
+        });
+    }
+});
+         
+function clearForm(){
+    $('#permohonanbimbingankaunseling-umur').attr('value','');
+    $("#permohonanbimbingankaunseling-jantina").val('').trigger("change");
+    $("#permohonanbimbingankaunseling-taraf_perkahwinan").val('').trigger("change");
+}
+        
+$('#permohonanbimbingankaunseling-agensi').change(function(){
+        $('#permohonanbimbingankaunseling-cawangan_isn').attr('value','');
+        $('#permohonanbimbingankaunseling-cawangan').val('').trigger("change");
+        $('#permohonanbimbingankaunseling-sukan').val('').trigger("change");
+        $('#permohonanbimbingankaunseling-persatuan').val('').trigger("change");
+        $('#permohonanbimbingankaunseling-negeri').val('').trigger("change");
+});
+        
+JS;
+        
+$this->registerJs($script);
+?>
+

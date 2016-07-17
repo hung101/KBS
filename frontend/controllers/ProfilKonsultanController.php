@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use Yii;
 use app\models\ProfilKonsultan;
 use frontend\models\ProfilKonsultanSearch;
+use app\models\ProfilKonsultanKontrak;
+use frontend\models\ProfilKonsultanKontrakSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -68,6 +70,13 @@ class ProfilKonsultanController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryPar = null;
+        
+        $queryPar['ProfilKonsultanKontrakSearch']['profil_konsultan_id'] = $id;
+        
+        $searchModelProfilKonsultanKontrak  = new ProfilKonsultanKontrakSearch();
+        $dataProviderProfilKonsultanKontrak = $searchModelProfilKonsultanKontrak->search($queryPar);
+        
         $model = $this->findModel($id);
         
         $ref = RefNegeri::findOne(['id' => $model->alamat_negeri]);
@@ -84,6 +93,8 @@ class ProfilKonsultanController extends Controller
         
         return $this->render('view', [
             'model' => $model,
+            'searchModelProfilKonsultanKontrak' => $searchModelProfilKonsultanKontrak,
+            'dataProviderProfilKonsultanKontrak' => $dataProviderProfilKonsultanKontrak,
             'readonly' => true,
         ]);
     }
@@ -101,6 +112,17 @@ class ProfilKonsultanController extends Controller
         
         $model = new ProfilKonsultan();
         
+        $queryPar = null;
+        
+        Yii::$app->session->open();
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['ProfilKonsultanKontrakSearch']['session_id'] = Yii::$app->session->id;
+        }
+        
+        $searchModelProfilKonsultanKontrak  = new ProfilKonsultanKontrakSearch();
+        $dataProviderProfilKonsultanKontrak = $searchModelProfilKonsultanKontrak->search($queryPar);
+        
         if ($model->load(Yii::$app->request->post())) {
             if(is_array($model->bidang_konsultansi)){
                 $model->bidang_konsultansi = implode(",",$model->bidang_konsultansi);
@@ -117,12 +139,19 @@ class ProfilKonsultanController extends Controller
                 $model->gambar = Upload::uploadFile($file, Upload::profilKonsultanFolder, $model->profil_konsultan_id);
             }
             
+            if(isset(Yii::$app->session->id)){
+                ProfilKonsultanKontrak::updateAll(['profil_konsultan_id' => $model->profil_konsultan_id], 'session_id = "'.Yii::$app->session->id.'"');
+                ProfilKonsultanKontrak::updateAll(['session_id' => ''], 'profil_konsultan_id = "'.$model->profil_konsultan_id.'"');
+            }
+            
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->profil_konsultan_id]);
             }
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'searchModelProfilKonsultanKontrak' => $searchModelProfilKonsultanKontrak,
+                'dataProviderProfilKonsultanKontrak' => $dataProviderProfilKonsultanKontrak,
                 'readonly' => false,
             ]);
         }
@@ -139,6 +168,13 @@ class ProfilKonsultanController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
+        
+        $queryPar = null;
+        
+        $queryPar['ProfilKonsultanKontrakSearch']['profil_konsultan_id'] = $id;
+        
+        $searchModelProfilKonsultanKontrak  = new ProfilKonsultanKontrakSearch();
+        $dataProviderProfilKonsultanKontrak = $searchModelProfilKonsultanKontrak->search($queryPar);
         
         $model = $this->findModel($id);
         
@@ -177,6 +213,8 @@ class ProfilKonsultanController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'searchModelProfilKonsultanKontrak' => $searchModelProfilKonsultanKontrak,
+                'dataProviderProfilKonsultanKontrak' => $dataProviderProfilKonsultanKontrak,
                 'readonly' => false,
             ]);
         }

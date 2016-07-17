@@ -310,6 +310,7 @@ class PlTemujanjiController extends Controller
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'status' => $model->status
                     , 'sukan' => $model->sukan
+                        , 'pegawai' => $model->pegawai
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -319,6 +320,7 @@ class PlTemujanjiController extends Controller
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'status' => $model->status
                     , 'sukan' => $model->sukan
+                        , 'pegawai' => $model->pegawai
                     , 'format' => $model->format
                 ]);
             }
@@ -330,7 +332,7 @@ class PlTemujanjiController extends Controller
         ]);
     }
 
-    public function actionGenerateLaporanTemujanjiKedatanganPegawai($tarikh_dari, $tarikh_hingga, $status, $sukan, $format)
+    public function actionGenerateLaporanTemujanjiKedatanganPegawai($tarikh_dari, $tarikh_hingga, $status, $sukan, $pegawai, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -344,14 +346,18 @@ class PlTemujanjiController extends Controller
         if($sukan == "") $sukan = array();
         else $sukan = array($sukan);
         
+        if($pegawai == "") $pegawai = array();
+        else $pegawai = array($pegawai);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
             'STATUS' => $status,
             'SUKAN' => $sukan,
+            'NAMA_PEGAWAI' => $pegawai,
         );
         
-        GeneralFunction::generateReport('/spsb/ISN/LaporanTemujanjiKedatanganPegawai', $format, $controls, 'laporan_temujanji_kedatangan_pegawai');
+        GeneralFunction::generateReport('/spsb/ISN/LaporanTemujanji', $format, $controls, 'laporan_temujanji_kedatangan_pegawai');
     }
     
     public function actionLaporanTemujanjiMengikutSukan()

@@ -54,7 +54,7 @@ class KeputusanAnalisiTubuhBadan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet', 'fit', 'unfit', 'refer'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['refer', 'kandungan_lemak_badan', 'tarikh'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['perkhidmatan_permakanan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['kategori_atlet'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['sukan', 'acara', 'atlet', 'fit', 'unfit', 'refer'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
@@ -76,6 +76,7 @@ class KeputusanAnalisiTubuhBadan extends \yii\db\ActiveRecord
             'fit' => GeneralLabel::fit,
             'unfit' => GeneralLabel::unfit,
             'refer' => GeneralLabel::refer,
+            'tarikh' => GeneralLabel::tarikh,
 
         ];
     }
@@ -85,5 +86,12 @@ class KeputusanAnalisiTubuhBadan extends \yii\db\ActiveRecord
      */
     public function getRefAtlet(){
         return $this->hasOne(Atlet::className(), ['atlet_id' => 'atlet']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKandunganLemakBadan(){
+        return $this->hasOne(RefKandunganLemakBadan::className(), ['id' => 'kandungan_lemak_badan']);
     }
 }

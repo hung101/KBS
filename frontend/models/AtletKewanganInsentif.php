@@ -43,6 +43,12 @@ class AtletKewanganInsentif extends \yii\db\ActiveRecord
                 'updatedAtAttribute' => 'updated',
                 'value' => new \yii\db\Expression('NOW()'),
             ],
+            'encryption' => [
+                'class' => '\nickcv\encrypter\behaviors\EncryptionBehavior',
+                'attributes' => [
+                    'jumlah',
+                ],
+            ],
         ];
     }
 
@@ -52,7 +58,7 @@ class AtletKewanganInsentif extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'tarikh_mula', 'tarikh_tamat', 'jenis_insentif', 'jumlah', 'kejohanan', 'pencapaian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'tarikh_mula', 'jenis_insentif', 'jumlah', 'pencapaian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_mula', 'rekods'], 'safe'],
             [['jumlah'], 'number', 'message' => GeneralMessage::yii_validation_number],

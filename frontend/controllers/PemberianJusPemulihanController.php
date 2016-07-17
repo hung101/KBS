@@ -19,6 +19,7 @@ use app\models\RefKategoriAtlet;
 use app\models\RefJenisJus;
 use app\models\RefBeratBadan;
 use app\models\RefNamaJus;
+use app\models\RefJantina;
 
 /**
  * PemberianJusPemulihanController implements the CRUD actions for PemberianJusPemulihan model.
@@ -89,6 +90,9 @@ class PemberianJusPemulihanController extends Controller
         
         $ref = RefNamaJus::findOne(['id' => $model->nama_jus]);
         $model->nama_jus = $ref['desc'];
+        
+        $ref = RefJantina::findOne(['id' => $model->jantina]);
+        $model->jantina = $ref['desc'];
         
         return $this->renderAjax('view', [
             'model' => $model,

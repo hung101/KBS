@@ -48,6 +48,12 @@ class AtletPenajaansokongan extends \yii\db\ActiveRecord
                 'updatedAtAttribute' => 'updated',
                 'value' => new \yii\db\Expression('NOW()'),
             ],
+            'encryption' => [
+                'class' => '\nickcv\encrypter\behaviors\EncryptionBehavior',
+                'attributes' => [
+                    'nilai_kontrak',
+                ],
+            ],
         ];
     }
 

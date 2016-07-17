@@ -11,6 +11,13 @@ return [
         'formatter' => [
             'defaultTimeZone' => 'Asia/Kuala_Lumpur',
         ],
+        'encrypter' => [
+            'class'=>'\nickcv\encrypter\components\Encrypter',
+            'globalPassword'=>'spsb@123',
+            'iv'=>'1234567890123456',
+            'useBase64Encoding'=>true,
+            'use256BitesEncoding'=>false,
+        ],
     ],
     'timeZone' => 'Asia/Kuala_Lumpur',
     'modules' => [
@@ -64,5 +71,6 @@ return [
 		 // eddie start
          //'audit' => 'bedezign\yii2\audit\Audit',
 		 // eddie end
+        'encrypter' => 'nickcv\encrypter\Module',
      ]
 ];

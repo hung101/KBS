@@ -115,7 +115,7 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>6]]
             ],
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -134,14 +134,14 @@ use app\models\general\GeneralMessage;
                         'options' => ['placeholder' => Placeholder::perkhidmatanPemakanan],],
                     'columnOptions'=>['colspan'=>6]],
             ],
-        ],
+        ],*/
     ]
 ]);
     ?>
     
     <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['permohonan-perkhidmatan-permakanan']['kelulusan']) || $readonly): ?>
     <?php
-        echo FormGrid::widget([
+       /* echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -159,7 +159,7 @@ use app\models\general\GeneralMessage;
             ]
         ],
     ]
-]);
+]);*/
     ?>
     <?php endif; ?>
 
@@ -181,7 +181,7 @@ use app\models\general\GeneralMessage;
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?php if(!$model->isNewRecord): ?>
-        <?= Html::a(GeneralLabel::perkhidmatan_permakanan, ['perkhidmatan-permakanan/load', 'permohonan_perkhidmatan_permakanan_id' => $model->permohonan_perkhidmatan_permakanan_id], ['class' => 'btn btn-success', 'target'=>'_blank']) ?>
+        <?= Html::a(GeneralLabel::laporan_perkhidmatan_pemakanan, ['perkhidmatan-permakanan/load', 'permohonan_perkhidmatan_permakanan_id' => $model->permohonan_perkhidmatan_permakanan_id], ['class' => 'btn btn-success', 'target'=>'_blank']) ?>
         <?php endif; ?>
         <?php endif; ?>
     </div>

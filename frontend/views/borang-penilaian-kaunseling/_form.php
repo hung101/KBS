@@ -10,6 +10,7 @@ use yii\helpers\ArrayHelper;
 // table reference
 use app\models\RefKategoriMasalahKaunseling;
 use app\models\Atlet;
+use app\models\RefLatarbelakangKes;
 
 // contant values
 use app\models\general\Placeholder;
@@ -106,11 +107,11 @@ use app\models\general\GeneralMessage;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-masalah-kaunseling/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-latarbelakang-kes/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefKategoriMasalahKaunseling::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefLatarbelakangKes::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kategoriMasalah],],
                     'columnOptions'=>['colspan'=>5]],
                 // 'tarikh_temujanji' => ['type'=>Form::INPUT_WIDGET, 'widgetClass'=>'\kartik\widgets\DatePicker','columnOptions'=>['colspan'=>3]],

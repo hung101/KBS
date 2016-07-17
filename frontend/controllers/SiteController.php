@@ -205,9 +205,9 @@ class SiteController extends Controller
     public function actionNewPassword()
     {
 // eddie start
-        /*if (!\Yii::$app->user->isGuest) {
+        if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
-        }*/
+        }
 
         $model = new LoginForm();
         $model->scenario = 'new-password';

@@ -50,7 +50,7 @@ class PlDiagnosisPreskripsiPemeriksaanFisioterapi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis_diagnosis_preskripsi_pemeriksaan', 'status_diagnosis_preskripsi_pemeriksaan', 'catitan_ringkas'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['bahagian_kecederaan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['pl_temujanji_id', 'unit', 'bahagian_kecederaan', 'rawatan_fisioterapi'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['harga'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tarikh'], 'safe'],

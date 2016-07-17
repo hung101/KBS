@@ -147,8 +147,8 @@ use app\models\general\GeneralMessage;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'nama_pegawai_anggota' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
-                'no_kad_pengenalan_pegawai' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
-                'umur_pegawai' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>3, 'disabled'=>true]],
+                'no_kad_pengenalan_pegawai' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true, 'id'=>'NoICIDPegawai']],
+                'umur_pegawai' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>3, 'disabled'=>true, 'id'=>'UmurIDPegawai']],
             ],
         ],
         
@@ -320,8 +320,10 @@ use app\models\general\GeneralMessage;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
+                        'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
+                                    'todayBtn' => true,
                         ],
                         'options'=>['disabled'=>true]
                     ],
@@ -409,7 +411,30 @@ $("#NoICID").focusout(function(){
 $('#TarikhLahirID').change(function(){
     $("#UmurID").val(calculateAge(this.value));
 });
-           
+         
+            
+$("#NoICIDPegawai").focusout(function(){
+    var DOBVal = "";
+    
+    if(this.value != ""){
+        DOBVal = getDOBFromICNo(this.value);
+    }
+    
+        
+    $("#TarikhLahirIDPegawai-disp").val(formatSaveDate(DOBVal));
+    $("#TarikhLahirIDPegawai").val(formatSaveDate(DOBVal));
+        
+    $("#UmurIDPegawai").val(calculateAge(formatSaveDate(DOBVal)));
+        
+        
+    $("#TarikhLahirIDPegawai").kvDatepicker("$DateDisplayFormat", new Date(DOBVal)).kvDatepicker({
+        format: "$DateDisplayFormat"
+    });
+});
+        
+$('#TarikhLahirIDPegawai').change(function(){
+    $("#UmurIDPegawai").val(calculateAge(this.value));
+});
 
 JS;
         

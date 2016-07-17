@@ -13,6 +13,7 @@ use app\models\general\GeneralVariable;
 
 // table reference
 use app\models\RefKategoriMasalahKaunseling;
+use app\models\RefLatarbelakangKes;
 use app\models\Atlet;
 
 /**
@@ -67,7 +68,7 @@ class BorangPenilaianKaunselingController extends Controller
         $ref = Atlet::findOne(['atlet_id' => $model->atlet]);
         $model->atlet = $ref['nameAndIC'];
         
-        $ref = RefKategoriMasalahKaunseling::findOne(['id' => $model->kategori_permasalahan]);
+        $ref = RefLatarbelakangKes::findOne(['id' => $model->kategori_permasalahan]);
         $model->kategori_permasalahan = $ref['desc'];
         
         return $this->render('view', [

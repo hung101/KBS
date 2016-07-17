@@ -384,6 +384,8 @@ class PerkhidmatanPermakananController extends Controller
                     , 'nama_jus' => $model->nama_jus
                     , 'sukan' => $model->sukan
                     , 'atlet' => $model->atlet
+                    , 'kategori_atlet' => $model->kategori_atlet
+                    , 'jantina' => $model->jantina
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -395,6 +397,8 @@ class PerkhidmatanPermakananController extends Controller
                     , 'nama_jus' => $model->nama_jus
                     , 'sukan' => $model->sukan
                     , 'atlet' => $model->atlet
+                    , 'kategori_atlet' => $model->kategori_atlet
+                    , 'jantina' => $model->jantina
                     , 'format' => $model->format
                 ]);
             }
@@ -406,7 +410,7 @@ class PerkhidmatanPermakananController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanStatistikJus($tarikh_dari, $tarikh_hingga, $jenis_jus, $nama_jus, $sukan, $atlet, $format)
+    public function actionGenerateLaporanStatistikJus($tarikh_dari, $tarikh_hingga, $jenis_jus, $nama_jus, $sukan, $atlet, $kategori_atlet, $jantina, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -426,6 +430,12 @@ class PerkhidmatanPermakananController extends Controller
         if($atlet == "") $atlet = array();
         else $atlet = array($atlet);
         
+        if($kategori_atlet == "") $kategori_atlet = array();
+        else $kategori_atlet = array($kategori_atlet);
+        
+        if($jantina == "") $jantina = array();
+        else $jantina = array($jantina);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
@@ -433,6 +443,8 @@ class PerkhidmatanPermakananController extends Controller
             'NAMA_JUS' => $nama_jus,
             'SUKAN' => $sukan,
             'ATLET' => $atlet,
+            'KATEGORI_ATLET' => $kategori_atlet,
+            'JANTINA' => $jantina,
         );
         
         GeneralFunction::generateReport('/spsb/ISN/LaporanStatistikJus', $format, $controls, 'laporan_statistik_jus');

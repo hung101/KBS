@@ -10,7 +10,7 @@ use kartik\datecontrol\DateControl;
 
 // table reference
 use app\models\RefReportFormat;
-use app\models\RefSukan;
+use app\models\RefLatarbelakangKes;
 use app\models\RefProgramMsn;
 use app\models\RefNegeri;
 
@@ -72,14 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-program-msn/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefProgramMsn::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>['1'=>'Atlet','2'=>'Jurulatih'],
                         'options' => ['placeholder' => Placeholder::jenis],],
                     'columnOptions'=>['colspan'=>3]],
             ],
@@ -88,20 +81,23 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'kategori_masalah' => [
+                'kategori_masalah' =>[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-latarbelakang-kes/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategori],],
-                    'columnOptions'=>['colspan'=>4]],
+                        'data'=>ArrayHelper::map(RefLatarbelakangKes::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kategori],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
         [

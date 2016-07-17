@@ -99,6 +99,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tabKeluargaJurulatihID = "keluarga_jurulatih_tab";
         const tabJurulatihAtletID = "jurulatih_atlet_tab";
         const tabJurulatihPenilaianID = "jurulatih_penilaian_tab";
+        const tabSukanJurulatihID = "sukan_jurulatih_tab";
         
         // Jurulatih List Content IDs
         const listKelayakanID = "kelayakan_list";
@@ -107,6 +108,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const listKelayakanKursusTertinggiID = "kelayakan_kursus_tertinggi_list";
         const listKesihatanID = "kesihatan_list";
         const listKeluargaJurulatihID = "keluarga_jurulatih_list";
+        const listSukanJurulatihID = "sukan_jurulatih_list";
         
         // Jurulatih Form IDs
         const formJurulatihKelayakanID = "jurulatih_kelayakan_form";
@@ -115,6 +117,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const formJurulatihKelayakanKursusTertinggiID = "jurulatih_kelayakan_kursus_tertinggi_form";
         const formJurulatihKesihatanID = "jurulatih_kesihatan_form";
         const formJurulatihKeluargaID = "jurulatih_keluarga_form";
+        const formJurulatihSukanID = "jurulatih_sukan_form";
         
         //System Display Date Format 
         const displayDateFormat = "dd-mm-yyyy";
@@ -227,6 +230,7 @@ if($session->get('language') == "EN") {
         const tabKeluargaJurulatihID = "keluarga_jurulatih_tab";
         const tabJurulatihAtletID = "jurulatih_atlet_tab";
         const tabJurulatihPenilaianID = "jurulatih_penilaian_tab";
+        const tabSukanJurulatihID = "sukan_jurulatih_tab";
         
         // Jurulatih List Content IDs
         const listKelayakanID = "kelayakan_list";
@@ -235,6 +239,7 @@ if($session->get('language') == "EN") {
         const listKelayakanKursusTertinggiID = "kelayakan_kursus_tertinggi_list";
         const listKesihatanID = "kesihatan_list";
         const listKeluargaJurulatihID = "keluarga_jurulatih_list";
+        const listSukanJurulatihID = "sukan_jurulatih_list";
         
         // Jurulatih Form IDs
         const formJurulatihKelayakanID = "jurulatih_kelayakan_form";
@@ -243,6 +248,7 @@ if($session->get('language') == "EN") {
         const formJurulatihKelayakanKursusTertinggiID = "jurulatih_kelayakan_kursus_tertinggi_form";
         const formJurulatihKesihatanID = "jurulatih_kesihatan_form";
         const formJurulatihKeluargaID = "jurulatih_keluarga_form";
+        const formJurulatihSukanID = "jurulatih_sukan_form";
         
         //System Display Date Format 
         const displayDateFormat = "dd-mm-yyyy";

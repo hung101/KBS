@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
 use nirvana\showloading\ShowLoadingAsset;
 ShowLoadingAsset::register($this);
 use kartik\datecontrol\DateControl;
+use yii\web\Session;
 
 // table reference
 use app\models\Jurulatih;
@@ -31,6 +32,11 @@ use app\models\general\GeneralMessage;
 /* @var $this yii\web\View */
 /* @var $model app\models\AtletSukan */
 /* @var $form yii\widgets\ActiveForm */
+
+// Session
+    $session = new Session;
+    $session->open();
+    
 ?>
 
 <div class="atlet-sukan-form">
@@ -40,7 +46,11 @@ use app\models\general\GeneralMessage;
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>GeneralVariable::formAtletSukanID]); ?>
     
     <?php
-        $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->all();
+        if(isset($session['atlet_cacat']) && $session['atlet_cacat']){
+            $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all();
+        } else {
+            $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->all();
+        }
         
         // add filter base on sukan access role in tbl_user->sukan - START
         if(Yii::$app->user->identity->sukan){
@@ -54,7 +64,11 @@ use app\models\general\GeneralMessage;
                     array_push($arr_sukan_filter,$arr_sukan);
             }
             
-            $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andFilterWhere(['id'=>$arr_sukan_filter])->all();
+            if(isset($session['atlet_cacat']) && $session['atlet_cacat']){
+                $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->andFilterWhere(['id'=>$arr_sukan_filter])->all();
+            } else {
+                $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andFilterWhere(['id'=>$arr_sukan_filter])->all();
+            }
         }
         // add filter base on sukan access role in tbl_user->sukan - END
         
@@ -126,6 +140,7 @@ use app\models\general\GeneralMessage;
                         'options'=>['prompt'=>'',],
                         'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
+                            'initialize' => true,
                             'depends'=>[Html::getInputId($model, 'nama_sukan')],
                             'placeholder' => Placeholder::acara,
                             'url'=>Url::to(['/ref-acara/subacaras'])],
@@ -227,7 +242,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSource::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::status],
+                        'options' => ['placeholder' => Placeholder::jenis],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -243,7 +258,7 @@ use app\models\general\GeneralMessage;
             ]
         ],
         [
-            'columns'=>12,
+            'columns'=>3,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'negeri_diwakili' => [
@@ -263,7 +278,7 @@ use app\models\general\GeneralMessage;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>4]],
-                'status' => [
+                /*'status' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -279,7 +294,7 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>4]],*/
             ]
         ],
     ]
@@ -341,3 +356,6 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<?php $session->close(); ?>

@@ -21,13 +21,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->user_peranan_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->user_peranan_id], [
+        <?php /*echo Html::a(GeneralLabel::delete, ['delete', 'id' => $model->user_peranan_id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => GeneralMessage::confirmDelete,
                 'method' => 'post',
             ],
-        ]) ?>
+        ]);*/ ?>
     </p>
     
     <?= $this->render('_form', [

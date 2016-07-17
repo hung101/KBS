@@ -3,11 +3,13 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+use app\models\general\GeneralLabel;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\RefJenisPencapaian */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Jenis Pencapaians', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::jenis_pencapaian, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-jenis-pencapaian-view">
@@ -30,11 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'desc',
-            'aktif',
-            'created_by',
-            'updated_by',
-            'created',
-            'updated',
+            //'aktif',
+            [
+                'attribute' => 'aktif',
+                'value' => $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no,
+            ],
         ],
     ]) ?>
 

@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use Yii;
 use app\models\JurulatihKesihatan;
 use frontend\models\JurulatihKesihatanSearch;
+use app\models\JurulatihKesihatanMasalah;
+use frontend\models\JurulatihKesihatanMasalahSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -82,6 +84,13 @@ class JurulatihKesihatanController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryPar = null;
+        
+        $queryPar['JurulatihKesihatanMasalahSearch']['jurulatih_kesihatan_id'] = $id;
+        
+        $searchModelMasalah = new JurulatihKesihatanMasalahSearch();
+        $dataProviderMasalah = $searchModelMasalah->search($queryPar);
+        
         $model = $this->findModel($id);
         
         $ref = RefMasalahKesihatan::findOne(['id' => $model->masalah_kesihatan]);
@@ -89,6 +98,8 @@ class JurulatihKesihatanController extends Controller
         
         return $this->renderAjax('view', [
             'model' => $model,
+            'searchModelMasalah' => $searchModelMasalah,
+            'dataProviderMasalah' => $dataProviderMasalah,
             'readonly' => true,
         ]);
     }
@@ -115,13 +126,31 @@ class JurulatihKesihatanController extends Controller
         }
         
         $session->close();
+        
+        $queryPar = null;
+        
+        Yii::$app->session->open();
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['JurulatihKesihatanMasalahSearch']['session_id'] = Yii::$app->session->id;
+        }
+        
+        $searchModelMasalah = new JurulatihKesihatanMasalahSearch();
+        $dataProviderMasalah = $searchModelMasalah->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if(isset(Yii::$app->session->id)){
+                JurulatihKesihatanMasalah::updateAll(['jurulatih_kesihatan_id' => $model->jurulatih_kesihatan_id], 'session_id = "'.Yii::$app->session->id.'"');
+                JurulatihKesihatanMasalah::updateAll(['session_id' => ''], 'jurulatih_kesihatan_id = "'.$model->jurulatih_kesihatan_id.'"');
+            }
+            
             //return $this->redirect(['view', 'id' => $model->jurulatih_kesihatan_id]);
             return self::actionView($model->jurulatih_kesihatan_id);
         } else {
             return $this->renderAjax('create', [
                 'model' => $model,
+                'searchModelMasalah' => $searchModelMasalah,
+                'dataProviderMasalah' => $dataProviderMasalah,
                 'readonly' => false,
             ]);
         }
@@ -139,6 +168,13 @@ class JurulatihKesihatanController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryPar = null;
+        
+        $queryPar['JurulatihKesihatanMasalahSearch']['jurulatih_kesihatan_id'] = $id;
+        
+        $searchModelMasalah = new JurulatihKesihatanMasalahSearch();
+        $dataProviderMasalah = $searchModelMasalah->search($queryPar);
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -147,6 +183,8 @@ class JurulatihKesihatanController extends Controller
         } else {
             return $this->renderAjax('update', [
                 'model' => $model,
+                'searchModelMasalah' => $searchModelMasalah,
+                'dataProviderMasalah' => $dataProviderMasalah,
                 'readonly' => false,
             ]);
         }

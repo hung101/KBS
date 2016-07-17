@@ -45,8 +45,8 @@ class PemberianJusPemulihan extends \yii\db\ActiveRecord
         return [
             [['atlet', 'nama_jus', 'kuantiti'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['perkhidmatan_permakanan_id', 'sukan', 'acara', 'jenis_jus', 'kuantiti', 'berat_badan', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['created', 'updated'], 'safe'],
-            [['kategori_atlet'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['created', 'updated', 'tarikh'], 'safe'],
+            [['kategori_atlet', 'jantina'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['atlet', 'nama_jus', 'buah'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
@@ -69,6 +69,8 @@ class PemberianJusPemulihan extends \yii\db\ActiveRecord
             'kuantiti' => GeneralLabel::kuantiti,
             'berat_badan' => GeneralLabel::berat_badan,
             'buah' => GeneralLabel::buah,
+            'tarikh' => GeneralLabel::tarikh,
+            'jantina' => GeneralLabel::jantina,
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

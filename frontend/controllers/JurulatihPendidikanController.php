@@ -12,6 +12,9 @@ use yii\web\Session;
 
 use app\models\general\GeneralVariable;
 
+// table reference
+use app\models\RefTahapPendidikan;
+
 /**
  * JurulatihPendidikanController implements the CRUD actions for JurulatihPendidikan model.
  */
@@ -79,8 +82,13 @@ class JurulatihPendidikanController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $model = $this->findModel($id);
+        
+        $ref = RefTahapPendidikan::findOne(['id' => $model->tahap_pendidikan]);
+        $model->tahap_pendidikan = $ref['desc'];
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

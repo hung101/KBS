@@ -75,6 +75,23 @@ use app\models\general\GeneralMessage;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
+                'atlet_id' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'options' => ['placeholder' => Placeholder::atlet, 'id'=>'atletId'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>6]],
                 'jenis_sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -89,23 +106,7 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],],
                     'columnOptions'=>['colspan'=>3]],
-                'atlet_id' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::atlet],
-                        'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
-                    'columnOptions'=>['colspan'=>6]],
+                
                 
                 //'no_kad_pengenalan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12]],
             ]
@@ -418,3 +419,36 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$URLJurulatih = Url::to(['/atlet/get-atlet']);
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$script = <<< JS
+        
+$('#atletId').change(function(){
+    
+    $.get('$URLJurulatih',{id:$(this).val()},function(data){
+        clearForm();
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+        
+            if(data.refAtletSukan[0] !== null){ 
+                //$('#pltemujanjifisioterapi-kategori_atlet').val(data.refAtletSukan[0].program_semasa).trigger("change");
+                $('#pltemujanjifisioterapi-jenis_sukan').val(data.refAtletSukan[0].nama_sukan).trigger("change");
+            }
+        }
+    });
+});
+     
+function clearForm(){
+    //$("#pltemujanjifisioterapi-kategori_atlet").val('').trigger("change");
+    $("#pltemujanjifisioterapi-jenis_sukan").val('').trigger("change");
+}
+        
+JS;
+        
+$this->registerJs($script);
+?>

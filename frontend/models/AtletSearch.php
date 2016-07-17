@@ -28,7 +28,7 @@ class AtletSearch extends Atlet
                 'taraf_perkahwinan', 'bahasa_ibu', 'no_sijil_lahir', 'ic_no', 'ic_no_lama', 'passport_no', 'passport_tempat_dikeluarkan', 
                 'lesen_memandu_no', 'lesen_tamat_tempoh', 'jenis_lesen', 'emel', 'facebook', 'twitter', 'alamat_rumah_1', 'alamat_rumah_2', 
                 'alamat_rumah_3', 'alamat_surat_menyurat_1','alamat_surat_menyurat_2','alamat_surat_menyurat_3','dari_bahagian', 'sumber', 
-                'negeri_diwakili', 'nama_kecemasan', 'pertalian_kecemasan', 'tawaran', 'sukan', 'program'], 'safe'],
+                'negeri_diwakili', 'nama_kecemasan', 'pertalian_kecemasan', 'tawaran', 'sukan', 'program', 'cacat'], 'safe'],
             [['umur', 'tel_bimbit_no_1', 'tel_bimbit_no_2', 'tel_no', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan', 'tawaran_id', 'jurulatih'], 'integer'],
             [['tinggi', 'berat'], 'number'],
         ];
@@ -110,6 +110,7 @@ class AtletSearch extends Atlet
             //'tawaran' => $this->tawaran_id,
             'tawaran' => $this->tawaran,
             'tbl_atlet_sukan.jurulatih_id' => $this->jurulatih,
+            'cacat' => $this->cacat,
         ]);
         
         

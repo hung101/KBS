@@ -30,6 +30,10 @@ use app\models\RefJenisLesenMemandu;
 use app\models\RefBahasa;
 use app\models\RefStatusTawaran;
 use app\models\UserPeranan;
+use app\models\RefStatusAtlet;
+use app\models\RefJenisLesenParalimpik;
+use app\models\RefAgensiOku;
+use app\models\RefKategoriKecacatan;
 
 use app\models\general\GeneralLabel;
 use app\models\general\Upload;
@@ -63,10 +67,51 @@ class AtletController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $session = new Session;
+        $session->open();
+        
+        $session['atlet_cacat'] = false;
+        
+        $session->close();
+        
+        $queryPar = Yii::$app->request->queryParams;
+        
+        $queryPar['AtletSearch']['cacat'] = '0';
+        
         $searchModel = new AtletSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryPar);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    
+    /**
+     * Lists all Atlet models.
+     * @return mixed
+     */
+    public function actionIndexCacat()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $session = new Session;
+        $session->open();
+        
+        $session['atlet_cacat'] = true;
+        
+        $session->close();
+        
+        $queryPar = Yii::$app->request->queryParams;
+        
+        $queryPar['AtletSearch']['cacat'] = '1';
+        
+        $searchModel = new AtletSearch();
+        $dataProvider = $searchModel->search($queryPar);
+
+        return $this->render('index_cacat', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -94,6 +139,30 @@ class AtletController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    
+    /**
+     * Lists all Atlet models.
+     * @return mixed
+     */
+    public function actionTawaranParalimpik()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $queryPar = Yii::$app->request->queryParams;
+        
+        $queryPar['AtletSearch']['tawaran'] = RefStatusTawaran::DALAM_PROSES;
+        $queryPar['AtletSearch']['cacat'] = '1';
+        
+        $searchModel = new AtletSearch();
+        $dataProvider = $searchModel->search($queryPar);
+
+        return $this->render('tawaran_paralimpik', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
      * Displays a single Atlet model.
@@ -111,12 +180,10 @@ class AtletController extends Controller
         
         $session['atlet_id'] = $id;
         
-        $session->close();
-        
         // get atlet details
         $atlet = $this->findModel($id);
         
-        
+        $session['atlet_cacat'] = $atlet->cacat;
         
         // get atlet dropdown value's descriptions
         $ref = RefAtletTahap::findOne(['id' => $atlet->tahap]);
@@ -164,6 +231,21 @@ class AtletController extends Controller
         $YesNo = GeneralLabel::getYesNoLabel($atlet->tid);
         $atlet->tid = $YesNo;
         
+        $ref = RefStatusAtlet::findOne(['id' => $atlet->status_atlet]);
+        $atlet->status_atlet = $ref['desc'];
+        
+        $ref = RefJenisLesenParalimpik::findOne(['id' => $atlet->jenis_lesen_paralimpik]);
+        $atlet->jenis_lesen_paralimpik = $ref['desc'];
+        
+        $ref = RefAgensiOku::findOne(['id' => $atlet->agensi]);
+        $atlet->agensi = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $atlet->ms_negeri]);
+        $atlet->ms_negeri = $ref['desc'];
+        
+        $ref = RefKategoriKecacatan::findOne(['id' => $atlet->kategori_kecacatan]);
+        $atlet->kategori_kecacatan = $ref['desc'];
+        
         /*$YesNo = GeneralLabel::getYesNoLabel($atlet->tawaran);
         $atlet->tawaran = $YesNo;*/
         
@@ -177,6 +259,8 @@ class AtletController extends Controller
             'model' => $atlet,
             'readonly' => true,
         ]);
+        
+        $session->close();
     }
 
     /**
@@ -195,11 +279,11 @@ class AtletController extends Controller
         
         $session->remove('atlet_id');
         
-        $session->close();
-        
         $model = new Atlet();
         
         $model->tawaran = RefStatusTawaran::DALAM_PROSES; //default
+        
+        $model->cacat = $session['atlet_cacat'];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'gambar');
@@ -244,6 +328,8 @@ No Kad Pengenalan: ' . $model->ic_no . '
             'model' => $model,
             'readonly' => false,
         ]);
+        
+        $session->close();
     }
 
     /**
@@ -263,9 +349,10 @@ No Kad Pengenalan: ' . $model->ic_no . '
 
         $session['atlet_id'] = $id;
         
-        $session->close();
                 
         $model = $this->findModel($id);
+        
+        $session['atlet_cacat'] = $model->cacat;
         
         if ($model->load(Yii::$app->request->post())) {
             
@@ -284,6 +371,8 @@ No Kad Pengenalan: ' . $model->ic_no . '
             }
             
         }
+        
+        $session->close();
         
         return $this->render('layout', [
             'model' => $model,
@@ -461,6 +550,67 @@ No Kad Pengenalan: ' . $model->ic_no . '
         GeneralFunction::generateReport('/spsb/MSN/LaporanSenaraiAtlet', $format, $controls, 'laporan_senarai_atlet');
     }
     
+    public function actionLaporanSenaraiAtletParalimpik()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-senarai-atlet-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-senarai-atlet-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_senarai_atlet_paralimpik', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanSenaraiAtletParalimpik($program, $sukan, $acara, $negeri, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanSenaraiAtletParalimpik', $format, $controls, 'laporan_senarai_atlet_paralimpik');
+    }
+    
     public function actionLaporanStatistikAtlet()
     {
         if (Yii::$app->user->isGuest) {
@@ -520,5 +670,66 @@ No Kad Pengenalan: ' . $model->ic_no . '
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtlet', $format, $controls, 'laporan_statistik_atlet');
+    }
+    
+    public function actionLaporanStatistikAtletParalimpik()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanStatistikAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-atlet-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_atlet_paralimpik', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikAtletParalimpik($program, $sukan, $acara, $negeri, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletParalimpik', $format, $controls, 'laporan_statistik_atlet_paralimpik');
     }
 }

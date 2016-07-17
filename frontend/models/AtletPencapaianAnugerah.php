@@ -51,7 +51,8 @@ class AtletPencapaianAnugerah extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'tahun', 'nama_acara', 'nama_anugerah_pingat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'tahun', 'nama_anugerah_pingat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['sukan'], 'safe'],
             [['atlet_id', 'insentif_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tahun'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tahun'], 'string', 'max' => 4, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -72,6 +73,7 @@ class AtletPencapaianAnugerah extends \yii\db\ActiveRecord
             'atlet_id' => GeneralLabel::atlet_id,
             'tahun' => GeneralLabel::tahun,
             'nama_acara' => GeneralLabel::nama_acara,
+            'sukan' => GeneralLabel::sukan,
             'kategori' => GeneralLabel::kategori,
             'remark' => GeneralLabel::remark,
             'insentif_id' => GeneralLabel::insentif_id,

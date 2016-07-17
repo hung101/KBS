@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PengurusanPenyambunganDanPenamatanKontrakJurulatih */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih.': ' . ' ' . $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id;
-$this->title = GeneralLabel::updateTitle . ' Pelanjutan Dan Penamatan Kontrak Jurulatih';
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::pelanjutan_dan_penamatan_kontrak_jurulatih;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::pelanjutan_dan_penamatan_kontrak_jurulatih, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Pelanjutan Dan Penamatan Kontrak Jurulatih', 'url' => ['view', 'id' => $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::pelanjutan_dan_penamatan_kontrak_jurulatih, 'url' => ['view', 'id' => $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-penyambungan-dan-penamatan-kontrak-jurulatih-update">

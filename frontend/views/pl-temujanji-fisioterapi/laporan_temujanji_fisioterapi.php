@@ -15,6 +15,7 @@ use app\models\RefBahagianKecederaan;
 use app\models\RefReportFormat;
 use app\models\Atlet;
 use app\models\RefRawatanFisioterapi;
+use app\models\RefNamaFisioterapi;
 
 // contant values
 use app\models\general\Placeholder;
@@ -123,16 +124,16 @@ $this->params['breadcrumbs'][] = $this->title;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-pegawai-perubatan-fisioterapi/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-nama-fisioterapi/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefPegawaiPerubatanFisioterapi::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::pegawai],
+                        'data'=>ArrayHelper::map(RefNamaFisioterapi::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::namaFisioterapi],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>5]],
             ]
         ],
         [

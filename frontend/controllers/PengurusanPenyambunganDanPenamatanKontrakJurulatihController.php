@@ -16,6 +16,9 @@ use app\models\general\GeneralVariable;
 // table reference
 use app\models\Jurulatih;
 use app\models\RefStatusPermohonanKontrakJurulatih;
+use app\models\RefProgramJurulatih;
+use app\models\RefGajiElaunJurulatih;
+use app\models\RefJenisPermohonanKontrakJurulatih;
 
 /**
  * PengurusanPenyambunganDanPenamatanKontrakJurulatihController implements the CRUD actions for PengurusanPenyambunganDanPenamatanKontrakJurulatih model.
@@ -71,6 +74,21 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
         
         $ref = RefStatusPermohonanKontrakJurulatih::findOne(['id' => $model->status_permohonan]);
         $model->status_permohonan = $ref['desc'];
+        
+        $ref = RefProgramJurulatih::findOne(['id' => $model->program]);
+        $model->program = $ref['desc'];
+        
+        $ref = RefGajiElaunJurulatih::findOne(['id' => $model->gaji_elaun]);
+        $model->gaji_elaun = $ref['desc'];
+        
+        $ref = RefJenisPermohonanKontrakJurulatih::findOne(['id' => $model->jenis_permohonan]);
+        $model->jenis_permohonan = $ref['desc'];
+        
+        $ref = RefProgramJurulatih::findOne(['id' => $model->program_baru]);
+        $model->program_baru = $ref['desc'];
+        
+        $ref = RefGajiElaunJurulatih::findOne(['id' => $model->cadangan_gaji_elaun]);
+        $model->cadangan_gaji_elaun = $ref['desc'];
         
         return $this->render('view', [
             'model' => $model,

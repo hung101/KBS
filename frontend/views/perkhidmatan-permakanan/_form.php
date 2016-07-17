@@ -45,7 +45,7 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'tarikh' => [
+                /*'tarikh' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
@@ -54,7 +54,7 @@ use app\models\general\GeneralMessage;
                             'autoclose'=>true,
                         ]
                     ],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>3]],*/
                 'pegawai_yang_bertanggungjawab' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
             ],
         ],
@@ -102,13 +102,17 @@ use app\models\general\GeneralMessage;
             //'kategori_atlet',
             //'sukan',
             //'acara',
-            //'atlet',
-            [
+            'tarikh',
+            /*[
                 'attribute' => 'atlet',
                 'value' => 'refAtlet.name_penuh'
+            ],*/
+            [
+                'attribute' => 'kandungan_lemak_badan',
+                'value' => 'refKandunganLemakBadan.desc'
             ],
-             'fit',
-             'unfit',
+             //'fit',
+             //'unfit',
              'refer',
 
             //['class' => 'yii\grid\ActionColumn'],
@@ -172,6 +176,7 @@ use app\models\general\GeneralMessage;
 
             //'pemberian_suplemen_makanan_jus_rundingan_pendidikan_id',
             //'perkhidmatan_permakanan_id',
+            'tarikh',
             'nama_suplemen_makanan_jus_rundingan_pendidikan',
             'kuantiti_ml_g',
             //'harga',
@@ -236,6 +241,7 @@ use app\models\general\GeneralMessage;
             //'acara',
             // 'atlet',
             //'nama_jus',
+            'tarikh',
             [
                 'attribute' => 'nama_jus',
                 'filterInputOptions' => [

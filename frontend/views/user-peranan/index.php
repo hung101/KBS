@@ -14,6 +14,19 @@ $this->title = GeneralLabel::admin_user_peranan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-peranan-index">
+    <?php
+        $template = '{view}';
+        
+        // Update Access
+        //if(isset(Yii::$app->user->identity->peranan_akses['ISN']['satelit']['update'])){
+            $template .= ' {update}';
+        //}
+        
+        // Delete Access
+        /*if(isset(Yii::$app->user->identity->peranan_akses['ISN']['satelit']['delete'])){
+            $template .= ' {delete}';
+        }*/
+    ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -48,7 +61,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no;
                 },
             ],
-            ['class' => 'yii\grid\ActionColumn'],
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'data-confirm' => GeneralMessage::confirmDelete,
+                        'data-method' => 'post',
+                        ]);
+
+                    },
+                ],
+                'template' => $template,
+            ],
         ],
     ]); ?>
 

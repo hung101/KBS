@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\SatelitSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = GeneralLabel::satelit;
+$this->title = GeneralLabel::laporan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="satelit-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['satelit']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Satelit', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

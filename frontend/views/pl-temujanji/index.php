@@ -67,6 +67,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'atlet.name_penuh'
             ],
+            [
+                'attribute' => 'atlet_ic',
+                'label' => GeneralLabel::ic_no,
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::ic_no,
+                ],
+                'value' => 'atlet.ic_no'
+            ],
+            [
+                'attribute' => 'jenis_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
+                'value' => 'refSukan.desc'
+            ],
             //'makmal_perubatan',
             //'status_temujanji',
             [

@@ -54,7 +54,7 @@ class PlTemujanjiFisioterapi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh_temujanji', 'doktor_pegawai_perubatan', 'status_temujanji', 'pegawai_yang_bertanggungjawab', 'kategori_rawatan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh_temujanji', 'doktor_pegawai_perubatan', 'status_temujanji', 'nama_fisioterapi', 'kategori_rawatan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id', 'nama_fisioterapi', 'kategori_pesakit_luar', 'tindakan_selanjutnya', 'kategori_rawatan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_temujanji'], 'safe'],
             [['doktor_pegawai_perubatan', 'makmal_perubatan', 'pegawai_yang_bertanggungjawab', 'nama_pesakit_luar'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],

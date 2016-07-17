@@ -19,7 +19,7 @@ class PinjamanPeralatanSearch extends PinjamanPeralatan
     {
         return [
             [['pinjaman_peralatan_id', 'kuantiti'], 'integer'],
-            [['nama_peralatan', 'atlet_id', 'tarikh_diberi', 'tarikh_dipulang', 'tempoh_pinjaman'], 'safe'],
+            [['nama_peralatan', 'atlet_id', 'tarikh_diberi', 'tarikh_dipulang', 'tempoh_pinjaman', 'nama_pegawai'], 'safe'],
         ];
     }
 
@@ -69,6 +69,7 @@ class PinjamanPeralatanSearch extends PinjamanPeralatan
             ->andFilterWhere(['like', 'tempoh_pinjaman', $this->tempoh_pinjaman])
             ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id])
                 ->andFilterWhere(['like', 'tarikh_diberi', $this->tarikh_diberi])
+                ->andFilterWhere(['like', 'nama_pegawai', $this->nama_pegawai])
                 ->andFilterWhere(['like', 'tarikh_dipulang', $this->tarikh_dipulang]);
 
         return $dataProvider;

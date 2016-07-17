@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-bimbingan-kaunseling']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::permohonan_bimbingan_kaunseling, ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Permohonan Baru', ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 
@@ -53,6 +53,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
                 ],
                 'value' => 'atlet.name_penuh'
+            ],
+            [
+                'attribute' => 'jurulatih',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jurulatih,
+                ],
+                'value' => 'refJurulatih.nama'
             ],
             //'status_permohonan',
             [

@@ -10,6 +10,9 @@ use yii\helpers\Url;
 use kartik\widgets\DepDrop;
 use kartik\datecontrol\DateControl;
 use kartik\widgets\Select2;
+use yii\grid\GridView;
+use yii\bootstrap\Modal;
+use yii\widgets\Pjax;
 
 // table reference
 use app\models\RefBidangKonsultansi;
@@ -31,6 +34,14 @@ use common\models\general\GeneralFunction;
 ?>
 
 <div class="profil-konsultan-form">
+    
+    <?php
+        if(!$readonly){
+            $template = '{view} {update} {delete}';
+        } else {
+            $template = '{view}';
+        }
+    ?>
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
@@ -286,10 +297,94 @@ use common\models\general\GeneralFunction;
 ]);
     ?>
     
+    <h3>Kontrak</h3>
+    
+    <?php 
+            Modal::begin([
+                'header' => '<h3 id="modalTitle"></h3>',
+                'id' => 'modal',
+                'size' => 'modal-lg',
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+                'options' => [
+                    'tabindex' => false // important for Select2 to work properly
+                ],
+            ]);
+            
+            echo '<div id="modalContent"></div>';
+            
+            Modal::end();
+        ?>
+    
+    <?php Pjax::begin(['id' => 'profilKonsultanKontrakGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderProfilKonsultanKontrak,
+        //'filterModel' => $searchModelProfilKonsultanKontrak,
+        'id' => 'profilKonsultanKontrakGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'profil_konsultan_kontrak_id',
+            //'profil_konsultan_id',
+            'tarikh_kontrak_mula',
+            'tarikh_kontrak_akhir',
+            //'session_id',
+            // 'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['profil-konsultan-kontrak/delete', 'id' => $model->profil_konsultan_kontrak_id]).'", "'.GeneralMessage::confirmDelete.'", "profilKonsultanKontrakGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-konsultan-kontrak/update', 'id' => $model->profil_konsultan_kontrak_id]).'", "'.GeneralLabel::updateTitle . ' Kontrak");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-konsultan-kontrak/view', 'id' => $model->profil_konsultan_kontrak_id]).'", "'.GeneralLabel::viewTitle . ' Kontrak");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        $profil_konsultan_id = "";
+        
+        if(isset($model->profil_konsultan_id)){
+            $profil_konsultan_id = $model->profil_konsultan_id;
+        }
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-konsultan-kontrak/create', 'profil_konsultan_id' => $profil_konsultan_id]).'", "'.GeneralLabel::createTitle . ' Kontrak");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
     <hr>
     
     <?php
-        echo FormGrid::widget([
+        /*echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -328,7 +423,7 @@ use common\models\general\GeneralFunction;
             ],
         ],
     ]
-]);
+]);*/
     ?>
 
     <div class="form-group">

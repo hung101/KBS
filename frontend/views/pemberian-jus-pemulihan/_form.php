@@ -8,6 +8,7 @@ use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use kartik\widgets\DepDrop;
+use kartik\datecontrol\DateControl;
 
 // table reference
 use app\models\RefSukan;
@@ -17,6 +18,7 @@ use app\models\RefKategoriAtlet;
 use app\models\RefJenisJus;
 use app\models\RefBeratBadan;
 use app\models\RefNamaJus;
+use app\models\RefJantina;
 
 // contant values
 use app\models\general\Placeholder;
@@ -40,10 +42,11 @@ use app\models\general\GeneralMessage;
     'form' => $form,
     'autoGenerateColumns' => true,
     'rows' => [
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                
                 'kategori_atlet' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -58,7 +61,7 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefKategoriAtlet::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kategoriAtlet],
                         'pluginOptions' => ['allowClear' => true,],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>3]],
                 'sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -73,7 +76,7 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],
                         'pluginOptions' => ['allowClear' => true,],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>3]],
                 'acara' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\DepDrop', 
@@ -96,7 +99,7 @@ use app\models\general\GeneralMessage;
                             'placeholder' => Placeholder::acara,
                             'url'=>Url::to(['/ref-acara/subacaras'])],
                         ],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
         [
@@ -117,12 +120,36 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::atlet],],
                     'columnOptions'=>['colspan'=>6]],
+                'jantina' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jantina/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefJantina::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::jantina],],
+                    'columnOptions'=>['colspan'=>3]],
             ],
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'tarikh' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
                 'jenis_jus' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',

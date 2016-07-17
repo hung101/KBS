@@ -20,6 +20,10 @@ use app\models\general\GeneralMessage;
  */
 class RefStatusPermohonan extends \yii\db\ActiveRecord
 {
+    const SEDANG_DISEMAK = 1;
+    const LULUS  = 2;
+    const GAGAL = 3;
+    
     /**
      * @inheritdoc
      */

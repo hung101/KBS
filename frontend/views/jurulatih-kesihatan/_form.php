@@ -5,7 +5,10 @@ use kartik\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\builder\FormGrid;
+use yii\grid\GridView;
 use yii\helpers\Url;
+use yii\bootstrap\Modal;
+use yii\widgets\Pjax;
 use yii\helpers\ArrayHelper;
 use nirvana\showloading\ShowLoadingAsset;
 ShowLoadingAsset::register($this);
@@ -17,6 +20,7 @@ use app\models\RefMasalahKesihatan;
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
+use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\JurulatihKesihatan */
@@ -24,6 +28,24 @@ use app\models\general\GeneralVariable;
 ?>
 
 <div class="jurulatih-kesihatan-form">
+    
+    <?php
+        if(!$readonly){
+            $template = '{view}';
+        
+            // Update Access
+            if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update'])){
+                $template .= ' {update}';
+            }
+
+            // Delete Access
+            if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['delete'])){
+                $template .= ' {delete}';
+            }
+        } else {
+            $template = '{view}';
+        }
+    ?>
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
@@ -42,7 +64,7 @@ use app\models\general\GeneralVariable;
                 'berat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
             ],
         ],
-       [
+       /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -61,7 +83,7 @@ use app\models\general\GeneralVariable;
                         'options' => ['placeholder' => Placeholder::masalahKesihatan],],
                     'columnOptions'=>['colspan'=>4]],
             ]
-        ],
+        ],*/
         [
             'attributes' => [
                 'catatan' => ['type'=>Form::INPUT_TEXTAREA,'options'=>['maxlength'=>255]],
@@ -90,6 +112,98 @@ use app\models\general\GeneralVariable;
     ]
 ]);
         ?>
+    
+    <br>
+    <h3>Masalah Kesihatan</h3>
+    
+    <?php 
+            Modal::begin([
+                'header' => '<h3 id="modalTitle"></h3>',
+                'id' => 'modal',
+                'size' => 'modal-lg',
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+                'options' => [
+                    'tabindex' => false // important for Select2 to work properly
+                ],
+            ]);
+            
+            echo '<div id="modalContent"></div>';
+            
+            Modal::end();
+        ?>
+    
+    <?php Pjax::begin(['id' => 'masalahGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderMasalah,
+        //'filterModel' => $searchModelMasalah,
+        'id' => 'masalahGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'jurulatih_kesihatan_kesihatan_id',
+            //'jurulatih_kesihatan_id',
+            //'masalah_kesihatan',
+            [
+                'attribute' => 'masalah_kesihatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::masalah_kesihatan,
+                ],
+                'value' => 'refMasalahKesihatan.desc'
+            ],
+            //'session_id',
+            //'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordSubModalAjax("'.Url::to(['jurulatih-kesihatan-masalah/delete', 'id' => $model->jurulatih_kesihatan_kesihatan_id]).'", "'.GeneralMessage::confirmDelete.'", "masalahGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['jurulatih-kesihatan-masalah/update', 'id' => $model->jurulatih_kesihatan_kesihatan_id]).'", "'.GeneralLabel::updateTitle . ' Masalah Kesihatan");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['jurulatih-kesihatan-masalah/view', 'id' => $model->jurulatih_kesihatan_kesihatan_id]).'", "'.GeneralLabel::viewTitle . ' Masalah Kesihatan");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        $jurulatih_kesihatan_id = "";
+        
+        if(isset($model->jurulatih_kesihatan_id)){
+            $jurulatih_kesihatan_id = $model->jurulatih_kesihatan_id;
+        }
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['jurulatih-kesihatan-masalah/create', 'jurulatih_kesihatan_id' => $jurulatih_kesihatan_id]).'", "'.GeneralLabel::createTitle . ' Masalah Kesihatan");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    <br>
 
     <!--<?= $form->field($model, 'jurulatih_id')->textInput() ?>
 

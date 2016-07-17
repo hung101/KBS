@@ -1038,3 +1038,33 @@ $('body').on('beforeSubmit', 'form#jurulatih_keluarga_form', function () {
      });
      return false;
 });
+
+// jurulatih sukan form submit
+$('body').on('beforeSubmit', 'form#jurulatih_sukan_form', function () {
+    var tabId = 'sukan_jurulatih_tab';
+    
+     var form = $(this);
+     // return false if form still have some validation errors
+     //if (form.find('.has-error').length) {
+       //  alert("false");
+         // return false;
+     //}
+     
+     $("#" + tabId).showLoading();
+     
+     // submit form
+     $.ajax({
+          url: form.attr('action'),
+          type: "POST",
+            data:  new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
+          success: function (response) {
+               // do something with response
+               $("#" + tabId).hideLoading();
+               $("#" + tabId).html(response);
+          }
+     });
+     return false;
+});

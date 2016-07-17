@@ -92,6 +92,14 @@ class Jurulatih extends \yii\db\ActiveRecord
                 'updatedAtAttribute' => 'updated',
                 'value' => new \yii\db\Expression('NOW()'),
             ],
+            'encryption' => [
+                'class' => '\nickcv\encrypter\behaviors\EncryptionBehavior',
+                'attributes' => [
+                    'ic_no',
+                    'no_telefon_bimbit',
+                    'no_fail',
+                ],
+            ],
         ];
     }
 
@@ -103,10 +111,10 @@ class Jurulatih extends \yii\db\ActiveRecord
         return [
             [['no_fail', 'bahagian', 'cawangan', 'program', 'sub_cawangan_pelapis', 'lain_lain_program', 'pusat_latihan', 'nama_sukan', 
                 'nama_acara', 'status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 'nama', 'bangsa', 'agama', 
-                'jantina', 'warganegara', 'tarikh_lahir', 'tempat_lahir', 'taraf_perkahwinan', 'bil_tanggungan', 'alamat_rumah_1', 
+                'jantina', 'warganegara', 'tarikh_lahir', 'tempat_lahir', 'taraf_perkahwinan', 'alamat_rumah_1', 
                 'alamat_rumah_negeri', 'alamat_rumah_bandar', 'alamat_rumah_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri', 
-                'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'no_telefon', 'no_telefon_bimbit', 'sektor', 'jawatan', 
-                'no_telefon_pejabat', 'alamat_majikan_1', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 'tarikh_mula_lantikan', 
+                'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'no_telefon', 'no_telefon_bimbit', 
+                'tarikh_mula_lantikan', 
                 'tarikh_tamat_lantikan', 'agensi'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir', 'tamat_tempoh', 'tamat_visa_tempoh', 'tamat_permit_tempoh', 'status_tawaran'], 'safe'],
             [['bil_tanggungan', 'approved', 'nama_sukan', 'nama_acara', 'ic_no', 'ic_tentera', 'ic_no_lama',
@@ -194,7 +202,7 @@ class Jurulatih extends \yii\db\ActiveRecord
             'alamat_majikan_poskod' => GeneralLabel::alamat_majikan_poskod,
             'tarikh_mula_lantikan' => GeneralLabel::tarikh_mula_lantikan,
             'tarikh_tamat_lantikan' => GeneralLabel::tarikh_tamat_lantikan,
-            'agensi' => GeneralLabel::agensi,
+            'agensi' => 'Agensi Pelantik',
             'status_tawaran' => GeneralLabel::status_tawaran,
         ];
     }

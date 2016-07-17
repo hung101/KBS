@@ -16,6 +16,7 @@ use app\models\RefSukan;
 use app\models\RefAcara;
 use app\models\Atlet;
 use app\models\RefKategoriAtlet;
+use app\models\RefKandunganLemakBadan;
 
 /**
  * KeputusanAnalisiTubuhBadanController implements the CRUD actions for KeputusanAnalisiTubuhBadan model.
@@ -77,6 +78,9 @@ class KeputusanAnalisiTubuhBadanController extends Controller
         
         $ref = Atlet::findOne(['atlet_id' => $model->atlet]);
         $model->atlet = $ref['nameAndIC'];
+        
+        $ref = RefKandunganLemakBadan::findOne(['id' => $model->kandungan_lemak_badan]);
+        $model->kandungan_lemak_badan = $ref['desc'];
         
         return $this->renderAjax('view', [
             'model' => $model,

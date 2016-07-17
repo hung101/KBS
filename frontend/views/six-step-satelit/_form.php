@@ -181,6 +181,13 @@ use app\models\general\GeneralLabel;
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'catatan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+            ],
+        ],
     ]
 ]);
         ?>

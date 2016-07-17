@@ -264,6 +264,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::ic_no,
                 ],
             ],
+            [
+                'attribute' => 'passport_no',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::passport_no,
+                ],
+            ],
+            [
+                'attribute' => 'status_jurulatih',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_jurulatih,
+                ],
+                'value' => 'refStatusJurulatih.desc'
+            ],
             /*[
                 'attribute' => 'bahagian',
                 'filterInputOptions' => [

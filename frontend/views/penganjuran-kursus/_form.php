@@ -76,6 +76,7 @@ use app\models\general\GeneralMessage;
                         'options'=>['prompt'=>'',],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'kategori_kursus_penganjuran')],
+                            'initialize' => true,
                             'placeholder' => Placeholder::kursus,
                             'url'=>Url::to(['/ref-kategori-kursus-penganjuran/sub-jenis-kursus-penganjuran'])],
                         ],

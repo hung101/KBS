@@ -21,6 +21,7 @@ use app\models\general\GeneralMessage;
  */
 class PlTemujanji extends \yii\db\ActiveRecord
 {
+    
     /**
      * @inheritdoc
      */
@@ -102,5 +103,25 @@ class PlTemujanji extends \yii\db\ActiveRecord
      */
     public function getAtlet(){
         return $this->hasOne(Atlet::className(), ['atlet_id' => 'atlet_id']);
+    }
+    
+    public function getRefSukan()
+    {
+        return $this->hasOne(RefSukan::className(), ['id' => 'jenis_sukan']);
+    }
+    
+    public function getRefProgramSemasaSukanAtlet()
+    {
+        return $this->hasOne(RefProgramSemasaSukanAtlet::className(), ['id' => 'kategori_atlet']);
+    }
+    
+    public function getRefStatusKehadiran()
+    {
+        return $this->hasOne(RefKelulusan::className(), ['id' => 'kehadiran_pesakit']);
+    }
+    
+    public function getRefJenisTemujanjiPesakitLuar()
+    {
+        return $this->hasOne(RefJenisTemujanjiPesakitLuar::className(), ['id' => 'makmal_perubatan']);
     }
 }

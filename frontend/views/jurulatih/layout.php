@@ -70,30 +70,60 @@ $this->params['breadcrumbs'][] = $this->title;
             ]),
             'active'=>true,
         ],
-        [
+        /*[
             'label'=>'<i class="glyphicon glyphicon-bookmark"></i> Kelayakan',
             'options' => ['id' => GeneralVariable::tabKelayakanID],
             'linkOptions'=>['data-url'=>Url::to(['/jurulatih-spkk','typeJson'=>'1'])],
             'headerOptions' => ['class'=>$disabledTabs]
-        ],
+        ],*/
         [
             'label'=>'<i class="glyphicon glyphicon-tasks"></i> Pengalaman',
             'options' => ['id' => GeneralVariable::tabPengalamanID],
             'linkOptions'=>['data-url'=>Url::to(['/jurulatih-pengalaman','typeJson'=>'1'])],
             'headerOptions' => ['class'=>$disabledTabs]
         ],
-        [
+        /*[
             'label'=>'<i class="glyphicon glyphicon-education"></i> Pendidikan',
             'options' => ['id' => GeneralVariable::tabPendidikanJurulatihID],
             'linkOptions'=>['data-url'=>Url::to(['/jurulatih-pendidikan','typeJson'=>'1'])],
             'headerOptions' => ['class'=>$disabledTabs]
-        ],
+        ],*/
         [
+            'label'=>'<i class="glyphicon glyphicon-education"></i> Pendidikan',
+            'headerOptions' => ['class'=>$disabledTabs],
+            'items'=>[
+                [
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Pendidikan',
+                    'encode'=>false,
+                    'content'=>'&nbsp;',
+                    'options' => ['tab_id' => GeneralVariable::tabPendidikanJurulatihID],
+                    'linkOptions'=>['data-url'=>Url::to(['/jurulatih-pendidikan','typeJson'=>'1'])],
+                    'headerOptions' => ['class'=>$disabledTabs]
+                ],
+                [
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Skim Pensijilan Kejurulatihan Kebangsaan (SPKK)',
+                    'encode'=>false,
+                    'content'=>'&nbsp;',
+                    'options' => ['tab_id' => GeneralVariable::tabKelayakanID],
+                    'linkOptions'=>['data-url'=>Url::to(['/jurulatih-spkk','typeJson'=>'1'])],
+                    'headerOptions' => ['class'=>$disabledTabs]
+                ],
+                [
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Kursus Tertinggi / Spesifik',
+                    'encode'=>false,
+                    'content'=>'&nbsp;',
+                    'options' => ['tab_id' => GeneralVariable::tabKelayakanKursusTertinggiID],
+                    'linkOptions'=>['data-url'=>Url::to(['/jurulatih-kursus-tertinggi','typeJson'=>'1'])],
+                    'headerOptions' => ['class'=>$disabledTabs]
+                ],
+            ],
+        ],
+        /*[
             'label'=>'<i class="glyphicon glyphicon-certificate"></i> Kelayakan Kursus Tertinggi',
             'options' => ['id' => GeneralVariable::tabKelayakanKursusTertinggiID],
             'linkOptions'=>['data-url'=>Url::to(['/jurulatih-kursus-tertinggi','typeJson'=>'1'])],
             'headerOptions' => ['class'=>$disabledTabs]
-        ],
+        ],*/
         [
             'label'=>'<i class="glyphicon glyphicon-tint"></i> Maklumat Kesihatan',
             'options' => ['id' => GeneralVariable::tabKesihatanID],
@@ -106,11 +136,33 @@ $this->params['breadcrumbs'][] = $this->title;
             'linkOptions'=>['data-url'=>Url::to(['/jurulatih-keluarga','typeJson'=>'1'])],
             'headerOptions' => ['class'=>$disabledTabs]
         ],
-        [
+        /*[
             'label'=>'<i class="glyphicon glyphicon-list-alt"></i> Atlet',
             'options' => ['id' => GeneralVariable::tabJurulatihAtletID],
             'linkOptions'=>['data-url'=>Url::to(['/jurulatih-atlet','typeJson'=>'1'])],
             'headerOptions' => ['class'=>$disabledTabs]
+        ],*/
+        [
+            'label'=>'<i class="glyphicon glyphicon-list-alt"></i> Atlet & Sukan',
+            'headerOptions' => ['class'=>$disabledTabs],
+            'items'=>[
+                [
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Atlet',
+                    'encode'=>false,
+                    'content'=>'&nbsp;',
+                    'options' => ['tab_id' => GeneralVariable::tabJurulatihAtletID],
+                    'linkOptions'=>['data-url'=>Url::to(['/jurulatih-atlet','typeJson'=>'1'])],
+                    'headerOptions' => ['class'=>$disabledTabs]
+                ],
+                [
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Sukan dan Program',
+                    'encode'=>false,
+                    'content'=>'&nbsp;',
+                    'options' => ['tab_id' => GeneralVariable::tabSukanJurulatihID],
+                    'linkOptions'=>['data-url'=>Url::to(['/jurulatih-sukan','typeJson'=>'1'])],
+                    'headerOptions' => ['class'=>$disabledTabs]
+                ],
+            ],
         ],
         [
             'label'=>'<i class="glyphicon glyphicon-stats"></i> Penilaian',
@@ -131,19 +183,4 @@ echo TabsX::widget([
 ?>
 
 </div>
-<br>
-<div class="panel panel-danger">
-        <div class="panel-body">
-            <strong>Senarai Dokumen</strong>
-        </div>
-        <ol>
-            <li >Surat sokongan daripada PSK atau kelulusan Mesyuarat Jawatan Kuasa Kerja (JKK).</li>
-            <li >Surat Permohonan rasmi daripada jurulatih.</li>
-            <li >Resume Jurulatih.</li>
-            <li >Gambar berwarna ukuran passport.</li>
-            <li >Salinan kad pengenalan / passport.</li>
-            <li >Salinan Sijil Akademik Jurulatih.</li>
-            <li >Salinan Sijil Pendidikan Kejurulatihan.</li>
-            <li >Salinan Sijil Skim Persijilan Kejurulatihan Kebangsaan (SPKK) terkini. (Kursus Sains Sukan dan Kursus Sukan Spesifik)</li>
-          </ol>
-    </div>
+

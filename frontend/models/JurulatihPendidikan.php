@@ -51,11 +51,12 @@ class JurulatihPendidikan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jurulatih_id', 'tahun', 'sekolah_kolej_universiti', 'gred'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jurulatih_id', 'tahun', 'sekolah_kolej_universiti', 'gred', 'tahap_pendidikan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['jurulatih_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             //[['tahun'], 'safe'],
             [['tahun'], 'integer','min'=>GeneralVariable::yearMin,'max'=>GeneralVariable::yearMax, 'message' => GeneralMessage::yii_validation_integer, 'tooBig' => GeneralMessage::yii_validation_integer_max, 'tooSmall' => GeneralMessage::yii_validation_integer_min],
             [['sekolah_kolej_universiti'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tahap_pendidikan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['gred'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
@@ -68,10 +69,10 @@ class JurulatihPendidikan extends \yii\db\ActiveRecord
         return [
             'jurulatih_pendidikan_id' => GeneralLabel::jurulatih_pendidikan_id,
             'jurulatih_id' => GeneralLabel::jurulatih_id,
-            'tahun' => GeneralLabel::tahap_pendidikan,
+            'tahun' => GeneralLabel::tahun,
             'sekolah_kolej_universiti' => GeneralLabel::nama_institusi_sekolah,
             'gred' => GeneralLabel::pencapaian,
-
+            'tahap_pendidikan' => GeneralLabel::tahap_pendidikan,
         ];
     }
 }
