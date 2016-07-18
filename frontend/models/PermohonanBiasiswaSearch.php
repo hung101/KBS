@@ -20,7 +20,11 @@ class PermohonanBiasiswaSearch extends PermohonanBiasiswa
     {
         return [
             [['permohonan_biasiswa_id', 'umur', 'atlet'], 'integer'],
-            [['no_ic', 'created', 'atlet_id', 'sukan', 'kelulusan', 'jantina', 'alamat_rumah_1', 'alamat_rumah_2', 'alamat_rumah_3', 'alamat_rumah_negeri', 'alamat_rumah_bandar', 'alamat_rumah_poskod', 'no_tel_rumah', 'no_tel_bimbit', 'alamat_pengajian_1', 'alamat_pengajian_2', 'alamat_pengajian_3', 'alamat_pengajian_negeri', 'alamat_pengajian_bandar', 'alamat_pengajian_poskod', 'no_tel_pengajian', 'no_fax_pengajian', 'jenis_biasiswa', 'muatnaik'], 'safe'],
+            [['no_ic', 'created', 'atlet_id', 'sukan', 'kelulusan', 'jantina', 'alamat_rumah_1', 'alamat_rumah_2', 
+                'alamat_rumah_3', 'alamat_rumah_negeri', 'alamat_rumah_bandar', 'alamat_rumah_poskod', 'no_tel_rumah', 
+                'no_tel_bimbit', 'alamat_pengajian_1', 'alamat_pengajian_2', 'alamat_pengajian_3', 'alamat_pengajian_negeri', 
+                'alamat_pengajian_bandar', 'alamat_pengajian_poskod', 'no_tel_pengajian', 'no_fax_pengajian', 'jenis_biasiswa', 
+                'muatnaik', 'program', 'kategori', 'kadar', 'nama_institusi_pengajian'], 'safe'],
         ];
     }
 
