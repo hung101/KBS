@@ -5,6 +5,10 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PermohonanPendidikan;
 use frontend\models\PermohonanPendidikanSearch;
+use app\models\PermohonanPendidikanKeputusanSpm;
+use frontend\models\PermohonanPendidikanKeputusanSpmSearch;
+use app\models\PermohonanPendidikanKursusPengajian;
+use frontend\models\PermohonanPendidikanKursusPengajianSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -15,6 +19,7 @@ use app\models\general\Upload;
 // contant values
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Atlet;
@@ -112,8 +117,23 @@ class PermohonanPendidikanController extends Controller
         $ref = RefStatusPermohonanPendidikan::findOne(['id' => $model->kelulusan]);
         $model->kelulusan = $ref['desc'];
         
+        $queryPar = null;
+        
+        $queryPar['PermohonanPendidikanKeputusanSpmSearch']['permohonan_pendidikan_id'] = $id;
+        $queryPar['PermohonanPendidikanKursusPengajianSearch']['permohonan_pendidikan_id'] = $id;
+        
+        $searchModelPermohonanPendidikanKeputusanSpm = new PermohonanPendidikanKeputusanSpmSearch();
+        $dataProviderPermohonanPendidikanKeputusanSpm = $searchModelPermohonanPendidikanKeputusanSpm->search($queryPar);
+        
+        $searchModelPermohonanPendidikanKursusPengajian = new PermohonanPendidikanKursusPengajianSearch();
+        $dataProviderPermohonanPendidikanKursusPengajian = $searchModelPermohonanPendidikanKursusPengajian->search($queryPar);
+        
         return $this->render('view', [
             'model' => $model,
+            'searchModelPermohonanPendidikanKeputusanSpm' => $searchModelPermohonanPendidikanKeputusanSpm,
+            'dataProviderPermohonanPendidikanKeputusanSpm' => $dataProviderPermohonanPendidikanKeputusanSpm,
+            'searchModelPermohonanPendidikanKursusPengajian' => $searchModelPermohonanPendidikanKursusPengajian,
+            'dataProviderPermohonanPendidikanKursusPengajian' => $dataProviderPermohonanPendidikanKursusPengajian,
             'readonly' => true,
         ]);
     }
@@ -129,12 +149,37 @@ class PermohonanPendidikanController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryPar = null;
+        
+        Yii::$app->session->open();
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['PermohonanPendidikanKeputusanSpmSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['PermohonanPendidikanKursusPengajianSearch']['session_id'] = Yii::$app->session->id;
+        }
+        
+        $searchModelPermohonanPendidikanKeputusanSpm = new PermohonanPendidikanKeputusanSpmSearch();
+        $dataProviderPermohonanPendidikanKeputusanSpm = $searchModelPermohonanPendidikanKeputusanSpm->search($queryPar);
+        
+        $searchModelPermohonanPendidikanKursusPengajian = new PermohonanPendidikanKursusPengajianSearch();
+        $dataProviderPermohonanPendidikanKursusPengajian = $searchModelPermohonanPendidikanKursusPengajian->search($queryPar);
+        
         $model = new PermohonanPendidikan();
+        
+        $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'muat_naik');
             if($file){
                 $model->muat_naik = Upload::uploadFile($file, Upload::permohonanPendidikanFolder, $model->permohonan_pendidikan_id);
+            }
+            
+            if(isset(Yii::$app->session->id)){
+                PermohonanPendidikanKeputusanSpm::updateAll(['permohonan_pendidikan_id' => $model->permohonan_pendidikan_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PermohonanPendidikanKeputusanSpm::updateAll(['session_id' => ''], 'permohonan_pendidikan_id = "'.$model->permohonan_pendidikan_id.'"');
+                
+                PermohonanPendidikanKursusPengajian::updateAll(['permohonan_pendidikan_id' => $model->permohonan_pendidikan_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PermohonanPendidikanKursusPengajian::updateAll(['session_id' => ''], 'permohonan_pendidikan_id = "'.$model->permohonan_pendidikan_id.'"');
             }
             
             if($model->save()){
@@ -143,6 +188,10 @@ class PermohonanPendidikanController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'searchModelPermohonanPendidikanKeputusanSpm' => $searchModelPermohonanPendidikanKeputusanSpm,
+                'dataProviderPermohonanPendidikanKeputusanSpm' => $dataProviderPermohonanPendidikanKeputusanSpm,
+                'searchModelPermohonanPendidikanKursusPengajian' => $searchModelPermohonanPendidikanKursusPengajian,
+                'dataProviderPermohonanPendidikanKursusPengajian' => $dataProviderPermohonanPendidikanKursusPengajian,
                 'readonly' => false,
             ]);
         }
@@ -160,6 +209,17 @@ class PermohonanPendidikanController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryPar = null;
+        
+        $queryPar['PermohonanPendidikanKeputusanSpmSearch']['permohonan_pendidikan_id'] = $id;
+        $queryPar['PermohonanPendidikanKursusPengajianSearch']['permohonan_pendidikan_id'] = $id;
+        
+        $searchModelPermohonanPendidikanKeputusanSpm = new PermohonanPendidikanKeputusanSpmSearch();
+        $dataProviderPermohonanPendidikanKeputusanSpm = $searchModelPermohonanPendidikanKeputusanSpm->search($queryPar);
+        
+        $searchModelPermohonanPendidikanKursusPengajian = new PermohonanPendidikanKursusPengajianSearch();
+        $dataProviderPermohonanPendidikanKursusPengajian = $searchModelPermohonanPendidikanKursusPengajian->search($queryPar);
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -174,6 +234,10 @@ class PermohonanPendidikanController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'searchModelPermohonanPendidikanKeputusanSpm' => $searchModelPermohonanPendidikanKeputusanSpm,
+                'dataProviderPermohonanPendidikanKeputusanSpm' => $dataProviderPermohonanPendidikanKeputusanSpm,
+                'searchModelPermohonanPendidikanKursusPengajian' => $searchModelPermohonanPendidikanKursusPengajian,
+                'dataProviderPermohonanPendidikanKursusPengajian' => $dataProviderPermohonanPendidikanKursusPengajian,
                 'readonly' => false,
             ]);
         }

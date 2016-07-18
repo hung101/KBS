@@ -588,7 +588,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jumlah_ekar_kaki_persegi = "Jumlah/Ekar/Kaki Persegi";
         const jumlah_elaun = "Jumlah Elaun (RM)";
         const jumlah_elaun_yang_dipohon = "Jumlah Elaun Yang Dipohon (RM)";
-        const jumlah_geran = "Jumlah Geran";
+        const jumlah_geran = "Jumlah Geran (RM)";
         const jumlah_geran_dari = "Jumlah Geran Dari";
         const jumlah_geran_hingga = "Jumlah Geran Hingga";
         const jumlah_harga = "Jumlah Harga";
@@ -1669,6 +1669,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tarikh_pemantauan = "Tarikh Pemantauan";
         const tarikh_pembayaran = "Tarikh Pembayaran";
         const tarikh_pembayaran_insentif = "Tarikh Pembayaran Insentif";
+        const tarikh_mula_aktiviti = "Tarikh Mula Aktiviti";
         const tarikh_mula_bayaran = "Tarikh Mula Bayaran";
         const tarikh_mula_bertugas = "Tarikh Mula Bertugas";
         const tarikh_mula_dilantik = "Tarikh Mula Dilantik";
@@ -1707,6 +1708,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tarikh_sponsor_mula = "Tarikh Sponsor Mula";
         const tarikh_sponsor_tamat = "Tarikh Sponsor Tamat";
         const tarikh_tamat = "Tarikh Akhir";
+        const tarikh_tamat_aktiviti = "Tarikh Tamat Aktiviti";
         const tarikh_tamat_bayaran = "Tarikh Tamat Bayaran";
         const tarikh_tamat_bertugas = "Tarikh Tamat Bertugas";
         const tarikh_tamat_dilantik = "Tarikh Tamat Dilantik";
@@ -1936,7 +1938,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_statistik_sukarelawan_mengikut_negeri = "Laporan Statistik Sukarelawan Mengikut Negeri";
         const laporan_statistik_sukarelawan_mengikut_umur = "Laporan Statistik Sukarelawan Mengikut Umur";
         const laporan_status_permohonan_bantuan = "Laporan Status Permohonan Bantuan";
-        const latihan_pendidikan_badan_sukan = "Latihan Pendidikan & Badan Sukan";
+        const latihan_pendidikan_badan_sukan = "Latihan & Pendidikan Badan Sukan";
         const liputan_perubatan_dalam_dan_luar_negara = "Liputan Perubatan Dalam Dan Luar Negara";
         const maklumat_mesyuarat_agung_tahunan = "Maklumat Mesyuarat Agung Tahunan";
         const maklumat_sukan_malaysia = "Maklumat Sukan Malaysia";
@@ -2035,7 +2037,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const permohonan_peralatan = "Permohonan Peralatan";
         const permohonan_program_binaan = "Permohonan Program Binaan";
         const permohonan_ubatan = "Permohonan Ubatan";
-        const pertukaran_pengajian = "Pertukaran Pengajian / Penangguhan / Pelepasan";
+        const pertukaran_pengajian = "Pertukaran / Penangguhan / Pelepasan Pengajian";
         const perubatan_sukan = "Perubatan Sukan";
         const pesakit_luar_sistem_pendaftaran_dan_temujanji_atlet_pesakit_luar_sistem_proses_rawatan_pesakit_luar_pengurusan_rekod_pemeriksaan_perubatan_pesakit_luar_sistem_pemberian_ubat_kepada_psk = "Pendaftaran Pesakit Luar / Atlet";
         const persetujuan = "Persetujuan";
@@ -3434,7 +3436,7 @@ if($session->get('language') == "EN") {
         const jumlah_ekar_kaki_persegi = "Total/Acre/Square Feet";
         const jumlah_elaun = "The Amount Of The Allowance (RM)";
         const jumlah_elaun_yang_dipohon = "Total Allowance Applied (RM)";
-        const jumlah_geran = "Total Grant";
+        const jumlah_geran = "Total Grant (RM)";
         const jumlah_geran_dari = "Total Grant From";
         const jumlah_geran_hingga = "Total Grant To";
         const jumlah_harga = "Total Price";
@@ -4515,6 +4517,7 @@ if($session->get('language') == "EN") {
         const tarikh_pemantauan = "Date Monitoring";
         const tarikh_pembayaran = "Payment Date";
         const tarikh_pembayaran_insentif = "Incentive Payment Date";
+        const tarikh_mula_aktiviti = "Date Start Activity";
         const tarikh_mula_bayaran = "Date Start Paid";
         const tarikh_mula_bertugas = "Date Start Working";
         const tarikh_mula_dilantik = "Date He Was First Appointed";
@@ -4553,6 +4556,7 @@ if($session->get('language') == "EN") {
         const tarikh_sponsor_mula = "Date Start Sponsor";
         const tarikh_sponsor_tamat = "Date End Sponsor";
         const tarikh_tamat = "The Deadline";
+        const tarikh_tamat_aktiviti = "End Date Activity";
         const tarikh_tamat_bayaran = "End Date Paid";
         const tarikh_tamat_bertugas = "End Date Working";
         const tarikh_tamat_dilantik = "Expiry Date Appointed";

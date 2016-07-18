@@ -16,6 +16,8 @@ use app\models\RefNegeri;
 use app\models\RefBandar;
 use app\models\RefJenisSukanPersatuanPersekutuandunia;
 use app\models\RefNamaSukanPersatuanPersekutuandunia;
+use app\models\ProfilBadanSukan;
+use app\models\RefStatusLaporanMesyuaratAgung;
 
 // contant values
 use app\models\general\Placeholder;
@@ -89,7 +91,16 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'name_persatuan_persekutuan_dunia' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>100]],
+                'name_persatuan_persekutuan_dunia' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'data'=>ArrayHelper::map(ProfilBadanSukan::find()->where(['=', 'status', RefStatusLaporanMesyuaratAgung::DISAHKAN])->all(),'profil_badan_sukan', 'nama_badan_sukan'),
+                        'options' => ['placeholder' => Placeholder::persatuan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>4]],
             ]
         ],
         [

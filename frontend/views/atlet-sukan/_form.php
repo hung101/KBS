@@ -258,7 +258,7 @@ use app\models\general\GeneralMessage;
             ]
         ],
         [
-            'columns'=>3,
+            'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'negeri_diwakili' => [
@@ -278,7 +278,7 @@ use app\models\general\GeneralMessage;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>4]],
-                /*'status' => [
+                'status' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -294,7 +294,7 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>4]],*/
+                    'columnOptions'=>['colspan'=>4]],
             ]
         ],
     ]

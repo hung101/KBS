@@ -122,6 +122,8 @@ class PaobsPenganjuranController extends Controller
         
         $model->tarikh_aktiviti = GeneralFunction::convert($model->tarikh_aktiviti);
         
+        $model->tarikh_tamat_aktiviti = GeneralFunction::convert($model->tarikh_tamat_aktiviti);
+        
         $queryPar = null;
         
         $queryPar['PaobsPenganjuranSumberKewanganSearch']['penganjuran_id'] = $id;

@@ -25,6 +25,7 @@ use app\models\RefPeringkatBadanSukan;
 use app\models\RefSukan;
 use app\models\RefNegeri;
 use app\models\RefBandar;
+use app\models\RefStatusLaporanMesyuaratAgung;
 
 /**
  * ProfilBadanSukanController implements the CRUD actions for ProfilBadanSukan model.
@@ -99,6 +100,9 @@ class ProfilBadanSukanController extends Controller
         $ref = RefBandar::findOne(['id' => $model->alamat_surat_menyurat_badan_sukan_bandar]);
         $model->alamat_surat_menyurat_badan_sukan_bandar = $ref['desc'];
         
+        $ref = RefStatusLaporanMesyuaratAgung::findOne(['id' => $model->status]);
+        $model->status = $ref['desc'];
+        
         $model->tarikh_lulus_pendaftaran = GeneralFunction::convert($model->tarikh_lulus_pendaftaran);
         
         return $this->render('view', [
@@ -119,6 +123,8 @@ class ProfilBadanSukanController extends Controller
         }
         
         $model = new ProfilBadanSukan();
+        
+        $model->status = RefStatusLaporanMesyuaratAgung::BELUM_DISAHKAN;
         
         if($model->load(Yii::$app->request->post())){
             $file = UploadedFile::getInstance($model, 'no_pendaftaran_sijil_pendaftaran');

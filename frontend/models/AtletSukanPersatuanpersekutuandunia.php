@@ -95,7 +95,14 @@ class AtletSukanPersatuanpersekutuandunia extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRefNamaSukanPersatuanPersekutuandunia(){
+    /*public function getRefNamaSukanPersatuanPersekutuandunia(){
         return $this->hasOne(RefNamaSukanPersatuanPersekutuandunia::className(), ['id' => 'name_persatuan_persekutuan_dunia']);
+    }*/
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefProfilBadanSukan(){
+        return $this->hasOne(ProfilBadanSukan::className(), ['profil_badan_sukan' => 'name_persatuan_persekutuan_dunia']);
     }
 }

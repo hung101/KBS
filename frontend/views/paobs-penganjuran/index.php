@@ -75,6 +75,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             [
+                'attribute' => 'tarikh_tamat_aktiviti',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat_aktiviti,
+                ],
+                'format' => 'raw',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_tamat_aktiviti);
+                },
+            ],
+            [
                 'attribute' => 'alamat_lokasi_1',
                 'filterInputOptions' => [
                     'class'       => 'form-control',

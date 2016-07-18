@@ -178,7 +178,7 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                 'barang_yang_penyokong' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100]],
+                 'barang_yang_penyokong' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100],'hint'=>'cth: Duit / Tiket / dan Lain-lain'],
             ]
         ],
     ]

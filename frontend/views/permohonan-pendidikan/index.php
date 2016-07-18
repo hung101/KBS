@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         
         // Delete Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-pendidikan']['delete'])){
-            $template .= ' {delete}';
+            //$template .= ' {delete}';
         }
     ?>
 
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-pendidikan']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::permohonan_pendidikan, ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::permohonan_pendidikan, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

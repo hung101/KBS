@@ -59,6 +59,29 @@ use app\models\general\Placeholder;
                         'no_pendaftaran_sukan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>30]],
                     ],
                 ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'jenis_jawatankuasa' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/profil-badan-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>['1'=>'Induk','2'=>'Kecil / Biro'],
+                                'options' => ['placeholder' => Placeholder::jenis],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>4]],
+                    ],
+                ],
             ]
         ]);
     ?>
@@ -199,24 +222,6 @@ use app\models\general\Placeholder;
 ]);
     ?>
 
-    <!--<?= $form->field($model, 'latihan_dan_program_id')->textInput() ?>
-
-    <?= $form->field($model, 'nama')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'no_kad_pengenalan')->textInput(['maxlength' => 12]) ?>
-
-    <?= $form->field($model, 'nama_badan_sukan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'no_pendaftaran_sukan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'jawatan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'tempoh_memegang_jawatan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'no_tel_bimbit')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'emel')->textInput(['maxlength' => 100]) ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -319,6 +324,21 @@ $('#ahliJawatanKecilBiro').change(function(){
 
             }
         });
+});
+        
+$(document).ready(function(){
+    $('.field-latihandanprogrampeserta-ahli_jawatan_induk_id').hide();
+        $('.field-latihandanprogrampeserta-ahli_jawatan_kecil_id').hide();
+});
+        
+$('#latihandanprogrampeserta-jenis_jawatankuasa').change(function(){
+        if($(this).val() == '1'){
+            $('.field-latihandanprogrampeserta-ahli_jawatan_induk_id').show();
+            $('.field-latihandanprogrampeserta-ahli_jawatan_kecil_id').hide();
+        } else {
+            $('.field-latihandanprogrampeserta-ahli_jawatan_induk_id').hide();
+            $('.field-latihandanprogrampeserta-ahli_jawatan_kecil_id').show();
+        }
 });
         
 function clearForm(){

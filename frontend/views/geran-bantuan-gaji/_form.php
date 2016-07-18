@@ -34,7 +34,7 @@ use app\models\general\GeneralMessage;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     
     <?php //echo $form->errorSummary($model); ?>
     
@@ -412,6 +412,15 @@ $URLJurulatih = Url::to(['/jurulatih/get-jurulatih']);
 
 $script = <<< JS
 
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+    var form = $(this);
+    
+    $("#geranbantuangaji-status_jurulatih").prop("disabled", false);
+    $("#geranbantuangaji-nama_sukan").prop("disabled", false);
+    $("#geranbantuangaji-program_msn").prop("disabled", false);
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+        
 $('#geranbantuangaji-kadar').on("keyup", function(){calculateJumlahGeran();});
 $('#geranbantuangaji-bulan').on("keyup", function(){calculateJumlahGeran();});
         

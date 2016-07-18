@@ -246,6 +246,104 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
         
         $queryPar = null;
         
+        $existingMinitAjk = $model->minit_ajk_muat_naik;
+        $existingNotisAgm = $model->notis_agm_muat_naik;
+        $existingMinitAgm= $model->minit_agm_muat_naik;
+        $existingKewangan = $model->laporan_kewangan_muat_naik;
+        $existingAktiviti = $model->laporan_aktiviti_muat_naik;
+        
+        if($model->load(Yii::$app->request->post())){
+            $file = UploadedFile::getInstance($model, 'minit_ajk_muat_naik');
+
+            if($file){
+                //valid file to upload
+                //upload file to server
+                
+                // delete upload file
+                if($existingMinitAjk != ""){
+                    self::actionDeleteupload($id, 'minit_ajk_muat_naik');
+                }
+                
+                $model->minit_ajk_muat_naik = Upload::uploadFile($file, Upload::ltbsMinitMesyuaratJawatankuasaFolder, 'minit_ajk_muat_naik-' . $model->mesyuarat_id);
+            } else {
+                //invalid file to upload
+                //remain existing file
+                $model->minit_ajk_muat_naik = $existingMinitAjk;
+            }
+            
+            $file = UploadedFile::getInstance($model, 'notis_agm_muat_naik');
+
+            if($file){
+                //valid file to upload
+                //upload file to server
+                
+                // delete upload file
+                if($existingNotisAgm != ""){
+                    self::actionDeleteupload($id, 'notis_agm_muat_naik');
+                }
+                
+                $model->notis_agm_muat_naik = Upload::uploadFile($file, Upload::ltbsMinitMesyuaratJawatankuasaFolder, 'notis_agm_muat_naik-' . $model->mesyuarat_id);
+            } else {
+                //invalid file to upload
+                //remain existing file
+                $model->notis_agm_muat_naik = $existingNotisAgm;
+            }
+            
+            $file = UploadedFile::getInstance($model, 'minit_agm_muat_naik');
+
+            if($file){
+                //valid file to upload
+                //upload file to server
+                
+                // delete upload file
+                if($existingMinitAgm != ""){
+                    self::actionDeleteupload($id, 'minit_agm_muat_naik');
+                }
+                
+                $model->minit_agm_muat_naik = Upload::uploadFile($file, Upload::ltbsMinitMesyuaratJawatankuasaFolder, 'minit_agm_muat_naik-' . $model->mesyuarat_id);
+            } else {
+                //invalid file to upload
+                //remain existing file
+                $model->minit_agm_muat_naik = $existingMinitAgm;
+            }
+            
+            $file = UploadedFile::getInstance($model, 'laporan_kewangan_muat_naik');
+
+            if($file){
+                //valid file to upload
+                //upload file to server
+                
+                // delete upload file
+                if($existingKewangan != ""){
+                    self::actionDeleteupload($id, 'laporan_kewangan_muat_naik');
+                }
+                
+                $model->laporan_kewangan_muat_naik = Upload::uploadFile($file, Upload::ltbsMinitMesyuaratJawatankuasaFolder, 'laporan_kewangan_muat_naik-' . $model->mesyuarat_id);
+            } else {
+                //invalid file to upload
+                //remain existing file
+                $model->laporan_kewangan_muat_naik = $existingKewangan;
+            }
+            
+            $file = UploadedFile::getInstance($model, 'laporan_aktiviti_muat_naik');
+
+            if($file){
+                //valid file to upload
+                //upload file to server
+                
+                // delete upload file
+                if($existingAktiviti != ""){
+                    self::actionDeleteupload($id, 'laporan_aktiviti_muat_naik');
+                }
+                
+                $model->laporan_aktiviti_muat_naik = Upload::uploadFile($file, Upload::ltbsMinitMesyuaratJawatankuasaFolder, 'laporan_aktiviti_muat_naik-' . $model->mesyuarat_id);
+            } else {
+                //invalid file to upload
+                //remain existing file
+                $model->laporan_aktiviti_muat_naik = $existingAktiviti;
+            }
+        }
+        
         $queryPar['LtbsMinitMesyuaratJawatankuasaDokumenMuatNaikSearch']['mesyuarat_id'] = $id;
         $queryPar['LtbsSenaraiNamaHadirJawatankuasaSearch']['mesyuarat_id'] = $id;
         $queryPar['LtbsNotisAgmSearch']['mesyuarat_id'] = $id;
@@ -263,8 +361,8 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
         $searchModelSNKMA = new LtbsSenaraiNamaHadirAgmSearch();
         $dataProviderSNKMA = $searchModelSNKMA->search($queryPar);
         
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $file = UploadedFile::getInstance($model, 'minit_ajk_muat_naik');
+        if (Yii::$app->request->post() && $model->save()) {
+            /*$file = UploadedFile::getInstance($model, 'minit_ajk_muat_naik');
             if($file){
                 $model->minit_ajk_muat_naik = Upload::uploadFile($file, Upload::ltbsMinitMesyuaratJawatankuasaFolder, 'minit_ajk_muat_naik-' . $model->mesyuarat_id);
             }
@@ -287,7 +385,7 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
             $file = UploadedFile::getInstance($model, 'laporan_aktiviti_muat_naik');
             if($file){
                 $model->laporan_aktiviti_muat_naik = Upload::uploadFile($file, Upload::ltbsMinitMesyuaratJawatankuasaFolder, 'laporan_aktiviti_muat_naik-' . $model->mesyuarat_id);
-            }
+            }*/
             
             if(Yii::$app->user->identity->profil_badan_sukan){
                 // set status to 'Belum Disahkan' if any changes made for persatuan

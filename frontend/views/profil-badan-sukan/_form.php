@@ -15,6 +15,7 @@ use app\models\RefPeringkatBadanSukan;
 use app\models\RefSukan;
 use app\models\RefNegeri;
 use app\models\RefBandar;
+use app\models\RefStatusLaporanMesyuaratAgung;
 
 // contant values
 use app\models\general\Placeholder;
@@ -122,7 +123,7 @@ use app\models\general\GeneralMessage;
     ?>
     
     <?php
-        $disabled = true;
+        $disabled = false;
         
         if($model->isNewRecord){
             $disabled = false;
@@ -439,27 +440,40 @@ use app\models\general\GeneralMessage;
     }
     ?>-->
 
-    <!--<?= $form->field($model, 'nama_badan_sukan')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'nama_badan_sukan_sebelum_ini')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'no_pendaftaran_sijil_pendaftaran')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'tarikh_lulus_pendaftaran')->textInput() ?>
-
-    <?= $form->field($model, 'jenis_sukan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_tetap_badan_sukan_1')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_surat_menyurat_badan_sukan_1')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'no_telefon_pejabat')->textInput() ?>
-
-    <?= $form->field($model, 'no_faks_pejabat')->textInput() ?>
-
-    <?= $form->field($model, 'emel_badan_sukan')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'pengiktirafan_yang_pernah_diterima_badan_sukan')->textInput(['maxlength' => 100]) ?>-->
+    <?php
+        if(!Yii::$app->user->identity->profil_badan_sukan || $readonly){
+            echo FormGrid::widget([
+                'model' => $model,
+                'form' => $form,
+                'autoGenerateColumns' => true,
+                'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'status' => [
+                                    'type'=>Form::INPUT_WIDGET, 
+                                    'widgetClass'=>'\kartik\widgets\Select2',
+                                    'options'=>[
+                                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                        [
+                                            'append' => [
+                                                'content' => Html::a(Html::icon('edit'), ['/ref-status-laporan-mesyuarat-agung/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                                'asButton' => true
+                                            ]
+                                        ] : null,
+                                        'data'=>ArrayHelper::map(RefStatusLaporanMesyuaratAgung::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                        'options' => ['placeholder' => Placeholder::status],
+                                        'pluginOptions' => [
+                                            'allowClear' => true
+                                        ],],
+                                    'columnOptions'=>['colspan'=>5]],
+                            ],
+                        ],
+                    ]
+                ]);
+        }
+    ?>
 
     <div class="form-group">
         <?php if(!$readonly): ?>

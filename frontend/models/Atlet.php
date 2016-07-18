@@ -97,7 +97,7 @@ class Atlet extends \yii\db\ActiveRecord
     {
         return [
             [['tahap', 'tid', 'cawangan', 'name_penuh', 'tarikh_lahir', 'umur', 'tempat_lahir_bandar', 'tempat_lahir_negeri', 
-                'bangsa', 'agama', 'jantina', 'taraf_perkahwinan', 'tinggi', 'berat', 'tel_bimbit_no_1', 'tel_no', 'alamat_rumah_1', 'alamat_rumah_negeri', 
+                'bangsa', 'agama', 'jantina', 'taraf_perkahwinan', 'tinggi', 'berat', 'tel_bimbit_no_1', 'alamat_rumah_1', 'alamat_rumah_negeri', 
                 'alamat_rumah_bandar', 'alamat_rumah_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_negeri', 'alamat_surat_bandar', 'alamat_surat_poskod', 
                 'nama_kecemasan', 'pertalian_kecemasan', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan', 'ic_no', 'tempat_lahir_alamat_1', 'cacat', 'status_atlet'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir', 'lesen_tamat_tempoh', 'passport_tamat_tempoh', 'kategori_kecacatan', 'cacat', 'tawaran', 'tarikh_luput'], 'safe'],

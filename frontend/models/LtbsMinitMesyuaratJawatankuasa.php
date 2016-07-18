@@ -100,6 +100,10 @@ class LtbsMinitMesyuaratJawatankuasa extends \yii\db\ActiveRecord
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
         }
+
+        if(!$file && $this->$attribute==""){
+            $this->addError($attribute, GeneralMessage::uploadEmptyError);
+        }
     }
     
     /**
@@ -107,5 +111,12 @@ class LtbsMinitMesyuaratJawatankuasa extends \yii\db\ActiveRecord
      */
     public function getRefBadanSukan(){
         return $this->hasOne(ProfilBadanSukan::className(), ['profil_badan_sukan' => 'profil_badan_sukan_id']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusLaporanMesyuaratAgung(){
+        return $this->hasOne(RefStatusLaporanMesyuaratAgung::className(), ['id' => 'status']);
     }
 }

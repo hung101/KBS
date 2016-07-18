@@ -69,8 +69,11 @@ class PermohonanBiasiswa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id','sukan','nama_institusi_pengajian','tarikh_mula_pengajian','tarikh_tamat_pengajian','nama_program_pengajian', 'no_ic', 'umur', 'jantina', 'alamat_rumah_1', 'alamat_rumah_negeri', 'alamat_rumah_bandar', 'alamat_rumah_poskod', 'no_tel_rumah', 'no_tel_bimbit', 'jenis_biasiswa', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id', 'umur', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['atlet_id','sukan','nama_institusi_pengajian','tarikh_mula_pengajian','tarikh_tamat_pengajian','nama_program_pengajian', 'no_ic', 'umur', 
+                'jantina', 'alamat_rumah_1', 'alamat_rumah_negeri', 'alamat_rumah_bandar', 'alamat_rumah_poskod', 'no_tel_rumah', 'no_tel_bimbit', 
+                'jenis_biasiswa', 'kelulusan', 'program'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'umur', 'kelulusan', 'program', 'kategori'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['kadar'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['no_ic'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_rumah_1', 'alamat_rumah_2', 'alamat_rumah_3', 'alamat_pengajian_1', 'alamat_pengajian_2', 'alamat_pengajian_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -78,7 +81,7 @@ class PermohonanBiasiswa extends \yii\db\ActiveRecord
             [['alamat_rumah_bandar', 'alamat_pengajian_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_rumah_poskod', 'alamat_pengajian_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_tel_rumah', 'no_tel_bimbit', 'no_tel_pengajian', 'no_fax_pengajian'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['jenis_biasiswa'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jenis_biasiswa', 'jenis_biasiswa_lain'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
@@ -118,7 +121,8 @@ class PermohonanBiasiswa extends \yii\db\ActiveRecord
             'jenis_biasiswa' => GeneralLabel::jenis_biasiswa,
             'muatnaik' => GeneralLabel::muatnaik,
             'kelulusan' => GeneralLabel::kelulusan,
-
+            'kadar' => 'Kadar (Elaun Insentif)',
+            'jenis_biasiswa_lain' => 'Lain-lain',
         ];
     }
     

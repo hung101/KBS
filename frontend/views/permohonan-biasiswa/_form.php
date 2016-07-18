@@ -17,6 +17,7 @@ use app\models\RefJantina;
 use app\models\RefBandar;
 use app\models\RefNegeri;
 use app\models\RefJenisBiasiswa;
+use app\models\RefProgramSemasaSukanAtlet;
 
 // contant values
 use app\models\general\Placeholder;
@@ -44,6 +45,20 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'program' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-program/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::program],],
+                    'columnOptions'=>['colspan'=>3]],
                 'sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -57,7 +72,7 @@ use app\models\general\GeneralMessage;
                         ] : null,
                         'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],],
-                    'columnOptions'=>['colspan'=>5]],
+                    'columnOptions'=>['colspan'=>3]],
                 'nama_institusi_pengajian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
             ],
         ],
@@ -109,7 +124,7 @@ use app\models\general\GeneralMessage;
                 'no_ic' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>12]],
             ],
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -129,7 +144,7 @@ use app\models\general\GeneralMessage;
                         'options' => ['placeholder' => Placeholder::jantina],],
                     'columnOptions'=>['colspan'=>5]],
             ],
-        ],
+        ],*/
         [
             'attributes' => [
                 'alamat_rumah_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
@@ -245,7 +260,29 @@ use app\models\general\GeneralMessage;
                         ] : null,
                         'data'=>ArrayHelper::map(RefJenisBiasiswa::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jenisBiasiswa],],
-                    'columnOptions'=>['colspan'=>6]],
+                    'columnOptions'=>['colspan'=>3]],
+                'jenis_biasiswa_lain' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'kategori' =>[
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-biasiswa/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefJenisBiasiswa::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kategori],],
+                    'columnOptions'=>['colspan'=>3]],
+                'kadar' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
             ],
         ],
     ]

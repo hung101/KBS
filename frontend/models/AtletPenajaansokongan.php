@@ -95,12 +95,12 @@ class AtletPenajaansokongan extends \yii\db\ActiveRecord
             'alamat_poskod' => GeneralLabel::alamat_poskod,
             'emel' => GeneralLabel::e_mel,
             'no_telefon' => GeneralLabel::no_telefon,
-            'peribadi_yang_bertanggungjawab' => GeneralLabel::peribadi_yang_bertanggungjawab,
+            'peribadi_yang_bertanggungjawab' => GeneralLabel::pegawai_yang_bertanggungjawab,
             'jenis_kontrak' => GeneralLabel::jenis_kontrak,
             'nilai_kontrak' => GeneralLabel::nilai_kontrak,
             'tahun_permulaan' => GeneralLabel::tahun_permulaan,
             'tahun_akhir' => GeneralLabel::tahun_akhir,
-            'barang_yang_penyokong' => GeneralLabel::barang_yang_ditaja,
+            'barang_yang_penyokong' => 'Bentuk Tajaan',
 
         ];
     }

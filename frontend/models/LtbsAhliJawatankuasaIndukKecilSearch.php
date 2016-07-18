@@ -19,7 +19,9 @@ class LtbsAhliJawatankuasaIndukKecilSearch extends LtbsAhliJawatankuasaIndukKeci
     {
         return [
             [['ahli_jawatan_id', 'umur', 'profil_badan_sukan_id'], 'integer'],
-            [['jenis_jawatankuasa', 'nama_jawatankuasa', 'jawatan', 'nama_penuh', 'no_kad_pengenalan', 'jantina', 'bangsa', 'pekerjaan', 'nama_majikan', 'tarikh_mula_memegang_jawatan', 'pengiktirafan_yang_diterima', 'kursus_yang_pernah_diikuti_oleh_pemegang_jawatan'], 'safe'],
+            [['jenis_jawatankuasa', 'nama_jawatankuasa', 'jawatan', 'nama_penuh', 'no_kad_pengenalan', 'jantina', 'bangsa', 'pekerjaan', 
+                'nama_majikan', 'tarikh_mula_memegang_jawatan', 'pengiktirafan_yang_diterima', 'kursus_yang_pernah_diikuti_oleh_pemegang_jawatan',
+                'status'], 'safe'],
         ];
     }
 
@@ -43,7 +45,8 @@ class LtbsAhliJawatankuasaIndukKecilSearch extends LtbsAhliJawatankuasaIndukKeci
     {
         $query = LtbsAhliJawatankuasaIndukKecil::find()
                 ->joinWith(['refJawatanInduk'])
-                ->joinWith(['refJantina']);
+                ->joinWith(['refJantina'])
+                ->joinWith(['refStatusLaporanMesyuaratAgung']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -74,7 +77,8 @@ class LtbsAhliJawatankuasaIndukKecilSearch extends LtbsAhliJawatankuasaIndukKeci
             ->andFilterWhere(['like', 'pekerjaan', $this->pekerjaan])
             ->andFilterWhere(['like', 'nama_majikan', $this->nama_majikan])
             ->andFilterWhere(['like', 'pengiktirafan_yang_diterima', $this->pengiktirafan_yang_diterima])
-            ->andFilterWhere(['like', 'kursus_yang_pernah_diikuti_oleh_pemegang_jawatan', $this->kursus_yang_pernah_diikuti_oleh_pemegang_jawatan]);
+            ->andFilterWhere(['like', 'kursus_yang_pernah_diikuti_oleh_pemegang_jawatan', $this->kursus_yang_pernah_diikuti_oleh_pemegang_jawatan])
+                ->andFilterWhere(['like', 'tbl_ref_status_laporan_mesyuarat_agung.desc', $this->status]);
         
         // if login as persatuan, then filter only show that persatuan listing
         if(Yii::$app->user->identity->profil_badan_sukan){

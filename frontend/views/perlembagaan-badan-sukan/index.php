@@ -62,6 +62,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     return GeneralFunction::convert($model->tarikh_kelulusan);
                 },
             ],
+            [
+                'attribute' => 'status',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status,
+                ],
+                'value' => 'refStatusLaporanMesyuaratAgung.desc'
+            ],
             // 'muat_naik',
 
             //['class' => 'yii\grid\ActionColumn'],

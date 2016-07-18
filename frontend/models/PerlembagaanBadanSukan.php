@@ -89,4 +89,11 @@ class PerlembagaanBadanSukan extends \yii\db\ActiveRecord
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
         }
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusLaporanMesyuaratAgung(){
+        return $this->hasOne(RefStatusLaporanMesyuaratAgung::className(), ['id' => 'status']);
+    }
 }

@@ -257,6 +257,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const statusUjian = "-- Pilih Status Ujian --";
         const stage = "-- Pilih Stage --";
         const subElemen = "-- Pilih Sub-Elemen --";
+        const subjek = "-- Pilih Subjek --";
         const subKategoriPenilaian = "-- Pilih Sub Kategori Penilaian --";
         const subProgramPelapis = "-- Pilih Sub Program Pelapis --";
         const sukan = "-- Pilih Sukan --";
@@ -531,6 +532,7 @@ if($session->get('language') == "EN") {
         const statusUjian = "-- Select The Status Test --";
         const stage = "-- Select Stage --";
         const subElemen = "-- Select Sub-Element --";
+        const subjek = "-- Select Subject --";
         const subKategoriPenilaian = "-- Select Sub Category Assessment --";
         const subProgramPelapis = "-- Select The Sub Programme Will Become --";
         const sukan = "-- Select Sport --";

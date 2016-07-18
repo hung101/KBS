@@ -43,7 +43,8 @@ class AtletSukanPersatuanpersekutuanduniaSearch extends AtletSukanPersatuanperse
     {
         $query = AtletSukanPersatuanpersekutuandunia::find()
                 ->joinWith(['refJenisSukanPersatuanPersekutuandunia'])
-                ->joinWith(['refNamaSukanPersatuanPersekutuandunia']);
+                //->joinWith(['refNamaSukanPersatuanPersekutuandunia'])
+                ->joinWith(['refProfilBadanSukan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -63,7 +64,7 @@ class AtletSukanPersatuanpersekutuanduniaSearch extends AtletSukanPersatuanperse
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_jenis_sukan_persatuan_persekutuandunia.desc', $this->jenis])
-            ->andFilterWhere(['like', 'tbl_ref_nama_sukan_persatuan_persekutuandunia.desc', $this->name_persatuan_persekutuan_dunia])
+            ->andFilterWhere(['like', 'profil_badan_sukan.nama_badan_sukan', $this->name_persatuan_persekutuan_dunia])
             ->andFilterWhere(['like', 'alamat_1', $this->alamat_1])
             ->andFilterWhere(['like', 'no_telefon', $this->no_telefon])
             ->andFilterWhere(['like', 'emel', $this->emel])

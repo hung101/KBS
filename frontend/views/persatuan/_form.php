@@ -32,6 +32,9 @@ use app\models\general\GeneralMessage;
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
 /* @var $form yii\widgets\ActiveForm */
+
+$jumlahBE=0.0;
+$jumlahPPB=0.0;
 ?>
 
 <div class="user-form">
@@ -356,7 +359,9 @@ use app\models\general\GeneralMessage;
     <?php endif; ?>
     
     <?php 
+    if(isset($dataProviderPPB) || isset($dataProviderBE)){
         echo "<label>Jumlah Dilulus Keseluruhan: </label> RM" . ($jumlahPPB + $jumlahBE);
+    }
     ?>
     
     <br>

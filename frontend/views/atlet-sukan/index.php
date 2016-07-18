@@ -62,6 +62,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'sukan_id',
             //'atlet_id',
+            //'program_semasa',
+            [
+                'attribute' => 'program_semasa',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program_semasa,
+                ],
+                'value' => 'refProgramSemasaSukanAtlet.desc'
+            ],
             //'nama_sukan',
             [
                 'attribute' => 'nama_sukan',
@@ -80,25 +89,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refAcara.desc'
             ],
-            [
-                'attribute' => 'jurulatih_id',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jurulatih,
-                ],
-                'value' => 'refJurulatih.nama'
-            ],
             // 'tahun_umur_permulaan',
             // 'tahun_menyertai_program_msn',
-            //'program_semasa',
-            [
-                'attribute' => 'program_semasa',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program_semasa,
-                ],
-                'value' => 'refProgramSemasaSukanAtlet.desc'
-            ],
+            
             // 'no_lesen_sukan',
             // 'atlet_persekutuan_dunia_id',
             [
@@ -114,6 +107,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat_menyertai_program_msn,
                 ],
+            ],
+            [
+                'attribute' => 'jurulatih_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jurulatih,
+                ],
+                'value' => 'refJurulatih.nama'
             ],
 
             //['class' => 'yii\grid\ActionColumn'],

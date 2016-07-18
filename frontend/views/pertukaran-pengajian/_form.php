@@ -16,6 +16,7 @@ use app\models\RefKategoriPengajian;
 use app\models\RefProgramSemasaSukanAtlet;
 use app\models\RefSukan;
 use app\models\PerancanganProgram;
+use app\models\RefStatusPermohonanPendidikan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -57,6 +58,40 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::atlet],],
                     'columnOptions'=>['colspan'=>6]],
+                'program' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-program/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::program],],
+                    'columnOptions'=>['colspan'=>3]],
+                'sukan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::sukan],],
+                    'columnOptions'=>['colspan'=>3]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                  'sebab_pemohonan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -69,8 +104,9 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSebabPermohonanPertukaranPengajian::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sebabPermohonan],],
-                    'columnOptions'=>['colspan'=>6]],
+                        'options' => ['placeholder' => Placeholder::jenisPermohonan],],
+                    'columnOptions'=>['colspan'=>5]],
+                'sebab' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
             ],
         ],
         [
@@ -171,6 +207,16 @@ use app\models\general\GeneralMessage;
                         ],
                     ],
                     'columnOptions'=>['colspan'=>3]],
+                'tarikh_akhir' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ],
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
         [
@@ -181,6 +227,50 @@ use app\models\general\GeneralMessage;
             ],
         ],
         
+    ]
+]);
+    ?>
+    
+    <?php
+     echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'status_permohonan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan-pendidikan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefStatusPermohonanPendidikan::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::statusPermohonan],],
+                    'columnOptions'=>['colspan'=>3]],
+                'tarikh_permohonan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'type'=>DateControl::FORMAT_DATETIME,
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                                    'todayBtn' => true,
+                        ],
+                        'options'=>['disabled'=>true]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                
+            ],
+        ],
     ]
 ]);
     ?>
@@ -201,7 +291,7 @@ use app\models\general\GeneralMessage;
 
     <div class="form-group">
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::send : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?php endif; ?>
     </div>
 

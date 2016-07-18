@@ -21,7 +21,7 @@ class LtbsMinitMesyuaratJawatankuasaSearch extends LtbsMinitMesyuaratJawatankuas
     {
         return [
             [['mesyuarat_id', 'jumlah_ahli_yang_hadir', 'profil_badan_sukan_search'], 'integer'],
-            [['tarikh', 'masa', 'tempat', 'mengikut_perlembagaan', 'profil_badan_sukan_id'], 'safe'],
+            [['tarikh', 'masa', 'tempat', 'mengikut_perlembagaan', 'profil_badan_sukan_id', 'status'], 'safe'],
         ];
     }
 
@@ -44,7 +44,8 @@ class LtbsMinitMesyuaratJawatankuasaSearch extends LtbsMinitMesyuaratJawatankuas
     public function search($params)
     {
         $query = LtbsMinitMesyuaratJawatankuasa::find()
-                ->joinWith(['refBadanSukan']);
+                ->joinWith(['refBadanSukan'])
+                ->joinWith(['refStatusLaporanMesyuaratAgung']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -69,7 +70,8 @@ class LtbsMinitMesyuaratJawatankuasaSearch extends LtbsMinitMesyuaratJawatankuas
         $query->andFilterWhere(['like', 'tempat', $this->tempat])
             ->andFilterWhere(['like', 'mengikut_perlembagaan', $this->mengikut_perlembagaan])
                 ->andFilterWhere(['like', 'tbl_profil_badan_sukan.nama_badan_sukan', $this->profil_badan_sukan_id])
-                ->andFilterWhere(['like', 'tarikh', $this->tarikh]);
+                ->andFilterWhere(['like', 'tarikh', $this->tarikh])
+                ->andFilterWhere(['like', 'tbl_ref_status_laporan_mesyuarat_agung.desc', $this->status]);
         
         // if login as persatuan, then filter only show that persatuan listing
         if(Yii::$app->user->identity->profil_badan_sukan){

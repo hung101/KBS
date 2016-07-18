@@ -42,7 +42,7 @@ use app\models\general\GeneralMessage;
         }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
     <?php
         echo FormGrid::widget([
@@ -89,16 +89,36 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],],
                     'columnOptions'=>['colspan'=>4]],
+            ]
+        ],
+        
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                 'tarikh_aktiviti' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
+                        'options' => ['id'=>'tarikhDiberiId',],
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
+                'tarikh_tamat_aktiviti' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'options' => ['id'=>'tarikhDipulangId',],
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                'tempoh' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>20,'id'=>'tempohPinjamanId', 'disabled'=>true]],
             ]
         ],
         [
@@ -177,8 +197,14 @@ use app\models\general\GeneralMessage;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'bilangan_peserta' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>11]],
-                'negara_peserta' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>11]],
                 'kos_aktiviti' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>10]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'negara_peserta' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
             ]
         ],
         /*[
@@ -373,3 +399,43 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+$script = <<< JS
+        
+$(document).ready(function(){
+});
+        
+$("#tarikhDiberiId").change(function(){
+    setDuration();
+});
+        
+$("#tarikhDipulangId").change(function(){
+    setDuration();
+});
+        
+function setDuration(){
+    var fromDatetime = $("#tarikhDiberiId").val();
+    var toDatetime = $("#tarikhDipulangId").val();
+        
+    var fromDatetimeMoment = moment(fromDatetime,'YYYY-MM-DD');
+    var toDatetimeMoment = moment(toDatetime,'YYYY-MM-DD');
+        
+    if(fromDatetime != "" && toDatetime != ""){
+        $("#tempohPinjamanId").val(getDurationBetweenDatetime(fromDatetimeMoment,toDatetimeMoment));
+    }
+}
+        
+// enable all the disabled field before submit
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+        
+JS;
+        
+$this->registerJs($script);
+?>

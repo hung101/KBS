@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::name_persatuan_persekutuan_dunia,
                 ],
-                //'value' => 'refNamaSukanPersatuanPersekutuandunia.desc'
+                'value' => 'refProfilBadanSukan.nama_badan_sukan'
             ],
             // 'alamat_1',
             [

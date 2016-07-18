@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         
         // Delete Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pertukaran-pengajian']['delete'])){
-            $template .= ' {delete}';
+            //$template .= ' {delete}';
         }
     ?>
 
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pertukaran-pengajian']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::pertukaran_pengajian, ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a( GeneralLabel::permohonan, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 
@@ -55,6 +55,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refAtlet.name_penuh'
             ],
+            [
+                'attribute' => 'program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program,
+                ],
+                //'value' => 'refAtlet.name_penuh'
+            ],
+            [
+                'attribute' => 'sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
+                //'value' => 'refAtlet.name_penuh'
+            ],
             //'sebab_pemohonan',
             //'kategori_pengajian',
             [
@@ -66,6 +82,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'refSebabPermohonanPertukaranPengajian.desc'
             ],
             [
+                'attribute' => 'sebab',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' Sebab',
+                ],
+            ],
+            
+            [
+                'attribute' => 'tarikh_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_permohonan,
+                ],
+            ],
+            /*[
                 'attribute' => 'created',
                 'label' => GeneralLabel::tarikh,
                 'filterInputOptions' => [
@@ -80,7 +111,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return '';
                     }
                 },
-            ],
+            ],*/
             /*[
                 'attribute' => 'nama_pengajian_sekarang',
                 'filterInputOptions' => [

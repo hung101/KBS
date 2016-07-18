@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Atlet;
@@ -100,6 +101,8 @@ class PertukaranPengajianController extends Controller
         }
         
         $model = new PertukaranPengajian();
+        
+        $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->pertukaran_pengajian_id]);

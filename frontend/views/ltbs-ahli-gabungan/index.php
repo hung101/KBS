@@ -48,15 +48,30 @@ $this->params['breadcrumbs'][] = $this->title;
             //'ahli_gabungan_id',
             //'nama_badan_sukan',
             [
+                'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ]
+            ],
+            /*[
                 'attribute' => 'badan_sukan',
                 'value' => 'refBadanSukan.nama_badan_sukan'
-            ],
+            ],*/
             [
                 'attribute' => 'alamat_badan_sukan_1',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::alamat_badan_sukan_1,
                 ]
+            ],
+            [
+                'attribute' => 'status',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status,
+                ],
+                'value' => 'refStatusLaporanMesyuaratAgung.desc'
             ],
             //'nama_penuh_presiden_badan_sukan',
             //'nama_penuh_setiausaha_badan_sukan',

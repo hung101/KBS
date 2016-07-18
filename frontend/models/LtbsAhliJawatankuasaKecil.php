@@ -122,4 +122,11 @@ class LtbsAhliJawatankuasaKecil extends \yii\db\ActiveRecord
     public function getBadanSukan(){
         return $this->hasOne(ProfilBadanSukan::className(), ['profil_badan_sukan' => 'profil_badan_sukan_id']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusLaporanMesyuaratAgung(){
+        return $this->hasOne(RefStatusLaporanMesyuaratAgung::className(), ['id' => 'status']);
+    }
 }

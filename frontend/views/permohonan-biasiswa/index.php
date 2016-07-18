@@ -64,6 +64,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'refSukan.desc'
             ],
             [
+                'attribute' => 'program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program,
+                ],
+                //'value' => 'refSukan.desc'
+            ],
+            [
+                'attribute' => 'nama_institusi_pengajian',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_institusi_pengajian,
+                ],
+                //'value' => 'refSukan.desc'
+            ],
+            /*[
                 'attribute' => 'no_ic',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -76,16 +92,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::umur,
                 ]
-            ],
+            ],*/
             //'jantina',
-            [
+            /*[
                 'attribute' => 'jantina',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jantina,
                 ],
                 'value' => 'refJantina.desc'
-            ],
+            ],*/
             [
                 'attribute' => 'jenis_biasiswa',
                 'filterInputOptions' => [
@@ -95,6 +111,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'refJenisBiasiswa.desc'
             ],
             [
+                'attribute' => 'kadar',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kadar,
+                ],
+               // 'value' => 'refJenisBiasiswa.desc'
+            ],
+            [
+                'attribute' => 'kategori',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori,
+                ],
+                //'value' => 'refJenisBiasiswa.desc'
+            ],
+            /*[
                 'attribute' => 'kelulusan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -109,7 +141,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_hantar,
                 ],
-            ],
+            ],*/
             // 'alamat_rumah_1',
             // 'alamat_rumah_2',
             // 'alamat_rumah_3',

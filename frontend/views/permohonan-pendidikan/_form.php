@@ -6,8 +6,12 @@ use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
+use yii\grid\GridView;
+use yii\bootstrap\Modal;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 use kartik\widgets\DepDrop;
+use kartik\datecontrol\DateControl;
 
 // table reference
 use app\models\Atlet;
@@ -19,6 +23,7 @@ use app\models\RefAcara;
 use app\models\RefBandar;
 use app\models\RefNegeri;
 use app\models\RefStatusPermohonanPendidikan;
+use app\models\RefKategoriAtletPendidikan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -32,10 +37,18 @@ use app\models\general\GeneralMessage;
 ?>
 
 <div class="permohonan-pendidikan-form">
+    
+    <?php
+        if(!$readonly){
+            $template = '{view} {update} {delete}';
+        } else {
+            $template = '{view}';
+        }
+    ?>
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -66,6 +79,20 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'kategori_atlet' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-atlet-pendidikan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefKategoriAtletPendidikan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kategori],],
+                    'columnOptions'=>['colspan'=>3]],
                 'atlet_id' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -79,8 +106,8 @@ use app\models\general\GeneralMessage;
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::atlet],],
-                    'columnOptions'=>['colspan'=>6]],
-                'no_ic' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>12]],
+                    'columnOptions'=>['colspan'=>5]],
+                'no_ic' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12]],
             ],
         ],
         [
@@ -106,7 +133,7 @@ use app\models\general\GeneralMessage;
                 'berat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
             ],
         ],
-        [
+        /*[
             'attributes' => [
                 'alamat_rumah_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
             ]
@@ -163,7 +190,7 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>3]],
                 'alamat_rumah_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5]],
             ]
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -192,6 +219,14 @@ use app\models\general\GeneralMessage;
                         'options' => ['placeholder' => Placeholder::tahapPendidikan],],
                     'columnOptions'=>['colspan'=>4]],
                 'aliran' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'nama_ipta_ipts' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
+                'kursus_pengajian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
             ],
         ],
         [
@@ -297,7 +332,7 @@ use app\models\general\GeneralMessage;
     'autoGenerateColumns' => true,
     'rows' => [
         
-        [
+        /*[
             'attributes' => [
                 'alamat_pendidikan_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
             ]
@@ -354,7 +389,7 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>3]],
                 'alamat_pendidikan_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5]],
             ]
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -380,7 +415,7 @@ use app\models\general\GeneralMessage;
                  'sekolah_unit_sukan_pdd_psk_pencadang' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
             ],
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -402,11 +437,159 @@ use app\models\general\GeneralMessage;
             'attributes' => [
                 'pilihan_program' =>['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
             ],
-        ],
+        ],*/
         
     ]
 ]);
     ?>
+    
+    <h3>Keputusan SPM</h3>
+    
+    <?php 
+            Modal::begin([
+                'header' => '<h3 id="modalTitle"></h3>',
+                'id' => 'modal',
+                'size' => 'modal-lg',
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+                'options' => [
+                    'tabindex' => false // important for Select2 to work properly
+                ],
+            ]);
+            
+            echo '<div id="modalContent"></div>';
+            
+            Modal::end();
+        ?>
+    
+    <?php Pjax::begin(['id' => 'permohonanPendidikanKeputusanSpmGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPermohonanPendidikanKeputusanSpm,
+        //'filterModel' => $searchModelPermohonanPendidikanKeputusanSpm,
+        'id' => 'permohonanPendidikanKeputusanSpmGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'permohonan_pendidikan_keputusan_spm_id',
+            //'permohonan_pendidikan_id',
+            'subjek',
+            'keputusan',
+            //'session_id',
+            // 'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['permohonan-pendidikan-keputusan-spm/delete', 'id' => $model->permohonan_pendidikan_keputusan_spm_id]).'", "'.GeneralMessage::confirmDelete.'", "permohonanPendidikanKeputusanSpmGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-pendidikan-keputusan-spm/update', 'id' => $model->permohonan_pendidikan_keputusan_spm_id]).'", "'.GeneralLabel::updateTitle . ' Keputusan SPM");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-pendidikan-keputusan-spm/view', 'id' => $model->permohonan_pendidikan_keputusan_spm_id]).'", "'.GeneralLabel::viewTitle . ' Keputusan SPM");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        $permohonan_pendidikan_id = "";
+        
+        if(isset($model->permohonan_pendidikan_id)){
+            $permohonan_pendidikan_id = $model->permohonan_pendidikan_id;
+        }
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-pendidikan-keputusan-spm/create', 'permohonan_pendidikan_id' => $permohonan_pendidikan_id]).'", "'.GeneralLabel::createTitle . ' Keputusan SPM");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <?php Pjax::end(); ?>
+    
+    <h3>Kursus Pengajian</h3>
+    
+    <?php Pjax::begin(['id' => 'permohonanPendidikanKursusPengajianGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPermohonanPendidikanKursusPengajian,
+        //'filterModel' => $searchModelPermohonanPendidikanKursusPengajian,
+        'id' => 'permohonanPendidikanKursusPengajianGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'permohonan_pendidikan_kursus_pengajian_id',
+            //'permohonan_pendidikan_id',
+            'kursus_pengajian',
+            'universiti',
+            //'session_id',
+            // 'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['permohonan-pendidikan-kursus-pengajian/delete', 'id' => $model->permohonan_pendidikan_kursus_pengajian_id]).'", "'.GeneralMessage::confirmDelete.'", "permohonanPendidikanKursusPengajianGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-pendidikan-kursus-pengajian/update', 'id' => $model->permohonan_pendidikan_kursus_pengajian_id]).'", "'.GeneralLabel::updateTitle . ' Kursus Pengajian");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-pendidikan-kursus-pengajian/view', 'id' => $model->permohonan_pendidikan_kursus_pengajian_id]).'", "'.GeneralLabel::viewTitle . ' Kursus Pengajian");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-pendidikan-kursus-pengajian/create', 'permohonan_pendidikan_id' => $permohonan_pendidikan_id]).'", "'.GeneralLabel::createTitle . ' Kursus Pengajian");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
     
     <hr>
     
@@ -434,6 +617,20 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefStatusPermohonanPendidikan::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::statusPermohonan],],
                     'columnOptions'=>['colspan'=>3]],
+                'tarikh_permohonan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'type'=>DateControl::FORMAT_DATETIME,
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                                    'todayBtn' => true,
+                        ],
+                        'options'=>['disabled'=>true]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                
             ],
         ],
         [
@@ -447,94 +644,30 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
 
-    <!--<?= $form->field($model, 'atlet_id')->textInput() ?>
-
-    <?= $form->field($model, 'no_ic')->textInput(['maxlength' => 12]) ?>
-
-    <?= $form->field($model, 'umur')->textInput() ?>
-
-    <?= $form->field($model, 'jantina')->textInput(['maxlength' => 1]) ?>
-
-    <?= $form->field($model, 'tinggi')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'berat')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'alamat_rumah_1')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_rumah_2')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_rumah_3')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_rumah_negeri')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_rumah_bandar')->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'alamat_rumah_poskod')->textInput(['maxlength' => 5]) ?>
-
-    <?= $form->field($model, 'no_telefon_rumah')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'no_telefon_bimbit')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'nama_ibu_bapa_penjaga')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'tahap_pendidikan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'aliran')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'keputusan_spm')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'pilihan_aliran_spm')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'sukan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'acara')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'tahun_program')->textInput(['maxlength' => 4]) ?>
-
-    <?= $form->field($model, 'muat_naik')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'catatan')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'alamat_pendidikan_1')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_pendidikan_2')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_pendidikan_3')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_pendidikan_negeri')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_pendidikan_bandar')->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'alamat_pendidikan_poskod')->textInput(['maxlength' => 5]) ?>
-
-    <?= $form->field($model, 'no_tel_pendidikan')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'no_fax_pendidikan')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'kelulusan')->textInput() ?>
-
-    <?= $form->field($model, 'nama_pencadang')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'jawatan_pencadang')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'no_telefon_pencadang')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'sekolah_unit_sukan_pdd_psk_pencadang')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'nama_pengesahan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'jawatan_pengesahan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'no_telefon_pengesahan')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'sekolah_unit_sukan_pdd_psk_pengesahan')->textInput(['maxlength' => 80]) ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::send : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?php endif; ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+     
+
+JS;
+        
+$this->registerJs($script);
+?>

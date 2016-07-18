@@ -21,7 +21,7 @@ class LtbsAhliGabunganSearch extends LtbsAhliGabungan
     {
         return [
             [['ahli_gabungan_id', 'profil_badan_sukan_id'], 'integer'],
-            [['nama_badan_sukan', 'alamat_badan_sukan_1', 'nama_penuh_presiden_badan_sukan', 'nama_penuh_setiausaha_badan_sukan', 'badan_sukan'], 'safe'],
+            [['nama_badan_sukan', 'alamat_badan_sukan_1', 'nama_penuh_presiden_badan_sukan', 'nama_penuh_setiausaha_badan_sukan', 'badan_sukan', 'nama', 'status'], 'safe'],
         ];
     }
 
@@ -44,7 +44,8 @@ class LtbsAhliGabunganSearch extends LtbsAhliGabungan
     public function search($params)
     {
         $query = LtbsAhliGabungan::find()
-                ->joinWith(['refBadanSukan']);
+                ->joinWith(['refBadanSukan'])
+                ->joinWith(['refStatusLaporanMesyuaratAgung']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -55,7 +56,7 @@ class LtbsAhliGabunganSearch extends LtbsAhliGabungan
         * Note: This is setup before the $this->load($params) 
         * statement below
         */
-        $dataProvider->setSort([
+        /*$dataProvider->setSort([
            'attributes' => [
                'badan_sukan' => [
                    'asc' => ['tbl_profil_badan_sukan.nama_badan_sukan' => SORT_ASC],
@@ -70,7 +71,7 @@ class LtbsAhliGabunganSearch extends LtbsAhliGabungan
                    'default' => SORT_ASC
                ],
            ]
-       ]);
+       ]);*/
 
         $this->load($params);
 
@@ -86,10 +87,12 @@ class LtbsAhliGabunganSearch extends LtbsAhliGabungan
         ]);
 
         $query->andFilterWhere(['like', 'nama_badan_sukan', $this->nama_badan_sukan])
+                ->andFilterWhere(['like', 'nama', $this->nama])
             ->andFilterWhere(['like', 'alamat_badan_sukan_1', $this->alamat_badan_sukan_1])
             ->andFilterWhere(['like', 'nama_penuh_presiden_badan_sukan', $this->nama_penuh_presiden_badan_sukan])
             ->andFilterWhere(['like', 'nama_penuh_setiausaha_badan_sukan', $this->nama_penuh_setiausaha_badan_sukan])
-                ->andFilterWhere(['like', 'tbl_profil_badan_sukan.nama_badan_sukan', $this->badan_sukan]);
+                ->andFilterWhere(['like', 'tbl_profil_badan_sukan.nama_badan_sukan', $this->badan_sukan])
+                ->andFilterWhere(['like', 'tbl_ref_status_laporan_mesyuarat_agung.desc', $this->status]);
         
         // if login as persatuan, then filter only show that persatuan listing
         if(Yii::$app->user->identity->profil_badan_sukan){

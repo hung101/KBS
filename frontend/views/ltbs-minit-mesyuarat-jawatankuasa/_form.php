@@ -141,169 +141,180 @@ use app\models\general\Placeholder;
         
     ?>
     
-    <?php // Muat Naik
+    <?php // Kertas Kerja Projek / Program Upload
+    
+    $label = $model->getAttributeLabel('minit_ajk_muat_naik');
+    
     if($model->minit_ajk_muat_naik){
+        echo "<div class='required'>";
         echo "<label>" . $model->getAttributeLabel('minit_ajk_muat_naik') . "</label><br>";
         echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->minit_ajk_muat_naik , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
-        if(!$readonly){
-            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->mesyuarat_id, 'field'=> 'minit_ajk_muat_naik'], 
-            [
-                'class'=>'btn btn-danger', 
-                'data' => [
-                    'confirm' => GeneralMessage::confirmRemove,
-                    'method' => 'post',
-                ]
-            ]).'<p>';
-        }
-    } else {
-        echo FormGrid::widget([
-        'model' => $model,
-        'form' => $form,
-        'autoGenerateColumns' => true,
-        'rows' => [
-                [
-                    'columns'=>12,
-                    'autoGenerateColumns'=>false, // override columns setting
-                    'attributes' => [
-                        'minit_ajk_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3], 'hint'=>GeneralLabel::getFileUploadHint()],
-                    ],
-                ],
-            ]
-        ]);
+        echo "</div>";
+        
+        $label = false;
     }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'minit_ajk_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label, 'hint'=>GeneralLabel::getFileUploadHint()],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+    }
+        
     ?>
+    
     <br>
     
-    <?php // Muat Naik
+    <?php // Kertas Kerja Projek / Program Upload
+    
+    $label = $model->getAttributeLabel('notis_agm_muat_naik');
+    
     if($model->notis_agm_muat_naik){
+        echo "<div class='required'>";
         echo "<label>" . $model->getAttributeLabel('notis_agm_muat_naik') . "</label><br>";
         echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->notis_agm_muat_naik , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
-        if(!$readonly){
-            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->mesyuarat_id, 'field'=> 'notis_agm_muat_naik'], 
-            [
-                'class'=>'btn btn-danger', 
-                'data' => [
-                    'confirm' => GeneralMessage::confirmRemove,
-                    'method' => 'post',
-                ]
-            ]).'<p>';
-        }
-    } else {
-        echo FormGrid::widget([
-        'model' => $model,
-        'form' => $form,
-        'autoGenerateColumns' => true,
-        'rows' => [
-                [
-                    'columns'=>12,
-                    'autoGenerateColumns'=>false, // override columns setting
-                    'attributes' => [
-                        'notis_agm_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3], 'hint'=>GeneralLabel::getFileUploadHint()],
-                    ],
-                ],
-            ]
-        ]);
+        echo "</div>";
+        
+        $label = false;
     }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'notis_agm_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label, 'hint'=>GeneralLabel::getFileUploadHint()],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+    }
+        
     ?>
     <br>
     
-    <?php // Muat Naik
+    <?php // Kertas Kerja Projek / Program Upload
+    
+    $label = $model->getAttributeLabel('minit_agm_muat_naik');
+    
     if($model->minit_agm_muat_naik){
+        echo "<div class='required'>";
         echo "<label>" . $model->getAttributeLabel('minit_agm_muat_naik') . "</label><br>";
         echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->minit_agm_muat_naik , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
-        if(!$readonly){
-            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->mesyuarat_id, 'field'=> 'minit_agm_muat_naik'], 
-            [
-                'class'=>'btn btn-danger', 
-                'data' => [
-                    'confirm' => GeneralMessage::confirmRemove,
-                    'method' => 'post',
-                ]
-            ]).'<p>';
-        }
-    } else {
-        echo FormGrid::widget([
-        'model' => $model,
-        'form' => $form,
-        'autoGenerateColumns' => true,
-        'rows' => [
-                [
-                    'columns'=>12,
-                    'autoGenerateColumns'=>false, // override columns setting
-                    'attributes' => [
-                        'minit_agm_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3], 'hint'=>GeneralLabel::getFileUploadHint()],
-                    ],
-                ],
-            ]
-        ]);
+        echo "</div>";
+        
+        $label = false;
     }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'minit_agm_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label, 'hint'=>GeneralLabel::getFileUploadHint()],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+    }
+        
     ?>
     <br>
     
-    <?php // Muat Naik
+    <?php // Kertas Kerja Projek / Program Upload
+    
+    $label = $model->getAttributeLabel('laporan_kewangan_muat_naik');
+    
     if($model->laporan_kewangan_muat_naik){
+        echo "<div class='required'>";
         echo "<label>" . $model->getAttributeLabel('laporan_kewangan_muat_naik') . "</label><br>";
         echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->laporan_kewangan_muat_naik , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
-        if(!$readonly){
-            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->mesyuarat_id, 'field'=> 'laporan_kewangan_muat_naik'], 
-            [
-                'class'=>'btn btn-danger', 
-                'data' => [
-                    'confirm' => GeneralMessage::confirmRemove,
-                    'method' => 'post',
-                ]
-            ]).'<p>';
-        }
-    } else {
-        echo FormGrid::widget([
-        'model' => $model,
-        'form' => $form,
-        'autoGenerateColumns' => true,
-        'rows' => [
-                [
-                    'columns'=>12,
-                    'autoGenerateColumns'=>false, // override columns setting
-                    'attributes' => [
-                        'laporan_kewangan_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3], 'hint'=>GeneralLabel::getFileUploadHint()],
-                    ],
-                ],
-            ]
-        ]);
+        echo "</div>";
+        
+        $label = false;
     }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'laporan_kewangan_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label, 'hint'=>GeneralLabel::getFileUploadHint()],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+    }
+        
     ?>
     
     <br>
     
-    <?php // Muat Naik
+    <?php // Kertas Kerja Projek / Program Upload
+    
+    $label = $model->getAttributeLabel('laporan_aktiviti_muat_naik');
+    
     if($model->laporan_aktiviti_muat_naik){
+        echo "<div class='required'>";
         echo "<label>" . $model->getAttributeLabel('laporan_aktiviti_muat_naik') . "</label><br>";
         echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->laporan_aktiviti_muat_naik , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
-        if(!$readonly){
-            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->mesyuarat_id, 'field'=> 'laporan_aktiviti_muat_naik'], 
-            [
-                'class'=>'btn btn-danger', 
-                'data' => [
-                    'confirm' => GeneralMessage::confirmRemove,
-                    'method' => 'post',
-                ]
-            ]).'<p>';
-        }
-    } else {
-        echo FormGrid::widget([
-        'model' => $model,
-        'form' => $form,
-        'autoGenerateColumns' => true,
-        'rows' => [
-                [
-                    'columns'=>12,
-                    'autoGenerateColumns'=>false, // override columns setting
-                    'attributes' => [
-                        'laporan_aktiviti_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3], 'hint'=>GeneralLabel::getFileUploadHint()],
-                    ],
-                ],
-            ]
-        ]);
+        echo "</div>";
+        
+        $label = false;
     }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'laporan_aktiviti_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label, 'hint'=>GeneralLabel::getFileUploadHint()],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+    }
+        
     ?>
     <br>
     

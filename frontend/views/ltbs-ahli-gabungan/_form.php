@@ -32,7 +32,7 @@ use app\models\RefStatusLaporanMesyuaratAgung;
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
-    
+    <?php //echo $form->errorSummary($model); ?>
     <?php
     if((!Yii::$app->user->identity->profil_badan_sukan && !isset($model->profil_badan_sukan_id)) || $readonly){
         echo FormGrid::widget([
@@ -75,7 +75,7 @@ use app\models\RefStatusLaporanMesyuaratAgung;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                //'nama_badan_sukan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>8],'options'=>['maxlength'=>80]],
+                'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
                 'peringkat_badan_sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',

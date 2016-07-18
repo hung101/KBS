@@ -21,7 +21,8 @@ class PertukaranPengajianSearch extends PertukaranPengajian
     {
         return [
             [['pertukaran_pengajian_id', 'atlet'], 'integer'],
-            [['sebab_pemohonan', 'atlet_id', 'kategori_pengajian', 'nama_pengajian_sekarang', 'nama_pertukaran_pengajian', 'sebab_pertukaran', 'sebab_penangguhan', 'created'], 'safe'],
+            [['sebab_pemohonan', 'atlet_id', 'kategori_pengajian', 'nama_pengajian_sekarang', 'nama_pertukaran_pengajian', 'sebab_pertukaran', 
+                'sebab_penangguhan', 'created', 'program', 'sukan', 'sebab', 'tarikh_permohonan'], 'safe'],
         ];
     }
 

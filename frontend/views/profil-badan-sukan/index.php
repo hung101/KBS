@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['create'])): ?>
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['create']) && !Yii::$app->user->identity->profil_badan_sukan): ?>
         <p>
             <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::profil_badan_sukan, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
@@ -87,6 +87,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_lulus_pendaftaran);
                 },
+            ],
+            [
+                'attribute' => 'status',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status,
+                ],
+                'value' => 'refStatusLaporanMesyuaratAgung.desc'
             ],
             // 'jenis_sukan',
             // 'alamat_tetap_badan_sukan',

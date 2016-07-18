@@ -75,6 +75,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refBadanSukan.nama_badan_sukan'
             ],
+            [
+                'attribute' => 'status',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status,
+                ],
+                'value' => 'refStatusLaporanMesyuaratAgung.desc'
+            ],
             //'mengikut_perlembagaan',
             //'jumlah_ahli_yang_hadir',
 

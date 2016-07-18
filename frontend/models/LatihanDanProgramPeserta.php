@@ -59,9 +59,9 @@ class LatihanDanProgramPeserta extends \yii\db\ActiveRecord
             [['latihan_dan_program_id', 'ahli_jawatan_induk_id', 'ahli_jawatan_kecil_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama', 'nama_badan_sukan', 'jawatan', 'tempoh_memegang_jawatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['no_pendaftaran_sukan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_pendaftaran_sukan', 'jenis_jawatankuasa'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_tel_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['no_tel_bimbit', 'no_kad_pengenalan', 'tempoh_memegang_jawatan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['no_tel_bimbit', 'no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email]
         ];
@@ -82,7 +82,7 @@ class LatihanDanProgramPeserta extends \yii\db\ActiveRecord
             'nama_badan_sukan' => GeneralLabel::nama_badan_sukan,
             'no_pendaftaran_sukan' => GeneralLabel::no_pendaftaran_sukan,
             'jawatan' => GeneralLabel::jawatan,
-            'tempoh_memegang_jawatan' => GeneralLabel::tempoh_memegang_jawatan,
+            'tempoh_memegang_jawatan' => GeneralLabel::tarikh_mula_memegang_jawatan,
             'no_tel_bimbit' => GeneralLabel::no_tel_bimbit,
             'emel' => GeneralLabel::emel,
 

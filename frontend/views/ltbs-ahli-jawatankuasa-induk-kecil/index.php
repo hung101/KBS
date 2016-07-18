@@ -80,6 +80,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refJantina.desc'
             ],
+             [
+                'attribute' => 'status',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status,
+                ],
+                'value' => 'refStatusLaporanMesyuaratAgung.desc'
+            ],
             // 'bangsa',
             // 'umur',
             // 'pekerjaan',

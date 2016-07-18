@@ -19,7 +19,7 @@ class PerlembagaanBadanSukanSearch extends PerlembagaanBadanSukan
     {
         return [
             [['perlembagaan_badan_sukan_id', 'profil_badan_sukan_id'], 'integer'],
-            [['tarikh_kelulusan_Terkini', 'bilangan_pindaan_perlembagaan_dilakukan', 'tarikh_pindaan', 'tarikh_kelulusan', 'muat_naik'], 'safe'],
+            [['tarikh_kelulusan_Terkini', 'bilangan_pindaan_perlembagaan_dilakukan', 'tarikh_pindaan', 'tarikh_kelulusan', 'muat_naik', 'status'], 'safe'],
         ];
     }
 
@@ -41,7 +41,8 @@ class PerlembagaanBadanSukanSearch extends PerlembagaanBadanSukan
      */
     public function search($params)
     {
-        $query = PerlembagaanBadanSukan::find();
+        $query = PerlembagaanBadanSukan::find()
+                ->joinWith(['refStatusLaporanMesyuaratAgung']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -64,7 +65,8 @@ class PerlembagaanBadanSukanSearch extends PerlembagaanBadanSukan
         ]);
 
         $query->andFilterWhere(['like', 'bilangan_pindaan_perlembagaan_dilakukan', $this->bilangan_pindaan_perlembagaan_dilakukan])
-            ->andFilterWhere(['like', 'muat_naik', $this->muat_naik]);
+            ->andFilterWhere(['like', 'muat_naik', $this->muat_naik])
+                ->andFilterWhere(['like', 'tbl_ref_status_laporan_mesyuarat_agung.desc', $this->status]);
 
         return $dataProvider;
     }

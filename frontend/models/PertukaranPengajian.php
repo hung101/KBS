@@ -54,9 +54,9 @@ class PertukaranPengajian extends \yii\db\ActiveRecord
     {
         return [
             [['atlet_id', 'program', 'sukan', 'sebab_pemohonan', 'kategori_pengajian', 'nama_pengajian_sekarang', 'nama_pertukaran_pengajian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['tarikh'], 'safe'],
-            [['sebab_pemohonan', 'sebab_pertukaran', 'sebab_penangguhan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['atlet_id', 'status_permohonan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tarikh', 'tarikh_akhir', 'tarikh_permohonan'], 'safe'],
+            [['sebab_pemohonan', 'sebab_pertukaran', 'sebab_penangguhan', 'sebab'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kategori_pengajian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_pengajian_sekarang', 'nama_pertukaran_pengajian', 'kejohanan_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
@@ -71,17 +71,19 @@ class PertukaranPengajian extends \yii\db\ActiveRecord
         return [
             'pertukaran_pengajian_id' => GeneralLabel::pertukaran_pengajian_id,
             'atlet_id' => GeneralLabel::atlet_id,
-            'sebab_pemohonan' => GeneralLabel::sebab_pemohonan,
+            'sebab_pemohonan' => GeneralLabel::jenis_permohonan,
             'kategori_pengajian' => GeneralLabel::kategori_pengajian,
             'nama_pengajian_sekarang' => GeneralLabel::nama_pengajian_sekarang,
-            'nama_pertukaran_pengajian' => GeneralLabel::nama_pertukaran_pengajian,
+            'nama_pertukaran_pengajian' => 'Nama Institusi Pengajian (Baru)',
             'sebab_pertukaran' => GeneralLabel::sebab_pertukaran,
             'sebab_penangguhan' => GeneralLabel::sebab_penangguhan,
             'program' => GeneralLabel::program,
             'sukan' => GeneralLabel::sukan,
             'kejohanan_program' => GeneralLabel::kejohanan_program,
-            'tarikh' => GeneralLabel::tarikh,
+            'tarikh' => 'Tarikh Mula Pelepasan',
+            'tarikh_akhir' => 'Tarikh Akhir Pelepasan',
             'tempat' => GeneralLabel::tempat,
+            'sebab' => 'Sebab Permohonan',
         ];
     }
     
