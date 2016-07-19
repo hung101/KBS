@@ -63,12 +63,12 @@ class BantuanPenganjuranKursus extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['badan_sukan', 'sukan', 'no_pendaftaran', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_telefon', 'no_faks', 'nama_bank', 'no_akaun', 'nama_kursus_seminar_bengkel', 'tarikh', 'tempat', 'tujuan', 'bil_penceramah', 'bil_peserta', 'bil_urusetia', 'anggaran_perbelanjaan', 'jumlah_bantuan_yang_dipohon', 'status_permohonan', 'tarikh_permohonan'], 'required'],
-            [['tarikh', 'tarikh_permohonan', 'created', 'updated', 'tarikh_jkb'], 'safe'],
+            [['badan_sukan', 'sukan', 'no_pendaftaran', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_telefon', 'no_faks', 'nama_bank', 'no_akaun', 'nama_kursus_seminar_bengkel', 'tarikh', 'tarikh_tamat', 'tempat', 'tujuan', 'bil_penceramah', 'bil_peserta', 'bil_urusetia', 'anggaran_perbelanjaan', 'jumlah_bantuan_yang_dipohon', 'status_permohonan', 'tarikh_permohonan'], 'required'],
+            [['tarikh', 'tarikh_permohonan', 'created', 'updated', 'tarikh_jkb', 'tarikh_tamat'], 'safe'],
             [['bil_penceramah', 'bil_peserta', 'bil_urusetia', 'created_by', 'updated_by'], 'integer'],
             [['anggaran_perbelanjaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number'],
-            [['badan_sukan', 'nama_bank', 'tujuan', 'jkb'], 'string', 'max' => 80],
-            [['sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun', 'nama_kursus_seminar_bengkel', 'status_permohonan'], 'string', 'max' => 30],
+            [['badan_sukan', 'nama_bank', 'tujuan', 'jkb', 'nama_kursus_seminar_bengkel'], 'string', 'max' => 80],
+            [['sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun', 'status_permohonan'], 'string', 'max' => 30],
             [['alamat_negeri'], 'string', 'max' => 3],
             [['alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5],
             [['no_telefon', 'no_faks'], 'string', 'max' => 14],
@@ -101,8 +101,8 @@ class BantuanPenganjuranKursus extends \yii\db\ActiveRecord
             'twitter' => 'Twitter',
             'nama_bank' => 'Nama Bank',
             'no_akaun' => 'No Akaun',
-            'nama_kursus_seminar_bengkel' => 'Nama Kursus Seminar Bengkel',
-            'tarikh' => 'Tarikh',
+            'nama_kursus_seminar_bengkel' => 'Nama Kursus / Seminar / Bengkel',
+            'tarikh' => 'Tarikh Mula',
             'tempat' => 'Tempat',
             'tujuan' => 'Tujuan',
             'bil_penceramah' => 'Bil. Penceramah',
@@ -124,6 +124,7 @@ class BantuanPenganjuranKursus extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
+            'tarikh_tamat' => 'Tarikh Tamat',
         ];
     }
 }

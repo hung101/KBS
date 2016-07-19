@@ -248,13 +248,23 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
-                        'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'tempat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                'tarikh_tamat' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                'tempat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                'negara' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
             ]
         ],
         [
@@ -402,7 +412,8 @@ use app\models\general\GeneralVariable;
     
     <br>
     
-    <h3>Maklumat Kejohanan Yang Telah Disertai Oleh Pegawai Yang Dicadangkan Di Atas (Tahun Semasa & Tahun Sebelum)</h3>
+    <!--<h3>Maklumat Kejohanan Yang Telah Disertai Oleh Pegawai Yang Dicadangkan Di Atas (Tahun Semasa & Tahun Sebelum)</h3>-->
+    <h3>Maklumat Kejohanan Yang Telah Disertai Oleh Pegawai</h3>
     
     <?php Pjax::begin(['id' => 'bantuanPenyertaanPegawaiTeknikalDisertaiGrid', 'timeout' => 100000]); ?>
 

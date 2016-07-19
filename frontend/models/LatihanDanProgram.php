@@ -53,9 +53,9 @@ class LatihanDanProgram extends \yii\db\ActiveRecord
         return [
             [['kategori_kursus', 'nama_kursus', 'tarikh_kursus', 'lokasi_kursus', 'penganjuran_kursus'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_kursus'], 'safe'],
-            [['bilangan_ahli_yang_menyertai'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['bilangan_ahli_yang_menyertai', 'status'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_kursus', 'lokasi_kursus'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['penganjuran_kursus'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['penganjuran_kursus', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 
@@ -72,7 +72,7 @@ class LatihanDanProgram extends \yii\db\ActiveRecord
             'lokasi_kursus' => GeneralLabel::lokasi_kursus,
             'penganjuran_kursus' => GeneralLabel::penganjuran_kursus,
             'bilangan_ahli_yang_menyertai' => GeneralLabel::bilangan_ahli_yang_menyertai,
-
+            'status' => GeneralLabel::status,
         ];
     }
     

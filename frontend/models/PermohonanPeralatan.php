@@ -55,7 +55,7 @@ class PermohonanPeralatan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cawangan', 'sukan', 'program', 'tarikh', 'aktiviti', 'jumlah_peralatan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['cawangan', 'sukan', 'program', 'tarikh', 'jumlah_peralatan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh', 'tarikh_jkb'], 'safe'],
             [['jumlah_peralatan', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],

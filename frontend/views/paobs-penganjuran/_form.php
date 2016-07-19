@@ -18,6 +18,7 @@ use app\models\RefSukan;
 use app\models\RefBandar;
 use app\models\RefNegeri;
 use app\models\RefPeringkatBadanSukan;
+use app\models\RefStatusLaporanMesyuaratAgung;
 
 // contant values
 use app\models\general\Placeholder;
@@ -367,6 +368,53 @@ use app\models\general\GeneralMessage;
     <?php Pjax::end(); ?>
     
     <br>
+    
+    <?php
+    $disabledStatus = true;
+    if(isset(Yii::$app->user->identity->peranan_akses['PJS']['paobs-penganjuran']['status'])){
+        $disabledStatus = false;
+    }
+    
+        if(!Yii::$app->user->identity->profil_badan_sukan || $readonly){
+            echo FormGrid::widget([
+                'model' => $model,
+                'form' => $form,
+                'autoGenerateColumns' => true,
+                'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'status' => [
+                                    'type'=>Form::INPUT_WIDGET, 
+                                    'widgetClass'=>'\kartik\widgets\Select2',
+                                    'options'=>[
+                                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                        [
+                                            'append' => [
+                                                'content' => Html::a(Html::icon('edit'), ['/ref-status-laporan-mesyuarat-agung/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                                'asButton' => true
+                                            ]
+                                        ] : null,
+                                        'data'=>ArrayHelper::map(RefStatusLaporanMesyuaratAgung::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                        'options' => ['placeholder' => Placeholder::status, 'disabled' => $disabledStatus],
+                                        'pluginOptions' => [
+                                            'allowClear' => true
+                                        ],],
+                                    'columnOptions'=>['colspan'=>5]],
+                            ],
+                        ],
+                    [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                 'catatan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>9],'options'=>['maxlength'=>255]],
+                            ],
+                        ],
+                    ]
+                ]);
+        }
+    ?>
 
     <!--<?= $form->field($model, 'nama_aktiviti')->textInput(['maxlength' => 80]) ?>
 

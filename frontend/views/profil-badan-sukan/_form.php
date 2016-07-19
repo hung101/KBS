@@ -32,7 +32,7 @@ use app\models\general\GeneralMessage;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
     <?php // gambar upload
     if($model->gambar){
@@ -441,6 +441,11 @@ use app\models\general\GeneralMessage;
     ?>-->
 
     <?php
+    $disabledStatus = true;
+    if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['status'])){
+        $disabledStatus = false;
+    }
+    
         if(!Yii::$app->user->identity->profil_badan_sukan || $readonly){
             echo FormGrid::widget([
                 'model' => $model,
@@ -463,7 +468,7 @@ use app\models\general\GeneralMessage;
                                             ]
                                         ] : null,
                                         'data'=>ArrayHelper::map(RefStatusLaporanMesyuaratAgung::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                                        'options' => ['placeholder' => Placeholder::status],
+                                        'options' => ['placeholder' => Placeholder::status, 'disabled' => $disabledStatus],
                                         'pluginOptions' => [
                                             'allowClear' => true
                                         ],],
@@ -493,3 +498,21 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<?php
+
+$script = <<< JS
+        
+// enable all the disabled field before submit
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+        
+JS;
+        
+$this->registerJs($script);
+?>

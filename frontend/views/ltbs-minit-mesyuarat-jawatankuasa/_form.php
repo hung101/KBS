@@ -38,7 +38,7 @@ use app\models\general\Placeholder;
         }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
     <?php
     if(!Yii::$app->user->identity->profil_badan_sukan || $readonly){
@@ -319,6 +319,11 @@ use app\models\general\Placeholder;
     <br>
     
     <?php
+    $disabledStatus = true;
+    if(isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-minit-mesyuarat-jawatankuasa']['status'])){
+        $disabledStatus = false;
+    }
+    
         if(!Yii::$app->user->identity->profil_badan_sukan || $readonly){
             echo FormGrid::widget([
                 'model' => $model,
@@ -341,11 +346,18 @@ use app\models\general\Placeholder;
                                             ]
                                         ] : null,
                                         'data'=>ArrayHelper::map(RefStatusLaporanMesyuaratAgung::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                                        'options' => ['placeholder' => Placeholder::status],
+                                        'options' => ['placeholder' => Placeholder::status, 'disabled' => $disabledStatus],
                                         'pluginOptions' => [
                                             'allowClear' => true
                                         ],],
                                     'columnOptions'=>['colspan'=>5]],
+                            ],
+                        ],
+                    [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                 'catatan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>9],'options'=>['maxlength'=>255]],
                             ],
                         ],
                     ]
@@ -679,3 +691,20 @@ use app\models\general\Placeholder;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+$script = <<< JS
+        
+// enable all the disabled field before submit
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+        
+JS;
+        
+$this->registerJs($script);
+?>

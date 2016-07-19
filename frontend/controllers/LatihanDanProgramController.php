@@ -7,9 +7,11 @@ use app\models\LatihanDanProgram;
 use app\models\LatihanDanProgramSearch;
 use app\models\LatihanDanProgramPeserta;
 use frontend\models\LatihanDanProgramPesertaSearch;
+use app\models\PjsLaporanLatihanDanPendidikan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\BaseUrl;
 
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
@@ -17,6 +19,7 @@ use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefKategoriKursus;
+use app\models\RefStatusLaporanMesyuaratAgung;
 
 /**
  * LatihanDanProgramController implements the CRUD actions for LatihanDanProgram model.
@@ -76,6 +79,9 @@ class LatihanDanProgramController extends Controller
         
         $ref = RefKategoriKursus::findOne(['id' => $model->kategori_kursus]);
         $model->kategori_kursus = $ref['desc'];
+        
+        $ref = RefStatusLaporanMesyuaratAgung::findOne(['id' => $model->status]);
+        $model->status = $ref['desc'];
         
         $model->tarikh_kursus = GeneralFunction::convert($model->tarikh_kursus);
         
@@ -192,5 +198,54 @@ class LatihanDanProgramController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionLaporanLatihanDanPendidikan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new PjsLaporanLatihanDanPendidikan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-latihan-dan-pendidikan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-latihan-dan-pendidikan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_latihan_dan_pendidikan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanLatihanDanPendidikan($tarikh_dari, $tarikh_hingga, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/PJS/LaporanLatihanDanPendidikan', $format, $controls, 'laporan_latihan_dan_pendidikan');
     }
 }

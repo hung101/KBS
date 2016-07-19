@@ -54,7 +54,7 @@ use app\models\general\GeneralMessage;
                         'columns'=>12,
                         'autoGenerateColumns'=>false, // override columns setting
                         'attributes' => [
-                            'username' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>100]],  
+                            'username' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>100],'hint'=>'cth: 740206031155 (No. Kad Pengenalan)'],  
                         ],
                     ],
                 ]

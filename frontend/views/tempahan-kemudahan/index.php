@@ -21,12 +21,12 @@ $this->params['breadcrumbs'][] = $this->title;
         
         // Update Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['tempahan-kemudahan']['update']) || isset(Yii::$app->user->identity->peranan_akses['KBS']['tempahan-kemudahan']['update'])){
-            $template .= ' {update}';
+            //$template .= ' {update}';
         }
         
         // Delete Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['tempahan-kemudahan']['delete']) || isset(Yii::$app->user->identity->peranan_akses['KBS']['tempahan-kemudahan']['delete'])){
-            $template .= ' {delete}';
+            //$template .= ' {delete}';
         }
     ?>
 

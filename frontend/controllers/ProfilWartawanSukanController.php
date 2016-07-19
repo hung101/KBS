@@ -8,9 +8,17 @@ use frontend\models\ProfilWartawanSukanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use yii\helpers\Json;
+use yii\helpers\BaseUrl;
 
 // contant values
+use app\models\general\Upload;
 use app\models\general\GeneralLabel;
+
+// table reference
+use app\models\RefJawatanWartawan;
+
 
 /**
  * ProfilWartawanSukanController implements the CRUD actions for ProfilWartawanSukan model.
@@ -61,6 +69,9 @@ class ProfilWartawanSukanController extends Controller
         
         $model = $this->findModel($id);
         
+        $ref = RefJawatanWartawan::findOne(['id' => $model->jawatan]);
+        $model->jawatan = $ref['desc'];
+        
         $YesNo = GeneralLabel::getYesNoLabel($model->aktif);
         $model->aktif = $YesNo;
         
@@ -84,13 +95,20 @@ class ProfilWartawanSukanController extends Controller
         $model = new ProfilWartawanSukan();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->profil_wartawan_sukan_id]);
-        } else {
-            return $this->render('create', [
+            $file = UploadedFile::getInstance($model, 'gambar');
+            if($file){
+                $model->gambar = Upload::uploadFile($file, Upload::profilWartawanSukanFolder, 'gambar-' . $model->profil_wartawan_sukan_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->profil_wartawan_sukan_id]);
+            }
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -108,13 +126,20 @@ class ProfilWartawanSukanController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->profil_wartawan_sukan_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'gambar');
+            if($file){
+                $model->gambar = Upload::uploadFile($file, Upload::profilWartawanSukanFolder, 'gambar-' . $model->profil_wartawan_sukan_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->profil_wartawan_sukan_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -148,5 +173,27 @@ class ProfilWartawanSukanController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            return $this->redirect(['update', 'id' => $id]);
     }
 }

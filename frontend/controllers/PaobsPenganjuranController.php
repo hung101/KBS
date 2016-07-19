@@ -21,6 +21,7 @@ use app\models\RefSukan;
 use app\models\RefNegeri;
 use app\models\RefBandar;
 use app\models\RefPeringkatBadanSukan;
+use app\models\RefStatusLaporanMesyuaratAgung;
 
 // eddie (jasper)
 use Jaspersoft\Client\Client;
@@ -119,6 +120,9 @@ class PaobsPenganjuranController extends Controller
         
         $ref = RefPeringkatBadanSukan::findOne(['id' => $model->peringkat_sukan]);
         $model->peringkat_sukan = $ref['desc'];
+        
+        $ref = RefStatusLaporanMesyuaratAgung::findOne(['id' => $model->status]);
+        $model->status = $ref['desc'];
         
         $model->tarikh_aktiviti = GeneralFunction::convert($model->tarikh_aktiviti);
         

@@ -65,13 +65,13 @@ class BantuanPenganjuranKursusPegawaiTeknikal extends \yii\db\ActiveRecord
             [['tarikh', 'tarikh_permohonan', 'tarikh_jkb', 'created', 'updated'], 'safe'],
             [['yuran_penyertaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number'],
             [['created_by', 'updated_by'], 'integer'],
-            [['badan_sukan', 'nama_bank', 'tujuan', 'jkb'], 'string', 'max' => 80],
-            [['sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun', 'nama_kursus_seminar_bengkel', 'status_permohonan'], 'string', 'max' => 30],
+            [['badan_sukan', 'nama_bank', 'jkb'], 'string', 'max' => 80],
+            [['sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun', 'status_permohonan'], 'string', 'max' => 30],
             [['alamat_negeri'], 'string', 'max' => 3],
             [['alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5],
             [['no_telefon', 'no_faks'], 'string', 'max' => 14],
             [['laman_sesawang', 'facebook', 'twitter'], 'string', 'max' => 100],
-            [['tempat'], 'string', 'max' => 90],
+            [['tempat', 'nama_kursus_seminar_bengkel', 'tujuan'], 'string', 'max' => 255],
             [['surat_rasmi_badan_sukan', 'surat_jemputan_daripada_pengelola', 'butiran_perbelanjaan', 'salinan_passport', 'maklumat_lain_sokongan', 'catatan'], 'string', 'max' => 255],
         ];
     }

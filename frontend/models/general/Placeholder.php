@@ -109,6 +109,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jurulatih = "-- Pilih Jurulatih --";
         const juruUrut = "-- Pilih Juru Urut --";
         const kaum = "-- Pilih Kaum --";
+        const kehadiran = "-- Pilih Kehadiran --";
         const kejohanan = "-- Pilih Kejohanan --";
         const kejohananMewakili = "-- Pilih Kejohanan Mewakili --";
         const kejohananTemasya = "-- Pilih Kejohanan / Temasya --";
@@ -384,6 +385,7 @@ if($session->get('language') == "EN") {
         const jurulatih = "-- Choose A Coach --";
         const juruUrut = "-- Choose Juru Massage --";
         const kaum = "-- Select Race --";
+        const kehadiran = "-- Select Attendance --";
         const kejohanan = "-- Select Tournament --";
         const kejohananMewakili = "-- Select The Tournament Represents --";
         const kejohananTemasya = "-- Select Tournament / Festival --";

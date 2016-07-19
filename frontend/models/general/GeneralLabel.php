@@ -478,7 +478,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const institusi_universiti_syarikat = "Institusi/Universiti/Syarikat";
         const instructor = "Instructor";
         const insurans_id = "Insurans ID";
-        const inventori = "Inventory";
+        const inventori = "Inventori";
         const isnrp_no = "ISNRP No.";
         const ipt = "IPT";
         const ipt_bendahari_e_biasiswa = "IPT";
@@ -796,6 +796,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_kesihatan = "Laporan Kesihatan";
         const laporan_kewangan_muat_naik = "Laporan Kewangan";
         const laporan_komplimentori = "Laporan Komplimentori Mengikut Sukan";
+        const laporan_latihan_dan_pendidikan = "Laporan Latihan & Pendidikan";
         const laporan_maklumat_pembayaran_geran_bantuan = "Laporan Maklumat Pembayaran Geran Bantuan";
         const laporan_pencalonan_anugerah_sukan_negara_atlet = "Laporan Pencalonan Anugerah Sukan Negara";
         const laporan_penganjuran = "Laporan Penganjuran";
@@ -807,6 +808,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_ringkasan_statistik_bulanan = "Laporan Bilangan Program";
         const laporan_ringkasan_statistik_komplimentari = "Laporan Tahunan Statistik Komplimentari";
         const laporan_ringkasan_statistik_program_pendidikan = "Laporan Ringkasan Statistik Program Pendidikan";
+        const laporan_tahunan_badan_sukan = "Laporan Tahunan Badan Sukan";
         const laporan_temujanji_fisioterapi = "Laporan Temujanji Fisioterapi / Rehabilitasi";
         const laporan_temujanji_kedatangan_pegawai = "Laporan Temujanji";
         const laporan_temujanji_kedatangan_pesakit = "Laporan Temujanji Kedatangan Pesakit";
@@ -944,6 +946,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const nama_kategori = "Nama Kategori";
         const nama_kecemasan = "Nama";
         const nama_kejohanan = "Nama Kejohanan";
+        const nama_kejohanan_kursus = "Nama Kejohanan / Kursus";
         const nama_kejohanan_temasya = "Nama Kejohanan / Temasya";
         const nama_kejohanana_program_aktiviti_yang_disertai = "Nama Aktiviti";
         const nama_kejohonan = "Nama Kejohonan";
@@ -1881,7 +1884,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan = "Laporan";
         const laporan_ahli_jawatankuasa_induk = "Laporan Ahli Jawatankuasa Induk";
         const laporan_ahli_jawatankuasa_kecil_biro = "Laporan Ahli Jawatankuasa Kecil / Biro";
-        const laporan_badan_sukan = "Laporan Badan Sukan";
+        const laporan_badan_sukan = "Laporan Profil Badan Sukan";
         const laporan_bilangan_program_bagi_setiap_bulan = "Laporan Bilangan Program Bagi Setip Bulan";
         const laporan_bimbingan_kaunseling_kes_rujukan = "Laporan Bimbingan Kaunseling Bagi Kes Rujukan";
         const laporan_bimbingan_kaunseling_pegawai = "Laporan Bimbingan Kaunseling (Pegawai & Anggota)";
@@ -1987,7 +1990,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pengurusan_kewangan_hpt = "Pengurusan Kewangan HPT";
         const pengurusan_kpi = "Pengurusan KPI";
         const pengurusan_maklumat_psk = "Pengurusan Maklumat PSK";
-        const pengurusan_media = "Pengurusan Media";
+        const pengurusan_media = "Media";
         const pengurusan_mesyuarat_jawatankuasa_kerja_jkk = "Pengurusan Mesyuarat Jawatankuasa Kerja (JKK)";
         const pengurusan_mesyuarat_perbincangan_secara_online = "Pengurusan Mesyuarat / Perbincangan Secara Online";
         const pengurusan_modal_program_kursus_pengurusan_sukan_kebangsaan = "Pengurusan Modal Program / Kursus Pengurusan Sukan Kebangsaan";
@@ -3326,7 +3329,7 @@ if($session->get('language') == "EN") {
         const institusi_universiti_syarikat = "Institution/University/Company";
         const instructor = "Department of modern";
         const insurans_id = "Insurance ID";
-        const inventori = "Inventori";
+        const inventori = "Inventory";
         const isnrp_no = "ISNRP No.";
         const ipt = "IPT";
         const ipt_bendahari_e_biasiswa = "IPT";
@@ -3644,6 +3647,7 @@ if($session->get('language') == "EN") {
         const laporan_kesihatan = "Medical Report";
         const laporan_kewangan_muat_naik = "Financial Reporting";
         const laporan_komplimentori = "Report Complimentory By Sports";
+        const laporan_latihan_dan_pendidikan = "Reports Training & Education";
         const laporan_maklumat_pembayaran_geran_bantuan = "Report Payment Information Grants Help";
         const laporan_pencalonan_anugerah_sukan_negara_atlet = "Report of the National Sports Award Nominations";
         const laporan_penganjuran = "Report Recommendations:";
@@ -3655,6 +3659,7 @@ if($session->get('language') == "EN") {
         const laporan_ringkasan_statistik_bulanan = "Report Number of Programs";
         const laporan_ringkasan_statistik_komplimentari = "Complementary Statistics Yearly Report";
         const laporan_ringkasan_statistik_program_pendidikan = "Statistical Summary Report Education Program";
+        const laporan_tahunan_badan_sukan = "Report of Sport Association Yearly";
         const laporan_temujanji_fisioterapi = "Report Physiotherapy / Rehabilitation Appointment";
         const laporan_temujanji_kedatangan_pegawai = "Report Reservation";
         const laporan_temujanji_kedatangan_pesakit = "Report Patient Presence";
@@ -3792,7 +3797,8 @@ if($session->get('language') == "EN") {
         const nama_kategori = "The Name Of The Category";
         const nama_kecemasan = "The name of the";
         const nama_kejohanan = "The Name Of The Tournament";
-        const nama_kejohanan_temasya = "Tournament/Events Name";
+        const nama_kejohanan_kursus = "Tournament/Course Name";
+        const nama_kejohanan_temasya = "Tournament/Event Name";
         const nama_kejohanana_program_aktiviti_yang_disertai = "The Name Of The Activity";
         const nama_kejohonan = "Name Kejohonan";
         const nama_kelulusan = "Name Approval";

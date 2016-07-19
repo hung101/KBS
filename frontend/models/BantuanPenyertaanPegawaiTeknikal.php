@@ -67,12 +67,13 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
             [['tarikh', 'tarikh_permohonan', 'tarikh_jkb', 'created', 'updated'], 'safe'],
             [['jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number'],
             [['created_by', 'updated_by'], 'integer'],
-            [['badan_sukan', 'nama_bank', 'nama_kejohanan', 'peringkat_lain_lain', 'tujuan', 'jkb'], 'string', 'max' => 80],
+            [['badan_sukan', 'nama_bank', 'peringkat_lain_lain', 'tujuan', 'jkb', 'negara'], 'string', 'max' => 80],
             [['sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun', 'peringkat', 'status_permohonan'], 'string', 'max' => 30],
             [['alamat_negeri'], 'string', 'max' => 3],
             [['alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5],
             [['no_telefon', 'no_faks'], 'string', 'max' => 14],
             [['laman_sesawang', 'facebook', 'twitter'], 'string', 'max' => 100],
+            [['tujuan', 'nama_kejohanan'], 'string', 'max' => 255],
             [['tempat'], 'string', 'max' => 90],
             [['surat_rasmi_badan_sukan_ms_negeri', 'surat_jemputan_lantikan_daripada_pengelola', 'butiran_perbelanjaan', 'salinan_passport', 'maklumat_lain_sokongan', 'catatan'], 'string', 'max' => 255],
         ];
@@ -104,7 +105,7 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
             'nama_kejohanan' => 'Nama Kejohanan',
             'peringkat' => 'Peringkat',
             'peringkat_lain_lain' => 'Peringkat Lain Lain',
-            'tarikh' => 'Tarikh',
+            'tarikh' => 'Tarikh Mula',
             'tempat' => 'Tempat',
             'tujuan' => 'Tujuan',
             'surat_rasmi_badan_sukan_ms_negeri' => 'Surat Rasmi Badan Sukan',
@@ -123,6 +124,8 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
+            'tarikh_tamat' => 'Tarikh Tamat',
+            'negara' => 'Negara',
         ];
     }
 }

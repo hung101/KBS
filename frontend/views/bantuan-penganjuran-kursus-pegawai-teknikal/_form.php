@@ -37,7 +37,7 @@ use app\models\general\GeneralVariable;
 
 <div class="bantuan-penganjuran-kursus-pegawai-teknikal-form">
     
-    <?= Html::a('Laporan Teknikal & Kepegawaian', ['bantuan-penganjuran-kursus-pegawai-teknikal-laporan/create'], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
+    <?php //echo Html::a('Laporan Teknikal & Kepegawaian', ['bantuan-penganjuran-kursus-pegawai-teknikal-laporan/create'], ['class' => 'btn btn-warning', 'target' => '_blank']); ?>
     
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
@@ -392,7 +392,8 @@ use app\models\general\GeneralVariable;
     
     <br>
     
-    <h3>Maklumat Kursus / Seminar / Bengkel Dalam Dan Luar Negara Yang Telah Disertai Oleh Pegawai Di Atas (Tahun Semasa & Tahun Sebelum)</h3>
+    <!--<h3>Maklumat Kursus / Seminar / Bengkel Dalam Dan Luar Negara Yang Telah Disertai Oleh Pegawai Di Atas (Tahun Semasa & Tahun Sebelum)</h3>-->
+    <h3>Maklumat Kursus / Seminar / Bengkel Dalam Dan Luar Negara Yang Telah Disertai</h3>
     
     <?php Pjax::begin(['id' => 'bantuanPenganjuranKursusPegawaiTeknikalDisertaiGrid', 'timeout' => 100000]); ?>
 
@@ -559,6 +560,9 @@ use app\models\general\GeneralVariable;
     <hr>
     <?php
     if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus-pegawai-teknikal']['kelulusan'])){
+        echo '<br>
+                <pre style="text-align: center"><strong>KEGUNAAN MSN</strong></pre>';
+        
         echo FormGrid::widget([
             'model' => $model,
             'form' => $form,

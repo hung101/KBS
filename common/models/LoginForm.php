@@ -79,7 +79,7 @@ class LoginForm extends Model
             if($user->expiry_date && ($user->expiry_date < date("Y-m-d")) && $user->peranan == UserPeranan::PERANAN_PJS_PERSATUAN){
                 //$user->login_attempted = 0;
                 //$user->save();
-                $this->addError('username', 'Akaun anda disekat kerana tidak menghantarkan MYKB.');
+                $this->addError('username', 'Akaun anda disekat kerana tidak menghantar laporan tahunan. Sila hubungi Pejabat Pesuruhjaya Sukan ditalian 03 8994 4800');
                 return false;
             }
             

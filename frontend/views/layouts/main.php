@@ -912,9 +912,16 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                         [
                             'label' => GeneralLabel::laporan,
                             'items' => [
-                                ['label' => GeneralLabel::laporan_ahli_jawatankuasa_induk, 'url' => ['/profil-badan-sukan/laporan-ahli-jawatankuasa-induk'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['module'])],
-                                ['label' => GeneralLabel::laporan_ahli_jawatankuasa_kecil_biro, 'url' => ['/profil-badan-sukan/laporan-ahli-jawatankuasa-kecil-biro'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['module'])],
                                 ['label' => GeneralLabel::laporan_badan_sukan, 'url' => ['/profil-badan-sukan/laporan-badan-sukan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['module'])],
+                                [
+                                    'label' => GeneralLabel::laporan_tahunan_badan_sukan,
+                                    'items' => [
+                                        ['label' => GeneralLabel::maklumat_mesyuarat_agung_tahunan, 'url' => ['/ltbs-minit-mesyuarat-jawatankuasa/maklumat-mesyuarat-agung-tahunan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-minit-mesyuarat-jawatankuasa']['module'])],
+                                        ['label' => GeneralLabel::laporan_ahli_jawatankuasa_induk, 'url' => ['/profil-badan-sukan/laporan-ahli-jawatankuasa-induk'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['module'])],
+                                        ['label' => GeneralLabel::laporan_ahli_jawatankuasa_kecil_biro, 'url' => ['/profil-badan-sukan/laporan-ahli-jawatankuasa-kecil-biro'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['module'])],
+                                    ],
+                                ],
+                                ['label' => GeneralLabel::laporan_latihan_dan_pendidikan, 'url' => ['/latihan-dan-program/laporan-latihan-dan-pendidikan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['latihan-dan-program']['module'])],
                                 ['label' => GeneralLabel::laporan_penganjuran_acara, 'url' => ['/profil-badan-sukan/laporan-penganjuran-acara'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['module'])],
                             ],
                         ],

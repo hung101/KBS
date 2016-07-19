@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\MaklumatPegawaiTeknikal */
 
-$this->title = $model->bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id;
+$this->title = GeneralLabel::viewTitle . ' Maklumat Pegawai Teknikal';
 $this->params['breadcrumbs'][] = ['label' => 'Maklumat Pegawai Teknikal', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

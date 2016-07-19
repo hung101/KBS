@@ -20,12 +20,12 @@ $this->params['breadcrumbs'][] = $this->title;
         
         // Update Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['maklumat-pegawai-teknikal']['update']) || isset(Yii::$app->user->identity->peranan_akses['ISN']['maklumat-pegawai-teknikal']['update'])){
-            $template .= ' {update}';
+            //$template .= ' {update}';
         }
         
         // Delete Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['maklumat-pegawai-teknikal']['delete']) || isset(Yii::$app->user->identity->peranan_akses['ISN']['maklumat-pegawai-teknikal']['delete'])){
-            $template .= ' {delete}';
+            //$template .= ' {delete}';
         }
     ?>
 
@@ -47,15 +47,6 @@ $this->params['breadcrumbs'][] = $this->title;
             //'bantuan_penganjuran_kursus_pegawai_teknikal_id',
             //'badan_sukan',
             [
-                'attribute' => 'badan_sukan',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::badan_sukan,
-                ],
-                'value' => 'refProfilBadanSukan.nama_badan_sukan'
-            ],
-            //'sukan',
-            [
                 'attribute' => 'sukan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -63,7 +54,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refSukan.desc'
             ],
-            //'nama',
             [
                 'attribute' => 'nama',
                 'filterInputOptions' => [
@@ -71,6 +61,32 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
                 ],
             ],
+            [
+                'attribute' => 'nama_kejohanan_kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_kejohanan_kursus,
+                ],
+            ],
+            [
+                'attribute' => 'tempat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tempat,
+                ],
+            ],
+            /*[
+                'attribute' => 'badan_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::badan_sukan,
+                ],
+                'value' => 'refProfilBadanSukan.nama_badan_sukan'
+            ],*/
+            //'sukan',
+            
+            //'nama',
+            
             // 'alamat_1',
             // 'alamat_2',
             // 'alamat_3',
@@ -79,12 +95,26 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'alamat_poskod',
             //'no_kad_pengenalan',
             [
+                'attribute' => 'tarikh_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
+                ],
+            ],
+            [
+                'attribute' => 'tarikh_tamat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat,
+                ],
+            ],
+            /*[
                 'attribute' => 'no_kad_pengenalan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
                 ],
-            ],
+            ],*/
             // 'umur',
             // 'no_passport',
             // 'jantina',

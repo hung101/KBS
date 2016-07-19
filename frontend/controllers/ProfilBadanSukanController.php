@@ -199,6 +199,10 @@ class ProfilBadanSukanController extends Controller
                 $model->gambar = Upload::uploadFile($file, Upload::profilBadanSukanFolder, 'gambar-' . $model->profil_badan_sukan);
             }
             
+            if(Yii::$app->user->identity->profil_badan_sukan){
+                $model->status = RefStatusLaporanMesyuaratAgung::BELUM_DISAHKAN;
+            }
+            
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->profil_badan_sukan]);
             }

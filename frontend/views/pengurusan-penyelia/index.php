@@ -91,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     },
                 ],
-                'template' => '{view} {update} {delete}',
+                'template' => '{view}',
             ],
         ],
     ]); ?>

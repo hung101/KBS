@@ -86,6 +86,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const profilBadanSukanFolder = "profil_badan_sukan";
         const profilKonsultanFolder = "profil_konsultan";
         const profilPsikologiFolder = "profil_psikologi";
+        const profilWartawanSukanFolder = "profil_wartawan_sukan";
         const perlembagaanBadanSukanFolder = "perlembagaan_badan_sukan";
         const sukarelawanFolder = "sukarelawan";
         const uploadRootFolder = "uploads";
@@ -208,6 +209,7 @@ if($session->get('language') == "EN") {
         const profilBadanSukanFolder = "profil_badan_sukan";
         const profilKonsultanFolder = "profil_konsultan";
         const profilPsikologiFolder = "profil_psikologi";
+        const profilWartawanSukanFolder = "profil_wartawan_sukan";
         const perlembagaanBadanSukanFolder = "perlembagaan_badan_sukan";
         const sukarelawanFolder = "sukarelawan";
         const uploadRootFolder = "uploads";

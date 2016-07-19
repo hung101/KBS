@@ -22,6 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProviderDokumenMediaProgram' => $dataProviderDokumenMediaProgram,
         'searchModelKehadiranMediaProgram' => $searchModelKehadiranMediaProgram,
         'dataProviderKehadiranMediaProgram' => $dataProviderKehadiranMediaProgram,
+        'searchModelPengurusanMediaProgramWakil' => $searchModelPengurusanMediaProgramWakil,
+        'dataProviderPengurusanMediaProgramWakil' => $dataProviderPengurusanMediaProgramWakil,
         'readonly' => $readonly,
     ]) ?>
 

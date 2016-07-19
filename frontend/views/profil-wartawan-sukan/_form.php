@@ -5,8 +5,14 @@ use kartik\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\builder\FormGrid;
+use yii\helpers\ArrayHelper;
 
+// table reference
+use app\models\RefJawatanWartawan;
+
+use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ProfilWartawanSukan */
@@ -18,6 +24,39 @@ use app\models\general\GeneralLabel;
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    
+    <?php
+    if($model->gambar){
+        echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$model->gambar.'" width="200px">&nbsp;&nbsp;&nbsp;';
+        if(!$readonly){
+            echo Html::a(GeneralLabel::removeImage, ['deleteupload', 'id'=>$model->profil_wartawan_sukan_id, 'field'=> 'gambar'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+        echo '<br><br>';
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'gambar' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>['accept' => 'image/*'], 'pluginOptions' => ['previewFileType' => 'image'], 'hint'=>GeneralLabel::getFileUploadMaxSizeHint()],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+    
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -28,9 +67,22 @@ use app\models\general\GeneralLabel;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
-                 'emel' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>100]],
-                 
+                'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
+                 'emel' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>100]],
+                 'jawatan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jawatan-wartawan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefJawatanWartawan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::jawatan],],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
         [

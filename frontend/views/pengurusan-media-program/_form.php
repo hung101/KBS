@@ -53,6 +53,7 @@ use app\models\general\GeneralMessage;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
+                        'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
@@ -63,25 +64,13 @@ use app\models\general\GeneralMessage;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
+                        'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                 'nama_program' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/perancang-program/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(PerancanganProgram::find()->all(),'perancangan_program_id', 'nama_program'),
-                        'options' => ['placeholder' => Placeholder::program],],
-                    'columnOptions'=>['colspan'=>5]],
+                 'nama_program' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
                  
             ],
         ],
@@ -91,6 +80,14 @@ use app\models\general\GeneralMessage;
             'attributes' => [
                 'tempat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>90]],
                  'cawangan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                 
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'pengerusi_program' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
                  
             ],
         ],
@@ -108,7 +105,7 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     
-    <h3>Kehadiran Media Program</h3>
+    <h3>Kehadiran Wartawan</h3>
     
     <?php 
             Modal::begin([
@@ -131,6 +128,7 @@ use app\models\general\GeneralMessage;
     <?= GridView::widget([
         'dataProvider' => $dataProviderKehadiranMediaProgram,
         //'filterModel' => $searchModelKehadiranMediaProgram,
+        'id' => 'kehadiranMediaProgramGrid',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -156,13 +154,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kehadiran-media-program/update', 'id' => $model->pengurusan_kehadiran_media_program_id]).'", "'.GeneralLabel::updateTitle . ' Kehadiran Media Program");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kehadiran-media-program/update', 'id' => $model->pengurusan_kehadiran_media_program_id]).'", "'.GeneralLabel::updateTitle . ' Kehadiran Wartawan");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kehadiran-media-program/view', 'id' => $model->pengurusan_kehadiran_media_program_id]).'", "'.GeneralLabel::viewTitle . ' Kehadiran Media Program");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kehadiran-media-program/view', 'id' => $model->pengurusan_kehadiran_media_program_id]).'", "'.GeneralLabel::viewTitle . ' Kehadiran Wartawan");',
                         ]);
                     }
                 ],
@@ -183,7 +181,84 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kehadiran-media-program/create', 'pengurusan_media_program_id' => $pengurusan_media_program_id]).'", "'.GeneralLabel::createTitle . ' Kehadiran Media Program");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kehadiran-media-program/create', 'pengurusan_media_program_id' => $pengurusan_media_program_id]).'", "'.GeneralLabel::createTitle . ' Kehadiran Wartawan");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
+    
+    <h3>Kehadiran Wakil</h3>
+    
+    <?php 
+            Modal::begin([
+                'header' => '<h3 id="modalTitle"></h3>',
+                'id' => 'modal',
+                'size' => 'modal-lg',
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE]
+            ]);
+            
+            echo '<div id="modalContent"></div>';
+            
+            Modal::end();
+        ?>
+    
+    <?php Pjax::begin(['id' => 'pengurusanMediaProgramWakilGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPengurusanMediaProgramWakil,
+        //'filterModel' => $searchModelPengurusanMediaProgramWakil,
+        'id' => 'pengurusanMediaProgramWakilGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'pengurusan_media_program_wakil_id',
+            //'pengurusan_media_program_id',
+            'nama_wakil',
+            'kehadiran',
+            //'session_id',
+            // 'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['pengurusan-media-program-wakil/delete', 'id' => $model->pengurusan_media_program_wakil_id]).'", "'.GeneralMessage::confirmDelete.'", "pengurusanMediaProgramWakilGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-media-program-wakil/update', 'id' => $model->pengurusan_media_program_wakil_id]).'", "'.GeneralLabel::updateTitle . ' Kehadiran Wakil");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-media-program-wakil/view', 'id' => $model->pengurusan_media_program_wakil_id]).'", "'.GeneralLabel::viewTitle . ' Kehadiran Wakil");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-media-program-wakil/create', 'pengurusan_media_program_id' => $pengurusan_media_program_id]).'", "'.GeneralLabel::createTitle . ' Kehadiran Wakil");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -211,6 +286,7 @@ use app\models\general\GeneralMessage;
     <?= GridView::widget([
         'dataProvider' => $dataProviderDokumenMediaProgram,
         //'filterModel' => $searchModelDokumenMediaProgram,
+        'id' => 'dokumenMediaProgramGrid',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 

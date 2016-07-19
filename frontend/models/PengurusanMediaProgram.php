@@ -54,7 +54,7 @@ class PengurusanMediaProgram extends \yii\db\ActiveRecord
         return [
             [['tarikh_mula', 'tarikh_tamat', 'nama_program', 'tempat', 'cawangan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_mula'], 'safe'],
-            [['nama_program', 'cawangan', 'maklumat_msn_negeri'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_program', 'cawangan', 'maklumat_msn_negeri', 'pengerusi_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
@@ -71,7 +71,7 @@ class PengurusanMediaProgram extends \yii\db\ActiveRecord
             'tarikh_tamat' => GeneralLabel::tarikh_tamat,
             'nama_program' => GeneralLabel::nama_program,
             'tempat' => GeneralLabel::tempat,
-            'cawangan' => GeneralLabel::cawangan,
+            'cawangan' => 'Bahagian / Cawangan',
             'maklumat_msn_negeri' => GeneralLabel::maklumat_msn_negeri,
             'catatan' => GeneralLabel::catatan,
 

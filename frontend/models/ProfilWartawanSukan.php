@@ -3,9 +3,10 @@
 namespace app\models;
 
 use Yii;
-
-use app\models\general\GeneralLabel;
+use yii\web\UploadedFile;
+use app\models\general\Upload;
 use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 
 /**
  * This is the model class for table "tbl_profil_wartawan_sukan".
@@ -51,11 +52,14 @@ class ProfilWartawanSukan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'agensi', 'no_tel', 'aktif'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['aktif'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama', 'agensi', 'no_tel', 'aktif', 'emel'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['aktif', 'jawatan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['nama', 'agensi'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['no_tel'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['gambar'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_tel'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['gambar'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -71,12 +75,24 @@ class ProfilWartawanSukan extends \yii\db\ActiveRecord
             'agensi' => GeneralLabel::agensi,
             'no_tel' => GeneralLabel::no_tel,
             'aktif' => GeneralLabel::aktif,
-
+            'gambar' => GeneralLabel::gambar,
+            'jawatan' => GeneralLabel::jawatan,
         ];
     }
     
     public function getRefKelulusan()
     {
         return $this->hasOne(RefKelulusan::className(), ['id' => 'aktif']);
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
     }
 }

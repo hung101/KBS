@@ -13,10 +13,12 @@ use app\models\LtbsSenaraiNamaHadirJawatankuasa;
 use app\models\LtbsSenaraiNamaHadirJawatankuasaSearch;
 use app\models\LtbsSenaraiNamaHadirAgm;
 use app\models\LtbsSenaraiNamaHadirAgmSearch;
+use app\models\PjsMaklumatMesyuaratAgungTahunan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\BaseUrl;
 
 use app\models\general\Upload;
 use common\models\general\GeneralFunction;
@@ -479,5 +481,60 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
             $img->update();
 
             return $this->redirect(['update', 'id' => $id]);
+    }
+    
+    public function actionMaklumatMesyuaratAgungTahunan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new PjsMaklumatMesyuaratAgungTahunan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-maklumat-mesyuarat-agung-tahunan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'badan_sukan' => $model->badan_sukan
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-maklumat-mesyuarat-agung-tahunan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'badan_sukan' => $model->badan_sukan
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('maklumat_mesyuarat_agung_tahunan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateMaklumatMesyuaratAgungTahunan($tarikh_dari, $tarikh_hingga, $badan_sukan, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($badan_sukan == "") $badan_sukan = array();
+        else $badan_sukan = array($badan_sukan);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'BADAN_SUKAN' => $badan_sukan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/PJS/MaklumatMesyuaratAgungTahunan', $format, $controls, 'maklumat_mesyuarat_agung_tahunan');
     }
 }

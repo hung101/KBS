@@ -30,7 +30,7 @@ use app\models\RefStatusLaporanMesyuaratAgung;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     
     <?php
     if((!Yii::$app->user->identity->profil_badan_sukan && !isset($model->profil_badan_sukan_id)) || $readonly){
@@ -177,7 +177,14 @@ use app\models\RefStatusLaporanMesyuaratAgung;
 ]);
     ?>
     
+    
+    
     <?php
+    $disabledStatus = true;
+    if(isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-ahli-jawatankuasa-induk-kecil']['status'])){
+        $disabledStatus = false;
+    }
+    
         if(!Yii::$app->user->identity->profil_badan_sukan || $readonly){
             echo FormGrid::widget([
                 'model' => $model,
@@ -200,7 +207,7 @@ use app\models\RefStatusLaporanMesyuaratAgung;
                                             ]
                                         ] : null,
                                         'data'=>ArrayHelper::map(RefStatusLaporanMesyuaratAgung::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                                        'options' => ['placeholder' => Placeholder::status],
+                                        'options' => ['placeholder' => Placeholder::status, 'disabled' => $disabledStatus],
                                         'pluginOptions' => [
                                             'allowClear' => true
                                         ],],
@@ -247,3 +254,20 @@ use app\models\RefStatusLaporanMesyuaratAgung;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+$script = <<< JS
+        
+// enable all the disabled field before submit
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+        
+JS;
+        
+$this->registerJs($script);
+?>

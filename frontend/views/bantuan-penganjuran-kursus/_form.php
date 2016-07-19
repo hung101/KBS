@@ -224,7 +224,16 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
-                        'type'=>DateControl::FORMAT_DATETIME,
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                'tarikh_tamat' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
@@ -559,6 +568,9 @@ use app\models\general\GeneralVariable;
     <hr>
     <?php
     if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus']['kelulusan'])){
+        echo '<br>
+                <pre style="text-align: center"><strong>KEGUNAAN MSN</strong></pre>';
+        
         echo FormGrid::widget([
             'model' => $model,
             'form' => $form,

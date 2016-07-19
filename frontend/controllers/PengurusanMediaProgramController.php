@@ -9,6 +9,8 @@ use app\models\PengurusanDokumenMediaProgram;
 use frontend\models\PengurusanDokumenMediaProgramSearch;
 use app\models\PengurusanKehadiranMediaProgram;
 use frontend\models\PengurusanKehadiranMediaProgramSearch;
+use app\models\PengurusanMediaProgramWakil;
+use frontend\models\PengurusanMediaProgramWakilSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -66,6 +68,7 @@ class PengurusanMediaProgramController extends Controller
         
         $queryPar['PengurusanDokumenMediaProgramSearch']['pengurusan_media_program_id'] = $id;
         $queryPar['PengurusanKehadiranMediaProgramSearch']['pengurusan_media_program_id'] = $id;
+        $queryPar['PengurusanMediaProgramWakilSearch']['pengurusan_media_program_id'] = $id;
         
         $searchModelDokumenMediaProgram = new PengurusanDokumenMediaProgramSearch();
         $dataProviderDokumenMediaProgram = $searchModelDokumenMediaProgram->search($queryPar);
@@ -73,12 +76,17 @@ class PengurusanMediaProgramController extends Controller
         $searchModelKehadiranMediaProgram = new PengurusanKehadiranMediaProgramSearch();
         $dataProviderKehadiranMediaProgram = $searchModelKehadiranMediaProgram->search($queryPar);
         
+        $searchModelPengurusanMediaProgramWakil = new PengurusanMediaProgramWakilSearch();
+        $dataProviderPengurusanMediaProgramWakil = $searchModelPengurusanMediaProgramWakil->search($queryPar);
+        
         return $this->render('view', [
             'model' => $this->findModel($id),
             'searchModelDokumenMediaProgram' => $searchModelDokumenMediaProgram,
             'dataProviderDokumenMediaProgram' => $dataProviderDokumenMediaProgram,
             'searchModelKehadiranMediaProgram' => $searchModelKehadiranMediaProgram,
             'dataProviderKehadiranMediaProgram' => $dataProviderKehadiranMediaProgram,
+            'searchModelPengurusanMediaProgramWakil' => $searchModelPengurusanMediaProgramWakil,
+            'dataProviderPengurusanMediaProgramWakil' => $dataProviderPengurusanMediaProgramWakil,
             'readonly' => true,
         ]);
     }
@@ -103,6 +111,7 @@ class PengurusanMediaProgramController extends Controller
         if(isset(Yii::$app->session->id)){
             $queryPar['PengurusanDokumenMediaProgramSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['PengurusanKehadiranMediaProgramSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['PengurusanMediaProgramWakilSearch']['session_id'] = Yii::$app->session->id;
         }
         
         $searchModelDokumenMediaProgram  = new PengurusanDokumenMediaProgramSearch();
@@ -110,6 +119,9 @@ class PengurusanMediaProgramController extends Controller
         
         $searchModelKehadiranMediaProgram  = new PengurusanKehadiranMediaProgramSearch();
         $dataProviderKehadiranMediaProgram = $searchModelKehadiranMediaProgram->search($queryPar);
+        
+        $searchModelPengurusanMediaProgramWakil = new PengurusanMediaProgramWakilSearch();
+        $dataProviderPengurusanMediaProgramWakil = $searchModelPengurusanMediaProgramWakil->search($queryPar);
                 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -119,6 +131,9 @@ class PengurusanMediaProgramController extends Controller
                 
                 PengurusanKehadiranMediaProgram::updateAll(['pengurusan_media_program_id' => $model->pengurusan_media_program_id], 'session_id = "'.Yii::$app->session->id.'"');
                 PengurusanKehadiranMediaProgram::updateAll(['session_id' => ''], 'pengurusan_media_program_id = "'.$model->pengurusan_media_program_id.'"');
+                
+                PengurusanMediaProgramWakil::updateAll(['pengurusan_media_program_id' => $model->pengurusan_media_program_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PengurusanMediaProgramWakil::updateAll(['session_id' => ''], 'pengurusan_media_program_id = "'.$model->pengurusan_media_program_id.'"');
             }
             
             return $this->redirect(['view', 'id' => $model->pengurusan_media_program_id]);
@@ -129,6 +144,8 @@ class PengurusanMediaProgramController extends Controller
                 'dataProviderDokumenMediaProgram' => $dataProviderDokumenMediaProgram,
                 'searchModelKehadiranMediaProgram' => $searchModelKehadiranMediaProgram,
                 'dataProviderKehadiranMediaProgram' => $dataProviderKehadiranMediaProgram,
+                'searchModelPengurusanMediaProgramWakil' => $searchModelPengurusanMediaProgramWakil,
+                'dataProviderPengurusanMediaProgramWakil' => $dataProviderPengurusanMediaProgramWakil,
                 'readonly' => false,
             ]);
         }
@@ -152,12 +169,16 @@ class PengurusanMediaProgramController extends Controller
         
         $queryPar['PengurusanDokumenMediaProgramSearch']['pengurusan_media_program_id'] = $id;
         $queryPar['PengurusanKehadiranMediaProgramSearch']['pengurusan_media_program_id'] = $id;
+        $queryPar['PengurusanMediaProgramWakilSearch']['pengurusan_media_program_id'] = $id;
         
         $searchModelDokumenMediaProgram = new PengurusanDokumenMediaProgramSearch();
         $dataProviderDokumenMediaProgram = $searchModelDokumenMediaProgram->search($queryPar);
         
         $searchModelKehadiranMediaProgram = new PengurusanKehadiranMediaProgramSearch();
         $dataProviderKehadiranMediaProgram = $searchModelKehadiranMediaProgram->search($queryPar);
+        
+        $searchModelPengurusanMediaProgramWakil = new PengurusanMediaProgramWakilSearch();
+        $dataProviderPengurusanMediaProgramWakil = $searchModelPengurusanMediaProgramWakil->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->pengurusan_media_program_id]);
@@ -168,6 +189,8 @@ class PengurusanMediaProgramController extends Controller
                 'dataProviderDokumenMediaProgram' => $dataProviderDokumenMediaProgram,
                 'searchModelKehadiranMediaProgram' => $searchModelKehadiranMediaProgram,
                 'dataProviderKehadiranMediaProgram' => $dataProviderKehadiranMediaProgram,
+                'searchModelPengurusanMediaProgramWakil' => $searchModelPengurusanMediaProgramWakil,
+                'dataProviderPengurusanMediaProgramWakil' => $dataProviderPengurusanMediaProgramWakil,
                 'readonly' => false,
             ]);
         }
