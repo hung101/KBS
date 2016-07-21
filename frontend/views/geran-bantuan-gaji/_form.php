@@ -18,6 +18,7 @@ use app\models\RefStatusJurulatih;
 use app\models\RefSukan;
 use app\models\RefProgramJurulatih;
 use app\models\RefKelulusanGeranBantuanGajiJurulatih;
+use app\models\RefAgensiJurulatih;
 
 // contant values
 use app\models\general\Placeholder;
@@ -127,7 +128,23 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefProgramJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::program,'disabled'=>true],],
                     'columnOptions'=>['colspan'=>3]],
-                'agensi' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                'agensi' =>[
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-agensi-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefAgensiJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::agensi],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
         [
@@ -407,8 +424,11 @@ use app\models\general\GeneralMessage;
 </div>
 
 <?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
 
 $URLJurulatih = Url::to(['/jurulatih/get-jurulatih']);
+
+$URLJurulatihSukan = Url::to(['/jurulatih-sukan/get-jurulatih-sukan-acara']);
 
 $script = <<< JS
 
@@ -444,15 +464,35 @@ function calculateJumlahGeran(){
         
 $('#jurulatihId').change(function(){
     
+    clearForm();
+    
     $.get('$URLJurulatih',{id:$(this).val()},function(data){
-        clearForm();
-        
         var data = $.parseJSON(data);
         
         if(data !== null){
             $('#geranbantuangaji-status_jurulatih').val(data.status_jurulatih).trigger("change");
-            $("#geranbantuangaji-nama_sukan").val(data.nama_sukan).trigger("change");
+            $("#geranbantuangaji-agensi").val(data.agensi).trigger("change");
+            //$("#geranbantuangaji-nama_sukan").val(data.nama_sukan).trigger("change");
+            //$("#geranbantuangaji-program_msn").val(data.program).trigger("change");
+        }
+    });
+            
+    $.get('$URLJurulatihSukan',{jurulatih_id:$(this).val()},function(data){
+        var data = $.parseJSON(data);
+
+        if(data !== null){
             $("#geranbantuangaji-program_msn").val(data.program).trigger("change");
+            $("#geranbantuangaji-nama_sukan").val(data.sukan).trigger("change");
+            $("#geranbantuangaji-tarikh_mula_kontrak").attr('value',data.tarikh_mula_lantikan);
+            $("#geranbantuangaji-tarikh_tamat_kontrak").attr('value',data.tarikh_tamat_lantikan);
+            $("#geranbantuangaji-tarikh_mula_kontrak-disp").val(formatDisplayDate(data.tarikh_mula_lantikan));
+            $("#geranbantuangaji-tarikh_tamat_kontrak-disp").val(formatDisplayDate(data.tarikh_tamat_lantikan));
+            $("#geranbantuangaji-tarikh_mula_kontrak").kvDatepicker("$DateDisplayFormat", new Date(data.tarikh_mula_lantikan)).kvDatepicker({
+                format: "$DateDisplayFormat"
+            });
+            $("#geranbantuangaji-tarikh_tamat_kontrak").kvDatepicker("$DateDisplayFormat", new Date(data.tarikh_tamat_lantikan)).kvDatepicker({
+                format: "$DateDisplayFormat"
+            });
         }
     });
 });
@@ -461,6 +501,11 @@ function clearForm(){
     $("#geranbantuangaji-status_jurulatih").val('').trigger("change");
     $("#geranbantuangaji-nama_sukan").val('').trigger("change");
     $("#geranbantuangaji-program_msn").val('').trigger("change");
+    $("#geranbantuangaji-agensi").val('').trigger("change");
+    $('#geranbantuangaji-tarikh_mula_kontrak').attr('value','');
+    $("#geranbantuangaji-tarikh_mula_kontrak-disp").val('');
+    $('#geranbantuangaji-tarikh_tamat_kontrak').attr('value','');
+    $('#geranbantuangaji-tarikh_tamat_kontrak-disp').attr('value','');
 }
         
 JS;

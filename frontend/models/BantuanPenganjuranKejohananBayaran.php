@@ -53,7 +53,7 @@ class BantuanPenganjuranKejohananBayaran extends \yii\db\ActiveRecord
             'bantuan_penganjuran_kejohanan_bayaran_id' => 'Bantuan Penganjuran Kejohanan Bayaran ID',
             'bantuan_penganjuran_kejohanan_id' => 'Bantuan Penganjuran Kejohanan ID',
             'jenis_bayaran' => 'Jenis Bayaran',
-            'lain_lain' => 'Lain-lain',
+            'lain_lain' => 'Nyatakan (Jika Lain-lain)',
             'jumlah' => 'Jumlah (RM)',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',

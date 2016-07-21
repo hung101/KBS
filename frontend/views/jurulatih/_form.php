@@ -136,7 +136,7 @@ use app\models\general\GeneralVariable;
             ],
         ],
         
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -161,7 +161,7 @@ use app\models\general\GeneralVariable;
                     ],
                     'columnOptions'=>['colspan'=>3]],
             ]
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting

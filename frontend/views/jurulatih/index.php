@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
@@ -303,7 +304,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_sukan,
                 ],
-                'value' => 'refSukan.desc'
+                //'value' => 'refSukan.desc'
+                'value'=>function ($model) {
+                    if(isset($model->refJurulatihSukan[0]->sukan) && $sukanModel = RefSukan::find()->where(['=', 'id', $model->refJurulatihSukan[0]->sukan])->one()){
+                        return $sukanModel->desc;
+                    } else {
+                        return "";
+                    }
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'sukan', ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(), 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Sukan --']),
             ],
             //'nama_acara',
             [
@@ -312,7 +321,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program,
                 ],
-                'value' => 'refProgramJurulatih.desc'
+                //'value' => 'refProgramJurulatih.desc'
+                'value'=>function ($model) {
+                    if(isset($model->refJurulatihSukan[0]->program) && $programModel = RefProgramJurulatih::find()->where(['=', 'id', $model->refJurulatihSukan[0]->program])->one()){
+                        return $programModel->desc;
+                    } else {
+                        return "";
+                    }
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'program', ArrayHelper::map(RefProgramJurulatih::find()->where(['=', 'aktif', 1])->all(), 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Program --']),
             ],
             [
                 'attribute' => 'status_tawaran',

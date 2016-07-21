@@ -277,6 +277,8 @@ use app\models\general\GeneralMessage;
 <?php
 $URLJurulatih = Url::to(['/jurulatih/get-jurulatih']);
 
+$URLJurulatihSukan = Url::to(['/jurulatih-sukan/get-jurulatih-sukan-acara']);
+
 $script = <<< JS
         
 $('#jurulatihId').change(function(){
@@ -288,8 +290,19 @@ $('#jurulatihId').change(function(){
         
         if(data !== null){
             $('#pengurusanpemantauandanpenilaianjurulatih-pusat_latihan').attr('value',data.pusat_latihan);
-            $("#pengurusanpemantauandanpenilaianjurulatih-nama_sukan").val(data.nama_sukan).trigger("change");
-            $("#pengurusanpemantauandanpenilaianjurulatih-nama_acara").val(data.nama_acara).trigger("change");
+            //$("#pengurusanpemantauandanpenilaianjurulatih-nama_sukan").val(data.nama_sukan).trigger("change");
+            //$("#pengurusanpemantauandanpenilaianjurulatih-nama_acara").val(data.nama_acara).trigger("change");
+        }
+    });
+        
+    $.get('$URLJurulatihSukan',{jurulatih_id:$(this).val()},function(data){
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+            $("#pengurusanpemantauandanpenilaianjurulatih-nama_sukan").val(data.sukan).trigger("change");
+            if(data.refJurulatihAcara !== null){ 
+                $("#pengurusanpemantauandanpenilaianjurulatih-nama_acara").val(data.refJurulatihAcara[0].acara).trigger("change");
+            }
         }
     });
 });

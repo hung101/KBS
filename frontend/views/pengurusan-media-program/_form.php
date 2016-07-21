@@ -216,7 +216,11 @@ use app\models\general\GeneralMessage;
             //'pengurusan_media_program_wakil_id',
             //'pengurusan_media_program_id',
             'nama_wakil',
-            'kehadiran',
+            //'kehadiran',
+            [
+                'attribute' => 'kehadiran',
+                'value' => 'refKehadiranMedia.desc'
+            ],
             //'session_id',
             // 'created_by',
             // 'updated_by',

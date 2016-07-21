@@ -371,21 +371,46 @@ use app\models\general\GeneralMessage;
 </div>
 
 <?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
 $URLJurulatih = Url::to(['/jurulatih/get-jurulatih']);
+
+$URLJurulatihSukan = Url::to(['/jurulatih-sukan/get-jurulatih-sukan-acara']);
 
 $script = <<< JS
         
 $('#jurulatihId').change(function(){
+        
+    clearForm();
     
     $.get('$URLJurulatih',{id:$(this).val()},function(data){
-        clearForm();
-        
         var data = $.parseJSON(data);
         
         if(data !== null){
-            $('#gajidanelaunjurulatih-no_kad_pengenalan').attr('value',data.ic_no);
+            if(data.ic_no){
+                $('#gajidanelaunjurulatih-no_kad_pengenalan').attr('value',data.ic_no);
+            }
+            //$("#gajidanelaunjurulatih-program").val(data.program).trigger("change");
+            //$("#gajidanelaunjurulatih-nama_sukan").val(data.nama_sukan).trigger("change");
+        }
+    });
+        
+    $.get('$URLJurulatihSukan',{jurulatih_id:$(this).val()},function(data){
+        var data = $.parseJSON(data);
+
+        if(data !== null){
             $("#gajidanelaunjurulatih-program").val(data.program).trigger("change");
-            $("#gajidanelaunjurulatih-nama_sukan").val(data.nama_sukan).trigger("change");
+            $("#gajidanelaunjurulatih-nama_sukan").val(data.sukan).trigger("change");
+            $("#gajidanelaunjurulatih-tarikh_mula").attr('value',data.tarikh_mula_lantikan);
+            $("#gajidanelaunjurulatih-tarikh_tamat").attr('value',data.tarikh_tamat_lantikan);
+            $("#gajidanelaunjurulatih-tarikh_mula-disp").val(formatDisplayDate(data.tarikh_mula_lantikan));
+            $("#gajidanelaunjurulatih-tarikh_tamat-disp").val(formatDisplayDate(data.tarikh_tamat_lantikan));
+            $("#gajidanelaunjurulatih-tarikh_mula").kvDatepicker("$DateDisplayFormat", new Date(data.tarikh_mula_lantikan)).kvDatepicker({
+                format: "$DateDisplayFormat"
+            });
+            $("#gajidanelaunjurulatih-tarikh_tamat").kvDatepicker("$DateDisplayFormat", new Date(data.tarikh_tamat_lantikan)).kvDatepicker({
+                format: "$DateDisplayFormat"
+            });
         }
     });
 });
@@ -394,6 +419,10 @@ function clearForm(){
     $('#gajidanelaunjurulatih-no_kad_pengenalan').attr('value','');
     $("#gajidanelaunjurulatih-program").val('').trigger("change");
     $("#gajidanelaunjurulatih-nama_sukan").val('').trigger("change");
+    $('#gajidanelaunjurulatih-tarikh_mula').attr('value','');
+    $("#gajidanelaunjurulatih-tarikh_mula-disp").val('');
+    $('#gajidanelaunjurulatih-tarikh_tamat').attr('value','');
+    $('#gajidanelaunjurulatih-tarikh_tamat-disp').attr('value','');
 }
         
 JS;

@@ -18,8 +18,8 @@ class PengurusanMediaProgramWakilSearch extends PengurusanMediaProgramWakil
     public function rules()
     {
         return [
-            [['pengurusan_media_program_wakil_id', 'pengurusan_media_program_id', 'kehadiran', 'created_by', 'updated_by'], 'integer'],
-            [['nama_wakil', 'session_id', 'created', 'updated'], 'safe'],
+            [['pengurusan_media_program_wakil_id', 'pengurusan_media_program_id', 'created_by', 'updated_by'], 'integer'],
+            [['nama_wakil', 'session_id', 'created', 'updated', 'kehadiran'], 'safe'],
         ];
     }
 
@@ -41,7 +41,8 @@ class PengurusanMediaProgramWakilSearch extends PengurusanMediaProgramWakil
      */
     public function search($params)
     {
-        $query = PengurusanMediaProgramWakil::find();
+        $query = PengurusanMediaProgramWakil::find()
+                ->joinWith(['refKehadiranMedia']);
 
         // add conditions that should always apply here
 
@@ -61,7 +62,7 @@ class PengurusanMediaProgramWakilSearch extends PengurusanMediaProgramWakil
         $query->andFilterWhere([
             'pengurusan_media_program_wakil_id' => $this->pengurusan_media_program_wakil_id,
             'pengurusan_media_program_id' => $this->pengurusan_media_program_id,
-            'kehadiran' => $this->kehadiran,
+            //'kehadiran' => $this->kehadiran,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created' => $this->created,
@@ -69,6 +70,7 @@ class PengurusanMediaProgramWakilSearch extends PengurusanMediaProgramWakil
         ]);
 
         $query->andFilterWhere(['like', 'nama_wakil', $this->nama_wakil])
+                ->andFilterWhere(['like', 'tbl_ref_kehadiran_media.desc', $this->kehadiran])
             ->andFilterWhere(['like', 'session_id', $this->session_id]);
 
         return $dataProvider;

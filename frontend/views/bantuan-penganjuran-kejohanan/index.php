@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::bantuan_penganjuran_kejohanan, ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'twitter',
             // 'nama_bank',
             // 'no_akaun',
-            // 'nama_kejohanan_pertandingan',
+            'nama_kejohanan_pertandingan',
             // 'peringkat',
             // 'tarikh_mula',
             // 'tarikh_tamat',
@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'permohonan_rasmi_dari_ahli_gabungan',
             // 'maklumat_lain_sokongan',
             // 'jumlah_bantuan_yang_dipohon',
-            // 'status_permohonan',
+            'status_permohonan',
             // 'catatan',
             // 'tarikh_permohonan',
             // 'jumlah_dilulus',

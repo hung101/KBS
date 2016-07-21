@@ -62,6 +62,10 @@ class JurulatihSearch extends Jurulatih
                 ->joinWith(['refProgramJurulatih'])
                 ->joinWith(['refJurulatihSpkk'])
                 ->joinWith(['refStatusTawaran'])
+                ->joinWith(['refJurulatihSukan' => function($query) {
+                        $query->orderBy(['tbl_jurulatih_sukan.created' => SORT_DESC])->one();
+                    },
+                ])
                 ->orderBy(['tbl_jurulatih.created' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
@@ -90,14 +94,20 @@ class JurulatihSearch extends Jurulatih
             'nama_sukan' => $this->sukan,
             'program' => $this->program_id,
             'status_tawaran' => $this->status_tawaran_id,
+            'tbl_jurulatih_sukan.sukan' => $this->nama_sukan,
+            'tbl_jurulatih_sukan.program' => $this->program,
         ]);
+        
+        /*if($this->ic_no){
+            $this->ic_no = \Yii::$app->encrypter->encrypt($this->ic_no);
+        }*/
 
         $query->andFilterWhere(['like', 'gambar', $this->gambar])
             ->andFilterWhere(['like', 'tbl_ref_cawangan.desc', $this->cawangan])
             ->andFilterWhere(['like', 'tbl_ref_sub_cawangan_pelapis.desc', $this->sub_cawangan_pelapis])
             ->andFilterWhere(['like', 'lain_lain_program', $this->lain_lain_program])
             ->andFilterWhere(['like', 'pusat_latihan', $this->pusat_latihan])
-            ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->nama_sukan])
+            //->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->nama_sukan])
             ->andFilterWhere(['like', 'tbl_ref_acara.desc', $this->nama_acara])
             //->andFilterWhere(['like', 'status_jurulatih', $this->status_jurulatih])
             ->andFilterWhere(['like', 'status_permohonan', $this->status_permohonan])
@@ -142,8 +152,13 @@ class JurulatihSearch extends Jurulatih
             ->andFilterWhere(['like', 'alamat_majikan_poskod', $this->alamat_majikan_poskod])
                 ->andFilterWhere(['like', 'tbl_jurulatih.created', $this->created])
                 ->andFilterWhere(['like', 'tbl_ref_bahagian_jurulatih.desc', $this->bahagian])
-                ->andFilterWhere(['like', 'tbl_ref_program_jurulatih.desc', $this->program])
+                //->andFilterWhere(['like', 'tbl_ref_program_jurulatih.desc', $this->program])
                 ->andFilterWhere(['like', 'tbl_ref_status_tawaran.desc', $this->status_tawaran]);
+        
+        
+        /*if($this->ic_no){
+            $this->ic_no = \Yii::$app->encrypter->decrypt($this->ic_no);
+        }*/
 
         return $dataProvider;
     }

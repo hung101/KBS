@@ -66,7 +66,7 @@ class PermohonanPelantikanSue extends \yii\db\ActiveRecord
     {
         return [
             'permohonan_pelantikan_sue_id' => 'Permohonan Pelantikan Sue ID',
-            'nama_sue' => 'Nama Sue',
+            'nama_sue' => 'Nama SUE',
             'no_kad_pengenalan' => 'No Kad Pengenalan',
             'emel' => 'Emel',
             'jumlah_dipohon' => 'Jumlah Dipohon',

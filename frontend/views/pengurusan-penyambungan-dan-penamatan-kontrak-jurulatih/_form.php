@@ -7,6 +7,7 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use yii\helpers\Url;
 
 // table reference
 use app\models\Jurulatih;
@@ -53,7 +54,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Jurulatih::find()->all(),'jurulatih_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::jurulatih],],
+                        'options' => ['placeholder' => Placeholder::jurulatih, 'id'=>'jurulatihId'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>6]],
             ],
         ],
@@ -388,3 +392,50 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+$URLJurulatihSukan = Url::to(['/jurulatih-sukan/get-jurulatih-sukan-acara']);
+
+$script = <<< JS
+        
+$('#jurulatihId').change(function(){
+        
+    $.get('$URLJurulatihSukan',{jurulatih_id:$(this).val()},function(data){
+        clearForm();
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+            $("#pengurusanpenyambungandanpenamatankontrakjurulatih-program").val(data.program).trigger("change");
+            $("#pengurusanpenyambungandanpenamatankontrakjurulatih-gaji_elaun").val(data.gaji_elaun).trigger("change");
+            $("#pengurusanpenyambungandanpenamatankontrakjurulatih-jumlah_gaji_elaun").attr('value',data.jumlah);
+            $("#pengurusanpenyambungandanpenamatankontrakjurulatih-tarikh_mula_lantikan").attr('value',data.tarikh_mula_lantikan);
+            $("#pengurusanpenyambungandanpenamatankontrakjurulatih-tarikh_tamat_lantikan").attr('value',data.tarikh_tamat_lantikan);
+            $("#pengurusanpenyambungandanpenamatankontrakjurulatih-tarikh_mula_lantikan-disp").val(formatDisplayDate(data.tarikh_mula_lantikan));
+            $("#pengurusanpenyambungandanpenamatankontrakjurulatih-tarikh_tamat_lantikan-disp").val(formatDisplayDate(data.tarikh_tamat_lantikan));
+            $("#pengurusanpenyambungandanpenamatankontrakjurulatih-tarikh_mula_lantika").kvDatepicker("$DateDisplayFormat", new Date(data.tarikh_mula_lantikan)).kvDatepicker({
+                format: "$DateDisplayFormat"
+            });
+            $("#pengurusanpenyambungandanpenamatankontrakjurulatih-tarikh_tamat_lantikan").kvDatepicker("$DateDisplayFormat", new Date(data.tarikh_tamat_lantikan)).kvDatepicker({
+                format: "$DateDisplayFormat"
+            });
+        }
+    });
+});
+     
+function clearForm(){
+    $('#pengurusanpenyambungandanpenamatankontrakjurulatih-tarikh_mula_lantikan').attr('value','');
+    $("#pengurusanpenyambungandanpenamatankontrakjurulatih-tarikh_mula_lantikan-disp").val('');
+    $('#pengurusanpenyambungandanpenamatankontrakjurulatih-tarikh_tamat_lantikan').attr('value','');
+    $('#pengurusanpenyambungandanpenamatankontrakjurulatih-tarikh_tamat_lantikan-disp').attr('value','');
+    $('#pengurusanpenyambungandanpenamatankontrakjurulatih-jumlah_gaji_elaun').attr('value','');
+    $("#pengurusanpenyambungandanpenamatankontrakjurulatih-program").val('').trigger("change");
+    $("#pengurusanpenyambungandanpenamatankontrakjurulatih-gaji_elaun").val('').trigger("change");
+}
+        
+JS;
+        
+$this->registerJs($script);
+?>

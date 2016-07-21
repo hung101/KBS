@@ -31,6 +31,24 @@ class JurulatihSukan extends \yii\db\ActiveRecord
     {
         return 'tbl_jurulatih_sukan';
     }
+    
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior',
+            [
+                'class' => \yii\behaviors\BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'updated',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -38,7 +56,7 @@ class JurulatihSukan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jurulatih_id', 'program', 'sukan', 'cawangan', 'bahagian', 'tarikh_mula_lantikan'], 'required'],
+            [['jurulatih_id', 'program', 'sukan', 'cawangan', 'bahagian', 'tarikh_mula_lantikan', 'tarikh_tamat_lantikan'], 'required'],
             [['jurulatih_id', 'created_by', 'updated_by'], 'integer'],
             [['tarikh_mula_lantikan', 'tarikh_tamat_lantikan', 'created', 'updated'], 'safe'],
             [['jumlah'], 'number'],
@@ -88,5 +106,12 @@ class JurulatihSukan extends \yii\db\ActiveRecord
      */
     public function getRefBahagianJurulatih(){
         return $this->hasOne(RefBahagianJurulatih::className(), ['id' => 'bahagian']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJurulatihAcara(){
+        return $this->hasMany(JurulatihSukanAcara::className(), ['jurulatih_sukan_id' => 'jurulatih_sukan_id']);
     }
 }

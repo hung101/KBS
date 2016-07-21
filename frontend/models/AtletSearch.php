@@ -113,8 +113,10 @@ class AtletSearch extends Atlet
             'cacat' => $this->cacat,
         ]);
         
+        if($this->ic_no){
+            $this->ic_no = \Yii::$app->encrypter->encrypt($this->ic_no);
+        }
         
-
         $query->andFilterWhere(['like', 'atlet_id', $this->atlet_id])
             ->andFilterWhere(['like', 'name_penuh', $this->name_penuh])
             ->andFilterWhere(['like', 'tempat_lahir_bandar', $this->tempat_lahir_bandar])
@@ -149,6 +151,10 @@ class AtletSearch extends Atlet
                 ->andFilterWhere(['like', 'tbl_atlet_sukan.nama_sukan', $this->sukan])
                 ->andFilterWhere(['like', 'tbl_atlet_sukan.program_semasa', $this->program]);
         
+        if($this->ic_no){
+            $this->ic_no = \Yii::$app->encrypter->decrypt($this->ic_no);
+        }
+        
         // add filter base on sukan access role in tbl_user->sukan - START
         if(Yii::$app->user->identity->sukan){
             $sukan_access=explode(',',Yii::$app->user->identity->sukan);
@@ -173,7 +179,7 @@ class AtletSearch extends Atlet
         
         
         // add filter base on view own created data role Atlet -> View Own Data - START
-        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['view_own_data'])){
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['view_own_data']) && !Yii::$app->request->get()){
             $query->andFilterWhere(['tbl_atlet.created_by'=>Yii::$app->user->identity->id]);
             
             // see those atlet has not assign sukan & program yet

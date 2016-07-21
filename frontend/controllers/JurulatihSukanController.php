@@ -12,6 +12,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Session;
 use yii\web\UploadedFile;
+use yii\helpers\Json;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
@@ -63,7 +64,7 @@ class JurulatihSukanController extends Controller
         $session->open();
 
         if(isset($session['jurulatih_id'])){
-            $queryPar['JurulatihSpkkSearch']['jurulatih_id'] = $session['jurulatih_id'];
+            $queryPar['JurulatihSukanSearch']['jurulatih_id'] = $session['jurulatih_id'];
         }
         
         $session->close();
@@ -244,5 +245,14 @@ class JurulatihSukanController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionGetJurulatihSukanAcara($jurulatih_id){
+        $model = JurulatihSukan::find()->where(['tbl_jurulatih_sukan.jurulatih_id'=>$jurulatih_id])->joinWith(['refJurulatihAcara' => function($query) {
+                        $query->orderBy(['tbl_jurulatih_sukan_acara.created' => SORT_DESC])->one();
+                    },
+                ])->orderBy(['tbl_jurulatih_sukan.created' => SORT_DESC])->asArray()->one();
+        
+        echo Json::encode($model);
     }
 }

@@ -57,4 +57,11 @@ class PengurusanMediaProgramWakil extends \yii\db\ActiveRecord
             'updated' => 'Updated',
         ];
     }
+    
+     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKehadiranMedia(){
+        return $this->hasOne(RefKehadiranMedia::className(), ['id' => 'kehadiran']);
+    }
 }

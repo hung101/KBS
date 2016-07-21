@@ -10,7 +10,7 @@ use kartik\datecontrol\DateControl;
 
 // table reference
 use app\models\RefStatusPermohonanMembaikiPeralatan;
-use app\models\RefPeralatanPermohonanMembaiki;
+use app\models\ProfilBadanSukan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -51,14 +51,7 @@ use app\models\general\GeneralMessage;
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-peralatan-permohonan-membaiki/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefPeralatanPermohonanMembaiki::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
                         'options' => ['placeholder' => Placeholder::persatuan],],
                     'columnOptions'=>['colspan'=>4]],
                 'jumlah_dipohon' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],

@@ -37,7 +37,7 @@ use app\models\general\GeneralVariable;
 
 <div class="bantuan-penganjuran-kejohanan-form">
     
-    <?= Html::a('Laporan Penganjuran Kejohanan', ['bantuan-penganjuran-kejohanan-laporan/create'], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
+    <?php //echo Html::a('Laporan Penganjuran Kejohanan', ['bantuan-penganjuran-kejohanan-laporan/create'], ['class' => 'btn btn-warning', 'target' => '_blank']); ?>
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
    <?php
@@ -322,7 +322,7 @@ use app\models\general\GeneralVariable;
 ]);
         ?>
     
-    <h3>Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandaingan Ini</h3>
+    <h3>Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandaingan</h3>
     
     <?php 
             Modal::begin([
@@ -374,13 +374,13 @@ use app\models\general\GeneralVariable;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-kewangan/update', 'id' => $model->bantuan_penganjuran_kejohanan_kewangan_id]).'", "'.GeneralLabel::updateTitle . ' Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandaingan Ini");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-kewangan/update', 'id' => $model->bantuan_penganjuran_kejohanan_kewangan_id]).'", "'.GeneralLabel::updateTitle . ' Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandaingan");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-kewangan/view', 'id' => $model->bantuan_penganjuran_kejohanan_kewangan_id]).'", "'.GeneralLabel::viewTitle . ' Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandaingan Ini");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-kewangan/view', 'id' => $model->bantuan_penganjuran_kejohanan_kewangan_id]).'", "'.GeneralLabel::viewTitle . ' Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandaingan");',
                         ]);
                     }
                 ],
@@ -410,7 +410,7 @@ use app\models\general\GeneralVariable;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-kewangan/create', 'bantuan_penganjuran_kejohanan_id' => $bantuan_penganjuran_kejohanan_id]).'", "'.GeneralLabel::createTitle . ' Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandaingan Ini");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-kewangan/create', 'bantuan_penganjuran_kejohanan_id' => $bantuan_penganjuran_kejohanan_id]).'", "'.GeneralLabel::createTitle . ' Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandaingan");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -738,6 +738,9 @@ use app\models\general\GeneralVariable;
     <hr>
     <?php
     if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['kelulusan'])){
+        echo '<br>
+                <pre style="text-align: center"><strong>KEGUNAAN MSN</strong></pre>';
+        
         echo FormGrid::widget([
             'model' => $model,
             'form' => $form,

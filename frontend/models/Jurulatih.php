@@ -92,14 +92,14 @@ class Jurulatih extends \yii\db\ActiveRecord
                 'updatedAtAttribute' => 'updated',
                 'value' => new \yii\db\Expression('NOW()'),
             ],
-            'encryption' => [
+            /*'encryption' => [
                 'class' => '\nickcv\encrypter\behaviors\EncryptionBehavior',
                 'attributes' => [
                     'ic_no',
                     'no_telefon_bimbit',
                     'no_fail',
                 ],
-            ],
+            ],*/
         ];
     }
 
@@ -295,5 +295,12 @@ class Jurulatih extends \yii\db\ActiveRecord
      */
     public function getRefStatusTawaran(){
         return $this->hasOne(RefStatusTawaran::className(), ['id' => 'status_tawaran']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJurulatihSukan(){
+        return $this->hasMany(JurulatihSukan::className(), ['jurulatih_id' => 'jurulatih_id']);
     }
 }

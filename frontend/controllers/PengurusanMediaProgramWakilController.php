@@ -11,6 +11,9 @@ use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
 
+// table reference
+use app\models\RefKehadiranMedia;
+
 /**
  * PengurusanMediaProgramWakilController implements the CRUD actions for PengurusanMediaProgramWakil model.
  */
@@ -61,8 +64,13 @@ class PengurusanMediaProgramWakilController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $model = $this->findModel($id);
+        
+        $ref = RefKehadiranMedia::findOne(['id' => $model->kehadiran]);
+        $model->kehadiran = $ref['desc'];
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }
