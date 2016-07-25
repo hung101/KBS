@@ -2131,8 +2131,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const untuk_kegunaan_pejabat_sahaja = "UNTUK KEGUNAAN PEJABAT SAHAJA";
         const untuk_kegunaan_pengeluaran_lesen = "UNTUK KEGUNAAN PENGELUARAN LESEN";
         const urusetia = "Urusetia";
-        const user = "User";
-        const user_peranan = "User Peranan";
+        const user = "Pengguna";
+        const user_peranan = "Peranan Pengguna";
         const latihan_dan_pendidikan_badan_sukan = "Latihan Dan Pendidikan Badan Sukan";
         const elaporan_pelaksanaan_program_aktiviti = "e-Laporan Pelaksanaan / Program / Aktiviti";
         const kategori_hakmilik = "Kategori Hakmilik";
@@ -2571,8 +2571,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const admin_acara = "Admin - Acara";
         const admin_audit_log = "Admin : Audit Log";
         const admin_sukan = "Admin - Sukan";
-        const admin_user = "Admin - User";
-        const admin_user_peranan = "Admin - User Peranan";
+        const admin_user = "Admin - Pengguna";
+        const admin_user_peranan = "Admin - Pengguna Peranan";
         const ahli_jawatankuasa_kecil_biro_ = "Ahli Jawatankuasa Kecil / Biro ";
         const akaun = "Akaun";
         const anggaran_perbelanjaan_program_aktiviti_yang_dipohon = "Anggaran Perbelanjaan Program / Aktiviti Yang Dipohon";
