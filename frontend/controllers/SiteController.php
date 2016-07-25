@@ -97,6 +97,10 @@ class SiteController extends Controller
                 Yii::$app->session->setFlash('info', 'Log Masuk Kali Terakhir: ' . $user->last_login);
             }
             
+            if($user->last_login_fail){
+                Yii::$app->session->setFlash('warning', 'Log Masuk GaGal Kali Terakhir: ' . $user->last_login_fail);
+            }
+            
             if($user->is_new_user == "YES" || $user->password_expiry < date('Y-m-d H:i:s', time())) {
                 $this->redirect('new-password');
             } else {
