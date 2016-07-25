@@ -98,11 +98,13 @@ class SiteController extends Controller
             }
             
             if($user->last_login_fail){
-                Yii::$app->session->setFlash('warning', 'Log Masuk GaGal Kali Terakhir: ' . $user->last_login_fail);
+                Yii::$app->session->setFlash('warning', 'Log Masuk Gagal Kali Terakhir: ' . $user->last_login_fail);
             }
             
             if($user->is_new_user == "YES" || $user->password_expiry < date('Y-m-d H:i:s', time())) {
-                if($user->password_expiry < date('Y-m-d H:i:s', time())){
+                if($user->is_new_user == "YES"){
+                    Yii::$app->session->setFlash('warning', 'Sila tukar kata laluan anda untuk tujuan keselamatan');
+                } else if($user->password_expiry < date('Y-m-d H:i:s', time())){
                     Yii::$app->session->setFlash('warning', 'Kata laluan anda telah tamat tempoh, sila tukar kata laluan');
                 }
                 $this->redirect('new-password');

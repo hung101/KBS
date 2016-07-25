@@ -71,7 +71,7 @@ use app\models\general\GeneralVariable;
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL,'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data'], 'id'=>$model->formName()]); ?>
-    
+    <?php echo $form->errorSummary($model); ?>
     <br>
     <pre style="text-align: center"><strong>MAKLUMAT PERIBADI</strong></pre>
     
