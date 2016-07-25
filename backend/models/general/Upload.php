@@ -22,9 +22,11 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const akademiAkkSijilPertolonganCemasFolder = "akk_sijil_pertolongan_cemas";
         const akademiAkkSijilCprFolder = "akk_sijil_cpr";
         const akademiAkkPermitKerjaFolder = "akk_permit_kerja";
+        const akkProgramJurulatihFolder = "akk_program_jurulatih";
         const anugerahPencalonanLainFolder = "anugerah_pencalonan_lain";
         const anugerahPencalonanPasukanFolder = "anugerah_pencalonan_pasukan";
         const atletFolder = "atlet";
+        const atletKursusKemFolder = "atlet_kursus_kem";
         const bantuanElaunFolder = "bantuan_elaun";
         const bspElaunLatihanPraktikal = "bsp_elaun_latihan_praktikal";
         const bspBorangBorang = "bsp_borang_borang";
@@ -83,7 +85,9 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const plTemujanjiFisioterapiFolder = "pl_temujanji_fisioterapi";
         const plTemujanjiRehabilitasiFolder = "pl_temujanji_rehabilitasi";
         const profilBadanSukanFolder = "profil_badan_sukan";
+        const profilKonsultanFolder = "profil_konsultan";
         const profilPsikologiFolder = "profil_psikologi";
+        const profilWartawanSukanFolder = "profil_wartawan_sukan";
         const perlembagaanBadanSukanFolder = "perlembagaan_badan_sukan";
         const sukarelawanFolder = "sukarelawan";
         const uploadRootFolder = "uploads";
@@ -143,9 +147,11 @@ if($session->get('language') == "EN") {
         const akademiAkkSijilPertolonganCemasFolder = "akk_sijil_pertolongan_cemas";
         const akademiAkkSijilCprFolder = "akk_sijil_cpr";
         const akademiAkkPermitKerjaFolder = "akk_permit_kerja";
+        const akkProgramJurulatihFolder = "akk_program_jurulatih";
         const anugerahPencalonanLainFolder = "anugerah_pencalonan_lain";
         const anugerahPencalonanPasukanFolder = "anugerah_pencalonan_pasukan";
         const atletFolder = "atlet";
+        const atletKursusKemFolder = "atlet_kursus_kem";
         const bantuanElaunFolder = "bantuan_elaun";
         const bspElaunLatihanPraktikal = "bsp_elaun_latihan_praktikal";
         const bspBorangBorang = "bsp_borang_borang";
@@ -203,7 +209,9 @@ if($session->get('language') == "EN") {
         const plTemujanjiFisioterapiFolder = "pl_temujanji_fisioterapi";
         const plTemujanjiRehabilitasiFolder = "pl_temujanji_rehabilitasi";
         const profilBadanSukanFolder = "profil_badan_sukan";
+        const profilKonsultanFolder = "profil_konsultan";
         const profilPsikologiFolder = "profil_psikologi";
+        const profilWartawanSukanFolder = "profil_wartawan_sukan";
         const perlembagaanBadanSukanFolder = "perlembagaan_badan_sukan";
         const sukarelawanFolder = "sukarelawan";
         const uploadRootFolder = "uploads";

@@ -30,8 +30,11 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
             const yii_validation_email = "{attribute} bukan alamat e-mel yang sah";
             const yii_validation_string_max = "{attribute} perlu mengandungi paling banyak {max} aksara";
             const yii_validation_string_min = "{attribute} mesti mengandungi sekurang-kurangnya {min} aksara";
-            const yii_validation_unique = '{attribute} "{value}" telah diambil';
+            const yii_validation_unique = '{attribute} "{value}" telah dicipta';
             const yii_validation_compare = '{attribute} mesti lebih besar daripada atau sama dengan "{compareAttribute}"';
+            const yii_validation_compare_max = '{attribute} mesti lebih kecil daripada atau sama dengan "{compareAttribute}"';
+            const yii_validation_password_strength  = '{attribute} mesti kombinasi huruf besar, huruf kecil, nombor dan aksara khas';
+            const yii_validation_password_contain_username = '{attribute} tidak boleh mengandungi Username';
             
             // custom validation general message BM
             const custom_validation_password_equal = "Kata laluan tidak sepadan";
@@ -68,6 +71,9 @@ if($session->get('language') == "EN") {
             const yii_validation_string_min = "{attribute} should not contain at least {min} characters";
             const yii_validation_unique = '{attribute} "{value}" has already been taken';
             const yii_validation_compare = '{attribute} must be greater than or equal to "{compareAttribute}"';
+            const yii_validation_compare_max = '{attribute} must be less than or equal to "{compareAttribute}"';
+            const yii_validation_password_strength  = '{attribute} must be a combination of uppercase letter, lowercase letter, number and special character';
+            const yii_validation_password_contain_username = '{attribute} cannot contain the Username';
             
             // custom validation general message EN
             const custom_validation_password_equal = "Password do not match";

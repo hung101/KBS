@@ -102,6 +102,9 @@ class SiteController extends Controller
             }
             
             if($user->is_new_user == "YES" || $user->password_expiry < date('Y-m-d H:i:s', time())) {
+                if($user->password_expiry < date('Y-m-d H:i:s', time())){
+                    Yii::$app->session->setFlash('warning', 'Kata laluan anda telah tamat tempoh, sila tukar kata laluan');
+                }
                 $this->redirect('new-password');
             } else {
                 return $this->goBack();
@@ -224,7 +227,7 @@ class SiteController extends Controller
         $user = new User();
 
         if ($model->load(Yii::$app->request->post())) {
-            $modelUserPasswordTrails = UserPasswordTrail::find([
+            $modelUserPasswordTrails = UserPasswordTrail::find()->where([
                     'user_id' => Yii::$app->user->id,
                 ])->orderBy(['created' => SORT_DESC])->limit(Yii::$app->params['passwordReused'])->all();
             

@@ -63,8 +63,10 @@ class RefAgamaController extends Controller
         $model = new RefAgama();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // validate & save successful
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+            // validate or save unsuccessful
             return $this->render('create', [
                 'model' => $model,
             ]);
