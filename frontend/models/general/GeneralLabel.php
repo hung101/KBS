@@ -1723,7 +1723,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tarikh_penginapan_akhir = "Tarikh Penginapan Akhir";
         const tarikh_penginapan_mula = "Tarikh Penginapan Mula";
         const tarikh_penubuhan_syarikat = "Tarikh Penubuhan Syarikat/Badan Sukan";
-        const tarikh_pergandungan = "Tarikh Pergandungan";
+        const tarikh_pergandungan = "Tarikh Pergantungan";
         const tarikh_pergi = "Tarikh Pergi";
         const tarikh_perjalanan_pesawat = "Tarikh Perjalanan Kapal Terbang Dari";
         const tarikh_permohonan = "Tarikh Permohonan";
