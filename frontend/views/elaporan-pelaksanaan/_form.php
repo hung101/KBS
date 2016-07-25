@@ -744,50 +744,6 @@ use app\models\general\GeneralMessage;
         ]);
     ?>
 
-    <!--<?= $form->field($model, 'kategori_elaporan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'nama_projek_program_aktiviti_kejohanan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'peringkat')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'nama_penganjur_persatuan_kerjasama')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'jumlah_bantuan_peruntukan')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'jumlah_perbelanjaan')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'no_cek_eft')->textInput(['maxlength' => 50]) ?>
-
-    <?= $form->field($model, 'tarikh_cek_eft')->textInput() ?>
-
-    <?= $form->field($model, 'tarikh_pelaksanaan_mula')->textInput() ?>
-
-    <?= $form->field($model, 'tarikh_pelaksanaan_akhir')->textInput() ?>
-
-    <?= $form->field($model, 'objektif_pelaksaan')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'alamat_tempat_pelaksanaan_1')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'dirasmikan_oleh')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'lelaki')->textInput() ?>
-
-    <?= $form->field($model, 'perempuan')->textInput() ?>
-
-    <?= $form->field($model, 'l_melayu')->textInput() ?>
-
-    <?= $form->field($model, 'l_cina')->textInput() ?>
-
-    <?= $form->field($model, 'l_india')->textInput() ?>
-
-    <?= $form->field($model, 'l_lain_lain')->textInput() ?>
-
-    <?= $form->field($model, 'jumlah_penyertaan')->textInput() ?>
-
-    <?= $form->field($model, 'rumusan_program')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'muat_naik')->textInput(['maxlength' => 100]) ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

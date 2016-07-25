@@ -138,6 +138,9 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         
         //Login page path
         const loginPagePath = "site/login";
+        
+        //System Profile ID
+        const systemProfileID = 1;
     }
 }
 
@@ -268,6 +271,9 @@ if($session->get('language') == "EN") {
         
         //Login page path
         const loginPagePath = "site/login";
+        
+        //System Profile ID
+        const systemProfileID = 1;
     }
 
 }

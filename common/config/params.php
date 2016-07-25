@@ -9,4 +9,5 @@ return [
     'allowLoginAttempt' => 3, // number of allow login attemption
     'allowConcurrentLogin' => false, // reset auth key if false
 	// eddie end
+    'passwordReused' => 3, // new password cannot be same as previous last 3 passwords
 ];

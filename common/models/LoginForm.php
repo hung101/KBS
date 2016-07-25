@@ -7,6 +7,7 @@ use app\models\UserPeranan;
 use kartik\password\StrengthValidator;
 
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /**
  * Login form
@@ -57,6 +58,11 @@ class LoginForm extends Model
             if($user && $user->login_attempted > 2) {
                 $this->addError($attribute, 'Akaun anda disekat kerana cubaan login maksimum, sila hubungi admin.');
             }else if (!$user || !$user->validatePassword($this->password)) {
+                if($user) {
+                    $user->login_attempted = intval($user->login_attempted) + 1;
+                    $user->save();
+                }
+                
                 $this->addError($attribute, 'Incorrect username or password, or account deactivated.');
             }
         }
@@ -81,10 +87,20 @@ class LoginForm extends Model
                 //$user->save();
                 $this->addError('username', 'Akaun anda disekat kerana tidak menghantar laporan tahunan. Sila hubungi Pejabat Pesuruhjaya Sukan ditalian 03 8994 4800');
                 return false;
+            } else if($user->expiry_date && $user->expiry_date < date("Y-m-d")){
+                $this->addError('username', 'Akaun anda telah digantung. Sila hubungi admin SPSB.');
+                return false;
             }
             
             if($user->login_attempted < 3) {
                 $is_login = Yii::$app->user->login($user, $this->rememberMe ? 3600 * 24 * 30 : 0);
+                
+                $user->last_login = $user->current_login;
+                
+                $user->current_login = GeneralFunction::getCurrentTimestamp();
+                
+                $user->save();
+                
                 if($is_login) {
                     if(Yii::$app->params['allowConcurrentLogin']) {
                         return $is_login;

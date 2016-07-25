@@ -92,14 +92,14 @@ class Jurulatih extends \yii\db\ActiveRecord
                 'updatedAtAttribute' => 'updated',
                 'value' => new \yii\db\Expression('NOW()'),
             ],
-            /*'encryption' => [
+            'encryption' => [
                 'class' => '\nickcv\encrypter\behaviors\EncryptionBehavior',
                 'attributes' => [
                     'ic_no',
                     'no_telefon_bimbit',
                     'no_fail',
                 ],
-            ],*/
+            ],
         ];
     }
 

@@ -53,9 +53,9 @@ class BspTamatPengesahanPengajian extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_ipts', 'pengajian', 'bidang'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama_ipts', 'pengajian', 'bidang', 'nama_pelajar'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_tamat'], 'safe'],
-            [['nama_ipts', 'pengajian', 'bidang'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_ipts', 'pengajian', 'bidang', 'nama_pelajar'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['cgpa_pngk'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['cgpa_pngk'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false]

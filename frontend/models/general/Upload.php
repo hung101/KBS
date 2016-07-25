@@ -26,6 +26,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const anugerahPencalonanLainFolder = "anugerah_pencalonan_lain";
         const anugerahPencalonanPasukanFolder = "anugerah_pencalonan_pasukan";
         const atletFolder = "atlet";
+        const atletKursusKemFolder = "atlet_kursus_kem";
         const bantuanElaunFolder = "bantuan_elaun";
         const bspElaunLatihanPraktikal = "bsp_elaun_latihan_praktikal";
         const bspBorangBorang = "bsp_borang_borang";
@@ -150,6 +151,7 @@ if($session->get('language') == "EN") {
         const anugerahPencalonanLainFolder = "anugerah_pencalonan_lain";
         const anugerahPencalonanPasukanFolder = "anugerah_pencalonan_pasukan";
         const atletFolder = "atlet";
+        const atletKursusKemFolder = "atlet_kursus_kem";
         const bantuanElaunFolder = "bantuan_elaun";
         const bspElaunLatihanPraktikal = "bsp_elaun_latihan_praktikal";
         const bspBorangBorang = "bsp_borang_borang";

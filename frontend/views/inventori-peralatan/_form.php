@@ -62,6 +62,24 @@ use app\models\general\GeneralLabel;
 <?php
 $script = <<< JS
         
+$('#inventoriperalatan-kuantiti').on("keyup", function(){calculateJumlah();});
+$('#inventoriperalatan-harga_per_unit').on("keyup", function(){calculateJumlah();});
+        
+function calculateJumlah(){
+    var harga_per_unit = 0;
+    var kuantiti = 0;
+    var jumlah = 0;
+        
+    if($('#inventoriperalatan-harga_per_unit').val() > 0){harga_per_unit = parseFloat($('#inventoriperalatan-harga_per_unit').val());}
+    if($('#inventoriperalatan-kuantiti').val() > 0){kuantiti = parseInt($('#inventoriperalatan-kuantiti').val());}
+    
+    // Jumlah formula
+    jumlah = harga_per_unit * kuantiti;
+        
+    //display at fields accordingly
+    $('#inventoriperalatan-jumlah').val(jumlah);
+}
+        
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 
     var form = $(this);

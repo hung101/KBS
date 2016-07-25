@@ -19,7 +19,7 @@ $application = new yii\web\Application($config);
 $session = Yii::$app->getSession();
 
 // set default language session
-if($session->get('language') == null || $session->get('language') == "") {
+    if($session->get('language') == null || $session->get('language') == "") {
 	$session->set('language', "BM");
 }
 

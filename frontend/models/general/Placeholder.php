@@ -152,6 +152,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const keaktifanJurulatih = "-- Pilih Keaktifan Jurulatih --";
         const kecenderungan = "-- Pilih Kecenderungan --";
         const kewarganegara = "-- Pilih Kewarganegara --";
+        const kelas = "-- Pilih Kelas --";
         const kelulusan = "-- Pilih Kelulusan --";
         const kelulusanHQ = "-- Pilih Kelulusan HQ --";
         const kelulusanAkademi = "-- Pilih Kelulusan Akademi --";
@@ -428,6 +429,7 @@ if($session->get('language') == "EN") {
         const keaktifanJurulatih = "-- Select The Keaktifan Coach --";
         const kecenderungan = "-- Select Tendency --";
         const kewarganegara = "-- Choose Citizenship --";
+        const kelas = "-- Select Class --";
         const kelulusan = "-- Select Approval --";
         const kelulusanHQ = "-- Select The Approval Of HQ --";
         const kelulusanAkademi = "-- Select The Approval Of The Academy --";

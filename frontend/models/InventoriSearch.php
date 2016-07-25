@@ -61,7 +61,7 @@ class InventoriSearch extends Inventori
         // grid filtering conditions
         $query->andFilterWhere([
             'inventori_id' => $this->inventori_id,
-            'tarikh' => $this->tarikh,
+            //'tarikh' => $this->tarikh,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created' => $this->created,
@@ -78,6 +78,7 @@ class InventoriSearch extends Inventori
             ->andFilterWhere(['like', 'alamat_pembekal_bandar', $this->alamat_pembekal_bandar])
             ->andFilterWhere(['like', 'alamat_pembekal_poskod', $this->alamat_pembekal_poskod])
             ->andFilterWhere(['like', 'perkara', $this->perkara])
+                ->andFilterWhere(['like', 'tarikh', $this->tarikh])
                 ->andFilterWhere(['like', 'tbl_ref_negeri.desc', $this->negeri]);
 
         return $dataProvider;

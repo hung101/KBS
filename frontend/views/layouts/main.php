@@ -518,6 +518,13 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                             'items' => [
                                 ['label' => GeneralLabel::media, 'url' => ['/pengurusan-media-program/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-media-program']['module'])],
                                 ['label' => GeneralLabel::profil_wartawan_sukan, 'url' => ['/profil-wartawan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-wartawan-sukan']['module'])],
+                                [
+                                    'label' => GeneralLabel::laporan,
+                                    'items' => [
+                                        ['label' => GeneralLabel::laporan_senarai_program_media, 'url' => ['/pengurusan-media-program/laporan-senarai-program-media'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-media-program']['module'])],
+                                        ['label' => GeneralLabel::laporan_profil_wartawan, 'url' => ['/profil-wartawan-sukan/laporan-profil-wartawan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-wartawan-sukan']['module'])],
+                                    ],
+                                ],
                             ],
                         ],
                         [
@@ -1064,6 +1071,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                 
                 if(isset(Yii::$app->user->identity->peranan_akses['Admin'])){
                     $sideMenuItems[] = ['label' => GeneralLabel::administration, 'url' => ['#'],'items' => [
+                        ['label' => GeneralLabel::tetapan_sistem_spsb, 'url' => ['/system/load'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['Admin']['system']['module'])],
                         ['label' => GeneralLabel::user, 'url' => ['/user/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['module'])],
                         ['label' => GeneralLabel::user_peranan, 'url' => ['/user-peranan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['Admin']['user-peranan']['module'])],
                         ['label' => GeneralLabel::admin_ebiasiswa, 'url' => ['/admin-e-biasiswa/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['Admin']['admin-e-biasiswa']['module'])],
@@ -1074,7 +1082,12 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                 //$sideMenuItems[] = ['label' => GeneralLabel::laporan, 'url' => 'http://10.19.189.87:8080/jasperserver'];
                 
                 $topMenuItems[] = [
-                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                    'label' => GeneralLabel::password,
+                    'url' => ['/site/new-password']
+                ];
+                
+                $topMenuItems[] = [
+                    'label' => GeneralLabel::logout . ' (' . Yii::$app->user->identity->username . ')',
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ];

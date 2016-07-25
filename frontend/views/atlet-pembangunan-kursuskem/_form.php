@@ -28,7 +28,7 @@ use app\models\general\GeneralVariable;
     
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>GeneralVariable::formAtletPembangunanKursuskemID]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>GeneralVariable::formAtletPembangunanKursuskemID, 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
     <?php
         echo FormGrid::widget([
@@ -96,6 +96,38 @@ use app\models\general\GeneralVariable;
         ],
     ]
 ]);
+    ?>
+    
+    <?php // Muat Naik Sijil
+    if($model->muat_naik_sijil){
+        echo "<label>" . $model->getAttributeLabel('muat_naik_sijil') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->muat_naik_sijil , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->kursus_kem_id, 'field'=> 'muat_naik_sijil'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'muat_naik_sijil' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
     ?>
 
     <!--<?= $form->field($model, 'atlet_id')->textInput() ?>

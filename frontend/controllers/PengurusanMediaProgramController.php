@@ -11,11 +11,15 @@ use app\models\PengurusanKehadiranMediaProgram;
 use frontend\models\PengurusanKehadiranMediaProgramSearch;
 use app\models\PengurusanMediaProgramWakil;
 use frontend\models\PengurusanMediaProgramWakilSearch;
+use app\models\ProfilWartawanSukan;
+use app\models\MsnLaporanSenaraiProgramMedia;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\BaseUrl;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 /**
  * PengurusanMediaProgramController implements the CRUD actions for PengurusanMediaProgram model.
@@ -136,6 +140,25 @@ class PengurusanMediaProgramController extends Controller
                 PengurusanMediaProgramWakil::updateAll(['session_id' => ''], 'pengurusan_media_program_id = "'.$model->pengurusan_media_program_id.'"');
             }
             
+            $modelWartawans = PengurusanKehadiranMediaProgram::findAll([
+                    'pengurusan_media_program_id' => $model->pengurusan_media_program_id,
+                ]);
+            
+            foreach($modelWartawans as $modelWartawan){
+                $modelProfilWartawan = ProfilWartawanSukan::findOne($modelWartawan->nama_wartawan);
+                if($modelProfilWartawan->emel && $modelProfilWartawan->emel != ''){
+                    Yii::$app->mailer->compose()
+                        ->setTo($modelProfilWartawan->emel)
+                        ->setFrom('noreply@spsb.com')
+                        ->setSubject('Jemputan Media')
+                        ->setTextBody("<br>Nama Program: " . $model->nama_program . "
+<br>Tarikh: " . $model->tarikh_mula . " - " . $model->tarikh_tamat . "
+<br>Tempat: " . $model->tempat . "
+<br>Catatan: " . $model->catatan . "
+")->send();
+                }
+            }
+            
             return $this->redirect(['view', 'id' => $model->pengurusan_media_program_id]);
         } else {
             return $this->render('create', [
@@ -227,5 +250,54 @@ class PengurusanMediaProgramController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionLaporanSenaraiProgramMedia()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiProgramMedia();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-senarai-program-media'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-senarai-program-media'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_senarai_program_media', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanSenaraiProgramMedia($tarikh_dari, $tarikh_hingga, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanSenaraiProgramMedia', $format, $controls, 'laporan_senarai_program_media');
     }
 }

@@ -154,7 +154,7 @@ use app\models\general\GeneralMessage;
     
     <div class="panel panel-default">
                 <div class="panel-heading">
-                    <strong>SHAKAM / SHAKAR</strong>
+                    <strong>Tetapan SKIM Insentif</strong>
                 </div>
                 <div class="panel-body">
     
@@ -247,13 +247,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-insentif-tetapan-shakam-shakar/update', 'id' => $model->pengurusan_insentif_tetapan_shakam_shakar_id]).'", "'.GeneralLabel::updateTitle . ' SHAKAM / SHAKAR");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-insentif-tetapan-shakam-shakar/update', 'id' => $model->pengurusan_insentif_tetapan_shakam_shakar_id]).'", "'.GeneralLabel::updateTitle . ' Tetapan SKIM Insentif");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-insentif-tetapan-shakam-shakar/view', 'id' => $model->pengurusan_insentif_tetapan_shakam_shakar_id]).'", "'.GeneralLabel::viewTitle . ' SHAKAM / SHAKAR");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-insentif-tetapan-shakam-shakar/view', 'id' => $model->pengurusan_insentif_tetapan_shakam_shakar_id]).'", "'.GeneralLabel::viewTitle . ' Tetapan SKIM Insentif");',
                         ]);
                     }
                 ],
@@ -274,7 +274,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-insentif-tetapan-shakam-shakar/create', 'pengurusan_insentif_tetapan_id' => $pengurusan_insentif_tetapan_id]).'", "'.GeneralLabel::createTitle . ' SHAKAM / SHAKAR");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-insentif-tetapan-shakam-shakar/create', 'pengurusan_insentif_tetapan_id' => $pengurusan_insentif_tetapan_id]).'", "'.GeneralLabel::createTitle . ' Tetapan SKIM Insentif");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

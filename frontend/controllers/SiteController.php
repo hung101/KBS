@@ -10,6 +10,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use app\models\UserPasswordTrail;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
@@ -91,6 +92,11 @@ class SiteController extends Controller
             $user = $model->getUser();
             $user->login_attempted = 0;
             $user->save();
+            
+            if($user->last_login){
+                Yii::$app->session->setFlash('info', 'Log Masuk Kali Terakhir: ' . $user->last_login);
+            }
+            
             if($user->is_new_user == "YES" || $user->password_expiry < date('Y-m-d H:i:s', time())) {
                 $this->redirect('new-password');
             } else {
@@ -102,10 +108,10 @@ class SiteController extends Controller
             
                 $user = $user->findByUsername(Yii::$app->request->post()['LoginForm']['username']);
                 
-                if($user) {
+                /*if($user) {
                     $user->login_attempted = intval($user->login_attempted) + 1;
                     $user->save();
-                }
+                }*/
             }
             return $this->render('login', [
                 'model' => $model,
@@ -205,7 +211,7 @@ class SiteController extends Controller
     public function actionNewPassword()
     {
 // eddie start
-        if (!\Yii::$app->user->isGuest) {
+        if (\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
@@ -214,20 +220,47 @@ class SiteController extends Controller
         $user = new User();
 
         if ($model->load(Yii::$app->request->post())) {
-            $user = $user->findIdentity(Yii::$app->user->id);
-            $user->setPassword(Yii::$app->request->post()['LoginForm']['password']);
-            $user->is_new_user = "NO";
-            $new_expiry_date = date('Y-m-d H:i:s', time() + Yii::$app->params['passwordExpiry']);
-            $user->password_expiry = $new_expiry_date;
-
-            if($user->save()) {
-                return $this->goBack();
+            $modelUserPasswordTrails = UserPasswordTrail::find([
+                    'user_id' => Yii::$app->user->id,
+                ])->orderBy(['created' => SORT_DESC])->limit(Yii::$app->params['passwordReused'])->all();
+            
+            $samePreviousPassword = false;
+            
+            if($modelUserPasswordTrails){
+                foreach($modelUserPasswordTrails as $modelUserPasswordTrail){
+                    if($modelUserPasswordTrail->password){
+                        $previousPassword = \Yii::$app->encrypter->decrypt($modelUserPasswordTrail->password);
+                        if($previousPassword == Yii::$app->request->post()['LoginForm']['password']){
+                            $samePreviousPassword = true;
+                        }
+                    }
+                }
             }
-        } else {
-            return $this->render('newPassword', [
+            
+            if($samePreviousPassword){
+                Yii::$app->getSession()->setFlash('error', 'Kata laluan baru tidak boleh menggunakan semula ' . Yii::$app->params['passwordReused'] . ' kata laluan yang lepas');
+            } else {
+                $user = $user->findIdentity(Yii::$app->user->id);
+                $user->setPassword(Yii::$app->request->post()['LoginForm']['password']);
+                $user->is_new_user = "NO";
+                $new_expiry_date = date('Y-m-d H:i:s', time() + Yii::$app->params['passwordExpiry']);
+                $user->password_expiry = $new_expiry_date;
+
+                $userPasswordTrail = new UserPasswordTrail();
+                $userPasswordTrail->user_id = Yii::$app->user->id;
+                $userPasswordTrail->password = \Yii::$app->encrypter->encrypt(Yii::$app->request->post()['LoginForm']['password']);
+                $userPasswordTrail->save(); 
+
+                if($user->save()) {
+                    Yii::$app->getSession()->setFlash('success', 'Kata laluan baru telah dikemaskini.');
+                    return $this->goBack();
+                }
+            }
+        } 
+        
+        return $this->render('newPassword', [
                 'model' => $model,
             ]);
-        }
 // eddie end
     }
 }

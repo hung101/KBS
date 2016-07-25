@@ -132,6 +132,27 @@ use app\models\general\GeneralLabel;
 <?php
 $script = <<< JS
         
+$('#peralatan-harga_per_unit').on("keyup", function(){calculateJumlah();});
+$('#peralatan-jumlah_unit').on("keyup", function(){calculateJumlah();});
+$('#peralatan-bilangan').on("keyup", function(){calculateJumlah();});
+        
+function calculateJumlah(){
+    var harga_per_unit = 0;
+    var jumlah_unit = 0;
+    var bilangan = 0;
+    var jumlah = 0;
+        
+    if($('#peralatan-harga_per_unit').val() > 0){harga_per_unit = parseFloat($('#peralatan-harga_per_unit').val());}
+    if($('#peralatan-jumlah_unit').val() > 0){jumlah_unit = parseInt($('#peralatan-jumlah_unit').val());}
+    if($('#peralatan-bilangan').val() > 0){bilangan = parseInt($('#peralatan-bilangan').val());}
+    
+    // Jumlah formula
+    jumlah = harga_per_unit * jumlah_unit * bilangan;
+        
+    //display at fields accordingly
+    $('#peralatan-jumlah').val(jumlah);
+}  
+        
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
     
      var \$form = $(this);

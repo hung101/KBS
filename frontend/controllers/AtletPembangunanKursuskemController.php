@@ -9,7 +9,11 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Session;
+use yii\web\UploadedFile;
+use yii\helpers\Json;
+use yii\helpers\BaseUrl;
 
+use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 
 // table reference
@@ -146,14 +150,21 @@ class AtletPembangunanKursuskemController extends Controller
         $session->close();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $file = UploadedFile::getInstance($model, 'muat_naik_sijil');
+            if($file){
+                $model->muat_naik_sijil = Upload::uploadFile($file, Upload::atletKursusKemFolder, $model->kursus_kem_id);
+            }
+            
             //return $this->redirect(['view', 'id' => $model->kursus_kem_id]);
-            return self::actionView($model->kursus_kem_id);
-        } else {
-            return $this->renderAjax('create', [
+            if( $model->save()){
+                return self::actionView($model->kursus_kem_id);
+            }
+        } 
+        
+        return $this->renderAjax('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -172,13 +183,15 @@ class AtletPembangunanKursuskemController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             //return $this->redirect(['view', 'id' => $model->kursus_kem_id]);
-            return self::actionView($model->kursus_kem_id);
-        } else {
-            return $this->renderAjax('update', [
+            if( $model->save()){
+                return self::actionView($model->kursus_kem_id);
+            }
+        } 
+        
+        return $this->renderAjax('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

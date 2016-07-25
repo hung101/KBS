@@ -136,17 +136,18 @@ class UserController extends Controller
             if($model->new_password != ''){
                 $model->setPassword($model->new_password);
                 $model->login_attempted = 0; //reset login attempt
+                $model->is_new_user = 'YES';
             }
             
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->id]);
             }
-        } else {
-            return $this->render('update', [
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**

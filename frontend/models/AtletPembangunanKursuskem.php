@@ -3,9 +3,10 @@
 namespace app\models;
 
 use Yii;
-
-use app\models\general\GeneralLabel;
+use yii\web\UploadedFile;
+use app\models\general\Upload;
 use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 
 /**
  * This is the model class for table "tbl_atlet_pembangunan_kursuskem".
@@ -55,7 +56,8 @@ class AtletPembangunanKursuskem extends \yii\db\ActiveRecord
             [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_mula', 'jenis'], 'safe'],
             [['lokasi'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_kursus_kem'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['nama_kursus_kem'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['muat_naik_sijil'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -73,8 +75,20 @@ class AtletPembangunanKursuskem extends \yii\db\ActiveRecord
             'lokasi' => GeneralLabel::lokasi,
             'nama_kursus_kem' => GeneralLabel::nama_kursus_kem,
             'penganjur' => GeneralLabel::penganjur,
+            'muat_naik_sijil' => GeneralLabel::muat_naik_sijil,
 
         ];
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
     }
     
     /**

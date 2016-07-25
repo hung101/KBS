@@ -98,9 +98,9 @@ class JurulatihSearch extends Jurulatih
             'tbl_jurulatih_sukan.program' => $this->program,
         ]);
         
-        /*if($this->ic_no){
+        if($this->ic_no){
             $this->ic_no = \Yii::$app->encrypter->encrypt($this->ic_no);
-        }*/
+        }
 
         $query->andFilterWhere(['like', 'gambar', $this->gambar])
             ->andFilterWhere(['like', 'tbl_ref_cawangan.desc', $this->cawangan])
@@ -156,9 +156,9 @@ class JurulatihSearch extends Jurulatih
                 ->andFilterWhere(['like', 'tbl_ref_status_tawaran.desc', $this->status_tawaran]);
         
         
-        /*if($this->ic_no){
+        if($this->ic_no){
             $this->ic_no = \Yii::$app->encrypter->decrypt($this->ic_no);
-        }*/
+        }
 
         return $dataProvider;
     }

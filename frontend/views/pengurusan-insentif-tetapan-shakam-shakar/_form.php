@@ -7,6 +7,8 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use yii\helpers\Url;
+use kartik\widgets\DepDrop;
 
 // contant values
 use app\models\general\Placeholder;
@@ -17,8 +19,9 @@ use app\models\general\GeneralMessage;
 // table reference
 use app\models\RefJenisInsentif;
 use app\models\RefPingatInsentif;
-use app\models\RefJawatanJawatankuasaKhas;
-use app\models\RefAgensiOrganisasi;
+use app\models\RefInsentifKejohanan;
+use app\models\RefInsentifPeringkat;
+use app\models\RefInsentifKelas;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanInsentifTetapanShakamShakar */
@@ -57,7 +60,24 @@ use app\models\RefAgensiOrganisasi;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>3]],
+                'kejohanan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-insentif-kejohanan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefInsentifKejohanan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kejohanan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
                 'pingat' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -72,27 +92,82 @@ use app\models\RefAgensiOrganisasi;
                         'data'=>ArrayHelper::map(RefPingatInsentif::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::pingat],],
                     'columnOptions'=>['colspan'=>3]],
-                'rekod_baharu' =>  [
-                            'type'=>Form::INPUT_RADIO_LIST, 
-                            'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
-                            'value'=>false,
-                            'options'=>['inline'=>true],
-                            'columnOptions'=>['colspan'=>2]],
+                'peringkat' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-insentif-peringkat/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefInsentifPeringkat::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::peringkat],],
+                    'columnOptions'=>['colspan'=>3]],
+                'peringkat' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
+                    'options'=>[
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/ref-insentif-peringkat/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                        ],
+                        'data'=>ArrayHelper::map(RefInsentifPeringkat::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options'=>['prompt'=>'',],
+                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                        'pluginOptions' => [
+                            'initialize' => true,
+                            'depends'=>[Html::getInputId($model, 'kejohanan')],
+                            'placeholder' => Placeholder::peringkat,
+                            'url'=>Url::to(['/ref-insentif-peringkat/sub-peringkats'])],
+                        ],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
         [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'kelas' =>  [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-insentif-kelas/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefInsentifKelas::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kelas],],
+                    'columnOptions'=>['colspan'=>3]],
+                
+            ],
+        ],
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'kumpulan_temasya_kejohanan' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>10],'options'=>['maxlength'=>255],'hint'=>'Cth. (SHAKAM) SUKAN TEMASYA KUMPULAN A - A1 - OLIMPIK / PARALIMPIK,  (SHAKAR) KEJOHANAN DUNIA - K1'],
                 
             ],
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'jumlah' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>10],'options'=>['maxlength'=>10]],
+                'nilai_individu' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
+                'nilai_berpasukan' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
+                'rekod_baharu' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
                 
             ],
         ],
