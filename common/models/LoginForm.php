@@ -64,7 +64,8 @@ class LoginForm extends Model
                     $user->save();
                 }
                 
-                $this->addError($attribute, 'Incorrect username or password, or account deactivated.');
+                //$this->addError($attribute, 'Incorrect username or password, or account deactivated.');
+                $this->addError($attribute, 'Nama pengguna atau kata laluan salah, atau akaun dinyahaktifkan');
             }
         }
     }
