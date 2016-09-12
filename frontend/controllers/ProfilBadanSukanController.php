@@ -68,6 +68,33 @@ class ProfilBadanSukanController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    
+    /**
+     * Lists all ProfilBadanSukan models.
+     * @return mixed
+     */
+    public function actionIndexMsn()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $queryPar = Yii::$app->request->queryParams;
+        
+        if(Yii::$app->user->identity->profil_badan_sukan){
+            $queryPar['ProfilBadanSukanSearch']['profil_badan_sukan'] = Yii::$app->user->identity->profil_badan_sukan;
+        }
+        
+        $queryPar['ProfilBadanSukanSearch']['status_id'] = RefStatusLaporanMesyuaratAgung::DISAHKAN;
+        
+        $searchModel = new ProfilBadanSukanSearch();
+        $dataProvider = $searchModel->search($queryPar);
+
+        return $this->render('index_msn', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
      * Displays a single ProfilBadanSukan model.

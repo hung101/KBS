@@ -17,6 +17,9 @@ use Yii;
  */
 class RefInsentifKejohanan extends \yii\db\ActiveRecord
 {
+    const TEMASYA = 1;
+    const INDIVIDU = 2;
+    
     /**
      * @inheritdoc
      */

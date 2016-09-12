@@ -106,4 +106,11 @@ class ProfilDelegasiTeknikal extends \yii\db\ActiveRecord
     public function getRefNegeri(){
         return $this->hasOne(RefNegeri::className(), ['id' => 'negeri']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSukan(){
+        return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
+    }
 }

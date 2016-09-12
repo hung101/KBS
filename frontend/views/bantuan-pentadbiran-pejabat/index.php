@@ -53,6 +53,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
             [
+                'attribute' => 'jawatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jawatan,
+                ],
+                'value' => 'refJawatanBantuanPentadbiranPejabat.desc'
+            ],
+            [
+                'attribute' => 'persatuan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::persatuan,
+                ],
+                'value' => 'refProfilBadanSukan.nama_badan_sukan'
+            ],
+            /*[
                 'attribute' => 'no_kad_pengenalan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -65,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_lahir,
                 ]
-            ],
+            ],*/
             //'alamat_1',
             // 'alamat_2',
             // 'alamat_3',

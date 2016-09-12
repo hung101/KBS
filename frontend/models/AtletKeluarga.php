@@ -56,7 +56,7 @@ class AtletKeluarga extends \yii\db\ActiveRecord
     {
         return [
             [['atlet_id', 'nama', 'hubungan', 'no_kad_pengenalan', 'tarikh_lahir', 'bangsa', 'agama'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['atlet_id', 'no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_lahir'], 'safe'],
             [['nama', 'pekerjaan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['hubungan'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],

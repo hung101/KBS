@@ -99,7 +99,7 @@ class JurulatihSearch extends Jurulatih
         ]);
         
         if($this->ic_no){
-            $this->ic_no = \Yii::$app->encrypter->encrypt($this->ic_no);
+            //$this->ic_no = \Yii::$app->encrypter->encrypt($this->ic_no);
         }
 
         $query->andFilterWhere(['like', 'gambar', $this->gambar])
@@ -157,7 +157,7 @@ class JurulatihSearch extends Jurulatih
         
         
         if($this->ic_no){
-            $this->ic_no = \Yii::$app->encrypter->decrypt($this->ic_no);
+            //$this->ic_no = \Yii::$app->encrypter->decrypt($this->ic_no);
         }
 
         return $dataProvider;

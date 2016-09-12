@@ -18,6 +18,8 @@ use app\models\general\GeneralMessage;
  */
 class PengurusanPemantauanDanPenilaianJurulatih extends \yii\db\ActiveRecord
 {
+    public $penilaian_oleh_id;
+    
     /**
      * @inheritdoc
      */

@@ -7,6 +7,7 @@ use app\models\Atlet;
 use app\models\AtletSearch;
 use app\models\MsnLaporanSenaraiAtlet;
 use app\models\MsnLaporanStatistikAtlet;
+use app\models\MsnSuratTawaranAtlet;
 use app\models\User;
 use frontend\models\UserSearch;
 use yii\web\Controller;
@@ -16,6 +17,8 @@ use yii\filters\VerbFilter;
 use yii\web\Session;
 use yii\helpers\BaseUrl;
 use yii\helpers\Json;
+use yii\helpers\Url;
+use kartik\helpers\Html;
 
 // table reference
 use app\models\RefJantina;
@@ -249,6 +252,7 @@ class AtletController extends Controller
         /*$YesNo = GeneralLabel::getYesNoLabel($atlet->tawaran);
         $atlet->tawaran = $YesNo;*/
         
+        $atlet->tawaran_id = $atlet->tawaran;
         $ref = RefStatusTawaran::findOne(['id' => $atlet->tawaran]);
         $atlet->tawaran = $ref['desc'];
         
@@ -484,8 +488,18 @@ No Kad Pengenalan: ' . $model->ic_no . '
         $model = Atlet::find()->where(['tbl_atlet.atlet_id'=>$id])->joinWith(['refAtletSukan' => function($query) {
                         $query->orderBy(['tbl_atlet_sukan.created' => SORT_DESC])->one();
                     },
+                ])->joinWith(['refAtletPendidikan' => function($query) {
+                        $query->orderBy(['tbl_atlet_pendidikan.created' => SORT_DESC])->one();
+                    },
                 ])->asArray()->one();
         
+        //$model['ic_no'] = \Yii::$app->encrypter->decrypt($model['ic_no']);
+        //$model['passport_no$model'] = \Yii::$app->encrypter->decrypt($model['passport_no']);
+        //$model['tel_bimbit_no_1'] = \Yii::$app->encrypter->decrypt($model['tel_bimbit_no_1']);
+        //$model['tel_bimbit_no_2'] = \Yii::$app->encrypter->decrypt($model['tel_bimbit_no_2']);
+        $model['view_url'] = Url::to(['/atlet/view', 'id' => $model['atlet_id']]);
+        $model['view_url_button'] = Html::a(GeneralLabel::view . ' ' . GeneralLabel::profil, '#', ['class'=>'btn btn-primary custom_button', 'onclick' => 'window.open("' . Url::to(['/atlet/view', 'id' => $model['atlet_id']]) . '", "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no"); return false;']) ;
+                    
         echo Json::encode($model);
     }
     
@@ -731,5 +745,61 @@ No Kad Pengenalan: ' . $model->ic_no . '
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletParalimpik', $format, $controls, 'laporan_statistik_atlet_paralimpik');
+    }
+    
+    public function actionSuratTawaranAtlet($atlet_id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnSuratTawaranAtlet();
+        $model->atlet_id = $atlet_id;
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-surat-tawaran-atlet'
+                    , 'tarikh' => $model->tarikh
+                    , 'bil_msnm' => $model->bil_msnm
+                    , 'atlet_id' => $model->atlet_id
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-surat-tawaran-atlet'
+                    , 'tarikh' => $model->tarikh
+                    , 'bil_msnm' => $model->bil_msnm
+                    , 'atlet_id' => $model->atlet_id
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('surat_tawaran_atlet', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateSuratTawaranAtlet($tarikh, $bil_msnm, $atlet_id, $format)
+    {
+        if($tarikh == "") $tarikh = array();
+        else $tarikh = array($tarikh);
+        
+        if($bil_msnm == "") $bil_msnm = array();
+        else $bil_msnm = array($bil_msnm);
+        
+        if($atlet_id == "") $atlet_id = array();
+        else $atlet_id = array($atlet_id);
+        
+        $controls = array(
+            'TARIKH' => $tarikh,
+            'BIL_MSNM' => $bil_msnm,
+            'ATLET' => $atlet_id,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/SuratTawaranAtlet', $format, $controls, 'surat_tawaran_atlet');
     }
 }

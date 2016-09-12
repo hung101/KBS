@@ -20,7 +20,8 @@ class PembayaranInsentifSearch extends PembayaranInsentif
     {
         return [
             [['pembayaran_insentif_id', 'rekod_baharu', 'created_by', 'updated_by', 'atlet'], 'integer'],
-            [['kejohanan', 'jenis_insentif', 'pingat', 'kumpulan_temasya_kejohanan', 'kelulusan', 'tarikh_kelulusan', 'tarikh_pembayaran_insentif', 'created', 'updated'], 'safe'],
+            [['kejohanan', 'jenis_insentif', 'pingat', 'kumpulan_temasya_kejohanan', 'kelulusan', 'tarikh_kelulusan', 'tarikh_pembayaran_insentif', 'created', 'updated',
+                'nama_kejohanan'], 'safe'],
             [['jumlah'], 'number'],
         ];
     }
@@ -48,7 +49,8 @@ class PembayaranInsentifSearch extends PembayaranInsentif
                 ->joinWith(['refPingatInsentif'])
                 ->joinWith(['refPengurusanInsentifTetapanShakamShakar'])
                 ->joinWith(['refKelulusan'])
-                ->joinWith(['refPembayaranInsentifAtlet']);
+                ->joinWith(['refPembayaranInsentifAtlet'])
+                ->joinWith(['refPerancanganProgram']);
 
         // add conditions that should always apply here
 
@@ -71,7 +73,7 @@ class PembayaranInsentifSearch extends PembayaranInsentif
             //'pingat' => $this->pingat,
             //'kumpulan_temasya_kejohanan' => $this->kumpulan_temasya_kejohanan,
             'rekod_baharu' => $this->rekod_baharu,
-            'jumlah' => $this->jumlah,
+            //'jumlah' => $this->jumlah,
             'tarikh_kelulusan' => $this->tarikh_kelulusan,
             'tarikh_pembayaran_insentif' => $this->tarikh_pembayaran_insentif,
             'created_by' => $this->created_by,
@@ -85,7 +87,9 @@ class PembayaranInsentifSearch extends PembayaranInsentif
                 ->andFilterWhere(['like', 'tbl_ref_jenis_insentif.desc', $this->jenis_insentif])
                 ->andFilterWhere(['like', 'tbl_ref_pingat_insentif.desc', $this->pingat])
                 ->andFilterWhere(['like', 'tbl_ref_pengurusan_insentif_tetapan_shakam_shakar.desc', $this->kumpulan_temasya_kejohanan])
-            ->andFilterWhere(['like', 'tbl_ref_kelulusan.desc', $this->kelulusan]);
+            ->andFilterWhere(['like', 'tbl_pembayaran_insentif.jumlah', $this->jumlah])
+                ->andFilterWhere(['like', 'tbl_ref_kelulusan_insentif.desc', $this->kelulusan])
+                ->andFilterWhere(['like', 'tbl_perancangan_program.nama_program', $this->nama_kejohanan]);
 
         return $dataProvider;
     }

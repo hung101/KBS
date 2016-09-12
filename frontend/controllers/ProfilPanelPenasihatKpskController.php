@@ -8,8 +8,11 @@ use frontend\models\ProfilPanelPenasihatKpskSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 use yii\helpers\Json;
+use yii\helpers\BaseUrl;
 
+use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
 
@@ -113,13 +116,20 @@ class ProfilPanelPenasihatKpskController extends Controller
         $model = new ProfilPanelPenasihatKpsk();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->profil_panel_penasihat_kpsk_id]);
-        } else {
-            return $this->render('create', [
+            $file = UploadedFile::getInstance($model, 'muatnaik');
+            if($file){
+                $model->muatnaik = Upload::uploadFile($file, Upload::profilPanelPenasihatKpskFolder, $model->profil_panel_penasihat_kpsk_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->profil_panel_penasihat_kpsk_id]);
+            }
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -137,13 +147,20 @@ class ProfilPanelPenasihatKpskController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->profil_panel_penasihat_kpsk_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'muatnaik');
+            if($file){
+                $model->muatnaik = Upload::uploadFile($file, Upload::profilPanelPenasihatKpskFolder, $model->profil_panel_penasihat_kpsk_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->profil_panel_penasihat_kpsk_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -157,6 +174,9 @@ class ProfilPanelPenasihatKpskController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
+        
+        // delete upload file
+        self::actionDeleteupload($id, 'muatnaik');
         
         $this->findModel($id)->delete();
 
@@ -177,6 +197,28 @@ class ProfilPanelPenasihatKpskController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            return $this->redirect(['update', 'id' => $id]);
     }
     
     public function actionGetPenasihatKpsk($id){

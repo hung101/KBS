@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 
 use yii\helpers\Json;
 
+use app\models\RefSukan;
+
 /**
  * RefAcaraController implements the CRUD actions for RefAcara model.
  */
@@ -50,8 +52,13 @@ class RefAcaraController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        
+        $ref = RefSukan::findOne(['id' => $model->ref_sukan_id]);
+        $model->ref_sukan_id = $ref['desc'];
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 

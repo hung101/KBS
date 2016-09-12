@@ -17,16 +17,20 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="anugerah-pencalonan-lain-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->anugerah_pencalonan_lain_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->anugerah_pencalonan_lain_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['anugerah-pencalonan-atlet']['update'])): ?>
+            <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->anugerah_pencalonan_lain_id], ['class' => 'btn btn-primary']) ?>
+        <?php endif; ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['anugerah-pencalonan-atlet']['delete'])): ?>
+            <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->anugerah_pencalonan_lain_id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => GeneralMessage::confirmDelete,
+                    'method' => 'post',
+                ],
+            ]) ?>
+        <?php endif; ?>
     </p>
     
     <?= $this->render('_form', [

@@ -31,10 +31,12 @@ class RefPenilaianJurulatih extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['desc'], 'required'],
+            [['desc', 'markah_peratus'], 'required'],
             [['aktif', 'created_by', 'updated_by'], 'integer'],
+            [['markah_peratus'], 'number'],
             [['created', 'updated'], 'safe'],
             [['desc'], 'string', 'max' => 80],
+            [['markah_peratus'], 'string', 'max' => 10],
         ];
     }
 
@@ -47,6 +49,7 @@ class RefPenilaianJurulatih extends \yii\db\ActiveRecord
             'id' => 'ID',
             'desc' => 'Desc',
             'aktif' => 'Aktif',
+            'markah_peratus' => 'Markah Peratus',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',

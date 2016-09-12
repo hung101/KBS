@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanBeritaAntarabangsaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = GeneralLabel::pengurusan_berita_antarabangsa;
+$this->title = GeneralLabel::maklumat_antarabangsa;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-berita-antarabangsa-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-berita-antarabangsa']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::pengurusan_berita_antarabangsa, ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::maklumat_antarabangsa, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 
@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pengurusan_berita_antarabangsa_id',
             //'kategori_berita',
-            [
+            /*[
                 'attribute' => 'kategori_berita',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -67,9 +67,31 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_berita,
                 ]
-            ],
+            ],*/
             //'muatnaik',
             [
+                'attribute' => 'nama_negara',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_negara,
+                ],
+                'value' => 'refNegara.desc'
+            ],
+            [
+                'attribute' => 'nama_pegawai_embassy',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' Nama Pegawai Embassy',
+                ],
+            ],
+            [
+                'attribute' => 'no_telefon',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_telefon,
+                ],
+            ],
+            /*[
                 'attribute' => 'muatnaik',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -86,7 +108,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return "";
                     }
                 },
-            ],
+            ],*/
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

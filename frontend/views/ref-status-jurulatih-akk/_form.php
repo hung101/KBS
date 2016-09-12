@@ -12,7 +12,6 @@ use app\models\general\GeneralLabel;
 
 <div class="ref-status-jurulatih-akk-form">
 
-    <?php $form = ActiveForm::begin(); ?>
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -22,7 +21,7 @@ use app\models\general\GeneralLabel;
     <?= $form->field($model, 'aktif')->radioList(array(true=>GeneralLabel::yes,false=>GeneralLabel::no)); ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

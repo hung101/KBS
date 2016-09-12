@@ -74,7 +74,7 @@ class ProfilWartawanSukan extends \yii\db\ActiveRecord
             'emel' => GeneralLabel::emel,
             'agensi' => GeneralLabel::agensi,
             'no_tel' => GeneralLabel::no_tel,
-            'aktif' => GeneralLabel::aktif,
+            'aktif' => GeneralLabel::status_keaktifan,
             'gambar' => GeneralLabel::gambar,
             'jawatan' => GeneralLabel::jawatan,
         ];

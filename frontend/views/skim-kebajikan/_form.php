@@ -21,6 +21,7 @@ use app\models\RefJenisPermohonanSkim;
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
+use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\SkimKebajikan */
@@ -82,7 +83,7 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSukanSkimKebajikan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan,'id'=>'sukanId'],],
+                        'options' => ['placeholder' => Placeholder::pencapaianTertinggi,'id'=>'sukanId'],],
                     'columnOptions'=>['colspan'=>3]],
                 'jumlah_kos_perubatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>10]],
             ],
@@ -192,8 +193,47 @@ use app\models\general\GeneralVariable;
                 'jenis_bantuan_lain_yang_diterima' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>30]],
             ]
         ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'catatan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>255]],
+            ]
+        ],
     ]
 ]);
+    ?>
+    
+    <?php // Upload
+    if($model->muat_naik){
+        echo "<label>" . $model->getAttributeLabel('muat_naik') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->muat_naik , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->skim_kebajikan_id, 'field'=> 'muat_naik'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3], 'hint'=>'cth: Memo Kelulusan Tarikh ...'],
+                    ],
+                ],
+            ]
+        ]);
+    }
     ?>
     
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['skim-kebajikan']['kelulusan']) || $readonly): ?>
@@ -207,33 +247,23 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'kelulusan' => ['type'=>Form::INPUT_RADIO_LIST, 'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],'options'=>['inline'=>true],'columnOptions'=>['colspan'=>3]],
+                'tarikh_kelulusan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                //'kelulusan' => ['type'=>Form::INPUT_RADIO_LIST, 'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],'options'=>['inline'=>true],'columnOptions'=>['colspan'=>3]],
             ]
         ],
     ]
 ]);
     ?>
     <?php endif; ?>
-
-    <!--<?= $form->field($model, 'jenis_bantuan_skak')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'jumlah_bantuan')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'nama_pemohon')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'nama_penerima')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'jenis_sukan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'masalah_dihadapi')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'tarikh_kejadian')->textInput() ?>
-
-    <?= $form->field($model, 'lokasi_kejadian')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'jenis_bantuan_lain_yang_diterima')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'kelulusan')->textInput() ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>

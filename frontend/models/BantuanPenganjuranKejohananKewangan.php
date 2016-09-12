@@ -53,7 +53,7 @@ class BantuanPenganjuranKejohananKewangan extends \yii\db\ActiveRecord
             'bantuan_penganjuran_kejohanan_kewangan_id' => 'Bantuan Penganjuran Kejohanan Kewangan ID',
             'bantuan_penganjuran_kejohanan_id' => 'Bantuan Penganjuran Kejohanan ID',
             'sumber_kewangan' => 'Sumber Kewangan',
-            'lain_lain' => 'Nyatakan (Jika Lain-lain)',
+            'lain_lain' => 'Nama Sumber',
             'jumlah' => 'Jumlah (RM)',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
@@ -61,5 +61,12 @@ class BantuanPenganjuranKejohananKewangan extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSumberKewanganBantuanPenganjuranKejohanan(){
+        return $this->hasOne(RefSumberKewanganBantuanPenganjuranKejohanan::className(), ['id' => 'sumber_kewangan']);
     }
 }

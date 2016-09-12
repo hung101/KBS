@@ -11,15 +11,7 @@ use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
 
 // table reference
-use app\models\RefSukan;
-use app\models\RefJantina;
-use app\models\RefJenisBantuanSue;
-use app\models\RefBandar;
-use app\models\RefNegeri;
-use app\models\RefBangsa;
-use app\models\RefAgama;
-use app\models\RefStatusPermohonanSue;
-use app\models\RefNegara;
+use app\models\RefJenisBayaranBantuanPenganjuranKejohanan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -55,11 +47,11 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-bank/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-bayaran-bantuan-penganjuran-kejohanan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefJenisBayaranBantuanPenganjuranKejohanan::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jenis],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -109,7 +101,7 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
                     $(document).find('#modal').modal('hide');
                     form.trigger("reset");
                     $.pjax.defaults.timeout = 100000;
-                    $.pjax.reload({container:'#bantuanPenganjuranKejohananKewanganGrid'});
+                    $.pjax.reload({container:'#bantuanPenganjuranKejohananBayaranGrid'});
                 }
           }
      });

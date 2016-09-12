@@ -55,6 +55,7 @@ class MuatNaikDokumen extends \yii\db\ActiveRecord
             [['tarikh_muat_naik', 'kategori_dokumen_nyatakan', 'tarikh_mula', 'tarikh_tamat'], 'safe'],
             [['kategori_muat_naik'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik_dokumen'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik_dokumen'], 'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }

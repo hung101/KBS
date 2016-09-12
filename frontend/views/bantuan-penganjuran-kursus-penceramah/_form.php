@@ -12,15 +12,12 @@ use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
 
 // table reference
-use app\models\RefSukan;
+use app\models\ProfilBadanSukan;
 use app\models\RefJantina;
-use app\models\RefJenisBantuanSue;
+use app\models\RefSukan;
 use app\models\RefBandar;
 use app\models\RefNegeri;
-use app\models\RefBangsa;
-use app\models\RefAgama;
-use app\models\RefStatusPermohonanSue;
-use app\models\RefNegara;
+use app\models\RefTahapAkademikPegawaiTeknikal;
 
 // contant values
 use app\models\general\Placeholder;
@@ -58,11 +55,11 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-bantuan-sue/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/profil-badan-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJenisBantuanSue::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
                         'options' => ['placeholder' => Placeholder::persatuan],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -75,11 +72,11 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-bantuan-sue/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJenisBantuanSue::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -161,8 +158,8 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'no_kad_pengenalan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
-                'umur' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
+                'no_kad_pengenalan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true, 'id'=>'noKadPengenalanId']],
+                'umur' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true, 'id'=>'umurId']],
             ]
         ],
         [
@@ -208,11 +205,11 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-jantina/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-tahap-akademik-pegawai-teknikal/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJantina::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefTahapAkademikPegawaiTeknikal::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::tahapAkademik],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -224,29 +221,70 @@ use app\models\general\GeneralVariable;
 ]);
     ?>
     
-    <?php
+    <?php // Upload
+    if($model->tahap_kelayakan_sukan_peringkat_kebangsaan){
+        echo "<label>" . $model->getAttributeLabel('tahap_kelayakan_sukan_peringkat_kebangsaan') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->tahap_kelayakan_sukan_peringkat_kebangsaan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->bantuan_penganjuran_kursus_penceramah_id, 'field'=> 'tahap_kelayakan_sukan_peringkat_kebangsaan'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
         echo FormGrid::widget([
-    'model' => $model,
-    'form' => $form,
-    'autoGenerateColumns' => true,
-    'rows' => [
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'tahap_kelayakan_sukan_peringkat_kebangsaan' =>  ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
-            ],
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'tahap_kelayakan_sukan_peringkat_antarabangsa' =>  ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
-            ],
-        ],
-    ]
-]);
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'tahap_kelayakan_sukan_peringkat_kebangsaan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
     ?>
+    
+    <?php // Upload
+    if($model->tahap_kelayakan_sukan_peringkat_antarabangsa){
+        echo "<br><label>" . $model->getAttributeLabel('tahap_kelayakan_sukan_peringkat_antarabangsa') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->tahap_kelayakan_sukan_peringkat_antarabangsa , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->bantuan_penganjuran_kursus_penceramah_id, 'field'=> 'tahap_kelayakan_sukan_peringkat_antarabangsa'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'tahap_kelayakan_sukan_peringkat_antarabangsa' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+    
     <br>
     <br>
     <pre style="text-align: center"><strong>MAKLUMAT MAJIKAN</strong></pre>
@@ -298,7 +336,6 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
-                        'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
@@ -309,7 +346,6 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
-                        'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
@@ -339,6 +375,9 @@ use app\models\general\GeneralVariable;
 </div>
 
 <?php
+$LELAKI_CODE = RefJantina::LELAKI;
+$PEREMPUAN_CODE = RefJantina::PEREMPUAN;
+
 $script = <<< JS
         
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
@@ -368,6 +407,42 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
      });
      return false;
 });
+
+$(document).ready(function(){
+        if($("#noKadPengenalanId").val() != ""){
+            getAgeFromICNo($("#noKadPengenalanId").val());
+        }
+    });
+        
+    $("#noKadPengenalanId").focusout(function(){
+        getAgeFromICNo(this.value);
+    });
+        
+    function getAgeFromICNo(ICNo){
+        var DOBVal = "";
+
+        if(ICNo != ""){
+            DOBVal = getDOBFromICNo(ICNo);
+        
+            if(isEven(ICNo)){
+                // if IC No is even then is woman
+                $("#bantuanpenganjurankursuspenceramah-jantina").val('$PEREMPUAN_CODE').trigger("change");
+            } else {
+                // if IC No is odd then is guy
+                $("#bantuanpenganjurankursuspenceramah-jantina").val('$LELAKI_CODE').trigger("change");
+            }
+        
+            $("#umurId").val(calculateAge(formatSaveDate(DOBVal)));
+        }
+    }
+ 
+    // enable all the disabled field before submit
+    $('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+        var form = $(this);
+        
+        $("form#{$model->formName()} input").prop("disabled", false);
+    });
      
 
 JS;

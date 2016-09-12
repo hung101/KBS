@@ -69,7 +69,7 @@ class BorangPenilaianKaunselingSearch extends BorangPenilaianKaunseling
             ->andFilterWhere(['like', 'cadangan', $this->cadangan])
             ->andFilterWhere(['like', 'rujukan', $this->rujukan])
             ->andFilterWhere(['like', 'tindakan_selanjutnya', $this->tindakan_selanjutnya])
-            ->andFilterWhere(['like', 'tbl_ref_kategori_masalah_kaunseling.desc', $this->kategori_permasalahan])
+            ->andFilterWhere(['like', 'tbl_ref_latarbelakang_kes.desc', $this->kategori_permasalahan])
             ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet])
             ->andFilterWhere(['like', 'tbl_user.full_name', $this->profil_konsultan_id]);
 

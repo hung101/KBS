@@ -148,6 +148,30 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
      });
      return false;
 });
+
+$('#bantuanpenganjurankejohananlaporantuntutan-jumlah_kelulusan').on("keyup", function(){calculatePendahuluanDituntut();});
+        
+function calculatePendahuluanDituntut(){
+    var dituntutPeratus = 0.2;
+    var pendahuluanPeratus = 0.8;
+    var jumlah = 0;
+    var jumlahPendahuluan = 0;
+    var jumlahDituntut = 0;
+        
+    if($('#bantuanpenganjurankejohananlaporantuntutan-jumlah_kelulusan').val() > 0)
+    {
+        jumlah = parseFloat($('#bantuanpenganjurankejohananlaporantuntutan-jumlah_kelulusan').val());
+
+        // Jumlah formula
+        jumlahPendahuluan = jumlah * pendahuluanPeratus;
+        jumlahDituntut = jumlah * dituntutPeratus;
+
+        //display at fields accordingly
+        $('#bantuanpenganjurankejohananlaporantuntutan-pendahuluan_80').val(jumlahPendahuluan);
+        $('#bantuanpenganjurankejohananlaporantuntutan-jumlah_yang_dituntut_20').val(jumlahDituntut);
+    }
+    
+}  
      
 
 JS;

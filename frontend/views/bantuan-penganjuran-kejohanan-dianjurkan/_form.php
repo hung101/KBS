@@ -11,15 +11,7 @@ use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
 
 // table reference
-use app\models\RefSukan;
-use app\models\RefJantina;
-use app\models\RefJenisBantuanSue;
-use app\models\RefBandar;
-use app\models\RefNegeri;
-use app\models\RefBangsa;
-use app\models\RefAgama;
-use app\models\RefStatusPermohonanSue;
-use app\models\RefNegara;
+use app\models\RefPeringkatBantuanPenganjuranKejohananDianjurkan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -54,7 +46,6 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
-                        'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
@@ -65,7 +56,6 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
-                        'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
@@ -92,16 +82,17 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-bank/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-peringkat-bantuan-penganjuran-kejohanan-dianjurkan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefPeringkatBantuanPenganjuranKejohananDianjurkan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::peringkat],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
+                'peringkat_penganjuran_lain' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
                 'jumlah' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
             ]
         ],
@@ -144,7 +135,7 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
                     $(document).find('#modal').modal('hide');
                     form.trigger("reset");
                     $.pjax.defaults.timeout = 100000;
-                    $.pjax.reload({container:'#bantuanPenganjuranKejohananElemenGrid'});
+                    $.pjax.reload({container:'#bantuanPenganjuranKejohananDianjurkanGrid'});
                 }
           }
      });

@@ -18,6 +18,16 @@ use yii\web\UploadedFile;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
+
+// table reference
+use app\models\RefSukan;
+use app\models\RefBandar;
+use app\models\RefNegeri;
+use app\models\RefBank;
+use app\models\ProfilBadanSukan;
+use app\models\RefStatusBantuanPenyertaanPegawaiTeknikal;
+use app\models\RefPeringkatBantuanPenyertaanPegawaiTeknikal;
 
 /**
  * BantuanPenyertaanPegawaiTeknikalController implements the CRUD actions for BantuanPenyertaanPegawaiTeknikal model.
@@ -45,6 +55,10 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
         $searchModel = new BantuanPenyertaanPegawaiTeknikalSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -61,6 +75,9 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
         
         $queryPar = null;
         
@@ -77,8 +94,31 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
         $searchModelBantuanPenyertaanPegawaiTeknikalOlehMsn  = new BantuanPenyertaanPegawaiTeknikalOlehMsnSearch();
         $dataProviderBantuanPenyertaanPegawaiTeknikalOlehMsn = $searchModelBantuanPenyertaanPegawaiTeknikalOlehMsn->search($queryPar);
         
+        $model = $this->findModel($id);
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
+        $model->alamat_bandar = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->alamat_negeri]);
+        $model->alamat_negeri = $ref['desc'];
+        
+        $ref = RefBank::findOne(['id' => $model->nama_bank]);
+        $model->nama_bank = $ref['desc'];
+        
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->badan_sukan]);
+        $model->badan_sukan = $ref['nama_badan_sukan'];
+        
+        $ref = RefPeringkatBantuanPenyertaanPegawaiTeknikal::findOne(['id' => $model->peringkat]);
+        $model->peringkat = $ref['desc'];
+        
+        $ref = RefStatusBantuanPenyertaanPegawaiTeknikal::findOne(['id' => $model->status_permohonan]);
+        $model->status_permohonan = $ref['desc'];
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'searchModelBantuanPenyertaanPegawaiTeknikalDicadangkan' => $searchModelBantuanPenyertaanPegawaiTeknikalDicadangkan,
             'dataProviderBantuanPenyertaanPegawaiTeknikalDicadangkan' => $dataProviderBantuanPenyertaanPegawaiTeknikalDicadangkan,
             'searchModelBantuanPenyertaanPegawaiTeknikalDisertai' => $searchModelBantuanPenyertaanPegawaiTeknikalDisertai,
@@ -96,7 +136,14 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
         $model = new BantuanPenyertaanPegawaiTeknikal();
+        
+        $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
+        $model->status_permohonan = RefStatusBantuanPenyertaanPegawaiTeknikal::SEDANG_DIPROSES;
         
         $queryPar = null;
         
@@ -129,9 +176,42 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
                 BantuanPenyertaanPegawaiTeknikalOlehMsn::updateAll(['session_id' => ''], 'bantuan_penyertaan_pegawai_teknikal_id = "'.$model->bantuan_penyertaan_pegawai_teknikal_id.'"');
             }
             
-            return $this->redirect(['view', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_id]);
-        } else {
-            return $this->render('create', [
+            $file = UploadedFile::getInstance($model, 'surat_rasmi_badan_sukan_ms_negeri');
+            $filename = $model->bantuan_penyertaan_pegawai_teknikal_id . "-surat_rasmi_badan_sukan_ms_negeri";
+            if($file){
+                $model->surat_rasmi_badan_sukan_ms_negeri = Upload::uploadFile($file, Upload::bantuanPenyertaanPegawaiTeknikalFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_jemputan_lantikan_daripada_pengelola');
+            $filename = $model->bantuan_penyertaan_pegawai_teknikal_id . "-surat_jemputan_lantikan_daripada_pengelola";
+            if($file){
+                $model->surat_jemputan_lantikan_daripada_pengelola = Upload::uploadFile($file, Upload::bantuanPenyertaanPegawaiTeknikalFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'butiran_perbelanjaan');
+            $filename = $model->bantuan_penyertaan_pegawai_teknikal_id . "-butiran_perbelanjaan";
+            if($file){
+                $model->butiran_perbelanjaan = Upload::uploadFile($file, Upload::bantuanPenyertaanPegawaiTeknikalFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'salinan_passport');
+            $filename = $model->bantuan_penyertaan_pegawai_teknikal_id . "-salinan_passport";
+            if($file){
+                $model->salinan_passport = Upload::uploadFile($file, Upload::bantuanPenyertaanPegawaiTeknikalFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'maklumat_lain_sokongan');
+            $filename = $model->bantuan_penyertaan_pegawai_teknikal_id . "-maklumat_lain_sokongan";
+            if($file){
+                $model->maklumat_lain_sokongan = Upload::uploadFile($file, Upload::bantuanPenyertaanPegawaiTeknikalFolder, $filename);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_id]);
+            }
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'searchModelBantuanPenyertaanPegawaiTeknikalDicadangkan' => $searchModelBantuanPenyertaanPegawaiTeknikalDicadangkan,
                 'dataProviderBantuanPenyertaanPegawaiTeknikalDicadangkan' => $dataProviderBantuanPenyertaanPegawaiTeknikalDicadangkan,
@@ -141,7 +221,6 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
                 'dataProviderBantuanPenyertaanPegawaiTeknikalOlehMsn' => $dataProviderBantuanPenyertaanPegawaiTeknikalOlehMsn,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -152,6 +231,10 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
         $model = $this->findModel($id);
         
         $queryPar = null;
@@ -170,9 +253,42 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
         $dataProviderBantuanPenyertaanPegawaiTeknikalOlehMsn = $searchModelBantuanPenyertaanPegawaiTeknikalOlehMsn->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'surat_rasmi_badan_sukan_ms_negeri');
+            $filename = $model->bantuan_penyertaan_pegawai_teknikal_id . "-surat_rasmi_badan_sukan_ms_negeri";
+            if($file){
+                $model->surat_rasmi_badan_sukan_ms_negeri = Upload::uploadFile($file, Upload::bantuanPenyertaanPegawaiTeknikalFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_jemputan_lantikan_daripada_pengelola');
+            $filename = $model->bantuan_penyertaan_pegawai_teknikal_id . "-surat_jemputan_lantikan_daripada_pengelola";
+            if($file){
+                $model->surat_jemputan_lantikan_daripada_pengelola = Upload::uploadFile($file, Upload::bantuanPenyertaanPegawaiTeknikalFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'butiran_perbelanjaan');
+            $filename = $model->bantuan_penyertaan_pegawai_teknikal_id . "-butiran_perbelanjaan";
+            if($file){
+                $model->butiran_perbelanjaan = Upload::uploadFile($file, Upload::bantuanPenyertaanPegawaiTeknikalFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'salinan_passport');
+            $filename = $model->bantuan_penyertaan_pegawai_teknikal_id . "-salinan_passport";
+            if($file){
+                $model->salinan_passport = Upload::uploadFile($file, Upload::bantuanPenyertaanPegawaiTeknikalFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'maklumat_lain_sokongan');
+            $filename = $model->bantuan_penyertaan_pegawai_teknikal_id . "-maklumat_lain_sokongan";
+            if($file){
+                $model->maklumat_lain_sokongan = Upload::uploadFile($file, Upload::bantuanPenyertaanPegawaiTeknikalFolder, $filename);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_id]);
+            }
+        }
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelBantuanPenyertaanPegawaiTeknikalDicadangkan' => $searchModelBantuanPenyertaanPegawaiTeknikalDicadangkan,
                 'dataProviderBantuanPenyertaanPegawaiTeknikalDicadangkan' => $dataProviderBantuanPenyertaanPegawaiTeknikalDicadangkan,
@@ -182,7 +298,6 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
                 'dataProviderBantuanPenyertaanPegawaiTeknikalOlehMsn' => $dataProviderBantuanPenyertaanPegawaiTeknikalOlehMsn,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -193,6 +308,21 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
+        // delete upload file
+        self::actionDeleteupload($id, 'surat_rasmi_badan_sukan_ms_negeri');
+        
+        self::actionDeleteupload($id, 'surat_jemputan_lantikan_daripada_pengelola');
+        
+        self::actionDeleteupload($id, 'butiran_perbelanjaan');
+        
+        self::actionDeleteupload($id, 'salinan_passport');
+        
+        self::actionDeleteupload($id, 'maklumat_lain_sokongan');
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -212,5 +342,27 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            return $this->redirect(['update', 'id' => $id]);
     }
 }

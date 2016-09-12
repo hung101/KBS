@@ -232,7 +232,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <!-- Six Step Satelit - START -->
     <div class="panel panel-default copyright-wrap" id="sixstep_satelit-list">
-        <div class="panel-heading"><a data-toggle="collapse" href="#sixstep_satelit-body"><?= GeneralLabel::six_step ?> - Satelit</a>
+        <div class="panel-heading"><a data-toggle="collapse" href="#sixstep_satelit-body"><?= GeneralLabel::six_step ?> - ISN Negeri</a>
             <button type="button" class="close" data-target="#sixstep_satelit-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         </div>
         <div id="sixstep_satelit-body" class="panel-collapse collapse">

@@ -62,19 +62,22 @@ class MaklumatPegawaiTeknikal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['bantuan_penganjuran_kursus_pegawai_teknikal_id', 'umur', 'created_by', 'updated_by'], 'integer'],
-            [['badan_sukan', 'sukan', 'nama', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_kad_pengenalan', 'umur', 'jantina', 'no_telefon', 'tahap_akademik', 'nama_majikan', 'no_telefon_majikan', 'jawatan', 'nama_kejohanan_kursus', 'tarikh_mula', 'tarikh_tamat', 'tempat'], 'required'],
+            [['bantuan_penganjuran_kursus_pegawai_teknikal_id', 'umur', 'created_by', 'updated_by', 'no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['badan_sukan', 'sukan', 'nama', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_kad_pengenalan', 'umur', 'jantina', 
+                'no_telefon', 'tahap_akademik', 'nama_majikan', 'no_telefon_majikan', 'jawatan', 'nama_kejohanan_kursus', 'tarikh_mula', 'tarikh_tamat', 
+                'tempat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_mula', 'tarikh_tamat', 'created', 'updated'], 'safe'],
-            [['badan_sukan', 'nama_majikan', 'jawatan', 'nama_kejohanan_kursus'], 'string', 'max' => 80],
-            [['sukan', 'nama', 'alamat_1', 'alamat_2', 'alamat_3', 'no_passport', 'tahap_akademik'], 'string', 'max' => 30],
-            [['alamat_negeri'], 'string', 'max' => 3],
-            [['alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5],
-            [['no_kad_pengenalan'], 'string', 'max' => 12],
-            [['jantina'], 'string', 'max' => 1],
-            [['no_telefon', 'no_telefon_majikan', 'no_faks'], 'string', 'max' => 14],
-            [['alamat_e_mail', 'tahap_kelayakan_sukan_peringkat_kebangsaan', 'tahap_kelayakan_sukan_peringkat_antarabangsa', 'session_id'], 'string', 'max' => 100],
-            [['gred'], 'string', 'max' => 10],
-            [['tempat'], 'string', 'max' => 90],
+            [['alamat_e_mail'], 'email', 'message' => GeneralMessage::yii_validation_email],
+            [['badan_sukan', 'nama_majikan', 'jawatan', 'nama_kejohanan_kursus', 'tahap_akademik_lain_lain'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['sukan', 'nama', 'alamat_1', 'alamat_2', 'alamat_3', 'no_passport', 'tahap_akademik'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_negeri'], 'string', 'max' => 3, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon', 'no_telefon_majikan', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_e_mail', 'tahap_kelayakan_sukan_peringkat_kebangsaan', 'tahap_kelayakan_sukan_peringkat_antarabangsa', 'session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['gred'], 'string', 'max' => 10, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tahap_kelayakan_sukan_peringkat_kebangsaan', 'tahap_kelayakan_sukan_peringkat_antarabangsa'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
@@ -103,8 +106,8 @@ class MaklumatPegawaiTeknikal extends \yii\db\ActiveRecord
             'no_telefon' => 'No Telefon',
             'alamat_e_mail' => 'Alamat E-Mail',
             'tahap_akademik' => 'Tahap Akademik',
-            'tahap_kelayakan_sukan_peringkat_kebangsaan' => 'Tahap Kelayakan Sukan Peringkat Kebangsaan',
-            'tahap_kelayakan_sukan_peringkat_antarabangsa' => 'Tahap Kelayakan Sukan Peringkat Antarabangsa',
+            'tahap_kelayakan_sukan_peringkat_kebangsaan' => 'Tahap Teknikal / Kepegaiwaian Kelayakan (Kebangsaan)',
+            'tahap_kelayakan_sukan_peringkat_antarabangsa' => 'Tahap Kelayakan Teknikal / Kepegaiwaian (Antarabangsa)',
             'nama_majikan' => 'Nama Majikan',
             'no_telefon_majikan' => 'No Telefon Majikan',
             'no_faks' => 'No Faks',
@@ -119,6 +122,7 @@ class MaklumatPegawaiTeknikal extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
+            'tahap_akademik_lain_lain' => 'Nyatakan (Jika Lain-lain)',
         ];
     }
     

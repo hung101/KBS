@@ -76,7 +76,7 @@ class ProfilDelegasiTeknikalAhli extends \yii\db\ActiveRecord
             [['nama', 'no_kad_pengenalan', 'tarikh_lahir'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['profil_delegasi_teknikal_ahli_id', 'umur', 'created_by', 'updated_by'], 'integer'],
             [['jantina', 'tarikh_lahir', 'created', 'updated'], 'safe'],
-            [['nama', 'jawatan', 'pekerjaan'], 'string', 'max' => 80],
+            [['nama', 'jawatan', 'pekerjaan', 'jawatan_lain_lain'], 'string', 'max' => 80],
             [['no_kad_pengenalan'], 'string', 'max' => 12],
             [['alamat_1', 'alamat_2', 'alamat_3', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3'], 'string', 'max' => 30],
             [['alamat_negeri', 'alamat_majikan_negeri'], 'string', 'max' => 3],
@@ -121,6 +121,7 @@ class ProfilDelegasiTeknikalAhli extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
+            'jawatan_lain_lain'=> 'Nyatakan Jawatan (Jika Lain-lain)',
         ];
     }
     

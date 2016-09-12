@@ -29,6 +29,7 @@ class RefProgramSemasaSukanAtlet extends \yii\db\ActiveRecord
     const PELAPIS_PARALIMPIK = 7;
     const BAKAT_PARALIMPIK = 8;
     const PODIUM = 9;
+    const PODIUM_PARALIMPIK = 10;
     
     /**
      * @inheritdoc

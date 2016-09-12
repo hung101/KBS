@@ -111,8 +111,8 @@ class BantuanElaunController extends Controller
         $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->nama_persatuan]);
         $model->nama_persatuan = $ref['nama_badan_sukan'];
         
-        $ref = RefKursusBantuanElaun::findOne(['id' => $model->kursus]);
-        $model->kursus = $ref['desc'];
+        //$ref = RefKursusBantuanElaun::findOne(['id' => $model->kursus]);
+        //$model->kursus = $ref['desc'];
         
         return $this->render('view', [
             'model' => $model,

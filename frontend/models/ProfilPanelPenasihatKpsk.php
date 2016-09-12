@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\web\UploadedFile;
+use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
 
@@ -89,6 +91,8 @@ class ProfilPanelPenasihatKpsk extends \yii\db\ActiveRecord
             [['alamat_bandar', 'alamat_poskod', 'alamat_majikan_bandar', 'alamat_majikan_poskod'], 'string', 'max' => 5],
             [['no_telefon', 'no_telefon_majikan', 'no_faks'], 'string', 'max' => 14],
             [['emel'], 'string', 'max' => 100],
+            [['muatnaik'], 'string', 'max' => 255],
+            [['muatnaik'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -131,6 +135,7 @@ class ProfilPanelPenasihatKpsk extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
+            'muatnaik' => GeneralLabel::muatnaik,
         ];
     }
     
@@ -139,5 +144,16 @@ class ProfilPanelPenasihatKpsk extends \yii\db\ActiveRecord
      */
     public function getRefJantina(){
         return $this->hasOne(RefJantina::className(), ['id' => 'jantina']);
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
     }
 }

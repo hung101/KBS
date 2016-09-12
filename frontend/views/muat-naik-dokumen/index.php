@@ -77,6 +77,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             //'muat_naik_dokumen',
             [
+                'attribute' => 'catatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::catatan,
+                ]
+            ],
+            [
                 'attribute' => 'muat_naik_dokumen',
                 'filterInputOptions' => [
                     'class'       => 'form-control',

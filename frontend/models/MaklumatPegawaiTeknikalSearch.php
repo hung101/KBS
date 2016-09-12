@@ -64,8 +64,8 @@ class MaklumatPegawaiTeknikalSearch extends MaklumatPegawaiTeknikal
             'bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id' => $this->bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id,
             'bantuan_penganjuran_kursus_pegawai_teknikal_id' => $this->bantuan_penganjuran_kursus_pegawai_teknikal_id,
             'umur' => $this->umur,
-            'tarikh_mula' => $this->tarikh_mula,
-            'tarikh_tamat' => $this->tarikh_tamat,
+            //'tarikh_mula' => $this->tarikh_mula,
+            //'tarikh_tamat' => $this->tarikh_tamat,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created' => $this->created,
@@ -96,7 +96,9 @@ class MaklumatPegawaiTeknikalSearch extends MaklumatPegawaiTeknikal
             ->andFilterWhere(['like', 'gred', $this->gred])
             ->andFilterWhere(['like', 'nama_kejohanan_kursus', $this->nama_kejohanan_kursus])
             ->andFilterWhere(['like', 'tempat', $this->tempat])
-            ->andFilterWhere(['like', 'session_id', $this->session_id]);
+            ->andFilterWhere(['like', 'session_id', $this->session_id])
+                ->andFilterWhere(['like', 'tarikh_mula', $this->tarikh_mula])
+                ->andFilterWhere(['like', 'tarikh_tamat', $this->tarikh_tamat]);
 
         return $dataProvider;
     }

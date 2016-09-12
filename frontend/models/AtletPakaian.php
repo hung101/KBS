@@ -50,7 +50,8 @@ class AtletPakaian extends \yii\db\ActiveRecord
     {
         return [
             [['atlet_id', 'kuantiti', 'tarikh_serahan', 'jenis_pakaian', 'saiz_pakaian', 'sukan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id', 'jenama'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jenama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
 

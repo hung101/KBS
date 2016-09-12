@@ -20,6 +20,11 @@ use app\models\general\GeneralMessage;
  */
 class RefJabatanUser extends \yii\db\ActiveRecord
 {
+    const MSN = 1;
+    const ISN = 2;
+    const PJS = 3;
+    const KBS = 4;
+    
     /**
      * @inheritdoc
      */

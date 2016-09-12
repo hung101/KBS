@@ -8,8 +8,19 @@ use frontend\models\BantuanPenyertaanPegawaiTeknikalDicadangkanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
+use app\models\general\Upload;
 use app\models\general\GeneralVariable;
+
+// table reference
+use app\models\ProfilBadanSukan;
+use app\models\RefJantina;
+use app\models\RefSukan;
+use app\models\RefBandar;
+use app\models\RefNegeri;
+use app\models\RefTahapAkademikPegawaiTeknikal;
+use app\models\MaklumatPegawaiTeknikal;
 
 /**
  * BantuanPenyertaanPegawaiTeknikalDicadangkanController implements the CRUD actions for BantuanPenyertaanPegawaiTeknikalDicadangkan model.
@@ -53,8 +64,31 @@ class BantuanPenyertaanPegawaiTeknikalDicadangkanController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->badan_sukan]);
+        $model->badan_sukan = $ref['nama_badan_sukan'];
+        
+        $ref = RefJantina::findOne(['id' => $model->jantina]);
+        $model->jantina = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
+        $model->alamat_bandar = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->alamat_negeri]);
+        $model->alamat_negeri = $ref['desc'];
+        
+        $ref = RefTahapAkademikPegawaiTeknikal::findOne(['id' => $model->tahap_akademik]);
+        $model->tahap_akademik = $ref['desc'];
+        
+        $ref = MaklumatPegawaiTeknikal::findOne(['bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id' => $model->maklumat_pegawai_teknikal_id]);
+        $model->maklumat_pegawai_teknikal_id = $ref['nama'];
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }
@@ -79,13 +113,25 @@ class BantuanPenyertaanPegawaiTeknikalDicadangkanController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return '1';
-        } else {
-            return $this->renderAjax('create', [
+            $file = UploadedFile::getInstance($model, 'tahap_kelayakan_sukan_peringkat_kebangsaan');
+            if($file){
+                $model->tahap_kelayakan_sukan_peringkat_kebangsaan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPenceramahFolder, 'muat_naik_perlembagaan_terkini-' . $model->bantuan_penganjuran_kursus_penceramah_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'tahap_kelayakan_sukan_peringkat_antarabangsa');
+            if($file){
+                $model->tahap_kelayakan_sukan_peringkat_antarabangsa = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPenceramahFolder, 'muat_naik_perlembagaan_terkini-' . $model->bantuan_penganjuran_kursus_penceramah_id);
+            }
+            
+            if($model->save()){
+                return '1';
+            }
+        } 
+        
+        return $this->renderAjax('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -99,13 +145,25 @@ class BantuanPenyertaanPegawaiTeknikalDicadangkanController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return '1';
-        } else {
-            return $this->renderAjax('update', [
+            $file = UploadedFile::getInstance($model, 'tahap_kelayakan_sukan_peringkat_kebangsaan');
+            if($file){
+                $model->tahap_kelayakan_sukan_peringkat_kebangsaan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPenceramahFolder, 'muat_naik_perlembagaan_terkini-' . $model->bantuan_penganjuran_kursus_penceramah_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'tahap_kelayakan_sukan_peringkat_antarabangsa');
+            if($file){
+                $model->tahap_kelayakan_sukan_peringkat_antarabangsa = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPenceramahFolder, 'muat_naik_perlembagaan_terkini-' . $model->bantuan_penganjuran_kursus_penceramah_id);
+            }
+            
+            if($model->save()){
+                return '1';
+            }
+        } 
+        
+        return $this->renderAjax('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -116,6 +174,11 @@ class BantuanPenyertaanPegawaiTeknikalDicadangkanController extends Controller
      */
     public function actionDelete($id)
     {
+        // delete upload file
+        self::actionDeleteuploadonly($id, 'tahap_kelayakan_sukan_peringkat_kebangsaan');
+        
+        self::actionDeleteuploadonly($id, 'tahap_kelayakan_sukan_peringkat_antarabangsa');
+        
         $this->findModel($id)->delete();
 
         //return $this->redirect(['index']);
@@ -135,5 +198,48 @@ class BantuanPenyertaanPegawaiTeknikalDicadangkanController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            //return $this->redirect(['update', 'id' => $id]);
+            return self::actionUpdate($id);
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteuploadonly($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
     }
 }

@@ -7,8 +7,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\SkimKebajikan */
 
-$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::skim_kebajikan;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::skim_kebajikan, 'url' => ['index']];
+$this->title = GeneralLabel::permohonan_baru;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_skim_kebajikan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="skim-kebajikan-create">

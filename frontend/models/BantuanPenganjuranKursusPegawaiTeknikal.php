@@ -3,6 +3,10 @@
 namespace app\models;
 
 use Yii;
+use yii\web\UploadedFile;
+use app\models\general\Upload;
+use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 
 /**
  * This is the model class for table "tbl_bantuan_penganjuran_kursus_pegawai_teknikal".
@@ -48,6 +52,8 @@ use Yii;
  */
 class BantuanPenganjuranKursusPegawaiTeknikal extends \yii\db\ActiveRecord
 {
+    public $status_permohonan_id;
+    
     /**
      * @inheritdoc
      */
@@ -62,17 +68,19 @@ class BantuanPenganjuranKursusPegawaiTeknikal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh', 'tarikh_permohonan', 'tarikh_jkb', 'created', 'updated'], 'safe'],
-            [['yuran_penyertaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number'],
-            [['created_by', 'updated_by'], 'integer'],
-            [['badan_sukan', 'nama_bank', 'jkb'], 'string', 'max' => 80],
-            [['sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun', 'status_permohonan'], 'string', 'max' => 30],
-            [['alamat_negeri'], 'string', 'max' => 3],
-            [['alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5],
-            [['no_telefon', 'no_faks'], 'string', 'max' => 14],
-            [['laman_sesawang', 'facebook', 'twitter'], 'string', 'max' => 100],
-            [['tempat', 'nama_kursus_seminar_bengkel', 'tujuan'], 'string', 'max' => 255],
-            [['surat_rasmi_badan_sukan', 'surat_jemputan_daripada_pengelola', 'butiran_perbelanjaan', 'salinan_passport', 'maklumat_lain_sokongan', 'catatan'], 'string', 'max' => 255],
+            [['badan_sukan', 'sukan', 'jumlah_bantuan_yang_dipohon'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh', 'tarikh_permohonan', 'tarikh_jkb', 'created', 'updated', 'tarikh_tamat'], 'safe'],
+            [['yuran_penyertaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['badan_sukan', 'nama_bank', 'jkb'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun', 'status_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_negeri'], 'string', 'max' => 3, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['laman_sesawang', 'facebook', 'twitter'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat', 'nama_kursus_seminar_bengkel', 'tujuan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['surat_rasmi_badan_sukan', 'surat_jemputan_daripada_pengelola', 'butiran_perbelanjaan', 'salinan_passport', 'maklumat_lain_sokongan', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['surat_rasmi_badan_sukan', 'surat_jemputan_daripada_pengelola', 'butiran_perbelanjaan', 'salinan_passport', 'maklumat_lain_sokongan'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -100,7 +108,7 @@ class BantuanPenganjuranKursusPegawaiTeknikal extends \yii\db\ActiveRecord
             'nama_bank' => 'Nama Bank',
             'no_akaun' => 'No. Akaun',
             'nama_kursus_seminar_bengkel' => 'Nama Kursus / Seminar / Bengkel',
-            'tarikh' => 'Tarikh',
+            'tarikh' => 'Tarikh Mula',
             'tempat' => 'Tempat',
             'tujuan' => 'Tujuan',
             'yuran_penyertaan' => 'Yuran Penyertaan (RM)',
@@ -120,6 +128,39 @@ class BantuanPenganjuranKursusPegawaiTeknikal extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
+            'tarikh_tamat'=> 'Tarikh Tamat',
         ];
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefProfilBadanSukan(){
+        return $this->hasOne(ProfilBadanSukan::className(), ['profil_badan_sukan' => 'badan_sukan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusBantuanPenganjuranKursusPegawaiTeknikal(){
+        return $this->hasOne(RefStatusBantuanPenganjuranKursusPegawaiTeknikal::className(), ['id' => 'status_permohonan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSukan(){
+        return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
     }
 }

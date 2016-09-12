@@ -80,8 +80,8 @@ class PengurusanUpstnController extends Controller
         $ref = RefSukan::findOne(['id' => $model->nama_sukan]);
         $model->nama_sukan = $ref['desc'];
         
-        $ref = RefPpn::findOne(['id' => $model->nama_pengurus_sukan]);
-        $model->nama_pengurus_sukan = $ref['desc'];
+        //$ref = RefPpn::findOne(['id' => $model->nama_pengurus_sukan]);
+        //$model->nama_pengurus_sukan = $ref['desc'];
         
         $queryPar = null;
         
@@ -380,7 +380,7 @@ class PengurusanUpstnController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             
             if($model->format == "html") {
-                $report_url = BaseUrl::to(['generate-laporan-usptn-pecahan-kaum'
+                $report_url = BaseUrl::to(['generate-laporan-usptn-pecahan-umur'
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'nama_ppn' => $model->nama_ppn
@@ -390,7 +390,7 @@ class PengurusanUpstnController extends Controller
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
             } else {
-                return $this->redirect(['generate-laporan-usptn-pecahan-kaum'
+                return $this->redirect(['generate-laporan-usptn-pecahan-umur'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'nama_ppn' => $model->nama_ppn

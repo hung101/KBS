@@ -111,10 +111,12 @@ class AtletSearch extends Atlet
             'tawaran' => $this->tawaran,
             'tbl_atlet_sukan.jurulatih_id' => $this->jurulatih,
             'cacat' => $this->cacat,
+            'tbl_atlet_sukan.nama_sukan' => $this->sukan,
+            'tbl_atlet_sukan.program_semasa' => $this->program,
         ]);
         
         if($this->ic_no){
-            $this->ic_no = \Yii::$app->encrypter->encrypt($this->ic_no);
+            //$this->ic_no = \Yii::$app->encrypter->encrypt($this->ic_no);
         }
         
         $query->andFilterWhere(['like', 'atlet_id', $this->atlet_id])
@@ -146,13 +148,13 @@ class AtletSearch extends Atlet
             ->andFilterWhere(['like', 'sumber', $this->sumber])
             ->andFilterWhere(['like', 'negeri_diwakili', $this->negeri_diwakili])
             ->andFilterWhere(['like', 'nama_kecemasan', $this->nama_kecemasan])
-            ->andFilterWhere(['like', 'pertalian_kecemasan', $this->pertalian_kecemasan])
                 //->andFilterWhere(['like', 'tbl_ref_status_tawaran.desc', $this->tawaran])
-                ->andFilterWhere(['like', 'tbl_atlet_sukan.nama_sukan', $this->sukan])
-                ->andFilterWhere(['like', 'tbl_atlet_sukan.program_semasa', $this->program]);
+                //->andFilterWhere(['like', 'tbl_atlet_sukan.nama_sukan', $this->sukan])
+                //->andFilterWhere(['like', 'tbl_atlet_sukan.program_semasa', $this->program])
+                ->andFilterWhere(['like', 'pertalian_kecemasan', $this->pertalian_kecemasan]);
         
         if($this->ic_no){
-            $this->ic_no = \Yii::$app->encrypter->decrypt($this->ic_no);
+            //$this->ic_no = \Yii::$app->encrypter->decrypt($this->ic_no);
         }
         
         // add filter base on sukan access role in tbl_user->sukan - START
@@ -167,13 +169,13 @@ class AtletSearch extends Atlet
                     array_push($arr_sukan_filter,$arr_sukan);
             }
             
-            $query->andFilterWhere(['tbl_atlet_sukan.nama_sukan'=>$arr_sukan_filter]);
+            //$query->andFilterWhere(['tbl_atlet_sukan.nama_sukan'=>$arr_sukan_filter]);
         }
         // add filter base on sukan access role in tbl_user->sukan - END
         
         // add filter base on sukan access role Atlet -> Podium Kemas Kini - START
         if(!isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']) && !isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium'])){
-            $query->andFilterWhere(['<>', 'tbl_atlet_sukan.program_semasa', RefProgramSemasaSukanAtlet::PODIUM]);
+            $query->andFilterWhere(['<>', 'tbl_atlet_sukan.program_semasa', RefProgramSemasaSukanAtlet::PODIUM])->andFilterWhere(['<>', 'tbl_atlet_sukan.program_semasa', RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK]);
         }
         // add filter base on sukan access role Atlet -> Podium Kemas Kini - END
         

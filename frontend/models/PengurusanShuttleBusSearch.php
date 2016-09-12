@@ -62,8 +62,8 @@ class PengurusanShuttleBusSearch extends PengurusanShuttleBus
             //'atlet_id' => $this->atlet_id,
         ]);
 
-        $query->andFilterWhere(['like', 'tbl_ref_shuttle.desc', $this->pilihan_shuttle])
-                ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id])
+        $query->andFilterWhere(['like', 'pilihan_shuttle', $this->pilihan_shuttle])
+                ->andFilterWhere(['like', 'tbl_pengurusan_shuttle_bus.atlet_id', $this->atlet_id])
                 ->andFilterWhere(['like', 'tarikh_mula', $this->tarikh_mula])
                 ->andFilterWhere(['like', 'tarikh_akhir', $this->tarikh_akhir]);
 

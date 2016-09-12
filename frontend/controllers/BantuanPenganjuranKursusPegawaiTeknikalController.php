@@ -18,6 +18,15 @@ use yii\web\UploadedFile;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
+
+// table reference
+use app\models\RefSukan;
+use app\models\RefBandar;
+use app\models\RefNegeri;
+use app\models\RefBank;
+use app\models\ProfilBadanSukan;
+use app\models\RefStatusBantuanPenganjuranKursusPegawaiTeknikal;
 
 /**
  * BantuanPenganjuranKursusPegawaiTeknikalController implements the CRUD actions for BantuanPenganjuranKursusPegawaiTeknikal model.
@@ -45,6 +54,10 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
         $searchModel = new BantuanPenganjuranKursusPegawaiTeknikalSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -61,6 +74,31 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
+        $model->alamat_bandar = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->alamat_negeri]);
+        $model->alamat_negeri = $ref['desc'];
+        
+        $ref = RefBank::findOne(['id' => $model->nama_bank]);
+        $model->nama_bank = $ref['desc'];
+        
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->badan_sukan]);
+        $model->badan_sukan = $ref['nama_badan_sukan'];
+        
+        $model->status_permohonan_id = $model->status_permohonan;
+        $ref = RefStatusBantuanPenganjuranKursusPegawaiTeknikal::findOne(['id' => $model->status_permohonan]);
+        $model->status_permohonan = $ref['desc'];
+        
         $queryPar = null;
         
         $queryPar['BantuanPenganjuranKursusPegawaiTeknikalDicadangkanSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_id'] = $id;
@@ -77,7 +115,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
         $dataProviderBantuanPenganjuranKursusPegawaiTeknikalOlehMsn = $searchModelBantuanPenganjuranKursusPegawaiTeknikalOlehMsn->search($queryPar);
         
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'searchModelBantuanPenganjuranKursusPegawaiTeknikalDicadangkan' => $searchModelBantuanPenganjuranKursusPegawaiTeknikalDicadangkan,
             'dataProviderBantuanPenganjuranKursusPegawaiTeknikalDicadangkan' => $dataProviderBantuanPenganjuranKursusPegawaiTeknikalDicadangkan,
             'searchModelBantuanPenganjuranKursusPegawaiTeknikalDisertai' => $searchModelBantuanPenganjuranKursusPegawaiTeknikalDisertai,
@@ -95,7 +133,14 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
         $model = new BantuanPenganjuranKursusPegawaiTeknikal();
+        
+        $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
+        $model->status_permohonan = RefStatusBantuanPenganjuranKursusPegawaiTeknikal::SEDANG_DIPROSES;
         
         $queryPar = null;
         
@@ -129,9 +174,42 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
                 BantuanPenganjuranKursusPegawaiTeknikalOlehMsn::updateAll(['session_id' => ''], 'bantuan_penganjuran_kursus_pegawai_teknikal_id = "'.$model->bantuan_penganjuran_kursus_pegawai_teknikal_id.'"');
             }
             
-            return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_id]);
-        } else {
-            return $this->render('create', [
+            $file = UploadedFile::getInstance($model, 'surat_rasmi_badan_sukan');
+            $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_id . "-surat_rasmi_badan_sukan";
+            if($file){
+                $model->surat_rasmi_badan_sukan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_jemputan_daripada_pengelola');
+            $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_id . "-surat_jemputan_daripada_pengelola";
+            if($file){
+                $model->surat_jemputan_daripada_pengelola = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'butiran_perbelanjaan');
+            $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_id . "-butiran_perbelanjaan";
+            if($file){
+                $model->butiran_perbelanjaan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'salinan_passport');
+            $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_id . "-salinan_passport";
+            if($file){
+                $model->salinan_passport = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'maklumat_lain_sokongan');
+            $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_id . "-maklumat_lain_sokongan";
+            if($file){
+                $model->maklumat_lain_sokongan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalFolder, $filename);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_id]);
+            }
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'searchModelBantuanPenganjuranKursusPegawaiTeknikalDicadangkan' => $searchModelBantuanPenganjuranKursusPegawaiTeknikalDicadangkan,
                 'dataProviderBantuanPenganjuranKursusPegawaiTeknikalDicadangkan' => $dataProviderBantuanPenganjuranKursusPegawaiTeknikalDicadangkan,
@@ -141,7 +219,6 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
                 'dataProviderBantuanPenganjuranKursusPegawaiTeknikalOlehMsn' => $dataProviderBantuanPenganjuranKursusPegawaiTeknikalOlehMsn,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -152,7 +229,13 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
         $model = $this->findModel($id);
+        
+        $model->status_permohonan_id = $model->status_permohonan;
         
         $queryPar = null;
         
@@ -170,9 +253,42 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
         $dataProviderBantuanPenganjuranKursusPegawaiTeknikalOlehMsn = $searchModelBantuanPenganjuranKursusPegawaiTeknikalOlehMsn->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'surat_rasmi_badan_sukan');
+            $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_id . "-surat_rasmi_badan_sukan";
+            if($file){
+                $model->surat_rasmi_badan_sukan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_jemputan_daripada_pengelola');
+            $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_id . "-surat_jemputan_daripada_pengelola";
+            if($file){
+                $model->surat_jemputan_daripada_pengelola = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'butiran_perbelanjaan');
+            $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_id . "-butiran_perbelanjaan";
+            if($file){
+                $model->butiran_perbelanjaan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'salinan_passport');
+            $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_id . "-salinan_passport";
+            if($file){
+                $model->salinan_passport = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'maklumat_lain_sokongan');
+            $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_id . "-maklumat_lain_sokongan";
+            if($file){
+                $model->maklumat_lain_sokongan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalFolder, $filename);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelBantuanPenganjuranKursusPegawaiTeknikalDicadangkan' => $searchModelBantuanPenganjuranKursusPegawaiTeknikalDicadangkan,
                 'dataProviderBantuanPenganjuranKursusPegawaiTeknikalDicadangkan' => $dataProviderBantuanPenganjuranKursusPegawaiTeknikalDicadangkan,
@@ -182,7 +298,6 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
                 'dataProviderBantuanPenganjuranKursusPegawaiTeknikalOlehMsn' => $dataProviderBantuanPenganjuranKursusPegawaiTeknikalOlehMsn,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -193,6 +308,10 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

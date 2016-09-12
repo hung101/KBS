@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->profil_badan_sukan;
 $this->title = GeneralLabel::profil_badan_sukan;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::profil_badan_sukan, 'url' => ['index']];
+$this->params['breadcrumbs'][] = (Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN) ? ['label' => GeneralLabel::profil_badan_sukan, 'url' => ['index']] : ['label' => GeneralLabel::pengurusan_maklumat_psk, 'url' => ['index-msn']];
 $this->params['breadcrumbs'][] = GeneralLabel::viewTitle;
 ?>
 <div class="profil-badan-sukan-view">
@@ -20,10 +20,10 @@ $this->params['breadcrumbs'][] = GeneralLabel::viewTitle;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['update'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['update']) && (Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN)): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->profil_badan_sukan], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['delete'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['delete']) && (Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN)): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->profil_badan_sukan], [
                 'class' => 'btn btn-danger',
                 'data' => [

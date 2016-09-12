@@ -182,6 +182,11 @@ class AtletPembangunanKursuskemController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $file = UploadedFile::getInstance($model, 'muat_naik_sijil');
+            if($file){
+                $model->muat_naik_sijil = Upload::uploadFile($file, Upload::atletKursusKemFolder, $model->kursus_kem_id);
+            }
+            
             //return $this->redirect(['view', 'id' => $model->kursus_kem_id]);
             if( $model->save()){
                 return self::actionView($model->kursus_kem_id);

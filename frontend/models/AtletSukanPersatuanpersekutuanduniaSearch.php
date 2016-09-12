@@ -64,7 +64,7 @@ class AtletSukanPersatuanpersekutuanduniaSearch extends AtletSukanPersatuanperse
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_jenis_sukan_persatuan_persekutuandunia.desc', $this->jenis])
-            ->andFilterWhere(['like', 'profil_badan_sukan.nama_badan_sukan', $this->name_persatuan_persekutuan_dunia])
+            ->andFilterWhere(['like', 'tbl_profil_badan_sukan.nama_badan_sukan', $this->name_persatuan_persekutuan_dunia])
             ->andFilterWhere(['like', 'alamat_1', $this->alamat_1])
             ->andFilterWhere(['like', 'no_telefon', $this->no_telefon])
             ->andFilterWhere(['like', 'emel', $this->emel])

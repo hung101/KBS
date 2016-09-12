@@ -69,7 +69,7 @@ class PlTemujanjiSearch extends PlTemujanji
         $query->andFilterWhere([
             'pl_temujanji_id' => $this->pl_temujanji_id,
             //'atlet_id' => $this->atlet_id,
-            'tarikh_temujanji' => $this->tarikh_temujanji,
+            //'tarikh_temujanji' => $this->tarikh_temujanji,
             'tbl_pl_temujanji.atlet_id' => $this->atlet,
             //'tbl_atlet.ic_no' => $this->atlet_ic,
         ]);
@@ -84,7 +84,8 @@ class PlTemujanjiSearch extends PlTemujanji
                 ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->jenis_sukan])
                 ->andFilterWhere(['like', 'tbl_ref_kelulusan.desc', $this->kehadiran_pesakit])
                 ->andFilterWhere(['like', 'tbl_ref_jenis_temujanji_pesakit_luar.desc', $this->makmal_perubatan])
-                ->andFilterWhere(['like', 'tbl_ref_program_semasa_sukan_atlet.desc', $this->kategori_atlet]);
+                ->andFilterWhere(['like', 'tbl_ref_program_semasa_sukan_atlet.desc', $this->kategori_atlet])
+                ->andFilterWhere(['like', 'tarikh_temujanji', $this->tarikh_temujanji]);
 
         return $dataProvider;
     }

@@ -66,8 +66,10 @@ class AtletPakaianPeralatanSearch extends AtletPakaianPeralatan
         $query->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->jenis_sukan])
             ->andFilterWhere(['like', 'saiz', $this->saiz])
                 ->andFilterWhere(['like', 'model', $this->model])
-            ->andFilterWhere(['like', 'tbl_ref_jenama_peralatan.desc', $this->jenama])
-                ->andFilterWhere(['like', 'tbl_ref_peralatan_pinjaman.desc', $this->peralatan])
+            //->andFilterWhere(['like', 'tbl_ref_jenama_peralatan.desc', $this->jenama])
+                ->andFilterWhere(['like', 'jenama', $this->jenama])
+                //->andFilterWhere(['like', 'tbl_ref_peralatan_pinjaman.desc', $this->peralatan])
+                ->andFilterWhere(['like', 'peralatan', $this->peralatan])
             ->andFilterWhere(['like', 'warna', $this->warna])
                 ->andFilterWhere(['like', 'tarikh_serahan', $this->tarikh_serahan]);
 

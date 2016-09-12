@@ -3,6 +3,10 @@
 namespace app\models;
 
 use Yii;
+use yii\web\UploadedFile;
+use app\models\general\Upload;
+use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 
 /**
  * This is the model class for table "tbl_bantuan_penganjuran_kursus_pegawai_teknikal_laporan".
@@ -43,12 +47,17 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporan extends \yii\db\ActiveRecor
     public function rules()
     {
         return [
-            [['tarikh', 'tempat', 'tujuan_kursus_kejohanan', 'bilangan_pasukan', 'bilangan_peserta', 'bilangan_pembantu', 'bilangan_pegawai_teknikal'], 'required'],
+            [['tarikh', 'tempat', 'tujuan_kursus_kejohanan', 'bilangan_pasukan', 'bilangan_peserta', 'bilangan_pembantu', 'bilangan_pegawai_teknikal'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh', 'created', 'updated'], 'safe'],
-            [['bilangan_pasukan', 'bilangan_peserta', 'bilangan_pegawai_teknikal', 'bilangan_pembantu', 'created_by', 'updated_by'], 'integer'],
-            [['tempat'], 'string', 'max' => 90],
-            [['tujuan_kursus_kejohanan'], 'string', 'max' => 80],
-            [['laporan_bergambar', 'penyata_perbelanjaan_resit_yang_telah_disahkan', 'jadual_keputusan_pertandingan', 'senarai_peserta', 'statistik_penyertaan', 'senarai_pegawai_penceramah', 'senarai_urusetia_sukarelawan'], 'string', 'max' => 255],
+            [['bilangan_pasukan', 'bilangan_peserta', 'bilangan_pegawai_teknikal', 'bilangan_pembantu', 'created_by', 
+                'updated_by', 'bantuan_penganjuran_kursus_pegawai_teknikal_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tujuan_kursus_kejohanan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['laporan_bergambar', 'penyata_perbelanjaan_resit_yang_telah_disahkan', 'jadual_keputusan_pertandingan', 'senarai_peserta', 
+                'statistik_penyertaan', 'senarai_pegawai_penceramah', 'senarai_urusetia_sukarelawan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['penyata_perbelanjaan_resit_yang_telah_disahkan'], 'validateFileUploadRequired', 'skipOnEmpty' => false],
+            [['laporan_bergambar', 'jadual_keputusan_pertandingan', 'senarai_peserta', 
+                'statistik_penyertaan', 'senarai_pegawai_penceramah', 'senarai_urusetia_sukarelawan'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -78,5 +87,31 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporan extends \yii\db\ActiveRecor
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUploadRequired($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+
+        if(!$file && $this->$attribute==""){
+            $this->addError($attribute, GeneralMessage::uploadEmptyError);
+        }
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
     }
 }

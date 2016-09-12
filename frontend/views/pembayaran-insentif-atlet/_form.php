@@ -16,6 +16,7 @@ use app\models\general\GeneralMessage;
 
 // table reference
 use app\models\Atlet;
+use app\models\RefAcara;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PembayaranInsentifAtlet */
@@ -52,28 +53,42 @@ use app\models\Atlet;
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::atlet],],
                     'columnOptions'=>['colspan'=>6]],
-                'negara' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>3]],
+                'acara' =>  [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-acara/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::acara],
+                        'pluginOptions'=>['allowClear'=>true]],
+                    'columnOptions'=>['colspan'=>3]],
+                'negara' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>3],'hint'=>'cth: 3 negara'],
             ],
         ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'insentif_khas' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
+            ],
+        ],
+        /*[
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'negara' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>3],'hint'=>'cth: 3 negara'],
+                'nilai' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
+            ],
+        ],*/
     ]
 ]);
     ?>
-
-    <!--<?= $form->field($model, 'pembayaran_insentif_id')->textInput() ?>
-
-    <?= $form->field($model, 'atlet')->textInput() ?>
-
-    <?= $form->field($model, 'negara')->textInput() ?>
-
-    <?= $form->field($model, 'session_id')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
-
-    <?= $form->field($model, 'created')->textInput() ?>
-
-    <?= $form->field($model, 'updated')->textInput() ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>

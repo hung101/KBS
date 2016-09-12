@@ -36,8 +36,9 @@ class PembayaranInsentifAtlet extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet', 'negara'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['pembayaran_insentif_id', 'atlet', 'negara', 'created_by', 'updated_by'], 'integer'],
+            [['atlet', 'negara', 'acara', 'nilai'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pembayaran_insentif_id', 'atlet', 'negara', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nilai', 'insentif_khas'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['created', 'updated'], 'safe'],
             [['session_id'], 'string', 'max' => 100],
         ];
@@ -51,13 +52,16 @@ class PembayaranInsentifAtlet extends \yii\db\ActiveRecord
         return [
             'pembayaran_insentif_atlet_id' => 'Pembayaran Insentif Atlet ID',
             'pembayaran_insentif_id' => 'Pembayaran Insentif ID',
-            'atlet' => 'Atlet',
-            'negara' => 'Negara',
+            'atlet' => GeneralLabel::atlet,
+            'acara' => GeneralLabel::acara,
+            'negara' => 'Bil Penyertaaan Negara',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
+            'nilai' => GeneralLabel::nilai,
+            'insentif_khas'=> 'Insentif Khas (RM)',
         ];
     }
     
@@ -66,5 +70,12 @@ class PembayaranInsentifAtlet extends \yii\db\ActiveRecord
      */
     public function getRefAtlet(){
         return $this->hasOne(Atlet::className(), ['atlet_id' => 'atlet']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefAcara(){
+        return $this->hasOne(RefAcara::className(), ['id' => 'acara']);
     }
 }

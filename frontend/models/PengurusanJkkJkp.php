@@ -59,8 +59,7 @@ class PengurusanJkkJkp extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh_pelantikan_jkk_jkp', 'tempoh_hak_jkk_jkp', 'status', 'nama_pegawai_coach', 'jawatan', 'tarikh_pelantikan', 'tempoh_hak', 'sukan', 
-                'status_pilihan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh_pelantikan_jkk_jkp', 'tempoh_hak_jkk_jkp', 'status', 'nama_pegawai_coach', 'jawatan', 'sukan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_pelantikan_jkk_jkp', 'tarikh_pelantikan'], 'safe'],
             [['tempoh_hak_jkk_jkp', 'tempoh_hak', 'status_pilihan', 'jenis_cawangan_kuasa', 'sukan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_setiausaha_jkk_jkp', 'nama_pegawai_coach', 'jawatan', 'nama_atlet', 'nama_jurulatih'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],

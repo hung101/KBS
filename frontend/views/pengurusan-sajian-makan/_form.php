@@ -39,7 +39,7 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'atlet_id' => [
+                /*'atlet_id' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -52,7 +52,8 @@ use app\models\general\GeneralMessage;
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::atlet],],
-                    'columnOptions'=>['colspan'=>6]],
+                    'columnOptions'=>['colspan'=>6]],*/
+                'atlet_id' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>90]],
             ],
         ],
         [
@@ -82,6 +83,14 @@ use app\models\general\GeneralMessage;
                 'bilangan_tempahan_makan' => ['type'=>Form::INPUT_CHECKBOX_LIST, 'items'=>['Sarapan'=>'Sarapan', 'Tengahari'=>'Tengahari', 'Malam'=>'Malam'],'options'=>['inline'=>true],'columnOptions'=>['colspan'=>5]],
             ],
         ],
+        /*[
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'lampiran_senarai_nama' =>  ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>255]],
+                 
+            ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -92,6 +101,38 @@ use app\models\general\GeneralMessage;
         ],
     ]
 ]);
+    ?>
+   
+   <?php // Sijil Pendaftaran Upload
+    if($model->lampiran_senarai_nama){
+        echo "<label>" . $model->getAttributeLabel('lampiran_senarai_nama') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->lampiran_senarai_nama , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->pengurusan_sajian_makan_id, 'field'=> 'lampiran_senarai_nama'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'lampiran_senarai_nama' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
     ?>
 
     <!--<?= $form->field($model, 'atlet_id')->textInput() ?>

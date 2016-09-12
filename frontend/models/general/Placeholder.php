@@ -39,6 +39,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const bidangKonsultansi = " -- Pilih Bidang Konsultansi -- ";
         const biomekanikUjian = " -- Pilih Biomekanik Ujian -- ";
         const cawangan = " -- Pilih Cawangan -- ";
+        const country = " -- Pilih Country -- ";
         const darjah = " -- Pilih Darjah -- ";
         const delegasi = " -- Pilih Delegasi -- ";
         const disiplin = " -- Pilih Disiplin -- ";
@@ -169,6 +170,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan = "-- Pilih Laporan --";
         const latarbelakangKes = "-- Pilih Latarbelakang Kes --";
         const lainLainProgram = "-- Pilih Lain-lain Program --";
+        const lawatan = "-- Pilih Lawatan --";
         const lesenKejurulatihan = "-- Pilih Lesen Kejurulatihan --";
         const lokasi = "-- Pilih Lokasi --";
         const maklumatProgram = "-- Pulih Maklumat Program --";
@@ -186,6 +188,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const parlimen = " -- Pilih Parlimen -- ";
         const pasukan = " -- Pilih Pasukan -- ";
         const pencapaian = " -- Pilih Pecapaian -- ";
+        const pencapaianTertinggi  = " -- Pilih Pencapaian Tertinggi -- ";
         const pangkat = " -- Pilih Pangkat -- ";
         const pejabatYangMendaftarkan = " -- Pilih Pejabat Yang Mendaftarkan -- ";
         const pemeriksa = " -- Pilih Pemeriksa -- ";
@@ -316,6 +319,7 @@ if($session->get('language') == "EN") {
         const bidangKonsultansi = " -- Select Field Of Consultancy -- ";
         const biomekanikUjian = " -- Select The Biomechanics Test -- ";
         const cawangan = " -- Select Branch -- ";
+        const country = " -- Select Country -- ";
         const darjah = " -- Select Degree -- ";
         const delegasi = " -- Select Delegation -- ";
         const disiplin = " -- Select Discipline -- ";
@@ -446,6 +450,7 @@ if($session->get('language') == "EN") {
         const laporan = "-- Select Report --";
         const latarbelakangKes = "-- Select The Background To The Case --";
         const lainLainProgram = "-- Select other Programs --";
+        const lawatan = "-- Select Visit --";
         const lesenKejurulatihan = "-- Select License Coaching --";
         const lokasi = "-- Select A Location --";
         const maklumatProgram = "-- Select A Program Information --";
@@ -462,7 +467,8 @@ if($session->get('language') == "EN") {
         const negeriSokongan = " -- Select State Support -- ";
         const parlimen = " -- Select The Parliament -- ";
         const pasukan = " -- Select Team -- ";
-        const pencapaian = " -- Select Pecapaian -- ";
+        const pencapaian = " -- Select Hit -- ";
+        const pencapaianTertinggi  = " -- Select Hit Highest -- ";
         const pangkat = " -- Select Rank -- ";
         const pejabatYangMendaftarkan = " -- Select The Register Office -- ";
         const pemeriksa = " -- Select An Examiner -- ";

@@ -71,7 +71,7 @@ class PengurusanPenilaianPendidikanPenganjurIntructorController extends Controll
         $model->instructor = $ref['nama'];
         
         $ref = PengurusanPermohonanKursusPersatuan::findOne(['pengurusan_permohonan_kursus_persatuan_id' => $model->pengurusan_permohonan_kursus_persatuan_id]);
-        $model->pengurusan_permohonan_kursus_persatuan_id = $ref['tarikh_kursus'];
+        $model->pengurusan_permohonan_kursus_persatuan_id = $ref['agensi'];
         
         $queryPar = null;
         

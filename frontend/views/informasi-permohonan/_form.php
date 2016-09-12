@@ -19,6 +19,7 @@ use app\models\general\GeneralLabel;
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data'], 'id'=>$model->formName()]); ?>
+    
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -111,7 +112,7 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
                 } else {
                     $(document).find('#modal').modal('hide');
                     form.trigger("reset");
-                    $.pjax.defaults.timeout = 6000;
+                    $.pjax.defaults.timeout = 106000;
                     $.pjax.reload({container:'#informasiPermohonanGrid'});
                 }
           }

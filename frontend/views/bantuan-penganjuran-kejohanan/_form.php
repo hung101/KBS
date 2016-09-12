@@ -15,14 +15,13 @@ use yii\widgets\Pjax;
 
 // table reference
 use app\models\RefSukan;
-use app\models\RefJenisBantuanSue;
-use app\models\RefKelayakanAkademik;
 use app\models\RefBandar;
 use app\models\RefNegeri;
 use app\models\RefBank;
-use app\models\RefAgama;
-use app\models\RefStatusPermohonanSue;
-use app\models\RefNegara;
+use app\models\RefPeringkatBantuanPenganjuranKejohanan;
+use app\models\ProfilBadanSukan;
+use app\models\RefStatusBantuanPenganjuranKejohanan;
+use app\models\RefStatusLaporanMesyuaratAgung;
 
 // contant values
 use app\models\general\Placeholder;
@@ -37,7 +36,12 @@ use app\models\general\GeneralVariable;
 
 <div class="bantuan-penganjuran-kejohanan-form">
     
-    <?php //echo Html::a('Laporan Penganjuran Kejohanan', ['bantuan-penganjuran-kejohanan-laporan/create'], ['class' => 'btn btn-warning', 'target' => '_blank']); ?>
+    <?php 
+    if($model->status_permohonan_id && $model->status_permohonan_id==RefStatusBantuanPenganjuranKejohanan::LULUS){
+        echo Html::a('Laporan Penganjuran Kejohanan', ['bantuan-penganjuran-kejohanan-laporan/load', 'bantuan_penganjuran_kejohanan_id' =>$model->bantuan_penganjuran_kejohanan_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+        echo '<br><br>';
+    }
+    ?>
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
    <?php
@@ -47,8 +51,15 @@ use app\models\general\GeneralVariable;
             $template = '{view}';
         }
    ?>
+    
+    <?php 
+    $disablePersatuan = false; // default
+    if(!Yii::$app->user->isGuest && Yii::$app->user->identity->profil_badan_sukan){
+        $disablePersatuan = true;
+    }
+    ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
     <pre style="text-align: center"><strong>MAKLUMAT BADAN SUKAN</strong></pre>
     <?php
@@ -68,12 +79,12 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-bantuan-sue/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/profil-badan-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJenisBantuanSue::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::persatuan],
+                        'data'=>ArrayHelper::map(ProfilBadanSukan::find()->where(['=', 'status', RefStatusLaporanMesyuaratAgung::DISAHKAN])->all(),'profil_badan_sukan', 'nama_badan_sukan'),
+                        'options' => ['placeholder' => Placeholder::badanSukan, 'disabled'=>$disablePersatuan, 'id'=>'persatuanId'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -85,16 +96,13 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-bantuan-sue/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJenisBantuanSue::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],
-                        'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
-                    'columnOptions'=>['colspan'=>3]],
+                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::sukan],],
+                    'columnOptions'=>['colspan'=>4]],
                 'no_pendaftaran' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
                  
             ],
@@ -129,7 +137,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::negeri],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -149,7 +157,7 @@ use app\models\general\GeneralVariable;
                                 ]
                             ] : null,
                         ],
-                        'data'=>ArrayHelper::map(RefBandar::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefBandar::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
                         'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
@@ -193,7 +201,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefBank::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefBank::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::bank],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -228,11 +236,11 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-bank/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-peringkat-bantuan-penganjuran-kejohanan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefBank::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefPeringkatBantuanPenganjuranKejohanan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::peringkat],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -249,7 +257,6 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
-                        'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
@@ -260,7 +267,6 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
-                        'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
@@ -298,31 +304,151 @@ use app\models\general\GeneralVariable;
                 'anggaran_perbelanjaan' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>true]],
             ]
         ],
-        [
-            'attributes' => [
-                'kertas_kerja' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
-            ]
-        ],
-        [
-            'attributes' => [
-                'surat_rasmi_badan_sukan_ms_negeri' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
-            ]
-        ],
-        [
-            'attributes' => [
-                'permohonan_rasmi_dari_ahli_gabungan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
-            ]
-        ],
-        [
-            'attributes' => [
-                'maklumat_lain_sokongan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
-            ]
-        ],
     ]
 ]);
         ?>
     
-    <h3>Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandaingan</h3>
+    <br>
+    
+    <?php // Upload
+    
+    $label = $model->getAttributeLabel('kertas_kerja');
+    
+    if($model->kertas_kerja){
+        echo "<div class='required'>";
+        echo "<label>" . $model->getAttributeLabel('kertas_kerja') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->kertas_kerja , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+        
+        $label = false;
+    }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'kertas_kerja' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+    }
+        
+    ?>
+    
+    <br>
+    
+    <?php // Upload
+    
+    $label = $model->getAttributeLabel('surat_rasmi_badan_sukan_ms_negeri');
+    
+    if($model->surat_rasmi_badan_sukan_ms_negeri){
+        echo "<div class='required'>";
+        echo "<label>" . $model->getAttributeLabel('surat_rasmi_badan_sukan_ms_negeri') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->surat_rasmi_badan_sukan_ms_negeri , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+        
+        $label = false;
+    }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'surat_rasmi_badan_sukan_ms_negeri' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+    }
+        
+    ?>
+    
+    <br>
+    
+    <?php // Upload
+    if($model->permohonan_rasmi_dari_ahli_gabungan){
+        echo "<label>" . $model->getAttributeLabel('permohonan_rasmi_dari_ahli_gabungan') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->permohonan_rasmi_dari_ahli_gabungan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->bantuan_penganjuran_kejohanan_id, 'field'=> 'permohonan_rasmi_dari_ahli_gabungan'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'permohonan_rasmi_dari_ahli_gabungan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+    
+    <br>
+    
+    <?php // Upload
+    if($model->maklumat_lain_sokongan){
+        echo "<label>" . $model->getAttributeLabel('maklumat_lain_sokongan') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->maklumat_lain_sokongan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->bantuan_penganjuran_kejohanan_id, 'field'=> 'maklumat_lain_sokongan'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'maklumat_lain_sokongan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+    
+    <h3>Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandingan</h3>
     
     <?php 
             Modal::begin([
@@ -351,7 +477,11 @@ use app\models\general\GeneralVariable;
 
             //'bantuan_penganjuran_kejohanan_kewangan_id',
             //'bantuan_penganjuran_kejohanan_id',
-            'sumber_kewangan',
+            //'sumber_kewangan',
+            [
+                'attribute' => 'sumber_kewangan',
+                'value' => 'refSumberKewanganBantuanPenganjuranKejohanan.desc'
+            ],
             'lain_lain',
             'jumlah',
             // 'session_id',
@@ -374,13 +504,13 @@ use app\models\general\GeneralVariable;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-kewangan/update', 'id' => $model->bantuan_penganjuran_kejohanan_kewangan_id]).'", "'.GeneralLabel::updateTitle . ' Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandaingan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-kewangan/update', 'id' => $model->bantuan_penganjuran_kejohanan_kewangan_id]).'", "'.GeneralLabel::updateTitle . ' Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandingan");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-kewangan/view', 'id' => $model->bantuan_penganjuran_kejohanan_kewangan_id]).'", "'.GeneralLabel::viewTitle . ' Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandaingan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-kewangan/view', 'id' => $model->bantuan_penganjuran_kejohanan_kewangan_id]).'", "'.GeneralLabel::viewTitle . ' Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandingan");',
                         ]);
                     }
                 ],
@@ -410,7 +540,7 @@ use app\models\general\GeneralVariable;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-kewangan/create', 'bantuan_penganjuran_kejohanan_id' => $bantuan_penganjuran_kejohanan_id]).'", "'.GeneralLabel::createTitle . ' Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandaingan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-kewangan/create', 'bantuan_penganjuran_kejohanan_id' => $bantuan_penganjuran_kejohanan_id]).'", "'.GeneralLabel::createTitle . ' Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandingan");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -431,7 +561,11 @@ use app\models\general\GeneralVariable;
 
             //'bantuan_penganjuran_kejohanan_bayaran_id',
             //'bantuan_penganjuran_kejohanan_id',
-            'jenis_bayaran',
+            //'jenis_bayaran',
+            [
+                'attribute' => 'jenis_bayaran',
+                'value' => 'refJenisBayaranBantuanPenganjuranKejohanan.desc'
+            ],
             'lain_lain',
             'jumlah',
             // 'session_id',
@@ -493,7 +627,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     
-    <h3>Isikan Elemen Bantuan Yang Dipohon</h3>
+    <h3>Elemen Bantuan Yang Dipohon</h3>
     
     <?php Pjax::begin(['id' => 'bantuanPenganjuranKejohananElemenGrid', 'timeout' => 100000]); ?>
 
@@ -506,8 +640,16 @@ use app\models\general\GeneralVariable;
 
             //'bantuan_penganjuran_kejohanan_elemen_id',
             //'bantuan_penganjuran_kejohanan_id',
-            'elemen_bantuan',
-            'sub_elemen',
+            //'elemen_bantuan',
+            [
+                'attribute' => 'elemen_bantuan',
+                'value' => 'refElemenBantuanPenganjuranKejohanan.desc'
+            ],
+            //'sub_elemen',
+            [
+                'attribute' => 'sub_elemen',
+                'value' => 'refSubElemenBantuanPenganjuranKejohanan.desc'
+            ],
             'kadar',
             'bilangan',
             'hari',
@@ -532,13 +674,13 @@ use app\models\general\GeneralVariable;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-elemen/update', 'id' => $model->bantuan_penganjuran_kejohanan_elemen_id]).'", "'.GeneralLabel::updateTitle . ' Isikan Elemen Bantuan Yang Dipohon");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-elemen/update', 'id' => $model->bantuan_penganjuran_kejohanan_elemen_id]).'", "'.GeneralLabel::updateTitle . ' Elemen Bantuan Yang Dipohon");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-elemen/view', 'id' => $model->bantuan_penganjuran_kejohanan_elemen_id]).'", "'.GeneralLabel::viewTitle . ' Isikan Elemen Bantuan Yang Dipohon");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-elemen/view', 'id' => $model->bantuan_penganjuran_kejohanan_elemen_id]).'", "'.GeneralLabel::viewTitle . ' Elemen Bantuan Yang Dipohon");',
                         ]);
                     }
                 ],
@@ -563,7 +705,7 @@ use app\models\general\GeneralVariable;
         <?php 
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-elemen/create', 'bantuan_penganjuran_kejohanan_id' => $bantuan_penganjuran_kejohanan_id]).'", "'.GeneralLabel::createTitle . ' Isikan Elemen Bantuan Yang Dipohon");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-elemen/create', 'bantuan_penganjuran_kejohanan_id' => $bantuan_penganjuran_kejohanan_id]).'", "'.GeneralLabel::createTitle . ' Elemen Bantuan Yang Dipohon");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -588,7 +730,11 @@ use app\models\general\GeneralVariable;
             'tarikh_mula',
             'tarikh_tamat',
             'tempat',
-            'peringkat_penganjuran',
+            //'peringkat_penganjuran',
+            [
+                'attribute' => 'peringkat_penganjuran',
+                'value' => 'refPeringkatBantuanPenganjuranKejohananDianjurkan.desc'
+            ],
             'jumlah',
             // 'session_id',
             // 'created_by',
@@ -632,7 +778,7 @@ use app\models\general\GeneralVariable;
         <?php 
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-dianjurkan/create', 'bantuan_penganjuran_kejohanan_id' => $bantuan_penganjuran_kejohanan_id]).'", "'.GeneralLabel::createTitle . ' Kejohanan Yang Telah Dianjurkan (Tahun Semasa & Tahun Sebelum)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-dianjurkan/create', 'bantuan_penganjuran_kejohanan_id' => $bantuan_penganjuran_kejohanan_id]).'", "Kejohanan Yang Telah Dianjurkan (Tahun Semasa & Tahun Sebelum)");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -640,7 +786,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>BANTAUN GERAN PENGANJURAN OLEH MSN (TAHUN SEMASA & TAHUN SEBELUM)</strong></pre>
+    <pre style="text-align: center"><strong>BANTUAN GERAN PENGANJURAN OLEH MSN (TAHUN SEMASA & TAHUN SEBELUM)</strong></pre>
     
     <?php Pjax::begin(['id' => 'bantuanPenganjuranKejohananOlehMsnGrid', 'timeout' => 100000]); ?>
 
@@ -657,9 +803,17 @@ use app\models\general\GeneralVariable;
             'tarikh_mula',
             'tarikh_tamat',
             'tempat',
-            'peringkat_penganjuran',
+            //'peringkat_penganjuran',
+            [
+                'attribute' => 'peringkat_penganjuran',
+                'value' => 'refPeringkatBantuanPenganjuranKejohananDianjurkan.desc'
+            ],
             'jumlah_bantuan',
-            'laporan_dikemukakan',
+            //'laporan_dikemukakan',
+            [
+                'attribute' => 'laporan_dikemukakan',
+                'value' => 'refKelulusan.desc'
+            ],
             // 'session_id',
             // 'created_by',
             // 'updated_by',
@@ -757,11 +911,11 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-bantuan-penganjuran-kejohanan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefStatusBantuanPenganjuranKejohanan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::statusPermohonan],],
                     'columnOptions'=>['colspan'=>4]],
                 'tarikh_permohonan' => [
@@ -772,7 +926,9 @@ use app\models\general\GeneralVariable;
                         'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                                    'todayBtn' => true,
+                        ],
+                        'options'=>['disabled'=>true]
                     ],
                     'columnOptions'=>['colspan'=>3]],
             ]
@@ -819,3 +975,57 @@ use app\models\general\GeneralVariable;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$URL = Url::to(['/profil-badan-sukan/get-badan-sukan']);
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$script = <<< JS
+ 
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+        
+$('#persatuanId').change(function(){
+    
+    $.get('$URL',{id:$(this).val()},function(data){
+        clearForm();
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+            $('#bantuanpenganjurankejohanan-sukan').val(data.jenis_sukan).trigger("change");
+            $('#bantuanpenganjurankejohanan-no_pendaftaran').attr('value',data.no_pendaftaran);
+            $('#bantuanpenganjurankejohanan-alamat_1').attr('value',data.alamat_tetap_badan_sukan_1);
+            $('#bantuanpenganjurankejohanan-alamat_2').attr('value',data.alamat_tetap_badan_sukan_2);
+            $('#bantuanpenganjurankejohanan-alamat_3').attr('value',data.alamat_tetap_badan_sukan_3);
+            $('#bantuanpenganjurankejohanan-alamat_negeri').val(data.alamat_tetap_badan_sukan_negeri).trigger("change");
+            $('#bantuanpenganjurankejohanan-alamat_bandar').val(data.alamat_tetap_badan_sukan_bandar).trigger("change");
+            $('#bantuanpenganjurankejohanan-alamat_poskod').attr('value',data.alamat_tetap_badan_sukan_poskod);
+            $('#bantuanpenganjurankejohanan-no_telefon').attr('value',data.no_telefon_pejabat);
+            $('#bantuanpenganjurankejohanan-no_faks').attr('value',data.no_faks_pejabat);
+        }
+    });
+});
+     
+function clearForm(){
+    $('#bantuanpenganjurankejohanan-sukan').val('').trigger("change");
+    $('#bantuanpenganjurankejohanan-no_pendaftaran').attr('value','');
+    $('#bantuanpenganjurankejohanan-alamat_1').attr('value','');
+    $('#bantuanpenganjurankejohanan-alamat_2').attr('value','');
+    $('#bantuanpenganjurankejohanan-alamat_3').attr('value','');
+    $('#bantuanpenganjurankejohanan-alamat_negeri').val('').trigger("change");
+    $('#bantuanpenganjurankejohanan-alamat_bandar').val('').trigger("change");
+    $('#bantuanpenganjurankejohanan-alamat_poskod').attr('value','');
+    $('#bantuanpenganjurankejohanan-no_telefon').attr('value','');
+    $('#bantuanpenganjurankejohanan-no_faks').attr('value','');
+}
+        
+JS;
+        
+$this->registerJs($script);
+?>
+

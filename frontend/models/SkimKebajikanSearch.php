@@ -66,7 +66,7 @@ class SkimKebajikanSearch extends SkimKebajikan
             'kelulusan' => $this->kelulusan,
         ]);
 
-        $query->andFilterWhere(['like', 'tbl_ref_jenis_bantuan_skak.desc', $this->jenis_bantuan_skak])
+        $query->andFilterWhere(['like', 'tbl_ref_jenis_kebajikan.desc', $this->jenis_bantuan_skak])
             ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->nama_pemohon])
             ->andFilterWhere(['like', 'nama_penerima', $this->nama_penerima])
             ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->jenis_sukan])

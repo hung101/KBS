@@ -42,7 +42,10 @@ class BantuanPenganjuranKursusSearch extends BantuanPenganjuranKursus
      */
     public function search($params)
     {
-        $query = BantuanPenganjuranKursus::find();
+        $query = BantuanPenganjuranKursus::find()
+                ->joinWith(['refProfilBadanSukan'])
+                ->joinWith(['refStatusBantuanPenganjuranKursus'])
+                ->joinWith(['refSukan']);
 
         // add conditions that should always apply here
 
@@ -75,8 +78,8 @@ class BantuanPenganjuranKursusSearch extends BantuanPenganjuranKursus
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'badan_sukan', $this->badan_sukan])
-            ->andFilterWhere(['like', 'sukan', $this->sukan])
+        $query->andFilterWhere(['like', 'tbl_profil_badan_sukan.nama_badan_sukan', $this->badan_sukan])
+            ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
             ->andFilterWhere(['like', 'no_pendaftaran', $this->no_pendaftaran])
             ->andFilterWhere(['like', 'alamat_1', $this->alamat_1])
             ->andFilterWhere(['like', 'alamat_2', $this->alamat_2])
@@ -98,7 +101,7 @@ class BantuanPenganjuranKursusSearch extends BantuanPenganjuranKursus
             ->andFilterWhere(['like', 'surat_rasmi_badan_sukan_ms_negeri', $this->surat_rasmi_badan_sukan_ms_negeri])
             ->andFilterWhere(['like', 'butiran_perbelanjaan', $this->butiran_perbelanjaan])
             ->andFilterWhere(['like', 'maklumat_lain_sokongan', $this->maklumat_lain_sokongan])
-            ->andFilterWhere(['like', 'status_permohonan', $this->status_permohonan])
+            ->andFilterWhere(['like', 'tbl_ref_status_bantuan_penganjuran_kursus.desc', $this->status_permohonan])
             ->andFilterWhere(['like', 'catatan', $this->catatan])
             ->andFilterWhere(['like', 'jkb', $this->jkb]);
 

@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PengurusanInsuran;
 use frontend\models\PengurusanInsuranSearch;
+use app\models\PengurusanInsuranLampiran;
+use frontend\models\PengurusanInsuranLampiranSearch;
 use app\models\MsnLaporanTuntutanInsurans;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -88,8 +90,17 @@ class PengurusanInsuranController extends Controller
         $ref = RefStatusPermohonanInsuran::findOne(['id' => $model->status_permohonan]);
         $model->status_permohonan = $ref['desc'];
         
+        $queryPar = null;
+        
+        $queryPar['PengurusanInsuranLampiranSearch']['pengurusan_insuran_id'] = $id;
+        
+        $searchModelPengurusanInsuranLampiran  = new PengurusanInsuranLampiranSearch();
+        $dataProviderPengurusanInsuranLampiran = $searchModelPengurusanInsuranLampiran->search($queryPar);
+        
         return $this->render('view', [
             'model' => $model,
+            'searchModelPengurusanInsuranLampiran' => $searchModelPengurusanInsuranLampiran,
+            'dataProviderPengurusanInsuranLampiran' => $dataProviderPengurusanInsuranLampiran,
             'readonly' => true,
         ]);
     }
@@ -106,6 +117,17 @@ class PengurusanInsuranController extends Controller
         }
         
         $model = new PengurusanInsuran();
+        
+        $queryPar = null;
+        
+        Yii::$app->session->open();
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['PengurusanInsuranLampiranSearch']['session_id'] = Yii::$app->session->id;
+        }
+        
+        $searchModelPengurusanInsuranLampiran  = new PengurusanInsuranLampiranSearch();
+        $dataProviderPengurusanInsuranLampiran = $searchModelPengurusanInsuranLampiran->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'lampiran');
@@ -115,6 +137,11 @@ class PengurusanInsuranController extends Controller
             
             $model->tarikh_permohonan = $model->created; // auto capture timestamp
             
+            if(isset(Yii::$app->session->id)){
+                PengurusanInsuranLampiran::updateAll(['pengurusan_insuran_id' => $model->pengurusan_insuran_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PengurusanInsuranLampiran::updateAll(['session_id' => ''], 'pengurusan_insuran_id = "'.$model->pengurusan_insuran_id.'"');
+            }
+            
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->pengurusan_insuran_id]);
             }
@@ -122,6 +149,8 @@ class PengurusanInsuranController extends Controller
         
         return $this->render('create', [
                 'model' => $model,
+                'searchModelPengurusanInsuranLampiran' => $searchModelPengurusanInsuranLampiran,
+                'dataProviderPengurusanInsuranLampiran' => $dataProviderPengurusanInsuranLampiran,
                 'readonly' => false,
             ]);
     }
@@ -139,6 +168,13 @@ class PengurusanInsuranController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        $queryPar = null;
+        
+        $queryPar['PengurusanInsuranLampiranSearch']['pengurusan_insuran_id'] = $id;
+        
+        $searchModelPengurusanInsuranLampiran  = new PengurusanInsuranLampiranSearch();
+        $dataProviderPengurusanInsuranLampiran = $searchModelPengurusanInsuranLampiran->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'lampiran');
@@ -152,6 +188,8 @@ class PengurusanInsuranController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'searchModelPengurusanInsuranLampiran' => $searchModelPengurusanInsuranLampiran,
+                'dataProviderPengurusanInsuranLampiran' => $dataProviderPengurusanInsuranLampiran,
                 'readonly' => false,
             ]);
         }

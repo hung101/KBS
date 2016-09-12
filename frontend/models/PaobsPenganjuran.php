@@ -122,4 +122,11 @@ class PaobsPenganjuran extends \yii\db\ActiveRecord
     public function getRefSukan(){
         return $this->hasOne(RefSukan::className(), ['id' => 'jenis_sukan']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusLaporanMesyuaratAgung(){
+        return $this->hasOne(RefStatusLaporanMesyuaratAgung::className(), ['id' => 'status']);
+    }
 }

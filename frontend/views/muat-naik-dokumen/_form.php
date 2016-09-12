@@ -115,6 +115,13 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>3]],*/
             ],
         ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'catatan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
+            ],
+        ],
     ]
 ]);
         ?>

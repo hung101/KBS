@@ -11,13 +11,26 @@ use app\models\BantuanPenganjuranKursusDisertaiPenceramah;
 use frontend\models\BantuanPenganjuranKursusDisertaiPenceramahSearch;
 use app\models\BantuanPenganjuranKursusOlehMsn;
 use frontend\models\BantuanPenganjuranKursusOlehMsnSearch;
+use app\models\MsnLaporanBantuanTeknikalDanKepegawaian;
+use app\models\MsnLaporanBantuanTeknikalDanKepegawaianMengikutSukan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\BaseUrl;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
+
+// table reference
+use app\models\RefSukan;
+use app\models\RefBandar;
+use app\models\RefNegeri;
+use app\models\RefBank;
+use app\models\RefPeringkatBantuanPenganjuranKejohanan;
+use app\models\ProfilBadanSukan;
+use app\models\RefStatusBantuanPenganjuranKursus;
 
 /**
  * BantuanPenganjuranKursusController implements the CRUD actions for BantuanPenganjuranKursus model.
@@ -45,6 +58,10 @@ class BantuanPenganjuranKursusController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
         $searchModel = new BantuanPenganjuranKursusSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -61,6 +78,10 @@ class BantuanPenganjuranKursusController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
         $queryPar = null;
         
         $queryPar['BantuanPenganjuranKursusPenceramahSearch']['bantuan_penganjuran_kursus_id'] = $id;
@@ -76,8 +97,28 @@ class BantuanPenganjuranKursusController extends Controller
         $searchModelBantuanPenganjuranKursusOlehMsn  = new BantuanPenganjuranKursusOlehMsnSearch();
         $dataProviderBantuanPenganjuranKursusOlehMsn = $searchModelBantuanPenganjuranKursusOlehMsn->search($queryPar);
         
+        $model = $this->findModel($id);
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
+        $model->alamat_bandar = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->alamat_negeri]);
+        $model->alamat_negeri = $ref['desc'];
+        
+        $ref = RefBank::findOne(['id' => $model->nama_bank]);
+        $model->nama_bank = $ref['desc'];
+        
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->badan_sukan]);
+        $model->badan_sukan = $ref['nama_badan_sukan'];
+        
+        $ref = RefStatusBantuanPenganjuranKursus::findOne(['id' => $model->status_permohonan]);
+        $model->status_permohonan = $ref['desc'];
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'searchModelBantuanPenganjuranKursusPenceramah' => $searchModelBantuanPenganjuranKursusPenceramah,
             'dataProviderBantuanPenganjuranKursusPenceramah' => $dataProviderBantuanPenganjuranKursusPenceramah,
             'searchModelBantuanPenganjuranKursusDisertaiPenceramah' => $searchModelBantuanPenganjuranKursusDisertaiPenceramah,
@@ -95,7 +136,14 @@ class BantuanPenganjuranKursusController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
         $model = new BantuanPenganjuranKursus();
+        
+        $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
+        $model->status_permohonan = RefStatusBantuanPenganjuranKursus::SEDANG_DIPROSES;
         
         $queryPar = null;
         
@@ -129,9 +177,36 @@ class BantuanPenganjuranKursusController extends Controller
                 BantuanPenganjuranKursusOlehMsn::updateAll(['session_id' => ''], 'bantuan_penganjuran_kursus_id = "'.$model->bantuan_penganjuran_kursus_id.'"');
             }
             
-            return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_id]);
-        } else {
-            return $this->render('create', [
+            $file = UploadedFile::getInstance($model, 'kertas_kerja');
+            $filename = $model->bantuan_penganjuran_kursus_id . "-kertas_kerja";
+            if($file){
+                $model->kertas_kerja = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_rasmi_badan_sukan_ms_negeri');
+            $filename = $model->bantuan_penganjuran_kursus_id . "-surat_rasmi_badan_sukan_ms_negeri";
+            if($file){
+                $model->surat_rasmi_badan_sukan_ms_negeri = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'butiran_perbelanjaan');
+            $filename = $model->bantuan_penganjuran_kursus_id . "-butiran_perbelanjaan";
+            if($file){
+                $model->butiran_perbelanjaan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'maklumat_lain_sokongan');
+            $filename = $model->bantuan_penganjuran_kursus_id . "-maklumat_lain_sokongan";
+            if($file){
+                $model->maklumat_lain_sokongan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusFolder, $filename);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_id]);
+            }
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'searchModelBantuanPenganjuranKursusPenceramah' => $searchModelBantuanPenganjuranKursusPenceramah,
                 'dataProviderBantuanPenganjuranKursusPenceramah' => $dataProviderBantuanPenganjuranKursusPenceramah,
@@ -141,7 +216,6 @@ class BantuanPenganjuranKursusController extends Controller
                 'dataProviderBantuanPenganjuranKursusOlehMsn' => $dataProviderBantuanPenganjuranKursusOlehMsn,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -152,6 +226,10 @@ class BantuanPenganjuranKursusController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
         $model = $this->findModel($id);
         
         $queryPar = null;
@@ -170,9 +248,36 @@ class BantuanPenganjuranKursusController extends Controller
         $dataProviderBantuanPenganjuranKursusOlehMsn = $searchModelBantuanPenganjuranKursusOlehMsn->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'kertas_kerja');
+            $filename = $model->bantuan_penganjuran_kursus_id . "-kertas_kerja";
+            if($file){
+                $model->kertas_kerja = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_rasmi_badan_sukan_ms_negeri');
+            $filename = $model->bantuan_penganjuran_kursus_id . "-surat_rasmi_badan_sukan_ms_negeri";
+            if($file){
+                $model->surat_rasmi_badan_sukan_ms_negeri = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'butiran_perbelanjaan');
+            $filename = $model->bantuan_penganjuran_kursus_id . "-butiran_perbelanjaan";
+            if($file){
+                $model->butiran_perbelanjaan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'maklumat_lain_sokongan');
+            $filename = $model->bantuan_penganjuran_kursus_id . "-maklumat_lain_sokongan";
+            if($file){
+                $model->maklumat_lain_sokongan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusFolder, $filename);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelBantuanPenganjuranKursusPenceramah' => $searchModelBantuanPenganjuranKursusPenceramah,
                 'dataProviderBantuanPenganjuranKursusPenceramah' => $dataProviderBantuanPenganjuranKursusPenceramah,
@@ -182,7 +287,6 @@ class BantuanPenganjuranKursusController extends Controller
                 'dataProviderBantuanPenganjuranKursusOlehMsn' => $dataProviderBantuanPenganjuranKursusOlehMsn,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -193,6 +297,19 @@ class BantuanPenganjuranKursusController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
+        // delete upload file
+        self::actionDeleteupload($id, 'kertas_kerja');
+        
+        self::actionDeleteupload($id, 'surat_rasmi_badan_sukan_ms_negeri');
+        
+        self::actionDeleteupload($id, 'butiran_perbelanjaan');
+        
+        self::actionDeleteupload($id, 'maklumat_lain_sokongan');
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -212,5 +329,149 @@ class BantuanPenganjuranKursusController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            return $this->redirect(['update', 'id' => $id]);
+    }
+    
+    public function actionLaporanBantuanTeknikalDanKepegawaian()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanBantuanTeknikalDanKepegawaian();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-bantuan-teknikal-dan-kepegawaian'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'sukan' => $model->sukan
+                    , 'status_permohonan' => $model->status_permohonan
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-bantuan-teknikal-dan-kepegawaian'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'sukan' => $model->sukan
+                    , 'status_permohonan' => $model->status_permohonan
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_bantuan_teknikal_dan_kepegawaian', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanBantuanTeknikalDanKepegawaian($tarikh_dari, $tarikh_hingga, $sukan, $status_permohonan, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($status_permohonan == "") $status_permohonan = array();
+        else $status_permohonan = array($status_permohonan);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'SUKAN' => $sukan,
+            'STATUS_PERMOHONAN' => $status_permohonan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanBantuanTeknikalDanKepegawaian', $format, $controls, 'laporan_bantuan_teknikal_dan_kepegawaian');
+    }
+    
+    public function actionLaporanBantuanTeknikalDanKepegawaianMengikutSukan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanBantuanTeknikalDanKepegawaianMengikutSukan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-bantuan-teknikal-dan-kepegawaian-mengikut-sukan'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'sukan' => $model->sukan
+                    , 'status_permohonan' => $model->status_permohonan
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-bantuan-teknikal-dan-kepegawaian-mengikut-sukan'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'sukan' => $model->sukan
+                    , 'status_permohonan' => $model->status_permohonan
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_bantuan_teknikal_dan_kepegawaian_mengikut_sukan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanBantuanTeknikalDanKepegawaianMengikutSukan($tarikh_dari, $tarikh_hingga, $sukan, $status_permohonan, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($status_permohonan == "") $status_permohonan = array();
+        else $status_permohonan = array($status_permohonan);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'SUKAN' => $sukan,
+            'STATUS_PERMOHONAN' => $status_permohonan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanBantuanTeknikalDanKepegawaianMengikutSukan', $format, $controls, 'laporan_bantuan_teknikal_dan_kepegawaian_mengikut_sukan');
     }
 }

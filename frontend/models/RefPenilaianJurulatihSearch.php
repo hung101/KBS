@@ -19,6 +19,7 @@ class RefPenilaianJurulatihSearch extends RefPenilaianJurulatih
     {
         return [
             [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['markah_peratus'], 'number'],
             [['desc', 'created', 'updated'], 'safe'],
         ];
     }
@@ -67,7 +68,8 @@ class RefPenilaianJurulatihSearch extends RefPenilaianJurulatih
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc]);
+        $query->andFilterWhere(['like', 'desc', $this->desc])
+                ->andFilterWhere(['like', 'markah_peratus', $this->markah_peratus]);
 
         return $dataProvider;
     }

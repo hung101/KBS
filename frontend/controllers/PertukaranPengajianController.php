@@ -17,7 +17,10 @@ use app\models\Atlet;
 use app\models\RefSebabPermohonanPertukaranPengajian;
 use app\models\RefPengajian;
 use app\models\RefKategoriPengajian;
+use app\models\RefProgramSemasaSukanAtlet;
+use app\models\RefSukan;
 use app\models\PerancanganProgram;
+use app\models\RefStatusPermohonanPendidikan;
 
 /**
  * PertukaranPengajianController implements the CRUD actions for PertukaranPengajian model.
@@ -74,14 +77,23 @@ class PertukaranPengajianController extends Controller
         $ref = RefSebabPermohonanPertukaranPengajian::findOne(['id' => $model->sebab_pemohonan]);
         $model->sebab_pemohonan = $ref['desc'];
         
-        $ref = RefKategoriPengajian::findOne(['id' => $model->kategori_pengajian]);
-        $model->kategori_pengajian = $ref['desc'];
+        //$ref = RefKategoriPengajian::findOne(['id' => $model->kategori_pengajian]);
+        //$model->kategori_pengajian = $ref['desc'];
         
         $ref = RefPengajian::findOne(['id' => $model->nama_pertukaran_pengajian]);
         $model->nama_pertukaran_pengajian = $ref['desc'];
         
         $ref = PerancanganProgram::findOne(['perancangan_program_id' => $model->kejohanan_program]);
         $model->kejohanan_program = $ref['nama_program'];
+        
+        $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program]);
+        $model->program = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefStatusPermohonanPendidikan::findOne(['id' => $model->status_permohonan]);
+        $model->status_permohonan = $ref['desc'];
         
         return $this->render('view', [
             'model' => $model,
@@ -103,6 +115,7 @@ class PertukaranPengajianController extends Controller
         $model = new PertukaranPengajian();
         
         $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
+        $model->status_permohonan = RefStatusPermohonanPendidikan::DALAM_PROSES;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->pertukaran_pengajian_id]);

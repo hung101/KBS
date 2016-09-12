@@ -46,6 +46,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'pengurusan_penilaian_pendidikan_penganjur_intructor_id',
             [
+                'attribute' => 'pengurusan_permohonan_kursus_persatuan_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::agensi,
+                ],
+                'value' => 'refPengurusanPermohonanKursusPersatuan.agensi'
+            ],
+            [
                 'attribute' => 'nama_penganjuran_kursus',
                 'filterInputOptions' => [
                     'class'       => 'form-control',

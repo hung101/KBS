@@ -6,11 +6,11 @@ use yii\widgets\ActiveForm;
 use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\RefInstructorPenilaianPendidikan */
+/* @var $model app\models\RefHubungan */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="ref-instructor-penilaian-pendidikan-form">
+<div class="ref-hubungan-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -28,7 +28,7 @@ use app\models\general\GeneralLabel;
     
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

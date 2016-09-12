@@ -18,8 +18,8 @@ class PermohonanPendidikanKeputusanSpmSearch extends PermohonanPendidikanKeputus
     public function rules()
     {
         return [
-            [['permohonan_pendidikan_keputusan_spm_id', 'permohonan_pendidikan_id', 'subjek', 'created_by', 'updated_by'], 'integer'],
-            [['keputusan', 'session_id', 'created', 'updated'], 'safe'],
+            [['permohonan_pendidikan_keputusan_spm_id', 'permohonan_pendidikan_id', 'created_by', 'updated_by'], 'integer'],
+            [['keputusan', 'session_id', 'created', 'updated', 'subjek'], 'safe'],
         ];
     }
 
@@ -41,7 +41,8 @@ class PermohonanPendidikanKeputusanSpmSearch extends PermohonanPendidikanKeputus
      */
     public function search($params)
     {
-        $query = PermohonanPendidikanKeputusanSpm::find();
+        $query = PermohonanPendidikanKeputusanSpm::find()
+                ->joinWith(['refSubjekSpm']);
 
         // add conditions that should always apply here
 
@@ -61,7 +62,6 @@ class PermohonanPendidikanKeputusanSpmSearch extends PermohonanPendidikanKeputus
         $query->andFilterWhere([
             'permohonan_pendidikan_keputusan_spm_id' => $this->permohonan_pendidikan_keputusan_spm_id,
             'permohonan_pendidikan_id' => $this->permohonan_pendidikan_id,
-            'subjek' => $this->subjek,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created' => $this->created,
@@ -69,6 +69,7 @@ class PermohonanPendidikanKeputusanSpmSearch extends PermohonanPendidikanKeputus
         ]);
 
         $query->andFilterWhere(['like', 'keputusan', $this->keputusan])
+                ->andFilterWhere(['like', 'tbl_ref_subjek_spm.desc', $this->subjek])
             ->andFilterWhere(['like', 'session_id', $this->session_id]);
 
         return $dataProvider;

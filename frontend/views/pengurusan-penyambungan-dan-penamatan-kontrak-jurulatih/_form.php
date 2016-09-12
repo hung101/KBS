@@ -271,22 +271,6 @@ use app\models\general\GeneralMessage;
                                         'sebab' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
                                     ],
                                 ],
-                                [
-                                    'columns'=>12,
-                                    'autoGenerateColumns'=>false, // override columns setting
-                                    'attributes' => [
-                                        'penamatan_tarikh_berkuatkuasa' => [
-                                            'type'=>Form::INPUT_WIDGET, 
-                                            'widgetClass'=> DateControl::classname(),
-                                            'ajaxConversion'=>false,
-                                            'options'=>[
-                                                'pluginOptions' => [
-                                                    'autoclose'=>true,
-                                                ]
-                                            ],
-                                            'columnOptions'=>['colspan'=>3]],
-                                    ],
-                                ],
                             ]
                         ]);
                     ?>
@@ -324,6 +308,32 @@ use app\models\general\GeneralMessage;
         ]);
     }*/
     ?>
+    
+    <?php
+                        echo FormGrid::widget([
+                            'model' => $model,
+                            'form' => $form,
+                            'autoGenerateColumns' => true,
+                            'rows' => [
+                                [
+                                    'columns'=>12,
+                                    'autoGenerateColumns'=>false, // override columns setting
+                                    'attributes' => [
+                                        'penamatan_tarikh_berkuatkuasa' => [
+                                            'type'=>Form::INPUT_WIDGET, 
+                                            'widgetClass'=> DateControl::classname(),
+                                            'ajaxConversion'=>false,
+                                            'options'=>[
+                                                'pluginOptions' => [
+                                                    'autoclose'=>true,
+                                                ]
+                                            ],
+                                            'columnOptions'=>['colspan'=>3]],
+                                    ],
+                                ],
+                            ]
+                        ]);
+                    ?>
     
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penyambungan-dan-penamatan-kontrak-jurulatih']['status_permohonan']) || $readonly): ?>
     <hr>

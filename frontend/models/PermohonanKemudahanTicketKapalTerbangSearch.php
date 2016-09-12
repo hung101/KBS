@@ -19,7 +19,8 @@ class PermohonanKemudahanTicketKapalTerbangSearch extends PermohonanKemudahanTic
     {
         return [
             [['permohonan_kemudahan_ticket_kapal_terbang_id', 'bil_penumpang', 'kelulusan'], 'integer'],
-            [['nama_pemohon', 'bahagian', 'jawatan', 'destinasi', 'tarikh', 'nama_program', 'no_fail_kelulusan', 'aktiviti', 'kod_perbelanjaan', 'sukan', 'atlet', 'jurulatih', 'pegawai_teknikal'], 'safe'],
+            [['nama_pemohon', 'bahagian', 'jawatan', 'destinasi', 'tarikh', 'nama_program', 'no_fail_kelulusan', 
+                'aktiviti', 'kod_perbelanjaan', 'sukan', 'atlet', 'jurulatih', 'pegawai_teknikal', 'cawangan'], 'safe'],
         ];
     }
 
@@ -42,7 +43,9 @@ class PermohonanKemudahanTicketKapalTerbangSearch extends PermohonanKemudahanTic
     public function search($params)
     {
         $query = PermohonanKemudahanTicketKapalTerbang::find()
-                ->joinWith(['program']);
+                ->joinWith(['program'])
+                ->joinWith(['refBahagianKemudahan'])
+                ->joinWith(['refCawanganKemudahan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -64,7 +67,7 @@ class PermohonanKemudahanTicketKapalTerbangSearch extends PermohonanKemudahanTic
         ]);
 
         $query->andFilterWhere(['like', 'nama_pemohon', $this->nama_pemohon])
-            ->andFilterWhere(['like', 'bahagian', $this->bahagian])
+            ->andFilterWhere(['like', 'tbl_ref_bahagian_kemudahan.desc', $this->bahagian])
             ->andFilterWhere(['like', 'jawatan', $this->jawatan])
             ->andFilterWhere(['like', 'destinasi', $this->destinasi])
             ->andFilterWhere(['like', 'tbl_ref_program.desc', $this->nama_program])
@@ -74,7 +77,8 @@ class PermohonanKemudahanTicketKapalTerbangSearch extends PermohonanKemudahanTic
             ->andFilterWhere(['like', 'sukan', $this->sukan])
             ->andFilterWhere(['like', 'atlet', $this->atlet])
             ->andFilterWhere(['like', 'jurulatih', $this->jurulatih])
-            ->andFilterWhere(['like', 'pegawai_teknikal', $this->pegawai_teknikal]);
+            ->andFilterWhere(['like', 'pegawai_teknikal', $this->pegawai_teknikal])
+                ->andFilterWhere(['like', 'tbl_ref_cawangan_kemudahan.desc', $this->cawangan]);
 
         return $dataProvider;
     }

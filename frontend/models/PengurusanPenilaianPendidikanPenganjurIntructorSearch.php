@@ -19,7 +19,7 @@ class PengurusanPenilaianPendidikanPenganjurIntructorSearch extends PengurusanPe
     {
         return [
             [['pengurusan_penilaian_pendidikan_penganjur_intructor_id'], 'integer'],
-            [['nama_penganjuran_kursus', 'kod_kursus', 'tarikh_kursus', 'instructor'], 'safe'],
+            [['nama_penganjuran_kursus', 'kod_kursus', 'tarikh_kursus', 'instructor', 'pengurusan_permohonan_kursus_persatuan_id'], 'safe'],
         ];
     }
 
@@ -41,7 +41,8 @@ class PengurusanPenilaianPendidikanPenganjurIntructorSearch extends PengurusanPe
      */
     public function search($params)
     {
-        $query = PengurusanPenilaianPendidikanPenganjurIntructor::find();
+        $query = PengurusanPenilaianPendidikanPenganjurIntructor::find()
+                ->joinWith(['refPengurusanPermohonanKursusPersatuan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -62,7 +63,8 @@ class PengurusanPenilaianPendidikanPenganjurIntructorSearch extends PengurusanPe
 
         $query->andFilterWhere(['like', 'nama_penganjuran_kursus', $this->nama_penganjuran_kursus])
             ->andFilterWhere(['like', 'kod_kursus', $this->kod_kursus])
-            ->andFilterWhere(['like', 'instructor', $this->instructor]);
+            ->andFilterWhere(['like', 'instructor', $this->instructor])
+                ->andFilterWhere(['like', 'tbl_pengurusan_permohonan_kursus_persatuan.agensi', $this->pengurusan_permohonan_kursus_persatuan_id]);
 
         return $dataProvider;
     }

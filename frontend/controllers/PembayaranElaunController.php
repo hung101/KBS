@@ -13,6 +13,7 @@ use yii\filters\VerbFilter;
 use app\models\Atlet;
 use app\models\RefKategoriElaun;
 use app\models\RefStatusElaun;
+use app\models\RefSukan;
 
 // contant values
 use app\models\general\GeneralLabel;
@@ -66,6 +67,9 @@ class PembayaranElaunController extends Controller
         
         $ref = RefStatusElaun::findOne(['id' => $model->status_elaun]);
         $model->status_elaun = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
         
         $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         $model->kelulusan = $YesNo;

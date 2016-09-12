@@ -51,9 +51,11 @@ class PengurusanShuttleBus extends \yii\db\ActiveRecord
     {
         return [
             [['atlet_id', 'tarikh_mula', 'tarikh_akhir', 'pilihan_shuttle'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            //[['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_mula', 'tarikh_akhir', 'catatan'], 'safe'],
-            [['pilihan_shuttle'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['atlet_id'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['lampiran_senarai_nama'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['pilihan_shuttle'], 'string', 'max' => 120, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 
@@ -64,10 +66,10 @@ class PengurusanShuttleBus extends \yii\db\ActiveRecord
     {
         return [
             'pengurusan_shuttle_bus_id' => GeneralLabel::pengurusan_shuttle_bus_id,
-            'atlet_id' => GeneralLabel::atlet_id,
+            'atlet_id' => 'Tempat / Destinasi',
             'tarikh_mula' => GeneralLabel::tarikh_mula,
             'tarikh_akhir' => GeneralLabel::tarikh_akhir,
-            'pilihan_shuttle' => GeneralLabel::pilihan_shuttle,
+            'pilihan_shuttle' => 'Nama Driver & No H/P',
             'catatan' => GeneralLabel::catatan,
 
         ];

@@ -13,6 +13,7 @@ use app\models\PertukaranPengajian;
 class PertukaranPengajianSearch extends PertukaranPengajian
 {
     public $atlet;
+    public $status_permohonan_id;
     
     /**
      * @inheritdoc
@@ -20,9 +21,9 @@ class PertukaranPengajianSearch extends PertukaranPengajian
     public function rules()
     {
         return [
-            [['pertukaran_pengajian_id', 'atlet'], 'integer'],
+            [['pertukaran_pengajian_id', 'atlet', 'status_permohonan_id'], 'integer'],
             [['sebab_pemohonan', 'atlet_id', 'kategori_pengajian', 'nama_pengajian_sekarang', 'nama_pertukaran_pengajian', 'sebab_pertukaran', 
-                'sebab_penangguhan', 'created', 'program', 'sukan', 'sebab', 'tarikh_permohonan'], 'safe'],
+                'sebab_penangguhan', 'created', 'program', 'sukan', 'sebab', 'tarikh_permohonan', 'status_permohonan'], 'safe'],
         ];
     }
 
@@ -47,7 +48,10 @@ class PertukaranPengajianSearch extends PertukaranPengajian
         $query = PertukaranPengajian::find()
                 ->joinWith(['refPengajian'])
                 ->joinWith(['refSebabPermohonanPertukaranPengajian'])
-                ->joinWith(['refAtlet']);
+                ->joinWith(['refAtlet'])
+                ->joinWith(['refStatusPermohonanPendidikan'])
+                ->joinWith(['refProgramSemasaSukanAtlet'])
+                ->joinWith(['refSukan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -65,6 +69,7 @@ class PertukaranPengajianSearch extends PertukaranPengajian
             'pertukaran_pengajian_id' => $this->pertukaran_pengajian_id,
             //'atlet_id' => $this->atlet_id,
             'tbl_pertukaran_pengajian.atlet_id' => $this->atlet,
+            'status_permohonan' => $this->status_permohonan_id,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_sebab_permohonan_pertukaran_pengajian.desc', $this->sebab_pemohonan])
@@ -74,7 +79,11 @@ class PertukaranPengajianSearch extends PertukaranPengajian
             ->andFilterWhere(['like', 'sebab_pertukaran', $this->sebab_pertukaran])
             ->andFilterWhere(['like', 'sebab_penangguhan', $this->sebab_penangguhan])
                 ->andFilterWhere(['like', 'tbl_pertukaran_pengajian.created', $this->created])
-            ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id]);
+            ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id])
+                ->andFilterWhere(['like', 'tbl_ref_status_permohonan_pendidikan.desc', $this->status_permohonan])
+                ->andFilterWhere(['like', 'tbl_ref_program_semasa_sukan_atlet.desc', $this->program])
+                ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
+                ->andFilterWhere(['like', 'tarikh_permohonan', $this->tarikh_permohonan]);
 
         return $dataProvider;
     }

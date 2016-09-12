@@ -12,13 +12,14 @@ use app\models\PembayaranElaun;
  */
 class PembayaranElaunSearch extends PembayaranElaun
 {
+    public $atlet;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['pembayaran_elaun_id', 'kelulusan'], 'integer'],
+            [['pembayaran_elaun_id', 'kelulusan', 'atlet'], 'integer'],
             [['jenis_atlet', 'atlet_id', 'kategori_elaun', 'tempoh_elaun', 'sebab_elaun'], 'safe'],
             [['jumlah_elaun'], 'number'],
         ];
@@ -61,7 +62,7 @@ class PembayaranElaunSearch extends PembayaranElaun
 
         $query->andFilterWhere([
             'pembayaran_elaun_id' => $this->pembayaran_elaun_id,
-            //'atlet_id' => $this->atlet_id,
+            'tbl_pembayaran_elaun.atlet_id' => $this->atlet,
             'jumlah_elaun' => $this->jumlah_elaun,
             'kelulusan' => $this->kelulusan,
         ]);

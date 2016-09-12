@@ -3,26 +3,34 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\BantuanPenganjuranKursus */
 
-$this->title = $model->bantuan_penganjuran_kursus_id;
-$this->params['breadcrumbs'][] = ['label' => 'Bantuan Penganjuran Kursuses', 'url' => ['index']];
+//$this->title = $model->bantuan_penganjuran_kursus_id;
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::bantuan_penganjuran_kursus_bengkel_seminar;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bantuan_penganjuran_kursus_bengkel_seminar, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bantuan-penganjuran-kursus-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->bantuan_penganjuran_kursus_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->bantuan_penganjuran_kursus_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus']['update'])): ?>
+            <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->bantuan_penganjuran_kursus_id], ['class' => 'btn btn-primary']) ?>
+        <?php endif; ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus']['delete'])): ?>
+            <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->bantuan_penganjuran_kursus_id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => GeneralMessage::confirmDelete,
+                    'method' => 'post',
+                ],
+            ]) ?>
+        <?php endif; ?>
     </p>
     
     <?= $this->render('_form', [

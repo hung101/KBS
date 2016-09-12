@@ -19,7 +19,7 @@ class PembayaranInsentifAtletSearch extends PembayaranInsentifAtlet
     {
         return [
             [['pembayaran_insentif_atlet_id', 'pembayaran_insentif_id', 'negara', 'created_by', 'updated_by'], 'integer'],
-            [['session_id', 'created', 'updated', 'atlet'], 'safe'],
+            [['session_id', 'created', 'updated', 'atlet', 'acara'], 'safe'],
         ];
     }
 
@@ -42,7 +42,8 @@ class PembayaranInsentifAtletSearch extends PembayaranInsentifAtlet
     public function search($params)
     {
         $query = PembayaranInsentifAtlet::find()
-                ->joinWith(['refAtlet']);
+                ->joinWith(['refAtlet'])
+                ->joinWith(['refAcara']);
 
         // add conditions that should always apply here
 
@@ -71,7 +72,8 @@ class PembayaranInsentifAtletSearch extends PembayaranInsentifAtlet
         ]);
 
         $query->andFilterWhere(['like', 'session_id', $this->session_id])
-                ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet]);
+                ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet])
+                ->andFilterWhere(['like', 'tbl_ref_acara.desc', $this->acara]);
 
         return $dataProvider;
     }

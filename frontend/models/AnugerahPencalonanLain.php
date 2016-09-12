@@ -59,7 +59,7 @@ class AnugerahPencalonanLain extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['kategori', 'nama', 'no_tel_1'], 'required'],
+            [['kategori', 'nama', 'no_tel_1'], 'required', 'skipOnEmpty' => true],
             [['sumbangan_dalam_pencapaian', 'ulasan_justifikasi'], 'string'],
             [['created_by', 'updated_by'], 'integer'],
             [['created', 'updated'], 'safe'],

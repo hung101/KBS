@@ -18,7 +18,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanSearch extends BantuanPengan
     public function rules()
     {
         return [
-            [['bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id', 'bilangan_pasukan', 'bilangan_peserta', 'bilangan_pegawai_teknikal', 'bilangan_pembantu', 'created_by', 'updated_by'], 'integer'],
+            [['bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id', 'bantuan_penganjuran_kursus_pegawai_teknikal_id', 'bilangan_pasukan', 'bilangan_peserta', 'bilangan_pegawai_teknikal', 'bilangan_pembantu', 'created_by', 'updated_by'], 'integer'],
             [['tarikh', 'tempat', 'tujuan_kursus_kejohanan', 'laporan_bergambar', 'penyata_perbelanjaan_resit_yang_telah_disahkan', 'jadual_keputusan_pertandingan', 'senarai_peserta', 'statistik_penyertaan', 'senarai_pegawai_penceramah', 'senarai_urusetia_sukarelawan', 'created', 'updated'], 'safe'],
         ];
     }
@@ -60,6 +60,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanSearch extends BantuanPengan
         // grid filtering conditions
         $query->andFilterWhere([
             'bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id' => $this->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id,
+            'bantuan_penganjuran_kursus_pegawai_teknikal_id' => $this->bantuan_penganjuran_kursus_pegawai_teknikal_id,
             'tarikh' => $this->tarikh,
             'bilangan_pasukan' => $this->bilangan_pasukan,
             'bilangan_peserta' => $this->bilangan_peserta,

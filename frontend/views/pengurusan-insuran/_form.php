@@ -7,6 +7,10 @@ use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use kartik\datecontrol\DateControl;
+use yii\helpers\Url;
+use yii\grid\GridView;
+use yii\bootstrap\Modal;
+use yii\widgets\Pjax;
 
 // table reference
 use app\models\Atlet;
@@ -29,6 +33,14 @@ use app\models\general\GeneralMessage;
 <div class="pengurusan-insuran-form">
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
+    
+    <?php
+        if(!$readonly){
+            $template = '{view} {update} {delete}';
+        } else {
+            $template = '{view}';
+        }
+    ?>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
     <?php
@@ -61,7 +73,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::atlet],],
+                        'options' => ['placeholder' => Placeholder::atlet, 'id'=>'atletId'],],
                     'columnOptions'=>['colspan'=>6]],
                 'ic_no' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>12]],
             ],
@@ -174,8 +186,111 @@ use app\models\general\GeneralMessage;
 ]);
         ?>
     
+    <h3>Lampiran</h3>
+    
+    <?php 
+            Modal::begin([
+                'header' => '<h3 id="modalTitle"></h3>',
+                'id' => 'modal',
+                'size' => 'modal-lg',
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+                'options' => [
+                    'tabindex' => false // important for Select2 to work properly
+                ],
+            ]);
+            
+            echo '<div id="modalContent"></div>';
+            
+            Modal::end();
+        ?>
+    
+    <?php Pjax::begin(['id' => 'pengurusanInsuranLampiranGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPengurusanInsuranLampiran,
+        //'filterModel' => $searchModelPengurusanInsuranLampiran,
+        'id' => 'pengurusanInsuranLampiranGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'pengurusan_insuran_lampiran_id',
+            //'pengurusan_insuran_id',
+            //'lampiran',
+            [
+                'attribute' => 'lampiran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::lampiran,
+                ],
+                'format' => 'raw',
+                'value'=>function ($model) {
+                    if($model->lampiran){
+                        return Html::a(GeneralLabel::viewAttachment, 'javascript:void(0);', 
+                                        [ 
+                                            'onclick' => 'viewUpload("'.\Yii::$app->request->BaseUrl.'/' . $model->lampiran .'");'
+                                        ]);
+                    } else {
+                        return "";
+                    }
+                },
+            ],
+            //'session_id',
+            //'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['pengurusan-insuran-lampiran/delete', 'id' => $model->pengurusan_insuran_lampiran_id]).'", "'.GeneralMessage::confirmDelete.'", "pengurusanInsuranLampiranGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-insuran-lampiran/update', 'id' => $model->pengurusan_insuran_lampiran_id]).'", "'.GeneralLabel::updateTitle . ' Lampiran");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-insuran-lampiran/view', 'id' => $model->pengurusan_insuran_lampiran_id]).'", "'.GeneralLabel::viewTitle . ' Lampiran");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        $pengurusan_insuran_id = "";
+        
+        if(isset($model->pengurusan_insuran_id)){
+            $pengurusan_insuran_id = $model->pengurusan_insuran_id;
+        }
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-insuran-lampiran/create', 'pengurusan_insuran_id' => $pengurusan_insuran_id]).'", "'.GeneralLabel::createTitle . ' Lampiran");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
+    
     <?php // Lampiran
-    if($model->lampiran){
+    /*if($model->lampiran){
         echo "<label>" . $model->getAttributeLabel('lampiran') . "</label><br>";
         echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->lampiran , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
         if(!$readonly){
@@ -203,7 +318,7 @@ use app\models\general\GeneralMessage;
                 ],
             ]
         ]);
-    }
+    }*/
     ?>
     <br>
     
@@ -286,16 +401,8 @@ use app\models\general\GeneralMessage;
         ]);
     }
     ?>
-
-    <!--<?= $form->field($model, 'atlet_id')->textInput() ?>
-
-    <?= $form->field($model, 'nama_insuran')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'jumlah_tuntutan')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'tarikh_tuntutan')->textInput() ?>
-
-    <?= $form->field($model, 'pegawai_yang_bertanggungjawab')->textInput(['maxlength' => 80]) ?>-->
+    
+    
 
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -306,3 +413,38 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$URL = Url::to(['/atlet/get-atlet']);
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$script = <<< JS
+        
+$('#atletId').change(function(){
+    
+    $.get('$URL',{id:$(this).val()},function(data){
+        clearForm();
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+            $('#pengurusaninsuran-ic_no').val(data.ic_no);
+        
+            if(data.refAtletSukan[0] !== null){ 
+                $('#pengurusaninsuran-program').val(data.refAtletSukan[0].program_semasa).trigger("change");
+                $('#pengurusaninsuran-sukan').val(data.refAtletSukan[0].nama_sukan).trigger("change");
+            }
+        }
+    });
+});
+     
+function clearForm(){
+    $("#pengurusaninsuran-ic_no").val('');
+    $("#pengurusaninsuran-program").val('').trigger("change");
+    $("#pengurusaninsuran-sukan").val('').trigger("change");
+}
+        
+JS;
+        
+$this->registerJs($script);
+?>

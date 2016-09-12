@@ -11,15 +11,8 @@ use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
 
 // table reference
-use app\models\RefSukan;
-use app\models\RefJantina;
-use app\models\RefJenisBantuanSue;
-use app\models\RefBandar;
-use app\models\RefNegeri;
-use app\models\RefBangsa;
-use app\models\RefAgama;
-use app\models\RefStatusPermohonanSue;
-use app\models\RefNegara;
+use app\models\RefElemenBantuanPenganjuranKejohanan;
+use app\models\RefSubElemenBantuanPenganjuranKejohanan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -55,11 +48,11 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-bank/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-elemen-bantuan-penganjuran-kejohanan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefElemenBantuanPenganjuranKejohanan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::elemen],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -67,20 +60,26 @@ use app\models\general\GeneralVariable;
                     'columnOptions'=>['colspan'=>3]],
                 'sub_elemen' =>[
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
                     'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-bank/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::subElemen],
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/ref-sub-elemen-bantuan-penganjuran-kejohanan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                        ],
+                        'data'=>ArrayHelper::map(RefSubElemenBantuanPenganjuranKejohanan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options'=>['prompt'=>'',],
+                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
+                            'depends'=>[Html::getInputId($model, 'elemen_bantuan')],
+                            'placeholder' => Placeholder::subElemen,
+                            'url'=>Url::to(['/ref-sub-elemen-bantuan-penganjuran-kejohanan/sub-elemens'])],
+                        ],
                     'columnOptions'=>['colspan'=>3]],
                 
             ],
@@ -141,6 +140,27 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
      });
      return false;
 });
+
+$('#bantuanpenganjurankejohananelemen-kadar').on("keyup", function(){calculateJumlah();});
+$('#bantuanpenganjurankejohananelemen-bilangan').on("keyup", function(){calculateJumlah();});
+$('#bantuanpenganjurankejohananelemen-hari').on("keyup", function(){calculateJumlah();});
+        
+function calculateJumlah(){
+    var kadar = 0;
+    var bilangan = 0;
+    var hari = 0;
+    var jumlah = 0;
+        
+    if($('#bantuanpenganjurankejohananelemen-kadar').val() > 0){kadar = parseFloat($('#bantuanpenganjurankejohananelemen-kadar').val());}
+    if($('#bantuanpenganjurankejohananelemen-bilangan').val() > 0){bilangan = parseInt($('#bantuanpenganjurankejohananelemen-bilangan').val());}
+    if($('#bantuanpenganjurankejohananelemen-hari').val() > 0){hari = parseInt($('#bantuanpenganjurankejohananelemen-hari').val());}
+    
+    // Jumlah formula
+    jumlah = kadar * bilangan * hari;
+        
+    //display at fields accordingly
+    $('#bantuanpenganjurankejohananelemen-jumlah').val(jumlah);
+}  
      
 
 JS;

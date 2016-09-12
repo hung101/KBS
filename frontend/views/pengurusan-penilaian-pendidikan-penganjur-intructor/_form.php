@@ -41,7 +41,7 @@ use app\models\general\GeneralMessage;
         }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -63,15 +63,15 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(PengurusanPermohonanKursusPersatuan::find()->all(),'pengurusan_permohonan_kursus_persatuan_id', 'tarikh_kursus'),
+                        'data'=>ArrayHelper::map(PengurusanPermohonanKursusPersatuan::find()->all(),'pengurusan_permohonan_kursus_persatuan_id', 'agensi'),
                         'options' => ['placeholder' => Placeholder::tarikhKursus, 'id'=>'kursusId'],],
                     'columnOptions'=>['colspan'=>6]],
-                'nama_penganjuran_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+                'nama_penganjuran_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80,'value'=>'Kursus Pengurusan Sukan Kebangsaan (KPSK)', 'disabled'=>true]],
                 'kod_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
                  
             ],
         ],
-        /*[
+        [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -89,7 +89,7 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>3]],
                  
             ],
-        ],*/
+        ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -211,14 +211,6 @@ use app\models\general\GeneralMessage;
     
     <br>
 
-    <!--<?= $form->field($model, 'nama_penganjuran_kursus')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'kod_kursus')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'tarikh_kursus')->textInput() ?>
-
-    <?= $form->field($model, 'instructor')->textInput(['maxlength' => 80]) ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -231,6 +223,7 @@ use app\models\general\GeneralMessage;
 
 <?php
 $URLKursus = Url::to(['/pengurusan-permohonan-kursus-persatuan/get-kursus']);
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
 
 $script = <<< JS
         
@@ -245,7 +238,12 @@ $('#kursusId').change(function(){
             $('#pengurusanpenilaianpendidikanpenganjurintructor-nama_penyelaras').attr('value',data.nama);
             $('#pengurusanpenilaianpendidikanpenganjurintructor-kod_kursus').attr('value',data.kod_kursus);
             $('#pengurusanpenilaianpendidikanpenganjurintructor-tempat_kursus').attr('value',data.tempat);
-            $('#pengurusanpenilaianpendidikanpenganjurintructor-nama_penganjuran_kursus').attr('value',data.kursus);
+            //$('#pengurusanpenilaianpendidikanpenganjurintructor-nama_penganjuran_kursus').attr('value',data.kursus);
+            $("#pengurusanpenilaianpendidikanpenganjurintructor-tarikh_kursus-disp").val(formatDisplayDate(data.tarikh_kursus));
+            $("#pengurusanpenilaianpendidikanpenganjurintructor-tarikh_kursus").val(data.tarikh_kursus);
+            $("#pengurusanpenilaianpendidikanpenganjurintructor-tarikh_kursus").kvDatepicker("$DateDisplayFormat", new Date(data.tarikh_kursus)).kvDatepicker({
+                format: "$DateDisplayFormat"
+            });
         }
     });
 });
@@ -254,8 +252,17 @@ function clearForm(){
     $('#pengurusanpenilaianpendidikanpenganjurintructor-nama_penyelaras').attr('value','');
     $('#pengurusanpenilaianpendidikanpenganjurintructor-kod_kursus').attr('value','');
     $('#pengurusanpenilaianpendidikanpenganjurintructor-tempat_kursus').attr('value','');
-        $('#pengurusanpenilaianpendidikanpenganjurintructor-nama_penganjuran_kursus').attr('value','');
+    //$('#pengurusanpenilaianpendidikanpenganjurintructor-nama_penganjuran_kursus').attr('value','');
+    $('#pengurusanpenilaianpendidikanpenganjurintructor-tarikh_kursus').attr('value','');
+    $('#pengurusanpenilaianpendidikanpenganjurintructor-tarikh_kursus-disp').attr('value','');
 }
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
         
 JS;
         

@@ -42,7 +42,9 @@ class BantuanPenganjuranKejohananElemenSearch extends BantuanPenganjuranKejohana
      */
     public function search($params)
     {
-        $query = BantuanPenganjuranKejohananElemen::find();
+        $query = BantuanPenganjuranKejohananElemen::find()
+                ->joinWith(['refElemenBantuanPenganjuranKejohanan'])
+                ->joinWith(['refSubElemenBantuanPenganjuranKejohanan']);
 
         // add conditions that should always apply here
 

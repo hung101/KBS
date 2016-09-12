@@ -67,4 +67,11 @@ class BantuanPenganjuranKursusOlehMsn extends \yii\db\ActiveRecord
             'updated' => 'Updated',
         ];
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKelulusan(){
+        return $this->hasOne(RefKelulusan::className(), ['id' => 'laporan_dikemukakan']);
+    }
 }

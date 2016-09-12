@@ -3,7 +3,10 @@
 namespace app\models;
 
 use Yii;
-
+use yii\web\UploadedFile;
+use app\models\general\Upload;
+use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 /**
  * This is the model class for table "tbl_bantuan_penyertaan_pegawai_teknikal".
  *
@@ -63,19 +66,25 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['badan_sukan', 'sukan', 'no_pendaftaran', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_telefon', 'nama_bank', 'no_akaun', 'nama_kejohanan', 'peringkat', 'tarikh', 'tempat', 'tujuan', 'jumlah_bantuan_yang_dipohon', 'tarikh_permohonan'], 'required'],
+            [['badan_sukan', 'sukan', 'no_pendaftaran', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 
+                'no_telefon', 'nama_bank', 'no_akaun', 'nama_kejohanan', 'peringkat', 'tarikh', 'tempat', 'tujuan', 
+                'jumlah_bantuan_yang_dipohon', 'tarikh_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh', 'tarikh_permohonan', 'tarikh_jkb', 'created', 'updated'], 'safe'],
-            [['jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number'],
-            [['created_by', 'updated_by'], 'integer'],
-            [['badan_sukan', 'nama_bank', 'peringkat_lain_lain', 'tujuan', 'jkb', 'negara'], 'string', 'max' => 80],
-            [['sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun', 'peringkat', 'status_permohonan'], 'string', 'max' => 30],
-            [['alamat_negeri'], 'string', 'max' => 3],
-            [['alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5],
-            [['no_telefon', 'no_faks'], 'string', 'max' => 14],
-            [['laman_sesawang', 'facebook', 'twitter'], 'string', 'max' => 100],
-            [['tujuan', 'nama_kejohanan'], 'string', 'max' => 255],
-            [['tempat'], 'string', 'max' => 90],
-            [['surat_rasmi_badan_sukan_ms_negeri', 'surat_jemputan_lantikan_daripada_pengelola', 'butiran_perbelanjaan', 'salinan_passport', 'maklumat_lain_sokongan', 'catatan'], 'string', 'max' => 255],
+            [['jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['badan_sukan', 'nama_bank', 'peringkat_lain_lain', 'tujuan', 'jkb', 'negara'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun', 'peringkat', 'status_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_negeri'], 'string', 'max' => 3, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['laman_sesawang', 'facebook', 'twitter'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tujuan', 'nama_kejohanan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['surat_rasmi_badan_sukan_ms_negeri', 'surat_jemputan_lantikan_daripada_pengelola', 'butiran_perbelanjaan', 
+                'salinan_passport', 'maklumat_lain_sokongan', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
+            [['surat_rasmi_badan_sukan_ms_negeri', 'surat_jemputan_lantikan_daripada_pengelola', 'butiran_perbelanjaan', 
+                'salinan_passport', 'maklumat_lain_sokongan'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -104,7 +113,7 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
             'no_akaun' => 'No. Akaun',
             'nama_kejohanan' => 'Nama Kejohanan',
             'peringkat' => 'Peringkat',
-            'peringkat_lain_lain' => 'Peringkat Lain Lain',
+            'peringkat_lain_lain' => 'Nyatakan (Jika Lain-lain)',
             'tarikh' => 'Tarikh Mula',
             'tempat' => 'Tempat',
             'tujuan' => 'Tujuan',
@@ -113,12 +122,12 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
             'butiran_perbelanjaan' => 'Butiran Perbelanjaan',
             'salinan_passport' => 'Salinan Passport',
             'maklumat_lain_sokongan' => 'Maklumat Lain (Sokongan)',
-            'jumlah_bantuan_yang_dipohon' => 'Jumlah Bantuan Yang Dipohon',
+            'jumlah_bantuan_yang_dipohon' => 'Jumlah Bantuan Yang Dipohon (RM)',
             'status_permohonan' => 'Status Permohonan',
             'catatan' => 'Catatan',
             'tarikh_permohonan' => 'Tarikh Permohonan',
-            'jumlah_dilulus' => 'Jumlah Dilulus',
-            'jkb' => 'JKB',
+            'jumlah_dilulus' => 'Jumlah Dilulus (RM)',
+            'jkb' => 'Bil. JKB',
             'tarikh_jkb' => 'Tarikh JKB',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
@@ -127,5 +136,37 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
             'tarikh_tamat' => 'Tarikh Tamat',
             'negara' => 'Negara',
         ];
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefProfilBadanSukan(){
+        return $this->hasOne(ProfilBadanSukan::className(), ['profil_badan_sukan' => 'badan_sukan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusBantuanPenyertaanPegawaiTeknikal(){
+        return $this->hasOne(RefStatusBantuanPenyertaanPegawaiTeknikal::className(), ['id' => 'status_permohonan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSukan(){
+        return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
     }
 }

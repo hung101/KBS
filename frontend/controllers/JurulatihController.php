@@ -363,7 +363,7 @@ class JurulatihController extends Controller
     }
     
     public function actionGetJurulatih($id){
-        // find Ahli Jawatankuasa Induk
+        // find Jurulatih
         $model = Jurulatih::findOne($id);
         
         echo Json::encode($model);

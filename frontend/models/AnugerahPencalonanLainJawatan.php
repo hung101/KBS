@@ -35,7 +35,7 @@ class AnugerahPencalonanLainJawatan extends \yii\db\ActiveRecord
     {
         return [
             [['anugerah_pencalonan_lain_id', 'created_by', 'updated_by'], 'integer'],
-            [['jawatan', 'nama_persatuan_pertubuhan', 'tempoh'], 'required'],
+            [['jawatan', 'nama_persatuan_pertubuhan', 'tempoh'], 'required', 'skipOnEmpty' => true],
             [['tempoh', 'created', 'updated'], 'safe'],
             [['jawatan'], 'string', 'max' => 80],
             [['nama_persatuan_pertubuhan', 'session_id'], 'string', 'max' => 100],

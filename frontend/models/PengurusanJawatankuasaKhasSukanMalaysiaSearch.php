@@ -18,8 +18,8 @@ class PengurusanJawatankuasaKhasSukanMalaysiaSearch extends PengurusanJawatankua
     public function rules()
     {
         return [
-            [['pengurusan_jawatankuasa_khas_sukan_malaysia_id', 'jawatankuasa', 'created_by', 'updated_by'], 'integer'],
-            [['temasya', 'tarikh_mula', 'tarikh_tamat', 'created', 'updated'], 'safe'],
+            [['pengurusan_jawatankuasa_khas_sukan_malaysia_id', 'created_by', 'updated_by'], 'integer'],
+            [['temasya', 'tarikh_mula', 'tarikh_tamat', 'created', 'updated', 'jawatankuasa'], 'safe'],
         ];
     }
 
@@ -58,8 +58,8 @@ class PengurusanJawatankuasaKhasSukanMalaysiaSearch extends PengurusanJawatankua
 
         $query->andFilterWhere([
             'pengurusan_jawatankuasa_khas_sukan_malaysia_id' => $this->pengurusan_jawatankuasa_khas_sukan_malaysia_id,
-            'tarikh_mula' => $this->tarikh_mula,
-            'tarikh_tamat' => $this->tarikh_tamat,
+            //'tarikh_mula' => $this->tarikh_mula,
+            //'tarikh_tamat' => $this->tarikh_tamat,
             //'jawatankuasa' => $this->jawatankuasa,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -68,7 +68,9 @@ class PengurusanJawatankuasaKhasSukanMalaysiaSearch extends PengurusanJawatankua
         ]);
 
         $query->andFilterWhere(['like', 'temasya', $this->temasya])
-                ->andFilterWhere(['like', 'tbl_ref_jawatankuasa_khas.desc', $this->jawatankuasa]);
+                ->andFilterWhere(['like', 'tbl_ref_jawatankuasa_khas.desc', $this->jawatankuasa])
+                ->andFilterWhere(['like', 'tarikh_mula', $this->tarikh_mula])
+                ->andFilterWhere(['like', 'tarikh_tamat', $this->tarikh_tamat]);
 
         return $dataProvider;
     }

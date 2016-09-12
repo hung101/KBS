@@ -19,7 +19,8 @@ class BantuanPentadbiranPejabatSearch extends BantuanPentadbiranPejabat
     {
         return [
             [['bantuan_pentadbiran_pejabat_id'], 'integer'],
-            [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'status_permohonan', 'catatan'], 'safe'],
+            [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 
+                'status_permohonan', 'catatan', 'persatuan', 'jawatan'], 'safe'],
         ];
     }
 
@@ -42,7 +43,9 @@ class BantuanPentadbiranPejabatSearch extends BantuanPentadbiranPejabat
     public function search($params)
     {
         $query = BantuanPentadbiranPejabat::find()
-                ->joinWith(['refStatusPermohonanBantuanPentadbiranPejabat']);
+                ->joinWith(['refStatusPermohonanBantuanPentadbiranPejabat'])
+                ->joinWith(['refProfilBadanSukan'])
+                ->joinWith(['refJawatanBantuanPentadbiranPejabat']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -71,7 +74,9 @@ class BantuanPentadbiranPejabatSearch extends BantuanPentadbiranPejabat
             ->andFilterWhere(['like', 'alamat_poskod', $this->alamat_poskod])
             ->andFilterWhere(['like', 'no_tel_bimbit', $this->no_tel_bimbit])
             ->andFilterWhere(['like', 'tbl_ref_status_permohonan_bantuan_pentadbiran_pejabat.desc', $this->status_permohonan])
-            ->andFilterWhere(['like', 'catatan', $this->catatan]);
+            ->andFilterWhere(['like', 'catatan', $this->catatan])
+                ->andFilterWhere(['like', 'tbl_profil_badan_sukan.nama_badan_sukan', $this->persatuan])
+                ->andFilterWhere(['like', 'tbl_ref_jawatan_bantuan_pentadbiran_pejabat.desc', $this->jawatan]);
 
         return $dataProvider;
     }

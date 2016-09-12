@@ -47,12 +47,20 @@ $this->params['breadcrumbs'][] = $this->title;
             //'pembayaran_insentif_id',
             //'kejohanan',
             [
+                'attribute' => 'nama_kejohanan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_kejohanan,
+                ],
+                'value' => 'refPerancanganProgram.nama_program'
+            ],
+            /*[
                 'attribute' => 'kejohanan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kejohanan,
                 ],
-            ],
+            ],*/
             //'jenis_insentif',
             [
                 'attribute' => 'jenis_insentif',
@@ -72,14 +80,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'refPingatInsentif.desc'
             ],
             //'kumpulan_temasya_kejohanan',
-            [
+            /*[
                 'attribute' => 'kumpulan_temasya_kejohanan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kumpulan_temasya_kejohanan,
                 ],
                 'value' => 'refPengurusanInsentifTetapanShakamShakar.kumpulan_temasya_kejohanan'
-            ],
+            ],*/
             // 'rekod_baharu',
             //'jumlah',
             [

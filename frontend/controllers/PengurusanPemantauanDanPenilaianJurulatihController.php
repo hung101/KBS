@@ -10,6 +10,7 @@ use frontend\models\PengurusanPenilaianKategoriJurulatihSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Session;
 
 // contant values
 use app\models\general\GeneralVariable;
@@ -47,6 +48,13 @@ class PengurusanPemantauanDanPenilaianJurulatihController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $session = new Session;
+        $session->open();
+        
+        $session->remove('penilaian_oleh_id');
+        
+        $session->close();
+        
         $searchModel = new PengurusanPemantauanDanPenilaianJurulatihSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -67,6 +75,13 @@ class PengurusanPemantauanDanPenilaianJurulatihController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $session = new Session;
+        $session->open();
+        
+        $session->remove('penilaian_oleh_id');
+        
+        $session->close();
+        
         $model = $this->findModel($id);
         
         $ref = Jurulatih::findOne(['jurulatih_id' => $model->nama_jurulatih_dinilai]);
@@ -78,6 +93,7 @@ class PengurusanPemantauanDanPenilaianJurulatihController extends Controller
         $ref = RefAcara::findOne(['id' => $model->nama_acara]);
         $model->nama_acara = $ref['desc'];
         
+        $model->penilaian_oleh_id = $model->penilaian_oleh;
         $ref = RefPenilaianJurulatih::findOne(['id' => $model->penilaian_oleh]);
         $model->penilaian_oleh = $ref['desc'];
         
@@ -149,6 +165,13 @@ class PengurusanPemantauanDanPenilaianJurulatihController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $session = new Session;
+        $session->open();
+        
+        $session->remove('penilaian_oleh_id');
+        
+        $session->close();
+        
         $model = $this->findModel($id);
         
         $queryPar = null;
@@ -201,5 +224,15 @@ class PengurusanPemantauanDanPenilaianJurulatihController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionSetPernilaianOleh($penilaian_oleh_id){
+        
+        $session = new Session;
+        $session->open();
+
+        $session['penilaian_oleh_id'] = $penilaian_oleh_id;
+        
+        $session->close();
     }
 }

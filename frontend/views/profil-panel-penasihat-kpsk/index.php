@@ -76,6 +76,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refJantina.desc'
             ],
+            [
+                'attribute' => 'pengkhususan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pengkhususan,
+                ]
+            ],
             // 'alamat_1',
             // 'alamat_2',
             // 'alamat_3',

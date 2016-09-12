@@ -12,13 +12,15 @@ use app\models\ProfilBadanSukan;
  */
 class ProfilBadanSukanSearch extends ProfilBadanSukan
 {
+    public $status_id;
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['profil_badan_sukan', 'no_telefon_pejabat', 'no_faks_pejabat'], 'integer'],
+            [['profil_badan_sukan', 'no_telefon_pejabat', 'no_faks_pejabat', 'status_id'], 'integer'],
             [['nama_badan_sukan', 'nama_badan_sukan_sebelum_ini', 'no_pendaftaran_sijil_pendaftaran', 'tarikh_lulus_pendaftaran', 'jenis_sukan', 
                 'alamat_tetap_badan_sukan_1', 'alamat_surat_menyurat_badan_sukan_1', 'emel_badan_sukan', 'pengiktirafan_yang_pernah_diterima_badan_sukan',
                 'status'], 'safe'],
@@ -63,6 +65,7 @@ class ProfilBadanSukanSearch extends ProfilBadanSukan
             //'tarikh_lulus_pendaftaran' => $this->tarikh_lulus_pendaftaran,
             'no_telefon_pejabat' => $this->no_telefon_pejabat,
             'no_faks_pejabat' => $this->no_faks_pejabat,
+            'status' => $this->status_id,
         ]);
 
         $query->andFilterWhere(['like', 'nama_badan_sukan', $this->nama_badan_sukan])

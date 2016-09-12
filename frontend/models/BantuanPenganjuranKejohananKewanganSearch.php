@@ -42,7 +42,8 @@ class BantuanPenganjuranKejohananKewanganSearch extends BantuanPenganjuranKejoha
      */
     public function search($params)
     {
-        $query = BantuanPenganjuranKejohananKewangan::find();
+        $query = BantuanPenganjuranKejohananKewangan::find()
+                ->joinWith(['refSumberKewanganBantuanPenganjuranKejohanan']);
 
         // add conditions that should always apply here
 

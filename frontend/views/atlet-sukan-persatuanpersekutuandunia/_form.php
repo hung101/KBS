@@ -96,7 +96,7 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
                         'data'=>ArrayHelper::map(ProfilBadanSukan::find()->where(['=', 'status', RefStatusLaporanMesyuaratAgung::DISAHKAN])->all(),'profil_badan_sukan', 'nama_badan_sukan'),
-                        'options' => ['placeholder' => Placeholder::persatuan],
+                        'options' => ['placeholder' => Placeholder::persatuan, 'id'=>'persatuanId'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -180,26 +180,6 @@ use app\models\general\GeneralVariable;
 ]);
     ?>
 
-    <!--<?= $form->field($model, 'atlet_id')->textInput() ?>
-
-    <?= $form->field($model, 'jenis')->dropDownList(
-                        [''=>'-- Pilih Jenis --'],
-                        ['prompt'=>'-- Pilih Jenis --']
-                        ) ?>
-
-    <?= $form->field($model, 'name_persatuan_persekutuan_dunia')->dropDownList(
-                        [''=>'-- Pilih Nama Persatuan / Persekutuan Dunia --'],
-                        ['prompt'=>'-- Pilih Nama Persatuan / Persekutuan Dunia --']
-                        ) ?>
-
-    <?= $form->field($model, 'alamat_1')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'no_telefon')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'emel')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'laman_web')->textInput(['maxlength' => 120]) ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -210,3 +190,53 @@ use app\models\general\GeneralVariable;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$URL = Url::to(['/profil-badan-sukan/get-badan-sukan']);
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+$formID = GeneralVariable::formAtletSukanPersatuanpersekutuanduniaID;
+
+$script = <<< JS
+ 
+$('form#{$formID}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$formID} input").prop("disabled", false);
+});
+        
+$('#persatuanId').change(function(){
+    
+    $.get('$URL',{id:$(this).val()},function(data){
+        clearForm();
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+            $('#atletsukanpersatuanpersekutuandunia-alamat_1').attr('value',data.alamat_tetap_badan_sukan_1);
+            $('#atletsukanpersatuanpersekutuandunia-alamat_2').attr('value',data.alamat_tetap_badan_sukan_2);
+            $('#atletsukanpersatuanpersekutuandunia-alamat_3').attr('value',data.alamat_tetap_badan_sukan_3);
+            $('#atletsukanpersatuanpersekutuandunia-alamat_negeri').val(data.alamat_tetap_badan_sukan_negeri).trigger("change");
+            $('#atletsukanpersatuanpersekutuandunia-alamat_bandar').val(data.alamat_tetap_badan_sukan_bandar).trigger("change");
+            $('#atletsukanpersatuanpersekutuandunia-alamat_poskod').attr('value',data.alamat_tetap_badan_sukan_poskod);
+            $('#atletsukanpersatuanpersekutuandunia-no_telefon').attr('value',data.no_telefon_pejabat);
+            $('#atletsukanpersatuanpersekutuandunia-emel').attr('value',data.emel_badan_sukan);
+        }
+    });
+});
+     
+function clearForm(){
+    $('#atletsukanpersatuanpersekutuandunia-alamat_1').attr('value','');
+    $('#atletsukanpersatuanpersekutuandunia-alamat_2').attr('value','');
+    $('#atletsukanpersatuanpersekutuandunia-alamat_3').attr('value','');
+    $('#atletsukanpersatuanpersekutuandunia-alamat_negeri').val('').trigger("change");
+    $('#atletsukanpersatuanpersekutuandunia-alamat_bandar').val('').trigger("change");
+    $('#atletsukanpersatuanpersekutuandunia-alamat_poskod').attr('value','');
+    $('#atletsukanpersatuanpersekutuandunia-no_telefon').attr('value','');
+    $('#atletsukanpersatuanpersekutuandunia-emel').attr('value','');
+}
+        
+JS;
+        
+$this->registerJs($script);
+?>

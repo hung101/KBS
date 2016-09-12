@@ -53,11 +53,11 @@ class PertukaranPengajian extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'program', 'sukan', 'sebab_pemohonan', 'kategori_pengajian', 'nama_pengajian_sekarang', 'nama_pertukaran_pengajian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'program', 'sukan', 'sebab_pemohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id', 'status_permohonan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh', 'tarikh_akhir', 'tarikh_permohonan'], 'safe'],
             [['sebab_pemohonan', 'sebab_pertukaran', 'sebab_penangguhan', 'sebab'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['kategori_pengajian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kategori_pengajian'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_pengajian_sekarang', 'nama_pertukaran_pengajian', 'kejohanan_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
@@ -72,7 +72,7 @@ class PertukaranPengajian extends \yii\db\ActiveRecord
             'pertukaran_pengajian_id' => GeneralLabel::pertukaran_pengajian_id,
             'atlet_id' => GeneralLabel::atlet_id,
             'sebab_pemohonan' => GeneralLabel::jenis_permohonan,
-            'kategori_pengajian' => GeneralLabel::kategori_pengajian,
+            'kategori_pengajian' => 'Fakulti Pengajian',
             'nama_pengajian_sekarang' => GeneralLabel::nama_pengajian_sekarang,
             'nama_pertukaran_pengajian' => 'Nama Institusi Pengajian (Baru)',
             'sebab_pertukaran' => GeneralLabel::sebab_pertukaran,
@@ -83,7 +83,7 @@ class PertukaranPengajian extends \yii\db\ActiveRecord
             'tarikh' => 'Tarikh Mula Pelepasan',
             'tarikh_akhir' => 'Tarikh Akhir Pelepasan',
             'tempat' => GeneralLabel::tempat,
-            'sebab' => 'Sebab Permohonan',
+            'sebab' => 'No Matrik',
         ];
     }
     
@@ -106,5 +106,26 @@ class PertukaranPengajian extends \yii\db\ActiveRecord
      */
     public function getRefSebabPermohonanPertukaranPengajian(){
         return $this->hasOne(RefSebabPermohonanPertukaranPengajian::className(), ['id' => 'sebab_pemohonan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusPermohonanPendidikan(){
+        return $this->hasOne(RefStatusPermohonanPendidikan::className(), ['id' => 'status_permohonan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefProgramSemasaSukanAtlet(){
+        return $this->hasOne(RefProgramSemasaSukanAtlet::className(), ['id' => 'program']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSukan(){
+        return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
     }
 }

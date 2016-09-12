@@ -41,7 +41,8 @@ class AnugerahPencalonanPasukanPemainSearch extends AnugerahPencalonanPasukanPem
      */
     public function search($params)
     {
-        $query = AnugerahPencalonanPasukanPemain::find();
+        $query = AnugerahPencalonanPasukanPemain::find()
+                ->joinWith(['refAtlet']);
 
         // add conditions that should always apply here
 
@@ -67,7 +68,7 @@ class AnugerahPencalonanPasukanPemainSearch extends AnugerahPencalonanPasukanPem
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'nama_pemain', $this->nama_pemain])
+        $query->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->nama_pemain])
             ->andFilterWhere(['like', 'session_id', $this->session_id]);
 
         return $dataProvider;

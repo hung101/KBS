@@ -62,4 +62,11 @@ class BantuanPenganjuranKejohananBayaran extends \yii\db\ActiveRecord
             'updated' => 'Updated',
         ];
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJenisBayaranBantuanPenganjuranKejohanan(){
+        return $this->hasOne(RefJenisBayaranBantuanPenganjuranKejohanan::className(), ['id' => 'jenis_bayaran']);
+    }
 }

@@ -117,6 +117,13 @@ use app\models\general\GeneralMessage;
                 // 'tarikh_temujanji' => ['type'=>Form::INPUT_WIDGET, 'widgetClass'=>'\kartik\widgets\DatePicker','columnOptions'=>['colspan'=>3]],
             ],
         ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'lain_lain_nyatakan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+            ],
+        ],
     ]
 ]);
     ?>

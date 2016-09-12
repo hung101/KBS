@@ -65,12 +65,12 @@ class PengurusanPermohonanKursusPersatuan extends \yii\db\ActiveRecord
     {
         return [
             [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 
-                'kelayakan_akademi', 'perkerjaan', 'nama_majikan', 'yuran_program', 'kelulusan', 'agensi', 'kursus', 'tahap',
-                'tarikh_kursus', 'tempat', 'no_perhubungan', 'bilangan_peserta', 'jumlah_yuran', 'nama_penganjur'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_lahir', 'tarikh_kursus', 'tarikh_kelulusan'], 'safe'],
+                'kelayakan_akademi', 'perkerjaan', 'nama_majikan', 'yuran_program', 'agensi', 'kursus', 'tahap',
+                'tarikh_kursus', 'tarikh_tamat_kursus', 'tempat', 'no_perhubungan', 'bilangan_peserta', 'jumlah_yuran', 'nama_penganjur'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh_lahir', 'tarikh_kursus', 'tarikh_tamat_kursus', 'tarikh_kelulusan'], 'safe'],
             [['yuran_program', 'jumlah_yuran', 'jumlah_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['kelulusan', 'tahap', 'bilangan_peserta', 'no_perhubungan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['nama', 'kelayakan_akademi', 'perkerjaan', 'nama_majikan', 'agensi', 'kursus', 'nama_penganjur'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama', 'kelayakan_akademi', 'perkerjaan', 'nama_majikan', 'agensi', 'kursus', 'nama_penganjur', 'jawatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -101,7 +101,7 @@ class PengurusanPermohonanKursusPersatuan extends \yii\db\ActiveRecord
             'alamat_negeri' => GeneralLabel::alamat_negeri,
             'alamat_bandar' => GeneralLabel::alamat_bandar,
             'alamat_poskod' => GeneralLabel::alamat_poskod,
-            'no_tel_bimbit' => GeneralLabel::no_tel_bimbit,
+            'no_tel_bimbit' => GeneralLabel::no_tel_pejabat,
             'emel' => GeneralLabel::emel,
             'facebook' => GeneralLabel::facebook,
             'kelayakan_akademi' => GeneralLabel::kelayakan_akademi,
@@ -112,7 +112,8 @@ class PengurusanPermohonanKursusPersatuan extends \yii\db\ActiveRecord
             'agensi' => GeneralLabel::agensi,
             'kursus' => GeneralLabel::kursus,
             'tahap' => GeneralLabel::tahap,
-            'tarikh_kursus' => GeneralLabel::tarikh_kursus,
+            'tarikh_kursus' => GeneralLabel::tarikh_mula_kursus,
+            'tarikh_tamat_kursus' => GeneralLabel::tarikh_tamat_kursus,
             'tempat' => GeneralLabel::tempat,
             'no_perhubungan' => GeneralLabel::no_perhubungan,
             'bilangan_peserta' => GeneralLabel::bilangan_peserta,
@@ -121,6 +122,7 @@ class PengurusanPermohonanKursusPersatuan extends \yii\db\ActiveRecord
             'tarikh_kelulusan' => GeneralLabel::tarikh_kelulusan,
             'jumlah_diluluskan' => GeneralLabel::jumlah_diluluskan,
             'catatan' => GeneralLabel::catatan,
+            'jawatan' => GeneralLabel::jawatan,
         ];
     }
     

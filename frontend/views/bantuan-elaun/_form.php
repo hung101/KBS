@@ -47,7 +47,7 @@ use app\models\general\GeneralVariable;
     }
     ?>
     
-    <?php echo $form->errorSummary($model); ?>
+    <?php //echo $form->errorSummary($model); ?>
     
     <?php
         echo FormGrid::widget([
@@ -70,7 +70,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJenisBantuanSue::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefJenisBantuanSue::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jenisBantuan],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -161,7 +161,7 @@ use app\models\general\GeneralVariable;
                     'columns'=>12,
                     'autoGenerateColumns'=>false, // override columns setting
                     'attributes' => [
-                        'muatnaik_gambar' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>['accept' => 'image/*'], 'pluginOptions' => ['previewFileType' => 'image']],
+                        'muatnaik_gambar' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>['accept' => 'image/*'], 'pluginOptions' => ['previewFileType' => 'image'], 'hint'=>'Gambar berukuran passport latar belakang putih'],
                     ],
                 ],
             ]
@@ -213,7 +213,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJantina::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefJantina::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jantina],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -230,7 +230,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefNegara::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefNegara::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kewarganegara],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -253,7 +253,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefBangsa::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefBangsa::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::bangsa],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -270,7 +270,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefAgama::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefAgama::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::agama],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -293,13 +293,13 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefKelayakanAkademik::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefKelayakanAkademik::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kelayakanAkademik],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>5]],
-                'kursus' => [
+                /*'kursus' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -310,12 +310,14 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefKursusBantuanElaun::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefKursusBantuanElaun::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kursus],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>4]],*/
+                 'kursus' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30], 'columnOptions'=>['colspan'=>4]],
+                
             ],
         ],
         [
@@ -348,7 +350,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::negeri],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -368,7 +370,7 @@ use app\models\general\GeneralVariable;
                                 ]
                             ] : null,
                         ],
-                        'data'=>ArrayHelper::map(RefBandar::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefBandar::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
                         'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
@@ -428,7 +430,9 @@ use app\models\general\GeneralVariable;
         
     ?>
     
-    <?php
+    <div class="row">
+        <div class="col-sm-3">
+             <?php
         echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
@@ -442,6 +446,19 @@ use app\models\general\GeneralVariable;
                 'jumlah_elaun' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
             ]
         ],
+    ]
+]);
+        ?>
+        </div>
+    </div>
+    
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
          [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -453,7 +470,7 @@ use app\models\general\GeneralVariable;
 ]);
         ?>
     
-    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-elaun']['status_permohonan']) || $readonly): ?>
+    <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-elaun']['status_permohonan']) || $readonly) && !$model->isNewRecord): ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -475,7 +492,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefStatusPermohonanSue::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefStatusPermohonanSue::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::statusPermohonan],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -490,7 +507,7 @@ use app\models\general\GeneralVariable;
 
     <div class="form-group">
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::send : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?php endif; ?>
     </div>
 

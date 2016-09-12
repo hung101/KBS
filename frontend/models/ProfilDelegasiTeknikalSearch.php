@@ -42,7 +42,8 @@ class ProfilDelegasiTeknikalSearch extends ProfilDelegasiTeknikal
     public function search($params)
     {
         $query = ProfilDelegasiTeknikal::find()
-                ->joinWith(['refNegeri']);
+                ->joinWith(['refNegeri'])
+                 ->joinWith(['refSukan']);
 
         // add conditions that should always apply here
 
@@ -61,8 +62,8 @@ class ProfilDelegasiTeknikalSearch extends ProfilDelegasiTeknikal
         // grid filtering conditions
         $query->andFilterWhere([
             'profil_delegasi_teknikal_id' => $this->profil_delegasi_teknikal_id,
-            'tarikh_mula' => $this->tarikh_mula,
-            'tarikh_tamat' => $this->tarikh_tamat,
+            //'tarikh_mula' => $this->tarikh_mula,
+            //'tarikh_tamat' => $this->tarikh_tamat,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created' => $this->created,
@@ -71,7 +72,7 @@ class ProfilDelegasiTeknikalSearch extends ProfilDelegasiTeknikal
 
         $query->andFilterWhere(['like', 'temasya', $this->temasya])
             ->andFilterWhere(['like', 'tbl_ref_negeri.desc', $this->negeri])
-            ->andFilterWhere(['like', 'sukan', $this->sukan])
+            ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
             ->andFilterWhere(['like', 'peringkat', $this->peringkat])
             ->andFilterWhere(['like', 'nama_badan_sukan', $this->nama_badan_sukan])
             ->andFilterWhere(['like', 'alamat_1', $this->alamat_1])
@@ -79,7 +80,8 @@ class ProfilDelegasiTeknikalSearch extends ProfilDelegasiTeknikal
             ->andFilterWhere(['like', 'alamat_3', $this->alamat_3])
             ->andFilterWhere(['like', 'alamat_negeri', $this->alamat_negeri])
             ->andFilterWhere(['like', 'alamat_bandar', $this->alamat_bandar])
-            ->andFilterWhere(['like', 'alamat_poskod', $this->alamat_poskod]);
+            ->andFilterWhere(['like', 'tarikh_mula', $this->tarikh_mula])
+                ->andFilterWhere(['like', 'tarikh_tamat', $this->tarikh_tamat]);
 
         return $dataProvider;
     }

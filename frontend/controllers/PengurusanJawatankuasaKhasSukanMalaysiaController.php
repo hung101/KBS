@@ -16,6 +16,9 @@ use yii\helpers\BaseUrl;
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
 
+use app\models\RefJawatankuasaKhas;
+use app\models\RefNegeri;
+
 /**
  * PengurusanJawatankuasaKhasSukanMalaysiaController implements the CRUD actions for PengurusanJawatankuasaKhasSukanMalaysia model.
  */
@@ -63,6 +66,14 @@ class PengurusanJawatankuasaKhasSukanMalaysiaController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $model = $this->findModel($id);
+        
+        $ref = RefJawatankuasaKhas::findOne(['id' => $model->jawatankuasa]);
+        $model->jawatankuasa = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->negeri]);
+        $model->negeri = $ref['desc'];
+        
         $queryPar = null;
         
         $queryPar['PengurusanJawatankuasaKhasSukanMalaysiaAhliSearch']['pengurusan_jawatankuasa_khas_sukan_malaysia_id'] = $id;
@@ -71,7 +82,7 @@ class PengurusanJawatankuasaKhasSukanMalaysiaController extends Controller
         $dataProviderPengurusanJawatankuasaKhasSukanMalaysiaAhli = $searchModelPengurusanJawatankuasaKhasSukanMalaysiaAhli->search($queryPar);
         
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'searchModelPengurusanJawatankuasaKhasSukanMalaysiaAhli' => $searchModelPengurusanJawatankuasaKhasSukanMalaysiaAhli,
             'dataProviderPengurusanJawatankuasaKhasSukanMalaysiaAhli' => $dataProviderPengurusanJawatankuasaKhasSukanMalaysiaAhli,
             'readonly' => true,

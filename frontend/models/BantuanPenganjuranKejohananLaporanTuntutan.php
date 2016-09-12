@@ -3,6 +3,10 @@
 namespace app\models;
 
 use Yii;
+use yii\web\UploadedFile;
+use app\models\general\Upload;
+use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 
 /**
  * This is the model class for table "tbl_bantuan_penganjuran_kejohanan_laporan_tuntutan".
@@ -40,14 +44,14 @@ class BantuanPenganjuranKejohananLaporanTuntutan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['bantuan_penganjuran_kejohanan_laporan_id', 'created_by', 'updated_by'], 'integer'],
-            [['kejohanan', 'tarikh_mula', 'tarikh_tamat', 'tempat', 'jumlah_kelulusan', 'pendahuluan_80', 'jumlah_yang_dituntut_20'], 'required'],
+            [['bantuan_penganjuran_kejohanan_laporan_id', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['kejohanan', 'tarikh_mula', 'tarikh_tamat', 'tempat', 'jumlah_kelulusan', 'pendahuluan_80', 'jumlah_yang_dituntut_20'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_mula', 'tarikh_tamat', 'created', 'updated'], 'safe'],
-            [['jumlah_kelulusan', 'pendahuluan_80', 'jumlah_yang_dituntut_20'], 'number'],
-            [['kejohanan'], 'string', 'max' => 80],
-            [['tempat'], 'string', 'max' => 90],
-            [['no_cek', 'no_boucer'], 'string', 'max' => 50],
-            [['session_id'], 'string', 'max' => 100],
+            [['jumlah_kelulusan', 'pendahuluan_80', 'jumlah_yang_dituntut_20'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['kejohanan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_cek', 'no_boucer'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
 

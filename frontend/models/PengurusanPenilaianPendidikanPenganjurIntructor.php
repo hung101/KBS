@@ -66,7 +66,7 @@ class PengurusanPenilaianPendidikanPenganjurIntructor extends \yii\db\ActiveReco
     {
         return [
             'pengurusan_penilaian_pendidikan_penganjur_intructor_id' => GeneralLabel::pengurusan_penilaian_pendidikan_penganjur_intructor_id,
-            'pengurusan_permohonan_kursus_persatuan_id' => GeneralLabel::tarikh_kursus,
+            'pengurusan_permohonan_kursus_persatuan_id' => GeneralLabel::agensi,
             'nama_penganjuran_kursus' => GeneralLabel::nama_kursus,
             'kod_kursus' => GeneralLabel::kod_kursus,
             'tarikh_kursus' => GeneralLabel::tarikh_kursus,
@@ -74,5 +74,12 @@ class PengurusanPenilaianPendidikanPenganjurIntructor extends \yii\db\ActiveReco
             'nama_penyelaras' => GeneralLabel::nama_penyelaras,
             'tempat_kursus' => GeneralLabel::tempat_kursus,
         ];
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefPengurusanPermohonanKursusPersatuan(){
+        return $this->hasOne(PengurusanPermohonanKursusPersatuan::className(), ['pengurusan_permohonan_kursus_persatuan_id' => 'pengurusan_permohonan_kursus_persatuan_id']);
     }
 }

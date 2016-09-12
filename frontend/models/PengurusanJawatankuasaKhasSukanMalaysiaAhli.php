@@ -63,7 +63,7 @@ class PengurusanJawatankuasaKhasSukanMalaysiaAhli extends \yii\db\ActiveRecord
             [['nama', 'created', 'updated'], 'safe'],
             [['jawatan', 'agensi_organisasi', 'negeri', 'created_by', 'updated_by'], 'integer'],
             [['jenis_keahlian'], 'string', 'max' => 11],
-            [['jenis_keahlian_nyatakan', 'agensi_organisasi_nyatakan'], 'string', 'max' => 80],
+            [['jenis_keahlian_nyatakan', 'agensi_organisasi_nyatakan', 'jawatan_lain_lain'], 'string', 'max' => 80],
             [['session_id'], 'string', 'max' => 100],
         ];
     }
@@ -87,6 +87,7 @@ class PengurusanJawatankuasaKhasSukanMalaysiaAhli extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
+            'jawatan_lain_lain' => 'Nyatakan Jawatan (Jika Lain-lain)',
         ];
     }
     

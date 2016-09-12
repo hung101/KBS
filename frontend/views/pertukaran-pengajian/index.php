@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program,
                 ],
-                //'value' => 'refAtlet.name_penuh'
+                'value' => 'refProgramSemasaSukanAtlet.desc'
             ],
             [
                 'attribute' => 'sukan',
@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
                 ],
-                //'value' => 'refAtlet.name_penuh'
+                'value' => 'refSukan.desc'
             ],
             //'sebab_pemohonan',
             //'kategori_pengajian',
@@ -88,7 +88,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' Sebab',
                 ],
             ],
-            
+            [
+                'attribute' => 'status_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan,
+                ],
+                'value' => 'refStatusPermohonanPendidikan.desc'
+            ],
             [
                 'attribute' => 'tarikh_permohonan',
                 'filterInputOptions' => [
@@ -96,6 +103,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_permohonan,
                 ],
             ],
+            
             /*[
                 'attribute' => 'created',
                 'label' => GeneralLabel::tarikh,

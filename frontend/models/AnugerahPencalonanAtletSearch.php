@@ -12,13 +12,17 @@ use app\models\AnugerahPencalonanAtlet;
  */
 class AnugerahPencalonanAtletSearch extends AnugerahPencalonanAtlet
 {
+    public $atlet_id;
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['anugerah_pencalonan_atlet', 'sifat_kepimpinan_ketua_pasukan', 'sifat_kepimpinan_jurulatih', 'sifat_kepimpinan_asia_tenggara', 'sifat_kepimpinan_penolong_jurulatih', 'sifat_kepimpinan_pegawai_teknikal', 'memenangi_kategori_dalam_anugerah_sukan', 'kelulusan'], 'integer'],
+            [['anugerah_pencalonan_atlet', 'sifat_kepimpinan_ketua_pasukan', 'sifat_kepimpinan_jurulatih', 'sifat_kepimpinan_asia_tenggara', 
+                'sifat_kepimpinan_penolong_jurulatih', 'sifat_kepimpinan_pegawai_teknikal', 'memenangi_kategori_dalam_anugerah_sukan', 'kelulusan',
+                'atlet_id'], 'integer'],
             [['nama_atlet', 'tahun_pencalonan', 'nama_sukan', 'nama_acara', 'status_pencalonan', 'kejayaan', 'ulasan_kejayaan', 'susan_ranking_kebangsaan', 'susan_ranking_asia', 
                 'susan_ranking_asia_tenggara', 'susan_ranking_dunia', 'nama_sukan_sebelum_dicalon', 'mewakili', 'pencalonan_olahragawan_tahun', 'pencalonan_olahragawati_tahun', 
                 'pencalonan_pasukan_lelaki_kebangsaan_tahun', 'pencalonan_pasukan_wanita_kebangsaan_tahun', 'pencalonan_olahragawan_harapan_tahun',
@@ -73,6 +77,7 @@ class AnugerahPencalonanAtletSearch extends AnugerahPencalonanAtlet
             'memenangi_kategori_dalam_anugerah_sukan' => $this->memenangi_kategori_dalam_anugerah_sukan,
             'tahun' => $this->tahun,
             'kelulusan' => $this->kelulusan,
+            'nama_atlet' => $this->atlet_id,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->nama_atlet])

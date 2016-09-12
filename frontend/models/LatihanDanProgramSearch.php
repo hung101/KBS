@@ -19,7 +19,7 @@ class LatihanDanProgramSearch extends LatihanDanProgram
     {
         return [
             [['latihan_dan_program_id', 'bilangan_ahli_yang_menyertai'], 'integer'],
-            [['kategori_kursus', 'nama_kursus', 'tarikh_kursus', 'lokasi_kursus', 'penganjuran_kursus'], 'safe'],
+            [['kategori_kursus', 'nama_kursus', 'tarikh_kursus', 'lokasi_kursus', 'penganjuran_kursus', 'status'], 'safe'],
         ];
     }
 
@@ -42,7 +42,8 @@ class LatihanDanProgramSearch extends LatihanDanProgram
     public function search($params)
     {
         $query = LatihanDanProgram::find()
-                ->joinWith(['refKategoriKursus']);
+                ->joinWith(['refKategoriKursus'])
+                ->joinWith(['refStatusLaporanMesyuaratAgung']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -66,7 +67,8 @@ class LatihanDanProgramSearch extends LatihanDanProgram
                 ->andFilterWhere(['like', 'tbl_ref_kategori_kursus.desc', $this->kategori_kursus])
             ->andFilterWhere(['like', 'lokasi_kursus', $this->lokasi_kursus])
             ->andFilterWhere(['like', 'penganjuran_kursus', $this->penganjuran_kursus])
-                ->andFilterWhere(['like', 'tarikh_kursus', $this->tarikh_kursus]);
+                ->andFilterWhere(['like', 'tarikh_kursus', $this->tarikh_kursus])
+                ->andFilterWhere(['like', 'tbl_ref_status_laporan_mesyuarat_agung.desc', $this->status]);
 
         return $dataProvider;
     }

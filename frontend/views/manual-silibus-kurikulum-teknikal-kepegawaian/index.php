@@ -21,12 +21,12 @@ $this->params['breadcrumbs'][] = $this->title;
         
         // Update Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['manual-silibus-kurikulum-teknikal-kepegawaian']['update']) || isset(Yii::$app->user->identity->peranan_akses['ISN']['manual-silibus-kurikulum-teknikal-kepegawaian']['update'])){
-            $template .= ' {update}';
+            //$template .= ' {update}';
         }
         
         // Delete Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['manual-silibus-kurikulum-teknikal-kepegawaian']['delete']) || isset(Yii::$app->user->identity->peranan_akses['ISN']['manual-silibus-kurikulum-teknikal-kepegawaian']['delete'])){
-            $template .= ' {delete}';
+            //$template .= ' {delete}';
         }
     ?>
 
@@ -101,11 +101,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'delete' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-                        'title' => Yii::t('yii', 'Delete'),
+                        'title' => GeneralLabel::delete,
                         'data-confirm' => GeneralMessage::confirmDelete,
                         'data-method' => 'post',
                         ]);
 
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                            'title' => GeneralLabel::viewTitle,
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                            'title' => GeneralLabel::updateTitle,
+                        ]);
                     },
                 ],
                 'template' => $template,

@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program,
                 ],
-                //'value' => 'refSukan.desc'
+                'value' => 'refProgramSemasaSukanAtlet.desc'
             ],
             [
                 'attribute' => 'nama_institusi_pengajian',
@@ -124,7 +124,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori,
                 ],
-                //'value' => 'refJenisBiasiswa.desc'
+                'value' => 'refKategoriBiasiswa.desc'
             ],
             /*[
                 'attribute' => 'kelulusan',

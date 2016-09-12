@@ -17,6 +17,9 @@ use app\models\general\GeneralVariable;
 use app\models\RefJenisProgramBantuanMenghadiriProgramAntarabangsa;
 use app\models\RefNegara;
 use app\models\RefStatusPermohonanBantuanMenghadiriProgramAntarabangs;
+use app\models\ProfilBadanSukan;
+use app\models\RefPeringkatBantuanMenghadiriProgramAntarabangsa;
+use app\models\RefJawatanBantuanMenghadiriProgramAntarabangsa;
 
 /**
  * ForumSeminarPersidanganDiLuarNegaraController implements the CRUD actions for ForumSeminarPersidanganDiLuarNegara model.
@@ -75,6 +78,15 @@ class ForumSeminarPersidanganDiLuarNegaraController extends Controller
         
         $ref = RefStatusPermohonanBantuanMenghadiriProgramAntarabangs::findOne(['id' => $model->status_permohonan]);
         $model->status_permohonan = $ref['desc'];
+        
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->persatuan]);
+        $model->persatuan = $ref['nama_badan_sukan'];
+        
+        $ref = RefPeringkatBantuanMenghadiriProgramAntarabangsa::findOne(['id' => $model->peringkat]);
+        $model->peringkat = $ref['desc'];
+        
+        $ref = RefJawatanBantuanMenghadiriProgramAntarabangsa::findOne(['id' => $model->jawatan]);
+        $model->jawatan = $ref['desc'];
         
         $queryPar = null;
         

@@ -73,7 +73,7 @@ class PermohonanPeralatanSearch extends PermohonanPeralatan
             ->andFilterWhere(['like', 'tbl_ref_negeri.desc', $this->negeri])
                 ->andFilterWhere(['like', 'tarikh', $this->tarikh])
             ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
-            ->andFilterWhere(['like', 'tbl_ref_program.desc', $this->program])
+            ->andFilterWhere(['like', 'tbl_ref_program_semasa_sukan_atlet.desc', $this->program])
             ->andFilterWhere(['like', 'aktiviti', $this->aktiviti])
             ->andFilterWhere(['like', 'nota_urus_setia', $this->nota_urus_setia])
             ->andFilterWhere(['like', 'tbl_ref_kelulusan_peralatan.desc', $this->kelulusan]);

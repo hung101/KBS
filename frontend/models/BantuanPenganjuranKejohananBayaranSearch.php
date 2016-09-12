@@ -42,7 +42,8 @@ class BantuanPenganjuranKejohananBayaranSearch extends BantuanPenganjuranKejohan
      */
     public function search($params)
     {
-        $query = BantuanPenganjuranKejohananBayaran::find();
+        $query = BantuanPenganjuranKejohananBayaran::find()
+                ->joinWith(['refJenisBayaranBantuanPenganjuranKejohanan']);
 
         // add conditions that should always apply here
 

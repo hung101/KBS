@@ -161,8 +161,8 @@ class MesyuaratJkkController extends Controller
         $ref = RefSukan::findOne(['id' => $model->sukan]);
         $model->sukan = $ref['desc'];
         
-        $ref = RefTempatJkk::findOne(['id' => $model->tempat]);
-        $model->tempat = $ref['desc'];
+        //$ref = RefTempatJkk::findOne(['id' => $model->tempat]);
+        //$model->tempat = $ref['desc'];
         
         $ref = RefFasa::findOne(['id' => $model->fasa]);
         $model->fasa = $ref['desc'];

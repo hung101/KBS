@@ -5,9 +5,17 @@ namespace frontend\controllers;
 use Yii;
 use app\models\SkimKebajikan;
 use app\models\SkimKebajikanSearch;
+use app\models\MsnLaporanSkimKebajikan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use yii\helpers\Json;
+use yii\helpers\BaseUrl;
+
+use app\models\general\Upload;
+use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Atlet;
@@ -16,9 +24,6 @@ use app\models\RefSukan;
 use app\models\RefPerkara;
 use app\models\RefSukanSkimKebajikan;
 use app\models\RefJenisPermohonanSkim;
-
-// contant values
-use app\models\general\GeneralLabel;
 
 /**
  * SkimKebajikanController implements the CRUD actions for SkimKebajikan model.
@@ -98,13 +103,20 @@ class SkimKebajikanController extends Controller
         $model = new SkimKebajikan();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->skim_kebajikan_id]);
-        } else {
-            return $this->render('create', [
+            $file = UploadedFile::getInstance($model, 'muat_naik');
+            if($file){
+                $model->muat_naik = Upload::uploadFile($file, Upload::skimKebajikanFolder, $model->skim_kebajikan_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->skim_kebajikan_id]);
+            }
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -118,13 +130,20 @@ class SkimKebajikanController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->skim_kebajikan_id]);
-        } else {
-            return $this->render('update', [
+            $file = UploadedFile::getInstance($model, 'muat_naik');
+            if($file){
+                $model->muat_naik = Upload::uploadFile($file, Upload::skimKebajikanFolder, $model->skim_kebajikan_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->skim_kebajikan_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -135,6 +154,9 @@ class SkimKebajikanController extends Controller
      */
     public function actionDelete($id)
     {
+        // delete upload file
+        self::actionDeleteupload($id, 'muat_naik');
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -154,5 +176,76 @@ class SkimKebajikanController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            return $this->redirect(['update', 'id' => $id]);
+    }
+    
+    public function actionLaporanSkimKebajikan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSkimKebajikan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-skim-kebajikan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-skim-kebajikan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_skim_kebajikan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanSkimKebajikan($tarikh_dari, $tarikh_hingga, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanSkimKebajikan', $format, $controls, 'laporan_skim_kebajikan');
     }
 }

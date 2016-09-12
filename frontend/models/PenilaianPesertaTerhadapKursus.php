@@ -54,7 +54,7 @@ class PenilaianPesertaTerhadapKursus extends \yii\db\ActiveRecord
     {
         return [
             'penilaian_peserta_terhadap_kursus_id' => 'Penilaian Penganjur Kursus ID',
-            'pengurusan_permohonan_kursus_persatuan_id' => GeneralLabel::tarikh_kursus,
+            'pengurusan_permohonan_kursus_persatuan_id' => GeneralLabel::agensi,
             'tarikh_kursus' => GeneralLabel::tarikh_kursus,
             'nama_penganjur_kursus' => GeneralLabel::nama_penganjur_kursus,
             'kod_kursus' => GeneralLabel::kod_kursus,

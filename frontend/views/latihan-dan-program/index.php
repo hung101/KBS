@@ -88,6 +88,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::penganjuran_kursus,
                 ]
             ],
+            [
+                'attribute' => 'status',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status,
+                ],
+                'value' => 'refStatusLaporanMesyuaratAgung.desc'
+            ],
             // 'bilangan_ahli_yang_menyertai',
 
             //['class' => 'yii\grid\ActionColumn'],

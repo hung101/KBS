@@ -59,8 +59,8 @@ class PengurusanMouMoaAntarabangsaSearch extends PengurusanMouMoaAntarabangsa
 
         $query->andFilterWhere([
             'pengurusan_mou_moa_antarabangsa_id' => $this->pengurusan_mou_moa_antarabangsa_id,
-            'jangka_waktu_mula' => $this->jangka_waktu_mula,
-            'jangka_waktu_tamat' => $this->jangka_waktu_tamat,
+            //'jangka_waktu_mula' => $this->jangka_waktu_mula,
+            //'jangka_waktu_tamat' => $this->jangka_waktu_tamat,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_negara.desc', $this->nama_negara_terlibat])
@@ -68,7 +68,9 @@ class PengurusanMouMoaAntarabangsaSearch extends PengurusanMouMoaAntarabangsa
             ->andFilterWhere(['like', 'asas_asas_pertimbangan', $this->asas_asas_pertimbangan])
             ->andFilterWhere(['like', 'status', $this->status])
             ->andFilterWhere(['like', 'tajuk_mou_moa', $this->tajuk_mou_moa])
-            ->andFilterWhere(['like', 'catatan', $this->catatan]);
+            ->andFilterWhere(['like', 'catatan', $this->catatan])
+                ->andFilterWhere(['like', 'jangka_waktu_mula', $this->jangka_waktu_mula])
+                ->andFilterWhere(['like', 'jangka_waktu_tamat', $this->jangka_waktu_tamat]);
 
         return $dataProvider;
     }

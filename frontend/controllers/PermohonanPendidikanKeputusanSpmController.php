@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use Yii;
+use app\models\PermohonanPendidikan;
 use app\models\PermohonanPendidikanKeputusanSpm;
 use frontend\models\PermohonanPendidikanKeputusanSpmSearch;
 use yii\web\Controller;
@@ -91,12 +92,34 @@ class PermohonanPendidikanKeputusanSpmController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if($permohonan_pendidikan_id != ''){
+                $this->generateSPMResult($permohonan_pendidikan_id);
+            }
             return '1';
         } else {
             return $this->renderAjax('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
+        }
+    }
+    
+    protected function generateSPMResult($permohonan_pendidikan_id)
+    {
+        if (($KeputusanModels = PermohonanPendidikanKeputusanSpm::find()->joinWith(['refSubjekSpm'])->
+                        where(['permohonan_pendidikan_id'=>$permohonan_pendidikan_id])->orderBy('sort')->all()) !== null){
+            $SPMresult = "";
+            foreach($KeputusanModels as $KeputusanModel){
+                if($SPMresult != ""){
+                    $SPMresult .= "   |   ";
+                }
+                $SPMresult .= $KeputusanModel['refSubjekSpm']['kod'] . " - " . $KeputusanModel->keputusan;
+            }
+
+            if (($modelPermohonanPendidikan = PermohonanPendidikan::findOne($permohonan_pendidikan_id)) !== null) {
+                $modelPermohonanPendidikan->keputusan_spm = $SPMresult;
+                $modelPermohonanPendidikan->save();
+            }
         }
     }
 
@@ -115,6 +138,8 @@ class PermohonanPendidikanKeputusanSpmController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->generateSPMResult($model->permohonan_pendidikan_id);
+            
             return '1';
         } else {
             return $this->renderAjax('update', [
@@ -136,7 +161,12 @@ class PermohonanPendidikanKeputusanSpmController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $model = $this->findModel($id);
+        $permohonan_pendidikan_id = $model->permohonan_pendidikan_id;
+        
         $this->findModel($id)->delete();
+        
+        $this->generateSPMResult($permohonan_pendidikan_id);
 
         //return $this->redirect(['index']);
     }

@@ -2,13 +2,15 @@
 
 use yii\helpers\Html;
 
+use app\models\general\GeneralLabel;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\BantuanPenganjuranKursus */
 
-$this->title = 'Update Bantuan Penganjuran Kursus: ' . $model->bantuan_penganjuran_kursus_id;
-$this->params['breadcrumbs'][] = ['label' => 'Bantuan Penganjuran Kursuses', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->bantuan_penganjuran_kursus_id, 'url' => ['view', 'id' => $model->bantuan_penganjuran_kursus_id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::bantuan_penganjuran_kursus_bengkel_seminar;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bantuan_penganjuran_kursus_bengkel_seminar, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::bantuan_penganjuran_kursus_bengkel_seminar, 'url' => ['view', 'id' => $model->bantuan_penganjuran_kursus_id]];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bantuan-penganjuran-kursus-update">
 

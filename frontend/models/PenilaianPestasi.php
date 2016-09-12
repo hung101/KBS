@@ -57,7 +57,7 @@ class PenilaianPestasi extends \yii\db\ActiveRecord
                 'kejohanan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['elaun_yang_diterima'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['kejohanan'], 'safe'],
+            [['kejohanan', 'negeri'], 'safe'],
             [['tahap_sihat', 'pencapaian_sukan_dalam_tahun_yang_dinilai', 'kecederaan_jika_ada', 'laporan_kesihatan', 'skim_hadiah_kemenangan_sukan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
@@ -79,7 +79,7 @@ class PenilaianPestasi extends \yii\db\ActiveRecord
             'laporan_kesihatan' => GeneralLabel::laporan_kesihatan,
             'elaun_yang_diterima' => GeneralLabel::elaun_yang_diterima,
             'skim_hadiah_kemenangan_sukan' => GeneralLabel::skim_hadiah_kemenangan_sukan,
-
+            'negeri' => GeneralLabel::negeri,
         ];
     }
     

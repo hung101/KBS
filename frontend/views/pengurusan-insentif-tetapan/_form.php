@@ -194,6 +194,14 @@ use app\models\general\GeneralMessage;
                 ],
                 'value' => 'refJenisInsentif.desc'
             ],
+            [
+                'attribute' => 'kejohanan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kejohanan,
+                ],
+                'value' => 'refInsentifKejohanan.desc'
+            ],
             //'pingat',
             [
                 'attribute' => 'pingat',
@@ -203,30 +211,66 @@ use app\models\general\GeneralMessage;
                 ],
                 'value' => 'refPingatInsentif.desc'
             ],
-            //'kumpulan_temasya_kejohanan',
             [
+                'attribute' => 'peringkat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::peringkat,
+                ],
+                'value' => 'refInsentifPeringkat.desc'
+            ],
+            [
+                'attribute' => 'kelas',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelas,
+                ],
+                'value' => 'refInsentifKelas.desc'
+            ],
+            //'kumpulan_temasya_kejohanan',
+            /*[
                 'attribute' => 'kumpulan_temasya_kejohanan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kumpulan_temasya_kejohanan,
                 ],
-            ],
+            ],*/
             //'rekod_baharu',
+            [
+                'attribute' => 'nilai_individu',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nilai_individu,
+                ],
+            ],
+            [
+                'attribute' => 'nilai_berpasukan_kurang_5',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' Nilai Berpasukan (RM)',
+                ],
+            ],
+            /*[
+                'attribute' => 'nilai_berpasukan_lebih_5',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' Nilai Berpasukan > 5 Orang (RM)',
+                ],
+            ],*/
             [
                 'attribute' => 'rekod_baharu',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::rekod_baharu,
                 ],
-                'value' => 'refKelulusan.desc'
             ],
-            [
+            /*[
                 'attribute' => 'jumlah',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah,
                 ],
-            ],
+            ],*/
             // 'session_id',
             // 'created_by',
             // 'updated_by',

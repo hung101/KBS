@@ -29,14 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'anugerah_pencalonan_lain_id',
             //'kategori',
-            [
+            /*[
                 'attribute' => 'kategori',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori,
                 ],
                 'value' => 'refKategoriPencalonanLain.desc'
-            ],
+            ],*/
             //'nama',
             [
                 'attribute' => 'nama',
@@ -55,6 +55,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
             // 'no_tel_1',
+            [
+                'attribute' => 'no_tel_1',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' No Telefon 1',
+                ],
+            ],
             // 'no_tel_2',
             // 'sumbangan_dalam_pencapaian:ntext',
             // 'ulasan_justifikasi:ntext',

@@ -148,7 +148,8 @@ use app\models\RefInsentifKelas;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefInsentifKelas::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kelas],],
+                        'options' => ['placeholder' => Placeholder::kelas],
+                        'pluginOptions'=>['allowClear'=>true]],
                     'columnOptions'=>['colspan'=>3]],
                 
             ],
@@ -166,7 +167,8 @@ use app\models\RefInsentifKelas;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'nilai_individu' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
-                'nilai_berpasukan' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
+                'nilai_berpasukan_kurang_5' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
+                //'nilai_berpasukan_lebih_5' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
                 'rekod_baharu' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
                 
             ],

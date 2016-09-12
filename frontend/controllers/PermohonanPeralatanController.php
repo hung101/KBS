@@ -23,6 +23,7 @@ use app\models\RefKelulusanPeralatan;
 
 // contant values
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * PermohonanPeralatanController implements the CRUD actions for PermohonanPeralatan model.
@@ -128,6 +129,8 @@ class PermohonanPeralatanController extends Controller
         $dataProviderPermohonanPeralatanPenggunaan = $searchModelPermohonanPeralatanPenggunaan->search($queryPar);
         
         $model->jumlah_peralatan = $dataProvider->getTotalCount();
+        
+        $model->tarikh = GeneralFunction::getCurrentTimestamp();
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->open();

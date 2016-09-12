@@ -12,6 +12,8 @@ use kartik\datecontrol\DateControl;
 use app\models\Atlet;
 use app\models\RefKategoriElaun;
 use app\models\RefStatusElaun;
+use app\models\RefSukan;
+use app\models\RefStatusTawaran;
 
 // contant values
 use app\models\general\Placeholder;
@@ -27,7 +29,7 @@ use app\models\general\GeneralVariable;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     
     <?php
         echo FormGrid::widget([
@@ -40,6 +42,23 @@ use app\models\general\GeneralVariable;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 //'jenis_atlet' => ['type'=>Form::INPUT_DROPDOWN_LIST,'items'=>[''=>'-- Pilih Jenis Atlet --'],'columnOptions'=>['colspan'=>4]],
+                'sukan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::sukan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
                 'atlet_id' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -51,9 +70,9 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'data'=>ArrayHelper::map(Atlet::find()->where(['=', 'tawaran', RefStatusTawaran::LULUS_TAWARAN])->all(),'atlet_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::atlet],],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>5]],
             ]
         ],
         [
@@ -79,6 +98,7 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
+                        'options' => ['id'=>'tarikhDiberiId',],
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
@@ -89,12 +109,13 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
+                        'options' => ['id'=>'tarikhDipulangId',],
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'tempoh_elaun' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>20]],
+                'tempoh_elaun' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>20,'id'=>'tempohPinjamanId','disabled'=>true]],
             ]
         ],
         [
@@ -131,7 +152,7 @@ use app\models\general\GeneralVariable;
     
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['kelulusan']) || $readonly): ?>
     <?php
-        echo FormGrid::widget([
+        /*echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -149,23 +170,9 @@ use app\models\general\GeneralVariable;
             ]
         ],
     ]
-]);
+]);*/
     ?>
     <?php endif; ?>
-
-    <!--<?= $form->field($model, 'jenis_atlet')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'atlet_id')->textInput() ?>
-
-    <?= $form->field($model, 'kategori_elaun')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'tempoh_elaun')->textInput(['maxlength' => 20]) ?>
-
-    <?= $form->field($model, 'sebab_elaun')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'jumlah_elaun')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'kelulusan')->textInput() ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -176,3 +183,45 @@ use app\models\general\GeneralVariable;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+$script = <<< JS
+        
+$(document).ready(function(){
+});
+        
+$("#tarikhDiberiId").change(function(){
+    setDuration();
+});
+        
+$("#tarikhDipulangId").change(function(){
+    setDuration();
+});
+        
+function setDuration(){
+    if($("#tarikhDiberiId").val() !== "" && $("#tarikhDipulangId").val() !== ""){
+        var fromDatetime = $("#tarikhDiberiId").val();
+        var toDatetime = $("#tarikhDipulangId").val();
+
+        var fromDate = moment(fromDatetime,'YYYY-MM-DD');
+        var toDate = moment(toDatetime,'YYYY-MM-DD');
+
+        if(fromDatetime != "" && toDatetime != ""){
+            $("#tempohPinjamanId").val(getDurationBetweenDatetime(fromDate,toDate));
+        }
+    }
+}
+        
+// enable all the disabled field before submit
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+        
+JS;
+        
+$this->registerJs($script);
+?>

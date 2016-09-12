@@ -62,7 +62,7 @@ class ProfilPusatLatihanSearch extends ProfilPusatLatihan
         // grid filtering conditions
         $query->andFilterWhere([
             'profil_pusat_latihan_id' => $this->profil_pusat_latihan_id,
-            'tarikh_program_bermula' => $this->tarikh_program_bermula,
+            //'tarikh_program_bermula' => $this->tarikh_program_bermula,
             'tahun_siap_pembinaan' => $this->tahun_siap_pembinaan,
             'kos_project' => $this->kos_project,
             'created_by' => $this->created_by,
@@ -85,7 +85,8 @@ class ProfilPusatLatihanSearch extends ProfilPusatLatihan
             ->andFilterWhere(['like', 'hakmilik', $this->hakmilik])
             ->andFilterWhere(['like', 'kadar_sewaan', $this->kadar_sewaan])
             ->andFilterWhere(['like', 'status', $this->status])
-            ->andFilterWhere(['like', 'catatan', $this->catatan]);
+            ->andFilterWhere(['like', 'catatan', $this->catatan])
+                ->andFilterWhere(['like', 'tarikh_program_bermula', $this->tarikh_program_bermula]);
 
         return $dataProvider;
     }

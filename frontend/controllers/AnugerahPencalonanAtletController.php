@@ -9,10 +9,14 @@ use app\models\MsnLaporanPencalonanAnugerahSukanNegaraAtlet;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use yii\helpers\Json;
 use yii\helpers\BaseUrl;
 
+use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefSukan;
@@ -122,7 +126,14 @@ class AnugerahPencalonanAtletController extends Controller
         $model = new AnugerahPencalonanAtlet();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->anugerah_pencalonan_atlet]);
+            $file = UploadedFile::getInstance($model, 'gambar');
+            if($file){
+                $model->gambar = Upload::uploadFile($file, Upload::anugerahPencalonanAtletFolder, $model->anugerah_pencalonan_atlet);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->anugerah_pencalonan_atlet]);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -146,7 +157,14 @@ class AnugerahPencalonanAtletController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->anugerah_pencalonan_atlet]);
+            $file = UploadedFile::getInstance($model, 'gambar');
+            if($file){
+                $model->gambar = Upload::uploadFile($file, Upload::anugerahPencalonanAtletFolder, $model->anugerah_pencalonan_atlet);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->anugerah_pencalonan_atlet]);
+            }
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -167,6 +185,9 @@ class AnugerahPencalonanAtletController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        // delete upload file
+        self::actionDeleteupload($id, 'gambar');
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -186,6 +207,28 @@ class AnugerahPencalonanAtletController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            return $this->redirect(['update', 'id' => $id]);
     }
     
     public function actionLaporanPencalonanAnugerahSukanNegaraAtlet()
@@ -234,6 +277,6 @@ class AnugerahPencalonanAtletController extends Controller
             'TO_DATE' => $tarikh_hingga,
         );
         
-        GeneralFunction::generateReport('/spsb/MSN/LaporanPencalonanAnugerahSukanNegaraAtlet', $format, $controls, 'laporan_pencalonan_anugerah_sukan_negara_atlet');
+        GeneralFunction::generateReport('/spsb/MSN/LaporanPencalonanAnugerahSukanNegara', $format, $controls, 'laporan_pencalonan_anugerah_sukan_negara_atlet');
     }
 }

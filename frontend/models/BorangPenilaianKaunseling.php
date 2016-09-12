@@ -57,7 +57,7 @@ class BorangPenilaianKaunseling extends \yii\db\ActiveRecord
             [['profil_konsultan_id', 'atlet', 'diagnosis', 'kategori_permasalahan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['profil_konsultan_id', 'atlet'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_temujanji'], 'safe'],
-            [['diagnosis', 'preskripsi', 'cadangan', 'rujukan', 'tindakan_selanjutnya', 'kategori_permasalahan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['diagnosis', 'preskripsi', 'cadangan', 'rujukan', 'tindakan_selanjutnya', 'kategori_permasalahan', 'lain_lain_nyatakan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 
@@ -69,7 +69,7 @@ class BorangPenilaianKaunseling extends \yii\db\ActiveRecord
         return [
             'borang_penilaian_kaunseling_id' => GeneralLabel::borang_penilaian_kaunseling_id,
             'profil_konsultan_id' => GeneralLabel::profil_konsultan_id,
-            'atlet' => GeneralLabel::atlet,
+            'atlet' => 'Atlet / Jurulatih / Pegawai & Anggota',
             'diagnosis' => GeneralLabel::diagnosis,
             'preskripsi' => GeneralLabel::preskripsi,
             'cadangan' => GeneralLabel::cadangan,
@@ -77,7 +77,7 @@ class BorangPenilaianKaunseling extends \yii\db\ActiveRecord
             'tindakan_selanjutnya' => GeneralLabel::tindakan_selanjutnya,
             'kategori_permasalahan' => GeneralLabel::kategori_permasalahan,
             'tarikh_temujanji' => GeneralLabel::tarikh_temujanji,
-
+            'lain_lain_nyatakan' => 'Lain-lain Nyatakan',
         ];
     }
     
@@ -99,6 +99,6 @@ class BorangPenilaianKaunseling extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getRefKategoriMasalahKaunseling(){
-        return $this->hasOne(RefKategoriMasalahKaunseling::className(), ['id' => 'kategori_permasalahan']);
+        return $this->hasOne(RefLatarbelakangKes::className(), ['id' => 'kategori_permasalahan']);
     }
 }

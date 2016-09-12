@@ -12,12 +12,14 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefJawatanBantuanPentadbiranPejabat;
 use app\models\RefStatusPermohonanBantuanPentadbiranPejabat;
 use app\models\RefBandar;
 use app\models\RefNegeri;
+use app\models\ProfilBadanSukan;
 
 /**
  * BantuanPentadbiranPejabatController implements the CRUD actions for BantuanPentadbiranPejabat model.
@@ -80,6 +82,9 @@ class BantuanPentadbiranPejabatController extends Controller
         $ref = RefNegeri::findOne(['id' => $model->alamat_negeri]);
         $model->alamat_negeri = $ref['desc'];
         
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->persatuan]);
+        $model->persatuan = $ref['nama_badan_sukan'];
+        
         $queryPar = null;
         
         $queryPar['InformasiPermohonanSearch']['bantuan_pentadbiran_pejabat_id'] = $id;
@@ -107,6 +112,10 @@ class BantuanPentadbiranPejabatController extends Controller
         }
         
         $model = new BantuanPentadbiranPejabat();
+        
+        $model->tarikh = GeneralFunction::getCurrentTimestamp();
+        
+        $model->status_permohonan = RefStatusPermohonanBantuanPentadbiranPejabat::DALAM_PROSES;
         
         $queryPar = null;
         

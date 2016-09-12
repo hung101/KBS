@@ -35,7 +35,7 @@ use app\models\general\GeneralMessage;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -113,9 +113,12 @@ use app\models\general\GeneralMessage;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
+                        'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                                    'todayBtn' => true,
+                        ],
+                        'options'=>['disabled'=>true]
                     ],
                     'columnOptions'=>['colspan'=>3]],
             ]
@@ -402,24 +405,6 @@ use app\models\general\GeneralMessage;
     <?php endif; ?>
     
 
-    <!--<?= $form->field($model, 'cawangan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'negeri')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'sukan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'program')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'tarikh')->textInput() ?>
-
-    <?= $form->field($model, 'aktiviti')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'jumlah_peralatan')->textInput() ?>
-
-    <?= $form->field($model, 'nota_urus_setia')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'kelulusan')->textInput() ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -429,3 +414,20 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+        
+JS;
+        
+$this->registerJs($script);
+?>

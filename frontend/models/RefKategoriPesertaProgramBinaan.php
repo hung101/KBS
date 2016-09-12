@@ -20,6 +20,10 @@ use app\models\general\GeneralMessage;
  */
 class RefKategoriPesertaProgramBinaan extends \yii\db\ActiveRecord
 {
+    const ATLET = 1;
+    const JURULATIH = 2;
+    const PEGAWAI = 3;
+    
     /**
      * @inheritdoc
      */

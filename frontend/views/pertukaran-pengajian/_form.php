@@ -7,6 +7,7 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use yii\helpers\Url;
 
 // table reference
 use app\models\Atlet;
@@ -33,7 +34,7 @@ use app\models\general\GeneralMessage;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -56,7 +57,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::atlet],],
+                        'options' => ['placeholder' => Placeholder::atlet, 'id'=>'atletId'],],
                     'columnOptions'=>['colspan'=>6]],
                 'program' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -113,7 +114,7 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'kategori_pengajian' => [
+                /*'kategori_pengajian' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -126,7 +127,8 @@ use app\models\general\GeneralMessage;
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriPengajian::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kategoriPengajian],],
-                    'columnOptions'=>['colspan'=>6]],
+                    'columnOptions'=>['colspan'=>6]],*/
+                'kategori_pengajian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
             ],
         ],
         [
@@ -275,20 +277,6 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
 
-    <!--<?= $form->field($model, 'atlet_id')->textInput() ?>
-
-    <?= $form->field($model, 'sebab_pemohonan')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'kategori_pengajian')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'nama_pengajian_sekarang')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'nama_pertukaran_pengajian')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'sebab_pertukaran')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'sebab_penangguhan')->textInput(['maxlength' => 255]) ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::send : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -298,3 +286,48 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$URLAtlet = Url::to(['/atlet/get-atlet']);
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+            
+$('#atletId').change(function(){
+            
+    if($(this).val() != ''){
+            
+        $.get('$URLAtlet',{id:$(this).val()},function(data){
+            clearForm();
+
+            var data = $.parseJSON(data);
+
+            if(data !== null){
+            
+                if(data.refAtletSukan[0] !== null){ 
+                    $('#pertukaranpengajian-program').val(data.refAtletSukan[0].program_semasa).trigger("change");
+                    $('#pertukaranpengajian-sukan').val(data.refAtletSukan[0].nama_sukan).trigger("change");
+                }
+            }
+        });
+    }
+});
+         
+function clearForm(){
+    $('#pertukaranpengajian-program').val('').trigger("change");
+    $('#pertukaranpengajian-sukan').val('').trigger("change");
+}
+
+JS;
+        
+$this->registerJs($script);
+?>

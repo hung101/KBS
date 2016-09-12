@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         
         // Delete Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['delete'])){
-            $template .= ' {delete}';
+            //$template .= ' {delete}';
         }
     ?>
 
@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             //'bahagian',
             //'jawatan',
-            [
+            /*[
                 'attribute' => 'destinasi',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -67,6 +67,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
                 ]
+            ],*/
+            [
+                'attribute' => 'bahagian',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bahagian,
+                ],
+                'value' => 'refBahagianKemudahan.desc'
+            ],
+            [
+                'attribute' => 'cawangan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::cawangan,
+                ],
+                'value' => 'refCawanganKemudahan.desc'
             ],
             //'nama_program',
             [

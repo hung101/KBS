@@ -39,7 +39,7 @@ class BantuanPenyertaanPegawaiTeknikalDisertai extends \yii\db\ActiveRecord
             [['kursus_seminar_bengkel', 'tarikh_mula', 'tarikh_tamat', 'tempat', 'anjuran'], 'required'],
             [['bantuan_penyertaan_pegawai_teknikal_id', 'created_by', 'updated_by'], 'integer'],
             [['tarikh_mula', 'tarikh_tamat', 'created', 'updated'], 'safe'],
-            [['kursus_seminar_bengkel', 'anjuran'], 'string', 'max' => 80],
+            [['anjuran'], 'string', 'max' => 80],
             [['tempat'], 'string', 'max' => 90],
             [['session_id'], 'string', 'max' => 100],
             [['kursus_seminar_bengkel'], 'string', 'max' => 255],

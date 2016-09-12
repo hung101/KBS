@@ -52,7 +52,7 @@ class PengurusanJawatankuasaKhasSukanMalaysia extends \yii\db\ActiveRecord
     {
         return [
             [['tarikh_mula', 'tarikh_tamat', 'created', 'updated'], 'safe'],
-            [['jawatankuasa', 'created_by', 'updated_by'], 'integer'],
+            [['jawatankuasa', 'created_by', 'updated_by', 'negeri'], 'integer'],
             [['temasya'], 'string', 'max' => 80]
         ];
     }
@@ -68,6 +68,7 @@ class PengurusanJawatankuasaKhasSukanMalaysia extends \yii\db\ActiveRecord
             'tarikh_mula' => 'Tarikh Mula',
             'tarikh_tamat' => 'Tarikh Tamat',
             'jawatankuasa' => 'Jawatankuasa',
+            'negeri' => 'Negeri',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',

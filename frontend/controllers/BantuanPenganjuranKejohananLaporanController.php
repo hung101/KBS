@@ -7,9 +7,15 @@ use app\models\BantuanPenganjuranKejohananLaporan;
 use frontend\models\BantuanPenganjuranKejohananLaporanSearch;
 use app\models\BantuanPenganjuranKejohananLaporanTuntutan;
 use frontend\models\BantuanPenganjuranKejohananLaporanTuntutanSearch;
+use app\models\BantuanPenganjuranKejohanan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+
+use app\models\general\Upload;
+use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 /**
  * BantuanPenganjuranKejohananLaporanController implements the CRUD actions for BantuanPenganjuranKejohananLaporan model.
@@ -37,6 +43,10 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
         $searchModel = new BantuanPenganjuranKejohananLaporanSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -53,6 +63,10 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
         $queryPar = null;
         
         $queryPar['BantuanPenganjuranKejohananLaporanTuntutanSearch']['bantuan_penganjuran_kejohanan_laporan_id'] = $id;
@@ -73,9 +87,24 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($bantuan_penganjuran_kejohanan_id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
         $model = new BantuanPenganjuranKejohananLaporan();
+        
+        $model->bantuan_penganjuran_kejohanan_id = $bantuan_penganjuran_kejohanan_id;
+        
+        if (($modelBantuanPenganjuranKejohanan = BantuanPenganjuranKejohanan::findOne($bantuan_penganjuran_kejohanan_id)) !== null) {
+            $model->tempat = $modelBantuanPenganjuranKejohanan->tempat;
+            $model->tujuan_penganjuran = $modelBantuanPenganjuranKejohanan->tujuan;
+            $model->bilangan_pasukan = $modelBantuanPenganjuranKejohanan->bil_pasukan;
+            $model->bilangan_peserta = $modelBantuanPenganjuranKejohanan->bil_peserta;
+            $model->bilangan_pegawai_teknikal = $modelBantuanPenganjuranKejohanan->bil_pegawai_teknikal;
+            $model->bilangan_pembantu = $modelBantuanPenganjuranKejohanan->bilangan_pembantu;
+        }
         
         $queryPar = null;
         
@@ -89,20 +118,88 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
         $dataProviderBantuanPenganjuranKejohananLaporanTuntutan = $searchModelBantuanPenganjuranKejohananLaporanTuntutan->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $file = UploadedFile::getInstance($model, 'laporan_bergambar');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-laporan_bergambar";
+            if($file){
+                $model->laporan_bergambar = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'penyata_perbelanjaan_resit_yang_telah_disahkan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-penyata_perbelanjaan_resit_yang_telah_disahkan";
+            if($file){
+                $model->penyata_perbelanjaan_resit_yang_telah_disahkan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'jadual_keputusan_pertandingan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-jadual_keputusan_pertandingan";
+            if($file){
+                $model->jadual_keputusan_pertandingan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_pasukan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_pasukan";
+            if($file){
+                $model->senarai_pasukan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_statistik_penyertaan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_statistik_penyertaan";
+            if($file){
+                $model->senarai_statistik_penyertaan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_pegawai_pembantu_teknikal');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_pegawai_pembantu_teknikal";
+            if($file){
+                $model->senarai_pegawai_pembantu_teknikal = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_urusetia_sukarelawan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_urusetia_sukarelawan";
+            if($file){
+                $model->senarai_urusetia_sukarelawan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_pegawai_pembantu_perubatan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_pegawai_pembantu_perubatan";
+            if($file){
+                $model->senarai_pegawai_pembantu_perubatan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
             if(isset(Yii::$app->session->id)){
                 BantuanPenganjuranKejohananLaporanTuntutan::updateAll(['bantuan_penganjuran_kejohanan_laporan_id' => $model->bantuan_penganjuran_kejohanan_laporan_id], 'session_id = "'.Yii::$app->session->id.'"');
                 BantuanPenganjuranKejohananLaporanTuntutan::updateAll(['session_id' => ''], 'bantuan_penganjuran_kejohanan_laporan_id = "'.$model->bantuan_penganjuran_kejohanan_laporan_id.'"');
                 
             }
             
-            return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id]);
-        } else {
-            return $this->render('create', [
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id]);
+            }
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'searchModelBantuanPenganjuranKejohananLaporanTuntutan' => $searchModelBantuanPenganjuranKejohananLaporanTuntutan,
                 'dataProviderBantuanPenganjuranKejohananLaporanTuntutan' => $dataProviderBantuanPenganjuranKejohananLaporanTuntutan,
                 'readonly' => false,
             ]);
+    }
+    
+    /**
+     * Displays a single BantuanPenganjuranKejohananLaporan model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionLoad($bantuan_penganjuran_kejohanan_id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
+        if (($model = BantuanPenganjuranKejohananLaporan::find()->where(['bantuan_penganjuran_kejohanan_id'=>$bantuan_penganjuran_kejohanan_id])->one()) !== null) {
+            return $this->redirect(['update', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id]);
+        } else {
+            return $this->redirect(['create', 'bantuan_penganjuran_kejohanan_id' => $bantuan_penganjuran_kejohanan_id]);
         }
     }
 
@@ -114,9 +211,84 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
         $model = $this->findModel($id);
+        $existingPenyataPerbelanjaan = $model->penyata_perbelanjaan_resit_yang_telah_disahkan;
+        
+        if($model->load(Yii::$app->request->post())){
+            $file = UploadedFile::getInstance($model, 'penyata_perbelanjaan_resit_yang_telah_disahkan');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if($file){
+                //valid file to upload
+                //upload file to server
+                
+                // delete upload file
+                if($existingPenyataPerbelanjaan != ""){
+                    self::actionDeleteupload($id, 'penyata_perbelanjaan_resit_yang_telah_disahkan');
+                }
+                
+                $filename = $model->bantuan_penganjuran_kejohanan_id . "-penyata_perbelanjaan_resit_yang_telah_disahkan";
+                $model->penyata_perbelanjaan_resit_yang_telah_disahkan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            } else {
+                //invalid file to upload
+                //remain existing file
+                $model->penyata_perbelanjaan_resit_yang_telah_disahkan = $existingPenyataPerbelanjaan;
+            }
+            
+            $file = UploadedFile::getInstance($model, 'laporan_bergambar');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-laporan_bergambar";
+            if($file){
+                $model->laporan_bergambar = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'jadual_keputusan_pertandingan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-jadual_keputusan_pertandingan";
+            if($file){
+                $model->jadual_keputusan_pertandingan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_pasukan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_pasukan";
+            if($file){
+                $model->senarai_pasukan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_statistik_penyertaan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_statistik_penyertaan";
+            if($file){
+                $model->senarai_statistik_penyertaan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_pegawai_pembantu_teknikal');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_pegawai_pembantu_teknikal";
+            if($file){
+                $model->senarai_pegawai_pembantu_teknikal = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_urusetia_sukarelawan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_urusetia_sukarelawan";
+            if($file){
+                $model->senarai_urusetia_sukarelawan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_pegawai_pembantu_perubatan');
+            $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-senarai_pegawai_pembantu_perubatan";
+            if($file){
+                $model->senarai_pegawai_pembantu_perubatan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananLaporanFolder, $filename);
+            }
+        }
+        
+        $queryPar = null;
+        
+        $queryPar['BantuanPenganjuranKejohananLaporanTuntutanSearch']['bantuan_penganjuran_kejohanan_laporan_id'] = $id;
+        
+        $searchModelBantuanPenganjuranKejohananLaporanTuntutan  = new BantuanPenganjuranKejohananLaporanTuntutanSearch();
+        $dataProviderBantuanPenganjuranKejohananLaporanTuntutan = $searchModelBantuanPenganjuranKejohananLaporanTuntutan->search($queryPar);
+
+        if (Yii::$app->request->post() && $model->save()) {
             return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id]);
         } else {
             return $this->render('update', [
@@ -136,6 +308,10 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -155,5 +331,27 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            return $this->redirect(['update', 'id' => $id]);
     }
 }

@@ -20,6 +20,10 @@ use app\models\general\GeneralMessage;
  */
 class RefStatusPermohonanBantuanPentadbiranPejabat extends \yii\db\ActiveRecord
 {
+    const LULUS = 1;
+    const GAGAL = 2;
+    const DALAM_PROSES = 3;
+    
     /**
      * @inheritdoc
      */

@@ -253,7 +253,7 @@ use app\models\general\GeneralMessage;
             //'pencapaian_rekods_id',
             //'pencapaian_id',
             'tarikh',
-            'peringkat',
+            //'peringkat',
             'opponent',
             'venue',
             //'jenis_rekod',

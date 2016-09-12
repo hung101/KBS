@@ -137,4 +137,9 @@ class BorangProfilPesertaKpskPeserta extends \yii\db\ActiveRecord
             'updated' => 'Updated',
         ];
     }
+    
+    public function getRefKeputusanKpsk()
+    {
+        return $this->hasOne(RefKeputusanKpsk::className(), ['id' => 'keputusan']);
+    }
 }

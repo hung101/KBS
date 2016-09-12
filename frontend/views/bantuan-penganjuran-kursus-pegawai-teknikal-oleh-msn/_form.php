@@ -54,7 +54,6 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
-                        'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
@@ -65,7 +64,6 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
-                        'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
@@ -133,7 +131,7 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
                     $(document).find('#modal').modal('hide');
                     form.trigger("reset");
                     $.pjax.defaults.timeout = 100000;
-                    $.pjax.reload({container:'#borangAduanKerosakanJenisKerosakanGrid'});
+                    $.pjax.reload({container:'#bantuanPenganjuranKursusPegawaiTeknikalOlehMsnGrid'});
                 }
           }
      });

@@ -20,10 +20,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-jawatankuasa-khas-sukan-malaysia']['update'])): ?>
-            <?= Html::a('Update', ['update', 'id' => $model->pengurusan_jawatankuasa_khas_sukan_malaysia_id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->pengurusan_jawatankuasa_khas_sukan_malaysia_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-jawatankuasa-khas-sukan-malaysia']['delete'])): ?>
-            <?= Html::a('Delete', ['delete', 'id' => $model->pengurusan_jawatankuasa_khas_sukan_malaysia_id], [
+            <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->pengurusan_jawatankuasa_khas_sukan_malaysia_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
                     'confirm' => GeneralMessage::confirmDelete,

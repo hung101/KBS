@@ -1,4 +1,5 @@
 <?php
+use app\models\general\GeneralLabel;
 
 use yii\helpers\Html;
 
@@ -6,8 +7,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPingatInsentif */
 
-$this->title = 'Create Ref Pingat Insentif';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Pingat Insentifs', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::pingat;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pingat, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-pingat-insentif-create">

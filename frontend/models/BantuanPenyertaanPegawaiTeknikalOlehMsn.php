@@ -41,10 +41,11 @@ class BantuanPenyertaanPegawaiTeknikalOlehMsn extends \yii\db\ActiveRecord
             [['bantuan_penyertaan_pegawai_teknikal_id', 'laporan_dikemukakan', 'created_by', 'updated_by'], 'integer'],
             [['kejohanan', 'tarikh_mula', 'tarikh_tamat', 'tempat', 'status_penganjuran', 'jumlah_bantuan', 'laporan_dikemukakan'], 'required'],
             [['tarikh_mula', 'tarikh_tamat', 'created', 'updated'], 'safe'],
-            [['kejohanan', 'jumlah_bantuan', 'status_penganjuran_lain_lain'], 'string', 'max' => 80],
+            [['jumlah_bantuan', 'status_penganjuran_lain_lain'], 'string', 'max' => 80],
             [['tempat'], 'string', 'max' => 90],
             [['status_penganjuran'], 'string', 'max' => 30],
             [['session_id'], 'string', 'max' => 100],
+            [['kejohanan'], 'string', 'max' => 255],
         ];
     }
 
@@ -68,7 +69,14 @@ class BantuanPenyertaanPegawaiTeknikalOlehMsn extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
-            'status_penganjuran_lain_lain' => 'Nyatakan',
+            'status_penganjuran_lain_lain' => 'Nyatakan (Jika Lain-lain)',
         ];
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKelulusan(){
+        return $this->hasOne(RefKelulusan::className(), ['id' => 'laporan_dikemukakan']);
     }
 }

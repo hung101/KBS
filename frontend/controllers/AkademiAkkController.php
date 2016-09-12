@@ -43,6 +43,7 @@ use app\models\RefJantina;
 use app\models\RefBangsa;
 use app\models\RefKategoriJurulatih;
 use app\models\RefStatusPerlesenanAkk;
+use app\models\RefSukan;
 
 /**
  * AkademiAkkController implements the CRUD actions for AkademiAkk model.
@@ -128,6 +129,9 @@ class AkademiAkkController extends Controller
         
         $ref = RefNegeri::findOne(['id' => $model->jurulatih_di_negeri]);
         $model->jurulatih_di_negeri = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->jenis_sukan]);
+        $model->jenis_sukan = $ref['desc'];
         
         
         $model->tarikh_lahir = GeneralFunction::convert($model->tarikh_lahir);

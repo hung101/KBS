@@ -13,6 +13,8 @@ use app\models\PengurusanProgramBinaan;
 class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
 {
     public $status_permohonan_id;
+    public $atlet_id;
+    public $kategori_peserta;
     
     /**
      * @inheritdoc
@@ -21,7 +23,7 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
     {
         return [
             [['jumlah_yang_diluluskan'], 'number'],
-            [['pengurusan_program_binaan_id', 'status_permohonan_id', 'created_by'], 'integer'],
+            [['pengurusan_program_binaan_id', 'status_permohonan_id', 'created_by', 'atlet_id', 'kategori_peserta'], 'integer'],
             [['nama_ppn', 'pengurus_pn', 'kategori_permohonan', 'jenis_permohonan', 'sukan', 'tempat', 'tahap', 'negeri', 'daerah', 'tarikh_mula', 'tarikh_tamat',
                 'sokongan_pn', 'kelulusan', 'status_permohonan', 'aktiviti', 'nama_aktiviti'], 'safe'],
         ];

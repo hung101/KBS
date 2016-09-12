@@ -62,7 +62,7 @@ class PenilaianPenganjurKursusSearch extends PenilaianPenganjurKursus
         $query->andFilterWhere([
             'penilaian_penganjur_kursus_id' => $this->penilaian_penganjur_kursus_id,
             //'pengurusan_permohonan_kursus_persatuan_id' => $this->pengurusan_permohonan_kursus_persatuan_id,
-            'tarikh_kursus' => $this->tarikh_kursus,
+            //'tarikh_kursus' => $this->tarikh_kursus,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created' => $this->created,
@@ -70,10 +70,11 @@ class PenilaianPenganjurKursusSearch extends PenilaianPenganjurKursus
         ]);
 
         $query->andFilterWhere(['like', 'nama_penganjur_kursus', $this->nama_penganjur_kursus])
-            ->andFilterWhere(['like', 'kod_kursus', $this->kod_kursus])
+            ->andFilterWhere(['like', 'tbl_penilaian_penganjur_kursus.kod_kursus', $this->kod_kursus])
             ->andFilterWhere(['like', 'tempat_kursus', $this->tempat_kursus])
             ->andFilterWhere(['like', 'nama_penyelaras', $this->nama_penyelaras])
-                ->andFilterWhere(['like', 'tbl_pengurusan_permohonan_kursus_persatuan.tarikh_kursus', $this->pengurusan_permohonan_kursus_persatuan_id]);
+                ->andFilterWhere(['like', 'tbl_penilaian_penganjur_kursus.tarikh_kursus', $this->tarikh_kursus])
+                ->andFilterWhere(['like', 'tbl_pengurusan_permohonan_kursus_persatuan.agensi', $this->pengurusan_permohonan_kursus_persatuan_id]);
 
         return $dataProvider;
     }

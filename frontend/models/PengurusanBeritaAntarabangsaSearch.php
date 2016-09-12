@@ -18,8 +18,8 @@ class PengurusanBeritaAntarabangsaSearch extends PengurusanBeritaAntarabangsa
     public function rules()
     {
         return [
-            [['pengurusan_berita_antarabangsa_id'], 'integer'],
-            [['kategori_berita', 'nama_berita', 'tarikh_berita', 'muatnaik'], 'safe'],
+            [['pengurusan_berita_antarabangsa_id', 'no_telefon'], 'integer'],
+            [['kategori_berita', 'nama_berita', 'tarikh_berita', 'muatnaik', 'nama_negara', 'nama_pegawai_embassy'], 'safe'],
         ];
     }
 
@@ -42,7 +42,8 @@ class PengurusanBeritaAntarabangsaSearch extends PengurusanBeritaAntarabangsa
     public function search($params)
     {
         $query = PengurusanBeritaAntarabangsa::find()
-                ->joinWith(['refKategoriBerita']);
+                ->joinWith(['refKategoriBerita'])
+                ->joinWith(['refNegara']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -63,7 +64,10 @@ class PengurusanBeritaAntarabangsaSearch extends PengurusanBeritaAntarabangsa
 
         $query->andFilterWhere(['like', 'tbl_ref_kategori_berita.desc', $this->kategori_berita])
             ->andFilterWhere(['like', 'nama_berita', $this->nama_berita])
-            ->andFilterWhere(['like', 'muatnaik', $this->muatnaik]);
+            ->andFilterWhere(['like', 'muatnaik', $this->muatnaik])
+                ->andFilterWhere(['like', 'tbl_ref_negara.desc', $this->nama_negara])
+                ->andFilterWhere(['like', 'nama_pegawai_embassy', $this->nama_pegawai_embassy])
+                ->andFilterWhere(['like', 'no_telefon', $this->no_telefon]);
 
         return $dataProvider;
     }

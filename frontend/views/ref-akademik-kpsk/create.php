@@ -2,15 +2,15 @@
 
 use yii\helpers\Html;
 
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\RefAkademikKpsk */
 
-$this->title = 'Create Ref Akademik Kpsk';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Akademik Kpsks', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::akademik;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::akademik, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="ref-akademik-kpsk-create">
+<div class="ref-akademik-kaunseling-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

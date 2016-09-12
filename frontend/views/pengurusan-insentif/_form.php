@@ -59,7 +59,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::atlet],],
+                        'options' => ['placeholder' => Placeholder::atlet],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>6]],
                 'nama_insentif' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -326,44 +329,6 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     <?php endif; ?>
-
-    <!--<?= $form->field($model, 'atlet_id')->textInput() ?>
-
-    <?= $form->field($model, 'nama_insentif')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'kumpulan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'rekod_baru')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'nama_sukan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'kelayakan_pingat')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'jumlah_insentif')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'sgar_nama_jurulatih')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'jumlah_sgar')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'sikap_nama_persatuan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'jumlah_sikap')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'siso_tarikh_kelayakan')->textInput() ?>
-
-    <?= $form->field($model, 'sisi_tarikh_olimpik')->textInput() ?>
-
-    <?= $form->field($model, 'jumlah_siso')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'sito_nama_acara_di_olimpik')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'sito_pingat')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'jumlah_sito')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'category_insentif')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'kelulusan')->textInput() ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>

@@ -12,6 +12,9 @@ use yii\filters\VerbFilter;
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
 
+// table reference
+use app\models\Atlet;
+use app\models\RefAcara;
 /**
  * PembayaranInsentifAtletController implements the CRUD actions for PembayaranInsentifAtlet model.
  */
@@ -62,8 +65,16 @@ class PembayaranInsentifAtletController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $model = $this->findModel($id);
+        
+        $ref = Atlet::findOne(['atlet_id' => $model->atlet]);
+        $model->atlet = $ref['nameAndIC'];
+        
+        $ref = RefAcara::findOne(['id' => $model->acara]);
+        $model->acara = $ref['desc'];
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

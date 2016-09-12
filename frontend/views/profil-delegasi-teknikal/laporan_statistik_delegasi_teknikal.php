@@ -13,7 +13,7 @@ use app\models\RefReportFormat;
 use app\models\ProfilBadanSukan;
 use app\models\RefSukan;
 use app\models\RefPeringkatBadanSukan;
-use app\models\PengurusanJawatankuasaKhasSukanMalaysia;
+use app\models\ProfilDelegasiTeknikal;
 
 // contant values
 use app\models\general\Placeholder;
@@ -80,8 +80,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(PengurusanJawatankuasaKhasSukanMalaysia::find()->all(),'pengurusan_jawatankuasa_khas_sukan_malaysia_id', 'temasya'),
-                        'options' => ['placeholder' => Placeholder::temasya],],
+                        'data'=>ArrayHelper::map(ProfilDelegasiTeknikal::find()->all(),'profil_delegasi_teknikal_id', 'temasya'),
+                        'options' => ['placeholder' => Placeholder::temasya],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
                     'columnOptions'=>['colspan'=>4]],
             ],
         ],
@@ -101,7 +104,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],],
+                        'options' => ['placeholder' => Placeholder::sukan],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
                     'columnOptions'=>['colspan'=>4]],
             ],
         ],
@@ -122,6 +128,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         ] : null,
                         'data'=>ArrayHelper::map(RefPeringkatBadanSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::peringkatBadanSukan],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
                     ],
                     'columnOptions'=>['colspan'=>4]],
             ],
@@ -142,7 +151,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
-                        'options' => ['placeholder' => Placeholder::badanSukan, 'id'=>'badanSukanId'],],
+                        'options' => ['placeholder' => Placeholder::badanSukan, 'id'=>'badanSukanId'],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],

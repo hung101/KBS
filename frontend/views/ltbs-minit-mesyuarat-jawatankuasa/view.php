@@ -21,10 +21,10 @@ $this->params['breadcrumbs'][] = GeneralLabel::viewTitle;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-minit-mesyuarat-jawatankuasa']['update'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-minit-mesyuarat-jawatankuasa']['update']) && Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->mesyuarat_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-minit-mesyuarat-jawatankuasa']['delete'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-minit-mesyuarat-jawatankuasa']['delete']) && Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->mesyuarat_id], [
                 'class' => 'btn btn-danger',
                 'data' => [

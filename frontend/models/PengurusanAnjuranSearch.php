@@ -58,13 +58,14 @@ class PengurusanAnjuranSearch extends PengurusanAnjuran
 
         $query->andFilterWhere([
             'pengurusan_anjuran_id' => $this->pengurusan_anjuran_id,
-            'tarikh_program_anjuran' => $this->tarikh_program_anjuran,
+            //'tarikh_program_anjuran' => $this->tarikh_program_anjuran,
         ]);
 
         $query->andFilterWhere(['like', 'nama_program_anjuran', $this->nama_program_anjuran])
             ->andFilterWhere(['like', 'tbl_ref_badan_sukan_antarabangsa.desc', $this->nama_badan_sukan_antarabangsa])
             ->andFilterWhere(['like', 'nama_delegasi', $this->nama_delegasi])
-            ->andFilterWhere(['like', 'negara', $this->negara]);
+            ->andFilterWhere(['like', 'negara', $this->negara])
+                ->andFilterWhere(['like', 'tarikh_program_anjuran', $this->tarikh_program_anjuran]);
 
         return $dataProvider;
     }

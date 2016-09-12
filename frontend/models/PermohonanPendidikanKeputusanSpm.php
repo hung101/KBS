@@ -26,6 +26,24 @@ class PermohonanPendidikanKeputusanSpm extends \yii\db\ActiveRecord
     {
         return 'tbl_permohonan_pendidikan_keputusan_spm';
     }
+    
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior',
+            [
+                'class' => \yii\behaviors\BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'updated',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -57,5 +75,10 @@ class PermohonanPendidikanKeputusanSpm extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+    
+    public function getRefSubjekSpm()
+    {
+        return $this->hasOne(RefSubjekSpm::className(), ['id' => 'subjek']);
     }
 }

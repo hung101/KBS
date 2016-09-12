@@ -11,8 +11,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PengurusanBeritaAntarabangsa */
 
 //$this->title = $model->pengurusan_berita_antarabangsa_id;
-$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_berita_antarabangsa;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_berita_antarabangsa, 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::maklumat_antarabangsa;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::maklumat_antarabangsa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-berita-antarabangsa-view">
@@ -36,6 +36,8 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <?= $this->render('_form', [
         'model' => $model,
+        'searchModelPengurusanBeritaAntarabangsaMuatnaik' => $searchModelPengurusanBeritaAntarabangsaMuatnaik,
+        'dataProviderPengurusanBeritaAntarabangsaMuatnaik' => $dataProviderPengurusanBeritaAntarabangsaMuatnaik,
         'readonly' => $readonly,
     ]) ?>
 

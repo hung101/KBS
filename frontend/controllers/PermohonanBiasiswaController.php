@@ -23,6 +23,8 @@ use app\models\RefJantina;
 use app\models\RefBandar;
 use app\models\RefNegeri;
 use app\models\RefJenisBiasiswa;
+use app\models\RefProgramSemasaSukanAtlet;
+use app\models\RefKategoriBiasiswa;
 
 /**
  * PermohonanBiasiswaController implements the CRUD actions for PermohonanBiasiswa model.
@@ -90,6 +92,12 @@ class PermohonanBiasiswaController extends Controller
         
         $ref = RefJenisBiasiswa::findOne(['id' => $model->jenis_biasiswa]);
         $model->jenis_biasiswa = $ref['desc'];
+        
+        $ref = RefKategoriBiasiswa::findOne(['id' => $model->kategori]);
+        $model->kategori = $ref['desc'];
+        
+        $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program]);
+        $model->program = $ref['desc'];
         
         $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         $model->kelulusan = $YesNo;

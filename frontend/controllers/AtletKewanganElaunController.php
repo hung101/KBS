@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use Yii;
 use app\models\AtletKewanganElaun;
 use app\models\AtletKewanganElaunSearch;
+use app\models\PembayaranElaun;
+use app\models\PembayaranElaunSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -52,16 +54,22 @@ class AtletKewanganElaunController extends Controller
 
         if(isset($session['atlet_id'])){
             $queryPar['AtletKewanganElaunSearch']['atlet_id'] = $session['atlet_id'];
+            $queryPar['PembayaranElaunSearch']['atlet'] = $session['atlet_id'];
         }
         
         $session->close();
         
         $searchModel = new AtletKewanganElaunSearch();
         $dataProvider = $searchModel->search($queryPar);
+        
+        $searchModelPE = new PembayaranElaunSearch();
+        $dataProviderPE = $searchModelPE->search($queryPar);
 
         $renderContent = $this->renderAjax('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'searchModelPE' => $searchModelPE,
+            'dataProviderPE' => $dataProviderPE,
         ]);
 
         if($request->get('typeJson') != NULL){

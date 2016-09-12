@@ -200,7 +200,7 @@ use app\models\general\Placeholder;
                     ],
                     'columnOptions'=>['colspan'=>3]],
                 //'masa' => ['type'=>Form::INPUT_WIDGET, 'widgetClass'=>'\kartik\widgets\TimePicker','columnOptions'=>['colspan'=>3]],
-                'tempat' => [
+                /*'tempat' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -216,7 +216,8 @@ use app\models\general\Placeholder;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>4]],*/
+                'tempat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>90]],
             ]
         ],
         /*[

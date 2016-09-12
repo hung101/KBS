@@ -35,7 +35,7 @@ use app\models\general\GeneralVariable;
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
-    <pre style="text-align: center"><strong>MAKLUMAT DIRI</strong></pre>
+    <pre style="text-align: center; background-color: #a5a5a5;"><strong>MAKLUMAT DIRI</strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -88,7 +88,8 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
+                'nama' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                'no_kad_pengenalan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true, 'id'=>'noKadPengenalanId']],
             ]
         ],
         [
@@ -157,15 +158,8 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'no_kad_pengenalan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
-                'umur' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
-            ]
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
                 'no_passport' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                'umur' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true, 'id'=>'umurId']],
                 'jantina' =>[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -214,13 +208,14 @@ use app\models\general\GeneralVariable;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
+                'tahap_akademik_lain_lain' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
             ]
         ],
     ]
 ]);
     ?>
     
-    <?php // Sijil Pendaftaran Upload
+    <?php // Upload
     if($model->tahap_kelayakan_sukan_peringkat_kebangsaan){
         echo "<label>" . $model->getAttributeLabel('tahap_kelayakan_sukan_peringkat_kebangsaan') . "</label><br>";
         echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->tahap_kelayakan_sukan_peringkat_kebangsaan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
@@ -252,7 +247,7 @@ use app\models\general\GeneralVariable;
     }
     ?>
     
-    <?php // Sijil Pendaftaran Upload
+    <?php // Upload
     if($model->tahap_kelayakan_sukan_peringkat_antarabangsa){
         echo "<br><label>" . $model->getAttributeLabel('tahap_kelayakan_sukan_peringkat_antarabangsa') . "</label><br>";
         echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->tahap_kelayakan_sukan_peringkat_antarabangsa , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
@@ -286,7 +281,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT MAJIKAN</strong></pre>
+    <pre style="text-align: center; background-color: #a5a5a5;"><strong>MAKLUMAT MAJIKAN</strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -317,7 +312,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT KEJOHANAN / KURSUS</strong></pre>
+    <pre style="text-align: center; background-color: #a5a5a5;"><strong>MAKLUMAT KEJOHANAN / KURSUS</strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -372,3 +367,51 @@ use app\models\general\GeneralVariable;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+$LELAKI_CODE = RefJantina::LELAKI;
+$PEREMPUAN_CODE = RefJantina::PEREMPUAN;
+
+$script = <<< JS
+        
+    $(document).ready(function(){
+        if($("#noKadPengenalanId").val() != ""){
+            getAgeFromICNo($("#noKadPengenalanId").val());
+        }
+    });
+        
+    $("#noKadPengenalanId").focusout(function(){
+        getAgeFromICNo(this.value);
+    });
+        
+    function getAgeFromICNo(ICNo){
+        var DOBVal = "";
+
+        if(ICNo != ""){
+            DOBVal = getDOBFromICNo(ICNo);
+        
+            if(isEven(ICNo)){
+                // if IC No is even then is woman
+                $("#maklumatpegawaiteknikal-jantina").val('$PEREMPUAN_CODE').trigger("change");
+            } else {
+                // if IC No is odd then is guy
+                $("#maklumatpegawaiteknikal-jantina").val('$LELAKI_CODE').trigger("change");
+            }
+        
+            $("#umurId").val(calculateAge(formatSaveDate(DOBVal)));
+        }
+    }
+ 
+    // enable all the disabled field before submit
+    $('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+        var form = $(this);
+        
+        $("form#{$model->formName()} input").prop("disabled", false);
+    });
+        
+JS;
+        
+$this->registerJs($script);
+?>

@@ -116,11 +116,11 @@ class AtletPakaianPeralatanController extends Controller
         $ref = RefSukan::findOne(['id' => $model->jenis_sukan]);
         $model->jenis_sukan = $ref['desc'];
         
-        $ref = RefPeralatanPinjaman::findOne(['id' => $model->peralatan]);
-        $model->peralatan = $ref['desc'];
+        //$ref = RefPeralatanPinjaman::findOne(['id' => $model->peralatan]);
+        //$model->peralatan = $ref['desc'];
         
-        $ref = RefJenamaPeralatan::findOne(['id' => $model->jenama]);
-        $model->jenama = $ref['desc'];
+        //$ref = RefJenamaPeralatan::findOne(['id' => $model->jenama]);
+        //$model->jenama = $ref['desc'];
         
         return $this->renderAjax('view', [
             'model' => $model,

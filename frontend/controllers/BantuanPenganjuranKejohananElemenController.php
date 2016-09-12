@@ -9,6 +9,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use app\models\RefElemenBantuanPenganjuranKejohanan;
+use app\models\RefSubElemenBantuanPenganjuranKejohanan;
+
 /**
  * BantuanPenganjuranKejohananElemenController implements the CRUD actions for BantuanPenganjuranKejohananElemen model.
  */
@@ -51,8 +54,17 @@ class BantuanPenganjuranKejohananElemenController extends Controller
      */
     public function actionView($id)
     {
+        
+        $model = $this->findModel($id);
+        
+        $ref = RefElemenBantuanPenganjuranKejohanan::findOne(['id' => $model->elemen_bantuan]);
+        $model->elemen_bantuan = $ref['desc'];
+        
+        $ref = RefSubElemenBantuanPenganjuranKejohanan::findOne(['id' => $model->sub_elemen]);
+        $model->sub_elemen = $ref['desc'];
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

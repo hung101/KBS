@@ -123,7 +123,11 @@ use app\models\general\GeneralMessage;
             // 'akademik',
             // 'pekerjaan',
             // 'nama_majikan',
-            // 'keputusan',
+            //'keputusan',
+            [
+                'attribute' => 'keputusan',
+                'value'=> 'refKeputusanKpsk.desc'
+            ],
             // 'objektif',
             // 'struktur',
             // 'esei',
@@ -199,8 +203,11 @@ use app\models\general\GeneralMessage;
     <?= $form->field($model, 'updated')->textInput() ?>-->
 
     <div class="form-group">
+        <?php if(!$readonly && $model->isNewRecord): ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary']) ?>
+        <?php endif; ?>
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::send : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?php endif; ?>
     </div>
 

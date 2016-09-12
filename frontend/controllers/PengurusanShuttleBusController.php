@@ -65,11 +65,11 @@ class PengurusanShuttleBusController extends Controller
         
         $model = $this->findModel($id);
         
-        $ref = RefShuttle::findOne(['id' => $model->pilihan_shuttle]);
-        $model->pilihan_shuttle = $ref['desc'];
+        //$ref = RefShuttle::findOne(['id' => $model->pilihan_shuttle]);
+        //$model->pilihan_shuttle = $ref['desc'];
         
-        $ref = Atlet::findOne(['atlet_id' => $model->atlet_id]);
-        $model->atlet_id = $ref['nameAndIC'];
+        //$ref = Atlet::findOne(['atlet_id' => $model->atlet_id]);
+        //$model->atlet_id = $ref['nameAndIC'];
         
         return $this->render('view', [
             'model' => $model,

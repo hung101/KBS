@@ -64,7 +64,6 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
-                        'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
@@ -91,44 +90,248 @@ use app\models\general\GeneralVariable;
                 'bilangan_pembantu' => ['type'=>Form::INPUT_TEXT, 'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
             ]
         ],
-        [
-            'attributes' => [
-                'laporan_bergambar' => ['type'=>Form::INPUT_FILE,'options'=>['maxlength'=>true]],
-            ]
-        ],
-        [
-            'attributes' => [
-                'penyata_perbelanjaan_resit_yang_telah_disahkan' => ['type'=>Form::INPUT_FILE,'options'=>['maxlength'=>true]],
-            ]
-        ],
-        [
-            'attributes' => [
-                'jadual_keputusan_pertandingan' => ['type'=>Form::INPUT_FILE,'options'=>['maxlength'=>true]],
-            ]
-        ],
-        [
-            'attributes' => [
-                'senarai_peserta' => ['type'=>Form::INPUT_FILE,'options'=>['maxlength'=>true]],
-            ]
-        ],
-        [
-            'attributes' => [
-                'statistik_penyertaan' => ['type'=>Form::INPUT_FILE,'options'=>['maxlength'=>true]],
-            ]
-        ],
-        [
-            'attributes' => [
-                'senarai_pegawai_penceramah' => ['type'=>Form::INPUT_FILE,'options'=>['maxlength'=>true]],
-            ]
-        ],
-        [
-            'attributes' => [
-                'senarai_urusetia_sukarelawan' => ['type'=>Form::INPUT_FILE,'options'=>['maxlength'=>true]],
-            ]
-        ],
     ]
 ]);
         ?>
+    
+    <?php // Upload
+    if($model->laporan_bergambar){
+        echo "<label>" . $model->getAttributeLabel('laporan_bergambar') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->laporan_bergambar , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id, 'field'=> 'laporan_bergambar'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'laporan_bergambar' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+    
+    <br>
+    
+    <?php // Upload
+    
+    $label = $model->getAttributeLabel('penyata_perbelanjaan_resit_yang_telah_disahkan');
+    
+    if($model->penyata_perbelanjaan_resit_yang_telah_disahkan){
+        echo "<div class='required'>";
+        echo "<label>" . $model->getAttributeLabel('penyata_perbelanjaan_resit_yang_telah_disahkan') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->penyata_perbelanjaan_resit_yang_telah_disahkan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+        
+        $label = false;
+    }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'penyata_perbelanjaan_resit_yang_telah_disahkan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+        echo "<br>";
+    }
+        
+    ?>
+    
+    <?php // Upload
+    if($model->jadual_keputusan_pertandingan){
+        echo "<label>" . $model->getAttributeLabel('jadual_keputusan_pertandingan') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->jadual_keputusan_pertandingan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id, 'field'=> 'jadual_keputusan_pertandingan'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'jadual_keputusan_pertandingan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+    
+    <br>
+    
+    <?php // Upload
+    if($model->senarai_peserta){
+        echo "<label>" . $model->getAttributeLabel('senarai_peserta') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->senarai_peserta , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id, 'field'=> 'senarai_peserta'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'senarai_peserta' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+    
+    <br>
+    
+    <?php // Upload
+    if($model->statistik_penyertaan){
+        echo "<label>" . $model->getAttributeLabel('statistik_penyertaan') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->statistik_penyertaan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id, 'field'=> 'statistik_penyertaan'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'statistik_penyertaan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3], 'hint' => '( JURULATIH / ATLET (LELAKI / WANITA / BANGSA) )'],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+    
+    <br>
+    
+    <?php // Upload
+    if($model->senarai_pegawai_penceramah){
+        echo "<label>" . $model->getAttributeLabel('senarai_pegawai_penceramah') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->senarai_pegawai_penceramah , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id, 'field'=> 'senarai_pegawai_penceramah'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'senarai_pegawai_penceramah' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+    
+    <br>
+    
+    <?php // Upload
+    if($model->senarai_urusetia_sukarelawan){
+        echo "<label>" . $model->getAttributeLabel('senarai_urusetia_sukarelawan') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->senarai_urusetia_sukarelawan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id, 'field'=> 'senarai_urusetia_sukarelawan'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'senarai_urusetia_sukarelawan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+    
+    <br>
     
     <h3>Tuntutan Baki Dua Puluh Peratus (20%) Daripada Jumlah Kelulusan (Jika Ada)</h3>
     

@@ -66,7 +66,7 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'no_kad_pengenalan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12]],
+                'no_kad_pengenalan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12, 'id'=>'KeluargaNoICID']],
                 'tarikh_lahir' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -74,7 +74,8 @@ use app\models\general\GeneralVariable;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ],
+                        'options' => ['id'=>'KeluargaTarikhLahirID'],
                     ],
                     'columnOptions'=>['colspan'=>3]],
                 'pekerjaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
@@ -125,24 +126,6 @@ use app\models\general\GeneralVariable;
 ]);
         ?>
 
-    <!--<?= $form->field($model, 'atlet_id')->textInput() ?>
-
-    <?= $form->field($model, 'nama')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'hubungan')->textInput(['maxlength' => 20]) ?>
-
-    <?= $form->field($model, 'no_kad_pengenalan')->textInput(['maxlength' => 12]) ?>
-
-    <?= $form->field($model, 'tarikh_lahir')->textInput() ?>
-
-    <?= $form->field($model, 'pekerjaan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'bangsa')->textInput(['maxlength' => 25]) ?>
-
-    <?= $form->field($model, 'agama')->textInput(['maxlength' => 15]) ?>
-
-    <?= $form->field($model, 'no_tel')->textInput(['maxlength' => 14]) ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -153,3 +136,50 @@ use app\models\general\GeneralVariable;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+$formID = GeneralVariable::formAtletKeluargaID;
+
+$script = <<< JS
+        
+$('form#{$formID}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$formID} input").prop("disabled", false);
+});
+        
+$("#KeluargaNoICID").focusout(function(){
+    
+    var DOBVal = "";
+    
+    if(this.value != ""){
+        DOBVal = getDOBFromICNo(this.value);
+    }
+    
+        
+    $("#KeluargaTarikhLahirID-disp").val(formatSaveDate(DOBVal));
+    $("#KeluargaTarikhLahirID").val(formatSaveDate(DOBVal));
+        
+       /* $('#KeluargaTarikhLahirID').kvDatepicker({
+                format: 'mm/dd/yyyy',
+                startDate: '-3d'
+            });*/
+        
+    //$("#UmurID").val(calculateAge(formatSaveDate(DOBVal)));
+        
+        
+    $("#KeluargaTarikhLahirID").kvDatepicker("$DateDisplayFormat", new Date(DOBVal)).kvDatepicker({
+        format: "$DateDisplayFormat"
+    });
+});
+        
+$('#KeluargaTarikhLahirID').change(function(){
+    //$("#UmurID").val(calculateAge(this.value));
+});
+
+JS;
+        
+$this->registerJs($script);
+?>

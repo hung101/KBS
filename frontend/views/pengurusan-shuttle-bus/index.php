@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
                 ],
-                'value' => 'refAtlet.name_penuh'
+                //'value' => 'refAtlet.name_penuh'
             ],
             [
                 'attribute' => 'tarikh_mula',

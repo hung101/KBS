@@ -13,6 +13,7 @@ use yii\filters\VerbFilter;
 use yii\web\Session;
 
 use app\models\RefJenisPencapaian;
+use app\models\RefStatusPermohonanPendidikan;
 
 /**
  * AtletPendidikanController implements the CRUD actions for AtletPendidikan model.
@@ -51,6 +52,7 @@ class AtletPendidikanController extends Controller
 
         if(isset($session['atlet_id'])){
             $queryPar['PertukaranPengajianSearch']['atlet'] = $session['atlet_id'];
+            $queryPar['PertukaranPengajianSearch']['status_permohonan_id'] = RefStatusPermohonanPendidikan::LULUS;
         }
         
         $session->close();

@@ -56,12 +56,12 @@ use app\models\general\GeneralMessage;
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
-    <?php // Gambar Upload
+    
+    <?php
     if($model->gambar){
-        echo "<label>" . $model->getAttributeLabel('gambar') . "</label><br>";
-        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->gambar , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$model->gambar.'" width="200px">&nbsp;&nbsp;&nbsp;';
         if(!$readonly){
-            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->anugerah_pencalonan_lain_id, 'field'=> 'gambar'], 
+            echo Html::a(GeneralLabel::removeImage, ['deleteupload', 'id'=>$model->anugerah_pencalonan_lain_id, 'field'=> 'gambar'], 
             [
                 'class'=>'btn btn-danger', 
                 'data' => [
@@ -70,6 +70,7 @@ use app\models\general\GeneralMessage;
                 ]
             ]).'<p>';
         }
+        echo '<br><br>';
     } else {
         echo FormGrid::widget([
         'model' => $model,
@@ -80,7 +81,7 @@ use app\models\general\GeneralMessage;
                     'columns'=>12,
                     'autoGenerateColumns'=>false, // override columns setting
                     'attributes' => [
-                        'gambar' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                        'gambar' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>['accept' => 'image/*'], 'pluginOptions' => ['previewFileType' => 'image'], 'hint'=>GeneralLabel::getFileUploadMaxSizeHint()],
                     ],
                 ],
             ]
@@ -94,7 +95,7 @@ use app\models\general\GeneralMessage;
     'form' => $form,
     'autoGenerateColumns' => true,
     'rows' => [
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -117,7 +118,7 @@ use app\models\general\GeneralMessage;
                         ],],
                     'columnOptions'=>['colspan'=>6]],
             ],
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting

@@ -3,29 +3,32 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+use app\models\general\GeneralLabel;
+
 /* @var $this yii\web\View */
-/* @var $model app\models\RefJenisLesenParalimpik */
+/* @var $model app\models\RefJenisLesenMemandu */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="ref-jenis-lesen-paralimpik-form">
+<div class="ref-jenis-lesen-memandu-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'aktif')->textInput() ?>
+    <?php $model->isNewRecord ? $model->aktif = 1: $model->aktif = $model->aktif ;  ?>
+    <?= $form->field($model, 'aktif')->radioList(array(true=>GeneralLabel::yes,false=>GeneralLabel::no)); ?>
 
-    <?= $form->field($model, 'created_by')->textInput() ?>
+    
 
-    <?= $form->field($model, 'updated_by')->textInput() ?>
+    
 
-    <?= $form->field($model, 'created')->textInput() ?>
+    
 
-    <?= $form->field($model, 'updated')->textInput() ?>
+    
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -8,6 +8,7 @@ use frontend\models\MaklumatPegawaiTeknikalSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 use yii\web\UploadedFile;
 
 use app\models\general\Upload;
@@ -205,5 +206,12 @@ class MaklumatPegawaiTeknikalController extends Controller
             $img->update();
 
             return $this->redirect(['update', 'id' => $id]);
+    }
+    
+    public function actionGetPegawaiTeknikal($id){
+        // find Maklumat Pegawai Teknikal
+        $model = MaklumatPegawaiTeknikal::findOne($id);
+        
+        echo Json::encode($model);
     }
 }

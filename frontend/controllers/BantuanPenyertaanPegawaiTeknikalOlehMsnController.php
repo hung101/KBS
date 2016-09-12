@@ -10,6 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use app\models\general\GeneralLabel;
+
+use app\models\RefPeringkatBantuanPenyertaanPegawaiTeknikal;
 
 /**
  * BantuanPenyertaanPegawaiTeknikalOlehMsnController implements the CRUD actions for BantuanPenyertaanPegawaiTeknikalOlehMsn model.
@@ -53,8 +56,15 @@ class BantuanPenyertaanPegawaiTeknikalOlehMsnController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        
+        $ref = RefPeringkatBantuanPenyertaanPegawaiTeknikal::findOne(['id' => $model->status_penganjuran]);
+        $model->status_penganjuran = $ref['desc'];
+        
+        $model->laporan_dikemukakan = GeneralLabel::getYesNoLabel($model->laporan_dikemukakan);
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

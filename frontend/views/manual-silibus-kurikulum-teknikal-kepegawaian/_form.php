@@ -101,7 +101,6 @@ use app\models\general\GeneralVariable;
         
     ?>
     
-    <?php if($readonly): ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -117,10 +116,10 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
-                        'type'=>DateControl::FORMAT_DATETIME,
+                        //'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ],
                     ],
                     'columnOptions'=>['colspan'=>3]],
                 
@@ -129,7 +128,6 @@ use app\models\general\GeneralVariable;
     ]
 ]);
     ?>
-    <?php endif; ?>
     
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -140,3 +138,23 @@ use app\models\general\GeneralVariable;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<?php
+
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+    
+
+JS;
+        
+$this->registerJs($script);
+?>
+

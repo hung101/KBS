@@ -14,6 +14,9 @@ use app\models\Jurulatih;
 use app\models\Atlet;
 use app\models\RefProgram;
 use app\models\RefSukan;
+use app\models\RefBahagianKemudahan;
+use app\models\RefCawanganKemudahan;
+use app\models\RefStatusPermohonanKemudahan;
 
 // contant values
 use app\models\general\GeneralLabel;
@@ -71,8 +74,17 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
         $ref = RefSukan::findOne(['id' => $model->sukan]);
         $model->sukan = $ref['desc'];
         
-        $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
-        $model->kelulusan = $YesNo;
+        $ref = RefBahagianKemudahan::findOne(['id' => $model->bahagian]);
+        $model->bahagian = $ref['desc'];
+        
+        $ref = RefCawanganKemudahan::findOne(['id' => $model->cawangan]);
+        $model->cawangan = $ref['desc'];
+        
+        $ref = RefStatusPermohonanKemudahan::findOne(['id' => $model->kelulusan]);
+        $model->kelulusan = $ref['desc'];
+        
+        /*$YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
+        $model->kelulusan = $YesNo;*/
         
         return $this->render('view', [
             'model' => $model,

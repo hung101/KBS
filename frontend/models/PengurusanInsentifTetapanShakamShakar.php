@@ -56,9 +56,10 @@ class PengurusanInsentifTetapanShakamShakar extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis_insentif', 'pingat', 'rekod_baharu', 'kumpulan_temasya_kejohanan', 'jumlah', 'kejohanan', 'peringkat', 'nilai_berpasukan', 'nilai_individu'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jenis_insentif', 'pingat', 'rekod_baharu', 'kumpulan_temasya_kejohanan', 'jumlah', 'kejohanan', 'peringkat', 'nilai_berpasukan_kurang_5', 
+                'nilai_individu', 'nilai_berpasukan_lebih_5'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['pengurusan_insentif_tetapan_id', 'jenis_insentif', 'pingat', 'created_by', 'updated_by', 'kejohanan', 'peringkat', 'kelas'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['jumlah', 'rekod_baharu', 'nilai_berpasukan', 'nilai_individu'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['jumlah', 'rekod_baharu', 'nilai_berpasukan_kurang_5', 'nilai_berpasukan_lebih_5', 'nilai_individu'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['created', 'updated'], 'safe'],
             [['kumpulan_temasya_kejohanan'], 'string', 'max' => 255],
             [['session_id'], 'string', 'max' => 100],
@@ -78,7 +79,8 @@ class PengurusanInsentifTetapanShakamShakar extends \yii\db\ActiveRecord
             'kumpulan_temasya_kejohanan' => GeneralLabel::kumpulan_temasya_kejohanan,
             'rekod_baharu' => 'Rekod Baharu (RM)',
             'jumlah' => GeneralLabel::jumlah,
-            'nilai_berpasukan' => 'Nilai Berpasukan (RM)',
+            'nilai_berpasukan_kurang_5' => 'Nilai Berpasukan (RM)',
+            //'nilai_berpasukan_lebih_5' => 'Nilai Berpasukan > 5 Orang (RM)',
             'nilai_individu' => 'Nilai Individu (RM)',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
@@ -107,5 +109,33 @@ class PengurusanInsentifTetapanShakamShakar extends \yii\db\ActiveRecord
      */
     public function getRefKelulusan(){
         return $this->hasOne(RefKelulusan::className(), ['id' => 'rekod_baharu']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefInsentifKejohanan(){
+        return $this->hasOne(RefInsentifKejohanan::className(), ['id' => 'kejohanan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefInsentifPeringkat(){
+        return $this->hasOne(RefInsentifPeringkat::className(), ['id' => 'peringkat']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefInsentifKelas(){
+        return $this->hasOne(RefInsentifKelas::className(), ['id' => 'kelas']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefPengurusanInsentifTetapan(){
+        return $this->hasOne(PengurusanInsentifTetapan::className(), ['pengurusan_insentif_tetapan_id' => 'pengurusan_insentif_tetapan_id']);
     }
 }

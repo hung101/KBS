@@ -67,4 +67,18 @@ class BantuanPenganjuranKejohananElemen extends \yii\db\ActiveRecord
             'updated' => 'Updated',
         ];
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefElemenBantuanPenganjuranKejohanan(){
+        return $this->hasOne(RefElemenBantuanPenganjuranKejohanan::className(), ['id' => 'elemen_bantuan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSubElemenBantuanPenganjuranKejohanan(){
+        return $this->hasOne(RefSubElemenBantuanPenganjuranKejohanan::className(), ['id' => 'sub_elemen']);
+    }
 }

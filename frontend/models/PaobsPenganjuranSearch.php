@@ -19,7 +19,8 @@ class PaobsPenganjuranSearch extends PaobsPenganjuran
     {
         return [
             [['penganjuran_id', 'bilangan_peserta', 'negara_peserta'], 'integer'],
-            [['nama_aktiviti', 'jenis_sukan', 'tarikh_aktiviti', 'tarikh_tamat_aktiviti', 'alamat_lokasi_1', 'pemilik_lokasi', 'sumber_kewangan', 'surat_sokongan', 'laporan_penganjuran'], 'safe'],
+            [['nama_aktiviti', 'jenis_sukan', 'tarikh_aktiviti', 'tarikh_tamat_aktiviti', 'alamat_lokasi_1', 'pemilik_lokasi', 'sumber_kewangan', 'surat_sokongan', 
+                'laporan_penganjuran', 'status'], 'safe'],
             [['kos_aktiviti'], 'number'],
         ];
     }
@@ -43,7 +44,8 @@ class PaobsPenganjuranSearch extends PaobsPenganjuran
     public function search($params)
     {
         $query = PaobsPenganjuran::find()
-                ->joinWith(['refSukan']);
+                ->joinWith(['refSukan'])
+                ->joinWith(['refStatusLaporanMesyuaratAgung']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -73,7 +75,8 @@ class PaobsPenganjuranSearch extends PaobsPenganjuran
             ->andFilterWhere(['like', 'surat_sokongan', $this->surat_sokongan])
             ->andFilterWhere(['like', 'laporan_penganjuran', $this->laporan_penganjuran])
                 ->andFilterWhere(['like', 'tarikh_aktiviti', $this->tarikh_aktiviti])
-                ->andFilterWhere(['like', 'tarikh_tamat_aktiviti', $this->tarikh_tamat_aktiviti]);
+                ->andFilterWhere(['like', 'tarikh_tamat_aktiviti', $this->tarikh_tamat_aktiviti])
+                ->andFilterWhere(['like', 'tbl_ref_status_laporan_mesyuarat_agung.desc', $this->status]);
 
         return $dataProvider;
     }

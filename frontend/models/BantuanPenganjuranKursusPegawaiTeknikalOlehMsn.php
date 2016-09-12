@@ -54,7 +54,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalOlehMsn extends \yii\db\ActiveRecor
         return [
             'bantuan_penganjuran_kursus_pegawai_teknikal_oleh_msn_id' => 'Bantuan Penganjuran Kursus Pegawai Teknikal Oleh Msn ID',
             'bantuan_penganjuran_kursus_pegawai_teknikal_id' => 'Bantuan Penganjuran Kursus Pegawai Teknikal ID',
-            'kursus_seminar_bengkel' => 'Kursus Seminar Bengkel',
+            'kursus_seminar_bengkel' => 'Kursus / Seminar / Bengkel',
             'tarikh_mula' => 'Tarikh Mula',
             'tarikh_tamat' => 'Tarikh Tamat',
             'tempat' => 'Tempat',
@@ -66,5 +66,12 @@ class BantuanPenganjuranKursusPegawaiTeknikalOlehMsn extends \yii\db\ActiveRecor
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKelulusan(){
+        return $this->hasOne(RefKelulusan::className(), ['id' => 'laporan_dikemukakan']);
     }
 }

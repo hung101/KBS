@@ -123,8 +123,8 @@ class AtletPakaianController extends Controller
         $ref = RefSaizPakaian::findOne(['id' => $model->saiz_pakaian]);
         $model->saiz_pakaian = $ref['desc'];
         
-        $ref = RefJenamaPakaian::findOne(['id' => $model->jenama]);
-        $model->jenama = $ref['desc'];
+        //$ref = RefJenamaPakaian::findOne(['id' => $model->jenama]);
+        //$model->jenama = $ref['desc'];
         
         return $this->renderAjax('view', [
             'model' => $model,

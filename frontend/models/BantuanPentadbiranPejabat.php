@@ -59,14 +59,17 @@ class BantuanPentadbiranPejabat extends \yii\db\ActiveRecord
     {
         return [
             [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'status_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_lahir', 'tarikh'], 'safe'],
+            [['tarikh_lahir', 'tarikh', 'tarikh_lantikan'], 'safe'],
+            [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
+            [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama', 'nama_sue', 'jawatan', 'persatuan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_negeri', 'status_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['no_tel_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_tel_bimbit', 'no_tel_pejabat', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
@@ -78,11 +81,11 @@ class BantuanPentadbiranPejabat extends \yii\db\ActiveRecord
     {
         return [
             'bantuan_pentadbiran_pejabat_id' => GeneralLabel::bantuan_pentadbiran_pejabat_id,
-            'nama' => GeneralLabel::nama,
+            'nama' => GeneralLabel::nama_pemohon,
             'jawatan' => GeneralLabel::jawatan,
             'persatuan' => GeneralLabel::persatuan,
             'tarikh' => GeneralLabel::tarikh_permohonan,
-            'nama_sue' => GeneralLabel::nama_sue,
+            'nama_sue' => GeneralLabel::nama,
             'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
             'tarikh_lahir' => GeneralLabel::tarikh_lahir,
             'alamat_1' => GeneralLabel::alamat_1,
@@ -91,13 +94,14 @@ class BantuanPentadbiranPejabat extends \yii\db\ActiveRecord
             'alamat_negeri' => GeneralLabel::alamat_negeri,
             'alamat_bandar' => GeneralLabel::alamat_bandar,
             'alamat_poskod' => GeneralLabel::alamat_poskod,
-            'no_tel_bimbit' => GeneralLabel::no_untuk_dihubungi,
+            'no_tel_bimbit' => GeneralLabel::no_tel_pejabat,
+            'no_tel_pejabat' => GeneralLabel::no_untuk_dihubungi,
             'no_faks' => GeneralLabel::no_faks,
             'emel' => GeneralLabel::emel,
             'jumlah_dipohon' => GeneralLabel::jumlah_dipohon,
             'status_permohonan' => GeneralLabel::status_permohonan,
             'catatan' => GeneralLabel::catatan,
-
+            'tarikh_lantikan' => GeneralLabel::tarikh_lantikan,
         ];
     }
     
@@ -106,5 +110,19 @@ class BantuanPentadbiranPejabat extends \yii\db\ActiveRecord
      */
     public function getRefStatusPermohonanBantuanPentadbiranPejabat(){
         return $this->hasOne(RefStatusPermohonanBantuanPentadbiranPejabat::className(), ['id' => 'status_permohonan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefProfilBadanSukan(){
+        return $this->hasOne(ProfilBadanSukan::className(), ['profil_badan_sukan' => 'persatuan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJawatanBantuanPentadbiranPejabat(){
+        return $this->hasOne(RefJawatanBantuanPentadbiranPejabat::className(), ['id' => 'jawatan']);
     }
 }

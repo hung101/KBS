@@ -5,27 +5,32 @@ use yii\widgets\DetailView;
 
 // contant values
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\MaklumatPegawaiTeknikal */
 
-$this->title = GeneralLabel::viewTitle . ' Maklumat Pegawai Teknikal';
-$this->params['breadcrumbs'][] = ['label' => 'Maklumat Pegawai Teknikal', 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::maklumat_pegawai_teknikal_paparan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::maklumat_pegawai_teknikal, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="maklumat-pegawai-teknikal-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['maklumat-pegawai-teknikal']['update'])): ?>
+            <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id], ['class' => 'btn btn-primary']) ?>
+        <?php endif; ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['maklumat-pegawai-teknikal']['delete'])): ?>
+            <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => GeneralMessage::confirmDelete,
+                    'method' => 'post',
+                ],
+            ]) ?>
+        <?php endif; ?>
     </p>
 
     <?= $this->render('_form', [

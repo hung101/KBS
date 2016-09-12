@@ -63,7 +63,8 @@ class PengurusanUpstnSearch extends PengurusanUpstn
             'masa' => $this->masa,
         ]);
 
-        $query->andFilterWhere(['like', 'tbl_ref_ppn.desc', $this->nama_pengurus_sukan])
+        $query->andFilterWhere(['like', 'nama_pengurus_sukan', $this->nama_pengurus_sukan])
+                //->andFilterWhere(['like', 'tbl_ref_ppn.desc', $this->nama_pengurus_sukan])
             ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->nama_sukan])
             ->andFilterWhere(['like', 'tempat', $this->tempat])
             ->andFilterWhere(['like', 'kehadiran', $this->kehadiran])

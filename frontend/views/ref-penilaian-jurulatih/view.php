@@ -3,11 +3,13 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+use app\models\general\GeneralLabel;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPenilaianJurulatih */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Penilaian Jurulatihs', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Penilaian Jurulatih', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-penilaian-jurulatih-view">
@@ -25,16 +27,18 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
+    
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
             'desc',
-            'aktif',
-            'created_by',
-            'updated_by',
-            'created',
-            'updated',
+            'markah_peratus',
+            //'aktif',
+            [
+                'attribute' => 'aktif',
+                'value' => $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no,
+            ],
         ],
     ]) ?>
 

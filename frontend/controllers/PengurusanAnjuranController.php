@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PengurusanAnjuran;
 use frontend\models\PengurusanAnjuranSearch;
+use app\models\PengurusanAnjuranNegara;
+use frontend\models\PengurusanAnjuranNegaraSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -75,8 +77,17 @@ class PengurusanAnjuranController extends Controller
         $ref = RefNegara::findOne(['id' => $model->negara]);
         $model->negara = $ref['desc'];
         
+        $queryPar = null;
+        
+        $queryPar['PengurusanAnjuranNegaraSearch']['pengurusan_anjuran_id'] = $id;
+        
+        $searchModelPengurusanAnjuranNegara  = new PengurusanAnjuranNegaraSearch();
+        $dataProviderPengurusanAnjuranNegara = $searchModelPengurusanAnjuranNegara->search($queryPar);
+        
         return $this->render('view', [
             'model' => $model,
+            'searchModelPengurusanAnjuranNegara' => $searchModelPengurusanAnjuranNegara,
+            'dataProviderPengurusanAnjuranNegara' => $dataProviderPengurusanAnjuranNegara,
             'readonly' => true,
         ]);
     }
@@ -93,12 +104,30 @@ class PengurusanAnjuranController extends Controller
         }
         
         $model = new PengurusanAnjuran();
+        
+        $queryPar = null;
+        
+        Yii::$app->session->open();
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['PengurusanAnjuranNegaraSearch']['session_id'] = Yii::$app->session->id;
+        }
+        
+        $searchModelPengurusanAnjuranNegara  = new PengurusanAnjuranNegaraSearch();
+        $dataProviderPengurusanAnjuranNegara = $searchModelPengurusanAnjuranNegara->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if(isset(Yii::$app->session->id)){
+                PengurusanAnjuranNegara::updateAll(['pengurusan_anjuran_id' => $model->pengurusan_anjuran_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PengurusanAnjuranNegara::updateAll(['session_id' => ''], 'pengurusan_anjuran_id = "'.$model->pengurusan_anjuran_id.'"');
+            }
+            
             return $this->redirect(['view', 'id' => $model->pengurusan_anjuran_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'searchModelPengurusanAnjuranNegara' => $searchModelPengurusanAnjuranNegara,
+                'dataProviderPengurusanAnjuranNegara' => $dataProviderPengurusanAnjuranNegara,
                 'readonly' => false,
             ]);
         }
@@ -117,12 +146,21 @@ class PengurusanAnjuranController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        $queryPar = null;
+        
+        $queryPar['PengurusanAnjuranNegaraSearch']['pengurusan_anjuran_id'] = $id;
+        
+        $searchModelPengurusanAnjuranNegara  = new PengurusanAnjuranNegaraSearch();
+        $dataProviderPengurusanAnjuranNegara = $searchModelPengurusanAnjuranNegara->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->pengurusan_anjuran_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'searchModelPengurusanAnjuranNegara' => $searchModelPengurusanAnjuranNegara,
+                'dataProviderPengurusanAnjuranNegara' => $dataProviderPengurusanAnjuranNegara,
                 'readonly' => false,
             ]);
         }

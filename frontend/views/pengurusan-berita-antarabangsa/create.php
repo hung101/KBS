@@ -8,8 +8,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanBeritaAntarabangsa */
 
-$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::pengurusan_berita_antarabangsa;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_berita_antarabangsa, 'url' => ['index']];
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::maklumat_antarabangsa;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::maklumat_antarabangsa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-berita-antarabangsa-create">
@@ -18,6 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'searchModelPengurusanBeritaAntarabangsaMuatnaik' => $searchModelPengurusanBeritaAntarabangsaMuatnaik,
+        'dataProviderPengurusanBeritaAntarabangsaMuatnaik' => $dataProviderPengurusanBeritaAntarabangsaMuatnaik,
         'readonly' => $readonly,
     ]) ?>
 

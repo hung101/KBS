@@ -82,4 +82,11 @@ class LatihanDanProgram extends \yii\db\ActiveRecord
     public function getRefKategoriKursus(){
         return $this->hasOne(RefKategoriKursus::className(), ['id' => 'kategori_kursus']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusLaporanMesyuaratAgung(){
+        return $this->hasOne(RefStatusLaporanMesyuaratAgung::className(), ['id' => 'status']);
+    }
 }

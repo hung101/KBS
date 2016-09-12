@@ -10,7 +10,7 @@ use app\models\general\GeneralLabel;
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::profil_badan_sukan.': ' . ' ' . $model->profil_badan_sukan;
 $this->title = GeneralLabel::profil_badan_sukan;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::profil_badan_sukan, 'url' => ['index']];
+$this->params['breadcrumbs'][] = (Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN) ? ['label' => GeneralLabel::profil_badan_sukan, 'url' => ['index']] : ['label' => GeneralLabel::pengurusan_maklumat_psk, 'url' => ['index-msn']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle, 'url' => ['view', 'id' => $model->profil_badan_sukan]];
 $this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>

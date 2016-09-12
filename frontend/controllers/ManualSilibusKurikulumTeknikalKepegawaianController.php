@@ -12,6 +12,7 @@ use yii\web\UploadedFile;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\ProfilBadanSukan;
@@ -90,7 +91,7 @@ class ManualSilibusKurikulumTeknikalKepegawaianController extends Controller
         
         $model = new ManualSilibusKurikulumTeknikalKepegawaian();
         
-        $model->tarikh = new \yii\db\Expression('NOW()');
+        $model->tarikh = date("Y-m-d");
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'muat_naik');

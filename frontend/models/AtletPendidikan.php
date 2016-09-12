@@ -73,7 +73,7 @@ class AtletPendidikan extends \yii\db\ActiveRecord
             [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['pelajar_id_no'], 'string', 'max' => 15, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['keputusan_cgpa'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['biasiswa_tajaan'], 'string', 'max' => 2, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['biasiswa_tajaan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jenis_biasiswa', 'alamat_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];

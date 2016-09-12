@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
 
+use app\models\Atlet;
+
 /**
  * AnugerahPencalonanPasukanPemainController implements the CRUD actions for AnugerahPencalonanPasukanPemain model.
  */
@@ -53,8 +55,13 @@ class AnugerahPencalonanPasukanPemainController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        
+        $ref = Atlet::findOne(['atlet_id' => $model->nama_pemain]);
+        $model->nama_pemain = $ref['NameAndIC'];
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

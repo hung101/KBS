@@ -62,11 +62,11 @@ use app\models\general\GeneralVariable;
     ?>
     
     <?php if($readonly): ?>
-        <?php if( ( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['update'])) || 
+        <?php if( ( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['update'])) || 
                 (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])) ): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->atlet_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if( ( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['delete']))  || 
+        <?php if( ( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['delete']))  || 
                 (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->atlet_id], [
                 'class' => 'btn btn-danger',
@@ -76,6 +76,11 @@ use app\models\general\GeneralVariable;
                 ],
             ]) ?>
     <?php endif; ?>
+    <?php 
+    if($model->tawaran_id && $model->tawaran_id == RefStatusTawaran::LULUS_TAWARAN){
+        echo Html::a(GeneralLabel::generate . ' ' . GeneralLabel::surat_tawaran_atlet, ['surat-tawaran-atlet', 'atlet_id' => $model->atlet_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+    }
+    ?>
     <br>
     <br>
     <?php endif; ?>
@@ -85,10 +90,12 @@ use app\models\general\GeneralVariable;
             'staticOnly'=>$readonly,
             'options' => ['enctype' => 'multipart/form-data'],
             'id'=>$model->formName()]); ?>
+    
+    <?php //echo $form->errorSummary($model); ?>
     <?php
-    if($model->gambar){
+    /*if($model->gambar){
         //echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$model->gambar.'" width="200px">&nbsp;&nbsp;&nbsp;';
-        if(!$readonly){
+        /*if(!$readonly){
             echo Html::a(GeneralLabel::removeImage, ['deleteimg', 'id'=>$model->atlet_id, 'field'=> 'gambar'], 
             [
                 'class'=>'btn btn-danger', 
@@ -114,7 +121,42 @@ use app\models\general\GeneralVariable;
                 ],
             ]
         ]);
+    }*/
+    ?>
+    
+    <?php // Gambar Upload
+    
+    $label = $model->getAttributeLabel('gambar');
+    
+    if($model->gambar){
+        //echo "<div class='required'>";
+        //echo "<label>" . $model->getAttributeLabel('gambar') . "</label><br>";
+        //echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$model->gambar.'" width="200px">&nbsp;&nbsp;&nbsp;';
+        //echo '<br><br>';
+        //echo "</div>";
+        
+        //$label = false;
     }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'gambar' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label,'options'=>['accept' => 'image/*'], 'pluginOptions' => ['previewFileType' => 'image'],'hint'=>''],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+    }
+        
     ?>
     
     <?php
@@ -141,7 +183,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefAtletTahap::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefAtletTahap::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::tahapAtlet],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -164,7 +206,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefCawangan::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefCawangan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::cawangan],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -206,7 +248,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::negeri],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -252,7 +294,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJantina::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefJantina::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jantina],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -269,7 +311,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefBangsa::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefBangsa::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::bangsa],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -286,7 +328,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefAgama::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefAgama::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::agama],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -303,7 +345,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefTarafPerkahwinan::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefTarafPerkahwinan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::tarafPerkahwinan],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -328,7 +370,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefStatusAtlet::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefStatusAtlet::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::status],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -345,7 +387,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefBahasa::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefBahasa::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::bahasa],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -407,7 +449,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJenisLesenMemandu::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefJenisLesenMemandu::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jenisLesenMemandu],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -454,7 +496,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::negeri],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -474,7 +516,7 @@ use app\models\general\GeneralVariable;
                                 ]
                             ] : null,
                         ],
-                        'data'=>ArrayHelper::map(RefBandar::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefBandar::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
                         'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
@@ -537,7 +579,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::negeri],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -557,7 +599,7 @@ use app\models\general\GeneralVariable;
                                 ]
                             ] : null,
                         ],
-                        'data'=>ArrayHelper::map(RefBandar::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefBandar::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
                         'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
@@ -594,7 +636,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     <br>
-    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet-cacat']['update']) || isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet-cacat']['create'])):?>
+    <?php if( ((isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet-cacat']['update']) && !$model->isNewRecord) || (isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet-cacat']['create']) && $model->isNewRecord && isset($session['atlet_cacat']) && $session['atlet_cacat'])) ):?>
     
     <pre style="text-align: center"><strong>Maklumat OKU</strong></pre>
     
@@ -625,7 +667,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefKategoriKecacatan::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefKategoriKecacatan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kategoriKecacatan],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -649,7 +691,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJenisLesenParalimpik::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefJenisLesenParalimpik::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jenis],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -683,7 +725,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefAgensiOku::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefAgensiOku::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::agensi],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -700,7 +742,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::negeri,],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -747,6 +789,7 @@ use app\models\general\GeneralVariable;
     ?>
     
     <hr>
+    <pre style="text-align: center"><strong>Status Tawaran</strong></pre>
     
     <?php
     if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['tawaran'])){
@@ -776,7 +819,7 @@ use app\models\general\GeneralVariable;
                                         'asButton' => true
                                     ]
                                 ] : null,
-                                'data'=>ArrayHelper::map(RefStatusTawaran::find()->all(),'id', 'desc'),
+                                'data'=>ArrayHelper::map(RefStatusTawaran::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                                 'options' => ['placeholder' => Placeholder::status],
                                 'pluginOptions' => [
                                     'allowClear' => true

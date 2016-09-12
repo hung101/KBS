@@ -27,10 +27,12 @@ if($this->context->action->id == "create"){
     
     $index_view = 'index';
     $label_title = GeneralLabel::senarai_atlet;
+    $visibleOKUTab = false;
     
     if(isset($session['atlet_cacat']) &&  $session['atlet_cacat']){
         $index_view = 'index-cacat';
         $label_title = GeneralLabel::senarai_atlet_cacat;
+        $visibleOKUTab = true;
     }
 
 $this->title = GeneralLabel::atlet;
@@ -340,7 +342,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'content'=>'&nbsp;',
             'options' => ['id' => GeneralVariable::tabOKUID],
             'linkOptions'=>['data-url'=>Url::to(['/atlet-oku','typeJson'=>'1'])],
-            'headerOptions' => ['class'=>$disabledTabs]
+            'headerOptions' => ['class'=>$disabledTabs],
+            'visible' => $visibleOKUTab
         ],
         [
             'label'=>'<i class="glyphicon glyphicon-heart"></i> Keluarga',

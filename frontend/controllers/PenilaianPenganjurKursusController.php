@@ -69,7 +69,7 @@ class PenilaianPenganjurKursusController extends Controller
         $model = $this->findModel($id);
         
         $ref = PengurusanPermohonanKursusPersatuan::findOne(['pengurusan_permohonan_kursus_persatuan_id' => $model->pengurusan_permohonan_kursus_persatuan_id]);
-        $model->pengurusan_permohonan_kursus_persatuan_id = $ref['tarikh_kursus'];
+        $model->pengurusan_permohonan_kursus_persatuan_id = $ref['agensi'];
         
         $queryPar = null;
         
@@ -113,8 +113,8 @@ class PenilaianPenganjurKursusController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             
             if(isset(Yii::$app->session->id)){
-                PengurusanSoalanPenilaianPendidikanPenganjur::updateAll(['penilaian_penganjur_kursus_id' => $model->penilaian_penganjur_kursus_id], 'session_id = "'.Yii::$app->session->id.'"');
-                PengurusanSoalanPenilaianPendidikanPenganjur::updateAll(['session_id' => ''], 'penilaian_penganjur_kursus_id = "'.$model->penilaian_penganjur_kursus_id.'"');
+                PenilaianPenganjurKursusSoalan::updateAll(['penilaian_penganjur_kursus_id' => $model->penilaian_penganjur_kursus_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PenilaianPenganjurKursusSoalan::updateAll(['session_id' => ''], 'penilaian_penganjur_kursus_id = "'.$model->penilaian_penganjur_kursus_id.'"');
             }
             
             return $this->redirect(['view', 'id' => $model->penilaian_penganjur_kursus_id]);

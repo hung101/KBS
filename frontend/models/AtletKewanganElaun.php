@@ -40,12 +40,12 @@ class AtletKewanganElaun extends \yii\db\ActiveRecord
                 'updatedAtAttribute' => 'updated',
                 'value' => new \yii\db\Expression('NOW()'),
             ],
-            'encryption' => [
+            /*'encryption' => [
                 'class' => '\nickcv\encrypter\behaviors\EncryptionBehavior',
                 'attributes' => [
                     'jumlah_elaun',
                 ],
-            ],
+            ],*/
         ];
     }
 
@@ -58,7 +58,8 @@ class AtletKewanganElaun extends \yii\db\ActiveRecord
             [['atlet_id', 'jenis_elaun', 'jumlah_elaun', 'tarikh_mula', 'tarikh_tamat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah_elaun'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['tarikh_mula', 'tarikh_tamat'], 'safe']
+            [['elaun_diterima', 'kelulusan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tarikh_mula', 'tarikh_tamat', 'tarikh_kredit', 'tarikh_kelulusan', 'tarikh_jkb'], 'safe']
         ];
     }
 
@@ -71,9 +72,14 @@ class AtletKewanganElaun extends \yii\db\ActiveRecord
             'elaun_id' => GeneralLabel::elaun_id,
             'atlet_id' => GeneralLabel::atlet_id,
             'jenis_elaun' => GeneralLabel::jenis_elaun,
-            'jumlah_elaun' => GeneralLabel::jumlah_elaun,
+            'jumlah_elaun' => GeneralLabel::jumlah,
             'tarikh_mula' => GeneralLabel::tarikh_mula,
             'tarikh_tamat' => GeneralLabel::tarikh_tamat,
+            'elaun_diterima' => GeneralLabel::elaun_diterima,
+            'kelulusan' => GeneralLabel::bilangan_jkb,
+            'tarikh_kredit' => GeneralLabel::tarikh_kredit,
+            'tarikh_kelulusan' => GeneralLabel::tarikh_kelulusan,
+            'tarikh_jkb' => GeneralLabel::tarikh_jkb,
 
         ];
     }

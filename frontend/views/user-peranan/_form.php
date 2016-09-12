@@ -87,37 +87,51 @@ use app\models\general\GeneralMessage;
                                     ($readonly == true ? 'disabled' : '').' /> '
                                     .trim($modelSystemModules->module_name);
             
-            // Module Create
-            $html_inputCheckboxes .= ' - <input type="checkbox" class="'.trim($modelSystemModules->category).'_create" name="'
-                                    .trim($modelSystemModules->category).'['.trim($modelSystemModules->action).'][]" value="create" '.
-                                    (isset($peranan_akses_arr[trim($modelSystemModules->category)][$modelSystemModules->action]['create']) ? 'checked' : '') .' '.
-                                    ($readonly == true ? 'disabled' : '').' /> ' . GeneralLabel::create;
+            if($modelSystemModules->functions && $modelSystemModules->functions != "no_function;"){
+                $html_inputCheckboxes .= ' - ';
+            }
             
-            // Module Update
-            $html_inputCheckboxes .= ' <input type="checkbox" class="'.trim($modelSystemModules->category).'_update" name="'
-                                    .trim($modelSystemModules->category).'['.trim($modelSystemModules->action).'][]" value="update" '.
-                                    (isset($peranan_akses_arr[trim($modelSystemModules->category)][$modelSystemModules->action]['update']) ? 'checked' : '') .' '.
-                                    ($readonly == true ? 'disabled' : '').' /> ' . GeneralLabel::update;
+            if(strpos($modelSystemModules->functions, "no_function;") === false){
             
-            // Module Delete
-            $html_inputCheckboxes .= ' <input type="checkbox" class="'.trim($modelSystemModules->category).'_delete" name="'
-                                    .trim($modelSystemModules->category).'['.trim($modelSystemModules->action).'][]" value="delete" '.
-                                    (isset($peranan_akses_arr[trim($modelSystemModules->category)][$modelSystemModules->action]['delete']) ? 'checked' : '') .' '.
-                                    ($readonly == true ? 'disabled' : '').' /> ' . GeneralLabel::delete;
+                // Module Create
+                $html_inputCheckboxes .= ' <input type="checkbox" class="'.trim($modelSystemModules->category).'_create" name="'
+                                        .trim($modelSystemModules->category).'['.trim($modelSystemModules->action).'][]" value="create" '.
+                                        (isset($peranan_akses_arr[trim($modelSystemModules->category)][$modelSystemModules->action]['create']) ? 'checked' : '') .' '.
+                                        ($readonly == true ? 'disabled' : '').' /> ' . GeneralLabel::create;
+
+                // Module Update
+                $html_inputCheckboxes .= ' <input type="checkbox" class="'.trim($modelSystemModules->category).'_update" name="'
+                                        .trim($modelSystemModules->category).'['.trim($modelSystemModules->action).'][]" value="update" '.
+                                        (isset($peranan_akses_arr[trim($modelSystemModules->category)][$modelSystemModules->action]['update']) ? 'checked' : '') .' '.
+                                        ($readonly == true ? 'disabled' : '').' /> ' . GeneralLabel::update;
+
+                // Module Delete
+                $html_inputCheckboxes .= ' <input type="checkbox" class="'.trim($modelSystemModules->category).'_delete" name="'
+                                        .trim($modelSystemModules->category).'['.trim($modelSystemModules->action).'][]" value="delete" '.
+                                        (isset($peranan_akses_arr[trim($modelSystemModules->category)][$modelSystemModules->action]['delete']) ? 'checked' : '') .' '.
+                                        ($readonly == true ? 'disabled' : '').' /> ' . GeneralLabel::delete;
+            }
             
             // Other functions
             if($modelSystemModules->functions){
                 // Split e.g kelulusan;Kelulusan,sokongan_pn;Sokongan PN
                 $arrFunctions = explode(',', $modelSystemModules->functions);
                 foreach($arrFunctions as $function){
-                    // Split e.g kelulusan;Kelulusan
-                    $arrFunc = explode(';', $function);
-                    $arrFunc[1] = trim($arrFunc[1]);
-                    
-                    $html_inputCheckboxes .= ' <input type="checkbox" class="'.trim($modelSystemModules->category).'_others" name="'
-                                    .trim($modelSystemModules->category).'['.trim($modelSystemModules->action).'][]" value="'.$arrFunc[0].'" '.
-                                    (isset($peranan_akses_arr[trim($modelSystemModules->category)][$modelSystemModules->action][$arrFunc[0]]) ? 'checked' : '') .' '.
-                                    ($readonly == true ? 'disabled' : '').' /> ' . $arrFunc[1];
+                    // skip if is empty
+                    if($function != ""){
+                        // Split e.g kelulusan;Kelulusan
+                        $arrFunc = explode(';', $function);
+                        
+                        // skip those "no_function"
+                        if($arrFunc[0] != "no_function"){
+                            $arrFunc[1] = trim($arrFunc[1]);
+
+                            $html_inputCheckboxes .= ' <input type="checkbox" class="'.trim($modelSystemModules->category).'_others" name="'
+                                            .trim($modelSystemModules->category).'['.trim($modelSystemModules->action).'][]" value="'.$arrFunc[0].'" '.
+                                            (isset($peranan_akses_arr[trim($modelSystemModules->category)][$modelSystemModules->action][$arrFunc[0]]) ? 'checked' : '') .' '.
+                                            ($readonly == true ? 'disabled' : '').' /> ' . $arrFunc[1];
+                        }
+                    }
                 }
             }
             

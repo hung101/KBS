@@ -18,6 +18,7 @@ use app\models\RefBandar;
 use app\models\RefNegeri;
 use app\models\RefJenisBiasiswa;
 use app\models\RefProgramSemasaSukanAtlet;
+use app\models\RefKategoriBiasiswa;
 
 // contant values
 use app\models\general\Placeholder;
@@ -34,7 +35,7 @@ use app\models\general\GeneralMessage;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'id'=>$model->formName(), 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -119,7 +120,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::atlet],],
+                        'options' => ['placeholder' => Placeholder::atlet, 'id'=>'atletId'],],
                     'columnOptions'=>['colspan'=>6]],
                 'no_ic' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>12]],
             ],
@@ -275,11 +276,11 @@ use app\models\general\GeneralMessage;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-biasiswa/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-biasiswa/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJenisBiasiswa::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefKategoriBiasiswa::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kategori],],
                     'columnOptions'=>['colspan'=>3]],
                 'kadar' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
@@ -340,52 +341,6 @@ use app\models\general\GeneralMessage;
     ?>
     <?php endif; ?>
 
-    <!--<?= $form->field($model, 'atlet_id')->textInput() ?>
-
-    <?= $form->field($model, 'no_ic')->textInput(['maxlength' => 12]) ?>
-
-    <?= $form->field($model, 'umur')->textInput() ?>
-
-    <?= $form->field($model, 'jantina')->textInput(['maxlength' => 1]) ?>
-
-    <?= $form->field($model, 'alamat_rumah_1')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_rumah_2')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_rumah_3')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_rumah_negeri')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_rumah_bandar')->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'alamat_rumah_poskod')->textInput(['maxlength' => 5]) ?>
-
-    <?= $form->field($model, 'no_tel_rumah')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'no_tel_bimbit')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'alamat_pengajian_1')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_pengajian_2')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_pengajian_3')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_pengajian_negeri')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_pengajian_bandar')->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'alamat_pengajian_poskod')->textInput(['maxlength' => 5]) ?>
-
-    <?= $form->field($model, 'no_tel_pengajian')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'no_fax_pengajian')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'jenis_biasiswa')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'muatnaik')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'kelulusan')->textInput() ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -395,3 +350,69 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$URLAtlet = Url::to(['/atlet/get-atlet']);
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+            
+$('#atletId').change(function(){
+            
+    if($(this).val() != ''){
+            
+        $.get('$URLAtlet',{id:$(this).val()},function(data){
+            clearForm();
+
+            var data = $.parseJSON(data);
+
+            if(data !== null){
+                $('#permohonanbiasiswa-no_ic').attr('value',data.ic_no);
+                $('#permohonanbiasiswa-no_tel_rumah').attr('value',data.tel_no);
+                $('#permohonanbiasiswa-no_tel_bimbit').attr('value',data.tel_bimbit_no_1);
+            $('#permohonanbiasiswa-alamat_rumah_1').attr('value',data.alamat_rumah_1);
+            $('#permohonanbiasiswa-alamat_rumah_2').attr('value',data.alamat_rumah_2);
+            $('#permohonanbiasiswa-alamat_rumah_3').attr('value',data.alamat_rumah_3);
+            $('#permohonanbiasiswa-alamat_rumah_negeri').val(data.alamat_rumah_negeri).trigger("change");
+            $('#permohonanbiasiswa-alamat_rumah_bandar').val(data.alamat_rumah_bandar).trigger("change");
+            $('#permohonanbiasiswa-alamat_rumah_poskod').attr('value',data.alamat_rumah_poskod);
+            
+                if(data.refAtletSukan[0] !== null){ 
+                    $('#permohonanbiasiswa-program').val(data.refAtletSukan[0].program_semasa).trigger("change");
+                    $('#permohonanbiasiswa-sukan').val(data.refAtletSukan[0].nama_sukan).trigger("change");
+                }
+            
+                if(data.refAtletPendidikan[0] !== null){ 
+                    //$('#permohonanbiasiswa-tahap_pendidikan').val(data.refAtletPendidikan[0].jenis_peringkatan_pendidikan).trigger("change");
+                }
+            }
+        });
+    }
+});
+         
+function clearForm(){
+    $('#permohonanbiasiswa-umur').attr('value','');
+    $("#permohonanbiasiswa-jantina").val('').trigger("change");
+    $('#permohonanbiasiswa-no_ic').attr('value','');
+    $('#permohonanbiasiswa-tinggi').attr('value','');
+    $('#permohonanbiasiswa-berat').attr('value','');
+    $('#permohonanbiasiswa-no_telefon_rumah').attr('value','');
+    $('#permohonanbiasiswa-no_telefon_bimbit').attr('value','');
+    $('#permohonanbiasiswa-nama_ibu_bapa_penjaga').attr('value','');
+    $('#permohonanbiasiswa-program').val('').trigger("change");
+    $('#permohonanbiasiswa-sukan').val('').trigger("change");
+    $('#permohonanbiasiswa-tahap_pendidikan').val('').trigger("change");
+}
+
+JS;
+        
+$this->registerJs($script);
+?>

@@ -67,7 +67,7 @@ class PengurusanAnjuran extends \yii\db\ActiveRecord
             'pengurusan_anjuran_id' => GeneralLabel::pengurusan_anjuran_id,
             'nama_program_anjuran' => GeneralLabel::nama_program_anjuran,
             'tarikh_program_anjuran' => GeneralLabel::tarikh_program_anjuran,
-            'nama_badan_sukan_antarabangsa' => GeneralLabel::nama_badan_sukan_antarabangsa,
+            'nama_badan_sukan_antarabangsa' => GeneralLabel::nama_organisasi,
             'nama_delegasi' => GeneralLabel::nama_delegasi,
             'negara' => GeneralLabel::negara,
 

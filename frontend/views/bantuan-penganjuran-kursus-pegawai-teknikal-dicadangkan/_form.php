@@ -11,15 +11,13 @@ use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
 
 // table reference
-use app\models\RefSukan;
+use app\models\ProfilBadanSukan;
 use app\models\RefJantina;
-use app\models\RefJenisBantuanSue;
+use app\models\RefSukan;
 use app\models\RefBandar;
 use app\models\RefNegeri;
-use app\models\RefBangsa;
-use app\models\RefAgama;
-use app\models\RefStatusPermohonanSue;
-use app\models\RefNegara;
+use app\models\RefTahapAkademikPegawaiTeknikal;
+use app\models\MaklumatPegawaiTeknikal;
 
 // contant values
 use app\models\general\Placeholder;
@@ -50,6 +48,30 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'maklumat_pegawai_teknikal_id' =>[
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/maklumat-pegawai-teknikal/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(MaklumatPegawaiTeknikal::find()->all(),'bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id', 'nama'),
+                        'options' => ['placeholder' => Placeholder::pegawaiTeknikal, 'id'=>'pegawaiTeknikalId'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>4]],
+                
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                 'badan_sukan' =>[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -57,11 +79,11 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-bantuan-sue/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/profil-badan-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJenisBantuanSue::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
                         'options' => ['placeholder' => Placeholder::persatuan],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -74,11 +96,11 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-bantuan-sue/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJenisBantuanSue::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -207,11 +229,11 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-jantina/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-tahap-akademik-pegawai-teknikal/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJantina::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefTahapAkademikPegawaiTeknikal::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::tahapAkademik],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -297,7 +319,6 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
-                        'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
@@ -308,7 +329,6 @@ use app\models\general\GeneralVariable;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
-                        'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
@@ -338,6 +358,9 @@ use app\models\general\GeneralVariable;
 </div>
 
 <?php
+$URL = Url::to(['/maklumat-pegawai-teknikal/get-pegawai-teknikal']);
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
 $script = <<< JS
         
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
@@ -367,6 +390,83 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
      });
      return false;
 });
+
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+        
+$('#pegawaiTeknikalId').change(function(){
+    
+    $.get('$URL',{id:$(this).val()},function(data){
+        clearForm();
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-badan_sukan').val(data.badan_sukan).trigger("change");
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-sukan').val(data.sukan).trigger("change");
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-nama').attr('value',data.nama);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-alamat_1').attr('value',data.alamat_1);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-alamat_2').attr('value',data.alamat_2);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-alamat_3').attr('value',data.alamat_3);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-alamat_negeri').val(data.alamat_negeri).trigger("change");
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-alamat_bandar').val(data.alamat_bandar).trigger("change");
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-alamat_poskod').attr('value',data.alamat_poskod);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-no_kad_pengenalan').attr('value',data.no_kad_pengenalan);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-umur').attr('value',data.umur);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-no_passport').attr('value',data.no_passport);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-jantina').val(data.jantina).trigger("change");
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-no_telefon').attr('value',data.no_telefon);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-alamat_e_mail').attr('value',data.alamat_e_mail);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-tahap_akademik').val(data.tahap_akademik).trigger("change");
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-nama_majikan').attr('value',data.nama_majikan);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-no_telefon_majikan').attr('value',data.no_telefon_majikan);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-no_faks').attr('value',data.no_faks);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-jawatan').attr('value',data.jawatan);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-gred').attr('value',data.gred);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-nama_kejohanan_kursus').attr('value',data.nama_kejohanan_kursus);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-tarikh_mula-disp').attr('value',data.tarikh_mula);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-tarikh_mula').attr('value',data.tarikh_mula);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-tarikh_tamat-disp').attr('value',data.tarikh_tamat);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-tarikh_tamat').attr('value',data.tarikh_tamat);
+            $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-tempat').attr('value',data.tempat);
+        }
+    });
+});
+     
+function clearForm(){
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-badan_sukan').val('').trigger("change");
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-sukan').val('').trigger("change");
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-nama').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-alamat_1').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-alamat_2').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-alamat_3').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-alamat_negeri').val('').trigger("change");
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-alamat_bandar').val('').trigger("change");
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-alamat_poskod').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-no_kad_pengenalan').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-umur').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-no_passport').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-jantina').val('').trigger("change");
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-no_telefon').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-alamat_e_mail').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-tahap_akademik').val('').trigger("change");
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-nama_majikan').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-no_telefon_majikan').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-no_faks').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-jawatan').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-gred').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-nama_kejohanan_kursus').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-tarikh_mula-disp').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-tarikh_mula').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-tarikh_tamat-disp').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-tarikh_tamat').attr('value','');
+    $('#bantuanpenganjurankursuspegawaiteknikaldicadangkan-tempat').attr('value','');
+            
+}
      
 
 JS;

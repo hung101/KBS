@@ -9,14 +9,15 @@ use app\models\PermohonanPendidikanKeputusanSpm;
 use frontend\models\PermohonanPendidikanKeputusanSpmSearch;
 use app\models\PermohonanPendidikanKursusPengajian;
 use frontend\models\PermohonanPendidikanKursusPengajianSearch;
+use app\models\MsnLaporanSenaraiPermohonanPendidikan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-
-use app\models\general\Upload;
+use yii\helpers\BaseUrl;
 
 // contant values
+use app\models\general\Upload;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
@@ -31,6 +32,7 @@ use app\models\RefAcara;
 use app\models\RefBandar;
 use app\models\RefNegeri;
 use app\models\RefStatusPermohonanPendidikan;
+use app\models\RefKategoriAtletPendidikan;
 
 /**
  * PermohonanPendidikanController implements the CRUD actions for PermohonanPendidikan model.
@@ -111,6 +113,9 @@ class PermohonanPendidikanController extends Controller
         $ref = RefBandar::findOne(['id' => $model->alamat_pendidikan_bandar]);
         $model->alamat_pendidikan_bandar = $ref['desc'];
         
+        $ref = RefKategoriAtletPendidikan::findOne(['id' => $model->kategori_atlet]);
+        $model->kategori_atlet = $ref['desc'];
+        
         /*$YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         $model->kelulusan = $YesNo;*/
         
@@ -167,6 +172,7 @@ class PermohonanPendidikanController extends Controller
         $model = new PermohonanPendidikan();
         
         $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
+        $model->kelulusan = RefStatusPermohonanPendidikan::DALAM_PROSES;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'muat_naik');
@@ -180,6 +186,8 @@ class PermohonanPendidikanController extends Controller
                 
                 PermohonanPendidikanKursusPengajian::updateAll(['permohonan_pendidikan_id' => $model->permohonan_pendidikan_id], 'session_id = "'.Yii::$app->session->id.'"');
                 PermohonanPendidikanKursusPengajian::updateAll(['session_id' => ''], 'permohonan_pendidikan_id = "'.$model->permohonan_pendidikan_id.'"');
+                
+                $this->generateSPMResult($model->permohonan_pendidikan_id);
             }
             
             if($model->save()){
@@ -292,5 +300,79 @@ class PermohonanPendidikanController extends Controller
             $img->update();
 
             return $this->redirect(['update', 'id' => $id]);
+    }
+    
+    protected function generateSPMResult($permohonan_pendidikan_id)
+    {
+        if (($KeputusanModels = PermohonanPendidikanKeputusanSpm::find()->joinWith(['refSubjekSpm'])->
+                        where(['permohonan_pendidikan_id'=>$permohonan_pendidikan_id])->orderBy('sort')->all()) !== null){
+            $SPMresult = "";
+            foreach($KeputusanModels as $KeputusanModel){
+                if($SPMresult != ""){
+                    $SPMresult .= "   |   ";
+                }
+                $SPMresult .= $KeputusanModel['refSubjekSpm']['kod'] . " - " . $KeputusanModel->keputusan;
+            }
+
+            if (($modelPermohonanPendidikan = PermohonanPendidikan::findOne($permohonan_pendidikan_id)) !== null) {
+                $modelPermohonanPendidikan->keputusan_spm = $SPMresult;
+                $modelPermohonanPendidikan->save();
+            }
+        }
+    }
+    
+    public function actionLaporanSenaraiPermohonanPendidikan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiPermohonanPendidikan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-senarai-permohonan-pendidikan'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'sukan' => $model->sukan
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-senarai-permohonan-pendidikan'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'sukan' => $model->sukan
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_senarai_permohonan_pendidikan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanSenaraiPermohonanPendidikan($tarikh_dari, $tarikh_hingga, $sukan, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'SUKAN' => $sukan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanSenaraiPermohonanPendidikan', $format, $controls, 'laporan_senarai_permohonan_pendidikan');
     }
 }

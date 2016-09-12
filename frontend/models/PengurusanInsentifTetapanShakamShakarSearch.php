@@ -19,7 +19,7 @@ class PengurusanInsentifTetapanShakamShakarSearch extends PengurusanInsentifTeta
     {
         return [
             [['pengurusan_insentif_tetapan_shakam_shakar_id', 'pengurusan_insentif_tetapan_id', 'created_by', 'updated_by'], 'integer'],
-            [['kumpulan_temasya_kejohanan', 'session_id', 'jenis_insentif', 'pingat', 'rekod_baharu', 'created', 'updated'], 'safe'],
+            [['kumpulan_temasya_kejohanan', 'session_id', 'jenis_insentif', 'pingat', 'rekod_baharu', 'created', 'updated', 'kejohanan', 'peringkat', 'kelas'], 'safe'],
         ];
     }
 
@@ -44,7 +44,10 @@ class PengurusanInsentifTetapanShakamShakarSearch extends PengurusanInsentifTeta
         $query = PengurusanInsentifTetapanShakamShakar::find()
                 ->joinWith(['refJenisInsentif'])
                 ->joinWith(['refPingatInsentif'])
-                ->joinWith(['refKelulusan']);
+                ->joinWith(['refKelulusan'])
+                ->joinWith(['refInsentifKejohanan'])
+                ->joinWith(['refInsentifPeringkat'])
+                ->joinWith(['refInsentifKelas']);
 
         // add conditions that should always apply here
 
@@ -77,7 +80,10 @@ class PengurusanInsentifTetapanShakamShakarSearch extends PengurusanInsentifTeta
             ->andFilterWhere(['like', 'session_id', $this->session_id])
                 ->andFilterWhere(['like', 'tbl_ref_jenis_insentif.desc', $this->jenis_insentif])
                 ->andFilterWhere(['like', 'tbl_ref_kelulusan.desc', $this->rekod_baharu])
-                ->andFilterWhere(['like', 'tbl_ref_pingat_insentif.desc', $this->pingat]);
+                ->andFilterWhere(['like', 'tbl_ref_pingat_insentif.desc', $this->pingat])
+                ->andFilterWhere(['like', 'tbl_ref_insentif_kejohanan.desc', $this->kejohanan])
+                ->andFilterWhere(['like', 'tbl_ref_insentif_peringkat.desc', $this->peringkat])
+                ->andFilterWhere(['like', 'tbl_ref_insentif_kelas.desc', $this->kelas]);
 
         return $dataProvider;
     }

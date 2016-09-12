@@ -55,9 +55,9 @@ class PengurusanMouMoaAntarabangsa extends \yii\db\ActiveRecord
     {
         return [
             [['nama_negara_terlibat', 'agensi', 'jangka_waktu_mula', 'jangka_waktu_tamat', 'status', 'tajuk_mou_moa'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['jangka_waktu_mula', 'jangka_waktu_tamat'], 'safe'],
-            [['nama_negara_terlibat', 'agensi', 'tajuk_mou_moa'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['asas_asas_pertimbangan', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jangka_waktu_mula', 'jangka_waktu_tamat', 'asas_asas_pertimbangan', 'catatan', 'tajuk_mou_moa'], 'safe'],
+            [['nama_negara_terlibat', 'agensi'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            //[['asas_asas_pertimbangan', 'catatan', 'tajuk_mou_moa'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['status'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }

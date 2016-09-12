@@ -18,7 +18,7 @@ class PengurusanJawatankuasaKhasSukanMalaysiaAhliSearch extends PengurusanJawata
     public function rules()
     {
         return [
-            [['pengurusan_jawatankuasa_khas_sukan_malaysia_ahli_id', 'jawatan', 'agensi_organisasi', 'negeri', 'created_by', 'updated_by'], 'integer'],
+            [['pengurusan_jawatankuasa_khas_sukan_malaysia_ahli_id', 'pengurusan_jawatankuasa_khas_sukan_malaysia_id', 'jawatan', 'agensi_organisasi', 'negeri', 'created_by', 'updated_by'], 'integer'],
             [['jenis_keahlian', 'jenis_keahlian_nyatakan', 'nama', 'agensi_organisasi_nyatakan', 'session_id', 'created', 'updated'], 'safe'],
         ];
     }
@@ -62,6 +62,7 @@ class PengurusanJawatankuasaKhasSukanMalaysiaAhliSearch extends PengurusanJawata
         // grid filtering conditions
         $query->andFilterWhere([
             'pengurusan_jawatankuasa_khas_sukan_malaysia_ahli_id' => $this->pengurusan_jawatankuasa_khas_sukan_malaysia_ahli_id,
+            'pengurusan_jawatankuasa_khas_sukan_malaysia_id' => $this->pengurusan_jawatankuasa_khas_sukan_malaysia_id,
             'nama' => $this->nama,
             //'jawatan' => $this->jawatan,
             'agensi_organisasi' => $this->agensi_organisasi,

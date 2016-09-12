@@ -136,7 +136,7 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
                 } else {
                     $(document).find('#modal').modal('hide');
                     form.trigger("reset");
-                    $.pjax.defaults.timeout = 6000;
+                    $.pjax.defaults.timeout = 106000;
                     $.pjax.reload({container:'#dokumenMediaProgramGrid'});
                 }
           }

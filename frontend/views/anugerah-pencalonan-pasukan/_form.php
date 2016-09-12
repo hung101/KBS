@@ -181,7 +181,11 @@ use app\models\general\GeneralMessage;
 
             //'anugerah_pencalonan_pasukan_pemain_id',
             //'anugerah_pencalonan_pasukan_id',
-            'nama_pemain',
+            //'nama_pemain',
+            [
+                'attribute' => 'nama_pemain',
+                'value' => 'refAtlet.name_penuh'
+            ],
             //'session_id',
             //'created_by',
             // 'updated_by',

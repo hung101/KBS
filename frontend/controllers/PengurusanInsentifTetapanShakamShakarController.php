@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use yii\web\Session;
 
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
@@ -200,9 +201,21 @@ class PengurusanInsentifTetapanShakamShakarController extends Controller
         return $value;
     }
     
-    public function actionGetJumlah($id){
-        // find Ahli Jawatankuasa Induk
-        $model = PengurusanInsentifTetapanShakamShakar::findOne($id);
+    public function actionGetJumlah($jenis_insentif, $kejohanan, $pingat, $peringkat, $kelas){
+        //$model = PengurusanInsentifTetapanShakamShakar::findOne($id);
+        if($kelas != ''){
+            $model = PengurusanInsentifTetapanShakamShakar::find()->joinWith(['refPengurusanInsentifTetapan'])->where(['jenis_insentif'=>$jenis_insentif, 'kejohanan'=>$kejohanan, 'pingat'=>$pingat, 'peringkat'=>$peringkat, 'kelas'=>$kelas])->asArray()->one();
+        } else {
+            $model = PengurusanInsentifTetapanShakamShakar::find()->joinWith(['refPengurusanInsentifTetapan'])->where(['jenis_insentif'=>$jenis_insentif, 'kejohanan'=>$kejohanan, 'pingat'=>$pingat, 'peringkat'=>$peringkat])->asArray()->one();
+        }
+        
+        $session = new Session;
+        $session->open();
+
+        $session['nilai_SGAR_individu'] = $model['nilai_individu'] * ($model['refPengurusanInsentifTetapan']['sgar'] / 100);
+        $session['nilai_SGAR_berpasukan'] = $model['nilai_berpasukan_kurang_5'] * ($model['refPengurusanInsentifTetapan']['sgar'] / 100);
+        
+        $session->close();
         
         echo Json::encode($model);
     }

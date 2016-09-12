@@ -8,6 +8,7 @@ use kartik\builder\FormGrid;
 use yii\helpers\Url;
 use kartik\widgets\DepDrop;
 use yii\helpers\ArrayHelper;
+use kartik\datecontrol\DateControl;
 
 // table reference
 use app\models\RefSukan;
@@ -15,6 +16,7 @@ use app\models\RefAcara;
 use app\models\RefStatusPencalonan;
 use app\models\Atlet;
 use app\models\RefKategoriPencalonanAtlet;
+use app\models\AtletSukan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -31,7 +33,39 @@ use app\models\general\GeneralMessage;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data'],]); ?>
+    <?php
+    if($model->gambar){
+        echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$model->gambar.'" width="200px">&nbsp;&nbsp;&nbsp;';
+        if(!$readonly){
+            echo Html::a(GeneralLabel::removeImage, ['deleteupload', 'id'=>$model->anugerah_pencalonan_atlet, 'field'=> 'gambar'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+        echo '<br><br>';
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'gambar' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>['accept' => 'image/*'], 'pluginOptions' => ['previewFileType' => 'image'], 'hint'=>GeneralLabel::getFileUploadMaxSizeHint()],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+    
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -62,6 +96,19 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>6]],
             ],
         ],
+        
+    ]
+]);
+        ?>
+    
+    <div class="row">
+        <div class="col-sm-3">
+            <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -83,26 +130,100 @@ use app\models\general\GeneralMessage;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
-                 'nama_atlet' => [
+            ],
+        ],
+        
+    ]
+]);
+        ?>
+        </div>
+        <div class="col-sm-5">
+            <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'nama_atlet' => [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
                     'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::atlet],
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                        ],
+                        'data'=>ArrayHelper::map(AtletSukan::find()->joinWith(['refAtlet'])->asArray()->all(),'atlet_id', 'nameAndIC'),
+                        'options'=>['prompt'=>'', 'id' => 'atletId',],
+                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
+                            'depends'=>[Html::getInputId($model, 'nama_sukan')],
+                            'initialize' => true,
+                            'placeholder' => Placeholder::atlet,
+                            'url'=>Url::to(['/atlet-sukan/atlets-by-sukan']),
+                            'params'=>['input-type-1', 'input-type-2']]
+                        ],
                     'columnOptions'=>['colspan'=>6]],
+            ],
+        ],
+        
+    ]
+]);
+        ?>
+        </div>
+        <div class="col-sm-1">
+            
+            <fieldset>
+<div class="form-group">
+<label class="control-label" > &nbsp;</label>
+<div id="atletLink"></div>
+<div class="help-block"></div>
+</div>
+
+	
+
+
+	
+
+</fieldset>
+        
+        </div>
+        <div class="col-sm-3">
+            <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                 'no_kad_pengenalan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
             ],
         ],
+        
+    ]
+]);
+        ?>
+        </div>
+    </div>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -341,7 +462,7 @@ use app\models\general\GeneralMessage;
         ],*/
     ]
 ]);
-        ?>
+    ?>
     
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['anugerah-pencalonan-atlet']['kelulusan']) || $readonly): ?>
     <?php
@@ -354,69 +475,24 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'kelulusan' => ['type'=>Form::INPUT_RADIO_LIST, 'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],'options'=>['inline'=>true],'columnOptions'=>['colspan'=>3]],
+                //'kelulusan' => ['type'=>Form::INPUT_RADIO_LIST, 'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],'options'=>['inline'=>true],'columnOptions'=>['colspan'=>3]],
+                'bil_mesyuarat' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+                'tarikh_mesyuarat' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
             ]
         ],
     ]
 ]);
     ?>
     <?php endif; ?>
-
-    <!--<?= $form->field($model, 'nama_atlet')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'tahun_pencalonan')->textInput(['maxlength' => 4]) ?>
-
-    <?= $form->field($model, 'nama_sukan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'nama_acara')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'status_pencalonan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'kejayaan')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'ulasan_kejayaan')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'susan_ranking_kebangsaan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'susan_ranking_asia')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'susan_ranking_asia_tenggara')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'susan_ranking_dunia')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'sifat_kepimpinan_ketua_pasukan')->textInput() ?>
-
-    <?= $form->field($model, 'sifat_kepimpinan_jurulatih')->textInput() ?>
-
-    <?= $form->field($model, 'sifat_kepimpinan_asia_tenggara')->textInput() ?>
-
-    <?= $form->field($model, 'sifat_kepimpinan_penolong_jurulatih')->textInput() ?>
-
-    <?= $form->field($model, 'sifat_kepimpinan_pegawai_teknikal')->textInput() ?>
-
-    <?= $form->field($model, 'nama_sukan_sebelum_dicalon')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'mewakili')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'pencalonan_olahragawan_tahun')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'pencalonan_olahragawati_tahun')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'pencalonan_pasukan_lelaki_kebangsaan_tahun')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'pencalonan_pasukan_wanita_kebangsaan_tahun')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'pencalonan_olahragawan_harapan_tahun')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'pencalonan_olahragawati_harapan_tahun')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'memenangi_kategori_dalam_anugerah_sukan')->textInput() ?>
-
-    <?= $form->field($model, 'nama_kategori')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'tahun')->textInput(['maxlength' => 4]) ?>
-
-    <?= $form->field($model, 'kelulusan')->textInput() ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -427,3 +503,55 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+$URLAtlet = Url::to(['/atlet/get-atlet']);
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+            
+$('#atletId').change(function(){
+            
+    if($(this).val() != ''){
+        $.get('$URLAtlet',{id:$(this).val()},function(data){
+            clearForm();
+            
+            var data = $.parseJSON(data);
+
+            if(data !== null){
+            
+                $('#anugerahpencalonanatlet-no_kad_pengenalan').attr('value',data.ic_no);
+                $("#anugerahpencalonanatlet-no_telefon_1").attr('value',data.tel_no);
+                $("#anugerahpencalonanatlet-no_telefon_2").attr('value',data.tel_bimbit_no_1);
+            
+                $("#atletLink").html(data.view_url_button);
+            }
+        });
+    }
+});
+         
+function clearForm(){
+    $('#anugerahpencalonanatlet-no_kad_pengenalan').attr('value','');
+    $("#anugerahpencalonanatlet-no_telefon_1").attr('value','');
+    $("#anugerahpencalonanatlet-no_telefon_2").attr('value','');
+    
+   $("#atletLink").html('');
+}
+            
+$(function(){
+$('.custom_button').click(function(){
+        window.open($(this).attr('value'), "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no");
+        return false;
+});});
+        
+JS;
+        
+$this->registerJs($script);
+?>

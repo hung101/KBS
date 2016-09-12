@@ -160,4 +160,18 @@ class PermohonanBiasiswa extends \yii\db\ActiveRecord
     public function getRefKelulusan(){
         return $this->hasOne(RefKelulusan::className(), ['id' => 'kelulusan']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefProgramSemasaSukanAtlet(){
+        return $this->hasOne(RefProgramSemasaSukanAtlet::className(), ['id' => 'program']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKategoriBiasiswa(){
+        return $this->hasOne(RefKategoriBiasiswa::className(), ['id' => 'kategori']);
+    }
 }

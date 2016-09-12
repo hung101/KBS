@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PengurusanBeritaAntarabangsa;
 use frontend\models\PengurusanBeritaAntarabangsaSearch;
+use app\models\PengurusanBeritaAntarabangsaMuatnaik;
+use frontend\models\PengurusanBeritaAntarabangsaMuatnaikSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -16,6 +18,10 @@ use app\models\general\Upload;
 
 // table reference
 use app\models\RefKategoriBerita;
+use app\models\RefNegara;
+use app\models\RefNegeri;
+use app\models\RefBandar;
+use app\models\RefCountry;
 
 
 /**
@@ -70,8 +76,29 @@ class PengurusanBeritaAntarabangsaController extends Controller
         $ref = RefKategoriBerita::findOne(['id' => $model->kategori_berita]);
         $model->kategori_berita = $ref['desc'];
         
+        $ref = RefNegara::findOne(['id' => $model->nama_negara]);
+        $model->nama_negara = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->alamat_negeri]);
+        $model->alamat_negeri = $ref['desc'];
+        
+        $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
+        $model->alamat_bandar = $ref['desc'];
+        
+        $ref = RefCountry::findOne(['id' => $model->country]);
+        $model->country = $ref['desc'];
+        
+        $queryPar = null;
+        
+        $queryPar['PengurusanBeritaAntarabangsaMuatnaikSearch']['pengurusan_berita_antarabangsa_id'] = $id;
+        
+        $searchModelPengurusanBeritaAntarabangsaMuatnaik  = new PengurusanBeritaAntarabangsaMuatnaikSearch();
+        $dataProviderPengurusanBeritaAntarabangsaMuatnaik = $searchModelPengurusanBeritaAntarabangsaMuatnaik->search($queryPar);
+        
         return $this->render('view', [
             'model' => $model,
+            'searchModelPengurusanBeritaAntarabangsaMuatnaik' => $searchModelPengurusanBeritaAntarabangsaMuatnaik,
+            'dataProviderPengurusanBeritaAntarabangsaMuatnaik' => $dataProviderPengurusanBeritaAntarabangsaMuatnaik,
             'readonly' => true,
         ]);
     }
@@ -88,8 +115,24 @@ class PengurusanBeritaAntarabangsaController extends Controller
         }
         
         $model = new PengurusanBeritaAntarabangsa();
+        
+        $queryPar = null;
+        
+        Yii::$app->session->open();
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['PengurusanBeritaAntarabangsaMuatnaikSearch']['session_id'] = Yii::$app->session->id;
+        }
+        
+        $searchModelPengurusanBeritaAntarabangsaMuatnaik  = new PengurusanBeritaAntarabangsaMuatnaikSearch();
+        $dataProviderPengurusanBeritaAntarabangsaMuatnaik = $searchModelPengurusanBeritaAntarabangsaMuatnaik->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if(isset(Yii::$app->session->id)){
+                PengurusanBeritaAntarabangsaMuatnaik::updateAll(['pengurusan_berita_antarabangsa_id' => $model->pengurusan_berita_antarabangsa_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PengurusanBeritaAntarabangsaMuatnaik::updateAll(['session_id' => ''], 'pengurusan_berita_antarabangsa_id = "'.$model->pengurusan_berita_antarabangsa_id.'"');
+            }
+            
             $file = UploadedFile::getInstance($model, 'muatnaik');
             if($file){
                 $model->muatnaik = Upload::uploadFile($file, Upload::pengurusanBeritaAntarabangsaFolder, $model->pengurusan_berita_antarabangsa_id);
@@ -101,6 +144,8 @@ class PengurusanBeritaAntarabangsaController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'searchModelPengurusanBeritaAntarabangsaMuatnaik' => $searchModelPengurusanBeritaAntarabangsaMuatnaik,
+                'dataProviderPengurusanBeritaAntarabangsaMuatnaik' => $dataProviderPengurusanBeritaAntarabangsaMuatnaik,
                 'readonly' => false,
             ]);
         }
@@ -119,6 +164,13 @@ class PengurusanBeritaAntarabangsaController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        $queryPar = null;
+        
+        $queryPar['PengurusanBeritaAntarabangsaMuatnaikSearch']['pengurusan_berita_antarabangsa_id'] = $id;
+        
+        $searchModelPengurusanBeritaAntarabangsaMuatnaik  = new PengurusanBeritaAntarabangsaMuatnaikSearch();
+        $dataProviderPengurusanBeritaAntarabangsaMuatnaik = $searchModelPengurusanBeritaAntarabangsaMuatnaik->search($queryPar);
         
         $existingMuatnaik = $model->muatnaik;
         
@@ -141,6 +193,8 @@ class PengurusanBeritaAntarabangsaController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'searchModelPengurusanBeritaAntarabangsaMuatnaik' => $searchModelPengurusanBeritaAntarabangsaMuatnaik,
+                'dataProviderPengurusanBeritaAntarabangsaMuatnaik' => $dataProviderPengurusanBeritaAntarabangsaMuatnaik,
                 'readonly' => false,
             ]);
         }

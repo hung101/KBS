@@ -13,6 +13,9 @@ use app\models\Jurulatih;
 use app\models\Atlet;
 use app\models\RefProgram;
 use app\models\RefSukan;
+use app\models\RefBahagianKemudahan;
+use app\models\RefCawanganKemudahan;
+use app\models\RefStatusPermohonanKemudahan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -40,11 +43,43 @@ use app\models\general\GeneralVariable;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'nama_pemohon' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5]],
-                'bahagian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3]],
+                'bahagian' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-bahagian-kemudahan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefBahagianKemudahan::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::bahagian],],
+                    'columnOptions'=>['colspan'=>3]],
+                'cawangan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-cawangan-kemudahan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefCawanganKemudahan::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::cawangan],],
+                    'columnOptions'=>['colspan'=>3]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                 'jawatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4]],
             ],
         ],
-        
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -155,7 +190,6 @@ use app\models\general\GeneralVariable;
                             'columns'=>12,
                             'autoGenerateColumns'=>false, // override columns setting
                             'attributes' => [
-                                'destinasi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6]],
                                 'tarikh' => [
                                     'type'=>Form::INPUT_WIDGET, 
                                     'widgetClass'=> DateControl::classname(),
@@ -166,16 +200,9 @@ use app\models\general\GeneralVariable;
                                         ]
                                     ],
                                     'columnOptions'=>['colspan'=>3]],
-                                'tarikh_ke' => [
-                                    'type'=>Form::INPUT_WIDGET, 
-                                    'widgetClass'=> DateControl::classname(),
-                                    'ajaxConversion'=>false,
-                                    'options'=>[
-                                        'pluginOptions' => [
-                                            'autoclose'=>true,
-                                        ]
-                                    ],
-                                    'columnOptions'=>['colspan'=>3]],
+                                'destinasi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>90],'columnOptions'=>['colspan'=>3]],
+                                
+                                'tarikh_ke' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>90],'columnOptions'=>['colspan'=>3]],
                             ]
                         ],
                     ]
@@ -199,8 +226,7 @@ use app\models\general\GeneralVariable;
                             'columns'=>12,
                             'autoGenerateColumns'=>false, // override columns setting
                             'attributes' => [
-                                'pulang' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6]],
-                                'pulang_tarikh_dari' => [
+                                'pulang' => [
                                     'type'=>Form::INPUT_WIDGET, 
                                     'widgetClass'=> DateControl::classname(),
                                     'ajaxConversion'=>false,
@@ -210,16 +236,8 @@ use app\models\general\GeneralVariable;
                                         ]
                                     ],
                                     'columnOptions'=>['colspan'=>3]],
-                                'pulang_tarikh_ke' => [
-                                    'type'=>Form::INPUT_WIDGET, 
-                                    'widgetClass'=> DateControl::classname(),
-                                    'ajaxConversion'=>false,
-                                    'options'=>[
-                                        'pluginOptions' => [
-                                            'autoclose'=>true,
-                                        ]
-                                    ],
-                                    'columnOptions'=>['colspan'=>3]],
+                                'pulang_tarikh_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>90],'columnOptions'=>['colspan'=>3]],
+                                'pulang_tarikh_ke' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>90],'columnOptions'=>['colspan'=>3]],
                             ]
                         ],
                     ]
@@ -239,12 +257,37 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'kelulusan' => [
+                /*'kelulusan' => [
                     'type'=>Form::INPUT_RADIO_LIST, 
                     'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
                     'value'=>false,
                     'options'=>['inline'=>true],
+                    'columnOptions'=>['colspan'=>3]],*/
+                'kelulusan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan-kemudahan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefStatusPermohonanKemudahan::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::statusPermohonan],],
                     'columnOptions'=>['colspan'=>3]],
+                'bilangan_jkb' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>50]],
+                'tarikh_jkb' => [
+                        'type'=>Form::INPUT_WIDGET, 
+                        'widgetClass'=> DateControl::classname(),
+                        'ajaxConversion'=>false,
+                        'options'=>[
+                            'pluginOptions' => [
+                                'autoclose'=>true,
+                            ]
+                        ],
+                        'columnOptions'=>['colspan'=>3]],
             ]
         ],
     ]

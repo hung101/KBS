@@ -30,6 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'bsp_tamat_pengesahan_pengajian_id',
             [
+                'attribute' => 'nama_pelajar',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pelajar,
+                ]
+            ],
+            [
                 'attribute' => 'nama_ipts',
                 'filterInputOptions' => [
                     'class'       => 'form-control',

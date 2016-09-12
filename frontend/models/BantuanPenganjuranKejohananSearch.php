@@ -42,7 +42,10 @@ class BantuanPenganjuranKejohananSearch extends BantuanPenganjuranKejohanan
      */
     public function search($params)
     {
-        $query = BantuanPenganjuranKejohanan::find();
+        $query = BantuanPenganjuranKejohanan::find()
+                ->joinWith(['refProfilBadanSukan'])
+                ->joinWith(['refStatusBantuanPenganjuranKejohanan'])
+                ->joinWith(['refSukan']);
 
         // add conditions that should always apply here
 
@@ -79,9 +82,9 @@ class BantuanPenganjuranKejohananSearch extends BantuanPenganjuranKejohanan
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'badan_sukan', $this->badan_sukan])
-            ->andFilterWhere(['like', 'sukan', $this->sukan])
-            ->andFilterWhere(['like', 'no_pendaftaran', $this->no_pendaftaran])
+        $query->andFilterWhere(['like', 'tbl_profil_badan_sukan.nama_badan_sukan', $this->badan_sukan])
+            ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
+            ->andFilterWhere(['like', 'tbl_bantuan_penganjuran_kejohanan.no_pendaftaran', $this->no_pendaftaran])
             ->andFilterWhere(['like', 'alamat_1', $this->alamat_1])
             ->andFilterWhere(['like', 'alamat_2', $this->alamat_2])
             ->andFilterWhere(['like', 'alamat_3', $this->alamat_3])
@@ -103,7 +106,7 @@ class BantuanPenganjuranKejohananSearch extends BantuanPenganjuranKejohanan
             ->andFilterWhere(['like', 'surat_rasmi_badan_sukan_ms_negeri', $this->surat_rasmi_badan_sukan_ms_negeri])
             ->andFilterWhere(['like', 'permohonan_rasmi_dari_ahli_gabungan', $this->permohonan_rasmi_dari_ahli_gabungan])
             ->andFilterWhere(['like', 'maklumat_lain_sokongan', $this->maklumat_lain_sokongan])
-            ->andFilterWhere(['like', 'status_permohonan', $this->status_permohonan])
+            ->andFilterWhere(['like', 'tbl_ref_status_bantuan_penganjuran_kejohanan.desc', $this->status_permohonan])
             ->andFilterWhere(['like', 'catatan', $this->catatan])
             ->andFilterWhere(['like', 'jkb', $this->jkb]);
 

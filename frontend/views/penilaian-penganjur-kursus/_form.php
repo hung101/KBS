@@ -61,8 +61,8 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(PengurusanPermohonanKursusPersatuan::find()->all(),'pengurusan_permohonan_kursus_persatuan_id', 'tarikh_kursus'),
-                        'options' => ['placeholder' => Placeholder::tarikhKursus, 'id'=>'kursusId'],],
+                        'data'=>ArrayHelper::map(PengurusanPermohonanKursusPersatuan::find()->all(),'pengurusan_permohonan_kursus_persatuan_id', 'agensi'),
+                        'options' => ['placeholder' => Placeholder::agensi, 'id'=>'kursusId'],],
                     'columnOptions'=>['colspan'=>6]],
                 'kod_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
                  
@@ -73,7 +73,16 @@ use app\models\general\GeneralMessage;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'tempat_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>90]],
-                 
+                 'tarikh_kursus' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
         [
@@ -200,26 +209,6 @@ use app\models\general\GeneralMessage;
     
     <br>
 
-    <!--<?= $form->field($model, 'pengurusan_permohonan_kursus_persatuan_id')->textInput() ?>
-
-    <?= $form->field($model, 'tarikh_kursus')->textInput() ?>
-
-    <?= $form->field($model, 'nama_penganjur_kursus')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'kod_kursus')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'tempat_kursus')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'nama_penyelaras')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
-
-    <?= $form->field($model, 'created')->textInput() ?>
-
-    <?= $form->field($model, 'updated')->textInput() ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -232,6 +221,7 @@ use app\models\general\GeneralMessage;
 
 <?php
 $URLKursus = Url::to(['/pengurusan-permohonan-kursus-persatuan/get-kursus']);
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
 
 $script = <<< JS
         
@@ -246,6 +236,11 @@ $('#kursusId').change(function(){
             $('#penilaianpenganjurkursus-kod_kursus').attr('value',data.kod_kursus);
             $('#penilaianpenganjurkursus-tempat_kursus').attr('value',data.tempat);
             $('#penilaianpenganjurkursus-nama_penganjur_kursus').attr('value',data.nama_penganjur);
+            $("#penilaianpenganjurkursus-tarikh_kursus-disp").val(formatDisplayDate(data.tarikh_kursus));
+            $("#penilaianpenganjurkursus-tarikh_kursus").val(data.tarikh_kursus);
+            $("#penilaianpenganjurkursus-tarikh_kursus").kvDatepicker("$DateDisplayFormat", new Date(data.tarikh_kursus)).kvDatepicker({
+                format: "$DateDisplayFormat"
+            });
         }
     });
 });
@@ -254,6 +249,8 @@ function clearForm(){
     $('#penilaianpenganjurkursus-kod_kursus').attr('value','');
     $('#penilaianpenganjurkursus-tempat_kursus').attr('value','');
     $('#penilaianpenganjurkursus-nama_penganjur_kursus').attr('value','');
+    $('#penilaianpenganjurkursus-tarikh_kursus').attr('value','');
+    $('#penilaianpenganjurkursus-tarikh_kursus-disp').attr('value','');
 }
         
 JS;

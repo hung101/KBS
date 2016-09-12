@@ -106,7 +106,7 @@ class GeranBantuanGaji extends \yii\db\ActiveRecord
             'catatan' => GeneralLabel::catatan,
             'tarikh_mula_kontrak' => GeneralLabel::tarikh_mula_kontrak,
             'tarikh_tamat_kontrak' => GeneralLabel::tarikh_tamat_kontrak,
-            'agensi' => GeneralLabel::agensi,
+            'agensi' => GeneralLabel::agensi_pelantik,
             'kadar' => GeneralLabel::kadar,
             'bulan' => GeneralLabel::bulan,
             'rujukan' => GeneralLabel::rujukan,
@@ -142,6 +142,6 @@ class GeranBantuanGaji extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getRefKelulusan(){
-        return $this->hasOne(RefKelulusan::className(), ['id' => 'kelulusan']);
+        return $this->hasOne(RefKelulusanGeranBantuanGajiJurulatih::className(), ['id' => 'kelulusan']);
     }
 }

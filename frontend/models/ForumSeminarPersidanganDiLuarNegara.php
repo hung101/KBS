@@ -51,8 +51,9 @@ class ForumSeminarPersidanganDiLuarNegara extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis_program','nama', 'nama_program', 'tarikh', 'persatuan', 'jawatan', 'nama_wakil_persatuan_1', 'nama_wakil_persatuan_2', 'amaun', 'negara', 'status_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_kelulusan_jkb'], 'safe'],        
+            [['jenis_program','nama', 'nama_program', 'tarikh', 'tarikh_tamat', 'persatuan', 'jawatan', 'nama_wakil_persatuan_1', 'nama_wakil_persatuan_2', 'amaun', 'negara', 
+                'status_permohonan', 'peringkat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh_kelulusan_jkb', 'tarikh_tamat'], 'safe'],        
             [['amaun', 'jumlah_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['nama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['negara', 'status_permohonan', 'bilangan_jkb'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -85,6 +86,8 @@ class ForumSeminarPersidanganDiLuarNegara extends \yii\db\ActiveRecord
             'jumlah_diluluskan' => GeneralLabel::jumlah_diluluskan,
             'tarikh_kelulusan_jkb' => GeneralLabel::tarikh_kelulusan_jkb,
             'bilangan_jkb' => GeneralLabel::bilangan_jkb,
+            'peringkat' => GeneralLabel::peringkat,
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,
         ];
     }
     

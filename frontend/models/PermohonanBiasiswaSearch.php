@@ -51,7 +51,9 @@ class PermohonanBiasiswaSearch extends PermohonanBiasiswa
                 ->joinWith(['refSukan'])
                 ->joinWith(['refJantina'])
                 ->joinWith(['refJenisBiasiswa'])
-                ->joinWith(['refKelulusan']);
+                ->joinWith(['refKelulusan'])
+                ->joinWith(['refProgramSemasaSukanAtlet'])
+                ->joinWith(['refKategoriBiasiswa']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -97,7 +99,9 @@ class PermohonanBiasiswaSearch extends PermohonanBiasiswa
             ->andFilterWhere(['like', 'tbl_ref_jenis_biasiswa.desc', $this->jenis_biasiswa])
                 ->andFilterWhere(['like', 'tbl_ref_kelulusan.desc', $this->kelulusan])
             ->andFilterWhere(['like', 'muatnaik', $this->muatnaik])
-                ->andFilterWhere(['like', 'created', $this->created]);
+                ->andFilterWhere(['like', 'created', $this->created])
+                ->andFilterWhere(['like', 'tbl_ref_program_semasa_sukan_atlet.desc', $this->program])
+                ->andFilterWhere(['like', 'tbl_ref_kategori_biasiswa.desc', $this->kategori]);
 
         return $dataProvider;
     }

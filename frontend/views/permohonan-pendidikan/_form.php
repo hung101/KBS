@@ -105,7 +105,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::atlet],],
+                        'options' => ['placeholder' => Placeholder::atlet, 'id'=>'atletId'],],
                     'columnOptions'=>['colspan'=>5]],
                 'no_ic' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12]],
             ],
@@ -221,19 +221,19 @@ use app\models\general\GeneralMessage;
                 'aliran' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
             ],
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'nama_ipta_ipts' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
                 'kursus_pengajian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
             ],
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'keputusan_spm' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>8],'options'=>['maxlength'=>255]],
+                //'keputusan_spm' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>8],'options'=>['maxlength'=>255]],
                 'pilihan_aliran_spm' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
             ],
         ],
@@ -390,7 +390,7 @@ use app\models\general\GeneralMessage;
                 'alamat_pendidikan_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5]],
             ]
         ],*/
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -398,23 +398,23 @@ use app\models\general\GeneralMessage;
                 'no_fax_pendidikan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
                 
             ],
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'nama_pencadang' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
-                 'jawatan_pencadang' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                // 'jawatan_pencadang' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
             ],
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'no_telefon_pencadang' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
                  'sekolah_unit_sukan_pdd_psk_pencadang' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
             ],
-        ],
+        ],*/
         /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -472,7 +472,11 @@ use app\models\general\GeneralMessage;
 
             //'permohonan_pendidikan_keputusan_spm_id',
             //'permohonan_pendidikan_id',
-            'subjek',
+            //'subjek',
+            [
+                'attribute' => 'subjek',
+                'value' => 'refSubjekSpm.desc'
+            ],
             'keputusan',
             //'session_id',
             // 'created_by',
@@ -657,6 +661,8 @@ use app\models\general\GeneralMessage;
 <?php
 $DateDisplayFormat = GeneralVariable::displayDateFormat;
 
+$URLAtlet = Url::to(['/atlet/get-atlet']);
+
 $script = <<< JS
         
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
@@ -665,7 +671,52 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 
     $("form#{$model->formName()} input").prop("disabled", false);
 });
-     
+            
+$('#atletId').change(function(){
+            
+    if($(this).val() != ''){
+            
+        $.get('$URLAtlet',{id:$(this).val()},function(data){
+            clearForm();
+
+            var data = $.parseJSON(data);
+
+            if(data !== null){
+                $('#permohonanpendidikan-umur').attr('value',calculateAge(data.tarikh_lahir));
+                $("#permohonanpendidikan-jantina").val(data.jantina).trigger("change");
+                $('#permohonanpendidikan-no_ic').attr('value',data.ic_no);
+                $('#permohonanpendidikan-berat').attr('value',data.berat);
+                $('#permohonanpendidikan-tinggi').attr('value',data.tinggi);
+            $('#permohonanpendidikan-no_telefon_rumah').attr('value',data.tel_no);
+            $('#permohonanpendidikan-no_telefon_bimbit').attr('value',data.tel_bimbit_no_1);
+            $('#permohonanpendidikan-nama_ibu_bapa_penjaga').attr('value',data.nama_kecemasan);
+            
+                if(data.refAtletSukan[0] !== null){ 
+                    $('#permohonanpendidikan-acara').val(data.refAtletSukan[0].acara).trigger("change");
+                    $('#permohonanpendidikan-sukan').val(data.refAtletSukan[0].nama_sukan).trigger("change");
+                }
+            
+                if(data.refAtletPendidikan[0] !== null){ 
+                    $('#permohonanpendidikan-tahap_pendidikan').val(data.refAtletPendidikan[0].jenis_peringkatan_pendidikan).trigger("change");
+                }
+            }
+        });
+    }
+});
+         
+function clearForm(){
+    $('#permohonanpendidikan-umur').attr('value','');
+    $("#permohonanpendidikan-jantina").val('').trigger("change");
+    $('#permohonanpendidikan-no_ic').attr('value','');
+    $('#permohonanpendidikan-tinggi').attr('value','');
+    $('#permohonanpendidikan-berat').attr('value','');
+    $('#permohonanpendidikan-no_telefon_rumah').attr('value','');
+    $('#permohonanpendidikan-no_telefon_bimbit').attr('value','');
+    $('#permohonanpendidikan-nama_ibu_bapa_penjaga').attr('value','');
+    $('#permohonanpendidikan-acara').val('').trigger("change");
+    $('#permohonanpendidikan-sukan').val('').trigger("change");
+    $('#permohonanpendidikan-tahap_pendidikan').val('').trigger("change");
+}
 
 JS;
         

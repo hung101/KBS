@@ -20,12 +20,12 @@ $this->params['breadcrumbs'][] = $this->title;
         $template = '{view}';
         
         // Update Access
-        if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['update'])){
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-delegasi-teknikal']['update'])){
             $template .= ' {update}';
         }
         
         // Delete Access
-        if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['delete'])){
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-delegasi-teknikal']['delete'])){
             $template .= ' {delete}';
         }
     ?>
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['create'])): ?>
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-delegasi-teknikal']['create'])): ?>
         <p>
             <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::profil_delegasi_teknikal, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
@@ -53,6 +53,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::temasya,
                 ]
+            ],
+            [
+                'attribute' => 'sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
+                'value' => 'refSukan.desc'
             ],
             //'negeri',
             [

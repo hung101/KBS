@@ -9,6 +9,10 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use app\models\general\GeneralLabel;
+
+use app\models\RefPeringkatBantuanPenganjuranKejohananDianjurkan;
+
 /**
  * BantuanPenganjuranKejohananOlehMsnController implements the CRUD actions for BantuanPenganjuranKejohananOlehMsn model.
  */
@@ -51,8 +55,15 @@ class BantuanPenganjuranKejohananOlehMsnController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        
+        $ref = RefPeringkatBantuanPenganjuranKejohananDianjurkan::findOne(['id' => $model->peringkat_penganjuran]);
+        $model->peringkat_penganjuran = $ref['desc'];
+        
+        $model->laporan_dikemukakan = GeneralLabel::getYesNoLabel($model->laporan_dikemukakan);
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

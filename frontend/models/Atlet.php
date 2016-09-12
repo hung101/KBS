@@ -55,6 +55,8 @@ use app\models\general\GeneralLabel;
 class Atlet extends \yii\db\ActiveRecord
 {
     public $file;
+    public $tawaran_id;
+    
     /**
      * @inheritdoc
      */
@@ -78,7 +80,7 @@ class Atlet extends \yii\db\ActiveRecord
                 'updatedAtAttribute' => 'updated',
                 'value' => new \yii\db\Expression('NOW()'),
             ],
-            'encryption' => [
+            /*'encryption' => [
                 'class' => '\nickcv\encrypter\behaviors\EncryptionBehavior',
                 'attributes' => [
                     'ic_no',
@@ -86,7 +88,7 @@ class Atlet extends \yii\db\ActiveRecord
                     'tel_bimbit_no_1',
                     'tel_bimbit_no_2',
                 ],
-            ],
+            ],*/
         ];
     }
 
@@ -100,10 +102,12 @@ class Atlet extends \yii\db\ActiveRecord
                 'bangsa', 'agama', 'jantina', 'taraf_perkahwinan', 'tinggi', 'berat', 'tel_bimbit_no_1', 'alamat_rumah_1', 'alamat_rumah_negeri', 
                 'alamat_rumah_bandar', 'alamat_rumah_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_negeri', 'alamat_surat_bandar', 'alamat_surat_poskod', 
                 'nama_kecemasan', 'pertalian_kecemasan', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan', 'ic_no', 'tempat_lahir_alamat_1', 'cacat', 'status_atlet',
-                'kategori_kecacatan', 'jenis_kecederaan', 'jenis_lesen_paralimpik', 'no_lesen_ipc', 'tarikh_luput', 'agensi', 'ms_negeri'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+                'kategori_kecacatan', 'jenis_kecederaan', 'agensi', 'ms_negeri'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir', 'lesen_tamat_tempoh', 'passport_tamat_tempoh', 'kategori_kecacatan', 'cacat', 'tawaran', 'tarikh_luput'], 'safe'],
-            [['umur', 'tel_bimbit_no_1', 'tel_bimbit_no_2', 'tel_no', 'tid', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan', 'cacat'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['umur', 'tel_bimbit_no_1', 'tel_bimbit_no_2', 'tel_no', 'tid', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan',
+                'tawaran_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tinggi', 'berat'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['tinggi', 'berat'], 'string', 'max' => 6, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lesen_memandu_no', 'dari_bahagian', 'sumber', 'pertalian_kecemasan'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['name_penuh', 'nama_kecemasan', 'jenis_kecederaan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -187,7 +191,7 @@ class Atlet extends \yii\db\ActiveRecord
             'tel_no_kecemasan' => GeneralLabel::tel_no,
             'tel_bimbit_no_kecemasan' => GeneralLabel::tel_bimbit_no_kecemasan,
             'tawaran' => GeneralLabel::status_tawaran,
-            'tempat_lahir_alamat_1' => GeneralLabel::tempat_lahir_alamat, 
+            'tempat_lahir_alamat_1' => GeneralLabel::tempat_lahir, 
             'cacat' => GeneralLabel::cacat, 
             'kategori_kecacatan' => GeneralLabel::kategori_kecacatan, 
             'jenis_kecederaan' => GeneralLabel::jenis_kecederaan, 
@@ -224,12 +228,14 @@ class Atlet extends \yii\db\ActiveRecord
     }
     
     public function getNameAndIC(){
-        $returnValue = "";
+        $returnValue = $this->name_penuh;
         
         if($this->ic_no != ""){
-            $returnValue = $this->name_penuh.' ('.$this->ic_no.')';
-        } else {
-            $returnValue = $this->name_penuh;
+            $returnValue.=' ('.$this->ic_no.')';
+        }
+        
+        if($this->passport_no != ""){
+            $returnValue.= ' - ('.$this->passport_no.')';
         }
         
         return $returnValue;
@@ -247,5 +253,12 @@ class Atlet extends \yii\db\ActiveRecord
      */
     public function getRefAtletSukan(){
         return $this->hasMany(AtletSukan::className(), ['atlet_id' => 'atlet_id']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefAtletPendidikan(){
+        return $this->hasMany(AtletPendidikan::className(), ['atlet_id' => 'atlet_id']);
     }
 }

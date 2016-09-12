@@ -87,6 +87,14 @@ class UserController extends Controller
         
         $model->scenario = 'create';
         
+        $model->status = \common\models\User::STATUS_ACTIVE;
+        /*$model->peranan = 3;
+        $model->jabatan_id = 4;
+        $model->full_name = 'Admin ';
+        $model->username = '8009010358';
+        $model->new_password = 'Abcdef@123456';
+        $model->password_confirm = 'Abcdef@123456';*/
+        
         if ($model->load(Yii::$app->request->post())) {
             //$stringlens = strlen($model->sukan);
             if(is_array($model->sukan)){

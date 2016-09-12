@@ -72,7 +72,7 @@ class PerancanganProgram extends \yii\db\ActiveRecord
             'tarikh_mula' => GeneralLabel::tarikh_mula,
             'tarikh_tamat' => GeneralLabel::tarikh_tamat,
             'nama_program' => GeneralLabel::nama_program_aktiviti,
-            'jenis_program' => GeneralLabel::jenis_program,
+            'jenis_program' => GeneralLabel::program,
             'lokasi' => GeneralLabel::tempat,
             'muat_naik' => GeneralLabel::muat_naik,
             'bahagian' => GeneralLabel::bahagian,

@@ -234,7 +234,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn',
                 'buttons' => [
                     'delete' => function ($url, $model) {
-                        return (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM && !isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])) ? '' :
+                        return (isset($model->refAtletSukan[0]->program_semasa) && ($model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK || $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM) && !isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])) ? '' :
                                 Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
                                         'title' => Yii::t('yii', 'Delete'),
                                         'data-confirm' => GeneralMessage::confirmDelete,
@@ -248,7 +248,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'aria-label' => Yii::t('yii', 'Update'),
                             'data-pjax' => '0',
                             ];
-                        return (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM && !isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])) ? '' :Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
+                        return (isset($model->refAtletSukan[0]->program_semasa) && ($model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK || $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM) && !isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])) ? '' :Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
                     },
                     'view' => function ($url, $model) {
                         $options = [

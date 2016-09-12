@@ -117,6 +117,9 @@ class PengurusanProgramBinaanController extends Controller
         $ref = RefStatusPermohonanProgramBinaan::findOne(['id' => $model->status_permohonan]);
         $model->status_permohonan = $ref['desc'];
         
+        $ref = RefJenisPermohonanProgramBinaan::findOne(['id' => $model->jenis_aktiviti]);
+        $model->jenis_aktiviti = $ref['desc'];
+        
         $queryPar = null;
         
         $queryPar['PengurusanProgramBinaanKosSearch']['pengurusan_program_binaan_id'] = $id;
@@ -410,6 +413,6 @@ class PengurusanProgramBinaanController extends Controller
             'TO_DATE' => $tarikh_hingga,
         );
         
-        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikProgramBinaanMengikutNegeri', $format, $controls, 'laporan_statistik_program_binaan_mengikut_sukan');
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikProgramBinaanMengikutSukan', $format, $controls, 'laporan_statistik_program_binaan_mengikut_sukan');
     }
 }

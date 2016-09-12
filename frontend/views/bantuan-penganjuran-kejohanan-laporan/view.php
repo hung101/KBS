@@ -2,27 +2,31 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BantuanPenganjuranKejohananLaporan */
 
-$this->title = $model->bantuan_penganjuran_kejohanan_laporan_id;
-$this->params['breadcrumbs'][] = ['label' => 'Bantuan Penganjuran Kejohanan Laporans', 'url' => ['index']];
+//$this->title = $model->bantuan_penganjuran_kejohanan_laporan_id;
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::bantuan_penganjuran_kejohanan_laporan;
+//$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bantuan_penganjuran_kejohanan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bantuan-penganjuran-kejohanan-laporan-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id], [
+        <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id], ['class' => 'btn btn-primary']) ?>
+
+        <?php /*echo Html::a(GeneralLabel::delete, ['delete', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => GeneralMessage::confirmDelete,
                 'method' => 'post',
             ],
-        ]) ?>
+        ]);*/ ?>
     </p>
     
     <?= $this->render('_form', [

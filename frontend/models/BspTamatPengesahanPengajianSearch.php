@@ -19,7 +19,7 @@ class BspTamatPengesahanPengajianSearch extends BspTamatPengesahanPengajian
     {
         return [
             [['bsp_tamat_pengesahan_pengajian_id'], 'integer'],
-            [['nama_ipts', 'pengajian', 'bidang', 'cgpa_pngk', 'tarikh_tamat'], 'safe'],
+            [['nama_ipts', 'pengajian', 'bidang', 'cgpa_pngk', 'tarikh_tamat', 'nama_pelajar'], 'safe'],
         ];
     }
 
@@ -64,6 +64,7 @@ class BspTamatPengesahanPengajianSearch extends BspTamatPengesahanPengajian
         $query->andFilterWhere(['like', 'nama_ipts', $this->nama_ipts])
             ->andFilterWhere(['like', 'tbl_ref_pengajian_e_biasiswa.desc', $this->pengajian])
             ->andFilterWhere(['like', 'bidang', $this->bidang])
+                ->andFilterWhere(['like', 'nama_pelajar', $this->nama_pelajar])
             ->andFilterWhere(['like', 'cgpa_pngk', $this->cgpa_pngk]);
 
         return $dataProvider;

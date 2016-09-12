@@ -92,6 +92,7 @@ use app\models\RefJawatanDelegasiTeknikal;
                         'data'=>ArrayHelper::map(RefJawatanDelegasiTeknikal::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jawatan],],
                     'columnOptions'=>['colspan'=>3]],
+                'jawatan_lain_lain' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
             ],
         ],
         [

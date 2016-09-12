@@ -49,11 +49,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'pengurusan_permohonan_kursus_persatuan_id',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_kursus,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::agensi,
                 ],
-                'value' => 'refPengurusanPermohonanKursusPersatuan.tarikh_kursus'
+                'value' => 'refPengurusanPermohonanKursusPersatuan.agensi'
             ],
             //'tarikh_kursus',
+            [
+                'attribute' => 'tarikh_kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_kursus,
+                ]
+            ],
             //'nama_penganjur_kursus',
             [
                 'attribute' => 'nama_penganjur_kursus',

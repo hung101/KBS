@@ -17,6 +17,8 @@ use app\models\RefNegeri;
 use app\models\RefBandar;
 use app\models\RefJenisSukanPersatuanPersekutuandunia;
 use app\models\RefNamaSukanPersatuanPersekutuandunia;
+use app\models\ProfilBadanSukan;
+
 
 /**
  * AtletSukanPersatuanpersekutuanduniaController implements the CRUD actions for AtletSukanPersatuanpersekutuandunia model.
@@ -127,6 +129,9 @@ class AtletSukanPersatuanpersekutuanduniaController extends Controller
         
         $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
         $model->alamat_bandar = $ref['desc'];
+        
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->name_persatuan_persekutuan_dunia]);
+        $model->name_persatuan_persekutuan_dunia = $ref['nama_badan_sukan'];
         
         return $this->renderAjax('view', [
             'model' => $model,

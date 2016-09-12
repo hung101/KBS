@@ -61,7 +61,7 @@ class ManualSilibusKurikulumTeknikalKepegawaianSearch extends ManualSilibusKurik
         // grid filtering conditions
         $query->andFilterWhere([
             'manual_silibus_kurikulum_teknikal_kepegawaian_id' => $this->manual_silibus_kurikulum_teknikal_kepegawaian_id,
-            'tarikh' => $this->tarikh,
+            //'tarikh' => $this->tarikh,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created' => $this->created,
@@ -70,6 +70,7 @@ class ManualSilibusKurikulumTeknikalKepegawaianSearch extends ManualSilibusKurik
 
         $query->andFilterWhere(['like', 'tbl_profil_badan_sukan.nama_badan_sukan', $this->persatuan_sukan])
             ->andFilterWhere(['like', 'jilid_versi', $this->jilid_versi])
+                ->andFilterWhere(['like', 'tarikh', $this->tarikh])
             ->andFilterWhere(['like', 'muat_naik', $this->muat_naik]);
 
         return $dataProvider;

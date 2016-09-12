@@ -1,16 +1,19 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\RefAjk */
+/* @var $model app\models\RefAgensiAntarabangsa */
 
-$this->title = 'Update Ref Ajk: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Ajks', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = GeneralLabel::updateTitle.' '.''.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => '', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' =>  GeneralLabel::view.' ' .''.': ' . ' ' . $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="ref-ajk-update">
+<div class="ref-agensi-antarabangsa-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -252,6 +252,35 @@ function getDurationBetweenDatetime(fromDatetimeMoment, toDatetimeMoment){
     }
 }
 
+function monthDiff(d1, d2) {
+    var months;
+    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months -= d1.getMonth() + 1;
+    months += d2.getMonth();
+    return months <= 0 ? 0 : months;
+}
+
+Chart.defaults.global.scaleLabel = function (label) {
+    return label.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+};
+
+Chart.defaults.global.multiTooltipTemplate = function (label) {
+    return label.datasetLabel + ': ' + label.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+};
+
+function addCommas(nStr)
+{
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+}
+
 // atlet pendidikan form submit
 $('body').on('beforeSubmit', 'form#atlet_pendidikan_form', function () {
     var tabId = 'pendidikan_tab';
@@ -566,7 +595,10 @@ $('body').on('beforeSubmit', 'form#atlet_pembangunan_kursuskem_form', function (
      $.ajax({
           url: form.attr('action'),
           type: 'post',
-          data: form.serialize(),
+          data:  new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
           success: function (response) {
                // do something with response
                $("#" + tabId).hideLoading();

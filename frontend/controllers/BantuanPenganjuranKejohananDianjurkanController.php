@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use app\models\RefPeringkatBantuanPenganjuranKejohananDianjurkan;
+
 /**
  * BantuanPenganjuranKejohananDianjurkanController implements the CRUD actions for BantuanPenganjuranKejohananDianjurkan model.
  */
@@ -51,8 +53,13 @@ class BantuanPenganjuranKejohananDianjurkanController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        
+        $ref = RefPeringkatBantuanPenganjuranKejohananDianjurkan::findOne(['id' => $model->peringkat_penganjuran]);
+        $model->peringkat_penganjuran = $ref['desc'];
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

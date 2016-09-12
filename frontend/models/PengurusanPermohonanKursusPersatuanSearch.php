@@ -20,7 +20,8 @@ class PengurusanPermohonanKursusPersatuanSearch extends PengurusanPermohonanKurs
         return [
             [['pengurusan_permohonan_kursus_persatuan_id'], 'integer'],
             [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'jantina', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 
-                'no_tel_bimbit', 'emel', 'facebook', 'kelayakan_akademi', 'perkerjaan', 'nama_majikan', 'kelulusan', 'no_perhubungan', 'tarikh_kursus', 'agensi'], 'safe'],
+                'no_tel_bimbit', 'emel', 'facebook', 'kelayakan_akademi', 'perkerjaan', 'nama_majikan', 'kelulusan', 'no_perhubungan', 'tarikh_kursus', 'tarikh_tamat_kursus', 
+                'agensi'], 'safe'],
             [['yuran_program'], 'number'],
         ];
     }
@@ -83,6 +84,7 @@ class PengurusanPermohonanKursusPersatuanSearch extends PengurusanPermohonanKurs
             ->andFilterWhere(['like', 'nama_majikan', $this->nama_majikan])
                 ->andFilterWhere(['like', 'no_perhubungan', $this->no_perhubungan])
                 ->andFilterWhere(['like', 'tarikh_kursus', $this->tarikh_kursus])
+                ->andFilterWhere(['like', 'tarikh_tamat_kursus', $this->tarikh_tamat_kursus])
                 ->andFilterWhere(['like', 'tbl_ref_status_permohonan_jkk.desc', $this->kelulusan]);
 
         return $dataProvider;

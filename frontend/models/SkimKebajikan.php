@@ -3,9 +3,10 @@
 namespace app\models;
 
 use Yii;
-
-use app\models\general\GeneralLabel;
+use yii\web\UploadedFile;
+use app\models\general\Upload;
 use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 
 /**
  * This is the model class for table "tbl_skim_kebajikan".
@@ -58,12 +59,14 @@ class SkimKebajikan extends \yii\db\ActiveRecord
         return [
             [['jenis_bantuan_skak', 'jumlah_bantuan', 'nama_pemohon', 'nama_penerima', 'jenis_sukan', 'kelulusan', 'perkara', 'sukan', 'jenis_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['jumlah_bantuan', 'jumlah_kos_perubatan'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['tarikh_kejadian'], 'safe'],
+            [['tarikh_kejadian', 'tarikh_kelulusan'], 'safe'],
             [['kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jenis_bantuan_skak', 'jenis_sukan', 'jenis_bantuan_lain_yang_diterima'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_pemohon', 'nama_penerima'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['masalah_dihadapi'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['lokasi_kejadian'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['lokasi_kejadian'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan', 'muat_naik'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -84,8 +87,21 @@ class SkimKebajikan extends \yii\db\ActiveRecord
             'lokasi_kejadian' => GeneralLabel::lokasi_kejadian,
             'jenis_bantuan_lain_yang_diterima' => GeneralLabel::jenis_bantuan_lain_yang_diterima,
             'kelulusan' => GeneralLabel::kelulusan,
-            'jumlah_kos_perubatan' => 'Jumlah Kos Perubatan (RM)'
+            'jumlah_kos_perubatan' => 'Jumlah Kos Perubatan (RM)',
+            'jenis_permohonan' => GeneralLabel::jenis_tuntutan,
+            'sukan' => GeneralLabel::pencapaian_tertinggi,
         ];
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
     }
     
     /**

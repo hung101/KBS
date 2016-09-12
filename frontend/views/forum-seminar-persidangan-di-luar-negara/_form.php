@@ -16,6 +16,9 @@ use kartik\datecontrol\DateControl;
 use app\models\RefJenisProgramBantuanMenghadiriProgramAntarabangsa;
 use app\models\RefNegara;
 use app\models\RefStatusPermohonanBantuanMenghadiriProgramAntarabangs;
+use app\models\ProfilBadanSukan;
+use app\models\RefPeringkatBantuanMenghadiriProgramAntarabangsa;
+use app\models\RefJawatanBantuanMenghadiriProgramAntarabangsa;
 
 // contant values
 use app\models\general\Placeholder;
@@ -41,6 +44,16 @@ use app\models\general\GeneralVariable;
     ?>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    
+    <?php 
+    $disablePersatuan = false; // default
+    if(Yii::$app->user->identity->profil_badan_sukan){
+        $disablePersatuan = true;
+    }
+    ?>
+    
+    <br>
+    <pre style="text-align: center"><strong>MAKLUMAT PEMOHON</strong></pre>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -59,12 +72,15 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-program-bantuan-menghadiri-program-antarabangsa/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/profil-badan-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJenisProgramBantuanMenghadiriProgramAntarabangsa::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::persatuan],],
+                        'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
+                        'options' => ['placeholder' => Placeholder::persatuan, 'disabled'=>$disablePersatuan, 'id'=>'persatuanId'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'jawatan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -73,15 +89,30 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-program-bantuan-menghadiri-program-antarabangsa/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jawatan-bantuan-menghadiri-program-antarabangsa/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJenisProgramBantuanMenghadiriProgramAntarabangsa::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefJawatanBantuanMenghadiriProgramAntarabangsa::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jawatan],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],
+        
+    ]
+]);
+        ?>
+    
+    <br>
+    <br>
+    <pre style="text-align: center"><strong>MAKLUMAT PROGRAM</strong></pre>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -99,8 +130,30 @@ use app\models\general\GeneralVariable;
                         ] : null,
                         'data'=>ArrayHelper::map(RefJenisProgramBantuanMenghadiriProgramAntarabangsa::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jenisProgram],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>3]],
+                'peringkat' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-peringkat-bantuan-menghadiri-program-antarabangsa/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefPeringkatBantuanMenghadiriProgramAntarabangsa::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::peringkat],],
+                    'columnOptions'=>['colspan'=>3]],
                  'nama_program' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
+                
+                 
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                  'tarikh' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -111,7 +164,16 @@ use app\models\general\GeneralVariable;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                
+                'tarikh_tamat' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
                  
             ],
         ],
@@ -144,8 +206,20 @@ use app\models\general\GeneralVariable;
     ]
 ]);
         ?>
+    <br>
+    <h3>Lampiran Perbelanjaan/Resit/Surat Jemputan Penganjur</h3>
     
-    <h3>Lampiran Perbelanjaan/Resit</h3>
+    <div class="panel panel-danger">
+        <div class="panel-body">
+            <strong>Nota: Senarai Dokumen Sokongan</strong>
+        </div>
+        <ol>
+            <li >Surat Permohonan.</li>
+            <li >Surat Jemputan Penganjur.</li>
+            <li >Resit-resit.</li>
+            <li >Surat Tuntutan (Setelah Permohonan Diluluskan).</li>
+          </ol>
+    </div>
     
     <?php 
             Modal::begin([

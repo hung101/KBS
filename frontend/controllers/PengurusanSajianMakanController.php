@@ -64,8 +64,8 @@ class PengurusanSajianMakanController extends Controller
         
         $model = $this->findModel($id);
         
-        $ref = Atlet::findOne(['atlet_id' => $model->atlet_id]);
-        $model->atlet_id = $ref['nameAndIC'];
+        //$ref = Atlet::findOne(['atlet_id' => $model->atlet_id]);
+        //$model->atlet_id = $ref['nameAndIC'];
         
         return $this->render('view', [
             'model' => $model,

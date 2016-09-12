@@ -12,6 +12,7 @@ use yii\bootstrap\Modal;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 use kartik\datecontrol\DateControl;
+use yii\web\Session;
 
 // table reference
 use app\models\Jurulatih;
@@ -229,11 +230,35 @@ use app\models\general\GeneralMessage;
             $calculate_jumlah_markah += $PPPKJLmodel->markah_penilaian;
         }
         
-        $calculate_jumlah_permarkahan = (($calculate_jumlah_markah/180) * 0.05); // formula (x/180*5%)
+        
     ?>
     
     <h4>Jumlah Markah Penilaian: <?=$calculate_jumlah_markah?></h4>
-    <h4>Jumlah Permarkahan (x/180*5%): <?=number_format($calculate_jumlah_permarkahan, 4)?></h4>
+    
+    <?php 
+        $session = new Session;
+        $session->open();
+        
+        if(isset($session['penilaian_oleh_id'])){
+            $model->penilaian_oleh = $session['penilaian_oleh_id'];
+        }
+        
+        $session->close();
+        
+        $penilaian_oleh = $model->penilaian_oleh;
+        
+        if($readonly){
+            $penilaian_oleh = $model->penilaian_oleh_id;
+        }
+        
+        if($penilaian_oleh){
+            if (($modelRefPenilaianJurulatih = RefPenilaianJurulatih::findOne($penilaian_oleh)) !== null) {
+                $calculate_jumlah_permarkahan = (($calculate_jumlah_markah/180) * ($modelRefPenilaianJurulatih->markah_peratus/100)); // formula (x/180*5%)
+                echo "<h4>Jumlah Permarkahan (x/180*".$modelRefPenilaianJurulatih->markah_peratus."%): " . number_format($calculate_jumlah_permarkahan, 4) . "</h4>";
+            } 
+        }
+    
+    ?>
     
     <?php if(!$readonly): ?>
     <p>
@@ -255,14 +280,6 @@ use app\models\general\GeneralMessage;
     
     <br>
 
-    <!--<?= $form->field($model, 'nama_jurulatih_dinilai')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'nama_sukan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'nama_acara')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'pusat_latihan')->textInput(['maxlength' => 80]) ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -279,7 +296,16 @@ $URLJurulatih = Url::to(['/jurulatih/get-jurulatih']);
 
 $URLJurulatihSukan = Url::to(['/jurulatih-sukan/get-jurulatih-sukan-acara']);
 
+$URLSetPernilaianOleh = Url::to(['/pengurusan-pemantauan-dan-penilaian-jurulatih/set-pernilaian-oleh']);
+
 $script = <<< JS
+        
+$('#pengurusanpemantauandanpenilaianjurulatih-penilaian_oleh').change(function(){
+    $.get('$URLSetPernilaianOleh',{penilaian_oleh_id:$('#pengurusanpemantauandanpenilaianjurulatih-penilaian_oleh').val()},function(data){
+        $.pjax.defaults.timeout = 106000;
+        $.pjax.reload({container:'#pengurusanPenilaianKategoriJurulatihGrid'});
+    });
+});
         
 $('#jurulatihId').change(function(){
     
