@@ -82,7 +82,7 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
                 'alamat_parlimen', 'alamat_surat_menyurat_parlimen', 'jawatankuasa_penaung', 'jawatankuasa_pegerusi', 'jawatankuasa_timbalan_pengerusi', 'jawatankuasa_naib_pengerusi', 
                 'jawatankuasa_setiausaha', 'jawatankuasa_bendahari'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_didaftarkan', 'catatan', 'nama_program', 'tarikh_pelaksanaan', 'tempat_pelaksanaan', 'bilangan_peserta', 'tujuan_program_aktiviti', 'tarikh_mesyuarat', 'tarikh_bayar'], 'safe'],
-            [['bilangan_keahlian', 'bilangan_cawangan_badan_gabungan', 'laporan', 'status_permohonan', 'negeri_sokongan', 'user_public_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['bilangan_keahlian', 'bilangan_cawangan_badan_gabungan', 'laporan', 'status_permohonan', 'negeri_sokongan', 'user_public_id', 'profil_badan_sukan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['pertubuhan_persatuan_sendiri', 'lain_lain_sumbangan', 'yuran_bayaran_penyertaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_perbelanjaan', 'jumlah_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [[ 'pejabat_yang_mendaftarkan', 'jawatankuasa_penaung', 'jawatankuasa_pegerusi', 'jawatankuasa_timbalan_pengerusi', 'jawatankuasa_naib_pengerusi', 'jawatankuasa_setiausaha', 'jawatankuasa_bendahari'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_pendaftaran', 'alamat_negeri', 'alamat_surat_menyurat_negeri', 'bil_mesyuarat', 'peringkat_program'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -169,6 +169,7 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
             'jawatankuasa_setiausaha' => GeneralLabel::jawatankuasa_setiausaha,
             'jawatankuasa_bendahari' => GeneralLabel::jawatankuasa_bendahari,
             'kertas_kerja' => GeneralLabel::kertas_kerja,
+            'profil_badan_sukan_id' => GeneralLabel::badan_sukan,
         ];
     }
     

@@ -133,24 +133,34 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>-->
     
     <!-- Kaunseling Rekod - START -->
-    <div class="panel panel-default copyright-wrap" id="penukaran_rekods-list">
-        <div class="panel-heading"><a data-toggle="collapse" href="#penukaran_rekods-body">Rekod Insentif</a>
-            <button type="button" class="close" data-target="#penukaran_rekods-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <div class="panel panel-default copyright-wrap" id="insentif_rekods-list">
+        <div class="panel-heading"><a data-toggle="collapse" href="#insentif_rekods-body">Rekod Insentif</a>
+            <button type="button" class="close" data-target="#insentif_rekods-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         </div>
-        <div id="penukaran_rekods-body" class="panel-collapse collapse">
+        <div id="insentif_rekods-body" class="panel-collapse collapse">
             <div class="panel-body">
                 <?= GridView::widget([
             'dataProvider' => $dataProviderPI,
             //'filterModel' => $searchModelPI,
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
-                [
+                //'pembayaran_insentif_id',
+            //'kejohanan',
+            [
+                'attribute' => 'nama_kejohanan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_kejohanan,
+                ],
+                'value' => 'refPerancanganProgram.nama_program'
+            ],
+            /*[
                 'attribute' => 'kejohanan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kejohanan,
                 ],
-            ],
+            ],*/
             //'jenis_insentif',
             [
                 'attribute' => 'jenis_insentif',
@@ -170,14 +180,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'refPingatInsentif.desc'
             ],
             //'kumpulan_temasya_kejohanan',
-            [
+            /*[
                 'attribute' => 'kumpulan_temasya_kejohanan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kumpulan_temasya_kejohanan,
                 ],
                 'value' => 'refPengurusanInsentifTetapanShakamShakar.kumpulan_temasya_kejohanan'
-            ],
+            ],*/
             // 'rekod_baharu',
             //'jumlah',
             [
@@ -196,6 +206,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refKelulusan.desc'
             ],
+            // 'tarikh_kelulusan',
+            // 'tarikh_pembayaran_insentif',
+            // 'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
                 ['class' => 'yii\grid\ActionColumn',
                     'buttons' => [
                         'view' => function ($url, $model) {

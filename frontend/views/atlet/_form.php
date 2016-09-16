@@ -10,6 +10,7 @@ use kartik\widgets\DepDrop;
 use kartik\datecontrol\DateControl;
 use yii\web\Session;
 use yii\helpers\ArrayHelper;
+use kartik\widgets\Select2;
 
 // table reference
 use app\models\RefJantina;
@@ -78,7 +79,11 @@ use app\models\general\GeneralVariable;
     <?php endif; ?>
     <?php 
     if($model->tawaran_id && $model->tawaran_id == RefStatusTawaran::LULUS_TAWARAN){
-        echo Html::a(GeneralLabel::generate . ' ' . GeneralLabel::surat_tawaran_atlet, ['surat-tawaran-atlet', 'atlet_id' => $model->atlet_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+        if($model->cacat == 1 || $model->cacat == 'Ya'){
+            echo Html::a(GeneralLabel::generate . ' ' . GeneralLabel::surat_tawaran_atlet, ['surat-tawaran-atlet-paralimpik', 'atlet_id' => $model->atlet_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+        } else {
+            echo Html::a(GeneralLabel::generate . ' ' . GeneralLabel::surat_tawaran_atlet, ['surat-tawaran-atlet', 'atlet_id' => $model->atlet_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+        }
     }
     ?>
     <br>
@@ -423,11 +428,25 @@ use app\models\general\GeneralVariable;
                 'passport_tempat_dikeluarkan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4]],
             ]
         ],
+        
+        
+        ]
+]);
+    ?>
+    
+    <div class="row">
+        <div class="col-sm-6">
+            <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'lesen_memandu_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4]],
+                'lesen_memandu_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>7]],
                 'lesen_tamat_tempoh' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -437,8 +456,8 @@ use app\models\general\GeneralVariable;
                             'autoclose'=>true,
                         ]
                     ],
-                    'columnOptions'=>['colspan'=>3]],
-                'jenis_lesen' => [
+                    'columnOptions'=>['colspan'=>5]],
+                /*'jenis_lesen' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -454,9 +473,51 @@ use app\models\general\GeneralVariable;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>3]],*/
             ]
         ],
+        
+        
+        ]
+]);
+    ?>
+        </div>
+        <div class="col-sm-3">
+            <?php
+                // selected jenis lesen list
+                $jenis_lesen_selected = null;
+                if(isset($model->jenis_lesen) && $model->jenis_lesen != ''){
+                    $jenis_lesen_selected=explode(',',$model->jenis_lesen);
+                }
+
+                 // Senarai Jenis Lesen
+                echo '<label class="control-label">'.$model->getAttributeLabel('jenis_lesen').'</label>';
+                echo Select2::widget([
+                    'model' => $model,
+                    'id' => 'atlet-jenis_lesen',
+                    'name' => 'Atlet[jenis_lesen]',
+                    'value' => $jenis_lesen_selected, // initial value
+                    'data' => ArrayHelper::map(RefJenisLesenMemandu::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                    'options' => ['placeholder' => Placeholder::jenisLesenMemandu, 'multiple' => true],
+                    'pluginOptions' => [
+                        'tags' => true,
+                        'maximumInputLength' => 10
+                    ],
+                    'disabled' => $readonly
+                ]);
+            ?>
+        </div>
+    </div>
+    
+    
+    
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -656,6 +717,24 @@ use app\models\general\GeneralVariable;
                     'value'=>false,
                     'options'=>['inline'=>true],
                     'columnOptions'=>['colspan'=>2]],
+            ]
+        ],
+    ]
+]);
+    ?>
+    
+    <?php
+    
+    if($model->cacat && !$model->isNewRecord && ($model->cacat == 1 || $model->cacat == 'Ya')){
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                 'kategori_kecacatan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -752,6 +831,7 @@ use app\models\general\GeneralVariable;
         ]
     ]
 ]);
+    }
     ?>
     
     

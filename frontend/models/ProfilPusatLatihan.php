@@ -121,4 +121,14 @@ class ProfilPusatLatihan extends \yii\db\ActiveRecord
     {
         return $this->hasOne(RefNegeri::className(), ['id' => 'alamat_negeri']);
     }
+    
+    public function getRefSukan()
+    {
+        return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
+    }
+    
+    public function getRefProgramSemasaSukanAtlet()
+    {
+        return $this->hasOne(RefProgramSemasaSukanAtlet::className(), ['id' => 'program']);
+    }
 }

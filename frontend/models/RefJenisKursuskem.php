@@ -20,6 +20,9 @@ use app\models\general\GeneralMessage;
  */
 class RefJenisKursuskem extends \yii\db\ActiveRecord
 {
+    const KURSUS = 1;
+    const KEM = 2;
+    
     /**
      * @inheritdoc
      */

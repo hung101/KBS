@@ -260,13 +260,13 @@ function monthDiff(d1, d2) {
     return months <= 0 ? 0 : months;
 }
 
-Chart.defaults.global.scaleLabel = function (label) {
+/*Chart.defaults.global.scaleLabel = function (label) {
     return label.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };
 
 Chart.defaults.global.multiTooltipTemplate = function (label) {
     return label.datasetLabel + ': ' + label.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-};
+};*/
 
 function addCommas(nStr)
 {

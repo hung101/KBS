@@ -304,8 +304,15 @@ class ProfilBadanSukanController extends Controller
     }
     
     public function actionGetBadanSukan($id){
-        // find Ahli Jawatankuasa Induk
+        // find Badan Sukan by ID
         $model = ProfilBadanSukan::find()->where(['profil_badan_sukan' => $id])->asArray()->one();
+        
+        echo Json::encode($model);
+    }
+    
+    public function actionGetBadanSukanByNoPendaftaran($no_pendaftaran){
+        // find Badan Sukan by No. Pendaftaran
+        $model = ProfilBadanSukan::find()->where(['no_pendaftaran' => $no_pendaftaran])->asArray()->one();
         
         echo Json::encode($model);
     }

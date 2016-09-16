@@ -282,20 +282,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     
-    <h3>Peserta</h3>
-    
-    <?php 
-            Modal::begin([
-                'header' => '<h3 id="modalTitle"></h3>',
-                'id' => 'modal',
-                'size' => 'modal-lg',
-                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE]
-            ]);
-            
-            echo '<div id="modalContent"></div>';
-            
-            Modal::end();
-        ?>
+    <h3>Pegawai</h3>
     
     <?php Pjax::begin(['id' => 'programBinaanPesertaGrid', 'timeout' => 100000]); ?>
 
@@ -310,10 +297,10 @@ use app\models\general\GeneralMessage;
             //'pengurusan_program_binaan_peserta_id',
             //'pengurusan_program_binaan_id',
             //'kategori_peserta',
-            [
+            /*[
                 'attribute' => 'kategori_peserta',
                 'value' => 'refKategoriPesertaProgramBinaan.desc'
-            ],
+            ],*/
             //'atlet_id',
             /*[
                 'attribute' => 'atlet_id',
@@ -345,13 +332,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-peserta/update', 'id' => $model->pengurusan_program_binaan_peserta_id]).'", "'.GeneralLabel::updateTitle . ' Peserta");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-peserta/update', 'id' => $model->pengurusan_program_binaan_peserta_id]).'", "'.GeneralLabel::updateTitle . ' Pegawai");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-peserta/view', 'id' => $model->pengurusan_program_binaan_peserta_id]).'", "'.GeneralLabel::viewTitle . ' Peserta");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-peserta/view', 'id' => $model->pengurusan_program_binaan_peserta_id]).'", "'.GeneralLabel::viewTitle . ' Pegawai");',
                         ]);
                     }
                 ],
@@ -366,7 +353,144 @@ use app\models\general\GeneralMessage;
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-peserta/create', 'pengurusan_program_binaan_id' => $pengurusan_program_binaan_id]).'", "'.GeneralLabel::createTitle . ' Peserta");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-peserta/create', 'pengurusan_program_binaan_id' => $pengurusan_program_binaan_id]).'", "'.GeneralLabel::createTitle . ' Pegawai");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
+    
+    <h3>Atlet</h3>
+    
+    <?php Pjax::begin(['id' => 'pengurusanProgramBinaanAtletGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPengurusanProgramBinaanAtlet,
+        //'filterModel' => $searchModelPengurusanProgramBinaanAtlet,
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
+        'id' => 'pengurusanProgramBinaanAtletGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'pengurusan_program_binaan_atlet_id',
+            //'pengurusan_program_binaan_id',
+            //'atlet_id',
+            [
+                'attribute' => 'atlet_id',
+                'value' => 'refAtlet.name_penuh'
+            ],
+            //'session_id',
+            //'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['pengurusan-program-binaan-atlet/delete', 'id' => $model->pengurusan_program_binaan_atlet_id]).'", "'.GeneralMessage::confirmDelete.'", "pengurusanProgramBinaanAtletGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-atlet/update', 'id' => $model->pengurusan_program_binaan_atlet_id]).'", "'.GeneralLabel::updateTitle . ' Atlet");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-atlet/view', 'id' => $model->pengurusan_program_binaan_atlet_id]).'", "'.GeneralLabel::viewTitle . ' Atlet");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-atlet/create', 'pengurusan_program_binaan_id' => $pengurusan_program_binaan_id]).'", "'.GeneralLabel::createTitle . ' Atlet");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
+    
+    <h3>Jurulatih</h3>
+    
+    
+    <?php Pjax::begin(['id' => 'pengurusanProgramBinaanJurulatihGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPengurusanProgramBinaanJurulatih,
+        //'filterModel' => $searchModelPengurusanProgramBinaanJurulatih,
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
+        'id' => 'pengurusanProgramBinaanJurulatihGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'pengurusan_program_binaan_jurulatih_id',
+            //'pengurusan_program_binaan_id',
+            //'jurulatih_id',
+            [
+                'attribute' => 'jurulatih_id',
+                'value' => 'refJurulatih.nama'
+            ],
+            //'session_id',
+            //'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['pengurusan-program-binaan-jurulatih/delete', 'id' => $model->pengurusan_program_binaan_jurulatih_id]).'", "'.GeneralMessage::confirmDelete.'", "pengurusanProgramBinaanJurulatihGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-jurulatih/update', 'id' => $model->pengurusan_program_binaan_jurulatih_id]).'", "'.GeneralLabel::updateTitle . ' Jurulatih");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-jurulatih/view', 'id' => $model->pengurusan_program_binaan_jurulatih_id]).'", "'.GeneralLabel::viewTitle . ' Jurulatih");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-jurulatih/create', 'pengurusan_program_binaan_id' => $pengurusan_program_binaan_id]).'", "'.GeneralLabel::createTitle . ' Jurulatih");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

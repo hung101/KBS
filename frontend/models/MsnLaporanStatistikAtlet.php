@@ -18,12 +18,13 @@ class MsnLaporanStatistikAtlet extends Model
     public $sukan;
     public $negeri;
     public $format;
+    public $kategori_kecacatan;
 
     public function rules()
     {
         return [
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'negeri', 'acara'], 'safe'],
+            [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'negeri', 'acara', 'kategori_kecacatan'], 'safe'],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
             [['jumlah_geran_hingga'], 'compare', 'compareAttribute'=>'negeri', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
@@ -39,6 +40,7 @@ class MsnLaporanStatistikAtlet extends Model
             'negeri' => GeneralLabel::negeri,
             'acara' => GeneralLabel::acara,
             'format' => GeneralLabel::format,
+            'kategori_kecacatan' => GeneralLabel::kategori_kecacatan,
         ];
     }
 }

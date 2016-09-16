@@ -10,6 +10,7 @@ use frontend\models\PenyertaanSukanAcaraSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Session;
 
 use app\models\general\GeneralVariable;
 
@@ -21,6 +22,7 @@ use app\models\PerancanganProgram;
 use app\models\RefJenisAktiviti;
 use app\models\RefPeringkatKejohananTemasya;
 use app\models\RefProgramSemasaSukanAtlet;
+use app\models\RefTemasya;
 
 /**
  * PenyertaanSukanController implements the CRUD actions for PenyertaanSukan model.
@@ -90,6 +92,9 @@ class PenyertaanSukanController extends Controller
         
         $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program]);
         $model->program = $ref['desc'];
+        
+        $ref = RefTemasya::findOne(['id' => $model->nama_temasya]);
+        $model->nama_temasya = $ref['desc'];
         
         $queryPar = null;
         
@@ -211,5 +216,15 @@ class PenyertaanSukanController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionSetSukan($sukan_id){
+        
+        $session = new Session;
+        $session->open();
+
+        $session['penyertaan-sukan_sukan_id'] = $sukan_id;
+        
+        $session->close();
     }
 }

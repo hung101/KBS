@@ -20,10 +20,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat']['update']) || isset(Yii::$app->user->identity->peranan_akses['ISN']['mesyuarat']['update'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat-jkk']['update']) || isset(Yii::$app->user->identity->peranan_akses['ISN']['mesyuarat']['update'])): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->mesyuarat_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat']['delete']) || isset(Yii::$app->user->identity->peranan_akses['ISN']['mesyuarat']['delete'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat-jkk']['delete']) || isset(Yii::$app->user->identity->peranan_akses['ISN']['mesyuarat']['delete'])): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->mesyuarat_id], [
                 'class' => 'btn btn-danger',
                 'data' => [

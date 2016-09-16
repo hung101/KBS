@@ -125,11 +125,11 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>-->
     
     <!-- Kaunseling Rekod - START -->
-    <div class="panel panel-default copyright-wrap" id="penukaran_rekods-list">
-        <div class="panel-heading"><a data-toggle="collapse" href="#penukaran_rekods-body">Rekod Pembayaran Elaun</a>
-            <button type="button" class="close" data-target="#penukaran_rekods-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <div class="panel panel-default copyright-wrap" id="elaun_rekods-list">
+        <div class="panel-heading"><a data-toggle="collapse" href="#elaun_rekods-body">Rekod Pembayaran Elaun</a>
+            <button type="button" class="close" data-target="#elaun_rekods-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         </div>
-        <div id="penukaran_rekods-body" class="panel-collapse collapse">
+        <div id="elaun_rekods-body" class="panel-collapse collapse">
             <div class="panel-body">
                 <?= GridView::widget([
             'dataProvider' => $dataProviderPE,

@@ -197,6 +197,21 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
                 $model->laporan_aktiviti_muat_naik = Upload::uploadFile($file, Upload::ltbsMinitMesyuaratJawatankuasaFolder, 'laporan_aktiviti_muat_naik-' . $model->mesyuarat_id);
             }
             
+            $file = UploadedFile::getInstance($model, 'borang_pt_muat_naik');
+            if($file){
+                $model->borang_pt_muat_naik = Upload::uploadFile($file, Upload::ltbsMinitMesyuaratJawatankuasaFolder, 'borang_pt_muat_naik-' . $model->mesyuarat_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_ahli_jawatankuasa_muat_naik');
+            if($file){
+                $model->senarai_ahli_jawatankuasa_muat_naik = Upload::uploadFile($file, Upload::ltbsMinitMesyuaratJawatankuasaFolder, 'senarai_ahli_jawatankuasa_muat_naik-' . $model->mesyuarat_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_ahli_gabungan_terkini_muat_naik');
+            if($file){
+                $model->senarai_ahli_gabungan_terkini_muat_naik = Upload::uploadFile($file, Upload::ltbsMinitMesyuaratJawatankuasaFolder, 'senarai_ahli_gabungan_terkini_muat_naik-' . $model->mesyuarat_id);
+            }
+            
             if(isset(Yii::$app->session->id)){
                 //update the new mesyuarat id instead of use login session id as reference
                 LtbsMinitMesyuaratJawatankuasaDokumenMuatNaik::updateAll(['mesyuarat_id' => $model->mesyuarat_id], 'session_id = "'.Yii::$app->session->id.'"');
@@ -253,6 +268,9 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
         $existingMinitAgm= $model->minit_agm_muat_naik;
         $existingKewangan = $model->laporan_kewangan_muat_naik;
         $existingAktiviti = $model->laporan_aktiviti_muat_naik;
+        $existingBorangPT = $model->borang_pt_muat_naik;
+        $existingSenaraiAhliJawatankuasa = $model->senarai_ahli_jawatankuasa_muat_naik;
+        $existingSenaraiAhliGabungan = $model->senarai_ahli_gabungan_terkini_muat_naik;
         
         if($model->load(Yii::$app->request->post())){
             $file = UploadedFile::getInstance($model, 'minit_ajk_muat_naik');
@@ -343,6 +361,60 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
                 //invalid file to upload
                 //remain existing file
                 $model->laporan_aktiviti_muat_naik = $existingAktiviti;
+            }
+            
+            $file = UploadedFile::getInstance($model, 'borang_pt_muat_naik');
+
+            if($file){
+                //valid file to upload
+                //upload file to server
+                
+                // delete upload file
+                if($existingBorangPT != ""){
+                    self::actionDeleteupload($id, 'borang_pt_muat_naik');
+                }
+                
+                $model->borang_pt_muat_naik = Upload::uploadFile($file, Upload::ltbsMinitMesyuaratJawatankuasaFolder, 'borang_pt_muat_naik-' . $model->mesyuarat_id);
+            } else {
+                //invalid file to upload
+                //remain existing file
+                $model->borang_pt_muat_naik = $existingBorangPT;
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_ahli_jawatankuasa_muat_naik');
+
+            if($file){
+                //valid file to upload
+                //upload file to server
+                
+                // delete upload file
+                if($existingSenaraiAhliJawatankuasa != ""){
+                    self::actionDeleteupload($id, 'senarai_ahli_jawatankuasa_muat_naik');
+                }
+                
+                $model->senarai_ahli_jawatankuasa_muat_naik = Upload::uploadFile($file, Upload::ltbsMinitMesyuaratJawatankuasaFolder, 'senarai_ahli_jawatankuasa_muat_naik-' . $model->mesyuarat_id);
+            } else {
+                //invalid file to upload
+                //remain existing file
+                $model->senarai_ahli_jawatankuasa_muat_naik = $existingSenaraiAhliJawatankuasa;
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_ahli_gabungan_terkini_muat_naik');
+
+            if($file){
+                //valid file to upload
+                //upload file to server
+                
+                // delete upload file
+                if($existingSenaraiAhliGabungan != ""){
+                    self::actionDeleteupload($id, 'senarai_ahli_gabungan_terkini_muat_naik');
+                }
+                
+                $model->senarai_ahli_gabungan_terkini_muat_naik = Upload::uploadFile($file, Upload::ltbsMinitMesyuaratJawatankuasaFolder, 'senarai_ahli_gabungan_terkini_muat_naik-' . $model->mesyuarat_id);
+            } else {
+                //invalid file to upload
+                //remain existing file
+                $model->senarai_ahli_gabungan_terkini_muat_naik = $existingSenaraiAhliGabungan;
             }
         }
         

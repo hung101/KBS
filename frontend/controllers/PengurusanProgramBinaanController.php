@@ -9,6 +9,11 @@ use app\models\PengurusanProgramBinaanKos;
 use frontend\models\PengurusanProgramBinaanKosSearch;
 use app\models\PengurusanProgramBinaanPeserta;
 use frontend\models\PengurusanProgramBinaanPesertaSearch;
+use app\models\PengurusanProgramBinaanAtlet;
+use frontend\models\PengurusanProgramBinaanAtletSearch;
+use app\models\PengurusanProgramBinaanJurulatih;
+use frontend\models\PengurusanProgramBinaanJurulatihSearch;
+use app\models\AtletPembangunanKursuskem;
 use app\models\MsnLaporanSenaraiPenganjuranProgramBinaan;
 use app\models\MsnLaporanStatistikProgramBinaanMengikutNegeri;
 use app\models\MsnLaporanStatistikProgramBinaanMengikutSukan;
@@ -31,6 +36,7 @@ use app\models\RefProgramSemasaSukanAtlet;
 use app\models\PerancanganProgram;
 use app\models\RefJenisAktiviti;
 use app\models\RefStatusPermohonanProgramBinaan;
+use app\models\RefJenisKursuskem;
 
 /**
  * PengurusanProgramBinaanController implements the CRUD actions for PengurusanProgramBinaan model.
@@ -124,6 +130,8 @@ class PengurusanProgramBinaanController extends Controller
         
         $queryPar['PengurusanProgramBinaanKosSearch']['pengurusan_program_binaan_id'] = $id;
         $queryPar['PengurusanProgramBinaanPesertaSearch']['pengurusan_program_binaan_id'] = $id;
+        $queryPar['PengurusanProgramBinaanAtletSearch']['pengurusan_program_binaan_id'] = $id;
+        $queryPar['PengurusanProgramBinaanJurulatihSearch']['pengurusan_program_binaan_id'] = $id;
         
         $searchModelProgramBinaanKos  = new PengurusanProgramBinaanKosSearch();
         $dataProviderProgramBinaanKos = $searchModelProgramBinaanKos->search($queryPar);
@@ -131,12 +139,22 @@ class PengurusanProgramBinaanController extends Controller
         $searchModelProgramBinaanPeserta = new PengurusanProgramBinaanPesertaSearch();
         $dataProviderProgramBinaanPeserta = $searchModelProgramBinaanPeserta->search($queryPar);
         
+        $searchModelPengurusanProgramBinaanAtlet = new PengurusanProgramBinaanAtletSearch();
+        $dataProviderPengurusanProgramBinaanAtlet = $searchModelPengurusanProgramBinaanAtlet->search($queryPar);
+        
+        $searchModelPengurusanProgramBinaanJurulatih = new PengurusanProgramBinaanJurulatihSearch();
+        $dataProviderPengurusanProgramBinaanJurulatih = $searchModelPengurusanProgramBinaanJurulatih->search($queryPar);
+        
         return $this->render('view', [
             'model' => $model,
             'searchModelProgramBinaanKos' => $searchModelProgramBinaanKos,
             'dataProviderProgramBinaanKos' => $dataProviderProgramBinaanKos,
             'searchModelProgramBinaanPeserta' => $searchModelProgramBinaanPeserta,
             'dataProviderProgramBinaanPeserta' => $dataProviderProgramBinaanPeserta,
+            'searchModelPengurusanProgramBinaanAtlet' => $searchModelPengurusanProgramBinaanAtlet,
+            'dataProviderPengurusanProgramBinaanAtlet' => $dataProviderPengurusanProgramBinaanAtlet,
+            'searchModelPengurusanProgramBinaanJurulatih' => $searchModelPengurusanProgramBinaanJurulatih,
+            'dataProviderPengurusanProgramBinaanJurulatih' => $dataProviderPengurusanProgramBinaanJurulatih,
             'readonly' => true,
         ]);
     }
@@ -163,6 +181,8 @@ class PengurusanProgramBinaanController extends Controller
         if(isset(Yii::$app->session->id)){
             $queryPar['PengurusanProgramBinaanKosSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['PengurusanProgramBinaanPesertaSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['PengurusanProgramBinaanAtletSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['PengurusanProgramBinaanJurulatihSearch']['session_id'] = Yii::$app->session->id;
         }
         
         $searchModelProgramBinaanKos  = new PengurusanProgramBinaanKosSearch();
@@ -170,6 +190,12 @@ class PengurusanProgramBinaanController extends Controller
         
         $searchModelProgramBinaanPeserta = new PengurusanProgramBinaanPesertaSearch();
         $dataProviderProgramBinaanPeserta = $searchModelProgramBinaanPeserta->search($queryPar);
+        
+        $searchModelPengurusanProgramBinaanAtlet = new PengurusanProgramBinaanAtletSearch();
+        $dataProviderPengurusanProgramBinaanAtlet = $searchModelPengurusanProgramBinaanAtlet->search($queryPar);
+        
+        $searchModelPengurusanProgramBinaanJurulatih = new PengurusanProgramBinaanJurulatihSearch();
+        $dataProviderPengurusanProgramBinaanJurulatih = $searchModelPengurusanProgramBinaanJurulatih->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             if(isset(Yii::$app->session->id)){
@@ -178,6 +204,31 @@ class PengurusanProgramBinaanController extends Controller
                 
                 PengurusanProgramBinaanPeserta::updateAll(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id], 'session_id = "'.Yii::$app->session->id.'"');
                 PengurusanProgramBinaanPeserta::updateAll(['session_id' => ''], 'pengurusan_program_binaan_id = "'.$model->pengurusan_program_binaan_id.'"');
+                
+                PengurusanProgramBinaanAtlet::updateAll(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PengurusanProgramBinaanAtlet::updateAll(['session_id' => ''], 'pengurusan_program_binaan_id = "'.$model->pengurusan_program_binaan_id.'"');
+                
+                PengurusanProgramBinaanJurulatih::updateAll(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PengurusanProgramBinaanJurulatih::updateAll(['session_id' => ''], 'pengurusan_program_binaan_id = "'.$model->pengurusan_program_binaan_id.'"');
+            }
+            
+            // update atlet profil Kem/Kursus
+            $modelAtlets = PengurusanProgramBinaanAtlet::findAll([
+                    'pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id,
+                ]);
+            
+            foreach($modelAtlets as $modelAtlet){
+                $modelAtletKursusKem = null;
+                if (($modelAtletKursusKem = AtletPembangunanKursuskem::find()->where(['atlet_id'=>$modelAtlet->atlet_id])->andWhere(['pengurusan_program_binaan_id'=>$modelAtlet->pengurusan_program_binaan_id])->one()) == null) {
+                    $modelAtletKursusKem = new AtletPembangunanKursuskem();
+                }
+                $modelAtletKursusKem->atlet_id = $modelAtlet->atlet_id;
+                $modelAtletKursusKem->tarikh_mula = $model->tarikh_mula;
+                $modelAtletKursusKem->tarikh_tamat = $model->tarikh_mula;
+                $modelAtletKursusKem->lokasi = $model->tempat;
+                $modelAtletKursusKem->nama_kursus_kem = $model->nama_aktiviti;
+                $modelAtletKursusKem->pengurusan_program_binaan_id = $model->pengurusan_program_binaan_id;
+                $modelAtletKursusKem->save();
             }
             
             return $this->redirect(['view', 'id' => $model->pengurusan_program_binaan_id]);
@@ -188,6 +239,10 @@ class PengurusanProgramBinaanController extends Controller
                 'dataProviderProgramBinaanKos' => $dataProviderProgramBinaanKos,
                 'searchModelProgramBinaanPeserta' => $searchModelProgramBinaanPeserta,
                 'dataProviderProgramBinaanPeserta' => $dataProviderProgramBinaanPeserta,
+                'searchModelPengurusanProgramBinaanAtlet' => $searchModelPengurusanProgramBinaanAtlet,
+                'dataProviderPengurusanProgramBinaanAtlet' => $dataProviderPengurusanProgramBinaanAtlet,
+                'searchModelPengurusanProgramBinaanJurulatih' => $searchModelPengurusanProgramBinaanJurulatih,
+                'dataProviderPengurusanProgramBinaanJurulatih' => $dataProviderPengurusanProgramBinaanJurulatih,
                 'readonly' => false,
             ]);
         }
@@ -211,14 +266,43 @@ class PengurusanProgramBinaanController extends Controller
         
         $queryPar['PengurusanProgramBinaanKosSearch']['pengurusan_program_binaan_id'] = $id;
         $queryPar['PengurusanProgramBinaanPesertaSearch']['pengurusan_program_binaan_id'] = $id;
+        $queryPar['PengurusanProgramBinaanAtletSearch']['pengurusan_program_binaan_id'] = $id;
+        $queryPar['PengurusanProgramBinaanJurulatihSearch']['pengurusan_program_binaan_id'] = $id;
         
         $searchModelProgramBinaanKos  = new PengurusanProgramBinaanKosSearch();
         $dataProviderProgramBinaanKos = $searchModelProgramBinaanKos->search($queryPar);
         
         $searchModelProgramBinaanPeserta = new PengurusanProgramBinaanPesertaSearch();
         $dataProviderProgramBinaanPeserta = $searchModelProgramBinaanPeserta->search($queryPar);
+        
+        $searchModelPengurusanProgramBinaanAtlet = new PengurusanProgramBinaanAtletSearch();
+        $dataProviderPengurusanProgramBinaanAtlet = $searchModelPengurusanProgramBinaanAtlet->search($queryPar);
+        
+        $searchModelPengurusanProgramBinaanJurulatih = new PengurusanProgramBinaanJurulatihSearch();
+        $dataProviderPengurusanProgramBinaanJurulatih = $searchModelPengurusanProgramBinaanJurulatih->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            AtletPembangunanKursuskem::deleteAll(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id]);
+            
+            // update atlet profil Kem/Kursus
+            $modelAtlets = PengurusanProgramBinaanAtlet::findAll([
+                    'pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id,
+                ]);
+            
+            foreach($modelAtlets as $modelAtlet){
+                $modelAtletKursusKem = null;
+                if (($modelAtletKursusKem = AtletPembangunanKursuskem::find()->where(['atlet_id'=>$modelAtlet->atlet_id])->andWhere(['pengurusan_program_binaan_id'=>$modelAtlet->pengurusan_program_binaan_id])->one()) == null) {
+                    $modelAtletKursusKem = new AtletPembangunanKursuskem();
+                }
+                $modelAtletKursusKem->atlet_id = $modelAtlet->atlet_id;
+                $modelAtletKursusKem->tarikh_mula = $model->tarikh_mula;
+                $modelAtletKursusKem->tarikh_tamat = $model->tarikh_tamat;
+                $modelAtletKursusKem->lokasi = $model->tempat;
+                $modelAtletKursusKem->nama_kursus_kem = $model->nama_aktiviti;
+                $modelAtletKursusKem->pengurusan_program_binaan_id = $model->pengurusan_program_binaan_id;
+                $modelAtletKursusKem->save();
+            }
+            
             return $this->redirect(['view', 'id' => $model->pengurusan_program_binaan_id]);
         } else {
             return $this->render('update', [
@@ -227,6 +311,10 @@ class PengurusanProgramBinaanController extends Controller
                 'dataProviderProgramBinaanKos' => $dataProviderProgramBinaanKos,
                 'searchModelProgramBinaanPeserta' => $searchModelProgramBinaanPeserta,
                 'dataProviderProgramBinaanPeserta' => $dataProviderProgramBinaanPeserta,
+                'searchModelPengurusanProgramBinaanAtlet' => $searchModelPengurusanProgramBinaanAtlet,
+                'dataProviderPengurusanProgramBinaanAtlet' => $dataProviderPengurusanProgramBinaanAtlet,
+                'searchModelPengurusanProgramBinaanJurulatih' => $searchModelPengurusanProgramBinaanJurulatih,
+                'dataProviderPengurusanProgramBinaanJurulatih' => $dataProviderPengurusanProgramBinaanJurulatih,
                 'readonly' => false,
             ]);
         }

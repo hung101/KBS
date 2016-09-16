@@ -60,7 +60,8 @@ class LtbsMinitMesyuaratJawatankuasa extends \yii\db\ActiveRecord
             [['tempat'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['mengikut_perlembagaan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['agenda_mesyuarat', 'keputusan_mesyuarat'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['minit_ajk_muat_naik', 'notis_agm_muat_naik', 'minit_agm_muat_naik', 'laporan_kewangan_muat_naik', 'laporan_aktiviti_muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['minit_ajk_muat_naik', 'notis_agm_muat_naik', 'minit_agm_muat_naik', 'laporan_kewangan_muat_naik', 'laporan_aktiviti_muat_naik',
+                'borang_pt_muat_naik', 'senarai_ahli_jawatankuasa_muat_naik', 'senarai_ahli_gabungan_terkini_muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
@@ -86,6 +87,9 @@ class LtbsMinitMesyuaratJawatankuasa extends \yii\db\ActiveRecord
             'minit_agm_muat_naik' => GeneralLabel::minit_agm_muat_naik,
             'laporan_kewangan_muat_naik' => GeneralLabel::laporan_kewangan_muat_naik,
             'laporan_aktiviti_muat_naik' => GeneralLabel::laporan_aktiviti_muat_naik,
+            'borang_pt_muat_naik' => 'Borang PT 1@2 / MYKB 1@2',
+            'senarai_ahli_jawatankuasa_muat_naik' => 'Senarai Ahli Jawatankuasa',
+            'senarai_ahli_gabungan_terkini_muat_naik' => 'Senarai Ahli / Gabungan Terkini',
             'status' => GeneralLabel::status,
             'catatan' => GeneralLabel::catatan,
         ];

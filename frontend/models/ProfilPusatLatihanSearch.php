@@ -19,7 +19,9 @@ class ProfilPusatLatihanSearch extends ProfilPusatLatihan
     {
         return [
             [['profil_pusat_latihan_id', 'created_by', 'updated_by'], 'integer'],
-            [['nama_pusat_latihan', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_telefon', 'no_faks', 'emel', 'tarikh_program_bermula', 'tahun_siap_pembinaan', 'keluasan_venue', 'hakmilik', 'kadar_sewaan', 'status', 'catatan', 'created', 'updated'], 'safe'],
+            [['nama_pusat_latihan', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_telefon', 'no_faks', 
+                'emel', 'tarikh_program_bermula', 'tahun_siap_pembinaan', 'keluasan_venue', 'hakmilik', 'kadar_sewaan', 'status', 'catatan', 'created', 
+                'updated', 'sukan', 'program'], 'safe'],
             [['kos_project'], 'number'],
         ];
     }
@@ -43,7 +45,9 @@ class ProfilPusatLatihanSearch extends ProfilPusatLatihan
     public function search($params)
     {
         $query = ProfilPusatLatihan::find()
-                ->joinWith(['refNegeri']);
+                ->joinWith(['refNegeri'])
+                ->joinWith(['refSukan'])
+                ->joinWith(['refProgramSemasaSukanAtlet']);
 
         // add conditions that should always apply here
 
@@ -86,7 +90,9 @@ class ProfilPusatLatihanSearch extends ProfilPusatLatihan
             ->andFilterWhere(['like', 'kadar_sewaan', $this->kadar_sewaan])
             ->andFilterWhere(['like', 'status', $this->status])
             ->andFilterWhere(['like', 'catatan', $this->catatan])
-                ->andFilterWhere(['like', 'tarikh_program_bermula', $this->tarikh_program_bermula]);
+                ->andFilterWhere(['like', 'tarikh_program_bermula', $this->tarikh_program_bermula])
+                ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
+                ->andFilterWhere(['like', 'tbl_ref_program_semasa_sukan_atlet.desc', $this->program]);
 
         return $dataProvider;
     }

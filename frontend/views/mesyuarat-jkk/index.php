@@ -19,12 +19,12 @@ $this->params['breadcrumbs'][] = $this->title;
         $template = '{view}';
         
         // Update Access
-        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat']['update']) || isset(Yii::$app->user->identity->peranan_akses['ISN']['mesyuarat']['update'])){
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat-jkk']['update']) || isset(Yii::$app->user->identity->peranan_akses['ISN']['mesyuarat']['update'])){
             $template .= ' {update}';
         }
         
         // Delete Access
-        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat']['delete']) || isset(Yii::$app->user->identity->peranan_akses['ISN']['mesyuarat']['delete'])){
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat-jkk']['delete']) || isset(Yii::$app->user->identity->peranan_akses['ISN']['mesyuarat']['delete'])){
             $template .= ' {delete}';
         }
     ?>
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat']['create']) || isset(Yii::$app->user->identity->peranan_akses['ISN']['mesyuarat']['create'])): ?>
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat-jkk']['create']) || isset(Yii::$app->user->identity->peranan_akses['ISN']['mesyuarat']['create'])): ?>
         <p>
             <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::pengurusan_mesyuarat_jawatankuasa_kerja_jkk, ['create'], ['class' => 'btn btn-success']) ?>
         </p>

@@ -320,6 +320,111 @@ use app\models\general\Placeholder;
     ?>
     <br>
     
+    <?php // Kertas Kerja Projek / Program Upload
+    
+    $label = $model->getAttributeLabel('borang_pt_muat_naik');
+    
+    if($model->borang_pt_muat_naik){
+        echo "<div class='required'>";
+        echo "<label>" . $model->getAttributeLabel('borang_pt_muat_naik') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->borang_pt_muat_naik , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+        
+        $label = false;
+    }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'borang_pt_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label, 'hint'=>GeneralLabel::getFileUploadHint()],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+    }
+        
+    ?>
+    <br>
+    
+    <?php // Kertas Kerja Projek / Program Upload
+    
+    $label = $model->getAttributeLabel('senarai_ahli_jawatankuasa_muat_naik');
+    
+    if($model->senarai_ahli_jawatankuasa_muat_naik){
+        echo "<div class='required'>";
+        echo "<label>" . $model->getAttributeLabel('senarai_ahli_jawatankuasa_muat_naik') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->senarai_ahli_jawatankuasa_muat_naik , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+        
+        $label = false;
+    }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'senarai_ahli_jawatankuasa_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label, 'hint'=>GeneralLabel::getFileUploadHint()],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+    }
+        
+    ?>
+    <br>
+    
+    <?php // Kertas Kerja Projek / Program Upload
+    
+    $label = $model->getAttributeLabel('senarai_ahli_gabungan_terkini_muat_naik');
+    
+    if($model->senarai_ahli_gabungan_terkini_muat_naik){
+        echo "<div class='required'>";
+        echo "<label>" . $model->getAttributeLabel('senarai_ahli_gabungan_terkini_muat_naik') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->senarai_ahli_gabungan_terkini_muat_naik , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+        
+        $label = false;
+    }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'senarai_ahli_gabungan_terkini_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label, 'hint'=>GeneralLabel::getFileUploadHint()],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+    }
+        
+    ?>
+    <br>
+    
     <?php
     $disabledStatus = true;
     if(isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-minit-mesyuarat-jawatankuasa']['status'])){

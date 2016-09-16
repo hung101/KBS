@@ -145,7 +145,7 @@ class Atlet extends \yii\db\ActiveRecord
             'name_penuh' => GeneralLabel::nama,
             'tarikh_lahir' => GeneralLabel::tarikh_lahir,
             'umur' => GeneralLabel::umur,
-            'tempat_lahir_bandar' => GeneralLabel::tempat_lahir_bandar,
+            'tempat_lahir_bandar' => GeneralLabel::tempat_lahir,
             'tempat_lahir_negeri' => GeneralLabel::tempat_lahir_negeri,
             'bangsa' => GeneralLabel::bangsa,
             'agama' => GeneralLabel::agama,

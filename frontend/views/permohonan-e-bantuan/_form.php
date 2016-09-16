@@ -27,6 +27,7 @@ use app\models\RefStatusPermohonanEBantuan;
 use app\models\RefPeringkatProgram;
 use app\models\RefPejabatYangMendaftarkan;
 use app\models\RefParlimen;
+use app\models\ProfilBadanSukan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -43,6 +44,13 @@ use app\models\general\GeneralMessage;
     
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
     
+    <?php 
+    $disablePersatuan = false; // default
+    if(Yii::$app->user->identity->profil_badan_sukan){
+        $disablePersatuan = true;
+    }
+    ?>
+    
     <?php
         if(!$readonly){
             $template = '{view} {update} {delete}';
@@ -51,7 +59,7 @@ use app\models\general\GeneralMessage;
         }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data'], 'id'=>$model->formName()]); ?>
     <?php //echo $form->errorSummary($model); ?>
     <?php
         if(($model->kelulusan_id && $model->kelulusan_id == RefKelulusanHqEBantuan::STATUS_LULUS) || ($model->negeri_sokongan_id && $model->negeri_sokongan_id == RefNegeriSokonganEBantuan::STATUS_LULUS)):
@@ -99,6 +107,39 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     ]
 ]);
     }
+    ?>
+    
+    <?php
+        /*echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'profil_badan_sukan_id' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/profil-badan-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
+                        'options' => ['placeholder' => Placeholder::badanSukan, 'disabled'=>$disablePersatuan, 'id'=>'persatuanId'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>4]],
+            ]
+        ],
+    ]
+]);*/
     ?>
     
     <?php
@@ -1269,55 +1310,6 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     }
     ?>
     
-    
-
-    <!--<?= $form->field($model, 'nama_pertubuhan_persatuan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'no_pendaftaran')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'tarikh_didaftarkan')->textInput() ?>
-
-    <?= $form->field($model, 'pejabat_yang_mendaftarkan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'alamat_1')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_2')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_3')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_negeri')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_bandar')->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'alamat_poskod')->textInput(['maxlength' => 5]) ?>
-
-    <?= $form->field($model, 'alamat_surat_menyurat_1')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_surat_menyurat_2')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_surat_menyurat_3')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_surat_menyurat_negeri')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_surat_menyurat_bandar')->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'alamat_surat_menyurat_poskod')->textInput(['maxlength' => 5]) ?>
-
-    <?= $form->field($model, 'no_telefon_pejabat')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'no_telefon_bimbit')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'no_fax')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'email')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'bilangan_keahlian')->textInput() ?>
-
-    <?= $form->field($model, 'bilangan_cawangan_badan_gabungan')->textInput() ?>
-
-    <?= $form->field($model, 'objektif_pertubuhan')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'aktiviti_dan_kejayaan_yang_dicapai')->textInput(['maxlength' => 255]) ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -1356,6 +1348,9 @@ $NEGERI_SOKONGAN_HANTAR_KE_HQ = RefNegeriSokonganEBantuan::STATUS_HANTAR_KE_HQ;
 
 $KELULUSAN_HQ_LULUS = RefKelulusanHqEBantuan::STATUS_LULUS;
 $KELULUSAN_HQ_TOLAK = RefKelulusanHqEBantuan::STATUS_TOLAK;
+
+$URL = Url::to(['/profil-badan-sukan/get-badan-sukan']);
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
 
 $script = <<< JS
         
@@ -1433,6 +1428,44 @@ $("#sama_alamat").change(function() {
         $("#permohonanebantuan-alamat_surat_menyurat_parlimen").val($("#permohonanebantuan-alamat_parlimen").val()).trigger("change");
     }
 });
+        
+        
+$('#persatuanId').change(function(){
+    
+    $.get('$URL',{id:$(this).val()},function(data){
+        clearForm();
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+        $('#permohonanebantuan-nama_pertubuhan_persatuan').attr('value',data.nama_badan_sukan);
+            $('#permohonanebantuan-kategori_persatuan').val(data.peringkat_badan_sukan).trigger("change");
+            $('#permohonanebantuan-no_pendaftaran').attr('value',data.no_pendaftaran);
+            $('#permohonanebantuan-alamat_1').attr('value',data.alamat_tetap_badan_sukan_1);
+            $('#permohonanebantuan-alamat_2').attr('value',data.alamat_tetap_badan_sukan_2);
+            $('#permohonanebantuan-alamat_3').attr('value',data.alamat_tetap_badan_sukan_3);
+            $('#permohonanebantuan-alamat_negeri').val(data.alamat_tetap_badan_sukan_negeri).trigger("change");
+            $('#permohonanebantuan-alamat_bandar').val(data.alamat_tetap_badan_sukan_bandar).trigger("change");
+            $('#permohonanebantuan-alamat_poskod').attr('value',data.alamat_tetap_badan_sukan_poskod);
+            $('#permohonanebantuan-no_telefon_pejabat').attr('value',data.no_telefon_pejabat);
+            $('#permohonanebantuan-no_fax').attr('value',data.no_faks_pejabat);
+        }
+    });
+});
+     
+function clearForm(){
+        $('#permohonanebantuan-nama_pertubuhan_persatuan').attr('value','');
+    $('#permohonanebantuan-kategori_persatuan').val('').trigger("change");
+    $('#permohonanebantuan-no_pendaftaran').attr('value','');
+    $('#permohonanebantuan-alamat_1').attr('value','');
+    $('#permohonanebantuan-alamat_2').attr('value','');
+    $('#permohonanebantuan-alamat_3').attr('value','');
+    $('#permohonanebantuan-alamat_negeri').val('').trigger("change");
+    $('#permohonanebantuan-alamat_bandar').val('').trigger("change");
+    $('#permohonanebantuan-alamat_poskod').attr('value','');
+    $('#permohonanebantuan-no_telefon_pejabat').attr('value','');
+    $('#permohonanebantuan-no_fax').attr('value','');
+}
         
 JS;
         

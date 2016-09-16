@@ -19,7 +19,7 @@ class AtletPembangunanKemahiranSearch extends AtletPembangunanKemahiran
     {
         return [
             [['kemahiran_id', 'atlet_id'], 'integer'],
-            [['jenis_kemahiran', 'nama_kemahiran', 'lokasi', 'penganjur'], 'safe'],
+            [['jenis_kemahiran', 'nama_kemahiran', 'lokasi', 'penganjur', 'tarikh_mula', 'tarikh_tamat'], 'safe'],
         ];
     }
 
@@ -64,7 +64,9 @@ class AtletPembangunanKemahiranSearch extends AtletPembangunanKemahiran
         $query->andFilterWhere(['like', 'tbl_ref_jenis_kemahiran.desc', $this->jenis_kemahiran])
             ->andFilterWhere(['like', 'nama_kemahiran', $this->nama_kemahiran])
                 ->andFilterWhere(['like', 'penganjur', $this->penganjur])
-                ->andFilterWhere(['like', 'lokasi', $this->lokasi]);
+                ->andFilterWhere(['like', 'lokasi', $this->lokasi])
+                ->andFilterWhere(['like', 'tarikh_mula', $this->tarikh_mula])
+                ->andFilterWhere(['like', 'tarikh_tamat', $this->tarikh_tamat]);
 
         return $dataProvider;
     }

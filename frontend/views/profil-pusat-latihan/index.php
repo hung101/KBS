@@ -46,6 +46,22 @@ $this->params['breadcrumbs'][] = $this->title;
             //'profil_pusat_latihan_id',
             //'nama_pusat_latihan',
             [
+                'attribute' => 'program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program,
+                ],
+                'value' => 'refProgramSemasaSukanAtlet.desc'
+            ],
+            [
+                'attribute' => 'sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
+                'value' => 'refSukan.desc'
+            ],
+            [
                 'attribute' => 'nama_pusat_latihan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -64,33 +80,40 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refNegeri.desc'
             ],
+            [
+                'attribute' => 'hakmilik',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::hakmilik,
+                ],
+            ],
             // 'alamat_bandar',
             // 'alamat_poskod',
             //'no_telefon',
-            [
+            /*[
                 'attribute' => 'no_telefon',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_telefon,
                 ],
-            ],
+            ],*/
             //'no_faks',
-            [
+            /*[
                 'attribute' => 'no_faks',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_faks,
                 ],
-            ],
+            ],*/
             // 'emel',
             //'tarikh_program_bermula',
-            [
+            /*[
                 'attribute' => 'tarikh_program_bermula',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_program_bermula,
                 ],
-            ],
+            ],*/
             // 'tahun_siap_pembinaan',
             // 'kos_project',
             // 'keluasan_venue',

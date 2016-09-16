@@ -12,6 +12,7 @@ use app\models\general\GeneralMessage;
 class MsnSuratTawaranAtlet extends Model
 {
     public $tarikh;
+    public $tarikh_luput;
     public $bil_msnm;
     public $atlet_id;
     public $format;
@@ -20,7 +21,7 @@ class MsnSuratTawaranAtlet extends Model
     {
         return [
             [['format', 'atlet_id'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh', 'bil_msnm', 'atlet_id'], 'safe'],
+            [['tarikh', 'bil_msnm', 'atlet_id', 'tarikh_luput'], 'safe'],
         ];
     }
 
@@ -30,6 +31,7 @@ class MsnSuratTawaranAtlet extends Model
             'tarikh' => GeneralLabel::tarikh,
             'bil_msnm' => "Bil MSNM",
             'atlet_id' => GeneralLabel::atlet,
+            'tarikh_luput' => GeneralLabel::tarikh_luput,
             'format' => GeneralLabel::format,
         ];
     }

@@ -39,7 +39,7 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'kategori_peserta' => [
+                /*'kategori_peserta' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -53,7 +53,7 @@ use app\models\general\GeneralVariable;
                         'data'=>ArrayHelper::map(RefKategoriPesertaProgramBinaan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jenis],],
                     'columnOptions'=>['colspan'=>4]],
-                /*'peranan_peserta' => [
+                'peranan_peserta' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[

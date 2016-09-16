@@ -104,6 +104,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const alamat_badan_sukan_poskod = "Poskod";
         const alamat_bandar = "Bandar";
         const alamat_berdaftar = "Alamat Berdaftar";
+        const alamat_kediaman = "Alamat Kediaman";
         const alamat_lokasi = "Alamat Lokasi";
         const alamat_lokasi_1 = "Alamat Lokasi";
         const alamat_lokasi_2 = "";
@@ -1138,6 +1139,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const no_tel_bimbit_setiausaha_badan_sukan = "No Tel";
         const no_tel_majikan = "No Tel Majikan";
         const no_tel_pejabat  = "No Tel Pejabat";
+        const no_tel_pej_rumah = "No Tel Pejabat/Rumah";
         const no_tel_pemohon = "No Tel Pemohon";
         const no_tel_pendidikan = "No Tel Pendidikan";
         const no_tel_pengajian = "No Tel Pengajian";
@@ -1630,6 +1632,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const supplements = "Tambahan";
         const surat_sokongan = "Surat Sokongan/Sanksi Dari Badan Antarabangsa";
         const surat_tawaran_atlet = "Surat Tawaran Atlet";
+        const surat_tawaran_atlet_paralimpik = "Surat Tawaran Atlet (Paralimpik)";
         const susan_ranking_asia = "Susan Ranking Asia";
         const susan_ranking_asia_tenggara = "Susan Ranking Asia Tenggara";
         const susan_ranking_dunia = "Susan Ranking Dunia";
@@ -2029,7 +2032,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const latihan_pendidikan_badan_sukan = "Latihan & Pendidikan Badan Sukan";
         const latihan_program = "Latihan / Program";
         const liputan_perubatan_dalam_dan_luar_negara = "Liputan Perubatan Dalam Dan Luar Negara";
-        const maklumat_mesyuarat_agung_tahunan = "Maklumat Mesyuarat Agung Tahunan";
+        const maklumat_mesyuarat_agung_tahunan = "Maklumat Yang Kena Beri (MYKB)";
         const maklumat_sukan_malaysia = "Maklumat Sukan Malaysia";
         const makmal_perubatan_permohonan_khidmat_ujian_makmal_melalui_sistem = "Makmal Perubatan Permohonan Khidmat Ujian Makmal Melalui Sistem";
         const menghadiri_program_antarabangsa = "Menghadiri Program Antarabangsa";
@@ -3086,7 +3089,8 @@ if($session->get('language') == "EN") {
         const alamat_badan_sukan_negeri = "State";
         const alamat_badan_sukan_poskod = "Postal code";
         const alamat_bandar = "City";
-        const alamat_berdaftar = "Registered Address";
+        const alamat_berdaftar = "Residential Address";
+        const alamat_kediaman = "Registered Address";
         const alamat_lokasi = "Location Address";
         const alamat_lokasi_1 = "Location Address";
         const alamat_lokasi_2 = "";
@@ -4121,6 +4125,7 @@ if($session->get('language') == "EN") {
         const no_tel_bimbit_setiausaha_badan_sukan = "Phone No";
         const no_tel_majikan = "Employer Phone No.";
         const no_tel_pejabat  = "Office Phone No.";
+        const no_tel_pej_rumah = "Office/Home Phone No.";
         const no_tel_pemohon = "Applicant Phone No.";
         const no_tel_pendidikan = "Education Phone No";
         const no_tel_pengajian = "Education Phone No";
@@ -4613,6 +4618,7 @@ if($session->get('language') == "EN") {
         const supplements = "Supplement";
         const surat_sokongan = "A Letter Of Support/Sanctions From International Body";
         const surat_tawaran_atlet = "Letter of Offer Athlete";
+        const surat_tawaran_atlet_paralimpik = "Letter of Offer Athlete (Paralympics)";
         const susan_ranking_asia = "Susan Asian Ranking";
         const susan_ranking_asia_tenggara = "Susan Ranking Southeast Asia";
         const susan_ranking_dunia = "Susan World Ranking";
@@ -5012,7 +5018,7 @@ if($session->get('language') == "EN") {
         const latihan_pendidikan_badan_sukan = "Training & Education Sports Body";
         const latihan_program = "Training / Course";
         const liputan_perubatan_dalam_dan_luar_negara = "Medical Coverage In And Outside The Country";
-        const maklumat_mesyuarat_agung_tahunan = "Annual General Meeting Information";
+        const maklumat_mesyuarat_agung_tahunan = "Annual General Meeting Information (MYKB)";
         const maklumat_sukan_malaysia = "Malaysia Sports Information";
         const makmal_perubatan_permohonan_khidmat_ujian_makmal_melalui_sistem = "Medical Lab Services Application Through Laboratory Testing System";
         const menghadiri_program_antarabangsa = "Attend International Program";

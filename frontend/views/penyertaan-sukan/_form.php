@@ -20,6 +20,7 @@ use app\models\PerancanganProgram;
 use app\models\RefJenisAktiviti;
 use app\models\RefPeringkatKejohananTemasya;
 use app\models\RefProgramSemasaSukanAtlet;
+use app\models\RefTemasya;
 
 // contant values
 use app\models\general\Placeholder;
@@ -70,7 +71,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],],
+                        'options' => ['placeholder' => Placeholder::sukan, 'id'=>'sukanId'],],
                     'columnOptions'=>['colspan'=>4]],
                 'program' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -122,9 +123,29 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(PerancanganProgram::find()->where('jenis_aktiviti = :id1 OR jenis_aktiviti = :id2', [':id1' => RefJenisAktiviti::KEJOHANAN_DALAM_NEGARA, ':id2' => RefJenisAktiviti::KEJOHANAN_LUAR_NEGARA])->all(),'perancangan_program_id', 'nama_program'),
-                        'options' => ['placeholder' => Placeholder::kejohanan, 'id'=>'kejohananId'],],
+                        'options' => ['placeholder' => Placeholder::kejohanan, 'id'=>'kejohananId'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>5]],
-                'nama_temasya' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>true]],
+                //'nama_temasya' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>true]],
+                'nama_temasya' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-temasya/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefTemasya::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::temasya],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>4]],
                 
             ],
         ],
@@ -348,8 +369,11 @@ use app\models\general\GeneralMessage;
 
 <?php
 $URL = Url::to(['/perancangan-program/get-program']);
+$URLSetSukan = Url::to(['/penyertaan-sukan/set-sukan']);
 
 $script = <<< JS
+        
+var sukan_Id = "";
         
 $('#kejohananId').change(function(){
     
@@ -365,6 +389,14 @@ $('#kejohananId').change(function(){
             $("#penyertaansukan-tarikh_tamat-disp").val(formatDisplayDate(data.tarikh_tamat));
             $("#penyertaansukan-tarikh_tamat").val(formatSaveDate(data.tarikh_tamat));
         }
+    });
+    
+});
+        
+        
+$('#sukanId').change(function(){
+    
+    $.get('$URLSetSukan',{sukan_id:$(this).val()},function(data){
     });
     
 });

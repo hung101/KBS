@@ -216,8 +216,8 @@ class AtletController extends Controller
         $ref = RefBahasa::findOne(['id' => $atlet->bahasa_ibu]);
         $atlet->bahasa_ibu = $ref['desc'];
         
-        $ref = RefJenisLesenMemandu::findOne(['id' => $atlet->jenis_lesen]);
-        $atlet->jenis_lesen = $ref['desc'];
+        //$ref = RefJenisLesenMemandu::findOne(['id' => $atlet->jenis_lesen]);
+        //$atlet->jenis_lesen = $ref['desc'];
         
         $ref = RefNegeri::findOne(['id' => $atlet->alamat_rumah_negeri]);
         $atlet->alamat_rumah_negeri = $ref['desc'];
@@ -288,8 +288,14 @@ class AtletController extends Controller
         $model->tawaran = RefStatusTawaran::DALAM_PROSES; //default
         
         $model->cacat = $session['atlet_cacat'];
+        
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->jenis_lesen){
+                $model->jenis_lesen = implode(",",$model->jenis_lesen);
+            }
+        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Yii::$app->request->post() && $model->save()) {
             $file = UploadedFile::getInstance($model, 'gambar');
             if($file){
                 $model->gambar = Upload::uploadFile($file, Upload::atletFolder, $model->atlet_id);
@@ -359,6 +365,10 @@ No Kad Pengenalan: ' . $model->ic_no . '
         $session['atlet_cacat'] = $model->cacat;
         
         if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->jenis_lesen){
+                $model->jenis_lesen = implode(",",$model->jenis_lesen);
+            }
             
             $file = UploadedFile::getInstance($model, 'gambar');
             if($file){
@@ -581,6 +591,7 @@ No Kad Pengenalan: ' . $model->ic_no . '
                     , 'sukan' => $model->sukan
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
+                    , 'kategori_kecacatan' => $model->kategori_kecacatan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -590,6 +601,7 @@ No Kad Pengenalan: ' . $model->ic_no . '
                     , 'sukan' => $model->sukan
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
+                    , 'kategori_kecacatan' => $model->kategori_kecacatan
                     , 'format' => $model->format
                 ]);
             }
@@ -601,7 +613,7 @@ No Kad Pengenalan: ' . $model->ic_no . '
         ]);
     }
     
-    public function actionGenerateLaporanSenaraiAtletParalimpik($program, $sukan, $acara, $negeri, $format)
+    public function actionGenerateLaporanSenaraiAtletParalimpik($program, $sukan, $acara, $negeri, $kategori_kecacatan, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -615,11 +627,15 @@ No Kad Pengenalan: ' . $model->ic_no . '
         if($negeri == "") $negeri = array();
         else $negeri = array($negeri);
         
+        if($kategori_kecacatan == "") $kategori_kecacatan = array();
+        else $kategori_kecacatan = array($kategori_kecacatan);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
+            'KATEGORI_CACAT' => $kategori_kecacatan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanSenaraiAtletParalimpik', $format, $controls, 'laporan_senarai_atlet_paralimpik');
@@ -703,6 +719,7 @@ No Kad Pengenalan: ' . $model->ic_no . '
                     , 'sukan' => $model->sukan
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
+                    , 'kategori_kecacatan' => $model->kategori_kecacatan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -712,6 +729,7 @@ No Kad Pengenalan: ' . $model->ic_no . '
                     , 'sukan' => $model->sukan
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
+                    , 'kategori_kecacatan' => $model->kategori_kecacatan
                     , 'format' => $model->format
                 ]);
             }
@@ -723,7 +741,7 @@ No Kad Pengenalan: ' . $model->ic_no . '
         ]);
     }
     
-    public function actionGenerateLaporanStatistikAtletParalimpik($program, $sukan, $acara, $negeri, $format)
+    public function actionGenerateLaporanStatistikAtletParalimpik($program, $sukan, $acara, $negeri, $kategori_kecacatan, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -737,11 +755,15 @@ No Kad Pengenalan: ' . $model->ic_no . '
         if($negeri == "") $negeri = array();
         else $negeri = array($negeri);
         
+        if($kategori_kecacatan == "") $kategori_kecacatan = array();
+        else $kategori_kecacatan = array($kategori_kecacatan);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
+            'KATEGORI_CACAT' => $kategori_kecacatan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletParalimpik', $format, $controls, 'laporan_statistik_atlet_paralimpik');
@@ -801,5 +823,68 @@ No Kad Pengenalan: ' . $model->ic_no . '
         );
         
         GeneralFunction::generateReport('/spsb/MSN/SuratTawaranAtlet', $format, $controls, 'surat_tawaran_atlet');
+    }
+    
+    
+    public function actionSuratTawaranAtletParalimpik($atlet_id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnSuratTawaranAtlet();
+        $model->atlet_id = $atlet_id;
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-surat-tawaran-atlet-paralimpik'
+                    , 'tarikh' => $model->tarikh
+                    , 'bil_msnm' => $model->bil_msnm
+                    , 'atlet_id' => $model->atlet_id
+                    , 'tarikh_luput' => $model->tarikh_luput
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-surat-tawaran-atlet-paralimpik'
+                    , 'tarikh' => $model->tarikh
+                    , 'bil_msnm' => $model->bil_msnm
+                    , 'atlet_id' => $model->atlet_id
+                    , 'tarikh_luput' => $model->tarikh_luput
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('surat_tawaran_atlet_paralimpik', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateSuratTawaranAtletParalimpik($tarikh, $bil_msnm, $atlet_id, $tarikh_luput, $format)
+    {
+        if($tarikh == "") $tarikh = array();
+        else $tarikh = array($tarikh);
+        
+        if($bil_msnm == "") $bil_msnm = array();
+        else $bil_msnm = array($bil_msnm);
+        
+        if($atlet_id == "") $atlet_id = array();
+        else $atlet_id = array($atlet_id);
+        
+        if($tarikh_luput == "") $tarikh_luput = array();
+        else $tarikh_luput = array($tarikh_luput);
+        
+        $controls = array(
+            'TARIKH' => $tarikh,
+            'BIL_MSNM' => $bil_msnm,
+            'ATLET' => $atlet_id,
+            'TARIKH_LUPUT' => $tarikh_luput,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/SuratTawaranAtletParalimpik', $format, $controls, 'surat_tawaran_atlet_paralimpik');
     }
 }

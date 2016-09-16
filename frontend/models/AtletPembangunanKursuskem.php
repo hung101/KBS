@@ -53,7 +53,7 @@ class AtletPembangunanKursuskem extends \yii\db\ActiveRecord
     {
         return [
             [['atlet_id', 'tarikh_mula', 'tarikh_tamat', 'nama_kursus_kem', 'penganjur'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['atlet_id', 'pengurusan_program_binaan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_mula', 'jenis'], 'safe'],
             [['lokasi'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_kursus_kem'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],

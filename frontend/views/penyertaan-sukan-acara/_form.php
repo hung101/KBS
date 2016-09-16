@@ -7,6 +7,7 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use yii\web\Session;
 
 // table reference
 use app\models\RefAcara;
@@ -21,6 +22,21 @@ use app\models\general\GeneralMessage;
 /* @var $this yii\web\View */
 /* @var $model app\models\PenyertaanSukanAcara */
 /* @var $form yii\widgets\ActiveForm */
+
+
+
+//filter by Sukan from parent form
+$session = new Session;
+$session->open();
+
+$acara_list = null;
+
+if(isset($session['penyertaan-sukan_sukan_id']) && $session['penyertaan-sukan_sukan_id']){
+    $acara_list = RefAcara::find()->where(['=', 'aktif', 1])->andWhere(['=', 'ref_sukan_id', $session['penyertaan-sukan_sukan_id']])->all();
+} else {
+    $acara_list = RefAcara::find()->where(['=', 'aktif', 1])->all();
+}
+
 ?>
 
 <div class="penyertaan-sukan-acara-form">
@@ -63,7 +79,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map($acara_list,'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::acara],],
                     'columnOptions'=>['colspan'=>3]],
                 'tarikh_acara' => [
