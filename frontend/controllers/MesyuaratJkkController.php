@@ -41,6 +41,7 @@ use app\models\RefStatusTawaran;
 use app\models\RefStatusPermohonanProgramBinaan;
 use app\models\RefKelulusanPeralatan;
 use app\models\RefStatusProgram;
+use app\models\RefBilJkk;
 
 /**
  * MesyuaratJkkController implements the CRUD actions for MesyuaratJkk model.
@@ -78,15 +79,39 @@ class MesyuaratJkkController extends Controller
      * Lists all MesyuaratJkk models.
      * @return mixed
      */
-    public function actionAgendaPerbincangan()
+    public function actionAgendaPerbincangan($mesyuarat_id)
     {
+        
         $queryPar = Yii::$app->request->queryParams;
         
-        $queryPar['AtletSearch']['tawaran'] = RefStatusTawaran::DALAM_PROSES;
-        $queryPar['PengurusanProgramBinaanSearch']['status_permohonan_id'] = RefStatusPermohonanProgramBinaan::SEDANG_DIPROSES;
-        $queryPar['PermohonanPeralatanSearch']['kelulusan_id'] = RefKelulusanPeralatan::SEDANG_DIPROSES;
-        $queryPar['PerancanganProgramSearch']['status_program_id'] = RefStatusProgram::DALAM_PROSES;
-        $queryPar['JurulatihSearch']['status_tawaran_id'] = RefStatusTawaran::DALAM_PROSES;
+        if($mesyuarat_id != ''){
+            Atlet::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = "" OR mesyuarat_id IS NULL');
+            $queryPar['AtletSearch']['mesyuarat_id'] = $mesyuarat_id;
+            
+            Jurulatih::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = "" OR mesyuarat_id IS NULL');
+            $queryPar['JurulatihSearch']['mesyuarat_id'] = $mesyuarat_id;
+            
+            PengurusanProgramBinaan::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = "" OR mesyuarat_id IS NULL');
+            $queryPar['PengurusanProgramBinaanSearch']['mesyuarat_id'] = $mesyuarat_id;
+            
+            PermohonanPeralatan::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = "" OR mesyuarat_id IS NULL');
+            $queryPar['PermohonanPeralatanSearch']['mesyuarat_id'] = $mesyuarat_id;
+            
+            PerancanganProgram::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = "" OR mesyuarat_id IS NULL');
+            $queryPar['PerancanganProgramSearch']['mesyuarat_id'] = $mesyuarat_id;
+            
+            PenyertaanSukan::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = "" OR mesyuarat_id IS NULL');
+            $queryPar['PenyertaanSukanSearch']['mesyuarat_id'] = $mesyuarat_id;
+            
+            ProfilPusatLatihan::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = "" OR mesyuarat_id IS NULL');
+            $queryPar['ProfilPusatLatihanSearch']['mesyuarat_id'] = $mesyuarat_id;
+        }
+        
+        //$queryPar['AtletSearch']['tawaran'] = RefStatusTawaran::DALAM_PROSES;
+        //$queryPar['PengurusanProgramBinaanSearch']['status_permohonan_id'] = RefStatusPermohonanProgramBinaan::SEDANG_DIPROSES;
+        //$queryPar['PermohonanPeralatanSearch']['kelulusan_id'] = RefKelulusanPeralatan::SEDANG_DIPROSES;
+        //$queryPar['PerancanganProgramSearch']['status_program_id'] = RefStatusProgram::DALAM_PROSES;
+        //$queryPar['JurulatihSearch']['status_tawaran_id'] = RefStatusTawaran::DALAM_PROSES;
         
         $searchModelAtlet = new AtletSearch();
         $dataProviderAtlet = $searchModelAtlet->search($queryPar);
@@ -126,6 +151,27 @@ class MesyuaratJkkController extends Controller
             'dataProviderProgram' => $dataProviderProgram,
         ]);
     }
+    
+    /**
+     * Lists all MesyuaratJkk models.
+     * @return mixed
+     */
+    public function actionResetAgendaPerbincangan()
+    {
+        Atlet::updateAll(['mesyuarat_id' => ''], 'tawaran = ' . RefStatusTawaran::DALAM_PROSES);
+
+        Jurulatih::updateAll(['mesyuarat_id' => ''], 'status_tawaran = ' . RefStatusTawaran::DALAM_PROSES);
+
+        PengurusanProgramBinaan::updateAll(['mesyuarat_id' => ''], 'status_permohonan = ' . RefStatusPermohonanProgramBinaan::SEDANG_DIPROSES);
+
+        PermohonanPeralatan::updateAll(['mesyuarat_id' => ''], 'kelulusan = ' . RefKelulusanPeralatan::SEDANG_DIPROSES);
+
+        PerancanganProgram::updateAll(['mesyuarat_id' => ''], 'status_program = ' . RefStatusProgram::DALAM_PROSES);
+
+        PenyertaanSukan::updateAll(['mesyuarat_id' => '']);
+
+        ProfilPusatLatihan::updateAll(['mesyuarat_id' => '']);
+    }
 
     /**
      * Displays a single MesyuaratJkk model.
@@ -164,8 +210,11 @@ class MesyuaratJkkController extends Controller
         //$ref = RefTempatJkk::findOne(['id' => $model->tempat]);
         //$model->tempat = $ref['desc'];
         
-        $ref = RefFasa::findOne(['id' => $model->fasa]);
-        $model->fasa = $ref['desc'];
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefBilJkk::findOne(['id' => $model->bil_mesyuarat]);
+        $model->bil_mesyuarat = $ref['desc'];
         
         return $this->render('view', [
             'model' => $model,

@@ -77,7 +77,7 @@ class PembayaranElaun extends \yii\db\ActiveRecord
             'tarikh_tamat' => GeneralLabel::tarikh_tamat,
             'tempoh_elaun' => GeneralLabel::tempoh_elaun,
             'sebab_elaun' => GeneralLabel::sebab_elaun,
-            'status_elaun' => GeneralLabel::status_elaun,
+            'status_elaun' => GeneralLabel::status_pembayaran_elaun,
             'jumlah_elaun' => GeneralLabel::jumlah_elaun,
             'kelulusan' => GeneralLabel::kelulusan,
             'sukan' => GeneralLabel::sukan,

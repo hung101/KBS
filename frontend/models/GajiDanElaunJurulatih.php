@@ -62,7 +62,7 @@ class GajiDanElaunJurulatih extends \yii\db\ActiveRecord
             [['no_passport'], 'string', 'max' => 15, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_sukan', 'bank', 'cawangan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tarikh_mula', 'tarikh_tamat'], 'safe'],
-            [['no_pekerja'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_pekerja', 'no_kwsp'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['dokumen_muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_akaun'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -90,6 +90,7 @@ class GajiDanElaunJurulatih extends \yii\db\ActiveRecord
             'program' => GeneralLabel::program,
             'no_pekerja' => GeneralLabel::no_pekerja,
             'dokumen_muat_naik' => GeneralLabel::dokumen_muat_naik_buku_akaun,
+            'no_kwsp' => GeneralLabel::no_kwsp,
         ];
     }
     

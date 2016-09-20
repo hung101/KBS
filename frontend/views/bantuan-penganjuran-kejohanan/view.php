@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
+        <?= Html::a(GeneralLabel::backToList, ['index'], ['class' => 'btn btn-warning']) ?>
     </p>
     
     <?= $this->render('_form', [

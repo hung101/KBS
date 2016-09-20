@@ -80,6 +80,30 @@ use app\models\general\GeneralVariable;
                     'columnOptions'=>['colspan'=>4]],
                 'saiz_pakaian' => [
                     'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
+                    'options'=>[
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/ref-saiz-pakaian/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                        ],
+                        'data'=>ArrayHelper::map(RefSaizPakaian::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options'=>['prompt'=>'',],
+                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                        'pluginOptions' => [
+                            'initialize' => true,
+                            'depends'=>[Html::getInputId($model, 'jenis_pakaian')],
+                            'placeholder' => Placeholder::acara,
+                            'url'=>Url::to(['/ref-saiz-pakaian/sub-saiz-pakaians'])],
+                        ],
+                    'columnOptions'=>['colspan'=>4]],
+                /*'saiz_pakaian' => [
+                    'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
@@ -94,7 +118,7 @@ use app\models\general\GeneralVariable;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>4]],*/
                 /*'jenis_pakaian' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\DepDrop', 

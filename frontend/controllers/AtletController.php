@@ -887,4 +887,942 @@ No Kad Pengenalan: ' . $model->ic_no . '
         
         GeneralFunction::generateReport('/spsb/MSN/SuratTawaranAtletParalimpik', $format, $controls, 'surat_tawaran_atlet_paralimpik');
     }
+    
+    public function actionLaporanAtletPencapaianPrestasi()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-atlet-pencapaian-prestasi'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-atlet-pencapaian-prestasi'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_atlet_pencapaian_prestasi', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanAtletPencapaianPrestasi($program, $sukan, $acara, $negeri, $atlet, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        if($atlet == "") $atlet = array();
+        else $atlet = array($atlet);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            'ATLET' => $atlet,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPencapianPrestasi', $format, $controls, 'laporan_atlet_pencapaian_prestasi');
+    }
+    
+    public function actionLaporanAtletPencapaianPrestasiParalimpik()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-atlet-pencapaian-prestasi-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-atlet-pencapaian-prestasi-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_atlet_pencapaian_prestasi_paralimpik', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanAtletPencapaianPrestasiParalimpik($program, $sukan, $acara, $negeri, $atlet, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        if($atlet == "") $atlet = array();
+        else $atlet = array($atlet);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            'ATLET' => $atlet,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPencapianPrestasiParalimpik', $format, $controls, 'laporan_atlet_pencapaian_prestasi_paralimpik');
+    }
+    
+    public function actionLaporanStatistikAtletAgama()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-agama'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                   // , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-atlet-agama'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                   // , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_atlet_agama', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikAtletAgama($program, $sukan, $acara, $negeri, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+       // if($atlet == "") $atlet = array();
+        //else $atlet = array($atlet);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            //'ATLET' => $atlet,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletAgama', $format, $controls, 'laporan_statistik_atlet_agama');
+    }
+    
+    public function actionLaporanStatistikAtletAgamaParalimpik()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-agama-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                   // , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-atlet-agama-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                   // , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_atlet_agama_paralimpik', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikAtletAgamaParalimpik($program, $sukan, $acara, $negeri, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        //if($atlet == "") $atlet = array();
+       // else $atlet = array($atlet);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            //'ATLET' => $atlet,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletAgamaParalimpik', $format, $controls, 'laporan_statistik_atlet_agama_paralimpik');
+    }
+    
+    public function actionLaporanStatistikAtletBangsa()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-bangsa'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    //, 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-atlet-bangsa'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    //, 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_atlet_bangsa', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikAtletBangsa($program, $sukan, $acara, $negeri, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        //if($atlet == "") $atlet = array();
+        //else $atlet = array($atlet);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            //'ATLET' => $atlet,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletBangsa', $format, $controls, 'laporan_statistik_atlet_bangsa');
+    }
+    
+    public function actionLaporanStatistikAtletBangsaParalimpik()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-bangsa-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                   // , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-atlet-bangsa-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    //, 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_atlet_bangsa_paralimpik', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikAtletBangsaParalimpik($program, $sukan, $acara, $negeri, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        //if($atlet == "") $atlet = array();
+        //else $atlet = array($atlet);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            //'ATLET' => $atlet,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletBangsaParalimpik', $format, $controls, 'laporan_statistik_atlet_bangsa_paralimpik');
+    }
+    
+    public function actionLaporanStatistikAtletPendidikan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-pendidikan'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    //, 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-atlet-pendidikan'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    //, 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_atlet_pendidikan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikAtletPendidikan($program, $sukan, $acara, $negeri, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        //if($atlet == "") $atlet = array();
+        //else $atlet = array($atlet);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            //'ATLET' => $atlet,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletPendidikan', $format, $controls, 'laporan_statistik_atlet_pendidikan');
+    }
+    
+    public function actionLaporanStatistikAtletPendidikanParalimpik()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-pendidikan-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    //, 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-atlet-pendidikan-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                   // , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_atlet_pendidikan_paralimpik', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikAtletPendidikanParalimpik($program, $sukan, $acara, $negeri, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        //if($atlet == "") $atlet = array();
+        //else $atlet = array($atlet);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            //'ATLET' => $atlet,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletPendidikanParalimpik', $format, $controls, 'laporan_statistik_atlet_pendidikan_paralimpik');
+    }
+    
+    public function actionLaporanStatistikAtletUmur()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-umur'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    //, 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-atlet-umur'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    //, 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_atlet_umur', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikAtletUmur($program, $sukan, $acara, $negeri, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        //if($atlet == "") $atlet = array();
+        //else $atlet = array($atlet);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            //'ATLET' => $atlet,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletUmur', $format, $controls, 'laporan_statistik_atlet_umur');
+    }
+    
+    public function actionLaporanStatistikAtletUmurParalimpik()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-umur-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                   // , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-atlet-umur-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    //, 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_atlet_umur_paralimpik', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikAtletUmurParalimpik($program, $sukan, $acara, $negeri, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        //if($atlet == "") $atlet = array();
+        //else $atlet = array($atlet);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            //'ATLET' => $atlet,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletUmurParalimpik', $format, $controls, 'laporan_statistik_atlet_umur_paralimpik');
+    }
+    
+    public function actionLaporanAtletElaun()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-atlet-elaun'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-atlet-elaun'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_atlet_elaun', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanAtletElaun($program, $sukan, $acara, $negeri, $atlet, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        if($atlet == "") $atlet = array();
+        else $atlet = array($atlet);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            'ATLET' => $atlet,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanAtletElaun', $format, $controls, 'laporan_atlet_elaun');
+    }
+    
+    public function actionLaporanAtletElaunParalimpik()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-atlet-elaun-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-atlet-elaun-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_atlet_elaun_paralimpik', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanAtletElaunParalimpik($program, $sukan, $acara, $negeri, $atlet, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        if($atlet == "") $atlet = array();
+        else $atlet = array($atlet);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            'ATLET' => $atlet,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanAtletElaunParalimpik', $format, $controls, 'laporan_atlet_elaun_paralimpik');
+    }
+    
+    public function actionLaporanAtletPakaianSukan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-atlet-pakaian-sukan'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-atlet-pakaian-sukan'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_atlet_pakaian_sukan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanAtletPakaianSukan($program, $sukan, $acara, $negeri, $atlet, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        if($atlet == "") $atlet = array();
+        else $atlet = array($atlet);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            'ATLET' => $atlet,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPakaianSukan', $format, $controls, 'laporan_atlet_pakaian_sukan');
+    }
+    
+    public function actionLaporanAtletPakaianSukanParalimpik()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-atlet-pakaian-sukan-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-atlet-pakaian-sukan-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_atlet_pakaian_sukan_paralimpik', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanAtletPakaianSukanParalimpik($program, $sukan, $acara, $negeri, $atlet, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        if($atlet == "") $atlet = array();
+        else $atlet = array($atlet);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            'ATLET' => $atlet,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPakaianSukanParalimpik', $format, $controls, 'laporan_atlet_pakaian_sukan_paralimpik');
+    }
 }

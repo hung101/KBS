@@ -19,6 +19,8 @@ use app\models\general\GeneralMessage;
 use app\models\Jurulatih;
 use app\models\RefSukan;
 use app\models\RefAcara;
+use app\models\RefStatusJurulatih;
+use app\models\RefProgramJurulatih;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AkkProgramJurulatihPeserta */
@@ -57,6 +59,47 @@ use app\models\RefAcara;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>5]],
+                'status_jurulatih' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefStatusJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::statusJurulatih],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+                
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'program' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-program-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefProgramJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::program],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
                 'sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -99,24 +142,6 @@ use app\models\RefAcara;
 ]);
         ?>
 
-    <!--<?= $form->field($model, 'akk_program_jurulatih_id')->textInput() ?>
-
-    <?= $form->field($model, 'jurulatih')->textInput() ?>
-
-    <?= $form->field($model, 'sukan')->textInput() ?>
-
-    <?= $form->field($model, 'acara')->textInput() ?>
-
-    <?= $form->field($model, 'session_id')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
-
-    <?= $form->field($model, 'created')->textInput() ?>
-
-    <?= $form->field($model, 'updated')->textInput() ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -142,14 +167,18 @@ $('#jurulatihId').change(function(){
         if(data !== null){
             $('#gajidanelaunjurulatih-no_kad_pengenalan').attr('value',data.ic_no);
             $("#akkprogramjurulatihpeserta-sukan").val(data.nama_sukan).trigger("change");
-            $("#akkprogramjurulatihpeserta-acara").val(data.nama_acara).trigger("change");
+            //$("#akkprogramjurulatihpeserta-acara").val(data.nama_acara).trigger("change");
+            $("#akkprogramjurulatihpeserta-program").val(data.program).trigger("change");
+            $("#akkprogramjurulatihpeserta-status_jurulatih").val(data.status_jurulatih).trigger("change");
         }
     });
 });
      
 function clearForm(){
     $("#akkprogramjurulatihpeserta-sukan").val('').trigger("change");
-    $("#akkprogramjurulatihpeserta-acara").val('').trigger("change");
+    //$("#akkprogramjurulatihpeserta-acara").val('').trigger("change");
+    $("#akkprogramjurulatihpeserta-program").val('').trigger("change");
+    $("#akkprogramjurulatihpeserta-status_jurulatih").val('').trigger("change");
 }
         
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {

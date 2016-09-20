@@ -57,8 +57,13 @@ class MesyuaratJkk extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['bil_mesyuarat', 'nama_mesyuarat', 'agenda', 'tarikh', 'tempat', 'disedia_oleh', 'disemak_oleh', 'sukan', 'fasa', 'cawangan', 'program', 'negeri',
+            [['bil_mesyuarat', 'nama_mesyuarat', 'agenda', 'tarikh', 'tempat', 'disedia_oleh', 'disemak_oleh', 'sukan', 'fasa', 'cawangan', 'program',
                 'penganjur', 'pengerusi_mesyuarat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            ['negeri', 'required', 'when' => function ($model) {
+                    return $model->penganjur == RefPenganjurJkk::MAJLIS_SUKAN_NEGERI;
+                }, 'whenClient' => "function (attribute, value) {
+                    return $('#penganjur').val() == '1';
+                }"],
             [['tarikh'], 'safe'],
             [['bil_mesyuarat'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -104,5 +109,12 @@ class MesyuaratJkk extends \yii\db\ActiveRecord
      */
     public function getRefFasa(){
         return $this->hasOne(RefFasa::className(), ['id' => 'fasa']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefBilJkk(){
+        return $this->hasOne(RefBilJkk::className(), ['id' => 'bil_mesyuarat']);
     }
 }

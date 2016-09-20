@@ -144,12 +144,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::button('<span class="glyphicon glyphicon-refresh"></span>', ['value'=>Url::to(['index']),'class' => 'btn btn-info', 'onclick' => 'updateRenderAjax("'.Url::to(['index']).'", "'.GeneralVariable::tabPencapaianID.'");']) ?>
     </p>-->
     
-    <!-- Kaunseling Rekod - START -->
-    <div class="panel panel-default copyright-wrap" id="penukaran_rekods-list">
-        <div class="panel-heading"><a data-toggle="collapse" href="#penukaran_rekods-body">Rekod Penilaian Pestasi</a>
-            <button type="button" class="close" data-target="#penukaran_rekods-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <!-- Pencapaian Rekod - START -->
+    <div class="panel panel-default copyright-wrap" id="pencapaian_rekods-list">
+        <div class="panel-heading"><a data-toggle="collapse" href="#pencapaian_rekods-body">Rekod Penilaian Pestasi</a>
+            <button type="button" class="close" data-target="#pencapaian_rekods-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         </div>
-        <div id="penukaran_rekods-body" class="panel-collapse collapse">
+        <div id="pencapaian_rekods-body" class="panel-collapse collapse">
             <div class="panel-body">
                 <?= GridView::widget([
             'dataProvider' => $dataProviderPP,
@@ -191,16 +191,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['class' => 'yii\grid\ActionColumn',
                     'buttons' => [
                         'view' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', '', ['value'=>Url::to(['/pembayaran-insentif/view', 'id' => $model->pembayaran_insentif_id]), 'class' => 'custom_button']);
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 
+                            ['penilaian-pestasi/view', 'id' =>$model->penilaian_pestasi_id], 
+                            [
+                                'title' => GeneralLabel::view,
+                                'target' => '_blank'
+                            ]);
                         },
                     ],
-                    'template' => '',
+                    'template' => '{view}',
                 ],
             ],
         ]); ?>
             </div>
         </div>
     </div>
-    <!-- Kaunseling Rekod - END -->
+    <!-- Pencapaian Rekod - END -->
 
 </div>

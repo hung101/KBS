@@ -213,7 +213,7 @@ class PengurusanProgramBinaanController extends Controller
             }
             
             // update atlet profil Kem/Kursus
-            $modelAtlets = PengurusanProgramBinaanAtlet::findAll([
+            /*$modelAtlets = PengurusanProgramBinaanAtlet::findAll([
                     'pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id,
                 ]);
             
@@ -229,7 +229,7 @@ class PengurusanProgramBinaanController extends Controller
                 $modelAtletKursusKem->nama_kursus_kem = $model->nama_aktiviti;
                 $modelAtletKursusKem->pengurusan_program_binaan_id = $model->pengurusan_program_binaan_id;
                 $modelAtletKursusKem->save();
-            }
+            }*/
             
             return $this->redirect(['view', 'id' => $model->pengurusan_program_binaan_id]);
         } else {
@@ -285,7 +285,7 @@ class PengurusanProgramBinaanController extends Controller
             AtletPembangunanKursuskem::deleteAll(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id]);
             
             // update atlet profil Kem/Kursus
-            $modelAtlets = PengurusanProgramBinaanAtlet::findAll([
+            /*$modelAtlets = PengurusanProgramBinaanAtlet::findAll([
                     'pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id,
                 ]);
             
@@ -301,7 +301,7 @@ class PengurusanProgramBinaanController extends Controller
                 $modelAtletKursusKem->nama_kursus_kem = $model->nama_aktiviti;
                 $modelAtletKursusKem->pengurusan_program_binaan_id = $model->pengurusan_program_binaan_id;
                 $modelAtletKursusKem->save();
-            }
+            }*/
             
             return $this->redirect(['view', 'id' => $model->pengurusan_program_binaan_id]);
         } else {

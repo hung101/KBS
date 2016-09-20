@@ -44,6 +44,7 @@ use app\models\general\GeneralMessage;
     ?>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <div class="well">
     <div class="row">
         <div class="col-sm-3">
             <div class="panel panel-default">
@@ -152,6 +153,41 @@ use app\models\general\GeneralMessage;
             </div>
     
     
+    
+    <!--<?= $form->field($model, 'sgar')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'sikap')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'siso_olimpik')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'siso_paralimpik')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'sito_emas')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'sito_perak')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'sito_gangsa')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'created_by')->textInput() ?>
+
+    <?= $form->field($model, 'updated_by')->textInput() ?>
+
+    <?= $form->field($model, 'created')->textInput() ?>
+
+    <?= $form->field($model, 'updated')->textInput() ?>-->
+
+    <div class="form-group">
+        <?php if(!$readonly): ?>
+        <?= Html::submitButton(GeneralLabel::save, ['class' => 'btn btn-primary']) ?>
+        <?php endif; ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+    
+    </div>
+    
+    <br>
+    
     <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>Tetapan SKIM Insentif</strong>
@@ -178,7 +214,7 @@ use app\models\general\GeneralMessage;
 
     <?= GridView::widget([
         'dataProvider' => $dataProviderPengurusanInsentifTetapanShakamShakar,
-        //'filterModel' => $searchModelPengurusanInsentifTetapanShakamShakar,
+        'filterModel' => $searchModelPengurusanInsentifTetapanShakamShakar,
         'id' => 'pengurusanInsentifTetapanShakamShakarGrid',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -331,34 +367,19 @@ use app\models\general\GeneralMessage;
     
     
 
-    <!--<?= $form->field($model, 'sgar')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'sikap')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'siso_olimpik')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'siso_paralimpik')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'sito_emas')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'sito_perak')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'sito_gangsa')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
-
-    <?= $form->field($model, 'created')->textInput() ?>
-
-    <?= $form->field($model, 'updated')->textInput() ?>-->
-
-    <div class="form-group">
-        <?php if(!$readonly): ?>
-        <?= Html::submitButton(GeneralLabel::save, ['class' => 'btn btn-primary']) ?>
-        <?php endif; ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
+    
 
 </div>
+
+<?php
+$script = <<< JS
+        
+$(document).on("keypress", "form", function(event) { 
+    return event.keyCode != 13;
+});
+     
+
+JS;
+        
+$this->registerJs($script);
+?>

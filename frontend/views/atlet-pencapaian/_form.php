@@ -58,6 +58,35 @@ use app\models\general\GeneralMessage;
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>GeneralVariable::formAtletPencapaianID]); ?>
     
     <?php
+        if(isset($session['atlet_cacat']) && $session['atlet_cacat']){
+            $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all();
+        } else {
+            $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all();
+        }
+        
+        // add filter base on sukan access role in tbl_user->sukan - START
+        if(Yii::$app->user->identity->sukan){
+            $sukan_access=explode(',',Yii::$app->user->identity->sukan);
+            
+            $arr_sukan_filter = array();
+            
+            for($i = 0; $i < count($sukan_access); $i++){
+                $arr_sukan = null;
+                $arr_sukan = array('id'=>$sukan_access[$i]); 
+                    array_push($arr_sukan_filter,$arr_sukan);
+            }
+            
+            if(isset($session['atlet_cacat']) && $session['atlet_cacat']){
+                $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->andFilterWhere(['id'=>$arr_sukan_filter])->all();
+            } else {
+                $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->andFilterWhere(['id'=>$arr_sukan_filter])->all();
+            }
+        }
+        // add filter base on sukan access role in tbl_user->sukan - END
+        
+    ?>
+    
+    <?php
         echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
@@ -128,7 +157,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map($sukan_list,'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -152,6 +181,7 @@ use app\models\general\GeneralMessage;
                         'options'=>['prompt'=>'',],
                         'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
+                            'initialize' => true,
                             'depends'=>[Html::getInputId($model, 'nama_sukan')],
                             'placeholder' => Placeholder::acara,
                             'url'=>Url::to(['/ref-acara/subacaras'])],

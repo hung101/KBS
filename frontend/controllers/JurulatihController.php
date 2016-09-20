@@ -612,4 +612,65 @@ class JurulatihController extends Controller
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikJurulatihProgramJantina', $format, $controls, 'laporan_statistik_jurulatih_program_jantina');
     }
+    
+    public function actionLaporanStatistikJurulatihNegara()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiJurulatih();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-jurulatih-negara'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'status' => $model->status
+                    , 'negeri' => $model->negeri
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-jurulatih-negara'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'status' => $model->status
+                    , 'negeri' => $model->negeri
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_jurulatih_negara', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikJurulatihNegara($program, $sukan, $status, $negeri, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($status == "") $status = array();
+        else $status = array($status);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        $controls = array(
+            'STATUS' => $status,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikJurulatihNegara', $format, $controls, 'laporan_statistik_jurulatih_negara');
+    }
 }

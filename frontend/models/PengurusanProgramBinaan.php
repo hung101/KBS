@@ -59,12 +59,12 @@ class PengurusanProgramBinaan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_program', 'kategori_permohonan', 'jenis_permohonan', 'sukan', 'tempat', 'tahap', 'negeri', 'daerah', 'tarikh_mula', 'tarikh_tamat', 
+            [['nama_program', 'kategori_permohonan', 'jenis_permohonan', 'tempat', 'tahap', 'daerah', 'tarikh_mula', 'tarikh_tamat', 
                 'kelulusan', 'program', 'aktiviti', 'nama_aktiviti'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_mula', 'tarikh_tamat', 'tarikh_jkb'], 'safe'],
-            [['sokongan_pn', 'kelulusan', 'status_permohonan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['sokongan_pn', 'kelulusan', 'status_permohonan', 'mesyuarat_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah_yang_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['nama_ppn', 'pengurus_pn', 'sukan', 'bilangan_jkb'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_ppn', 'pengurus_pn', 'sukan', 'bilangan_jkb', 'jabatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kategori_permohonan', 'jenis_permohonan', 'tahap', 'negeri', 'jenis_aktiviti'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -100,6 +100,7 @@ class PengurusanProgramBinaan extends \yii\db\ActiveRecord
             'bilangan_jkb' => GeneralLabel::bilangan_jkb,
             'tarikh_jkb' => GeneralLabel::tarikh_jkb,
             'jenis_aktiviti ' => GeneralLabel::jenis_aktiviti,
+            'jabatan' => GeneralLabel::jabatan,
         ];
     }
     
@@ -155,5 +156,12 @@ class PengurusanProgramBinaan extends \yii\db\ActiveRecord
     public function getRefPengurusanProgramBinaanPeserta()
     {
         return $this->hasMany(PengurusanProgramBinaanPeserta::className(), ['pengurusan_program_binaan_id' => 'pengurusan_program_binaan_id']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefPengurusanProgramBinaanAtlet(){
+        return $this->hasMany(PengurusanProgramBinaanAtlet::className(), ['pengurusan_program_binaan_id' => 'pengurusan_program_binaan_id']);
     }
 }

@@ -64,7 +64,7 @@ class PengurusanInsentifTetapanController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
-        $queryPar = null;
+        $queryPar = Yii::$app->request->queryParams;
         
         $queryPar['PengurusanInsentifTetapanShakamShakarSearch']['pengurusan_insentif_tetapan_id'] = $id;
         
@@ -92,7 +92,7 @@ class PengurusanInsentifTetapanController extends Controller
         
         $model = new PengurusanInsentifTetapan();
         
-        $queryPar = null;
+        $queryPar = Yii::$app->request->queryParams;
         
         Yii::$app->session->open();
         
@@ -152,7 +152,7 @@ class PengurusanInsentifTetapanController extends Controller
         
         $model = $this->findModel($id);
         
-        $queryPar = null;
+        $queryPar = Yii::$app->request->queryParams;
         
         $queryPar['PengurusanInsentifTetapanShakamShakarSearch']['pengurusan_insentif_tetapan_id'] = $id;
         

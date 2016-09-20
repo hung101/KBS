@@ -19,7 +19,7 @@ use app\models\general\GeneralVariable;
 use app\models\Jurulatih;
 use app\models\RefSukan;
 use app\models\RefAcara;
-use app\models\RefPenilaianJurulatih;
+use app\models\RefPenilaianJurulatihKetua;
 
 /**
  * PengurusanPemantauanDanPenilaianJurulatihKetuaController implements the CRUD actions for PengurusanPemantauanDanPenilaianJurulatihKetua model.
@@ -87,7 +87,7 @@ class PengurusanPemantauanDanPenilaianJurulatihKetuaController extends Controlle
         $model->nama_acara = $ref['desc'];
         
         $model->penilaian_oleh_id = $model->penilaian_oleh;
-        $ref = RefPenilaianJurulatih::findOne(['id' => $model->penilaian_oleh]);
+        $ref = RefPenilaianJurulatihKetua::findOne(['id' => $model->penilaian_oleh]);
         $model->penilaian_oleh = $ref['desc'];
         
         $queryPar = null;

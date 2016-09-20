@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
         $modelSukanProgram = AtletSukan::find()->joinWith(['refSukan'])
                 ->joinWith(['refAcara'])
                 ->joinWith(['refProgramSemasaSukanAtlet'])
-                ->where('atlet_id = :atlet_id', [':atlet_id' => $atlet_id])->orderBy(['created' => SORT_DESC,])->one();
+                ->where('atlet_id = :atlet_id', [':atlet_id' => $atlet_id])->orderBy(['tarikh_mula_menyertai_program_msn' => SORT_DESC,])->one();
     ?>
     
     <?php if($modelAtlet !== null && $modelAtlet->name_penuh): ?>

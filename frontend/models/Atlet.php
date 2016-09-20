@@ -105,7 +105,7 @@ class Atlet extends \yii\db\ActiveRecord
                 'kategori_kecacatan', 'jenis_kecederaan', 'agensi', 'ms_negeri'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir', 'lesen_tamat_tempoh', 'passport_tamat_tempoh', 'kategori_kecacatan', 'cacat', 'tawaran', 'tarikh_luput'], 'safe'],
             [['umur', 'tel_bimbit_no_1', 'tel_bimbit_no_2', 'tel_no', 'tid', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan',
-                'tawaran_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+                'tawaran_id', 'mesyuarat_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tinggi', 'berat'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['tinggi', 'berat'], 'string', 'max' => 6, 'tooLong' => GeneralMessage::yii_validation_string_max],

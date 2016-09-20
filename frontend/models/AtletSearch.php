@@ -29,7 +29,7 @@ class AtletSearch extends Atlet
                 'lesen_memandu_no', 'lesen_tamat_tempoh', 'jenis_lesen', 'emel', 'facebook', 'twitter', 'alamat_rumah_1', 'alamat_rumah_2', 
                 'alamat_rumah_3', 'alamat_surat_menyurat_1','alamat_surat_menyurat_2','alamat_surat_menyurat_3','dari_bahagian', 'sumber', 
                 'negeri_diwakili', 'nama_kecemasan', 'pertalian_kecemasan', 'tawaran', 'sukan', 'program', 'cacat'], 'safe'],
-            [['umur', 'tel_bimbit_no_1', 'tel_bimbit_no_2', 'tel_no', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan', 'tawaran_id', 'jurulatih'], 'integer'],
+            [['umur', 'tel_bimbit_no_1', 'tel_bimbit_no_2', 'tel_no', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan', 'tawaran_id', 'jurulatih', 'mesyuarat_id'], 'integer'],
             [['tinggi', 'berat'], 'number'],
         ];
     }
@@ -95,6 +95,11 @@ class AtletSearch extends Atlet
         } else if ($this->tawaran == "tidak") {
             $this->tawaran = 0;
         }*/
+        
+        // sorting for JKK
+        if(isset($this->mesyuarat_id)){
+            $query->orderBy(['tawaran' => SORT_ASC]);
+        }
 
         $query->andFilterWhere([
             'tarikh_lahir' => $this->tarikh_lahir,
@@ -113,6 +118,7 @@ class AtletSearch extends Atlet
             'cacat' => $this->cacat,
             'tbl_atlet_sukan.nama_sukan' => $this->sukan,
             'tbl_atlet_sukan.program_semasa' => $this->program,
+            'mesyuarat_id' => $this->mesyuarat_id,
         ]);
         
         if($this->ic_no){

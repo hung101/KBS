@@ -264,7 +264,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'filterModel' => $searchModelPermohonanPeralatan,
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
-                [
+                /*[
                 'attribute' => 'cawangan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -287,7 +287,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program,
                 ],
                 'value' => 'refProgram.desc'
-            ],
+            ],*/
              [
                 'attribute' => 'tarikh',
                 'filterInputOptions' => [
@@ -338,14 +338,14 @@ $this->params['breadcrumbs'][] = $this->title;
             //'filterModel' => $searchModelKejohanan,
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
-                [
+                /*[
                 'attribute' => 'nama_sukan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_sukan,
                 ],
                 'value' => 'refSukan.desc'
-            ],
+            ],*/
             [
                 'attribute' => 'tempat_penginapan',
                 'filterInputOptions' => [
@@ -451,7 +451,31 @@ $this->params['breadcrumbs'][] = $this->title;
             //'filterModel' => $searchModelProgram,
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
-                [
+                //'perancangan_program_id',
+            /*[
+                'attribute' => 'jenis_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program,
+                ],
+                    'value' => 'refProgramSemasaSukanAtlet.desc'
+            ],
+            [
+                'attribute' => 'sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
+                    'value' => 'refSukan.desc'
+            ],*/
+            [
+                'attribute' => 'nama_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_program,
+                ]
+            ],
+            [
                 'attribute' => 'tarikh_mula',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -466,11 +490,39 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
             [
-                'attribute' => 'nama_program',
+                'attribute' => 'lokasi',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_program,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::lokasi,
                 ]
+            ],
+            
+            //'muat_naik',
+            /*[
+                'attribute' => 'muat_naik',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::muat_naik,
+                ],
+                'format' => 'raw',
+                'value'=>function ($model) {
+                    if($model->muat_naik){
+                        return Html::a(GeneralLabel::viewAttachment, 'javascript:void(0);', 
+                                        [ 
+                                            'onclick' => 'viewUpload("'.\Yii::$app->request->BaseUrl.'/' . $model->muat_naik .'");'
+                                        ]);
+                    } else {
+                        return "";
+                    }
+                },
+            ],*/
+            [
+                'attribute' => 'status_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_program,
+                ],
+                    'value' => 'refStatusProgram.desc'
             ],
                 ['class' => 'yii\grid\ActionColumn',
                     'buttons' => [

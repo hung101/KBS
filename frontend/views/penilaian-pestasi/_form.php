@@ -334,7 +334,11 @@ use app\models\general\GeneralMessage;
                 'value' => 'refAtlet.name_penuh',
             ],
             'sasaran',
-            'keputusan',
+            //'keputusan',
+            [
+                'attribute' => 'keputusan',
+                'value' => 'refKeputusan.desc',
+            ],
             // 'session_id',
             // 'created_by',
             // 'updated_by',
@@ -363,9 +367,19 @@ use app\models\general\GeneralMessage;
                         'title' => Yii::t('yii', 'View'),
                         'onclick' => 'loadModalRenderAjax("'.Url::to(['penilaian-prestasi-atlet-sasaran/view', 'id' => $model->penilaian_prestasi_atlet_sasaran_id]).'", "'.GeneralLabel::viewTitle . ' Penilaian Atlet");',
                         ]);
-                    }
+                    },
+                    'atlet' => function ($url, $model) {
+                        return  Html::a('<span class="glyphicon glyphicon-user"></span>', 
+                        ['atlet/view', 'id' =>$model->atlet], 
+                        [
+                            'title' => GeneralLabel::atlet_profil,
+                            'target' => '_blank',
+                            'class' => 'custom_button',
+                            'value'=>Url::to(['/atlet/view', 'id' => $model->atlet])
+                        ]);
+                    },
                 ],
-                'template' => $template,
+                'template' => $template . ' {atlet}',
             ],
         ],
     ]); ?>
@@ -413,3 +427,19 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<?php
+$script = <<< JS
+        
+$(function(){
+$('.custom_button').click(function(){
+        window.open($(this).attr('value'), "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no");
+        return false;
+});});
+     
+
+JS;
+        
+$this->registerJs($script);
+?>

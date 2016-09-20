@@ -105,6 +105,7 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
                         'pluginOptions' => [
+                            'initialize' => true,
                             'depends'=>[Html::getInputId($model, 'nama_sukan')],
                             'placeholder' => Placeholder::acara,
                             'url'=>Url::to(['/ref-acara/subacaras'])],

@@ -83,8 +83,30 @@ $this->params['breadcrumbs'][] = $this->title;
             //'cawangan',
             
             // 'tarikh_mula_lantikan',
+            [
+                'attribute' => 'tarikh_mula_lantikan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula_lantikan,
+                ],
+            ],
             // 'tarikh_tamat_lantikan',
+            [
+                'attribute' => 'tarikh_tamat_lantikan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat_lantikan,
+                ],
+            ],
             // 'gaji_elaun',
+            [
+                'attribute' => 'gaji_elaun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::gaji_elaun,
+                ],
+                'value' => 'refGajiElaunJurulatih.desc'
+            ],
             // 'jumlah',
             // 'created_by',
             // 'updated_by',

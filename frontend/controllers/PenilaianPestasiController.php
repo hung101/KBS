@@ -7,6 +7,7 @@ use app\models\PenilaianPestasi;
 use app\models\PenilaianPestasiSearch;
 use app\models\PenilaianPrestasiAtletSasaran;
 use frontend\models\PenilaianPrestasiAtletSasaranSearch;
+use app\models\AtletPencapaian;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -134,6 +135,30 @@ class PenilaianPestasiController extends Controller
             if(isset(Yii::$app->session->id)){
                 PenilaianPrestasiAtletSasaran::updateAll(['penilaian_pestasi_id' => $model->penilaian_pestasi_id], 'session_id = "'.Yii::$app->session->id.'"');
                 PenilaianPrestasiAtletSasaran::updateAll(['session_id' => ''], 'penilaian_pestasi_id = "'.$model->penilaian_pestasi_id.'"');
+            }
+            
+            // update atlet profil Pencapaian
+            $modelAtletSasarans = PenilaianPrestasiAtletSasaran::findAll([
+                    'penilaian_pestasi_id' => $model->penilaian_pestasi_id,
+                ]);
+            
+            foreach($modelAtletSasarans as $modelAtletSasaran){
+                $modelAtletPencapaian = null;
+                if (($modelAtletPencapaian = AtletPencapaian::find()->where(['atlet_id'=>$modelAtletSasaran->atlet])->andWhere(['penilaian_pestasi_id'=>$model->penilaian_pestasi_id])->one()) == null) {
+                    $modelAtletPencapaian = new AtletPencapaian();
+                }
+                
+                $refPerancanganProgram = PerancanganProgram::findOne(['perancangan_program_id' => $model->kejohanan]);
+        
+                $modelAtletPencapaian->atlet_id = $modelAtletSasaran->atlet;
+                $modelAtletPencapaian->nama_kejohanan_temasya = $refPerancanganProgram['nama_program'];
+                $modelAtletPencapaian->nama_sukan = $model->sukan;
+                $modelAtletPencapaian->nama_acara = $model->acara;
+                $modelAtletPencapaian->tarikh_mula_kejohanan = $refPerancanganProgram['tarikh_mula'];
+                $modelAtletPencapaian->tarikh_tamat_kejohanan = $refPerancanganProgram['tarikh_tamat'];
+                $modelAtletPencapaian->lokasi_kejohanan = $refPerancanganProgram['lokasi'];
+                $modelAtletPencapaian->penilaian_pestasi_id = $model->penilaian_pestasi_id;
+                $modelAtletPencapaian->save();
             }
             
             if($model->save()){

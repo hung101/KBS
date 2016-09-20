@@ -8,11 +8,11 @@ use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\widgets\DepDrop;
 use yii\helpers\Url;
+use app\models\AtletPencapaian;
 
 // table reference
 use app\models\Atlet;
-use app\models\RefSoalanPeserta;
-use app\models\RefRatingSoalan;
+use app\models\RefKeputusan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -62,12 +62,15 @@ use app\models\general\GeneralMessage;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-rating-soalan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-keputusan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefRatingSoalan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::keputusan],],
+                        'data'=>ArrayHelper::map(RefKeputusan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::keputusan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>2]],
                  
             ],

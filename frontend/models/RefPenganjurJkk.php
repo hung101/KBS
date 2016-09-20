@@ -17,6 +17,9 @@ use Yii;
  */
 class RefPenganjurJkk extends \yii\db\ActiveRecord
 {
+    const MAJLIS_SUKAN_NEGERI = 1;
+    const MAJLIS_SUKAN_NEGERA = 2;
+    
     /**
      * @inheritdoc
      */

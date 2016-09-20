@@ -75,7 +75,7 @@ class PengurusanJkkJkp extends \yii\db\ActiveRecord
     {
         return [
             'pengurusan_jkk_jkp_id' => GeneralLabel::pengurusan_jkk_jkp_id,
-            'jenis_cawangan_kuasa' => GeneralLabel::jenis_cawangan_kuasa,
+            'jenis_cawangan_kuasa' => GeneralLabel::jenis_mesyuarat,
             'nama_setiausaha_jkk_jkp' => GeneralLabel::nama_setiausaha_jkk_jkp,
             'tarikh_pelantikan_jkk_jkp' => GeneralLabel::tarikh_jkk_jkp,
             'tempoh_hak_jkk_jkp' => GeneralLabel::tempoh_hak_jkk_jkp,

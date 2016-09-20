@@ -46,6 +46,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'perancangan_program_id',
             [
+                'attribute' => 'jenis_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program,
+                ],
+                    'value' => 'refProgramSemasaSukanAtlet.desc'
+            ],
+            [
+                'attribute' => 'sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
+                    'value' => 'refSukan.desc'
+            ],
+            [
+                'attribute' => 'nama_program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_program,
+                ]
+            ],
+            [
                 'attribute' => 'tarikh_mula',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -60,12 +83,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
             [
-                'attribute' => 'nama_program',
+                'attribute' => 'lokasi',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_program,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::lokasi,
                 ]
             ],
+            
             //'muat_naik',
             /*[
                 'attribute' => 'muat_naik',

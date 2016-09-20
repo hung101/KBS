@@ -23,7 +23,7 @@ use app\models\general\GeneralVariable;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>GeneralVariable::formJurulatihKelayakanKursusTertinggiID]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>GeneralVariable::formJurulatihKelayakanKursusTertinggiID, 'options' => ['enctype' => 'multipart/form-data']]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -42,6 +42,40 @@ use app\models\general\GeneralVariable;
     ]
 ]);
         ?>
+    
+    <?php // Muatnaik Upload
+    
+    $label = $model->getAttributeLabel('muatnaik');
+    
+    if($model->muatnaik){
+        echo "<div class='required'>";
+        echo "<label>" . $model->getAttributeLabel('muatnaik') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->muatnaik , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+        
+        $label = false;
+    }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'muatnaik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+    }
+        
+    ?>
 
     <!--<?= $form->field($model, 'jurulatih_id')->textInput() ?>
 

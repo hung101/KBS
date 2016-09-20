@@ -64,6 +64,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const hptLaporanBulananPegawaiFolder = "hpt_laporan_bulanan_pegawai";
         const jurulatihFolder = "jurulatih";
         const jurulatihKelayakan = "jurulatih_kelayakan";
+        const jurulatihKursusTertinggi = "jurulatih_kursus_tertinggi";
         const kelayakanSukanSpesifikAkkFolder = "kelayakan_sukan_spesifik_akk";
         const informasiPermohonanFolder = "informasi_permohonan";
         const ltbsMesyuaratFolder = "ltbs_mesyuarat";
@@ -205,6 +206,7 @@ if($session->get('language') == "EN") {
         const hptLaporanBulananPegawaiFolder = "hpt_laporan_bulanan_pegawai";
         const jurulatihFolder = "jurulatih";
         const jurulatihKelayakan = "jurulatih_kelayakan";
+        const jurulatihKursusTertinggi = "jurulatih_kursus_tertinggi";
         const kelayakanSukanSpesifikAkkFolder = "kelayakan_sukan_spesifik_akk";
         const informasiPermohonanFolder = "informasi_permohonan";
         const ltbsMesyuaratFolder = "ltbs_mesyuarat";

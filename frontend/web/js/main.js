@@ -1007,7 +1007,10 @@ $('body').on('beforeSubmit', 'form#jurulatih_kelayakan_kursus_tertinggi_form', f
      $.ajax({
           url: form.attr('action'),
           type: 'post',
-          data: form.serialize(),
+          data:  new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
           success: function (response) {
                // do something with response
                $("#" + tabId).hideLoading();

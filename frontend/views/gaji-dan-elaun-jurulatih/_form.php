@@ -66,9 +66,10 @@ use app\models\general\GeneralMessage;
                         ] : null,
                         'data'=>ArrayHelper::map(Jurulatih::find()->all(),'jurulatih_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::jurulatih, 'id'=>'jurulatihId'],],
-                    'columnOptions'=>['colspan'=>6]],
-                'no_kad_pengenalan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3]],
-                'no_pekerja' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>5]],
+                'no_kad_pengenalan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
+                'no_pekerja' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
+                'no_kwsp' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
             ],
         ],
         [

@@ -19,7 +19,11 @@ class BantuanPenganjuranKursusSearch extends BantuanPenganjuranKursus
     {
         return [
             [['bantuan_penganjuran_kursus_id', 'bil_penceramah', 'bil_peserta', 'bil_urusetia', 'created_by', 'updated_by'], 'integer'],
-            [['badan_sukan', 'sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_telefon', 'no_faks', 'laman_sesawang', 'facebook', 'twitter', 'nama_bank', 'no_akaun', 'nama_kursus_seminar_bengkel', 'tarikh', 'tempat', 'tujuan', 'kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri', 'butiran_perbelanjaan', 'maklumat_lain_sokongan', 'status_permohonan', 'catatan', 'tarikh_permohonan', 'jkb', 'created', 'updated'], 'safe'],
+            [['badan_sukan', 'sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 
+                'alamat_poskod', 'no_telefon', 'no_faks', 'laman_sesawang', 'facebook', 'twitter', 'nama_bank', 'no_akaun', 
+                'nama_kursus_seminar_bengkel', 'tarikh', 'tempat', 'tujuan', 'kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri', 
+                'butiran_perbelanjaan', 'maklumat_lain_sokongan', 'status_permohonan', 'catatan', 'tarikh_permohonan', 'jkb', 
+                'created', 'updated'], 'safe'],
             [['anggaran_perbelanjaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number'],
         ];
     }
@@ -69,8 +73,8 @@ class BantuanPenganjuranKursusSearch extends BantuanPenganjuranKursus
             'bil_peserta' => $this->bil_peserta,
             'bil_urusetia' => $this->bil_urusetia,
             'anggaran_perbelanjaan' => $this->anggaran_perbelanjaan,
-            'jumlah_bantuan_yang_dipohon' => $this->jumlah_bantuan_yang_dipohon,
-            'tarikh_permohonan' => $this->tarikh_permohonan,
+            //'jumlah_bantuan_yang_dipohon' => $this->jumlah_bantuan_yang_dipohon,
+            //'tarikh_permohonan' => $this->tarikh_permohonan,
             'jumlah_dilulus' => $this->jumlah_dilulus,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -80,7 +84,7 @@ class BantuanPenganjuranKursusSearch extends BantuanPenganjuranKursus
 
         $query->andFilterWhere(['like', 'tbl_profil_badan_sukan.nama_badan_sukan', $this->badan_sukan])
             ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
-            ->andFilterWhere(['like', 'no_pendaftaran', $this->no_pendaftaran])
+            ->andFilterWhere(['like', 'tbl_bantuan_penganjuran_kursus.no_pendaftaran', $this->no_pendaftaran])
             ->andFilterWhere(['like', 'alamat_1', $this->alamat_1])
             ->andFilterWhere(['like', 'alamat_2', $this->alamat_2])
             ->andFilterWhere(['like', 'alamat_3', $this->alamat_3])
@@ -103,7 +107,9 @@ class BantuanPenganjuranKursusSearch extends BantuanPenganjuranKursus
             ->andFilterWhere(['like', 'maklumat_lain_sokongan', $this->maklumat_lain_sokongan])
             ->andFilterWhere(['like', 'tbl_ref_status_bantuan_penganjuran_kursus.desc', $this->status_permohonan])
             ->andFilterWhere(['like', 'catatan', $this->catatan])
-            ->andFilterWhere(['like', 'jkb', $this->jkb]);
+            ->andFilterWhere(['like', 'jkb', $this->jkb])
+                ->andFilterWhere(['like', 'jumlah_bantuan_yang_dipohon', $this->jumlah_bantuan_yang_dipohon])
+                ->andFilterWhere(['like', 'tarikh_permohonan', $this->tarikh_permohonan]);
 
         return $dataProvider;
     }

@@ -774,6 +774,8 @@ $URL = Url::to(['/profil-badan-sukan/get-badan-sukan']);
 $DateDisplayFormat = GeneralVariable::displayDateFormat;
 
 $script = <<< JS
+
+$.fn.modal.Constructor.prototype.enforceFocus = function () {};
  
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 

@@ -131,5 +131,127 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
     
     <?php Pjax::end(); ?>
+        
+        <br>
+        <br>
+        
+    <!--<p>
+        <?= Html::button('<span class="glyphicon glyphicon-refresh"></span>', ['value'=>Url::to(['index']),'class' => 'btn btn-info', 'onclick' => 'updateRenderAjax("'.Url::to(['index']).'", "'.GeneralVariable::tabPembangunanKaunselingID.'");']) ?>
+    </p>-->
+    
+    <!-- Program Binaan Rekod - START -->
+    <div class="panel panel-default copyright-wrap" id="program_binaan_rekods-list">
+        <div class="panel-heading"><a data-toggle="collapse" href="#program_binaan_rekods-body">Rekod Program Binaan</a>
+            <button type="button" class="close" data-target="#program_binaan_rekods-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        </div>
+        <div id="program_binaan_rekods-body" class="panel-collapse collapse">
+            <div class="panel-body">
+                <?= GridView::widget([
+            'dataProvider' => $dataProviderPB,
+            //'filterModel' => $searchModelPB,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+                //'pengurusan_program_binaan_id',
+            //'nama_ppn',
+            //'pengurus_pn',
+            //'kategori_permohonan',
+            /*[
+                'attribute' => 'kategori_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_permohonan,
+                ],
+                'value' => 'refKategoriPermohonan.desc'
+            ],*/
+            //'jenis_permohonan',
+            /*[
+                'attribute' => 'jenis_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_permohonan,
+                ],
+                'value' => 'refJenisPermohonan.desc'
+            ],*/
+            // 'sukan',
+            // 'tempat',
+            // 'tahap',
+            // 'negeri',
+            // 'daerah',
+            [
+                'attribute' => 'aktiviti',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::aktiviti,
+                ],
+                'value' => 'refPerancanganProgram.nama_program'
+            ],
+            [
+                'attribute' => 'nama_aktiviti',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_aktiviti,
+                ]
+            ],
+             [
+                'attribute' => 'tarikh_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
+                ]
+            ],
+             [
+                'attribute' => 'tarikh_tamat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat,
+                ]
+            ],
+            // 'sokongan_pn',
+            /*[
+                'attribute' => 'sokongan_pn',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sokongan_pn,
+                ],
+                'value' => 'refSokongPn.desc'
+            ],*/
+            //'kelulusan',
+            /*[
+                'attribute' => 'kelulusan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelulusan,
+                ],
+                'value' => 'refKelulusanProgramBinaan.desc'
+            ],*/
+            [
+                'attribute' => 'status_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan,
+                ],
+                'value' => 'refStatusPermohonanProgramBinaan.desc'
+            ],
+            [
+                'attribute' => 'jumlah_yang_diluluskan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_yang_diluluskan,
+                ],
+            ],
+                ['class' => 'yii\grid\ActionColumn',
+                    'buttons' => [
+                        'view' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', '', ['value'=>Url::to(['/pengurusan-program-binaan/view', 'id' => $model->permohonan_bimbingan_kaunseling_id]), 'class' => 'custom_button']);
+                        },
+                    ],
+                    'template' => '',
+                ],
+            ],
+        ]); ?>
+            </div>
+        </div>
+    </div>
+    <!-- Program Binaan Rekod - END -->
 
 </div>

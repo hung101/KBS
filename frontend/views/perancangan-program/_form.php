@@ -7,6 +7,8 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use kartik\widgets\DepDrop;
+use yii\helpers\Url;
 
 // table reference
 use app\models\RefJenisProgram;
@@ -43,33 +45,6 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'tarikh_mula' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=> DateControl::classname(),
-                    'ajaxConversion'=>false,
-                    'options'=>[
-                        'pluginOptions' => [
-                            'autoclose'=>true,
-                        ]
-                    ],
-                    'columnOptions'=>['colspan'=>3]],
-                 'tarikh_tamat' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=> DateControl::classname(),
-                    'ajaxConversion'=>false,
-                    'options'=>[
-                        'pluginOptions' => [
-                            'autoclose'=>true,
-                        ]
-                    ],
-                    'columnOptions'=>['colspan'=>3]],
-                 
-            ],
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
                  'bahagian' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -101,20 +76,6 @@ use app\models\general\GeneralMessage;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
-                'sukan' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],],
-                    'columnOptions'=>['colspan'=>3]],
                 'jenis_program' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -132,6 +93,30 @@ use app\models\general\GeneralMessage;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
+                'sukan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
+                    'options'=>[
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                        ],
+                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options'=>['prompt'=>'',],
+                        'pluginOptions' => [
+                            //'initialize' => true,
+                            'depends'=>[Html::getInputId($model, 'cawangan')],
+                            'placeholder' => Placeholder::sukan,
+                            'url'=>Url::to(['/ref-sukan/subsukan'])],
+                        ],
+                    'columnOptions'=>['colspan'=>3]],
+                
                  
             ],
         ],
@@ -153,6 +138,33 @@ use app\models\general\GeneralMessage;
                         ] : null,
                         'data'=>ArrayHelper::map(RefJenisAktiviti::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jenisAktiviti],],
+                    'columnOptions'=>['colspan'=>3]],
+                 
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'tarikh_mula' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                 'tarikh_tamat' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
                     'columnOptions'=>['colspan'=>3]],
                  
             ],
@@ -265,6 +277,7 @@ use app\models\general\GeneralMessage;
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?php endif; ?>
+        <?= Html::a(GeneralLabel::backToList, ['index'], ['class' => 'btn btn-warning']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

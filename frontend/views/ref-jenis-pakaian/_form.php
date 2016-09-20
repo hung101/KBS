@@ -19,7 +19,8 @@ use app\models\general\Placeholder;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php/* echo $form->field($model, 'ref_sukan_id')->widget(Select2::classname(), [
+    <?php
+    /* echo $form->field($model, 'ref_sukan_id')->widget(Select2::classname(), [
     	'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
         [
             'append' => [
@@ -32,7 +33,8 @@ use app\models\general\Placeholder;
 	    'pluginOptions' => [
 	        'allowClear' => true
 	    ],
-	]);*/ ?>
+	]);*/ 
+    ?>
 
     <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>
 

@@ -45,7 +45,8 @@ class JurulatihSukanSearch extends JurulatihSukan
         $query = JurulatihSukan::find()
                 ->joinWith(['refBahagianJurulatih'])
                 ->joinWith(['refProgramJurulatih'])
-                ->joinWith(['refSukan']);
+                ->joinWith(['refSukan'])
+                ->joinWith(['refGajiElaunJurulatih']);
 
         // add conditions that should always apply here
 
@@ -65,8 +66,8 @@ class JurulatihSukanSearch extends JurulatihSukan
         $query->andFilterWhere([
             'jurulatih_sukan_id' => $this->jurulatih_sukan_id,
             'jurulatih_id' => $this->jurulatih_id,
-            'tarikh_mula_lantikan' => $this->tarikh_mula_lantikan,
-            'tarikh_tamat_lantikan' => $this->tarikh_tamat_lantikan,
+            //'tarikh_mula_lantikan' => $this->tarikh_mula_lantikan,
+            //'tarikh_tamat_lantikan' => $this->tarikh_tamat_lantikan,
             'jumlah' => $this->jumlah,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -78,7 +79,9 @@ class JurulatihSukanSearch extends JurulatihSukan
             ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
             ->andFilterWhere(['like', 'cawangan', $this->cawangan])
             ->andFilterWhere(['like', 'tbl_ref_bahagian_jurulatih.desc', $this->bahagian])
-            ->andFilterWhere(['like', 'gaji_elaun', $this->gaji_elaun]);
+            ->andFilterWhere(['like', 'tbl_ref_gaji_elaun_jurulatih.desc', $this->gaji_elaun])
+                ->andFilterWhere(['like', 'tarikh_mula_lantikan', $this->tarikh_mula_lantikan])
+                ->andFilterWhere(['like', 'tarikh_tamat_lantikan', $this->tarikh_tamat_lantikan]);
 
         return $dataProvider;
     }

@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 
 /**
  * This is the model class for table "tbl_jurulatih_sukan".
@@ -56,11 +58,11 @@ class JurulatihSukan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jurulatih_id', 'program', 'sukan', 'cawangan', 'bahagian', 'tarikh_mula_lantikan', 'tarikh_tamat_lantikan'], 'required'],
-            [['jurulatih_id', 'created_by', 'updated_by'], 'integer'],
+            [['jurulatih_id', 'program', 'sukan', 'cawangan', 'bahagian', 'tarikh_mula_lantikan', 'tarikh_tamat_lantikan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jurulatih_id', 'created_by', 'updated_by', 'gaji_dan_elaun_jurulatih_id', 'gaji_jurulatih_id', 'elaun_jurulatih_id', 'gaji_elaun'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_mula_lantikan', 'tarikh_tamat_lantikan', 'created', 'updated'], 'safe'],
-            [['jumlah'], 'number'],
-            [['program', 'sukan', 'cawangan', 'bahagian', 'gaji_elaun'], 'string', 'max' => 30],
+            [['jumlah'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['program', 'sukan', 'cawangan', 'bahagian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
 
@@ -113,5 +115,12 @@ class JurulatihSukan extends \yii\db\ActiveRecord
      */
     public function getRefJurulatihAcara(){
         return $this->hasMany(JurulatihSukanAcara::className(), ['jurulatih_sukan_id' => 'jurulatih_sukan_id']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefGajiElaunJurulatih(){
+        return $this->hasOne(RefGajiElaunJurulatih::className(), ['id' => 'gaji_elaun']);
     }
 }

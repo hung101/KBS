@@ -11,6 +11,7 @@ use yii\helpers\Url;
 use yii\widgets\Pjax;
 use kartik\datecontrol\DateControl;
 use yii\helpers\ArrayHelper;
+use kartik\widgets\DepDrop;
 
 // table reference
 use app\models\RefPenganjurJkk;
@@ -21,6 +22,7 @@ use app\models\RefCawangan;
 use app\models\RefSukan;
 use app\models\RefTempatJkk;
 use app\models\RefFasa;
+use app\models\RefBilJkk;
 
 // contant values
 use app\models\general\GeneralLabel;
@@ -37,6 +39,12 @@ use app\models\general\Placeholder;
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
     
     <?php
+    $mesyuarat_id = "";
+    
+    if(isset($model->mesyuarat_id)){
+            $mesyuarat_id = $model->mesyuarat_id;
+        }
+    
         if(!$readonly){
             $template = '{view} {update} {delete}';
         } else {
@@ -44,7 +52,15 @@ use app\models\general\Placeholder;
         }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data'], 'id'=>$model->formName()]); ?>
+    
+    <?php
+        $disabledNegeri = true;
+        
+        if($model->penganjur && $model->penganjur == RefPenganjurJkk::MAJLIS_SUKAN_NEGERI){
+            $disabledNegeri = false;
+        }
+    ?>
     
     <?php
         echo FormGrid::widget([
@@ -68,7 +84,7 @@ use app\models\general\Placeholder;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefPenganjurJkk::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::penganjur],
+                        'options' => ['placeholder' => Placeholder::penganjur, 'id'=>'penganjurId'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -85,7 +101,7 @@ use app\models\general\Placeholder;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],
+                        'options' => ['placeholder' => Placeholder::negeri, 'disabled'=>$disabledNegeri],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -149,20 +165,26 @@ use app\models\general\Placeholder;
                     'columnOptions'=>['colspan'=>2]],
                 'sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
                     'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                        ],
                         'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],
+                        'options'=>['prompt'=>'',],
                         'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
+                            'initialize' => true,
+                            'depends'=>[Html::getInputId($model, 'cawangan')],
+                            'placeholder' => Placeholder::sukan,
+                            'url'=>Url::to(['/ref-sukan/subsukan'])],
+                        ],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],
@@ -170,7 +192,7 @@ use app\models\general\Placeholder;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'fasa' => [
+                /*'fasa' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -186,8 +208,24 @@ use app\models\general\Placeholder;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>2]],
-                'bil_mesyuarat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                    'columnOptions'=>['colspan'=>2]],*/
+                'bil_mesyuarat' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-bil-jkk/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefBilJkk::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::bilangan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
                 'tarikh' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -347,7 +385,7 @@ use app\models\general\Placeholder;
     <p>
     
         <?php 
-        $mesyuarat_id = "";
+        
         
         if(isset($model->mesyuarat_id)){
             $mesyuarat_id = $model->mesyuarat_id;
@@ -389,33 +427,16 @@ use app\models\general\Placeholder;
 ]);*/
     ?>
     
-    
-    <?= Html::a('Agenda / Perbincangan', ['agenda-perbincangan'], ['class' => 'btn btn-warning btn-lg', 'target' => '_blank']) ?>
+    <?= Html::a('Agenda / Perbincangan', ['agenda-perbincangan', 'mesyuarat_id' => $mesyuarat_id], ['class' => 'btn btn-warning btn-lg', 'target' => '_blank']) ?>
     <br>
     <br>
     
-
-    <!--<?= $form->field($model, 'bil_mesyuarat')->textInput(['maxlength' => 20]) ?>
-
-    <?= $form->field($model, 'tarikh')->textInput() ?>
-
-    <?= $form->field($model, 'masa')->textInput() ?>
-
-    <?= $form->field($model, 'tempat')->textInput(['maxlength' => 20]) ?>
-
-    <?= $form->field($model, 'pengurusi')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'pencatat_minit')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'perkara_perkara_dan_tindakan')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'mesyuarat_tamat')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'mesyuarat_seterusnya')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'disedia_oleh')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'disemak_oleh')->textInput(['maxlength' => 100]) ?>-->
+    <?php
+    if(isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])){
+        echo Html::a('Reset Agenda / Perbincangan', ['reset-agenda-perbincangan'], ['class' => 'btn btn-danger btn-lg', 'target' => '_blank']);
+    }
+    ?>
+    
 
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -426,3 +447,35 @@ use app\models\general\Placeholder;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<?php
+$MAJLIS_SUKAN_NEGERI = RefPenganjurJkk::MAJLIS_SUKAN_NEGERI;
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+        
+$('#penganjurId').change(function(){
+    checkPenganjur();
+});
+        
+function checkPenganjur(){
+    if($('#penganjurId').val() === "$MAJLIS_SUKAN_NEGERI"){
+        $("#mesyuaratjkk-negeri").prop('disabled', false);
+    } else {
+        $('#mesyuaratjkk-negeri').val('').trigger("change");
+        $("#mesyuaratjkk-negeri").prop("disabled", true);
+    }
+}
+     
+
+JS;
+        
+$this->registerJs($script);
+?>

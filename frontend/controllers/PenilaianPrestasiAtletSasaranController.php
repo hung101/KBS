@@ -12,6 +12,10 @@ use yii\filters\VerbFilter;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
 
+// table reference
+use app\models\Atlet;
+use app\models\RefKeputusan;
+
 /**
  * PenilaianPrestasiAtletSasaranController implements the CRUD actions for PenilaianPrestasiAtletSasaran model.
  */
@@ -54,8 +58,16 @@ class PenilaianPrestasiAtletSasaranController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        
+        $ref = Atlet::findOne(['atlet_id' => $model->atlet]);
+        $model->atlet = $ref['nameAndIC'];
+        
+        $ref = RefKeputusan::findOne(['id' => $model->keputusan]);
+        $model->keputusan = $ref['desc'];
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

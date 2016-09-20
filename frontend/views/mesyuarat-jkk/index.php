@@ -45,20 +45,21 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'mesyuarat_id',
-            [
+            /*[
                 'attribute' => 'fasa',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::fasa,
                 ],
                 'value' => 'refFasa.desc'
-            ],
+            ],*/
             [
                 'attribute' => 'bil_mesyuarat',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bil_mesyuarat,
-                ]
+                ],
+                'value' => 'refBilJkk.desc'
             ],
             [
                 'attribute' => 'tarikh',
@@ -74,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tempat,
                 ],
-                'value' => 'refTempatJkk.desc'
+                //'value' => 'refTempatJkk.desc'
             ],
             //'pengurusi',
             // 'pencatat_minit',

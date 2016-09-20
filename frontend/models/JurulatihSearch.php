@@ -24,7 +24,8 @@ class JurulatihSearch extends Jurulatih
     public function rules()
     {
         return [
-            [['jurulatih_id', 'bil_tanggungan', 'status_jurulatih', 'status_keaktifan_jurulatih', 'sijil', 'tahap', 'sukan', 'program_id', 'status_tawaran_id'], 'integer'],
+            [['jurulatih_id', 'bil_tanggungan', 'status_jurulatih', 'status_keaktifan_jurulatih', 'sijil', 'tahap', 'sukan', 
+                'program_id', 'status_tawaran_id', 'mesyuarat_id'], 'integer'],
             [['gambar', 'cawangan', 'sub_cawangan_pelapis', 'lain_lain_program', 'pusat_latihan', 'nama_sukan', 'nama_acara', 
                 'status_permohonan', 'nama', 'bangsa', 'agama', 'jantina', 'warganegara', 'tarikh_lahir', 'tempat_lahir', 
                 'taraf_perkahwinan', 'ic_no', 'ic_no_lama', 'ic_tentera', 'passport_no', 'tamat_tempoh', 'no_visa', 'tamat_visa_tempoh', 'no_permit_kerja', 
@@ -79,6 +80,11 @@ class JurulatihSearch extends Jurulatih
             // $query->where('0=1');
             return $dataProvider;
         }
+        
+        // sorting for JKK
+        if(isset($this->mesyuarat_id)){
+            $query->orderBy(['status_tawaran' => SORT_ASC]);
+        }
 
         $query->andFilterWhere([
             'jurulatih_id' => $this->jurulatih_id,
@@ -96,6 +102,7 @@ class JurulatihSearch extends Jurulatih
             'status_tawaran' => $this->status_tawaran_id,
             'tbl_jurulatih_sukan.sukan' => $this->nama_sukan,
             'tbl_jurulatih_sukan.program' => $this->program,
+            'mesyuarat_id' => $this->mesyuarat_id,
         ]);
         
         if($this->ic_no){

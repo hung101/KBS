@@ -17,6 +17,9 @@ use Yii;
  */
 class RefGajiElaunJurulatih extends \yii\db\ActiveRecord
 {
+    const GAJI = 1;
+    const ELAUN = 2;
+    const GERAN_BANTUAN_GAJI = 3;
     /**
      * @inheritdoc
      */

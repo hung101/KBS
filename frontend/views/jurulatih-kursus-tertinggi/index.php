@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['create'])): ?>
         <p>
-            <?= Html::button(GeneralLabel::createTitle . ' Kelayakan Kursus Tertinggi', ['value'=>Url::to(['create']),'class' => 'btn btn-success', 'onclick' => 'updateRenderAjax("'.Url::to(['create']).'", "'.GeneralVariable::tabKelayakanKursusTertinggiID.'");']) ?>
+            <?= Html::button(GeneralLabel::createTitle . ' ' . GeneralLabel::kelayakan_kursus_tertinggi, ['value'=>Url::to(['create']),'class' => 'btn btn-success', 'onclick' => 'updateRenderAjax("'.Url::to(['create']).'", "'.GeneralVariable::tabKelayakanKursusTertinggiID.'");']) ?>
         </p>
     <?php endif; ?>
     

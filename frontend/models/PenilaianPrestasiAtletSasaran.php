@@ -67,4 +67,11 @@ class PenilaianPrestasiAtletSasaran extends \yii\db\ActiveRecord
     public function getRefAtlet(){
         return $this->hasOne(Atlet::className(), ['atlet_id' => 'atlet']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKeputusan(){
+        return $this->hasOne(RefKeputusan::className(), ['id' => 'keputusan']);
+    }
 }

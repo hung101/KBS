@@ -20,7 +20,7 @@ class PermohonanPeralatanSearch extends PermohonanPeralatan
     public function rules()
     {
         return [
-            [['permohonan_peralatan_id', 'jumlah_peralatan', 'kelulusan_id'], 'integer'],
+            [['permohonan_peralatan_id', 'jumlah_peralatan', 'kelulusan_id', 'mesyuarat_id'], 'integer'],
             [['cawangan', 'negeri', 'sukan', 'program', 'tarikh', 'aktiviti', 'nota_urus_setia', 'kelulusan'], 'safe'],
         ];
     }
@@ -61,12 +61,18 @@ class PermohonanPeralatanSearch extends PermohonanPeralatan
             // $query->where('0=1');
             return $dataProvider;
         }
+        
+        // sorting for JKK
+        if(isset($this->mesyuarat_id)){
+            $query->orderBy(['kelulusan' => SORT_DESC]);
+        }
 
         $query->andFilterWhere([
             'permohonan_peralatan_id' => $this->permohonan_peralatan_id,
             //'tarikh' => $this->tarikh,
             'jumlah_peralatan' => $this->jumlah_peralatan,
             'kelulusan' => $this->kelulusan_id,
+            'mesyuarat_id' => $this->mesyuarat_id,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_cawangan.desc', $this->cawangan])

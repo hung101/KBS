@@ -256,7 +256,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
-                ]
+                ],
+                 'contentOptions' => ['style' => 'width:220px;  min-width:200px;'],
             ],
             [
                 'attribute' => 'ic_no',
@@ -267,6 +268,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'passport_no',
+                'label' => GeneralLabel::passport_no,
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::passport_no,

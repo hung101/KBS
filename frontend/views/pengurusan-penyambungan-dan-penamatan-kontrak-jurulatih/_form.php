@@ -31,8 +31,15 @@ use app\models\general\GeneralMessage;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data'], 'id'=>$model->formName()]); ?>
     <?php
+    
+    $disabled = false;
+    
+    if(!$readonly && !$model->isNewRecord){
+        $disabled = true;
+    }
+    
         echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
@@ -54,7 +61,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Jurulatih::find()->all(),'jurulatih_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::jurulatih, 'id'=>'jurulatihId'],
+                        'options' => ['placeholder' => Placeholder::jurulatih, 'id'=>'jurulatihId'], 'disabled'=>$disabled,
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -409,6 +416,16 @@ $DateDisplayFormat = GeneralVariable::displayDateFormat;
 $URLJurulatihSukan = Url::to(['/jurulatih-sukan/get-jurulatih-sukan-acara']);
 
 $script = <<< JS
+        
+// enable all the disabled field before submit
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+    $("#jurulatihId").prop("disabled", false);
+    //$("#tempahankemudahan-location_alamat_bandar").prop("disabled", false);
+});
         
 $('#jurulatihId').change(function(){
         

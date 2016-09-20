@@ -760,7 +760,8 @@ use app\models\general\GeneralVariable;
                         'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ],
+                        'options'=>['disabled'=>true]
                     ],
                     'columnOptions'=>['colspan'=>3]],
             ]
@@ -813,6 +814,8 @@ $DateDisplayFormat = GeneralVariable::displayDateFormat;
 
 $script = <<< JS
  
+$.fn.modal.Constructor.prototype.enforceFocus = function () {};
+        
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 
     var form = $(this);

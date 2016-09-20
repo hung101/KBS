@@ -25,6 +25,10 @@ div.required label:after {
     transform: translate3d(0, 0, 0);
 }
 
+.select2-container--open {
+    z-index: 10003;          /* form dialog z-index:10002 (computed)*/
+}
+
 .gribview-column-number{
     text-align: right;
 }

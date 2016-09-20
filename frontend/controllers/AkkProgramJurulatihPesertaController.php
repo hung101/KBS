@@ -15,6 +15,8 @@ use app\models\general\GeneralVariable;
 use app\models\Jurulatih;
 use app\models\RefSukan;
 use app\models\RefAcara;
+use app\models\RefStatusJurulatih;
+use app\models\RefProgramJurulatih;
 
 /**
  * AkkProgramJurulatihPesertaController implements the CRUD actions for AkkProgramJurulatihPeserta model.
@@ -76,6 +78,12 @@ class AkkProgramJurulatihPesertaController extends Controller
         
         $ref = RefAcara::findOne(['id' => $model->acara]);
         $model->acara = $ref['desc'];
+        
+        $ref = RefStatusJurulatih::findOne(['id' => $model->status_jurulatih]);
+        $model->status_jurulatih = $ref['desc'];
+        
+        $ref = RefProgramJurulatih::findOne(['id' => $model->program]);
+        $model->program = $ref['desc'];
         
         return $this->renderAjax('view', [
             'model' => $model,

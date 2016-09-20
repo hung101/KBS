@@ -18,8 +18,8 @@ class PenilaianPrestasiAtletSasaranSearch extends PenilaianPrestasiAtletSasaran
     public function rules()
     {
         return [
-            [['penilaian_prestasi_atlet_sasaran_id', 'penilaian_pestasi_id', 'atlet', 'keputusan', 'created_by', 'updated_by'], 'integer'],
-            [['sasaran', 'session_id', 'created', 'updated'], 'safe'],
+            [['penilaian_prestasi_atlet_sasaran_id', 'penilaian_pestasi_id', 'created_by', 'updated_by'], 'integer'],
+            [['sasaran', 'session_id', 'created', 'updated', 'atlet', 'keputusan'], 'safe'],
         ];
     }
 
@@ -42,7 +42,8 @@ class PenilaianPrestasiAtletSasaranSearch extends PenilaianPrestasiAtletSasaran
     public function search($params)
     {
         $query = PenilaianPrestasiAtletSasaran::find()
-                ->joinWith(['refAtlet']);
+                ->joinWith(['refAtlet'])
+                ->joinWith(['refKeputusan']);
 
         // add conditions that should always apply here
 
@@ -62,8 +63,8 @@ class PenilaianPrestasiAtletSasaranSearch extends PenilaianPrestasiAtletSasaran
         $query->andFilterWhere([
             'penilaian_prestasi_atlet_sasaran_id' => $this->penilaian_prestasi_atlet_sasaran_id,
             'penilaian_pestasi_id' => $this->penilaian_pestasi_id,
-            'atlet' => $this->atlet,
-            'keputusan' => $this->keputusan,
+            //'atlet' => $this->atlet,
+            //'keputusan' => $this->keputusan,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created' => $this->created,
@@ -71,7 +72,9 @@ class PenilaianPrestasiAtletSasaranSearch extends PenilaianPrestasiAtletSasaran
         ]);
 
         $query->andFilterWhere(['like', 'sasaran', $this->sasaran])
-            ->andFilterWhere(['like', 'session_id', $this->session_id]);
+            ->andFilterWhere(['like', 'session_id', $this->session_id])
+                ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet])
+                ->andFilterWhere(['like', 'tbl_ref_keputusan.desc', $this->keputusan]);
 
         return $dataProvider;
     }

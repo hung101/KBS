@@ -20,8 +20,8 @@ class PerancanganProgramSearch extends PerancanganProgram
     public function rules()
     {
         return [
-            [['perancangan_program_id', 'status_program_id'], 'integer'],
-            [['tarikh_tamat', 'nama_program', 'muat_naik', 'tarikh_mula', 'status_program'], 'safe'],
+            [['perancangan_program_id', 'status_program_id', 'mesyuarat_id'], 'integer'],
+            [['tarikh_tamat', 'nama_program', 'muat_naik', 'tarikh_mula', 'status_program', 'sukan', 'jenis_program', 'lokasi'], 'safe'],
         ];
     }
 
@@ -44,7 +44,9 @@ class PerancanganProgramSearch extends PerancanganProgram
     public function search($params)
     {
         $query = PerancanganProgram::find()
-                ->joinWith(['refStatusProgram']);
+                ->joinWith(['refStatusProgram'])
+                ->joinWith(['refSukan'])
+                ->joinWith(['refProgramSemasaSukanAtlet']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,17 +59,26 @@ class PerancanganProgramSearch extends PerancanganProgram
             // $query->where('0=1');
             return $dataProvider;
         }
+        
+        // sorting for JKK
+        if(isset($this->mesyuarat_id)){
+            $query->orderBy(['status_program' => SORT_DESC]);
+        }
 
         $query->andFilterWhere([
             'perancangan_program_id' => $this->perancangan_program_id,
             'status_program' => $this->status_program_id,
+            'mesyuarat_id' => $this->mesyuarat_id,
         ]);
 
         $query->andFilterWhere(['like', 'nama_program', $this->nama_program])
             ->andFilterWhere(['like', 'muat_naik', $this->muat_naik])
                 ->andFilterWhere(['like', 'tarikh_tamat', $this->tarikh_tamat])
                 ->andFilterWhere(['like', 'tarikh_mula', $this->tarikh_mula])
-                ->andFilterWhere(['like', 'tbl_ref_status_program.desc', $this->status_program]);
+                ->andFilterWhere(['like', 'lokasi', $this->lokasi])
+                ->andFilterWhere(['like', 'tbl_ref_status_program.desc', $this->status_program])
+                ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
+                ->andFilterWhere(['like', 'tbl_ref_program_semasa_sukan_atlet.desc', $this->jenis_program]);
 
         return $dataProvider;
     }

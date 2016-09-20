@@ -9,7 +9,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Session;
+use yii\web\UploadedFile;
 
+use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 
 /**
@@ -109,14 +111,21 @@ class JurulatihKursusTertinggiController extends Controller
         $session->close();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            //return $this->redirect(['view', 'id' => $model->kursus_tertinggi_id]);
-            return self::actionView($model->kursus_tertinggi_id);
-        } else {
-            return $this->renderAjax('create', [
+            $file = UploadedFile::getInstance($model, 'muatnaik');
+            if($file){
+                $model->muatnaik = Upload::uploadFile($file, Upload::jurulatihKursusTertinggi, $model->kursus_tertinggi_id);
+            }
+            
+            if($model->save()){
+                //return $this->redirect(['view', 'id' => $model->kursus_tertinggi_id]);
+                return self::actionView($model->kursus_tertinggi_id);
+            }
+        } 
+        
+        return $this->renderAjax('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -132,8 +141,24 @@ class JurulatihKursusTertinggiController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        $existingMuatnaik = $model->muatnaik;
+        
+        if($model->load(Yii::$app->request->post())){
+            $file = UploadedFile::getInstance($model, 'muatnaik');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if($file){
+                //valid file to upload
+                //upload file to server
+                $model->muatnaik = Upload::uploadFile($file, Upload::jurulatihKursusTertinggi, $model->kursus_tertinggi_id);
+            } else {
+                //invalid file to upload
+                //remain existing file
+                $model->muatnaik = $existingMuatnaik;
+            }
+        }
+
+        if (Yii::$app->request->post() && $model->save()) {
             //return $this->redirect(['view', 'id' => $model->kursus_tertinggi_id]);
             return self::actionView($model->kursus_tertinggi_id);
         } else {

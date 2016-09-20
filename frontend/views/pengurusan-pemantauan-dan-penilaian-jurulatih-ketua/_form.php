@@ -18,7 +18,7 @@ use yii\web\Session;
 use app\models\Jurulatih;
 use app\models\RefSukan;
 use app\models\RefAcara;
-use app\models\RefPenilaianJurulatih;
+use app\models\RefPenilaianJurulatihKetua;
 
 // contant values
 use app\models\general\Placeholder;
@@ -105,6 +105,7 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
                         'pluginOptions' => [
+                            'initialize' => true,
                             'depends'=>[Html::getInputId($model, 'nama_sukan')],
                             'placeholder' => Placeholder::acara,
                             'url'=>Url::to(['/ref-acara/subacaras'])],
@@ -124,11 +125,11 @@ use app\models\general\GeneralMessage;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-penilaian-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-penilaian-jurulatih-ketua/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefPenilaianJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefPenilaianJurulatihKetua::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::penilaian],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -252,9 +253,9 @@ use app\models\general\GeneralMessage;
         }
         
         if($penilaian_oleh){
-            if (($modelRefPenilaianJurulatih = RefPenilaianJurulatih::findOne($penilaian_oleh)) !== null) {
-                $calculate_jumlah_permarkahan = (($calculate_jumlah_markah/180) * ($modelRefPenilaianJurulatih->markah_peratus/100)); // formula (x/180*5%)
-                echo "<h4>Jumlah Permarkahan (x/180*".$modelRefPenilaianJurulatih->markah_peratus."%): " . number_format($calculate_jumlah_permarkahan, 4) . "</h4>";
+            if (($modelRefPenilaianJurulatih = RefPenilaianJurulatihKetua::findOne($penilaian_oleh)) !== null) {
+                $calculate_jumlah_permarkahan = (($calculate_jumlah_markah/120) * ($modelRefPenilaianJurulatih->markah_peratus/100)); // formula (x/180*5%)
+                echo "<h4>Jumlah Permarkahan (x/120*".$modelRefPenilaianJurulatih->markah_peratus."%): " . number_format($calculate_jumlah_permarkahan, 4) . "</h4>";
             } 
         }
     

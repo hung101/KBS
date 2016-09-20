@@ -18,6 +18,7 @@ class PengurusanInsentifTetapanShakamShakarSearch extends PengurusanInsentifTeta
     public function rules()
     {
         return [
+            [['nilai_individu', 'nilai_berpasukan_kurang_5'], 'number'],
             [['pengurusan_insentif_tetapan_shakam_shakar_id', 'pengurusan_insentif_tetapan_id', 'created_by', 'updated_by'], 'integer'],
             [['kumpulan_temasya_kejohanan', 'session_id', 'jenis_insentif', 'pingat', 'rekod_baharu', 'created', 'updated', 'kejohanan', 'peringkat', 'kelas'], 'safe'],
         ];
@@ -83,7 +84,9 @@ class PengurusanInsentifTetapanShakamShakarSearch extends PengurusanInsentifTeta
                 ->andFilterWhere(['like', 'tbl_ref_pingat_insentif.desc', $this->pingat])
                 ->andFilterWhere(['like', 'tbl_ref_insentif_kejohanan.desc', $this->kejohanan])
                 ->andFilterWhere(['like', 'tbl_ref_insentif_peringkat.desc', $this->peringkat])
-                ->andFilterWhere(['like', 'tbl_ref_insentif_kelas.desc', $this->kelas]);
+                ->andFilterWhere(['like', 'tbl_ref_insentif_kelas.desc', $this->kelas])
+                ->andFilterWhere(['like', 'nilai_individu', $this->nilai_individu])
+                ->andFilterWhere(['like', 'nilai_berpasukan_kurang_5', $this->nilai_berpasukan_kurang_5]);
 
         return $dataProvider;
     }

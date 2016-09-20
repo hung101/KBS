@@ -310,7 +310,7 @@ use app\models\general\GeneralVariable;
                         'options' => ['id'=>'TarikhLahirID'],
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'tempat_lahir' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>90,'hint'=>'cth: Tapah, Perak @ Bandung, Indonesia']],
+                'tempat_lahir' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>90],'hint'=>'cth: Tapah, Perak @ Bandung, Indonesia'],
             ]
         ],
         [

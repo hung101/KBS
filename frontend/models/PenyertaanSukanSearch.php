@@ -18,7 +18,7 @@ class PenyertaanSukanSearch extends PenyertaanSukan
     public function rules()
     {
         return [
-            [['penyertaan_sukan_id'], 'integer'],
+            [['penyertaan_sukan_id', 'mesyuarat_id'], 'integer'],
             [['nama_sukan', 'tempat_penginapan', 'tempat_latihan', 'nama_atlet', 'nama_pegawai', 'jawatan_pegawai', 'nama_pengurus_sukan', 'nama_sukarelawan'], 'safe'],
         ];
     }
@@ -58,6 +58,7 @@ class PenyertaanSukanSearch extends PenyertaanSukan
 
         $query->andFilterWhere([
             'penyertaan_sukan_id' => $this->penyertaan_sukan_id,
+            'mesyuarat_id' => $this->mesyuarat_id,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->nama_sukan])

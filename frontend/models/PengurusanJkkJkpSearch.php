@@ -60,7 +60,7 @@ class PengurusanJkkJkpSearch extends PengurusanJkkJkp
 
         $query->andFilterWhere([
             'pengurusan_jkk_jkp_id' => $this->pengurusan_jkk_jkp_id,
-            'tarikh_pelantikan_jkk_jkp' => $this->tarikh_pelantikan_jkk_jkp,
+            //'tarikh_pelantikan_jkk_jkp' => $this->tarikh_pelantikan_jkk_jkp,
             'tempoh_hak_jkk_jkp' => $this->tempoh_hak_jkk_jkp,
             'tarikh_pelantikan' => $this->tarikh_pelantikan,
             'tempoh_hak' => $this->tempoh_hak,
@@ -75,7 +75,8 @@ class PengurusanJkkJkpSearch extends PengurusanJkkJkp
             ->andFilterWhere(['like', 'sukan', $this->sukan])
             ->andFilterWhere(['like', 'nama_acara', $this->nama_acara])
             ->andFilterWhere(['like', 'nama_atlet', $this->nama_atlet])
-            ->andFilterWhere(['like', 'nama_jurulatih', $this->nama_jurulatih]);
+            ->andFilterWhere(['like', 'nama_jurulatih', $this->nama_jurulatih])
+            ->andFilterWhere(['like', 'tarikh_pelantikan_jkk_jkp', $this->tarikh_pelantikan_jkk_jkp]);
 
         return $dataProvider;
     }

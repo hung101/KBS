@@ -9,6 +9,7 @@ use app\models\ElaunJurulatih;
 use frontend\models\ElaunJurulatihSearch;
 use app\models\GajiJurulatih;
 use frontend\models\GajiJurulatihSearch;
+use app\models\JurulatihSukan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -23,6 +24,7 @@ use app\models\Jurulatih;
 use app\models\RefBank;
 use app\models\RefSukan;
 use app\models\RefProgramJurulatih;
+use app\models\RefGajiElaunJurulatih;
 
 /**
  * GajiDanElaunJurulatihController implements the CRUD actions for GajiDanElaunJurulatih model.
@@ -148,6 +150,56 @@ class GajiDanElaunJurulatihController extends Controller
                 $model->dokumen_muat_naik = Upload::uploadFile($file, Upload::gajiDanElaunJurulatihFolder, $model->gaji_dan_elaun_jurulatih_id);
             }
             
+            // update jurulatih profil Sukan dan Program - Elaun
+            $modelElaunJurulatihs = ElaunJurulatih::findAll([
+                    'gaji_dan_elaun_jurulatih_id' => $model->gaji_dan_elaun_jurulatih_id,
+                ]);
+            
+            foreach($modelElaunJurulatihs as $modelElaunJurulatih){
+                $modelJurulatihSukan = null;
+                if (($modelJurulatihSukan = JurulatihSukan::find()->where(['jurulatih_id'=>$model->nama_jurulatih])
+                                                                    ->andWhere(['gaji_dan_elaun_jurulatih_id'=>$model->gaji_dan_elaun_jurulatih_id])
+                                                                    ->andWhere(['gaji_elaun'=>RefGajiElaunJurulatih::ELAUN])
+                                                                    ->andWhere(['elaun_jurulatih_id'=>$modelElaunJurulatih->elaun_jurulatih_id])->one()) == null) {
+                    $modelJurulatihSukan = new JurulatihSukan();
+                }
+                $modelJurulatihSukan->jurulatih_id = $model->nama_jurulatih;
+                $modelJurulatihSukan->tarikh_mula_lantikan = $modelElaunJurulatih->tarikh_mula;
+                $modelJurulatihSukan->tarikh_tamat_lantikan = $modelElaunJurulatih->tarikh_tamat;
+                $modelJurulatihSukan->jumlah = $modelElaunJurulatih->jumlah_elaun;
+                $modelJurulatihSukan->program = $model->program;
+                $modelJurulatihSukan->sukan = $model->nama_sukan;
+                $modelJurulatihSukan->gaji_dan_elaun_jurulatih_id = $model->gaji_dan_elaun_jurulatih_id;
+                $modelJurulatihSukan->elaun_jurulatih_id = $modelElaunJurulatih->elaun_jurulatih_id;
+                $modelJurulatihSukan->gaji_elaun = RefGajiElaunJurulatih::ELAUN;
+                $modelJurulatihSukan->save();
+            }
+            
+            // update jurulatih profil Sukan dan Program - Gaji
+            $modelGajiJurulatihs = GajiJurulatih::findAll([
+                    'gaji_dan_elaun_jurulatih_id' => $model->gaji_dan_elaun_jurulatih_id,
+                ]);
+            
+            foreach($modelGajiJurulatihs as $modelGajiJurulatih){
+                $modelJurulatihSukan = null;
+                if (($modelJurulatihSukan = JurulatihSukan::find()->where(['jurulatih_id'=>$model->nama_jurulatih])
+                                                                    ->andWhere(['gaji_dan_elaun_jurulatih_id'=>$model->gaji_dan_elaun_jurulatih_id])
+                                                                    ->andWhere(['gaji_elaun'=>RefGajiElaunJurulatih::GAJI])
+                                                                    ->andWhere(['gaji_jurulatih_id'=>$modelGajiJurulatih->gaji_jurulatih_id])->one()) == null) {
+                    $modelJurulatihSukan = new JurulatihSukan();
+                }
+                $modelJurulatihSukan->jurulatih_id = $model->nama_jurulatih;
+                $modelJurulatihSukan->tarikh_mula_lantikan = $modelGajiJurulatih->tarikh_mula;
+                $modelJurulatihSukan->tarikh_tamat_lantikan = $modelGajiJurulatih->tarikh_tamat;
+                $modelJurulatihSukan->jumlah = $modelGajiJurulatih->jumlah;
+                $modelJurulatihSukan->program = $model->program;
+                $modelJurulatihSukan->sukan = $model->nama_sukan;
+                $modelJurulatihSukan->gaji_dan_elaun_jurulatih_id = $model->gaji_dan_elaun_jurulatih_id;
+                $modelJurulatihSukan->gaji_jurulatih_id = $modelGajiJurulatih->gaji_jurulatih_id;
+                $modelJurulatihSukan->gaji_elaun = RefGajiElaunJurulatih::GAJI;
+                $modelJurulatihSukan->save();
+            }
+            
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->gaji_dan_elaun_jurulatih_id]);
             }
@@ -192,6 +244,56 @@ class GajiDanElaunJurulatihController extends Controller
             $file = UploadedFile::getInstance($model, 'dokumen_muat_naik');
             if($file){
                 $model->dokumen_muat_naik = Upload::uploadFile($file, Upload::gajiDanElaunJurulatihFolder, $model->gaji_dan_elaun_jurulatih_id);
+            }
+            
+            // update jurulatih profil Sukan dan Program - Elaun
+            $modelElaunJurulatihs = ElaunJurulatih::findAll([
+                    'gaji_dan_elaun_jurulatih_id' => $model->gaji_dan_elaun_jurulatih_id,
+                ]);
+            
+            foreach($modelElaunJurulatihs as $modelElaunJurulatih){
+                $modelJurulatihSukan = null;
+                if (($modelJurulatihSukan = JurulatihSukan::find()->where(['jurulatih_id'=>$model->nama_jurulatih])
+                                                                    ->andWhere(['gaji_dan_elaun_jurulatih_id'=>$model->gaji_dan_elaun_jurulatih_id])
+                                                                    ->andWhere(['gaji_elaun'=>RefGajiElaunJurulatih::ELAUN])
+                                                                    ->andWhere(['elaun_jurulatih_id'=>$modelElaunJurulatih->elaun_jurulatih_id])->one()) == null) {
+                    $modelJurulatihSukan = new JurulatihSukan();
+                }
+                $modelJurulatihSukan->jurulatih_id = $model->nama_jurulatih;
+                $modelJurulatihSukan->tarikh_mula_lantikan = $modelElaunJurulatih->tarikh_mula;
+                $modelJurulatihSukan->tarikh_tamat_lantikan = $modelElaunJurulatih->tarikh_tamat;
+                $modelJurulatihSukan->jumlah = $modelElaunJurulatih->jumlah_elaun;
+                $modelJurulatihSukan->program = $model->program;
+                $modelJurulatihSukan->sukan = $model->nama_sukan;
+                $modelJurulatihSukan->gaji_dan_elaun_jurulatih_id = $model->gaji_dan_elaun_jurulatih_id;
+                $modelJurulatihSukan->elaun_jurulatih_id = $modelElaunJurulatih->elaun_jurulatih_id;
+                $modelJurulatihSukan->gaji_elaun = RefGajiElaunJurulatih::ELAUN;
+                $modelJurulatihSukan->save();
+            }
+            
+            // update jurulatih profil Sukan dan Program - Gaji
+            $modelGajiJurulatihs = GajiJurulatih::findAll([
+                    'gaji_dan_elaun_jurulatih_id' => $model->gaji_dan_elaun_jurulatih_id,
+                ]);
+            
+            foreach($modelGajiJurulatihs as $modelGajiJurulatih){
+                $modelJurulatihSukan = null;
+                if (($modelJurulatihSukan = JurulatihSukan::find()->where(['jurulatih_id'=>$model->nama_jurulatih])
+                                                                    ->andWhere(['gaji_dan_elaun_jurulatih_id'=>$model->gaji_dan_elaun_jurulatih_id])
+                                                                    ->andWhere(['gaji_elaun'=>RefGajiElaunJurulatih::GAJI])
+                                                                    ->andWhere(['gaji_jurulatih_id'=>$modelGajiJurulatih->gaji_jurulatih_id])->one()) == null) {
+                    $modelJurulatihSukan = new JurulatihSukan();
+                }
+                $modelJurulatihSukan->jurulatih_id = $model->nama_jurulatih;
+                $modelJurulatihSukan->tarikh_mula_lantikan = $modelGajiJurulatih->tarikh_mula;
+                $modelJurulatihSukan->tarikh_tamat_lantikan = $modelGajiJurulatih->tarikh_tamat;
+                $modelJurulatihSukan->jumlah = $modelGajiJurulatih->jumlah;
+                $modelJurulatihSukan->program = $model->program;
+                $modelJurulatihSukan->sukan = $model->nama_sukan;
+                $modelJurulatihSukan->gaji_dan_elaun_jurulatih_id = $model->gaji_dan_elaun_jurulatih_id;
+                $modelJurulatihSukan->gaji_jurulatih_id = $modelGajiJurulatih->gaji_jurulatih_id;
+                $modelJurulatihSukan->gaji_elaun = RefGajiElaunJurulatih::GAJI;
+                $modelJurulatihSukan->save();
             }
             
             if($model->save()){

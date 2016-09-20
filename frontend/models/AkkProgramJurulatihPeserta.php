@@ -52,7 +52,7 @@ class AkkProgramJurulatihPeserta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['akk_program_jurulatih_id', 'jurulatih', 'sukan', 'acara', 'created_by', 'updated_by'], 'integer'],
+            [['akk_program_jurulatih_id', 'jurulatih', 'sukan', 'acara', 'created_by', 'updated_by', 'program', 'status_jurulatih'], 'integer'],
             [['created', 'updated'], 'safe'],
             [['session_id'], 'string', 'max' => 100],
         ];
@@ -69,6 +69,8 @@ class AkkProgramJurulatihPeserta extends \yii\db\ActiveRecord
             'jurulatih' => 'Jurulatih',
             'sukan' => 'Sukan',
             'acara' => 'Acara',
+            'program' => 'Program',
+            'status_jurulatih' => 'Status Jurulatih',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

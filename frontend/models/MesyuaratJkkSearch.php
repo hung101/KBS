@@ -44,7 +44,8 @@ class MesyuaratJkkSearch extends MesyuaratJkk
     {
         $query = MesyuaratJkk::find()
                 ->joinWith(['refTempatJkk'])
-                ->joinWith(['refFasa']);
+                ->joinWith(['refFasa'])
+                ->joinWith(['refBilJkk']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -64,8 +65,7 @@ class MesyuaratJkkSearch extends MesyuaratJkk
             'masa' => $this->masa,
         ]);
 
-        $query->andFilterWhere(['like', 'bil_mesyuarat', $this->bil_mesyuarat])
-            ->andFilterWhere(['like', 'tbl_ref_tempat_jkk.desc', $this->tempat])
+        $query->andFilterWhere(['like', 'tbl_ref_tempat_jkk.desc', $this->tempat])
             ->andFilterWhere(['like', 'pengurusi', $this->pengurusi])
             ->andFilterWhere(['like', 'pencatat_minit', $this->pencatat_minit])
             ->andFilterWhere(['like', 'perkara_perkara_dan_tindakan', $this->perkara_perkara_dan_tindakan])
@@ -73,7 +73,8 @@ class MesyuaratJkkSearch extends MesyuaratJkk
             ->andFilterWhere(['like', 'mesyuarat_seterusnya', $this->mesyuarat_seterusnya])
             ->andFilterWhere(['like', 'disedia_oleh', $this->disedia_oleh])
             ->andFilterWhere(['like', 'disemak_oleh', $this->disemak_oleh])
-                ->andFilterWhere(['like', 'tbl_ref_fasa.dec', $this->fasa]);
+                ->andFilterWhere(['like', 'tbl_ref_fasa.dec', $this->fasa])
+                ->andFilterWhere(['like', 'tbl_ref_bil_jkk.dec', $this->bil_mesyuarat]);
 
         return $dataProvider;
     }

@@ -58,13 +58,6 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefJenisCawanganKuasaJkkJkp::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jenisCawanganKuasa],],
                     'columnOptions'=>['colspan'=>3]],
-                
-            ],
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
                 'tarikh_pelantikan_jkk_jkp' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -75,7 +68,15 @@ use app\models\general\GeneralMessage;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                //'tempoh_hak_jkk_jkp' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>11]],
+                
+            ],
+        ],
+        /*[
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                
+                'tempoh_hak_jkk_jkp' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>11]],
                 'status' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -91,7 +92,7 @@ use app\models\general\GeneralMessage;
                         'options' => ['placeholder' => Placeholder::status],],
                     'columnOptions'=>['colspan'=>3]],
             ]
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -143,7 +144,7 @@ use app\models\general\GeneralMessage;
                         'options' => ['placeholder' => Placeholder::peranan],],
                     'columnOptions'=>['colspan'=>3]],
                 'peranan_lain' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true],'hint'=>'Cth: Jemputan / Turut Hadir'],
-                'tempoh_hak' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>11]],
+                //'tempoh_hak' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>11]],
             ]
         ],
         [
@@ -190,7 +191,7 @@ use app\models\general\GeneralMessage;
    
    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-jkk-jkp']['status_pilihan']) || $readonly): ?>
     <?php
-        echo FormGrid::widget([
+        /*echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -203,7 +204,7 @@ use app\models\general\GeneralMessage;
             ]
         ],
     ]
-]);
+]);*/
     ?>
     <?php endif; ?>
     

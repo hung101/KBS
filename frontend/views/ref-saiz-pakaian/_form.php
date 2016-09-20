@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 use kartik\helpers\Html;
 use kartik\widgets\Select2;
 
-use app\models\RefSaizPakaian;
+use app\models\RefJenisPakaian;
 use app\models\general\GeneralLabel;
 use app\models\general\Placeholder;
 
@@ -19,7 +19,7 @@ use app\models\general\Placeholder;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?php /*echo $form->field($model, 'ref_jenis_pakaian_id')->widget(Select2::classname(), [
+    <?php echo $form->field($model, 'ref_jenis_pakaian_id')->widget(Select2::classname(), [
     	'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
         [
             'append' => [
@@ -27,12 +27,12 @@ use app\models\general\Placeholder;
                 'asButton' => true
             ]
         ] : null,
-	    'data' => ArrayHelper::map(RefSaizPakaian::find()->all(),'id', 'desc'),
-	    'options' => ['placeholder' => Placeholder::saizPakaian],
+	    'data' => ArrayHelper::map(RefJenisPakaian::find()->all(),'id', 'desc'),
+	    'options' => ['placeholder' => Placeholder::jenisPakaian],
 	    'pluginOptions' => [
 	        'allowClear' => true
 	    ],
-	]);*/ ?>
+	]); ?>
 
     <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>
 

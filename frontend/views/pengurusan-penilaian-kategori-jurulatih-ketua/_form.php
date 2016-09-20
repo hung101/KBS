@@ -10,8 +10,8 @@ use kartik\widgets\DepDrop;
 use yii\helpers\Url;
 
 // table reference
-use app\models\RefKategoriPenilaianJurulatih;
-use app\models\RefSubKategoriPenilaianJurulatih;
+use app\models\RefKategoriPenilaianJurulatihKetua;
+use app\models\RefSubKategoriPenilaianJurulatihKetua;
 
 // contant values
 use app\models\general\Placeholder;
@@ -50,7 +50,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefKategoriPenilaianJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefKategoriPenilaianJurulatihKetua::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kategoriPenilaian],],
                     'columnOptions'=>['colspan'=>4]],
                 'penilaian_sub_kategori' => [
@@ -62,19 +62,19 @@ use app\models\general\GeneralMessage;
                             'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                             [
                                 'append' => [
-                                    'content' => Html::a(Html::icon('edit'), ['/ref-sub-kategori-penilaian-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'content' => Html::a(Html::icon('edit'), ['/ref-sub-kategori-penilaian-jurulatih-ketua/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                     'asButton' => true
                                 ]
                             ] : null,
                         ],
-                        'data'=>ArrayHelper::map(RefSubKategoriPenilaianJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefSubKategoriPenilaianJurulatihKetua::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
                         'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'penilaian_kategori')],
                             'initialize' => true,
                             'placeholder' => Placeholder::subKategoriPenilaian,
-                            'url'=>Url::to(['/ref-sub-kategori-penilaian-jurulatih/subkategori'])],
+                            'url'=>Url::to(['/ref-sub-kategori-penilaian-jurulatih-ketua/subkategori'])],
                         ],
                     'columnOptions'=>['colspan'=>5]],
                 'markah_penilaian' => [

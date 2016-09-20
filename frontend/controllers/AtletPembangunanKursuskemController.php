@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use Yii;
 use app\models\AtletPembangunanKursuskem;
 use app\models\AtletPembangunanKursuskemSearch;
+use app\models\PengurusanProgramBinaan;
+use frontend\models\PengurusanProgramBinaanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -56,16 +58,22 @@ class AtletPembangunanKursuskemController extends Controller
 
         if(isset($session['atlet_id'])){
             $queryPar['AtletPembangunanKursuskemSearch']['atlet_id'] = $session['atlet_id'];
+            $queryPar['PengurusanProgramBinaanSearch']['atlet_id'] = $session['atlet_id'];
         }
         
         $session->close();
         
         $searchModel = new AtletPembangunanKursuskemSearch();
         $dataProvider = $searchModel->search($queryPar);
+        
+        $searchModelPB = new PengurusanProgramBinaanSearch();
+        $dataProviderPB = $searchModelPB->search($queryPar);
 
         $renderContent = $this->renderAjax('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'searchModelPB' => $searchModelPB,
+            'dataProviderPB' => $dataProviderPB,
         ]);
 
         if($request->get('typeJson') != NULL){

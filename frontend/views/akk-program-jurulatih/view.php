@@ -23,13 +23,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->akk_program_jurulatih_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['akk-program-jurulatih']['delete'])): ?>
-            <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->akk_program_jurulatih_id], [
+            <?php /*echo Html::a(GeneralLabel::delete, ['delete', 'id' => $model->akk_program_jurulatih_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
                     'confirm' => GeneralMessage::confirmDelete,
                     'method' => 'post',
                 ],
-            ]) ?>
+            ]);*/ ?>
         <?php endif; ?>
         <?= Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'window.print();' ]); ?>
     </p>

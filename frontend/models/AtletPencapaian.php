@@ -56,7 +56,7 @@ class AtletPencapaian extends \yii\db\ActiveRecord
     {
         return [
             [['atlet_id', 'nama_kejohanan_temasya', 'peringkat_kejohanan', 'tarikh_mula_kejohanan', 'tarikh_tamat_kejohanan', 'nama_sukan', 'nama_acara', 'lokasi_kejohanan', 'pencapaian', 'jenis_rekod'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id', 'insentif_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['atlet_id', 'insentif_id', 'penilaian_pestasi_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_mula_kejohanan', 'tarikh_tamat_kejohanan'], 'safe'],
             [['nama_kejohanan_temasya'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['peringkat_kejohanan', 'nama_sukan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],

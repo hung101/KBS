@@ -23,7 +23,7 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
     {
         return [
             [['jumlah_yang_diluluskan'], 'number'],
-            [['pengurusan_program_binaan_id', 'status_permohonan_id', 'created_by', 'atlet_id', 'kategori_peserta'], 'integer'],
+            [['pengurusan_program_binaan_id', 'status_permohonan_id', 'created_by', 'atlet_id', 'kategori_peserta', 'mesyuarat_id'], 'integer'],
             [['nama_ppn', 'pengurus_pn', 'kategori_permohonan', 'jenis_permohonan', 'sukan', 'tempat', 'tahap', 'negeri', 'daerah', 'tarikh_mula', 'tarikh_tamat',
                 'sokongan_pn', 'kelulusan', 'status_permohonan', 'aktiviti', 'nama_aktiviti'], 'safe'],
         ];
@@ -53,7 +53,8 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
                 ->joinWith(['refSokongPn'])
                 ->joinWith(['refKelulusanProgramBinaan'])
                 ->joinWith(['refStatusPermohonanProgramBinaan'])
-                ->joinWith(['refPerancanganProgram']);
+                ->joinWith(['refPerancanganProgram'])
+                ->joinWith(['refPengurusanProgramBinaanAtlet']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -66,6 +67,11 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
             // $query->where('0=1');
             return $dataProvider;
         }
+        
+        // sorting for JKK
+        if(isset($this->mesyuarat_id)){
+            $query->orderBy(['status_permohonan' => SORT_DESC]);
+        }
 
         $query->andFilterWhere([
             'pengurusan_program_binaan_id' => $this->pengurusan_program_binaan_id,
@@ -73,6 +79,8 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
             //'kelulusan' => $this->kelulusan,
             'status_permohonan' => $this->status_permohonan_id,
             'tbl_pengurusan_program_binaan.created_by' => $this->created_by,
+            'tbl_pengurusan_program_binaan_atlet.atlet_id' => $this->atlet_id,
+            'tbl_pengurusan_program_binaan.mesyuarat_id' => $this->mesyuarat_id,
         ]);
 
         $query->andFilterWhere(['like', 'nama_ppn', $this->nama_ppn])

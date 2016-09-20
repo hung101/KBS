@@ -14,6 +14,13 @@ use yii\web\Session;
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
 
+// table reference
+use app\models\RefJenisInsentif;
+use app\models\RefPingatInsentif;
+use app\models\RefInsentifKejohanan;
+use app\models\RefInsentifPeringkat;
+use app\models\RefInsentifKelas;
+
 /**
  * PengurusanInsentifTetapanShakamShakarController implements the CRUD actions for PengurusanInsentifTetapanShakamShakar model.
  */
@@ -64,8 +71,25 @@ class PengurusanInsentifTetapanShakamShakarController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $model = $this->findModel($id);
+        
+        $ref = RefJenisInsentif::findOne(['id' => $model->jenis_insentif]);
+        $model->jenis_insentif = $ref['desc'];
+        
+        $ref = RefPingatInsentif::findOne(['id' => $model->pingat]);
+        $model->pingat = $ref['desc'];
+        
+        $ref = RefInsentifKejohanan::findOne(['id' => $model->kejohanan]);
+        $model->kejohanan = $ref['desc'];
+        
+        $ref = RefInsentifPeringkat::findOne(['id' => $model->peringkat]);
+        $model->peringkat = $ref['desc'];
+        
+        $ref = RefInsentifKelas::findOne(['id' => $model->kelas]);
+        $model->kelas = $ref['desc'];
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

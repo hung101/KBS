@@ -49,7 +49,7 @@ use app\models\general\GeneralMessage;
         if(isset($session['atlet_cacat']) && $session['atlet_cacat']){
             $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all();
         } else {
-            $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->all();
+            $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all();
         }
         
         // add filter base on sukan access role in tbl_user->sukan - START
@@ -67,7 +67,7 @@ use app\models\general\GeneralMessage;
             if(isset($session['atlet_cacat']) && $session['atlet_cacat']){
                 $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->andFilterWhere(['id'=>$arr_sukan_filter])->all();
             } else {
-                $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andFilterWhere(['id'=>$arr_sukan_filter])->all();
+                $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->andFilterWhere(['id'=>$arr_sukan_filter])->all();
             }
         }
         // add filter base on sukan access role in tbl_user->sukan - END
@@ -75,7 +75,11 @@ use app\models\general\GeneralMessage;
     ?>
     
     <?php
-        $program_list = RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->andWhere('podium = :podium', [':podium' => 0])->all();
+        if(isset($session['atlet_cacat']) && $session['atlet_cacat']){
+            $program_list = RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->andWhere('podium = :podium', [':podium' => 0])->all();
+        } else {
+            $program_list = RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->andWhere('podium = :podium', [':podium' => 0])->all();
+        }
         
         // add filter base on sukan access role Atlet -> Podium Kemas Kini - START
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])){
@@ -89,7 +93,11 @@ use app\models\general\GeneralMessage;
                     array_push($arr_sukan_filter,$arr_sukan);
             }
             
-            $program_list = RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->all();
+            if(isset($session['atlet_cacat']) && $session['atlet_cacat']){
+                $program_list = RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all();
+            } else {
+                $program_list = RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all();
+            }
         }
         // add filter base on sukan access role Atlet -> Podium Kemas Kini - END
         
@@ -105,6 +113,23 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'program_semasa' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-program-semasa-sukan-atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map($program_list,'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::program],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>4]],
                 'nama_sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -146,30 +171,13 @@ use app\models\general\GeneralMessage;
                             'url'=>Url::to(['/ref-acara/subacaras'])],
                         ],
                     'columnOptions'=>['colspan'=>4]],
-                'jurulatih_id' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(Jurulatih::find()->all(),'jurulatih_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::jurulatih],
-                        'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
-                    'columnOptions'=>['colspan'=>6]],
+                
             ],
         ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'tahun_umur_permulaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>4]],
                 'tarikh_mula_menyertai_program_msn' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -190,12 +198,30 @@ use app\models\general\GeneralMessage;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
+                'tahun_umur_permulaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>4]],
             ]
         ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'jurulatih_id' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(Jurulatih::find()->all(),'jurulatih_id', 'nameAndIC'),
+                        'options' => ['placeholder' => Placeholder::jurulatih],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>6]],
                 'cawangan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -212,24 +238,8 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>4]],
-                'program_semasa' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-program-semasa-sukan-atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map($program_list,'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::program],
-                        'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>3]],
+                
                 'source' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -246,7 +256,7 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>3]],
             ]
         ],
         [

@@ -50,6 +50,10 @@ $this->params['breadcrumbs'][] = $this->title;
         
     ?>
     
+    <?php if($modelJurulatih !== null && $modelJurulatih->nama): ?>
+    <h3><?=$modelJurulatih->nama?></h3>
+    <?php endif; ?>
+    
     <?php
         if($modelJurulatih !== null && $modelJurulatih->gambar){
             echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$modelJurulatih->gambar.'" width="200px">&nbsp;&nbsp;&nbsp;';
