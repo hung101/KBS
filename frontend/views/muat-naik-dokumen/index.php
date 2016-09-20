@@ -52,6 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::temasya,
                 ],
+                'value' => 'refPengurusanJawatankuasaKhasSukanMalaysia.temasya'
             ],
             [
                 'attribute' => 'tarikh_mula',

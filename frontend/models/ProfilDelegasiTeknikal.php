@@ -113,4 +113,11 @@ class ProfilDelegasiTeknikal extends \yii\db\ActiveRecord
     public function getRefSukan(){
         return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefPengurusanJawatankuasaKhasSukanMalaysia(){
+        return $this->hasOne(PengurusanJawatankuasaKhasSukanMalaysia::className(), ['pengurusan_jawatankuasa_khas_sukan_malaysia_id' => 'temasya']);
+    }
 }

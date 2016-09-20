@@ -11,6 +11,7 @@ use kartik\datecontrol\DateControl;
 // table reference
 use app\models\RefKategoriMuatnaik;
 use app\models\RefNegeri;
+use app\models\PengurusanJawatankuasaKhasSukanMalaysia;
 
 // contant values
 use app\models\general\Placeholder;
@@ -39,7 +40,23 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'temasya' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80], 'hint'=>'Cth: Sukan Malaysia ke-18'],
+                'temasya' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(PengurusanJawatankuasaKhasSukanMalaysia::find()->all(),'pengurusan_jawatankuasa_khas_sukan_malaysia_id', 'temasya'),
+                        'options' => ['placeholder' => Placeholder::temasya],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                    'columnOptions'=>['colspan'=>3]],
                 'negeri' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -52,7 +69,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
+                        'options' => ['placeholder' => Placeholder::negeri],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],
@@ -100,7 +120,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriMuatnaik::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategoriMuatNaik],],
+                        'options' => ['placeholder' => Placeholder::kategoriMuatNaik],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
                     'columnOptions'=>['colspan'=>4]],
                 'kategori_dokumen_nyatakan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
                  /*'tarikh_muat_naik' => [

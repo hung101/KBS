@@ -23,6 +23,7 @@ use app\models\RefPeringkatBadanSukan;
 use app\models\RefSukan;
 use app\models\RefBandar;
 use app\models\ProfilBadanSukan;
+use app\models\PengurusanJawatankuasaKhasSukanMalaysia;
 
 /**
  * ProfilDelegasiTeknikalController implements the CRUD actions for ProfilDelegasiTeknikal model.
@@ -100,6 +101,9 @@ class ProfilDelegasiTeknikalController extends Controller
         
         $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
         $model->alamat_bandar = $ref['desc'];
+        
+        $ref = PengurusanJawatankuasaKhasSukanMalaysia::findOne(['pengurusan_jawatankuasa_khas_sukan_malaysia_id' => $model->temasya]);
+        $model->temasya = $ref['temasya'];
         
         return $this->render('view', [
             'model' => $model,

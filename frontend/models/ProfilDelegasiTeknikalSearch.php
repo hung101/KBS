@@ -43,7 +43,8 @@ class ProfilDelegasiTeknikalSearch extends ProfilDelegasiTeknikal
     {
         $query = ProfilDelegasiTeknikal::find()
                 ->joinWith(['refNegeri'])
-                 ->joinWith(['refSukan']);
+                 ->joinWith(['refSukan'])
+                ->joinWith(['refPengurusanJawatankuasaKhasSukanMalaysia']);
 
         // add conditions that should always apply here
 
@@ -70,7 +71,7 @@ class ProfilDelegasiTeknikalSearch extends ProfilDelegasiTeknikal
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'temasya', $this->temasya])
+        $query//->andFilterWhere(['like', 'temasya', $this->temasya])
             ->andFilterWhere(['like', 'tbl_ref_negeri.desc', $this->negeri])
             ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
             ->andFilterWhere(['like', 'peringkat', $this->peringkat])
@@ -81,7 +82,8 @@ class ProfilDelegasiTeknikalSearch extends ProfilDelegasiTeknikal
             ->andFilterWhere(['like', 'alamat_negeri', $this->alamat_negeri])
             ->andFilterWhere(['like', 'alamat_bandar', $this->alamat_bandar])
             ->andFilterWhere(['like', 'tarikh_mula', $this->tarikh_mula])
-                ->andFilterWhere(['like', 'tarikh_tamat', $this->tarikh_tamat]);
+                ->andFilterWhere(['like', 'tarikh_tamat', $this->tarikh_tamat])
+                ->andFilterWhere(['like', 'tbl_pengurusan_jawatankuasa_khas_sukan_malaysia.temasya', $this->temasya]);
 
         return $dataProvider;
     }

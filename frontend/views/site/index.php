@@ -187,7 +187,7 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
     ],
     'options' => [
         'height' => 100,
-        'id'=>'chartPerbandingan',
+        'id'=>'chartPerbandingan102',
     ],
     'data' => [
         'labels' => ["Permohonan", "Cadangan", "Kelulusan", "Perbelanjaan"],
@@ -212,6 +212,7 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
     ],
 ]);*/
 ?>
+                    
                     <!--<div id="chartLegend_chartPerbandingan" class="chart-legend"></div>
                   </div>
                   <!-- /.chart-responsive -->
@@ -911,21 +912,19 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
             
             
           ?>
-          <div class="box box-<?=$dashboard_box_color;?>">
-            <div class="box-header with-border">
-              <h3 class="box-title"><i class="fa fa-pie-chart"></i>  <?=GeneralLabel::insentif?></h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body nav-tabs-custom">
+          
+          <div class="box-body nav-tabs-custom">
+                <ul class="nav nav-tabs pull-right">
+                    <li class="active"><a id="tab1" href="#insentif_tahun_1-chart" data-toggle="tab"><?=date("Y")?></a></li>
+                    <li><a id="tab2" href="#insentif_tahun_1-chart" data-toggle="tab"><?=date("Y",strtotime("-1 year"))?></a></li>
+                    <li><a id="tab3" href="#insentif_tahun_1-chart" data-toggle="tab"><?=date("Y",strtotime("-2 year"))?></a></li>
+                    <li><a id="tab4" href="#insentif_tahun_1-chart" data-toggle="tab"><?=date("Y",strtotime("-3 year"))?></a></li>
+                    <li class="pull-left header"><?=GeneralLabel::statistik?></li>
+                  </ul>
                   <div class="tab-content no-padding">
                     <!-- Morris chart - Sales -->
-                    <div class="chart tab-pane active" id="jurulatih_status-chart" style="position: relative;">
+                    <div class="chart tab-pane active" id="insentif_tahun_1-chart" style="position: relative;">
+                        <br>
                         <div class="row">
                             <div class="col-lg-8">
                                 <?php
@@ -952,26 +951,26 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
 
                                     ) sub_1', [':year' => date("Y")]);
 
-                                $result = $command->queryAll();
+                                $resultTahun1 = $command->queryAll();
 
                                 
-                                $jumlahKeseluruhanInsentif = 0;
+                                $jumlahKeseluruhanInsentif_TAHUN_1 = 0;
                                 
-                                $SHAKAM = 0;
-                                $INSENTIF_KHAS = 0;
-                                $SHAKAR = 0;
-                                $REKOD_BARU = 0;
-                                $SGAR = 0;
-                                $SIKAP = 0;
+                                $SHAKAM_TAHUN_1 = 0;
+                                $INSENTIF_KHAS_TAHUN_1 = 0;
+                                $SHAKAR_TAHUN_1 = 0;
+                                $REKOD_BARU_TAHUN_1 = 0;
+                                $SGAR_TAHUN_1 = 0;
+                                $SIKAP_TAHUN_1 = 0;
 
-                                foreach ($result as $row){
-                                    $SHAKAM = $row['SHAKAM'];
-                                    $INSENTIF_KHAS = $row['INSENTIF_KHAS'];
-                                    $SHAKAR = $row['SHAKAR'];
-                                    $REKOD_BARU = $row['REKOD_BARU'];
-                                    $SGAR = $row['SGAR'];
-                                    $SIKAP = $row['SIKAP'];
-                                    $jumlahKeseluruhanInsentif = $row['JUMLAH_KESELURUHAN'];
+                                foreach ($resultTahun1 as $row){
+                                    $SHAKAM_TAHUN_1 = $row['SHAKAM'];
+                                    $INSENTIF_KHAS_TAHUN_1 = $row['INSENTIF_KHAS'];
+                                    $SHAKAR_TAHUN_1 = $row['SHAKAR'];
+                                    $REKOD_BARU_TAHUN_1 = $row['REKOD_BARU'];
+                                    $SGAR_TAHUN_1 = $row['SGAR'];
+                                    $SIKAP_TAHUN_1 = $row['SIKAP'];
+                                    $jumlahKeseluruhanInsentif_TAHUN_1 = $row['JUMLAH_KESELURUHAN'];
                                 }
                                 
                                 /*$chartDataInsentif = array(
@@ -989,16 +988,139 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                 
                                 
                                 
-                                
-                                
+                                $command = $connection->createCommand('
+                                    SELECT *, IFNULL(sub_1.SHAKAM + sub_1.INSENTIF_KHAS + sub_1.SHAKAR + sub_1.REKOD_BARU + sub_1.SGAR + sub_1.SIKAP,0) AS JUMLAH_KESELURUHAN
+                                    FROM (
+                                            SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 1),0.0) AS SHAKAM,
+                                            IFNULL((SELECT SUM(ia.insentif_khas)
+                                                    FROM `tbl_pembayaran_insentif_atlet` ia
+                                                    LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
+                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS INSENTIF_KHAS,
+                                            IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 2),0.0) AS SHAKAR,
+                                            IFNULL((SELECT SUM(s.nilai_rekod_baharu) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS REKOD_BARU,
+                                            IFNULL((SELECT SUM(ij.nilai)
+                                                    FROM `tbl_pembayaran_insentif_jurulatih` ij
+                                                    LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
+                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS SGAR,
+                                            IFNULL((SELECT SUM(s.nilai_sikap)
+                                                    FROM tbl_pembayaran_insentif s
+                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS SIKAP
 
+                                    ) sub_1', [':year' => date("Y",strtotime("-1 year"))]);
+
+                                $resultTahun2 = $command->queryAll();
+
+                                
+                                $jumlahKeseluruhanInsentif_TAHUN_2 = 0;
+                                
+                                $SHAKAM_TAHUN_2 = 0;
+                                $INSENTIF_KHAS_TAHUN_2 = 0;
+                                $SHAKAR_TAHUN_2 = 0;
+                                $REKOD_BARU_TAHUN_2 = 0;
+                                $SGAR_TAHUN_2 = 0;
+                                $SIKAP_TAHUN_2 = 0;
+
+                                foreach ($resultTahun2 as $row){
+                                    $SHAKAM_TAHUN_2 = $row['SHAKAM'];
+                                    $INSENTIF_KHAS_TAHUN_2 = $row['INSENTIF_KHAS'];
+                                    $SHAKAR_TAHUN_2 = $row['SHAKAR'];
+                                    $REKOD_BARU_TAHUN_2 = $row['REKOD_BARU'];
+                                    $SGAR_TAHUN_2 = $row['SGAR'];
+                                    $SIKAP_TAHUN_2 = $row['SIKAP'];
+                                    $jumlahKeseluruhanInsentif_TAHUN_2 = $row['JUMLAH_KESELURUHAN'];
+                                }
+                                
+                                
+                                $command = $connection->createCommand('
+                                    SELECT *, IFNULL(sub_1.SHAKAM + sub_1.INSENTIF_KHAS + sub_1.SHAKAR + sub_1.REKOD_BARU + sub_1.SGAR + sub_1.SIKAP,0) AS JUMLAH_KESELURUHAN
+                                    FROM (
+                                            SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 1),0.0) AS SHAKAM,
+                                            IFNULL((SELECT SUM(ia.insentif_khas)
+                                                    FROM `tbl_pembayaran_insentif_atlet` ia
+                                                    LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
+                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS INSENTIF_KHAS,
+                                            IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 2),0.0) AS SHAKAR,
+                                            IFNULL((SELECT SUM(s.nilai_rekod_baharu) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS REKOD_BARU,
+                                            IFNULL((SELECT SUM(ij.nilai)
+                                                    FROM `tbl_pembayaran_insentif_jurulatih` ij
+                                                    LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
+                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS SGAR,
+                                            IFNULL((SELECT SUM(s.nilai_sikap)
+                                                    FROM tbl_pembayaran_insentif s
+                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS SIKAP
+
+                                    ) sub_1', [':year' => date("Y",strtotime("-2 year"))]);
+
+                                $resultTahun3 = $command->queryAll();
+
+                                
+                                $jumlahKeseluruhanInsentif_TAHUN_3 = 0;
+                                
+                                $SHAKAM_TAHUN_3 = 0;
+                                $INSENTIF_KHAS_TAHUN_3 = 0;
+                                $SHAKAR_TAHUN_3 = 0;
+                                $REKOD_BARU_TAHUN_3 = 0;
+                                $SGAR_TAHUN_3 = 0;
+                                $SIKAP_TAHUN_3 = 0;
+
+                                foreach ($resultTahun3 as $row){
+                                    $SHAKAM_TAHUN_3 = $row['SHAKAM'];
+                                    $INSENTIF_KHAS_TAHUN_3 = $row['INSENTIF_KHAS'];
+                                    $SHAKAR_TAHUN_3 = $row['SHAKAR'];
+                                    $REKOD_BARU_TAHUN_3 = $row['REKOD_BARU'];
+                                    $SGAR_TAHUN_3 = $row['SGAR'];
+                                    $SIKAP_TAHUN_3 = $row['SIKAP'];
+                                    $jumlahKeseluruhanInsentif_TAHUN_3 = $row['JUMLAH_KESELURUHAN'];
+                                }
+                                
+                                $command = $connection->createCommand('
+                                    SELECT *, IFNULL(sub_1.SHAKAM + sub_1.INSENTIF_KHAS + sub_1.SHAKAR + sub_1.REKOD_BARU + sub_1.SGAR + sub_1.SIKAP,0) AS JUMLAH_KESELURUHAN
+                                    FROM (
+                                            SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 1),0.0) AS SHAKAM,
+                                            IFNULL((SELECT SUM(ia.insentif_khas)
+                                                    FROM `tbl_pembayaran_insentif_atlet` ia
+                                                    LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
+                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS INSENTIF_KHAS,
+                                            IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 2),0.0) AS SHAKAR,
+                                            IFNULL((SELECT SUM(s.nilai_rekod_baharu) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS REKOD_BARU,
+                                            IFNULL((SELECT SUM(ij.nilai)
+                                                    FROM `tbl_pembayaran_insentif_jurulatih` ij
+                                                    LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
+                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS SGAR,
+                                            IFNULL((SELECT SUM(s.nilai_sikap)
+                                                    FROM tbl_pembayaran_insentif s
+                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS SIKAP
+
+                                    ) sub_1', [':year' => date("Y",strtotime("-3 year"))]);
+
+                                $resultTahun4 = $command->queryAll();
+
+                                
+                                $jumlahKeseluruhanInsentif_TAHUN_4 = 0;
+                                
+                                $SHAKAM_TAHUN_4 = 0;
+                                $INSENTIF_KHAS_TAHUN_4 = 0;
+                                $SHAKAR_TAHUN_4 = 0;
+                                $REKOD_BARU_TAHUN_4 = 0;
+                                $SGAR_TAHUN_4 = 0;
+                                $SIKAP_TAHUN_4 = 0;
+
+                                foreach ($resultTahun4 as $row){
+                                    $SHAKAM_TAHUN_4 = $row['SHAKAM'];
+                                    $INSENTIF_KHAS_TAHUN_4 = $row['INSENTIF_KHAS'];
+                                    $SHAKAR_TAHUN_4 = $row['SHAKAR'];
+                                    $REKOD_BARU_TAHUN_4 = $row['REKOD_BARU'];
+                                    $SGAR_TAHUN_4 = $row['SGAR'];
+                                    $SIKAP_TAHUN_4 = $row['SIKAP'];
+                                    $jumlahKeseluruhanInsentif_TAHUN_4 = $row['JUMLAH_KESELURUHAN'];
+                                }
                                 // Jenis Insentif-  END
                                 
                                   ?>
-                                <p class="text-center">
+                                <p class="text-center" id="label-title-insentif-year">
                                     <strong><?=GeneralLabel::tahun;?> <?=date("Y");?></strong>
                                   </p>
-                                <div class="chart">
+                                <div class="chart" id="chartTahun1">
                                     <!-- Chart Canvas -->
 
                                     <?php echo ChartJs::widget([
@@ -1008,7 +1130,7 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                         ],
                                         'options' => [
                                             'height' => 100,
-                                            'id'=>'chartPerbandingan',
+                                            'id'=>'chartPerbandingan_tahun_1',
                                         ],
                                         'data' => [
                                             'labels' => ["SHAKAM", GeneralLabel::insentif_khas, "SHAKAR", GeneralLabel::rekod_baru, "SGAR", "SIKAP"],
@@ -1019,91 +1141,452 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                                     'strokeColor' => "rgba(220,220,220,1)",
                                                     'pointColor' => "rgba(220,220,220,1)",
                                                     'pointStrokeColor' => "#fff",
-                                                    'data' => [$SHAKAM, $INSENTIF_KHAS, $SHAKAR, $REKOD_BARU, $SGAR, $SIKAP]
+                                                    'data' => [$SHAKAM_TAHUN_1, $INSENTIF_KHAS_TAHUN_1, $SHAKAR_TAHUN_1, $REKOD_BARU_TAHUN_1, $SGAR_TAHUN_1, $SIKAP_TAHUN_1]
                                                 ],
                                             ]
                                         ],
                                     ]);
                                     ?>
-                                        <div id="chartLegend_chartPerbandingan" class="chart-legend"></div>
+                                    
+                                        <!--<div id="chartLegend_chartPerbandingan_tahun_1" class="chart-legend"></div>-->
                                       </div>
                             </div>
                             <div class="col-md-4">
-                                <p class="text-center">
-                                  <strong><?=GeneralLabel::jumlah_mengikut_jenis_insentif?></strong>
-                                </p>
-                                <?php
-                                // Jenis Insentif Sort - START
-                                $command = $connection->createCommand('
-                                    SELECT *
-	FROM (
-                
-                SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 1),0.0) AS JUMLAH, "SHAKAM" AS JENIS_INSENTIF
-                UNION
-                SELECT IFNULL((SELECT SUM(ia.insentif_khas)
-			FROM `tbl_pembayaran_insentif_atlet` ia
-			LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
-			WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "INSENTIF_KHAS"
-		UNION
-		SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 2),0.0), "SHAKAR"
-		UNION
-		SELECT IFNULL((SELECT SUM(s.nilai_rekod_baharu) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "REKOD_BARU"
-		UNION
-		SELECT IFNULL((SELECT SUM(ij.nilai)
-			FROM `tbl_pembayaran_insentif_jurulatih` ij
-			LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
-			WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "SGAR"
-		UNION
-		SELECT IFNULL((SELECT SUM(s.nilai_sikap)
-			FROM tbl_pembayaran_insentif s
-			WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "SIKAP"
-			
-	) sub_1 
-	ORDER BY JUMLAH DESC', [':year' => date("Y")]);
+                                <div id="dataTahun1">
+                                    <p class="text-center">
+                                        <strong><?=GeneralLabel::jumlah_mengikut_jenis_insentif?></strong>
+                                      </p>
+                                      <?php
+                                      // Jenis Insentif Sort - START
+                                      $command = $connection->createCommand('
+                                          SELECT *
+              FROM (
 
-                                $result = $command->queryAll();
-                                
-                                //echo 'color class = ' . $class_color_progress_bar[0];
-                                
-                                $color_class_runner = 0;
-                                
-                                foreach ($result as $row){
-                                    // replace those translation string label on dashboard
-                                    $jenisInsentif = trim($row['JENIS_INSENTIF']);
-                                    $jenisInsentif = str_replace("INSENTIF_KHAS",GeneralLabel::insentif_khas,$jenisInsentif);
-                                    $jenisInsentif = str_replace("REKOD_BARU",GeneralLabel::rekod_baru,$jenisInsentif);
-                                    
-                                    //$chartDataProgramPengajian[] = [$row['JUMLAH'] . ' - ' . $row['PROGRAM_PENGAJIAN'],  (double)$row['PERATUS']];
-                                    echo '<div class="progress-group">
-                                  <span class="progress-text">'.$jenisInsentif.'</span>
-                                  <span class="progress-number"><b> RM '.number_format($row['JUMLAH'],2).'</b></span>
+                      SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 1),0.0) AS JUMLAH, "SHAKAM" AS JENIS_INSENTIF
+                      UNION
+                      SELECT IFNULL((SELECT SUM(ia.insentif_khas)
+                              FROM `tbl_pembayaran_insentif_atlet` ia
+                              LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
+                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "INSENTIF_KHAS"
+                      UNION
+                      SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 2),0.0), "SHAKAR"
+                      UNION
+                      SELECT IFNULL((SELECT SUM(s.nilai_rekod_baharu) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "REKOD_BARU"
+                      UNION
+                      SELECT IFNULL((SELECT SUM(ij.nilai)
+                              FROM `tbl_pembayaran_insentif_jurulatih` ij
+                              LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
+                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "SGAR"
+                      UNION
+                      SELECT IFNULL((SELECT SUM(s.nilai_sikap)
+                              FROM tbl_pembayaran_insentif s
+                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "SIKAP"
 
-                                  <div class="progress sm">
-                                    <div class="'.$class_color_progress_bar[$color_class_runner].'" style="width: '.number_format((($row['JUMLAH']/$jumlahKeseluruhanInsentif)*100),2).'%"></div>
-                                  </div>
-                                </div>';
-                                    
-                                    $color_class_runner++;
-                                    
-                                    if($color_class_runner == count($class_color_progress_bar)){
-                                        $color_class_runner = 0;
-                                    }
-                                }
+              ) sub_1 
+              ORDER BY JUMLAH DESC', [':year' => date("Y")]);
 
-                                // Jenis Insentif Sort - END
-                                ?>
-                                <!-- /.progress-group -->
-                                <p class="text-right">
-                                    <br>
-                                  <strong><?=GeneralLabel::jumlah_without_RM?> : RM <?=number_format($jumlahKeseluruhanInsentif,2)?></strong>
-                                </p>
+                                      $result = $command->queryAll();
+
+                                      //echo 'color class = ' . $class_color_progress_bar[0];
+
+                                      $color_class_runner = 0;
+
+                                      foreach ($result as $row){
+                                          // replace those translation string label on dashboard
+                                          $jenisInsentif = trim($row['JENIS_INSENTIF']);
+                                          $jenisInsentif = str_replace("INSENTIF_KHAS",GeneralLabel::insentif_khas,$jenisInsentif);
+                                          $jenisInsentif = str_replace("REKOD_BARU",GeneralLabel::rekod_baru,$jenisInsentif);
+                                          
+                                          $widthPercent = 0;
+                                          
+                                          if($jumlahKeseluruhanInsentif_TAHUN_2 > 0){
+                                              $widthPercent = number_format((($row['JUMLAH']/$jumlahKeseluruhanInsentif_TAHUN_2)*100),2);
+                                          } 
+
+                                          //$chartDataProgramPengajian[] = [$row['JUMLAH'] . ' - ' . $row['PROGRAM_PENGAJIAN'],  (double)$row['PERATUS']];
+                                          echo '<div class="progress-group">
+                                        <span class="progress-text">'.$jenisInsentif.'</span>
+                                        <span class="progress-number"><b> RM '.number_format($row['JUMLAH'],2).'</b></span>
+
+                                        <div class="progress sm">
+                                          <div class="'.$class_color_progress_bar[$color_class_runner].'" style="width: '.$widthPercent.'%"></div>
+                                        </div>
+                                      </div>';
+
+                                          $color_class_runner++;
+
+                                          if($color_class_runner == count($class_color_progress_bar)){
+                                              $color_class_runner = 0;
+                                          }
+                                      }
+
+                                      // Jenis Insentif Sort - END
+                                      ?>
+                                      <!-- /.progress-group -->
+                                      <p class="text-right">
+                                          <br>
+                                        <strong><?=GeneralLabel::jumlah_without_RM?> : RM <?=number_format($jumlahKeseluruhanInsentif_TAHUN_1,2)?></strong>
+                                      </p>
+                                </div>
+                                <div id="dataTahun2" style="display: none;">
+                                    <p class="text-center">
+                                        <strong><?=GeneralLabel::jumlah_mengikut_jenis_insentif?></strong>
+                                      </p>
+                                      <?php
+                                      // Jenis Insentif Sort - START
+                                      $command = $connection->createCommand('
+                                          SELECT *
+              FROM (
+
+                      SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 1),0.0) AS JUMLAH, "SHAKAM" AS JENIS_INSENTIF
+                      UNION
+                      SELECT IFNULL((SELECT SUM(ia.insentif_khas)
+                              FROM `tbl_pembayaran_insentif_atlet` ia
+                              LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
+                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "INSENTIF_KHAS"
+                      UNION
+                      SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 2),0.0), "SHAKAR"
+                      UNION
+                      SELECT IFNULL((SELECT SUM(s.nilai_rekod_baharu) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "REKOD_BARU"
+                      UNION
+                      SELECT IFNULL((SELECT SUM(ij.nilai)
+                              FROM `tbl_pembayaran_insentif_jurulatih` ij
+                              LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
+                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "SGAR"
+                      UNION
+                      SELECT IFNULL((SELECT SUM(s.nilai_sikap)
+                              FROM tbl_pembayaran_insentif s
+                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "SIKAP"
+
+              ) sub_1 
+              ORDER BY JUMLAH DESC', [':year' => date("Y",strtotime("-1 year"))]);
+
+                                      $result = $command->queryAll();
+
+                                      //echo 'color class = ' . $class_color_progress_bar[0];
+
+                                      $color_class_runner = 0;
+
+                                      foreach ($result as $row){
+                                          // replace those translation string label on dashboard
+                                          $jenisInsentif = trim($row['JENIS_INSENTIF']);
+                                          $jenisInsentif = str_replace("INSENTIF_KHAS",GeneralLabel::insentif_khas,$jenisInsentif);
+                                          $jenisInsentif = str_replace("REKOD_BARU",GeneralLabel::rekod_baru,$jenisInsentif);
+                                          
+                                          $widthPercent = 0;
+                                          
+                                          if($jumlahKeseluruhanInsentif_TAHUN_2 > 0){
+                                              $widthPercent = number_format((($row['JUMLAH']/$jumlahKeseluruhanInsentif_TAHUN_2)*100),2);
+                                          } 
+
+                                          //$chartDataProgramPengajian[] = [$row['JUMLAH'] . ' - ' . $row['PROGRAM_PENGAJIAN'],  (double)$row['PERATUS']];
+                                          echo '<div class="progress-group">
+                                        <span class="progress-text">'.$jenisInsentif.'</span>
+                                        <span class="progress-number"><b> RM '.number_format($row['JUMLAH'],2).'</b></span>
+
+                                        <div class="progress sm">
+                                          <div class="'.$class_color_progress_bar[$color_class_runner].'" style="width: '.$widthPercent.'%"></div>
+                                        </div>
+                                      </div>';
+
+                                          $color_class_runner++;
+
+                                          if($color_class_runner == count($class_color_progress_bar)){
+                                              $color_class_runner = 0;
+                                          }
+                                      }
+
+                                      // Jenis Insentif Sort - END
+                                      ?>
+                                      <!-- /.progress-group -->
+                                      <p class="text-right">
+                                          <br>
+                                        <strong><?=GeneralLabel::jumlah_without_RM?> : RM <?=number_format($jumlahKeseluruhanInsentif_TAHUN_2,2)?></strong>
+                                      </p>
+                                </div>
+                                <div id="dataTahun3" style="display: none;">
+                                    <p class="text-center">
+                                        <strong><?=GeneralLabel::jumlah_mengikut_jenis_insentif?></strong>
+                                      </p>
+                                      <?php
+                                      // Jenis Insentif Sort - START
+                                      $command = $connection->createCommand('
+                                          SELECT *
+              FROM (
+
+                      SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 1),0.0) AS JUMLAH, "SHAKAM" AS JENIS_INSENTIF
+                      UNION
+                      SELECT IFNULL((SELECT SUM(ia.insentif_khas)
+                              FROM `tbl_pembayaran_insentif_atlet` ia
+                              LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
+                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "INSENTIF_KHAS"
+                      UNION
+                      SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 2),0.0), "SHAKAR"
+                      UNION
+                      SELECT IFNULL((SELECT SUM(s.nilai_rekod_baharu) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "REKOD_BARU"
+                      UNION
+                      SELECT IFNULL((SELECT SUM(ij.nilai)
+                              FROM `tbl_pembayaran_insentif_jurulatih` ij
+                              LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
+                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "SGAR"
+                      UNION
+                      SELECT IFNULL((SELECT SUM(s.nilai_sikap)
+                              FROM tbl_pembayaran_insentif s
+                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "SIKAP"
+
+              ) sub_1 
+              ORDER BY JUMLAH DESC', [':year' => date("Y",strtotime("-2 year"))]);
+
+                                      $result = $command->queryAll();
+
+                                      //echo 'color class = ' . $class_color_progress_bar[0];
+
+                                      $color_class_runner = 0;
+
+                                      foreach ($result as $row){
+                                          // replace those translation string label on dashboard
+                                          $jenisInsentif = trim($row['JENIS_INSENTIF']);
+                                          $jenisInsentif = str_replace("INSENTIF_KHAS",GeneralLabel::insentif_khas,$jenisInsentif);
+                                          $jenisInsentif = str_replace("REKOD_BARU",GeneralLabel::rekod_baru,$jenisInsentif);
+                                          
+                                          $widthPercent = 0;
+                                          
+                                          if($jumlahKeseluruhanInsentif_TAHUN_3 > 0){
+                                              $widthPercent = number_format((($row['JUMLAH']/$jumlahKeseluruhanInsentif_TAHUN_3)*100),2);
+                                          } 
+
+                                          //$chartDataProgramPengajian[] = [$row['JUMLAH'] . ' - ' . $row['PROGRAM_PENGAJIAN'],  (double)$row['PERATUS']];
+                                          echo '<div class="progress-group">
+                                        <span class="progress-text">'.$jenisInsentif.'</span>
+                                        <span class="progress-number"><b> RM '.number_format($row['JUMLAH'],2).'</b></span>
+
+                                        <div class="progress sm">
+                                          <div class="'.$class_color_progress_bar[$color_class_runner].'" style="width: '.$widthPercent.'%"></div>
+                                        </div>
+                                      </div>';
+
+                                          $color_class_runner++;
+
+                                          if($color_class_runner == count($class_color_progress_bar)){
+                                              $color_class_runner = 0;
+                                          }
+                                      }
+
+                                      // Jenis Insentif Sort - END
+                                      ?>
+                                      <!-- /.progress-group -->
+                                      <p class="text-right">
+                                          <br>
+                                        <strong><?=GeneralLabel::jumlah_without_RM?> : RM <?=number_format($jumlahKeseluruhanInsentif_TAHUN_3,2)?></strong>
+                                      </p>
+                                </div>
+                                <div id="dataTahun4" style="display: none;">
+                                    <p class="text-center">
+                                        <strong><?=GeneralLabel::jumlah_mengikut_jenis_insentif?></strong>
+                                      </p>
+                                      <?php
+                                      // Jenis Insentif Sort - START
+                                      $command = $connection->createCommand('
+                                          SELECT *
+              FROM (
+
+                      SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 1),0.0) AS JUMLAH, "SHAKAM" AS JENIS_INSENTIF
+                      UNION
+                      SELECT IFNULL((SELECT SUM(ia.insentif_khas)
+                              FROM `tbl_pembayaran_insentif_atlet` ia
+                              LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
+                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "INSENTIF_KHAS"
+                      UNION
+                      SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 2),0.0), "SHAKAR"
+                      UNION
+                      SELECT IFNULL((SELECT SUM(s.nilai_rekod_baharu) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "REKOD_BARU"
+                      UNION
+                      SELECT IFNULL((SELECT SUM(ij.nilai)
+                              FROM `tbl_pembayaran_insentif_jurulatih` ij
+                              LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
+                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "SGAR"
+                      UNION
+                      SELECT IFNULL((SELECT SUM(s.nilai_sikap)
+                              FROM tbl_pembayaran_insentif s
+                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "SIKAP"
+
+              ) sub_1 
+              ORDER BY JUMLAH DESC', [':year' => date("Y",strtotime("-3 year"))]);
+
+                                      $result = $command->queryAll();
+
+                                      //echo 'color class = ' . $class_color_progress_bar[0];
+
+                                      $color_class_runner = 0;
+
+                                      foreach ($result as $row){
+                                          // replace those translation string label on dashboard
+                                          $jenisInsentif = trim($row['JENIS_INSENTIF']);
+                                          $jenisInsentif = str_replace("INSENTIF_KHAS",GeneralLabel::insentif_khas,$jenisInsentif);
+                                          $jenisInsentif = str_replace("REKOD_BARU",GeneralLabel::rekod_baru,$jenisInsentif);
+
+                                          //$chartDataProgramPengajian[] = [$row['JUMLAH'] . ' - ' . $row['PROGRAM_PENGAJIAN'],  (double)$row['PERATUS']];
+                                          $widthPercent = 0;
+                                          
+                                          if($jumlahKeseluruhanInsentif_TAHUN_4 > 0){
+                                              $widthPercent = number_format((($row['JUMLAH']/$jumlahKeseluruhanInsentif_TAHUN_4)*100),2);
+                                          } 
+                                          
+                                          echo '<div class="progress-group">
+                                        <span class="progress-text">'.$jenisInsentif.'</span>
+                                        <span class="progress-number"><b> RM '.number_format($row['JUMLAH'],2).'</b></span>
+
+                                        <div class="progress sm">
+                                          <div class="'.$class_color_progress_bar[$color_class_runner].'" style="width: '. $widthPercent .'%"></div>
+                                        </div>
+                                      </div>';
+
+                                          $color_class_runner++;
+
+                                          if($color_class_runner == count($class_color_progress_bar)){
+                                              $color_class_runner = 0;
+                                          }
+                                      }
+
+                                      // Jenis Insentif Sort - END
+                                      ?>
+                                      <!-- /.progress-group -->
+                                      <p class="text-right">
+                                          <br>
+                                        <strong><?=GeneralLabel::jumlah_without_RM?> : RM <?=number_format($jumlahKeseluruhanInsentif_TAHUN_4,2)?></strong>
+                                      </p>
+                                </div>
                               </div>
                         </div>
                     </div>
                   </div>
             </div>
           </div>
-          <!-- /.box -->
+      
+      <?php
+$LABEL_SHAKAM = "SHAKAM";
+$LABEL_INSENTIF_KHAS = GeneralLabel::insentif_khas;
+$LABEL_SHAKAR = "SHAKAR";
+$LABEL_REKOD_BARU = GeneralLabel::rekod_baru;
+$LABEL_SGAR = "SGAR";
+$LABEL_SIKAP = "SIKAP";
+
+$LABEL_YEAR_1 = GeneralLabel::tahun . ' ' . date("Y");
+$LABEL_YEAR_2 = GeneralLabel::tahun . ' ' . date("Y",strtotime("-1 year"));
+$LABEL_YEAR_3 = GeneralLabel::tahun . ' ' . date("Y",strtotime("-2 year"));
+$LABEL_YEAR_4 = GeneralLabel::tahun . ' ' . date("Y",strtotime("-3 year"));
+
+$script = <<< JS
+        
+var data1 = {
+    labels: ["$LABEL_SHAKAM", "$LABEL_INSENTIF_KHAS", "$LABEL_SHAKAR", "$LABEL_REKOD_BARU", "$LABEL_SGAR", "$LABEL_SIKAP"],
+    datasets: [{ 
+        fillColor: "rgba(220,220,220,0.5)",
+        strokeColor: "rgba(220,220,220,1)",
+        pointColor: "rgba(220,220,220,1)",
+        pointStrokeColor: "#fff",
+        data: [$SHAKAM_TAHUN_1, $INSENTIF_KHAS_TAHUN_1, $SHAKAR_TAHUN_1, $REKOD_BARU_TAHUN_1, $SGAR_TAHUN_1, $SIKAP_TAHUN_1] 
+    }]
+};
+var data2 = {
+    labels: ["$LABEL_SHAKAM", "$LABEL_INSENTIF_KHAS", "$LABEL_SHAKAR", "$LABEL_REKOD_BARU", "$LABEL_SGAR", "$LABEL_SIKAP"],
+    datasets: [{ 
+        fillColor: "rgba(220,220,220,0.5)",
+        strokeColor: "rgba(220,220,220,1)",
+        pointColor: "rgba(220,220,220,1)",
+        pointStrokeColor: "#fff",
+        data: [$SHAKAM_TAHUN_2, $INSENTIF_KHAS_TAHUN_2, $SHAKAR_TAHUN_2, $REKOD_BARU_TAHUN_2, $SGAR_TAHUN_2, $SIKAP_TAHUN_2] 
+    }]
+};
+        
+var data3 = {
+    labels: ["$LABEL_SHAKAM", "$LABEL_INSENTIF_KHAS", "$LABEL_SHAKAR", "$LABEL_REKOD_BARU", "$LABEL_SGAR", "$LABEL_SIKAP"],
+    datasets: [{ 
+        fillColor: "rgba(220,220,220,0.5)",
+        strokeColor: "rgba(220,220,220,1)",
+        pointColor: "rgba(220,220,220,1)",
+        pointStrokeColor: "#fff",
+        data: [$SHAKAM_TAHUN_3, $INSENTIF_KHAS_TAHUN_3, $SHAKAR_TAHUN_3, $REKOD_BARU_TAHUN_3, $SGAR_TAHUN_3, $SIKAP_TAHUN_3] 
+    }]
+};
+        
+var data4 = {
+    labels: ["$LABEL_SHAKAM", "$LABEL_INSENTIF_KHAS", "$LABEL_SHAKAR", "$LABEL_REKOD_BARU", "$LABEL_SGAR", "$LABEL_SIKAP"],
+    datasets: [{ 
+        fillColor: "rgba(220,220,220,0.5)",
+        strokeColor: "rgba(220,220,220,1)",
+        pointColor: "rgba(220,220,220,1)",
+        pointStrokeColor: "#fff",
+        data: [$SHAKAM_TAHUN_4, $INSENTIF_KHAS_TAHUN_4, $SHAKAR_TAHUN_4, $REKOD_BARU_TAHUN_4, $SGAR_TAHUN_4, $SIKAP_TAHUN_4] 
+    }]
+};
+        
+var options = {
+    // String - Template string for single tooltips
+    tooltipTemplate: "RM <%= addCommas(value) %>",
+    // String - Template string for multiple tooltips
+    //multiTooltipTemplate: "<%= value + ' %' %>",
+    responsive : true,
+      animation: true,
+      showScale: true,
+};
+        
+var ctx1 = document.getElementById('chartPerbandingan_tahun_1').getContext('2d');
+var chart1 = new Chart(ctx1).Line(data1, options);
+        
+$('#tab1').on('shown.bs.tab', function (e) {
+        hideAllInsentifData();
+        $('#dataTahun1').show(); 
+        $('#label-title-insentif-year').html("<strong>$LABEL_YEAR_1</strong>"); 
+    $('#chartPerbandingan_tahun_1').remove(); // this is my <canvas> element
+    $('#chartTahun1').append('<canvas id="chartPerbandingan_tahun_1" height="100"><canvas>');
+    ctx1 = document.getElementById('chartPerbandingan_tahun_1').getContext('2d');
+    chart1 = new Chart(ctx1).Line(data1, options);
+        
+});
+
+$('#tab2').on('shown.bs.tab', function (e) {
+        hideAllInsentifData();
+        $('#dataTahun2').show(); 
+        $('#label-title-insentif-year').html("<strong>$LABEL_YEAR_2</strong>"); 
+    $('#chartPerbandingan_tahun_1').remove(); // this is my <canvas> element
+    $('#chartTahun1').append('<canvas id="chartPerbandingan_tahun_1" height="100"><canvas>');
+    ctx1 = document.getElementById('chartPerbandingan_tahun_1').getContext('2d');
+    chart1 = new Chart(ctx1).Line(data2, options);
+});
+        
+$('#tab3').on('shown.bs.tab', function (e) {
+        hideAllInsentifData();
+        $('#dataTahun3').show(); 
+        $('#label-title-insentif-year').html("<strong>$LABEL_YEAR_3</strong>"); 
+    $('#chartPerbandingan_tahun_1').remove(); // this is my <canvas> element
+    $('#chartTahun1').append('<canvas id="chartPerbandingan_tahun_1" height="100"><canvas>');
+    ctx1 = document.getElementById('chartPerbandingan_tahun_1').getContext('2d');
+    chart1 = new Chart(ctx1).Line(data3, options);
+});
+        
+$('#tab4').on('shown.bs.tab', function (e) {
+        hideAllInsentifData();
+        $('#dataTahun4').show(); 
+        $('#label-title-insentif-year').html("<strong>$LABEL_YEAR_4</strong>"); 
+    $('#chartPerbandingan_tahun_1').remove(); // this is my <canvas> element
+    $('#chartTahun1').append('<canvas id="chartPerbandingan_tahun_1" height="100"><canvas>');
+    ctx1 = document.getElementById('chartPerbandingan_tahun_1').getContext('2d');
+    chart1 = new Chart(ctx1).Line(data4, options);
+});
+        
+function hideAllInsentifData(){
+        
+        $('#dataTahun1').hide(); 
+        $('#dataTahun2').hide();
+        $('#dataTahun3').hide(); 
+        $('#dataTahun4').hide(); 
+}
+        
+JS;
+        
+$this->registerJs($script);
+?>
           
           <?php endif; ?>
           <!-- Insentif - END -->

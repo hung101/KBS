@@ -98,4 +98,11 @@ class MuatNaikDokumen extends \yii\db\ActiveRecord
     public function getRefKategoriMuatnaik(){
         return $this->hasOne(RefKategoriMuatnaik::className(), ['id' => 'kategori_muat_naik']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefPengurusanJawatankuasaKhasSukanMalaysia(){
+        return $this->hasOne(PengurusanJawatankuasaKhasSukanMalaysia::className(), ['pengurusan_jawatankuasa_khas_sukan_malaysia_id' => 'temasya']);
+    }
 }

@@ -52,7 +52,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::temasya,
-                ]
+                ],
+                'value' => 'refPengurusanJawatankuasaKhasSukanMalaysia.temasya'
             ],
             [
                 'attribute' => 'sukan',

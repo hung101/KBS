@@ -16,6 +16,7 @@ use app\models\general\GeneralVariable;
 // table reference
 use app\models\RefKategoriMuatnaik;
 use app\models\RefNegeri;
+use app\models\PengurusanJawatankuasaKhasSukanMalaysia;
 
 /**
  * MuatNaikDokumenController implements the CRUD actions for MuatNaikDokumen model.
@@ -71,6 +72,9 @@ class MuatNaikDokumenController extends Controller
         
         $ref = RefNegeri::findOne(['id' => $model->negeri]);
         $model->negeri = $ref['desc'];
+        
+        $ref = PengurusanJawatankuasaKhasSukanMalaysia::findOne(['pengurusan_jawatankuasa_khas_sukan_malaysia_id' => $model->temasya]);
+        $model->temasya = $ref['temasya'];
         
         
         return $this->render('view', [

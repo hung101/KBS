@@ -25,6 +25,7 @@ use app\models\RefPeringkatBadanSukan;
 use app\models\RefSukan;
 use app\models\RefBandar;
 use app\models\ProfilBadanSukan;
+use app\models\PengurusanJawatankuasaKhasSukanMalaysia;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ProfilDelegasiTeknikal */
@@ -55,7 +56,23 @@ use app\models\ProfilBadanSukan;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'temasya' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80], 'hint'=>'Cth: Sukan Malaysia ke-18'],
+                'temasya' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(PengurusanJawatankuasaKhasSukanMalaysia::find()->all(),'pengurusan_jawatankuasa_khas_sukan_malaysia_id', 'temasya'),
+                        'options' => ['placeholder' => Placeholder::temasya],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                    'columnOptions'=>['colspan'=>3]],
                 'negeri' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -68,7 +85,10 @@ use app\models\ProfilBadanSukan;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
+                        'options' => ['placeholder' => Placeholder::negeri],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],
@@ -115,7 +135,10 @@ use app\models\ProfilBadanSukan;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],],
+                        'options' => ['placeholder' => Placeholder::sukan],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
                     'columnOptions'=>['colspan'=>4]],
             ],
         ],
@@ -149,7 +172,10 @@ use app\models\ProfilBadanSukan;
                             ]
                         ] : null,*/
                         'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
-                        'options' => ['placeholder' => Placeholder::badanSukan, 'id'=>'badanSukanId'],],
+                        'options' => ['placeholder' => Placeholder::badanSukan, 'id'=>'badanSukanId'],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
                     'columnOptions'=>['colspan'=>3]],
                 'peringkat' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -164,6 +190,9 @@ use app\models\ProfilBadanSukan;
                         ] : null,
                         'data'=>ArrayHelper::map(RefPeringkatBadanSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::peringkatBadanSukan],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
                     ],
                     'columnOptions'=>['colspan'=>4]],
             ],
@@ -199,7 +228,10 @@ use app\models\ProfilBadanSukan;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
+                        'options' => ['placeholder' => Placeholder::negeri],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
                     'columnOptions'=>['colspan'=>3]],
                 'alamat_bandar' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -214,6 +246,7 @@ use app\models\ProfilBadanSukan;
                                     'asButton' => true
                                 ]
                             ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(RefBandar::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
@@ -223,6 +256,7 @@ use app\models\ProfilBadanSukan;
                             'placeholder' => Placeholder::bandar,
                             'url'=>Url::to(['/ref-bandar/subbandars'])],
                         ],
+                    
                     'columnOptions'=>['colspan'=>3]],
                 'alamat_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5]],
             ]

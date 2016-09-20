@@ -57,7 +57,10 @@ use app\models\RefJawatanDelegasiTeknikal;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJantina::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jantina],],
+                        'options' => ['placeholder' => Placeholder::jantina],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],
@@ -90,7 +93,10 @@ use app\models\RefJawatanDelegasiTeknikal;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJawatanDelegasiTeknikal::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jawatan],],
+                        'options' => ['placeholder' => Placeholder::jawatan],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
                     'columnOptions'=>['colspan'=>3]],
                 'jawatan_lain_lain' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
             ],
@@ -126,7 +132,10 @@ use app\models\RefJawatanDelegasiTeknikal;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
+                        'options' => ['placeholder' => Placeholder::negeri],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
                     'columnOptions'=>['colspan'=>3]],
                 'alamat_bandar' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -141,6 +150,7 @@ use app\models\RefJawatanDelegasiTeknikal;
                                     'asButton' => true
                                 ]
                             ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(RefBandar::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
@@ -194,7 +204,10 @@ use app\models\RefJawatanDelegasiTeknikal;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
+                        'options' => ['placeholder' => Placeholder::negeri],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
                     'columnOptions'=>['colspan'=>3]],
                 'alamat_majikan_bandar' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -209,6 +222,7 @@ use app\models\RefJawatanDelegasiTeknikal;
                                     'asButton' => true
                                 ]
                             ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(RefBandar::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],

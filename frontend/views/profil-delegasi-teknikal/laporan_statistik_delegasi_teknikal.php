@@ -14,6 +14,7 @@ use app\models\ProfilBadanSukan;
 use app\models\RefSukan;
 use app\models\RefPeringkatBadanSukan;
 use app\models\ProfilDelegasiTeknikal;
+use app\models\PengurusanJawatankuasaKhasSukanMalaysia;
 
 // contant values
 use app\models\general\Placeholder;
@@ -69,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'temasya' => [
+                /*'temasya' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -85,7 +86,24 @@ $this->params['breadcrumbs'][] = $this->title;
                         'pluginOptions' => [
                                     'allowClear' => true
                                 ],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>4]],*/
+                'temasya' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(PengurusanJawatankuasaKhasSukanMalaysia::find()->all(),'pengurusan_jawatankuasa_khas_sukan_malaysia_id', 'temasya'),
+                        'options' => ['placeholder' => Placeholder::temasya],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
         [
