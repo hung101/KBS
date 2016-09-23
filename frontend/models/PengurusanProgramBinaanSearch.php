@@ -23,7 +23,7 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
     {
         return [
             [['jumlah_yang_diluluskan'], 'number'],
-            [['pengurusan_program_binaan_id', 'status_permohonan_id', 'created_by', 'atlet_id', 'kategori_peserta', 'mesyuarat_id'], 'integer'],
+            [['pengurusan_program_binaan_id', 'status_permohonan_id', 'created_by', 'atlet_id', 'kategori_peserta', 'mesyuarat_id', 'program'], 'integer'],
             [['nama_ppn', 'pengurus_pn', 'kategori_permohonan', 'jenis_permohonan', 'sukan', 'tempat', 'tahap', 'negeri', 'daerah', 'tarikh_mula', 'tarikh_tamat',
                 'sokongan_pn', 'kelulusan', 'status_permohonan', 'aktiviti', 'nama_aktiviti'], 'safe'],
         ];
@@ -81,6 +81,8 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
             'tbl_pengurusan_program_binaan.created_by' => $this->created_by,
             'tbl_pengurusan_program_binaan_atlet.atlet_id' => $this->atlet_id,
             'tbl_pengurusan_program_binaan.mesyuarat_id' => $this->mesyuarat_id,
+            'tbl_pengurusan_program_binaan.program' => $this->program,
+            'tbl_pengurusan_program_binaan.sukan' => $this->sukan,
         ]);
 
         $query->andFilterWhere(['like', 'nama_ppn', $this->nama_ppn])
@@ -89,7 +91,7 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
             ->andFilterWhere(['like', 'tbl_ref_jenis_permohonan_program_binaan.desc', $this->jenis_permohonan])
             ->andFilterWhere(['like', 'rk1.desc', $this->sokongan_pn])
             ->andFilterWhere(['like', 'rk2.desc', $this->kelulusan])
-            ->andFilterWhere(['like', 'sukan', $this->sukan])
+            //->andFilterWhere(['like', 'sukan', $this->sukan])
                 ->andFilterWhere(['like', 'jumlah_yang_diluluskan', $this->jumlah_yang_diluluskan])
             ->andFilterWhere(['like', 'tempat', $this->tempat])
             ->andFilterWhere(['like', 'tahap', $this->tahap])

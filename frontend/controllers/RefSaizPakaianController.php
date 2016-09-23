@@ -153,7 +153,7 @@ class RefSaizPakaianController extends Controller
      * @return Array SaizPakaians
      */
     public static function getSaizPakaiansByJenisPakaian($jenis_pakaian_id) {
-        $data = RefSaizPakaian::find()->where(['ref_jenis_pakaian_id'=>$jenis_pakaian_id])->select(['id','desc AS name'])->asArray()->all();
+        $data = RefSaizPakaian::find()->where(['ref_jenis_pakaian_id'=>$jenis_pakaian_id])->orderBy('sort')->select(['id','desc AS name'])->asArray()->all();
         $value = (count($data) == 0) ? ['' => ''] : $data;
 
         return $value;

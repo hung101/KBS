@@ -19,6 +19,7 @@ use app\models\RefNegeri;
 use app\models\RefJenisKeahlian;
 use app\models\RefJawatanJawatankuasaKhas;
 use app\models\RefAgensiOrganisasi;
+use app\models\RefJawatankuasaKhas;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanJawatankuasaKhasSukanMalaysiaAhli */
@@ -41,6 +42,20 @@ use app\models\RefAgensiOrganisasi;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'jawatankuasa' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jawatankuasa-khas/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefJawatankuasaKhas::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::jawatankuasa],],
+                    'columnOptions'=>['colspan'=>3]],
                 'jenis_keahlian' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',

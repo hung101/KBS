@@ -590,6 +590,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jumlah_ahli_yang_layak_mengundi = "Kehadiran Ahli Yang Layak Mengundi";
         const jumlah_anak = "Jumlah Anak";
         const jumlah_atlet = "Jumlah Atlet";
+        const jumlah_bagi_bulan = "Jumlah Bagi Bulan";
+        const jumlah_bagi_tahun = "Jumlah Bagi Tahun";
         const jumlah_bajet = "Jumlah Bajet";
         const jumlah_bantuan = "Jumlah Bantuan (RM)";
         const jumlah_bantuan_peruntukan = "Jumlah Bantuan / Peruntukan (RM)";
@@ -617,6 +619,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jumlah_kelulusan = "Jumlah Kelulusan";
         const jumlah_kos_lain_lain = "Jumlah Kos Lain Lain";
         const jumlah_markah = "Jumlah Markah";
+        const jumlah_mengikut_acara = "Jumlah Mengikut Acara";
         const jumlah_mengikut_jenis_insentif = "Jumlah Mengikut Jenis Insentif";
         const jumlah_mengikut_jenis_sukan = "Jumlah Mengikut Jenis Sukan";
         const jumlah_mengikut_sukan = "Jumlah Mengikut Sukan";
@@ -1197,6 +1200,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pangkat = "Pangkat";
         const panjang_depa = "Panjang Depa (cm)";
         const paobs_penganjuran_sumber_kewangan_id = "Paobs Penganjuran Sumber Kewangan ID";
+        const paralimpik = "Paralimpik";
         const passport_no = "No Passport";
         const passport_no_wajib_diisi = "No Passport (Wajib diisi untuk JLN)";
         const passport_tamat_tempoh = "Tamat Tempoh";
@@ -1596,6 +1600,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const sokongan = "Sokongan";
         const sokongan_pn = "Sokongan PN";
         const sort = "Sort";
+        const source = "Source";
         const spesifikasi = "Spesifikasi";
         const staf_perubatan_yang_bertanggungjawab = "Staf Perubatan Yang Bertanggungjawab";
         const stage = "Stage";
@@ -2034,6 +2039,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_statistik_pengurusan_kemudahan = "Laporan Statistik Pengurusan Kemudahan";
         const laporan_statistik_permohonan_biasiswa_mengikut_ipta_ipts = "Laporan Statistik Permohonan Biasiswa Mengikut IPTA / IPTS";
         const laporan_statistik_permohonan_biasiswa_mengikut_jantina = "Laporan Statistik Permohonan Biasiswa Mengikut Jantina";
+        const laporan_statistik_permohonan_biasiswa_mengikut_kategori_pengajian = "Laporan Statistik Permohonan Biasiswa Mengikut Kategori Pengajian";
         const laporan_statistik_permohonan_biasiswa_mengikut_kaum = "Laporan Statistik Permohonan Biasiswa Mengikut Kaum";
         const laporan_statistik_permohonan_biasiswa_mengikut_peringkat_pengajian = "Laporan Statistik Permohonan Biasiswa Mengikut Peringkat Pengajian";
         const laporan_statistik_permohonan_biasiswa_mengikut_status = "Laporan Statistik Permohonan Biasiswa Mengikut Status";
@@ -2102,7 +2108,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pengurusan_kpi = "Pengurusan KPI";
         const pengurusan_maklumat_psk = "Pengurusan Maklumat PSK";
         const pengurusan_media = "Media";
-        const pengurusan_mesyuarat_jawatankuasa_kerja_jkk = "Pengurusan Mesyuarat Jawatankuasa Kerja (JKK)";
+        const pengurusan_mesyuarat_jawatankuasa_kerja_jkk = "Pengurusan Mesyuarat JKK/JKP";
         const pengurusan_mesyuarat_perbincangan_secara_online = "Pengurusan Mesyuarat / Perbincangan Secara Online";
         const pengurusan_modal_program_kursus_pengurusan_sukan_kebangsaan = "Pengurusan Modal Program / Kursus Pengurusan Sukan Kebangsaan";
         const pengurusan_mou_moa_antarabangsa = "Pengurusan MOU - MOA Antarabangsa";
@@ -2163,7 +2169,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const profil = "Profile";
         const profil_ajk_khas_sukan_malaysia = "Profil AJK Khas Sukan Malaysia";
         const profil_kaunselor = "Profil Ahli Psikologi / Kaunselor";
-        const profil_panel_penasihat_kpsk = "Profil Panel Penggubal";
+        const profil_panel_penasihat_kpsk = "Profil Panel KPSK";
         const profil_psikologi = "Profil Psikologi";
         const profil_wartawan_sukan = "Profil Media Sukan";
         const program_persatuan_sukan_kebangsaan_input_oleh_cawangan = "Program Persatuan Sukan Kebangsaan (input oleh Cawangan)";
@@ -3597,6 +3603,8 @@ if($session->get('language') == "EN") {
         const jumlah_ahli_yang_layak_mengundi = "The Presence Of The Members Eligible To Vote";
         const jumlah_anak = "Number Of Children";
         const jumlah_atlet = "Number Of Athlete";
+        const jumlah_bagi_bulan = "Total For Month";
+        const jumlah_bagi_tahun = "Total For Year";
         const jumlah_bajet = "Total Budget";
         const jumlah_bantuan = "The Amount Of Aid (RM)";
         const jumlah_bantuan_peruntukan = "The Amount Of Allocation Approved (RM)";
@@ -3624,6 +3632,7 @@ if($session->get('language') == "EN") {
         const jumlah_kelulusan = "Total Approval";
         const jumlah_kos_lain_lain = "The Total Cost Of Other";
         const jumlah_markah = "Total";
+        const jumlah_mengikut_acara = "Total by Event Type";
         const jumlah_mengikut_jenis_insentif = "Total by Incentive Type";
         const jumlah_mengikut_jenis_sukan = "Total by Sport Type";
         const jumlah_mengikut_sukan = "Total by Sport";
@@ -4204,6 +4213,7 @@ if($session->get('language') == "EN") {
         const pangkat = "Rank";
         const panjang_depa = "Long Span (cm)";
         const paobs_penganjuran_sumber_kewangan_id = "Paobs Organisation Of Financial Resource ID";
+        const paralimpik = "Paralympic";
         const passport_no = "No Passport";
         const passport_no_wajib_diisi = "No Passport (Required for JLN)";
         const passport_tamat_tempoh = "Expired";
@@ -4603,6 +4613,7 @@ if($session->get('language') == "EN") {
         const sokongan = "Support";
         const sokongan_pn = "Support PN";
         const sort = "Sort";
+        const source = "Source";
         const spesifikasi = "Specification";
         const staf_perubatan_yang_bertanggungjawab = "Medical Staff Responsible";
         const stage = "Stage";
@@ -5041,6 +5052,7 @@ if($session->get('language') == "EN") {
         const laporan_statistik_pengurusan_kemudahan = "Report Facilities Management Statistical";
         const laporan_statistik_permohonan_biasiswa_mengikut_ipta_ipts = "Statistical Report In Accordance With The Scholarship Application IPTA/IPTS";
         const laporan_statistik_permohonan_biasiswa_mengikut_jantina = "Statistical Report Scholarship Application By Gender";
+        const laporan_statistik_permohonan_biasiswa_mengikut_kategori_pengajian = "Statistical Reports By Category Studies Scholarship Application";
         const laporan_statistik_permohonan_biasiswa_mengikut_kaum = "Statistical Reports Racial Scholarship Application";
         const laporan_statistik_permohonan_biasiswa_mengikut_peringkat_pengajian = "Statistical Report In Accordance With The Level Of Education Scholarship Application";
         const laporan_statistik_permohonan_biasiswa_mengikut_status = "Statistical Report In Accordance With The Status Of The Scholarship Application";
@@ -5109,7 +5121,7 @@ if($session->get('language') == "EN") {
         const pengurusan_kpi = "KPI Management";
         const pengurusan_maklumat_psk = "Information Management The NSAS";
         const pengurusan_media = "Media Management";
-        const pengurusan_mesyuarat_jawatankuasa_kerja_jkk = "Management Working Committee Meeting (JKK)";
+        const pengurusan_mesyuarat_jawatankuasa_kerja_jkk = "Management Working Committee Meeting (JKK/JKP)";
         const pengurusan_mesyuarat_perbincangan_secara_online = "Meeting/Discussion Management Online";
         const pengurusan_modal_program_kursus_pengurusan_sukan_kebangsaan = "Capital Management Program/National Sports Management Course";
         const pengurusan_mou_moa_antarabangsa = "Management Of The MOU-MOA International";

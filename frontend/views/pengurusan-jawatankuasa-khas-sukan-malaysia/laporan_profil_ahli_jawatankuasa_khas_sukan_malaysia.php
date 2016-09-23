@@ -86,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'columnOptions'=>['colspan'=>4]],
             ],
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -108,7 +108,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],],
                     'columnOptions'=>['colspan'=>4]],
             ],
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting

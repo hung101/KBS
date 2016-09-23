@@ -1159,6 +1159,13 @@ function hideShowOKULainLain(value){
     }
 }
         
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+        
 JS;
         
 $this->registerJs($script);

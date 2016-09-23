@@ -16,6 +16,7 @@ use app\models\RefNegeri;
 use app\models\RefJenisKeahlian;
 use app\models\RefJawatanJawatankuasaKhas;
 use app\models\RefAgensiOrganisasi;
+use app\models\RefJawatankuasaKhas;
 
 
 /**
@@ -81,6 +82,9 @@ class PengurusanJawatankuasaKhasSukanMalaysiaAhliController extends Controller
         
         $ref = RefAgensiOrganisasi::findOne(['id' => $model->agensi_organisasi]);
         $model->agensi_organisasi = $ref['desc'];
+        
+        $ref = RefJawatankuasaKhas::findOne(['id' => $model->jawatankuasa]);
+        $model->jawatankuasa = $ref['desc'];
         
         return $this->renderAjax('view', [
             'model' => $model,

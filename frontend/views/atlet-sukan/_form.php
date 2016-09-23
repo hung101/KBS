@@ -22,6 +22,7 @@ use app\models\RefNegeri;
 use app\models\RefProgramSemasaSukanAtlet;
 use app\models\RefStatusSukanAtlet;
 use app\models\RefSource;
+use app\models\RefStatusTawaran;
 
 // contant values
 use app\models\general\Placeholder;
@@ -50,6 +51,12 @@ use app\models\general\GeneralMessage;
             $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all();
         } else {
             $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all();
+        }
+        
+        if(isset($session['atlet_cacat']) && $session['atlet_cacat']){
+            $cawangan_list = RefCawangan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all();
+        } else {
+            $cawangan_list = RefCawangan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all();
         }
         
         // add filter base on sukan access role in tbl_user->sukan - START
@@ -129,8 +136,51 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>4]],
-                'nama_sukan' => [
+                    'columnOptions'=>['colspan'=>3]],
+                'cawangan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-cawangan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map($cawangan_list,'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::cawangan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+                'nama_sukan' =>[
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
+                    'options'=>[
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                            'pluginOptions' => [
+                                'allowClear' => true
+                            ],
+                        ],
+                        'data'=>ArrayHelper::map($sukan_list,'id', 'desc'),
+                        'options'=>['prompt'=>'',],
+                        'pluginOptions' => [
+                            'initialize' => false,
+                            'depends'=>[Html::getInputId($model, 'cawangan')],
+                            'placeholder' => Placeholder::sukan,
+                            'url'=>Url::to(['/ref-sukan/subsukan'])],
+                        ],
+                    'columnOptions'=>['colspan'=>3]],
+                /*'nama_sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -146,7 +196,7 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>3]],*/
                 'acara' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\DepDrop', 
@@ -170,7 +220,7 @@ use app\models\general\GeneralMessage;
                             'placeholder' => Placeholder::acara,
                             'url'=>Url::to(['/ref-acara/subacaras'])],
                         ],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>3]],
                 
             ],
         ],
@@ -205,7 +255,7 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'jurulatih_id' => [
+                /*'jurulatih_id' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -216,29 +266,32 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(Jurulatih::find()->all(),'jurulatih_id', 'nameAndIC'),
+                        'data'=>ArrayHelper::map(Jurulatih::find()->where(['=', 'status_tawaran', RefStatusTawaran::LULUS_TAWARAN])->all(),'jurulatih_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::jurulatih],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>6]],
-                'cawangan' => [
+                    'columnOptions'=>['colspan'=>6]],*/
+                'jurulatih_id' =>[
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
                     'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-cawangan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefCawangan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::cawangan],
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'pluginOptions' => [
+                                'allowClear' => true
+                            ],
+                        ],
+                        'data'=>ArrayHelper::map(Jurulatih::find()->where(['=', 'status_tawaran', RefStatusTawaran::LULUS_TAWARAN])->all(),'jurulatih_id', 'nameAndIC'),
+                        'options'=>['prompt'=>'',],
                         'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
+                            'initialize' => true,
+                            'depends'=>[Html::getInputId($model, 'program_semasa'), Html::getInputId($model, 'nama_sukan')],
+                            'placeholder' => Placeholder::jurulatih,
+                            'url'=>Url::to(['/jurulatih/get-jurulatih-for-atlet'])],
+                        ],
                     'columnOptions'=>['colspan'=>3]],
+                
                 
                 'source' => [
                     'type'=>Form::INPUT_WIDGET, 

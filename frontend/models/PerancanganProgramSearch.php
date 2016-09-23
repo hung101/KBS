@@ -13,6 +13,8 @@ use app\models\PerancanganProgram;
 class PerancanganProgramSearch extends PerancanganProgram
 {
     public $status_program_id;
+    public $sukan_id;
+    public $program_id;
     
     /**
      * @inheritdoc
@@ -20,7 +22,7 @@ class PerancanganProgramSearch extends PerancanganProgram
     public function rules()
     {
         return [
-            [['perancangan_program_id', 'status_program_id', 'mesyuarat_id'], 'integer'],
+            [['perancangan_program_id', 'status_program_id', 'mesyuarat_id', 'sukan_id', 'program_id'], 'integer'],
             [['tarikh_tamat', 'nama_program', 'muat_naik', 'tarikh_mula', 'status_program', 'sukan', 'jenis_program', 'lokasi'], 'safe'],
         ];
     }
@@ -69,6 +71,8 @@ class PerancanganProgramSearch extends PerancanganProgram
             'perancangan_program_id' => $this->perancangan_program_id,
             'status_program' => $this->status_program_id,
             'mesyuarat_id' => $this->mesyuarat_id,
+            'sukan' => $this->sukan_id,
+            'jenis_program' => $this->program_id,
         ]);
 
         $query->andFilterWhere(['like', 'nama_program', $this->nama_program])

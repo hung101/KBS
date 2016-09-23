@@ -12,6 +12,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\BaseUrl;
+use yii\helpers\Json;
 
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
@@ -196,6 +197,13 @@ class PengurusanJawatankuasaKhasSukanMalaysiaController extends Controller
         }
     }
     
+    public function actionGetPengurusanJawatankuasaKhasSukanMalaysia($id){
+        // find Badan Sukan by ID
+        $model = PengurusanJawatankuasaKhasSukanMalaysia::find()->where(['pengurusan_jawatankuasa_khas_sukan_malaysia_id' => $id])->asArray()->one();
+        
+        echo Json::encode($model);
+    }
+    
     public function actionLaporanProfilAhliJawatankuasaKhasSukanMalaysia()
     {
         if (Yii::$app->user->isGuest) {
@@ -212,7 +220,7 @@ class PengurusanJawatankuasaKhasSukanMalaysiaController extends Controller
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'temasya' => $model->temasya
-                    , 'jawatankuasa' => $model->jawatankuasa
+                    //, 'jawatankuasa' => $model->jawatankuasa
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -221,7 +229,7 @@ class PengurusanJawatankuasaKhasSukanMalaysiaController extends Controller
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'temasya' => $model->temasya
-                    , 'jawatankuasa' => $model->jawatankuasa
+                    //, 'jawatankuasa' => $model->jawatankuasa
                     , 'format' => $model->format
                 ]);
             }
@@ -233,7 +241,7 @@ class PengurusanJawatankuasaKhasSukanMalaysiaController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanProfilAhliJawatankuasaKhasSukanMalaysia($tarikh_dari, $tarikh_hingga, $temasya, $jawatankuasa, $format)
+    public function actionGenerateLaporanProfilAhliJawatankuasaKhasSukanMalaysia($tarikh_dari, $tarikh_hingga, $temasya, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -244,13 +252,13 @@ class PengurusanJawatankuasaKhasSukanMalaysiaController extends Controller
         if($temasya == "") $temasya = array();
         else $temasya = array($temasya);
         
-        if($jawatankuasa == "") $jawatankuasa = array();
-        else $jawatankuasa = array($jawatankuasa);
+        //if($jawatankuasa == "") $jawatankuasa = array();
+        //else $jawatankuasa = array($jawatankuasa);
         
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
-            'JAWATANKUASA' => $jawatankuasa,
+            //'JAWATANKUASA' => $jawatankuasa,
             'TEMASYA' => $temasya,
         );
         

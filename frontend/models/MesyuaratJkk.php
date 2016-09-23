@@ -58,13 +58,14 @@ class MesyuaratJkk extends \yii\db\ActiveRecord
     {
         return [
             [['bil_mesyuarat', 'nama_mesyuarat', 'agenda', 'tarikh', 'tempat', 'disedia_oleh', 'disemak_oleh', 'sukan', 'fasa', 'cawangan', 'program',
-                'penganjur', 'pengerusi_mesyuarat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+                'penganjur', 'pengerusi_mesyuarat', 'jenis_mesyuarat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             ['negeri', 'required', 'when' => function ($model) {
                     return $model->penganjur == RefPenganjurJkk::MAJLIS_SUKAN_NEGERI;
                 }, 'whenClient' => "function (attribute, value) {
                     return $('#penganjur').val() == '1';
                 }"],
             [['tarikh'], 'safe'],
+            [['jenis_mesyuarat'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['bil_mesyuarat'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['pengurusi', 'pencatat_minit', 'perkara_perkara_dan_tindakan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -93,7 +94,7 @@ class MesyuaratJkk extends \yii\db\ActiveRecord
             'muat_naik' => GeneralLabel::muat_naik,
             'disedia_oleh' => GeneralLabel::disedia_oleh,
             'disemak_oleh' => GeneralLabel::disemak_oleh,
-
+            'jenis_mesyuarat' => GeneralLabel::jenis_mesyuarat,
         ];
     }
     
@@ -116,5 +117,26 @@ class MesyuaratJkk extends \yii\db\ActiveRecord
      */
     public function getRefBilJkk(){
         return $this->hasOne(RefBilJkk::className(), ['id' => 'bil_mesyuarat']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJenisCawanganKuasaJkkJkp(){
+        return $this->hasOne(RefJenisCawanganKuasaJkkJkp::className(), ['id' => 'jenis_mesyuarat']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSukan(){
+        return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefProgramSemasaSukanAtlet(){
+        return $this->hasOne(RefProgramSemasaSukanAtlet::className(), ['id' => 'program']);
     }
 }

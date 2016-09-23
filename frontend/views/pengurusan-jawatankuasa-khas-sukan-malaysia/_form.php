@@ -23,7 +23,7 @@ use app\models\general\GeneralMessage;
 use app\models\RefJawatankuasaKhas;
 use app\models\RefNegeri;
 
-/* @var $this yii\web\View */
+/* @var $thiRefJawatankuasaKhass yii\web\View */
 /* @var $model app\models\PengurusanJawatankuasaKhasSukanMalaysia */
 /* @var $form yii\widgets\ActiveForm */
 ?>
@@ -96,7 +96,7 @@ use app\models\RefNegeri;
                  
             ],
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -115,7 +115,7 @@ use app\models\RefNegeri;
                         'options' => ['placeholder' => Placeholder::jawatankuasa],],
                     'columnOptions'=>['colspan'=>4]],
             ],
-        ],
+        ],*/
     ]
 ]);
     ?>
@@ -149,6 +149,14 @@ use app\models\RefNegeri;
 
             //'pengurusan_jawatankuasa_khas_sukan_malaysia_ahli_id',
             //'nama',
+            [
+                'attribute' => 'jawatankuasa',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jawatankuasa,
+                ],
+                'value' => 'refJawatankuasaKhas.desc'
+            ],
             [
                 'attribute' => 'nama',
                 'filterInputOptions' => [

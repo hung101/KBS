@@ -41,6 +41,7 @@ class PembayaranInsentifAtlet extends \yii\db\ActiveRecord
             [['nilai', 'insentif_khas'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['created', 'updated'], 'safe'],
             [['session_id'], 'string', 'max' => 100],
+            [['pembayaran_insentif_id', 'atlet', 'acara'], 'unique', 'targetAttribute' => [ 'atlet', 'acara'] , 'message' => GeneralMessage::yii_validation_unique_multiple],
         ];
     }
 

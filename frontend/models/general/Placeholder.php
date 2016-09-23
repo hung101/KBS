@@ -187,6 +187,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const negeri = " -- Pilih Negeri -- ";
         const negeriSokongan = " -- Pilih Negeri Sokongan -- ";
         const parlimen = " -- Pilih Parlimen -- ";
+        const passportTempatDikeluarkan = " -- Pilih Passport Tempat Dikeluarkan -- ";
         const pasukan = " -- Pilih Pasukan -- ";
         const pencapaian = " -- Pilih Pecapaian -- ";
         const pencapaianTertinggi  = " -- Pilih Pencapaian Tertinggi -- ";
@@ -468,6 +469,7 @@ if($session->get('language') == "EN") {
         const negeri = " -- Select State -- ";
         const negeriSokongan = " -- Select State Support -- ";
         const parlimen = " -- Select The Parliament -- ";
+        const passportTempatDikeluarkan = " -- Select Passport Issue Place -- ";
         const pasukan = " -- Select Team -- ";
         const pencapaian = " -- Select Hit -- ";
         const pencapaianTertinggi  = " -- Select Hit Highest -- ";

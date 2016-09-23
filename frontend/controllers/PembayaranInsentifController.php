@@ -275,6 +275,16 @@ class PembayaranInsentifController extends Controller
         $session->close();
     }
     
+    public function actionSetSukan($sukan_id){
+        
+        $session = new Session;
+        $session->open();
+
+        $session['pembayaran_insentif_sukan_id'] = $sukan_id;
+        
+        $session->close();
+    }
+    
     public function actionLaporanInsentifMesyuaratJawatankuasaBantuanSgar()
     {
         if (Yii::$app->user->isGuest) {

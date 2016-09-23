@@ -369,6 +369,50 @@ class JurulatihController extends Controller
         echo Json::encode($model);
     }
     
+    /**
+     * Get Bandars base on Negeri id
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionGetJurulatihForAtlet()
+    {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $cat_id = empty($parents[0]) ? null : $parents[0];
+                $subcat_id = empty($parents[1]) ? null : $parents[1];
+                $out = self::getChild($cat_id, $subcat_id); 
+                // the getSubCatList function will query the database based on the
+                // cat_id and return an array like below:
+                // [
+                //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+                //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+                // ]
+                echo Json::encode(['output'=>$out, 'selected'=>'']);
+                return;
+            }
+        }
+        echo Json::encode(['output'=>'', 'selected'=>'']);
+    }
+    
+    /**
+     * get list of Bandar by Negeri
+     * @param integer $id
+     * @return Array Bandars
+     */
+    public static function getChild($program_id, $sukan_id) {
+        $data = Jurulatih::find()->joinWith(['refJurulatihSukan'])
+               ->where(['tbl_jurulatih_sukan.program'=>$program_id])
+               ->andWhere(['tbl_jurulatih_sukan.sukan'=>$sukan_id])
+               ->andWhere(['=', 'status_tawaran', RefStatusTawaran::LULUS_TAWARAN])
+                ->select(['tbl_jurulatih.jurulatih_id AS id','nama AS name'])->asArray()->createCommand()->queryAll();
+        
+        $value = (count($data) == 0) ? ['' => ''] : $data;
+
+        return $value;
+    }
+    
     public function actionLaporanSenaraiJurulatih()
     {
         if (Yii::$app->user->isGuest) {

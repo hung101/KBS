@@ -7,6 +7,7 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use yii\web\Session;
 
 // contant values
 use app\models\general\Placeholder;
@@ -21,6 +22,19 @@ use app\models\RefAcara;
 /* @var $this yii\web\View */
 /* @var $model app\models\PembayaranInsentifAtlet */
 /* @var $form yii\widgets\ActiveForm */
+
+
+    // Session
+    $session = new Session;
+    $session->open();
+    
+    if(isset($session['pembayaran_insentif_sukan_id']) && $session['pembayaran_insentif_sukan_id']){
+        $acara_list = RefAcara::find()->where(['=', 'aktif', 1])->andWhere(['=', 'ref_sukan_id', $session['pembayaran_insentif_sukan_id']])->all();
+    } else {
+        $acara_list = RefAcara::find()->where(['=', 'aktif', 1])->all();
+    }
+        
+    $session->close();
 ?>
 
 <div class="pembayaran-insentif-atlet-form">
@@ -64,7 +78,7 @@ use app\models\RefAcara;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map($acara_list,'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::acara],
                         'pluginOptions'=>['allowClear'=>true]],
                     'columnOptions'=>['colspan'=>3]],

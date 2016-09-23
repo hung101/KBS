@@ -51,7 +51,7 @@ use app\models\general\GeneralMessage;
     ?>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
-    
+    <?php //echo $form->errorSummary($model); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -593,12 +593,23 @@ use app\models\general\GeneralMessage;
 $URL = Url::to(['/pengurusan-insentif-tetapan-shakam-shakar/get-jumlah']);
 $URL_PROGRAM = Url::to(['/perancangan-program/get-program']);
 $URL_SET_ACARA = Url::to(['/pembayaran-insentif/set-acara']);
+$URL_SET_SUKAN = Url::to(['/pembayaran-insentif/set-sukan']);
 
 $ACARA_INDIVIDU = RefAcaraInsentif::INDIVIDU;
 $ACARA_BERPASUKAN = RefAcaraInsentif::BERPASUKAN;
 
 $KEJOHANAN_TEMASYA = RefInsentifKejohanan::TEMASYA;
 $KEJOHANAN_INDIVIDU = RefInsentifKejohanan::INDIVIDU;
+
+$script = <<< JS
+        
+$(document).ready(function(){
+        changeSukan();
+});
+     
+JS;
+        
+$this->registerJs($script);
 
 $script = <<< JS
         
@@ -633,6 +644,10 @@ $('#pembayaraninsentif-acara').change(function(){
         
 $('#pembayaraninsentif-kejohanan').change(function(){
     toggleKelas();
+});
+        
+$('#pembayaraninsentif-sukan').change(function(){
+    changeSukan();
 });
 
 $(document).ready(function(){
@@ -701,6 +716,12 @@ function changeAcara(){
         var nilai_sikap = nilai_berpasukan * (peratus_sikap/100);
         $('#pembayaraninsentif-nilai_sikap').val(nilai_sikap.toFixed(2));
     }
+}
+        
+        
+function changeSukan(){
+    $.get('$URL_SET_SUKAN',{sukan_id:$('#pembayaraninsentif-sukan').val()},function(data){
+    });
 }
      
 function clearForm(){

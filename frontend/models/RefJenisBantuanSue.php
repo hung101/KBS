@@ -20,6 +20,10 @@ use app\models\general\GeneralMessage;
  */
 class RefJenisBantuanSue extends \yii\db\ActiveRecord
 {
+    const ELAUN_SUE = 1;
+    const ELAUN_PENYERLARAS_PSK = 2;
+    const EMOLUMEN_PSK = 3;
+    
     /**
      * @inheritdoc
      */

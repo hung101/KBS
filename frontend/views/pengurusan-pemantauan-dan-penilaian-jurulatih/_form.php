@@ -254,8 +254,8 @@ use app\models\general\GeneralMessage;
         
         if($penilaian_oleh){
             if (($modelRefPenilaianJurulatih = RefPenilaianJurulatih::findOne($penilaian_oleh)) !== null) {
-                $calculate_jumlah_permarkahan = (($calculate_jumlah_markah/180) * ($modelRefPenilaianJurulatih->markah_peratus/100)); // formula (x/180*5%)
-                echo "<h4>Jumlah Permarkahan (x/180*".$modelRefPenilaianJurulatih->markah_peratus."%): " . number_format($calculate_jumlah_permarkahan, 4) . "</h4>";
+                $calculate_jumlah_permarkahan = (($calculate_jumlah_markah/120)* ($modelRefPenilaianJurulatih->markah_peratus/100)); // formula (x/120*5%)
+                echo "<h4>Jumlah Permarkahan (x/120*".$modelRefPenilaianJurulatih->markah_peratus."%): " . number_format($calculate_jumlah_permarkahan, 4) . "</h4>";
             } 
         }
     

@@ -59,9 +59,9 @@ class PengurusanJawatankuasaKhasSukanMalaysiaAhli extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis_keahlian', 'nama', 'jawatan', 'agensi_organisasi'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jenis_keahlian', 'nama', 'jawatan', 'agensi_organisasi', 'jawatankuasa'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['nama', 'created', 'updated'], 'safe'],
-            [['jawatan', 'agensi_organisasi', 'negeri', 'created_by', 'updated_by'], 'integer'],
+            [['jawatan', 'agensi_organisasi', 'negeri', 'created_by', 'updated_by', 'jawatankuasa'], 'integer'],
             [['jenis_keahlian'], 'string', 'max' => 11],
             [['jenis_keahlian_nyatakan', 'agensi_organisasi_nyatakan', 'jawatan_lain_lain'], 'string', 'max' => 80],
             [['session_id'], 'string', 'max' => 100],
@@ -88,6 +88,7 @@ class PengurusanJawatankuasaKhasSukanMalaysiaAhli extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
             'jawatan_lain_lain' => 'Nyatakan Jawatan (Jika Lain-lain)',
+            'jawatankuasa' => 'Jawatankuasa',
         ];
     }
     
@@ -103,5 +104,12 @@ class PengurusanJawatankuasaKhasSukanMalaysiaAhli extends \yii\db\ActiveRecord
      */
     public function getRefJawatanJawatankuasaKhas(){
         return $this->hasOne(RefJawatanJawatankuasaKhas::className(), ['id' => 'jawatan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJawatankuasaKhas(){
+        return $this->hasOne(RefJawatankuasaKhas::className(), ['id' => 'jawatankuasa']);
     }
 }

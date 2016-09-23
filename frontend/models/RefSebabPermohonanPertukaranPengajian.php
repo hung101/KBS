@@ -20,6 +20,10 @@ use app\models\general\GeneralMessage;
  */
 class RefSebabPermohonanPertukaranPengajian extends \yii\db\ActiveRecord
 {
+    const PERTUKARAN = 1;
+    const PENANGGUHAN = 2;
+    const PELEPASAN = 3;
+    
     /**
      * @inheritdoc
      */

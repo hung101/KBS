@@ -20,12 +20,13 @@ class MsnLaporanSenaraiAtlet extends Model
     public $format;
     public $atlet;
     public $kategori_kecacatan;
+    public $source;
 
     public function rules()
     {
         return [
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'negeri', 'acara', 'kategori_kecacatan', 'atlet'], 'safe'],
+            [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'negeri', 'acara', 'kategori_kecacatan', 'atlet', 'source'], 'safe'],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
             [['jumlah_geran_hingga'], 'compare', 'compareAttribute'=>'negeri', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
@@ -41,6 +42,7 @@ class MsnLaporanSenaraiAtlet extends Model
             'negeri' => GeneralLabel::negeri,
             'acara' => GeneralLabel::acara,
             'atlet' => GeneralLabel::atlet,
+            'source' => GeneralLabel::source,
             'format' => GeneralLabel::format,
             'kategori_kecacatan' => GeneralLabel::kategori_kecacatan,
         ];

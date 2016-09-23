@@ -7,6 +7,7 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use yii\helpers\Url;
 
 // table reference
 use app\models\RefKategoriMuatnaik;
@@ -52,7 +53,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(PengurusanJawatankuasaKhasSukanMalaysia::find()->all(),'pengurusan_jawatankuasa_khas_sukan_malaysia_id', 'temasya'),
-                        'options' => ['placeholder' => Placeholder::temasya],
+                        'options' => ['placeholder' => Placeholder::temasya, 'id'=>'pengurusanJawatankuasaId'],
                         'pluginOptions' => [
                                     'allowClear' => true
                                 ],],
@@ -198,3 +199,42 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<?php
+$URLPengurusanJawatankuasaKhasSukanMalaysia = Url::to(['/pengurusan-jawatankuasa-khas-sukan-malaysia/get-pengurusan-jawatankuasa-khas-sukan-malaysia']);
+
+$script = <<< JS
+        
+$('#pengurusanJawatankuasaId').change(function(){
+    
+    $.get('$URLPengurusanJawatankuasaKhasSukanMalaysia',{id:$(this).val()},function(data){
+        clearFormTemasya();
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+            $('#muatnaikdokumen-tarikh_mula').attr('value',data.tarikh_mula);
+            $("#muatnaikdokumen-tarikh_mula-disp").val(data.tarikh_mula);
+            $('#muatnaikdokumen-tarikh_tamat').attr('value',data.tarikh_tamat);
+            $("#muatnaikdokumen-tarikh_tamat-disp").val(data.tarikh_tamat);
+            $("#muatnaikdokumen-negeri").val(data.negeri).trigger("change");
+            //$("#muatnaikdokumen-sukan").val(data.sukan).trigger("change");
+            
+        }
+    });
+});
+        
+function clearFormTemasya(){
+    $('#muatnaikdokumen-tarikh_mula').attr('value','');
+    $("#muatnaikdokumen-tarikh_mula-disp").val('');
+    $('#muatnaikdokumen-tarikh_tamat').attr('value','');
+    $("#muatnaikdokumen-tarikh_tamat-disp").val('');
+    $("#muatnaikdokumen-negeri").val('').trigger("change");
+    //$("#muatnaikdokumen-sukan").val('').trigger("change");
+}
+        
+JS;
+        
+$this->registerJs($script);
+?>

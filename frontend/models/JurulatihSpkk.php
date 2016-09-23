@@ -53,7 +53,7 @@ class JurulatihSpkk extends \yii\db\ActiveRecord
     {
         return [
             [['jurulatih_id', 'tahap', 'no_sijil'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['jurulatih_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jurulatih_id', 'sukan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jenis_spkk', 'tahap', 'no_sijil'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik_sijil'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik_sijil'], 'validateFileUpload', 'skipOnEmpty' => false],

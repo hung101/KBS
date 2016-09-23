@@ -47,7 +47,7 @@ use app\models\general\GeneralVariable;
     <h1>Peribadi</h1>
     
     <?php if($readonly): ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update']) && $model->approved == 0): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->jurulatih_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['delete'])): ?>

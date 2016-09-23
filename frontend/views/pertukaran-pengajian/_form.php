@@ -105,7 +105,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSebabPermohonanPertukaranPengajian::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jenisPermohonan],],
+                        'options' => ['placeholder' => Placeholder::jenisPermohonan, 'id'=>'jenisPermohonanaId'],],
                     'columnOptions'=>['colspan'=>5]],
                 'sebab' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
             ],
@@ -291,6 +291,10 @@ use app\models\general\GeneralMessage;
 <?php
 $DateDisplayFormat = GeneralVariable::displayDateFormat;
 
+$PERTUKARAN = RefSebabPermohonanPertukaranPengajian::PERTUKARAN;
+$PENANGGUHAN = RefSebabPermohonanPertukaranPengajian::PENANGGUHAN;
+$PELEPASAN = RefSebabPermohonanPertukaranPengajian::PELEPASAN;
+
 $URLAtlet = Url::to(['/atlet/get-atlet']);
 
 $script = <<< JS
@@ -327,6 +331,43 @@ function clearForm(){
     $('#pertukaranpengajian-sukan').val('').trigger("change");
 }
 
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+        
+$('#jenisPermohonanaId').change(function(){
+    checkJenisPermohonan();
+});
+        
+function checkJenisPermohonan(){
+    if($('#jenisPermohonanaId')){
+        $("#pertukaranpengajian-sebab_pertukaran").prop('disabled', true);
+        $("#pertukaranpengajian-sebab_penangguhan").prop('disabled', true);
+        $("#pertukaranpengajian-nama_pertukaran_pengajian").prop('disabled', true);
+    
+        if($('#jenisPermohonanaId').val() === "$PERTUKARAN"){
+            $("#pertukaranpengajian-nama_pertukaran_pengajian").prop('disabled', false);
+            $("#pertukaranpengajian-sebab_pertukaran").prop('disabled', false);
+            $("#pertukaranpengajian-sebab_penangguhan").val('');
+        } else if($('#jenisPermohonanaId').val() === "$PENANGGUHAN"){
+            $("#pertukaranpengajian-sebab_penangguhan").prop('disabled', false);
+            $("#pertukaranpengajian-sebab_pertukaran").val('');
+            $("#pertukaranpengajian-nama_pertukaran_pengajian").val('').trigger("change");
+        } else if($('#jenisPermohonanaId').val() === "$PELEPASAN"){
+            $("#pertukaranpengajian-nama_pertukaran_pengajian").val('').trigger("change");
+            $("#pertukaranpengajian-sebab_pertukaran").val('');
+            $("#pertukaranpengajian-sebab_penangguhan").val('');
+        }
+    }
+}
+            
+$(document).ready(function(){
+    checkJenisPermohonan();
+});
+            
 JS;
         
 $this->registerJs($script);

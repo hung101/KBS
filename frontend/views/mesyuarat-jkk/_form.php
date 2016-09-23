@@ -14,6 +14,7 @@ use yii\helpers\ArrayHelper;
 use kartik\widgets\DepDrop;
 
 // table reference
+use app\models\RefJenisCawanganKuasaJkkJkp;
 use app\models\RefPenganjurJkk;
 use app\models\RefNegeri;
 use app\models\PengurusanJkkJkp;
@@ -72,6 +73,20 @@ use app\models\general\Placeholder;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'jenis_mesyuarat' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-cawangan-kuasa-jkk-jkp/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefJenisCawanganKuasaJkkJkp::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::jenisCawanganKuasa],],
+                    'columnOptions'=>['colspan'=>3]],
                 'penganjur' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -141,7 +156,7 @@ use app\models\general\Placeholder;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::program],
+                        'options' => ['placeholder' => Placeholder::program, 'id'=>'programId'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -183,6 +198,7 @@ use app\models\general\Placeholder;
                             'initialize' => true,
                             'depends'=>[Html::getInputId($model, 'cawangan')],
                             'placeholder' => Placeholder::sukan,
+                            'id'=>'sukanId',
                             'url'=>Url::to(['/ref-sukan/subsukan'])],
                         ],
                     'columnOptions'=>['colspan'=>3]],
@@ -427,7 +443,7 @@ use app\models\general\Placeholder;
 ]);*/
     ?>
     
-    <?= Html::a('Agenda / Perbincangan', ['agenda-perbincangan', 'mesyuarat_id' => $mesyuarat_id], ['class' => 'btn btn-warning btn-lg', 'target' => '_blank']) ?>
+    <?= Html::a('Agenda / Perbincangan', ['agenda-perbincangan', 'mesyuarat_id' => $mesyuarat_id], ['class' => 'btn btn-warning btn-lg', 'target' => '_blank', 'id' => 'perbincanganLinkId']) ?>
     <br>
     <br>
     
@@ -452,6 +468,8 @@ use app\models\general\Placeholder;
 <?php
 $MAJLIS_SUKAN_NEGERI = RefPenganjurJkk::MAJLIS_SUKAN_NEGERI;
 
+$BASE_URL_PERBINCANGAN = Url::to(['agenda-perbincangan', 'mesyuarat_id' => $mesyuarat_id]);
+
 $script = <<< JS
         
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
@@ -464,6 +482,14 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 $('#penganjurId').change(function(){
     checkPenganjur();
 });
+    
+$('#programId').change(function(){
+    checkProgramSukan();
+});
+    
+$('#mesyuaratjkk-sukan').change(function(){
+    checkProgramSukan();
+});
         
 function checkPenganjur(){
     if($('#penganjurId').val() === "$MAJLIS_SUKAN_NEGERI"){
@@ -472,6 +498,26 @@ function checkPenganjur(){
         $('#mesyuaratjkk-negeri').val('').trigger("change");
         $("#mesyuaratjkk-negeri").prop("disabled", true);
     }
+}
+            
+function checkProgramSukan(){
+    
+    var sukanID = '';
+    var programID = '';
+            
+    if($('#mesyuaratjkk-sukan').val()){
+        sukanID = $('#mesyuaratjkk-sukan').val();
+    }
+
+    if($('#programId').val()){
+        programID = $('#programId').val();
+    }
+            
+    var URL_PERBINCANGAN = "$BASE_URL_PERBINCANGAN" + "&sukan_id=" + sukanID + "&program_id="  + programID;
+            
+    //alert(URL_PERBINCANGAN);
+            
+    $("#perbincanganLinkId").attr("href", URL_PERBINCANGAN)
 }
      
 

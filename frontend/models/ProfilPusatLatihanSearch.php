@@ -12,13 +12,16 @@ use app\models\ProfilPusatLatihan;
  */
 class ProfilPusatLatihanSearch extends ProfilPusatLatihan
 {
+    public $sukan_id;
+    public $program_id;
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['profil_pusat_latihan_id', 'created_by', 'updated_by', 'mesyuarat_id'], 'integer'],
+            [['profil_pusat_latihan_id', 'created_by', 'updated_by', 'mesyuarat_id', 'sukan_id', 'program_id'], 'integer'],
             [['nama_pusat_latihan', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_telefon', 'no_faks', 
                 'emel', 'tarikh_program_bermula', 'tahun_siap_pembinaan', 'keluasan_venue', 'hakmilik', 'kadar_sewaan', 'status', 'catatan', 'created', 
                 'updated', 'sukan', 'program'], 'safe'],
@@ -74,6 +77,8 @@ class ProfilPusatLatihanSearch extends ProfilPusatLatihan
             'created' => $this->created,
             'updated' => $this->updated,
             'mesyuarat_id' => $this->mesyuarat_id,
+            'sukan' => $this->sukan_id,
+            'program' => $this->program_id,
         ]);
 
         $query->andFilterWhere(['like', 'nama_pusat_latihan', $this->nama_pusat_latihan])

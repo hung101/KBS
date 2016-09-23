@@ -99,6 +99,7 @@ class PermohonanEBiasiswa extends \yii\db\ActiveRecord
             [['alamat_poskod'], 'string', 'max' => 5, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_tel_bimbit'], 'string', 'max' => 14, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat_temuduga'], 'string', 'max' => 90, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['umur'], 'integer', 'max' => 25, 'skipOnEmpty' => true, 'tooBig' => GeneralMessage::yii_validation_integer_max],
             [['muat_naik_gambar'],'validateFileUpload', 'skipOnEmpty' => false],
             [['oku_lain_lain'],'validateOKULainlain', 'skipOnEmpty' => false],
             //[['tarikh_mula'], 'compare', 'compareAttribute'=>'tarikh_tamat', 'operator'=>'<=', 'skipOnEmpty'=>true],

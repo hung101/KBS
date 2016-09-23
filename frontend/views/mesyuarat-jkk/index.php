@@ -54,6 +54,30 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'refFasa.desc'
             ],*/
             [
+                'attribute' => 'program',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program,
+                ],
+                'value' => 'refProgramSemasaSukanAtlet.desc'
+            ],
+            [
+                'attribute' => 'sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
+                'value' => 'refSukan.desc'
+            ],
+            [
+                'attribute' => 'jenis_mesyuarat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_mesyuarat,
+                ],
+                'value' => 'refJenisCawanganKuasaJkkJkp.desc'
+            ],
+            [
                 'attribute' => 'bil_mesyuarat',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -69,14 +93,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
             //'masa',
-            [
+            /*[
                 'attribute' => 'tempat',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tempat,
                 ],
                 //'value' => 'refTempatJkk.desc'
-            ],
+            ],*/
             //'pengurusi',
             // 'pencatat_minit',
             // 'perkara_perkara_dan_tindakan',

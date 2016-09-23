@@ -13,6 +13,8 @@ use app\models\PermohonanPeralatan;
 class PermohonanPeralatanSearch extends PermohonanPeralatan
 {
     public $kelulusan_id;
+    public $sukan_id;
+    public $program_id;
     
     /**
      * @inheritdoc
@@ -20,7 +22,7 @@ class PermohonanPeralatanSearch extends PermohonanPeralatan
     public function rules()
     {
         return [
-            [['permohonan_peralatan_id', 'jumlah_peralatan', 'kelulusan_id', 'mesyuarat_id'], 'integer'],
+            [['permohonan_peralatan_id', 'jumlah_peralatan', 'kelulusan_id', 'mesyuarat_id', 'sukan_id', 'program_id'], 'integer'],
             [['cawangan', 'negeri', 'sukan', 'program', 'tarikh', 'aktiviti', 'nota_urus_setia', 'kelulusan'], 'safe'],
         ];
     }
@@ -73,6 +75,8 @@ class PermohonanPeralatanSearch extends PermohonanPeralatan
             'jumlah_peralatan' => $this->jumlah_peralatan,
             'kelulusan' => $this->kelulusan_id,
             'mesyuarat_id' => $this->mesyuarat_id,
+            'sukan' => $this->sukan_id,
+            'program' => $this->program_id,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_cawangan.desc', $this->cawangan])

@@ -29,6 +29,7 @@ use app\models\RefProgramSemasaSukanAtlet;
 use app\models\RefStatusAtlet;
 use app\models\RefJenisLesenParalimpik;
 use app\models\RefAgensiOku;
+use app\models\RefPassportTempatDikeluarkan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -77,6 +78,8 @@ use app\models\general\GeneralVariable;
                 ],
             ]) ?>
     <?php endif; ?>
+    <?php if( ( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['delete']))  || 
+                (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))): ?>
     <?php 
     if($model->tawaran_id && $model->tawaran_id == RefStatusTawaran::LULUS_TAWARAN){
         if($model->cacat == 1 || $model->cacat == 'Ya'){
@@ -86,6 +89,7 @@ use app\models\general\GeneralVariable;
         }
     }
     ?>
+    <?php endif; ?>
     <br>
     <br>
     <?php endif; ?>
@@ -175,8 +179,8 @@ use app\models\general\GeneralVariable;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 //'atlet_id' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>20]],
-                'ic_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true, 'id'=>'NoICID']],
-                'name_penuh' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>true], 'hint'=>GeneralMessage::seperti_dalam_kad_pengenalan],
+                'ic_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12, 'id'=>'NoICID']],
+                'name_penuh' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80], 'hint'=>GeneralMessage::seperti_dalam_kad_pengenalan],
                 /*'tahap' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -362,8 +366,8 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'tinggi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
-                'berat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                'tinggi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6]],
+                'berat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>6]],
                 'status_atlet' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -414,7 +418,7 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'passport_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4]],
+                'passport_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>15]],
                 'passport_tamat_tempoh' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -425,7 +429,23 @@ use app\models\general\GeneralVariable;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'passport_tempat_dikeluarkan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4]],
+                'passport_tempat_dikeluarkan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-passport-tempat-dikeluarkan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefPassportTempatDikeluarkan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::passportTempatDikeluarkan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
             ]
         ],
         
@@ -522,24 +542,24 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'tel_bimbit_no_1' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
-                'tel_bimbit_no_2' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
-                'tel_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                'tel_bimbit_no_1' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>14]],
+                'tel_bimbit_no_2' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>14]],
+                'tel_no' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>14]],
             ]
         ],
         [
             'attributes' => [
-                'alamat_rumah_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>true]],
+                'alamat_rumah_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
             ]
         ],
         [
             'attributes' => [
-                'alamat_rumah_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>true]],
+                'alamat_rumah_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
             ]
         ],
         [
             'attributes' => [
-                'alamat_rumah_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>true]],
+                'alamat_rumah_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
             ]
         ],
         [
@@ -586,7 +606,7 @@ use app\models\general\GeneralVariable;
                             'url'=>Url::to(['/ref-bandar/subbandars'])],
                         ],
                     'columnOptions'=>['colspan'=>3]],
-                'alamat_rumah_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                'alamat_rumah_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5]],
             ]
         ],
         

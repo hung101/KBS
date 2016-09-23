@@ -118,7 +118,7 @@ class Atlet extends \yii\db\ActiveRecord
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['ic_no', 'ic_tentera'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['ms_negeri'], 'string', 'max' => 3, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['alamat_rumah_poskod', 'alamat_surat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_rumah_poskod', 'alamat_surat_poskod'], 'string', 'min' => 5, 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_max],
             [['ic_no_lama'], 'string', 'max' => 8, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jenis_lesen', 'emel', 'facebook', 'twitter'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tawaran_fail_rujukan', 'no_lesen_ipc'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],

@@ -72,6 +72,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalDicadangkan extends \yii\db\ActiveR
             [['sukan', 'nama', 'alamat_1', 'alamat_2', 'alamat_3', 'no_passport', 'tahap_akademik'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_negeri'], 'string', 'max' => 3, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'string', 'min' => 5, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_telefon', 'no_telefon_majikan', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],

@@ -42,6 +42,7 @@ use app\models\RefStatusPermohonanProgramBinaan;
 use app\models\RefKelulusanPeralatan;
 use app\models\RefStatusProgram;
 use app\models\RefBilJkk;
+use app\models\RefJenisCawanganKuasaJkkJkp;
 
 /**
  * MesyuaratJkkController implements the CRUD actions for MesyuaratJkk model.
@@ -79,7 +80,7 @@ class MesyuaratJkkController extends Controller
      * Lists all MesyuaratJkk models.
      * @return mixed
      */
-    public function actionAgendaPerbincangan($mesyuarat_id)
+    public function actionAgendaPerbincangan($mesyuarat_id, $sukan_id, $program_id)
     {
         
         $queryPar = Yii::$app->request->queryParams;
@@ -105,6 +106,26 @@ class MesyuaratJkkController extends Controller
             
             ProfilPusatLatihan::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = "" OR mesyuarat_id IS NULL');
             $queryPar['ProfilPusatLatihanSearch']['mesyuarat_id'] = $mesyuarat_id;
+        }
+        
+        if($sukan_id != ''){
+            $queryPar['AtletSearch']['sukan'] = $sukan_id;
+            $queryPar['JurulatihSearch']['nama_sukan'] = $sukan_id;
+            $queryPar['PengurusanProgramBinaanSearch']['sukan'] = $sukan_id;
+            $queryPar['PermohonanPeralatanSearch']['sukan_id'] = $sukan_id;
+            $queryPar['PerancanganProgramSearch']['sukan_id'] = $sukan_id;
+            $queryPar['PenyertaanSukanSearch']['sukan'] = $sukan_id;
+            $queryPar['PenyertaanSukanSearch']['sukan_id'] = $sukan_id;
+        }
+        
+        if($program_id != ''){
+            $queryPar['AtletSearch']['program'] = $program_id;
+            $queryPar['JurulatihSearch']['program'] = $program_id;
+            $queryPar['PengurusanProgramBinaanSearch']['program'] = $program_id;
+            $queryPar['PermohonanPeralatanSearch']['program_id'] = $program_id;
+            $queryPar['PerancanganProgramSearch']['program_id'] = $program_id;
+            $queryPar['ProfilPusatLatihanSearch']['program'] = $program_id;
+            $queryPar['ProfilPusatLatihanSearch']['program_id'] = $program_id;
         }
         
         //$queryPar['AtletSearch']['tawaran'] = RefStatusTawaran::DALAM_PROSES;
@@ -215,6 +236,9 @@ class MesyuaratJkkController extends Controller
         
         $ref = RefBilJkk::findOne(['id' => $model->bil_mesyuarat]);
         $model->bil_mesyuarat = $ref['desc'];
+        
+        $ref = RefJenisCawanganKuasaJkkJkp::findOne(['id' => $model->jenis_mesyuarat]);
+        $model->jenis_mesyuarat = $ref['desc'];
         
         return $this->render('view', [
             'model' => $model,

@@ -70,14 +70,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]
             ],
             //'jawatankuasa',
-            [
+            /*[
                 'attribute' => 'jawatankuasa',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jawatankuasa,
                 ],
                 'value' => 'refJawatankuasaKhas.desc'
-            ],
+            ],*/
             // 'created_by',
             // 'updated_by',
             // 'created',

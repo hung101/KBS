@@ -7,6 +7,7 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use yii\web\Session;
 
 // table reference
 use app\models\Jurulatih;
@@ -20,6 +21,32 @@ use app\models\general\GeneralMessage;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanProgramBinaanJurulatih */
 /* @var $form yii\widgets\ActiveForm */
+
+
+// Session
+    $session = new Session;
+    $session->open();
+    
+    if(isset($session['pengurusan_program_binaan_sukan_id']) && $session['pengurusan_program_binaan_sukan_id']){
+        $jurulatih_list = Jurulatih::find()->joinWith(['refJurulatihSukan' => function($query) {
+                        $query->orderBy(['tbl_jurulatih_sukan.created' => SORT_DESC])->one();
+                    },
+                ])->where(['=', 'tbl_jurulatih_sukan.sukan', $session['pengurusan_program_binaan_sukan_id']])->all();
+    } elseif(isset($session['pengurusan_program_binaan_program_id']) && $session['pengurusan_program_binaan_program_id']){
+        $jurulatih_list = Jurulatih::find()->joinWith(['refJurulatihSukan' => function($query) {
+                        $query->orderBy(['tbl_jurulatih_sukan.created' => SORT_DESC])->one();
+                    },
+                ])->where(['=', 'tbl_jurulatih_sukan.program', $session['pengurusan_program_binaan_program_id']])->all();
+    } elseif(isset($session['pengurusan_program_binaan_sukan_id']) && $session['pengurusan_program_binaan_sukan_id'] && isset($session['pengurusan_program_binaan_program_id']) && $session['pengurusan_program_binaan_program_id']){
+        $jurulatih_list = Jurulatih::find()->joinWith(['refJurulatihSukan' => function($query) {
+                        $query->orderBy(['tbl_jurulatih_sukan.created' => SORT_DESC])->one();
+                    },
+                ])->where(['=', 'tbl_jurulatih_sukan.sukan', $session['pengurusan_program_binaan_sukan_id']])->andWhere(['=', 'tbl_jurulatih_sukan.program_semasa', $session['pengurusan_program_binaan_program_id']])->all();
+    } else {
+        $jurulatih_list = Jurulatih::find()->all();
+    }
+        
+    $session->close();
 ?>
 
 <div class="pengurusan-program-binaan-jurulatih-form">
@@ -49,7 +76,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(Jurulatih::find()->all(),'jurulatih_id', 'nameAndIC'),
+                        'data'=>ArrayHelper::map($jurulatih_list,'jurulatih_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::jurulatih, 'id'=>'jurulatihId'],
                         'pluginOptions' => [
                             'allowClear' => true

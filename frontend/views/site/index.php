@@ -2,6 +2,7 @@
 use miloschuman\highcharts\Highcharts;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 use dosamigos\chartjs\ChartJs;
 use yii\helpers\ArrayHelper;
 
@@ -813,9 +814,63 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-2">
+                            
+                            <div class="col-lg-6">
+                                <?php
+                                
+                                // Jurulatih Negara - START
+                                $command = $connection->createCommand('
+                                    SELECT *,
+                                    IFNULL((final.JUMLAH / final.JUMLAH_KESELURUHAN) * 100,0.0) AS PERATUS
+                                    FROM
+                                    (
+                                        SELECT COUNT(*) AS JUMLAH,
+                                        (SELECT r.desc FROM tbl_ref_negara r WHERE r.id = p.warganegara) AS NEGARA,
+                                        (SELECT COUNT(*) FROM `tbl_jurulatih` pe ) AS JUMLAH_KESELURUHAN
+                                        FROM `tbl_jurulatih` p
+                                        GROUP BY p.warganegara
+                                    ) final 
+                                    ORDER BY PERATUS DESC', [':year' => date("Y")]);
+
+                                    $result = $command->queryAll();
+
+                                    $chartDataJurulatihNegara = array();
+                                    $jumlahKeseluruhanJurulatihNegara = 0;
+
+                                    foreach ($result as $row){
+                                        $chartDataJurulatihNegara[] = [$row['JUMLAH'] . ' - ' . $row['NEGARA'],  (double)$row['PERATUS']];
+                                        $jumlahKeseluruhanJurulatihNegara= $row['JUMLAH_KESELURUHAN'];
+                                    }
+
+                                    //print_r($chartDataJurulatihProgram);
+
+                                    // Jurulatih Negara - END
+            
+                                if($chartDataJurulatihNegara){
+                                  echo Highcharts::widget([
+                                          'options' => [
+                                              'title' => ['text' => GeneralLabel::negara],
+                                              'plotOptions' => [
+                                                  'pie' => [
+                                                      'cursor' => 'pointer',
+                                                  ],
+                                              ],
+                                              'series' => [
+                                                  [ // new opening bracket
+                                                      'type' => 'pie',
+                                                      'name' => GeneralLabel::peratus,
+                                                      'data' => $chartDataJurulatihNegara,
+                                                  ] // new closing bracket
+                                              ],
+                                          ],
+                                      ]);
+                                }
+                                  ?>
+                                <p class="text-center">
+                                  <strong><?=GeneralLabel::jumlah_without_RM?> : <?=$jumlahKeseluruhanJurulatihNegara?></strong>
+                                </p>
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-lg-6">
                                 <p class="text-center">
                                     <br>
                                     <br>
@@ -877,8 +932,6 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                     <br>
                                   <strong><?=GeneralLabel::jumlah_without_RM?> : <?=$jumlah_keseluruhan?></strong>
                                 </p>
-                            </div>
-                            <div class="col-lg-2">
                             </div>
                         </div>  
                     </div>
@@ -1622,7 +1675,7 @@ $this->registerJs($script);
             <div class="box-body nav-tabs-custom">
                   <div class="tab-content no-padding">
                     <!-- Morris chart - Sales -->
-                    <div class="chart tab-pane active" id="temujanji_atlet_keseluruhan-chart" style="position: relative;">
+                    <div class="chart tab-pane active" id="sukarelawan-chart" style="position: relative;">
                         <div class="row">
                             <div class="col-lg-6">
                                 <?php
@@ -1847,6 +1900,67 @@ $this->registerJs($script);
                                 </p>
                             </div>
                         </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                
+                            </div>
+                            <div class="col-lg-6">
+                                <?php
+                                
+                                // Sukarelawan Bangsa - START
+                                    $command = $connection->createCommand('
+                                    SELECT *,
+                                        IFNULL((final.JUMLAH / final.JUMLAH_KESELURUHAN) * 100,0.0) AS PERATUS
+                                        FROM
+                                        (
+                                            SELECT COUNT(*) AS JUMLAH,
+                                            (SELECT r.desc FROM tbl_ref_bangsa r WHERE r.id = p.bangsa) AS BANGSA,
+                                            (SELECT COUNT(*) FROM `tbl_sukarelawan` pe) AS JUMLAH_KESELURUHAN
+                                            FROM `tbl_sukarelawan` p
+                                            GROUP BY p.bangsa
+                                        ) final 
+                                        ORDER BY PERATUS DESC', [':year' => date("Y")]);
+
+                                    $resultSukarelawanBangsa = $command->queryAll();
+
+                                    $chartDataSukarelawanBangsa = array();
+                                    $jumlahKeseluruhanSukarelawanBangsa = 0;
+
+                                    foreach ($resultSukarelawanBangsa as $row){
+                                        $chartDataSukarelawanBangsa[] = [$row['JUMLAH'] . ' - ' . $row['BANGSA'],  (double)$row['PERATUS']];
+                                        $jumlahKeseluruhanSukarelawanBangsa= $row['JUMLAH_KESELURUHAN'];
+                                    }
+                                    // Sukarelawan Bangsa - END
+            
+                                if($chartDataSukarelawanBangsa){
+                                  echo Highcharts::widget([
+                                          'options' => [
+                                              'title' => ['text' => GeneralLabel::bangsa],
+                                              'plotOptions' => [
+                                                  'pie' => [
+                                                      'cursor' => 'pointer',
+                                                  ],
+                                              ],
+                                              'series' => [
+                                                  [ // new opening bracket
+                                                      'type' => 'pie',
+                                                      'name' => GeneralLabel::peratus,
+                                                      'data' => $chartDataSukarelawanBangsa,
+                                                  ] // new closing bracket
+                                              ],
+                                          ],
+                                      ]);
+                                }
+                                  ?>
+                                <p class="text-center">
+                                  <strong><?=GeneralLabel::jumlah_without_RM?> : <?=$jumlahKeseluruhanSukarelawanBangsa?></strong>
+                                </p>
+                            </div>
+                            <div class="col-lg-3">
+                                
+                            </div>
+                        </div>
                     </div>
                   </div>
             </div>
@@ -1856,9 +1970,76 @@ $this->registerJs($script);
           <!-- Sukarelawan - END -->
           
           
-          
-          
-          
+          <!-- Atlet ISN - START -->
+          <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['dashboard-isn']['module']) && isset(Yii::$app->user->identity->peranan_akses['ISN']['dashboard-isn']['atlet-podium'])): ?>
+          <div class="row">
+          <?php
+                                
+            // Atlet Jumlah START
+
+            $command = $connection->createCommand('
+                SELECT COUNT(*) as JUMLAH FROM tbl_atlet WHERE cacat=0', [':year' => date("Y")]);
+
+            $result = $command->queryAll();
+
+            $jumlahKeseluruhanAtlet= 0;
+
+            foreach ($result as $row){
+                $jumlahKeseluruhanAtlet = $row['JUMLAH'];
+            }
+
+            // Atlet Jumlah END
+          ?>
+        <div class="col-lg-6 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3><?=$jumlahKeseluruhanAtlet?></h3>
+
+              <p><?=GeneralLabel::atlet?></p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-android-bicycle"></i>
+            </div>
+            <a href="#" class="small-box-footer"><!--Maklumat lanjut <i class="fa fa-arrow-circle-right"></i>--></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <?php
+                                
+            // Atlet Paralimik Jumlah START
+
+            $command = $connection->createCommand('
+                SELECT COUNT(*) as JUMLAH FROM tbl_atlet WHERE cacat=1', [':year' => date("Y")]);
+
+            $result = $command->queryAll();
+
+            $jumlahKeseluruhanAtletPara= 0;
+
+            foreach ($result as $row){
+                $jumlahKeseluruhanAtletPara = $row['JUMLAH'];
+            }
+
+            // Atlet Paralimik Jumlah END
+          ?>
+        <div class="col-lg-6 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <!--<h3>4<sup style="font-size: 20px">%</sup></h3>-->
+                <h3><?=$jumlahKeseluruhanAtletPara?></h3>
+
+              <p><?=GeneralLabel::atlet . " (". GeneralLabel::paralimpik . ")"?></p>
+            </div>
+            <div class="icon">
+              <i class="ion-ios-color-filter"></i>
+            </div>
+            <a href="#" class="small-box-footer"><!--Maklumat lanjut <i class="fa fa-arrow-circle-right"></i>--></a>
+          </div>
+        </div>
+      </div>
+          <?php endif; ?>
+          <!-- Atlet ISN - END -->
           
           
           
@@ -1962,9 +2143,14 @@ $this->registerJs($script);
             </div>
             <!-- /.box-header -->
             <div class="box-body nav-tabs-custom">
+                <ul class="nav nav-tabs pull-right">
+                    <li class="active"><a href="#podium_atlet_sukan_negeri-chart" data-toggle="tab"><?=GeneralLabel::sukan?> & <?=GeneralLabel::negeri?></a></li>
+                    <li><a href="#podium_atlet_acara-chart" data-toggle="tab"><?=GeneralLabel::acara?></a></li>
+                    <li class="pull-left header"><?=GeneralLabel::statistik?></li>
+                  </ul>
                   <div class="tab-content no-padding">
                     <!-- Morris chart - Sales -->
-                    <div class="chart tab-pane active" id="status-program_pen-chart" style="position: relative;">
+                    <div class="chart tab-pane active" id="podium_atlet_sukan_negeri-chart" style="position: relative;">
                         <div class="row">
                             <div class="col-lg-6">
                                 <?php
@@ -2091,6 +2277,329 @@ $this->registerJs($script);
                             </div>
                         </div>  
                     </div>
+                    <div class="chart tab-pane" id="podium_atlet_acara-chart" style="position: relative;">
+                        <div class="row">
+                            <div class="col-lg-2">
+                            </div>
+                            <div class="col-lg-8">
+                                <p class="text-center">
+                                    <br>
+                                    <br>
+                                  <strong><?=GeneralLabel::jumlah_mengikut_acara?></strong>
+                                </p>
+                                <?php
+                                // Atlet Podium Mengikut Acara  START
+                                $command = $connection->createCommand('
+                                    SELECT *,
+                                  IFNULL((final.JUMLAH / final.JUMLAH_KESELURUHAN) * 100,0.0) AS PERATUS
+                                  FROM
+                                  (
+                                    SELECT COUNT(*) AS JUMLAH,
+                                    (SELECT r.desc FROM tbl_ref_acara r WHERE r.id = main_ass.acara) AS ACARA,
+                                    (SELECT COUNT(*) FROM tbl_atlet_sukan ass
+					    LEFT JOIN tbl_atlet a ON a.atlet_id = ass.atlet_id 
+					    LEFT JOIN tbl_ref_program_semasa_sukan_atlet rp ON rp.id = ass.program_semasa
+					    WHERE rp.desc LIKE "%Podium%") AS JUMLAH_KESELURUHAN
+                                    FROM tbl_atlet_sukan main_ass
+                                    LEFT JOIN tbl_atlet main_a ON main_a.atlet_id = main_ass.atlet_id 
+                                    LEFT JOIN tbl_ref_program_semasa_sukan_atlet main_rp ON main_rp.id = main_ass.program_semasa
+                                    WHERE main_rp.desc LIKE "%Podium%"
+                                    GROUP BY main_ass.acara) final 
+                                    ORDER BY PERATUS DESC ', [':year' => date("Y")]);
+
+                                $result = $command->queryAll();
+                                
+                                //echo 'color class = ' . $class_color_progress_bar[0];
+                                
+                                $color_class_runner = 0;
+                                
+                                $jumlah_keseluruhan = 0;
+                                
+                                foreach ($result as $row){
+                                    //$chartDataProgramPengajian[] = [$row['JUMLAH'] . ' - ' . $row['PROGRAM_PENGAJIAN'],  (double)$row['PERATUS']];
+                                    echo '<div class="progress-group">
+                                  <span class="progress-text">'.$row['ACARA'].'</span>
+                                  <span class="progress-number"><b>'.$row['JUMLAH'].'</b></span>
+
+                                  <div class="progress sm">
+                                    <div class="'.$class_color_progress_bar[$color_class_runner].'" style="width: '.$row['PERATUS'].'%"></div>
+                                  </div>
+                                </div>';
+                                    
+                                    $jumlah_keseluruhan = $row['JUMLAH_KESELURUHAN'];
+                                    
+                                    $color_class_runner++;
+                                    
+                                    if($color_class_runner == count($class_color_progress_bar)){
+                                        $color_class_runner = 0;
+                                    }
+                                }
+
+                                // Atlet Podium Mengikut Sukan END
+                                ?>
+                                <p class="text-right">
+                                    <br>
+                                  <strong><?=GeneralLabel::jumlah_without_RM?> : <?=$jumlah_keseluruhan?></strong>
+                                </p>
+                            </div>
+                            <div class="col-lg-2">
+                            </div>
+                        </div>  
+                    </div>
+                  </div>
+            </div>
+          </div>
+          <!-- /.box -->
+          
+          
+          
+          <?php
+            // Kumpulan Sukan START
+            
+            // change color different dashboard box
+            $dashboard_box_color = $class_bootstrap[$class_bootstrap_runner];
+            $class_bootstrap_runner ++;
+            if($class_bootstrap_runner == count($class_bootstrap)){$class_bootstrap_runner = 0;}
+            
+            $command = $connection->createCommand('
+                SELECT *, 
+                SUM(final.SUB_JUMLAH) AS JUMLAH,
+                IFNULL((SUM(final.SUB_JUMLAH) / final.JUMLAH_KESELURUHAN) * 100,0.0) AS PERATUS
+                FROM
+                (
+                    SELECT COUNT(*) AS SUB_JUMLAH,
+                    (SELECT (SELECT r.desc FROM tbl_ref_program_semasa_sukan_atlet r WHERE r.id = ass.program_semasa) FROM tbl_atlet_sukan ass WHERE ass.atlet_id = a.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS PROGRAM,
+                    (SELECT (SELECT r.desc FROM tbl_ref_cawangan r WHERE r.id = ass.cawangan) FROM tbl_atlet_sukan ass WHERE ass.atlet_id = a.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS CAWANGAN,
+                    (SELECT ass.cawangan FROM tbl_atlet_sukan ass WHERE ass.atlet_id = a.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS CAWANGAN_ID,
+                    ( SELECT SUM(inner1.JUMLAH) FROM
+			(SELECT COUNT(*) AS JUMLAH,
+			    (SELECT (SELECT r.desc FROM tbl_ref_program_semasa_sukan_atlet r WHERE r.id = ass.program_semasa) FROM tbl_atlet_sukan ass WHERE ass.atlet_id = att.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS PROGRAM
+			    FROM `tbl_atlet` att 
+			    GROUP BY PROGRAM) inner1 
+			    WHERE inner1.PROGRAM LIKE "%Podium%" ) AS JUMLAH_KESELURUHAN
+                    FROM `tbl_atlet` a 
+                    GROUP BY CAWANGAN_ID,PROGRAM
+                ) final 
+                WHERE final.PROGRAM LIKE "%Podium%"
+                GROUP BY final.CAWANGAN_ID', [':year' => date("Y")]);
+
+            $result = $command->queryAll();
+            
+            $chartDataAtletPodiumCawangan = array();
+            $jumlahKeseluruhanAtletPodiumCawangan= 0;
+            
+            foreach ($result as $row){
+                $chartDataAtletPodiumCawangan[] = [$row['JUMLAH'] . ' - ' . $row['CAWANGAN'],  (double)$row['PERATUS']];
+                $jumlahKeseluruhanAtletPodiumCawangan= $row['JUMLAH_KESELURUHAN'];
+            }
+            
+            //print_r($chartDataAtletPodiumCawangan);
+            
+            // Kumpulan Sukan END
+            
+            
+            // Negeri START
+            $command = $connection->createCommand('
+                SELECT *, 
+                SUM(final.SUB_JUMLAH) AS JUMLAH,
+                IFNULL((SUM(final.SUB_JUMLAH) / final.JUMLAH_KESELURUHAN) * 100,0.0) AS PERATUS
+                FROM
+                (
+                    SELECT COUNT(*) AS SUB_JUMLAH,
+                    (SELECT (SELECT r.desc FROM tbl_ref_program_semasa_sukan_atlet r WHERE r.id = ass.program_semasa) FROM tbl_atlet_sukan ass WHERE ass.atlet_id = a.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS PROGRAM,
+                    (SELECT (SELECT r.desc FROM tbl_ref_negeri r WHERE r.id = ass.negeri_diwakili) FROM tbl_atlet_sukan ass WHERE ass.atlet_id = a.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS NEGERI,
+                    (SELECT ass.negeri_diwakili FROM tbl_atlet_sukan ass WHERE ass.atlet_id = a.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS NEGERI_ID,
+                    ( SELECT SUM(inner1.JUMLAH) FROM
+			(SELECT COUNT(*) AS JUMLAH,
+			    (SELECT (SELECT r.desc FROM tbl_ref_program_semasa_sukan_atlet r WHERE r.id = ass.program_semasa) FROM tbl_atlet_sukan ass WHERE ass.atlet_id = att.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS PROGRAM
+			    FROM `tbl_atlet` att 
+			    GROUP BY PROGRAM) inner1 
+			    WHERE inner1.PROGRAM LIKE "%Podium%" ) AS JUMLAH_KESELURUHAN
+                    FROM `tbl_atlet` a 
+                    GROUP BY NEGERI_ID,PROGRAM
+                ) final 
+                WHERE final.PROGRAM LIKE "%Podium%"
+                GROUP BY final.NEGERI_ID', [':year' => date("Y")]);
+
+            $result = $command->queryAll();
+            
+            $chartDataAtletPodiumNegeri = array();
+            $jumlahKeseluruhanAtletPodiumNegeri = 0;
+            
+            foreach ($result as $row){
+                $chartDataAtletPodiumNegeri[] = [$row['JUMLAH'] . ' - ' . $row['NEGERI'],  (double)$row['PERATUS']];
+                $jumlahKeseluruhanAtletPodiumNegeri= $row['JUMLAH_KESELURUHAN'];
+            }
+            
+            //print_r($chartDataAtletPodiumNegeri);
+            
+            // Negeri END
+            
+            
+          ?>
+          <div class="box box-<?=$dashboard_box_color;?>">
+            <div class="box-header with-border">
+              <h3 class="box-title"><i class="fa fa-pie-chart"></i>  <?=GeneralLabel::atlet_podium?> (<?=GeneralLabel::paralimpik?>)</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body nav-tabs-custom">
+                <ul class="nav nav-tabs pull-right">
+                    <li class="active"><a href="#podium_atlet_para_sukan-chart" data-toggle="tab"><?=GeneralLabel::sukan?></a></li>
+                    <li><a href="#podium_atlet_para_acara-chart" data-toggle="tab"><?=GeneralLabel::acara?></a></li>
+                    <li class="pull-left header"><?=GeneralLabel::statistik?></li>
+                  </ul>
+                  <div class="tab-content no-padding">
+                    <!-- Morris chart - Sales -->
+                    <div class="chart tab-pane active" id="podium_atlet_para_sukan-chart" style="position: relative;">
+                        <div class="row">
+                            <div class="col-lg-2">
+                            </div>
+                            <div class="col-lg-8">
+                                <p class="text-center">
+                                    <br>
+                                    <br>
+                                  <strong><?=GeneralLabel::jumlah_mengikut_sukan?></strong>
+                                </p>
+                                <?php
+                                // Atlet Podium Paralimpik Mengikut Sukan  START
+                                $command = $connection->createCommand('
+                                    SELECT *, 
+                                    SUM(final.SUB_JUMLAH) AS JUMLAH,
+                                    IFNULL((SUM(final.SUB_JUMLAH) / final.JUMLAH_KESELURUHAN) * 100,0.0) AS PERATUS
+                                    FROM
+                                    (
+                                        SELECT COUNT(*) AS SUB_JUMLAH,
+                                        (SELECT (SELECT r.desc FROM tbl_ref_program_semasa_sukan_atlet r WHERE r.id = ass.program_semasa) FROM tbl_atlet_sukan ass WHERE ass.atlet_id = a.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS PROGRAM,
+                                        (SELECT (SELECT r.desc FROM tbl_ref_sukan r WHERE r.id = ass.nama_sukan) FROM tbl_atlet_sukan ass WHERE ass.atlet_id = a.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS SUKAN,
+                                        (SELECT ass.nama_sukan FROM tbl_atlet_sukan ass WHERE ass.atlet_id = a.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS SUKAN_ID,
+                                        ( SELECT SUM(inner1.JUMLAH) FROM
+                                            (SELECT COUNT(*) AS JUMLAH,
+                                                (SELECT (SELECT r.desc FROM tbl_ref_program_semasa_sukan_atlet r WHERE r.id = ass.program_semasa) FROM tbl_atlet_sukan ass WHERE ass.atlet_id = att.atlet_id ORDER BY ass.tarikh_mula_menyertai_program_msn DESC LIMIT 1 ) AS PROGRAM
+                                                FROM `tbl_atlet` att 
+                                                WHERE att.cacat = 1
+                                                GROUP BY PROGRAM) inner1 
+                                                WHERE inner1.PROGRAM LIKE "%Podium%" ) AS JUMLAH_KESELURUHAN
+                                        FROM `tbl_atlet` a 
+                                        WHERE a.cacat = 1
+                                        GROUP BY SUKAN_ID,PROGRAM
+                                    ) final 
+                                    WHERE final.PROGRAM LIKE "%Podium%"
+                                    GROUP BY final.SUKAN_ID ', [':year' => date("Y")]);
+
+                                $result = $command->queryAll();
+                                
+                                //echo 'color class = ' . $class_color_progress_bar[0];
+                                
+                                $color_class_runner = 0;
+                                
+                                $jumlah_keseluruhan = 0;
+                                
+                                foreach ($result as $row){
+                                    //$chartDataProgramPengajian[] = [$row['JUMLAH'] . ' - ' . $row['PROGRAM_PENGAJIAN'],  (double)$row['PERATUS']];
+                                    echo '<div class="progress-group">
+                                  <span class="progress-text">'.$row['SUKAN'].'</span>
+                                  <span class="progress-number"><b>'.$row['JUMLAH'].'</b></span>
+
+                                  <div class="progress sm">
+                                    <div class="'.$class_color_progress_bar[$color_class_runner].'" style="width: '.$row['PERATUS'].'%"></div>
+                                  </div>
+                                </div>';
+                                    
+                                    $jumlah_keseluruhan = $row['JUMLAH_KESELURUHAN'];
+                                    
+                                    $color_class_runner++;
+                                    
+                                    if($color_class_runner == count($class_color_progress_bar)){
+                                        $color_class_runner = 0;
+                                    }
+                                }
+
+                                // Atlet Podium Paralimpik Mengikut Sukan END
+                                ?>
+                                <p class="text-right">
+                                    <br>
+                                  <strong><?=GeneralLabel::jumlah_without_RM?> : <?=$jumlah_keseluruhan?></strong>
+                                </p>
+                            </div>
+                            <div class="col-lg-2">
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="chart tab-pane" id="podium_atlet_para_acara-chart" style="position: relative;">
+                        <div class="row">
+                            <div class="col-lg-2">
+                            </div>
+                            <div class="col-lg-8">
+                                <p class="text-center">
+                                    <br>
+                                    <br>
+                                  <strong><?=GeneralLabel::jumlah_mengikut_acara?></strong>
+                                </p>
+                                <?php
+                                // Atlet Podium Paralimpik Mengikut Acara  START
+                                $command = $connection->createCommand('
+                                    SELECT *,
+                                  IFNULL((final.JUMLAH / final.JUMLAH_KESELURUHAN) * 100,0.0) AS PERATUS
+                                  FROM
+                                  (
+                                    SELECT COUNT(*) AS JUMLAH,
+                                    (SELECT r.desc FROM tbl_ref_acara r WHERE r.id = main_ass.acara) AS ACARA,
+                                    (SELECT COUNT(*) FROM tbl_atlet_sukan ass
+					    LEFT JOIN tbl_atlet a ON a.atlet_id = ass.atlet_id 
+					    LEFT JOIN tbl_ref_program_semasa_sukan_atlet rp ON rp.id = ass.program_semasa
+					    WHERE rp.desc LIKE "%Podium%" AND a.cacat = 1) AS JUMLAH_KESELURUHAN
+                                    FROM tbl_atlet_sukan main_ass
+                                    LEFT JOIN tbl_atlet main_a ON main_a.atlet_id = main_ass.atlet_id 
+                                    LEFT JOIN tbl_ref_program_semasa_sukan_atlet main_rp ON main_rp.id = main_ass.program_semasa
+                                    WHERE main_rp.desc LIKE "%Podium%" AND main_a.cacat = 1
+                                    GROUP BY main_ass.acara) final 
+                                    ORDER BY PERATUS DESC ', [':year' => date("Y")]);
+
+                                $result = $command->queryAll();
+                                
+                                //echo 'color class = ' . $class_color_progress_bar[0];
+                                
+                                $color_class_runner = 0;
+                                
+                                $jumlah_keseluruhan = 0;
+                                
+                                foreach ($result as $row){
+                                    //$chartDataProgramPengajian[] = [$row['JUMLAH'] . ' - ' . $row['PROGRAM_PENGAJIAN'],  (double)$row['PERATUS']];
+                                    echo '<div class="progress-group">
+                                  <span class="progress-text">'.$row['ACARA'].'</span>
+                                  <span class="progress-number"><b>'.$row['JUMLAH'].'</b></span>
+
+                                  <div class="progress sm">
+                                    <div class="'.$class_color_progress_bar[$color_class_runner].'" style="width: '.$row['PERATUS'].'%"></div>
+                                  </div>
+                                </div>';
+                                    
+                                    $jumlah_keseluruhan = $row['JUMLAH_KESELURUHAN'];
+                                    
+                                    $color_class_runner++;
+                                    
+                                    if($color_class_runner == count($class_color_progress_bar)){
+                                        $color_class_runner = 0;
+                                    }
+                                }
+
+                                // Atlet Podium Mengikut Sukan END
+                                ?>
+                                <p class="text-right">
+                                    <br>
+                                  <strong><?=GeneralLabel::jumlah_without_RM?> : <?=$jumlah_keseluruhan?></strong>
+                                </p>
+                            </div>
+                            <div class="col-lg-2">
+                            </div>
+                        </div>  
+                    </div>
                   </div>
             </div>
           </div>
@@ -2132,8 +2641,8 @@ $this->registerJs($script);
             <div class="box-body nav-tabs-custom">
                 <ul class="nav nav-tabs pull-right">
                     <li class="active"><a href="#temujanji_atlet_keseluruhan-chart" data-toggle="tab"><?=GeneralLabel::keseluruhan?></a></li>
-                    <li><a href="#temujanji_atlet_tahun-chart" data-toggle="tab"><?=GeneralLabel::tahun?></a></li>
-                    <li><a href="#temujanji_atlet_bulan-chart" data-toggle="tab"><?=GeneralLabel::bulan?></a></li>
+                    <li><a href="#temujanji_atlet_tahun-chart" data-toggle="tab"><?=GeneralLabel::tahun?> <?=date('Y')?></a></li>
+                    <li><a href="#temujanji_atlet_bulan-chart" data-toggle="tab"><?=GeneralLabel::bulan?> <?=GeneralFunction::getMonthWord(date('Y-m-d'))?></a></li>
                     <li class="pull-left header"><?=GeneralLabel::statistik?></li>
                   </ul>
                   <div class="tab-content no-padding">
@@ -2359,6 +2868,7 @@ $this->registerJs($script);
                         </div>
                     </div>
                     <div class="chart tab-pane" id="temujanji_atlet_tahun-chart" style="position: relative;">
+                        <center><h3><?=GeneralLabel::jumlah_bagi_tahun?> <?=date('Y')?></h3></center>
                         <div class="row">
                             <div class="col-lg-6">
                                 <?php
@@ -2583,6 +3093,7 @@ $this->registerJs($script);
                         </div>
                     </div>
                     <div class="chart tab-pane" id="temujanji_atlet_bulan-chart" style="position: relative;">
+                        <center><h3><?=GeneralLabel::jumlah_bagi_bulan?> <?=GeneralFunction::getMonthWord(date('Y-m-d'),2)?></h3></center>
                         <div class="row">
                             <div class="col-lg-6">
                                 <?php
@@ -2932,8 +3443,8 @@ $this->registerJs($script);
             <div class="box-body nav-tabs-custom">
                 <ul class="nav nav-tabs pull-right">
                     <li class="active"><a href="#jurulatih_berdaftar_keseluruhan-chart" data-toggle="tab"><?=GeneralLabel::keseluruhan?></a></li>
-                    <li><a href="#jurulatih_berdaftar_tahun-chart" data-toggle="tab"><?=GeneralLabel::tahun?></a></li>
-                    <li><a href="#jurulatih_berdaftar_bulan-chart" data-toggle="tab"><?=GeneralLabel::bulan?></a></li>
+                    <li><a href="#jurulatih_berdaftar_tahun-chart" data-toggle="tab"><?=GeneralLabel::tahun?>  <?=date('Y')?></a></li>
+                    <li><a href="#jurulatih_berdaftar_bulan-chart" data-toggle="tab"><?=GeneralLabel::bulan?>  <?=GeneralFunction::getMonthWord(date('Y-m-d'))?></a></li>
                     <li class="pull-left header"><?=GeneralLabel::statistik?></li>
                   </ul>
                   <div class="tab-content no-padding">
@@ -3009,6 +3520,7 @@ $this->registerJs($script);
                         </div>
                     </div>
                     <div class="chart tab-pane" id="jurulatih_berdaftar_tahun-chart" style="position: relative;">
+                        <center><h3><?=GeneralLabel::jumlah_bagi_tahun?> <?=date('Y')?></h3></center>
                         <div class="row">
                             <div class="col-lg-6">
                                 <?php
@@ -3078,6 +3590,7 @@ $this->registerJs($script);
                         </div>
                     </div>
                     <div class="chart tab-pane" id="jurulatih_berdaftar_bulan-chart" style="position: relative;">
+                        <center><h3><?=GeneralLabel::jumlah_bagi_bulan?> <?=GeneralFunction::getMonthWord(date('Y-m-d'),2)?></h3></center>
                         <div class="row">
                             <div class="col-lg-6">
                                 <?php

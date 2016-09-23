@@ -283,7 +283,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <!-- Six Step Suaian Fizikal - START -->
     <div class="panel panel-default copyright-wrap" id="sixstep_suaian_fizikal-list">
-        <div class="panel-heading"><a data-toggle="collapse" href="#sixstep_suaian_fizikal-body"><?= GeneralLabel::six_step ?> - Suaian Fizikal</a>
+        <div class="panel-heading"><a data-toggle="collapse" href="#sixstep_suaian_fizikal-body"><?= GeneralLabel::six_step ?> - Suaian Fizikal (Gym)</a>
             <button type="button" class="close" data-target="#sixstep_suaian_fizikal-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         </div>
         <div id="sixstep_suaian_fizikal-body" class="panel-collapse collapse">

@@ -21,6 +21,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\BaseUrl;
+use yii\web\Session;
 
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
@@ -355,6 +356,26 @@ class PengurusanProgramBinaanController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionSetSukan($sukan_id){
+        
+        $session = new Session;
+        $session->open();
+
+        $session['pengurusan_program_binaan_sukan_id'] = $sukan_id;
+        
+        $session->close();
+    }
+    
+    public function actionSetProgram($program_id){
+        
+        $session = new Session;
+        $session->open();
+
+        $session['pengurusan_program_binaan_program_id'] = $program_id;
+        
+        $session->close();
     }
     
     public function actionLaporanSenaraiPenganjuranProgramBinaan()

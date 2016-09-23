@@ -68,7 +68,7 @@ use app\models\PengurusanJawatankuasaKhasSukanMalaysia;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(PengurusanJawatankuasaKhasSukanMalaysia::find()->all(),'pengurusan_jawatankuasa_khas_sukan_malaysia_id', 'temasya'),
-                        'options' => ['placeholder' => Placeholder::temasya],
+                        'options' => ['placeholder' => Placeholder::temasya, 'id'=>'pengurusanJawatankuasaId'],
                         'pluginOptions' => [
                                     'allowClear' => true
                                 ],],
@@ -413,6 +413,7 @@ use app\models\PengurusanJawatankuasaKhasSukanMalaysia;
 
 <?php
 $URLBadanSukan = Url::to(['/profil-badan-sukan/get-badan-sukan']);
+$URLPengurusanJawatankuasaKhasSukanMalaysia = Url::to(['/pengurusan-jawatankuasa-khas-sukan-malaysia/get-pengurusan-jawatankuasa-khas-sukan-malaysia']);
 
 $script = <<< JS
         
@@ -444,6 +445,34 @@ function clearForm(){
     $("#profildelegasiteknikal-alamat_negeri").val('').trigger("change");
     $("#profildelegasiteknikal-alamat_bandar").val('').trigger("change");
     $('#profildelegasiteknikal-alamat_poskod').attr('value','');
+}
+        
+$('#pengurusanJawatankuasaId').change(function(){
+    
+    $.get('$URLPengurusanJawatankuasaKhasSukanMalaysia',{id:$(this).val()},function(data){
+        clearFormTemasya();
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+            $('#profildelegasiteknikal-tarikh_mula').attr('value',data.tarikh_mula);
+            $("#profildelegasiteknikal-tarikh_mula-disp").val(data.tarikh_mula);
+            $('#profildelegasiteknikal-tarikh_tamat').attr('value',data.tarikh_tamat);
+            $("#profildelegasiteknikal-tarikh_tamat-disp").val(data.tarikh_tamat);
+            $("#profildelegasiteknikal-negeri").val(data.negeri).trigger("change");
+            //$("#profildelegasiteknikal-sukan").val(data.sukan).trigger("change");
+            
+        }
+    });
+});
+        
+function clearFormTemasya(){
+    $('#profildelegasiteknikal-tarikh_mula').attr('value','');
+    $("#profildelegasiteknikal-tarikh_mula-disp").val('');
+    $('#profildelegasiteknikal-tarikh_tamat').attr('value','');
+    $("#profildelegasiteknikal-tarikh_tamat-disp").val('');
+    $("#profildelegasiteknikal-negeri").val('').trigger("change");
+    //$("#profildelegasiteknikal-sukan").val('').trigger("change");
 }
         
 JS;

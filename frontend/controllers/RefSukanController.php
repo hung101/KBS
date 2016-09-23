@@ -8,6 +8,7 @@ use frontend\models\RefSukanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Session;
 
 use yii\helpers\Json;
 
@@ -153,8 +154,48 @@ class RefSukanController extends Controller
      * @return Array Bandars
      */
     public static function getChild($kategori_id) {
-        $data = RefSukan::find()->where(['ref_cawangan_id'=>$kategori_id])->select(['id','desc AS name'])->asArray()->all();
+        // Session
+        $session = new Session;
+        $session->open();
+        
+        if(isset($session['atlet_cacat']) && $session['atlet_cacat']){
+            $data = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->select(['id','desc AS name'])->asArray()->all();
+        } else {
+            $data = RefSukan::find()->where(['ref_cawangan_id'=>$kategori_id])->andWhere(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->select(['id','desc AS name'])->asArray()->all();
+        }
+        
+        if(!isset($session['atlet_cacat'])){
+            $data = RefSukan::find()->where(['ref_cawangan_id'=>$kategori_id])->andWhere(['=', 'aktif', 1])->select(['id','desc AS name'])->asArray()->all();
+        }
+        
+        // add filter base on sukan access role in tbl_user->sukan - START
+        if(Yii::$app->user->identity->sukan){
+            $sukan_access=explode(',',Yii::$app->user->identity->sukan);
+            
+            $arr_sukan_filter = array();
+            
+            for($i = 0; $i < count($sukan_access); $i++){
+                $arr_sukan = null;
+                $arr_sukan = array('id'=>$sukan_access[$i]); 
+                    array_push($arr_sukan_filter,$arr_sukan);
+            }
+            
+            if(isset($session['atlet_cacat']) && $session['atlet_cacat']){
+                $data = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->andFilterWhere(['id'=>$arr_sukan_filter])->select(['id','desc AS name'])->asArray()->all();
+            } else {
+                $data = RefSukan::find()->where(['ref_cawangan_id'=>$kategori_id])->andWhere(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->andFilterWhere(['id'=>$arr_sukan_filter])->select(['id','desc AS name'])->asArray()->all();
+            }
+
+            if(!isset($session['atlet_cacat'])){
+                $data = RefSukan::find()->where(['ref_cawangan_id'=>$kategori_id])->andWhere(['=', 'aktif', 1])->andFilterWhere(['id'=>$arr_sukan_filter])->select(['id','desc AS name'])->asArray()->all();
+            }
+        }
+        // add filter base on sukan access role in tbl_user->sukan - END
+        
         $value = (count($data) == 0) ? ['' => ''] : $data;
+        
+        
+        $session->close();
 
         return $value;
     }

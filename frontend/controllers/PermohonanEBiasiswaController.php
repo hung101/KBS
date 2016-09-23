@@ -775,4 +775,41 @@ class PermohonanEBiasiswaController extends Controller
     {
         GeneralFunction::generateReport('/spsb/kbs/eBiasiswa/StatistikPermohonanBiasiswaPecahanMengikutUniversitiInstitusi', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_universiti_institusi');
     }
+    
+    public function actionLaporanStatistikPermohonanBiasiswaMengikutKategoriPengajian()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new PermohonanEBiasiswaLaporanStatistikPermohonanBiasiswaMengikutUniversitiInstitusi();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-permohonan-biasiswa-mengikut-kategori-pengajian'
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-permohonan-biasiswa-mengikut-kategori-pengajian'
+                    , 'format' => $model->format
+                ]);
+
+            }
+
+        } 
+
+        return $this->render('laporan_statistik_permohonan_biasiswa_mengikut_kategori_pengajian', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanStatistikPermohonanBiasiswaMengikutKategoriPengajian($format)
+    {
+        GeneralFunction::generateReport('/spsb/kbs/eBiasiswa/StatistikPermohonanBiasiswaPecahanMengikutKategoriPengajian', $format, null, 'laporan_statistik_permohonan_biasiswa_mengikut_kategori_pengajian');
+    }
 }

@@ -20,7 +20,7 @@ class MesyuaratJkkSearch extends MesyuaratJkk
         return [
             [['mesyuarat_id'], 'integer'],
             [['nama_mesyuarat', 'bil_mesyuarat', 'tarikh', 'masa', 'tempat', 'pengurusi', 'pencatat_minit', 'perkara_perkara_dan_tindakan', 'mesyuarat_tamat',
-                'mesyuarat_seterusnya', 'disedia_oleh', 'disemak_oleh', 'fasa'], 'safe'],
+                'mesyuarat_seterusnya', 'disedia_oleh', 'disemak_oleh', 'fasa', 'jenis_mesyuarat', 'sukan', 'program'], 'safe'],
         ];
     }
 
@@ -45,7 +45,10 @@ class MesyuaratJkkSearch extends MesyuaratJkk
         $query = MesyuaratJkk::find()
                 ->joinWith(['refTempatJkk'])
                 ->joinWith(['refFasa'])
-                ->joinWith(['refBilJkk']);
+                ->joinWith(['refBilJkk'])
+                ->joinWith(['refJenisCawanganKuasaJkkJkp'])
+                ->joinWith(['refSukan'])
+                ->joinWith(['refProgramSemasaSukanAtlet']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -74,7 +77,10 @@ class MesyuaratJkkSearch extends MesyuaratJkk
             ->andFilterWhere(['like', 'disedia_oleh', $this->disedia_oleh])
             ->andFilterWhere(['like', 'disemak_oleh', $this->disemak_oleh])
                 ->andFilterWhere(['like', 'tbl_ref_fasa.dec', $this->fasa])
-                ->andFilterWhere(['like', 'tbl_ref_bil_jkk.dec', $this->bil_mesyuarat]);
+                ->andFilterWhere(['like', 'tbl_ref_bil_jkk.dec', $this->bil_mesyuarat])
+                ->andFilterWhere(['like', 'tbl_ref_jenis_cawangan_kuasa_jkk_jkp.desc', $this->jenis_mesyuarat])
+                ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
+                ->andFilterWhere(['like', 'tbl_ref_program_semasa_sukan_atlet.desc', $this->program]);
 
         return $dataProvider;
     }

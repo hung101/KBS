@@ -577,3 +577,37 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$URL_SET_PROGRAM = Url::to(['/pengurusan-program-binaan/set-program']);
+$URL_SET_SUKAN = Url::to(['/pengurusan-program-binaan/set-sukan']);
+
+$script = <<< JS
+        
+$(document).ready(function(){
+    changeSukan();
+    changeProgram();
+});
+        
+$('#pengurusanprogrambinaan-sukan').change(function(){
+    changeSukan();
+});
+        
+$('#pengurusanprogrambinaan-program').change(function(){
+    changeProgram();
+});
+        
+function changeSukan(){
+    $.get('$URL_SET_SUKAN',{sukan_id:$('#pengurusanprogrambinaan-sukan').val()},function(data){
+    });
+}
+        
+function changeProgram(){
+    $.get('$URL_SET_PROGRAM',{program_id:$('#pengurusanprogrambinaan-program').val()},function(data){
+    });
+}
+        
+JS;
+        
+$this->registerJs($script);
+?>

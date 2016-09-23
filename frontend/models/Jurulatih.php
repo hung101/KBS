@@ -112,8 +112,8 @@ class Jurulatih extends \yii\db\ActiveRecord
             [['bahagian', 'cawangan', 'program', 'sub_cawangan_pelapis', 'lain_lain_program', 'pusat_latihan', 'nama_sukan', 
                 'nama_acara', 'status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 'nama', 'bangsa', 'agama', 
                 'jantina', 'warganegara', 'tarikh_lahir', 'tempat_lahir', 'taraf_perkahwinan', 'alamat_rumah_1', 
-                'alamat_rumah_negeri', 'alamat_rumah_bandar', 'alamat_rumah_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri', 
-                'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'no_telefon_bimbit', 
+                'alamat_rumah_negeri', 'alamat_rumah_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri'
+                , 'alamat_surat_menyurat_poskod', 'no_telefon_bimbit', 
                 'tarikh_mula_lantikan', 'tarikh_tamat_lantikan', 'agensi'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir', 'tamat_tempoh', 'tamat_visa_tempoh', 'tamat_permit_tempoh', 'status_tawaran'], 'safe'],
             [['bil_tanggungan', 'approved', 'nama_sukan', 'nama_acara', 'ic_no', 'ic_tentera', 'ic_no_lama',

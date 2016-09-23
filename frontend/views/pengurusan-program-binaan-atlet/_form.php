@@ -7,6 +7,7 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use yii\web\Session;
 
 // table reference
 use app\models\Atlet;
@@ -20,6 +21,31 @@ use app\models\general\GeneralMessage;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanProgramBinaanAtlet */
 /* @var $form yii\widgets\ActiveForm */
+
+    // Session
+    $session = new Session;
+    $session->open();
+    
+    if(isset($session['pengurusan_program_binaan_sukan_id']) && $session['pengurusan_program_binaan_sukan_id']){
+        $atlet_list = Atlet::find()->joinWith(['refAtletSukan' => function($query) {
+                        $query->orderBy(['tbl_atlet_sukan.created' => SORT_DESC])->one();
+                    },
+                ])->where(['=', 'tbl_atlet_sukan.nama_sukan', $session['pengurusan_program_binaan_sukan_id']])->all();
+    } elseif(isset($session['pengurusan_program_binaan_program_id']) && $session['pengurusan_program_binaan_program_id']){
+        $atlet_list = Atlet::find()->joinWith(['refAtletSukan' => function($query) {
+                        $query->orderBy(['tbl_atlet_sukan.created' => SORT_DESC])->one();
+                    },
+                ])->where(['=', 'tbl_atlet_sukan.program_semasa', $session['pengurusan_program_binaan_program_id']])->all();
+    } elseif(isset($session['pengurusan_program_binaan_sukan_id']) && $session['pengurusan_program_binaan_sukan_id'] && isset($session['pengurusan_program_binaan_program_id']) && $session['pengurusan_program_binaan_program_id']){
+        $atlet_list = Atlet::find()->joinWith(['refAtletSukan' => function($query) {
+                        $query->orderBy(['tbl_atlet_sukan.created' => SORT_DESC])->one();
+                    },
+                ])->where(['=', 'tbl_atlet_sukan.nama_sukan', $session['pengurusan_program_binaan_sukan_id']])->andWhere(['=', 'tbl_atlet_sukan.program_semasa', $session['pengurusan_program_binaan_program_id']])->all();
+    } else {
+        $atlet_list = Atlet::find()->all();
+    }
+        
+    $session->close();
 ?>
 
 <div class="pengurusan-program-binaan-atlet-form">
@@ -49,7 +75,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'data'=>ArrayHelper::map($atlet_list,'atlet_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::atlet],
                         'pluginOptions' => [
                             'allowClear' => true

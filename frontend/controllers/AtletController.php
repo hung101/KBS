@@ -37,6 +37,7 @@ use app\models\RefStatusAtlet;
 use app\models\RefJenisLesenParalimpik;
 use app\models\RefAgensiOku;
 use app\models\RefKategoriKecacatan;
+use app\models\RefPassportTempatDikeluarkan;
 
 use app\models\general\GeneralLabel;
 use app\models\general\Upload;
@@ -256,6 +257,9 @@ class AtletController extends Controller
         $ref = RefStatusTawaran::findOne(['id' => $atlet->tawaran]);
         $atlet->tawaran = $ref['desc'];
         
+        $ref = RefPassportTempatDikeluarkan::findOne(['id' => $atlet->passport_tempat_dikeluarkan]);
+        $atlet->passport_tempat_dikeluarkan = $ref['desc'];
+        
         $YesNo = GeneralLabel::getYesNoLabel($atlet->cacat);
         $atlet->cacat = $YesNo;
         
@@ -323,7 +327,21 @@ class AtletController extends Controller
         ->setTo($modelPS->email)
                                     ->setFrom('noreply@spsb.com')
         ->setSubject('PSK telah memasukkan atlet baru')
-        ->setTextBody('Nama: ' . $model->name_penuh . '
+        ->setTextBody('Nama Atlet: ' . $model->name_penuh . '
+No Kad Pengenalan: ' . $model->ic_no . '
+')->send();
+                        }
+                    }
+                } elseif (Yii::$app->user->identity->peranan ==  UserPeranan::PERANAN_MSN_MAJLIS_SUKAN_NEGERI){
+                    // send out email to pengurus sukan if is MSN Majlis Sukan Negeri key in
+                    $modelPengurusSukan = User::find()->where(['peranan' => UserPeranan::PERANAN_MSN_PENGURUS_SUKAN])->all();
+                    foreach($modelPengurusSukan AS $modelPS){
+                        if($modelPS->email && $modelPS->email != ''){
+                            Yii::$app->mailer->compose()
+        ->setTo($modelPS->email)
+                                    ->setFrom('noreply@spsb.com')
+        ->setSubject('Majlis Sukan Negeri telah memasukkan atlet baru')
+        ->setTextBody('Nama Atlet: ' . $model->name_penuh . '
 No Kad Pengenalan: ' . $model->ic_no . '
 ')->send();
                         }
@@ -378,6 +396,31 @@ No Kad Pengenalan: ' . $model->ic_no . '
             $file = UploadedFile::getInstance($model, 'muat_naik_surat_persetujuan');
             if($file){
                 $model->muat_naik_surat_persetujuan = Upload::uploadFile($file, Upload::atletFolder, 'muat_naik_surat_persetujuan-' . $model->atlet_id);
+            }
+            
+            $changedTawaran = false;
+            
+            $oldTawaran = $model->getOldAttribute('tawaran');
+            
+            // send notification email if status tawaran has been changed and send to creator
+            if($model->tawaran != $oldTawaran){
+                $changedTawaran = true;
+                
+                if (($modelUser = User::findOne($model->created_by)) !== null) {
+                    if($modelUser->email && $modelUser->email != ''){
+                        $ref = RefStatusTawaran::findOne(['id' => $model->tawaran]);
+                        $statusTawaranDesc = $ref['desc'];
+        
+                            Yii::$app->mailer->compose()
+        ->setTo($modelUser->email)
+                                    ->setFrom('noreply@spsb.com')
+        ->setSubject('Status Tawaran Atlet (' . $model->name_penuh . ') Telah Diproses')
+        ->setTextBody('Nama Atlet: ' . $model->name_penuh . '
+No Kad Pengenalan: ' . $model->ic_no . '
+Status Tawaran Terkini: ' . $statusTawaranDesc . '
+')->send();
+                        }
+                }
             }
             
             if($model->save()){
@@ -530,6 +573,7 @@ No Kad Pengenalan: ' . $model->ic_no . '
                     , 'sukan' => $model->sukan
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
+                    , 'source' => $model->source
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -539,6 +583,7 @@ No Kad Pengenalan: ' . $model->ic_no . '
                     , 'sukan' => $model->sukan
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
+                    , 'source' => $model->source
                     , 'format' => $model->format
                 ]);
             }
@@ -550,7 +595,7 @@ No Kad Pengenalan: ' . $model->ic_no . '
         ]);
     }
     
-    public function actionGenerateLaporanSenaraiAtlet($program, $sukan, $acara, $negeri, $format)
+    public function actionGenerateLaporanSenaraiAtlet($program, $sukan, $acara, $negeri, $source, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -564,11 +609,15 @@ No Kad Pengenalan: ' . $model->ic_no . '
         if($negeri == "") $negeri = array();
         else $negeri = array($negeri);
         
+        if($source == "") $source = array();
+        else $source = array($source);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
+            'SOURCE' => $source,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanSenaraiAtlet', $format, $controls, 'laporan_senarai_atlet');
@@ -592,6 +641,7 @@ No Kad Pengenalan: ' . $model->ic_no . '
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     , 'kategori_kecacatan' => $model->kategori_kecacatan
+                    , 'source' => $model->source
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -602,6 +652,7 @@ No Kad Pengenalan: ' . $model->ic_no . '
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     , 'kategori_kecacatan' => $model->kategori_kecacatan
+                    , 'source' => $model->source
                     , 'format' => $model->format
                 ]);
             }
@@ -613,7 +664,7 @@ No Kad Pengenalan: ' . $model->ic_no . '
         ]);
     }
     
-    public function actionGenerateLaporanSenaraiAtletParalimpik($program, $sukan, $acara, $negeri, $kategori_kecacatan, $format)
+    public function actionGenerateLaporanSenaraiAtletParalimpik($program, $sukan, $acara, $negeri, $kategori_kecacatan, $source, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -630,12 +681,16 @@ No Kad Pengenalan: ' . $model->ic_no . '
         if($kategori_kecacatan == "") $kategori_kecacatan = array();
         else $kategori_kecacatan = array($kategori_kecacatan);
         
+        if($source == "") $source = array();
+        else $source = array($source);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
             'KATEGORI_CACAT' => $kategori_kecacatan,
+            'SOURCE' => $source,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanSenaraiAtletParalimpik', $format, $controls, 'laporan_senarai_atlet_paralimpik');

@@ -81,7 +81,7 @@ use app\models\general\GeneralVariable;
             ]
         ],
         
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -97,7 +97,7 @@ use app\models\general\GeneralVariable;
                     'columnOptions'=>['colspan'=>3]],
                 'elaun_diterima' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80], 'hint'=>'cth: Kontrak 10 bulan tapi akaun dibayar 5 bulan'],
             ]
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting

@@ -52,7 +52,7 @@ class AtletPendidikanController extends Controller
 
         if(isset($session['atlet_id'])){
             $queryPar['PertukaranPengajianSearch']['atlet'] = $session['atlet_id'];
-            $queryPar['PertukaranPengajianSearch']['status_permohonan_id'] = RefStatusPermohonanPendidikan::LULUS;
+            //$queryPar['PertukaranPengajianSearch']['status_permohonan_id'] = RefStatusPermohonanPendidikan::LULUS;
         }
         
         $session->close();

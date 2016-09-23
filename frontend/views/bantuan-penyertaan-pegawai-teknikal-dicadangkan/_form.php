@@ -36,8 +36,6 @@ use app\models\general\GeneralVariable;
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
-    <pre style="text-align: center"><strong>MAKLUMAT DIRI</strong></pre>
-    
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -109,26 +107,39 @@ use app\models\general\GeneralVariable;
                 
             ],
         ],
+    ]
+]);
+    ?>
+    
+    <pre style="text-align: center"><strong>MAKLUMAT DIRI</strong></pre>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
+                'nama' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>80]],
             ]
         ],
         [
             'attributes' => [
-                'alamat_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>true]],
+                'alamat_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
             ]
         ],
         [
             'attributes' => [
-                'alamat_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>true]],
+                'alamat_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
             ]
         ],
         [
             'attributes' => [
-                'alamat_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>true]],
+                'alamat_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
             ]
         ],
         [
