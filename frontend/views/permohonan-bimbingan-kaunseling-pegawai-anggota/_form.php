@@ -133,8 +133,8 @@ use app\models\general\GeneralMessage;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>MERUJUK PEGAWAI / ANGGOTA</strong></pre>
-    <p> <mark>Diis jika pemohon ingin merujuk pegawai / anggota untuk sesi kaunseling.</mark></p>
+    <pre style="text-align: center"><strong>PEGAWAI / ANGGOTA YANG DIRUJUK</strong></pre>
+    <p> <mark>Diisi jika pemohon ingin merujuk pegawai / anggota untuk sesi kaunseling.</mark></p>
     
    <?php
         echo FormGrid::widget([

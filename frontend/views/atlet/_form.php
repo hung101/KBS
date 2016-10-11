@@ -60,6 +60,12 @@ use app\models\general\GeneralVariable;
             $session['program_semasa_id'] = $model->refAtletSukan[0]->program_semasa;
         }
         
+        if(isset($session['atlet_cacat']) && $session['atlet_cacat']){
+            $cawangan_list = RefCawangan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all();
+        } else {
+            $cawangan_list = RefCawangan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all();
+        }
+        
         $session->close();
     ?>
     
@@ -87,8 +93,11 @@ use app\models\general\GeneralVariable;
         } else {
             echo Html::a(GeneralLabel::generate . ' ' . GeneralLabel::surat_tawaran_atlet, ['surat-tawaran-atlet', 'atlet_id' => $model->atlet_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
         }
+        echo " " . Html::a(GeneralLabel::generate . ' ' . GeneralLabel::surat_akuan_persetujuan_atlet, ['surat-akuan-persetujuan-atlet', 'atlet_id' => $model->atlet_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
     }
+    
     ?>
+    <?= Html::a(GeneralLabel::backToList, ['index'], ['class' => 'btn btn-warning']) ?>
     <?php endif; ?>
     <br>
     <br>
@@ -215,12 +224,12 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefCawangan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map($cawangan_list,'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::cawangan],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>2]],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
         [
@@ -970,6 +979,7 @@ use app\models\general\GeneralVariable;
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?php endif; ?>
+        <?= Html::a(GeneralLabel::backToList, ['index'], ['class' => 'btn btn-warning']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

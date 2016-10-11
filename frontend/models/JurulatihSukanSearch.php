@@ -68,7 +68,7 @@ class JurulatihSukanSearch extends JurulatihSukan
             'jurulatih_id' => $this->jurulatih_id,
             //'tarikh_mula_lantikan' => $this->tarikh_mula_lantikan,
             //'tarikh_tamat_lantikan' => $this->tarikh_tamat_lantikan,
-            'jumlah' => $this->jumlah,
+            //'jumlah' => $this->jumlah,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created' => $this->created,
@@ -79,6 +79,7 @@ class JurulatihSukanSearch extends JurulatihSukan
             ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
             ->andFilterWhere(['like', 'cawangan', $this->cawangan])
             ->andFilterWhere(['like', 'tbl_ref_bahagian_jurulatih.desc', $this->bahagian])
+                ->andFilterWhere(['like', 'jumlah', $this->jumlah])
             ->andFilterWhere(['like', 'tbl_ref_gaji_elaun_jurulatih.desc', $this->gaji_elaun])
                 ->andFilterWhere(['like', 'tarikh_mula_lantikan', $this->tarikh_mula_lantikan])
                 ->andFilterWhere(['like', 'tarikh_tamat_lantikan', $this->tarikh_tamat_lantikan]);

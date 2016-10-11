@@ -23,6 +23,11 @@ return [
         'user' => [
             'identityClass' => 'common\models\PublicUser',
             'enableAutoLogin' => true,
+            'identityCookie' => [
+                'name' => '_backendUser',
+                'path' => '/',
+                'httpOnly' => true,
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -38,7 +43,10 @@ return [
         ],
         'session' => [
             'name' => 'PHPBACKSESSID',
-            'savePath' => sys_get_temp_dir(),
+            'savePath' => __DIR__ . '/../runtime/sessions',
+            'cookieParams' => [
+                'path' => '/',
+            ],  
         ],
         // eddie (print) start 
         'pdf' => [

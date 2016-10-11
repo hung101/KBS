@@ -105,7 +105,7 @@ class PermohonanEBiasiswa extends \yii\db\ActiveRecord
             [['alamat_poskod'], 'string', 'max' => 5, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_tel_bimbit'], 'string', 'max' => 14, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat_temuduga'], 'string', 'max' => 90, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['umur'], 'integer', 'max' => 25, 'skipOnEmpty' => true, 'tooBig' => GeneralMessage::yii_validation_integer_max],
+            [['umur'],'validateUmur', 'skipOnEmpty' => false],
             [['muat_naik_gambar'],'validateFileUpload', 'skipOnEmpty' => false],
             [['oku_lain_lain'],'validateOKULainlain', 'skipOnEmpty' => false],
             //[['tarikh_mula'], 'compare', 'compareAttribute'=>'tarikh_tamat', 'operator'=>'<=', 'skipOnEmpty'=>true],
@@ -178,6 +178,21 @@ class PermohonanEBiasiswa extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateUmur($attribute, $params){
+        if($this->program_pengajian == RefProgramPengajian::DIPLOMA){
+            if($this->umur > 25){
+                $this->addError($attribute, 'Umur tidak boleh lebih 25');
+            }
+        } elseif($this->program_pengajian == RefProgramPengajian::IJAZAH){
+            if($this->umur > 30){
+                $this->addError($attribute, 'Umur tidak boleh lebih 30');
+            }
         }
     }
     

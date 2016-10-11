@@ -125,6 +125,8 @@ class ManualSilibusKurikulumTeknikalKepegawaianController extends Controller
         $model = $this->findModel($id);
         
          $existingMuatNaik = $model->muat_naik;
+         
+         $model->tarikh = date("Y-m-d");
         
         if($model->load(Yii::$app->request->post())){
             $file = UploadedFile::getInstance($model, 'muat_naik');

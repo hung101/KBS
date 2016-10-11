@@ -17,6 +17,21 @@ use app\models\general\GeneralLabel;
 
 $this->title = GeneralLabel::kelayakan_kursus_tertinggi;
 $this->params['breadcrumbs'][] = $this->title;
+
+
+use yii\web\Session;
+
+    $session = new Session;
+    $session->open();
+
+    $jurulatih_id = $session['jurulatih_id'];
+    $jurulatihModel = null;
+    
+    if (($jurulatihModel = app\models\Jurulatih::findOne($jurulatih_id)) !== null) {
+        $approved = $jurulatihModel->approved;
+    }
+
+    $session->close();
 ?>
 <div class="jurulatih-kursus-tertinggi-index">
     
@@ -37,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['create'])): ?>
+    <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['create']) && $approved == 0)  || isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['kemaskini_yang_hantar'])): ?>
         <p>
             <?= Html::button(GeneralLabel::createTitle . ' ' . GeneralLabel::kelayakan_kursus_tertinggi, ['value'=>Url::to(['create']),'class' => 'btn btn-success', 'onclick' => 'updateRenderAjax("'.Url::to(['create']).'", "'.GeneralVariable::tabKelayakanKursusTertinggiID.'");']) ?>
         </p>

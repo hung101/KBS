@@ -6,6 +6,8 @@ use Yii;
 use app\models\PenyertaanSukan;
 use frontend\models\PenyertaanSukanSearch;
 use app\models\PenyertaanSukanAcara;
+use app\models\PenilaianPestasi;
+use app\models\PenilaianPrestasiAtletSasaran;
 use frontend\models\PenyertaanSukanAcaraSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -141,6 +143,49 @@ class PenyertaanSukanController extends Controller
                 PenyertaanSukanAcara::updateAll(['session_id' => ''], 'penyertaan_sukan_id = "'.$model->penyertaan_sukan_id.'"');
             }
             
+            
+            if($model->nama_kejohanan){
+                // update Penilaian Prestasi modul for Kejohanan only
+                $modelPenilaianPestasi = null;
+                 if (($modelPenilaianPestasi = PenilaianPestasi::find()->where(['penyertaan_sukan_id'=>$model->penyertaan_sukan_id])->one()) == null) {
+                    $modelPenilaianPestasi = new PenilaianPestasi();
+                }
+                
+                $modelPenyertaanSukanAcaraFirstOne = null;
+                if (($modelPenyertaanSukanAcaraFirstOne = PenyertaanSukanAcara::find()->where(['penyertaan_sukan_id'=>$model->penyertaan_sukan_id])->orderBy(['penyertaan_sukan_acara_id' => SORT_ASC])->one()) != null) {
+                    $modelPenilaianPestasi->acara = $modelPenyertaanSukanAcaraFirstOne->nama_acara;
+                }
+
+                $modelPenilaianPestasi->penyertaan_sukan_id = $model->penyertaan_sukan_id;
+                $modelPenilaianPestasi->sukan = $model->nama_sukan;
+                $modelPenilaianPestasi->program = $model->program;
+                $modelPenilaianPestasi->kejohanan = $model->nama_kejohanan;
+                $modelPenilaianPestasi->save();
+
+                $modelPenyertaanSukanAcaras = PenyertaanSukanAcara::findAll([
+                        'penyertaan_sukan_id' => $model->penyertaan_sukan_id,
+                    ]);
+
+                foreach($modelPenyertaanSukanAcaras as $modelPenyertaanSukanAcara){
+                    $modelPenilaianPrestasiAtletSasaran = null;
+                    if (($modelPenilaianPrestasiAtletSasaran = PenilaianPrestasiAtletSasaran::find()
+                            ->where(['penyertaan_sukan_id'=>$model->penyertaan_sukan_id])
+                            ->andWhere(['penyertaan_sukan_acara_id'=>$modelPenyertaanSukanAcara->penyertaan_sukan_acara_id])->one()) == null) {
+                        $modelPenilaianPrestasiAtletSasaran = new PenilaianPrestasiAtletSasaran();
+                    }
+                    
+                    $modelPenilaianPrestasiAtletSasaran->penilaian_pestasi_id = $modelPenilaianPestasi->penilaian_pestasi_id;
+                    $modelPenilaianPrestasiAtletSasaran->atlet = $modelPenyertaanSukanAcara->atlet;
+                    $modelPenilaianPrestasiAtletSasaran->sasaran = $modelPenyertaanSukanAcara->sasaran;
+                    $modelPenilaianPrestasiAtletSasaran->penyertaan_sukan_id = $modelPenyertaanSukanAcara->penyertaan_sukan_id;
+                    $modelPenilaianPrestasiAtletSasaran->penyertaan_sukan_acara_id = $modelPenyertaanSukanAcara->penyertaan_sukan_acara_id;
+                    $modelPenilaianPrestasiAtletSasaran->save();
+                }
+                
+                $model->penilaian_pestasi_id = $modelPenilaianPestasi->penilaian_pestasi_id;
+                $model->save();
+            }
+            
             return $this->redirect(['view', 'id' => $model->penyertaan_sukan_id]);
         } else {
             return $this->render('create', [
@@ -174,6 +219,48 @@ class PenyertaanSukanController extends Controller
         $dataProviderPenyertaanSukanAcara = $searchModelPenyertaanSukanAcara->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if($model->nama_kejohanan){
+                // update Penilaian Prestasi modul for Kejohanan only
+                $modelPenilaianPestasi = null;
+                 if (($modelPenilaianPestasi = PenilaianPestasi::find()->where(['penyertaan_sukan_id'=>$model->penyertaan_sukan_id])->one()) == null) {
+                    $modelPenilaianPestasi = new PenilaianPestasi();
+                }
+                
+                $modelPenyertaanSukanAcaraFirstOne = null;
+                if (($modelPenyertaanSukanAcaraFirstOne = PenyertaanSukanAcara::find()->where(['penyertaan_sukan_id'=>$model->penyertaan_sukan_id])->orderBy(['penyertaan_sukan_acara_id' => SORT_ASC])->one()) != null) {
+                    $modelPenilaianPestasi->acara = $modelPenyertaanSukanAcaraFirstOne->nama_acara;
+                }
+
+                $modelPenilaianPestasi->penyertaan_sukan_id = $model->penyertaan_sukan_id;
+                $modelPenilaianPestasi->sukan = $model->nama_sukan;
+                $modelPenilaianPestasi->program = $model->program;
+                $modelPenilaianPestasi->kejohanan = $model->nama_kejohanan;
+                $modelPenilaianPestasi->save();
+
+                $modelPenyertaanSukanAcaras = PenyertaanSukanAcara::findAll([
+                        'penyertaan_sukan_id' => $model->penyertaan_sukan_id,
+                    ]);
+
+                foreach($modelPenyertaanSukanAcaras as $modelPenyertaanSukanAcara){
+                    $modelPenilaianPrestasiAtletSasaran = null;
+                    if (($modelPenilaianPrestasiAtletSasaran = PenilaianPrestasiAtletSasaran::find()
+                            ->where(['penyertaan_sukan_id'=>$model->penyertaan_sukan_id])
+                            ->andWhere(['penyertaan_sukan_acara_id'=>$modelPenyertaanSukanAcara->penyertaan_sukan_acara_id])->one()) == null) {
+                        $modelPenilaianPrestasiAtletSasaran = new PenilaianPrestasiAtletSasaran();
+                    }
+                    
+                    $modelPenilaianPrestasiAtletSasaran->penilaian_pestasi_id = $modelPenilaianPestasi->penilaian_pestasi_id;
+                    $modelPenilaianPrestasiAtletSasaran->atlet = $modelPenyertaanSukanAcara->atlet;
+                    $modelPenilaianPrestasiAtletSasaran->sasaran = $modelPenyertaanSukanAcara->sasaran;
+                    $modelPenilaianPrestasiAtletSasaran->penyertaan_sukan_id = $modelPenyertaanSukanAcara->penyertaan_sukan_id;
+                    $modelPenilaianPrestasiAtletSasaran->penyertaan_sukan_acara_id = $modelPenyertaanSukanAcara->penyertaan_sukan_acara_id;
+                    $modelPenilaianPrestasiAtletSasaran->save();
+                }
+                
+                $model->penilaian_pestasi_id = $modelPenilaianPestasi->penilaian_pestasi_id;
+                $model->save();
+            }
+            
             return $this->redirect(['view', 'id' => $model->penyertaan_sukan_id]);
         } else {
             return $this->render('update', [

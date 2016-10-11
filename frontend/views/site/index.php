@@ -2151,6 +2151,7 @@ $this->registerJs($script);
                   <div class="tab-content no-padding">
                     <!-- Morris chart - Sales -->
                     <div class="chart tab-pane active" id="podium_atlet_sukan_negeri-chart" style="position: relative;">
+                        <center><h3>Jumlah Untuk Keseluruhan</h3></center>
                         <div class="row">
                             <div class="col-lg-6">
                                 <?php
@@ -2175,7 +2176,7 @@ $this->registerJs($script);
                                 }
                                   ?>
                                 <p class="text-center">
-                                  <strong><?=GeneralLabel::jumlah_without_RM?> : <?=$jumlahKeseluruhanAtletPodiumCawangan?></strong>
+                                  <strong><?=GeneralLabel::jumlah_without_RM?> (<?=GeneralLabel::atlet?>) : <?=$jumlahKeseluruhanAtletPodiumCawangan?></strong>
                                 </p>
                             </div>
                             <div class="col-lg-6">
@@ -2183,7 +2184,7 @@ $this->registerJs($script);
                                 if($chartDataAtletPodiumNegeri){
                                   echo Highcharts::widget([
                                           'options' => [
-                                              'title' => ['text' => GeneralLabel::negeri],
+                                              'title' => ['text' => GeneralLabel::negeri_diwakili],
                                               'plotOptions' => [
                                                   'pie' => [
                                                       'cursor' => 'pointer',
@@ -2201,7 +2202,7 @@ $this->registerJs($script);
                                 }
                                   ?>
                                 <p class="text-center">
-                                  <strong><?=GeneralLabel::jumlah_without_RM?> : <?=$jumlahKeseluruhanAtletPodiumNegeri?></strong>
+                                  <strong><?=GeneralLabel::jumlah_without_RM?> (<?=GeneralLabel::atlet?>) : <?=$jumlahKeseluruhanAtletPodiumNegeri?></strong>
                                 </p>
                             </div>
                         </div>
@@ -2270,7 +2271,7 @@ $this->registerJs($script);
                                 ?>
                                 <p class="text-right">
                                     <br>
-                                  <strong><?=GeneralLabel::jumlah_without_RM?> : <?=$jumlah_keseluruhan?></strong>
+                                  <strong><?=GeneralLabel::jumlah_without_RM?> (<?=GeneralLabel::atlet?>) : <?=$jumlah_keseluruhan?></strong>
                                 </p>
                             </div>
                             <div class="col-lg-2">
@@ -2278,6 +2279,7 @@ $this->registerJs($script);
                         </div>  
                     </div>
                     <div class="chart tab-pane" id="podium_atlet_acara-chart" style="position: relative;">
+                        <center><h3>Jumlah Untuk Keseluruhan</h3></center>
                         <div class="row">
                             <div class="col-lg-2">
                             </div>
@@ -2457,6 +2459,7 @@ $this->registerJs($script);
                   <div class="tab-content no-padding">
                     <!-- Morris chart - Sales -->
                     <div class="chart tab-pane active" id="podium_atlet_para_sukan-chart" style="position: relative;">
+                        <center><h3>Jumlah Untuk Keseluruhan</h3></center>
                         <div class="row">
                             <div class="col-lg-2">
                             </div>
@@ -2524,7 +2527,7 @@ $this->registerJs($script);
                                 ?>
                                 <p class="text-right">
                                     <br>
-                                  <strong><?=GeneralLabel::jumlah_without_RM?> : <?=$jumlah_keseluruhan?></strong>
+                                  <strong><?=GeneralLabel::jumlah_without_RM?> (<?=GeneralLabel::atlet?>) : <?=$jumlah_keseluruhan?></strong>
                                 </p>
                             </div>
                             <div class="col-lg-2">
@@ -2532,6 +2535,7 @@ $this->registerJs($script);
                         </div>  
                     </div>
                     <div class="chart tab-pane" id="podium_atlet_para_acara-chart" style="position: relative;">
+                        <center><h3>Jumlah Untuk Keseluruhan</h3></center>
                         <div class="row">
                             <div class="col-lg-2">
                             </div>
@@ -2648,6 +2652,7 @@ $this->registerJs($script);
                   <div class="tab-content no-padding">
                     <!-- Morris chart - Sales -->
                     <div class="chart tab-pane active" id="temujanji_atlet_keseluruhan-chart" style="position: relative;">
+                        <center><h3>Jumlah Untuk Keseluruhan</h3></center>
                         <div class="row">
                             <div class="col-lg-6">
                                 <?php
@@ -3450,6 +3455,7 @@ $this->registerJs($script);
                   <div class="tab-content no-padding">
                     <!-- Morris chart - Sales -->
                     <div class="chart tab-pane active" id="jurulatih_berdaftar_keseluruhan-chart" style="position: relative;">
+                        <center><h3>Jumlah Untuk Keseluruhan</h3></center>
                         <div class="row">
                             <div class="col-lg-6">
                                 <?php

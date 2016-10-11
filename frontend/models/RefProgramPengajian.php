@@ -20,6 +20,9 @@ use app\models\general\GeneralMessage;
  */
 class RefProgramPengajian extends \yii\db\ActiveRecord
 {
+    const IJAZAH = 1;
+    const DIPLOMA = 2;
+    
     /**
      * @inheritdoc
      */

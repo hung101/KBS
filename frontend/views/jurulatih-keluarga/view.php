@@ -17,16 +17,31 @@ use app\models\general\GeneralVariable;
 $this->title = GeneralLabel::viewTitle . ' Maklumat Keluarga';
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::maklumat_keluarga, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+
+use yii\web\Session;
+
+    $session = new Session;
+    $session->open();
+
+    $jurulatih_id = $session['jurulatih_id'];
+    $jurulatihModel = null;
+    
+    if (($jurulatihModel = app\models\Jurulatih::findOne($jurulatih_id)) !== null) {
+        $approved = $jurulatihModel->approved;
+    }
+
+    $session->close();
 ?>
 <div class="jurulatih-keluarga-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update'])): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update'])&& $approved == 0)  || isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['kemaskini_yang_hantar'])): ?>
             <?= Html::button(GeneralLabel::update, ['value'=>Url::to(['update']),'class' => 'btn btn-primary', 'onclick' => 'updateRenderAjax("'.Url::to(['update']). '?id=' . $model->jurulatih_keluarga_id .'", "'.GeneralVariable::tabKeluargaJurulatihID.'");']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['delete'])): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['delete'])&& $approved == 0)  || isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['kemaskini_yang_hantar'])): ?>
             <?= Html::button(GeneralLabel::delete, ['value'=>Url::to(['delete']),'class' => 'btn btn-danger','onclick' => 'deleteRecordAjax("'.Url::to(['delete']). '?id=' . $model->jurulatih_keluarga_id .'", "'.GeneralVariable::tabKeluargaJurulatihID.'", "'.GeneralMessage::confirmDelete.'");']) ?>
         <?php endif; ?>
         <?= Html::button(GeneralLabel::backToList, ['value'=>Url::to(['index']),'class' => 'btn btn-warning', 'onclick' => 'updateRenderAjax("'.Url::to(['index']).'", "'.GeneralVariable::tabKeluargaJurulatihID.'");']) ?>

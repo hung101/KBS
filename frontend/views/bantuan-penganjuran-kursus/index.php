@@ -134,8 +134,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
 
                     },
+                    'report' => function ($url, $model) {
+                        $laporanLink =  Html::a('<span class="glyphicon glyphicon-list-alt"></span>', 
+                        ['bantuan-penganjuran-kursus-pegawai-teknikal-laporan/load-bantuan-penganjuran', 'bantuan_penganjuran_kursus_id' =>$model->bantuan_penganjuran_kursus_id], 
+                        [
+                            'title' => GeneralLabel::laporan,
+                            'target' => '_blank'
+                        ]);
+                        
+                        return $model->status_permohonan == app\models\RefStatusBantuanPenganjuranKursus::LULUS ? $laporanLink : '';
+                    },
                 ],
-                'template' => $template,
+                'template' => $template .= ' {report}',
             ],
         ],
     ]); ?>

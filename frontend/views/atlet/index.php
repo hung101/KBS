@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
     <?php endif; ?>
         
-        <?php
+    <?php
         $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all();
         
         // add filter base on sukan access role in tbl_user->sukan - START

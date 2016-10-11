@@ -32,7 +32,7 @@ class JurulatihSearch extends Jurulatih
                 'tamat_permit_tempoh', 'alamat_rumah_1', 'alamat_rumah_2', 'alamat_rumah_3', 'alamat_rumah_negeri', 'alamat_rumah_bandar', 'alamat_rumah_poskod', 
                 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_bandar', 
                 'alamat_surat_menyurat_poskod', 'no_telefon', 'emel', 'status', 'sektor', 'jawatan', 'no_telefon_pejabat', 'nama_majikan', 'alamat_majikan_1', 
-                'alamat_majikan_2', 'alamat_majikan_3', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 'bahagian', 'program', 'status_tawaran', 'created'], 'safe'],
+                'alamat_majikan_2', 'alamat_majikan_3', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 'bahagian', 'program', 'status_tawaran', 'created', 'approved_date'], 'safe'],
         ];
     }
 
@@ -67,7 +67,8 @@ class JurulatihSearch extends Jurulatih
                         $query->orderBy(['tbl_jurulatih_sukan.created' => SORT_DESC])->one();
                     },
                 ])
-                ->orderBy(['tbl_jurulatih.created' => SORT_DESC]);
+                ->orderBy(['tbl_jurulatih.approved_date' => SORT_DESC])
+                ->groupBy(['tbl_jurulatih.jurulatih_id']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -158,14 +159,24 @@ class JurulatihSearch extends Jurulatih
             ->andFilterWhere(['like', 'alamat_majikan_bandar', $this->alamat_majikan_bandar])
             ->andFilterWhere(['like', 'alamat_majikan_poskod', $this->alamat_majikan_poskod])
                 ->andFilterWhere(['like', 'tbl_jurulatih.created', $this->created])
+                ->andFilterWhere(['like', 'tbl_jurulatih.approved_date', $this->approved_date])
                 ->andFilterWhere(['like', 'tbl_ref_bahagian_jurulatih.desc', $this->bahagian])
                 //->andFilterWhere(['like', 'tbl_ref_program_jurulatih.desc', $this->program])
                 ->andFilterWhere(['like', 'tbl_ref_status_tawaran.desc', $this->status_tawaran]);
         
         
-        if($this->ic_no){
-            //$this->ic_no = \Yii::$app->encrypter->decrypt($this->ic_no);
+        if(Yii::$app->user->identity->peranan ==  10
+                || Yii::$app->user->identity->peranan ==  12
+                || Yii::$app->user->identity->peranan ==  13
+                || Yii::$app->user->identity->peranan ==  33){
+           $query->andFilterWhere(['=', 'approved', 1]);
         }
+        
+        // add filter base on view own created data role Jurulatih -> View Own Data - START
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['view_own_data'])){
+            $query->andFilterWhere(['tbl_jurulatih.created_by'=>Yii::$app->user->identity->id]);
+        }
+        // add filter base on view own created data role Jurulatih -> View Own Data - END
 
         return $dataProvider;
     }

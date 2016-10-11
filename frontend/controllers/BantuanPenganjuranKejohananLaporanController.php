@@ -99,7 +99,7 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
         
         if (($modelBantuanPenganjuranKejohanan = BantuanPenganjuranKejohanan::findOne($bantuan_penganjuran_kejohanan_id)) !== null) {
             $model->tempat = $modelBantuanPenganjuranKejohanan->tempat;
-            $model->tujuan_penganjuran = $modelBantuanPenganjuranKejohanan->tujuan;
+            $model->tujuan_penganjuran = $modelBantuanPenganjuranKejohanan->nama_kejohanan_pertandingan;
             $model->bilangan_pasukan = $modelBantuanPenganjuranKejohanan->bil_pasukan;
             $model->bilangan_peserta = $modelBantuanPenganjuranKejohanan->bil_peserta;
             $model->bilangan_pegawai_teknikal = $modelBantuanPenganjuranKejohanan->bil_pegawai_teknikal;

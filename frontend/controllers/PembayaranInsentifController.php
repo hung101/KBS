@@ -111,6 +111,7 @@ class PembayaranInsentifController extends Controller
         $ref = RefInsentifKelas::findOne(['id' => $model->kelas]);
         $model->kelas = $ref['desc'];
         
+        $model->acara_id = $model->acara;
         $ref = RefAcaraInsentif::findOne(['id' => $model->acara]);
         $model->acara = $ref['desc'];
         

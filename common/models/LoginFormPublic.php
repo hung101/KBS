@@ -44,6 +44,18 @@ class LoginFormPublic extends Model
             ['password', 'validatePassword'],
         ];
     }
+    
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'ID Pengguna',
+            'password' => 'Kata Laluan',
+            'rememberMe' => 'Ingat Saya',
+        ];
+    }
 
     /**
      * Validates the password.

@@ -114,6 +114,7 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
         $ref = RefPeringkatBantuanPenyertaanPegawaiTeknikal::findOne(['id' => $model->peringkat]);
         $model->peringkat = $ref['desc'];
         
+        $model->status_permohonan_id = $model->status_permohonan;
         $ref = RefStatusBantuanPenyertaanPegawaiTeknikal::findOne(['id' => $model->status_permohonan]);
         $model->status_permohonan = $ref['desc'];
         

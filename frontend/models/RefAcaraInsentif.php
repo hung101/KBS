@@ -18,7 +18,8 @@ use Yii;
 class RefAcaraInsentif extends \yii\db\ActiveRecord
 {
     const INDIVIDU = 1;
-    const BERPASUKAN = 2;
+    const BERPASUKAN_KURANG_5_ORANG = 2;
+    const BERPASUKAN_LEBIH_5_ORANG = 3;
     
     /**
      * @inheritdoc

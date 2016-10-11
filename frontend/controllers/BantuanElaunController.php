@@ -5,13 +5,16 @@ namespace frontend\controllers;
 use Yii;
 use app\models\BantuanElaun;
 use frontend\models\BantuanElaunSearch;
+use app\models\MsnSuratSue;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\BaseUrl;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefJantina;
@@ -81,6 +84,7 @@ class BantuanElaunController extends Controller
         
         $model = $this->findModel($id);
         
+        $model->jenis_bantuan_id = $model->jenis_bantuan;
         $ref = RefJenisBantuanSue::findOne(['id' => $model->jenis_bantuan]);
         $model->jenis_bantuan = $ref['desc'];
         
@@ -105,6 +109,8 @@ class BantuanElaunController extends Controller
         $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
         $model->alamat_bandar = $ref['desc'];
         
+        
+        $model->status_permohonan_id = $model->status_permohonan;
         $ref = RefStatusPermohonanSue::findOne(['id' => $model->status_permohonan]);
         $model->status_permohonan = $ref['desc'];
         
@@ -270,5 +276,93 @@ class BantuanElaunController extends Controller
             $img->update();
 
             return $this->redirect(['update', 'id' => $id]);
+    }
+    
+    public function actionSuratLantikanSue($sue_id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnSuratSue();
+        $model->sue_id = $sue_id;
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-surat-lantikan-sue'
+                    , 'sue_id' => $model->sue_id
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-surat-lantikan-sue'
+                    , 'sue_id' => $model->sue_id
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('surat_lantikan_sue', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateSuratLantikanSue($sue_id, $format)
+    {
+        if($sue_id == "") $sue_id = array();
+        else $sue_id = array($sue_id);
+        
+        $controls = array(
+            'SUE_ID' => $sue_id,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/SuratLantikanSue', $format, $controls, 'surat_lantikan_sue');
+    }
+    
+    public function actionSuratPersetujuanSue($sue_id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnSuratSue();
+        $model->sue_id = $sue_id;
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-surat-persetujuan-sue'
+                    //, 'sue_id' => $model->sue_id
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-surat-persetujuan-sue'
+                    //, 'sue_id' => $model->sue_id
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('surat_persetujuan_sue', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateSuratPersetujuanSue( $format)
+    {
+        //if($sue_id == "") $sue_id = array();
+        //else $sue_id = array($sue_id);
+        
+        $controls = array(
+            //'SUE_ID' => $sue_id,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/SuratPersetujuanSue', $format, $controls, 'surat_persetujuan_sue');
     }
 }

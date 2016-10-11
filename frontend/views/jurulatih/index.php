@@ -36,6 +36,27 @@ $this->params['breadcrumbs'][] = $this->title;
             //$template .= ' {delete}';
         }
     ?>
+    
+    <?php
+        $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->all();
+        
+        // add filter base on sukan access role in tbl_user->sukan - START
+        if(Yii::$app->user->identity->sukan){
+            $sukan_access=explode(',',Yii::$app->user->identity->sukan);
+            
+            $arr_sukan_filter = array();
+            
+            for($i = 0; $i < count($sukan_access); $i++){
+                $arr_sukan = null;
+                $arr_sukan = array('id'=>$sukan_access[$i]); 
+                    array_push($arr_sukan_filter,$arr_sukan);
+            }
+            
+            $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andFilterWhere(['id'=>$arr_sukan_filter])->all();
+        }
+        // add filter base on sukan access role in tbl_user->sukan - END
+        
+    ?>
 
     <h1><?= Html::encode($this->title) . (($desc !=null) ? ' - ' . $desc : '')?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -55,7 +76,23 @@ $this->params['breadcrumbs'][] = $this->title;
             $modelStatuses = RefStatusJurulatih::find()->where(['=', 'aktif', 1])->all();
             
             foreach($modelStatuses as $modelStatus){
-                $countJurulatih = Jurulatih::find()->where(['=', 'status_jurulatih', $modelStatus->id])->count();
+                $queryJurulatih = Jurulatih::find()->where(['=', 'status_jurulatih', $modelStatus->id]);
+                
+                if(Yii::$app->user->identity->peranan ==  10
+                || Yii::$app->user->identity->peranan ==  12
+                || Yii::$app->user->identity->peranan ==  13
+                        || Yii::$app->user->identity->peranan ==  33){
+                    $queryJurulatih->andFilterWhere(['=', 'approved', 1]);
+                 }
+                 
+                 // add filter base on view own created data role Jurulatih -> View Own Data - START
+                if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['view_own_data'])){
+                    $queryJurulatih->andFilterWhere(['tbl_jurulatih.created_by'=>Yii::$app->user->identity->id]);
+                }
+                // add filter base on view own created data role Jurulatih -> View Own Data - END
+                 
+                 $countJurulatih = $queryJurulatih->count();
+                
                 echo '<div class="btn-group" role="group">';
                 echo Html::a($modelStatus->desc . ' - ' . $countJurulatih, ['index','filter_type'=>'status_jurulatih', 'id'=>$modelStatus->id, 'desc'=>'Status : ' . $modelStatus->desc], ['class'=>'btn btn-info']);
                 echo '</div>';
@@ -79,7 +116,23 @@ $this->params['breadcrumbs'][] = $this->title;
             $modelStatuses = RefKeaktifanJurulatih::find()->where(['=', 'aktif', 1])->all();
             
             foreach($modelStatuses as $modelStatus){
-                $countJurulatih = Jurulatih::find()->where(['=', 'status_keaktifan_jurulatih', $modelStatus->id])->count();
+                $queryJurulatih = Jurulatih::find()->where(['=', 'status_keaktifan_jurulatih', $modelStatus->id]);
+                
+                if(Yii::$app->user->identity->peranan ==  10
+                || Yii::$app->user->identity->peranan ==  12
+                || Yii::$app->user->identity->peranan ==  13
+                        || Yii::$app->user->identity->peranan ==  33){
+                    $queryJurulatih->andFilterWhere(['=', 'approved', 1]);
+                 }
+                 
+                 // add filter base on view own created data role Jurulatih -> View Own Data - START
+                if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['view_own_data'])){
+                    $queryJurulatih->andFilterWhere(['tbl_jurulatih.created_by'=>Yii::$app->user->identity->id]);
+                }
+                // add filter base on view own created data role Jurulatih -> View Own Data - END
+                 
+                 $countJurulatih = $queryJurulatih->count();
+                 
                 echo '<div class="btn-group" role="group">';
                 echo Html::a($modelStatus->desc . ' - ' . $countJurulatih, ['index','filter_type'=>'status_keaktifan_jurulatih', 'id'=>$modelStatus->id, 'desc'=>'Keaktifan : ' . $modelStatus->desc], ['class'=>'btn btn-info']);
                 echo '</div>';
@@ -103,7 +156,23 @@ $this->params['breadcrumbs'][] = $this->title;
             $modelStatuses = RefStatusTawaran::find()->where(['=', 'aktif', 1])->all();
             
             foreach($modelStatuses as $modelStatus){
-                $countJurulatih = Jurulatih::find()->where(['=', 'status_tawaran', $modelStatus->id])->count();
+                $queryJurulatih = Jurulatih::find()->where(['=', 'status_tawaran', $modelStatus->id]);
+                
+                if(Yii::$app->user->identity->peranan ==  10
+                || Yii::$app->user->identity->peranan ==  12
+                || Yii::$app->user->identity->peranan ==  13
+                        || Yii::$app->user->identity->peranan ==  33){
+                    $queryJurulatih->andFilterWhere(['=', 'approved', 1]);
+                 }
+                 
+                 // add filter base on view own created data role Jurulatih -> View Own Data - START
+                if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['view_own_data'])){
+                    $queryJurulatih->andFilterWhere(['tbl_jurulatih.created_by'=>Yii::$app->user->identity->id]);
+                }
+                // add filter base on view own created data role Jurulatih -> View Own Data - END
+                 
+                 $countJurulatih = $queryJurulatih->count();
+                 
                 echo '<div class="btn-group" role="group">';
                 echo Html::a($modelStatus->desc . ' - ' . $countJurulatih, ['index','filter_type'=>'status_tawaran_id', 'id'=>$modelStatus->id, 'desc'=>'Status Tawaran : ' . $modelStatus->desc], ['class'=>'btn btn-info']);
                 echo '</div>';
@@ -131,7 +200,23 @@ $this->params['breadcrumbs'][] = $this->title;
             $counter = 0;
             
             foreach($modelStatuses as $modelStatus){
-                $countJurulatih = Jurulatih::find()->where(['=', 'nama_sukan', $modelStatus->id])->count();
+                $queryJurulatih = Jurulatih::find()->joinWith(['refJurulatihSukan'])->where(['=', 'tbl_jurulatih_sukan.sukan', $modelStatus->id])->groupBy('tbl_jurulatih.jurulatih_id');
+                
+                if(Yii::$app->user->identity->peranan ==  10
+                || Yii::$app->user->identity->peranan ==  12
+                || Yii::$app->user->identity->peranan ==  13
+                        || Yii::$app->user->identity->peranan ==  33){
+                    $queryJurulatih->andFilterWhere(['=', 'approved', 1]);
+                 }
+                 
+                 // add filter base on view own created data role Jurulatih -> View Own Data - START
+                if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['view_own_data'])){
+                    $queryJurulatih->andFilterWhere(['tbl_jurulatih.created_by'=>Yii::$app->user->identity->id]);
+                }
+                // add filter base on view own created data role Jurulatih -> View Own Data - END
+                 
+                 $countJurulatih = $queryJurulatih->count();
+                 
                 echo '<div class="btn-group" role="group">';
                 echo Html::a($modelStatus->desc . ' - ' . $countJurulatih, ['index','filter_type'=>'sukan', 'id'=>$modelStatus->id, 'desc'=>'Sukan : ' . $modelStatus->desc], ['class'=>'btn btn-info']);
                 echo '</div>';
@@ -165,9 +250,25 @@ $this->params['breadcrumbs'][] = $this->title;
             $counter = 0;
             
             foreach($modelStatuses as $modelStatus){
-                $countJurulatih = Jurulatih::find()->where(['=', 'program', $modelStatus->id])->count();
+                $queryJurulatih = Jurulatih::find()->joinWith(['refJurulatihSukan'])->where(['=', 'tbl_jurulatih_sukan.program', $modelStatus->id])->groupBy('tbl_jurulatih.jurulatih_id');
+                
+                if(Yii::$app->user->identity->peranan ==  10
+                || Yii::$app->user->identity->peranan ==  12
+                || Yii::$app->user->identity->peranan ==  13
+                        || Yii::$app->user->identity->peranan ==  33){
+                    $queryJurulatih->andFilterWhere(['=', 'approved', 1]);
+                 }
+                 
+                 // add filter base on view own created data role Jurulatih -> View Own Data - START
+                if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['view_own_data'])){
+                    $queryJurulatih->andFilterWhere(['tbl_jurulatih.created_by'=>Yii::$app->user->identity->id]);
+                }
+                // add filter base on view own created data role Jurulatih -> View Own Data - END
+                 
+                 $countJurulatih = $queryJurulatih->count();
+                 
                 echo '<div class="btn-group" role="group">';
-                echo Html::a($modelStatus->desc . ' - ' . $countJurulatih, ['index','filter_type'=>'program_id', 'id'=>$modelStatus->id, 'desc'=>'Program : ' . $modelStatus->desc], ['class'=>'btn btn-info']);
+                echo Html::a($modelStatus->desc . ' - ' . $countJurulatih, ['index','filter_type'=>'program', 'id'=>$modelStatus->id, 'desc'=>'Program : ' . $modelStatus->desc], ['class'=>'btn btn-info']);
                 echo '</div>';
                 $counter++;
                 if($counter%6==0){
@@ -193,42 +294,132 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="btn-group" role="group">
             <?php
                 //Sijil Jurulatih
-                $countJurulatih = Jurulatih::find()->joinWith(['refJurulatihSpkk'])->where(['=', 'tbl_jurulatih_spkk.jenis_spkk', 1])->where(['=', 'tbl_jurulatih_spkk.tahap', 1])->groupBy('tbl_jurulatih.jurulatih_id')->count();
+                $queryJurulatih = Jurulatih::find()->joinWith(['refJurulatihSpkk'])->where(['=', 'tbl_jurulatih_spkk.jenis_spkk', 1])->where(['=', 'tbl_jurulatih_spkk.tahap', 1])->groupBy('tbl_jurulatih.jurulatih_id');
+                
+                if(Yii::$app->user->identity->peranan ==  10
+                || Yii::$app->user->identity->peranan ==  12
+                || Yii::$app->user->identity->peranan ==  13
+                        || Yii::$app->user->identity->peranan ==  33){
+                    $queryJurulatih->andFilterWhere(['=', 'approved', 1]);
+                 }
+                 
+                 // add filter base on view own created data role Jurulatih -> View Own Data - START
+                if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['view_own_data'])){
+                    $queryJurulatih->andFilterWhere(['tbl_jurulatih.created_by'=>Yii::$app->user->identity->id]);
+                }
+                // add filter base on view own created data role Jurulatih -> View Own Data - END
+                 
+                 $countJurulatih = $queryJurulatih->count();
             ?>
           <?= Html::a('Sains Sukan I - ' . $countJurulatih, ['index','filter_type'=>'sijil', 'id'=>1, 'id2'=>1, 'desc'=>'Sijil : Sains Sukan I'], ['class'=>'btn btn-info']) ?>
         </div>
         <div class="btn-group" role="group">
             <?php
                 //Sijil Jurulatih
-                $countJurulatih = Jurulatih::find()->joinWith(['refJurulatihSpkk'])->where(['=', 'tbl_jurulatih_spkk.jenis_spkk', 1])->where(['=', 'tbl_jurulatih_spkk.tahap', 2])->groupBy('tbl_jurulatih.jurulatih_id')->count();
+                $queryJurulatih = Jurulatih::find()->joinWith(['refJurulatihSpkk'])->where(['=', 'tbl_jurulatih_spkk.jenis_spkk', 1])->where(['=', 'tbl_jurulatih_spkk.tahap', 2])->groupBy('tbl_jurulatih.jurulatih_id');
+                
+                if(Yii::$app->user->identity->peranan ==  10
+                || Yii::$app->user->identity->peranan ==  12
+                || Yii::$app->user->identity->peranan ==  13
+                        || Yii::$app->user->identity->peranan ==  33){
+                    $queryJurulatih->andFilterWhere(['=', 'approved', 1]);
+                 }
+                 
+                 // add filter base on view own created data role Jurulatih -> View Own Data - START
+                if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['view_own_data'])){
+                    $queryJurulatih->andFilterWhere(['tbl_jurulatih.created_by'=>Yii::$app->user->identity->id]);
+                }
+                // add filter base on view own created data role Jurulatih -> View Own Data - END
+                 
+                 $countJurulatih = $queryJurulatih->count();
             ?>
           <?= Html::a('Sains Sukan II - ' . $countJurulatih, ['index','filter_type'=>'sijil', 'id'=>1, 'id2'=>2, 'desc'=>'Sijil : Sains Sukan II'], ['class'=>'btn btn-info']) ?>
         </div>
         <div class="btn-group" role="group">
             <?php
                 //Sijil Jurulatih
-                $countJurulatih = Jurulatih::find()->joinWith(['refJurulatihSpkk'])->where(['=', 'tbl_jurulatih_spkk.jenis_spkk', 1])->where(['=', 'tbl_jurulatih_spkk.tahap', 3])->groupBy('tbl_jurulatih.jurulatih_id')->count();
+                $queryJurulatih = Jurulatih::find()->joinWith(['refJurulatihSpkk'])->where(['=', 'tbl_jurulatih_spkk.jenis_spkk', 1])->where(['=', 'tbl_jurulatih_spkk.tahap', 3])->groupBy('tbl_jurulatih.jurulatih_id');
+                
+                if(Yii::$app->user->identity->peranan ==  10
+                || Yii::$app->user->identity->peranan ==  12
+                || Yii::$app->user->identity->peranan ==  13
+                        || Yii::$app->user->identity->peranan ==  33){
+                    $queryJurulatih->andFilterWhere(['=', 'approved', 1]);
+                 }
+                 
+                 // add filter base on view own created data role Jurulatih -> View Own Data - START
+                if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['view_own_data'])){
+                    $queryJurulatih->andFilterWhere(['tbl_jurulatih.created_by'=>Yii::$app->user->identity->id]);
+                }
+                // add filter base on view own created data role Jurulatih -> View Own Data - END
+                 
+                 $countJurulatih = $queryJurulatih->count();
             ?>
           <?= Html::a('Sains Sukan III - ' . $countJurulatih, ['index','filter_type'=>'sijil', 'id'=>1, 'id2'=>3, 'desc'=>'Sijil : Sains Sukan III'], ['class'=>'btn btn-info']) ?>
         </div>
           <div class="btn-group" role="group">
             <?php
                 //Sijil Jurulatih
-                $countJurulatih = Jurulatih::find()->joinWith(['refJurulatihSpkk'])->where(['=', 'tbl_jurulatih_spkk.jenis_spkk', 2])->where(['=', 'tbl_jurulatih_spkk.tahap', 1])->groupBy('tbl_jurulatih.jurulatih_id')->count();
+                $queryJurulatih = Jurulatih::find()->joinWith(['refJurulatihSpkk'])->where(['=', 'tbl_jurulatih_spkk.jenis_spkk', 2])->where(['=', 'tbl_jurulatih_spkk.tahap', 1])->groupBy('tbl_jurulatih.jurulatih_id');
+                
+                if(Yii::$app->user->identity->peranan ==  10
+                || Yii::$app->user->identity->peranan ==  12
+                || Yii::$app->user->identity->peranan ==  13
+                        || Yii::$app->user->identity->peranan ==  33){
+                    $queryJurulatih->andFilterWhere(['=', 'approved', 1]);
+                 }
+                 
+                 // add filter base on view own created data role Jurulatih -> View Own Data - START
+                if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['view_own_data'])){
+                    $queryJurulatih->andFilterWhere(['tbl_jurulatih.created_by'=>Yii::$app->user->identity->id]);
+                }
+                // add filter base on view own created data role Jurulatih -> View Own Data - END
+                 
+                 $countJurulatih = $queryJurulatih->count();
             ?>
           <?= Html::a('Sukan Spesifik I - ' . $countJurulatih, ['index','filter_type'=>'sijil', 'id'=>2, 'id2'=>1, 'desc'=>'Sijil : Sukan Spesifik I'], ['class'=>'btn btn-info']) ?>
         </div>
           <div class="btn-group" role="group">
             <?php
                 //Sijil Jurulatih
-                $countJurulatih = Jurulatih::find()->joinWith(['refJurulatihSpkk'])->where(['=', 'tbl_jurulatih_spkk.jenis_spkk', 2])->where(['=', 'tbl_jurulatih_spkk.tahap', 2])->groupBy('tbl_jurulatih.jurulatih_id')->count();
+                $queryJurulatih = Jurulatih::find()->joinWith(['refJurulatihSpkk'])->where(['=', 'tbl_jurulatih_spkk.jenis_spkk', 2])->where(['=', 'tbl_jurulatih_spkk.tahap', 2])->groupBy('tbl_jurulatih.jurulatih_id');
+                
+                if(Yii::$app->user->identity->peranan ==  10
+                || Yii::$app->user->identity->peranan ==  12
+                || Yii::$app->user->identity->peranan ==  13
+                        || Yii::$app->user->identity->peranan ==  33){
+                    $queryJurulatih->andFilterWhere(['=', 'approved', 1]);
+                 }
+                 
+                 // add filter base on view own created data role Jurulatih -> View Own Data - START
+                if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['view_own_data'])){
+                    $queryJurulatih->andFilterWhere(['tbl_jurulatih.created_by'=>Yii::$app->user->identity->id]);
+                }
+                // add filter base on view own created data role Jurulatih -> View Own Data - END
+                 
+                 $countJurulatih = $queryJurulatih->count();
             ?>
           <?= Html::a('Sukan Spesifik II - ' . $countJurulatih, ['index','filter_type'=>'sijil', 'id'=>2, 'id2'=>2, 'desc'=>'Sijil : Sukan Spesifik II'], ['class'=>'btn btn-info']) ?>
         </div>
           <div class="btn-group" role="group">
             <?php
                 //Sijil Jurulatih
-                $countJurulatih = Jurulatih::find()->joinWith(['refJurulatihSpkk'])->where(['=', 'tbl_jurulatih_spkk.jenis_spkk', 2])->where(['=', 'tbl_jurulatih_spkk.tahap', 3])->groupBy('tbl_jurulatih.jurulatih_id')->count();
+                $queryJurulatih = Jurulatih::find()->joinWith(['refJurulatihSpkk'])->where(['=', 'tbl_jurulatih_spkk.jenis_spkk', 2])->where(['=', 'tbl_jurulatih_spkk.tahap', 3])->groupBy('tbl_jurulatih.jurulatih_id');
+                
+                if(Yii::$app->user->identity->peranan ==  10
+                || Yii::$app->user->identity->peranan ==  12
+                || Yii::$app->user->identity->peranan ==  13
+                        || Yii::$app->user->identity->peranan ==  33){
+                    $queryJurulatih->andFilterWhere(['=', 'approved', 1]);
+                 }
+                 
+                 // add filter base on view own created data role Jurulatih -> View Own Data - START
+                if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['view_own_data'])){
+                    $queryJurulatih->andFilterWhere(['tbl_jurulatih.created_by'=>Yii::$app->user->identity->id]);
+                }
+                // add filter base on view own created data role Jurulatih -> View Own Data - END
+                 
+                 $countJurulatih = $queryJurulatih->count();
             ?>
           <?= Html::a('Sukan Spesifik III - ' . $countJurulatih, ['index','filter_type'=>'sijil', 'id'=>2, 'id2'=>3, 'desc'=>'Sijil : Sukan Spesifik III'], ['class'=>'btn btn-info']) ?>
         </div>
@@ -314,7 +505,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return "";
                     }
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'sukan', ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(), 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Sukan --']),
+                'filter' => Html::activeDropDownList($searchModel, 'sukan', ArrayHelper::map($sukan_list, 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Sukan --']),
             ],
             //'nama_acara',
             [
@@ -342,7 +533,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'refStatusTawaran.desc'
             ],
             [
-                'attribute' => 'created',
+                //'attribute' => 'created',
+                'attribute' => 'approved_date',
                 'label' => GeneralLabel::tarikh_hantar,
                 'filterInputOptions' => [
                     'class'       => 'form-control',

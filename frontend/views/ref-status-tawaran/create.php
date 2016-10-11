@@ -1,4 +1,5 @@
 <?php
+use app\models\general\GeneralLabel;
 
 use yii\helpers\Html;
 
@@ -6,8 +7,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefStatusTawaran */
 
-$this->title = 'Create Ref Status Tawaran';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Status Tawarans', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' Status Tawaran';
+$this->params['breadcrumbs'][] = ['label' => 'Status Tawaran', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-tawaran-create">

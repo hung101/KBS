@@ -63,7 +63,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefAgensiKaunseling::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::agensi],
+                        'options' => ['placeholder' => Placeholder::agensi, 'id'=>'agensiId'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -265,7 +265,7 @@ use app\models\general\GeneralMessage;
     
      <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT RUJUKAN (ATLET / JURULATIH)</strong></pre>
+    <pre style="text-align: center"><strong>MAKLUMAT KLIEN YANG DIRUJUK (ATLET / JURULATIH)</strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -450,13 +450,13 @@ use app\models\general\GeneralMessage;
                 'tindakan_kaunselor' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
             ],
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'notis' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>255]],
             ],
-        ],
+        ],*/
     ]
 ]);
     ?>
@@ -531,6 +531,11 @@ $URLJurulatih = Url::to(['/jurulatih/get-jurulatih']);
 
 $URLAtlet = Url::to(['/atlet/get-atlet']);
 
+$AGENSI_MSN = RefAgensiKaunseling::MSN;
+$AGENSI_ISN = RefAgensiKaunseling::ISN;
+$AGENSI_PSK = RefAgensiKaunseling::PSK;
+$AGENSI_MAJLIS_SUKAN_NEGERI = RefAgensiKaunseling::MAJLIS_SUKAN_NEGERI;
+
 $script = <<< JS
         
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
@@ -584,12 +589,39 @@ function clearForm(){
     $("#permohonanbimbingankaunseling-taraf_perkahwinan").val('').trigger("change");
 }
         
-$('#permohonanbimbingankaunseling-agensi').change(function(){
+$('#agensiId').change(function(){
         $('#permohonanbimbingankaunseling-cawangan_isn').attr('value','');
         $('#permohonanbimbingankaunseling-cawangan').val('').trigger("change");
         $('#permohonanbimbingankaunseling-sukan').val('').trigger("change");
         $('#permohonanbimbingankaunseling-persatuan').val('').trigger("change");
         $('#permohonanbimbingankaunseling-negeri').val('').trigger("change");
+        checkAgensi();
+});
+            
+function checkAgensi(){
+    if($('#agensiId')){
+        $("#permohonanbimbingankaunseling-cawangan").prop('disabled', true);
+        $("#permohonanbimbingankaunseling-cawangan_isn").prop('disabled', true);
+        $("#permohonanbimbingankaunseling-sukan").prop('disabled', true);
+        $("#permohonanbimbingankaunseling-persatuan").prop('disabled', true);
+        $("#permohonanbimbingankaunseling-negeri").prop('disabled', true);
+            
+    
+        if($('#agensiId').val() === "$AGENSI_MSN"){
+            $("#permohonanbimbingankaunseling-cawangan").prop('disabled', false);
+        } else if($('#agensiId').val() === "$AGENSI_ISN"){
+            $("#permohonanbimbingankaunseling-cawangan_isn").prop('disabled', false);
+        } else if($('#agensiId').val() === "$AGENSI_PSK"){
+            $("#permohonanbimbingankaunseling-sukan").prop('disabled', false);
+            $("#permohonanbimbingankaunseling-persatuan").prop('disabled', false);
+        } else if($('#agensiId').val() === "$AGENSI_MAJLIS_SUKAN_NEGERI"){
+            $("#permohonanbimbingankaunseling-negeri").prop('disabled', false);
+        }
+    }
+}
+        
+$(document).ready(function(){
+    checkAgensi();
 });
         
 JS;

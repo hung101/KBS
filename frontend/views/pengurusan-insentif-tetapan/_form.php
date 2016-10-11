@@ -211,7 +211,7 @@ use app\models\general\GeneralMessage;
         ?>
     
     <?php Pjax::begin(['id' => 'pengurusanInsentifTetapanShakamShakarGrid', 'timeout' => 100000]); ?>
-
+<div class="CGridViewContainer">
     <?= GridView::widget([
         'dataProvider' => $dataProviderPengurusanInsentifTetapanShakamShakar,
         'filterModel' => $searchModelPengurusanInsentifTetapanShakamShakar,
@@ -283,16 +283,16 @@ use app\models\general\GeneralMessage;
                 'attribute' => 'nilai_berpasukan_kurang_5',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' Nilai Berpasukan (RM)',
+                    'placeholder' => GeneralLabel::filter.' Nilai Berpasukan < 5 Orang (RM)',
                 ],
             ],
-            /*[
+            [
                 'attribute' => 'nilai_berpasukan_lebih_5',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' Nilai Berpasukan > 5 Orang (RM)',
                 ],
-            ],*/
+            ],
             [
                 'attribute' => 'rekod_baharu',
                 'filterInputOptions' => [
@@ -341,6 +341,7 @@ use app\models\general\GeneralMessage;
             ],
         ],
     ]); ?>
+    </div>
     
     <?php Pjax::end(); ?>
     

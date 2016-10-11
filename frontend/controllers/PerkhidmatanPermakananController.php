@@ -22,6 +22,9 @@ use yii\helpers\BaseUrl;
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
 
+use app\models\RefJantina;
+use app\models\RefSukan;
+
 /**
  * PerkhidmatanPermakananController implements the CRUD actions for PerkhidmatanPermakanan model.
  */
@@ -69,6 +72,14 @@ class PerkhidmatanPermakananController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+         $model = $this->findModel($id);
+        
+        $ref = RefJantina::findOne(['id' => $model->jantina]);
+        $model->jantina = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
         $queryPar = null;
         
         $queryPar['KeputusanAnalisiTubuhBadanSearch']['perkhidmatan_permakanan_id'] = $id;
@@ -85,7 +96,7 @@ class PerkhidmatanPermakananController extends Controller
         $dataProviderPemberianJusPemulihan = $searchModelPemberianJusPemulihan->search($queryPar);
         
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'searchModelKeputusanAnalisiTubuhBadan' => $searchModelKeputusanAnalisiTubuhBadan,
             'dataProviderKeputusanAnalisiTubuhBadan' => $dataProviderKeputusanAnalisiTubuhBadan,
             'searchModelPemberianSuplemenMakananJusRundinganPendidikan' => $searchModelPemberianSuplemenMakananJusRundinganPendidikan,

@@ -17,14 +17,16 @@ class MsnLaporanSenaraiJurulatih extends Model
     public $acara;
     public $sukan;
     public $negeri;
+    public $negara;
     public $status;
+    public $created_by;
     public $format;
 
     public function rules()
     {
         return [
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'negeri', 'acara', 'status'], 'safe'],
+            [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'negeri', 'acara', 'status', 'created_by', 'negara'], 'safe'],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
             [['jumlah_geran_hingga'], 'compare', 'compareAttribute'=>'negeri', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
@@ -40,6 +42,7 @@ class MsnLaporanSenaraiJurulatih extends Model
             'negeri' => GeneralLabel::negeri,
             'acara' => GeneralLabel::acara,
             'status' => GeneralLabel::status,
+            'negara' => GeneralLabel::negara,
             'format' => GeneralLabel::format,
         ];
     }

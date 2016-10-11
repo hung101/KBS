@@ -69,6 +69,16 @@ use app\models\general\GeneralVariable;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
+                'tarikh_tamat' =>[
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
                  'tempat' => ['type'=>Form::INPUT_TEXT, 'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
                  
             ],

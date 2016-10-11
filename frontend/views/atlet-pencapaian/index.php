@@ -198,8 +198,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'target' => '_blank'
                             ]);
                         },
+                        'update' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 
+                            ['penilaian-pestasi/update', 'id' =>$model->penilaian_pestasi_id], 
+                            [
+                                'title' => GeneralLabel::update,
+                                'target' => '_blank'
+                            ]);
+                        },
                     ],
-                    'template' => '{view}',
+                    'template' => '{view} {update}',
                 ],
             ],
         ]); ?>

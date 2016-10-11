@@ -112,16 +112,17 @@ class Jurulatih extends \yii\db\ActiveRecord
             [['bahagian', 'cawangan', 'program', 'sub_cawangan_pelapis', 'lain_lain_program', 'pusat_latihan', 'nama_sukan', 
                 'nama_acara', 'status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 'nama', 'bangsa', 'agama', 
                 'jantina', 'warganegara', 'tarikh_lahir', 'tempat_lahir', 'taraf_perkahwinan', 'alamat_rumah_1', 
-                'alamat_rumah_negeri', 'alamat_rumah_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri'
-                , 'alamat_surat_menyurat_poskod', 'no_telefon_bimbit', 
+                'alamat_rumah_negeri', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri', 'no_telefon_bimbit', 
                 'tarikh_mula_lantikan', 'tarikh_tamat_lantikan', 'agensi'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_lahir', 'tamat_tempoh', 'tamat_visa_tempoh', 'tamat_permit_tempoh', 'status_tawaran'], 'safe'],
+            [['tarikh_lahir', 'tamat_tempoh', 'tamat_visa_tempoh', 'tamat_permit_tempoh', 'status_tawaran', 'approved_date'], 'safe'],
             [['bil_tanggungan', 'approved', 'nama_sukan', 'nama_acara', 'ic_no', 'ic_tentera', 'ic_no_lama',
-                'alamat_rumah_poskod', 'alamat_surat_menyurat_poskod', 'alamat_majikan_poskod', 'mesyuarat_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+                'alamat_rumah_poskod', 'alamat_surat_menyurat_poskod', 'alamat_majikan_poskod', 'mesyuarat_id',
+                'no_telefon', 'no_telefon_pejabat', 'no_telefon_bimbit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['gambar', 'warganegara', 'emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['cawangan', 'sub_cawangan_pelapis', 'lain_lain_program', 'pusat_latihan', 'nama', 'nama_majikan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 'no_visa', 'no_permit_kerja', 'alamat_rumah_negeri', 'alamat_surat_menyurat_negeri', 'status', 'sektor', 'jawatan', 'alamat_majikan_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['bangsa'], 'string', 'max' => 25, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['agama', 'taraf_perkahwinan', 'passport_no'], 'string', 'max' => 15, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat_lahir', 'alamat_rumah_1', 'alamat_rumah_2', 'alamat_rumah_3', 'alamat_surat_menyurat_1', 
@@ -131,6 +132,8 @@ class Jurulatih extends \yii\db\ActiveRecord
             [['alamat_rumah_bandar', 'alamat_surat_menyurat_bandar', 'alamat_majikan_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_rumah_poskod', 'alamat_surat_menyurat_poskod', 'alamat_majikan_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_telefon', 'no_telefon_pejabat', 'no_telefon_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon', 'no_telefon_pejabat'], 'string', 'min' => 9, 'tooShort' => GeneralMessage::yii_validation_string_min],
+            [['no_telefon_bimbit'], 'string', 'min' => 10, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['gambar'], 'validateFileUpload', 'skipOnEmpty' => false],
             [['tarikh_tamat_lantikan'], 'compare', 'compareAttribute'=>'tarikh_mula_lantikan', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
         ];
@@ -204,6 +207,7 @@ class Jurulatih extends \yii\db\ActiveRecord
             'tarikh_tamat_lantikan' => GeneralLabel::tarikh_tamat_lantikan,
             'agensi' => 'Agensi Pelantik',
             'status_tawaran' => GeneralLabel::status_tawaran,
+            'approved_date' => GeneralLabel::tarikh_hantar,
         ];
     }
     

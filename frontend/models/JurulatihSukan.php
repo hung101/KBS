@@ -59,10 +59,11 @@ class JurulatihSukan extends \yii\db\ActiveRecord
     {
         return [
             [['jurulatih_id', 'program', 'sukan', 'cawangan', 'bahagian', 'tarikh_mula_lantikan', 'tarikh_tamat_lantikan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['jurulatih_id', 'created_by', 'updated_by', 'gaji_dan_elaun_jurulatih_id', 'gaji_jurulatih_id', 'elaun_jurulatih_id', 'gaji_elaun'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jurulatih_id', 'created_by', 'updated_by', 'gaji_dan_elaun_jurulatih_id', 'gaji_jurulatih_id', 'elaun_jurulatih_id', 'gaji_elaun'
+                , 'bahagian'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_mula_lantikan', 'tarikh_tamat_lantikan', 'created', 'updated'], 'safe'],
             [['jumlah'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['program', 'sukan', 'cawangan', 'bahagian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['program', 'sukan', 'cawangan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
 

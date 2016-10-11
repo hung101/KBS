@@ -7,6 +7,7 @@ use app\models\UserPeranan;
 use kartik\password\StrengthValidator;
 
 use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 use common\models\general\GeneralFunction;
 
 /**
@@ -40,6 +41,19 @@ class LoginForm extends Model
                 'lowerError'=>GeneralMessage::yii_validation_password_strength,
                 'hasUserError'=>GeneralMessage::yii_validation_password_contain_username,
                 'on' => 'new-password']
+        ];
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'ID Pengguna',
+            'password' => 'Kata Laluan',
+            'confirm_password' => 'Pengesahan Kata Laluan',
+            'rememberMe' => 'Ingat Saya',
         ];
     }
 

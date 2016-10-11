@@ -34,6 +34,13 @@ use app\models\general\GeneralVariable;
 ?>
 
 <div class="bantuan-penyertaan-pegawai-teknikal-form">
+    
+    <?php 
+    if($model->status_permohonan_id && $model->status_permohonan_id==RefStatusBantuanPenyertaanPegawaiTeknikal::LULUS){
+        echo Html::a('Laporan Teknikal & Kepegawaian', ['bantuan-penganjuran-kursus-pegawai-teknikal-laporan/load-bantuan-penyertaan', 'bantuan_penyertaan_pegawai_teknikal_id' =>$model->bantuan_penyertaan_pegawai_teknikal_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+        echo '<br><br>';
+    }
+    ?>
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
    <?php
@@ -631,12 +638,12 @@ use app\models\general\GeneralVariable;
     <h3>Bantuan Penyertaan Pegawai Teknikal Ke Kejohanan Dalam Dan Luar Negara Oleh MSN (Tahun Semasa & Tahun Sebelum)</h3>
     
     
-    <?php Pjax::begin(['id' => 'bantuanPenyertaanPegawaiTeknikalOlehMsn,Grid', 'timeout' => 100000]); ?>
+    <?php Pjax::begin(['id' => 'bantuanPenyertaanPegawaiTeknikalOlehMsnGrid', 'timeout' => 100000]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProviderBantuanPenyertaanPegawaiTeknikalOlehMsn,
         //'filterModel' => $searchModelBantuanPenyertaanPegawaiTeknikalOlehMsn,
-        'id' => 'bantuanPenyertaanPegawaiTeknikalOlehMsn',
+        'id' => 'bantuanPenyertaanPegawaiTeknikalOlehMsnGrid',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -663,7 +670,7 @@ use app\models\general\GeneralVariable;
                     'delete' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Delete'),
-                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-oleh-msn/delete', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_oleh_msn_id]).'", "'.GeneralMessage::confirmDelete.'", "bantuanPenyertaanPegawaiTeknikalOlehMsn");',
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-oleh-msn/delete', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_oleh_msn_id]).'", "'.GeneralMessage::confirmDelete.'", "bantuanPenyertaanPegawaiTeknikalOlehMsnGrid");',
                         //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
                         ]);
 

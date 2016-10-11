@@ -4,6 +4,9 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
+
 /**
  * This is the model class for table "tbl_penilaian_prestasi_atlet_sasaran".
  *
@@ -34,11 +37,11 @@ class PenilaianPrestasiAtletSasaran extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['penilaian_pestasi_id', 'atlet', 'keputusan', 'created_by', 'updated_by'], 'integer'],
-            [['atlet', 'sasaran'], 'required'],
+            [['penilaian_pestasi_id', 'atlet', 'keputusan', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['atlet', 'sasaran'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['created', 'updated'], 'safe'],
-            [['sasaran'], 'string', 'max' => 80],
-            [['session_id'], 'string', 'max' => 100],
+            [['sasaran'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
 

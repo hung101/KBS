@@ -33,6 +33,13 @@ use app\models\general\GeneralVariable;
 ?>
 
 <div class="bantuan-penganjuran-kursus-form">
+    
+    <?php 
+    if($model->status_permohonan_id && $model->status_permohonan_id==RefStatusBantuanPenganjuranKursus::LULUS){
+        echo Html::a('Laporan Teknikal & Kepegawaian', ['bantuan-penganjuran-kursus-pegawai-teknikal-laporan/load-bantuan-penganjuran', 'bantuan_penganjuran_kursus_id' =>$model->bantuan_penganjuran_kursus_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+        echo '<br><br>';
+    }
+    ?>
 
    <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
    <?php
@@ -723,7 +730,8 @@ use app\models\general\GeneralVariable;
                         'type'=>DateControl::FORMAT_DATETIME,
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ],
+                        'options'=>['disabled'=>true]
                     ],
                     'columnOptions'=>['colspan'=>3]],
             ]
@@ -749,7 +757,7 @@ use app\models\general\GeneralVariable;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ],
                     ],
                     'columnOptions'=>['colspan'=>3]],
             ]

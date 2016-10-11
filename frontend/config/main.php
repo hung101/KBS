@@ -27,6 +27,11 @@ return [
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
+            'identityCookie' => [
+                'name' => '_frontendUser',
+                'path' => '/',
+                'httpOnly' => true,
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -42,7 +47,10 @@ return [
         ],
         'session' => [
             'name' => 'PHPFRONTSESSID',
-            'savePath' => sys_get_temp_dir(),
+            'savePath' => __DIR__ . '/../runtime/sessions',
+            'cookieParams' => [
+                'path' => '/',
+            ],
         ],
         // eddie (print) start 
         'pdf' => [

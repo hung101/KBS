@@ -63,9 +63,8 @@ class JurulatihKeluarga extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jurulatih_id', 'nama_suami_isteri_waris', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_bandar', 
-                'alamat_surat_menyurat_poskod', 'no_telefon', 'hubungan_keluargaan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['jurulatih_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jurulatih_id', 'nama_suami_isteri_waris', 'alamat_surat_menyurat_1', 'no_telefon', 'hubungan_keluargaan', 'negara'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jurulatih_id', 'negara'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_suami_isteri_waris'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_surat_menyurat_negeri', 'hubungan_keluargaan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -95,6 +94,7 @@ class JurulatihKeluarga extends \yii\db\ActiveRecord
             'no_telefon' => GeneralLabel::no_telefon,
             'no_telefon_bimbit' => GeneralLabel::no_telefon_bimbit,
             'hubungan_keluargaan' => GeneralLabel::hubungan,
+            'negara' => GeneralLabel::negara,
         ];
     }
 }

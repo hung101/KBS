@@ -20,6 +20,9 @@ use app\models\general\GeneralMessage;
  */
 class RefBahagianJurulatih extends \yii\db\ActiveRecord
 {
+    const PARALIMPIK = 1;
+    const ATLET = 2;
+    
     /**
      * @inheritdoc
      */

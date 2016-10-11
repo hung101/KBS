@@ -7,6 +7,9 @@ use app\models\BantuanPenganjuranKursusPegawaiTeknikalLaporan;
 use frontend\models\BantuanPenganjuranKursusPegawaiTeknikalLaporanSearch;
 use app\models\BantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan;
 use frontend\models\BantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutanSearch;
+use app\models\BantuanPenganjuranKursusPegawaiTeknikal;
+use app\models\BantuanPenyertaanPegawaiTeknikal;
+use app\models\BantuanPenganjuranKursus;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -87,7 +90,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($bantuan_penganjuran_kursus_pegawai_teknikal_id)
+    public function actionCreate($bantuan_penganjuran_kursus_pegawai_teknikal_id=0, $bantuan_penyertaan_pegawai_teknikal_id=0, $bantuan_penganjuran_kursus_id=0)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
@@ -96,6 +99,41 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
         $model = new BantuanPenganjuranKursusPegawaiTeknikalLaporan();
         
         $model->bantuan_penganjuran_kursus_pegawai_teknikal_id = $bantuan_penganjuran_kursus_pegawai_teknikal_id;
+        $model->bantuan_penyertaan_pegawai_teknikal_id = $bantuan_penyertaan_pegawai_teknikal_id;
+        $model->bantuan_penganjuran_kursus_id = $bantuan_penganjuran_kursus_id;
+        
+        if (($modelBantuanPenganjuranKursusPegawaiTeknikal = BantuanPenganjuranKursusPegawaiTeknikal::findOne($bantuan_penganjuran_kursus_pegawai_teknikal_id)) !== null && $bantuan_penganjuran_kursus_pegawai_teknikal_id != 0) {
+            $model->tempat = $modelBantuanPenganjuranKursusPegawaiTeknikal->tempat;
+            $model->tujuan_kursus_kejohanan = $modelBantuanPenganjuranKursusPegawaiTeknikal->nama_kursus_seminar_bengkel;
+            $model->tarikh = $modelBantuanPenganjuranKursusPegawaiTeknikal->tarikh;
+            $model->tarikh_tamat = $modelBantuanPenganjuranKursusPegawaiTeknikal->tarikh_tamat;
+            //$model->bilangan_pasukan = $modelBantuanPenganjuranKursusPegawaiTeknikal->bil_pasukan;
+            //$model->bilangan_peserta = $modelBantuanPenganjuranKursusPegawaiTeknikal->bil_peserta;
+            //$model->bilangan_pegawai_teknikal = $modelBantuanPenganjuranKursusPegawaiTeknikal->bil_pegawai_teknikal;
+            //$model->bilangan_pembantu = $modelBantuanPenganjuranKursusPegawaiTeknikal->bilangan_pembantu;
+        }
+        
+        if (($modelBantuanPenganjuranKursus = BantuanPenganjuranKursus::findOne($bantuan_penganjuran_kursus_id)) !== null && $bantuan_penganjuran_kursus_id != 0) {
+            $model->tempat = $modelBantuanPenganjuranKursus->tempat;
+            $model->tujuan_kursus_kejohanan = $modelBantuanPenganjuranKursus->nama_kursus_seminar_bengkel;
+            $model->tarikh = $modelBantuanPenganjuranKursus->tarikh;
+            $model->tarikh_tamat = $modelBantuanPenganjuranKursus->tarikh_tamat;
+            //$model->bilangan_pasukan = $modelBantuanPenganjuranKursusPegawaiTeknikal->bil_pasukan;
+            //$model->bilangan_peserta = $modelBantuanPenganjuranKursusPegawaiTeknikal->bil_peserta;
+            //$model->bilangan_pegawai_teknikal = $modelBantuanPenganjuranKursusPegawaiTeknikal->bil_pegawai_teknikal;
+            //$model->bilangan_pembantu = $modelBantuanPenganjuranKursusPegawaiTeknikal->bilangan_pembantu;
+        }
+        
+        if (($modelBantuanBantuanPenyertaanPegawaiTeknikal = BantuanPenyertaanPegawaiTeknikal::findOne($bantuan_penyertaan_pegawai_teknikal_id)) !== null && $bantuan_penyertaan_pegawai_teknikal_id != 0) {
+            $model->tempat = $modelBantuanBantuanPenyertaanPegawaiTeknikal->tempat;
+            $model->tujuan_kursus_kejohanan = $modelBantuanBantuanPenyertaanPegawaiTeknikal->nama_kejohanan;
+            $model->tarikh = $modelBantuanBantuanPenyertaanPegawaiTeknikal->tarikh;
+            $model->tarikh_tamat = $modelBantuanBantuanPenyertaanPegawaiTeknikal->tarikh_tamat;
+            //$model->bilangan_pasukan = $modelBantuanPenganjuranKursusPegawaiTeknikal->bil_pasukan;
+            //$model->bilangan_peserta = $modelBantuanPenganjuranKursusPegawaiTeknikal->bil_peserta;
+            //$model->bilangan_pegawai_teknikal = $modelBantuanPenganjuranKursusPegawaiTeknikal->bil_pegawai_teknikal;
+            //$model->bilangan_pembantu = $modelBantuanPenganjuranKursusPegawaiTeknikal->bilangan_pembantu;
+        }
         
         $queryPar = null;
         
@@ -186,6 +224,42 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
             return $this->redirect(['update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id]);
         } else {
             return $this->redirect(['create', 'bantuan_penganjuran_kursus_pegawai_teknikal_id' => $bantuan_penganjuran_kursus_pegawai_teknikal_id]);
+        }
+    }
+    
+    /**
+     * Displays a single BantuanPenganjuranKejohananLaporan model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionLoadBantuanPenyertaan($bantuan_penyertaan_pegawai_teknikal_id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
+        if (($model = BantuanPenganjuranKursusPegawaiTeknikalLaporan::find()->where(['bantuan_penyertaan_pegawai_teknikal_id'=>$bantuan_penyertaan_pegawai_teknikal_id])->one()) !== null) {
+            return $this->redirect(['update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id]);
+        } else {
+            return $this->redirect(['create', 'bantuan_penyertaan_pegawai_teknikal_id' => $bantuan_penyertaan_pegawai_teknikal_id]);
+        }
+    }
+    
+    /**
+     * Displays a single BantuanPenganjuranKejohananLaporan model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionLoadBantuanPenganjuran($bantuan_penganjuran_kursus_id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+        }
+        
+        if (($model = BantuanPenganjuranKursusPegawaiTeknikalLaporan::find()->where(['bantuan_penganjuran_kursus_id'=>$bantuan_penganjuran_kursus_id])->one()) !== null) {
+            return $this->redirect(['update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id]);
+        } else {
+            return $this->redirect(['create', 'bantuan_penganjuran_kursus_id' => $bantuan_penganjuran_kursus_id]);
         }
     }
 

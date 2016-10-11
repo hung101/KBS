@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
@@ -85,8 +86,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
 
                     },
+                    'penilaian' => function ($url, $model) {
+                        return  ($model->penilaian_pestasi_id) ? Html::a('<span class="glyphicon glyphicon-list-alt"></span>', 
+                        ['penilaian-pestasi/view', 'id' =>$model->penilaian_pestasi_id], 
+                        [
+                            'title' => GeneralLabel::penilaian_prestasi,
+                            'target' => '_blank',
+                            'class' => 'custom_button',
+                            'value'=>Url::to(['/penilaian-pestasi/view', 'id' => $model->penilaian_pestasi_id])
+                        ]) : '';
+                    },
                 ],
-                'template' => $template,
+                'template' => $template . ' {penilaian}',
             ],
         ],
     ]); ?>

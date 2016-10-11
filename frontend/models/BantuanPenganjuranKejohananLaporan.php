@@ -72,7 +72,7 @@ class BantuanPenganjuranKejohananLaporan extends \yii\db\ActiveRecord
             'bantuan_penganjuran_kejohanan_id' => 'Bantuan Penganjuran Kejohanan ID',
             'tarikh' => 'Tarikh',
             'tempat' => 'Tempat',
-            'tujuan_penganjuran' => 'Tujuan Penganjuran',
+            'tujuan_penganjuran' => 'Nama Kejohanan',
             'bilangan_pasukan' => 'Bilangan Pasukan',
             'bilangan_peserta' => 'Bilangan Peserta',
             'bilangan_pegawai_teknikal' => 'Bilangan Pegawai Teknikal',

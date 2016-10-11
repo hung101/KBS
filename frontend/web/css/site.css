@@ -101,3 +101,18 @@ a.desc:after {
     height: 60px;
     padding-top: 0;
 }
+
+.kv-sidenav .nav .nav .nav a {
+    padding-left: 25%;
+    background: #fee9e9;
+}
+
+.kv-sidenav .nav .nav .nav .nav a {
+    padding-left: 30%;
+    background: #e2ffef;
+}
+
+.kv-sidenav .nav .nav .nav .nav .nav a {
+    padding-left: 35%;
+    background: #e9e9fe;
+}

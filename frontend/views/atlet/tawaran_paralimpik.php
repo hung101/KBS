@@ -163,6 +163,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'title' => Yii::t('yii', 'View'),
                             'aria-label' => Yii::t('yii', 'View'),
                             'data-pjax' => '0',
+                            'class' => 'custom_button',
+                            'value'=>$url
                             ];
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, $options);
                     }
@@ -197,3 +199,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::end(); ?>
 
 </div>
+
+<?php
+$script = <<< JS
+        
+$(function(){
+$('.custom_button').click(function(){
+        window.open($(this).attr('value'), "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no");
+        return false;
+});});
+     
+
+JS;
+        
+$this->registerJs($script);
+?>

@@ -8,6 +8,7 @@ use frontend\models\PembayaranInsentifAtletSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Session;
 
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
@@ -15,6 +16,7 @@ use common\models\general\GeneralFunction;
 // table reference
 use app\models\Atlet;
 use app\models\RefAcara;
+use app\models\RefAcaraInsentif;
 /**
  * PembayaranInsentifAtletController implements the CRUD actions for PembayaranInsentifAtlet model.
  */
@@ -100,6 +102,31 @@ class PembayaranInsentifAtletController extends Controller
             if(isset(Yii::$app->session->id)){
                 $model->session_id = Yii::$app->session->id;
             }
+        }
+        
+        if(Yii::$app->request->post()){
+            $session = new Session;
+            $session->open();
+
+            if($session['acara_id'] == RefAcaraInsentif::BERPASUKAN_KURANG_5_ORANG){
+                $modelCount = 0;
+                if($pembayaran_insentif_id != ''){
+                    $modelCount = PembayaranInsentifAtlet::find()->where(['=', 'pembayaran_insentif_id', $pembayaran_insentif_id])->count();
+                } else {
+                    if(isset(Yii::$app->session->id)){
+                        $modelCount = PembayaranInsentifAtlet::find()->where(['=', 'session_id', Yii::$app->session->id])->count();
+                    }
+                }
+                
+                if($modelCount > 4){
+                    //Yii::$app->session->setFlash('info', 'Tak boleh tambah lebih daripada 5 atlet ');
+                    return '0: <div class="alert alert-danger">
+  Tak boleh tambah lebih daripada 5 atlet.
+</div>';
+                }
+            }
+
+            $session->close();
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

@@ -114,6 +114,7 @@ class BantuanPenganjuranKursusController extends Controller
         $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->badan_sukan]);
         $model->badan_sukan = $ref['nama_badan_sukan'];
         
+        $model->status_permohonan_id = $model->status_permohonan;
         $ref = RefStatusBantuanPenganjuranKursus::findOne(['id' => $model->status_permohonan]);
         $model->status_permohonan = $ref['desc'];
         

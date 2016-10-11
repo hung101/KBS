@@ -423,6 +423,12 @@ use app\models\general\GeneralMessage;
             ],
         ],
     ]); ?>
+    <?php 
+    $totalAtlets = $dataProviderPembayaranInsentifAtlet->getTotalCount();
+    if(($model->acara == RefAcaraInsentif::BERPASUKAN_KURANG_5_ORANG || $model->acara_id == RefAcaraInsentif::BERPASUKAN_KURANG_5_ORANG) && $totalAtlets > 0 && $model->jumlah){
+        echo "<h4>Setiap Atlet Peroleh : RM" . number_format($model->jumlah / $totalAtlets , 2) . "</h4>"; 
+    }
+    ?>
     
     <?php Pjax::end(); ?>
     
@@ -596,7 +602,8 @@ $URL_SET_ACARA = Url::to(['/pembayaran-insentif/set-acara']);
 $URL_SET_SUKAN = Url::to(['/pembayaran-insentif/set-sukan']);
 
 $ACARA_INDIVIDU = RefAcaraInsentif::INDIVIDU;
-$ACARA_BERPASUKAN = RefAcaraInsentif::BERPASUKAN;
+$ACARA_BERPASUKAN_KURANG_5_ORANG = RefAcaraInsentif::BERPASUKAN_KURANG_5_ORANG;
+$ACARA_BERPASUKAN_LEBIH_5_ORANG = RefAcaraInsentif::BERPASUKAN_LEBIH_5_ORANG;
 
 $KEJOHANAN_TEMASYA = RefInsentifKejohanan::TEMASYA;
 $KEJOHANAN_INDIVIDU = RefInsentifKejohanan::INDIVIDU;
@@ -614,7 +621,8 @@ $this->registerJs($script);
 $script = <<< JS
         
 var nilai_individu = 0;
-var nilai_berpasukan = 0;
+var nilai_berpasukan_kurang_5_orang = 0;
+var nilai_berpasukan_lebih_5_orang = 0;
 var peratus_sikap = 0;
 var peratus_sgar = 0;
         
@@ -689,9 +697,9 @@ function getJumlah(){
                     peratus_sikap = data.refPengurusanInsentifTetapan.sikap;
                     peratus_sgar = data.refPengurusanInsentifTetapan.sgar;
                 }
-        
-                nilai_individu = data.jumlah;
-                nilai_berpasukan = data.nilai_berpasukan_kurang_5;
+                nilai_individu = data.nilai_individu;
+                nilai_berpasukan_kurang_5_orang = data.nilai_berpasukan_kurang_5;
+                nilai_berpasukan_lebih_5_orang = data.nilai_berpasukan_lebih_5;
                 if($('#pembayaraninsentif-acara').val() !== ''){
                     changeAcara();
                 }
@@ -709,11 +717,17 @@ function changeAcara(){
         $('#pembayaraninsentif-jumlah').val(nilai_individu);
         $('#pembayaraninsentif-nilai_sikap').val(0.0);
         $('#sikapID').hide("slow");
-    }else if($('#pembayaraninsentif-acara').val() == '$ACARA_BERPASUKAN'){
-        $('#pembayaraninsentif-jumlah').val(nilai_berpasukan);
+    }else if($('#pembayaraninsentif-acara').val() == '$ACARA_BERPASUKAN_KURANG_5_ORANG'){
+        $('#pembayaraninsentif-jumlah').val(nilai_berpasukan_kurang_5_orang);
         $('#sikapID').show("slow");
         
-        var nilai_sikap = nilai_berpasukan * (peratus_sikap/100);
+        var nilai_sikap = nilai_berpasukan_kurang_5_orang * (peratus_sikap/100);
+        $('#pembayaraninsentif-nilai_sikap').val(nilai_sikap.toFixed(2));
+    }else if($('#pembayaraninsentif-acara').val() == '$ACARA_BERPASUKAN_LEBIH_5_ORANG'){
+        $('#pembayaraninsentif-jumlah').val(nilai_berpasukan_lebih_5_orang);
+        $('#sikapID').show("slow");
+        
+        var nilai_sikap = nilai_berpasukan_lebih_5_orang * (peratus_sikap/100);
         $('#pembayaraninsentif-nilai_sikap').val(nilai_sikap.toFixed(2));
     }
 }

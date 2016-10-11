@@ -17,11 +17,29 @@ use app\models\general\GeneralLabel;
 
 $this->title = GeneralLabel::sukan_dan_program;
 $this->params['breadcrumbs'][] = $this->title;
+
+use yii\web\Session;
+
+    $session = new Session;
+    $session->open();
+
+    $jurulatih_id = $session['jurulatih_id'];
+    $jurulatihModel = null;
+    
+    if (($jurulatihModel = app\models\Jurulatih::findOne($jurulatih_id)) !== null) {
+        $approved = $jurulatihModel->approved;
+    }
+
+    $session->close();
 ?>
 <div class="jurulatih-sukan-index">
     
     <?php
+        $template = '';
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['papar-gaji'])){
         $template = '{view}';
+        }
         
         // Update Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update'])){
@@ -37,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['create'])): ?>
+        <?php if(((isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['create']) && Yii::$app->user->identity->peranan !=  32) && $approved == 0)  || isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['kemaskini_yang_hantar'])): ?>
         <p>
             <?= Html::button(GeneralLabel::createTitle . ' ' . GeneralLabel::sukan_dan_program, ['value'=>Url::to(['create']),'class' => 'btn btn-success', 'onclick' => 'updateRenderAjax("'.Url::to(['create']).'", "'.GeneralVariable::tabSukanJurulatihID.'");']) ?>
         </p>
@@ -105,9 +123,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::gaji_elaun,
                 ],
-                'value' => 'refGajiElaunJurulatih.desc'
+                'value' => 'refGajiElaunJurulatih.desc',
+                'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['papar-gaji']),
             ],
             // 'jumlah',
+            [
+                'attribute' => 'jumlah',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah,
+                ],
+                'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['papar-gaji']),
+            ],
             // 'created_by',
             // 'updated_by',
             // 'created',

@@ -9,6 +9,7 @@ use app\models\PlDiagnosisPreskripsiPemeriksaanFisioterapi;
 use frontend\models\PlDiagnosisPreskripsiPemeriksaanFisioterapiSearch;
 use app\models\IsnLaporanTemujanjiFisioterapi;
 use app\models\IsnLaporanJadualPegawaiTemujanji;
+use app\models\IsnLaporanStatistikBulananTemujanjiFisioterapiRehabilitasi;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -414,5 +415,48 @@ class PlTemujanjiFisioterapiController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/ISN/LaporanJadualPegawaiTemujanji', $format, $controls, 'laporan_jadual_pegawai_temujanji');
+    }
+    
+    public function actionLaporanStatistikBulananTemujanjiFisioterapiRehabilitasi()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanStatistikBulananTemujanjiFisioterapiRehabilitasi();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-bulanan-temujanji-fisioterapi-rehabilitasi'
+                    , 'tahun' => $model->tahun
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-bulanan-temujanji-fisioterapi-rehabilitasi'
+                    , 'tahun' => $model->tahun
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_bulanan_temujanji_fisioterapi_rehabilitasi', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikBulananTemujanjiFisioterapiRehabilitasi($tahun, $format)
+    {
+        if($tahun == "") $tahun = array();
+        else $tahun = array($tahun);
+        
+        $controls = array(
+            'YEAR' => $tahun,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanStatistikBulananTemujanjiFisioterapiRehabilitasi', $format, $controls, 'laporan_statistik_bulanan_temujanji_fisioterapi_rehabilitasi');
     }
 }

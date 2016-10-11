@@ -15,6 +15,7 @@ use app\models\RefReportFormat;
 use app\models\RefProgramJurulatih;
 use app\models\RefSukan;
 use app\models\RefNegeri;
+use app\models\RefNegara;
 use app\models\RefAcara;
 use app\models\RefStatusJurulatih;
 
@@ -29,6 +30,48 @@ $this->title = GeneralLabel::laporan_senarai_jurulatih;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="laporan-penganjuran-acara">
+    
+    <?php
+        $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->all();
+        
+        // add filter base on sukan access role in tbl_user->sukan - START
+        if(Yii::$app->user->identity->sukan){
+            $sukan_access=explode(',',Yii::$app->user->identity->sukan);
+            
+            $arr_sukan_filter = array();
+            
+            for($i = 0; $i < count($sukan_access); $i++){
+                $arr_sukan = null;
+                $arr_sukan = array('id'=>$sukan_access[$i]); 
+                    array_push($arr_sukan_filter,$arr_sukan);
+            }
+            
+            $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andFilterWhere(['id'=>$arr_sukan_filter])->all();
+        }
+        // add filter base on sukan access role in tbl_user->sukan - END
+        
+    ?>
+    
+    <?php
+        $negeri_list = RefNegeri::find()->where(['=', 'aktif', 1])->all();
+        
+        // add filter base on sukan access role in tbl_user->negeri - START
+        if(Yii::$app->user->identity->negeri){
+            $negeri_access=explode(',',Yii::$app->user->identity->negeri);
+            
+            $arr_negeri_filter = array();
+            
+            for($i = 0; $i < count($negeri_access); $i++){
+                $arr_negeri = null;
+                $arr_negeri = array('id'=>$negeri_access[$i]); 
+                    array_push($arr_negeri_filter,$arr_negeri);
+            }
+            
+            $negeri_list = RefNegeri::find()->where(['=', 'aktif', 1])->andFilterWhere(['id'=>$arr_negeri_filter])->all();
+        }
+        // add filter base on sukan access role in tbl_user->negeri - END
+        
+    ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
     
@@ -37,7 +80,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]); ?>
     
     <?php
-        echo FormGrid::widget([
+    // add filter base on sukan access role in tbl_user->sukan - START
+        if(Yii::$app->user->identity->sukan || (!Yii::$app->user->identity->sukan && !Yii::$app->user->identity->negeri)){
+             echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -57,7 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map($negeri_list,'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::negeri],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -65,6 +110,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
+    ]
+]);
+        }
+       
+    ?>
+    
+    <?php
+    // add filter base on sukan access role in tbl_user->sukan - START
+        if(!Yii::$app->user->identity->sukan && !Yii::$app->user->identity->negeri){
+             echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -88,6 +147,19 @@ $this->params['breadcrumbs'][] = $this->title;
                     'columnOptions'=>['colspan'=>4]],
             ]
         ],
+    ]
+]);
+        }
+       
+    ?>
+    
+    <?php
+    if(Yii::$app->user->identity->sukan || (!Yii::$app->user->identity->sukan && !Yii::$app->user->identity->negeri)){
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -103,7 +175,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map($sukan_list,'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -111,29 +183,76 @@ $this->params['breadcrumbs'][] = $this->title;
                     'columnOptions'=>['colspan'=>4]],
             ]
         ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'status' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-status-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefStatusJurulatih::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::status],
-                        'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
-                    'columnOptions'=>['colspan'=>4]],
+    ]
+]);
+    }
+    ?>
+    
+    <?php
+    if(!Yii::$app->user->identity->sukan && !Yii::$app->user->identity->negeri){
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'negara' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-negara/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefNegara::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::negara],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>3]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'status' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-status-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefStatusJurulatih::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::status],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>4]],
+                    ]
+                ],
             ]
-        ],
+        ]);
+    }
+        
+    ?>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting

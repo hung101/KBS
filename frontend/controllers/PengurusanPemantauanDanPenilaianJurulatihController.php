@@ -125,6 +125,8 @@ class PengurusanPemantauanDanPenilaianJurulatihController extends Controller
         
         $model = new PengurusanPemantauanDanPenilaianJurulatih();
         
+        $model->tarikh_dinilai = date("Y-m-d");
+        
         $queryPar = null;
         
         Yii::$app->session->open();

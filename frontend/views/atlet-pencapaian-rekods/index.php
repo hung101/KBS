@@ -42,13 +42,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
                 ]
             ],
-            [
+            /*[
                 'attribute' => 'peringkat',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::peringkat,
                 ]
-            ],
+            ],*/
             [
                 'attribute' => 'opponent',
                 'filterInputOptions' => [

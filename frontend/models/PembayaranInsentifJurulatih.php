@@ -73,7 +73,7 @@ class PembayaranInsentifJurulatih extends \yii\db\ActiveRecord
         $jumlah_insentif_allocated = 0;
         
         if(isset($session['acara_id'])){
-            if($session['acara_id'] == RefAcaraInsentif::BERPASUKAN){
+            if($session['acara_id'] == RefAcaraInsentif::BERPASUKAN_KURANG_5_ORANG || $session['acara_id'] == RefAcaraInsentif::BERPASUKAN_LEBIH_5_ORANG){
                 if(isset($session['nilai_SGAR_berpasukan'])){
                     $nilai = $session['nilai_SGAR_berpasukan'];
                 }

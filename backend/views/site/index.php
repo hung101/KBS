@@ -37,6 +37,10 @@ $this->title = 'System Pengurusan Sukan Bersepadu';
               <h4 class="list-group-item-heading">Badan Sukan</h4>
               <p class="list-group-item-text">Pengurusan secara online</p>
             </a>
+            <a href="<?=Url::to(['/site/login', 'access_id' => PublicUser::ACCESS_KEMUDAHAN_MSN])?>" class="list-group-item">
+              <h4 class="list-group-item-heading">e-Kemudahan MSN</h4>
+              <p class="list-group-item-text">Membuat tempahan / Mengiklan secara online</p>
+            </a>
         </div>
 
     </div>

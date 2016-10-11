@@ -255,4 +255,14 @@ class JurulatihSukanController extends Controller
         
         echo Json::encode($model);
     }
+    
+    public function actionSetSukan($sukan_id){
+        
+        $session = new Session;
+        $session->open();
+
+        $session['jurulatih-sukan_sukan_id'] = $sukan_id;
+        
+        $session->close();
+    }
 }

@@ -30,6 +30,7 @@ class PublicUser extends ActiveRecord implements IdentityInterface
     const ACCESS_KEMUDAHAN = 2;
     const ACCESS_BANTUAN = 3;
     const ACCESS_LAPORAN = 4;
+    const ACCESS_KEMUDAHAN_MSN = 5;
 
     /**
      * @inheritdoc

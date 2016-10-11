@@ -40,6 +40,7 @@ class MsnLaporanBimbinganKaunselingKesRujukan extends Model
             'sukan' => GeneralLabel::sukan,
             'negeri' => GeneralLabel::negeri,
             'jumlah_pemantauan' => GeneralLabel::jumlah_pemantauan,
+            'jenis_client' => 'Jenis Klien',
             'format' => GeneralLabel::format,
         ];
     }

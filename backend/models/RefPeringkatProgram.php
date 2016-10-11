@@ -19,6 +19,12 @@ use app\models\general\GeneralMessage;
  */
 class RefPeringkatProgram extends \yii\db\ActiveRecord
 {
+    const ANTARABANGSA = 1;
+    const KEBANGSAAN = 2;
+    const NEGERI = 3;
+    const DAERAH = 4;
+    const PARLIMEN =5;
+    
     /**
      * @inheritdoc
      */

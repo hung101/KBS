@@ -20,6 +20,10 @@ use app\models\general\GeneralMessage;
  */
 class RefKategoriPersatuan extends \yii\db\ActiveRecord
 {
+    const KEBANGSAAN = 1;
+    const NEGERI = 2;
+    const DAERAH = 3;
+    
     /**
      * @inheritdoc
      */

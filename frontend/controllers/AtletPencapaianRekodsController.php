@@ -11,6 +11,9 @@ use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
 
+// table reference
+use app\models\RefJenisRekod;
+
 /**
  * AtletPencapaianRekodsController implements the CRUD actions for AtletPencapaianRekods model.
  */
@@ -99,8 +102,13 @@ class AtletPencapaianRekodsController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $model = $this->findModel($id);
+        
+        $ref = RefJenisRekod::findOne(['id' => $model->jenis_rekod]);
+        $model->jenis_rekod = $ref['desc'];
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

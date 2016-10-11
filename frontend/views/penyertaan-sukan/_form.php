@@ -395,11 +395,13 @@ $('#kejohananId').change(function(){
         
         
 $('#sukanId').change(function(){
-    
-    $.get('$URLSetSukan',{sukan_id:$(this).val()},function(data){
-    });
-    
+    setSukan();
 });
+        
+function setSukan(){
+    $.get('$URLSetSukan',{sukan_id:$('#sukanId').val()},function(data){
+    });
+}
      
 function clearForm(){
     $('#penyertaansukan-tempat_penginapan').attr('value','');
@@ -410,6 +412,10 @@ function clearForm(){
     $("#penyertaansukan-tarikh_tamat-disp").val('');
     $("#penyertaansukan-tarikh_tamat").val('');
 }
+        
+$(document).ready(function(){
+    setSukan();
+});
         
 JS;
         

@@ -57,6 +57,27 @@ use app\models\general\GeneralMessage;
             $template = '{view}';
         }
     ?>
+    
+    <?php
+        $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->all();
+        
+        // add filter base on sukan access role in tbl_user->sukan - START
+        if(Yii::$app->user->identity->sukan){
+            $sukan_access=explode(',',Yii::$app->user->identity->sukan);
+            
+            $arr_sukan_filter = array();
+            
+            for($i = 0; $i < count($sukan_access); $i++){
+                $arr_sukan = null;
+                $arr_sukan = array('id'=>$sukan_access[$i]); 
+                    array_push($arr_sukan_filter,$arr_sukan);
+            }
+            
+            $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andFilterWhere(['id'=>$arr_sukan_filter])->all();
+        }
+        // add filter base on sukan access role in tbl_user->sukan - END
+        
+    ?>
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
@@ -100,8 +121,8 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],
+                        'data'=>ArrayHelper::map($sukan_list,'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::sukan, 'id'=>'sukanId'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -300,3 +321,30 @@ use app\models\general\GeneralMessage;
 </div>
 
 <?php $session->close(); ?>
+
+<?php
+$URLSetSukan = Url::to(['/jurulatih-sukan/set-sukan']);
+
+$script = <<< JS
+        
+var sukan_Id = "";
+        
+        
+        
+$('#sukanId').change(function(){
+    setSukan();
+});
+        
+function setSukan(){
+    $.get('$URLSetSukan',{sukan_id:$('#sukanId').val()},function(data){
+    });
+}
+        
+$(document).ready(function(){
+    setSukan();
+});
+        
+JS;
+        
+$this->registerJs($script);
+?>

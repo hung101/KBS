@@ -2,6 +2,7 @@
 namespace backend\models;
 
 use common\models\PublicUser;
+use app\models\ProfilBadanSukan;
 use yii\base\Model;
 use Yii;
 use yii\web\UploadedFile;
@@ -58,7 +59,8 @@ class SignupEBantuanForm extends Model
             [['nama_persatuan_e_bantuan', 'jawatan_e_bantuan'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['nama_persatuan_e_bantuan', 'jawatan_e_bantuan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['sijil_pendaftaran', 'perlembagaan_persatuan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['sijil_pendaftaran', 'perlembagaan_persatuan'],'validateFileUploadWithRequired', 'skipOnEmpty' => false],
+            [[ 'perlembagaan_persatuan'],'validateFileUploadWithRequired', 'skipOnEmpty' => false],
+            [['sijil_pendaftaran'],'validateFileUploadWithRequiredSpecial', 'skipOnEmpty' => false],
         ];
     }
     
@@ -95,6 +97,10 @@ class SignupEBantuanForm extends Model
             $user->tel_bimbit_no = $this->tel_bimbit_no;
             $user->nama_persatuan_e_bantuan = $this->nama_persatuan_e_bantuan;
             $user->jawatan_e_bantuan = $this->jawatan_e_bantuan;
+            
+            if ($this->username && ($modelBadanSukan = ProfilBadanSukan::findOne(['no_pendaftaran' => $this->username])) !== null) {
+                $user->sijil_pendaftaran = $modelBadanSukan->no_pendaftaran_sijil_pendaftaran;
+            }
             
             $user->setPassword($this->password);
             $user->generateAuthKey();
@@ -133,6 +139,23 @@ class SignupEBantuanForm extends Model
 
         if(!$file && $this->$attribute==""){
             $this->addError($attribute, GeneralMessage::uploadEmptyError);
+        }
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUploadWithRequiredSpecial($attribute, $params){
+        if ($this->username && ($modelBadanSukan = ProfilBadanSukan::findOne(['no_pendaftaran' => $this->username])) == null) {
+            $file = UploadedFile::getInstance($this, $attribute);
+
+            if($file && $file->getHasError()){
+                $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+            }
+
+            if(!$file && $this->$attribute==""){
+                $this->addError($attribute, GeneralMessage::uploadEmptyError);
+            }
         }
     }
 }

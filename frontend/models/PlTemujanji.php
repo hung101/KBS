@@ -54,7 +54,7 @@ class PlTemujanji extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'tarikh_temujanji', 'status_temujanji', 'pegawai_yang_bertanggungjawab', 'catitan_ringkas'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'tarikh_temujanji', 'status_temujanji', 'pegawai_yang_bertanggungjawab'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id', 'kehadiran_pesakit', 'kehadiran_pegawai_bertanggungjawab', 'kategori_atlet', 'jenis_sukan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_temujanji', 'masa_pendaftaran', 'masa_rawatan', 'masa_selesai'], 'safe'],
             [['doktor_pegawai_perubatan', 'makmal_perubatan', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],

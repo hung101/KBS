@@ -378,8 +378,18 @@ use app\models\general\GeneralMessage;
                             'value'=>Url::to(['/atlet/view', 'id' => $model->atlet])
                         ]);
                     },
+                    'jadual' => function ($url, $model) {
+                        return  Html::a('<span class="glyphicon glyphicon-calendar"></span>', 
+                        ['penilaian-prestasi-atlet-latihan/index', 'penilaian_prestasi_atlet_sasaran_id' =>$model->penilaian_prestasi_atlet_sasaran_id, 'atlet_id' =>$model->atlet, 'penilaian_pestasi_id' =>$model->penilaian_pestasi_id], 
+                        [
+                            'title' => GeneralLabel::jadual_latihan_periodisasi_jurulatih,
+                            'target' => '_blank',
+                            'class' => 'custom_button',
+                            'value'=>Url::to(['/penilaian-prestasi-atlet-latihan/index', 'penilaian_prestasi_atlet_sasaran_id' => $model->penilaian_prestasi_atlet_sasaran_id, 'atlet_id' =>$model->atlet, 'penilaian_pestasi_id' =>$model->penilaian_pestasi_id])
+                        ]);
+                    },
                 ],
-                'template' => $template . ' {atlet}',
+                'template' => $template . ' {atlet} {jadual}',
             ],
         ],
     ]); ?>

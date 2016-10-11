@@ -52,7 +52,7 @@ class PerkhidmatanPermakanan extends \yii\db\ActiveRecord
         return [
             [['tarikh', 'pegawai_yang_bertanggungjawab'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['permohonan_perkhidmatan_permakanan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['tarikh'], 'safe'],
+            [['tarikh', 'jantina', 'sukan'], 'safe'],
             [['pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
@@ -69,7 +69,8 @@ class PerkhidmatanPermakanan extends \yii\db\ActiveRecord
             'tarikh' => GeneralLabel::tarikh,
             'pegawai_yang_bertanggungjawab' => GeneralLabel::pegawai_yang_bertanggungjawab,
             'catitan_ringkas' => GeneralLabel::catitan_ringkas,
-
+            'jantina' => GeneralLabel::jantina,
+            'sukan' => GeneralLabel::sukan,
         ];
     }
 }

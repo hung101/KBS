@@ -15,6 +15,7 @@ use app\models\general\GeneralVariable;
 // table reference
 use app\models\RefBandar;
 use app\models\RefNegeri;
+use app\models\RefNegara;
 
 /**
  * JurulatihKeluargaController implements the CRUD actions for JurulatihKeluarga model.
@@ -90,6 +91,9 @@ class JurulatihKeluargaController extends Controller
         
         $ref = RefBandar::findOne(['id' => $model->alamat_surat_menyurat_bandar]);
         $model->alamat_surat_menyurat_bandar = $ref['desc'];
+        
+        $ref = RefNegara::findOne(['id' => $model->negara]);
+        $model->negara = $ref['desc'];
         
         return $this->renderAjax('view', [
             'model' => $model,

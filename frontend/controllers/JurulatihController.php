@@ -9,6 +9,9 @@ use app\models\MsnLaporanSenaraiJurulatih;
 use app\models\MsnLaporanStatistikJurulatihSukan;
 use app\models\MsnLaporanStatistikJurulatihProgram;
 use app\models\MsnLaporanStatistikJurulatihProgramJantina;
+use app\models\MsnLaporanSenaraiJurulatihSukan;
+use app\models\MsnLaporanSenaraiJurulatihNegeri;
+use app\models\MsnLaporanJurulatihWajaran;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -298,10 +301,13 @@ class JurulatihController extends Controller
         $model = $this->findModel($id);
         
         $model->approved = 1; // set approved
+        $model->approved_date = GeneralFunction::getCurrentTimestamp(); // set date capture
         
         $model->save();
         
-        return $this->redirect(['view', 'id' => $model->jurulatih_id]);
+        //return $this->redirect(['view', 'id' => $model->jurulatih_id]);
+        
+        return $this->redirect(['index']);
     }
 
     /**
@@ -418,8 +424,27 @@ class JurulatihController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
+        $model = null;
+        if(Yii::$app->user->identity->sukan){
+            $model = new MsnLaporanSenaraiJurulatihSukan();
+            $model->program = "";
+            $model->status = "";
+            $model->negeri = "";
+        } if(Yii::$app->user->identity->negeri){
+            $model = new MsnLaporanSenaraiJurulatihNegeri();
+            $model->program = "";
+            $model->status = "";
+            $model->sukan = "";
+        } else {
+            $model = new MsnLaporanSenaraiJurulatih();
+        }
         
-        $model = new MsnLaporanSenaraiJurulatih();
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['view_own_data']) && !Yii::$app->request->get()){
+            $model->created_by = Yii::$app->user->identity->id;
+        } else {
+            $model->created_by = "";
+        }
+        
         $model->format = 'html';
 
         if ($model->load(Yii::$app->request->post())) {
@@ -430,6 +455,8 @@ class JurulatihController extends Controller
                     , 'sukan' => $model->sukan
                     , 'status' => $model->status
                     , 'negeri' => $model->negeri
+                    , 'created_by' => $model->created_by
+                    , 'negara' => $model->negara
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -439,6 +466,8 @@ class JurulatihController extends Controller
                     , 'sukan' => $model->sukan
                     , 'status' => $model->status
                     , 'negeri' => $model->negeri
+                    , 'created_by' => $model->created_by
+                    , 'negara' => $model->negara
                     , 'format' => $model->format
                 ]);
             }
@@ -450,7 +479,7 @@ class JurulatihController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanSenaraiJurulatih($program, $sukan, $status, $negeri, $format)
+    public function actionGenerateLaporanSenaraiJurulatih($program="", $sukan="", $status="", $negeri="", $created_by="", $negara="", $format="")
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -464,11 +493,19 @@ class JurulatihController extends Controller
         if($negeri == "") $negeri = array();
         else $negeri = array($negeri);
         
+        if($created_by == "") $created_by = array();
+        else $created_by = array($created_by);
+        
+        if($negara == "") $negara = array();
+        else $negara = array($negara);
+        
         $controls = array(
             'STATUS' => $status,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
+            'NEGARA' => $negara,
+            'CREATE_BY' => $created_by,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanSenaraiJurulatih', $format, $controls, 'laporan_senarai_jurulatih');
@@ -673,7 +710,7 @@ class JurulatihController extends Controller
                     , 'program' => $model->program
                     , 'sukan' => $model->sukan
                     , 'status' => $model->status
-                    , 'negeri' => $model->negeri
+                    , 'negara' => $model->negara
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -682,7 +719,7 @@ class JurulatihController extends Controller
                     , 'program' => $model->program
                     , 'sukan' => $model->sukan
                     , 'status' => $model->status
-                    , 'negeri' => $model->negeri
+                    , 'negara' => $model->negara
                     , 'format' => $model->format
                 ]);
             }
@@ -694,7 +731,7 @@ class JurulatihController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanStatistikJurulatihNegara($program, $sukan, $status, $negeri, $format)
+    public function actionGenerateLaporanStatistikJurulatihNegara($program, $sukan, $status, $negara, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -705,16 +742,120 @@ class JurulatihController extends Controller
         if($status == "") $status = array();
         else $status = array($status);
         
-        if($negeri == "") $negeri = array();
-        else $negeri = array($negeri);
+        if($negara == "") $negara = array();
+        else $negara = array($negara);
         
         $controls = array(
             'STATUS' => $status,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
-            'NEGERI' => $negeri,
+            'NEGARA_ID' => $negara,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikJurulatihNegara', $format, $controls, 'laporan_statistik_jurulatih_negara');
+    }
+    
+    public function actionLaporanStatistikJurulatihPecahanMengikutNegara()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiJurulatih();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-jurulatih-pecahan-mengikut-negara'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'status' => $model->status
+                    , 'negara' => $model->negara
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-jurulatih-pecahan-mengikut-negara'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'status' => $model->status
+                    , 'negara' => $model->negara
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_jurulatih_pecahan_mengikut_negara', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikJurulatihPecahanMengikutNegara($program, $sukan, $status, $negara, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($status == "") $status = array();
+        else $status = array($status);
+        
+        if($negara == "") $negara = array();
+        else $negara = array($negara);
+        
+        $controls = array(
+            'STATUS' => $status,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGARA_ID' => $negara,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikJurulatihPecahanMengikutNegara', $format, $controls, 'laporan_statistik_jurulatih_pecahan_mengikut_negara');
+    }
+    
+    public function actionLaporanJurulatihWajaran()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanJurulatihWajaran();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-jurulatih-wajaran'
+                    , 'jurulatih' => $model->jurulatih
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-jurulatih-wajaran'
+                    , 'jurulatih' => $model->jurulatih
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_jurulatih_wajaran', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanJurulatihWajaran($jurulatih, $format)
+    {
+        if($jurulatih == "") $jurulatih = array();
+        else $jurulatih = array($jurulatih);
+        
+        $controls = array(
+            'JURULATIH' => $jurulatih,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanJurulatihWajaran', $format, $controls, 'laporan_jurulatih_wajaran');
     }
 }

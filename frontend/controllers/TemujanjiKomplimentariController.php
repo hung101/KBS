@@ -199,6 +199,12 @@ class TemujanjiKomplimentariController extends Controller
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'sukan' => $model->sukan
+                    , 'pegawai_bertanggungjawab' => $model->pegawai_bertanggungjawab
+                    , 'jantina' => $model->jantina
+                    , 'perkhidmatan' => $model->perkhidmatan
+                    , 'lokasi' => $model->lokasi
+                    , 'status_temujanji' => $model->status_temujanji
+                    , 'atlet' => $model->atlet
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -207,6 +213,12 @@ class TemujanjiKomplimentariController extends Controller
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'sukan' => $model->sukan
+                    , 'pegawai_bertanggungjawab' => $model->pegawai_bertanggungjawab
+                    , 'jantina' => $model->jantina
+                    , 'perkhidmatan' => $model->perkhidmatan
+                    , 'lokasi' => $model->lokasi
+                    , 'status_temujanji' => $model->status_temujanji
+                    , 'atlet' => $model->atlet
                     , 'format' => $model->format
                 ]);
             }
@@ -218,7 +230,7 @@ class TemujanjiKomplimentariController extends Controller
         ]);
     }
 
-    public function actionGenerateLaporanKomplimentori($tarikh_dari, $tarikh_hingga, $sukan, $format)
+    public function actionGenerateLaporanKomplimentori($tarikh_dari, $tarikh_hingga, $sukan, $pegawai_bertanggungjawab, $jantina, $perkhidmatan, $lokasi, $status_temujanji, $atlet, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -229,10 +241,34 @@ class TemujanjiKomplimentariController extends Controller
         if($sukan == "") $sukan = array();
         else $sukan = array($sukan);
         
+        if($pegawai_bertanggungjawab == "") $pegawai_bertanggungjawab = array();
+        else $pegawai_bertanggungjawab = array($pegawai_bertanggungjawab);
+        
+        if($jantina == "") $jantina = array();
+        else $jantina = array($jantina);
+        
+        if($perkhidmatan == "") $perkhidmatan = array();
+        else $perkhidmatan = array($perkhidmatan);
+        
+        if($lokasi == "") $lokasi = array();
+        else $lokasi = array($lokasi);
+        
+        if($status_temujanji == "") $status_temujanji = array();
+        else $status_temujanji = array($status_temujanji);
+        
+        if($atlet == "") $atlet = array();
+        else $atlet = array($atlet);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
             'SUKAN' => $sukan,
+            'PEGAWAI_BERTANGGUNGJAWAB' => $pegawai_bertanggungjawab,
+            'JANTINA' => $jantina,
+            'PERKHIDMATAN' => $perkhidmatan,
+            'LOKASI' => $lokasi,
+            'STATUS_TEMUJANJI' => $status_temujanji,
+            'ATLET' => $atlet,
         );
         
         GeneralFunction::generateReport('/spsb/ISN/LaporanKomplimentori', $format, $controls, 'laporan_komplimentori');
@@ -252,12 +288,26 @@ class TemujanjiKomplimentariController extends Controller
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-ringkasan-statistik-komplimentari'
                     , 'tahun' => $model->tahun
+                    , 'sukan' => $model->sukan
+                    , 'pegawai_bertanggungjawab' => $model->pegawai_bertanggungjawab
+                    , 'jantina' => $model->jantina
+                    , 'perkhidmatan' => $model->perkhidmatan
+                    , 'lokasi' => $model->lokasi
+                    , 'status_temujanji' => $model->status_temujanji
+                    , 'atlet' => $model->atlet
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
             } else {
                 return $this->redirect(['generate-laporan-ringkasan-statistik-komplimentari'
                     , 'tahun' => $model->tahun
+                    , 'sukan' => $model->sukan
+                    , 'pegawai_bertanggungjawab' => $model->pegawai_bertanggungjawab
+                    , 'jantina' => $model->jantina
+                    , 'perkhidmatan' => $model->perkhidmatan
+                    , 'lokasi' => $model->lokasi
+                    , 'status_temujanji' => $model->status_temujanji
+                    , 'atlet' => $model->atlet
                     , 'format' => $model->format
                 ]);
             }
@@ -269,13 +319,41 @@ class TemujanjiKomplimentariController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanRingkasanStatistikKomplimentari($tahun, $format)
+    public function actionGenerateLaporanRingkasanStatistikKomplimentari($tahun, $sukan, $pegawai_bertanggungjawab, $jantina, $perkhidmatan, $lokasi, $status_temujanji, $atlet, $format)
     {
         if($tahun == "") $tahun = array();
         else $tahun = array($tahun);
         
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($pegawai_bertanggungjawab == "") $pegawai_bertanggungjawab = array();
+        else $pegawai_bertanggungjawab = array($pegawai_bertanggungjawab);
+        
+        if($jantina == "") $jantina = array();
+        else $jantina = array($jantina);
+        
+        if($perkhidmatan == "") $perkhidmatan = array();
+        else $perkhidmatan = array($perkhidmatan);
+        
+        if($lokasi == "") $lokasi = array();
+        else $lokasi = array($lokasi);
+        
+        if($status_temujanji == "") $status_temujanji = array();
+        else $status_temujanji = array($status_temujanji);
+        
+        if($atlet == "") $atlet = array();
+        else $atlet = array($atlet);
+        
         $controls = array(
             'YEAR' => $tahun,
+            'SUKAN' => $sukan,
+            'PEGAWAI_BERTANGGUNGJAWAB' => $pegawai_bertanggungjawab,
+            'JANTINA' => $jantina,
+            'PERKHIDMATAN' => $perkhidmatan,
+            'LOKASI' => $lokasi,
+            'STATUS_TEMUJANJI' => $status_temujanji,
+            'ATLET' => $atlet,
         );
         
         GeneralFunction::generateReport('/spsb/ISN/LaporanRingkasanStatistikKomplimentari', $format, $controls, 'laporan_ringkasan_statistik_komplimentari');

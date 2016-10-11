@@ -15,6 +15,7 @@ use app\models\RefStatusUser;
 use app\models\UserPeranan;
 use app\models\ProfilBadanSukan;
 use app\models\RefSukan;
+use app\models\RefNegeri;
 
 
 // contant values
@@ -186,15 +187,39 @@ use app\models\general\GeneralMessage;
             $sukan_selected=explode(',',$model->sukan);
         }
         
-        // Senarai Atlet Yang Memenangi
+        // List Sukan for filter
         echo '<label class="control-label">'.$model->getAttributeLabel('sukan').'</label>';
         echo Select2::widget([
             'model' => $model,
             'id' => 'user-sukan',
             'name' => 'User[sukan]',
             'value' => $sukan_selected, // initial value
-            'data' => ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
+            'data' => ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
             'options' => ['placeholder' => Placeholder::sukan, 'multiple' => true],
+            'pluginOptions' => [
+                'tags' => true,
+                'maximumInputLength' => 10
+            ],
+            'disabled' => $readonly
+        ]);
+        
+        
+        // selected negeri list
+        $negeri_selected = null;
+        if(isset($model->negeri) && $model->negeri != ''){
+            $negeri_selected=explode(',',$model->negeri);
+        }
+        
+        // List Negeri for filter
+        echo '<br>';
+        echo '<label class="control-label">'.$model->getAttributeLabel('negeri').'</label>';
+        echo Select2::widget([
+            'model' => $model,
+            'id' => 'user-negeri',
+            'name' => 'User[negeri]',
+            'value' => $negeri_selected, // initial value
+            'data' => ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+            'options' => ['placeholder' => Placeholder::negeri, 'multiple' => true],
             'pluginOptions' => [
                 'tags' => true,
                 'maximumInputLength' => 10

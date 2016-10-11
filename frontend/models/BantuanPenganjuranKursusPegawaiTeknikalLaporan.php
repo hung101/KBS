@@ -47,10 +47,10 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporan extends \yii\db\ActiveRecor
     public function rules()
     {
         return [
-            [['tarikh', 'tempat', 'tujuan_kursus_kejohanan', 'bilangan_pasukan', 'bilangan_peserta', 'bilangan_pembantu', 'bilangan_pegawai_teknikal'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh', 'created', 'updated'], 'safe'],
+            [['tarikh', 'tarikh_tamat', 'tempat', 'tujuan_kursus_kejohanan', 'bilangan_pasukan', 'bilangan_peserta', 'bilangan_pembantu', 'bilangan_pegawai_teknikal'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh', 'created', 'updated', 'tarikh_tamat'], 'safe'],
             [['bilangan_pasukan', 'bilangan_peserta', 'bilangan_pegawai_teknikal', 'bilangan_pembantu', 'created_by', 
-                'updated_by', 'bantuan_penganjuran_kursus_pegawai_teknikal_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+                'updated_by', 'bantuan_penganjuran_kursus_pegawai_teknikal_id', 'bantuan_penyertaan_pegawai_teknikal_id', 'bantuan_penganjuran_kursus_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tujuan_kursus_kejohanan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['laporan_bergambar', 'penyata_perbelanjaan_resit_yang_telah_disahkan', 'jadual_keputusan_pertandingan', 'senarai_peserta', 
@@ -68,9 +68,10 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporan extends \yii\db\ActiveRecor
     {
         return [
             'bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id' => 'Bantuan Penganjuran Kursus Pegawai Teknikal Laporan ID',
-            'tarikh' => 'Tarikh',
+            'tarikh' => 'Tarikh Mula',
+            'tarikh_tamat' => 'Tarikh Tamat',
             'tempat' => 'Tempat',
-            'tujuan_kursus_kejohanan' => 'Tujuan Kursus / Kejohanan',
+            'tujuan_kursus_kejohanan' => 'Nama Kejohanan',
             'bilangan_pasukan' => 'Bilangan Pasukan',
             'bilangan_peserta' => 'Bilangan Peserta',
             'bilangan_pegawai_teknikal' => 'Bilangan Pegawai Teknikal',

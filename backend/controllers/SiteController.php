@@ -9,6 +9,7 @@ use backend\models\SignupEBiasiswaForm;
 use backend\models\SignupEKemudahanForm;
 use backend\models\SignupEBantuanForm;
 use backend\models\SignupELaporanForm;
+use backend\models\SignupEKemudahanMsnForm;
 use backend\models\ContactForm;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -23,6 +24,8 @@ use common\models\PublicUser;
  */
 class SiteController extends Controller
 {
+    public $enableCsrfValidation = false;
+    
     /**
      * @inheritdoc
      */
@@ -96,7 +99,9 @@ class SiteController extends Controller
                 } else if(\Yii::$app->user->identity->category_access == PublicUser::ACCESS_BANTUAN){
                     return $this->redirect(['e-bantuan-home']);
                 } else if(\Yii::$app->user->identity->category_access == PublicUser::ACCESS_LAPORAN){
-                    return $this->redirect(['e-laporan-home']);
+                    return $this->redirect(['e-laporan-home']); 
+                } else if(\Yii::$app->user->identity->category_access == PublicUser::ACCESS_KEMUDAHAN_MSN){
+                    return $this->redirect(['e-kemudahan-msn-home']);
                 } else {
                     return $this->goHome();
                 }
@@ -137,6 +142,11 @@ class SiteController extends Controller
     {
         return $this->render('e_laporan_home');
     }
+    
+    public function actionEKemudahanMsnHome()
+    {
+        return $this->render('e_kemudahan_msn_home');
+    }
 
     public function actionContact()
     {
@@ -171,6 +181,8 @@ class SiteController extends Controller
             return $this->redirect(['signup-e-bantuan']);
         } else if($access_id == PublicUser::ACCESS_LAPORAN){
             return $this->redirect(['signup-e-laporan']);
+        } else if($access_id == PublicUser::ACCESS_KEMUDAHAN_MSN){
+            return $this->redirect(['signup-e-kemudahan-msn']);
         } else {
             return $this->goHome();
         }
@@ -236,6 +248,26 @@ class SiteController extends Controller
         ]);
     }
     
+    public function actionSignupEKemudahanMsn()
+    {
+        $model = new SignupEKemudahanMsnForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    if(Yii::$app->user->identity->email_verified == 1){
+                        return $this->redirect(['e-kemudahan-msn-home']);
+                    } else {
+                        return $this->redirect(['email-verification']);
+                    }
+                }
+            }
+        }
+
+        return $this->render('signup_e_kemudahan_msn', [
+            'model' => $model,
+        ]);
+    }
+    
     public function actionEmailVerification()
     {
         $user = PublicUser::findOne([
@@ -247,7 +279,7 @@ class SiteController extends Controller
             
             if ($user->save()) {
                 \Yii::$app->mailer->compose(['html' => 'emailVerification-html', 'text' => 'emailVerification-text'], ['user' => $user])
-                    ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
+                    ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name ])
                     ->setTo(Yii::$app->user->identity->email)
                     //->setSubject('Password reset for ' . \Yii::$app->name)
                     ->setSubject('Pengesahan E-mel ' . \Yii::$app->name)
@@ -288,6 +320,26 @@ class SiteController extends Controller
         }
 
         return $this->redirect(['login', 'access_id'=>$category_access]);
+    }
+    
+    public function actionUpdateProfileKemudahanMsn()
+    {
+        $model = new SignupEKemudahanMsnForm();
+        
+        if(!Yii::$app->request->post()){
+            $model->loadProfile();
+        }
+        
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->update()) {
+                Yii::$app->getUser()->login($user);
+                Yii::$app->getSession()->setFlash('success', 'Profil anda telah dikemaskini.');
+            }
+        }
+
+        return $this->render('update_profile_kemudahan_msn', [
+            'model' => $model,
+        ]);
     }
     
     public function actionSignupELaporan()

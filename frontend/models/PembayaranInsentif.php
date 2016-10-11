@@ -27,6 +27,8 @@ use app\models\general\GeneralMessage;
  */
 class PembayaranInsentif extends \yii\db\ActiveRecord
 {
+    public $acara_id;
+    
     /**
      * @inheritdoc
      */
@@ -43,7 +45,7 @@ class PembayaranInsentif extends \yii\db\ActiveRecord
         return [
             [['jenis_insentif', 'pingat', 'kumpulan_temasya_kejohanan', 'rekod_baharu', 'kejohanan', 'nama_kejohanan', 'peringkat', 'sukan',
                 'acara'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['jenis_insentif', 'pingat', 'kumpulan_temasya_kejohanan', 'rekod_baharu', 'created_by', 'updated_by', 'kelulusan'], 'integer'],
+            [['jenis_insentif', 'pingat', 'kumpulan_temasya_kejohanan', 'rekod_baharu', 'created_by', 'updated_by', 'kelulusan', 'acara_id'], 'integer'],
             [['jumlah', 'nilai_rekod_baharu', 'nilai_sikap'], 'number'],
             [['tarikh_kelulusan', 'tarikh_pembayaran_insentif', 'created', 'updated', 'kelas', 'tarikh_mula', 'tarikh_tamat', 'persatuan'], 'safe'],
             [['kejohanan'], 'string', 'max' => 100],
@@ -55,9 +57,9 @@ class PembayaranInsentif extends \yii\db\ActiveRecord
                     return $('#pembayaraninsentif-kejohanan').val() == '" . RefInsentifKejohanan::INDIVIDU . "';
                 }"],
             [['nilai_sikap', 'persatuan'], 'required', 'message' => GeneralMessage::yii_validation_required, 'when' => function ($model) {
-                    return $model->acara == RefAcaraInsentif::BERPASUKAN;
+                    return ($model->acara == RefAcaraInsentif::BERPASUKAN_KURANG_5_ORANG || $model->acara == RefAcaraInsentif::BERPASUKAN_LEBIH_5_ORANG);
                 }, 'whenClient' => "function (attribute, value) {
-                    return $('#pembayaraninsentif-acara').val() == '" . RefAcaraInsentif::BERPASUKAN . "';
+                    return ($('#pembayaraninsentif-acara').val() == '" . RefAcaraInsentif::BERPASUKAN_KURANG_5_ORANG . "' || $('#pembayaraninsentif-acara').val() == '" . RefAcaraInsentif::BERPASUKAN_LEBIH_5_ORANG . "');
                 }"],
         ];
     }

@@ -7,10 +7,12 @@ use app\models\FarmasiPermohonanUbatan;
 use frontend\models\FarmasiPermohonanUbatanSearch;
 use app\models\FarmasiUbatan;
 use frontend\models\FarmasiUbatanSearch;
+use app\models\IsnLaporanStatistikBulananPengunaanUbatanDanKos;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\BaseUrl;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
@@ -241,5 +243,48 @@ class FarmasiPermohonanUbatanController extends Controller
             $img->update();
 
             return $this->redirect(['update', 'id' => $id]);
+    }
+    
+    public function actionLaporanStatistikBulananPengunaanUbatanDanKos()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new IsnLaporanStatistikBulananPengunaanUbatanDanKos();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-bulanan-pengunaan-ubatan-dan-kos'
+                    , 'tahun' => $model->tahun
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-bulanan-pengunaan-ubatan-dan-kos'
+                    , 'tahun' => $model->tahun
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_bulanan_pengunaan_ubatan_dan_kos', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikBulananPengunaanUbatanDanKos($tahun, $format)
+    {
+        if($tahun == "") $tahun = array();
+        else $tahun = array($tahun);
+        
+        $controls = array(
+            'YEAR' => $tahun,
+        );
+        
+        GeneralFunction::generateReport('/spsb/ISN/LaporanStatistikBulananPenggunaanUbatanDanKos', $format, $controls, 'laporan_statistik_bulanan_pengunaan_ubatan_dan_kos');
     }
 }

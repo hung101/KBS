@@ -43,7 +43,7 @@ use app\models\general\GeneralMessage;
         }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -142,7 +142,8 @@ use app\models\general\GeneralMessage;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ],
+                        'options'=>['disabled'=>true]
                     ],
                     'columnOptions'=>['colspan'=>3]],
             ],
@@ -171,7 +172,7 @@ use app\models\general\GeneralMessage;
         ?>
     
     <?php Pjax::begin(['id' => 'pengurusanPenilaianKategoriJurulatihGrid', 'timeout' => 100000]); ?>
-
+<div class="CGridViewContainer">
     <?php 
     $dataProviderPengurusanPenilaianKategoriJurulatih->pagination->pageSize=0;
     
@@ -224,6 +225,7 @@ use app\models\general\GeneralMessage;
             ],
         ],
     ]); ?>
+</div>
     
     <?php 
         $calculate_jumlah_markah = 0;
@@ -300,6 +302,13 @@ $URLJurulatihSukan = Url::to(['/jurulatih-sukan/get-jurulatih-sukan-acara']);
 $URLSetPernilaianOleh = Url::to(['/pengurusan-pemantauan-dan-penilaian-jurulatih/set-pernilaian-oleh']);
 
 $script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
         
 $('#pengurusanpemantauandanpenilaianjurulatih-penilaian_oleh').change(function(){
     $.get('$URLSetPernilaianOleh',{penilaian_oleh_id:$('#pengurusanpemantauandanpenilaianjurulatih-penilaian_oleh').val()},function(data){

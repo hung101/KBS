@@ -85,6 +85,7 @@ class AtletSukan extends \yii\db\ActiveRecord
             'negeri_diwakili' => GeneralLabel::negeri_diwakili,
             'status' => 'Mod Latihan',
             'kelulusan' => GeneralLabel::kelulusan,
+            'source' => GeneralLabel::source,
             'tarikh_kelulusan' => GeneralLabel::tarikh_kelulusan,
         ];
     }

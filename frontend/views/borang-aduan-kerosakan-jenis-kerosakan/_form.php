@@ -45,6 +45,15 @@ use app\models\UserPeranan;
                 'jenis_kerosakan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100]],
             ],
         ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                
+                'catatan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
+                
+            ],
+        ],
     ]
 ]);
     ?>
@@ -112,15 +121,6 @@ use app\models\UserPeranan;
                         'data'=>ArrayHelper::map(RefTindakanAduan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::tindakan],],
                     'columnOptions'=>['colspan'=>3]],
-            ],
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                
-                'catatan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
-                
             ],
         ],
         [

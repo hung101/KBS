@@ -49,7 +49,7 @@ use app\models\general\GeneralMessage;
                                 'content' => Html::a(Html::icon('edit'), ['/ref-kategori-penilaian-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
-                        ] : null,
+                        ] : '<div></div>',
                         'data'=>ArrayHelper::map(RefKategoriPenilaianJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kategoriPenilaian],],
                     'columnOptions'=>['colspan'=>4]],
@@ -65,11 +65,11 @@ use app\models\general\GeneralMessage;
                                     'content' => Html::a(Html::icon('edit'), ['/ref-sub-kategori-penilaian-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                     'asButton' => true
                                 ]
-                            ] : null,
+                            ] : '<div></div>',
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(RefSubKategoriPenilaianJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
-                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'penilaian_kategori')],
                             'initialize' => true,

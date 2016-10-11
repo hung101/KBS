@@ -121,8 +121,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
 
                     },
+                    'report' => function ($url, $model) {
+                        $laporanLink =  Html::a('<span class="glyphicon glyphicon-list-alt"></span>', 
+                        ['bantuan-penganjuran-kursus-pegawai-teknikal-laporan/load-bantuan-penyertaan', 'bantuan_penyertaan_pegawai_teknikal_id' =>$model->bantuan_penyertaan_pegawai_teknikal_id], 
+                        [
+                            'title' => GeneralLabel::laporan,
+                            'target' => '_blank'
+                        ]);
+                        
+                        return $model->status_permohonan == app\models\RefStatusBantuanPenyertaanPegawaiTeknikal::LULUS ? $laporanLink : '';
+                    },
                 ],
-                'template' => $template,
+                'template' => $template .= ' {report}',
             ],
         ],
     ]); ?>

@@ -31,6 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
+        <?php if($model->jenis_bantuan_id == app\models\RefJenisBantuanSue::ELAUN_SUE && $model->status_permohonan_id == app\models\RefStatusPermohonanSue::LULUS): ?>
+            <?= Html::a('Muat Turun Job Skop Lampiran', \Yii::$app->request->BaseUrl.'/downloads/pelantikan-sue/jobskop_lampiran.pdf' , ['class'=>'btn btn-warning', 'target'=>'_blank'])?>
+            <?= Html::a(GeneralLabel::generate . ' ' . GeneralLabel::surat_lantikan_sue, ['surat-lantikan-sue', 'sue_id' => $model->bantuan_elaun_id], ['class' => 'btn btn-warning', 'target' => '_blank']); ?>
+        <?= Html::a(GeneralLabel::generate . ' ' . GeneralLabel::surat_persetujuan_sue, ['surat-persetujuan-sue', 'sue_id' => $model->bantuan_elaun_id], ['class' => 'btn btn-warning', 'target' => '_blank']); ?>
+        <?php endif; ?>
     </p>
     
     <?= $this->render('_form', [

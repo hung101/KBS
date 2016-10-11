@@ -7,6 +7,7 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use yii\web\Session;
 
 // table reference
 use app\models\RefJenisRekod;
@@ -20,6 +21,20 @@ use app\models\general\GeneralMessage;
 /* @var $this yii\web\View */
 /* @var $model app\models\AtletPencapaianRekods */
 /* @var $form yii\widgets\ActiveForm */
+
+//filter by Sukan from parent form
+$session = new Session;
+$session->open();
+
+$jenis_rekod_list = null;
+
+if(isset($session['atlet-pencapaian_sukan_id']) && $session['atlet-pencapaian_sukan_id']){
+    $jenis_rekod_list = RefJenisRekod::find()->where(['=', 'aktif', 1])->andWhere(['=', 'ref_sukan_id', $session['atlet-pencapaian_sukan_id']])->all();
+} else {
+    $jenis_rekod_list = RefJenisRekod::find()->where(['=', 'aktif', 1])->all();
+}
+
+$session->close();
 ?>
 
 <div class="atlet-pencapaian-rekods-form">
@@ -75,7 +90,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJenisRekod::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map($jenis_rekod_list,'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jenisRekod],
                         'pluginOptions' => [
                             'allowClear' => true

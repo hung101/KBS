@@ -81,6 +81,14 @@ AppAsset::register($this);
                             ['label' => 'e-Laporan', 'url' => ['/elaporan-pelaksanaan/create', 'permohonan_e_bantuan_id' => '']],
                             ['label' => 'Sejarah e-Laporan', 'url' => ['/elaporan-pelaksanaan/index']],
                         ];
+                    } else if(Yii::$app->user->identity->category_access == PublicUser::ACCESS_KEMUDAHAN_MSN){
+                        $url_home = '/site/e-kemudahan-msn-home';
+
+                        $sideMenuItems = [
+                            ['label' => 'Tempahan', 'url' => ['/tempahan-kemudahan-msn/create']],
+                            ['label' => 'Sejarah Tempahan', 'url' => ['/tempahan-kemudahan-msn/index']],
+                            ['label' => 'Kemaskini Profil', 'url' => ['/site/update-profile-kemudahan-msn']],
+                        ];
                     }
                 }
                 /*$menuItems = [

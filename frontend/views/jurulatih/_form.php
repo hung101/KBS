@@ -47,7 +47,7 @@ use app\models\general\GeneralVariable;
     <h1>Peribadi</h1>
     
     <?php if($readonly): ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update']) && $model->approved == 0): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update']) && $model->approved == 0)  || isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['kemaskini_yang_hantar'])): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->jurulatih_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['delete'])): ?>
@@ -59,13 +59,34 @@ use app\models\general\GeneralVariable;
                 ],
             ]) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['create']) && $model->approved == 0): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['create']) && $model->approved == 0)): ?>
             <?= Html::a(GeneralLabel::send, ['approved', 'id' => $model->jurulatih_id], ['class' => 'btn btn-success']) ?>
         <?php endif; ?>
         <?= Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'window.print();' ]); ?>
     <?php endif; ?>
     <br>
     <br>
+    
+    <?php
+        $negeri_list = RefNegeri::find()->where(['=', 'aktif', 1])->all();
+        
+        // add filter base on sukan access role in tbl_user->negeri - START
+        if(Yii::$app->user->identity->negeri){
+            $negeri_access=explode(',',Yii::$app->user->identity->negeri);
+            
+            $arr_negeri_filter = array();
+            
+            for($i = 0; $i < count($negeri_access); $i++){
+                $arr_negeri = null;
+                $arr_negeri = array('id'=>$negeri_access[$i]); 
+                    array_push($arr_negeri_filter,$arr_negeri);
+            }
+            
+            $negeri_list = RefNegeri::find()->where(['=', 'aktif', 1])->andFilterWhere(['id'=>$arr_negeri_filter])->all();
+        }
+        // add filter base on sukan access role in tbl_user->negeri - END
+        
+    ?>
     
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
@@ -367,7 +388,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map($negeri_list,'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::negeri],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -442,7 +463,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map($negeri_list,'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::negeri],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -479,7 +500,7 @@ use app\models\general\GeneralVariable;
             'attributes' => [
                 'no_telefon' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
                 'no_telefon_bimbit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
-                //'emel' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>100]],
+                'emel' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>100]],
                 //'status' => ['type'=>Form::INPUT_DROPDOWN_LIST,'items'=>[''=>'-- Pilih Status --'],'columnOptions'=>['colspan'=>4]],
             ]
         ],

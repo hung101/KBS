@@ -25,6 +25,7 @@ use app\models\RefBank;
 use app\models\RefSukan;
 use app\models\RefProgramJurulatih;
 use app\models\RefGajiElaunJurulatih;
+use app\models\RefBahagianJurulatih;
 
 /**
  * GajiDanElaunJurulatihController implements the CRUD actions for GajiDanElaunJurulatih model.
@@ -172,6 +173,16 @@ class GajiDanElaunJurulatihController extends Controller
                 $modelJurulatihSukan->gaji_dan_elaun_jurulatih_id = $model->gaji_dan_elaun_jurulatih_id;
                 $modelJurulatihSukan->elaun_jurulatih_id = $modelElaunJurulatih->elaun_jurulatih_id;
                 $modelJurulatihSukan->gaji_elaun = RefGajiElaunJurulatih::ELAUN;
+                
+                $ref = RefProgramJurulatih::findOne(['id' => $model->program]);
+                if($ref['cacat']){
+                    //paralimpik
+                    $modelJurulatihSukan->bahagian = RefBahagianJurulatih::PARALIMPIK;
+                } else {
+                    //atlet
+                    $modelJurulatihSukan->bahagian = RefBahagianJurulatih::ATLET;
+                }
+                
                 $modelJurulatihSukan->save();
             }
             
@@ -197,6 +208,16 @@ class GajiDanElaunJurulatihController extends Controller
                 $modelJurulatihSukan->gaji_dan_elaun_jurulatih_id = $model->gaji_dan_elaun_jurulatih_id;
                 $modelJurulatihSukan->gaji_jurulatih_id = $modelGajiJurulatih->gaji_jurulatih_id;
                 $modelJurulatihSukan->gaji_elaun = RefGajiElaunJurulatih::GAJI;
+                
+                $ref = RefProgramJurulatih::findOne(['id' => $model->program]);
+                if($ref['cacat']){
+                    //paralimpik
+                    $modelJurulatihSukan->bahagian = RefBahagianJurulatih::PARALIMPIK;
+                } else {
+                    //atlet
+                    $modelJurulatihSukan->bahagian = RefBahagianJurulatih::ATLET;
+                }
+                
                 $modelJurulatihSukan->save();
             }
             
@@ -268,6 +289,16 @@ class GajiDanElaunJurulatihController extends Controller
                 $modelJurulatihSukan->gaji_dan_elaun_jurulatih_id = $model->gaji_dan_elaun_jurulatih_id;
                 $modelJurulatihSukan->elaun_jurulatih_id = $modelElaunJurulatih->elaun_jurulatih_id;
                 $modelJurulatihSukan->gaji_elaun = RefGajiElaunJurulatih::ELAUN;
+                
+                $ref = RefProgramJurulatih::findOne(['id' => $model->program]);
+                if($ref['cacat']){
+                    //paralimpik
+                    $modelJurulatihSukan->bahagian = RefBahagianJurulatih::PARALIMPIK;
+                } else {
+                    //atlet
+                    $modelJurulatihSukan->bahagian = RefBahagianJurulatih::ATLET;
+                }
+                
                 $modelJurulatihSukan->save();
             }
             
@@ -293,6 +324,16 @@ class GajiDanElaunJurulatihController extends Controller
                 $modelJurulatihSukan->gaji_dan_elaun_jurulatih_id = $model->gaji_dan_elaun_jurulatih_id;
                 $modelJurulatihSukan->gaji_jurulatih_id = $modelGajiJurulatih->gaji_jurulatih_id;
                 $modelJurulatihSukan->gaji_elaun = RefGajiElaunJurulatih::GAJI;
+                
+                $ref = RefProgramJurulatih::findOne(['id' => $model->program]);
+                if($ref['cacat']){
+                    //paralimpik
+                    $modelJurulatihSukan->bahagian = RefBahagianJurulatih::PARALIMPIK;
+                } else {
+                    //atlet
+                    $modelJurulatihSukan->bahagian = RefBahagianJurulatih::ATLET;
+                }
+                
                 $modelJurulatihSukan->save();
             }
             

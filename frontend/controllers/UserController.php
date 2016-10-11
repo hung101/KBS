@@ -102,6 +102,12 @@ class UserController extends Controller
             } else {
                 $model->sukan = "";
             }
+            
+            if(is_array($model->negeri)){
+                $model->negeri = implode(",",$model->negeri);
+            } else {
+                $model->negeri = "";
+            }
         }
 
         if (Yii::$app->request->post() && $model->validate()) {
@@ -136,6 +142,15 @@ class UserController extends Controller
                 $model->sukan = implode(",",$model->sukan);
             } else {
                 $model->sukan = "";
+            }
+        }
+        
+        if (Yii::$app->request->post() && $model->negeri) {
+            //$stringlens = $model->negeri;
+            if(is_array($model->negeri)){
+                $model->negeri = implode(",",$model->negeri);
+            } else {
+                $model->negeri = "";
             }
         }
 

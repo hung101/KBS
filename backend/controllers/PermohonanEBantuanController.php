@@ -17,6 +17,7 @@ use app\models\PermohonanEBantuanPendapatanTahunLepas;
 use backend\models\PermohonanEBantuanPendapatanTahunLepasSearch;
 use app\models\PermohonanEBantuanAnggaranPerbelanjaan;
 use backend\models\PermohonanEBantuanAnggaranPerbelanjaanSearch;
+use app\models\ProfilBadanSukan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -42,6 +43,7 @@ use app\models\RefStatusPermohonanEBantuan;
 use app\models\RefPeringkatProgram;
 use app\models\RefPejabatYangMendaftarkan;
 use app\models\RefParlimen;
+use app\models\RefPeringkatBadanSukan;
 
 /**
  * PermohonanEBantuanController implements the CRUD actions for PermohonanEBantuan model.
@@ -292,6 +294,39 @@ class PermohonanEBantuanController extends Controller
         
         // set no pendaftaran to public user no pendaftaran
         $model->no_pendaftaran = Yii::$app->user->identity->username;
+        
+        if (Yii::$app->user->identity->username && ($modelBadanSukan = ProfilBadanSukan::findOne(['no_pendaftaran' => Yii::$app->user->identity->username])) !== null) {
+            $model->nama_pertubuhan_persatuan = $modelBadanSukan->nama_badan_sukan;
+            $model->no_pendaftaran = $modelBadanSukan->no_pendaftaran;
+            
+            if($modelBadanSukan->peringkat_badan_sukan == RefPeringkatBadanSukan::DAERAH){
+                $model->peringkat_program = RefPeringkatProgram::DAERAH;
+            } elseif($modelBadanSukan->peringkat_badan_sukan == RefPeringkatBadanSukan::KEBANGSAAN){
+                $model->peringkat_program = RefPeringkatProgram::KEBANGSAAN;
+            } elseif($modelBadanSukan->peringkat_badan_sukan == RefPeringkatBadanSukan::NEGERI){
+                $model->peringkat_program = RefPeringkatProgram::NEGERI;
+            }
+            
+            if($modelBadanSukan->peringkat_badan_sukan == RefPeringkatBadanSukan::DAERAH){
+                $model->kategori_persatuan = RefKategoriPersatuan::DAERAH;
+            } elseif($modelBadanSukan->peringkat_badan_sukan == RefPeringkatBadanSukan::KEBANGSAAN){
+                $model->kategori_persatuan = RefKategoriPersatuan::KEBANGSAAN;
+            } elseif($modelBadanSukan->peringkat_badan_sukan == RefPeringkatBadanSukan::NEGERI){
+                $model->kategori_persatuan = RefKategoriPersatuan::NEGERI;
+            }
+            
+            $model->tarikh_didaftarkan = $modelBadanSukan->tarikh_lulus_pendaftaran;
+            $model->alamat_1 = $modelBadanSukan->alamat_tetap_badan_sukan_1;
+            $model->alamat_2 = $modelBadanSukan->alamat_tetap_badan_sukan_2;
+            $model->alamat_3 = $modelBadanSukan->alamat_tetap_badan_sukan_3;
+            $model->alamat_negeri = $modelBadanSukan->alamat_tetap_badan_sukan_negeri;
+            $model->alamat_bandar = $modelBadanSukan->alamat_tetap_badan_sukan_bandar;
+            $model->alamat_poskod = $modelBadanSukan->alamat_tetap_badan_sukan_poskod;
+            $model->no_telefon_pejabat = $modelBadanSukan->no_telefon_pejabat;
+            $model->no_telefon_bimbit = $modelBadanSukan->no_tel_bimbit;
+            $model->no_fax = $modelBadanSukan->no_faks_pejabat;
+            $model->email = $modelBadanSukan->emel_badan_sukan;
+        }
         
         $queryPar = null;
         

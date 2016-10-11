@@ -102,6 +102,12 @@ use app\models\general\GeneralVariable;
     ?>
     
     <?php
+    $disabledDate = false;
+    
+    if(!$model->isNewRecord){
+        $disabledDate = true;
+    }
+    
         echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
@@ -120,6 +126,7 @@ use app\models\general\GeneralVariable;
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ],
+                        'options'=>['disabled'=>$disabledDate]
                     ],
                     'columnOptions'=>['colspan'=>3]],
                 

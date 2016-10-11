@@ -8,6 +8,7 @@ use app\models\AtletSearch;
 use app\models\MsnLaporanSenaraiAtlet;
 use app\models\MsnLaporanStatistikAtlet;
 use app\models\MsnSuratTawaranAtlet;
+use app\models\MsnLaporanAtletPencapaianPrestasiSecaraIndividu;
 use app\models\User;
 use frontend\models\UserSearch;
 use yii\web\Controller;
@@ -327,9 +328,9 @@ class AtletController extends Controller
         ->setTo($modelPS->email)
                                     ->setFrom('noreply@spsb.com')
         ->setSubject('PSK telah memasukkan atlet baru')
-        ->setTextBody('Nama Atlet: ' . $model->name_penuh . '
-No Kad Pengenalan: ' . $model->ic_no . '
-')->send();
+        ->setTextBody("Nama Atlet: " . $model->name_penuh . "
+No Kad Pengenalan: " . $model->ic_no . "
+")->send();
                         }
                     }
                 } elseif (Yii::$app->user->identity->peranan ==  UserPeranan::PERANAN_MSN_MAJLIS_SUKAN_NEGERI){
@@ -341,9 +342,9 @@ No Kad Pengenalan: ' . $model->ic_no . '
         ->setTo($modelPS->email)
                                     ->setFrom('noreply@spsb.com')
         ->setSubject('Majlis Sukan Negeri telah memasukkan atlet baru')
-        ->setTextBody('Nama Atlet: ' . $model->name_penuh . '
-No Kad Pengenalan: ' . $model->ic_no . '
-')->send();
+        ->setTextBody("Nama Atlet: " . $model->name_penuh . "
+No Kad Pengenalan: " . $model->ic_no . "
+")->send();
                         }
                     }
                 }
@@ -961,6 +962,8 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     , 'atlet' => $model->atlet
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -971,6 +974,8 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     , 'atlet' => $model->atlet
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'format' => $model->format
                 ]);
             }
@@ -982,7 +987,7 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
         ]);
     }
     
-    public function actionGenerateLaporanAtletPencapaianPrestasi($program, $sukan, $acara, $negeri, $atlet, $format)
+    public function actionGenerateLaporanAtletPencapaianPrestasi($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -999,12 +1004,20 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
         if($atlet == "") $atlet = array();
         else $atlet = array($atlet);
         
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
             'ATLET' => $atlet,
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPencapianPrestasi', $format, $controls, 'laporan_atlet_pencapaian_prestasi');
@@ -1028,6 +1041,8 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     , 'atlet' => $model->atlet
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -1038,6 +1053,8 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     , 'atlet' => $model->atlet
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'format' => $model->format
                 ]);
             }
@@ -1049,7 +1066,7 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
         ]);
     }
     
-    public function actionGenerateLaporanAtletPencapaianPrestasiParalimpik($program, $sukan, $acara, $negeri, $atlet, $format)
+    public function actionGenerateLaporanAtletPencapaianPrestasiParalimpik($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -1066,12 +1083,20 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
         if($atlet == "") $atlet = array();
         else $atlet = array($atlet);
         
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
             'ATLET' => $atlet,
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPencapianPrestasiParalimpik', $format, $controls, 'laporan_atlet_pencapaian_prestasi_paralimpik');
@@ -1631,6 +1656,8 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     , 'atlet' => $model->atlet
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -1641,6 +1668,8 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     , 'atlet' => $model->atlet
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'format' => $model->format
                 ]);
             }
@@ -1652,7 +1681,7 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
         ]);
     }
     
-    public function actionGenerateLaporanAtletElaun($program, $sukan, $acara, $negeri, $atlet, $format)
+    public function actionGenerateLaporanAtletElaun($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -1669,12 +1698,20 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
         if($atlet == "") $atlet = array();
         else $atlet = array($atlet);
         
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
             'ATLET' => $atlet,
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanAtletElaun', $format, $controls, 'laporan_atlet_elaun');
@@ -1698,6 +1735,8 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     , 'atlet' => $model->atlet
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -1708,6 +1747,8 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     , 'atlet' => $model->atlet
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'format' => $model->format
                 ]);
             }
@@ -1719,7 +1760,7 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
         ]);
     }
     
-    public function actionGenerateLaporanAtletElaunParalimpik($program, $sukan, $acara, $negeri, $atlet, $format)
+    public function actionGenerateLaporanAtletElaunParalimpik($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -1736,12 +1777,20 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
         if($atlet == "") $atlet = array();
         else $atlet = array($atlet);
         
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
             'ATLET' => $atlet,
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanAtletElaunParalimpik', $format, $controls, 'laporan_atlet_elaun_paralimpik');
@@ -1765,6 +1814,8 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     , 'atlet' => $model->atlet
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -1775,6 +1826,8 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     , 'atlet' => $model->atlet
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'format' => $model->format
                 ]);
             }
@@ -1786,7 +1839,7 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
         ]);
     }
     
-    public function actionGenerateLaporanAtletPakaianSukan($program, $sukan, $acara, $negeri, $atlet, $format)
+    public function actionGenerateLaporanAtletPakaianSukan($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -1803,12 +1856,20 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
         if($atlet == "") $atlet = array();
         else $atlet = array($atlet);
         
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
             'ATLET' => $atlet,
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPakaianSukan', $format, $controls, 'laporan_atlet_pakaian_sukan');
@@ -1832,6 +1893,8 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     , 'atlet' => $model->atlet
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -1842,6 +1905,8 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     , 'atlet' => $model->atlet
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'format' => $model->format
                 ]);
             }
@@ -1853,7 +1918,7 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
         ]);
     }
     
-    public function actionGenerateLaporanAtletPakaianSukanParalimpik($program, $sukan, $acara, $negeri, $atlet, $format)
+    public function actionGenerateLaporanAtletPakaianSukanParalimpik($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -1870,14 +1935,248 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
         if($atlet == "") $atlet = array();
         else $atlet = array($atlet);
         
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
             'ATLET' => $atlet,
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPakaianSukanParalimpik', $format, $controls, 'laporan_atlet_pakaian_sukan_paralimpik');
+    }
+    
+    public function actionLaporanAtletPencapaianPrestasiSecaraIndividu()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanAtletPencapaianPrestasiSecaraIndividu();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-atlet-pencapaian-prestasi-secara-individu'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'opponent' => $model->opponent
+                    , 'nama_kejohanan_temasya' => $model->nama_kejohanan_temasya
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-atlet-pencapaian-prestasi-secara-individu'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'opponent' => $model->opponent
+                    , 'nama_kejohanan_temasya' => $model->nama_kejohanan_temasya
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_atlet_pencapaian_prestasi_secara_individu', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanAtletPencapaianPrestasiSecaraIndividu($program, $sukan, $acara, $negeri, $atlet, $opponent, $nama_kejohanan_temasya, $tarikh_dari, $tarikh_hingga, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        if($atlet == "") $atlet = array();
+        else $atlet = array($atlet);
+        
+        if($opponent == "") $opponent = array();
+        else $opponent = array($opponent);
+        
+        if($nama_kejohanan_temasya == "") $nama_kejohanan_temasya = array();
+        else $nama_kejohanan_temasya = array($nama_kejohanan_temasya);
+        
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            'ATLET' => $atlet,
+            'OPPONENT' => $opponent,
+            'PENCAPAIAN' => $nama_kejohanan_temasya,
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPencapaianPrestasiSecaraIndividu', $format, $controls, 'laporan_atlet_pencapaian_prestasi_secara_individu');
+    }
+    
+    public function actionLaporanAtletPencapaianPrestasiSecaraIndividuParalimpik()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanAtletPencapaianPrestasiSecaraIndividu();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-atlet-pencapaian-prestasi-secara-individu-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'opponent' => $model->opponent
+                    , 'nama_kejohanan_temasya' => $model->nama_kejohanan_temasya
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-atlet-pencapaian-prestasi-secara-individu-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'opponent' => $model->opponent
+                    , 'nama_kejohanan_temasya' => $model->nama_kejohanan_temasya
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_atlet_pencapaian_prestasi_secara_individu_paralimpik', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanAtletPencapaianPrestasiSecaraIndividuParalimpik($program, $sukan, $acara, $negeri, $atlet, $opponent, $nama_kejohanan_temasya, $tarikh_dari, $tarikh_hingga, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        if($atlet == "") $atlet = array();
+        else $atlet = array($atlet);
+        
+        if($opponent == "") $opponent = array();
+        else $opponent = array($opponent);
+        
+        if($nama_kejohanan_temasya == "") $nama_kejohanan_temasya = array();
+        else $nama_kejohanan_temasya = array($nama_kejohanan_temasya);
+        
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            'ATLET' => $atlet,
+            'PENCAPAIAN' => $nama_kejohanan_temasya,
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPencapaianPrestasiSecaraIndividuParalimpik', $format, $controls, 'laporan_atlet_pencapaian_prestasi_secara_individu_paralimpik');
+    }
+    
+    public function actionSuratAkuanPersetujuanAtlet($atlet_id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnSuratTawaranAtlet();
+        $model->atlet_id = $atlet_id;
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-surat-akuan-persetujuan-atlet'
+                    , 'atlet_id' => $model->atlet_id
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-surat-akuan-persetujuan-atlet'
+                    , 'atlet_id' => $model->atlet_id
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('surat_akuan_persetujuan_atlet', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateSuratAkuanPersetujuanAtlet($atlet_id, $format)
+    {
+        
+        if($atlet_id == "") $atlet_id = array();
+        else $atlet_id = array($atlet_id);
+        
+        $controls = array(
+            'ATLET' => $atlet_id,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/SuratAkuanPersetujuanAtlet', $format, $controls, 'surat_akuan_persetujuan_atlet');
     }
 }

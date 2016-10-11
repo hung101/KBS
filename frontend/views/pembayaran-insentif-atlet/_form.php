@@ -133,7 +133,7 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
                // do something with response
                
                 if(response != 1){
-                    $('#modalContent').html(response);
+                    $('#modalContent').html(response.replace("0:", ""));
                 } else {
                     $(document).find('#modal').modal('hide');
                     form.trigger("reset");

@@ -11,11 +11,6 @@ use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
 
 // table reference
-use app\models\RefSukan;
-use app\models\RefJantina;
-use app\models\RefJenisBantuanSue;
-use app\models\RefBandar;
-use app\models\RefNegeri;
 use app\models\RefPeringkatBantuanPenyertaanPegawaiTeknikal;
 
 // contant values
@@ -146,7 +141,7 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
                     $(document).find('#modal').modal('hide');
                     form.trigger("reset");
                     $.pjax.defaults.timeout = 100000;
-                    $.pjax.reload({container:'#bantuanPenyertaanPegawaiTeknikalOlehMsn'});
+                    $.pjax.reload({container:'#bantuanPenyertaanPegawaiTeknikalDisertaiGrid'});
                 }
           }
      });

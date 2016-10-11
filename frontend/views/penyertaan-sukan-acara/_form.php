@@ -37,6 +37,7 @@ if(isset($session['penyertaan-sukan_sukan_id']) && $session['penyertaan-sukan_su
     $acara_list = RefAcara::find()->where(['=', 'aktif', 1])->all();
 }
 
+$session->close();
 ?>
 
 <div class="penyertaan-sukan-acara-form">
@@ -67,7 +68,7 @@ if(isset($session['penyertaan-sukan_sukan_id']) && $session['penyertaan-sukan_su
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::atlet],],
-                    'columnOptions'=>['colspan'=>6]],
+                    'columnOptions'=>['colspan'=>3]],
                  'nama_acara' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -92,6 +93,7 @@ if(isset($session['penyertaan-sukan_sukan_id']) && $session['penyertaan-sukan_su
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
+                'sasaran' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
             ],
         ],
         /*[
@@ -162,7 +164,7 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
                 } else {
                     $(document).find('#modal').modal('hide');
                     form.trigger("reset");
-                    $.pjax.defaults.timeout = 6000;
+                    $.pjax.defaults.timeout = 106000;
                     $.pjax.reload({container:'#penyertaanSukanAcaraGrid'});
                 }
           }

@@ -10,12 +10,17 @@ use yii\bootstrap\Modal;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 use kartik\datecontrol\DateControl;
+use yii\helpers\ArrayHelper;
 
 // contant values
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
+
+// table reference
+use app\models\RefJantina;
+use app\models\RefSukan;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PerkhidmatanPermakanan */
@@ -45,7 +50,7 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                /*'tarikh' => [
+                'tarikh' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
@@ -54,8 +59,46 @@ use app\models\general\GeneralMessage;
                             'autoclose'=>true,
                         ]
                     ],
-                    'columnOptions'=>['colspan'=>3]],*/
+                    'columnOptions'=>['colspan'=>3]],
                 'pegawai_yang_bertanggungjawab' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+               'jantina' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jantina/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefJantina::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::jantina],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+                'sukan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::sukan],],
+                    'columnOptions'=>['colspan'=>4]],
             ],
         ],
         [
