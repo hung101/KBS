@@ -12,13 +12,15 @@ use app\models\AtletSukan;
  */
 class AtletSukanSearch extends AtletSukan
 {
+    public $nama_sukan_id;
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['sukan_id', 'atlet_id'], 'integer'],
+            [['sukan_id', 'atlet_id', 'nama_sukan_id'], 'integer'],
             [['nama_sukan', 'acara', 'tahun_umur_permulaan', 'jurulatih_id', 'tarikh_mula_menyertai_program_msn', 'tarikh_tamat_menyertai_program_msn', 'program_semasa', 'no_lesen_sukan', 'atlet_persekutuan_dunia_id'], 'safe'],
         ];
     }
@@ -45,7 +47,9 @@ class AtletSukanSearch extends AtletSukan
                 ->joinWith(['refSukan'])
                 ->joinWith(['refAcara'])
                 ->joinWith(['refProgramSemasaSukanAtlet'])
-                ->joinWith(['refJurulatih'])->orderBy(['tbl_atlet_sukan.tarikh_mula_menyertai_program_msn' => SORT_DESC]);
+                ->joinWith(['refJurulatih'])
+                ->joinWith(['refCawangan'])
+                ->joinWith(['refNegeri'])->orderBy(['tbl_atlet_sukan.tarikh_mula_menyertai_program_msn' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -61,6 +65,7 @@ class AtletSukanSearch extends AtletSukan
 
         $query->andFilterWhere([
             'sukan_id' => $this->sukan_id,
+            'tbl_atlet_sukan.nama_sukan' => $this->nama_sukan_id,
             'atlet_id' => $this->atlet_id,
             'tahun_umur_permulaan' => $this->tahun_umur_permulaan,
             //'tarikh_mula_menyertai_program_msn' => $this->tarikh_mula_menyertai_program_msn,

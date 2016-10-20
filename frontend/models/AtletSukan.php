@@ -55,8 +55,8 @@ class AtletSukan extends \yii\db\ActiveRecord
     {
         return [
             [['atlet_id', 'jurulatih_id', 'nama_sukan', 'acara', 'tarikh_mula_menyertai_program_msn', 'tarikh_tamat_menyertai_program_msn'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['tahun_umur_permulaan', 'tarikh_mula_menyertai_program_msn', 'cawangan', 'negeri_diwakili', 'status', 'tarikh_tamat_menyertai_program_msn', 
+            [['atlet_id', 'tahun_umur_permulaan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tarikh_mula_menyertai_program_msn', 'cawangan', 'negeri_diwakili', 'status', 'tarikh_tamat_menyertai_program_msn', 
                 'tarikh_kelulusan', 'source'], 'safe'],
             [['nama_sukan', 'acara', 'program_semasa'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_lesen_sukan', 'atlet_persekutuan_dunia_id'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -123,5 +123,33 @@ class AtletSukan extends \yii\db\ActiveRecord
      */
     public function getRefJurulatih(){
         return $this->hasOne(Jurulatih::className(), ['jurulatih_id' => 'jurulatih_id']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefCawangan(){
+        return $this->hasOne(RefCawangan::className(), ['id' => 'cawangan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSource(){
+        return $this->hasOne(RefSource::className(), ['id' => 'source']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusSukanAtlet(){
+        return $this->hasOne(RefStatusSukanAtlet::className(), ['id' => 'status']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefNegeri(){
+        return $this->hasOne(RefNegeri::className(), ['id' => 'negeri_diwakili']);
     }
 }

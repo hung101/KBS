@@ -733,9 +733,11 @@ use app\models\general\GeneralVariable;
                 </div>
             </div>
     
-    <hr>
     <?php
     if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penyertaan-pegawai-teknikal']['kelulusan'])){
+        echo '<br>
+            <hr>
+                <pre style="text-align: center"><strong>KEGUNAAN MSN</strong></pre>';
         echo FormGrid::widget([
             'model' => $model,
             'form' => $form,

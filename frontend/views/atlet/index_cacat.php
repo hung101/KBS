@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
     
     <?php
-        $program_list = RefProgramSemasaSukanAtlet::find()->andWhere(['=', 'cacat', 1])->where(['=', 'aktif', 1])->andWhere('podium = :podium', [':podium' => 0])->all();
+        $program_list = RefProgramSemasaSukanAtlet::find()->where(['=', 'cacat', 1])->andWhere(['=', 'aktif', 1])->andWhere('podium = :podium', [':podium' => 0])->all();
         
         // add filter base on sukan access role Atlet -> Podium Kemas Kini - START
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])){
@@ -81,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     array_push($arr_sukan_filter,$arr_sukan);
             }
             
-            $program_list = RefProgramSemasaSukanAtlet::find()->andWhere(['=', 'cacat', 1])->where(['=', 'aktif', 1])->all();
+            $program_list = RefProgramSemasaSukanAtlet::find()->where(['=', 'cacat', 1])->andWhere(['=', 'aktif', 1])->all();
         }
         // add filter base on sukan access role Atlet -> Podium Kemas Kini - END
         

@@ -212,4 +212,32 @@ class GeneralFunction{
     public static function getCurrentDate(){
         return date('Y-m-d');
     }
+    
+    public static function getFormatIc($ic_no){
+        return substr($ic_no,0,6) . '-' . substr($ic_no,6,2) . '-' . substr($ic_no,8,4);
+    }
+    
+    public static function getUpperCaseWords($word){
+        return strtoupper($word);
+    }
+    
+    public static function getDatePrintFormat($date){
+        return date("d.m.Y", strtotime($date));
+    }
+    
+    public static function joinAddress($address_1, $address_2, $address_3){
+        return strtoupper($address_1) . ' ' . strtoupper($address_2) . ' ' . strtoupper($address_3);
+    }
+    
+    public static function getLocalPhoneFormat($phone_no){
+        return substr($phone_no,0,2) . '-' . substr($phone_no,2);
+    }
+    
+    public static function getMobilePhoneFormat($phone_no){
+        return substr($phone_no,0,3) . '-' . substr($phone_no,3);
+    }
+    
+    public static function getWeightHeight($value){
+        return ceil($value);
+    }
 }

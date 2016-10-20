@@ -189,7 +189,7 @@ class TempahanKemudahanMsnController extends Controller
                         ->setTo($model->emel)
                         ->setFrom('noreply@spsb.com')
                         ->setSubject('SPSB Pemberitahuan: Tempahan')
-                        ->setTextBody("Salam 1 Malaysia,
+                        ->setTextBody("Salam Sejahtera,
 
 Terima kasih di atas tempahan tuan/puan no. tempahan " . $model->tempahan_kemudahan_id . " pada " . $model->tarikh_mula . "
 Sila semak status tempahan tersebut di " . $urlBackend . '

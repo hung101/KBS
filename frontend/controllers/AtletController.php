@@ -10,6 +10,7 @@ use app\models\MsnLaporanStatistikAtlet;
 use app\models\MsnSuratTawaranAtlet;
 use app\models\MsnLaporanAtletPencapaianPrestasiSecaraIndividu;
 use app\models\User;
+use app\models\AtletPrintForm;
 use frontend\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -328,9 +329,15 @@ class AtletController extends Controller
         ->setTo($modelPS->email)
                                     ->setFrom('noreply@spsb.com')
         ->setSubject('PSK telah memasukkan atlet baru')
-        ->setTextBody("Nama Atlet: " . $model->name_penuh . "
-No Kad Pengenalan: " . $model->ic_no . "
-")->send();
+        ->setTextBody("Salam Sejahtera,
+            
+Nama Atlet: " . $model->name_penuh . "
+No Kad Pengenalan: " . $model->ic_no . '
+    
+
+"KE ARAH KECEMERLANGAN SUKAN"
+Majlis Sukan Negara Malaysia.
+')->send();
                         }
                     }
                 } elseif (Yii::$app->user->identity->peranan ==  UserPeranan::PERANAN_MSN_MAJLIS_SUKAN_NEGERI){
@@ -342,9 +349,15 @@ No Kad Pengenalan: " . $model->ic_no . "
         ->setTo($modelPS->email)
                                     ->setFrom('noreply@spsb.com')
         ->setSubject('Majlis Sukan Negeri telah memasukkan atlet baru')
-        ->setTextBody("Nama Atlet: " . $model->name_penuh . "
-No Kad Pengenalan: " . $model->ic_no . "
-")->send();
+        ->setTextBody("Salam Sejahtera,
+
+Nama Atlet: " . $model->name_penuh . "
+No Kad Pengenalan: " . $model->ic_no . '
+    
+
+"KE ARAH KECEMERLANGAN SUKAN"
+Majlis Sukan Negara Malaysia.
+')->send();
                         }
                     }
                 }
@@ -416,9 +429,14 @@ No Kad Pengenalan: " . $model->ic_no . "
         ->setTo($modelUser->email)
                                     ->setFrom('noreply@spsb.com')
         ->setSubject('Status Tawaran Atlet (' . $model->name_penuh . ') Telah Diproses')
-        ->setTextBody('Nama Atlet: ' . $model->name_penuh . '
+        ->setTextBody('Salam Sejahtera,
+
+Nama Atlet: ' . $model->name_penuh . '
 No Kad Pengenalan: ' . $model->ic_no . '
 Status Tawaran Terkini: ' . $statusTawaranDesc . '
+    
+"KE ARAH KECEMERLANGAN SUKAN"
+Majlis Sukan Negara Malaysia.
 ')->send();
                         }
                 }
@@ -555,6 +573,39 @@ Status Tawaran Terkini: ' . $statusTawaranDesc . '
         $model['view_url_button'] = Html::a(GeneralLabel::view . ' ' . GeneralLabel::profil, '#', ['class'=>'btn btn-primary custom_button', 'onclick' => 'window.open("' . Url::to(['/atlet/view', 'id' => $model['atlet_id']]) . '", "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no"); return false;']) ;
                     
         echo Json::encode($model);
+    }
+    
+    public function actionPdf($id) {
+        //$model = $this->findModel($id);
+        
+        $model = new AtletPrintForm();
+                
+        if ($model->load(Yii::$app->request->post())) {
+            $pdf = Yii::$app->pdf;
+            $pdf->filename = 'atlet.pdf';
+            $pdf->content = $this->renderPartial('print_atlet', [
+                                        'id' => $id,
+                                        'model' => $model,
+                                    ]);
+            $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
+            $pdf->cssFile = '';
+
+            $pdf->options = [
+            'title' => 'Atlet',
+            'subject' => 'Print Form',
+            ];
+
+            $pdf->methods = [
+                'SetHeader'=>['Krajee Report Header'], 
+                'SetFooter'=>['{PAGENO}'],
+            ];
+
+            return $pdf->render();
+        } 
+        
+        return $this->render('print_atlet_form', [
+            'model' => $model,
+        ]);
     }
     
     public function actionLaporanSenaraiAtlet()

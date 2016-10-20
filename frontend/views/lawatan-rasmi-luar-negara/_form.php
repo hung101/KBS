@@ -92,7 +92,7 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama_pegawai_terlibat' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>255],'hint'=> "cth: Dato' Ahmad Shapawi, Dato; Ab Jahil"],
+                'nama_pegawai_terlibat' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>255],'hint'=> "cth: Dato' Ahmad Shapawi, Dato; Ab Jalil"],
             ],
         ],
         [

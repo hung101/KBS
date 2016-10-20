@@ -147,6 +147,21 @@ class BorangAduanKerosakanController extends Controller
                 BorangAduanKerosakanJenisKerosakan::updateAll(['session_id' => ''], 'borang_aduan_kerosakan_id = "'.$model->borang_aduan_kerosakan_id.'"');
             }
             
+            if(Yii::$app->user->identity->peranan == UserPeranan::PERANAN_MSN_ADUAN_PENYELIA){
+                Yii::$app->mailer->compose()
+                        //->setTo("edward@lunas.my")
+                        ->setTo("caw.teknikal@gmail.com")
+                        ->setFrom('noreply@spsb.com')
+                        ->setSubject('SPSB Pemberitahuan: Aduan Kerosakan')
+                        ->setTextBody("Salam Sejahtera,
+
+Aduan daripada " . Yii::$app->user->identity->full_name . " telah diterima pada " . $model->tarikh . "
+Sila klik " . Yii::$app->urlManager->createAbsoluteUrl(['']) . ' untuk tindakan.
+
+Sekian, terima kasih.
+')->send();
+            }
+            
             return $this->redirect(['view', 'id' => $model->borang_aduan_kerosakan_id]);
         } else {
             return $this->render('create', [
