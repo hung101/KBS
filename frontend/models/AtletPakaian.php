@@ -86,4 +86,11 @@ class AtletPakaian extends \yii\db\ActiveRecord
     public function getRefSaizPakaian(){
         return $this->hasOne(RefSaizPakaian::className(), ['id' => 'saiz_pakaian']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSukan(){
+        return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
+    }
 }

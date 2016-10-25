@@ -12,13 +12,15 @@ use app\models\AtletPencapaianRekods;
  */
 class AtletPencapaianRekodsSearch extends AtletPencapaianRekods
 {
+    public $atlet_id;
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['pencapaian_rekods_id', 'pencapaian_id'], 'integer'],
+            [['pencapaian_rekods_id', 'pencapaian_id', 'atlet_id'], 'integer'],
             [['tarikh', 'peringkat', 'opponent', 'result', 'venue', 'personal_best', 'season_best', 'jenis_rekod', 'session_id'], 'safe'],
         ];
     }
@@ -42,7 +44,8 @@ class AtletPencapaianRekodsSearch extends AtletPencapaianRekods
     public function search($params)
     {
         $query = AtletPencapaianRekods::find()
-                ->joinWith(['refJenisRekod']);
+                ->joinWith(['refJenisRekod'])
+                ->joinWith(['refAtletPencapaian']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -60,6 +63,7 @@ class AtletPencapaianRekodsSearch extends AtletPencapaianRekods
             'pencapaian_rekods_id' => $this->pencapaian_rekods_id,
             'pencapaian_id' => $this->pencapaian_id,
             'tarikh' => $this->tarikh,
+            'tbl_atlet_pencapaian.atlet_id' => $this->atlet_id,
         ]);
 
         $query->andFilterWhere(['like', 'peringkat', $this->peringkat])

@@ -130,4 +130,18 @@ class AtletPendidikan extends \yii\db\ActiveRecord
     public function getRefJenisPencapaian(){
         return $this->hasOne(RefJenisPencapaian::className(), ['id' => 'jenis_pencapaian']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefNegeri(){
+        return $this->hasOne(RefNegeri::className(), ['id' => 'alamat_negeri']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefBandar(){
+        return $this->hasOne(RefBandar::className(), ['id' => 'alamat_bandar']);
+    }
 }

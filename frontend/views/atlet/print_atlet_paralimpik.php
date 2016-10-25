@@ -175,7 +175,7 @@ use app\models\general\GeneralLabel;
                 }
                 
                 .field_label{
-                    width:31%;
+                    width:32%;
                     padding-top:2px;
                     padding-bottom:2px;
                     vertical-align: top;
@@ -189,7 +189,7 @@ use app\models\general\GeneralLabel;
                 }
                 
                 .field_value{
-                    width:67%;
+                    width:66%;
                     color:red;
                     font-weight: bold;
                     padding-top:2px;
@@ -201,6 +201,7 @@ use app\models\general\GeneralLabel;
                     padding-top:1px;
                     padding-bottom:1px; 
                     //padding-left: 10%;
+                    
                 }
                 
                 .field_label_2{
@@ -650,7 +651,7 @@ use app\models\general\GeneralLabel;
                                 </tr>
                             </table>
                         </td>
-                        <td class="atlet_photo" style="width:25%; text-align: center;">
+                        <td class="atlet_photo" style="width:25%;  text-align: center;">
                             <?php
                                 if($modelAtlet !== null && $modelAtlet->gambar){
                                     echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$modelAtlet->gambar.'" height="125px">';
@@ -863,6 +864,52 @@ use app\models\general\GeneralLabel;
                             <td class="field_label_2">&nbsp;</td>
                             <td class="field_colon_2">&nbsp;</td>
                             <td class="field_value_2">&nbsp;</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <?php endif; ?>
+
+        <?php if($model->maklumat_oku): ?>
+        <section>
+            <div id="div_maklumat-oku">
+                <div class="title_section">
+                    <?=GeneralFunction::getUpperCaseWords(GeneralLabel::maklumat_oku)?>
+                </div>
+                <div>
+                    <table>
+                        <tr>
+                            <td class="field_label_2"><?=GeneralLabel::kategori_kecacatan?></td>
+                            <td class="field_colon_2">:</td>
+                            <td class="field_value_2"><?=($modelAtlet->kategori_kecacatan ? GeneralFunction::getUpperCaseWords($modelAtlet->kategori_kecacatan) : $no_data)?></td>
+                            <td class="field_label_2"><?=GeneralLabel::jenis_kecederaan?></td>
+                            <td class="field_colon_2">:</td>
+                            <td class="field_value_2"><?=($modelAtlet->jenis_kecederaan ? GeneralFunction::getUpperCaseWords($modelAtlet->jenis_kecederaan) : $no_data)?> </td>
+                        </tr>
+                        <tr>
+                            <td class="field_label_2"><?=GeneralLabel::jenis_lesen?></td>
+                            <td class="field_colon_2">:</td>
+                            <td class="field_value_2"><?=($modelAtlet->jenis_lesen_paralimpik ? GeneralFunction::getUpperCaseWords($modelAtlet->jenis_lesen_paralimpik) : $no_data)?></td>
+                            <td class="field_label_2"><?=GeneralLabel::no_lesen_ipc?></td>
+                            <td class="field_colon_2">:</td>
+                            <td class="field_value_2"><?=($modelAtlet->no_lesen_ipc ? $modelAtlet->no_lesen_ipc : $no_data)?></td>
+                        </tr>
+                        <tr>
+                            <td class="field_label_2"><?=GeneralLabel::tamat_tempoh?></td>
+                            <td class="field_colon_2">:</td>
+                            <td class="field_value_2"><?=($modelAtlet->tarikh_luput ? GeneralFunction::getDatePrintFormat($modelAtlet->tarikh_luput) : $no_data)?></td>
+                            <td class="field_label_2">&nbsp;</td>
+                            <td class="field_colon_2">&nbsp;</td>
+                            <td class="field_value_2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="field_label_2"><?=GeneralLabel::agensi?></td>
+                            <td class="field_colon_2">:</td>
+                            <td class="field_value_2"><?=($modelAtlet->agensi ? GeneralFunction::getUpperCaseWords($modelAtlet->agensi) : $no_data)?></td>
+                            <td class="field_label_2"><?=GeneralLabel::ms_negeri?></td>
+                            <td class="field_colon_2">:</td>
+                            <td class="field_value_2"><?=($modelAtlet->ms_negeri ? GeneralFunction::getUpperCaseWords($modelAtlet->ms_negeri) : $no_data)?></td>
                         </tr>
                     </table>
                 </div>

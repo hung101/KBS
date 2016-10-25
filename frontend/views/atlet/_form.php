@@ -71,11 +71,11 @@ use app\models\general\GeneralVariable;
     
     <?php if($readonly): ?>
         <?php if( ( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['update'])) || 
-                (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])) ): ?>
+                (isset($model->refAtletSukan[0]->program_semasa) && ($model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM || $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])) ): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->atlet_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
         <?php if( ( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['delete']))  || 
-                (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))): ?>
+                (isset($model->refAtletSukan[0]->program_semasa) && ($model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM || $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->atlet_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
@@ -84,8 +84,16 @@ use app\models\general\GeneralVariable;
                 ],
             ]) ?>
     <?php endif; ?>
+    <?php
+    //echo "CACAT = " . $model->cacat . ", TAWARAN = " . $model->tawaran_id;
+        if($model->cacat == 1 || $model->cacat == 'Ya'){
+            echo Html::a(GeneralLabel::print_pdf, '', ['value'=>Url::to(['/atlet/print-paralimpik', 'id' => $model->atlet_id]), 'class' => 'btn btn-info custom_button']);
+        } else {
+            echo Html::a(GeneralLabel::print_pdf, '', ['value'=>Url::to(['/atlet/print', 'id' => $model->atlet_id]), 'class' => 'btn btn-info custom_button']);
+        }
+    ?>
     <?php if( ( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['delete']))  || 
-                (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))): ?>
+                (isset($model->refAtletSukan[0]->program_semasa) && ($model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM || $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))): ?>
     <?php 
     if($model->tawaran_id && $model->tawaran_id == RefStatusTawaran::LULUS_TAWARAN){
         if($model->cacat == 1 || $model->cacat == 'Ya'){
@@ -1042,6 +1050,12 @@ $("#sama_alamat").change(function() {
         $("#atlet-alamat_surat_poskod").val($("#atlet-alamat_rumah_poskod").val());
     }
 });
+            
+$(function(){
+$('.custom_button').click(function(){
+        window.open($(this).attr('value'), "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no");
+        return false;
+});});
 
 JS;
         

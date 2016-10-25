@@ -20,6 +20,14 @@ use app\models\general\GeneralMessage;
  */
 class RefJenisElaun extends \yii\db\ActiveRecord
 {
+    const MAKAN = 1;
+    const LATIHAN = 2;
+    const KEHILANGAN_PENDAPATAN = 3;
+    const PENGINAPAN_RUMAH = 4;
+    const PENGANGKUTAN = 5;
+    const SISO = 6;
+    const SITO = 7;
+    
     /**
      * @inheritdoc
      */

@@ -12,7 +12,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanPelaksaan */
 
-$this->title = GeneralLabel::cetak_profil_atlet;
+$this->title = GeneralLabel::cetak_profil_atlet_paralimpik;
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->registerCss(".checkbox { margin-top: 0 !important; margin-bottom: 0px !important;}"
@@ -46,6 +46,13 @@ $this->registerCss(".checkbox { margin-top: 0 !important; margin-bottom: 0px !im
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'maklumat_perhubungan_kecemasan' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'maklumat_oku' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>3]],
             ]
         ],
         [

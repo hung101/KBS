@@ -43,7 +43,9 @@ class AtletKarierSearch extends AtletKarier
      */
     public function search($params)
     {
-        $query = AtletKarier::find();
+        $query = AtletKarier::find()
+                ->joinWith(['refNegeri'])
+                ->joinWith(['refBandar']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

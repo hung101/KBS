@@ -64,7 +64,7 @@ class AtletKarier extends \yii\db\ActiveRecord
     {
         return [
             [['atlet_id', 'syarikat', 'jawatan_kerja', 'pendapatan', 'tahun_mula', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'tel_no'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id', 'tel_no', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['atlet_id', 'tel_no', 'faks_no', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['pendapatan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tahun_mula', 'tahun_tamat', 'created', 'updated'], 'safe'],
             [['socso_no', 'income_tax_no'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -74,6 +74,7 @@ class AtletKarier extends \yii\db\ActiveRecord
             [['jawatan_kerja', 'alamat_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kwsp_no'], 'string', 'max' => 10, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tel_no', 'faks_no'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
@@ -110,5 +111,19 @@ class AtletKarier extends \yii\db\ActiveRecord
             'updated' => GeneralLabel::updated,
 
         ];
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefNegeri(){
+        return $this->hasOne(RefNegeri::className(), ['id' => 'alamat_negeri']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefBandar(){
+        return $this->hasOne(RefBandar::className(), ['id' => 'alamat_bandar']);
     }
 }

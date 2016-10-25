@@ -225,19 +225,29 @@ class GeneralFunction{
         return date("d.m.Y", strtotime($date));
     }
     
+    public static function getDateTimePrintFormat($date){
+        return date("d.m.Y G.i", strtotime($date));
+    }
+    
     public static function joinAddress($address_1, $address_2, $address_3){
         return strtoupper($address_1) . ' ' . strtoupper($address_2) . ' ' . strtoupper($address_3);
     }
     
-    public static function getLocalPhoneFormat($phone_no){
-        return substr($phone_no,0,2) . '-' . substr($phone_no,2);
-    }
-    
-    public static function getMobilePhoneFormat($phone_no){
-        return substr($phone_no,0,3) . '-' . substr($phone_no,3);
-    }
-    
     public static function getWeightHeight($value){
         return ceil($value);
+    }
+    
+    public static function getNumberFormatPrint($value){
+        return number_format($value, 2, '.', '');
+    }
+    
+    public static function getPhoneFormat($value){
+        if(strlen($value) > 9 && substr($value,1,1) == '1'){
+            // mobile number
+            return substr($value,0,3) . '-' . substr($value,3);
+        } else {
+            //local number
+            return substr($value,0,2) . '-' . substr($value,2);
+        }
     }
 }

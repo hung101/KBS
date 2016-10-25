@@ -41,7 +41,9 @@ class AtletPerubatanSearch extends AtletPerubatan
      */
     public function search($params)
     {
-        $query = AtletPerubatan::find();
+        $query = AtletPerubatan::find()
+                ->joinWith(['refKumpulanDarah'])
+                ->joinWith(['refStafPerubatanYangBertanggungjawab']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

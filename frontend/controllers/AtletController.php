@@ -396,6 +396,8 @@ Majlis Sukan Negara Malaysia.
         
         $session['atlet_cacat'] = $model->cacat;
         
+        $existingGambar = $model->gambar;
+        
         if ($model->load(Yii::$app->request->post())) {
             
             if($model->jenis_lesen){
@@ -405,6 +407,8 @@ Majlis Sukan Negara Malaysia.
             $file = UploadedFile::getInstance($model, 'gambar');
             if($file){
                 $model->gambar = Upload::uploadFile($file, Upload::atletFolder, $model->atlet_id);
+            } else {
+                $model->gambar = $existingGambar;
             }
             
             $file = UploadedFile::getInstance($model, 'muat_naik_surat_persetujuan');
@@ -575,14 +579,17 @@ Majlis Sukan Negara Malaysia.
         echo Json::encode($model);
     }
     
-    public function actionPdf($id) {
-        //$model = $this->findModel($id);
+    public function actionPrint($id) {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
         
         $model = new AtletPrintForm();
                 
         if ($model->load(Yii::$app->request->post())) {
             $pdf = Yii::$app->pdf;
-            $pdf->filename = 'atlet.pdf';
+            $pdf->mode = \kartik\mpdf\Pdf::MODE_CORE;
+            $pdf->filename = 'atlet'.'-'.$id.'.pdf';
             $pdf->content = $this->renderPartial('print_atlet', [
                                         'id' => $id,
                                         'model' => $model,
@@ -592,7 +599,7 @@ Majlis Sukan Negara Malaysia.
 
             $pdf->options = [
             'title' => 'Atlet',
-            'subject' => 'Print Form',
+            'subject' => 'Print',
             ];
 
             $pdf->methods = [
@@ -604,6 +611,42 @@ Majlis Sukan Negara Malaysia.
         } 
         
         return $this->render('print_atlet_form', [
+            'model' => $model,
+        ]);
+    }
+    
+    public function actionPrintParalimpik($id) {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new AtletPrintForm();
+                
+        if ($model->load(Yii::$app->request->post())) {
+            $pdf = Yii::$app->pdf;
+            $pdf->mode = \kartik\mpdf\Pdf::MODE_CORE;
+            $pdf->filename = 'atlet'.'-'.$id.'.pdf';
+            $pdf->content = $this->renderPartial('print_atlet_paralimpik', [
+                                        'id' => $id,
+                                        'model' => $model,
+                                    ]);
+            $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
+            $pdf->cssFile = '';
+
+            $pdf->options = [
+            'title' => 'Atlet',
+            'subject' => 'Print',
+            ];
+
+            $pdf->methods = [
+                'SetHeader'=>['Krajee Report Header'], 
+                'SetFooter'=>['{PAGENO}'],
+            ];
+
+            return $pdf->render();
+        } 
+        
+        return $this->render('print_atlet_paralimpik_form', [
             'model' => $model,
         ]);
     }

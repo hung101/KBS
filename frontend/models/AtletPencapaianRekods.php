@@ -90,4 +90,11 @@ class AtletPencapaianRekods extends \yii\db\ActiveRecord
     public function getRefJenisRekod(){
         return $this->hasOne(RefJenisRekod::className(), ['id' => 'jenis_rekod']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefAtletPencapaian(){
+        return $this->hasOne(AtletPencapaian::className(), ['pencapaian_id' => 'pencapaian_id']);
+    }
 }

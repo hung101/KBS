@@ -94,4 +94,11 @@ class AtletPencapaianAnugerah extends \yii\db\ActiveRecord
     public function getRefAcara(){
         return $this->hasOne(RefAcara::className(), ['id' => 'nama_acara']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSukan(){
+        return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
+    }
 }

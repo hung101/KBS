@@ -47,6 +47,7 @@ class AtletPrintForm extends Model
     public $maklumat_pencapaian_sukan_semasa;
     public $maklumat_sejarah_pencapaian_sukan;
     public $maklumat_tawaran;
+    public $maklumat_oku;
 
     /**
      * @inheritdoc
@@ -59,7 +60,7 @@ class AtletPrintForm extends Model
                 'maklumat_sekolah_institusi_semasa','maklumat_kerjaya_semasa','maklumat_sejarah_kerjaya','maklumat_kursus_kem_semasa','maklumat_sejarah_kursus_kem','maklumat_kaunseling',
                 'maklumat_sejarah_kaunseling','maklumat_kemahiran','maklumat_senarai_kemahiran','maklumat_perubatan','maklumat_insurans','maklumat_penderma','maklumat_perubatan_sains_sukan',
                 'maklumat_insentif','maklumat_sejarah_penerimaan_insentif','maklumat_penajaan','maklumat_sejarah_penajaan','maklumat_biasiswa','maklumat_persatuan_persekutuan_dunia',
-                'maklumat_anugerah','maklumat_pencapaian_sukan_semasa','maklumat_sejarah_pencapaian_sukan','maklumat_tawaran'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+                'maklumat_anugerah','maklumat_pencapaian_sukan_semasa','maklumat_sejarah_pencapaian_sukan','maklumat_tawaran', 'maklumat_oku'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
         ];
     }
     
@@ -105,6 +106,7 @@ class AtletPrintForm extends Model
             'maklumat_pencapaian_sukan_semasa' => GeneralLabel::maklumat_pencapaian_sukan_semasa,
             'maklumat_sejarah_pencapaian_sukan' => GeneralLabel::maklumat_sejarah_pencapaian_sukan,
             'maklumat_tawaran' => GeneralLabel::maklumat_tawaran,
+            'maklumat_oku' => GeneralLabel::maklumat_oku,
         ];
     }
 }

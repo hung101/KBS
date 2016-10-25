@@ -43,7 +43,8 @@ class AtletPencapaianAnugerahSearch extends AtletPencapaianAnugerah
     {
         $query = AtletPencapaianAnugerah::find()
                 ->joinWith(['refKategoriAnugerah'])
-                ->joinWith(['refAcara']);
+                ->joinWith(['refAcara'])
+                ->joinWith(['refSukan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

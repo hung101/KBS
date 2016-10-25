@@ -99,4 +99,25 @@ class AtletPencapaian extends \yii\db\ActiveRecord
     public function getRefKeputusan(){
         return $this->hasOne(RefKeputusan::className(), ['id' => 'pencapaian']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefPeringkatKejohananTemasya(){
+        return $this->hasOne(RefPeringkatKejohananTemasya::className(), ['id' => 'peringkat_kejohanan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSukan(){
+        return $this->hasOne(RefSukan::className(), ['id' => 'nama_sukan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefAcara(){
+        return $this->hasOne(RefAcara::className(), ['id' => 'nama_acara']);
+    }
 }

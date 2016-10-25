@@ -43,7 +43,8 @@ class AtletPakaianSearch extends AtletPakaian
     {
         $query = AtletPakaian::find()
                 ->joinWith(['refJenisPakaian'])
-                ->joinWith(['refSaizPakaian']);
+                ->joinWith(['refSaizPakaian'])
+                ->joinWith(['refSukan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

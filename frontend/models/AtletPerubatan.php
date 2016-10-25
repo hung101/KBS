@@ -77,4 +77,18 @@ class AtletPerubatan extends \yii\db\ActiveRecord
             'staf_perubatan_yang_bertanggungjawab' => GeneralLabel::staf_perubatan_yang_bertanggungjawab,
         ];
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKumpulanDarah(){
+        return $this->hasOne(RefKumpulanDarah::className(), ['id' => 'kumpulan_darah']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStafPerubatanYangBertanggungjawab(){
+        return $this->hasOne(RefStafPerubatanYangBertanggungjawab::className(), ['id' => 'staf_perubatan_yang_bertanggungjawab']);
+    }
 }

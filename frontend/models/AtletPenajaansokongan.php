@@ -104,4 +104,18 @@ class AtletPenajaansokongan extends \yii\db\ActiveRecord
 
         ];
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefNegeri(){
+        return $this->hasOne(RefNegeri::className(), ['id' => 'alamat_negeri']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefBandar(){
+        return $this->hasOne(RefBandar::className(), ['id' => 'alamat_bandar']);
+    }
 }

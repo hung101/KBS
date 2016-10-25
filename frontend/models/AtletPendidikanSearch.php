@@ -48,7 +48,9 @@ class AtletPendidikanSearch extends AtletPendidikan
         
         $query = AtletPendidikan::find()
                 ->joinWith(['tahapPendidikan'])
-                ->joinWith(['refJenisPencapaian']);
+                ->joinWith(['refJenisPencapaian'])
+                ->joinWith(['refNegeri'])
+                ->joinWith(['refBandar']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
