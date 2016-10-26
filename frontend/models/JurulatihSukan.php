@@ -124,4 +124,11 @@ class JurulatihSukan extends \yii\db\ActiveRecord
     public function getRefGajiElaunJurulatih(){
         return $this->hasOne(RefGajiElaunJurulatih::className(), ['id' => 'gaji_elaun']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefCawangan(){
+        return $this->hasOne(RefCawangan::className(), ['id' => 'cawangan']);
+    }
 }

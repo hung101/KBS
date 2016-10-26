@@ -75,4 +75,11 @@ class JurulatihPendidikan extends \yii\db\ActiveRecord
             'tahap_pendidikan' => GeneralLabel::tahap_pendidikan,
         ];
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefTahapPendidikan(){
+        return $this->hasOne(RefTahapPendidikan::className(), ['id' => 'tahap_pendidikan']);
+    }
 }

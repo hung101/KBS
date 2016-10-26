@@ -12,6 +12,7 @@ use app\models\MsnLaporanStatistikJurulatihProgramJantina;
 use app\models\MsnLaporanSenaraiJurulatihSukan;
 use app\models\MsnLaporanSenaraiJurulatihNegeri;
 use app\models\MsnLaporanJurulatihWajaran;
+use app\models\JurulatihPrintForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -417,6 +418,42 @@ class JurulatihController extends Controller
         $value = (count($data) == 0) ? ['' => ''] : $data;
 
         return $value;
+    }
+    
+    public function actionPrint($id) {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new JurulatihPrintForm();
+                
+        if ($model->load(Yii::$app->request->post())) {
+            $pdf = Yii::$app->pdf;
+            $pdf->mode = \kartik\mpdf\Pdf::MODE_CORE;
+            $pdf->filename = 'atlet'.'-'.$id.'.pdf';
+            $pdf->content = $this->renderPartial('print_jurulatih', [
+                                        'id' => $id,
+                                        'model' => $model,
+                                    ]);
+            $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
+            $pdf->cssFile = '';
+
+            $pdf->options = [
+            'title' => 'Atlet',
+            'subject' => 'Print',
+            ];
+
+            $pdf->methods = [
+                'SetHeader'=>['Krajee Report Header'], 
+                'SetFooter'=>['{PAGENO}'],
+            ];
+
+            return $pdf->render();
+        } 
+        
+        return $this->render('print_jurulatih_form', [
+            'model' => $model,
+        ]);
     }
     
     public function actionLaporanSenaraiJurulatih()

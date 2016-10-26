@@ -242,9 +242,11 @@ class GeneralFunction{
     }
     
     public static function getPhoneFormat($value){
-        if(strlen($value) > 9 && substr($value,1,1) == '1'){
+        if(strlen($value) > 9 && strlen($value) <= 11 && substr($value,1,1) == '1'){
             // mobile number
             return substr($value,0,3) . '-' . substr($value,3);
+        } else if(strlen($value) > 11){
+            return $value;
         } else {
             //local number
             return substr($value,0,2) . '-' . substr($value,2);

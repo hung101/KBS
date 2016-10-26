@@ -12,13 +12,15 @@ use app\models\JurulatihSukan;
  */
 class JurulatihSukanSearch extends JurulatihSukan
 {
+    public $sukan_id;
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['jurulatih_sukan_id', 'jurulatih_id', 'created_by', 'updated_by'], 'integer'],
+            [['jurulatih_sukan_id', 'jurulatih_id', 'created_by', 'updated_by', 'sukan_id'], 'integer'],
             [['program', 'sukan', 'cawangan', 'bahagian', 'tarikh_mula_lantikan', 'tarikh_tamat_lantikan', 'gaji_elaun', 'created', 'updated'], 'safe'],
             [['jumlah'], 'number'],
         ];
@@ -73,6 +75,7 @@ class JurulatihSukanSearch extends JurulatihSukan
             'updated_by' => $this->updated_by,
             'created' => $this->created,
             'updated' => $this->updated,
+            'sukan' => $this->sukan_id,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_program_jurulatih.desc', $this->program])

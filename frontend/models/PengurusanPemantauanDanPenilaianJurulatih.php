@@ -94,4 +94,11 @@ class PengurusanPemantauanDanPenilaianJurulatih extends \yii\db\ActiveRecord
     public function getRefAcara(){
         return $this->hasOne(RefAcara::className(), ['id' => 'nama_acara']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefPenilaianJurulatih(){
+        return $this->hasOne(RefPenilaianJurulatih::className(), ['id' => 'penilaian_oleh']);
+    }
 }
