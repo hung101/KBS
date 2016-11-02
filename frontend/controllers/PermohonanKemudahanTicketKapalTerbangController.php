@@ -62,17 +62,17 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
     {
         $model = $this->findModel($id);
         
-        $ref = Atlet::findOne(['atlet_id' => $model->atlet]);
-        $model->atlet = $ref['nameAndIC'];
+        //$ref = Atlet::findOne(['atlet_id' => $model->atlet]);
+        //$model->atlet = $ref['nameAndIC'];
         
-        $ref = Jurulatih::findOne(['jurulatih_id' => $model->jurulatih]);
-        $model->jurulatih = $ref['nameAndIC'];
+        //$ref = Jurulatih::findOne(['jurulatih_id' => $model->jurulatih]);
+        //$model->jurulatih = $ref['nameAndIC'];
         
         $ref = RefProgram::findOne(['id' => $model->nama_program]);
         $model->nama_program = $ref['desc'];
         
-        $ref = RefSukan::findOne(['id' => $model->sukan]);
-        $model->sukan = $ref['desc'];
+        //$ref = RefSukan::findOne(['id' => $model->sukan]);
+        //$model->sukan = $ref['desc'];
         
         $ref = RefBahagianKemudahan::findOne(['id' => $model->bahagian]);
         $model->bahagian = $ref['desc'];
@@ -100,8 +100,24 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
     public function actionCreate()
     {
         $model = new PermohonanKemudahanTicketKapalTerbang();
+        
+        $model->kelulusan = RefStatusPermohonanKemudahan::SEDANG_DIPROSES;
+        
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->jurulatih){
+                $model->jurulatih = implode(",",$model->jurulatih);
+            }
+            
+            if($model->atlet){
+                $model->atlet = implode(",",$model->atlet);
+            }
+            
+            if($model->sukan){
+                $model->sukan = implode(",",$model->sukan);
+            }
+        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Yii::$app->request->post() && $model->save()) {
             return $this->redirect(['view', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_id]);
         } else {
             return $this->render('create', [
@@ -120,8 +136,22 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->jurulatih){
+                $model->jurulatih = implode(",",$model->jurulatih);
+            }
+            
+            if($model->atlet){
+                $model->atlet = implode(",",$model->atlet);
+            }
+            
+            if($model->sukan){
+                $model->sukan = implode(",",$model->sukan);
+            }
+        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Yii::$app->request->post() && $model->save()) {
             return $this->redirect(['view', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_id]);
         } else {
             return $this->render('update', [

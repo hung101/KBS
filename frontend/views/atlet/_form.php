@@ -734,7 +734,8 @@ use app\models\general\GeneralVariable;
     
     <br>
     <br>
-    <?php if( ((isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet-cacat']['update']) && !$model->isNewRecord) || (isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet-cacat']['create']) && $model->isNewRecord && isset($session['atlet_cacat']) && $session['atlet_cacat'])) ):?>
+    <?php //if( ((isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet-cacat']['update']) && !$model->isNewRecord) || (isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet-cacat']['create']) && $model->isNewRecord && isset($session['atlet_cacat']) && $session['atlet_cacat'])) ):
+            if( isset($session['atlet_cacat']) && $session['atlet_cacat'] ):?>
     
     <pre style="text-align: center"><strong>Maklumat OKU</strong></pre>
     
@@ -762,7 +763,7 @@ use app\models\general\GeneralVariable;
     
     <?php
     
-    if($model->cacat && !$model->isNewRecord && ($model->cacat == 1 || $model->cacat == 'Ya')){
+    //if($model->cacat && !$model->isNewRecord && ($model->cacat == 1 || $model->cacat == 'Ya')){
         echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
@@ -868,7 +869,7 @@ use app\models\general\GeneralVariable;
         ]
     ]
 ]);
-    }
+   // }
     ?>
     
     

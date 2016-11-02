@@ -647,7 +647,7 @@ use app\models\general\GeneralLabel;
                                 <tr>
                                     <td class="field_label"><?=GeneralLabel::tempoh_lantikan?></td>
                                     <td class="field_colon">:</td>
-                                    <td class="field_value"><?=($modelSukanProgram->tarikh_mula_menyertai_program_msn ? GeneralFunction::getDatePrintFormat($modelSukanProgram->tarikh_mula_menyertai_program_msn) : $no_data)?> - <?=($modelSukanProgram->tarikh_tamat_menyertai_program_msn ? GeneralFunction::getDatePrintFormat($modelSukanProgram->tarikh_tamat_menyertai_program_msn) : $no_data)?></td>
+                                    <td class="field_value"><?=($modelSukanProgram && $modelSukanProgram->tarikh_mula_menyertai_program_msn ? GeneralFunction::getDatePrintFormat($modelSukanProgram->tarikh_mula_menyertai_program_msn) : $no_data)?> - <?=($modelSukanProgram && $modelSukanProgram->tarikh_tamat_menyertai_program_msn ? GeneralFunction::getDatePrintFormat($modelSukanProgram->tarikh_tamat_menyertai_program_msn) : $no_data)?></td>
                                 </tr>
                             </table>
                         </td>

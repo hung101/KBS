@@ -429,20 +429,27 @@ Majlis Sukan Negara Malaysia.
                         $ref = RefStatusTawaran::findOne(['id' => $model->tawaran]);
                         $statusTawaranDesc = $ref['desc'];
         
+                        try {
                             Yii::$app->mailer->compose()
-        ->setTo($modelUser->email)
-                                    ->setFrom('noreply@spsb.com')
-        ->setSubject('Status Tawaran Atlet (' . $model->name_penuh . ') Telah Diproses')
-        ->setTextBody('Salam Sejahtera,
+                                    ->setTo($modelUser->email)
+                                                                ->setFrom('noreply@spsb.com')
+                                    ->setSubject('Status Tawaran Atlet (' . $model->name_penuh . ') Telah Diproses')
+                                    ->setTextBody('Salam Sejahtera,
 
-Nama Atlet: ' . $model->name_penuh . '
-No Kad Pengenalan: ' . $model->ic_no . '
-Status Tawaran Terkini: ' . $statusTawaranDesc . '
-    
-"KE ARAH KECEMERLANGAN SUKAN"
-Majlis Sukan Negara Malaysia.
-')->send();
+                            Nama Atlet: ' . $model->name_penuh . '
+                            No Kad Pengenalan: ' . $model->ic_no . '
+                            Status Tawaran Terkini: ' . $statusTawaranDesc . '
+
+                            "KE ARAH KECEMERLANGAN SUKAN"
+                            Majlis Sukan Negara Malaysia.
+                            ')->send();
                         }
+                        catch(\Swift_SwiftException $exception)
+                        {
+                            //return 'Can sent mail due to the following exception'.print_r($exception);
+                        }
+                            
+                    }
                 }
             }
             

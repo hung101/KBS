@@ -17,6 +17,10 @@ use Yii;
  */
 class RefStatusPermohonanKemudahan extends \yii\db\ActiveRecord
 {
+    const SEDANG_DIPROSES = 1;
+    const LULUS = 2;
+    const GAGAL = 3;
+    
     /**
      * @inheritdoc
      */

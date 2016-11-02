@@ -646,7 +646,7 @@ use app\models\general\GeneralLabel;
                                 <tr>
                                     <td class="field_label"><?=GeneralLabel::tempoh_lantikan?></td>
                                     <td class="field_colon">:</td>
-                                    <td class="field_value"><?=($modelSukanProgram->tarikh_mula_menyertai_program_msn ? GeneralFunction::getDatePrintFormat($modelSukanProgram->tarikh_mula_menyertai_program_msn) : $no_data)?> - <?=($modelSukanProgram->tarikh_tamat_menyertai_program_msn ? GeneralFunction::getDatePrintFormat($modelSukanProgram->tarikh_tamat_menyertai_program_msn) : $no_data)?></td>
+                                    <td class="field_value"><?=($modelSukanProgram && $modelSukanProgram->tarikh_mula_menyertai_program_msn ? GeneralFunction::getDatePrintFormat($modelSukanProgram->tarikh_mula_menyertai_program_msn) : $no_data)?> - <?=($modelSukanProgram && $modelSukanProgram->tarikh_tamat_menyertai_program_msn ? GeneralFunction::getDatePrintFormat($modelSukanProgram->tarikh_tamat_menyertai_program_msn) : $no_data)?></td>
                                 </tr>
                             </table>
                         </td>
@@ -940,7 +940,7 @@ use app\models\general\GeneralLabel;
                     $queryPar['AtletSukanSearch']['atlet_id'] = $modelAtlet->atlet_id;
                 }
                 
-                if($modelSukanProgram->nama_sukan){
+                if($modelSukanProgram && $modelSukanProgram->nama_sukan){
                     //filter by sukan id
                     $queryPar['AtletSukanSearch']['nama_sukan_id'] = $modelSukanProgram->nama_sukan;
                 }
@@ -1059,7 +1059,7 @@ use app\models\general\GeneralLabel;
                     $queryPar['AtletSukanSearch']['atlet_id'] = $modelAtlet->atlet_id;
                 }
                 
-                if($modelSukanProgram->nama_sukan){
+                if($modelSukanProgram && $modelSukanProgram->nama_sukan){
                     //filter by sukan id
                     $queryPar['AtletSukanSearch']['nama_sukan_id'] = $modelSukanProgram->nama_sukan;
                 }
@@ -1141,7 +1141,7 @@ use app\models\general\GeneralLabel;
                             <td class="field_value_2"><?=($modelSukanProgram && $modelSukanProgram->no_lesen_sukan ? $modelSukanProgram->no_lesen_sukan : $no_data)?></td>
                             <td class="field_label_2"><?=GeneralLabel::id_atlet_persekutuan?></td>
                             <td class="field_colon_2">:</td>
-                            <td class="field_value_2"><?=($modelSukanProgram->atlet_persekutuan_dunia_id ? $modelSukanProgram->atlet_persekutuan_dunia_id : $no_data)?></td>
+                            <td class="field_value_2"><?=($modelSukanProgram && $modelSukanProgram->atlet_persekutuan_dunia_id ? $modelSukanProgram->atlet_persekutuan_dunia_id : $no_data)?></td>
                         </tr>
                     </table>
                 </div>
