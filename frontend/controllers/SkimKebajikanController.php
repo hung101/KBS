@@ -48,6 +48,10 @@ class SkimKebajikanController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $searchModel = new SkimKebajikanSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -64,6 +68,10 @@ class SkimKebajikanController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
         
         $ref = Atlet::findOne(['atlet_id' => $model->nama_pemohon]);
@@ -100,15 +108,61 @@ class SkimKebajikanController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new SkimKebajikan();
+        $oldKelulusan = null;
+        
+        if($model->load(Yii::$app->request->post())){
+            $oldKelulusan = $model->getOldAttribute('kelulusan');
+        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Yii::$app->request->post() && $model->save()) {
             $file = UploadedFile::getInstance($model, 'muat_naik');
             if($file){
                 $model->muat_naik = Upload::uploadFile($file, Upload::skimKebajikanFolder, $model->skim_kebajikan_id);
             }
             
             if($model->save()){
+                if($model->emel_penerima && $model->emel_penerima != "" && $model->kelulusan ){
+                    if($model->kelulusan != $oldKelulusan){
+                        try {
+                            if($model->kelulusan == 1){ // Approved
+                                Yii::$app->mailer->compose()
+                                        ->setTo($model->emel_penerima)
+                                                                    ->setFrom('noreply@spsb.com')
+                                        ->setSubject('Permohonan Skim Kebajikan Tuan/Puan Telah Diproses')
+                                        ->setTextBody('Salam Sejahtera,
+
+                                Sukacita, permohonan Tuan/Puan telah LULUS.
+
+                                "KE ARAH KECEMERLANGAN SUKAN"
+                                Majlis Sukan Negara Malaysia.
+                                ')->send();
+                            } else { // Not Approved
+                                Yii::$app->mailer->compose()
+                                        ->setTo($model->emel_penerima)
+                                                                    ->setFrom('noreply@spsb.com')
+                                        ->setSubject('Permohonan Skim Kebajikan Tuan/Puan Telah Diproses')
+                                        ->setTextBody('Salam Sejahtera,
+
+                                Permohonan Tuan/Puan TIDAK LULUS.
+
+                                "KE ARAH KECEMERLANGAN SUKAN"
+                                Majlis Sukan Negara Malaysia.
+                                ')->send();
+                            }
+                        }
+                        catch(\Swift_SwiftException $exception)
+                        {
+                            //return 'Can sent mail due to the following exception'.print_r($exception);
+                            Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                        }
+                    }
+                }
+                
                 return $this->redirect(['view', 'id' => $model->skim_kebajikan_id]);
             }
         } 
@@ -127,15 +181,61 @@ class SkimKebajikanController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
+        $oldKelulusan = null;
+        
+        if($model->load(Yii::$app->request->post())){
+            $oldKelulusan = $model->getOldAttribute('kelulusan');
+        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Yii::$app->request->post() && $model->save()) {
             $file = UploadedFile::getInstance($model, 'muat_naik');
             if($file){
                 $model->muat_naik = Upload::uploadFile($file, Upload::skimKebajikanFolder, $model->skim_kebajikan_id);
             }
             
             if($model->save()){
+                if($model->emel_penerima && $model->emel_penerima != "" && $model->kelulusan ){
+                    if($model->kelulusan != $oldKelulusan){
+                        try {
+                            if($model->kelulusan == 1){ // Approved
+                                Yii::$app->mailer->compose()
+                                        ->setTo($model->emel_penerima)
+                                                                    ->setFrom('noreply@spsb.com')
+                                        ->setSubject('Permohonan Skim Kebajikan Tuan/Puan Telah Diproses')
+                                        ->setTextBody('Salam Sejahtera,
+
+                                Sukacita, permohonan Tuan/Puan telah LULUS.
+
+                                "KE ARAH KECEMERLANGAN SUKAN"
+                                Majlis Sukan Negara Malaysia.
+                                ')->send();
+                            } else { // Not Approved
+                                Yii::$app->mailer->compose()
+                                        ->setTo($model->emel_penerima)
+                                                                    ->setFrom('noreply@spsb.com')
+                                        ->setSubject('Permohonan Skim Kebajikan Tuan/Puan Telah Diproses')
+                                        ->setTextBody('Salam Sejahtera,
+
+                                Permohonan Tuan/Puan TIDAK LULUS.
+
+                                "KE ARAH KECEMERLANGAN SUKAN"
+                                Majlis Sukan Negara Malaysia.
+                                ')->send();
+                            }
+                        }
+                        catch(\Swift_SwiftException $exception)
+                        {
+                            //return 'Can sent mail due to the following exception'.print_r($exception);
+                            Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                        }
+                    }
+                }
+                
                 return $this->redirect(['view', 'id' => $model->skim_kebajikan_id]);
             }
         } 
@@ -206,6 +306,10 @@ class SkimKebajikanController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new MsnLaporanSkimKebajikan();
         $model->format = 'html';
 
@@ -235,6 +339,10 @@ class SkimKebajikanController extends Controller
     
     public function actionGenerateLaporanSkimKebajikan($tarikh_dari, $tarikh_hingga, $format)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
         

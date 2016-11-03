@@ -50,7 +50,7 @@ use app\models\general\GeneralVariable;
 ?>
 
 <div class="atlet-form">
-    <h1>Peribadi Test</h1>
+    <h1>Peribadi</h1>
     
     <?php
         $session = new Session;
