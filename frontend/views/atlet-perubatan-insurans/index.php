@@ -114,5 +114,108 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
     
     <?php Pjax::end(); ?>
+<br>
+        <br>
+        
+    <!--<p>
+        <?= Html::button('<span class="glyphicon glyphicon-refresh"></span>', ['value'=>Url::to(['index']),'class' => 'btn btn-info', 'onclick' => 'updateRenderAjax("'.Url::to(['index']).'", "'.GeneralVariable::tabPembangunanKaunselingID.'");']) ?>
+    </p>-->
+    
+    <!-- Kaunseling Rekod - START -->
+    <div class="panel panel-default copyright-wrap" id="pengurusan_insurans_rekods-list">
+        <div class="panel-heading"><a data-toggle="collapse" href="#pengurusan_insurans_rekods-body">Rekod Pengurusan Insurans</a>
+            <button type="button" class="close" data-target="#pengurusan_insurans_rekods-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        </div>
+        <div id="pengurusan_insurans_rekods-body" class="panel-collapse collapse">
+            <div class="panel-body">
+                <?= GridView::widget([
+        'dataProvider' => $dataProviderPI,
+        //'filterModel' => $searchModelPI,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
 
+            //'pengurusan_insuran_id',
+            //'atlet_id',
+            [
+                'attribute' => 'atlet_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet_id,
+                ],
+                'value' => 'atlet.name_penuh'
+            ],
+            [
+                'attribute' => 'nama_insuran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_insuran,
+                ]
+            ],
+            [
+                'attribute' => 'jumlah_tuntutan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_tuntutan,
+                ]
+            ],
+            [
+                'attribute' => 'tarikh_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_permohonan,
+                ]
+            ],
+            [
+                'attribute' => 'status_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan,
+                ],
+                'value'=>'refStatusPermohonanInsuran.desc'
+            ],
+            /*[
+                'attribute' => 'tarikh_tuntutan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tuntutan,
+                ]
+            ],*/
+            // 'pegawai_yang_bertanggungjawab',
+
+            //['class' => 'yii\grid\ActionColumn'],
+//            ['class' => 'yii\grid\ActionColumn',
+//                'buttons' => [
+//                    'delete' => function ($url, $model) {
+//                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+//                        'title' => Yii::t('yii', 'Delete'),
+//                        'data-confirm' => GeneralMessage::confirmDelete,
+//                        'data-method' => 'post',
+//                        ]);
+//
+//                    },
+//                ],
+//                'template' => $template,
+//            ],
+        ],
+    ]); ?>
+            </div>
+        </div>
+    </div>
+    <!-- Kaunseling Rekod - END -->
+    
 </div>
+
+<?php
+$script = <<< JS
+        
+$(function(){
+$('.custom_button').click(function(){
+        window.open($(this).attr('value'), "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no");
+        return false;
+});});
+     
+
+JS;
+        
+$this->registerJs($script);
+?>

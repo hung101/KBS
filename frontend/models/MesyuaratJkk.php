@@ -3,7 +3,8 @@
 namespace app\models;
 
 use Yii;
-
+use yii\web\UploadedFile;
+use app\models\general\Upload;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
@@ -69,7 +70,9 @@ class MesyuaratJkk extends \yii\db\ActiveRecord
             [['bil_mesyuarat'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['pengurusi', 'pencatat_minit', 'perkara_perkara_dan_tindakan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['mesyuarat_tamat', 'mesyuarat_seterusnya', 'disedia_oleh', 'disemak_oleh'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['minit_mesyuarat'], 'string', 'max' => 200, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['mesyuarat_tamat', 'mesyuarat_seterusnya', 'disedia_oleh', 'disemak_oleh'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['minit_mesyuarat'],'validateFileUpload', 'skipOnEmpty' => false],          
         ];
     }
 
@@ -95,7 +98,19 @@ class MesyuaratJkk extends \yii\db\ActiveRecord
             'disedia_oleh' => GeneralLabel::disedia_oleh,
             'disemak_oleh' => GeneralLabel::disemak_oleh,
             'jenis_mesyuarat' => GeneralLabel::jenis_mesyuarat,
+            'minit_mesyuarat' => GeneralLabel::minit_mesyuarat,
         ];
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
     }
     
     /**

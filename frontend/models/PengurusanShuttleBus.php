@@ -69,7 +69,7 @@ class PengurusanShuttleBus extends \yii\db\ActiveRecord
             'atlet_id' => 'Tempat / Destinasi',
             'tarikh_mula' => GeneralLabel::tarikh_mula,
             'tarikh_akhir' => GeneralLabel::tarikh_akhir,
-            'pilihan_shuttle' => 'Nama Driver & No H/P',
+            'pilihan_shuttle' => 'Nama Driver',
             'catatan' => GeneralLabel::catatan,
 
         ];

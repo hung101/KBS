@@ -20,6 +20,7 @@ use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefJawatanWartawan;
+use app\models\RefAgensiMedia;
 
 
 /**
@@ -73,7 +74,10 @@ class ProfilWartawanSukanController extends Controller
         
         $ref = RefJawatanWartawan::findOne(['id' => $model->jawatan]);
         $model->jawatan = $ref['desc'];
-        
+
+        $ref2 = RefAgensiMedia::findOne(['id' => $model->agensi]);
+        $model->agensi = $ref2['desc'];
+
         $YesNo = GeneralLabel::getYesNoLabel($model->aktif);
         $model->aktif = $YesNo;
         

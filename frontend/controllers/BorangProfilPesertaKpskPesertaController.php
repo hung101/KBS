@@ -10,6 +10,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefNegeri;
@@ -92,6 +94,9 @@ class BorangProfilPesertaKpskPesertaController extends Controller
         
         $ref = RefAgama::findOne(['id' => $model->agama]);
         $model->agama = $ref['desc'];
+        
+        $YesNo = GeneralLabel::getYesNoLabel($model->kehadiran);
+        $model->kehadiran = $YesNo;
         
         return $this->renderAjax('view', [
             'model' => $model,

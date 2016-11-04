@@ -52,7 +52,7 @@ class PengurusanSajianMakan extends \yii\db\ActiveRecord
         return [
             [['atlet_id', 'tarikh_mula', 'tarikh_akhir', 'bilangan_tempahan_makan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             //[['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['tarikh_mula', 'tarikh_akhir'], 'safe'],
+            [['tarikh_mula', 'tarikh_akhir','atlet'], 'safe'],
             [['atlet_id'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['bilangan_tempahan_makan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan', 'lampiran_senarai_nama'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
@@ -70,6 +70,7 @@ class PengurusanSajianMakan extends \yii\db\ActiveRecord
             'tarikh_mula' => GeneralLabel::tarikh_mula,
             'tarikh_akhir' => GeneralLabel::tarikh_akhir,
             'bilangan_tempahan_makan' => GeneralLabel::bilangan_tempahan_makan,
+            'atlet' => GeneralLabel::atlet,
             'catatan' => GeneralLabel::catatan,
             'lampiran_senarai_nama' => "Lampiran Senarai Nama",
         ];

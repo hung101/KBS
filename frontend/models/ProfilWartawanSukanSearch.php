@@ -58,12 +58,12 @@ class ProfilWartawanSukanSearch extends ProfilWartawanSukan
 
         $query->andFilterWhere([
             'profil_wartawan_sukan_id' => $this->profil_wartawan_sukan_id,
-            //'aktif' => $this->aktif,
+            'agensi' => $this->agensi,
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama])
             ->andFilterWhere(['like', 'emel', $this->emel])
-            ->andFilterWhere(['like', 'agensi', $this->agensi])
+            //->andFilterWhere(['like', 'agensi', $this->agensi])
             ->andFilterWhere(['like', 'no_tel', $this->no_tel])
             ->andFilterWhere(['like', 'tbl_ref_kelulusan.desc', $this->aktif]);
 

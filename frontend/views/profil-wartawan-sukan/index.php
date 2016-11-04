@@ -59,13 +59,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::emel,
                 ]
             ],
-            [
-                'attribute' => 'agensi',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::agensi,
-                ]
-            ],
+//            [
+//                'attribute' => 'agensi',
+//                'filterInputOptions' => [
+//                    'class'       => 'form-control',
+//                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::agensi,
+//                ]
+//            ],
             [
                 'attribute' => 'no_tel',
                 'filterInputOptions' => [

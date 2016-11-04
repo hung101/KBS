@@ -81,7 +81,7 @@ use app\models\general\GeneralMessage;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                /*'pilihan_shuttle' => [
+                'pilihan_shuttle' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -93,9 +93,9 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefShuttle::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::shuttle],],
-                    'columnOptions'=>['colspan'=>4]],*/
-                'pilihan_shuttle' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>120]],
+                        'options' => ['placeholder' => Placeholder::driver],],
+                    'columnOptions'=>['colspan'=>4]],
+                //'pilihan_shuttle' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>120]],
             ],
         ],
         [

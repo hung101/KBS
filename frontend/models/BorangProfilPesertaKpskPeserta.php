@@ -93,6 +93,7 @@ class BorangProfilPesertaKpskPeserta extends \yii\db\ActiveRecord
             [['no_telefon', 'no_telefon_bimbit'], 'string', 'max' => 14],
             [['emel', 'facebook', 'session_id'], 'string', 'max' => 100],
             [['catatan'], 'string', 'max' => 255],
+            [['kehadiran'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
         ];
     }
 
@@ -135,6 +136,7 @@ class BorangProfilPesertaKpskPeserta extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
+            'kehadiran' => 'Kehadiran',
         ];
     }
     
@@ -142,4 +144,10 @@ class BorangProfilPesertaKpskPeserta extends \yii\db\ActiveRecord
     {
         return $this->hasOne(RefKeputusanKpsk::className(), ['id' => 'keputusan']);
     }
+    
+    public function getRefKehadiran()
+    {
+        return $this->hasOne(RefKelulusan::className(), ['id' => 'kehadiran'])->from(['rk1' => RefKelulusan::tableName()]);
+    }
+    
 }

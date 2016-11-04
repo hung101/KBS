@@ -19,7 +19,7 @@ class RefShuttleSearch extends RefShuttle
     {
         return [
             [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
-            [['desc', 'created', 'updated'], 'safe'],
+            [['desc', 'phoneno', 'created', 'updated'], 'safe'],
         ];
     }
 
@@ -64,8 +64,9 @@ class RefShuttleSearch extends RefShuttle
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc]);
-
+        $query->andFilterWhere(['like', 'desc', $this->desc])
+                ->andFilterWhere(['like', 'phoneno', $this->phoneno]);
+        
         return $dataProvider;
     }
 }

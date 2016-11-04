@@ -36,6 +36,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::desc,
                 ]
             ],
+            [
+                'attribute' => 'phoneno',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_tel,
+                ]
+            ],
             //'aktif',
             [
                 'attribute' => 'aktif',

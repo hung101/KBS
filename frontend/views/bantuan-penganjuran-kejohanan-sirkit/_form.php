@@ -245,6 +245,30 @@ use app\models\general\GeneralVariable;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
+                'sukan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::sukan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],                
+                
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                 'negeri_penyertaan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -262,12 +286,6 @@ use app\models\general\GeneralVariable;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
-            ],
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
                 'tarikh_mula' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -287,13 +305,15 @@ use app\models\general\GeneralVariable;
                             'autoclose'=>true,
                         ]
                     ],
-                    'columnOptions'=>['colspan'=>3]],
-                'tempat' => ['type'=>Form::INPUT_TEXT, 'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                    'columnOptions'=>['colspan'=>3]],                
             ]
         ],
         [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'tujuan' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>true]],
+                'tempat' => ['type'=>Form::INPUT_TEXT, 'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>false]],
+                'tujuan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>false]],
             ]
         ],
         [

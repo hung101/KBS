@@ -9,6 +9,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use kartik\widgets\DepDrop;
 use kartik\datecontrol\DateControl;
+use kartik\widgets\Select2;
 
 // table reference
 use app\models\Atlet;
@@ -101,6 +102,30 @@ use app\models\general\GeneralMessage;
         ],
     ]
 ]);
+    ?>
+   
+   <?php
+        // selected atlet list
+        $atlet_selected = null;
+        if(isset($model->atlet) && $model->atlet != ''){
+            $atlet_selected=explode(',',$model->atlet);
+        }
+
+         // Senarai Atlet
+        echo '<label class="control-label">'.$model->getAttributeLabel('atlet').'</label>';
+        echo Select2::widget([
+            'model' => $model,
+            'id' => 'pengurusansajianmakan-atlet',
+            'name' => 'PengurusanSajianMakan[atlet]',
+            'value' => $atlet_selected, // initial value
+            'data' => ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+            'options' => ['placeholder' => Placeholder::atlet, 'multiple' => true],
+            'pluginOptions' => [
+                'tags' => true,
+                'maximumInputLength' => 10
+            ],
+            'disabled' => $readonly
+        ]);
     ?>
    
    <?php // Sijil Pendaftaran Upload

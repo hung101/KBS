@@ -89,6 +89,10 @@ class PengurusanSajianMakanController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->bilangan_tempahan_makan = implode(",",$model->bilangan_tempahan_makan);
             
+            if($model->atlet){
+                $model->atlet = implode(",",$model->atlet);
+            }
+            
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->pengurusan_sajian_makan_id]);
             }
@@ -116,6 +120,10 @@ class PengurusanSajianMakanController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->bilangan_tempahan_makan = implode(",",$model->bilangan_tempahan_makan);
+            
+            if($model->atlet){
+                $model->atlet = implode(",",$model->atlet);
+            }
             
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->pengurusan_sajian_makan_id]);

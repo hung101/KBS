@@ -15,6 +15,7 @@ $session = Yii::$app->getSession();
 if($session->get('language') == "BM" || $session->get('language') == null || $session->get('language') == "") {
 
     class Upload{
+        const MesyuaratJkkFolder = "mesyuarat_jkk";
         const adminEBiasiswaFolder = "admin_e_biasiswa";
         const akademiAkkFolder = "akademi_akk";
         const akademiAkkKegiatanPengalamanJurulatihAkkFolder = "kegiatan_pengalaman_jurulatih_akk";
@@ -158,6 +159,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
 if($session->get('language') == "EN") {
 
     class Upload{
+        
+        const MesyuaratJkkFolder = "mesyuarat_jkk";
         const adminEBiasiswaFolder = "admin_e_biasiswa";
         const akademiAkkFolder = "akademi_akk";
         const akademiAkkKegiatanPengalamanJurulatihAkkFolder = "kegiatan_pengalaman_jurulatih_akk";

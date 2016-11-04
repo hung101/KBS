@@ -268,11 +268,24 @@ class MesyuaratJkkController extends Controller
         $SNHsearchModel = new MesyuaratJkkKehadiranSearch();
         $SNHdataProvider = $SNHsearchModel->search($queryPar);
 
+        if($model->load(Yii::$app->request->post())){
+            $file = UploadedFile::getInstance($model, 'minit_mesyuarat');
+
+            if($file){
+                $model->minit_mesyuarat = "uploadlater";
+            }
+        }
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             // set the MesyuaratJkk id base on session id
             if(isset(Yii::$app->session->id)){
                 MesyuaratJkkKehadiran::updateAll(['mesyuarat_id' => $model->mesyuarat_id], 'session_id = "'.Yii::$app->session->id.'"');
                 MesyuaratJkkKehadiran::updateAll(['session_id' => ''], 'mesyuarat_id = "'.$model->mesyuarat_id.'"');
+            }
+            
+            $file = UploadedFile::getInstance($model, 'minit_mesyuarat');
+            if($file){
+                $model->minit_mesyuarat = Upload::uploadFile($file, Upload::MesyuaratJkkFolder, $model->mesyuarat_id);
             }
             
             //upload file to server
@@ -311,12 +324,13 @@ class MesyuaratJkkController extends Controller
         $SNHsearchModel = new MesyuaratJkkKehadiranSearch();
         $SNHdataProvider = $SNHsearchModel->search($queryPar);
 
-        if ($model->load(Yii::$app->request->post())) {
-            /*$file = UploadedFile::getInstance($model, 'muat_naik');
-            if($file){
-                $model->muat_naik = Upload::uploadFile($file, Upload::mesyuaratFolder, $model->mesyuarat_id);
-            }*/
             
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $file = UploadedFile::getInstance($model, 'minit_mesyuarat');
+            if($file){
+                $model->minit_mesyuarat = Upload::uploadFile($file, Upload::MesyuaratJkkFolder, $model->mesyuarat_id);
+                }
+                
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->mesyuarat_id]);
             }
@@ -338,6 +352,8 @@ class MesyuaratJkkController extends Controller
      */
     public function actionDelete($id)
     {
+        self::actionDeleteupload($id, 'minit_mesyuarat');
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

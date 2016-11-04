@@ -56,6 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'mesyuarat_seterusnya',
             'disedia_oleh',
             'disemak_oleh',
+            'minit_mesyuarat',
         ],
     ])*/ ?>
 

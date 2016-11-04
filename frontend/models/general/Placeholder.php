@@ -46,6 +46,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const disiplin = " -- Pilih Disiplin -- ";
         const doktor = " -- Pilih Doktor -- ";
         const dokumenPenyelidikan = " -- Pilih Dokumen Penyelidikan -- ";
+        const driver = " -- Pilih Pemandu -- ";
         const elemen = " -- Pilih Elemen -- ";
         const format = " -- Pilih Format -- ";
         const fasa = " -- Pilih Fasa -- ";
@@ -328,6 +329,7 @@ if($session->get('language') == "EN") {
         const disiplin = " -- Select Discipline -- ";
         const doktor = " -- Select A Doctor -- ";
         const dokumenPenyelidikan = " -- Select A Research Document -- ";
+        const driver = " -- Select A Driver -- ";
         const elemen = " -- Select Element -- ";
         const format = " -- Select The Format -- ";
         const fasa = " -- Select Fasa -- ";

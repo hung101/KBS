@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use app\models\AtletPerubatanInsurans;
 use app\models\AtletPerubatanInsuransSearch;
+use frontend\models\AtletPengurusanInsuransSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,13 +37,15 @@ class AtletPerubatanInsuransController extends Controller
         $request = Yii::$app->request;
         
         $queryPar = Yii::$app->request->queryParams;
+        $queryParPI = Yii::$app->request->queryParams;
         
         // Filter by atlet id
         $session = new Session;
-        $session->open();
+        $session->open(); 
 
         if(isset($session['atlet_id'])){
             $queryPar['AtletPerubatanInsuransSearch']['atlet_id'] = $session['atlet_id'];
+            $queryParPI['AtletPengurusanInsuransSearch']['atlet_id'] = $session['atlet_id'];
         }
         
         $session->close();
@@ -50,9 +53,14 @@ class AtletPerubatanInsuransController extends Controller
         $searchModel = new AtletPerubatanInsuransSearch();
         $dataProvider = $searchModel->search($queryPar);
 
+        $searchModelPI = new AtletPengurusanInsuransSearch();
+        $dataProviderPI = $searchModelPI->search($queryParPI);
+        
         $renderContent = $this->renderAjax('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'searchModelPI' => $searchModelPI,
+            'dataProviderPI' => $dataProviderPI,
         ]);
 
         if($request->get('typeJson') != NULL){

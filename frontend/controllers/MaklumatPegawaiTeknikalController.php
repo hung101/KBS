@@ -20,6 +20,9 @@ use app\models\RefSukan;
 use app\models\RefBandar;
 use app\models\RefNegeri;
 use app\models\RefTahapAkademikPegawaiTeknikal;
+use app\models\RefJawatanPengawaiTeknikal;
+use app\models\RefKategoriPengawaiTeknikal;
+use app\models\RefProgramPengawaiTeknikal;
 
 /**
  * MaklumatPegawaiTeknikalController implements the CRUD actions for MaklumatPegawaiTeknikal model.
@@ -73,6 +76,15 @@ class MaklumatPegawaiTeknikalController extends Controller
         
         $ref = RefSukan::findOne(['id' => $model->sukan]);
         $model->sukan = $ref['desc'];
+
+        $ref = RefJawatanPengawaiTeknikal::findOne(['id' => $model->jawatan_pengawai]);
+        $model->jawatan_pengawai = $ref['desc'];
+
+        $ref = RefKategoriPengawaiTeknikal::findOne(['id' => $model->kategori]);
+        $model->kategori = $ref['desc'];
+
+        $ref = RefProgramPengawaiTeknikal::findOne(['id' => $model->program]);
+        $model->program = $ref['desc'];
         
         $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
         $model->alamat_bandar = $ref['desc'];

@@ -574,6 +574,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jenis_latihan_amali = "Jenis Latihan Amali";
         const jenis_lesen = "Jenis Lesen";
         const jenis_mesyuarat = "Jenis Mesyuarat";
+        const minit_mesyuarat = "Minit Mesyuarat";
         const jenis_organ = "Jenis Organ";
         const jenis_pakaian = "Jenis Pakaian";
         const jenis_pencapaian = "Jenis Pencapaian";

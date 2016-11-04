@@ -52,10 +52,11 @@ class RefShuttle extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['desc'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['desc','phoneno'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['aktif', 'created_by', 'updated_by','phoneno'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
-            [['desc'], 'string', 'max' => 80]
+            [['desc'], 'string', 'max' => 80],
+            [['phoneno'], 'string', 'max' => 14]
         ];
     }
 
@@ -67,6 +68,7 @@ class RefShuttle extends \yii\db\ActiveRecord
         return [
             'id' => GeneralLabel::id,
             'desc' => GeneralLabel::desc,
+            'phoneno' => GeneralLabel::no_tel,
             'aktif' => GeneralLabel::aktif,
             'created_by' => GeneralLabel::created_by,
             'updated_by' => GeneralLabel::updated_by,
