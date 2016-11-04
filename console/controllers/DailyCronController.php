@@ -8,6 +8,8 @@ use app\models\PenilaianPestasi;
 use app\models\UserPeranan;
 use app\models\PerancanganProgram;
 use common\models\User;
+
+use common\models\general\GeneralFunction;
   
 /**
  * Hello controller
@@ -21,7 +23,7 @@ class DailyCronController extends Controller {
         
         if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'peringatan_emel'])->groupBy('id')->all()) !== null) {
         
-            if (($modelPenilaianPestasiReminders = PenilaianPestasi::find()->where('tarikh_nilai_mula >= :today', [':today' => date()])
+            if (($modelPenilaianPestasiReminders = PenilaianPestasi::find()->where('tarikh_nilai_mula >= :today', [':today' => GeneralFunction::getCurrentDate()])
                 ->andWhere('tarikh_nilai_mula <= :today', [':today' => date()])->all()) !== null) {
                 foreach($modelPenilaianPestasiReminders as $modelPenilaianPestasi){
                     foreach($modelUsers as $modelUser){
