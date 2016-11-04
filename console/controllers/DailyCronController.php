@@ -30,7 +30,7 @@ class DailyCronController extends Controller {
 
                         if($modelUser->email && $modelUser->email != ""){
                             $ref = PerancanganProgram::findOne(['perancangan_program_id' => $modelPenilaianPestasi->kejohanan]);
-        
+                            echo "E-mail: " . $modelUser->email . "\n";
                             Yii::$app->mailer->compose()
                             ->setTo($modelUser->email)
                             ->setFrom('noreply@spsb.com')
