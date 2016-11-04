@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PenilaianPestasi */
@@ -19,10 +20,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['update'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['update']) && ($model->tarikh_nilai_tamat <  GeneralFunction::getCurrentDate())): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->penilaian_pestasi_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['delete'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['delete']) && ($model->tarikh_nilai_tamat <  GeneralFunction::getCurrentDate())): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->penilaian_pestasi_id], [
                 'class' => 'btn btn-danger',
                 'data' => [

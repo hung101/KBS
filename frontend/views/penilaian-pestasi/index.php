@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PenilaianPestasiSearch */
@@ -91,6 +92,23 @@ $this->params['breadcrumbs'][] = $this->title;
                         'data-confirm' => GeneralMessage::confirmDelete,
                         'data-method' => 'post',
                         ]);
+
+                    },
+                    /*'update' => function ($url, $model) {
+                         $options = [
+                            'title' => Yii::t('yii', 'Update'),
+                            'aria-label' => Yii::t('yii', 'Update'),
+                            'data-pjax' => '0',
+                            ];
+                        return ($model->tarikh_nilai_tamat <  GeneralFunction::getCurrentDate()) ? '' :Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
+                    },*/
+                    'delete' => function ($url, $model) {
+                        return ($model->tarikh_nilai_tamat <  GeneralFunction::getCurrentDate()) ? '' :
+                                Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                        'title' => Yii::t('yii', 'Delete'),
+                                        'data-confirm' => GeneralMessage::confirmDelete,
+                                        'data-method'=>'post',
+                                        ]);
 
                     },
                 ],

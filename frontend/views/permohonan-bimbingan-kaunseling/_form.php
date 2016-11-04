@@ -75,7 +75,7 @@ use app\models\general\GeneralMessage;
     ?>
     
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>MSN</strong>
@@ -116,7 +116,7 @@ use app\models\general\GeneralMessage;
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>ISN</strong>
@@ -141,7 +141,10 @@ use app\models\general\GeneralMessage;
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>PSK</strong>
@@ -192,7 +195,7 @@ use app\models\general\GeneralMessage;
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>Majlis Sukan Negeri</strong>

@@ -510,9 +510,7 @@ $("#tarikhNilaiMulaId").change(function(){
     //alert(formatSaveDate(endDate));
         
     $("#tarikhNilaiTamatId-disp").val(formatDisplayDate(endDate));
-    $("#tarikhNilaiTamatId").kvDatepicker("$DateDisplayFormat", new Date(endDate)).kvDatepicker({
-        format: "$DateDisplayFormat"
-    });
+    $("#tarikhNilaiTamatId").val(formatSaveDate(endDate));
 });
      
 
