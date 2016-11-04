@@ -1260,7 +1260,8 @@ if(isset($sideMenuItems)){
 
 <?php 
         
-        if (($modelUser = User::findIdentity(Yii::$app->user->identity->id)) !== null) {
+        if (!Yii::$app->user->isGuest && ($modelUser = User::findIdentity(Yii::$app->user->identity->id)) !== null) {
+            // update the user access url to table database
             $modelUser->current_access_module = Yii::$app->request->url;
             $modelUser->save();
         }
