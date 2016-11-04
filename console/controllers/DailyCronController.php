@@ -12,11 +12,11 @@ use common\models\User;
 use common\models\general\GeneralFunction;
   
 /**
- * Hello controller
+ * DailyCron controller
  */
 class DailyCronController extends Controller {
   
-    public function actionReminderPenilaianPestasi() {
+    public function actionReminderPenilaianPrestasi() {
         echo "Hello i'm index\n";
         
         $modelUsers = null;
