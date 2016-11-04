@@ -54,7 +54,7 @@ class PenilaianPestasi extends \yii\db\ActiveRecord
     {
         return [
             [['atlet_id', 'tarikh', 'tahap_sihat', 'pencapaian_sukan_dalam_tahun_yang_dinilai', 'kategori_kecergasan', 'sukan', 'program', 'disiplin', 'acara',
-                'kejohanan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+                'kejohanan', 'tarikh_nilai_mula', 'tarikh_nilai_tamat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['elaun_yang_diterima'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['kejohanan', 'negeri'], 'safe'],
@@ -80,6 +80,8 @@ class PenilaianPestasi extends \yii\db\ActiveRecord
             'elaun_yang_diterima' => GeneralLabel::elaun_yang_diterima,
             'skim_hadiah_kemenangan_sukan' => GeneralLabel::skim_hadiah_kemenangan_sukan,
             'negeri' => GeneralLabel::negeri,
+            'tarikh_nilai_mula' => GeneralLabel::tarikh_mula_penilaian,
+            'tarikh_nilai_tamat' => GeneralLabel::tarikh_tamat_penilaian,
         ];
     }
     

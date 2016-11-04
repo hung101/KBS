@@ -1243,6 +1243,7 @@ if(isset($sideMenuItems)){
     </div>
     <footer class="footer">
         <div class="container-fluid">
+            <?php echo Yii::$app->urlManager->parseUrl(Yii::app()->request); ?>
         <p class="pull-left">Copyright &copy; <?= date('Y') ?> Portal Rasmi Kementerian Belia dan Sukan Malaysia. All Rights Reserved.</p>
         <!--<p class="pull-right"><?= Yii::powered() ?></p>-->
         </div>

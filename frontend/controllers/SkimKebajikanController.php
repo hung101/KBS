@@ -15,6 +15,7 @@ use yii\helpers\BaseUrl;
 
 use app\models\general\Upload;
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
 
 // table reference
@@ -199,7 +200,7 @@ class SkimKebajikanController extends Controller
             }
             
             if($model->save()){
-                if($model->emel_penerima && $model->emel_penerima != "" && $model->kelulusan ){
+                if($model->emel_penerima && $model->emel_penerima != "" && isset($model->kelulusan) ){
                     if($model->kelulusan != $oldKelulusan){
                         try {
                             if($model->kelulusan == 1){ // Approved
@@ -209,11 +210,11 @@ class SkimKebajikanController extends Controller
                                         ->setSubject('Permohonan Skim Kebajikan Tuan/Puan Telah Diproses')
                                         ->setTextBody('Salam Sejahtera,
 
-                                Sukacita, permohonan Tuan/Puan telah LULUS.
+Sukacita, permohonan skim kebajikan Tuan/Puan telah LULUS.
 
-                                "KE ARAH KECEMERLANGAN SUKAN"
-                                Majlis Sukan Negara Malaysia.
-                                ')->send();
+"KE ARAH KECEMERLANGAN SUKAN"
+Majlis Sukan Negara Malaysia.
+')->send();
                             } else { // Not Approved
                                 Yii::$app->mailer->compose()
                                         ->setTo($model->emel_penerima)
@@ -221,17 +222,17 @@ class SkimKebajikanController extends Controller
                                         ->setSubject('Permohonan Skim Kebajikan Tuan/Puan Telah Diproses')
                                         ->setTextBody('Salam Sejahtera,
 
-                                Permohonan Tuan/Puan TIDAK LULUS.
+Permohonan skim kebajikan Tuan/Puan TIDAK LULUS.
 
-                                "KE ARAH KECEMERLANGAN SUKAN"
-                                Majlis Sukan Negara Malaysia.
+"KE ARAH KECEMERLANGAN SUKAN"
+Majlis Sukan Negara Malaysia.
                                 ')->send();
                             }
                         }
                         catch(\Swift_SwiftException $exception)
                         {
                             //return 'Can sent mail due to the following exception'.print_r($exception);
-                            Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                            Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.'.print_r($exception));
                         }
                     }
                 }

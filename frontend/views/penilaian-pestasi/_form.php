@@ -43,7 +43,7 @@ use app\models\general\GeneralMessage;
         }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -209,6 +209,34 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(PerancanganProgram::find()->where('jenis_aktiviti = :id1 OR jenis_aktiviti = :id2', [':id1' => RefJenisAktiviti::KEJOHANAN_DALAM_NEGARA,':id2' => RefJenisAktiviti::KEJOHANAN_LUAR_NEGARA])->all(),'perancangan_program_id', 'nama_program'),
                         'options' => ['placeholder' => Placeholder::kejohanan],],
                     'columnOptions'=>['colspan'=>4]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'tarikh_nilai_mula' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'options' => ['id'=>'tarikhNilaiMulaId',],
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                'tarikh_nilai_tamat' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'options' => ['id'=>'tarikhNilaiTamatId','disabled'=>true],
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
     ]
@@ -440,6 +468,8 @@ use app\models\general\GeneralMessage;
 
 
 <?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
 $script = <<< JS
         
 $(function(){
@@ -447,6 +477,33 @@ $('.custom_button').click(function(){
         window.open($(this).attr('value'), "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no");
         return false;
 });});
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+        
+        
+$("#tarikhNilaiMulaId").change(function(){
+    var startDate = $("#tarikhNilaiMulaId").val();
+    startDate = new Date(startDate);
+    var endDate = "", noOfDaysToAdd = 37, count = 0;
+    while(count < noOfDaysToAdd){
+        endDate = new Date(startDate.setDate(startDate.getDate() + 1));
+        if(endDate.getDay() != 0 && endDate.getDay() != 6){
+           //Date.getDay() gives weekday starting from 0(Sunday) to 6(Saturday)
+           count++;
+        }
+    }
+    //alert(formatSaveDate(endDate));
+        
+    $("#tarikhNilaiTamatId-disp").val(formatDisplayDate(endDate));
+    $("#tarikhNilaiTamatId").kvDatepicker("$DateDisplayFormat", new Date(endDate)).kvDatepicker({
+        format: "$DateDisplayFormat"
+    });
+});
      
 
 JS;

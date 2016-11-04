@@ -1865,6 +1865,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tarikh_mula_memegang_jawatan = "Tarikh Mula Memegang Jawatan";
         const tarikh_mula_menyertai_program_msn = "Tarikh Mula Menyertai Program MSN";
         const tarikh_mula_pengajian = "Tarikh Mula Pengajian";
+        const tarikh_mula_penilaian = "Tarikh Mula Penilaian";
         const tarikh_mula_program = "Tarikh Mula Program";
         const tarikh_pada = "Hingga";
         const tarikh_pelaksanaan = "Tarikh Pelaksanaan";
@@ -1906,6 +1907,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tarikh_tamat_lesen = "Tarikh Tamat Lesen";
         const tarikh_tamat_menyertai_program_msn = "Tarikh Tamat Menyertai Program MSN";
         const tarikh_tamat_pengajian = "Tarikh Tamat Pengajian";
+        const tarikh_tamat_penilaian = "Tarikh Tamat Penilaian";
         const tarikh_tamat_program = "Tarikh Tamat Program";
         const tarikh_temuduga = "";
         const tarikh_temujanji = "Tarikh Temujanji";
@@ -4997,6 +4999,7 @@ if($session->get('language') == "EN") {
         const tarikh_mula_memegang_jawatan = "Start Date In Office";
         const tarikh_mula_menyertai_program_msn = "Date First Joined MSN Program";
         const tarikh_mula_pengajian = "Study Start Date";
+        const tarikh_mula_penilaian = "Start Date Appraisal";
         const tarikh_mula_program = "Start Date Of The Program";
         const tarikh_pada = "To";
         const tarikh_pelaksanaan = "Date Of Implementation";
@@ -5038,6 +5041,7 @@ if($session->get('language') == "EN") {
         const tarikh_tamat_lesen = "Expiry Date Of License";
         const tarikh_tamat_menyertai_program_msn = "Expiry Date Of Joining MSN Program";
         const tarikh_tamat_pengajian = "Date Of Graduation";
+        const tarikh_tamat_penilaian = "Expiry Date Valuation";
         const tarikh_tamat_program = "End Date Of The Program";
         const tarikh_temuduga = "";
         const tarikh_temujanji = "Date Of Appointment";

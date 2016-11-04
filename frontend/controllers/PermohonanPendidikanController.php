@@ -119,6 +119,7 @@ class PermohonanPendidikanController extends Controller
         /*$YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         $model->kelulusan = $YesNo;*/
         
+        $model->kelulusan_id = $model->kelulusan;
         $ref = RefStatusPermohonanPendidikan::findOne(['id' => $model->kelulusan]);
         $model->kelulusan = $ref['desc'];
         
@@ -374,5 +375,41 @@ class PermohonanPendidikanController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanSenaraiPermohonanPendidikan', $format, $controls, 'laporan_senarai_permohonan_pendidikan');
+    }
+    
+    public function actionSuratTawaranPendidikan($permohonan_pendidikan_id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $format = 'pdf';
+            
+            if($format == "html") {
+                $report_url = BaseUrl::to(['generate-surat-tawaran-pendidikan'
+                    , 'pendidikan_id' => $permohonan_pendidikan_id
+                    , 'format' => $format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-surat-tawaran-pendidikan'
+                    , 'pendidikan_id' => $permohonan_pendidikan_id
+                    , 'format' => $format
+                ]);
+            }
+    }
+    
+    public function actionGenerateSuratTawaranPendidikan($pendidikan_id, $format)
+    {
+        $id = $pendidikan_id;
+        
+        if($pendidikan_id == "") $pendidikan_id = array();
+        else $pendidikan_id = array($pendidikan_id);
+        
+        $controls = array(
+            'PENDIDIKAN_ID' => $pendidikan_id,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/SuratTawaranPendidikan', $format, $controls, 'surat_tawaran_pendidikan_' . $id);
     }
 }

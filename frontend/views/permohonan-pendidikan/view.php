@@ -6,6 +6,8 @@ use yii\widgets\DetailView;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
+use app\models\RefStatusPermohonanPendidikan;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanPendidikan */
 
@@ -30,6 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'method' => 'post',
                 ],
             ]) ?>
+        <?php endif; ?>
+        <?php if($model->kelulusan_id == RefStatusPermohonanPendidikan::LULUS): ?>
+        <?= Html::a('Surat Tawaran Pendidikan', ['surat-tawaran-pendidikan', 'permohonan_pendidikan_id' => $model->permohonan_pendidikan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
         <?php endif; ?>
     </p>
     
