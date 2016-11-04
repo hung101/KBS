@@ -36,7 +36,7 @@ use app\models\general\GeneralMessage;
     <?php
         if(!$readonly){
             //$template = '{view} {update} {delete}';
-             $template = '{view}';
+            $template = '{view}';
         } else {
             $template = '{view}';
         }

@@ -8,6 +8,8 @@ use frontend\assets\DashboardAsset;
 use frontend\widgets\Alert;
 use kartik\widgets\SideNav;
 
+use common\models\User;
+
 use app\models\UserPeranan;
 use app\models\general\GeneralLabel;
 
@@ -1243,7 +1245,9 @@ if(isset($sideMenuItems)){
     </div>
     <footer class="footer">
         <div class="container-fluid">
-            <?php echo Yii::$app->urlManager->parseUrl(Yii::app()->request); ?>
+            <?php echo Yii::$app->controller->id . '<br>'; ?>
+            <?php echo Yii::$app->controller->action->id . '<br>'; //current controller action id ?>
+            <?php echo Yii::$app->request->url . '<br>'; //current controller action id ?>
         <p class="pull-left">Copyright &copy; <?= date('Y') ?> Portal Rasmi Kementerian Belia dan Sukan Malaysia. All Rights Reserved.</p>
         <!--<p class="pull-right"><?= Yii::powered() ?></p>-->
         </div>
@@ -1253,3 +1257,11 @@ if(isset($sideMenuItems)){
 </body>
 </html>
 <?php $this->endPage() ?>
+
+<?php 
+        
+        if (($modelUser = User::findIdentity(Yii::$app->user->identity->id)) !== null) {
+            $modelUser->current_access_module = Yii::$app->request->url;
+            $modelUser->save();
+        }
+?>
