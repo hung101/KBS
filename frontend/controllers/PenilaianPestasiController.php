@@ -13,6 +13,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
+use app\models\general\GeneralVariable;
 use app\models\general\Upload;
 
 // table reference
@@ -49,6 +50,10 @@ class PenilaianPestasiController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $searchModel = new PenilaianPestasiSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -65,6 +70,10 @@ class PenilaianPestasiController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
         
         $ref = Atlet::findOne(['atlet_id' => $model->atlet_id]);
@@ -113,6 +122,10 @@ class PenilaianPestasiController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new PenilaianPestasi();
         
         $queryPar = null;
@@ -182,6 +195,10 @@ class PenilaianPestasiController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
         
         $queryPar = null;
@@ -218,6 +235,10 @@ class PenilaianPestasiController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         // delete upload file
         self::actionDeleteupload($id, 'laporan_kesihatan');
         
@@ -245,6 +266,10 @@ class PenilaianPestasiController extends Controller
     // Add function for delete image or file
     public function actionDeleteupload($id, $field)
     {
+        if (Yii::$app->user->isGuest) {
+            $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
             $img = $this->findModel($id)->$field;
             
             if($img){

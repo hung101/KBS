@@ -20,6 +20,7 @@ use app\models\RefProgramSemasaSukanAtlet;
 use app\models\PerancanganProgram;
 use app\models\RefJenisAktiviti;
 use app\models\RefNegeri;
+use common\models\User;
 
 // contant values
 use app\models\general\Placeholder;
@@ -33,8 +34,17 @@ use app\models\general\GeneralMessage;
 ?>
 
 <div class="penilaian-pestasi-form">
-
-    <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
+    <?php
+    $usersActive = 0;
+    if (($modelUsers = User::find()->where('current_access_module = :current_access_module', [':current_access_module' => Yii::$app->request->url])
+            ->andWhere('id <> :id', [':id' => Yii::$app->user->identity->id])->all()) !== null) {
+        $usersActive =  count($modelUsers);
+    }
+    ?>
+    <?php if($usersActive>0): ?>
+    <div align="right"><h3><span class="label label-danger"><?=$usersActive?> &nbsp;<span class="glyphicon glyphicon-eye-open"></span></span></h3></div>
+    <?php endif; ?>
+    <br>
     <?php
         if(!$readonly){
             $template = '{view} {update} {delete}';
@@ -42,7 +52,7 @@ use app\models\general\GeneralMessage;
             $template = '{view}';
         }
     ?>
-
+    <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     <?php
         echo FormGrid::widget([
