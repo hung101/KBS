@@ -122,7 +122,7 @@ Majlis Sukan Negara Malaysia.
                     $dateMinus = new \DateTime($modelJurulatihSukan->tarikh_tamat_lantikan);
                     $dateMinus->modify('-6 month'); // 6 months before kontrak reminder
                     
-                    echo '\noutside DATE: ' . $dateMinus->format('Y-m-d') . ' - ' . $modelJurulatihSukan->tarikh_tamat_lantikan . ' : ' . $modelJurulatihSukan->jurulatih_id;
+                    echo "\n\n outside DATE: " . $dateMinus->format('Y-m-d') . " - " . $modelJurulatihSukan->tarikh_tamat_lantikan . " : " . $modelJurulatihSukan->jurulatih_id;
                     
                     if($modelJurulatihSukan->tarikh_tamat_lantikan >= GeneralFunction::getCurrentDate() && $dateMinus->format('Y-m-d') <= GeneralFunction::getCurrentDate()){
                         
@@ -131,7 +131,7 @@ Majlis Sukan Negara Malaysia.
                             $nilaiYesNo = true;
                         }
                         
-                        echo 'inside DATE: ' . $dateMinus->format('Y-m-d') . ' - ' . $modelJurulatihSukan->tarikh_tamat_lantikan . ' : ' . $modelJurulatihSukan->jurulatih_id . ' Dinilai: ' . $nilaiYesNo;
+                        echo "\n inside DATE: " . $dateMinus->format('Y-m-d') . " - " . $modelJurulatihSukan->tarikh_tamat_lantikan . " : " . $modelJurulatihSukan->jurulatih_id . " Dinilai: " . $nilaiYesNo;
                         
                         if (($modelJurulatih = Jurulatih::findOne($modelJurulatihSukan->jurulatih_id)) !== null && $nilaiYesNo == false) {
                             foreach($modelUsers as $modelUser){
