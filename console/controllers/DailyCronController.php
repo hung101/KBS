@@ -127,7 +127,8 @@ Majlis Sukan Negara Malaysia.
                     if($modelJurulatihSukan->tarikh_tamat_lantikan >= GeneralFunction::getCurrentDate() && $dateMinus->format('Y-m-d') <= GeneralFunction::getCurrentDate()){
                         
                         $nilaiYesNo = false;
-                        if (($modelJurulatih = PengurusanPemantauanDanPenilaianJurulatih::find()->where('YEAR(tarikh_dinilai) = YEAR(:tarikh_tamat_lantikan)', [':tarikh_tamat_lantikan' => $modelJurulatihSukan->tarikh_tamat_lantikan])->one()) !== null) {
+                        if (($modelJurulatih = PengurusanPemantauanDanPenilaianJurulatih::find()->where('YEAR(tarikh_dinilai) = YEAR(:tarikh_tamat_lantikan)', [':tarikh_tamat_lantikan' => $modelJurulatihSukan->tarikh_tamat_lantikan])
+                                ->andWhere('nama_jurulatih_dinilai = :jurulatih_id', [':jurulatih_id' => $modelJurulatihSukan->jurulatih_id])->one()) !== null) {
                             $nilaiYesNo = true;
                         }
                         
