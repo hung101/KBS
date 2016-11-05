@@ -21,7 +21,8 @@ use app\models\RefBidangKepakaranSukarelawan;
 use app\models\RefWaktuKetikaDiperlukanSukarelawan;
 use app\models\RefTarafPerkahwinan;
 use app\models\RefBangsa;
-use app\models\refSukan;
+use app\models\RefSukan;
+
 // contant values
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
