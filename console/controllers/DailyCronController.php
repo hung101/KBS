@@ -62,7 +62,7 @@ Majlis Sukan Negara Malaysia.
         
             if (($modelJurulatihSukans = JurulatihSukan::find()->orderBy(['tarikh_tamat_lantikan' => SORT_DESC])->groupBy('jurulatih_id')->all()) !== null) {
                 foreach($modelJurulatihSukans as $modelJurulatihSukan){
-                    $dateMinus = new DateTime($modelJurulatihSukan->tarikh_tamat_lantikan);
+                    $dateMinus = new \DateTime($modelJurulatihSukan->tarikh_tamat_lantikan);
                     $dateMinus->modify('-30 day'); // 30 days before kontrak reminder
                     
                     if($modelJurulatihSukan->tarikh_tamat_lantikan >= GeneralFunction::getCurrentDate() && $dateMinus->format('Y-m-d') <= GeneralFunction::getCurrentDate()){
