@@ -29,10 +29,6 @@ use app\models\general\GeneralMessage;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanPemantauanDanPenilaianJurulatih */
 /* @var $form yii\widgets\ActiveForm */
-
-$dateMinus = new \DateTime('2017-01-01');
-$dateMinus->modify('-6 month'); // 30 days before kontrak reminder
-echo $dateMinus->format('Y-m-d')
 ?>
 
 <div class="pengurusan-pemantauan-dan-penilaian-jurulatih-form">

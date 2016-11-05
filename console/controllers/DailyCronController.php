@@ -122,11 +122,16 @@ Majlis Sukan Negara Malaysia.
                     $dateMinus = new \DateTime($modelJurulatihSukan->tarikh_tamat_lantikan);
                     $dateMinus->modify('-6 month'); // 6 months before kontrak reminder
                     
+                    echo 'outside DATE: ' . $dateMinus->modify('-6 month') . ' - ' . $modelJurulatihSukan->tarikh_tamat_lantikan . ' : ' . $modelJurulatihSukan->jurulatih_id . ' Dinilai: ' . $nilaiYesNo;
+                    
                     if($modelJurulatihSukan->tarikh_tamat_lantikan >= GeneralFunction::getCurrentDate() && $dateMinus->format('Y-m-d') <= GeneralFunction::getCurrentDate()){
+                        
                         $nilaiYesNo = false;
                         if (($modelJurulatih = PengurusanPemantauanDanPenilaianJurulatih::find()->where('YEAR(tarikh_dinilai) = YEAR(:tarikh_tamat_lantikan)', [':tarikh_tamat_lantikan' => $modelJurulatihSukan->tarikh_tamat_lantikan])->one()) !== null) {
                             $nilaiYesNo = true;
                         }
+                        
+                        echo 'inside DATE: ' . $dateMinus->modify('-6 month') . ' - ' . $modelJurulatihSukan->tarikh_tamat_lantikan . ' : ' . $modelJurulatihSukan->jurulatih_id . ' Dinilai: ' . $nilaiYesNo;
                         
                         if (($modelJurulatih = Jurulatih::findOne($modelJurulatihSukan->jurulatih_id)) !== null && $nilaiYesNo == false) {
                             foreach($modelUsers as $modelUser){
