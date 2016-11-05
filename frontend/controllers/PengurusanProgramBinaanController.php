@@ -22,6 +22,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\BaseUrl;
 use yii\web\Session;
+use yii\helpers\Url;
 
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
@@ -254,6 +255,7 @@ Tempat: ' . $model->tempat . '
 Tarikh Mula: ' . $model->tarikh_mula . '
 Tarikh Tamat: ' . $model->tarikh_tamat . '
 
+Link: ' . BaseUrl::to(['pengurusan-program-binaan/view', 'id' => $model->pengurusan_program_binaan_id], true) . '
 
 "KE ARAH KECEMERLANGAN SUKAN"
 Majlis Sukan Negara Malaysia.

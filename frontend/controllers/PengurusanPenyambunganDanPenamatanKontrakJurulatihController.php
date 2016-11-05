@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PengurusanPenyambunganDanPenamatanKontrakJurulatih;
 use frontend\models\PengurusanPenyambunganDanPenamatanKontrakJurulatihSearch;
+use app\models\JurulatihSukan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -116,6 +117,23 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
                 $model->muat_naik_document = $upload->uploadFile($file, Upload::pelanjutanPenamatanKontrakJurulatihFolder, $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id);
             }
             
+                if($model->status_permohonan == RefStatusPermohonanKontrakJurulatih::LULUS){
+                    // update to Jurulatih profile Sukan if LULUS
+                    $modelJurulatihSukan = null;
+                    if (($modelJurulatihSukan = JurulatihSukan::find()->where(['pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id'=>$model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id])->one()) == null) {
+                        $modelJurulatihSukan = new JurulatihSukan();
+                    }
+
+                    $modelJurulatihSukan->jurulatih_id = $model->jurulatih;
+                    $modelJurulatihSukan->tarikh_mula_lantikan = $model->tarikh_mula_lantikan;
+                    $modelJurulatihSukan->tarikh_tamat_lantikan = $model->tarikh_tamat_lantikan;
+                    $modelJurulatihSukan->gaji_elaun = $model->cadangan_gaji_elaun;
+                    $modelJurulatihSukan->jumlah = $model->cadangan_jumlah_gaji_elaun;
+                    $modelJurulatihSukan->program = $model->program_baru;
+                    $modelJurulatihSukan->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id = $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id;
+                    $modelJurulatihSukan->save();
+                }
+            
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id]);
             }
@@ -146,6 +164,23 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
             $file = UploadedFile::getInstance($model, 'muat_naik_document');
             if($file){
                 $model->muat_naik_document = $upload->uploadFile($file, Upload::pelanjutanPenamatanKontrakJurulatihFolder, $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id);
+            }
+            
+            if($model->status_permohonan == RefStatusPermohonanKontrakJurulatih::LULUS){
+                // update to Jurulatih profile Sukan if LULUS
+                $modelJurulatihSukan = null;
+                if (($modelJurulatihSukan = JurulatihSukan::find()->where(['pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id'=>$model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id])->one()) == null) {
+                    $modelJurulatihSukan = new JurulatihSukan();
+                }
+
+                $modelJurulatihSukan->jurulatih_id = $model->jurulatih;
+                $modelJurulatihSukan->tarikh_mula_lantikan = $model->tarikh_mula;
+                $modelJurulatihSukan->tarikh_tamat_lantikan = $model->tarikh_tamat;
+                $modelJurulatihSukan->gaji_elaun = $model->cadangan_gaji_elaun;
+                $modelJurulatihSukan->jumlah = $model->cadangan_jumlah_gaji_elaun;
+                $modelJurulatihSukan->program = $model->program_baru;
+                $modelJurulatihSukan->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id = $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id;
+                $modelJurulatihSukan->save();
             }
             
             if($model->save()){

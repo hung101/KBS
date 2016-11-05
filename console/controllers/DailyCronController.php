@@ -8,6 +8,8 @@ use yii\console\Controller;
 use app\models\PenilaianPestasi;
 use app\models\UserPeranan;
 use app\models\PerancanganProgram;
+use app\models\JurulatihSukan;
+use app\models\Jurulatih;
 use common\models\User;
 
 use common\models\general\GeneralFunction;
@@ -50,8 +52,42 @@ Majlis Sukan Negara Malaysia.
         }
     }
      
-    public function actionUpdate() {
-        echo "Hello i'm update\n";
+    protected function reminderKontrakJurulatih($id)
+    {
+        //send reminder if kontrak jurulatih left less than or equal 30 days
+        if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'peringatan_emel_kontrak-jurulatih'])->groupBy('id')->all()) !== null) {
+        
+            if (($modelJurulatihSukans = JurulatihSukan::find()->where('DATE_SUB(tarikh_tamat_lantikan, INTERVAL 30 DAY) <= :today', [':today' => GeneralFunction::getCurrentDate()])
+                ->orderBy(['tarikh_tamat_lantikan' => SORT_DESC])->groupBy('jurulatih_id')->one()) !== null) {
+                foreach($modelJurulatihSukans as $modelJurulatihSukan){
+                    if (($modelJurulatih = Jurulatih::findOne($modelJurulatihSukan->jurulatih_id)) !== null) {
+                        foreach($modelUsers as $modelUser){
+
+                            if($modelUser->email && $modelUser->email != ""){
+                                echo "Jurulatih Kontrak E-mail: " . $modelUser->email . "\n";
+                                Yii::$app->mailer->compose()
+                                ->setTo($modelUser->email)
+                                ->setFrom('noreply@spsb.com')
+                                ->setSubject('Peringatan: Jurulatih Yang Akan Tamat Kontrak')
+                                ->setTextBody("Salam Sejahtera,
+
+Jurulatih berikut akan tamat kontrak: 
+
+Nama: " . $modelJurulatih->nama . '
+No. K/P: ' . $modelJurulatih->ic_no . '
+No. Passport: ' . $modelJurulatih->passport_no . '
+Tarikh Tamat Kontrak: ' . GeneralFunction::getDatePrintFormat($modelJurulatihSukan->tarikh_tamat_lantikan) . '
+
+
+"KE ARAH KECEMERLANGAN SUKAN"
+Majlis Sukan Negara Malaysia.
+            ')->send();
+                            }
+                        }
+                    }
+                }
+            }
+            }
     }
      
     public function actionGet($name, $address) {
