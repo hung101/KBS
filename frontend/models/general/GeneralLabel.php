@@ -827,6 +827,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kuota_kursus = "Kuota Kursus";
         const kurang_upaya = "Kurang Upaya";
         const kursus = "Kursus";
+        const kursus_latihan = "Kursus and Latihan";
         const kursus_bidang_pengajian = "Kursus Bidang Pengajian";
         const kursus_id = "Kursus ID";
         const kursus_kem_id = "Kursus / Kem ID";
@@ -3962,6 +3963,7 @@ if($session->get('language') == "EN") {
         const kuota_kursus = "Quota Course";
         const kurang_upaya = "Disabled";
         const kursus = "Course";
+        const kursus_latihan = "Course and Training";
         const kursus_bidang_pengajian = "Course Field Of Study";
         const kursus_id = "Course ID";
         const kursus_kem_id = "Course/Camp ID";

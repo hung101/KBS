@@ -33,6 +33,8 @@ use app\models\RefBidangDiminatiSukarelawan;
 use app\models\RefWaktuKetikaDiperlukanSukarelawan;
 use app\models\RefTarafPerkahwinan;
 use app\models\RefBangsa;
+use app\models\RefBidangKepakaranSukarelawan;
+use app\models\RefSukan;
 
 /**
  * SukarelawanController implements the CRUD actions for Sukarelawan model.
@@ -110,12 +112,18 @@ class SukarelawanController extends Controller
         $ref = RefBidangDiminatiSukarelawan::findOne(['id' => $model->bidang_diminati]);
         $model->bidang_diminati = $ref['desc'];
         
+        $ref = RefBidangKepakaranSukarelawan::findOne(['id' => $model->bidang_kepakaran]);
+        $model->bidang_kepakaran = $ref['desc'];
+
         $ref = RefWaktuKetikaDiperlukanSukarelawan::findOne(['id' => $model->waktu_ketika_diperlukan]);
         $model->waktu_ketika_diperlukan = $ref['desc'];
         
         $ref = RefBangsa::findOne(['id' => $model->bangsa]);
         $model->bangsa = $ref['desc'];
         
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+
         $model->kebatasan_fizikal = GeneralLabel::getYesNoLabel($model->kebatasan_fizikal);
         
         return $this->render('view', [

@@ -36,6 +36,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const bangsa = " -- Pilih Bangsa -- ";
         const beratBadan = " -- Pilih Berat Badan -- ";
         const bidangDiminati = " -- Pilih Bidang Diminati -- ";
+        const bidangKepakaran = " -- Pilih Bidang Kepakaran -- ";
         const bidangKonsultansi = " -- Pilih Bidang Konsultansi -- ";
         const bilangan = " -- Pilih Bilangan -- ";
         const biomekanikUjian = " -- Pilih Biomekanik Ujian -- ";
@@ -319,6 +320,7 @@ if($session->get('language') == "EN") {
         const bangsa = " -- Select Race -- ";
         const beratBadan = " -- Select Body Weight -- ";
         const bidangDiminati = " -- Select Areas Of Interest -- ";
+        const bidangKepakaran = " -- Select Area Of Expertise -- ";
         const bidangKonsultansi = " -- Select Field Of Consultancy -- ";
         const bilangan = " -- Select Number -- ";
         const biomekanikUjian = " -- Select The Biomechanics Test -- ";

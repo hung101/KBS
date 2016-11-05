@@ -17,10 +17,11 @@ use app\models\RefKelulusanAkademikSukarelawan;
 use app\models\RefBandar;
 use app\models\RefNegeri;
 use app\models\RefBidangDiminatiSukarelawan;
+use app\models\RefBidangKepakaranSukarelawan;
 use app\models\RefWaktuKetikaDiperlukanSukarelawan;
 use app\models\RefTarafPerkahwinan;
 use app\models\RefBangsa;
-
+use app\models\refSukan;
 // contant values
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
@@ -399,7 +400,21 @@ use app\models\general\GeneralVariable;
                     'columns'=>12,
                     'autoGenerateColumns'=>false, // override columns setting
                     'attributes' => [
-                        'bidang_kepakaran' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                        //'bidang_kepakaran' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                        'bidang_kepakaran' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-bidang-kepakaran-sukarelawan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefBidangKepakaranSukarelawan::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::bidangKepakaran],],
+                            'columnOptions'=>['colspan'=>4]],
                     ]
                 ],
                 [
@@ -421,6 +436,27 @@ use app\models\general\GeneralVariable;
                                 'options' => ['placeholder' => Placeholder::waktuKetikaDiperlukan],],
                             'columnOptions'=>['colspan'=>3]],
                         'menyatakan_waktu_ketika_diperlukan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'sukan' =>[
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::sukan],],
+                            'columnOptions'=>['colspan'=>3]],
+                        'kursus_latihan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>9],'options'=>['maxlength'=>255]],
                     ]
                 ],
             ]

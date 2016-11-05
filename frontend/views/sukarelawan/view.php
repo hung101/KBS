@@ -73,6 +73,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'waktu_ketika_diperlukan',
             'menyatakan_waktu_ketika_diperlukan',
             'muatnaik',
+            'sukan',
+            'kursus_latihan',
         ],
     ]);*/ ?>
 
