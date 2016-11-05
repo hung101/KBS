@@ -25,10 +25,6 @@ use app\models\general\GeneralMessage;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanPenyambunganDanPenamatanKontrakJurulatih */
 /* @var $form yii\widgets\ActiveForm */
-
-$date = new DateTime('2016-11-05');
-$date->modify('-30 day');
-echo $date->format('Y-m-d')
 ?>
 
 <div class="pengurusan-penyambungan-dan-penamatan-kontrak-jurulatih-form">

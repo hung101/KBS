@@ -50,26 +50,33 @@ Majlis Sukan Negara Malaysia.
                 }
             }
         }
+        
+        // call - send reminder if kontrak jurulatih left less than or equal 30 days function
+        $this->reminderKontrakJurulatih();
     }
      
-    protected function reminderKontrakJurulatih($id)
+    protected function reminderKontrakJurulatih()
     {
         //send reminder if kontrak jurulatih left less than or equal 30 days
         if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'peringatan_emel_kontrak-jurulatih'])->groupBy('id')->all()) !== null) {
         
-            if (($modelJurulatihSukans = JurulatihSukan::find()->where('DATE_SUB(tarikh_tamat_lantikan, INTERVAL 30 DAY) <= :today', [':today' => GeneralFunction::getCurrentDate()])
-                ->orderBy(['tarikh_tamat_lantikan' => SORT_DESC])->groupBy('jurulatih_id')->one()) !== null) {
+            if (($modelJurulatihSukans = JurulatihSukan::find()->orderBy(['tarikh_tamat_lantikan' => SORT_DESC])->groupBy('jurulatih_id')->all()) !== null) {
                 foreach($modelJurulatihSukans as $modelJurulatihSukan){
-                    if (($modelJurulatih = Jurulatih::findOne($modelJurulatihSukan->jurulatih_id)) !== null) {
-                        foreach($modelUsers as $modelUser){
+                    $dateMinus = new DateTime($modelJurulatihSukan->tarikh_tamat_lantikan);
+                    $dateMinus->modify('-30 day'); // 30 days before kontrak reminder
+                    
+                    if($modelJurulatihSukan->tarikh_tamat_lantikan >= GeneralFunction::getCurrentDate() && $dateMinus->format('Y-m-d') <= GeneralFunction::getCurrentDate()){
+                    
+                        if (($modelJurulatih = Jurulatih::findOne($modelJurulatihSukan->jurulatih_id)) !== null) {
+                            foreach($modelUsers as $modelUser){
 
-                            if($modelUser->email && $modelUser->email != ""){
-                                echo "Jurulatih Kontrak E-mail: " . $modelUser->email . "\n";
-                                Yii::$app->mailer->compose()
-                                ->setTo($modelUser->email)
-                                ->setFrom('noreply@spsb.com')
-                                ->setSubject('Peringatan: Jurulatih Yang Akan Tamat Kontrak')
-                                ->setTextBody("Salam Sejahtera,
+                                if($modelUser->email && $modelUser->email != ""){
+                                    echo "Jurulatih Kontrak E-mail: " . $modelUser->email . "\n";
+                                    Yii::$app->mailer->compose()
+                                    ->setTo($modelUser->email)
+                                    ->setFrom('noreply@spsb.com')
+                                    ->setSubject('Peringatan: Jurulatih Yang Akan Tamat Kontrak')
+                                    ->setTextBody("Salam Sejahtera,
 
 Jurulatih berikut akan tamat kontrak: 
 
@@ -81,7 +88,8 @@ Tarikh Tamat Kontrak: ' . GeneralFunction::getDatePrintFormat($modelJurulatihSuk
 
 "KE ARAH KECEMERLANGAN SUKAN"
 Majlis Sukan Negara Malaysia.
-            ')->send();
+                ')->send();
+                                }
                             }
                         }
                     }
