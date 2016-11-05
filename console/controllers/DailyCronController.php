@@ -19,7 +19,16 @@ use common\models\general\GeneralFunction;
  */
 class DailyCronController extends Controller {
   
-    public function actionReminderPenilaianPrestasi() { 
+    public function actionDaily() { 
+        // call - send reminder to inform penilaian prestasi need to do via email
+        $this->reminderPenilaianPrestasi();
+        
+        // call - send reminder if kontrak jurulatih left less than or equal 30 days function via email
+        $this->reminderKontrakJurulatih();
+    }
+    
+    protected function reminderPenilaianPrestasi()
+    {
         $modelUsers = null;
         
         if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'peringatan_emel_penilaian-pestasi'])->groupBy('id')->all()) !== null) {
@@ -50,9 +59,6 @@ Majlis Sukan Negara Malaysia.
                 }
             }
         }
-        
-        // call - send reminder if kontrak jurulatih left less than or equal 30 days function
-        $this->reminderKontrakJurulatih();
     }
      
     protected function reminderKontrakJurulatih()
