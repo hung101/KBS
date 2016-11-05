@@ -122,7 +122,7 @@ Majlis Sukan Negara Malaysia.
                     $dateMinus = new \DateTime($modelJurulatihSukan->tarikh_tamat_lantikan);
                     $dateMinus->modify('-6 month'); // 6 months before kontrak reminder
                     
-                    echo '\noutside DATE: ' . $dateMinus->format('Y-m-d') . ' - ' . $modelJurulatihSukan->tarikh_tamat_lantikan . ' : ' . $modelJurulatihSukan->jurulatih_id . ' Dinilai: ' . $nilaiYesNo;
+                    echo '\noutside DATE: ' . $dateMinus->format('Y-m-d') . ' - ' . $modelJurulatihSukan->tarikh_tamat_lantikan . ' : ' . $modelJurulatihSukan->jurulatih_id;
                     
                     if($modelJurulatihSukan->tarikh_tamat_lantikan >= GeneralFunction::getCurrentDate() && $dateMinus->format('Y-m-d') <= GeneralFunction::getCurrentDate()){
                         
