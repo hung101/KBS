@@ -24,7 +24,7 @@ class DailyCronController extends Controller {
         
         if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'peringatan_emel_penilaian-pestasi'])->groupBy('id')->all()) !== null) {
         
-            if (($modelPenilaianPestasiReminders = PenilaianPestasi::find()->where('tarikh_nilai_mula >= :today', [':today' => GeneralFunction::getCurrentDate()])
+            if (($modelPenilaianPestasiReminders = PenilaianPestasi::find()->where('tarikh_nilai_tamat >= :today', [':today' => GeneralFunction::getCurrentDate()])
                 ->andWhere('tarikh_nilai_mula <= :today', [':today' => GeneralFunction::getCurrentDate()])->all()) !== null) {
                 foreach($modelPenilaianPestasiReminders as $modelPenilaianPestasi){
                     foreach($modelUsers as $modelUser){
