@@ -39,6 +39,8 @@ use app\models\RefJenisAktiviti;
 use app\models\RefStatusPermohonanProgramBinaan;
 use app\models\RefJenisKursuskem;
 
+use common\models\User;
+
 /**
  * PengurusanProgramBinaanController implements the CRUD actions for PengurusanProgramBinaan model.
  */
@@ -231,6 +233,34 @@ class PengurusanProgramBinaanController extends Controller
                 $modelAtletKursusKem->pengurusan_program_binaan_id = $model->pengurusan_program_binaan_id;
                 $modelAtletKursusKem->save();
             }*/
+            
+            
+            if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_pengurusan-program-binaan'])->groupBy('id')->all()) !== null) {
+        
+                foreach($modelUsers as $modelUser){
+
+                    if($modelUser->email && $modelUser->email != ""){
+                        //echo "E-mail: " . $modelUser->email . "\n";
+                        Yii::$app->mailer->compose()
+                        ->setTo($modelUser->email)
+                        ->setFrom('noreply@spsb.com')
+                        ->setSubject('Pemberitahuan: Permohonan Program Binaan Baru')
+                        ->setTextBody("Salam Sejahtera,
+
+Berikut adalah permohonan program binaan baru telah dihantar : 
+
+Nama Aktiviti: " . $model->nama_aktiviti . '
+Tempat: ' . $model->tempat . '
+Tarikh Mula: ' . $model->tarikh_mula . '
+Tarikh Tamat: ' . $model->tarikh_tamat . '
+
+
+"KE ARAH KECEMERLANGAN SUKAN"
+Majlis Sukan Negara Malaysia.
+    ')->send();
+                    }
+                }
+            }
             
             return $this->redirect(['view', 'id' => $model->pengurusan_program_binaan_id]);
         } else {

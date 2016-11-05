@@ -94,14 +94,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
 
                     },
-                    /*'update' => function ($url, $model) {
+                    'update' => function ($url, $model) {
                          $options = [
                             'title' => Yii::t('yii', 'Update'),
                             'aria-label' => Yii::t('yii', 'Update'),
                             'data-pjax' => '0',
                             ];
                         return ($model->tarikh_nilai_tamat <  GeneralFunction::getCurrentDate()) ? '' :Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
-                    },*/
+                    },
                     'delete' => function ($url, $model) {
                         return ($model->tarikh_nilai_tamat <  GeneralFunction::getCurrentDate()) ? '' :
                                 Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
