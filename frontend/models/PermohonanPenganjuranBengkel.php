@@ -3,15 +3,13 @@
 namespace app\models;
 
 use Yii;
-use yii\web\UploadedFile;
-use app\models\general\Upload;
 use app\models\general\GeneralMessage;
-use app\models\general\GeneralLabel;
 use common\models\general\GeneralFunction;
+
 /**
- * This is the model class for table "tbl_bantuan_penyertaan_pegawai_teknikal".
+ * This is the model class for table "tbl_permohonan_penganjuran_bengkel".
  *
- * @property integer $bantuan_penyertaan_pegawai_teknikal_id
+ * @property integer $permohonan_penganjuran_bengkel_id
  * @property string $badan_sukan
  * @property string $sukan
  * @property string $no_pendaftaran
@@ -28,16 +26,17 @@ use common\models\general\GeneralFunction;
  * @property string $twitter
  * @property string $nama_bank
  * @property string $no_akaun
- * @property string $nama_kejohanan
- * @property string $peringkat
- * @property string $peringkat_lain_lain
+ * @property string $nama_kursus_seminar_bengkel
  * @property string $tarikh
  * @property string $tempat
  * @property string $tujuan
+ * @property integer $bil_penceramah
+ * @property integer $bil_peserta
+ * @property integer $bil_urusetia
+ * @property string $anggaran_perbelanjaan
+ * @property string $kertas_kerja
  * @property string $surat_rasmi_badan_sukan_ms_negeri
- * @property string $surat_jemputan_lantikan_daripada_pengelola
  * @property string $butiran_perbelanjaan
- * @property string $salinan_passport
  * @property string $maklumat_lain_sokongan
  * @property string $jumlah_bantuan_yang_dipohon
  * @property string $status_permohonan
@@ -46,12 +45,13 @@ use common\models\general\GeneralFunction;
  * @property string $jumlah_dilulus
  * @property string $jkb
  * @property string $tarikh_jkb
+ * @property string $tarikh_tamat
  * @property integer $created_by
  * @property integer $updated_by
  * @property string $created
  * @property string $updated
  */
-class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
+class PermohonanPenganjuranBengkel extends \yii\db\ActiveRecord
 {
     public $status_permohonan_id;
     
@@ -60,7 +60,7 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'tbl_bantuan_penyertaan_pegawai_teknikal';
+        return 'tbl_permohonan_penganjuran_bengkel';
     }
 
     /**
@@ -69,26 +69,22 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['badan_sukan', 'sukan', 'no_pendaftaran', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 
-                'no_telefon', 'nama_bank', 'no_akaun', 'nama_kejohanan', 'peringkat', 'tarikh', 'tempat', 'tujuan', 
-                'jumlah_bantuan_yang_dipohon', 'tarikh_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh', 'tarikh_permohonan', 'tarikh_jkb', 'created', 'updated'], 'safe'],
-            [['jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['created_by', 'updated_by', 'no_telefon', 'status_permohonan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['badan_sukan', 'nama_bank', 'peringkat_lain_lain', 'tujuan', 'jkb', 'negara'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun', 'peringkat', 'status_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['badan_sukan', 'sukan', 'no_pendaftaran', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_telefon', 
+                'no_faks', 'nama_bank', 'no_akaun', 'nama_kursus_seminar_bengkel', 'tarikh', 'tarikh_tamat', 'tempat', 'tujuan', 
+                'bil_penceramah', 'bil_peserta', 'bil_urusetia', 'anggaran_perbelanjaan', 'jumlah_bantuan_yang_dipohon', 'status_permohonan', 
+                'tarikh_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh', 'tarikh_permohonan', 'created', 'updated', 'tarikh_jkb', 'tarikh_tamat'], 'safe'],
+            [['bil_penceramah', 'bil_peserta', 'bil_urusetia', 'created_by', 'updated_by', 'status_permohonan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['anggaran_perbelanjaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['badan_sukan', 'nama_bank', 'tujuan', 'jkb'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun', 'status_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_negeri'], 'string', 'max' => 3, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod'], 'string', 'min' => 5, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['no_telefon', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['laman_sesawang', 'facebook', 'twitter'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tujuan', 'nama_kejohanan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['surat_rasmi_badan_sukan_ms_negeri', 'surat_jemputan_lantikan_daripada_pengelola', 'butiran_perbelanjaan', 
-                'salinan_passport', 'maklumat_lain_sokongan', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
-            [['surat_rasmi_badan_sukan_ms_negeri', 'surat_jemputan_lantikan_daripada_pengelola', 'butiran_perbelanjaan', 
-                'salinan_passport', 'maklumat_lain_sokongan'],'validateFileUpload', 'skipOnEmpty' => false],
             ['tarikh','validateBeforePenganjuran', 'on' => 'create'],
         ];
     }
@@ -99,10 +95,10 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'bantuan_penyertaan_pegawai_teknikal_id' => 'Bantuan Penyertaan Pegawai Teknikal ID',
+            'permohonan_penganjuran_bengkel_id' => 'Permohonan Penganjuran Bengkel ID',
             'badan_sukan' => 'Badan Sukan',
             'sukan' => 'Sukan',
-            'no_pendaftaran' => 'No Pendaftaran',
+            'no_pendaftaran' => 'No. Pendaftaran',
             'alamat_1' => 'Alamat',
             'alamat_2' => '',
             'alamat_3' => '',
@@ -115,23 +111,24 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
             'facebook' => 'Facebook',
             'twitter' => 'Twitter',
             'nama_bank' => 'Nama Bank',
-            'no_akaun' => 'No. Akaun',
-            'nama_kejohanan' => 'Nama Kejohanan',
-            'peringkat' => 'Peringkat',
-            'peringkat_lain_lain' => 'Nyatakan (Jika Lain-lain)',
+            'no_akaun' => 'No Akaun',
+            'nama_kursus_seminar_bengkel' => 'Nama Bengkel',
             'tarikh' => 'Tarikh Mula',
             'tempat' => 'Tempat',
             'tujuan' => 'Tujuan',
-            'surat_rasmi_badan_sukan_ms_negeri' => 'Surat Rasmi Badan Sukan',
-            'surat_jemputan_lantikan_daripada_pengelola' => 'Surat Jemputan / Lantikan Daripada Pengelola',
+            'bil_penceramah' => 'Bil. Penceramah',
+            'bil_peserta' => 'Bil. Peserta',
+            'bil_urusetia' => 'Bil. Urusetia',
+            'anggaran_perbelanjaan' => 'Anggaran Perbelanjaan (RM)',
+            'kertas_kerja' => 'Kertas Kerja',
+            'surat_rasmi_badan_sukan_ms_negeri' => 'Surat Rasmi / Badan Sukan / MS Negeri',
             'butiran_perbelanjaan' => 'Butiran Perbelanjaan',
-            'salinan_passport' => 'Salinan Passport',
             'maklumat_lain_sokongan' => 'Maklumat Lain (Sokongan)',
-            'jumlah_bantuan_yang_dipohon' => 'Jumlah Bantuan Yang Dipohon (RM)',
+            'jumlah_bantuan_yang_dipohon' => 'Jumlah (RM)',
             'status_permohonan' => 'Status Permohonan',
             'catatan' => 'Catatan',
             'tarikh_permohonan' => 'Tarikh Permohonan',
-            'jumlah_dilulus' => 'Jumlah Dilulus (RM)',
+            'jumlah_dilulus' => 'Jumlah Diluluskan (RM)',
             'jkb' => 'Bil. JKB',
             'tarikh_jkb' => 'Tarikh JKB',
             'created_by' => 'Created By',
@@ -139,27 +136,15 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
             'tarikh_tamat' => 'Tarikh Tamat',
-            'negara' => 'Negara',
         ];
-    }
-    
-    /**
-     * Validate upload file cannot be empty
-     */
-    public function validateFileUpload($attribute, $params){
-        $file = UploadedFile::getInstance($this, $attribute);
-        
-        if($file && $file->getHasError()){
-            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
-        }
     }
     
     public function validateBeforePenganjuran(){
         $dateMinus = new \DateTime($this->tarikh);
-        $dateMinus->modify('-3 month'); // 3 months before tarikh kejohanan berlangsung
+        $dateMinus->modify('-1 month'); // 1 months before tarikh penganjuran berlangsung
 
         if($dateMinus->format('Y-m-d') <= GeneralFunction::getCurrentDate()){
-            $this->addError('tarikh','Permohonan tidak boleh lewat 3 bulan dari tarikh kejohanan berlangsung');
+            $this->addError('tarikh','Permohonan tidak boleh lewat 1 bulan dari tarikh sesi pembengkelan');
         }
     }
     
@@ -173,8 +158,8 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRefStatusBantuanPenyertaanPegawaiTeknikal(){
-        return $this->hasOne(RefStatusBantuanPenyertaanPegawaiTeknikal::className(), ['id' => 'status_permohonan']);
+    public function getRefStatusBantuanPenganjuranKursus(){
+        return $this->hasOne(RefStatusBantuanPenganjuranKursus::className(), ['id' => 'status_permohonan']);
     }
     
     /**

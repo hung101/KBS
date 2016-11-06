@@ -143,6 +143,7 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
         
         $model = new BantuanPenyertaanPegawaiTeknikal();
         
+        $model->scenario = 'create';
         $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
         $model->status_permohonan = RefStatusBantuanPenyertaanPegawaiTeknikal::SEDANG_DIPROSES;
         

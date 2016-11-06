@@ -369,6 +369,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                             'items' => [
                                                 ['label' => GeneralLabel::profil_pegawai_teknikal, 'url' => ['/maklumat-pegawai-teknikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['maklumat-pegawai-teknikal']['module'])],
                                                 ['label' => GeneralLabel::manual_silibus_kurikulum_teknikal_kepegawaian, 'url' => ['/manual-silibus-kurikulum-teknikal-kepegawaian/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['manual-silibus-kurikulum-teknikal-kepegawaian']['module'])],
+                                                ['label' => GeneralLabel::permohonan_penganjuran_bengkel, 'url' => ['/permohonan-penganjuran-bengkel/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-penganjuran-bengkel']['module'])],
                                                 [
                                                     'label' => GeneralLabel::geran_bantuan,
                                                     'items' => [

@@ -135,6 +135,16 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
             //$model->bilangan_pembantu = $modelBantuanPenganjuranKursusPegawaiTeknikal->bilangan_pembantu;
         }
         
+        $dateAdd = new \DateTime($model->tarikh_tamat);
+        $dateAdd->modify('+1 month'); // 1 months after kejohanan
+        
+        $allowSubmit = true;
+        
+        if($dateAdd->format('Y-m-d') < GeneralFunction::getCurrentDate()){
+            Yii::$app->session->setFlash('error', 'Tidak boleh menghantar laporan kerana sudah lepas tempoh 1 bulan selepas kejohanan');
+            $allowSubmit = false;
+        }
+        
         $queryPar = null;
         
         Yii::$app->session->open();
@@ -146,7 +156,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
         $searchModelBantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan  = new BantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutanSearch();
         $dataProviderBantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan = $searchModelBantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan->search($queryPar);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save() && $allowSubmit) {
             
             $file = UploadedFile::getInstance($model, 'laporan_bergambar');
             $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id . "-laporan_bergambar";
@@ -278,6 +288,16 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
         $model = $this->findModel($id);
         $existingPenyataPerbelanjaan = $model->penyata_perbelanjaan_resit_yang_telah_disahkan;
         
+        $dateAdd = new \DateTime($model->tarikh_tamat);
+        $dateAdd->modify('+1 month'); // 1 months after kejohanan
+        
+        $allowSubmit = true;
+        
+        if($dateAdd->format('Y-m-d') < GeneralFunction::getCurrentDate()){
+            Yii::$app->session->setFlash('error', 'Tidak boleh menghantar/kemaskini laporan kerana sudah lepas tempoh 1 bulan selepas kejohanan');
+            $allowSubmit = false;
+        }
+        
         if($model->load(Yii::$app->request->post())){
             $file = UploadedFile::getInstance($model, 'penyata_perbelanjaan_resit_yang_telah_disahkan');
 
@@ -342,7 +362,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
         $searchModelBantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan  = new BantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutanSearch();
         $dataProviderBantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan = $searchModelBantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan->search($queryPar);
 
-        if (Yii::$app->request->post() && $model->save()) {
+        if (Yii::$app->request->post() && $model->save() && $allowSubmit) {
             return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id]);
         } else {
             return $this->render('update', [

@@ -2273,6 +2273,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const permohonan_liputan_perubatan_sukan = "Permohonan Liputan Perubatan Sukan";
         const permohonan_membaiki_peralatan = "Permohonan Membaiki Peralatan";
         const permohonan_pendidikan = "Permohonan Pendidikan";
+        const permohonan_penganjuran_bengkel = "Permohonan Penganjuran Bengkel";
         const permohonan_penganjuran_sirkit_remaja_karnival = "Maklumat Penyertaan (Sirkit Remaja / Karnival)";
         const permohonan_penganjuran_programkursusbengkel = "Permohonan Penganjuran Program/Kursus/Bengkel";
         const permohonan_penyiasatan_makmal_dan_pengimejan_pengimejan_pengurusan_pangkalan_data_atlet_imej = "Permohonan Penyiasatan (Makmal dan Pengimejan), Pengimejan Pengurusan Pangkalan Data Atlet (Imej)";
@@ -5408,6 +5409,7 @@ if($session->get('language') == "EN") {
         const permohonan_liputan_perubatan_sukan = "Sports Medicine Coverage Application";
         const permohonan_membaiki_peralatan = "Application Of Repair Equipment";
         const permohonan_pendidikan = "Education Application";
+        const permohonan_penganjuran_bengkel = "Application Organizing Workshop";
         const permohonan_penganjuran_sirkit_remaja_karnival = "Applicant Organization (Junior Circuit / Carnival)";
         const permohonan_penganjuran_programkursusbengkel = "Application Programme/Course/Workshop";
         const permohonan_penyiasatan_makmal_dan_pengimejan_pengimejan_pengurusan_pangkalan_data_atlet_imej = "Application Survey (Laboratory and Imaging), Imaging database management Athlete (image)";

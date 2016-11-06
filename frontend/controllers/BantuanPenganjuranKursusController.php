@@ -143,6 +143,7 @@ class BantuanPenganjuranKursusController extends Controller
         
         $model = new BantuanPenganjuranKursus();
         
+        $model->scenario = 'create';
         $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
         $model->status_permohonan = RefStatusBantuanPenganjuranKursus::SEDANG_DIPROSES;
         

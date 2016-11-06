@@ -7,6 +7,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_bantuan_penganjuran_kursus_pegawai_teknikal".
@@ -81,6 +82,7 @@ class BantuanPenganjuranKursusPegawaiTeknikal extends \yii\db\ActiveRecord
             [['tempat', 'nama_kursus_seminar_bengkel', 'tujuan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['surat_rasmi_badan_sukan', 'surat_jemputan_daripada_pengelola', 'butiran_perbelanjaan', 'salinan_passport', 'maklumat_lain_sokongan', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['surat_rasmi_badan_sukan', 'surat_jemputan_daripada_pengelola', 'butiran_perbelanjaan', 'salinan_passport', 'maklumat_lain_sokongan'],'validateFileUpload', 'skipOnEmpty' => false],
+            ['tarikh','validateBeforePenganjuran', 'on' => 'create'],
         ];
     }
 
@@ -140,6 +142,15 @@ class BantuanPenganjuranKursusPegawaiTeknikal extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+    }
+    
+    public function validateBeforePenganjuran(){
+        $dateMinus = new \DateTime($this->tarikh);
+        $dateMinus->modify('-3 month'); // 3 months before tarikh kejohanan berlangsung
+
+        if($dateMinus->format('Y-m-d') <= GeneralFunction::getCurrentDate()){
+            $this->addError('tarikh','Permohonan tidak boleh lewat 3 bulan dari tarikh kejohanan berlangsung');
         }
     }
     

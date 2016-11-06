@@ -139,6 +139,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
         
         $model = new BantuanPenganjuranKursusPegawaiTeknikal();
         
+        $model->scenario = 'create';
         $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
         $model->status_permohonan = RefStatusBantuanPenganjuranKursusPegawaiTeknikal::SEDANG_DIPROSES;
         
