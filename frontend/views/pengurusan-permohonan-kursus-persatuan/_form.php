@@ -372,6 +372,36 @@ use app\models\general\GeneralMessage;
     
     
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-permohonan-kursus-persatuan']['kelulusan']) || $readonly): ?>
+    <hr>
+    
+    <?php if(!$model->isNewRecord && !$readonly):?>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong><?=GeneralLabel::memo?></strong>
+        </div>
+        <div class="panel-body">
+            <?php
+            echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'memo' =>['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>255]],
+            ]
+        ],
+    ]
+]);
+    ?>
+            <p>
+                <?= Html::a(GeneralLabel::send . ' ' . GeneralLabel::emel, '', ['class' => 'btn btn-warning', 'id' => 'btnSendEmail']) ?>
+            </p>
+        </div>
+    </div>
+    <?php endif;?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -476,6 +506,8 @@ use app\models\general\GeneralMessage;
 
 <?php
 
+$URLKursusPersatuan = Url::to(['/pengurusan-permohonan-kursus-persatuan/send-memo']);
+
 $script = <<< JS
 
 $('#pengurusanpermohonankursuspersatuan-bilangan_peserta').on("keyup", function(){calculateJumlahYuran();});
@@ -505,6 +537,22 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 
     $("form#{$model->formName()} input").prop("disabled", false);
 });
+  
+$("#btnSendEmail").click(function(){
+    var Msg = $('#pengurusanpermohonankursuspersatuan-memo').val();
+    var Id = '$model->pengurusan_permohonan_kursus_persatuan_id';
+    $.get('$URLKursusPersatuan',{pengurusan_permohonan_kursus_persatuan_id:Id,message:Msg},function(data){
+        clearForm();
+        
+        alert(data);
+    });
+    
+    return false;
+});
+            
+function clearForm(){
+    $('#pengurusanpermohonankursuspersatuan-memo').val('');
+}
         
 JS;
         

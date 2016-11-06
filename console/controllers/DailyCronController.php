@@ -47,7 +47,7 @@ class DailyCronController extends Controller {
 
                         if($modelUser->email && $modelUser->email != ""){
                             $ref = PerancanganProgram::findOne(['perancangan_program_id' => $modelPenilaianPestasi->kejohanan]);
-                            echo "Penilaian Prestasi E-mail: " . $modelUser->email . "\n";
+                            //echo "Penilaian Prestasi E-mail: " . $modelUser->email . "\n";
                             Yii::$app->mailer->compose()
                             ->setTo($modelUser->email)
                             ->setFrom('noreply@spsb.com')
@@ -84,7 +84,7 @@ Majlis Sukan Negara Malaysia.
                             foreach($modelUsers as $modelUser){
 
                                 if($modelUser->email && $modelUser->email != ""){
-                                    echo "Jurulatih Kontrak E-mail: " . $modelUser->email . "\n";
+                                    //echo "Jurulatih Kontrak E-mail: " . $modelUser->email . "\n";
                                     Yii::$app->mailer->compose()
                                     ->setTo($modelUser->email)
                                     ->setFrom('noreply@spsb.com')
@@ -122,7 +122,7 @@ Majlis Sukan Negara Malaysia.
                     $dateMinus = new \DateTime($modelJurulatihSukan->tarikh_tamat_lantikan);
                     $dateMinus->modify('-6 month'); // 6 months before kontrak reminder
                     
-                    echo "\n\n outside DATE: " . $dateMinus->format('Y-m-d') . " - " . $modelJurulatihSukan->tarikh_tamat_lantikan . " : " . $modelJurulatihSukan->jurulatih_id;
+                    //echo "\n\n outside DATE: " . $dateMinus->format('Y-m-d') . " - " . $modelJurulatihSukan->tarikh_tamat_lantikan . " : " . $modelJurulatihSukan->jurulatih_id;
                     
                     if($modelJurulatihSukan->tarikh_tamat_lantikan >= GeneralFunction::getCurrentDate() && $dateMinus->format('Y-m-d') <= GeneralFunction::getCurrentDate()){
                         
@@ -132,13 +132,13 @@ Majlis Sukan Negara Malaysia.
                             $nilaiYesNo = true;
                         }
                         
-                        echo "\n inside DATE: " . $dateMinus->format('Y-m-d') . " - " . $modelJurulatihSukan->tarikh_tamat_lantikan . " : " . $modelJurulatihSukan->jurulatih_id . " Dinilai: " . $nilaiYesNo;
+                        //echo "\n inside DATE: " . $dateMinus->format('Y-m-d') . " - " . $modelJurulatihSukan->tarikh_tamat_lantikan . " : " . $modelJurulatihSukan->jurulatih_id . " Dinilai: " . $nilaiYesNo;
                         
                         if (($modelJurulatih = Jurulatih::findOne($modelJurulatihSukan->jurulatih_id)) !== null && $nilaiYesNo == false) {
                             foreach($modelUsers as $modelUser){
 
                                 if($modelUser->email && $modelUser->email != ""){
-                                    echo "Jurulatih Penilaian E-mail: " . $modelUser->email . "\n";
+                                    //echo "Jurulatih Penilaian E-mail: " . $modelUser->email . "\n";
                                     Yii::$app->mailer->compose()
                                     ->setTo($modelUser->email)
                                     ->setFrom('noreply@spsb.com')
@@ -164,14 +164,5 @@ Majlis Sukan Negara Malaysia.
                 }
             }
             }
-    }
-     
-    public function actionGet($name, $address) {
-        echo "I'm " . $name . " and live in " . $address . "\n";
-    }
-     
-    public function actionArithmetic($a, $b){
-        $c = ($a+$b);
-        echo "a + b = " . $c . "\n";
     }
 }

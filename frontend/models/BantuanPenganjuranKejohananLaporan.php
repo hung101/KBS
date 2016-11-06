@@ -50,7 +50,7 @@ class BantuanPenganjuranKejohananLaporan extends \yii\db\ActiveRecord
     {
         return [
             [['bantuan_penganjuran_kejohanan_id', 'bilangan_pasukan', 'bilangan_peserta', 'bilangan_pegawai_teknikal', 'bilangan_pembantu', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['tarikh', 'tempat', 'tujuan_penganjuran', 'bilangan_pasukan', 'bilangan_peserta', 'bilangan_pegawai_teknikal', 'bilangan_pembantu'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh', 'tarikh_tamat', 'tempat', 'tujuan_penganjuran', 'bilangan_pasukan', 'bilangan_peserta', 'bilangan_pegawai_teknikal', 'bilangan_pembantu'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh', 'created', 'updated'], 'safe'],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tujuan_penganjuran'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -70,7 +70,8 @@ class BantuanPenganjuranKejohananLaporan extends \yii\db\ActiveRecord
         return [
             'bantuan_penganjuran_kejohanan_laporan_id' => 'Bantuan Penganjuran Kejohanan Laporan ID',
             'bantuan_penganjuran_kejohanan_id' => 'Bantuan Penganjuran Kejohanan ID',
-            'tarikh' => 'Tarikh',
+            'tarikh' => 'Tarikh Mula',
+            'tarikh_tamat' => 'Tarikh Tamat',
             'tempat' => 'Tempat',
             'tujuan_penganjuran' => 'Nama Kejohanan',
             'bilangan_pasukan' => 'Bilangan Pasukan',

@@ -1007,6 +1007,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const mengumpul_dan_membukukan = "Mengumpul dan membukukan nota semasa bengkel";
         const menyatakan_jika_ada_kebatasan_fizikal = "Nyatakan Jika Ada Keterbatasan Fizikal";
         const menyatakan_waktu_ketika_diperlukan = "Sila Nyatakan, Jika Lain-lain";
+        const memo = "Memo";
         const mesyuarat_agm_id = "Mesyuarat Agm ID";
         const mesyuarat_id = "Mesyuarat ID";
         const mesyuarat_seterusnya = "Mesyuarat Seterusnya";
@@ -1754,6 +1755,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const supplements = "Tambahan";
         const surat_akuan_persetujuan_atlet = "Surat Akuan Persetujuan Atlet";
         const surat_sokongan = "Surat Sokongan/Sanksi Dari Badan Antarabangsa";
+        const surat_keputusan = "Surat Keputusan";
         const surat_lantikan_sue = "Surat Lantikan SUE";
         const surat_persetujuan_sue = "Surat Persetujuan SUE";
         const surat_tawaran_atlet = "Surat Tawaran Atlet";
@@ -4148,6 +4150,7 @@ if($session->get('language') == "EN") {
         const mengumpul_dan_membukukan = "Collecting and membukukan notes during workshop";
         const menyatakan_jika_ada_kebatasan_fizikal = "Indicate If Any Physical Kebatasan";
         const menyatakan_waktu_ketika_diperlukan = "Please State (If Lain-lain)";
+        const memo = "Memo";
         const mesyuarat_agm_id = "The Agm Meeting ID";
         const mesyuarat_id = "The Meeting ID";
         const mesyuarat_seterusnya = "Next Meeting";
@@ -4894,6 +4897,7 @@ if($session->get('language') == "EN") {
         const supplements = "Supplement";
         const surat_akuan_persetujuan_atlet = "Certificate Of Approval Athlete";
         const surat_sokongan = "A Letter Of Support/Sanctions From International Body";
+        const surat_keputusan = "Result Letter";
         const surat_lantikan_sue = "Appointment Letter SUE";
         const surat_persetujuan_sue = "Letter Of Agreement SUE";
         const surat_tawaran_atlet = "Letter Of Offer Athlete";

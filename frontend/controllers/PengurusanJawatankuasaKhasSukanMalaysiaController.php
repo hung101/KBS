@@ -204,6 +204,46 @@ class PengurusanJawatankuasaKhasSukanMalaysiaController extends Controller
         echo Json::encode($model);
     }
     
+    public function actionSendMemo($message, $pengurusan_jawatankuasa_khas_sukan_malaysia_id){
+        if (($model = PengurusanJawatankuasaKhasSukanMalaysia::findOne($pengurusan_jawatankuasa_khas_sukan_malaysia_id)) !== null) {
+        
+            if(($modelPengurusanJawatankuasaKhasSukanMalaysiaAhlis = PengurusanJawatankuasaKhasSukanMalaysiaAhli::find()
+                    ->where('pengurusan_jawatankuasa_khas_sukan_malaysia_id >= :pengurusan_jawatankuasa_khas_sukan_malaysia_id', [':pengurusan_jawatankuasa_khas_sukan_malaysia_id' => $pengurusan_jawatankuasa_khas_sukan_malaysia_id])
+                    ->all()) !== null) {
+                foreach($modelPengurusanJawatankuasaKhasSukanMalaysiaAhlis as $modelPengurusanJawatankuasaKhasSukanMalaysiaAhli){
+                    if($modelPengurusanJawatankuasaKhasSukanMalaysiaAhli->emel && $modelPengurusanJawatankuasaKhasSukanMalaysiaAhli->emel != ""){
+                        try {
+                            Yii::$app->mailer->compose()
+                                    ->setTo($modelPengurusanJawatankuasaKhasSukanMalaysiaAhli->emel)
+                                    ->setFrom('noreply@spsb.com')
+                                    ->setSubject('Memo: Jawatankuasa Khas Sukan Malaysia')
+                                    ->setTextBody('Salam Sejahtera,
+
+
+Memo:
+
+' . $message . '
+
+
+"KE ARAH KECEMERLANGAN SUKAN"
+Majlis Sukan Negara Malaysia.
+                            ')->send();
+                        }
+                        catch(\Swift_SwiftException $exception)
+                        {
+                            echo "Terdapat ralat menghantar e-mel.";
+                        }
+                    } 
+                }
+
+            }
+
+            echo "Memo telah dihantar melalui e-mel.";
+        } else {
+            //echo "Tiada rekod di dalam sistem";
+        }
+    }
+    
     public function actionLaporanProfilAhliJawatankuasaKhasSukanMalaysia()
     {
         if (Yii::$app->user->isGuest) {

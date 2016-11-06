@@ -85,6 +85,7 @@ class PengurusanPermohonanKursusPersatuanController extends Controller
         $ref = RefTahapKpsk::findOne(['id' => $model->tahap]);
         $model->tahap = $ref['desc'];
         
+        $model->kelulusan_id = $model->kelulusan;
         $ref = RefStatusPermohonanJkk::findOne(['id' => $model->kelulusan]);
         $model->kelulusan = $ref['desc'];
         
@@ -217,5 +218,107 @@ class PengurusanPermohonanKursusPersatuanController extends Controller
         $model = PengurusanPermohonanKursusPersatuan::findOne($id);
         
         echo Json::encode($model);
+    }
+    
+    public function actionSendMemo($message, $pengurusan_permohonan_kursus_persatuan_id){
+        if (($model = PengurusanPermohonanKursusPersatuan::findOne($pengurusan_permohonan_kursus_persatuan_id)) !== null) {
+        
+            if(($modelPengurusanPermohonanKursusPersatuanPenasihats = PengurusanPermohonanKursusPersatuanPenasihat::find()
+                    ->joinWith(['refProfilPanelPenasihatKpsk'])
+                    ->where('pengurusan_permohonan_kursus_persatuan_id >= :pengurusan_permohonan_kursus_persatuan_id', [':pengurusan_permohonan_kursus_persatuan_id' => $pengurusan_permohonan_kursus_persatuan_id])
+                    ->all()) !== null) {
+                foreach($modelPengurusanPermohonanKursusPersatuanPenasihats as $modelPengurusanPermohonanKursusPersatuanPenasihat){
+                    if(isset($modelPengurusanPermohonanKursusPersatuanPenasihat['refProfilPanelPenasihatKpsk']['emel']) && $modelPengurusanPermohonanKursusPersatuanPenasihat['refProfilPanelPenasihatKpsk']['emel'] != ""){
+                        try {
+                            Yii::$app->mailer->compose()
+                                    ->setTo($modelPengurusanPermohonanKursusPersatuanPenasihat['refProfilPanelPenasihatKpsk']['emel'])
+                                    ->setFrom('noreply@spsb.com')
+                                    ->setSubject('Memo: Permohonan Penganjuran')
+                                    ->setTextBody('Salam Sejahtera,
+
+
+Memo:
+
+' . $message . '
+
+
+"KE ARAH KECEMERLANGAN SUKAN"
+Majlis Sukan Negara Malaysia.
+                            ')->send();
+                        }
+                        catch(\Swift_SwiftException $exception)
+                        {
+                            echo "Terdapat ralat menghantar e-mel.";
+                        }
+                    } 
+                }
+
+            }
+            
+            if($model->emel && $model->emel != ""){
+                //echo $model->emel . " , id=" . $model->pengurusan_permohonan_kursus_persatuan_id;
+                try {
+                    Yii::$app->mailer->compose()
+                            ->setTo($model->emel)
+                            ->setFrom('noreply@spsb.com')
+                            ->setSubject('Memo: Permohonan Penganjuran')
+                            ->setTextBody('Salam Sejahtera,
+
+
+Memo:
+
+' . $message . '
+
+
+"KE ARAH KECEMERLANGAN SUKAN"
+Majlis Sukan Negara Malaysia.
+                    ')->send();
+                }
+                catch(\Swift_SwiftException $exception)
+                {
+                    echo "Terdapat ralat menghantar e-mel.";
+                }
+            }
+
+            echo "Memo telah dihantar melalui e-mel.";
+        } else {
+            //echo "Tiada rekod di dalam sistem";
+        }
+    }
+    
+    public function actionSuratTawaran($pengurusan_permohonan_kursus_persatuan_id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $format = 'pdf';
+            
+            if($format == "html") {
+                $report_url = BaseUrl::to(['generate-surat-tawaran'
+                    , 'pengurusan_permohonan_kursus_persatuan_id' => $pengurusan_permohonan_kursus_persatuan_id
+                    , 'format' => $format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-surat-tawaran'
+                    , 'pengurusan_permohonan_kursus_persatuan_id' => $pengurusan_permohonan_kursus_persatuan_id
+                    , 'format' => $format
+                ]);
+            }
+    }
+    
+    public function actionGenerateSuratTawaran($pengurusan_permohonan_kursus_persatuan_id, $format)
+    {
+        $id = $pengurusan_permohonan_kursus_persatuan_id;
+        
+        if($pengurusan_permohonan_kursus_persatuan_id == "") $pengurusan_permohonan_kursus_persatuan_id = array();
+        else $pengurusan_permohonan_kursus_persatuan_id = array($pengurusan_permohonan_kursus_persatuan_id);
+        
+        $controls = array(
+            'KURSUS_PERSATUAN_ID' => $pengurusan_permohonan_kursus_persatuan_id,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/SuratTawaranKPSK', $format, $controls, 'surat_tawaran_' . $id);
     }
 }

@@ -128,7 +128,7 @@ use app\models\RefJawatankuasaKhas;
                         'options' => ['placeholder' => Placeholder::jawatankuasa],],
                     'columnOptions'=>['colspan'=>4]],
                 'agensi_organisasi_nyatakan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
-                
+                'emel' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100]],
             ],
         ],
     ]

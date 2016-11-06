@@ -193,4 +193,40 @@ class BorangProfilPesertaKpskPesertaController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    public function actionSuratKeputusan($borang_profil_peserta_kpsk_peserta_id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $format = 'pdf';
+            
+            if($format == "html") {
+                $report_url = BaseUrl::to(['generate-surat-keputusan'
+                    , 'borang_profil_peserta_kpsk_peserta_id' => $borang_profil_peserta_kpsk_peserta_id
+                    , 'format' => $format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-surat-keputusan'
+                    , 'borang_profil_peserta_kpsk_peserta_id' => $borang_profil_peserta_kpsk_peserta_id
+                    , 'format' => $format
+                ]);
+            }
+    }
+    
+    public function actionGenerateSuratKeputusan($borang_profil_peserta_kpsk_peserta_id, $format)
+    {
+        $id = $borang_profil_peserta_kpsk_peserta_id;
+        
+        if($borang_profil_peserta_kpsk_peserta_id == "") $borang_profil_peserta_kpsk_peserta_id = array();
+        else $borang_profil_peserta_kpsk_peserta_id = array($borang_profil_peserta_kpsk_peserta_id);
+        
+        $controls = array(
+            'PESERTA_ID' => $borang_profil_peserta_kpsk_peserta_id,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/SuratKeputusanPesertaKPSK', $format, $controls, 'surat_keputusan_' . $id);
+    }
 }

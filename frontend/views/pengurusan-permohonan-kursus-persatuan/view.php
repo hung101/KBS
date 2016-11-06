@@ -7,6 +7,8 @@ use yii\widgets\DetailView;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
+use app\models\RefStatusPermohonanJkk;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanPermohonanKursusPersatuan */
 
@@ -31,6 +33,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'method' => 'post',
                 ],
             ]) ?>
+        <?php endif; ?>
+                <?php if($model->kelulusan_id == RefStatusPermohonanJkk::LULUS): ?>
+        <?= Html::a('Surat Tawaran', ['surat-tawaran', 'pengurusan_permohonan_kursus_persatuan_id' => $model->pengurusan_permohonan_kursus_persatuan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
         <?php endif; ?>
     </p>
     

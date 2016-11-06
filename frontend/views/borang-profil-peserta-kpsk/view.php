@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
+        <?= Html::a('Hantar Keputusan Melalui Emel', ['hantar-keputusan-emel', 'borang_profil_peserta_kpsk_id' => $model->borang_profil_peserta_kpsk_id], ['class' => 'btn btn-warning']) ?>
     </p>
     
     <?= $this->render('_form', [

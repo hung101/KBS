@@ -104,6 +104,18 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
             $model->bilangan_peserta = $modelBantuanPenganjuranKejohanan->bil_peserta;
             $model->bilangan_pegawai_teknikal = $modelBantuanPenganjuranKejohanan->bil_pegawai_teknikal;
             $model->bilangan_pembantu = $modelBantuanPenganjuranKejohanan->bilangan_pembantu;
+            $model->tarikh = $modelBantuanPenganjuranKejohanan->tarikh_mula;
+            $model->tarikh_tamat = $modelBantuanPenganjuranKejohanan->tarikh_tamat;
+        }
+        
+        $dateAdd = new \DateTime($model->tarikh_tamat);
+        $dateAdd->modify('+1 month'); // 1 months after kejohanan
+        
+        $allowSubmit = true;
+        
+        if($dateAdd->format('Y-m-d') < GeneralFunction::getCurrentDate()){
+            Yii::$app->session->setFlash('error', 'Tidak boleh menghantar laporan kerana sudah lepas tempoh 1 bulan selepas kejohanan');
+            $allowSubmit = false;
         }
         
         $queryPar = null;
@@ -117,7 +129,7 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
         $searchModelBantuanPenganjuranKejohananLaporanTuntutan  = new BantuanPenganjuranKejohananLaporanTuntutanSearch();
         $dataProviderBantuanPenganjuranKejohananLaporanTuntutan = $searchModelBantuanPenganjuranKejohananLaporanTuntutan->search($queryPar);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save() && $allowSubmit) {
             $file = UploadedFile::getInstance($model, 'laporan_bergambar');
             $filename = $model->bantuan_penganjuran_kejohanan_laporan_id . "-laporan_bergambar";
             if($file){
@@ -218,6 +230,16 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
         $model = $this->findModel($id);
         $existingPenyataPerbelanjaan = $model->penyata_perbelanjaan_resit_yang_telah_disahkan;
         
+        $dateAdd = new \DateTime($model->tarikh_tamat);
+        $dateAdd->modify('+1 month'); // 1 months after kejohanan
+        
+        $allowSubmit = true;
+        
+        if($dateAdd->format('Y-m-d') < GeneralFunction::getCurrentDate()){
+            Yii::$app->session->setFlash('error', 'Tidak boleh menghantar laporan kerana sudah lepas tempoh 1 bulan selepas kejohanan');
+            $allowSubmit = false;
+        }
+        
         if($model->load(Yii::$app->request->post())){
             $file = UploadedFile::getInstance($model, 'penyata_perbelanjaan_resit_yang_telah_disahkan');
 
@@ -288,7 +310,7 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
         $searchModelBantuanPenganjuranKejohananLaporanTuntutan  = new BantuanPenganjuranKejohananLaporanTuntutanSearch();
         $dataProviderBantuanPenganjuranKejohananLaporanTuntutan = $searchModelBantuanPenganjuranKejohananLaporanTuntutan->search($queryPar);
 
-        if (Yii::$app->request->post() && $model->save()) {
+        if (Yii::$app->request->post() && $model->save() && $allowSubmit) {
             return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id]);
         } else {
             return $this->render('update', [

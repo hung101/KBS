@@ -40,6 +40,8 @@ use app\models\general\GeneralMessage;
         } else {
             $template = '{view}';
         }
+        
+        $template .= ' {surat}';
     ?>
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
@@ -161,7 +163,17 @@ use app\models\general\GeneralMessage;
                         'title' => Yii::t('yii', 'View'),
                         'onclick' => 'loadModalRenderAjax("'.Url::to(['borang-profil-peserta-kpsk-peserta/view', 'id' => $model->borang_profil_peserta_kpsk_peserta_id]).'", "'.GeneralLabel::viewTitle . ' Peserta Kursus");',
                         ]);
-                    }
+                    },
+                    'surat' => function ($url, $model) {
+                        return  Html::a('<span class="glyphicon glyphicon-file"></span>', 
+                        ['borang-profil-peserta-kpsk-peserta/surat-keputusan', 'borang_profil_peserta_kpsk_peserta_id' =>$model->borang_profil_peserta_kpsk_peserta_id], 
+                        [
+                            'title' => GeneralLabel::surat_keputusan,
+                            'target' => '_blank',
+                            'class' => 'custom_button',
+                            'value'=>Url::to(['/borang-profil-peserta-kpsk-peserta/surat-keputusan', 'borang_profil_peserta_kpsk_peserta_id' =>$model->borang_profil_peserta_kpsk_peserta_id])
+                        ]);
+                    },
                 ],
                 'template' => $template,
             ],
@@ -214,3 +226,28 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$script = <<< JS
+        
+$(function(){
+$('.custom_button').click(function(){
+        window.open($(this).attr('value'), "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no");
+        return false;
+});});
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+     
+
+JS;
+        
+$this->registerJs($script);
+?>
+

@@ -117,6 +117,8 @@ class BantuanPentadbiranPejabatController extends Controller
         
         $model->status_permohonan = RefStatusPermohonanBantuanPentadbiranPejabat::DALAM_PROSES;
         
+        $oldStatusPermohonan = null;
+        
         $queryPar = null;
         
         Yii::$app->session->open();
@@ -127,11 +129,40 @@ class BantuanPentadbiranPejabatController extends Controller
         
         $searchModelInformasiPermohonan  = new InformasiPermohonanSearch();
         $dataProviderInformasiPermohonan = $searchModelInformasiPermohonan->search($queryPar);
+        
+        if($model->load(Yii::$app->request->post())){
+            $oldStatusPermohonan = $model->getOldAttribute('status_permohonan');
+        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Yii::$app->request->post() && $model->save()) {
             if(isset(Yii::$app->session->id)){
                 InformasiPermohonan::updateAll(['bantuan_pentadbiran_pejabat_id' => $model->bantuan_pentadbiran_pejabat_id], 'session_id = "'.Yii::$app->session->id.'"');
                 InformasiPermohonan::updateAll(['session_id' => ''], 'bantuan_pentadbiran_pejabat_id = "'.$model->bantuan_pentadbiran_pejabat_id.'"');
+            }
+            
+            if($model->emel && $model->emel != "" && $model->status_permohonan ){
+                if($model->status_permohonan != $oldStatusPermohonan){
+                    try {
+                        if($model->status_permohonan == RefStatusPermohonanBantuanPentadbiranPejabat::LULUS){ // Approved
+                            Yii::$app->mailer->compose()
+                                    ->setTo($model->emel)
+                                    ->setFrom('noreply@spsb.com')
+                                    ->setSubject('Permohonan Bantuan Pentadbiran Pejabat Tuan/Puan Telah Diproses')
+                                    ->setTextBody('Salam Sejahtera,
+
+Sukacita, permohonan bantuan pentadbiran pejabat Tuan/Puan telah LULUS.
+
+"KE ARAH KECEMERLANGAN SUKAN"
+Majlis Sukan Negara Malaysia.
+                            ')->send();
+                        }
+                    }
+                    catch(\Swift_SwiftException $exception)
+                    {
+                        //return 'Can sent mail due to the following exception'.print_r($exception);
+                        Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                    }
+                }
             }
             
             return $this->redirect(['view', 'id' => $model->bantuan_pentadbiran_pejabat_id]);
@@ -159,14 +190,45 @@ class BantuanPentadbiranPejabatController extends Controller
         
         $model = $this->findModel($id);
         
+        $oldStatusPermohonan = null;
+        
         $queryPar = null;
         
         $queryPar['InformasiPermohonanSearch']['bantuan_pentadbiran_pejabat_id'] = $id;
         
         $searchModelInformasiPermohonan  = new InformasiPermohonanSearch();
         $dataProviderInformasiPermohonan = $searchModelInformasiPermohonan->search($queryPar);
+        
+        if($model->load(Yii::$app->request->post())){
+            $oldStatusPermohonan = $model->getOldAttribute('status_permohonan');
+        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Yii::$app->request->post() && $model->save()) {
+            if($model->emel && $model->emel != "" && $model->status_permohonan ){
+                if($model->status_permohonan != $oldStatusPermohonan){
+                    try {
+                        if($model->status_permohonan == RefStatusPermohonanBantuanPentadbiranPejabat::LULUS){ // Approved
+                            Yii::$app->mailer->compose()
+                                    ->setTo($model->emel)
+                                                                ->setFrom('noreply@spsb.com')
+                                    ->setSubject('Permohonan Bantuan Pentadbiran Pejabat Tuan/Puan Telah Diproses')
+                                    ->setTextBody('Salam Sejahtera,
+
+Sukacita, permohonan bantuan pentadbiran pejabat Tuan/Puan telah LULUS.
+
+"KE ARAH KECEMERLANGAN SUKAN"
+Majlis Sukan Negara Malaysia.
+                            ')->send();
+                        }
+                    }
+                    catch(\Swift_SwiftException $exception)
+                    {
+                        //return 'Can sent mail due to the following exception'.print_r($exception);
+                        Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                    }
+                }
+            }
+            
             return $this->redirect(['view', 'id' => $model->bantuan_pentadbiran_pejabat_id]);
         } else {
             return $this->render('update', [

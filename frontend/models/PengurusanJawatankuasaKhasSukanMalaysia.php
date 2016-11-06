@@ -4,6 +4,9 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
+
 /**
  * This is the model class for table "tbl_pengurusan_jawatankuasa_khas_sukan_malaysia".
  *
@@ -19,6 +22,8 @@ use Yii;
  */
 class PengurusanJawatankuasaKhasSukanMalaysia extends \yii\db\ActiveRecord
 {
+    public $memo;
+    
     /**
      * @inheritdoc
      */
@@ -53,7 +58,8 @@ class PengurusanJawatankuasaKhasSukanMalaysia extends \yii\db\ActiveRecord
         return [
             [['tarikh_mula', 'tarikh_tamat', 'created', 'updated'], 'safe'],
             [['jawatankuasa', 'created_by', 'updated_by', 'negeri'], 'integer'],
-            [['temasya'], 'string', 'max' => 80]
+            [['temasya'], 'string', 'max' => 80],
+            [['memo'], 'string', 'max' => 500, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 
@@ -73,6 +79,7 @@ class PengurusanJawatankuasaKhasSukanMalaysia extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
+            'memo' => '',
         ];
     }
     

@@ -240,6 +240,35 @@ use app\models\RefNegeri;
     <?php endif; ?>
     
     <br>
+    
+    <?php if(!$model->isNewRecord && !$readonly):?>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong><?=GeneralLabel::memo?></strong>
+        </div>
+        <div class="panel-body">
+            <?php
+            echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'memo' =>['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>255]],
+            ]
+        ],
+    ]
+]);
+    ?>
+            <p>
+                <?= Html::a(GeneralLabel::send . ' ' . GeneralLabel::emel, '', ['class' => 'btn btn-warning', 'id' => 'btnSendEmail']) ?>
+            </p>
+        </div>
+    </div>
+    <?php endif;?>
 
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -250,3 +279,38 @@ use app\models\RefNegeri;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<?php
+
+$URLHantarMemo = Url::to(['/pengurusan-jawatankuasa-khas-sukan-malaysia/send-memo']);
+
+$script = <<< JS
+    
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+  
+$("#btnSendEmail").click(function(){
+    var Msg = $('#pengurusanjawatankuasakhassukanmalaysia-memo').val();
+    var Id = '$model->pengurusan_jawatankuasa_khas_sukan_malaysia_id';
+    $.get('$URLHantarMemo',{pengurusan_jawatankuasa_khas_sukan_malaysia_id:Id,message:Msg},function(data){
+        clearForm();
+        
+        alert(data);
+    });
+    
+    return false;
+});
+            
+function clearForm(){
+    $('#pengurusanjawatankuasakhassukanmalaysia-memo').val('');
+}
+        
+JS;
+        
+$this->registerJs($script);
+?>

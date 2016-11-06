@@ -32,6 +32,9 @@ use app\models\general\GeneralMessage;
  */
 class PengurusanPermohonanKursusPersatuan extends \yii\db\ActiveRecord
 {
+    public $kelulusan_id;
+    public $memo;
+    
     /**
      * @inheritdoc
      */
@@ -69,7 +72,7 @@ class PengurusanPermohonanKursusPersatuan extends \yii\db\ActiveRecord
                 'tarikh_kursus', 'tarikh_tamat_kursus', 'tempat', 'no_perhubungan', 'bilangan_peserta', 'jumlah_yuran', 'nama_penganjur'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir', 'tarikh_kursus', 'tarikh_tamat_kursus', 'tarikh_kelulusan'], 'safe'],
             [['yuran_program', 'jumlah_yuran', 'jumlah_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['kelulusan', 'tahap', 'bilangan_peserta', 'no_perhubungan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['kelulusan', 'tahap', 'bilangan_peserta', 'no_perhubungan', 'kelulusan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama', 'kelayakan_akademi', 'perkerjaan', 'nama_majikan', 'agensi', 'kursus', 'nama_penganjur', 'jawatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -80,7 +83,8 @@ class PengurusanPermohonanKursusPersatuan extends \yii\db\ActiveRecord
             [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_tel_bimbit', 'no_perhubungan'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel', 'facebook'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['memo'], 'string', 'max' => 500, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 
@@ -123,6 +127,7 @@ class PengurusanPermohonanKursusPersatuan extends \yii\db\ActiveRecord
             'jumlah_diluluskan' => GeneralLabel::jumlah_diluluskan,
             'catatan' => GeneralLabel::catatan,
             'jawatan' => GeneralLabel::jawatan,
+            'memo' => '',
         ];
     }
     

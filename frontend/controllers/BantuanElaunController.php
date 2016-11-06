@@ -141,12 +141,17 @@ class BantuanElaunController extends Controller
         
         
         $model->status_permohonan = RefStatusPermohonanSue::DALAM_PROSES;
+        $oldStatusPermohonan = null;
         
         if(Yii::$app->user->identity->profil_badan_sukan){
             $model->nama_persatuan = Yii::$app->user->identity->profil_badan_sukan;
         }
         
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if($model->load(Yii::$app->request->post())){
+            $oldStatusPermohonan = $model->getOldAttribute('status_permohonan');
+        }
+        
+        if (Yii::$app->request->post() && $model->save()) {
             $file = UploadedFile::getInstance($model, 'muatnaik_gambar');
             $filename = $model->bantuan_elaun_id . "-muatnaik_gambar";
             if($file){
@@ -157,6 +162,34 @@ class BantuanElaunController extends Controller
             $filename = $model->bantuan_elaun_id . "-muatnaik_dokumen";
             if($file){
                 $model->muatnaik_dokumen = Upload::uploadFile($file, Upload::bantuanElaunFolder, $filename);
+            }
+            
+            if($model->emel && $model->emel != "" && $model->status_permohonan ){
+                if($model->status_permohonan != $oldStatusPermohonan){
+                    $ref = RefJenisBantuanSue::findOne(['id' => $model->jenis_bantuan]);
+                    $jenis_bantuan = $ref['desc'];
+                    
+                    try {
+                        if($model->status_permohonan == RefStatusPermohonanSue::LULUS){ // Approved
+                            Yii::$app->mailer->compose()
+                                    ->setTo($model->emel)
+                                                                ->setFrom('noreply@spsb.com')
+                                    ->setSubject('Permohonan ' . $jenis_bantuan . ' Tuan/Puan Telah Diproses')
+                                    ->setTextBody('Salam Sejahtera,
+
+Sukacita, permohonan ' . $jenis_bantuan . ' Tuan/Puan telah LULUS.
+
+"KE ARAH KECEMERLANGAN SUKAN"
+Majlis Sukan Negara Malaysia.
+                            ')->send();
+                        }
+                    }
+                    catch(\Swift_SwiftException $exception)
+                    {
+                        //return 'Can sent mail due to the following exception'.print_r($exception);
+                        Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                    }
+                }
             }
             
             if($model->save()){
@@ -184,9 +217,13 @@ class BantuanElaunController extends Controller
         
         $model = $this->findModel($id);
         
+        $oldStatusPermohonan = null;
+        
         $existingMuatnaikDokumen = $model->muatnaik_dokumen;
         
         if($model->load(Yii::$app->request->post())){
+            $oldStatusPermohonan = $model->getOldAttribute('status_permohonan');
+            
             $file = UploadedFile::getInstance($model, 'muatnaik_dokumen');
 
             if($file){
@@ -206,6 +243,34 @@ class BantuanElaunController extends Controller
             $filename = $model->bantuan_elaun_id . "-muatnaik_gambar";
             if($file){
                 $model->muatnaik_gambar = Upload::uploadFile($file, Upload::bantuanElaunFolder, $filename);
+            }
+            
+            if($model->emel && $model->emel != "" && $model->status_permohonan ){
+                if($model->status_permohonan != $oldStatusPermohonan){
+                    $ref = RefJenisBantuanSue::findOne(['id' => $model->jenis_bantuan]);
+                    $jenis_bantuan = $ref['desc'];
+                    
+                    try {
+                        if($model->status_permohonan == RefStatusPermohonanSue::LULUS){ // Approved
+                            Yii::$app->mailer->compose()
+                                    ->setTo($model->emel)
+                                                                ->setFrom('noreply@spsb.com')
+                                    ->setSubject('Permohonan ' . $jenis_bantuan . ' Tuan/Puan Telah Diproses')
+                                    ->setTextBody('Salam Sejahtera,
+
+Sukacita, permohonan ' . strtolower($jenis_bantuan) . ' Tuan/Puan telah LULUS.
+
+"KE ARAH KECEMERLANGAN SUKAN"
+Majlis Sukan Negara Malaysia.
+                            ')->send();
+                        }
+                    }
+                    catch(\Swift_SwiftException $exception)
+                    {
+                        //return 'Can sent mail due to the following exception'.print_r($exception);
+                        Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                    }
+                }
             }
             
             if($model->save()){

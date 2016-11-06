@@ -191,6 +191,56 @@ class BorangProfilPesertaKpskController extends Controller
         }
     }
     
+    public function actionHantarKeputusanEmel($borang_profil_peserta_kpsk_id){
+        if (($model = BorangProfilPesertaKpsk::findOne($borang_profil_peserta_kpsk_id)) !== null) {
+        
+            if(($modelBorangProfilPesertaKpskPesertas = BorangProfilPesertaKpskPeserta::find()
+                    ->joinWith(['refKeputusanKpsk'])
+                    ->where('borang_profil_peserta_kpsk_id >= :borang_profil_peserta_kpsk_id', [':borang_profil_peserta_kpsk_id' => $borang_profil_peserta_kpsk_id])
+                    ->all()) !== null) {
+                foreach($modelBorangProfilPesertaKpskPesertas as $modelBorangProfilPesertaKpskPeserta){
+                    if($modelBorangProfilPesertaKpskPeserta->emel && $modelBorangProfilPesertaKpskPeserta->emel != ""){
+                        try {
+                            Yii::$app->mailer->compose()
+                                    ->setTo($modelBorangProfilPesertaKpskPeserta->emel)
+                                    ->setFrom('noreply@spsb.com')
+                                    ->setSubject('Keputusan Kursus')
+                                    ->setTextBody('Salam Sejahtera,
+
+Nama Kursus: '. GeneralFunction::getUpperCaseWords($model->penganjur_kursus) .'
+Kod Kursus: '. $model->kod_kursus .'
+Tarikh Kursus: '. GeneralFunction::getDatePrintFormat($model->tarikh_kursus) .'
+
+Berikut adalah keputusan kursus:-
+
+Objektif (%): '. $modelBorangProfilPesertaKpskPeserta->objektif .'
+Struktur (%): '. $modelBorangProfilPesertaKpskPeserta->struktur .'
+Esei (%): '. $modelBorangProfilPesertaKpskPeserta->esei .'
+Jumlah (%): '. $modelBorangProfilPesertaKpskPeserta->jumlah .'
+Keputusan: ' . ((isset($modelBorangProfilPesertaKpskPeserta['refKeputusanKpsk']['desc']) && $modelBorangProfilPesertaKpskPeserta['refKeputusanKpsk']['desc'] != "") ? $modelBorangProfilPesertaKpskPeserta['refKeputusanKpsk']['desc'] : "") . '
+
+
+"KE ARAH KECEMERLANGAN SUKAN"
+Majlis Sukan Negara Malaysia.
+                            ')->send();
+                        }
+                        catch(\Swift_SwiftException $exception)
+                        {
+                            Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                        }
+                    } 
+                }
+
+            }
+
+            Yii::$app->session->setFlash('success', 'Keputusan kursus telah dihantar kepada peserta melalui e-mel.');
+            
+            return $this->redirect(['view', 'id' => $borang_profil_peserta_kpsk_id]);
+        } else {
+            //echo "Tiada rekod di dalam sistem";
+        }
+    }
+    
     public function actionLaporanStatistikKehadiranPesertaMengikutKursusJantina()
     {
         if (Yii::$app->user->isGuest) {
