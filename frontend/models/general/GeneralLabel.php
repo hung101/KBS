@@ -924,6 +924,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const maklumat_shakam_shakar = "Maklumat Shakam Shakar";
         const maklumat_pegawai_teknikal = "Maklumat Pegawai Teknikal";
         const maklumat_pegawai_teknikal_paparan = "Maklumat Pegawai Teknikal (Paparan)";
+        const maklumat_pemandu = "Maklumat Pemandu";
         const maklumat_persamaan_taraf = "Maklumat Persamaan Taraf";
         const maklumat_diri = "Maklumat Diri";
         const maklumat_perhubungan_kecemasan = "Maklumat Perhubungan Kecemasan";
@@ -1099,6 +1100,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const nama_pegawai_coach = "Nama Ahli";
         const nama_pegawai_terlibat = "Nama Pegawai Terlibat";
         const nama_pelajar = "Nama Pelajar";
+        const nama_pemandu = "Nama Pemandu";
         const nama_pemeriksa = "Nama Pemeriksa";
         const nama_pemilik = "Nama";
         const nama_pemohon = "Nama Pemohon";
@@ -4061,6 +4063,7 @@ if($session->get('language') == "EN") {
         const maklumat_shakam_shakar = "Information Shakam Shakar";
         const maklumat_pegawai_teknikal = "Information Technical Officer";
         const maklumat_pegawai_teknikal_paparan = "Information Technical Officer (Shelf)";
+        const maklumat_pemandu = "Information Driver";
         const maklumat_persamaan_taraf = "Information Equality";
         const maklumat_diri = "Personal Information";
         const maklumat_perhubungan_kecemasan = "Emergency Contact Information";
@@ -4235,6 +4238,7 @@ if($session->get('language') == "EN") {
         const nama_pegawai_coach = "Name Of Member";
         const nama_pegawai_terlibat = "The Names Of The Officers Involved";
         const nama_pelajar = "Student Name";
+        const nama_pemandu = "Driver Name";
         const nama_pemeriksa = "Examiner Name";
         const nama_pemilik = "The name of the";
         const nama_pemohon = "Name Of Applicant";

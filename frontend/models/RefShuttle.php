@@ -67,7 +67,7 @@ class RefShuttle extends \yii\db\ActiveRecord
     {
         return [
             'id' => GeneralLabel::id,
-            'desc' => GeneralLabel::desc,
+            'desc' => GeneralLabel::nama_pemandu,
             'phoneno' => GeneralLabel::no_tel,
             'aktif' => GeneralLabel::aktif,
             'created_by' => GeneralLabel::created_by,

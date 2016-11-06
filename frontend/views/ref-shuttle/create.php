@@ -9,8 +9,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefShuttle */
 
-$this->title = GeneralLabel::createTitle.' '.GeneralLabel::shuttle;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::shuttle, 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::maklumat_pemandu;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::maklumat_pemandu, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-shuttle-create">

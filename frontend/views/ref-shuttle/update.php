@@ -8,8 +8,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefShuttle */
 
-$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::shuttle.': ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::shuttle, 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::maklumat_pemandu.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::maklumat_pemandu, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

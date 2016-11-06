@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefShuttleSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = GeneralLabel::shuttle;
+$this->title = GeneralLabel::maklumat_pemandu;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-shuttle-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(GeneralLabel::createTitle.' '.GeneralLabel::shuttle, ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::createTitle.' '.GeneralLabel::maklumat_pemandu, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
