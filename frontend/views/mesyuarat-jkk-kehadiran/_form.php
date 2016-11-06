@@ -62,6 +62,13 @@ use app\models\general\GeneralLabel;
                 'jawatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
             ]
         ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'emel' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>100]],
+            ]
+        ],
         /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -110,10 +117,9 @@ use app\models\general\GeneralLabel;
 
     <div class="form-group">
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary'])  ?>
         <?php endif; ?>
     </div>
-
     <?php ActiveForm::end(); ?>
 
 </div>
