@@ -862,6 +862,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_fisiologi_jumlah_bilangan_ujian = "Laporan Fisiologi Jumlah Bilangan Ujian";
         const laporan_hadiah_kemenangan_untuk_temasya_sukan = "Laporan Hadiah Kemenangan Untuk Temasya Sukan";
         const laporan_jadual_pegawai_temujanji = "Jadual Pegawai Temujanji";
+        const laporan_jadual_perjalanan_bas = "Jadual Perjalanan Bas";
+        const laporan_jadual_waktu_sajian_makanan_atlet = "Jadual Waktu Sajian Makanan Atlet";
         const laporan_jurulatih_wajaran = "Laporan Jurulatih Wajaran";
         const laporan_kesihatan = "Laporan Kesihatan";
         const laporan_kewangan_muat_naik = "Laporan Kewangan";
@@ -4001,6 +4003,8 @@ if($session->get('language') == "EN") {
         const laporan_fisiologi_jumlah_bilangan_ujian = "Report Physiology Total Number of Test";
         const laporan_hadiah_kemenangan_untuk_temasya_sukan = "Reports Wins Prize For Sports Meet";
         const laporan_jadual_pegawai_temujanji = "Timetable Officer Appointments";
+        const laporan_jadual_perjalanan_bas = "Bus Timetable";
+        const laporan_jadual_waktu_sajian_makanan_atlet = "Timetable Serving Food Athletes";
         const laporan_jurulatih_wajaran = "Weight Manager Report";
         const laporan_kesihatan = "Medical Report";
         const laporan_kewangan_muat_naik = "Financial Reporting";

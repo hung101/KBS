@@ -70,7 +70,7 @@ class PengurusanProgramBinaanPeserta extends \yii\db\ActiveRecord
             'kategori_peserta' => GeneralLabel::jenis_peserta,
             'atlet_id' => GeneralLabel::atlet_id,
             'jurulatih_id' => GeneralLabel::jurulatih_id,
-            'nama_peserta' => GeneralLabel::nama_peserta,
+            'nama_peserta' => GeneralLabel::nama_pegawai,
             'jantina' => GeneralLabel::jantina,
 
         ];

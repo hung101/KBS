@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PengurusanSajianMakan;
 use frontend\models\PengurusanSajianMakanSearch;
+use app\models\MsnLaporanJadualWaktuSajianMakananAtlet;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -170,5 +171,61 @@ class PengurusanSajianMakanController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionLaporanJadualWaktuSajianMakananAtlet()
+    {
+
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanJadualWaktuSajianMakananAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-waktu-sajian-makanan-atlet'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-waktu-sajian-makanan-atlet'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'atlet' => $model->atlet
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_jadual_waktu_sajian_makanan_atlet', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+
+    public function actionGenerateLaporanJadualWaktuSajianMakananAtlet($tarikh_dari, $tarikh_hingga, $atlet, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($atlet == "") $atlet = array();
+        else $atlet = array($atlet);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'ATLET' => $atlet,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanJadualWaktuSajianMakananAtlet', $format, $controls, 'laporan_jadual_waktu_sajian_makanan_atlet');
     }
 }
