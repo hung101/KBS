@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use app\models\RefAgensiJkk;
+
 /**
  * MesyuaratJkkKehadiranController implements the CRUD actions for MesyuaratJkkKehadiran model.
  */
@@ -48,8 +50,13 @@ class MesyuaratJkkKehadiranController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        
+        $ref = RefAgensiJkk::findOne(['id' => $model->agensi]);
+        $model->agensi = $ref['desc'];
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

@@ -61,7 +61,7 @@ class AtletPencapaianRekodsSearch extends AtletPencapaianRekods
 
         $query->andFilterWhere([
             'pencapaian_rekods_id' => $this->pencapaian_rekods_id,
-            'pencapaian_id' => $this->pencapaian_id,
+            'tbl_atlet_pencapaian_rekods.pencapaian_id' => $this->pencapaian_id,
             'tarikh' => $this->tarikh,
             'tbl_atlet_pencapaian.atlet_id' => $this->atlet_id,
         ]);

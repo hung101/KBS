@@ -9,9 +9,11 @@ use app\models\MsnLaporanJadualWaktuSajianMakananAtlet;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\BaseUrl;
 
 // contant values
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Atlet;
@@ -223,7 +225,7 @@ class PengurusanSajianMakanController extends Controller
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
-            'ATLET' => $atlet,
+            //'ATLET' => $atlet,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanJadualWaktuSajianMakananAtlet', $format, $controls, 'laporan_jadual_waktu_sajian_makanan_atlet');

@@ -9,25 +9,27 @@ use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
 
-class MsnLaporanMaklumatPembayaranGeranBantuan extends Model
+class MsnLaporan extends Model
 {
     public $tarikh_dari;
     public $tarikh_hingga;
     public $program;
+    public $acara;
     public $sukan;
-    public $jumlah_geran_dari;
-    public $jumlah_geran_hingga;
-    public $agensi;
+    public $negeri;
     public $format;
+    public $atlet;
+    public $kategori_kecacatan;
+    public $jenis;
+    public $source;
 
     public function rules()
     {
         return [
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'agensi'], 'safe'],
-            [['jumlah_geran_hingga', 'jumlah_geran_dari'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'negeri', 'acara', 'kategori_kecacatan', 'atlet', 'source', 'jenis'], 'safe'],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
-            [['jumlah_geran_hingga'], 'compare', 'compareAttribute'=>'jumlah_geran_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
+            [['jumlah_geran_hingga'], 'compare', 'compareAttribute'=>'negeri', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
 
@@ -38,10 +40,12 @@ class MsnLaporanMaklumatPembayaranGeranBantuan extends Model
             'tarikh_hingga' => GeneralLabel::tarikh_hingga,
             'program' => GeneralLabel::program,
             'sukan' => GeneralLabel::sukan,
-            'jumlah_geran_dari' => GeneralLabel::jumlah_geran_dari,
-            'jumlah_geran_hingga' => GeneralLabel::jumlah_geran_hingga,
-            'agensi' => GeneralLabel::agensi,
+            'negeri' => GeneralLabel::negeri,
+            'acara' => GeneralLabel::acara,
+            'atlet' => GeneralLabel::atlet,
+            'source' => GeneralLabel::source,
             'format' => GeneralLabel::format,
+            'kategori_kecacatan' => GeneralLabel::kategori_kecacatan,
         ];
     }
 }

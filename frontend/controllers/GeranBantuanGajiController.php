@@ -210,6 +210,7 @@ class GeranBantuanGajiController extends Controller
                     , 'sukan' => $model->sukan
                     , 'jumlah_geran_dari' => $model->jumlah_geran_dari
                     , 'jumlah_geran_hingga' => $model->jumlah_geran_hingga
+                    , 'agensi' => $model->agensi
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -221,6 +222,7 @@ class GeranBantuanGajiController extends Controller
                     , 'sukan' => $model->sukan
                     , 'jumlah_geran_dari' => $model->jumlah_geran_dari
                     , 'jumlah_geran_hingga' => $model->jumlah_geran_hingga
+                    , 'agensi' => $model->agensi
                     , 'format' => $model->format
                 ]);
             }
@@ -232,7 +234,7 @@ class GeranBantuanGajiController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanMaklumatPembayaranGeranBantuan($tarikh_dari, $tarikh_hingga, $program, $sukan, $jumlah_geran_dari, $jumlah_geran_hingga, $format)
+    public function actionGenerateLaporanMaklumatPembayaranGeranBantuan($tarikh_dari, $tarikh_hingga, $program, $sukan, $jumlah_geran_dari, $jumlah_geran_hingga, $agensi, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -252,9 +254,13 @@ class GeranBantuanGajiController extends Controller
         if($jumlah_geran_hingga == "") $jumlah_geran_hingga = array();
         else $jumlah_geran_hingga = array($jumlah_geran_hingga);
         
+        if($agensi == "") $agensi = array();
+        else $agensi = array($agensi);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'AGENSI' => $agensi,
             'SUKAN' => $sukan,
             'PROGRAM' => $program,
             'JUMLAH_GERAN_DARI' => $jumlah_geran_dari,

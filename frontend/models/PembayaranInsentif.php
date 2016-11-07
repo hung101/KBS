@@ -56,11 +56,11 @@ class PembayaranInsentif extends \yii\db\ActiveRecord
                 }, 'whenClient' => "function (attribute, value) {
                     return $('#pembayaraninsentif-kejohanan').val() == '" . RefInsentifKejohanan::INDIVIDU . "';
                 }"],
-            [['nilai_sikap', 'persatuan'], 'required', 'message' => GeneralMessage::yii_validation_required, 'when' => function ($model) {
+            /*[['nilai_sikap', 'persatuan'], 'required', 'message' => GeneralMessage::yii_validation_required, 'when' => function ($model) {
                     return ($model->acara == RefAcaraInsentif::BERPASUKAN_KURANG_5_ORANG || $model->acara == RefAcaraInsentif::BERPASUKAN_LEBIH_5_ORANG);
                 }, 'whenClient' => "function (attribute, value) {
                     return ($('#pembayaraninsentif-acara').val() == '" . RefAcaraInsentif::BERPASUKAN_KURANG_5_ORANG . "' || $('#pembayaraninsentif-acara').val() == '" . RefAcaraInsentif::BERPASUKAN_LEBIH_5_ORANG . "');
-                }"],
+                }"],*/
         ];
     }
 

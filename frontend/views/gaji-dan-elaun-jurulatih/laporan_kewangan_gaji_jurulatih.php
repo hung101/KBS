@@ -9,7 +9,6 @@ use kartik\builder\FormGrid;
 use kartik\datecontrol\DateControl;
 
 // table reference
-use app\models\Atlet;
 use app\models\RefReportFormat;
 
 // contant values
@@ -19,10 +18,10 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanPelaksaan */
 
-$this->title = GeneralLabel::laporan_jadual_waktu_sajian_makanan_atlet;
+$this->title = GeneralLabel::laporan_kewangan_gaji_jurulatih;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="laporan-ahli-jawatankuasa-induk">
+<div class="laporan-badan-sukan">
 
     <h1><?= Html::encode($this->title) ?></h1>
     
@@ -62,29 +61,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
-        /*[
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'atlet' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::atlet],
-                        'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
-                    'columnOptions'=>['colspan'=>4]],
-            ]
-        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting

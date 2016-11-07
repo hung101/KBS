@@ -13,6 +13,7 @@ use yii\helpers\BaseUrl;
 
 // contant values
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Atlet;
@@ -209,7 +210,7 @@ class PengurusanShuttleBusController extends Controller
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
-            'PEMANDU' => $nama_pemandu,
+            'NAMA_PEMANDU' => $nama_pemandu,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanJadualPerjalananBas', $format, $controls, 'laporan_jadual_perjalanan_bas');

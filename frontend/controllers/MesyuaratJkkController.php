@@ -7,6 +7,7 @@ use app\models\MesyuaratJkk;
 use app\models\MesyuaratJkkSearch;
 use app\models\MesyuaratJkkKehadiran;
 use app\models\MesyuaratJkkKehadiranSearch;
+use app\models\MsnLaporan;
 use app\models\Atlet;
 use app\models\AtletSearch;
 use app\models\Jurulatih;
@@ -25,8 +26,11 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\Url;
+use yii\helpers\BaseUrl;
 
 use app\models\general\Upload;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefPenganjurJkk;
@@ -358,6 +362,81 @@ class MesyuaratJkkController extends Controller
 
         return $this->redirect(['index']);
     }
+    
+    public function actionHantarEmel($mesyuarat_id){
+        if (($model = MesyuaratJkk::findOne($mesyuarat_id)) !== null) {
+            
+            $ref = RefPenganjurJkk::findOne(['id' => $model->penganjur]);
+            $model->penganjur = $ref['desc'];
+
+            $ref = PengurusanJkkJkp::findOne(['pengurusan_jkk_jkp_id' => $model->pengerusi_mesyuarat]);
+            $model->pengerusi_mesyuarat = $ref['nama_pegawai_coach'];
+
+            $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program]);
+            $model->program = $ref['desc'];
+
+            $ref = RefCawangan::findOne(['id' => $model->cawangan]);
+            $model->cawangan = $ref['desc'];
+
+            $ref = RefNegeri::findOne(['id' => $model->negeri]);
+            $model->negeri = $ref['desc'];
+
+            $ref = RefSukan::findOne(['id' => $model->sukan]);
+            $model->sukan = $ref['desc'];
+
+            //$ref = RefTempatJkk::findOne(['id' => $model->tempat]);
+            //$model->tempat = $ref['desc'];
+
+            $ref = RefSukan::findOne(['id' => $model->sukan]);
+            $model->sukan = $ref['desc'];
+
+            $ref = RefBilJkk::findOne(['id' => $model->bil_mesyuarat]);
+            $model->bil_mesyuarat = $ref['desc'];
+
+            $ref = RefJenisCawanganKuasaJkkJkp::findOne(['id' => $model->jenis_mesyuarat]);
+            $model->jenis_mesyuarat = $ref['desc'];
+        
+            if(($modelMesyuaratJkkKehadirans = MesyuaratJkkKehadiran::find()
+                    ->where('mesyuarat_id >= :mesyuarat_id', [':mesyuarat_id' => $mesyuarat_id])
+                    ->all()) !== null) {
+                foreach($modelMesyuaratJkkKehadirans as $modelMesyuaratJkkKehadiran){
+                    if($modelMesyuaratJkkKehadiran->emel && $modelMesyuaratJkkKehadiran->emel != ""){
+                        try {
+                            Yii::$app->mailer->compose()
+                                    ->setTo($modelMesyuaratJkkKehadiran->emel)
+                                    ->setFrom('noreply@spsb.com')
+                                    ->setSubject('Mesyuarat ' . $model->jenis_mesyuarat)
+                                    ->setTextBody('Salam Sejahtera,
+
+Bil Mesyuarat: '. $model->bil_mesyuarat .'
+Tarikh: '. GeneralFunction::getDateTimePrintFormat($model->tarikh) .'
+Tempat: '. $model->tempat .'
+
+Berikut adalah minit mesyuarat:-
+
+'.Url::base(true).'/'. $model->minit_mesyuarat . '
+
+
+"KE ARAH KECEMERLANGAN SUKAN"
+Majlis Sukan Negara Malaysia.
+                            ')->send();
+                        }
+                        catch(\Swift_SwiftException $exception)
+                        {
+                            Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                        }
+                    } 
+                }
+
+            }
+
+            Yii::$app->session->setFlash('success', 'Minit telah dihantar melalui e-mel.');
+            
+            return $this->redirect(['view', 'id' => $mesyuarat_id]);
+        } else {
+            //echo "Tiada rekod di dalam sistem";
+        }
+    }
 
     /**
      * Finds the MesyuaratJkk model based on its primary key value.
@@ -391,5 +470,78 @@ class MesyuaratJkkController extends Controller
             $img->update();
 
             return $this->redirect(['update', 'id' => $id]);
+    }
+    
+    public function actionLaporanJadualMesyuaratJkkJkp()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-jadual-mesyuarat-jkk-jkp'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'jenis' => $model->jenis
+                    , 'negeri' => $model->negeri
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-jadual-mesyuarat-jkk-jkp'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'jenis' => $model->jenis
+                    , 'negeri' => $model->negeri
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_jadual_mesyuarat_jkk_jkp', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanJadualMesyuaratJkkJkp($tarikh_dari, $tarikh_hingga, $jenis, $negeri, $program, $sukan, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($jenis == "") $jenis = array();
+        else $jenis = array($jenis);
+        
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'JENIS_MESYUARAT' => $jenis,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanJadualMesyuaratJkkJkp', $format, $controls, 'laporan_jadual_mesyuarat_jkk_jkp');
     }
 }

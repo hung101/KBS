@@ -303,7 +303,8 @@ use app\models\general\GeneralMessage;
         ]);
     ?>
     
-    <div class="panel panel-default" id="sikapID" style="display: none;">
+    <!--<div class="panel panel-default" id="sikapID" style="display: none;">-->
+    <div class="panel panel-default" id="sikapID" >
         <div class="panel-heading">
             <strong>SIKAP</strong>
         </div>
@@ -715,17 +716,20 @@ function changeAcara(){
     
     if($('#pembayaraninsentif-acara').val() == '$ACARA_INDIVIDU'){
         $('#pembayaraninsentif-jumlah').val(nilai_individu);
-        $('#pembayaraninsentif-nilai_sikap').val(0.0);
-        $('#sikapID').hide("slow");
+        //$('#pembayaraninsentif-nilai_sikap').val(0.0);
+        
+        var nilai_sikap = nilai_berpasukan_kurang_5_orang * (peratus_sikap/100);
+        $('#pembayaraninsentif-nilai_sikap').val(nilai_sikap.toFixed(2));
+        //$('#sikapID').hide("slow");
     }else if($('#pembayaraninsentif-acara').val() == '$ACARA_BERPASUKAN_KURANG_5_ORANG'){
         $('#pembayaraninsentif-jumlah').val(nilai_berpasukan_kurang_5_orang);
-        $('#sikapID').show("slow");
+        //$('#sikapID').show("slow");
         
         var nilai_sikap = nilai_berpasukan_kurang_5_orang * (peratus_sikap/100);
         $('#pembayaraninsentif-nilai_sikap').val(nilai_sikap.toFixed(2));
     }else if($('#pembayaraninsentif-acara').val() == '$ACARA_BERPASUKAN_LEBIH_5_ORANG'){
         $('#pembayaraninsentif-jumlah').val(nilai_berpasukan_lebih_5_orang);
-        $('#sikapID').show("slow");
+        //$('#sikapID').show("slow");
         
         var nilai_sikap = nilai_berpasukan_lebih_5_orang * (peratus_sikap/100);
         $('#pembayaraninsentif-nilai_sikap').val(nilai_sikap.toFixed(2));
@@ -742,6 +746,11 @@ function clearForm(){
     $('#pembayaraninsentif-jumlah').attr('value','');
     $('#pembayaraninsentif-nilai_rekod_baharu').attr('value','');
 }
+        
+$("#pembayaraninsentif-jumlah").keyup(function(){
+    var nilai_sikap = $("#pembayaraninsentif-jumlah").val() * (peratus_sikap/100);
+        $('#pembayaraninsentif-nilai_sikap').val(nilai_sikap.toFixed(2));
+});
         
 $('#kejohananId').change(function(){
     

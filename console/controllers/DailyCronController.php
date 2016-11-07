@@ -41,7 +41,7 @@ class DailyCronController extends Controller {
         if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'peringatan_emel_penilaian-pestasi'])->groupBy('id')->all()) !== null) {
         
             if (($modelPenilaianPestasiReminders = PenilaianPestasi::find()->where('tarikh_nilai_tamat >= :today', [':today' => GeneralFunction::getCurrentDate()])
-                ->andWhere('tarikh_nilai_mula <= :today', [':today' => GeneralFunction::getCurrentDate()])->all()) !== null) {
+                ->andWhere('tarikh_nilai_mula <= :today', [':today' => GeneralFunction::getCurrentDate()])->groupBy('penilaian_pestasi_id')->all()) !== null) {
                 foreach($modelPenilaianPestasiReminders as $modelPenilaianPestasi){
                     foreach($modelUsers as $modelUser){
 
@@ -52,11 +52,11 @@ class DailyCronController extends Controller {
                             ->setTo($modelUser->email)
                             ->setFrom('noreply@spsb.com')
                             ->setSubject('Peringatan: Penilaian Prestasi Atlet')
-                            ->setTextBody("Salam Sejahtera,
+                            ->setTextBody("Salam Sejahtera,<br><br>
 
-Sila membuat penilaian prestasi atlet untuk kejohanan berikut: " . $ref['nama_program'] . ".
+Sila membuat penilaian prestasi atlet untuk kejohanan berikut: " . $ref['nama_program'] . ". <br>
 Sebelum tarikh berikut: " . GeneralFunction::getDatePrintFormat($modelPenilaianPestasi->tarikh_nilai_tamat) . '
-
+<br><br>
 
 "KE ARAH KECEMERLANGAN SUKAN"
 Majlis Sukan Negara Malaysia.
