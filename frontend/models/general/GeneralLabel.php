@@ -510,7 +510,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jabatan = "Jabatan";
         const jabatan_id = "Jabatan";
         const jadual_latihan = "Jadual Latihan";
-        const jadual_latihan_periodisasi_jurulatih = "Jadual Latihan (Peroidisasi Jurulatih)";
+        const jadual_latihan_periodisasi_jurulatih = "Jadual Latihan (Periodisasi Jurulatih)";
         const jadual_pegawai = "Jadual Pegawai";
         const jangka_waktu_mula = "Jangka Waktu Mula";
         const jangka_waktu_tamat = "Jangka Waktu Tamat";

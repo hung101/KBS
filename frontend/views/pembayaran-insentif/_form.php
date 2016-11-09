@@ -769,7 +769,12 @@ function clearForm(){
 }
         
 $("#pembayaraninsentif-jumlah").keyup(function(){
-    var nilai_sikap = $("#pembayaraninsentif-jumlah").val() * (peratus_sikap/100);
+    var this_peratus_sikap = 0;
+    if(peratus_sikap == 0){
+        this_peratus_sikap = 10;
+    }
+        
+    var nilai_sikap = $("#pembayaraninsentif-jumlah").val() * (this_peratus_sikap/100);
         $('#pembayaraninsentif-nilai_sikap').val(nilai_sikap.toFixed(2));
 });
         

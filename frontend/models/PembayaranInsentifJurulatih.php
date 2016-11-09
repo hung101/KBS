@@ -84,6 +84,13 @@ class PembayaranInsentifJurulatih extends \yii\db\ActiveRecord
             }
         }
         
+        if($this->pembayaran_insentif_id != null or $this->pembayaran_insentif_id != ""){
+            if (($modelPembayaranInsentif = PembayaranInsentif::findOne($this->pembayaran_insentif_id)) !== null) {
+                $nilai = $modelPembayaranInsentif->jumlah;
+            }
+        }
+        
+        
         $session->close();
         
         $modelInsentifJurulatih = null;

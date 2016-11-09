@@ -65,8 +65,8 @@ class MuatNaikDokumenSearch extends MuatNaikDokumen
         $query->andFilterWhere(['like', 'tbl_ref_kategori_muatnaik.desc', $this->kategori_muat_naik])
             ->andFilterWhere(['like', 'muat_naik_dokumen', $this->muat_naik_dokumen])
                 //->andFilterWhere(['like', 'temasya', $this->temasya])
-                ->andFilterWhere(['like', 'tarikh_mula', $this->tarikh_mula])
-                ->andFilterWhere(['like', 'tarikh_tamat', $this->tarikh_tamat])
+                ->andFilterWhere(['like', 'tbl_muat_naik_dokumen.tarikh_mula', $this->tarikh_mula])
+                ->andFilterWhere(['like', 'tbl_muat_naik_dokumen.tarikh_tamat', $this->tarikh_tamat])
                 ->andFilterWhere(['like', 'catatan', $this->catatan])
                 ->andFilterWhere(['like', 'tbl_pengurusan_jawatankuasa_khas_sukan_malaysia.temasya', $this->temasya]);
 

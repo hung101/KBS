@@ -81,8 +81,8 @@ class ProfilDelegasiTeknikalSearch extends ProfilDelegasiTeknikal
             ->andFilterWhere(['like', 'alamat_3', $this->alamat_3])
             ->andFilterWhere(['like', 'alamat_negeri', $this->alamat_negeri])
             ->andFilterWhere(['like', 'alamat_bandar', $this->alamat_bandar])
-            ->andFilterWhere(['like', 'tarikh_mula', $this->tarikh_mula])
-                ->andFilterWhere(['like', 'tarikh_tamat', $this->tarikh_tamat])
+            ->andFilterWhere(['like', 'tbl_profil_delegasi_teknikal.tarikh_mula', $this->tarikh_mula])
+                ->andFilterWhere(['like', 'tbl_profil_delegasi_teknikal.tarikh_tamat', $this->tarikh_tamat])
                 ->andFilterWhere(['like', 'tbl_pengurusan_jawatankuasa_khas_sukan_malaysia.temasya', $this->temasya]);
 
         return $dataProvider;
