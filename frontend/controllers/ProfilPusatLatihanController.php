@@ -12,6 +12,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\BaseUrl;
+use yii\helpers\Json;
 
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
@@ -210,6 +211,49 @@ class ProfilPusatLatihanController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    /**
+     * Get Bandars base on Negeri id
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionGetPusatLatihanByJurulatih()
+    {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $cat_id = empty($parents[0]) ? null : $parents[0];
+                //$subcat_id = empty($parents[1]) ? null : $parents[1];
+                $out = self::getChild($cat_id); 
+                // the getSubCatList function will query the database based on the
+                // cat_id and return an array like below:
+                // [
+                //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+                //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+                // ]
+                echo Json::encode(['output'=>$out, 'selected'=>'']);
+                return;
+            }
+        }
+        echo Json::encode(['output'=>'', 'selected'=>'']);
+    }
+    
+    /**
+     * get list of Pusat Latihan by Jurulatih
+     * @param integer $id
+     * @return Array PusatLatihans
+     */
+    public static function getChild($jurulatih_id) {
+        $data = ProfilPusatLatihanJurulatih::find()
+                ->joinWith(['refProfilPusatLatihan'])
+               ->where(['jurulatih'=>$jurulatih_id])
+                ->select(['tbl_profil_pusat_latihan.profil_pusat_latihan_id AS id','tbl_profil_pusat_latihan.nama_pusat_latihan AS name'])->asArray()->createCommand()->queryAll();
+        
+        $value = (count($data) == 0) ? ['' => ''] : $data;
+
+        return $value;
     }
     
     public function actionLaporanPusatLatihan()

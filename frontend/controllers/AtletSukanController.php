@@ -22,6 +22,7 @@ use app\models\RefNegeri;
 use app\models\RefProgramSemasaSukanAtlet;
 use app\models\RefStatusSukanAtlet;
 use app\models\RefSource;
+use app\models\ProfilPusatLatihan;
 
 /**
  * AtletSukanController implements the CRUD actions for AtletSukan model.
@@ -144,6 +145,9 @@ class AtletSukanController extends Controller
         
         $ref = RefSource::findOne(['id' => $model->source]);
         $model->source = $ref['desc'];
+        
+        $ref = ProfilPusatLatihan::findOne(['profil_pusat_latihan_id' => $model->profil_pusat_latihan_id]);
+        $model->profil_pusat_latihan_id = $ref['nama_pusat_latihan'];
         
         return $this->renderAjax('view', [
             'model' => $model,

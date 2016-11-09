@@ -6,6 +6,7 @@ use Yii;
 use app\models\BantuanElaun;
 use frontend\models\BantuanElaunSearch;
 use app\models\MsnSuratSue;
+use app\models\MsnLaporan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -169,6 +170,14 @@ class BantuanElaunController extends Controller
                     $ref = RefJenisBantuanSue::findOne(['id' => $model->jenis_bantuan]);
                     $jenis_bantuan = $ref['desc'];
                     
+                    if(trim($jenis_bantuan) == "elaun sue"){
+                        $jenis_bantuan = 'Elaun SUE';
+                    } else if(trim($jenis_bantuan) == "elaun penyelaras psk"){
+                       $jenis_bantuan = 'Elaun Penyelaras PSK';
+                    } else if(trim($jenis_bantuan) == "emolumen psk"){
+                       $jenis_bantuan = 'Emolumen PSK';
+                    } 
+                    
                     try {
                         if($model->status_permohonan == RefStatusPermohonanSue::LULUS){ // Approved
                             Yii::$app->mailer->compose()
@@ -176,9 +185,9 @@ class BantuanElaunController extends Controller
                                                                 ->setFrom('noreply@spsb.com')
                                     ->setSubject('Permohonan ' . $jenis_bantuan . ' Tuan/Puan Telah Diproses')
                                     ->setTextBody('Salam Sejahtera,
-
+<br><br>
 Sukacita, permohonan ' . $jenis_bantuan . ' Tuan/Puan telah LULUS.
-
+<br><br>
 "KE ARAH KECEMERLANGAN SUKAN"
 Majlis Sukan Negara Malaysia.
                             ')->send();
@@ -250,20 +259,34 @@ Majlis Sukan Negara Malaysia.
                     $ref = RefJenisBantuanSue::findOne(['id' => $model->jenis_bantuan]);
                     $jenis_bantuan = $ref['desc'];
                     
+                    $model->status_permohonan_id = $model->status_permohonan;
+                    $ref = RefStatusPermohonanSue::findOne(['id' => $model->status_permohonan]);
+                    $model->status_permohonan = $ref['desc'];
+                    
+                    if($model->jenis_bantuan == "elaun sue"){
+                       $jenis_bantuan = 'Elaun SUE';
+                    } else if(trim($jenis_bantuan) == "elaun penyelaras psk"){
+                       $jenis_bantuan = 'Elaun Penyelaras PSK';
+                    } else if(trim($jenis_bantuan) == "emolumen psk"){
+                       $jenis_bantuan = 'Emolumen PSK';
+                    } 
+                    
+                    $jenis_bantuan = 'Elaun SUE';
+                    
                     try {
-                        if($model->status_permohonan == RefStatusPermohonanSue::LULUS){ // Approved
+                        //if($model->status_permohonan_id == RefStatusPermohonanSue::LULUS){ // Approved
                             Yii::$app->mailer->compose()
                                     ->setTo($model->emel)
                                                                 ->setFrom('noreply@spsb.com')
-                                    ->setSubject('Permohonan ' . $jenis_bantuan . ' Tuan/Puan Telah Diproses')
+                                    ->setSubject('Permohonan ' . $jenis_bantuan . ' Tuan/Puan telah diproses')
                                     ->setTextBody('Salam Sejahtera,
-
-Sukacita, permohonan ' . strtolower($jenis_bantuan) . ' Tuan/Puan telah LULUS.
-
+<br><br>
+Dimaklumkan Permohonan ' . $jenis_bantuan . ' Persatuan Sukan Kebangsaan Tuan/Puan telah '.GeneralFunction::getUpperCaseWords($model->status_permohonan).'.
+<br><br>
 "KE ARAH KECEMERLANGAN SUKAN"
 Majlis Sukan Negara Malaysia.
                             ')->send();
-                        }
+                        //}
                     }
                     catch(\Swift_SwiftException $exception)
                     {
@@ -429,5 +452,54 @@ Majlis Sukan Negara Malaysia.
         );
         
         GeneralFunction::generateReport('/spsb/MSN/SuratPersetujuanSue', $format, $controls, 'surat_persetujuan_sue');
+    }
+    
+    public function actionLaporanStatistikBantuanElaunSue()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-bantuan-elaun-sue'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-bantuan-elaun-sue'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_bantuan_elaun_sue', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikBantuanElaunSue($tarikh_dari, $tarikh_hingga, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikBantuanElaunSue', $format, $controls, 'laporan_statistik_bantuan_elaun_sue');
     }
 }

@@ -20,6 +20,7 @@ use app\models\RefNegeri;
 use app\models\RefBandar;
 
 use common\models\general\GeneralFunction;
+use app\models\general\GeneralVariable;
 
 /**
  * InventoriController implements the CRUD actions for Inventori model.

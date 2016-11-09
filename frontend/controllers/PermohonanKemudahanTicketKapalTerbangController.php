@@ -23,6 +23,7 @@ use app\models\RefStatusPermohonanKemudahan;
 // contant values
 use app\models\general\GeneralLabel;
 use common\models\general\GeneralFunction;
+use app\models\general\GeneralVariable;
 
 /**
  * PermohonanKemudahanTicketKapalTerbangController implements the CRUD actions for PermohonanKemudahanTicketKapalTerbang model.
@@ -227,7 +228,7 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
         ]);
     }
 
-    public function actionGeneratLaporanSenaraiPermohonanKemudahanTiket($tarikh_dari, $tarikh_hingga,$format)
+    public function actionGenerateLaporanSenaraiPermohonanKemudahanTiket($tarikh_dari, $tarikh_hingga, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -277,7 +278,7 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
         ]);
     }
 
-    public function actionGeneratLaporanStatistikPermohonanKemudahanTiket($tarikh_dari, $tarikh_hingga,$format)
+    public function actionGenerateLaporanStatistikPermohonanKemudahanTiket($tarikh_dari, $tarikh_hingga,$format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);

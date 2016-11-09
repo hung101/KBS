@@ -71,6 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::penilaian_oleh,
                 ],
+                'value' => 'refPenilaianJurulatih.desc'
             ],
                 [
                 'attribute' => 'tarikh_dinilai',

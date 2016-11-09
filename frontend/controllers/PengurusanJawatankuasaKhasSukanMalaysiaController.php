@@ -219,11 +219,11 @@ class PengurusanJawatankuasaKhasSukanMalaysiaController extends Controller
                                     ->setSubject('Memo: Jawatankuasa Khas Sukan Malaysia')
                                     ->setTextBody('Salam Sejahtera,
 
-
+<br><br>
 Memo:
-
+<br>
 ' . $message . '
-
+<br><br>
 
 "KE ARAH KECEMERLANGAN SUKAN"
 Majlis Sukan Negara Malaysia.

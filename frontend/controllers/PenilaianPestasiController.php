@@ -7,14 +7,17 @@ use app\models\PenilaianPestasi;
 use app\models\PenilaianPestasiSearch;
 use app\models\PenilaianPrestasiAtletSasaran;
 use frontend\models\PenilaianPrestasiAtletSasaranSearch;
+use app\models\MsnLaporan;
 use app\models\AtletPencapaian;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\BaseUrl;
 
 use app\models\general\GeneralVariable;
 use app\models\general\Upload;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Atlet;
@@ -283,5 +286,232 @@ class PenilaianPestasiController extends Controller
             $img->update();
 
             return $this->redirect(['update', 'id' => $id]);
+    }
+    
+    public function actionLaporanJumlahPingatMengikutAcara()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-jumlah-pingat-mengikut-acara'
+                    , 'kejohanan' => $model->kejohanan
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-jumlah-pingat-mengikut-acara'
+                    , 'kejohanan' => $model->kejohanan
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_jumlah_pingat_mengikut_acara', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanJumlahPingatMengikutAcara($kejohanan, $format)
+    {
+        if($kejohanan == "") $kejohanan = array();
+        else $kejohanan = array($kejohanan);
+        
+        $controls = array(
+            'KEJOHANAN' => $kejohanan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanJumlahPingatMengikutAcara', $format, $controls, 'laporan_jumlah_pingat_mengikut_acara');
+    }
+    
+    public function actionLaporanAcaraKejohananTemasya()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-acara-kejohanan-temasya'
+                    , 'kejohanan' => $model->kejohanan
+                    , 'temasya' => $model->temasya
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-acara-kejohanan-temasya'
+                    , 'kejohanan' => $model->kejohanan
+                    , 'temasya' => $model->temasya
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_acara_kejohanan_temasya', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanAcaraKejohananTemasya($kejohanan, $temasya, $format)
+    {
+        if($kejohanan == "") $kejohanan = array();
+        else $kejohanan = array($kejohanan);
+        
+        if($temasya == "") $temasya = array();
+        else $temasya = array($temasya);
+        
+        $controls = array(
+            'KEJOHANAN' => $kejohanan,
+            'TEMASYA' => $kejohanan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanAcaraKejohananTemasya', $format, $controls, 'laporan_acara_kejohanan_temasya');
+    }
+    
+    public function actionLaporanJumlahPingatMengikutNegeri()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-jumlah-pingat-mengikut-negeri'
+                    , 'kejohanan' => $model->kejohanan
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-jumlah-pingat-mengikut-negeri'
+                    , 'kejohanan' => $model->kejohanan
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_jumlah_pingat_mengikut_negeri', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanJumlahPingatMengikutNegeri($kejohanan, $format)
+    {
+        if($kejohanan == "") $kejohanan = array();
+        else $kejohanan = array($kejohanan);
+        
+        $controls = array(
+            'KEJOHANAN' => $kejohanan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanJumlahPingatMengikutNegeri', $format, $controls, 'laporan_jumlah_pingat_mengikut_negeri');
+    }
+    
+    public function actionLaporanRekodBaru()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-rekod-baru'
+                    , 'kejohanan' => $model->kejohanan
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-rekod-baru'
+                    , 'kejohanan' => $model->kejohanan
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_rekod_baru', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanRekodBaru($kejohanan, $format)
+    {
+        if($kejohanan == "") $kejohanan = array();
+        else $kejohanan = array($kejohanan);
+        
+        $controls = array(
+            'KEJOHANAN' => $kejohanan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanRekodBaru', $format, $controls, 'laporan_rekod_baru');
+    }
+    
+    public function actionLaporanPenyertaanKontinjen()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-penyertaan-kontinjen'
+                    , 'kejohanan' => $model->kejohanan
+                    , 'temasya' => $model->temasya
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-penyertaan-kontinjen'
+                    , 'kejohanan' => $model->kejohanan
+                    , 'temasya' => $model->temasya
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_penyertaan_kontinjen', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanPenyertaanKontinjen($kejohanan, $temasya, $format)
+    {
+        if($kejohanan == "") $kejohanan = array();
+        else $kejohanan = array($kejohanan);
+        
+        if($temasya == "") $temasya = array();
+        else $temasya = array($temasya);
+        
+        $controls = array(
+            'KEJOHANAN' => $kejohanan,
+            'TEMASYA' => $kejohanan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanPenyertaanKontinjen', $format, $controls, 'laporan_penyertaan_kontinjen');
     }
 }

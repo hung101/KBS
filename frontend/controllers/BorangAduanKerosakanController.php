@@ -154,10 +154,10 @@ class BorangAduanKerosakanController extends Controller
                         ->setFrom('noreply@spsb.com')
                         ->setSubject('SPSB Pemberitahuan: Aduan Kerosakan')
                         ->setTextBody("Salam Sejahtera,
-
+<br><br>
 Aduan daripada " . Yii::$app->user->identity->full_name . " telah diterima pada " . $model->tarikh . "
 Sila klik " . Yii::$app->urlManager->createAbsoluteUrl(['']) . ' untuk tindakan.
-
+<br><br>
 Sekian, terima kasih.
 ')->send();
             }

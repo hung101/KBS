@@ -11,6 +11,7 @@ use kartik\datecontrol\DateControl;
 // table reference
 use app\models\RefReportFormat;
 use app\models\RefJawatanWartawan;
+use app\models\RefAgensiMedia;
 
 // contant values
 use app\models\general\Placeholder;
@@ -61,6 +62,26 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     'columnOptions'=>['colspan'=>3]],
             ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'agensi' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-agensi-media/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefAgensiMedia::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::agensi],],
+                    'columnOptions'=>['colspan'=>5]],
+            ],
         ],
         [
             'columns'=>12,

@@ -81,4 +81,9 @@ class ProfilPusatLatihanJurulatih extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Jurulatih::className(), ['jurulatih_id' => 'jurulatih']);
     }
+    
+    public function getRefProfilPusatLatihan()
+    {
+        return $this->hasOne(ProfilPusatLatihan::className(), ['profil_pusat_latihan_id' => 'profil_pusat_latihan_id']);
+    }
 }

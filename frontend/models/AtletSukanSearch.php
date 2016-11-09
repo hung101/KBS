@@ -21,7 +21,8 @@ class AtletSukanSearch extends AtletSukan
     {
         return [
             [['sukan_id', 'atlet_id', 'nama_sukan_id'], 'integer'],
-            [['nama_sukan', 'acara', 'tahun_umur_permulaan', 'jurulatih_id', 'tarikh_mula_menyertai_program_msn', 'tarikh_tamat_menyertai_program_msn', 'program_semasa', 'no_lesen_sukan', 'atlet_persekutuan_dunia_id'], 'safe'],
+            [['nama_sukan', 'acara', 'tahun_umur_permulaan', 'jurulatih_id', 'tarikh_mula_menyertai_program_msn', 'tarikh_tamat_menyertai_program_msn', 'program_semasa',
+                'no_lesen_sukan', 'atlet_persekutuan_dunia_id', 'profil_pusat_latihan_id'], 'safe'],
         ];
     }
 
@@ -49,7 +50,8 @@ class AtletSukanSearch extends AtletSukan
                 ->joinWith(['refProgramSemasaSukanAtlet'])
                 ->joinWith(['refJurulatih'])
                 ->joinWith(['refCawangan'])
-                ->joinWith(['refNegeri'])->orderBy(['tbl_atlet_sukan.tarikh_mula_menyertai_program_msn' => SORT_DESC]);
+                ->joinWith(['refNegeri'])
+                ->joinWith(['refPusatLatihan'])->orderBy(['tbl_atlet_sukan.tarikh_mula_menyertai_program_msn' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -78,7 +80,8 @@ class AtletSukanSearch extends AtletSukan
             ->andFilterWhere(['like', 'atlet_persekutuan_dunia_id', $this->atlet_persekutuan_dunia_id])
                 ->andFilterWhere(['like', 'tarikh_mula_menyertai_program_msn', $this->tarikh_mula_menyertai_program_msn])
                 ->andFilterWhere(['like', 'tarikh_tamat_menyertai_program_msn', $this->tarikh_tamat_menyertai_program_msn])
-                ->andFilterWhere(['like', 'tbl_jurulatih.nama', $this->jurulatih_id]);
+                ->andFilterWhere(['like', 'tbl_jurulatih.nama', $this->jurulatih_id])
+                ->andFilterWhere(['like', 'tbl_profil_pusat_latihan.nama_pusat_latihan', $this->profil_pusat_latihan_id]);
 
         return $dataProvider;
     }

@@ -239,6 +239,8 @@ class PermohonanBiasiswaController extends Controller
                 $report_url = BaseUrl::to(['generate-laporan-permohonan-biasiswa'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                        , 'program' => $model->program
+                    , 'sukan' => $model->sukan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -246,6 +248,8 @@ class PermohonanBiasiswaController extends Controller
                 return $this->redirect(['generate-laporan-permohonan-biasiswa'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                        , 'program' => $model->program
+                    , 'sukan' => $model->sukan
                     , 'format' => $model->format
                 ]);
             }
@@ -257,7 +261,7 @@ class PermohonanBiasiswaController extends Controller
         ]);
     }
 
-    public function actionGenerateLaporanPermohonanBiasiswa($tarikh_dari, $tarikh_hingga,$format)
+    public function actionGenerateLaporanPermohonanBiasiswa($tarikh_dari, $tarikh_hingga, $program, $sukan ,$format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -265,9 +269,17 @@ class PermohonanBiasiswaController extends Controller
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanPermohonanBiasiswa', $format, $controls, 'laporan_permohonan_biasiswa');

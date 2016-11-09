@@ -219,6 +219,7 @@ class ProfilWartawanSukanController extends Controller
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'jawatan' => $model->jawatan
+                    , 'agensi' => $model->agensi
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -227,6 +228,7 @@ class ProfilWartawanSukanController extends Controller
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'jawatan' => $model->jawatan
+                    , 'agensi' => $model->agensi
                     , 'format' => $model->format
                 ]);
             }
@@ -238,7 +240,7 @@ class ProfilWartawanSukanController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanProfilWartawan($tarikh_dari, $tarikh_hingga, $jawatan, $format)
+    public function actionGenerateLaporanProfilWartawan($tarikh_dari, $tarikh_hingga, $jawatan, $agensi, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -253,6 +255,7 @@ class ProfilWartawanSukanController extends Controller
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
             'JAWATAN' => $jawatan,
+            'AGENSI' => $agensi,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanProfilWartawan', $format, $controls, 'laporan_profil_wartawan');

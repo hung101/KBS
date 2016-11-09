@@ -208,6 +208,24 @@ use app\models\general\GeneralMessage;
     <?php Pjax::end(); ?>
     
     <br>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'kelemahan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>3]],
+                 
+            ],
+        ],
+    ]
+]);
+        ?>
 
     <!--<?= $form->field($model, 'pengurusan_permohonan_kursus_persatuan_id')->textInput() ?>
 

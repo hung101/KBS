@@ -75,6 +75,14 @@ use app\models\general\GeneralMessage;
                  
             ],
         ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                 'rekod_baru' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
+                 
+            ],
+        ],
     ]
 ]);
         ?>

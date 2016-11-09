@@ -257,7 +257,7 @@ class PermohonanPeralatanController extends Controller
         ]);
     }
 
-    public function actionGeneratLaporanSenaraiPermohonanPeralatan($tarikh_dari, $tarikh_hingga,$format)
+    public function actionGenerateLaporanSenaraiPermohonanPeralatan($tarikh_dari, $tarikh_hingga,$format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -307,7 +307,7 @@ class PermohonanPeralatanController extends Controller
         ]);
     }
 
-    public function actionGeneratLaporanStatistikPermohonanPeralatan($tarikh_dari, $tarikh_hingga,$format)
+    public function actionGenerateLaporanStatistikPermohonanPeralatan($tarikh_dari, $tarikh_hingga,$format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);

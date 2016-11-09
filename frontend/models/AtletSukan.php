@@ -55,7 +55,7 @@ class AtletSukan extends \yii\db\ActiveRecord
     {
         return [
             [['atlet_id', 'jurulatih_id', 'nama_sukan', 'acara', 'tarikh_mula_menyertai_program_msn', 'tarikh_tamat_menyertai_program_msn'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id', 'tahun_umur_permulaan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['atlet_id', 'tahun_umur_permulaan', 'profil_pusat_latihan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_mula_menyertai_program_msn', 'cawangan', 'negeri_diwakili', 'status', 'tarikh_tamat_menyertai_program_msn', 
                 'tarikh_kelulusan', 'source'], 'safe'],
             [['nama_sukan', 'acara', 'program_semasa'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -87,6 +87,7 @@ class AtletSukan extends \yii\db\ActiveRecord
             'kelulusan' => GeneralLabel::kelulusan,
             'source' => GeneralLabel::source,
             'tarikh_kelulusan' => GeneralLabel::tarikh_kelulusan,
+            'profil_pusat_latihan_id' => GeneralLabel::pusat_latihan,
         ];
     }
     
@@ -151,5 +152,10 @@ class AtletSukan extends \yii\db\ActiveRecord
      */
     public function getRefNegeri(){
         return $this->hasOne(RefNegeri::className(), ['id' => 'negeri_diwakili']);
+    }
+    
+    public function getRefPusatLatihan()
+    {
+        return $this->hasOne(ProfilPusatLatihan::className(), ['profil_pusat_latihan_id' => 'profil_pusat_latihan_id']);
     }
 }

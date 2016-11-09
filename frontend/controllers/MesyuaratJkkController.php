@@ -407,15 +407,15 @@ class MesyuaratJkkController extends Controller
                                     ->setFrom('noreply@spsb.com')
                                     ->setSubject('Mesyuarat ' . $model->jenis_mesyuarat)
                                     ->setTextBody('Salam Sejahtera,
-
+<br><br>
 Bil Mesyuarat: '. $model->bil_mesyuarat .'
 Tarikh: '. GeneralFunction::getDateTimePrintFormat($model->tarikh) .'
 Tempat: '. $model->tempat .'
-
+<br>
 Berikut adalah minit mesyuarat:-
-
+<br>
 '.Url::base(true).'/'. $model->minit_mesyuarat . '
-
+<br><br>
 
 "KE ARAH KECEMERLANGAN SUKAN"
 Majlis Sukan Negara Malaysia.

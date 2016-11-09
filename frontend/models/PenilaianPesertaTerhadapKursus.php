@@ -40,7 +40,7 @@ class PenilaianPesertaTerhadapKursus extends \yii\db\ActiveRecord
         return [
             [['pengurusan_permohonan_kursus_persatuan_id', 'nama_penganjur_kursus'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['pengurusan_permohonan_kursus_persatuan_id', 'created_by', 'updated_by'], 'integer'],
-            [['tarikh_kursus', 'created', 'updated'], 'safe'],
+            [['tarikh_kursus', 'created', 'updated', 'kelemahan'], 'safe'],
             [['nama_penganjur_kursus', 'nama_penyelaras'], 'string', 'max' => 80],
             [['kod_kursus'], 'string', 'max' => 30],
             [['tempat_kursus'], 'string', 'max' => 90],
@@ -60,6 +60,7 @@ class PenilaianPesertaTerhadapKursus extends \yii\db\ActiveRecord
             'kod_kursus' => GeneralLabel::kod_kursus,
             'tempat_kursus' => GeneralLabel::tempat_kursus,
             'nama_penyelaras' => GeneralLabel::nama_penyelaras,
+            'kelemahan' => GeneralLabel::kelemahan,
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',

@@ -131,6 +131,7 @@ class TempahanKemudahanMsnController extends Controller
         $model->status = RefStatusTempahanKemudahan::SEDANG_DISEMAK;
         
         $queryPar = null;
+        $allowSave = true;
         
         Yii::$app->session->open();
         
@@ -140,8 +141,20 @@ class TempahanKemudahanMsnController extends Controller
         
         $searchModelTempahanKemudahanSubMsn  = new TempahanKemudahanSubMsnSearch();
         $dataProviderTempahanKemudahanSubMsn = $searchModelTempahanKemudahanSubMsn->search($queryPar);
+        
+        if ($model->load(Yii::$app->request->post())){
+            if (($modelTempahanKemudahanSubMsns = TempahanKemudahanSubMsn::find()->where('session_id = :session_id', [':session_id' => Yii::$app->session->id])->all()) !== null) {
+                foreach($modelTempahanKemudahanSubMsns as $modelTempahanKemudahanSubMsn){
+                    if($modelTempahanKemudahanSubMsn->status == RefStatusTempahanKemudahan::SEDANG_DISEMAK && $model->status != RefStatusTempahanKemudahan::SEDANG_DISEMAK){
+                        // if the kemudahan has not process yet, this permohonan cannot be process
+                        $allowSave = false;
+                        Yii::$app->session->setFlash('error', 'Tempahan tidak boleh proses sekiranya senarai kemudahan status masih ada "Sedang Disemak".');
+                    }
+                }
+            }
+        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Yii::$app->request->post() && $model->save() && $allowSave) {
             if(isset(Yii::$app->session->id)){
                 TempahanKemudahanSubMsn::updateAll(['tempahan_kemudahan_id' => $model->tempahan_kemudahan_id], 'session_id = "'.Yii::$app->session->id.'"');
                 TempahanKemudahanSubMsn::updateAll(['session_id' => ''], 'tempahan_kemudahan_id = "'.$model->tempahan_kemudahan_id.'"');
@@ -173,11 +186,14 @@ class TempahanKemudahanMsnController extends Controller
         $model = $this->findModel($id);
         
         $queryPar = null;
+        $allowSave = true;
         
         $queryPar['TempahanKemudahanSubMsnSearch']['tempahan_kemudahan_id'] = $id;
         
         $searchModelTempahanKemudahanSubMsn  = new TempahanKemudahanSubMsnSearch();
         $dataProviderTempahanKemudahanSubMsn = $searchModelTempahanKemudahanSubMsn->search($queryPar);
+        
+        
         
         if($model->load(Yii::$app->request->post()) && ($model->status != $model->getOldAttribute('status'))){
             
@@ -190,20 +206,30 @@ class TempahanKemudahanMsnController extends Controller
                         ->setFrom('noreply@spsb.com')
                         ->setSubject('SPSB Pemberitahuan: Tempahan')
                         ->setTextBody("Salam Sejahtera,
-
-Terima kasih di atas tempahan tuan/puan no. tempahan " . $model->tempahan_kemudahan_id . " pada " . $model->tarikh_mula . "
-Sila semak status tempahan tersebut di " . $urlBackend . '
-
-"KE ARAH KECEMERLANGAN SUKAN"
-Bahagian Fasiliti Sukan
-Majlis Sukan Negara Malaysia.
-
-Ini adalah cetakan komputer, tandatangan tidak diperlukan.
+<br><br><br>
+Terima kasih di atas tempahan tuan/puan no. tempahan " . $model->tempahan_kemudahan_id . " pada " . $model->tarikh_mula . "<br>
+Sila semak status tempahan tersebut di " . $urlBackend . '<br>
+<br><br><br>
+"KE ARAH KECEMERLANGAN SUKAN"<br>
+Bahagian Fasiliti Sukan<br>
+Majlis Sukan Negara Malaysia.<br>
+<br>
+Ini adalah cetakan komputer, tandatangan tidak diperlukan.<br>
 ')->send();
+            }
+            
+            if (($modelTempahanKemudahanSubMsns = TempahanKemudahanSubMsn::find()->where('tempahan_kemudahan_id = :tempahan_kemudahan_id', [':tempahan_kemudahan_id' => $model->tempahan_kemudahan_id])->all()) !== null) {
+                foreach($modelTempahanKemudahanSubMsns as $modelTempahanKemudahanSubMsn){
+                    if($modelTempahanKemudahanSubMsn->status == RefStatusTempahanKemudahan::SEDANG_DISEMAK && $model->status != RefStatusTempahanKemudahan::SEDANG_DISEMAK){
+                        // if the kemudahan has not process yet, this permohonan cannot be process
+                        $allowSave = false;
+                        Yii::$app->session->setFlash('error', 'Tempahan tidak boleh proses sekiranya senarai kemudahan status masih ada "Sedang Disemak".');
+                    }
                 }
+            }
         }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save() && $allowSave) {
             return $this->redirect(['view', 'id' => $model->tempahan_kemudahan_id]);
         } else {
             return $this->render('update', [

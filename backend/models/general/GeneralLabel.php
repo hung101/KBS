@@ -2000,6 +2000,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_bimbingan_kaunseling_pegawai = "Laporan Bimbingan Kaunseling (Pegawai & Anggota)";
         const laporan_gym_jumlah_atlet = "Laporan GYM Kehadiran Atlet";
         const laporan_gym_kehadiran_atlet = "Laporan Pinjaman Peralatan";
+        const laporan_insentif_atlet = "Laporan Insentif Atlet";
+        const laporan_insentif_atlet_keseluruhan = "Laporan Insentif Atlet Keseluruhan";
         const laporan_insentif_mesyuarat_jawatankuasa_bantuan_shakam = "Laporan Mesyuarat Jawatankuasa Bantuan (SHAKAM)";
         const laporan_insentif_mesyuarat_jawatankuasa_bantuan_shakar = "Laporan Mesyuarat Jawatankuasa Bantuan (SHAKAR)";
         const laporan_insentif_mesyuarat_jawatankuasa_bantuan_sikap = "Laporan Mesyuarat Jawatankuasa Bantuan (SIKAP)";
@@ -5033,6 +5035,8 @@ if($session->get('language') == "EN") {
         const laporan_bimbingan_kaunseling_pegawai = "Report Guidance Counselling (Officers and Members)";
         const laporan_gym_jumlah_atlet = "Report GYM Athlete Attandance";
         const laporan_gym_kehadiran_atlet = "Report Equipment Loan";
+        const laporan_insentif_atlet = "Athletes Incentives Report";
+        const laporan_insentif_atlet_keseluruhan = "Athletes Incentives Overall Report";
         const laporan_insentif_mesyuarat_jawatankuasa_bantuan_shakam = "Assistance Committee Meeting Report (SHAKAM)";
         const laporan_insentif_mesyuarat_jawatankuasa_bantuan_shakar = "Assistance Committee Meeting Report (SHAKAR)";
         const laporan_insentif_mesyuarat_jawatankuasa_bantuan_sikap = "Assistance Committee Meeting Report (SIKAP)";

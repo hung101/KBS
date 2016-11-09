@@ -22,12 +22,15 @@ class MsnLaporan extends Model
     public $kategori_kecacatan;
     public $jenis;
     public $source;
+    public $kod_kursus;
+    public $kejohanan;
+    public $temasya;
 
     public function rules()
     {
         return [
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'negeri', 'acara', 'kategori_kecacatan', 'atlet', 'source', 'jenis'], 'safe'],
+            [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'negeri', 'acara', 'kategori_kecacatan', 'atlet', 'source', 'jenis', 'kod_kursus', 'kejohanan', 'temasya'], 'safe'],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
             [['jumlah_geran_hingga'], 'compare', 'compareAttribute'=>'negeri', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
@@ -44,7 +47,10 @@ class MsnLaporan extends Model
             'acara' => GeneralLabel::acara,
             'atlet' => GeneralLabel::atlet,
             'source' => GeneralLabel::source,
+            'kod_kursus' => GeneralLabel::kod_kursus,
             'format' => GeneralLabel::format,
+            'kejohanan' => GeneralLabel::kejohanan,
+            'temasya' => GeneralLabel::temasya,
             'kategori_kecacatan' => GeneralLabel::kategori_kecacatan,
         ];
     }

@@ -12,6 +12,7 @@ use app\models\MsnLaporanStatistikJurulatihProgramJantina;
 use app\models\MsnLaporanSenaraiJurulatihSukan;
 use app\models\MsnLaporanSenaraiJurulatihNegeri;
 use app\models\MsnLaporanJurulatihWajaran;
+use app\models\MsnLaporan;
 use app\models\JurulatihPrintForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -488,6 +489,8 @@ class JurulatihController extends Controller
             
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-senarai-jurulatih'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'program' => $model->program
                     , 'sukan' => $model->sukan
                     , 'status' => $model->status
@@ -499,6 +502,8 @@ class JurulatihController extends Controller
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
             } else {
                 return $this->redirect(['generate-laporan-senarai-jurulatih'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'program' => $model->program
                     , 'sukan' => $model->sukan
                     , 'status' => $model->status
@@ -516,8 +521,14 @@ class JurulatihController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanSenaraiJurulatih($program="", $sukan="", $status="", $negeri="", $created_by="", $negara="", $format="")
+    public function actionGenerateLaporanSenaraiJurulatih($tarikh_dari="", $tarikh_hingga="", $program="", $sukan="", $status="", $negeri="", $created_by="", $negara="", $format="")
     {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
         if($program == "") $program = array();
         else $program = array($program);
         
@@ -537,6 +548,8 @@ class JurulatihController extends Controller
         else $negara = array($negara);
         
         $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
             'STATUS' => $status,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
@@ -867,12 +880,18 @@ class JurulatihController extends Controller
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-jurulatih-wajaran'
                     , 'jurulatih' => $model->jurulatih
+                    , 'laporan_jurulatih' => $model->laporan_jurulatih
+                    , 'prestasi_atlet' => $model->prestasi_atlet
+                    , 'kenaikan_gaji_elaun' => $model->kenaikan_gaji_elaun
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
             } else {
                 return $this->redirect(['generate-laporan-jurulatih-wajaran'
                     , 'jurulatih' => $model->jurulatih
+                    , 'laporan_jurulatih' => $model->laporan_jurulatih
+                    , 'prestasi_atlet' => $model->prestasi_atlet
+                    , 'kenaikan_gaji_elaun' => $model->kenaikan_gaji_elaun
                     , 'format' => $model->format
                 ]);
             }
@@ -884,15 +903,76 @@ class JurulatihController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanJurulatihWajaran($jurulatih, $format)
+    public function actionGenerateLaporanJurulatihWajaran($jurulatih, $laporan_jurulatih, $prestasi_atlet, $kenaikan_gaji_elaun, $format)
     {
         if($jurulatih == "") $jurulatih = array();
         else $jurulatih = array($jurulatih);
         
+        if($kenaikan_gaji_elaun == "") $kenaikan_gaji_elaun = array();
+        else $kenaikan_gaji_elaun = array($kenaikan_gaji_elaun);
+        
+        if($laporan_jurulatih == "") $laporan_jurulatih = array();
+        else $laporan_jurulatih = array($laporan_jurulatih);
+        
+        if($prestasi_atlet == "") $prestasi_atlet = array();
+        else $prestasi_atlet = array($prestasi_atlet);
+        
         $controls = array(
             'JURULATIH' => $jurulatih,
+            'KENAIKAN_GAJI_ELAUN' => $kenaikan_gaji_elaun,
+            'LAPORAN_JURULATIH' => $laporan_jurulatih,
+            'PRESTASI_ATLET' => $prestasi_atlet,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanJurulatihWajaran', $format, $controls, 'laporan_jurulatih_wajaran');
+    }
+    
+    public function actionLaporanStatistikJurulatihMengikutKursus()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-jurulatih-mengikut-kursus'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-jurulatih-mengikut-kursus'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_jurulatih_mengikut_kursus', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikJurulatihMengikutKursus($tarikh_dari, $tarikh_hingga, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikJurulatihMengikutKursus', $format, $controls, 'laporan_statistik_jurulatih_mengikut_kursus');
     }
 }

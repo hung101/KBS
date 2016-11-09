@@ -89,16 +89,16 @@ Majlis Sukan Negara Malaysia.
                                     ->setTo($modelUser->email)
                                     ->setFrom('noreply@spsb.com')
                                     ->setSubject('Peringatan: Jurulatih Yang Akan Tamat Kontrak')
-                                    ->setTextBody("Salam Sejahtera,
+                                    ->setTextBody("Salam Sejahtera,<br><br>
 
 
 Jurulatih berikut akan tamat kontrak: 
-
+<br>
 Nama: " . $modelJurulatih->nama . '
 No. K/P: ' . $modelJurulatih->ic_no . '
 No. Passport: ' . $modelJurulatih->passport_no . '
 Tarikh Tamat Kontrak: ' . GeneralFunction::getDatePrintFormat($modelJurulatihSukan->tarikh_tamat_lantikan) . '
-
+<br><br>
 
 "KE ARAH KECEMERLANGAN SUKAN"
 Majlis Sukan Negara Malaysia.
@@ -143,16 +143,16 @@ Majlis Sukan Negara Malaysia.
                                     ->setTo($modelUser->email)
                                     ->setFrom('noreply@spsb.com')
                                     ->setSubject('Peringatan: Jurulatih Yang Belum Dinilai')
-                                    ->setTextBody("Salam Sejahtera,
+                                    ->setTextBody("Salam Sejahtera,<br><br>
 
 
 Jurulatih berikut belum dinilai: 
-
+<br>
 Nama: " . $modelJurulatih->nama . '
 No. K/P: ' . $modelJurulatih->ic_no . '
 No. Passport: ' . $modelJurulatih->passport_no . '
 Tarikh Tamat Kontrak: ' . GeneralFunction::getDatePrintFormat($modelJurulatihSukan->tarikh_tamat_lantikan) . '
-
+<br><br>
 
 "KE ARAH KECEMERLANGAN SUKAN"
 Majlis Sukan Negara Malaysia.

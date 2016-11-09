@@ -116,6 +116,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refJurulatih.nama'
             ],
+            /*[
+                'attribute' => 'profil_pusat_latihan_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pusat_latihan,
+                ],
+                'value' => 'refPusatLatihan.nama_pusat_latihan'
+            ],*/
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

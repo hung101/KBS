@@ -330,11 +330,11 @@ class AtletController extends Controller
                                     ->setFrom('noreply@spsb.com')
         ->setSubject('PSK telah memasukkan atlet baru')
         ->setTextBody("Salam Sejahtera,
-            
+            <br><br>
 Nama Atlet: " . $model->name_penuh . "
 No Kad Pengenalan: " . $model->ic_no . '
     
-
+<br><br>
 "KE ARAH KECEMERLANGAN SUKAN"
 Majlis Sukan Negara Malaysia.
 ')->send();
@@ -350,11 +350,11 @@ Majlis Sukan Negara Malaysia.
                                     ->setFrom('noreply@spsb.com')
         ->setSubject('Majlis Sukan Negeri telah memasukkan atlet baru')
         ->setTextBody("Salam Sejahtera,
-
+<br><br>
 Nama Atlet: " . $model->name_penuh . "
 No Kad Pengenalan: " . $model->ic_no . '
     
-
+<br><br>
 "KE ARAH KECEMERLANGAN SUKAN"
 Majlis Sukan Negara Malaysia.
 ')->send();
@@ -434,12 +434,12 @@ Majlis Sukan Negara Malaysia.
                                     ->setTo($modelUser->email)
                                                                 ->setFrom('noreply@spsb.com')
                                     ->setSubject('Status Tawaran Atlet (' . $model->name_penuh . ') Telah Diproses')
-                                    ->setTextBody('Salam Sejahtera,
+                                    ->setTextBody('Salam Sejahtera,<br><br>
 
                             Nama Atlet: ' . $model->name_penuh . '
                             No Kad Pengenalan: ' . $model->ic_no . '
                             Status Tawaran Terkini: ' . $statusTawaranDesc . '
-
+<br><br>
                             "KE ARAH KECEMERLANGAN SUKAN"
                             Majlis Sukan Negara Malaysia.
                             ')->send();

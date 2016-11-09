@@ -23,6 +23,7 @@ use app\models\RefProgramSemasaSukanAtlet;
 use app\models\RefStatusSukanAtlet;
 use app\models\RefSource;
 use app\models\RefStatusTawaran;
+use app\models\ProfilPusatLatihan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -291,7 +292,25 @@ use app\models\general\GeneralMessage;
                             'url'=>Url::to(['/jurulatih/get-jurulatih-for-atlet'])],
                         ],
                     'columnOptions'=>['colspan'=>3]],
-                
+                'profil_pusat_latihan_id' =>[
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
+                    'options'=>[
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'pluginOptions' => [
+                                'allowClear' => true
+                            ],
+                        ],
+                        'data'=>ArrayHelper::map(ProfilPusatLatihan::find()->all(),'profil_pusat_latihan_id', 'nama_pusat_latihan'),
+                        'options'=>['prompt'=>'',],
+                        'pluginOptions' => [
+                            //'initialize' => true,
+                            'depends'=>[Html::getInputId($model, 'jurulatih_id')],
+                            'placeholder' => Placeholder::jurulatih,
+                            'url'=>Url::to(['/profil-pusat-latihan/get-pusat-latihan-by-jurulatih'])],
+                        ],
+                    'columnOptions'=>['colspan'=>3]],
                 
                 'source' => [
                     'type'=>Form::INPUT_WIDGET, 

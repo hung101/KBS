@@ -22,11 +22,16 @@ class MsnLaporanJurulatihWajaran extends Model
     public $jurulatih;
     public $created_by;
     public $format;
+    public $laporan_jurulatih;
+    public $prestasi_atlet;
+    public $kenaikan_gaji_elaun;
 
     public function rules()
     {
         return [
-            [['format', 'jurulatih'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['format', 'jurulatih', 'laporan_jurulatih', 'prestasi_atlet', 'kenaikan_gaji_elaun'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['laporan_jurulatih', 'prestasi_atlet'], 'number', 'max' => 40, 'message' => GeneralMessage::yii_validation_number, 'tooBig' => GeneralMessage::yii_validation_integer_max],
+            [[ 'kenaikan_gaji_elaun'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'negeri', 'acara', 'status', 'created_by', 'negara'], 'safe'],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
@@ -44,6 +49,9 @@ class MsnLaporanJurulatihWajaran extends Model
             'status' => GeneralLabel::status,
             'negara' => GeneralLabel::negara,
             'jurulatih' => GeneralLabel::jurulatih,
+            'laporan_jurulatih' => "Laporan Jurulatih & CCE (%)",
+            'prestasi_atlet' => "Prestasi Atlet (Di Temasya / Kejohanan) (%)",
+            'kenaikan_gaji_elaun' => "Jumlah Kenaikan Gaji / Elaun) (RM)",
             'format' => GeneralLabel::format,
         ];
     }
