@@ -740,7 +740,7 @@ use app\models\general\GeneralVariable;
     <pre style="text-align: center"><strong>Maklumat OKU</strong></pre>
     
     <?php
-        echo FormGrid::widget([
+        /*echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -758,7 +758,7 @@ use app\models\general\GeneralVariable;
             ]
         ],
     ]
-]);
+]);*/
     ?>
     
     <?php

@@ -137,18 +137,20 @@ use app\models\general\GeneralLabel;
                 }
                 
                 @page {
-                    margin-top: 8.1cm;
+                    //margin-top: 8.1cm;
+                    margin-top: 1cm;
                     margin-bottom: 1cm;
                     margin-left: 1cm;
                     margin-right: 1cm;
                     margin-header: 1cm;
-                    header: html_MyCustomHeader; /* Displays on all pages of the PDF */
+                    //header: html_MyCustomHeader; /* Displays on all pages of the PDF */
                 }
                 
                 /* Overrides the @page header and displays on the first page of the PDF */
-                /*@page :first {
+                @page :first {
                     header: html_MyCustomHeader; 
-                }*/
+                    margin-top: 8.1cm;
+                }
                 
                 .wrapper{position:relative;}
                 .right,.left{width:50%; position:absolute;}
@@ -179,6 +181,7 @@ use app\models\general\GeneralLabel;
                     padding-top:2px;
                     padding-bottom:2px;
                     vertical-align: top;
+                    font-weight: bold;
                 }
                 
                 .field_colon{
@@ -186,12 +189,13 @@ use app\models\general\GeneralLabel;
                     padding-top:2px;
                     padding-bottom:2px;
                     vertical-align: top;
+                    font-weight: bold;
                 }
                 
                 .field_value{
                     width:67%;
-                    color:red;
-                    font-weight: bold;
+                    //color:black;
+                    //font-weight: bold;
                     padding-top:2px;
                     padding-bottom:2px;
                     vertical-align: top;
@@ -208,6 +212,7 @@ use app\models\general\GeneralLabel;
                     padding-top:5px;
                     padding-bottom:5px;
                     vertical-align: top;
+                    font-weight: bold;
                 }
                 
                 .field_colon_2{
@@ -215,20 +220,21 @@ use app\models\general\GeneralLabel;
                     padding-top:5px;
                     padding-bottom:5px;
                     vertical-align: top;
+                    font-weight: bold;
                 }
                 
                 .field_value_2{
                     width:24.5%;
-                    color:red;
-                    font-weight: bold;
+                    //color:red;
+                    //font-weight: bold;
                     padding-top:5px;
                     padding-bottom:5px;
                     vertical-align: top;
                 }
                 
                 .field_value_col_4{
-                    color:red;
-                    font-weight: bold;
+                    //color:red;
+                    //font-weight: bold;
                     padding-top:5px;
                     padding-bottom:5px;
                     vertical-align: top;
@@ -254,8 +260,8 @@ use app\models\general\GeneralLabel;
                 }
                 
                 td.table_records_td, td.table_records_td_left, td.table_no_records_td{
-                    color:red;
-                    font-weight: bold;
+                    //color:red;
+                    //font-weight: bold;
                     font-size: x-small;
                 }
                 

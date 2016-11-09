@@ -158,7 +158,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map($sukan_list,'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan, 'id'=>'sukanId'],
+                        'options' => ['placeholder' => Placeholder::sukan],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -391,7 +391,7 @@ $('#sukanId').change(function(){
 });
         
 function setSukan(){
-    $.get('$URLSetSukan',{sukan_id:$('#sukanId').val()},function(data){
+    $.get('$URLSetSukan',{sukan_id:$('#atletpencapaian-nama_sukan').val()},function(data){
     });
 }
         

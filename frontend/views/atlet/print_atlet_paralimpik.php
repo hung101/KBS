@@ -175,10 +175,11 @@ use app\models\general\GeneralLabel;
                 }
                 
                 .field_label{
-                    width:32%;
+                    width:31%;
                     padding-top:2px;
                     padding-bottom:2px;
                     vertical-align: top;
+                    font-weight: bold;
                 }
                 
                 .field_colon{
@@ -186,12 +187,13 @@ use app\models\general\GeneralLabel;
                     padding-top:2px;
                     padding-bottom:2px;
                     vertical-align: top;
+                    font-weight: bold;
                 }
                 
                 .field_value{
-                    width:66%;
-                    color:red;
-                    font-weight: bold;
+                    width:67%;
+                    //color:black;
+                    //font-weight: bold;
                     padding-top:2px;
                     padding-bottom:2px;
                     vertical-align: top;
@@ -201,7 +203,6 @@ use app\models\general\GeneralLabel;
                     padding-top:1px;
                     padding-bottom:1px; 
                     //padding-left: 10%;
-                    
                 }
                 
                 .field_label_2{
@@ -209,6 +210,7 @@ use app\models\general\GeneralLabel;
                     padding-top:5px;
                     padding-bottom:5px;
                     vertical-align: top;
+                    font-weight: bold;
                 }
                 
                 .field_colon_2{
@@ -216,20 +218,21 @@ use app\models\general\GeneralLabel;
                     padding-top:5px;
                     padding-bottom:5px;
                     vertical-align: top;
+                    font-weight: bold;
                 }
                 
                 .field_value_2{
                     width:24.5%;
-                    color:red;
-                    font-weight: bold;
+                    //color:red;
+                    //font-weight: bold;
                     padding-top:5px;
                     padding-bottom:5px;
                     vertical-align: top;
                 }
                 
                 .field_value_col_4{
-                    color:red;
-                    font-weight: bold;
+                    //color:red;
+                    //font-weight: bold;
                     padding-top:5px;
                     padding-bottom:5px;
                     vertical-align: top;
@@ -255,8 +258,8 @@ use app\models\general\GeneralLabel;
                 }
                 
                 td.table_records_td, td.table_records_td_left, td.table_no_records_td{
-                    color:red;
-                    font-weight: bold;
+                    //color:red;
+                    //font-weight: bold;
                     font-size: x-small;
                 }
                 
@@ -613,7 +616,7 @@ use app\models\general\GeneralLabel;
                             <img src="<?php echo \Yii::$app->request->BaseUrl;?>/img/msn_logo.jpg" alt="" width="200px">
                         </td>
                         <td style="width:80%; text-align: center;">
-                            <h1 >MAKLUMAT DIRI ATLET</h1>
+                            <h1 >MAKLUMAT DIRI ATLET PARA</h1>
                             <h1 class="center ">MAJLIS SUKAN NEGARA MALAYSIA</h1>
                         </td>
                     </tr>

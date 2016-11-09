@@ -52,13 +52,13 @@ class DailyCronController extends Controller {
                             ->setTo($modelUser->email)
                             ->setFrom('noreply@spsb.com')
                             ->setSubject('Peringatan: Penilaian Prestasi Atlet')
-                            ->setTextBody("Salam Sejahtera,<br><br>
+                            ->setTextBody("Salam Sejahtera,<br><br><br>
 
 Sila membuat penilaian prestasi atlet untuk kejohanan berikut: " . $ref['nama_program'] . ". <br>
-Sebelum tarikh berikut: " . GeneralFunction::getDatePrintFormat($modelPenilaianPestasi->tarikh_nilai_tamat) . '
+Sebelum tarikh berikut: " . GeneralFunction::getDatePrintFormat($modelPenilaianPestasi->tarikh_nilai_tamat) . '<br>
 <br><br>
 
-"KE ARAH KECEMERLANGAN SUKAN"
+"KE ARAH KECEMERLANGAN SUKAN"<br>
 Majlis Sukan Negara Malaysia.
         ')->send();
                         }
@@ -89,16 +89,16 @@ Majlis Sukan Negara Malaysia.
                                     ->setTo($modelUser->email)
                                     ->setFrom('noreply@spsb.com')
                                     ->setSubject('Peringatan: Jurulatih Yang Akan Tamat Kontrak')
-                                    ->setTextBody("Salam Sejahtera,<br><br>
+                                    ->setTextBody("Salam Sejahtera,<br><br><br>
 
 
-Jurulatih berikut akan tamat kontrak: 
+Jurulatih berikut akan tamat kontrak: <br>
 <br>
-Nama: " . $modelJurulatih->nama . '
-No. K/P: ' . $modelJurulatih->ic_no . '
-No. Passport: ' . $modelJurulatih->passport_no . '
+Nama: " . $modelJurulatih->nama . '<br>
+No. K/P: ' . $modelJurulatih->ic_no . '<br>
+No. Passport: ' . $modelJurulatih->passport_no . '<br>
 Tarikh Tamat Kontrak: ' . GeneralFunction::getDatePrintFormat($modelJurulatihSukan->tarikh_tamat_lantikan) . '
-<br><br>
+<br><br><br>
 
 "KE ARAH KECEMERLANGAN SUKAN"
 Majlis Sukan Negara Malaysia.
@@ -146,12 +146,12 @@ Majlis Sukan Negara Malaysia.
                                     ->setTextBody("Salam Sejahtera,<br><br>
 
 
-Jurulatih berikut belum dinilai: 
+Jurulatih berikut belum dinilai: <br>
 <br>
-Nama: " . $modelJurulatih->nama . '
-No. K/P: ' . $modelJurulatih->ic_no . '
-No. Passport: ' . $modelJurulatih->passport_no . '
-Tarikh Tamat Kontrak: ' . GeneralFunction::getDatePrintFormat($modelJurulatihSukan->tarikh_tamat_lantikan) . '
+Nama: " . $modelJurulatih->nama . '<br>
+No. K/P: ' . $modelJurulatih->ic_no . '<br>
+No. Passport: ' . $modelJurulatih->passport_no . '<br>
+Tarikh Tamat Kontrak: ' . GeneralFunction::getDatePrintFormat($modelJurulatihSukan->tarikh_tamat_lantikan) . '<br>
 <br><br>
 
 "KE ARAH KECEMERLANGAN SUKAN"

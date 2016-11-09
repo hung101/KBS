@@ -84,7 +84,7 @@ class PermohonanPenganjuranBengkelSearch extends PermohonanPenganjuranBengkel
 
         $query->andFilterWhere(['like', 'tbl_profil_badan_sukan.nama_badan_sukan', $this->badan_sukan])
             ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
-            ->andFilterWhere(['like', 'tbl_bantuan_penganjuran_kursus.no_pendaftaran', $this->no_pendaftaran])
+            ->andFilterWhere(['like', 'tbl_permohonan_penganjuran_bengkel.no_pendaftaran', $this->no_pendaftaran])
             ->andFilterWhere(['like', 'alamat_1', $this->alamat_1])
             ->andFilterWhere(['like', 'alamat_2', $this->alamat_2])
             ->andFilterWhere(['like', 'alamat_3', $this->alamat_3])

@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\web\UploadedFile;
+use yii\web\Session;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
@@ -97,38 +98,78 @@ class Atlet extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [
-            [['tahap', 'tid', 'cawangan', 'name_penuh', 'tarikh_lahir', 'umur', 'tempat_lahir_bandar', 'tempat_lahir_negeri', 
-                'bangsa', 'agama', 'jantina', 'taraf_perkahwinan', 'tinggi', 'berat', 'tel_bimbit_no_1', 'alamat_rumah_1', 'alamat_rumah_negeri', 
-                'alamat_rumah_bandar', 'alamat_rumah_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_negeri', 'alamat_surat_bandar', 'alamat_surat_poskod', 
-                'nama_kecemasan', 'pertalian_kecemasan', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan', 'ic_no', 'tempat_lahir_alamat_1', 'cacat', 'status_atlet',
-                'kategori_kecacatan', 'jenis_kecederaan', 'agensi', 'ms_negeri'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_lahir', 'lesen_tamat_tempoh', 'passport_tamat_tempoh', 'kategori_kecacatan', 'cacat', 'tawaran', 'tarikh_luput'], 'safe'],
-            [['umur', 'tel_bimbit_no_1', 'tel_bimbit_no_2', 'tel_no', 'tid', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan',
-                'tawaran_id', 'mesyuarat_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['tinggi', 'berat'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
-            [['tinggi', 'berat'], 'string', 'max' => 6, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['lesen_memandu_no', 'dari_bahagian', 'sumber', 'pertalian_kecemasan'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['name_penuh', 'nama_kecemasan', 'jenis_kecederaan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tempat_lahir_bandar', 'alamat_rumah_bandar', 'alamat_surat_bandar', 'status_atlet', 'jenis_lesen_paralimpik', 'agensi'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tempat_lahir_negeri', 'alamat_rumah_negeri', 'alamat_surat_negeri', 'passport_tempat_dikeluarkan', 'negeri_diwakili'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['bangsa', 'bahasa_ibu'], 'string', 'max' => 25, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['agama', 'taraf_perkahwinan', 'no_sijil_lahir', 'passport_no'], 'string', 'max' => 15, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['ic_no', 'ic_tentera'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['ms_negeri'], 'string', 'max' => 3, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['alamat_rumah_poskod', 'alamat_surat_poskod'], 'string', 'min' => 5, 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_max],
-            [['ic_no_lama'], 'string', 'max' => 8, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['jenis_lesen', 'emel', 'facebook', 'twitter'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tawaran_fail_rujukan', 'no_lesen_ipc'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tempat_lahir_alamat_1'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['gambar'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['alamat_rumah_1','alamat_rumah_2','alamat_rumah_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['file'], 'safe'],
-            [['file'], 'file', 'extensions' => 'png, jpg'],
-            [['muat_naik_surat_persetujuan'],'validateFileUpload', 'skipOnEmpty' => false],
-        ];
+        $session = new Session;
+        $session->open();
+        
+        if(isset($session['atlet_cacat']) && $session['atlet_cacat']){
+            return [
+                [['tahap', 'tid', 'cawangan', 'name_penuh', 'tarikh_lahir', 'umur', 'tempat_lahir_bandar', 'tempat_lahir_negeri', 
+                    'bangsa', 'agama', 'jantina', 'taraf_perkahwinan', 'tel_bimbit_no_1', 'alamat_rumah_1', 'alamat_rumah_negeri', 
+                    'alamat_rumah_bandar', 'alamat_rumah_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_negeri', 'alamat_surat_bandar', 'alamat_surat_poskod', 
+                    'nama_kecemasan', 'pertalian_kecemasan', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan', 'ic_no', 'tempat_lahir_alamat_1', 'cacat', 'status_atlet',
+                    'kategori_kecacatan', 'jenis_kecederaan', 'agensi', 'ms_negeri'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+                [['tarikh_lahir', 'lesen_tamat_tempoh', 'passport_tamat_tempoh', 'kategori_kecacatan', 'cacat', 'tawaran', 'tarikh_luput'], 'safe'],
+                [['umur', 'tel_bimbit_no_1', 'tel_bimbit_no_2', 'tel_no', 'tid', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan',
+                    'tawaran_id', 'mesyuarat_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+                [['tinggi', 'berat'], 'number', 'message' => GeneralMessage::yii_validation_number],
+                [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
+                [['tinggi', 'berat'], 'string', 'max' => 6, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['lesen_memandu_no', 'dari_bahagian', 'sumber', 'pertalian_kecemasan'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['name_penuh', 'nama_kecemasan', 'jenis_kecederaan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['tempat_lahir_bandar', 'alamat_rumah_bandar', 'alamat_surat_bandar', 'status_atlet', 'jenis_lesen_paralimpik', 'agensi'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['tempat_lahir_negeri', 'alamat_rumah_negeri', 'alamat_surat_negeri', 'passport_tempat_dikeluarkan', 'negeri_diwakili'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['bangsa', 'bahasa_ibu'], 'string', 'max' => 25, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['agama', 'taraf_perkahwinan', 'no_sijil_lahir', 'passport_no'], 'string', 'max' => 15, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['ic_no', 'ic_tentera'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['ms_negeri'], 'string', 'max' => 3, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['alamat_rumah_poskod', 'alamat_surat_poskod'], 'string', 'min' => 5, 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_max],
+                [['ic_no_lama'], 'string', 'max' => 8, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['jenis_lesen', 'emel', 'facebook', 'twitter'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['tawaran_fail_rujukan', 'no_lesen_ipc'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['tempat_lahir_alamat_1'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['gambar'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['alamat_rumah_1','alamat_rumah_2','alamat_rumah_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['file'], 'safe'],
+                [['file'], 'file', 'extensions' => 'png, jpg'],
+                [['muat_naik_surat_persetujuan'],'validateFileUpload', 'skipOnEmpty' => false],
+            ];
+        } else {
+            return [
+                [['tahap', 'tid', 'cawangan', 'name_penuh', 'tarikh_lahir', 'umur', 'tempat_lahir_bandar', 'tempat_lahir_negeri', 
+                    'bangsa', 'agama', 'jantina', 'taraf_perkahwinan', 'tinggi', 'berat', 'tel_bimbit_no_1', 'alamat_rumah_1', 'alamat_rumah_negeri', 
+                    'alamat_rumah_bandar', 'alamat_rumah_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_negeri', 'alamat_surat_bandar', 'alamat_surat_poskod', 
+                    'nama_kecemasan', 'pertalian_kecemasan', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan', 'ic_no', 'tempat_lahir_alamat_1', 'cacat', 'status_atlet',
+                    'kategori_kecacatan', 'jenis_kecederaan', 'agensi', 'ms_negeri'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+                [['tarikh_lahir', 'lesen_tamat_tempoh', 'passport_tamat_tempoh', 'kategori_kecacatan', 'cacat', 'tawaran', 'tarikh_luput'], 'safe'],
+                [['umur', 'tel_bimbit_no_1', 'tel_bimbit_no_2', 'tel_no', 'tid', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan',
+                    'tawaran_id', 'mesyuarat_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+                [['tinggi', 'berat'], 'number', 'message' => GeneralMessage::yii_validation_number],
+                [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
+                [['tinggi', 'berat'], 'string', 'max' => 6, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['lesen_memandu_no', 'dari_bahagian', 'sumber', 'pertalian_kecemasan'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['name_penuh', 'nama_kecemasan', 'jenis_kecederaan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['tempat_lahir_bandar', 'alamat_rumah_bandar', 'alamat_surat_bandar', 'status_atlet', 'jenis_lesen_paralimpik', 'agensi'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['tempat_lahir_negeri', 'alamat_rumah_negeri', 'alamat_surat_negeri', 'passport_tempat_dikeluarkan', 'negeri_diwakili'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['bangsa', 'bahasa_ibu'], 'string', 'max' => 25, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['agama', 'taraf_perkahwinan', 'no_sijil_lahir', 'passport_no'], 'string', 'max' => 15, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['ic_no', 'ic_tentera'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['ms_negeri'], 'string', 'max' => 3, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['alamat_rumah_poskod', 'alamat_surat_poskod'], 'string', 'min' => 5, 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_max],
+                [['ic_no_lama'], 'string', 'max' => 8, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['jenis_lesen', 'emel', 'facebook', 'twitter'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['tawaran_fail_rujukan', 'no_lesen_ipc'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['tempat_lahir_alamat_1'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['gambar'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['alamat_rumah_1','alamat_rumah_2','alamat_rumah_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                [['file'], 'safe'],
+                [['file'], 'file', 'extensions' => 'png, jpg'],
+                [['muat_naik_surat_persetujuan'],'validateFileUpload', 'skipOnEmpty' => false],
+            ];
+        }
+        
+        $session->close();
     }
 
     /**

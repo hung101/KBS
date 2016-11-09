@@ -969,9 +969,9 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const maklumat_penajaan = "Maklumat Penajaan";
         const maklumat_sejarah_penajaan = "Maklumat Sejarah Penajaan";
         const maklumat_biasiswa = "Maklumat Biasiswa";
-        const maklumat_persatuan_persekutuan_dunia = "Maklumat Persatuan/Persatuan Dunia";
+        const maklumat_persatuan_persekutuan_dunia = "Maklumat Persatuan/Persekutuan Dunia";
         const maklumat_anugerah = "Maklumat Anugerah";
-        const maklumat_pencapaian_sukan_semasa = "Maklumat Pencapain Sukan Semasa";
+        const maklumat_pencapaian_sukan_semasa = "Maklumat Pencapaian Sukan Semasa";
         const maklumat_sejarah_pencapaian_sukan = "Maklumat Sejarah Pencapaian Sukan";
         const maklumat_tawaran = "Maklumat Tawaran";
         const maklumat_oku = "Maklumat OKU";

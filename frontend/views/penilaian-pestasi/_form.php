@@ -201,6 +201,7 @@ use app\models\general\GeneralMessage;
                         'options'=>['prompt'=>'',],
                         'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
+                            'initialize' => true,
                             'depends'=>[Html::getInputId($model, 'sukan')],
                             'placeholder' => Placeholder::acara,
                             'url'=>Url::to(['/ref-acara/subacaras'])],
