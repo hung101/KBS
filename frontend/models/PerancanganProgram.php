@@ -52,7 +52,7 @@ class PerancanganProgram extends \yii\db\ActiveRecord
     {
         return [
             [['tarikh_mula', 'tarikh_tamat', 'jenis_program', 'nama_program', 'bahagian', 'jenis_aktiviti', 'status_program'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_mula', 'tarikh_tamat', 'tarikh_kelulusan', 'status_program', 'sukan'], 'safe'],
+            [['tarikh_mula', 'tarikh_tamat', 'tarikh_kelulusan', 'status_program', 'sukan', 'cawangan'], 'safe'],
             [['mesyuarat_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kelulusan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],

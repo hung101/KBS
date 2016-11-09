@@ -244,7 +244,7 @@ Memo:
 ' . $message . '
 <br><br>
 
-"KE ARAH KECEMERLANGAN SUKAN"
+"KE ARAH KECEMERLANGAN SUKAN"<br><br>
 Majlis Sukan Negara Malaysia.
                             ')->send();
                         }

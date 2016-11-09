@@ -37,6 +37,8 @@ use app\models\RefBangsa;
 use app\models\RefBidangKepakaranSukarelawan;
 use app\models\RefSukan;
 
+use common\models\User;
+
 /**
  * SukarelawanController implements the CRUD actions for Sukarelawan model.
  */
@@ -151,6 +153,32 @@ class SukarelawanController extends Controller
             $file = UploadedFile::getInstance($model, 'muatnaik');
             if($file){
                 $model->muatnaik = $upload->uploadFile($file, Upload::sukarelawanFolder, $model->sukarelawan_id, "");
+            }
+            
+            if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_sukarelawan'])->groupBy('id')->all()) !== null) {
+        
+                foreach($modelUsers as $modelUser){
+
+                    if($modelUser->email && $modelUser->email != ""){
+                        //echo "E-mail: " . $modelUser->email . "\n";
+                        Yii::$app->mailer->compose()
+                        ->setTo($modelUser->email)
+                        ->setFrom('noreply@spsb.com')
+                        ->setSubject('Pemberitahuan: Permohonan Sukarelawan Baru')
+                        ->setTextBody("Salam Sejahtera,
+<br><br><br>
+Berikut adalah permohonan sukarelawan baru telah dihantar : <br>
+<br><br>
+Nama : " . $model->nama . '<br>
+No. Kad Pengenalan: ' . GeneralFunction::getFormatIc($model->no_kad_pengenalan) . '
+<br><br>
+Link: ' . BaseUrl::to(['sukarelawan/view', 'id' => $model->sukarelawan_id], true) . '
+<br><br><br>
+"KE ARAH KECEMERLANGAN SUKAN"<br><br>
+Majlis Sukan Negara Malaysia.
+    ')->send();
+                    }
+                }
             }
             
             if($model->save()){

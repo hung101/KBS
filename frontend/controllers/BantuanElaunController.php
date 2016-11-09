@@ -263,15 +263,14 @@ Majlis Sukan Negara Malaysia.
                     $ref = RefStatusPermohonanSue::findOne(['id' => $model->status_permohonan]);
                     $model->status_permohonan = $ref['desc'];
                     
-                    if($model->jenis_bantuan == "elaun sue"){
+                    if($model->jenis_bantuan == RefJenisBantuanSue::ELAUN_SUE){
                        $jenis_bantuan = 'Elaun SUE';
-                    } else if(trim($jenis_bantuan) == "elaun penyelaras psk"){
+                    } else if($model->jenis_bantuan == RefJenisBantuanSue::ELAUN_PENYERLARAS_PSK){
                        $jenis_bantuan = 'Elaun Penyelaras PSK';
-                    } else if(trim($jenis_bantuan) == "emolumen psk"){
+                    } else if($model->jenis_bantuan == RefJenisBantuanSue::EMOLUMEN_PSK){
                        $jenis_bantuan = 'Emolumen PSK';
                     } 
                     
-                    $jenis_bantuan = 'Elaun SUE';
                     
                     try {
                         //if($model->status_permohonan_id == RefStatusPermohonanSue::LULUS){ // Approved
@@ -283,7 +282,7 @@ Majlis Sukan Negara Malaysia.
 <br><br>
 Dimaklumkan Permohonan ' . $jenis_bantuan . ' Persatuan Sukan Kebangsaan Tuan/Puan telah '.GeneralFunction::getUpperCaseWords($model->status_permohonan).'.
 <br><br>
-"KE ARAH KECEMERLANGAN SUKAN"
+"KE ARAH KECEMERLANGAN SUKAN"<br><br>
 Majlis Sukan Negara Malaysia.
                             ')->send();
                         //}

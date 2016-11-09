@@ -10,6 +10,7 @@ use kartik\datecontrol\DateControl;
 
 // table reference
 use app\models\RefReportFormat;
+use app\models\BorangProfilPesertaKpsk;
 
 // contant values
 use app\models\general\Placeholder;
@@ -65,7 +66,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'kod_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
+                'kod_kursus' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'data'=>ArrayHelper::map(BorangProfilPesertaKpsk::find()->all(),'borang_profil_peserta_kpsk_id', 'kod_kursus'),
+                        'options' => ['placeholder' => Placeholder::format],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                    'columnOptions'=>['colspan'=>3]],
             ]
         ],
         [

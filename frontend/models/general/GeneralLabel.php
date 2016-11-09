@@ -863,7 +863,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_bulanan_secara_detail = "Laporan Bulanan";
         const laporan_delegasi_teknikal = "Laporan Delegasi Teknikal";
         const laporan_fisiologi_jumlah_bilangan_ujian = "Laporan Fisiologi Jumlah Bilangan Ujian";
-        const laporan_hadiah_kemenangan_untuk_temasya_sukan = "Laporan Hadiah Kemenangan Untuk Temasya Sukan";
+        const laporan_hadiah_kemenangan_untuk_temasya_sukan = "Laporan Skim Hadiah Kemenangan Sukan";
         const laporan_jadual_pegawai_temujanji = "Jadual Pegawai Temujanji";
         const laporan_jadual_perjalanan_bas = "Jadual Perjalanan Bas";
         const laporan_jadual_waktu_sajian_makanan_atlet = "Jadual Waktu Sajian Makanan Atlet";

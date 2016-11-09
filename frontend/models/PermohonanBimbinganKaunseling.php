@@ -97,7 +97,7 @@ class PermohonanBimbinganKaunseling extends \yii\db\ActiveRecord
         return [
             'permohonan_bimbingan_kaunseling_id' => GeneralLabel::permohonan_bimbingan_kaunseling_id,
             'atlet_id' => GeneralLabel::atlet_id,
-            'tarikh_temujanji' => GeneralLabel::tarikh_cadangan,
+            'tarikh_temujanji' => GeneralLabel::tarikh_temujanji,
             'status_permohonan' => GeneralLabel::status_permohonan,
             'tarikh_rujukan' => GeneralLabel::tarikh_rujukan,
             'nama_pemohon_rujukan' => GeneralLabel::nama,
