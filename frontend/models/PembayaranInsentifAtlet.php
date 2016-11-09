@@ -38,7 +38,7 @@ class PembayaranInsentifAtlet extends \yii\db\ActiveRecord
         return [
             [['atlet', 'negara', 'acara', 'nilai'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['pembayaran_insentif_id', 'atlet', 'negara', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['nilai', 'insentif_khas'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['nilai', 'insentif_khas', 'insentif'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['created', 'updated'], 'safe'],
             [['session_id'], 'string', 'max' => 100],
             //[['pembayaran_insentif_id', 'atlet', 'acara', 'session_id'], 'unique', 'targetAttribute' => [ 'atlet', 'acara'] , 'message' => GeneralMessage::yii_validation_unique_multiple],
@@ -63,6 +63,7 @@ class PembayaranInsentifAtlet extends \yii\db\ActiveRecord
             'updated' => 'Updated',
             'nilai' => GeneralLabel::nilai,
             'insentif_khas'=> 'Insentif Khas (RM)',
+            'insentif'=> 'Insentif (RM)',
         ];
     }
     

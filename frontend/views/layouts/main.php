@@ -300,6 +300,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                                         ['label' => GeneralLabel::laporan_acara_kejohanan_temasya, 'url' => ['/penilaian-pestasi/laporan-acara-kejohanan-temasya'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['module'])],
                                                         ['label' => GeneralLabel::laporan_jumlah_pingat_mengikut_negeri, 'url' => ['/penilaian-pestasi/laporan-jumlah-pingat-mengikut-negeri'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['module'])],
                                                         ['label' => GeneralLabel::laporan_rekod_baru, 'url' => ['/penilaian-pestasi/laporan-rekod-baru'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['module'])],
+                                                        ['label' => GeneralLabel::laporan_penyertaan_kontinjen, 'url' => ['/penilaian-pestasi/laporan-penyertaan-kontinjen'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['module'])],
                                                     ],
                                                 ],
                                             ],
