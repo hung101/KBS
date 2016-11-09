@@ -631,23 +631,33 @@ var peratus_sgar = 0;
 var is_new_record = '$NEW_RECORD';
         
 $('#pembayaraninsentif-jenis_insentif').change(function(){
-    getJumlah();
+    if(is_new_record == '1'){
+        getJumlah();
+    }
 });
         
 $('#pembayaraninsentif-kejohanan').change(function(){
-    getJumlah();
+    if(is_new_record == '1'){
+        getJumlah();
+    }
 });
         
 $('#pembayaraninsentif-pingat').change(function(){
-    getJumlah();
+    if(is_new_record == '1'){
+        getJumlah();
+    }
 });
         
 $('#pembayaraninsentif-peringkat').change(function(){
-    getJumlah();
+    if(is_new_record == '1'){
+        getJumlah();
+    }
 });
         
 $('#pembayaraninsentif-kelas').change(function(){
-    getJumlah();
+    if(is_new_record == '1'){
+        getJumlah();
+    }
 });
 
 $('#pembayaraninsentif-acara').change(function(){
@@ -714,32 +724,36 @@ function getJumlah(){
 }
         
 function changeAcara(){
-    if(is_new_record == '1'){
-        $.get('$URL_SET_ACARA',{acara_id:$('#pembayaraninsentif-acara').val()},function(data){
-        });
-    
-        
-    
-        if($('#pembayaraninsentif-acara').val() == '$ACARA_INDIVIDU'){
+    $.get('$URL_SET_ACARA',{acara_id:$('#pembayaraninsentif-acara').val()},function(data){
+    });
+
+
+
+    if($('#pembayaraninsentif-acara').val() == '$ACARA_INDIVIDU'){
+        if(is_new_record == '1'){
             $('#pembayaraninsentif-jumlah').val(nilai_individu);
-            //$('#pembayaraninsentif-nilai_sikap').val(0.0);
-
-            var nilai_sikap = nilai_berpasukan_kurang_5_orang * (peratus_sikap/100);
-            $('#pembayaraninsentif-nilai_sikap').val(nilai_sikap.toFixed(2));
-            //$('#sikapID').hide("slow");
-        }else if($('#pembayaraninsentif-acara').val() == '$ACARA_BERPASUKAN_KURANG_5_ORANG'){
-            $('#pembayaraninsentif-jumlah').val(nilai_berpasukan_kurang_5_orang);
-            //$('#sikapID').show("slow");
-
-            var nilai_sikap = nilai_berpasukan_kurang_5_orang * (peratus_sikap/100);
-            $('#pembayaraninsentif-nilai_sikap').val(nilai_sikap.toFixed(2));
-        }else if($('#pembayaraninsentif-acara').val() == '$ACARA_BERPASUKAN_LEBIH_5_ORANG'){
-            $('#pembayaraninsentif-jumlah').val(nilai_berpasukan_lebih_5_orang);
-            //$('#sikapID').show("slow");
-
-            var nilai_sikap = nilai_berpasukan_lebih_5_orang * (peratus_sikap/100);
-            $('#pembayaraninsentif-nilai_sikap').val(nilai_sikap.toFixed(2));
         }
+        //$('#pembayaraninsentif-nilai_sikap').val(0.0);
+
+        var nilai_sikap = nilai_berpasukan_kurang_5_orang * (peratus_sikap/100);
+        $('#pembayaraninsentif-nilai_sikap').val(nilai_sikap.toFixed(2));
+        //$('#sikapID').hide("slow");
+    }else if($('#pembayaraninsentif-acara').val() == '$ACARA_BERPASUKAN_KURANG_5_ORANG'){
+        if(is_new_record == '1'){
+            $('#pembayaraninsentif-jumlah').val(nilai_berpasukan_kurang_5_orang);
+        }
+        //$('#sikapID').show("slow");
+
+        var nilai_sikap = nilai_berpasukan_kurang_5_orang * (peratus_sikap/100);
+        $('#pembayaraninsentif-nilai_sikap').val(nilai_sikap.toFixed(2));
+    }else if($('#pembayaraninsentif-acara').val() == '$ACARA_BERPASUKAN_LEBIH_5_ORANG'){
+        if(is_new_record == '1'){
+            $('#pembayaraninsentif-jumlah').val(nilai_berpasukan_lebih_5_orang);
+        }
+        //$('#sikapID').show("slow");
+
+        var nilai_sikap = nilai_berpasukan_lebih_5_orang * (peratus_sikap/100);
+        $('#pembayaraninsentif-nilai_sikap').val(nilai_sikap.toFixed(2));
     }
 }
         

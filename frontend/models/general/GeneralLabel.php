@@ -847,7 +847,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laman_web = "Laman Web";
         const lantikan = "Lantikan";
         const lampiran = "Lampiran";
-        const laporan_acara_kejohanan_temasya= "Laporan Senarai Acara Kejohana/Temasya";
+        const laporan_acara_kejohanan_temasya= "Laporan Senarai Acara Kejohanan/Temasya";
         const laporan_aduan_kerosakan = "Laporan Aduan Kerosakan";
         const laporan_aktiviti_muat_naik = "Laporan Aktiviti";
         const laporan_atlet_elaun = "Laporan Elaun";
