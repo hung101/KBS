@@ -37,7 +37,7 @@ use app\models\general\GeneralVariable;
     
     <?php 
     if($model->status_permohonan_id && $model->status_permohonan_id==RefStatusBantuanPenganjuranKejohanan::LULUS){
-        echo Html::a('Laporan Penganjuran Kejohanan', ['bantuan-penganjuran-kejohanan-sirkit-laporan/load', 'bantuan_penganjuran_kejohanan_id' =>$model->bantuan_penganjuran_kejohanan_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+        echo Html::a('Laporan Penyertaan Kejohanan', ['bantuan-penganjuran-kejohanan-sirkit-laporan/load', 'bantuan_penganjuran_kejohanan_id' =>$model->bantuan_penganjuran_kejohanan_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
         echo '<br><br>';
     }
     ?>

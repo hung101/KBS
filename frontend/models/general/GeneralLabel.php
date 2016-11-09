@@ -242,6 +242,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const bantuan_penganjuran_kursus_pegawai_teknikal = "Penyertaan Pegawai Teknikal Mengikut Kursus / Seminar / Bengkel Dalam Dan Luar Negara";
         const bantuan_penganjuran_kursus_pegawai_teknikal_laporan = "Laporan Teknikal & Kepegawaian";
         const bantuan_penyertaan_pegawai_teknikal = "Penyertaan Pegawai Teknikal Ke Kejohanan Dalam & Luar Negara";
+        const bantuan_penyertaan_kejohanan_laporan = "Laporan Penyertaan Kejohanan";
         const bantuan_tahun = "Bantuan Tahun";
         const bantuan_yang_anda_perlukan = "Bantuan Yang Anda Perlukan";
         const barang_yang_ditaja = "Barang Yang Ditaja";
@@ -3428,6 +3429,7 @@ if($session->get('language') == "EN") {
         const bantuan_penganjuran_kursus_pegawai_teknikal = "According participation Technical Officer Course / Seminar / Workshop In And Abroad";
         const bantuan_penganjuran_kursus_pegawai_teknikal_laporan = "Technical Report & Employment";
         const bantuan_penyertaan_pegawai_teknikal = "Entries Technical Officer To Tournament In & Abroad";
+        const bantuan_penyertaan_kejohanan_laporan = "Championship Participation Report";
         const bantuan_tahun = "Assistance In Year";
         const bantuan_yang_anda_perlukan = "The Help You Need";
         const barang_yang_ditaja = "Sponsored Item";

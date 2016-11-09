@@ -9,7 +9,7 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\BantuanPenganjuranKejohananSirkitLaporan */
 
 //$this->title = $model->bantuan_penganjuran_kejohanan_laporan_id;
-$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::bantuan_penganjuran_kejohanan_laporan;
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::bantuan_penyertaan_kejohanan_laporan;
 //$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bantuan_penganjuran_kejohanan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\BantuanPenganjuranKejohananSirkitLaporan */
 
-$this->title = GeneralLabel::bantuan_penganjuran_kejohanan_laporan;
+$this->title = GeneralLabel::bantuan_penyertaan_kejohanan_laporan;
 //$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bantuan_penganjuran_kejohanan_laporan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

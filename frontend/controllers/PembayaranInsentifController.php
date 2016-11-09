@@ -174,8 +174,11 @@ class PembayaranInsentifController extends Controller
         $dataProviderPembayaranInsentifJurulatih = $searchModelPembayaranInsentifJurulatih->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $totalAtlet = $dataProviderPembayaranInsentifAtlet->getTotalCount();
+            $AtletInsentif = $model->jumlah / $totalAtlet;
+                    
             if(isset(Yii::$app->session->id)){
-                PembayaranInsentifAtlet::updateAll(['pembayaran_insentif_id' => $model->pembayaran_insentif_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PembayaranInsentifAtlet::updateAll(['pembayaran_insentif_id' => $model->pembayaran_insentif_id, 'insentif' => $AtletInsentif], 'session_id = "'.Yii::$app->session->id.'"');
                 PembayaranInsentifAtlet::updateAll(['session_id' => ''], 'pembayaran_insentif_id = "'.$model->pembayaran_insentif_id.'"');
                 
                 PembayaranInsentifJurulatih::updateAll(['pembayaran_insentif_id' => $model->pembayaran_insentif_id], 'session_id = "'.Yii::$app->session->id.'"');
@@ -221,6 +224,11 @@ class PembayaranInsentifController extends Controller
         $dataProviderPembayaranInsentifJurulatih = $searchModelPembayaranInsentifJurulatih->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $totalAtlet = $dataProviderPembayaranInsentifAtlet->getTotalCount();
+            $AtletInsentif = $model->jumlah / $totalAtlet;
+            
+            PembayaranInsentifAtlet::updateAll(['insentif' => $AtletInsentif], 'pembayaran_insentif_id = "'.$model->pembayaran_insentif_id.'"');
+            
             return $this->redirect(['view', 'id' => $model->pembayaran_insentif_id]);
         } else {
             return $this->render('update', [
