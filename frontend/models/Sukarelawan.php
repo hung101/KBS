@@ -82,7 +82,7 @@ class Sukarelawan extends \yii\db\ActiveRecord
                 'tarikh_lahir', 'jantina', 'no_tel_bimbit', 'status', 'kebatasan_fizikal', 'kelulusan_akademi', 
                 'bidang_kepakaran', 'pekerjaan_semasa', 'alamat_majikan_1', 'alamat_majikan_negeri', 
                 'alamat_majikan_bandar', 'alamat_majikan_poskod', 'bidang_diminati', 'waktu_ketika_diperlukan', 
-                'clause', 'bangsa'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+                'clause', 'bangsa', 'emel', 'menyatakan_jika_ada_kebatasan_fizikal', 'menyatakan_waktu_ketika_diperlukan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir', 'bangsa'], 'safe'],
             [['kebatasan_fizikal', 'bidang_kepakaran'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama', 'menyatakan_jika_ada_kebatasan_fizikal', 'kelulusan_akademi', 

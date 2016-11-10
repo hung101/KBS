@@ -72,7 +72,7 @@ class PenilaianPesertaTerhadapKursusController extends Controller
         $model = $this->findModel($id);
         
         $ref = PengurusanPermohonanKursusPersatuan::findOne(['pengurusan_permohonan_kursus_persatuan_id' => $model->pengurusan_permohonan_kursus_persatuan_id]);
-        $model->pengurusan_permohonan_kursus_persatuan_id = $ref['tarikh_kursus'];
+        $model->pengurusan_permohonan_kursus_persatuan_id = $ref['agensi'];
         
         $queryPar = null;
         

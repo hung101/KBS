@@ -501,7 +501,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const insentif_khas = "Insentif Khas";
         const institusi_sekolah = "Institusi / Sekolah";
         const institusi_universiti_syarikat = "Institusi/Universiti/Syarikat";
-        const instructor = "Instructor";
+        const instructor = "Instruktur";
         const insurans_id = "Insurans ID";
         const inventori = "Inventori";
         const isnrp_no = "ISNRP No.";

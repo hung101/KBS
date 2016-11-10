@@ -69,7 +69,8 @@ class PengurusanPermohonanKursusPersatuan extends \yii\db\ActiveRecord
         return [
             [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 
                 'kelayakan_akademi', 'perkerjaan', 'nama_majikan', 'yuran_program', 'agensi', 'kursus', 'tahap',
-                'tarikh_kursus', 'tarikh_tamat_kursus', 'tempat', 'no_perhubungan', 'bilangan_peserta', 'jumlah_yuran', 'nama_penganjur'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+                'tarikh_kursus', 'tarikh_tamat_kursus', 'tempat', 'no_perhubungan', 'bilangan_peserta', 'jumlah_yuran', 'nama_penganjur',
+                'emel', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir', 'tarikh_kursus', 'tarikh_tamat_kursus', 'tarikh_kelulusan'], 'safe'],
             [['yuran_program', 'jumlah_yuran', 'jumlah_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['kelulusan', 'tahap', 'bilangan_peserta', 'no_perhubungan', 'kelulusan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
@@ -119,7 +120,7 @@ class PengurusanPermohonanKursusPersatuan extends \yii\db\ActiveRecord
             'tarikh_kursus' => GeneralLabel::tarikh_mula_kursus,
             'tarikh_tamat_kursus' => GeneralLabel::tarikh_tamat_kursus,
             'tempat' => GeneralLabel::tempat,
-            'no_perhubungan' => GeneralLabel::no_perhubungan,
+            'no_perhubungan' => GeneralLabel::no_tel_bimbit,
             'bilangan_peserta' => GeneralLabel::bilangan_peserta,
             'jumlah_yuran' => GeneralLabel::jumlah_yuran,
             'kod_kursus' => GeneralLabel::kod_kursus,

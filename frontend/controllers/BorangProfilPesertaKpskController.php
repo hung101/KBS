@@ -205,24 +205,20 @@ class BorangProfilPesertaKpskController extends Controller
                             Yii::$app->mailer->compose()
                                     ->setTo($modelBorangProfilPesertaKpskPeserta->emel)
                                     ->setFrom('noreply@spsb.com')
-                                    ->setSubject('Keputusan Kursus')
+                                    ->setSubject('Keputusan Kursus : '. GeneralFunction::getUpperCaseWords($model->penganjur_kursus) .' ('. $model->kod_kursus .')')
                                     ->setTextBody('Salam Sejahtera,
 <br><br><br>
-Nama Kursus: '. GeneralFunction::getUpperCaseWords($model->penganjur_kursus) .'<br>
-Kod Kursus: '. $model->kod_kursus .'<br>
-Tarikh Kursus: '. GeneralFunction::getDatePrintFormat($model->tarikh_kursus) .'
+Dimaklumkan keputusan bagi kursus '. GeneralFunction::getUpperCaseWords($model->penganjur_kursus) .' ('. $model->kod_kursus .') <br>
+bertarikh '. GeneralFunction::getDatePrintFormat($model->tarikh_kursus) .'. Berikut adalah keputusan kursus:-
 <br><br>
-Berikut adalah keputusan kursus:-
-<br><br>
-Objektif (%): '. $modelBorangProfilPesertaKpskPeserta->objektif .'<br>
-Struktur (%): '. $modelBorangProfilPesertaKpskPeserta->struktur .'<br>
-Esei (%): '. $modelBorangProfilPesertaKpskPeserta->esei .'<br>
-Jumlah (%): '. $modelBorangProfilPesertaKpskPeserta->jumlah .'<br>
+Objektif : '. $modelBorangProfilPesertaKpskPeserta->objektif .'%<br>
+Struktur : '. $modelBorangProfilPesertaKpskPeserta->struktur .'%<br>
+Esei : '. $modelBorangProfilPesertaKpskPeserta->esei .'%<br>
+Jumlah : '. $modelBorangProfilPesertaKpskPeserta->jumlah .'%<br>
 Keputusan: ' . ((isset($modelBorangProfilPesertaKpskPeserta['refKeputusanKpsk']['desc']) && $modelBorangProfilPesertaKpskPeserta['refKeputusanKpsk']['desc'] != "") ? $modelBorangProfilPesertaKpskPeserta['refKeputusanKpsk']['desc'] : "") . '
 <br><br><br>
 
-"KE ARAH KECEMERLANGAN SUKAN"
-<br><br>
+"KE ARAH KECEMERLANGAN SUKAN"<br><br>
 Majlis Sukan Negara Malaysia.
                             ')->send();
                         }
