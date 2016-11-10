@@ -455,6 +455,6 @@ class PengurusanMouMoaAntarabangsaController extends Controller
             'TO_DATE' => $tarikh_hingga,
         );
         
-        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikPengawaiAntarabangsa', $format, $controls, 'laporan_statistik_pengawai_antarabangsa');
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikPengawaiAntarabangsaMengikutNegara', $format, $controls, 'laporan_statistik_pengawai_antarabangsa');
     }
 }

@@ -2149,7 +2149,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_senarai_sukarelawan = "Laporan Senarai Sukarelawan";
         const laporan_senarai_temasya_sukan_peringkat_antarabangsa = "Laporan Senarai Temasya Sukan Peringkat Antarabangsa";
         const laporan_statistik_temasya_sukan_peringkat_antarabangsa = "Laporan Statistik Temasya Sukan Peringkat Antarabangsa";
-        const laporan_sesi_kaunseling = "Laporan Sesi Kaunseling";
+        const laporan_sesi_kaunseling = "Borang Laporan Sesi Kaunseling";
         const laporan_senarai_kehadiran_peserta_mengikut_kursus = "Laporan Senarai Kehadiran Peserta Mengikut Kursus";
         const laporan_senarai_kursus = "Laporan Senarai Kursus";
         const laporan_skim_kebajikan = "Laporan Skim Kebajikan";
@@ -5333,7 +5333,7 @@ if($session->get('language') == "EN") {
         const laporan_senarai_sukarelawan = "Report List of Volunteers";
         const laporan_senarai_temasya_sukan_peringkat_antarabangsa = "Reports List of International Level Sports Meet";
         const laporan_statistik_temasya_sukan_peringkat_antarabangsa = "Reports Statistic Of International Level Sports Meet";
-        const laporan_sesi_kaunseling = "Counselling Session Report";
+        const laporan_sesi_kaunseling = "Counselling Session Report Form";
         const laporan_senarai_kehadiran_peserta_mengikut_kursus = "Report Participants Course Attendance List";
         const laporan_senarai_kursus = "List Of Courses Report";
         const laporan_skim_kebajikan = "Report Welfare Scheme";

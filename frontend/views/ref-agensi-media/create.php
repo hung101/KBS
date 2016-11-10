@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefAgensiMedia */
 
-$this->title = 'Create Ref Agensi Media';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Agensi Media', 'url' => ['index']];
+$this->title = 'Create Agensi Media';
+$this->params['breadcrumbs'][] = ['label' => 'Agensi Media', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-agensi-media-create">
