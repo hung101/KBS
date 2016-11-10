@@ -188,12 +188,18 @@ use app\models\general\GeneralMessage;
             //'penilaian_kategori',
             [
                 'attribute' => 'penilaian_kategori',
-                'value' => 'refKategoriPenilaianJurulatih.desc'
+                //'value' => 'refKategoriPenilaianJurulatih.desc'
+                'value' => function ($model, $key, $index, $column){
+                    return (isset($model['refKategoriPenilaianJurulatih']['desc']) ? $model['refKategoriPenilaianJurulatih']['desc'] : '');
+                }
             ],
             //'penilaian_sub_kategori',
             [
                 'attribute' => 'penilaian_sub_kategori',
-                'value' => 'refSubKategoriPenilaianJurulatih.desc'
+                //'value' => 'refSubKategoriPenilaianJurulatih.desc',
+                'value' => function ($model, $key, $index, $column){
+                    return (isset($model['refSubKategoriPenilaianJurulatih']['desc']) ? $model['refSubKategoriPenilaianJurulatih']['desc'] : '');
+                }
             ],
             'markah_penilaian',
 

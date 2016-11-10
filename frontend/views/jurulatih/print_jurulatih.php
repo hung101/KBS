@@ -115,7 +115,7 @@ use app\models\general\GeneralLabel;
                 }
                 
                 @page {
-                    margin-top: 8.6cm;
+                    margin-top: 9cm;
                     margin-bottom: 1cm;
                     margin-left: 1cm;
                     margin-right: 1cm;
@@ -154,7 +154,7 @@ use app\models\general\GeneralLabel;
                 
                 .title_section_message{
                     border:1px solid black;
-                    color:red;
+                    //color:red;
                     font-weight: bold;
                     font-size: 12px;
                     padding-left: 5px;
@@ -166,6 +166,7 @@ use app\models\general\GeneralLabel;
                     padding-top:2px;
                     padding-bottom:2px;
                     vertical-align: top;
+                    font-weight: bold;
                 }
                 
                 .field_colon{
@@ -173,12 +174,13 @@ use app\models\general\GeneralLabel;
                     padding-top:2px;
                     padding-bottom:2px;
                     vertical-align: top;
+                    font-weight: bold;
                 }
                 
                 .field_value{
                     width:67%;
-                    color:red;
-                    font-weight: bold;
+                    //color:black;
+                    //font-weight: bold;
                     padding-top:2px;
                     padding-bottom:2px;
                     vertical-align: top;
@@ -195,6 +197,7 @@ use app\models\general\GeneralLabel;
                     padding-top:5px;
                     padding-bottom:5px;
                     vertical-align: top;
+                    font-weight: bold;
                 }
                 
                 .field_colon_2{
@@ -202,26 +205,27 @@ use app\models\general\GeneralLabel;
                     padding-top:5px;
                     padding-bottom:5px;
                     vertical-align: top;
+                    font-weight: bold;
                 }
                 
                 .field_value_2{
                     width:24.5%;
-                    color:red;
-                    font-weight: bold;
+                    //color:red;
+                    //font-weight: bold;
                     padding-top:5px;
                     padding-bottom:5px;
                     vertical-align: top;
                 }
                 
                 .field_value_col_4{
-                    color:red;
-                    font-weight: bold;
+                    //color:red;
+                    //font-weight: bold;
                     padding-top:5px;
                     padding-bottom:5px;
                     vertical-align: top;
                 }
                 
-                .table_records, th.table_records_th, td.table_records_td, td.table_records_td_left{
+                 .table_records, th.table_records_th, td.table_records_td, td.table_records_td_left{
                     border: 1px solid black;
                 }
                 
@@ -241,8 +245,8 @@ use app\models\general\GeneralLabel;
                 }
                 
                 td.table_records_td, td.table_records_td_left, td.table_no_records_td{
-                    color:red;
-                    font-weight: bold;
+                    //color:red;
+                    //font-weight: bold;
                     font-size: x-small;
                 }
                 
