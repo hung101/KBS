@@ -244,7 +244,7 @@ use app\models\RefNegeri;
     <?php if(!$model->isNewRecord && !$readonly):?>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <strong><?=GeneralLabel::memo?></strong>
+            <strong><?=GeneralLabel::memo_makluman?></strong>
         </div>
         <div class="panel-body">
             <?php

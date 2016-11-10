@@ -74,7 +74,7 @@ class BantuanElaun extends \yii\db\ActiveRecord
         return [
             [['nama', 'jenis_bantuan', 'tarikh', 'nama_persatuan', 'tarikh_mula_dilantik', 'tarikh_tamat_dilantik', 'no_kad_pengenalan', 
                 'tarikh_lahir', 'umur', 'jantina', 'kewarganegara', 'bangsa', 'agama', 'kelayakan_akademi', 'alamat_1', 'alamat_negeri', 
-                'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'jumlah_elaun', 'status_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+                'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'jumlah_elaun', 'status_permohonan', 'emel', 'kontrak'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir'], 'safe'],
             [['kursus'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['umur', 'status_permohonan', 'no_kad_pengenalan', 'jenis_bantuan_id', 'status_permohonan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],

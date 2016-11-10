@@ -60,7 +60,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->where(['=', 'cacat', 0])->all(),'atlet_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::atlet],],
+                        'options' => ['placeholder' => Placeholder::atlet],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>6]],
                  
             ],
@@ -145,7 +148,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
+                        'options' => ['placeholder' => Placeholder::negeri],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
@@ -240,10 +246,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefReportFormat::find()->where(['=', 'aktif', 1])->all(),'file_extension', 'desc'),
-                        'options' => ['placeholder' => Placeholder::format],
-                        'pluginOptions' => [
-                                    'allowClear' => true
-                                ],],
+                        'options' => ['placeholder' => Placeholder::format],],
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],

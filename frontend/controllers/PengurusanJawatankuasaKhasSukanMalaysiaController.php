@@ -216,16 +216,16 @@ class PengurusanJawatankuasaKhasSukanMalaysiaController extends Controller
                             Yii::$app->mailer->compose()
                                     ->setTo($modelPengurusanJawatankuasaKhasSukanMalaysiaAhli->emel)
                                     ->setFrom('noreply@spsb.com')
-                                    ->setSubject('Memo: Jawatankuasa Khas Sukan Malaysia')
+                                    ->setSubject('Memo/Makluman: Jawatankuasa Khas Sukan Malaysia')
                                     ->setTextBody('Salam Sejahtera,
 
 <br><br>
-Memo:
+Memo/Makluman:
 <br>
 ' . $message . '
 <br><br>
 
-"KE ARAH KECEMERLANGAN SUKAN"
+"KE ARAH KECEMERLANGAN SUKAN"<br>
 Majlis Sukan Negara Malaysia.
                             ')->send();
                         }

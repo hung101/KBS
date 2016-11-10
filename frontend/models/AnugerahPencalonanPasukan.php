@@ -62,7 +62,7 @@ class AnugerahPencalonanPasukan extends \yii\db\ActiveRecord
             [['kategori', 'sukan'], 'string', 'max' => 30],
             [['nama_pasukan'], 'string', 'max' => 80],
             [['gambar_pasukan'], 'string', 'max' => 100],
-            [['ulasan_pencapaian'], 'string', 'max' => 255],
+            [['ulasan_pencapaian', 'asas_pencalonan', 'sumbangan_pencapaian'], 'string', 'max' => 255],
             [['gambar_pasukan'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
@@ -83,6 +83,8 @@ class AnugerahPencalonanPasukan extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
+            'asas_pencalonan' => 'Asas Pencalonan',
+            'sumbangan_pencapaian' => 'Sumbangan/Pencapaian Dalam Bidang Lain Selain Sukan',
         ];
     }
     

@@ -1018,6 +1018,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const menyatakan_jika_ada_kebatasan_fizikal = "Nyatakan Jika Ada Keterbatasan Fizikal";
         const menyatakan_waktu_ketika_diperlukan = "Sila Nyatakan, Jika Lain-lain";
         const memo = "Memo";
+        const memo_makluman = "Memo/Makluman";
         const mesyuarat_agm_id = "Mesyuarat Agm ID";
         const mesyuarat_id = "Mesyuarat ID";
         const mesyuarat_seterusnya = "Mesyuarat Seterusnya";
@@ -4203,6 +4204,7 @@ if($session->get('language') == "EN") {
         const menyatakan_jika_ada_kebatasan_fizikal = "Indicate If Any Physical Kebatasan";
         const menyatakan_waktu_ketika_diperlukan = "Please State (If Lain-lain)";
         const memo = "Memo";
+        const memo_makluman = "Memo/Makluman";
         const mesyuarat_agm_id = "The Agm Meeting ID";
         const mesyuarat_id = "The Meeting ID";
         const mesyuarat_seterusnya = "Next Meeting";

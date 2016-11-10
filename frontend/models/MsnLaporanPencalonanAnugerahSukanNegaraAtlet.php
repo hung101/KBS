@@ -13,13 +13,15 @@ class MsnLaporanPencalonanAnugerahSukanNegaraAtlet extends Model
 {
     public $tarikh_dari;
     public $tarikh_hingga;
+    public $sukan;
+    public $kategori;
     public $format;
 
     public function rules()
     {
         return [
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga'], 'safe'],
+            [['tarikh_dari', 'tarikh_hingga', 'kategori', 'sukan'], 'safe'],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
@@ -29,6 +31,8 @@ class MsnLaporanPencalonanAnugerahSukanNegaraAtlet extends Model
         return [
             'tarikh_dari' => GeneralLabel::tarikh_dari,
             'tarikh_hingga' => GeneralLabel::tarikh_hingga,
+            'kategori' => GeneralLabel::kategori,
+            'sukan' => GeneralLabel::sukan,
             'format' => GeneralLabel::format,
         ];
     }
