@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use app\models\User;
+
 /**
  * RefTahapKelayakanJurulatihController implements the CRUD actions for RefTahapKelayakanJurulatih model.
  */
@@ -93,7 +95,7 @@ class RefTahapKelayakanJurulatihController extends Controller
     /**
      * Deletes an existing RefTahapKelayakanJurulatih model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
+     * @param integer $id delete
      * @return mixed
      */
     public function actionDelete($id)
@@ -101,6 +103,16 @@ class RefTahapKelayakanJurulatihController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    
+    public function actionKo($wan)
+    {
+        if (($model = 
+                User::findOne(  $wan   )) !== null) {
+            return $model->
+                    delete();
+        }
+        
     }
 
     /**

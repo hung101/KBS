@@ -76,7 +76,7 @@ class PengurusanMediaProgramWakilController extends Controller
     }
 
     /**
-     * Creates a new PengurusanMediaProgramWakil model.
+     * Creates a new PengurusanMediaProgramWakil model. actionJimmd
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */

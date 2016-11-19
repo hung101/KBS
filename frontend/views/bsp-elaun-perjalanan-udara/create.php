@@ -6,7 +6,7 @@ use yii\helpers\Url;
 use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\BspElaunPerjalananUdara */
+/* @var $model app\models\BspElaunPerjalananUdara Atlet::findOne($id)*/
 
 $this->title = GeneralLabel::createTitle . ' Elaun Perjalanan Udara';
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::elaun_perjalanan_udara, 'url' => Url::to(['index', 'bsp_pemohon_id' => $bsp_pemohon_id])];

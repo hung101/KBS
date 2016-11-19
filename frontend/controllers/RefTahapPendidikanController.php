@@ -43,7 +43,7 @@ class RefTahapPendidikanController extends Controller
 
     /**
      * Displays a single RefTahapPendidikan model.
-     * @param integer $id
+     * @param integer $idAtlet::findOne($id)
      * @return mixed
      */
     public function actionView($id)

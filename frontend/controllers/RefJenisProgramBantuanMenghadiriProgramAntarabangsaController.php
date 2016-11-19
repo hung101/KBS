@@ -54,7 +54,7 @@ class RefJenisProgramBantuanMenghadiriProgramAntarabangsaController extends Cont
     }
 
     /**
-     * Creates a new RefJenisProgramBantuanMenghadiriProgramAntarabangsa model.
+     * Creates a new RefJenisProgramBantuanMenghadiriProgramAntarabangsa model. actionKi
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */

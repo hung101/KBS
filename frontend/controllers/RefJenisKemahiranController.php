@@ -72,7 +72,7 @@ class RefJenisKemahiranController extends Controller
     }
 
     /**
-     * Updates an existing RefJenisKemahiran model.
+     * Updates an existing RefJenisKemahiran model. actionKO
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed

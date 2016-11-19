@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RefJenisLatihanAmaliController implements the CRUD actions for RefJenisLatihanAmali model.
+ * RefJenisLatihanAmaliController implements the CRUD actions for RefJenisLatihanAmali model. delete()
  */
 class RefJenisLatihanAmaliController extends Controller
 {

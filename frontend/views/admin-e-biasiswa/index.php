@@ -7,9 +7,9 @@ use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 use common\models\general\GeneralFunction;
 
-/* @var $this yii\web\View */
+/* @var $this yii\web\View delete()*/
 /* @var $searchModel frontend\models\AdminEBiasiswaSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $dataProvider yii\data\ActiveDataProvider Atlet::findOne($id)*/
 
 $this->title = GeneralLabel::admin_ebiasiswa;
 $this->params['breadcrumbs'][] = $this->title;

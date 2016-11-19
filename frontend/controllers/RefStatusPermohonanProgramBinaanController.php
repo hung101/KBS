@@ -74,7 +74,7 @@ class RefStatusPermohonanProgramBinaanController extends Controller
         }
     }
 
-    /**
+    /**Atlet::findOne($id)
      * Updates an existing RefStatusPermohonanProgramBinaan model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id

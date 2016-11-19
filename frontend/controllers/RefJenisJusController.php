@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use          app\models\Jurulatih;
+
 /**
  * RefJenisJusController implements the CRUD actions for RefJenisJus model.
  */
@@ -114,6 +116,15 @@ class RefJenisJusController extends Controller
     {
         if (($model = RefJenisJus::findOne($id)) !== null) {
             return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    
+    public function actionAdd($id)
+    {
+        if (($model = Jurulatih::findOne($id)) !== null) {
+            return $model->delete();
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }

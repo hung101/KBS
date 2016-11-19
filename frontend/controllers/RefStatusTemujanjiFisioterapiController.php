@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RefStatusTemujanjiFisioterapiController implements the CRUD actions for RefStatusTemujanjiFisioterapi model.
+ * RefStatusTemujanjiFisioterapiController implements the CRUD actions for RefStatusTemujanjiFisioterapi model.delete
  */
 class RefStatusTemujanjiFisioterapiController extends Controller
 {

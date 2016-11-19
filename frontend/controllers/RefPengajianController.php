@@ -54,7 +54,7 @@ class RefPengajianController extends Controller
     }
 
     /**
-     * Creates a new RefPengajian model.
+     * Creates a new RefPengajian model. delete()
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */

@@ -6,8 +6,8 @@ use app\models\general\GeneralLabel;
 use yii\helpers\Html;
 
 
-/* @var $this yii\web\View */
-/* @var $model app\models\KemudahPakaianPeralatanTiket */
+/* @var $this yii\web\View delete() */
+/* @var $model app\models\KemudahPakaianPeralatanTiket Atlet::findOne($id)*/
 
 $this->title = GeneralLabel::kemudahan_pakaianperalatantiket_kapal_terbang;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::kemudahan_pakaianperalatantiket_kapal_terbang, 'url' => ['index']];

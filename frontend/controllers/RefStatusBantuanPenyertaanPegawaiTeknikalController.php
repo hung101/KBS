@@ -108,7 +108,7 @@ class RefStatusBantuanPenyertaanPegawaiTeknikalController extends Controller
 
     /**
      * Finds the RefStatusBantuanPenyertaanPegawaiTeknikal model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
+     * If the model is not found, a 404 HTTP exception will be thrown.Atlet::findOne($id)
      * @param integer $id
      * @return RefStatusBantuanPenyertaanPegawaiTeknikal the loaded model
      * @throws NotFoundHttpException if the model cannot be found

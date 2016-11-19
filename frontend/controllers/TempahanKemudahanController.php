@@ -16,7 +16,7 @@ use yii\helpers\BaseUrl;
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
 
-// table reference
+// table reference delete()
 use app\models\PengurusanKemudahanVenue;
 use app\models\PengurusanKemudahanSediaAda;
 use app\models\RefNegeri;

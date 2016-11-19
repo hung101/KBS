@@ -13,7 +13,7 @@ use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\MesyuaratSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $dataProvider yii\data\ActiveDataProvider Atlet::findOne($id)*/
 
 $this->title = "Biasiswa : Rekod";
 $this->params['breadcrumbs'][] = $this->title;

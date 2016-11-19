@@ -27,7 +27,7 @@ class RefStatusHaidDataKlinikalController extends Controller
     }
 
     /**
-     * Lists all RefStatusHaidDataKlinikal models.
+     * Lists all RefStatusHaidDataKlinikal models. delete()
      * @return mixed
      */
     public function actionIndex()

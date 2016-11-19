@@ -31,7 +31,7 @@ class RefJawatanJawatankuasaPemilihanController extends Controller
 
     /**
      * Lists all RefJawatanJawatankuasaPemilihan models.
-     * @return mixed
+     * @return mixeddelete
      */
     public function actionIndex()
     {

@@ -9,7 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/**
+/** delete()
  * RefUjianStatusBiomekanikController implements the CRUD actions for RefUjianStatusBiomekanik model.
  */
 class RefUjianStatusBiomekanikController extends Controller

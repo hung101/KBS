@@ -79,7 +79,7 @@ class UserController extends Controller
     /**
      * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * @return mixed delete()
      */
     public function actionCreate()
     {

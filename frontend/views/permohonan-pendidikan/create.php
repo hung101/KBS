@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 use app\models\general\GeneralLabel;
 
-/* @var $this yii\web\View */
+/* @var $this yii\web\View delete()*/
 /* @var $model app\models\PermohonanPendidikan */
 
 $this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::permohonan_pendidikan;

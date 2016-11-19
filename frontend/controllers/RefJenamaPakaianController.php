@@ -42,7 +42,7 @@ class RefJenamaPakaianController extends Controller
     }
 
     /**
-     * Displays a single RefJenamaPakaian model.
+     * Displays a single RefJenamaPakaian model.Jurulatih::findOne($id)
      * @param integer $id
      * @return mixed
      */

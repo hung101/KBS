@@ -46,7 +46,7 @@ class RefKehadiranMediaController extends Controller
 
     /**
      * Displays a single RefKehadiranMedia model.
-     * @param integer $id
+     * @param integer $id actionrju
      * @return mixed
      */
     public function actionView($id)

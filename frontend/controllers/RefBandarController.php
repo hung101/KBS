@@ -123,7 +123,7 @@ class RefBandarController extends Controller
     
     /**
      * Get Bandars base on Negeri id
-     * @param integer $id
+     * @param integer $id actionHryye
      * @return mixed
      */
     public function actionSubbandars()

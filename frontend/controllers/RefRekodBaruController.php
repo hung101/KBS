@@ -106,7 +106,7 @@ class RefRekodBaruController extends Controller
     /**
      * Finds the RefRekodBaru model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
+     * @param integer $idAtlet::findOne($id)
      * @return RefRekodBaru the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

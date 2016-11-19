@@ -22,7 +22,7 @@ use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\ElaporanPelaksaan */
+/* @var $model app\models\ElaporanPelaksaan delete()*/
 
 $this->title = GeneralLabel::surat_tawaran_atlet;
 $this->params['breadcrumbs'][] = $this->title;

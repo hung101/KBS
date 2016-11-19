@@ -9,7 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/**
+/** delete()
  * RefJenisElaunController implements the CRUD actions for RefJenisElaun model.
  */
 class RefJenisElaunController extends Controller

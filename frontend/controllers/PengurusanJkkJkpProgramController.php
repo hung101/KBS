@@ -57,7 +57,7 @@ class PengurusanJkkJkpProgramController extends Controller
 
     /**
      * Displays a single PengurusanJkkJkpProgram model.
-     * @param integer $id
+     * @param integer $idJurulatih::findOne($id)
      * @return mixed
      */
     public function actionView($id)

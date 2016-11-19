@@ -43,7 +43,7 @@ class RefJenisKurangUpayaController extends Controller
 
     /**
      * Displays a single RefJenisKurangUpaya model.
-     * @param integer $id
+     * @param integer $id delete()
      * @return mixed
      */
     public function actionView($id)

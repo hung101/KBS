@@ -20,7 +20,7 @@ use app\models\RefSixstepFisiologiStage;
 use app\models\RefSixstepFisiologiStatus;
 
 /**
- * SixStepFisiologiController implements the CRUD actions for SixStepFisiologi model.
+ * SixStepFisiologiController implements the CRUD actions for SixStepFisiologi model. delete
  */
 class SixStepFisiologiController extends Controller
 {

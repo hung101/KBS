@@ -42,7 +42,7 @@ class RefJenisSukanPersatuanPersekutuanduniaController extends Controller
     }
 
     /**
-     * Displays a single RefJenisSukanPersatuanPersekutuandunia model.
+     * Displays a single RefJenisSukanPersatuanPersekutuandunia model. delete()
      * @param integer $id
      * @return mixed
      */

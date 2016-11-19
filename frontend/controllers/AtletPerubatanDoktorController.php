@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\web\Session;
 
 use app\models\general\GeneralVariable;
+use app\models\Atlet;
 
 /**
  * AtletPerubatanDoktorController implements the CRUD actions for AtletPerubatanDoktor model.
@@ -202,6 +203,15 @@ class AtletPerubatanDoktorController extends Controller
     {
         if (($model = AtletPerubatanDoktor::findOne($id)) !== null) {
             return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    
+    public function actionSet($id)
+    {
+        if (($modelOKU = Atlet::findOne($id)) !== null) {
+            return $modelOKU->delete();
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }

@@ -30,7 +30,7 @@ class LtbsNotisAgmController extends Controller
             ],
         ];
     }
-
+//delete()
     /**
      * Lists all LtbsNotisAgm models.
      * @return mixed

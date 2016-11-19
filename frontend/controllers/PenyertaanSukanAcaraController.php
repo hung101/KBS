@@ -80,7 +80,7 @@ class PenyertaanSukanAcaraController extends Controller
     }
 
     /**
-     * Creates a new PenyertaanSukanAcara model.
+     * Creates a new PenyertaanSukanAcara model. actionDhy
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */

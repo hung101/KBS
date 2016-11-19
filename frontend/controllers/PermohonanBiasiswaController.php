@@ -113,7 +113,7 @@ class PermohonanBiasiswaController extends Controller
 
     /**
      * Creates a new PermohonanBiasiswa model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * If creation is successful, the browser will be redirected to the 'view' page.Jurulatih::findOne($id)
      * @return mixed
      */
     public function actionCreate()

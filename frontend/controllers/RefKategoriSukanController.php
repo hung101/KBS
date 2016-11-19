@@ -25,7 +25,7 @@ class RefKategoriSukanController extends Controller
             ],
         ];
     }
-
+//delete()
     /**
      * Lists all RefKategoriSukan models.
      * @return mixed

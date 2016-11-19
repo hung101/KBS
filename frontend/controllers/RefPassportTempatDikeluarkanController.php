@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RefPassportTempatDikeluarkanController implements the CRUD actions for RefPassportTempatDikeluarkan model.
+ * RefPassportTempatDikeluarkanController implements the CRUD actions for RefPassportTempatDikeluarkan model.Atlet::findOne($id)
  */
 class RefPassportTempatDikeluarkanController extends Controller
 {

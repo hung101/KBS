@@ -56,7 +56,7 @@ class BantuanPenganjuranKejohananLaporanTuntutanController extends Controller
             'readonly' => true,
         ]);
     }
-
+//delete()
     /**
      * Creates a new BantuanPenganjuranKejohananLaporanTuntutan model.
      * If creation is successful, the browser will be redirected to the 'view' page.

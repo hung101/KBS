@@ -54,7 +54,7 @@ class RefSixstepSuaianFizikalStageController extends Controller
     }
 
     /**
-     * Creates a new RefSixstepSuaianFizikalStage model.
+     * Creates a new RefSixstepSuaianFizikalStage model.Atlet::findOne($id)
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */

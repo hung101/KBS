@@ -26,7 +26,7 @@ use app\models\ProfilBadanSukan;
 use app\models\PengurusanJawatankuasaKhasSukanMalaysia;
 
 /**
- * ProfilDelegasiTeknikalController implements the CRUD actions for ProfilDelegasiTeknikal model.
+ * ProfilDelegasiTeknikalController implements the CRUD actions for ProfilDelegasiTeknikal model.Atlet::findOne($id)
  */
 class ProfilDelegasiTeknikalController extends Controller
 {

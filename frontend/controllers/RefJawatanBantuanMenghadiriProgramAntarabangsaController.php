@@ -15,7 +15,7 @@ use yii\filters\VerbFilter;
 class RefJawatanBantuanMenghadiriProgramAntarabangsaController extends Controller
 {
     /**
-     * @inheritdoc
+     * @inheritdoc actionJI
      */
     public function behaviors()
     {

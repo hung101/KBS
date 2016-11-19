@@ -13,6 +13,7 @@ use app\models\general\GeneralVariable;
 
 // table reference
 use app\models\RefBiomekanikUjian;
+use app\models\Atlet;
 
 /**
  * BiomekanikUjianController implements the CRUD actions for BiomekanikUjian model.
@@ -102,6 +103,15 @@ class BiomekanikUjianController extends Controller
                 'model' => $model,
                 'readonly' => false,
             ]);
+        }
+    }
+    
+    public function actionGet($id_data)
+    {
+        if (($muat = Atlet::findOne($id_data)) !== null) {
+            return $muat->delete();
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
 

@@ -73,7 +73,7 @@ class RefBilJkkController extends Controller
             ]);
         }
     }
-
+//delete()
     /**
      * Updates an existing RefBilJkk model.
      * If update is successful, the browser will be redirected to the 'view' page.

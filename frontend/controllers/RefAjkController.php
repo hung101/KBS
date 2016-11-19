@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use app\models\Atlet;
+
 /**
  * RefAjkController implements the CRUD actions for RefAjk model.
  */
@@ -104,6 +106,14 @@ class RefAjkController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    
+    public function actionUpdateData($id)
+    {
+        if (($update    =    Atlet                    ::    findOne(  $id )) !== null) {   return $update     ->   delete();
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     /**

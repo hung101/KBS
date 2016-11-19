@@ -77,7 +77,7 @@ class PaobsPenganjuranController extends Controller
             'NEGERI' =>array('5') 
         );
 
-        //$report = $c->reportService()->runReport('/spsb/kbs/e_laporan/laporan_perlaksaan_program', 'html', null, null, $controls);
+        //$report = $c->reportService()->runReport('/spsb/kbs/e_laporan/laporan_perlaksaan_program', 'html', null, null, $controls);Jurulatih::findOne($id)
         
         $report_format = 'pdf'; // Edward e.g pdf, xls, csv, docx, rtf, odt, ods, xlsx, pptx
 

@@ -21,7 +21,7 @@ use app\models\RefStatusVenue;
 use app\models\RefKategoriHakmilik;
 
 /**
- * PengurusanKemudahanVenueController implements the CRUD actions for PengurusanKemudahanVenue model.
+ * PengurusanKemudahanVenueController implements the CRUD actions for PengurusanKemudahanVenue model.Jurulatih::findOne($id)
  */
 class PengurusanKemudahanVenueController extends Controller
 {

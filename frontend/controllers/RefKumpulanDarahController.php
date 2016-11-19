@@ -27,7 +27,7 @@ class RefKumpulanDarahController extends Controller
     }
 
     /**
-     * Lists all RefKumpulanDarah models.
+     * Lists all RefKumpulanDarah models. actionKo
      * @return mixed
      */
     public function actionIndex()

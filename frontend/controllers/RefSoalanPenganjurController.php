@@ -60,7 +60,7 @@ class RefSoalanPenganjurController extends Controller
 
     /**
      * Creates a new RefSoalanPenganjur model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * If creation is successful, delete()the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()

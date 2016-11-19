@@ -4,8 +4,8 @@ use yii\helpers\Html;
 
 use app\models\general\GeneralLabel;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\AnugerahAhliJawantankuasaPengelola */
+/* @var $this yii\web\Viewdelete() */
+/* @var $model app\models\AnugerahAhliJawantankuasaPengelola Atlet::findOne($id)*/
 
 $this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::anugerah_ahli_jawantankuasa_pengelola;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::anugerah_ahli_jawantankuasa_pengelola, 'url' => ['index']];

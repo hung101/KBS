@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
+/* @var $this yii\web\delete()View */
 /* @var $model app\models\PaobsPenganjurSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>

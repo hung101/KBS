@@ -55,7 +55,7 @@ class PermohonanEBantuanSenaraiAktivitiProjekController extends Controller
 
     /**
      * Creates a new PermohonanEBantuanSenaraiAktivitiProjek model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * If creation is successful, the browser will be redirected to the 'view' page. actionJi
      * @return mixed
      */
     public function actionCreate()

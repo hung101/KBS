@@ -54,7 +54,7 @@ class RefKategoriAduanPenyertaanSukanController extends Controller
     }
 
     /**
-     * Creates a new RefKategoriAduanPenyertaanSukan model.
+     * Creates a new RefKategoriAduanPenyertaanSukan model. action1i
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */

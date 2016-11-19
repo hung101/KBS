@@ -77,7 +77,7 @@ class SoalSelidikSebelumUjianSoalanJawapanController extends Controller
 
     /**
      * Creates a new SoalSelidikSebelumUjianSoalanJawapan model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * If creation is successful, the browser will be redirected delete()to the 'view' page.
      * @return mixed
      */
     public function actionCreate($soal_selidik_sebelum_ujian_id)

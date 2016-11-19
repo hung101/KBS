@@ -107,7 +107,7 @@ class RefPegawaiPerubatanRehabilitasiController extends Controller
      * Finds the RefPegawaiPerubatanRehabilitasi model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return RefPegawaiPerubatanRehabilitasi the loaded model
+     * @return RefPegawaiPerubatanRehabilitasi the loaded modelAtlet::findOne($id)
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

@@ -76,7 +76,7 @@ class PengurusanProgramBinaanAtletController extends Controller
 
     /**
      * Creates a new PengurusanProgramBinaanAtlet model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * If creation is successful, the browser will be redirected to the 'view' page.Jurulatih::findOne($id)
      * @return mixed
      */
     public function actionCreate($pengurusan_program_binaan_id)

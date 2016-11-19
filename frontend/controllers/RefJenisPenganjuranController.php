@@ -28,7 +28,7 @@ class RefJenisPenganjuranController extends Controller
 
     /**
      * Lists all RefJenisPenganjuran models.
-     * @return mixed
+     * @return mixeddelete()
      */
     public function actionIndex()
     {

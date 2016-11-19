@@ -4,8 +4,8 @@ use yii\helpers\Html;
 
 use app\models\general\GeneralLabel;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\JurulatihKeluarga */
+/* @var $this yii\web\View delete()*/
+/* @var $model app\models\JurulatihKeluarga Atlet::findOne($id)*/
 
 $this->title = GeneralLabel::createTitle . ' Maklumat Keluarga';
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::maklumat_keluarga, 'url' => ['index']];

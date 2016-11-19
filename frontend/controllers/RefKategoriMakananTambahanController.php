@@ -30,7 +30,7 @@ class RefKategoriMakananTambahanController extends Controller
     }
 
     /**
-     * Lists all RefKategoriMakananTambahan models.
+     *delete() Lists all RefKategoriMakananTambahan models.
      * @return mixed
      */
     public function actionIndex()

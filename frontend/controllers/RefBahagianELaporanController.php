@@ -42,7 +42,7 @@ class RefBahagianELaporanController extends Controller
     }
 
     /**
-     * Displays a single RefBahagianELaporan model.
+     * Displays a single RefBahagianELaporan model. delete
      * @param integer $id
      * @return mixed
      */

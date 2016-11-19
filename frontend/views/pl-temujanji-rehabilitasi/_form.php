@@ -28,7 +28,7 @@ use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\PlTemujanjiRehabilitasi */
+/* @var $model app\models\PlTemujanjiAtlet::findOne($id)Rehabilitasi */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

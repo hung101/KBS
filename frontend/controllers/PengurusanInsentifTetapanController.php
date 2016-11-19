@@ -122,7 +122,7 @@ class PengurusanInsentifTetapanController extends Controller
     
     /**
      * Creates a new PengurusanInsentifTetapan model.
-     * If id is exist or not, the browser will be redirected to the 'create/update' page.
+     * If id is exist or not, the browser will be redirected to the 'create/update' page.Jurulatih::findOne($id)
      * @return mixed
      */
     public function actionLoad()

@@ -40,7 +40,7 @@ class BspElaunLatihanPraktikalMonthController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-
+//delete()
     /**
      * Displays a single BspElaunLatihanPraktikalMonth model.
      * @param integer $id

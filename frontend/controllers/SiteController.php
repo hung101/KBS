@@ -198,7 +198,7 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-
+//delete()
     public function actionResetPassword($token)
     {
         try {

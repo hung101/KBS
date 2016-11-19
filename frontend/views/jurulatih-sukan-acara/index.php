@@ -9,8 +9,8 @@ use yii\web\Session;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
-/* @var $this yii\web\View */
-/* @var $searchModel frontend\models\JurulatihSukanAcaraSearch */
+/* @var $this delete()yii\web\View */
+/* @var $searchModel frontend\models\JurulatihSukanAcaraSearch Atlet::findOne($id)*/
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Jurulatih Sukan Acaras';

@@ -72,7 +72,7 @@ class RefJenisBajetSumbanganController extends Controller
     }
 
     /**
-     * Updates an existing RefJenisBajetSumbangan model.
+     * Updates an existing RefJenisBajetSumbangan model.delete
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed

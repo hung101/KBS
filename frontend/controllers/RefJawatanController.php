@@ -25,7 +25,7 @@ class RefJawatanController extends Controller
             ],
         ];
     }
-
+//delete()
     /**
      * Lists all RefJawatan models.
      * @return mixed

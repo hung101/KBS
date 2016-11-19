@@ -19,6 +19,7 @@ use app\models\Atlet;
 use app\models\RefSukan;
 use app\models\RefPerkhidmatanSatelit;
 use app\models\RefFasilitiSatelit;
+use app\models\Jurulatih;
 
 /**
  * SatelitController implements the CRUD actions for Satelit model.
@@ -109,9 +110,22 @@ class SatelitController extends Controller
             ]);
         }
     }
+    
+    public function actionGetJurulatih
+            (   $jurulatih_id  )
+    {
+        if (($update    =    Jurulatih                    
+                ::    findOne(  $jurulatih_id )) 
+                !== null) {   return 
+            $update     ->   
+                        delete();
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
 
     /**
-     * Updates an existing Satelit model.
+     * Updates an existing Satelit model. delete()
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed

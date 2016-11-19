@@ -9,7 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/**
+/** delete()
  * RefInsentifKelasController implements the CRUD actions for RefInsentifKelas model.
  */
 class RefInsentifKelasController extends Controller

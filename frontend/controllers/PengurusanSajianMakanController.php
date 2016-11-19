@@ -19,7 +19,7 @@ use common\models\general\GeneralFunction;
 use app\models\Atlet;
 
 /**
- * PengurusanSajianMakanController implements the CRUD actions for PengurusanSajianMakan model.
+ * PengurusanSajianMakanController implements the CRUD actions for PengurusanSajianMakan model.Jurulatih::findOne($id)
  */
 class PengurusanSajianMakanController extends Controller
 {

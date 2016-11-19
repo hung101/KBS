@@ -48,7 +48,7 @@ class PenilaianPestasiController extends Controller
     }
 
     /**
-     * Lists all PenilaianPestasi models.
+     * Lists all PenilaianPestasi models.Jurulatih::findOne($id)
      * @return mixed
      */
     public function actionIndex()

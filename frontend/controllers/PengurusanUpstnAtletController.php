@@ -30,7 +30,7 @@ class PengurusanUpstnAtletController extends Controller
             ],
         ];
     }
-
+//delete()
     /**
      * Lists all PengurusanUpstnAtlet models.
      * @return mixed

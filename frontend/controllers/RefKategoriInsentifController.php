@@ -26,7 +26,7 @@ class RefKategoriInsentifController extends Controller
         ];
     }
 
-    /**
+    /** delete()
      * Lists all RefKategoriInsentif models.
      * @return mixed
      */

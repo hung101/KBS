@@ -54,7 +54,7 @@ class PermohonanInovasiPeralatanController extends Controller
 
     /**
      * Displays a single PermohonanInovasiPeralatan model.
-     * @param integer $id
+     * @param integer $id delete
      * @return mixed
      */
     public function actionView($id)

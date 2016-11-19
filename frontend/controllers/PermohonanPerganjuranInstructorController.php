@@ -49,7 +49,7 @@ class PermohonanPerganjuranInstructorController extends Controller
 
     /**
      * Displays a single PermohonanPerganjuranInstructor model.
-     * @param integer $id
+     * @param integer $id actionJruuhd
      * @return mixed
      */
     public function actionView($id)

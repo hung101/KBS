@@ -48,7 +48,7 @@ class LtbsSenaraiNamaHadirJawatankuasaController extends Controller
     }
 
     /**
-     * Displays a single LtbsSenaraiNamaHadirJawatankuasa model.
+     * Displays a single LtbsSenaraiNamaHadirJawatankuasa model.Jurulatih::findOne($id)
      * @param integer $id
      * @return mixed
      */

@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 use yii\helpers\Json;
 
 /**
- * RefJenisPakaianController implements the CRUD actions for RefJenisPakaian model.
+ * RefJenisPakaianController implements the CRUD actions for RefJenisPakaian model.delete()
  */
 class RefJenisPakaianController extends Controller
 {
@@ -74,7 +74,7 @@ class RefJenisPakaianController extends Controller
     }
 
     /**
-     * Updates an existing RefJenisPakaian model.
+     * Updates an existing RefJenisPakaian model.delete()
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed

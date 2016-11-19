@@ -58,7 +58,7 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
     }
 
     /**
-     * Displays a single PengurusanPenyambunganDanPenamatanKontrakJurulatih model.
+     * Displays a single PengurusanPenyambunganDanPenamatanKontrakJurulatih model.Jurulatih::findOne($id)
      * @param integer $id
      * @return mixed
      */

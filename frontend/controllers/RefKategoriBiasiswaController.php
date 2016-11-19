@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RefKategoriBiasiswaController implements the CRUD actions for RefKategoriBiasiswa model.
+ * RefKategoriBiasiswaController implements the CRUD actions for RefKategoriBiasiswa model. delete()
  */
 class RefKategoriBiasiswaController extends Controller
 {

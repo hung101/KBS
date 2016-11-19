@@ -91,7 +91,7 @@ class RefPesertaJkkJkpController extends Controller
     }
 
     /**
-     * Deletes an existing RefPesertaJkkJkp model.
+     * Deletes an existing RefPesertaJkkJkp model. delete
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed

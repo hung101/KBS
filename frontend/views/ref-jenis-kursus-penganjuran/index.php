@@ -6,7 +6,7 @@ use yii\grid\GridView;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
-/* @var $this yii\web\View */
+/* @var $this yii\web\View delete()*/
 /* @var $searchModel frontend\models\RefJenisKursusPenganjuranSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 

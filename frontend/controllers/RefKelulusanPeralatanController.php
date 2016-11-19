@@ -77,7 +77,7 @@ class RefKelulusanPeralatanController extends Controller
     /**
      * Updates an existing RefKelulusanPeralatan model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param integer $id actionJi
      * @return mixed
      */
     public function actionUpdate($id)

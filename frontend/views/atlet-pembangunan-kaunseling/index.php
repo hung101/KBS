@@ -13,8 +13,8 @@ use app\models\general\GeneralMessage;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\AtletPembangunanKaunselingSearch */
+/* @var $this yii\web\View delete()*/
+/* @var $searchModel app\models\AtletPembangunanKaunselingSearch Atlet::findOne($id)*/
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = GeneralLabel::kaunseling;

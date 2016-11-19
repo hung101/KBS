@@ -8,7 +8,7 @@ use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PaobsPenganjurSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $dataProvider yii\data\ActiveDataProvider Atlet::findOne($id)*/
 
 $this->title = GeneralLabel::penganjuran_acara_sukan_yang_disanksi;
 $this->params['breadcrumbs'][] = $this->title;

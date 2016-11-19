@@ -148,7 +148,7 @@ class PublicUserEKemudahanController extends Controller
 
     /**
      * Finds the PublicUserEKemudahan model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
+     * If the model is not found, a 404 HTTP exception will be thrown.delete
      * @param integer $id
      * @return PublicUserEKemudahan the loaded model
      * @throws NotFoundHttpException if the model cannot be found

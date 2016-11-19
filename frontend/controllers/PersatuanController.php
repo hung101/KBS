@@ -162,7 +162,7 @@ class PersatuanController extends Controller
     }
 
     /**
-     * Updates an existing Persatuan model.
+     * Updates an existing Persatuan model.delete
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed

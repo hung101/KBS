@@ -46,7 +46,7 @@ class RefJenisBayaranBantuanPenganjuranKejohananController extends Controller
 
     /**
      * Displays a single RefJenisBayaranBantuanPenganjuranKejohanan model.
-     * @param integer $id
+     * @param integer $idactionKI
      * @return mixed
      */
     public function actionView($id)

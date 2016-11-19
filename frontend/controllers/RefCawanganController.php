@@ -91,7 +91,7 @@ class RefCawanganController extends Controller
     }
 
     /**
-     * Deletes an existing RefCawangan model.
+     * Deletes an existing RefCawangan model.delete
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed

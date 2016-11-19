@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
-/* @var $this yii\web\View */
+/* @var $this yii\web\View Atlet::findOne($id)*/
 /* @var $searchModel frontend\models\RefBahagianKemudahanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 

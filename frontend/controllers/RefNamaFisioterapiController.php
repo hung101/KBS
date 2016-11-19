@@ -107,7 +107,7 @@ class RefNamaFisioterapiController extends Controller
      * Finds the RefNamaFisioterapi model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return RefNamaFisioterapi the loaded model
+     * @return RefNamaFisioterapi the loaded model actionKI
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

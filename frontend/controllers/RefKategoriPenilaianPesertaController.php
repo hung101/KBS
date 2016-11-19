@@ -25,7 +25,7 @@ class RefKategoriPenilaianPesertaController extends Controller
             ],
         ];
     }
-
+//delete()
     /**
      * Lists all RefKategoriPenilaianPeserta models.
      * @return mixed

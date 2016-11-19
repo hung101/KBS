@@ -131,6 +131,13 @@ class PermohonanEBantuanUrusetiaController extends Controller
             'readonly' => false,
         ]);
     }
+    
+    public function actionViewData($id)
+    {
+        return $this->render('print', [
+            'id' => $id,
+        ]);
+    }
 
     /**
      * Updates an existing PermohonanEBantuanUrusetia model.

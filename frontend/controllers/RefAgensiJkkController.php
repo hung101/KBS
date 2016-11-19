@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RefAgensiJkkController implements the CRUD actions for RefAgensiJkk model.
+ * RefAgensiJkkController implements the CRUD actions for RefAgensiJkk model.Atlet::findOne($id)
  */
 class RefAgensiJkkController extends Controller
 {

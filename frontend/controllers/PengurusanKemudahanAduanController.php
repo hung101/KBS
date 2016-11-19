@@ -79,7 +79,7 @@ class PengurusanKemudahanAduanController extends Controller
             'readonly' => true,
         ]);
     }
-
+//delete()
     /**
      * Creates a new PengurusanKemudahanAduan model.
      * If creation is successful, the browser will be redirected to the 'view' page.

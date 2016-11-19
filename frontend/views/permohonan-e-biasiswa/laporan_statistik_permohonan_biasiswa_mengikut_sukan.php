@@ -14,7 +14,7 @@ use app\models\RefReportFormat;
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 
-/* @var $this yii\web\View */
+/* @var $this yii\web\View Atlet::findOne($id)*/
 /* @var $model app\models\ElaporanPelaksaan */
 
 $this->title = GeneralLabel::laporan_statistik_permohonan_biasiswa_mengikut_sukan;

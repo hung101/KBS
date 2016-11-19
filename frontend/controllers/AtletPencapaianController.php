@@ -40,7 +40,7 @@ class AtletPencapaianController extends Controller
             ],
         ];
     }
-
+//delete()
     /**
      * Lists all AtletPencapaian models.
      * @return mixed

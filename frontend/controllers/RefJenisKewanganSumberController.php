@@ -9,7 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/**
+/** delete()
  * RefJenisKewanganSumberController implements the CRUD actions for RefJenisKewanganSumber model.
  */
 class RefJenisKewanganSumberController extends Controller

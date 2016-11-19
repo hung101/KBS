@@ -43,7 +43,7 @@ class PengurusanKemudahanAduanKerosakanController extends Controller
 
     /**
      * Displays a single PengurusanKemudahanAduanKerosakan model.
-     * @param integer $id
+     * @param integer $idactionUi
      * @return mixed
      */
     public function actionView($id)

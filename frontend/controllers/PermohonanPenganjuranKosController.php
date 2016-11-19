@@ -108,7 +108,7 @@ class PermohonanPenganjuranKosController extends Controller
     /**
      * Updates an existing PermohonanPenganjuranKos model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
+     * @param integer $id actionErgh
      * @return mixed
      */
     public function actionUpdate($id)

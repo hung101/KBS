@@ -13,8 +13,8 @@ use app\models\general\GeneralMessage;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
 
-/* @var $this yii\web\View */
-/* @var $searchModel frontend\models\AtletPencapaianSearch */
+/* @var $this yii\web\View delete()*/
+/* @var $searchModel frontend\models\AtletPencapaianSearch Atlet::findOne($id)*/
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $searchModel frontend\models\AtletPencapaianRekodsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */

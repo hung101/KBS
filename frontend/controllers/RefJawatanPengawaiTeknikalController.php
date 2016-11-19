@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RefJawatanPengawaiTeknikalController implements the CRUD actions for RefJawatanPengawaiTeknikal model.
+ * RefJawatanPengawaiTeknikalController implements the CRUD actions for RefJawatanPengawaiTeknikal model.Jurulatih::findOne($id)
  */
 class RefJawatanPengawaiTeknikalController extends Controller
 {

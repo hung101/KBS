@@ -27,7 +27,7 @@ class RefNamaSukanPersatuanPersekutuanduniaController extends Controller
     }
 
     /**
-     * Lists all RefNamaSukanPersatuanPersekutuandunia models.
+     * delete()Lists all RefNamaSukanPersatuanPersekutuandunia models.
      * @return mixed
      */
     public function actionIndex()

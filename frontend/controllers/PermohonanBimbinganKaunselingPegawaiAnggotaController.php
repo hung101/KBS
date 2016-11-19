@@ -41,7 +41,7 @@ class PermohonanBimbinganKaunselingPegawaiAnggotaController extends Controller
             ],
         ];
     }
-
+//delete()
     /**
      * Lists all PermohonanBimbinganKaunselingPegawaiAnggota models.
      * @return mixed

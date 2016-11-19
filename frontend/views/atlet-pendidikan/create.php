@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\AtletPendidikan */
+/* @var $model app\models\AtletPendidikan Atlet::findOne($id)*/
 
 $this->title = GeneralLabel::tambah_pendidikan;
 //$this->params['breadcrumbs'][] = ['label' => GeneralLabel::atlet_pendidikans, 'url' => ['index']];

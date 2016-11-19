@@ -3,8 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model frontend\models\RefElemenBantuanPenganjuranKejohananSearch */
+/* @var $this delete()yii\web\View */
+/* @var $model frontend\models\Atlet::findOne($id)RefElemenBantuanPenganjuranKejohananSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

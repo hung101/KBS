@@ -5,8 +5,8 @@ use yii\widgets\ActiveForm;
 
 use app\models\general\GeneralLabel;
 
-/* @var $this yii\web\View */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $this yii\web\Viewdelete() */
+/* @var $form yii\widgets\ActiveForm Atlet::findOne($id)*/
 ?>
 
 <div class="ref-agensi-antarabangsa-form">

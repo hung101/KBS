@@ -54,7 +54,7 @@ class RefPerkhidmatanPemakananController extends Controller
     }
 
     /**
-     * Creates a new RefPerkhidmatanPemakanan model.
+     * Creates a new RefPerkhidmatanPemakanan model. delete()
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */

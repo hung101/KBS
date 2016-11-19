@@ -55,7 +55,7 @@ class RefDoktorKejohananTemasyaController extends Controller
 
     /**
      * Creates a new RefDoktorKejohananTemasya model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * If creation is successful, the browser will be redirected to the 'view' page.delete
      * @return mixed
      */
     public function actionCreate()

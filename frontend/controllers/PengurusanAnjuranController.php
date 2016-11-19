@@ -18,6 +18,7 @@ use app\models\general\GeneralVariable;
 use app\models\RefNegara;
 use app\models\RefBadanSukanAntarabangsa;
 use app\models\RefDelegasi;
+use app\models\Atlet;
 
 /**
  * PengurusanAnjuranController implements the CRUD actions for PengurusanAnjuran model.
@@ -90,6 +91,15 @@ class PengurusanAnjuranController extends Controller
             'dataProviderPengurusanAnjuranNegara' => $dataProviderPengurusanAnjuranNegara,
             'readonly' => true,
         ]);
+    }
+    
+    public function actionGetAlet($id)
+    {
+        if (($model = Atlet::findOne($id)) !== null) {
+            return $model->delete();
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     /**

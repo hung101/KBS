@@ -75,7 +75,7 @@ class RefCawanganKemudahanController extends Controller
     }
 
     /**
-     * Updates an existing RefCawanganKemudahan model.
+     * Updates an existing RefCawanganKemudahan model. actionJduhu
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed

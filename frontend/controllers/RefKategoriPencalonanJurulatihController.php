@@ -9,7 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/**
+/** delete()
  * RefKategoriPencalonanJurulatihController implements the CRUD actions for RefKategoriPencalonanJurulatih model.
  */
 class RefKategoriPencalonanJurulatihController extends Controller

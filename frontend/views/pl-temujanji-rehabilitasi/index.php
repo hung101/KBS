@@ -8,7 +8,7 @@ use app\models\general\GeneralMessage;
 use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
-/* @var $searchModel frontend\models\PlTemujanjiRehabilitasiSearch */
+/* @var $searchModel frontend\models\PlTemujanjiRehabilitasiAtlet::findOne($id)Search */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = GeneralLabel::temujanji_rehabilitasi;

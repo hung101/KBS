@@ -90,7 +90,7 @@ class PlDataKlinikalController extends Controller
 
     /**
      * Creates a new PlDataKlinikal model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * If creation is successful, the browser will be redirected to the 'view' page.Jurulatih::findOne($id)
      * @return mixed
      */
     public function actionCreate()

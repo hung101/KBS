@@ -9,7 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/**
+/** delete()
  * RefSekolahController implements the CRUD actions for RefSekolah model.
  */
 class RefSekolahController extends Controller

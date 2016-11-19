@@ -153,7 +153,7 @@ class PlTemujanjiRehabilitasiController extends Controller
                 return $this->redirect(['view', 'id' => $model->pl_temujanji_id]);
             }
         } 
-        
+        //delete()
         return $this->render('create', [
                 'model' => $model,
                 'searchModelPlDiagnosisPreskripsiPemeriksaanRehabilitasi' => $searchModelPlDiagnosisPreskripsiPemeriksaanRehabilitasi,

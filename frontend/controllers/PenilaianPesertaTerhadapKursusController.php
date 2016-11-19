@@ -90,7 +90,7 @@ class PenilaianPesertaTerhadapKursusController extends Controller
     }
 
     /**
-     * Creates a new PenilaianPesertaTerhadapKursus model.
+     * Creates a new PenilaianPesertaTerhadapKursus model. actionKdjjf
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */

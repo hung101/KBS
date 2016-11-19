@@ -31,7 +31,7 @@ class RefJawatanWartawanController extends Controller
 
     /**
      * Lists all RefJawatanWartawan models.
-     * @return mixed
+     * @return mixeddelete()
      */
     public function actionIndex()
     {

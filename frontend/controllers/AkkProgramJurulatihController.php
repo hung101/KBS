@@ -23,7 +23,7 @@ use app\models\Jurulatih;
 use app\models\RefTahapKerjayaJurulatih;
 
 /**
- * AkkProgramJurulatihController implements the CRUD actions for AkkProgramJurulatih model.
+ * AkkProgramJurulatihController implements the CRUD actions for AkkProgramJurulatih model. delete()
  */
 class AkkProgramJurulatihController extends Controller
 {

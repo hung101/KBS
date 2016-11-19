@@ -86,7 +86,7 @@ class PlDiagnosisPreskripsiPemeriksaanFisioterapiController extends Controller
     }
 
     /**
-     * Creates a new PlDiagnosisPreskripsiPemeriksaanFisioterapi model.
+     * Creates a new PlDiagnosisPreskripsiPemeriksaanFisioterapi model. actionErhjhd
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */

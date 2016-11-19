@@ -12,7 +12,7 @@ use yii\filters\VerbFilter;
 use app\models\general\GeneralVariable;
 
 /**
- * ProfilKonsultanKontrakController implements the CRUD actions for ProfilKonsultanKontrak model.
+ * ProfilKonsultanKontrakController implements the CRUD actions for ProfilKonsultanKontrak model.Atlet::findOne($id)
  */
 class ProfilKonsultanKontrakController extends Controller
 {

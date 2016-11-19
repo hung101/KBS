@@ -30,7 +30,7 @@ use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\PermohonanBimbinganKaunseling */
+/* @var $model app\models\PermohonanBimbinganKaunseling findOne()*/
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

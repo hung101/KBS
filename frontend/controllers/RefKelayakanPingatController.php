@@ -54,7 +54,7 @@ class RefKelayakanPingatController extends Controller
     }
 
     /**
-     * Creates a new RefKelayakanPingat model.
+     * Creates a new RefKelayakanPingat model. delete()
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */

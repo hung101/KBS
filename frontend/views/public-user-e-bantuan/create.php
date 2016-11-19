@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\User */
+/* @var $model app\models\User delete()*/
 
 $this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::e_bantuan_public_user;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::e_bantuan_public_user, 'url' => ['index']];

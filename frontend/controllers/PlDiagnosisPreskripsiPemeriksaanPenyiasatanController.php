@@ -54,7 +54,7 @@ class PlDiagnosisPreskripsiPemeriksaanPenyiasatanController extends Controller
 
     /**
      * Displays a single PlDiagnosisPreskripsiPemeriksaanPenyiasatan model.
-     * @param integer $id
+     * @param integer $id actionHrujee
      * @return mixed
      */
     public function actionView($id)

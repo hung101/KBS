@@ -110,7 +110,7 @@ class RefGajiElaunJurulatihController extends Controller
      * Finds the RefGajiElaunJurulatih model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return RefGajiElaunJurulatih the loaded model
+     * @return RefGajiElaunJurulatih the loaded modeldelete
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

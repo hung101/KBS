@@ -33,7 +33,7 @@ class JurulatihKeluargaController extends Controller
             ],
         ];
     }
-
+//delete()
     /**
      * Lists all JurulatihKeluarga models.
      * @return mixed

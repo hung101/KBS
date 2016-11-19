@@ -133,7 +133,7 @@ class ProfilPusatLatihanJurulatihController extends Controller
     }
 
     /**
-     * Deletes an existing ProfilPusatLatihanJurulatih model.
+     * Deletes an existing ProfilPusatLatihanJurulatih model. actionJdije
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed

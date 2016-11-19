@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RefAcaraOlimpikController implements the CRUD actions for RefAcaraOlimpik model.
+ * RefAcaraOlimpikController implements the CRUD actions for RefAcaraOlimpik model.Jurulatih::findOne($id)
  */
 class RefAcaraOlimpikController extends Controller
 {

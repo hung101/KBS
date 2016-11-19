@@ -54,7 +54,7 @@ class RefKategoriKecergasanController extends Controller
     }
 
     /**
-     * Creates a new RefKategoriKecergasan model.
+     * Creates a new RefKategoriKecergasan model. delete()
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */

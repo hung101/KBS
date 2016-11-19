@@ -60,7 +60,7 @@ class PerancanganProgramHptController extends Controller
 
     /**
      * Displays a single PerancanganProgramHpt model.
-     * @param integer $id
+     * @param integer $idJurulatih::findOne($id)
      * @return mixed
      */
     public function actionView($id)

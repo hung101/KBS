@@ -7,7 +7,7 @@ use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 use common\models\general\GeneralFunction;
 
-/* @var $this yii\web\View */
+/* @var $this yii\web\View Atlet::findOne($id)*/
 /* @var $searchModel frontend\models\PlTemujanjiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 

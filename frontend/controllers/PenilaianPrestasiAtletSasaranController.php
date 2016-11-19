@@ -71,7 +71,7 @@ class PenilaianPrestasiAtletSasaranController extends Controller
             'readonly' => true,
         ]);
     }
-
+//delete()
     /**
      * Creates a new PenilaianPrestasiAtletSasaran model.
      * If creation is successful, the browser will be redirected to the 'view' page.

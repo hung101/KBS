@@ -22,7 +22,7 @@ use app\models\RefNamaJus;
 use app\models\RefJantina;
 
 /**
- * PemberianJusPemulihanController implements the CRUD actions for PemberianJusPemulihan model.
+ * PemberianJusPemulihanController implements the CRUD actions for PemberianJusPemulihan model.Jurulatih::findOne($id)
  */
 class PemberianJusPemulihanController extends Controller
 {

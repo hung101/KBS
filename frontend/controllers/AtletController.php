@@ -489,9 +489,6 @@ Majlis Sukan Negara Malaysia.
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
-        }
         
         // delete upload file
         self::actionDeleteupload($id, 'gambar');

@@ -34,7 +34,7 @@ class PengurusanProgramBinaanJurulatihController extends Controller
     }
 
     /**
-     * Lists all PengurusanProgramBinaanJurulatih models.
+     * Lists all PengurusanProgramBinaanJurulatih models. actionHgdy
      * @return mixed
      */
     public function actionIndex()

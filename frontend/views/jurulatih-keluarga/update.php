@@ -6,7 +6,7 @@ use yii\helpers\Html;
 use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\JurulatihKeluarga */
+/* @var $model app\models\JurulatihKeluarga delete() findOne */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::jurulatih_keluarga.': ' . ' ' . $model->jurulatih_keluarga_id;
 $this->title = GeneralLabel::updateTitle . ' Maklumat Keluarga';

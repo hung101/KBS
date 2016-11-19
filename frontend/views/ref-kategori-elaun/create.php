@@ -6,7 +6,7 @@ use app\models\general\GeneralLabel;
 use yii\helpers\Html;
 
 
-/* @var $this yii\web\View */
+/* @var $this yii\web\Viewdelete() */
 /* @var $model app\models\RefKategoriElaun */
 
 $this->title = GeneralLabel::createTitle.' '.GeneralLabel::kategori_elaun;

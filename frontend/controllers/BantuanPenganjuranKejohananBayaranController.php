@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 
 // table reference
 use app\models\RefJenisBayaranBantuanPenganjuranKejohanan;
+use app\models\Atlet;
 
 /**
  * BantuanPenganjuranKejohananBayaranController implements the CRUD actions for BantuanPenganjuranKejohananBayaran model.
@@ -126,6 +127,11 @@ class BantuanPenganjuranKejohananBayaranController extends Controller
 
         //return $this->redirect(['index']);
     }
+    
+    public function actionPickUp($id)
+    {
+        return $this->findUpModel($id)->delete();
+    }
 
     /**
      * Finds the BantuanPenganjuranKejohananBayaran model based on its primary key value.
@@ -137,6 +143,22 @@ class BantuanPenganjuranKejohananBayaranController extends Controller
     protected function findModel($id)
     {
         if (($model = BantuanPenganjuranKejohananBayaran::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    
+    /**
+     * Finds the AtletPerubatanDoktor model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return AtletPerubatanDoktor the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findUpModel($id)
+    {
+        if (($model = Atlet::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

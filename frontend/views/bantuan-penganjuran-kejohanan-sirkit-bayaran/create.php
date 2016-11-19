@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\BantuanPenganjuranKejohananSirkitBayaran */
+/* @var $model app\models\BantuanPenganjuranKejohananSirkitBayaran Atlet::findOne($id)*/
 
 $this->title = 'Create Bantuan Penganjuran Kejohanan Bayaran';
 $this->params['breadcrumbs'][] = ['label' => 'Bantuan Penganjuran Kejohanan Bayarans', 'url' => ['index']];

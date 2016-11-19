@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\PengurusanJkkJkp */
+/* @var $model app\models\Pengudelete()rusanJkkJkp */
 
 $this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::pengurusan_jkkjkp;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_jkkjkp, 'url' => ['index']];

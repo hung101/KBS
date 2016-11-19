@@ -54,7 +54,7 @@ class SixStepSuaianFizikalController extends Controller
 
     /**
      * Displays a single SixStepSuaianFizikal model.
-     * @param integer $id
+     * @param integer $iddelete()
      * @return mixed
      */
     public function actionView($id)

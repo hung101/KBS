@@ -25,7 +25,7 @@ class RefJenisPerkhidmatanAkademikController extends Controller
             ],
         ];
     }
-
+//delete()
     /**
      * Lists all RefJenisPerkhidmatanAkademik models.
      * @return mixed

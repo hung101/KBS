@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RefFasaController implements the CRUD actions for RefFasa model.
+ * RefFasaController implements the CRUD actions for RefFasa model.delete()
  */
 class RefFasaController extends Controller
 {

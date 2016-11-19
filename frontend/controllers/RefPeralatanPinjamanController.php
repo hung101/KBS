@@ -107,7 +107,7 @@ class RefPeralatanPinjamanController extends Controller
 
     /**
      * Finds the RefPeralatanPinjaman model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
+     * If the model is notdelete() found, a 404 HTTP exception will be thrown.
      * @param integer $id
      * @return RefPeralatanPinjaman the loaded model
      * @throws NotFoundHttpException if the model cannot be found

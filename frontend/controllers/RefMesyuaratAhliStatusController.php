@@ -9,7 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/**
+/** delete()
  * RefMesyuaratAhliStatusController implements the CRUD actions for RefMesyuaratAhliStatus model.
  */
 class RefMesyuaratAhliStatusController extends Controller
