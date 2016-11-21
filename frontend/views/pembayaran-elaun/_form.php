@@ -25,6 +25,28 @@ use app\models\general\GeneralVariable;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<?php
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['upaya']) && isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['kurang-upaya'])){
+            $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->all();
+        } elseif(isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['upaya']))  {
+            // Upaya Sukan List
+            $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all();
+        } elseif(isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['kurang-upaya']))  {
+            // Upaya Sukan List
+            $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all();
+        }
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['upaya']) && isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['kurang-upaya'])){
+            $atlet_list = Atlet::find()->where(['=', 'tawaran', RefStatusTawaran::LULUS_TAWARAN])->all();
+        } elseif(isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['upaya']))  {
+            // Upaya Sukan List
+            $atlet_list = Atlet::find()->where(['=', 'tawaran', RefStatusTawaran::LULUS_TAWARAN])->andWhere(['=', 'cacat', 0])->all();
+        } elseif(isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['kurang-upaya']))  {
+            // Upaya Sukan List
+            $atlet_list = Atlet::find()->where(['=', 'tawaran', RefStatusTawaran::LULUS_TAWARAN])->andWhere(['=', 'cacat', 1])->all();
+        }
+?>
+
 <div class="pembayaran-elaun-form">
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
@@ -53,7 +75,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map($sukan_list,'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -70,7 +92,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(Atlet::find()->where(['=', 'tawaran', RefStatusTawaran::LULUS_TAWARAN])->all(),'atlet_id', 'nameAndIC'),
+                        'data'=>ArrayHelper::map($atlet_list,'atlet_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::atlet],],
                     'columnOptions'=>['colspan'=>5]],
             ]

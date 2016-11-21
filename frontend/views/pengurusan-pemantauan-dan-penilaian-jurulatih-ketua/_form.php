@@ -19,6 +19,7 @@ use app\models\Jurulatih;
 use app\models\RefSukan;
 use app\models\RefAcara;
 use app\models\RefPenilaianJurulatihKetua;
+use app\models\RefStatusTawaran;
 
 // contant values
 use app\models\general\Placeholder;
@@ -65,7 +66,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(Jurulatih::find()->all(),'jurulatih_id', 'nameAndIC'),
+                        'data'=>ArrayHelper::map(Jurulatih::find()->where('status_tawaran = :status_tawaran', [':status_tawaran' => RefStatusTawaran::LULUS_TAWARAN])->all(),'jurulatih_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::jurulatih, 'id'=>'jurulatihId'],
                         'pluginOptions' => [
                             'allowClear' => true

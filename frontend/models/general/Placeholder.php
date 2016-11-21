@@ -149,6 +149,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kategoriPersatuan = "-- Pilih Kategori Persatuan --";
         const kategoriPeserta = "-- Pilih Kategori Peserta --";
         const kategoriProgram = "-- Pilih Kategori Program --";
+        const kategoriServis = "-- Pilih Kategori Servis --";
         const kategoriSoalan = "-- Pilih Kategori Soalan --";
         const kategoriSukan = "-- Pilih Kategori Sukan --";
         const kawasanKemudahan = "-- Pilih Kawasan / Kemudahan --";
@@ -243,6 +244,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const sekolah = "-- Pilih Sekolah --";
         const semesterBaki = "-- Pilih Baki Semester --";
         const semesterTerkini = "-- Pilih Semester Terkini --";
+        const servis = "-- Pilih Servis --";
         const sesiPermohonan = "-- Pilih Sesi Permohonan --";
         const shuttle = "-- Pilih Shuttle --";
         const sijilSPKK = "-- Pilih Sijil SPKK --";
@@ -433,6 +435,7 @@ if($session->get('language') == "EN") {
         const kategoriPersatuan = "-- Select The Category Association --";
         const kategoriPeserta = "-- Select The Category Of Participants --";
         const kategoriProgram = "-- Select Program Category --";
+        const kategoriServis = "-- Select Service Category --";
         const kategoriSoalan = "-- Select Category Question --";
         const kategoriSukan = "-- Select The Sports Category --";
         const kawasanKemudahan = "-- Select Kawasan / Kemudahan --";
@@ -527,6 +530,7 @@ if($session->get('language') == "EN") {
         const sekolah = "-- Select School --";
         const semesterBaki = "-- Select The Remaining Semester --";
         const semesterTerkini = "-- Select Semester Booking --";
+        const servis = "-- Select Service --";
         const sesiPermohonan = "-- Select The Session Application --";
         const shuttle = "-- Select Shuttle --";
         const sijilSPKK = "-- Select The Certificate Is PRACTICED --";

@@ -252,6 +252,9 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                                     'items' => [
                                                         ['label' => GeneralLabel::laporan_senarai_permohonan_pendidikan, 'url' => ['/permohonan-pendidikan/laporan-senarai-permohonan-pendidikan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-pendidikan']['module'])],
                                                         ['label' => GeneralLabel::laporan_biasiswa, 'url' => ['/permohonan-biasiswa/laporan-permohonan-biasiswa'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-biasiswa']['module'])],
+                                                        ['label' => GeneralLabel::laporan_permohonan_pelepasan, 'url' => ['/pertukaran-pengajian/laporan-permohonan-pelepasan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pertukaran-pengajian']['module'])],
+                                                        ['label' => GeneralLabel::laporan_penangguhan_universiti, 'url' => ['/pertukaran-pengajian/laporan-penangguhan-universiti'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pertukaran-pengajian']['module'])],
+                                                        ['label' => GeneralLabel::laporan_senarai_pendidikan_atlet, 'url' => ['/permohonan-pendidikan/laporan-senarai-pendidikan-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-pendidikan']['module'])],
                                                     ],
                                                 ],
                                             ],
@@ -293,6 +296,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                             'label' => GeneralLabel::prestasi_atlet,
                                             'items' => [
                                                 ['label' => GeneralLabel::penilaian_pestasi, 'url' => ['/penilaian-pestasi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['module'])],
+                                                ['label' => GeneralLabel::khidmat_perubatan_dan_sains_sukan, 'url' => ['/khidmat-perubatan-dan-sains-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['khidmat-perubatan-dan-sains-sukan']['module'])],
                                                 [
                                                     'label' => GeneralLabel::laporan,
                                                     'items' => [
@@ -301,6 +305,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                                         ['label' => GeneralLabel::laporan_jumlah_pingat_mengikut_negeri, 'url' => ['/penilaian-pestasi/laporan-jumlah-pingat-mengikut-negeri'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['module'])],
                                                         ['label' => GeneralLabel::laporan_rekod_baru, 'url' => ['/penilaian-pestasi/laporan-rekod-baru'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['module'])],
                                                         ['label' => GeneralLabel::laporan_penyertaan_kontinjen, 'url' => ['/penilaian-pestasi/laporan-penyertaan-kontinjen'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['module'])],
+                                                        ['label' => GeneralLabel::laporan_khidmat_perubatan_dan_sains_sukan, 'url' => ['/khidmat-perubatan-dan-sains-sukan/laporan-khidmat-perubatan-dan-sains-sukan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['khidmat-perubatan-dan-sains-sukan']['module'])],
                                                     ],
                                                 ],
                                             ],
@@ -488,6 +493,9 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                                         ['label' => GeneralLabel::laporan_statistik_bantuan_elaun_sue, 'url' => ['/bantuan-elaun/laporan-statistik-bantuan-elaun-sue'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-elaun']['module'])],
                                                         ['label' => GeneralLabel::laporan_statistik_pentadbiran_pejabat, 'url' => ['/bantuan-pentadbiran-pejabat/laporan-statistik-pentadbiran-pejabat'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-pentadbiran-pejabat']['module'])],
                                                         ['label' => GeneralLabel::laporan_statistik_bantuan_menghadiri_program_antarabangsa, 'url' => ['/forum-seminar-persidangan-di-luar-negara/laporan-statistik-bantuan-menghadiri-program-antarabangsa'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['forum-seminar-persidangan-di-luar-negara']['module'])],
+                                                        ['label' => GeneralLabel::laporan_statistik_bantuan_elaun_sue_jumlah_kelulusan, 'url' => ['/bantuan-elaun/laporan-statistik-bantuan-elaun-sue-jumlah-kelulusan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-elaun']['module'])],
+                                                        ['label' => GeneralLabel::laporan_statistik_pentadbiran_pejabat_jumlah_kelulusan, 'url' => ['/bantuan-pentadbiran-pejabat/laporan-statistik-pentadbiran-pejabat-jumlah-kelulusan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-pentadbiran-pejabat']['module'])],
+                                                        ['label' => GeneralLabel::laporan_statistik_bantuan_menghadiri_program_antarabangsa_jumlah_kelulusan, 'url' => ['/forum-seminar-persidangan-di-luar-negara/laporan-statistik-bantuan-menghadiri-program-antarabangsa-jumlah-kelulusan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['forum-seminar-persidangan-di-luar-negara']['module'])],
                                                     ],
                                                 ],
                                                 [

@@ -57,7 +57,7 @@ class PertukaranPengajian extends \yii\db\ActiveRecord
             [['atlet_id', 'status_permohonan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh', 'tarikh_akhir', 'tarikh_permohonan'], 'safe'],
             [['sebab_pemohonan', 'sebab_pertukaran', 'sebab_penangguhan', 'sebab'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['kategori_pengajian'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kategori_pengajian', 'tempoh_penangguhan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_pengajian_sekarang', 'nama_pertukaran_pengajian', 'kejohanan_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
@@ -84,6 +84,7 @@ class PertukaranPengajian extends \yii\db\ActiveRecord
             'tarikh_akhir' => 'Tarikh Akhir Pelepasan',
             'tempat' => GeneralLabel::tempat,
             'sebab' => 'No Matrik',
+            'tempoh_penangguhan' => 'Tempoh Penangguhan',
         ];
     }
     

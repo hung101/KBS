@@ -61,7 +61,8 @@ class BantuanPentadbiranPejabat extends \yii\db\ActiveRecord
             [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'status_permohonan', 'emel'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir', 'tarikh', 'tarikh_lantikan'], 'safe'],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
-            [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['no_kad_pengenalan', 'alamat_poskod', 'no_tel_bimbit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jumlah_kelulusan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['nama', 'nama_sue', 'jawatan', 'persatuan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -102,6 +103,7 @@ class BantuanPentadbiranPejabat extends \yii\db\ActiveRecord
             'status_permohonan' => GeneralLabel::status_permohonan,
             'catatan' => GeneralLabel::catatan,
             'tarikh_lantikan' => GeneralLabel::tarikh_lantikan,
+            'jumlah_kelulusan' => GeneralLabel::jumlah_diluluskan,
         ];
     }
     

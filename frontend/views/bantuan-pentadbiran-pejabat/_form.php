@@ -365,6 +365,7 @@ use app\models\general\GeneralVariable;
                         'data'=>ArrayHelper::map(RefStatusPermohonanBantuanPentadbiranPejabat::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::statusPermohonan],],
                     'columnOptions'=>['colspan'=>3]],
+                'jumlah_kelulusan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
             ]
         ],
         [

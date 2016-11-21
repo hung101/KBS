@@ -392,6 +392,8 @@ $('#atletId').change(function(){
             
                 if(data.refAtletPendidikan[0] !== null){ 
                     //$('#permohonanbiasiswa-tahap_pendidikan').val(data.refAtletPendidikan[0].jenis_peringkatan_pendidikan).trigger("change");
+                    $('#permohonanbiasiswa-nama_institusi_pengajian').attr('value',data.refAtletPendidikan[0].nama);
+                    $('#permohonanbiasiswa-nama_program_pengajian').attr('value',data.refAtletPendidikan[0].kursus);
                 }
             }
         });
@@ -410,6 +412,8 @@ function clearForm(){
     $('#permohonanbiasiswa-program').val('').trigger("change");
     $('#permohonanbiasiswa-sukan').val('').trigger("change");
     $('#permohonanbiasiswa-tahap_pendidikan').val('').trigger("change");
+    $('#permohonanbiasiswa-nama_institusi_pengajian').attr('value','');;
+    $('#permohonanbiasiswa-nama_program_pengajian').attr('value','');;
 }
 
 JS;

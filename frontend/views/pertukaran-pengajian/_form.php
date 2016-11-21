@@ -163,7 +163,8 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'sebab_penangguhan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>255]],
+                'tempoh_penangguhan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255],'hint'=>'cth: SEMESTER 2'],
+                'sebab_penangguhan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>9],'options'=>['maxlength'=>255]],
             ],
         ],
         
@@ -346,6 +347,7 @@ function checkJenisPermohonan(){
     if($('#jenisPermohonanaId')){
         $("#pertukaranpengajian-sebab_pertukaran").prop('disabled', true);
         $("#pertukaranpengajian-sebab_penangguhan").prop('disabled', true);
+        $("#pertukaranpengajian-tempoh_penangguhan").prop('disabled', true);
         $("#pertukaranpengajian-nama_pertukaran_pengajian").prop('disabled', true);
     
         if($('#jenisPermohonanaId').val() === "$PERTUKARAN"){
@@ -354,12 +356,14 @@ function checkJenisPermohonan(){
             $("#pertukaranpengajian-sebab_penangguhan").val('');
         } else if($('#jenisPermohonanaId').val() === "$PENANGGUHAN"){
             $("#pertukaranpengajian-sebab_penangguhan").prop('disabled', false);
+            $("#pertukaranpengajian-tempoh_penangguhan").prop('disabled', false);
             $("#pertukaranpengajian-sebab_pertukaran").val('');
             $("#pertukaranpengajian-nama_pertukaran_pengajian").val('').trigger("change");
         } else if($('#jenisPermohonanaId').val() === "$PELEPASAN"){
             $("#pertukaranpengajian-nama_pertukaran_pengajian").val('').trigger("change");
             $("#pertukaranpengajian-sebab_pertukaran").val('');
             $("#pertukaranpengajian-sebab_penangguhan").val('');
+            $("#pertukaranpengajian-tempoh_penangguhan").val('');
         }
     }
 }

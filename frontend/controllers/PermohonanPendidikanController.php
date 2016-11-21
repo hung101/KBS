@@ -10,6 +10,8 @@ use frontend\models\PermohonanPendidikanKeputusanSpmSearch;
 use app\models\PermohonanPendidikanKursusPengajian;
 use frontend\models\PermohonanPendidikanKursusPengajianSearch;
 use app\models\MsnLaporanSenaraiPermohonanPendidikan;
+use app\models\MsnLaporan;
+use app\models\AtletPendidikan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -191,6 +193,38 @@ class PermohonanPendidikanController extends Controller
                 $this->generateSPMResult($model->permohonan_pendidikan_id);
             }
             
+            if($model->kelulusan == RefStatusPermohonanPendidikan::LULUS){
+                // update Atlet Profil Pendidikan if LULUS
+                $modelAtletPendidikan = null;
+                if (($modelAtletPendidikan = AtletPendidikan::find()->where(['atlet_id'=>$model->atlet_id])->andWhere(['permohonan_pendidikan_id'=>$model->permohonan_pendidikan_id])->one()) == null) {
+                    $modelAtletPendidikan = new AtletPendidikan();
+                }
+                $modelAtletPendidikan->permohonan_pendidikan_id = $model->permohonan_pendidikan_id;
+                $modelAtletPendidikan->atlet_id = $model->atlet_id;
+                $modelAtletPendidikan->jenis_peringkatan_pendidikan = $model->tahap_pendidikan;
+                if($model->muet_band && $model->muet_band != ""){
+                    if($modelAtletPendidikan->keputusan_cgpa != ""){
+                        $modelAtletPendidikan->keputusan_cgpa .= ", ";
+                    }
+                    $modelAtletPendidikan->keputusan_cgpa = "MUET BAND - " . $model->muet_band;
+                }
+                
+                if($model->pngk_prau && $model->pngk_prau != ""){
+                    if($modelAtletPendidikan->keputusan_cgpa != ""){
+                        $modelAtletPendidikan->keputusan_cgpa .= ", ";
+                    }
+                    $modelAtletPendidikan->keputusan_cgpa = "PNGK / PRAU - " . $model->pngk_prau;
+                }
+                
+                if($model->pmn_prau_utk4_sem && $model->pmn_prau_utk4_sem != ""){
+                    if($modelAtletPendidikan->keputusan_cgpa != ""){
+                        $modelAtletPendidikan->keputusan_cgpa .= ", ";
+                    }
+                    $modelAtletPendidikan->keputusan_cgpa = "PMN / PRAU / UTK4 / SEM - " . $model->pmn_prau_utk4_sem;
+                }
+                $modelAtletPendidikan->save();
+            }
+            
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->permohonan_pendidikan_id]);
             }
@@ -235,6 +269,38 @@ class PermohonanPendidikanController extends Controller
             $file = UploadedFile::getInstance($model, 'muat_naik');
             if($file){
                 $model->muat_naik = Upload::uploadFile($file, Upload::permohonanPendidikanFolder, $model->permohonan_pendidikan_id);
+            }
+            
+            if($model->kelulusan == RefStatusPermohonanPendidikan::LULUS){
+                // update Atlet Profil Pendidikan if LULUS
+                $modelAtletPendidikan = null;
+                if (($modelAtletPendidikan = AtletPendidikan::find()->where(['atlet_id'=>$model->atlet_id])->andWhere(['permohonan_pendidikan_id'=>$model->permohonan_pendidikan_id])->one()) == null) {
+                    $modelAtletPendidikan = new AtletPendidikan();
+                }
+                $modelAtletPendidikan->permohonan_pendidikan_id = $model->permohonan_pendidikan_id;
+                $modelAtletPendidikan->atlet_id = $model->atlet_id;
+                $modelAtletPendidikan->jenis_peringkatan_pendidikan = $model->tahap_pendidikan;
+                if($model->muet_band && $model->muet_band != ""){
+                    if($modelAtletPendidikan->keputusan_cgpa != ""){
+                        $modelAtletPendidikan->keputusan_cgpa .= ", ";
+                    }
+                    $modelAtletPendidikan->keputusan_cgpa .= "MUET BAND - " . $model->muet_band;
+                }
+                
+                if($model->pngk_prau && $model->pngk_prau != ""){
+                    if($modelAtletPendidikan->keputusan_cgpa != ""){
+                        $modelAtletPendidikan->keputusan_cgpa .= ", ";
+                    }
+                    $modelAtletPendidikan->keputusan_cgpa .= "PNGK / PRAU - " . $model->pngk_prau;
+                }
+                
+                if($model->pmn_prau_utk4_sem && $model->pmn_prau_utk4_sem != ""){
+                    if($modelAtletPendidikan->keputusan_cgpa != ""){
+                        $modelAtletPendidikan->keputusan_cgpa .= ", ";
+                    }
+                    $modelAtletPendidikan->keputusan_cgpa .= "PMN / PRAU / UTK4 / SEM - " . $model->pmn_prau_utk4_sem;
+                }
+                $modelAtletPendidikan->save();
             }
             
             if($model->save()){
@@ -411,5 +477,54 @@ class PermohonanPendidikanController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/MSN/SuratTawaranPendidikan', $format, $controls, 'surat_tawaran_pendidikan_' . $id);
+    }
+    
+    public function actionLaporanSenaraiPendidikanAtlet()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-senarai-pendidikan-atlet'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-senarai-pendidikan-atlet'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_senarai_pendidikan_atlet', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanSenaraiPendidikanAtlet($tarikh_dari, $tarikh_hingga, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanSenaraiPendidikanAtlet', $format, $controls, 'laporan_senarai_pendidikan_atlet');
     }
 }

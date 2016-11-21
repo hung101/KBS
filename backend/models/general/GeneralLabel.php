@@ -4167,7 +4167,7 @@ if($session->get('language') == "EN") {
         const no_fax = "Fax No";
         const no_fax_pendidikan = "Fax No Education";
         const no_fax_pengajian = "Fax No Study";
-        const no_ic = "No IC";
+        const no_ic = "No. Kad Pengenalan";
         const no_kad_pengenalan = "Identification Card";
         const no_kad_pengenalan_tentera_polis = "No. IC/Army/Police";
         const no_kakitangan = "Staff Number";

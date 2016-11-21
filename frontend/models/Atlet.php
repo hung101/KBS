@@ -272,9 +272,7 @@ class Atlet extends \yii\db\ActiveRecord
         
         if($this->ic_no != ""){
             $returnValue.=' ('.$this->ic_no.')';
-        }
-        
-        if($this->passport_no != ""){
+        }else if($this->passport_no != ""){
             $returnValue.= ' - ('.$this->passport_no.')';
         }
         

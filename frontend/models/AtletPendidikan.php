@@ -64,7 +64,7 @@ class AtletPendidikan extends \yii\db\ActiveRecord
     {
         return [
             [['jenis_peringkatan_pendidikan', 'nama', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'tahun_mula', 'tahun_tamat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id', 'no_telefon', 'no_faks', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['atlet_id', 'no_telefon', 'no_faks', 'created_by', 'updated_by', 'pendidikan_atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tahun_mula', 'tahun_tamat', 'tahun_mula_biasiswa', 'tahun_tamat_biasiswa', 'created', 'updated', 'jenis_pencapaian'], 'safe'],
             [['jumlah_biasiswa'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['jenis_peringkatan_pendidikan'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],

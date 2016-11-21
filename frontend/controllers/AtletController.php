@@ -673,6 +673,8 @@ Majlis Sukan Negara Malaysia.
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     , 'source' => $model->source
+                    , 'umur_dari' => $model->umur_dari
+                    , 'umur_hingga' => $model->umur_hingga
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -683,6 +685,8 @@ Majlis Sukan Negara Malaysia.
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     , 'source' => $model->source
+                    , 'umur_dari' => $model->umur_dari
+                    , 'umur_hingga' => $model->umur_hingga
                     , 'format' => $model->format
                 ]);
             }
@@ -694,7 +698,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanSenaraiAtlet($program, $sukan, $acara, $negeri, $source, $format)
+    public function actionGenerateLaporanSenaraiAtlet($program, $sukan, $acara, $negeri, $source, $umur_dari, $umur_hingga, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -711,12 +715,20 @@ Majlis Sukan Negara Malaysia.
         if($source == "") $source = array();
         else $source = array($source);
         
+        if($umur_dari == "") $umur_dari = array();
+        else $umur_dari = array($umur_dari);
+        
+        if($umur_hingga == "") $umur_hingga = array();
+        else $umur_hingga = array($umur_hingga);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
             'SOURCE' => $source,
+            'FROM_UMUR' => $umur_dari,
+            'TO_UMUR' => $umur_hingga,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanSenaraiAtlet', $format, $controls, 'laporan_senarai_atlet');
@@ -741,6 +753,8 @@ Majlis Sukan Negara Malaysia.
                     , 'negeri' => $model->negeri
                     , 'kategori_kecacatan' => $model->kategori_kecacatan
                     , 'source' => $model->source
+                    , 'umur_dari' => $model->umur_dari
+                    , 'umur_hingga' => $model->umur_hingga
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -752,6 +766,8 @@ Majlis Sukan Negara Malaysia.
                     , 'negeri' => $model->negeri
                     , 'kategori_kecacatan' => $model->kategori_kecacatan
                     , 'source' => $model->source
+                    , 'umur_dari' => $model->umur_dari
+                    , 'umur_hingga' => $model->umur_hingga
                     , 'format' => $model->format
                 ]);
             }
@@ -763,7 +779,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanSenaraiAtletParalimpik($program, $sukan, $acara, $negeri, $kategori_kecacatan, $source, $format)
+    public function actionGenerateLaporanSenaraiAtletParalimpik($program, $sukan, $acara, $negeri, $kategori_kecacatan, $source, $umur_dari, $umur_hingga, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -783,6 +799,12 @@ Majlis Sukan Negara Malaysia.
         if($source == "") $source = array();
         else $source = array($source);
         
+        if($umur_dari == "") $umur_dari = array();
+        else $umur_dari = array($umur_dari);
+        
+        if($umur_hingga == "") $umur_hingga = array();
+        else $umur_hingga = array($umur_hingga);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
@@ -790,6 +812,8 @@ Majlis Sukan Negara Malaysia.
             'NEGERI' => $negeri,
             'KATEGORI_CACAT' => $kategori_kecacatan,
             'SOURCE' => $source,
+            'FROM_UMUR' => $umur_dari,
+            'TO_UMUR' => $umur_hingga,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanSenaraiAtletParalimpik', $format, $controls, 'laporan_senarai_atlet_paralimpik');

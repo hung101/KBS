@@ -67,6 +67,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jurulatihKelayakan = "jurulatih_kelayakan";
         const jurulatihKursusTertinggi = "jurulatih_kursus_tertinggi";
         const kelayakanSukanSpesifikAkkFolder = "kelayakan_sukan_spesifik_akk";
+        const khidmatPerubatanDanSainsSukanFolder = "khidmat_perubatan_dan_sains_sukan";
         const informasiPermohonanFolder = "informasi_permohonan";
         const ltbsMesyuaratFolder = "ltbs_mesyuarat";
         const ltbsMinitMesyuaratJawatankuasaFolder = "ltbs_minit_mesyuarat_jawatankuasa";
@@ -212,6 +213,7 @@ if($session->get('language') == "EN") {
         const jurulatihKelayakan = "jurulatih_kelayakan";
         const jurulatihKursusTertinggi = "jurulatih_kursus_tertinggi";
         const kelayakanSukanSpesifikAkkFolder = "kelayakan_sukan_spesifik_akk";
+        const khidmatPerubatanDanSainsSukanFolder = "khidmat_perubatan_dan_sains_sukan";
         const informasiPermohonanFolder = "informasi_permohonan";
         const ltbsMesyuaratFolder = "ltbs_mesyuarat";
         const ltbsMinitMesyuaratJawatankuasaFolder = "ltbs_minit_mesyuarat_jawatankuasa";
