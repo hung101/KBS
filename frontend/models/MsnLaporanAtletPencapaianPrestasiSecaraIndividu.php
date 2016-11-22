@@ -23,12 +23,13 @@ class MsnLaporanAtletPencapaianPrestasiSecaraIndividu extends Model
     public $nama_kejohanan_temasya;
     public $opponent;
     public $source;
+    public $cawangan;
 
     public function rules()
     {
         return [
             [['format', 'atlet'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'negeri', 'acara', 'kategori_kecacatan', 'nama_kejohanan_temasya', 'source', 'pencapaian', 'opponent'], 'safe'],
+            [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'negeri', 'acara', 'kategori_kecacatan', 'nama_kejohanan_temasya', 'source', 'pencapaian', 'opponent', 'cawangan'], 'safe'],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
             [['jumlah_geran_hingga'], 'compare', 'compareAttribute'=>'negeri', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
@@ -49,6 +50,7 @@ class MsnLaporanAtletPencapaianPrestasiSecaraIndividu extends Model
             'source' => GeneralLabel::source,
             'format' => GeneralLabel::format,
             'kategori_kecacatan' => GeneralLabel::kategori_kecacatan,
+            'cawangan' => GeneralLabel::cawangan,
         ];
     }
 }

@@ -95,9 +95,9 @@ class PengurusanKehadiranMediaProgramController extends Controller
             }
         }
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             //return $this->redirect(['view', 'id' => $model->pengurusan_kehadiran_media_program_id]);
-            return $model->save();
+            return '1';
         } else {
             return $this->renderAjax('create', [
                 'model' => $model,
@@ -120,9 +120,9 @@ class PengurusanKehadiranMediaProgramController extends Controller
         
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             //return $this->redirect(['view', 'id' => $model->pengurusan_kehadiran_media_program_id]);
-            return $model->save();
+            return '1';
         } else {
             return $this->renderAjax('update', [
                 'model' => $model,

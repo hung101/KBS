@@ -1110,6 +1110,7 @@ Majlis Sukan Negara Malaysia.
                     , 'atlet' => $model->atlet
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -1122,6 +1123,7 @@ Majlis Sukan Negara Malaysia.
                     , 'atlet' => $model->atlet
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ]);
             }
@@ -1133,7 +1135,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanAtletPencapaianPrestasi($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $format)
+    public function actionGenerateLaporanAtletPencapaianPrestasi($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $cawangan, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -1156,6 +1158,9 @@ Majlis Sukan Negara Malaysia.
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
@@ -1164,6 +1169,7 @@ Majlis Sukan Negara Malaysia.
             'ATLET' => $atlet,
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'CAWANGAN' => $cawangan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPencapianPrestasi', $format, $controls, 'laporan_atlet_pencapaian_prestasi');
@@ -1189,6 +1195,7 @@ Majlis Sukan Negara Malaysia.
                     , 'atlet' => $model->atlet
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -1201,6 +1208,7 @@ Majlis Sukan Negara Malaysia.
                     , 'atlet' => $model->atlet
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ]);
             }
@@ -1212,7 +1220,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanAtletPencapaianPrestasiParalimpik($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $format)
+    public function actionGenerateLaporanAtletPencapaianPrestasiParalimpik($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $cawangan, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -1235,6 +1243,9 @@ Majlis Sukan Negara Malaysia.
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
@@ -1243,6 +1254,7 @@ Majlis Sukan Negara Malaysia.
             'ATLET' => $atlet,
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'CAWANGAN' => $cawangan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPencapianPrestasiParalimpik', $format, $controls, 'laporan_atlet_pencapaian_prestasi_paralimpik');
@@ -2122,6 +2134,7 @@ Majlis Sukan Negara Malaysia.
                     , 'nama_kejohanan_temasya' => $model->nama_kejohanan_temasya
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -2136,6 +2149,7 @@ Majlis Sukan Negara Malaysia.
                     , 'nama_kejohanan_temasya' => $model->nama_kejohanan_temasya
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ]);
             }
@@ -2147,7 +2161,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanAtletPencapaianPrestasiSecaraIndividu($program, $sukan, $acara, $negeri, $atlet, $opponent, $nama_kejohanan_temasya, $tarikh_dari, $tarikh_hingga, $format)
+    public function actionGenerateLaporanAtletPencapaianPrestasiSecaraIndividu($program, $sukan, $acara, $negeri, $atlet, $opponent, $nama_kejohanan_temasya, $tarikh_dari, $tarikh_hingga, $cawangan, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -2176,6 +2190,9 @@ Majlis Sukan Negara Malaysia.
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
@@ -2186,6 +2203,7 @@ Majlis Sukan Negara Malaysia.
             'PENCAPAIAN' => $nama_kejohanan_temasya,
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'CAWANGAN' => $cawangan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPencapaianPrestasiSecaraIndividu', $format, $controls, 'laporan_atlet_pencapaian_prestasi_secara_individu');
