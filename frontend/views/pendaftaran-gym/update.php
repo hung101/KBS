@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PendaftaranGym */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::pendaftaran_gym.': ' . ' ' . $model->pendaftaran_gym_id;
-$this->title = GeneralLabel::updateTitle . ' Pendaftaran GYM';
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::pendaftaran_gym;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::pendaftaran_gym, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Pendaftaran GYM', 'url' => ['view', 'id' => $model->pendaftaran_gym_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::pendaftaran_gym, 'url' => ['view', 'id' => $model->pendaftaran_gym_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pendaftaran-gym-update">

@@ -18,6 +18,7 @@ use app\models\general\GeneralLabel;
 // table reference
 use app\models\Atlet;
 use app\models\RefPeralatanPinjaman;
+use app\models\RefSukan;
 
 /**
  * PinjamanPeralatanController implements the CRUD actions for PinjamanPeralatan model.
@@ -73,6 +74,9 @@ class PinjamanPeralatanController extends Controller
         
         $ref = RefPeralatanPinjaman::findOne(['id' => $model->nama_peralatan]);
         $model->nama_peralatan = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
         
         $model->tarikh_diberi = GeneralFunction::convert($model->tarikh_diberi, GeneralFunction::TYPE_DATETIME);
         

@@ -63,7 +63,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
             $topMenuItems[] = [
                 'label' => $language_string,
                 'items' => [
-                     '<li class="dropdown-header">Select Your Language</li>',
+                     '<li class="dropdown-header">'.GeneralLabel::pilih_bahasa.'</li>',
                      ['label' => GeneralLabel::english, 'url' => ['/language/change','language'=>"EN"]],
                      ['label' => GeneralLabel::bahasa, 'url' => ['/language/change','language'=>"BM"]],
                 ],

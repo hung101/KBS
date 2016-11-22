@@ -493,10 +493,12 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const ic_tentera = "No Tentera";
         const id = "ID";
         const id_atlet_persekutuan = "ID Atlet Persekutuan";
+        const id_pengguna = "ID Pengguna";
         const income_tax_no = "No. Cukai Pendapatan";
         const india = "India";
         const informasi_permohonan_id = "Informasi Permohonan ID";
         const informasi_persatuan_id = "Informasi Persatuan ID";
+        const ingat_saya = "Remember Me";
         const insentif_id = "Insentif ID";
         const insentif_khas = "Insentif Khas";
         const institusi_sekolah = "Institusi / Sekolah";
@@ -693,6 +695,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kali_terakhir_bersalin = "Kali Terakhir Bersalin";
         const kapasiti_penggunaan = "Kapasiti Penggunaan";
         const karier_atlet_id = "Karier Atlet ID";
+        const kata_laluan = "Kata Laluan";
         const kata_laluan_tempoh_tamat_hari = "Kata Laluan Tempoh Tamat (Hari)";
         const kategori = "Kategori";
         const kategori_acara = "Kategori Acara";
@@ -1539,6 +1542,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const perubatan_id = "Perubatan ID";
         const perwakilan = "Perwakilan";
         const pihak_lawan = "Pihak Lawan";
+        const pilih_bahasa = "Pilih Bahasa";
         const pilih_semua = "Pilih Semua";
         const pilihan_aliran_spm = "Pilihan Aliran SPM";
         const pilihan_shuttle = "Pilihan Shuttle";
@@ -2941,7 +2945,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const mesyuarat_ahli_statuses = "Mesyuarat Ahli Status";
         const mesyuarat_senarai_nama_hadirs = "Mesyuarat Senarai Nama Hadir";
         const mesyuarat_tugas_statuses = "Mesyuarat Tugas Status";
-        const menetapkan_semula = "Menetapkan Semula";
+        const menetapkan_semula = "menetapkan semula";
         const minit_mesyuarat_agong = "Minit Mesyuarat Agong";
         const muat_naik_minit_mesyuarat_jawatankuasa_menetapkan_mesyuarat_agong = "Muat Naik Minit Mesyuarat Jawatankuasa Menetapkan Mesyuarat Agong";
         const notis_mesyuarat_agong = "Notis Mesyuarat Agong";
@@ -3694,10 +3698,12 @@ if($session->get('language') == "EN") {
         const ic_tentera = "No Military";
         const id = "ID";
         const id_atlet_persekutuan = "Federal Athletes ID";
+        const id_pengguna = "Username";
         const income_tax_no = "No. Income Tax";
         const india = "India";
         const informasi_permohonan_id = "Help Application ID";
         const informasi_persatuan_id = "Help The Association ID";
+        const ingat_saya = "Remember Me";
         const insentif_id = "Incentives ID";
         const insentif_khas = "Special Incentive";
         const institusi_sekolah = "Institution / School";
@@ -3892,6 +3898,7 @@ if($session->get('language') == "EN") {
         const kali_terakhir_bersalin = "The Last Delivery";
         const kapasiti_penggunaan = "Capacity Utilisation";
         const karier_atlet_id = "Athlete Career ID";
+        const kata_laluan = "Password";
         const kata_laluan_tempoh_tamat_hari = "Password Expired Duration ( Day(s) )";
         const kategori = "Category";
         const kategori_acara = "Category Event";
@@ -4737,6 +4744,7 @@ if($session->get('language') == "EN") {
         const perubatan_id = "Medical ID";
         const perwakilan = "Perwakilan";
         const pihak_lawan = "Opponent";
+        const pilih_bahasa = "Select Language";
         const pilih_semua = "Check All";
         const pilihan_aliran_spm = "SPM Flow Option";
         const pilihan_shuttle = "Choice Ab";
@@ -6148,7 +6156,7 @@ if($session->get('language') == "EN") {
         const mesyuarat_ahli_statuses = "Meeting Of Member Status";
         const mesyuarat_senarai_nama_hadirs = "Meeting List Present";
         const mesyuarat_tugas_statuses = "Meeting Task Status";
-        const menetapkan_semula = "Reset";
+        const menetapkan_semula = "reset here";
         const minit_mesyuarat_agong = "Minutes General Meeting";
         const muat_naik_minit_mesyuarat_jawatankuasa_menetapkan_mesyuarat_agong = "Upload The Minutes Of Meetings Of The Committee Set The General Meeting";
         const notis_mesyuarat_agong = "Notice Of General Meeting";

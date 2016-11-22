@@ -99,7 +99,7 @@ use app\models\general\GeneralLabel;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'atlet_id' => [
+                'atlet_id' => /*[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -112,6 +112,28 @@ use app\models\general\GeneralLabel;
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::atlet],],
+                    'columnOptions'=>['colspan'=>6]],*/
+                [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
+                    'options'=>[
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                        ],
+                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'options'=>['prompt'=>'',],
+                        'pluginOptions' => [
+                            'depends'=>[Html::getInputId($model, 'kategori_atlet'), Html::getInputId($model, 'sukan'), Html::getInputId($model, 'acara')],
+                            'placeholder' => Placeholder::atlet,
+                            'url'=>Url::to(['/atlet/sub-atlets'])],
+                        ],
                     'columnOptions'=>['colspan'=>6]],
             ],
         ],

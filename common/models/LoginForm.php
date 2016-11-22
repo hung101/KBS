@@ -50,10 +50,10 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-            'username' => 'ID Pengguna',
-            'password' => 'Kata Laluan',
+            'username' => GeneralLabel::id_pengguna,
+            'password' => GeneralLabel::kata_laluan,
             'confirm_password' => 'Pengesahan Kata Laluan',
-            'rememberMe' => 'Ingat Saya',
+            'rememberMe' => GeneralLabel::ingat_saya,
         ];
     }
 

@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PendaftaranGym */
 
 //$this->title = $model->pendaftaran_gym_id;
-$this->title = GeneralLabel::viewTitle . ' Pendaftaran GYM';
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::pendaftaran_gym;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::pendaftaran_gym, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
