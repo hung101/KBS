@@ -58,7 +58,7 @@ class MesyuaratSenaraiNamaHadirSearch extends MesyuaratSenaraiNamaHadir
 
         $query->andFilterWhere([
             'senarai_nama_hadir_id' => $this->senarai_nama_hadir_id,
-            'mesyuarat_id' => $this->mesyuarat_id,
+            'tbl_mesyuarat_senarai_nama_hadir.mesyuarat_id' => $this->mesyuarat_id,
             'kehadiran' => $this->kehadiran,
         ]);
 

@@ -59,7 +59,7 @@ class MesyuaratSenaraiTugasSearch extends MesyuaratSenaraiTugas
 
         $query->andFilterWhere([
             'senarai_tugas_id' => $this->senarai_tugas_id,
-            'mesyuarat_id' => $this->mesyuarat_id,
+            'tbl_mesyuarat_senarai_tugas.mesyuarat_id' => $this->mesyuarat_id,
             'tarikh_tamat' => $this->tarikh_tamat,
             'atlet_id' => $this->atlet_id,
         ]);
