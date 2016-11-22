@@ -598,6 +598,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jenis_terbitan = "Jenis Terbitan";
         const jenis_tuntutan = "Jenis Tuntutan";
         const jenis_ujian_saringan = "Jenis Ujian Saringan";
+        const jika_anda_terlupa_kata_laluan_anda = "Jika anda terlupa kata laluan anda, anda boleh";
         const journal_id = "Journal ID";
         const jumlah_without_RM = "Jumlah";
         const jumlah = "Jumlah (RM)";
@@ -923,6 +924,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const location_alamat_bandar = "Bandar";
         const location_alamat_negeri = "Negeri";
         const location_alamat_poskod = "Poskod";
+        const log_masuk = "Log Masuk";
         const lokasi = "Lokasi";
         const lokasi_kejadian = "Lokasi Kejadian";
         const lokasi_kejohanan = "Lokasi Kejohanan";
@@ -1693,6 +1695,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const sijil_spkk_msn = "Sijil SPKK";
         const sikap_nama_persatuan = "SIKAP Nama Persatuan";
         const sikap_peratus = "SIKAP (%)";
+        const sila_mengisi_bidang_bidang_berikut_untuk_login = "Sila mengisi bidang-bidang berikut untuk login";
         const silibus = "Silibus";
         const simptom_kerosakan = "Simptom Kerosakan";
         const sisi_tarikh_olimpik = "SISO Tarikh Olimpik";
@@ -2108,7 +2111,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_bantuan_teknikal_dan_kepegawaian = "Laporan Bantuan Teknikal & Kepegawaian";
         const laporan_bantuan_teknikal_dan_kepegawaian_mengikut_sukan = "Laporan Bantuan Teknikal & Kepegawaian Mengikut Sukan";
         const laporan_biasiswa = "Laporan Biasiswa";
-        const laporan_bilangan_program_bagi_setiap_bulan = "Laporan Bilangan Program Bagi Setip Bulan";
+        const laporan_bilangan_program_bagi_setiap_bulan = "Laporan Bilangan Program Bagi Setiap Bulan";
         const laporan_bimbingan_kaunseling_kes_rujukan = "Laporan Bimbingan Kaunseling Bagi Kes Rujukan";
         const laporan_bimbingan_kaunseling_pegawai = "Laporan Bimbingan Kaunseling (Pegawai & Anggota)";
         const laporan_gym_jumlah_atlet = "Laporan GYM Kehadiran Atlet";
@@ -2938,6 +2941,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const mesyuarat_ahli_statuses = "Mesyuarat Ahli Status";
         const mesyuarat_senarai_nama_hadirs = "Mesyuarat Senarai Nama Hadir";
         const mesyuarat_tugas_statuses = "Mesyuarat Tugas Status";
+        const menetapkan_semula = "Menetapkan Semula";
         const minit_mesyuarat_agong = "Minit Mesyuarat Agong";
         const muat_naik_minit_mesyuarat_jawatankuasa_menetapkan_mesyuarat_agong = "Muat Naik Minit Mesyuarat Jawatankuasa Menetapkan Mesyuarat Agong";
         const notis_mesyuarat_agong = "Notis Mesyuarat Agong";
@@ -3794,6 +3798,7 @@ if($session->get('language') == "EN") {
         const jenis_terbitan = "Types Of Issue";
         const jenis_tuntutan = "Type Of Claim";
         const jenis_ujian_saringan = "Types Of Screening Test";
+        const jika_anda_terlupa_kata_laluan_anda = "If you forget your password, you can";
         const journal_id = "Journal ID";
         const jumlah_without_RM = "Total";
         const jumlah = "Total (RM)";
@@ -4118,6 +4123,7 @@ if($session->get('language') == "EN") {
         const location_alamat_bandar = "City";
         const location_alamat_negeri = "State";
         const location_alamat_poskod = "Postal code";
+        const log_masuk = "Login";
         const lokasi = "Site";
         const lokasi_kejadian = "Location Of Occurrence";
         const lokasi_kejohanan = "Tournament Location";
@@ -4887,6 +4893,7 @@ if($session->get('language') == "EN") {
         const sijil_spkk_msn = "The Certificate Is PRACTICED";
         const sikap_nama_persatuan = "The ATTITUDE Of The Name Of The Association";
         const sikap_peratus = "SIKAP (%)";
+        const sila_mengisi_bidang_bidang_berikut_untuk_login = "Please fill in the following fields to login";
         const silibus = "Syllabus";
         const simptom_kerosakan = "Symptoms Of Damage";
         const sisi_tarikh_olimpik = "SISO Olympic Date";
@@ -6141,6 +6148,7 @@ if($session->get('language') == "EN") {
         const mesyuarat_ahli_statuses = "Meeting Of Member Status";
         const mesyuarat_senarai_nama_hadirs = "Meeting List Present";
         const mesyuarat_tugas_statuses = "Meeting Task Status";
+        const menetapkan_semula = "Reset";
         const minit_mesyuarat_agong = "Minutes General Meeting";
         const muat_naik_minit_mesyuarat_jawatankuasa_menetapkan_mesyuarat_agong = "Upload The Minutes Of Meetings Of The Committee Set The General Meeting";
         const notis_mesyuarat_agong = "Notice Of General Meeting";
