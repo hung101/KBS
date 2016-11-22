@@ -2348,6 +2348,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const profil_panel_penasihat_kpsk = "Profil Panel KPSK";
         const profil_psikologi = "Profil Psikologi";
         const profil_wartawan_sukan = "Profil Media Sukan";
+        const program_media = "Program Media";
         const program_persatuan_sukan_kebangsaan_input_oleh_cawangan = "Program Persatuan Sukan Kebangsaan (input oleh Cawangan)";
         const psikologi_sukan_sistem_sixstep = "Psikologi Sukan Sistem ‘SIX-STEP’";
         const rehabilitasi_diagnosis = "Rehabilitasi Diagnosis";
@@ -5541,6 +5542,7 @@ if($session->get('language') == "EN") {
         const profil_panel_penasihat_kpsk = "Panel Profile Setter";
         const profil_psikologi = "Psychological Profile";
         const profil_wartawan_sukan = "Sports Journalist Profile";
+        const program_media = "Media Program";
         const program_persatuan_sukan_kebangsaan_input_oleh_cawangan = "Programme of national sports associations (input by branch)";
         const psikologi_sukan_sistem_sixstep = "Sports Psychology System ' SIX-STEP '";
         const rehabilitasi_diagnosis = "Rehabilitation Diagnosis";
