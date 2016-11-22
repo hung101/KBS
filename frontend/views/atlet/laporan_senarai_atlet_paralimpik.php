@@ -18,6 +18,7 @@ use app\models\RefNegeri;
 use app\models\RefAcara;
 use app\models\RefKategoriKecacatan;
 use app\models\RefSource;
+use app\models\RefCawangan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -47,8 +48,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'umur_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>3]],
-                'umur_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>3]],
+                'umur_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>3]],
+                'umur_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>3]],
             ]
         ],
         [
@@ -189,6 +190,29 @@ $this->params['breadcrumbs'][] = $this->title;
                         ] : null,
                         'data'=>ArrayHelper::map(RefSource::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jenis],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'cawangan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-cawangan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefCawangan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::cawangan],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],

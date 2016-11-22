@@ -23,12 +23,13 @@ class MsnLaporanSenaraiAtlet extends Model
     public $umur_dari;
     public $umur_hingga;
     public $source;
+    public $cawangan;
 
     public function rules()
     {
         return [
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'negeri', 'acara', 'kategori_kecacatan', 'atlet', 'source'], 'safe'],
+            [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'negeri', 'acara', 'kategori_kecacatan', 'atlet', 'source', 'cawangan'], 'safe'],
             [['umur_hingga', 'umur_dari'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
             [['jumlah_geran_hingga'], 'compare', 'compareAttribute'=>'negeri', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
@@ -51,6 +52,7 @@ class MsnLaporanSenaraiAtlet extends Model
             'umur_hingga' => GeneralLabel::umur_hingga,
             'format' => GeneralLabel::format,
             'kategori_kecacatan' => GeneralLabel::kategori_kecacatan,
+            'cawangan' => GeneralLabel::cawangan,
         ];
     }
 }

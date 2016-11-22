@@ -17,6 +17,7 @@ use app\models\RefSukan;
 use app\models\RefNegeri;
 use app\models\RefAcara;
 use app\models\RefKategoriKecacatan;
+use app\models\RefCawangan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -157,6 +158,29 @@ $this->params['breadcrumbs'][] = $this->title;
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriKecacatan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kategoriKecacatan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'cawangan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-cawangan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefCawangan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::cawangan],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],

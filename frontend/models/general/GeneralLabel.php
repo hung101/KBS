@@ -2096,7 +2096,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kemasukan_dan_pengumpulan_data_maklumat_sukan_yang_dianjurkan = "Kemasukan Dan Pengumpulan Data Maklumat Sukan Yang Dianjurkan";
         const kemudahan_aduan = "Kemudahan Aduan";
         const kepantasan = "Kepantasan";
-        const khidmat_perubatan_dan_sains_sukan = "Khidmat Perubatan Dan Sain Sukan";
+        const khidmat_perubatan_dan_sains_sukan = "Khidmat Perubatan Dan Sains Sukan";
         const koordinasi = "Koordinasi";
         const komplementari_sistem_permohonan_perkhidmatan_perkhidmatan_komplementari = "Komplementari Sistem Permohonan Perkhidmatan Komplementari";
         const kuasa = "Kuasa";
