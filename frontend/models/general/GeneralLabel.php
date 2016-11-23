@@ -881,7 +881,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_kewangan_gaji_jurulatih = "Laporan Kewangan Gaji Jurulatih";
         const laporan_kewangan_muat_naik = "Laporan Kewangan";
         const laporan_khidmat_perubatan_dan_sains_sukan = "Laporan Khidmat Perubatan Dan Sains Sukan";
-        const laporan_komplimentori = "Laporan Komplimentori Mengikut Sukan";
+        const laporan_komplimentori = "Laporan Komplimentari Mengikut Sukan";
         const laporan_latihan_dan_pendidikan = "Laporan Latihan & Pendidikan";
         const laporan_maklumat_pembayaran_geran_bantuan = "Laporan Maklumat Pembayaran Geran Bantuan";
         const laporan_mesyuarat_jkk_jkp = "Laporan Mesyuarat JKK/JKP";
