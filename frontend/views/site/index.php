@@ -28,6 +28,16 @@ $class_bootstrap = array(
 
 $class_bootstrap_runner = 0;
 
+
+$session = Yii::$app->getSession();
+$sql_desc_selector = 'desc';
+
+if($session->get('language') == "BM"){
+    $sql_desc_selector = 'desc';
+}elseif($session->get('language') == "EN"){
+    $sql_desc_selector = 'desc_en';
+}
+
 /* @var $this yii\web\View */
 $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
 ?>
@@ -2664,7 +2674,7 @@ $this->registerJs($script);
                                         FROM
                                         (
                                             SELECT COUNT(*) AS JUMLAH,
-                                            (SELECT r.desc FROM tbl_ref_jenis_temujanji_pesakit_luar r WHERE r.id = p.makmal_perubatan) AS JENIS_TEMUJANJI,
+                                            (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_jenis_temujanji_pesakit_luar r WHERE r.id = p.makmal_perubatan) AS JENIS_TEMUJANJI,
                                             (SELECT COUNT(*) FROM `tbl_pl_temujanji` pe) AS JUMLAH_KESELURUHAN
                                             FROM `tbl_pl_temujanji` p
                                             GROUP BY p.makmal_perubatan
@@ -2716,7 +2726,7 @@ $this->registerJs($script);
                                     FROM
                                     (
                                         SELECT COUNT(*) AS JUMLAH,
-                                        (SELECT r.desc FROM tbl_ref_status_temujanji_pesakit_luar r WHERE r.id = p.status_temujanji) AS STATUS_TEMUJANJI,
+                                        (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_status_temujanji_pesakit_luar r WHERE r.id = p.status_temujanji) AS STATUS_TEMUJANJI,
                                         (SELECT COUNT(*) FROM `tbl_pl_temujanji` pe ) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_pl_temujanji` p
                                         GROUP BY p.status_temujanji
@@ -2771,7 +2781,7 @@ $this->registerJs($script);
                                     FROM
                                     (
                                         SELECT COUNT(*) AS JUMLAH,
-                                        (SELECT r.desc FROM tbl_ref_kelulusan r WHERE r.id = p.kehadiran_pesakit) AS KEHADIRAN,
+                                        (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_kelulusan r WHERE r.id = p.kehadiran_pesakit) AS KEHADIRAN,
                                         (SELECT COUNT(*) FROM `tbl_pl_temujanji` pe ) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_pl_temujanji` p
                                         GROUP BY p.kehadiran_pesakit
@@ -2885,7 +2895,7 @@ $this->registerJs($script);
                                         FROM
                                         (
                                             SELECT COUNT(*) AS JUMLAH,
-                                            (SELECT r.desc FROM tbl_ref_jenis_temujanji_pesakit_luar r WHERE r.id = p.makmal_perubatan) AS JENIS_TEMUJANJI,
+                                            (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_jenis_temujanji_pesakit_luar r WHERE r.id = p.makmal_perubatan) AS JENIS_TEMUJANJI,
                                             (SELECT COUNT(*) FROM `tbl_pl_temujanji` pe WHERE YEAR(pe.tarikh_temujanji) = :year ) AS JUMLAH_KESELURUHAN
                                             FROM `tbl_pl_temujanji` p
                                             WHERE YEAR(p.tarikh_temujanji) = :year
@@ -2938,7 +2948,7 @@ $this->registerJs($script);
                                     FROM
                                     (
                                         SELECT COUNT(*) AS JUMLAH,
-                                        (SELECT r.desc FROM tbl_ref_status_temujanji_pesakit_luar r WHERE r.id = p.status_temujanji) AS STATUS_TEMUJANJI,
+                                        (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_status_temujanji_pesakit_luar r WHERE r.id = p.status_temujanji) AS STATUS_TEMUJANJI,
                                         (SELECT COUNT(*) FROM `tbl_pl_temujanji` pe WHERE YEAR(pe.tarikh_temujanji) = :year) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_pl_temujanji` p 
                                         WHERE YEAR(p.tarikh_temujanji) = :year
@@ -2994,7 +3004,7 @@ $this->registerJs($script);
                                     FROM
                                     (
                                         SELECT COUNT(*) AS JUMLAH,
-                                        (SELECT r.desc FROM tbl_ref_kelulusan r WHERE r.id = p.kehadiran_pesakit) AS KEHADIRAN,
+                                        (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_kelulusan r WHERE r.id = p.kehadiran_pesakit) AS KEHADIRAN,
                                         (SELECT COUNT(*) FROM `tbl_pl_temujanji` pe WHERE YEAR(pe.tarikh_temujanji) = :year) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_pl_temujanji` p 
                                         WHERE YEAR(p.tarikh_temujanji) = :year
@@ -3110,7 +3120,7 @@ $this->registerJs($script);
                                         FROM
                                         (
                                             SELECT COUNT(*) AS JUMLAH,
-                                            (SELECT r.desc FROM tbl_ref_jenis_temujanji_pesakit_luar r WHERE r.id = p.makmal_perubatan) AS JENIS_TEMUJANJI,
+                                            (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_jenis_temujanji_pesakit_luar r WHERE r.id = p.makmal_perubatan) AS JENIS_TEMUJANJI,
                                             (SELECT COUNT(*) FROM `tbl_pl_temujanji` pe WHERE YEAR(pe.tarikh_temujanji) = :year AND MONTH(pe.tarikh_temujanji) = :month) AS JUMLAH_KESELURUHAN
                                             FROM `tbl_pl_temujanji` p
                                             WHERE YEAR(p.tarikh_temujanji) = :year AND MONTH(p.tarikh_temujanji) = :month
@@ -3163,7 +3173,7 @@ $this->registerJs($script);
                                     FROM
                                     (
                                         SELECT COUNT(*) AS JUMLAH,
-                                        (SELECT r.desc FROM tbl_ref_status_temujanji_pesakit_luar r WHERE r.id = p.status_temujanji) AS STATUS_TEMUJANJI,
+                                        (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_status_temujanji_pesakit_luar r WHERE r.id = p.status_temujanji) AS STATUS_TEMUJANJI,
                                         (SELECT COUNT(*) FROM `tbl_pl_temujanji` pe WHERE YEAR(pe.tarikh_temujanji) = :year AND MONTH(pe.tarikh_temujanji) = :month) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_pl_temujanji` p 
                                         WHERE YEAR(p.tarikh_temujanji) = :year AND MONTH(p.tarikh_temujanji) = :month
@@ -3219,7 +3229,7 @@ $this->registerJs($script);
                                     FROM
                                     (
                                         SELECT COUNT(*) AS JUMLAH,
-                                        (SELECT r.desc FROM tbl_ref_kelulusan r WHERE r.id = p.kehadiran_pesakit) AS KEHADIRAN,
+                                        (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_kelulusan r WHERE r.id = p.kehadiran_pesakit) AS KEHADIRAN,
                                         (SELECT COUNT(*) FROM `tbl_pl_temujanji` pe WHERE YEAR(pe.tarikh_temujanji) = :year AND MONTH(pe.tarikh_temujanji) = :month) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_pl_temujanji` p 
                                         WHERE YEAR(p.tarikh_temujanji) = :year AND MONTH(p.tarikh_temujanji) = :month
