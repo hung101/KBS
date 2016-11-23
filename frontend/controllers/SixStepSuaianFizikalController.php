@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
 use app\models\general\Upload;
+use app\models\general\GeneralVariable;
 
 // table reference
 use app\models\RefAtletTahap;
@@ -43,6 +44,10 @@ class SixStepSuaianFizikalController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $searchModel = new SixStepSuaianFizikalSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -59,6 +64,10 @@ class SixStepSuaianFizikalController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
         
         $ref = RefAtletTahap::findOne(['id' => $model->kategori_atlet]);
@@ -92,6 +101,10 @@ class SixStepSuaianFizikalController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new SixStepSuaianFizikal();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -119,6 +132,10 @@ class SixStepSuaianFizikalController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -146,6 +163,10 @@ class SixStepSuaianFizikalController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         self::actionDeleteupload($id, 'muat_naik');
         
         $this->findModel($id)->delete();

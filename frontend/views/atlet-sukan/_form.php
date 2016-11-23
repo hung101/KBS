@@ -307,7 +307,7 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             //'initialize' => true,
                             'depends'=>[Html::getInputId($model, 'jurulatih_id')],
-                            'placeholder' => Placeholder::jurulatih,
+                            'placeholder' => Placeholder::pusatLatihan,
                             'url'=>Url::to(['/profil-pusat-latihan/get-pusat-latihan-by-jurulatih'])],
                         ],
                     'columnOptions'=>['colspan'=>3]],

@@ -2485,6 +2485,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jenis_temujanji_rehabilitasi = "Jenis Temujanji Rehabilitasi";
         const jkk_jkp = "JKK / JKP";
         const juru_urut = "Juru Urut";
+        const jurulatih_msn = "Jurulatih MSN";
         const kadar = "Kadar";
         const kategori_aduan_kemudahan = "Kategori Aduan Kemudahan";
         const kategori_aduan_penyertaan_sukan = "Kategori Aduan Penyertaan Sukan";
@@ -5695,6 +5696,7 @@ if($session->get('language') == "EN") {
         const jenis_temujanji_rehabilitasi = "Type Of Appointment Rehabilitation";
         const jkk_jkp = "JKK / JKP";
         const juru_urut = "Well Massage";
+        const jurulatih_msn = "Coach MSN";
         const kadar = "Rate";
         const kategori_aduan_kemudahan = "Categories Of Complaints Facility";
         const kategori_aduan_penyertaan_sukan = "Complaint Category Sports Participation";

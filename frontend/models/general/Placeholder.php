@@ -231,6 +231,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const program = "-- Pilih Program --";
         const programPengajian = "-- Pilih Program Pengajian --";
         const programSemasa = "-- Pilih Program Semasa --";
+        const pusatLatihan = "-- Pilih Pusat Latihan --";
         const pusatSatelit = "-- Pilih Pusat Satelit --";
         const rating = "-- Pilih Rating --";
         const rekodBaru = "-- Pilih Rekod Baru --";
@@ -518,6 +519,7 @@ if($session->get('language') == "EN") {
         const program = "-- Select Program --";
         const programPengajian = "-- Select Study Programs --";
         const programSemasa = "-- Select The Current Program --";
+        const pusatLatihan = "-- Select Training Centre --";
         const pusatSatelit = "-- Select Satelite Centre --";
         const rating = "-- Select Rating --";
         const rekodBaru = "-- Select The New Record --";

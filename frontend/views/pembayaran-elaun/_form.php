@@ -26,6 +26,7 @@ use app\models\general\GeneralVariable;
 ?>
 
 <?php
+        $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->all();
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['upaya']) && isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['kurang-upaya'])){
             $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->all();
         } elseif(isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['upaya']))  {
@@ -36,6 +37,7 @@ use app\models\general\GeneralVariable;
             $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all();
         }
         
+        $atlet_list = Atlet::find()->where(['=', 'tawaran', RefStatusTawaran::LULUS_TAWARAN])->all();
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['upaya']) && isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['kurang-upaya'])){
             $atlet_list = Atlet::find()->where(['=', 'tawaran', RefStatusTawaran::LULUS_TAWARAN])->all();
         } elseif(isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['upaya']))  {

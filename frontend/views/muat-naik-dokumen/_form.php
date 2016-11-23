@@ -88,7 +88,8 @@ use app\models\general\GeneralMessage;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ],
+                        'options'=>['disabled'=>true]
                     ],
                     'columnOptions'=>['colspan'=>3]],
                 'tarikh_tamat' =>  [
@@ -98,7 +99,8 @@ use app\models\general\GeneralMessage;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ],
+                        'options'=>['disabled'=>true]
                     ],
                     'columnOptions'=>['colspan'=>3]],
                  
@@ -239,6 +241,7 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
     var form = $(this);
 
     $("form#{$model->formName()} input").prop("disabled", false);
+    $("#muatnaikdokumen-negeri").prop("disabled", false);
 });
         
 JS;

@@ -41,6 +41,7 @@ use app\models\AtletPencapaianAnugerah;
 use app\models\AtletPencapaian;
 use app\models\AtletPencapaianRekods;
 use frontend\models\AtletPencapaianRekodsSearch;
+use frontend\models\AtletPencapaianSearch;
 
 // table reference
 use app\models\RefJantina;
@@ -3334,10 +3335,12 @@ use app\models\general\GeneralLabel;
 
                 if($modelAtlet->atlet_id){
                     //filter by atlet id
-                    $queryPar['AtletPencapaianRekodsSearch']['atlet_id'] = $modelAtlet->atlet_id;
+                    //$queryPar['AtletPencapaianRekodsSearch']['atlet_id'] = $modelAtlet->atlet_id;
+                    $queryPar['AtletPencapaianSearch']['atlet_id'] = $modelAtlet->atlet_id;
                 }
                 
-                $searchModelPencapaianRekods = new AtletPencapaianRekodsSearch();
+                //$searchModelPencapaianRekods = new AtletPencapaianRekodsSearch();
+                $searchModelPencapaianRekods = new AtletPencapaianSearch();
                 $dataProviderPencapaianRekods = $searchModelPencapaianRekods->search($queryPar);
             ?>
             <div id="div_maklumat-sejarah-pencapaian-sukan">
@@ -3347,11 +3350,11 @@ use app\models\general\GeneralLabel;
                 <div>
                     <table class="table_records">
                         <tr>
-                            <th class="table_records_th" ><?=GeneralLabel::tarikh?></th>
-                            <th class="table_records_th" ><?=GeneralLabel::pihak_lawan?></th>
-                            <th class="table_records_th" ><?=GeneralLabel::tempat?></th>
-                            <th class="table_records_th" ><?=GeneralLabel::jenis_rekod?></th>
-                            <th class="table_records_th" ><?=GeneralLabel::keputusan?></th>
+                            <th class="table_records_th" ><?=GeneralLabel::tarikh_mula?></th>
+                            <th class="table_records_th" ><?=GeneralLabel::tarikh_tamat?></th>
+                            <th class="table_records_th" ><?=GeneralLabel::nama_kejohanan_temasya?></th>
+                            <th class="table_records_th" ><?=GeneralLabel::lokasi_kejohanan?></th>
+                            <th class="table_records_th" ><?=GeneralLabel::pencapaian?></th>
                         </tr>
                         <?php
                         $counter = 1;
@@ -3360,19 +3363,19 @@ use app\models\general\GeneralLabel;
                             foreach($dataProviderPencapaianRekods->models as $modelLoop){
                                 echo '<tr>';
                                 echo '<td class="table_records_td">';
-                                echo ($modelLoop && $modelLoop->tarikh ? GeneralFunction::getDatePrintFormat($modelLoop->tarikh) : $no_data);
+                                echo ($modelLoop && $modelLoop->tarikh_mula_kejohanan ? GeneralFunction::getDatePrintFormat($modelLoop->tarikh_mula_kejohanan) : $no_data);
                                 echo '</td>';
                                 echo '<td class="table_records_td">';
-                                echo ($modelLoop && $modelLoop->opponent ? GeneralFunction::getUpperCaseWords($modelLoop->opponent) : $no_data);
+                                echo ($modelLoop && $modelLoop->tarikh_tamat_kejohanan ? GeneralFunction::getDatePrintFormat($modelLoop->tarikh_tamat_kejohanan) : $no_data);
                                 echo '</td>';
                                 echo '<td class="table_records_td">';
-                                echo ($modelLoop && $modelLoop->venue ? GeneralFunction::getUpperCaseWords($modelLoop->venue) : $no_data);
+                                echo ($modelLoop && $modelLoop->nama_kejohanan_temasya ? GeneralFunction::getUpperCaseWords($modelLoop->nama_kejohanan_temasya) : $no_data);
                                 echo '</td>';
                                 echo '<td class="table_records_td">';
-                                if(isset($modelLoop['refJenisRekod']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refJenisRekod']['desc']); } else { echo $no_data;}
+                                echo ($modelLoop && $modelLoop->lokasi_kejohanan ? GeneralFunction::getUpperCaseWords($modelLoop->lokasi_kejohanan) : $no_data);
                                 echo '</td>';
                                 echo '<td class="table_records_td">';
-                                echo ($modelLoop && $modelLoop->result ? GeneralFunction::getUpperCaseWords($modelLoop->result) : $no_data);
+                                if(isset($modelLoop['refKeputusan']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refKeputusan']['desc']); } else { echo $no_data;}
                                 echo '</td>';
                                 echo '</tr>';
                                 $counter++;

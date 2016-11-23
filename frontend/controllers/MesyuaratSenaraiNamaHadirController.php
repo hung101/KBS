@@ -9,6 +9,12 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+// table reference
+use app\models\RefMesyuaratAhliStatus;
+use app\models\RefJawatan;
+
+use app\models\general\GeneralLabel;
+
 /**
  * MesyuaratSenaraiNamaHadirController implements the CRUD actions for MesyuaratSenaraiNamaHadir model.
  */
@@ -48,8 +54,19 @@ class MesyuaratSenaraiNamaHadirController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        
+        $ref = RefMesyuaratAhliStatus::findOne(['id' => $model->status]);
+        $model->status = $ref['desc'];
+        
+        $ref = RefJawatan::findOne(['id' => $model->jawatan]);
+        $model->jawatan = $ref['desc'];
+        
+        $YesNo = GeneralLabel::getYesNoLabel($model->kehadiran);
+        $model->kehadiran = $YesNo;
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

@@ -99,8 +99,8 @@ class AkademiAkk extends \yii\db\ActiveRecord
         return [
             'akademi_akk_id' => GeneralLabel::akademi_akk_id,
             'senarai_nama_peserta' => GeneralLabel::senarai_nama_peserta,
-            'nama' => 'Jurulatih MSN',
-            'nama_jurulatih' => 'Nama',
+            'nama' => GeneralLabel::jurulatih_msn,
+            'nama_jurulatih' => GeneralLabel::nama,
             'muatnaik_gambar' => GeneralLabel::muatnaik_gambar,
             'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
             'no_passport' => GeneralLabel::no_passport,

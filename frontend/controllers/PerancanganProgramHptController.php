@@ -153,9 +153,34 @@ class PerancanganProgramHptController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        // delete upload file
+        self::actionDeleteupload($id, 'muat_naik');
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            return $this->redirect(['update', 'id' => $id]);
     }
 
     /**
