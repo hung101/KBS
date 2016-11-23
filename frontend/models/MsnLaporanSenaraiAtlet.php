@@ -25,12 +25,14 @@ class MsnLaporanSenaraiAtlet extends Model
     public $source;
     public $jenis_elaun;
     public $cawangan;
+    public $jenis_pakaian;
+    public $saiz_pakaian;
 
     public function rules()
     {
         return [
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'negeri', 'acara', 'kategori_kecacatan', 'atlet', 'source', 'cawangan', 'jenis_elaun'], 'safe'],
+            [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'negeri', 'acara', 'kategori_kecacatan', 'atlet', 'source', 'cawangan', 'jenis_elaun', 'jenis_pakaian', 'saiz_pakaian'], 'safe'],
             [['umur_hingga', 'umur_dari'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
             [['jumlah_geran_hingga'], 'compare', 'compareAttribute'=>'negeri', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
@@ -55,6 +57,8 @@ class MsnLaporanSenaraiAtlet extends Model
             'kategori_kecacatan' => GeneralLabel::kategori_kecacatan,
             'cawangan' => GeneralLabel::cawangan,
             'jenis_elaun' => GeneralLabel::jenis_elaun,
+            'jenis_pakaian' => GeneralLabel::jenis_pakaian,
+            'saiz_pakaian' => GeneralLabel::saiz_pakaian,
         ];
     }
 }

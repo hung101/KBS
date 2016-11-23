@@ -171,7 +171,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->andWhere(['=', 'cacat', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::program],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -220,7 +220,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]
                             ] : null,
                         ],
-                        'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'disciplineAcara'),
+                        'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all(),'id', 'disciplineAcara'),
                         'options'=>['prompt'=>'',],
                         'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
@@ -246,7 +246,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefCawangan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefCawangan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::cawangan],
                         'pluginOptions' => [
                             'allowClear' => true

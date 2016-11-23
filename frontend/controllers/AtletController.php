@@ -2381,6 +2381,8 @@ Majlis Sukan Negara Malaysia.
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'cawangan' => $model->cawangan
+                    , 'jenis_pakaian' => $model->jenis_pakaian
+                    , 'saiz_pakaian' => $model->saiz_pakaian
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -2394,6 +2396,8 @@ Majlis Sukan Negara Malaysia.
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'cawangan' => $model->cawangan
+                    , 'jenis_pakaian' => $model->jenis_pakaian
+                    , 'saiz_pakaian' => $model->saiz_pakaian
                     , 'format' => $model->format
                 ]);
             }
@@ -2405,7 +2409,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanAtletPakaianSukan($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $cawangan, $format)
+    public function actionGenerateLaporanAtletPakaianSukan($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $cawangan, $jenis_pakaian, $saiz_pakaian, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -2431,6 +2435,12 @@ Majlis Sukan Negara Malaysia.
         if($cawangan == "") $cawangan = array();
         else $cawangan = array($cawangan);
         
+        if($jenis_pakaian == "") $jenis_pakaian = array();
+        else $jenis_pakaian = array($jenis_pakaian);
+        
+        if($saiz_pakaian == "") $saiz_pakaian = array();
+        else $saiz_pakaian = array($saiz_pakaian);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
@@ -2440,6 +2450,8 @@ Majlis Sukan Negara Malaysia.
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
             'CAWANGAN' => $cawangan,
+            'JENIS_PAKAIAN' => $jenis_pakaian,
+            'SAIZ' => $saiz_pakaian,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPakaianSukan', $format, $controls, 'laporan_atlet_pakaian_sukan');
@@ -2466,6 +2478,8 @@ Majlis Sukan Negara Malaysia.
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'cawangan' => $model->cawangan
+                    , 'jenis_pakaian' => $model->jenis_pakaian
+                    , 'saiz_pakaian' => $model->saiz_pakaian
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -2479,6 +2493,8 @@ Majlis Sukan Negara Malaysia.
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'cawangan' => $model->cawangan
+                    , 'jenis_pakaian' => $model->jenis_pakaian
+                    , 'saiz_pakaian' => $model->saiz_pakaian
                     , 'format' => $model->format
                 ]);
             }
@@ -2490,7 +2506,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanAtletPakaianSukanParalimpik($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $cawangan, $format)
+    public function actionGenerateLaporanAtletPakaianSukanParalimpik($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $cawangan, $jenis_pakaian, $saiz_pakaian, $test, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -2516,6 +2532,15 @@ Majlis Sukan Negara Malaysia.
         if($cawangan == "") $cawangan = array();
         else $cawangan = array($cawangan);
         
+        if($jenis_pakaian == "") $jenis_pakaian = array();
+        else $jenis_pakaian = array($jenis_pakaian);
+        
+        if($saiz_pakaian == "") $saiz_pakaian = array();
+        else $saiz_pakaian = array($saiz_pakaian);
+        
+        if($test == "") $test = array();
+        else $test = array($test);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
@@ -2525,6 +2550,8 @@ Majlis Sukan Negara Malaysia.
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
             'CAWANGAN' => $cawangan,
+            'JENIS_PAKAIAN' => $jenis_pakaian,
+            'SAIZ' => $saiz_pakaian,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPakaianSukanParalimpik', $format, $controls, 'laporan_atlet_pakaian_sukan_paralimpik');
