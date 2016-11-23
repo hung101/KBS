@@ -2591,10 +2591,10 @@ use app\models\general\GeneralLabel;
                                 if(isset($modelLoop['atlet']['name_penuh'])){echo GeneralFunction::getUpperCaseWords($modelLoop['atlet']['name_penuh']); } else { echo $no_data;}
                                 echo '</td>';
                                 echo '<td class="table_records_td">';
-                                if(isset($modelLoop['refSixStepStage']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixStepStage']['desc']); } else { echo $no_data;}
+                                if(isset($modelLoop['refSixstepSuaianFizikalStage']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixstepSuaianFizikalStage']['desc']); } else { echo $no_data;}
                                 echo '</td>';
                                 echo '<td class="table_records_td">';
-                                if(isset($modelLoop['refSixStepStatus']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixStepStatus']['desc']); } else { echo $no_data;}
+                                if(isset($modelLoop['refSixstepSuaianFizikalStatus']['desc'])){echo GeneralFunction::getUpperCaseWords($modelLoop['refSixstepSuaianFizikalStatus']['desc']); } else { echo $no_data;}
                                 echo '</td>';
                                 echo '</tr>';
                                 $counter++;

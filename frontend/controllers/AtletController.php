@@ -2205,6 +2205,7 @@ Majlis Sukan Negara Malaysia.
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'cawangan' => $model->cawangan
+                    , 'jenis_elaun' => $model->jenis_elaun
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -2218,6 +2219,7 @@ Majlis Sukan Negara Malaysia.
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'cawangan' => $model->cawangan
+                    , 'jenis_elaun' => $model->jenis_elaun
                     , 'format' => $model->format
                 ]);
             }
@@ -2229,7 +2231,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanAtletElaun($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $cawangan, $format)
+    public function actionGenerateLaporanAtletElaun($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $cawangan, $jenis_elaun, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -2255,6 +2257,9 @@ Majlis Sukan Negara Malaysia.
         if($cawangan == "") $cawangan = array();
         else $cawangan = array($cawangan);
         
+        if($jenis_elaun == "") $jenis_elaun = array();
+        else $jenis_elaun = array($jenis_elaun);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
@@ -2264,6 +2269,7 @@ Majlis Sukan Negara Malaysia.
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
             'CAWANGAN' => $cawangan,
+            'JENIS_ELAUN' => $jenis_elaun,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanAtletElaun', $format, $controls, 'laporan_atlet_elaun');

@@ -20,6 +20,7 @@ use app\models\RefStatusPermohonanKontrakJurulatih;
 use app\models\RefProgramJurulatih;
 use app\models\RefGajiElaunJurulatih;
 use app\models\RefJenisPermohonanKontrakJurulatih;
+use app\models\RefStatusTawaran;
 
 /**
  * PengurusanPenyambunganDanPenamatanKontrakJurulatihController implements the CRUD actions for PengurusanPenyambunganDanPenamatanKontrakJurulatih model.
@@ -133,6 +134,13 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
                     $modelJurulatihSukan->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id = $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id;
                     $modelJurulatihSukan->save();
                 }
+                
+                if($model->status_permohonan == RefStatusPermohonanKontrakJurulatih::GAGAL){
+                    if (($modelJurulatih = Jurulatih::findOne($id)) !== null) {
+                        $modelJurulatih->status_tawaran = RefStatusTawaran::TIDAK_DILULUSKAN;
+                        $modelJurulatih->save();
+                    }
+                }
             
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id]);
@@ -182,6 +190,13 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
                 $modelJurulatihSukan->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id = $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id;
                 $modelJurulatihSukan->save();
             }
+            
+            if($model->status_permohonan == RefStatusPermohonanKontrakJurulatih::GAGAL){
+                    if (($modelJurulatih = Jurulatih::findOne($id)) !== null) {
+                        $modelJurulatih->status_tawaran = RefStatusTawaran::TIDAK_DILULUSKAN;
+                        $modelJurulatih->save();
+                    }
+                }
             
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id]);

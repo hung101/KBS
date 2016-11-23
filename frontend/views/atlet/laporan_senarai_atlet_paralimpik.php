@@ -113,7 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],
                         'pluginOptions' => [
                             'allowClear' => true

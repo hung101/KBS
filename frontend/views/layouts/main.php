@@ -997,7 +997,18 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                         ],
                                     ],
                                 ],
-                                ['label' => GeneralLabel::farmasi_rekod_permohonan_ubatan_di_kaunter_oleh_atlet_otc_drug, 'url' => ['/farmasi-permohonan-ubatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['module'])],
+                                [
+                                    'label' => GeneralLabel::farmasi_rekod_permohonan_ubatan_di_kaunter_oleh_atlet_otc_drug,
+                                    'items' => [
+                                        ['label' => GeneralLabel::permohonan_ubatan, 'url' => ['/farmasi-permohonan-ubatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['module'])],
+                                        [
+                                            'label' => GeneralLabel::laporan,
+                                            'items' => [
+                                                ['label' => GeneralLabel::laporan_statistik_bulanan_pengunaan_ubatan_dan_kos, 'url' => ['/farmasi-permohonan-ubatan/laporan-statistik-bulanan-pengunaan-ubatan-dan-kos'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['module'])],
+                                            ],
+                                        ],
+                                    ],
+                                ],
                                 [
                                     'label' => GeneralLabel::makmal_perubatan_permohonan_khidmat_ujian_makmal_melalui_sistem,
                                     'items' => [
@@ -1062,7 +1073,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                                 ['label' => GeneralLabel::laporan_ringkasan_statistik, 'url' => ['/farmasi-permohonan-liputan-perubatan-sukan/laporan-ringkasan-statistik'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['module'])],
                                                 ['label' => GeneralLabel::laporan_ringkasan_statistik_bulanan, 'url' => ['/farmasi-permohonan-liputan-perubatan-sukan/laporan-ringkasan-statistik-bulanan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['module'])],
                                                 ['label' => GeneralLabel::laporan_bulanan_secara_detail, 'url' => ['/farmasi-permohonan-liputan-perubatan-sukan/laporan-bulanan-secara-detail'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['module'])],
-                                                ['label' => GeneralLabel::laporan_statistik_bulanan_pengunaan_ubatan_dan_kos, 'url' => ['/farmasi-permohonan-ubatan/laporan-statistik-bulanan-pengunaan-ubatan-dan-kos'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['module'])],
+                                                //['label' => GeneralLabel::laporan_statistik_bulanan_pengunaan_ubatan_dan_kos, 'url' => ['/farmasi-permohonan-ubatan/laporan-statistik-bulanan-pengunaan-ubatan-dan-kos'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['module'])],
                                             ],
                                         ],
                                     ],

@@ -18,6 +18,7 @@ use app\models\RefNegeri;
 use app\models\RefAcara;
 use app\models\Atlet;
 use app\models\RefCawangan;
+use app\models\RefJenisElaun;
 
 // contant values
 use app\models\general\Placeholder;
@@ -154,7 +155,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -208,6 +209,29 @@ $this->params['breadcrumbs'][] = $this->title;
                         ] : null,
                         'data'=>ArrayHelper::map(RefCawangan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::cawangan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'jenis_elaun' =>  [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-elaun/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefJenisElaun::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::jenisElaun],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
