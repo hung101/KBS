@@ -242,6 +242,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const sebabPermohonan = "-- Pilih Sebab Permohonan --";
         const sektor = "-- Pilih Sektor --";
         const sekolah = "-- Pilih Sekolah --";
+        const sekolah_institusi = "-- Pilih Institusi / Sekolah --";
         const semesterBaki = "-- Pilih Baki Semester --";
         const semesterTerkini = "-- Pilih Semester Terkini --";
         const servis = "-- Pilih Servis --";
@@ -528,6 +529,7 @@ if($session->get('language') == "EN") {
         const sebabPermohonan = "-- Select The Reason For Application --";
         const sektor = "-- Select Sector --";
         const sekolah = "-- Select School --";
+        const sekolah_institusi = "-- Select Institution / School --";
         const semesterBaki = "-- Select The Remaining Semester --";
         const semesterTerkini = "-- Select Semester Booking --";
         const servis = "-- Select Service --";

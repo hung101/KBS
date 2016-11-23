@@ -577,6 +577,13 @@ Majlis Sukan Negara Malaysia.
         //$model['passport_no$model'] = \Yii::$app->encrypter->decrypt($model['passport_no']);
         //$model['tel_bimbit_no_1'] = \Yii::$app->encrypter->decrypt($model['tel_bimbit_no_1']);
         //$model['tel_bimbit_no_2'] = \Yii::$app->encrypter->decrypt($model['tel_bimbit_no_2']);
+             
+        $model['institusi_sekolah'] = '';
+        if(isset($model['refAtletPendidikan'][0]['nama'])){
+            $ref = \app\models\RefSekolahInstitusi::findOne(['id' => $model['refAtletPendidikan'][0]['nama']]);
+            $model['institusi_sekolah'] = $ref['desc'];
+        }
+        
         $model['view_url'] = Url::to(['/atlet/view', 'id' => $model['atlet_id']]);
         $model['view_url_button'] = Html::a(GeneralLabel::view . ' ' . GeneralLabel::profil, '#', ['class'=>'btn btn-primary custom_button', 'onclick' => 'window.open("' . Url::to(['/atlet/view', 'id' => $model['atlet_id']]) . '", "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no"); return false;']) ;
                     
@@ -1018,6 +1025,146 @@ Majlis Sukan Negara Malaysia.
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletParalimpik', $format, $controls, 'laporan_statistik_atlet_paralimpik');
     }
     
+    public function actionLaporanStatistikAtletJantina()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanStatistikAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-jantina'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'cawangan' => $model->cawangan
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-atlet-jantina'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'cawangan' => $model->cawangan
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_atlet_jantina', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikAtletJantina($program, $sukan, $acara, $negeri, $cawangan, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            'CAWANGAN' => $cawangan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletJantina', $format, $controls, 'laporan_statistik_atlet_jantina');
+    }
+    
+    public function actionLaporanStatistikAtletJantinaParalimpik()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanStatistikAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-jantina-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'kategori_kecacatan' => $model->kategori_kecacatan
+                    , 'cawangan' => $model->cawangan
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-atlet-jantina-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'kategori_kecacatan' => $model->kategori_kecacatan
+                    , 'cawangan' => $model->cawangan
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_atlet_jantina_paralimpik', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikAtletJantinaParalimpik($program, $sukan, $acara, $negeri, $kategori_kecacatan, $cawangan, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        if($kategori_kecacatan == "") $kategori_kecacatan = array();
+        else $kategori_kecacatan = array($kategori_kecacatan);
+        
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            'KATEGORI_CACAT' => $kategori_kecacatan,
+            'CAWANGAN' => $cawangan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletJantinaParalimpik', $format, $controls, 'laporan_statistik_atlet_jantina_paralimpik');
+    }
+    
     public function actionSuratTawaranAtlet($atlet_id)
     {
         if (Yii::$app->user->isGuest) {
@@ -1325,6 +1472,7 @@ Majlis Sukan Negara Malaysia.
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                    // , 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -1335,6 +1483,7 @@ Majlis Sukan Negara Malaysia.
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                    // , 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ]);
             }
@@ -1346,7 +1495,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanStatistikAtletAgama($program, $sukan, $acara, $negeri, $format)
+    public function actionGenerateLaporanStatistikAtletAgama($program, $sukan, $acara, $negeri, $cawangan, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -1363,12 +1512,16 @@ Majlis Sukan Negara Malaysia.
        // if($atlet == "") $atlet = array();
         //else $atlet = array($atlet);
         
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
             //'ATLET' => $atlet,
+            'CAWANGAN' => $cawangan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletAgama', $format, $controls, 'laporan_statistik_atlet_agama');
@@ -1392,6 +1545,7 @@ Majlis Sukan Negara Malaysia.
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                    // , 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -1402,6 +1556,7 @@ Majlis Sukan Negara Malaysia.
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                    // , 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ]);
             }
@@ -1413,7 +1568,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanStatistikAtletAgamaParalimpik($program, $sukan, $acara, $negeri, $format)
+    public function actionGenerateLaporanStatistikAtletAgamaParalimpik($program, $sukan, $acara, $negeri, $cawangan, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -1430,12 +1585,16 @@ Majlis Sukan Negara Malaysia.
         //if($atlet == "") $atlet = array();
        // else $atlet = array($atlet);
         
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
             //'ATLET' => $atlet,
+            'CAWANGAN' => $cawangan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletAgamaParalimpik', $format, $controls, 'laporan_statistik_atlet_agama_paralimpik');
@@ -1459,6 +1618,7 @@ Majlis Sukan Negara Malaysia.
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     //, 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -1469,6 +1629,7 @@ Majlis Sukan Negara Malaysia.
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     //, 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ]);
             }
@@ -1480,7 +1641,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanStatistikAtletBangsa($program, $sukan, $acara, $negeri, $format)
+    public function actionGenerateLaporanStatistikAtletBangsa($program, $sukan, $acara, $negeri, $cawangan, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -1497,12 +1658,16 @@ Majlis Sukan Negara Malaysia.
         //if($atlet == "") $atlet = array();
         //else $atlet = array($atlet);
         
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
             //'ATLET' => $atlet,
+            'CAWANGAN' => $cawangan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletBangsa', $format, $controls, 'laporan_statistik_atlet_bangsa');
@@ -1526,6 +1691,7 @@ Majlis Sukan Negara Malaysia.
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                    // , 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -1536,6 +1702,7 @@ Majlis Sukan Negara Malaysia.
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     //, 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ]);
             }
@@ -1547,7 +1714,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanStatistikAtletBangsaParalimpik($program, $sukan, $acara, $negeri, $format)
+    public function actionGenerateLaporanStatistikAtletBangsaParalimpik($program, $sukan, $acara, $negeri, $cawangan, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -1564,12 +1731,16 @@ Majlis Sukan Negara Malaysia.
         //if($atlet == "") $atlet = array();
         //else $atlet = array($atlet);
         
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
             //'ATLET' => $atlet,
+            'CAWANGAN' => $cawangan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletBangsaParalimpik', $format, $controls, 'laporan_statistik_atlet_bangsa_paralimpik');
@@ -1593,6 +1764,7 @@ Majlis Sukan Negara Malaysia.
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     //, 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -1603,6 +1775,7 @@ Majlis Sukan Negara Malaysia.
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     //, 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ]);
             }
@@ -1614,7 +1787,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanStatistikAtletPendidikan($program, $sukan, $acara, $negeri, $format)
+    public function actionGenerateLaporanStatistikAtletPendidikan($program, $sukan, $acara, $negeri, $cawangan, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -1631,12 +1804,16 @@ Majlis Sukan Negara Malaysia.
         //if($atlet == "") $atlet = array();
         //else $atlet = array($atlet);
         
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
             //'ATLET' => $atlet,
+            'CAWANGAN' => $cawangan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletPendidikan', $format, $controls, 'laporan_statistik_atlet_pendidikan');
@@ -1660,6 +1837,7 @@ Majlis Sukan Negara Malaysia.
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     //, 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -1670,6 +1848,7 @@ Majlis Sukan Negara Malaysia.
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                    // , 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ]);
             }
@@ -1681,7 +1860,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanStatistikAtletPendidikanParalimpik($program, $sukan, $acara, $negeri, $format)
+    public function actionGenerateLaporanStatistikAtletPendidikanParalimpik($program, $sukan, $acara, $negeri, $cawangan, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -1698,12 +1877,16 @@ Majlis Sukan Negara Malaysia.
         //if($atlet == "") $atlet = array();
         //else $atlet = array($atlet);
         
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
             //'ATLET' => $atlet,
+            'CAWANGAN' => $cawangan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletPendidikanParalimpik', $format, $controls, 'laporan_statistik_atlet_pendidikan_paralimpik');
@@ -1727,6 +1910,7 @@ Majlis Sukan Negara Malaysia.
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     //, 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -1737,6 +1921,7 @@ Majlis Sukan Negara Malaysia.
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     //, 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ]);
             }
@@ -1748,7 +1933,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanStatistikAtletUmur($program, $sukan, $acara, $negeri, $format)
+    public function actionGenerateLaporanStatistikAtletUmur($program, $sukan, $acara, $negeri, $cawangan, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -1765,12 +1950,16 @@ Majlis Sukan Negara Malaysia.
         //if($atlet == "") $atlet = array();
         //else $atlet = array($atlet);
         
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
             //'ATLET' => $atlet,
+            'CAWANGAN' => $cawangan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletUmur', $format, $controls, 'laporan_statistik_atlet_umur');
@@ -1794,6 +1983,7 @@ Majlis Sukan Negara Malaysia.
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                    // , 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -1804,6 +1994,7 @@ Majlis Sukan Negara Malaysia.
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     //, 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ]);
             }
@@ -1815,7 +2006,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanStatistikAtletUmurParalimpik($program, $sukan, $acara, $negeri, $format)
+    public function actionGenerateLaporanStatistikAtletUmurParalimpik($program, $sukan, $acara, $negeri, $cawangan, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -1832,15 +2023,165 @@ Majlis Sukan Negara Malaysia.
         //if($atlet == "") $atlet = array();
         //else $atlet = array($atlet);
         
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
             //'ATLET' => $atlet,
+            'CAWANGAN' => $cawangan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletUmurParalimpik', $format, $controls, 'laporan_statistik_atlet_umur_paralimpik');
+    }
+    
+    public function actionLaporanStatistikAtletInstitusiSekolah()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-institusi-sekolah'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    //, 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-atlet-institusi-sekolah'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    //, 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_atlet_institusi_sekolah', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikAtletInstitusiSekolah($program, $sukan, $acara, $negeri, $cawangan, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        //if($atlet == "") $atlet = array();
+        //else $atlet = array($atlet);
+        
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            //'ATLET' => $atlet,
+            'CAWANGAN' => $cawangan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletInstitusiSekolah', $format, $controls, 'laporan_statistik_atlet_institusi_sekolah');
+    }
+    
+    public function actionLaporanStatistikAtletInstitusiSekolahParalimpik()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-institusi-sekolah-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                   // , 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-atlet-institusi-sekolah-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    //, 'atlet' => $model->atlet
+                    , 'cawangan' => $model->cawangan
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_atlet_institusi_sekolah_paralimpik', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikAtletInstitusiSekolahParalimpik($program, $sukan, $acara, $negeri, $cawangan, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        //if($atlet == "") $atlet = array();
+        //else $atlet = array($atlet);
+        
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            //'ATLET' => $atlet,
+            'CAWANGAN' => $cawangan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletInstitusiSekolahParalimpik', $format, $controls, 'laporan_statistik_atlet_institusi_sekolah_paralimpik');
     }
     
     public function actionLaporanAtletElaun()
@@ -1863,6 +2204,7 @@ Majlis Sukan Negara Malaysia.
                     , 'atlet' => $model->atlet
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -1875,6 +2217,7 @@ Majlis Sukan Negara Malaysia.
                     , 'atlet' => $model->atlet
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ]);
             }
@@ -1886,7 +2229,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanAtletElaun($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $format)
+    public function actionGenerateLaporanAtletElaun($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $cawangan, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -1909,6 +2252,9 @@ Majlis Sukan Negara Malaysia.
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
@@ -1917,6 +2263,7 @@ Majlis Sukan Negara Malaysia.
             'ATLET' => $atlet,
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'CAWANGAN' => $cawangan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanAtletElaun', $format, $controls, 'laporan_atlet_elaun');
@@ -1942,6 +2289,7 @@ Majlis Sukan Negara Malaysia.
                     , 'atlet' => $model->atlet
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -1954,6 +2302,7 @@ Majlis Sukan Negara Malaysia.
                     , 'atlet' => $model->atlet
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ]);
             }
@@ -1965,7 +2314,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanAtletElaunParalimpik($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $format)
+    public function actionGenerateLaporanAtletElaunParalimpik($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $cawangan, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -1988,6 +2337,9 @@ Majlis Sukan Negara Malaysia.
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
@@ -1996,6 +2348,7 @@ Majlis Sukan Negara Malaysia.
             'ATLET' => $atlet,
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'CAWANGAN' => $cawangan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanAtletElaunParalimpik', $format, $controls, 'laporan_atlet_elaun_paralimpik');
@@ -2021,6 +2374,7 @@ Majlis Sukan Negara Malaysia.
                     , 'atlet' => $model->atlet
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -2033,6 +2387,7 @@ Majlis Sukan Negara Malaysia.
                     , 'atlet' => $model->atlet
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ]);
             }
@@ -2044,7 +2399,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanAtletPakaianSukan($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $format)
+    public function actionGenerateLaporanAtletPakaianSukan($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $cawangan, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -2067,6 +2422,9 @@ Majlis Sukan Negara Malaysia.
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
@@ -2075,6 +2433,7 @@ Majlis Sukan Negara Malaysia.
             'ATLET' => $atlet,
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'CAWANGAN' => $cawangan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPakaianSukan', $format, $controls, 'laporan_atlet_pakaian_sukan');
@@ -2100,6 +2459,7 @@ Majlis Sukan Negara Malaysia.
                     , 'atlet' => $model->atlet
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -2112,6 +2472,7 @@ Majlis Sukan Negara Malaysia.
                     , 'atlet' => $model->atlet
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ]);
             }
@@ -2123,7 +2484,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanAtletPakaianSukanParalimpik($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $format)
+    public function actionGenerateLaporanAtletPakaianSukanParalimpik($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $cawangan, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -2146,6 +2507,9 @@ Majlis Sukan Negara Malaysia.
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
@@ -2154,6 +2518,7 @@ Majlis Sukan Negara Malaysia.
             'ATLET' => $atlet,
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'CAWANGAN' => $cawangan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPakaianSukanParalimpik', $format, $controls, 'laporan_atlet_pakaian_sukan_paralimpik');
@@ -2278,6 +2643,7 @@ Majlis Sukan Negara Malaysia.
                     , 'nama_kejohanan_temasya' => $model->nama_kejohanan_temasya
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -2292,6 +2658,7 @@ Majlis Sukan Negara Malaysia.
                     , 'nama_kejohanan_temasya' => $model->nama_kejohanan_temasya
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ]);
             }
@@ -2303,7 +2670,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanAtletPencapaianPrestasiSecaraIndividuParalimpik($program, $sukan, $acara, $negeri, $atlet, $opponent, $nama_kejohanan_temasya, $tarikh_dari, $tarikh_hingga, $format)
+    public function actionGenerateLaporanAtletPencapaianPrestasiSecaraIndividuParalimpik($program, $sukan, $acara, $negeri, $atlet, $opponent, $nama_kejohanan_temasya, $tarikh_dari, $tarikh_hingga, $cawangan, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -2332,6 +2699,9 @@ Majlis Sukan Negara Malaysia.
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
@@ -2341,6 +2711,7 @@ Majlis Sukan Negara Malaysia.
             'PENCAPAIAN' => $nama_kejohanan_temasya,
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'CAWANGAN' => $cawangan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPencapaianPrestasiSecaraIndividuParalimpik', $format, $controls, 'laporan_atlet_pencapaian_prestasi_secara_individu_paralimpik');

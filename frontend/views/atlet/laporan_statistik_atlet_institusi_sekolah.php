@@ -16,9 +16,6 @@ use app\models\RefProgramSemasaSukanAtlet;
 use app\models\RefSukan;
 use app\models\RefNegeri;
 use app\models\RefAcara;
-use app\models\RefKategoriKecacatan;
-use app\models\Atlet;
-use app\models\AtletPencapaian;
 use app\models\RefCawangan;
 
 // contant values
@@ -28,7 +25,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanPelaksaan */
 
-$this->title = GeneralLabel::laporan_atlet_pencapaian_prestasi_secara_individu;
+$this->title = GeneralLabel::laporan_statistik_atlet_institusi_sekolah;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="laporan-penganjuran-acara">
@@ -45,94 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
     'form' => $form,
     'autoGenerateColumns' => true,
     'rows' => [
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                 'atlet' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(Atlet::find()->where(['=', 'cacat', 0])->all(),'atlet_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::atlet],
-                        'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
-                    'columnOptions'=>['colspan'=>6]],
-                 
-            ],
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'opponent' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>255]],
-                 
-            ],
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'nama_kejohanan_temasya' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\DepDrop', 
-                    'options'=>[
-                        'type'=>DepDrop::TYPE_SELECT2,
-                        'select2Options'=> [
-                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                            [
-                                'append' => [
-                                    'content' => Html::a(Html::icon('edit'), ['/ref-bandar/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                    'asButton' => true
-                                ]
-                            ] : null,
-                            'pluginOptions'=>['allowClear'=>true]
-                        ],
-                        'data'=>ArrayHelper::map(AtletPencapaian::find()->all(),'pencapaian_id', 'nama_kejohanan_temasya'),
-                        'options'=>['prompt'=>'',],
-                        'pluginOptions' => [
-                            'depends'=>[Html::getInputId($model, 'atlet')],
-                            'placeholder' => Placeholder::kejohananTemasya,
-                            'url'=>Url::to(['/atlet-pencapaian/sub-kejohanan-temasya'])],
-                        ],
-                    'columnOptions'=>['colspan'=>3]],
-            ]
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'tarikh_dari' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=> DateControl::classname(),
-                    'ajaxConversion'=>false,
-                    'options'=>[
-                        'pluginOptions' => [
-                            'autoclose'=>true,
-                        ]
-                    ],
-                    'columnOptions'=>['colspan'=>3]],
-                'tarikh_hingga' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=> DateControl::classname(),
-                    'ajaxConversion'=>false,
-                    'options'=>[
-                        'pluginOptions' => [
-                            'autoclose'=>true,
-                        ]
-                    ],
-                    'columnOptions'=>['colspan'=>3]],
-            ]
-        ],
-        
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -246,7 +155,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefCawangan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefCawangan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::cawangan],
                         'pluginOptions' => [
                             'allowClear' => true

@@ -18,6 +18,7 @@ use app\models\RefTahapPendidikan;
 use app\models\RefBandar;
 use app\models\RefNegeri;
 use app\models\RefJenisPencapaian;
+use app\models\RefSekolahInstitusi;
 
 // contant values
 use app\models\general\Placeholder;
@@ -89,7 +90,24 @@ use app\models\general\GeneralVariable;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 
-                'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>9]],
+                //'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>9]],
+                'nama' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sekolah-institusi/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefSekolahInstitusi::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::sekolah_institusi],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>2]],
             ]
         ],
         [

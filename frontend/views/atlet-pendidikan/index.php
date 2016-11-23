@@ -75,7 +75,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
-                ]
+                ],
+                'value' => 'refSekolahInstitusi.desc'
             ],
             [
                 'attribute' => 'jenis_pencapaian',

@@ -14,6 +14,7 @@ use yii\web\Session;
 
 use app\models\RefJenisPencapaian;
 use app\models\RefStatusPermohonanPendidikan;
+use app\models\RefSekolahInstitusi;
 
 /**
  * AtletPendidikanController implements the CRUD actions for AtletPendidikan model.
@@ -127,6 +128,9 @@ class AtletPendidikanController extends Controller
         
         $ref = \app\models\RefJenisPencapaian::findOne(['id' => $atletPendidikan->jenis_pencapaian]);
         $atletPendidikan->jenis_pencapaian = $ref['desc'];
+        
+        $ref = \app\models\RefSekolahInstitusi::findOne(['id' => $atletPendidikan->nama]);
+        $atletPendidikan->nama = $ref['desc'];
         
         return $this->renderAjax('view', [
             'model' => $atletPendidikan,

@@ -50,7 +50,8 @@ class AtletPendidikanSearch extends AtletPendidikan
                 ->joinWith(['tahapPendidikan'])
                 ->joinWith(['refJenisPencapaian'])
                 ->joinWith(['refNegeri'])
-                ->joinWith(['refBandar']);
+                ->joinWith(['refBandar'])
+                ->joinWith(['refSekolahInstitusi']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -90,7 +91,8 @@ class AtletPendidikanSearch extends AtletPendidikan
             ->andFilterWhere(['like', 'tbl_ref_tahap_pendidikan.desc', $this->jenis_peringkatan_pendidikan])
             ->andFilterWhere(['like', 'kursus', $this->kursus])
             ->andFilterWhere(['like', 'fakulti', $this->fakulti])
-            ->andFilterWhere(['like', 'nama', $this->nama])
+            //->andFilterWhere(['like', 'nama', $this->nama])
+                ->andFilterWhere(['like', 'tbl_ref_sekolah_institusi.desc', $this->nama])
             ->andFilterWhere(['like', 'alamat_1', $this->alamat_1])
             ->andFilterWhere(['like', 'pelajar_id_no', $this->pelajar_id_no])
             ->andFilterWhere(['like', 'keputusan_cgpa', $this->keputusan_cgpa])

@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use app\models\general\GeneralLabel;
 
 // table reference
 use app\models\RefJenisRekod;
@@ -106,6 +107,9 @@ class AtletPencapaianRekodsController extends Controller
         
         $ref = RefJenisRekod::findOne(['id' => $model->jenis_rekod]);
         $model->jenis_rekod = $ref['desc'];
+        
+        $YesNo = GeneralLabel::getYesNoLabel($model->menang);
+        $model->menang = $YesNo;
         
         return $this->renderAjax('view', [
             'model' => $model,

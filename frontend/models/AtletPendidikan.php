@@ -143,4 +143,11 @@ class AtletPendidikan extends \yii\db\ActiveRecord
     public function getRefBandar(){
         return $this->hasOne(RefBandar::className(), ['id' => 'alamat_bandar']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSekolahInstitusi(){
+        return $this->hasOne(RefSekolahInstitusi::className(), ['id' => 'nama']);
+    }
 }

@@ -664,6 +664,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jumlah_sito = "Jumlah SITO";
         const jumlah_sponsor = "Jumlah Sponsor";
         const jumlah_tuntutan = "Jumlah Tuntutan";
+        const jumlah_untuk_keseluruhan = "Jumlah Untuk Keseluruhan";
         const jumlah_yang_diluluskan = "Jumlah Yang Diluluskan (RM)";
         const jumlah_yuran = "Jumlah Yuran";
         const jurulatih = "Jurulatih";
@@ -1016,6 +1017,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const membuat_tempahan_penginapan = "Membuat tempahan penginapan termasuk makan/minum untuk instruktur";
         const membuat_tempahan_tempat_untuk = "Membuat tempahan tempat untuk pembengkelan";
         const memenangi_kategori_dalam_anugerah_sukan = "Memenangi Kategori Dalam Anugerah Sukan";
+        const menang = "Menang";
         const mendapat_pembiayaan_pendidikan = "Tajaan Pembiayaan Pendidikan";
         const mendapat_pembiayaan_pendidikan_bool = "Tajaan Pembiayaan Pendidikan";
         const mengesahan_kehadiran_panel = "Mengesahkan kehadiran panel instruktur sebelum tarikh pembengkelan";
@@ -2173,6 +2175,10 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_statistik_atlet_agama_paralimpik = "Laporan Statistik Atlet Mengikut Agama (Paralimpik)";
         const laporan_statistik_atlet_bangsa = "Laporan Statistik Atlet Mengikut Bangsa";
         const laporan_statistik_atlet_bangsa_paralimpik = "Laporan Statistik Atlet Mengikut Bangsa (Paralimpik)";
+        const laporan_statistik_atlet_institusi_sekolah = "Laporan Statistik Atlet Mengikut Institusi / Sekolah";
+        const laporan_statistik_atlet_institusi_sekolah_paralimpik = "Laporan Statistik Atlet Mengikut Institusi / Sekolah (Paralimpik)";
+        const laporan_statistik_atlet_jantina = "Laporan Statistik Atlet Mengikut Jantina";
+        const laporan_statistik_atlet_jantina_paralimpik = "Laporan Statistik Atlet Mengikut Jantina (Paralimpik)";
         const laporan_statistik_atlet_paralimpik = "Laporan Statistik Atlet (Paralimpik)";
         const laporan_statistik_atlet_pendidikan = "Laporan Statistik Atlet Mengikut Pendidikan";
         const laporan_statistik_atlet_pendidikan_paralimpik = "Laporan Statistik Atlet Mengikut Pendidikan (Paralimpik)";
@@ -3868,6 +3874,7 @@ if($session->get('language') == "EN") {
         const jumlah_sito = "SITO Sum";
         const jumlah_sponsor = "The Number Of Sponsor";
         const jumlah_tuntutan = "Total Claim";
+        const jumlah_untuk_keseluruhan = "Total For Overall";
         const jumlah_yang_diluluskan = "Total Approved Amount (RM)";
         const jumlah_yuran = "Total Fees";
         const jurulatih = "Coach";
@@ -4219,6 +4226,7 @@ if($session->get('language') == "EN") {
         const membuat_tempahan_penginapan = "Book your stay including consume for instructor";
         const membuat_tempahan_tempat_untuk = "Book a place to pembengkelan";
         const memenangi_kategori_dalam_anugerah_sukan = "Win A Category In Sports Award";
+        const menang = "Won";
         const mendapat_pembiayaan_pendidikan = "Sponsorship Of Educational Funding";
         const mendapat_pembiayaan_pendidikan_bool = "Sponsorship Of Educational Funding";
         const mengesahan_kehadiran_panel = "Confirm the presence of a panel of instructors before the date of pembengkelan";
@@ -5375,6 +5383,10 @@ if($session->get('language') == "EN") {
         const laporan_statistik_atlet_agama_paralimpik = "Athletes Statistical Report By Religion (Paralympic)";
         const laporan_statistik_atlet_bangsa = "Athletes Statistical Report By Nation";
         const laporan_statistik_atlet_bangsa_paralimpik = "Athletes Statistical Report By Nation (Paralympic)";
+        const laporan_statistik_atlet_institusi_sekolah = "Athletes Statistical Report By Institution / School";
+        const laporan_statistik_atlet_institusi_sekolah_paralimpik = "Athletes Statistical Report By Institution / School (Paralympic)";
+        const laporan_statistik_atlet_jantina = "Athletes Statistical Report By Gender";
+        const laporan_statistik_atlet_jantina_paralimpik = "Athletes Statistical Report By Gender (Paralimpik)";
         const laporan_statistik_atlet_paralimpik = "Athletes Statistical Report (Paralympic)";
         const laporan_statistik_atlet_pendidikan = "Athletes Statistical Report By Education";
         const laporan_statistik_atlet_pendidikan_paralimpik = "Athletes Statistical Report By Education (Paralympic)";

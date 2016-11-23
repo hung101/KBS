@@ -2151,7 +2151,7 @@ $this->registerJs($script);
                   <div class="tab-content no-padding">
                     <!-- Morris chart - Sales -->
                     <div class="chart tab-pane active" id="podium_atlet_sukan_negeri-chart" style="position: relative;">
-                        <center><h3>Jumlah Untuk Keseluruhan</h3></center>
+                        <center><h3><?=GeneralLabel::jumlah_untuk_keseluruhan?></h3></center>
                         <div class="row">
                             <div class="col-lg-6">
                                 <?php
@@ -2279,7 +2279,7 @@ $this->registerJs($script);
                         </div>  
                     </div>
                     <div class="chart tab-pane" id="podium_atlet_acara-chart" style="position: relative;">
-                        <center><h3>Jumlah Untuk Keseluruhan</h3></center>
+                        <center><h3><?=GeneralLabel::jumlah_untuk_keseluruhan?></h3></center>
                         <div class="row">
                             <div class="col-lg-2">
                             </div>
@@ -2459,7 +2459,7 @@ $this->registerJs($script);
                   <div class="tab-content no-padding">
                     <!-- Morris chart - Sales -->
                     <div class="chart tab-pane active" id="podium_atlet_para_sukan-chart" style="position: relative;">
-                        <center><h3>Jumlah Untuk Keseluruhan</h3></center>
+                        <center><h3><?=GeneralLabel::jumlah_untuk_keseluruhan?></h3></center>
                         <div class="row">
                             <div class="col-lg-2">
                             </div>
@@ -2535,7 +2535,7 @@ $this->registerJs($script);
                         </div>  
                     </div>
                     <div class="chart tab-pane" id="podium_atlet_para_acara-chart" style="position: relative;">
-                        <center><h3>Jumlah Untuk Keseluruhan</h3></center>
+                        <center><h3><?=GeneralLabel::jumlah_untuk_keseluruhan?></h3></center>
                         <div class="row">
                             <div class="col-lg-2">
                             </div>
@@ -2652,7 +2652,7 @@ $this->registerJs($script);
                   <div class="tab-content no-padding">
                     <!-- Morris chart - Sales -->
                     <div class="chart tab-pane active" id="temujanji_atlet_keseluruhan-chart" style="position: relative;">
-                        <center><h3>Jumlah Untuk Keseluruhan</h3></center>
+                        <center><h3><?=GeneralLabel::jumlah_untuk_keseluruhan?></h3></center>
                         <div class="row">
                             <div class="col-lg-6">
                                 <?php
@@ -3455,7 +3455,7 @@ $this->registerJs($script);
                   <div class="tab-content no-padding">
                     <!-- Morris chart - Sales -->
                     <div class="chart tab-pane active" id="jurulatih_berdaftar_keseluruhan-chart" style="position: relative;">
-                        <center><h3>Jumlah Untuk Keseluruhan</h3></center>
+                        <center><h3><?=GeneralLabel::jumlah_untuk_keseluruhan?></h3></center>
                         <div class="row">
                             <div class="col-lg-6">
                                 <?php

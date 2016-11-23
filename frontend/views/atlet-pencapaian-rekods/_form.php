@@ -97,6 +97,12 @@ $session->close();
                         ],],
                     'columnOptions'=>['colspan'=>4]],
                 'result' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100]],
+                'menang' => [
+                            'type'=>Form::INPUT_RADIO_LIST, 
+                            'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
+                            'value'=>false,
+                            'options'=>['inline'=>true],
+                            'columnOptions'=>['colspan'=>3]],
             ],
         ],
     ]

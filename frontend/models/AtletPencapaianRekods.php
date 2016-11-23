@@ -54,7 +54,7 @@ class AtletPencapaianRekods extends \yii\db\ActiveRecord
     {
         return [
             [['tarikh', 'peringkat', 'opponent', 'jenis_rekod', 'result'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['pencapaian_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['pencapaian_id', 'menang'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh'], 'safe'],
             [['peringkat'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['opponent'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -79,6 +79,7 @@ class AtletPencapaianRekods extends \yii\db\ActiveRecord
             'venue' => GeneralLabel::venue,
             'personal_best' => GeneralLabel::personal_best,
             'season_best' => GeneralLabel::season_best,
+            'menang' => GeneralLabel::menang,
 
         ];
     }
