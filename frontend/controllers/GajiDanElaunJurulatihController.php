@@ -403,6 +403,8 @@ class GajiDanElaunJurulatihController extends Controller
                 $report_url = BaseUrl::to(['generate-laporan-kewangan-elaun-jurulatih'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'sukan' => $model->sukan
+                    , 'program' => $model->program
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -410,6 +412,8 @@ class GajiDanElaunJurulatihController extends Controller
                 return $this->redirect(['generate-laporan-kewangan-elaun-jurulatih'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'sukan' => $model->sukan
+                    , 'program' => $model->program
                     , 'format' => $model->format
                 ]);
             }
@@ -421,7 +425,7 @@ class GajiDanElaunJurulatihController extends Controller
         ]);
     }
 
-    public function actionGenerateLaporanKewanganElaunJurulatih($tarikh_dari, $tarikh_hingga,$format)
+    public function actionGenerateLaporanKewanganElaunJurulatih($tarikh_dari, $tarikh_hingga, $sukan, $program,$format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -429,9 +433,17 @@ class GajiDanElaunJurulatihController extends Controller
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($program == "") $program = array();
+        else $program = array($program);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'SUKAN' => $sukan,
+            'PROGRAM' => $program,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanKewanganElaunJurulatih', $format, $controls, 'laporan_kewangan_elaun_jurulatih');
@@ -453,6 +465,8 @@ class GajiDanElaunJurulatihController extends Controller
                 $report_url = BaseUrl::to(['generate-laporan-kewangan-gaji-jurulatih'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'sukan' => $model->sukan
+                    , 'program' => $model->program
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -460,6 +474,8 @@ class GajiDanElaunJurulatihController extends Controller
                 return $this->redirect(['generate-laporan-kewangan-gaji-jurulatih'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'sukan' => $model->sukan
+                    , 'program' => $model->program
                     , 'format' => $model->format
                 ]);
             }
@@ -471,7 +487,7 @@ class GajiDanElaunJurulatihController extends Controller
         ]);
     }
 
-    public function actionGenerateLaporanKewanganGajiJurulatih($tarikh_dari, $tarikh_hingga,$format)
+    public function actionGenerateLaporanKewanganGajiJurulatih($tarikh_dari, $tarikh_hingga, $sukan, $program,$format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -479,9 +495,17 @@ class GajiDanElaunJurulatihController extends Controller
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($program == "") $program = array();
+        else $program = array($program);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'SUKAN' => $sukan,
+            'PROGRAM' => $program,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanKewanganGajiJurulatih', $format, $controls, 'laporan_kewangan_gaji_jurulatih');

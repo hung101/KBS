@@ -358,14 +358,14 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                             'items' => [
                                                 ['label' => GeneralLabel::pembayaran_elaun_gaji, 'url' => ['/gaji-dan-elaun-jurulatih/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['gaji-dan-elaun-jurulatih']['module'])],
                                                 ['label' => GeneralLabel::permohonan_geran_bantuan, 'url' => ['/geran-bantuan-gaji/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['module'])],
-                                                [
+                                                /*[
                                                     'label' => GeneralLabel::laporan,
                                                     'items' => [
                                                         ['label' => GeneralLabel::laporan_kewangan_elaun_jurulatih, 'url' => ['/gaji-dan-elaun-jurulatih/laporan-kewangan-elaun-jurulatih'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['laporan'])],
                                                         ['label' => GeneralLabel::laporan_kewangan_gaji_jurulatih, 'url' => ['/gaji-dan-elaun-jurulatih/laporan-kewangan-gaji-jurulatih'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['laporan-senarai-jurulatih'])],
                                                         ['label' => GeneralLabel::laporan_maklumat_pembayaran_geran_bantuan, 'url' => ['/geran-bantuan-gaji/laporan-maklumat-pembayaran-geran-bantuan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['laporan'])],
                                                     ],
-                                                ],
+                                                ],*/
                                             ],
                                         ],
                                         //['label' => GeneralLabel::pemantauan_penilaian, 'url' => ['/pengurusan-pemantauan-dan-penilaian-jurulatih/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-pemantauan-dan-penilaian-jurulatih']['module'])],
@@ -388,6 +388,9 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                                 ['label' => GeneralLabel::laporan_statistik_jurulatih_pecahan_mengikut_negara, 'url' => ['/jurulatih/laporan-statistik-jurulatih-pecahan-mengikut-negara'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['laporan'])],
                                                 ['label' => GeneralLabel::laporan_jurulatih_wajaran, 'url' => ['/jurulatih/laporan-jurulatih-wajaran'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['laporan'])],
                                                 ['label' => GeneralLabel::laporan_statistik_jurulatih_mengikut_kursus, 'url' => ['/jurulatih/laporan-statistik-jurulatih-mengikut-kursus'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['laporan'])],
+                                                ['label' => GeneralLabel::laporan_kewangan_elaun_jurulatih, 'url' => ['/gaji-dan-elaun-jurulatih/laporan-kewangan-elaun-jurulatih'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['laporan'])],
+                                                        ['label' => GeneralLabel::laporan_kewangan_gaji_jurulatih, 'url' => ['/gaji-dan-elaun-jurulatih/laporan-kewangan-gaji-jurulatih'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['laporan-senarai-jurulatih'])],
+                                                        ['label' => GeneralLabel::laporan_maklumat_pembayaran_geran_bantuan, 'url' => ['/geran-bantuan-gaji/laporan-maklumat-pembayaran-geran-bantuan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['laporan'])],
                                             ],
                                         ],
                                     ],

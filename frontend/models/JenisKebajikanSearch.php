@@ -65,13 +65,16 @@ class JenisKebajikanSearch extends JenisKebajikan
             'sukan_asia_komenwel_para_asia_ead' => $this->sukan_asia_komenwel_para_asia_ead,
             'sukan_olimpik_paralimpik' => $this->sukan_olimpik_paralimpik,
             'kejohanan_asia_dunia' => $this->kejohanan_asia_dunia,
-            'jumlah' => $this->jumlah,
-            'maksimum' => $this->maksimum,
-            'peratus' => $this->peratus,
+            //'jumlah' => $this->jumlah,
+            //'maksimum' => $this->maksimum,
+            //'peratus' => $this->peratus,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_jenis_kebajikan.desc', $this->jenis_kebajikan])
             ->andFilterWhere(['like', 'tbl_ref_perkara.desc', $this->perkara])
+                ->andFilterWhere(['like', 'jumlah', $this->jumlah])
+                ->andFilterWhere(['like', 'maksimum', $this->maksimum])
+                ->andFilterWhere(['like', 'peratus', $this->peratus])
                 ->andFilterWhere(['like', 'tbl_ref_sukan_skim_kebajikan.desc', $this->sukan]);
 
         return $dataProvider;
