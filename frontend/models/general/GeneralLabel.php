@@ -499,7 +499,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const india = "India";
         const informasi_permohonan_id = "Informasi Permohonan ID";
         const informasi_persatuan_id = "Informasi Persatuan ID";
-        const ingat_saya = "Remember Me";
+        const ingat_saya = "Ingat Saya";
         const insentif_id = "Insentif ID";
         const insentif_khas = "Insentif Khas";
         const institusi_sekolah = "Institusi / Sekolah";
@@ -636,6 +636,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jumlah_insentif = "Jumlah Insentif";
         const jumlah_kapasiti = "Jumlah Kapasiti";
         const jumlah_kelulusan = "Jumlah Kelulusan";
+        const jumlah_keseluruhan = "Jumlah Keseluruhan";
         const jumlah_kos_lain_lain = "Jumlah Kos Lain Lain";
         const jumlah_markah = "Jumlah Markah";
         const jumlah_markah_penilaian = "Jumlah Markah Penilaian";
@@ -933,6 +934,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const location_alamat_negeri = "Negeri";
         const location_alamat_poskod = "Poskod";
         const log_masuk = "Log Masuk";
+        const log_masuk_gagal_kali_terakhir = "Log Masuk Gagal Kali Terakhir: ";
         const log_masuk_kali_terakhir = "Log Masuk Kali Terakhir: ";
         const lokasi = "Lokasi";
         const lokasi_kejadian = "Lokasi Kejadian";
@@ -1671,6 +1673,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const semak_salinan_kunci_maklumat = "Salinan kunci maklumat (jika ada)";
         const semak_salinan_borang_kebenaran = "Salinan borang persetujuan (jika ada)";
         const semak_salinan_pengecualian_persetujuan = "Salinan pengecualian persetujuan (jika ada)";
+        const semak_salinan_penepian_persetujuan = "Semak Salinan Penepian Persetujuan";
         const semak_salinan_surat_pemberitahuan_kepada_isn = "Salinan surat pemberitahuan kepada ISN (jika ada)";
         const semak_salinan_surat_tawaran_pengajian_daripada_institusi = "Salinan surat tawaran pengajian daripada institusi (mana-mana)";
         const semak_salinan_dokumen_dokumen_sokongan = "Salinan dokumen sokongan (jika ada)";
@@ -3860,6 +3863,7 @@ if($session->get('language') == "EN") {
         const jumlah_insentif = "The Amount Of Incentive";
         const jumlah_kapasiti = "Total Capacity";
         const jumlah_kelulusan = "Total Approval";
+        const jumlah_keseluruhan = "Total Overall";
         const jumlah_kos_lain_lain = "The Total Cost Of Other";
         const jumlah_markah = "Total Score";
         const jumlah_markah_penilaian = "Total Score Rating";
@@ -4156,7 +4160,8 @@ if($session->get('language') == "EN") {
         const location_alamat_negeri = "State";
         const location_alamat_poskod = "Postal code";
         const log_masuk = "Login";
-        const log_masuk_kali_terakhir = "Login Last Log: ";
+        const log_masuk_gagal_kali_terakhir = "Last Login Failed Log: ";
+        const log_masuk_kali_terakhir = "Last Login Log: ";
         const lokasi = "Site";
         const lokasi_kejadian = "Location Of Occurrence";
         const lokasi_kejohanan = "Tournament Location";
@@ -4893,6 +4898,7 @@ if($session->get('language') == "EN") {
         const semak_salinan_kunci_maklumat = "Copy of information sheet (if any)";
         const semak_salinan_borang_kebenaran = "Copy of consent form (if any)";
         const semak_salinan_pengecualian_persetujuan = "Copy of waiver of consent (if any)";
+        const semak_salinan_penepian_persetujuan = "Copy of waiver agreement";
         const semak_salinan_surat_pemberitahuan_kepada_isn = "Copy of notification letter to ISN (if any)";
         const semak_salinan_surat_tawaran_pengajian_daripada_institusi = "Copy of study offer letter from the institution (if any)";
         const semak_salinan_dokumen_dokumen_sokongan = "Copy of supporting documents (if any)";

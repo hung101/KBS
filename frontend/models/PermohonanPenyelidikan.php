@@ -119,6 +119,7 @@ class PermohonanPenyelidikan extends \yii\db\ActiveRecord
             'semak_salinan_surat_pemberitahuan_kepada_isn' => GeneralLabel::semak_salinan_surat_pemberitahuan_kepada_isn,
             'semak_salinan_surat_tawaran_pengajian_daripada_institusi' => GeneralLabel::semak_salinan_surat_tawaran_pengajian_daripada_institusi,
             'semak_salinan_dokumen_dokumen_sokongan' => GeneralLabel::semak_salinan_dokumen_dokumen_sokongan,
+            'semak_salinan_penepian_persetujuan' => GeneralLabel::semak_salinan_penepian_persetujuan,
             'semak_salinan_soal_selidik' => GeneralLabel::semak_salinan_soal_selidik,
         ];
     }

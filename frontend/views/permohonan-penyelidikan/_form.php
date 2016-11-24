@@ -555,8 +555,8 @@ use app\models\general\GeneralMessage;
         $calculate_jumlah_keseluruhan = $calculate_jumlah_tahun_1 + $calculate_jumlah_tahun_2 + $calculate_jumlah_tahun_3;
     ?>
     
-            <strong>Tahun 1:</strong> RM <?=$calculate_jumlah_tahun_1?> &nbsp;&nbsp;&nbsp;&nbsp; <strong>Tahun 2:</strong> RM <?=$calculate_jumlah_tahun_2?> &nbsp;&nbsp;&nbsp;&nbsp; <strong>Tahun 3:</strong> RM <?=$calculate_jumlah_tahun_3?>
-            <h4><strong>Jumlah Keseluruhan: RM <?=$calculate_jumlah_keseluruhan?></strong></h4>
+            <strong><?=GeneralLabel::tahun?> 1:</strong> RM <?=$calculate_jumlah_tahun_1?> &nbsp;&nbsp;&nbsp;&nbsp; <strong><?=GeneralLabel::tahun?> 2:</strong> RM <?=$calculate_jumlah_tahun_2?> &nbsp;&nbsp;&nbsp;&nbsp; <strong><?=GeneralLabel::tahun?> 3:</strong> RM <?=$calculate_jumlah_tahun_3?>
+            <h4><strong><?=GeneralLabel::jumlah_keseluruhan?>: RM <?=$calculate_jumlah_keseluruhan?></strong></h4>
     
     <?php Pjax::end(); ?>
     
@@ -640,8 +640,8 @@ use app\models\general\GeneralMessage;
         $calculate_jumlah_keseluruhan = $calculate_jumlah_tahun_1 + $calculate_jumlah_tahun_2 + $calculate_jumlah_tahun_3;
     ?>
     
-            <strong>Tahun 1:</strong> RM <?=$calculate_jumlah_tahun_1?> &nbsp;&nbsp;&nbsp;&nbsp; <strong>Tahun 2:</strong> RM <?=$calculate_jumlah_tahun_2?> &nbsp;&nbsp;&nbsp;&nbsp; <strong>Tahun 3:</strong> RM <?=$calculate_jumlah_tahun_3?>
-            <h4><strong>Jumlah Keseluruhan: RM <?=$calculate_jumlah_keseluruhan?></strong></h4>
+            <strong><?=GeneralLabel::tahun?> 1:</strong> RM <?=$calculate_jumlah_tahun_1?> &nbsp;&nbsp;&nbsp;&nbsp; <strong><?=GeneralLabel::tahun?> 2:</strong> RM <?=$calculate_jumlah_tahun_2?> &nbsp;&nbsp;&nbsp;&nbsp; <strong><?=GeneralLabel::tahun?> 3:</strong> RM <?=$calculate_jumlah_tahun_3?>
+            <h4><strong><?=GeneralLabel::jumlah_keseluruhan?>: RM <?=$calculate_jumlah_keseluruhan?></strong></h4>
     
     <?php Pjax::end(); ?>
     
@@ -838,7 +838,7 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'biasa_dengan_keperluan_penyelidikan' => ['type'=>Form::INPUT_RADIO_LIST, 'items'=>[true=>'Ya', false=>'Tidak'],'options'=>['inline'=>true],'columnOptions'=>['colspan'=>4]],
+                'biasa_dengan_keperluan_penyelidikan' => ['type'=>Form::INPUT_RADIO_LIST, 'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],'options'=>['inline'=>true],'columnOptions'=>['colspan'=>4]],
                 //'kelulusan_echics' => ['type'=>Form::INPUT_RADIO_LIST, 'items'=>[true=>'Ya', false=>'Tidak'],'options'=>['inline'=>true],'columnOptions'=>['colspan'=>4]],
             ],
         ],

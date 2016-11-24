@@ -101,7 +101,7 @@ class SiteController extends Controller
             }
             
             if($user->last_login_fail){
-                Yii::$app->session->setFlash('warning', 'Log Masuk Gagal Kali Terakhir: ' . GeneralLabel::log_masuk_kali_terakhir . $user->last_login_fail);
+                Yii::$app->session->setFlash('warning', GeneralLabel::log_masuk_gagal_kali_terakhir . $user->last_login_fail);
             }
             
             if($user->is_new_user == "YES" || $user->password_expiry < date('Y-m-d H:i:s', time())) {
