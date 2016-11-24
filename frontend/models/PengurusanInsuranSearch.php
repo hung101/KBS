@@ -61,7 +61,7 @@ class PengurusanInsuranSearch extends PengurusanInsuran
         $query->andFilterWhere([
             'pengurusan_insuran_id' => $this->pengurusan_insuran_id,
             //'atlet_id' => $this->atlet_id,
-            'jumlah_tuntutan' => $this->jumlah_tuntutan,
+            //'jumlah_tuntutan' => $this->jumlah_tuntutan,
             'tarikh_tuntutan' => $this->tarikh_tuntutan,
         ]);
 
@@ -69,6 +69,7 @@ class PengurusanInsuranSearch extends PengurusanInsuran
                 ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet_id])
             ->andFilterWhere(['like', 'pegawai_yang_bertanggungjawab', $this->pegawai_yang_bertanggungjawab])
                 ->andFilterWhere(['like', 'tarikh_permohonan', $this->tarikh_permohonan])
+                ->andFilterWhere(['like', 'jumlah_tuntutan', $this->jumlah_tuntutan])
                 ->andFilterWhere(['like', 'tbl_ref_status_permohonan_insuran.desc', $this->status_permohonan]);
 
         return $dataProvider;

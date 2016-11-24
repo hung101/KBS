@@ -18,6 +18,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 use app\models\general\GeneralVariable;
+use app\models\general\GeneralLabel;
 
 /**
  * Site controller
@@ -96,11 +97,11 @@ class SiteController extends Controller
             $user->save();
             
             if($user->last_login){
-                Yii::$app->session->setFlash('info', 'Log Masuk Kali Terakhir: ' . $user->last_login);
+                Yii::$app->session->setFlash('info', GeneralLabel::log_masuk_kali_terakhir . $user->last_login);
             }
             
             if($user->last_login_fail){
-                Yii::$app->session->setFlash('warning', 'Log Masuk Gagal Kali Terakhir: ' . $user->last_login_fail);
+                Yii::$app->session->setFlash('warning', 'Log Masuk Gagal Kali Terakhir: ' . GeneralLabel::log_masuk_kali_terakhir . $user->last_login_fail);
             }
             
             if($user->is_new_user == "YES" || $user->password_expiry < date('Y-m-d H:i:s', time())) {
@@ -249,7 +250,7 @@ class SiteController extends Controller
             }
             
             if($samePreviousPassword){
-                Yii::$app->getSession()->setFlash('error', 'Kata laluan baru tidak boleh menggunakan semula ' . Yii::$app->params['passwordReused'] . ' kata laluan yang lepas');
+                Yii::$app->getSession()->setFlash('error', GeneralLabel::kata_laluan_baru_tidak_boleh_menggunakan_semula . Yii::$app->params['passwordReused'] . GeneralLabel::kata_laluan_yang_lepas);
             } else {
                 $user = $user->findIdentity(Yii::$app->user->id);
                 $user->setPassword(Yii::$app->request->post()['LoginForm']['password']);
@@ -263,7 +264,7 @@ class SiteController extends Controller
                 $userPasswordTrail->save(); 
 
                 if($user->save()) {
-                    Yii::$app->getSession()->setFlash('success', 'Kata laluan baru telah dikemaskini.');
+                    Yii::$app->getSession()->setFlash('success', GeneralLabel::kata_laluan_baru_telah_dikemaskini);
                     return $this->goBack();
                 }
             }

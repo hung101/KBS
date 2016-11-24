@@ -1590,6 +1590,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const sijil_spkk_msn = "Sijil SPKK";
         const sikap_nama_persatuan = "SIKAP Nama Persatuan";
         const sikap_peratus = "SIKAP (%)";
+        const sila_masukkan_kata_laluan_baru_anda = "Sila masukkan kata laluan baru anda";
         const silibus = "Silibus";
         const simptom_kerosakan = "Simptom Kerosakan";
         const sisi_tarikh_olimpik = "SISO Tarikh Olimpik";
@@ -4625,6 +4626,7 @@ if($session->get('language') == "EN") {
         const sijil_spkk_msn = "The Certificate Is PRACTICED";
         const sikap_nama_persatuan = "The ATTITUDE Of The Name Of The Association";
         const sikap_peratus = "SIKAP (%)";
+        const sila_masukkan_kata_laluan_baru_anda = "Please enter your new password";
         const silibus = "Syllabus";
         const simptom_kerosakan = "Symptoms Of Damage";
         const sisi_tarikh_olimpik = "SISO Olympic Date";

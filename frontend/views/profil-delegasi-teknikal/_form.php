@@ -42,7 +42,7 @@ use app\models\PengurusanJawatankuasaKhasSukanMalaysia;
         }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     
     <pre style="text-align: center"><strong>MAKLUMAT TEMASYA</strong></pre>
     
@@ -85,7 +85,7 @@ use app\models\PengurusanJawatankuasaKhasSukanMalaysia;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],
+                        'options' => ['placeholder' => Placeholder::negeri, 'disabled'=>true],
                         'pluginOptions' => [
                                     'allowClear' => true
                                 ],],
@@ -103,7 +103,8 @@ use app\models\PengurusanJawatankuasaKhasSukanMalaysia;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ],
+                        'options'=>['disabled'=>true]
                     ],
                     'columnOptions'=>['colspan'=>3]],
                 'tarikh_tamat' =>  [
@@ -113,7 +114,8 @@ use app\models\PengurusanJawatankuasaKhasSukanMalaysia;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ],
+                        'options'=>['disabled'=>true]
                     ],
                     'columnOptions'=>['colspan'=>3]],
                  
@@ -474,6 +476,14 @@ function clearFormTemasya(){
     $("#profildelegasiteknikal-negeri").val('').trigger("change");
     //$("#profildelegasiteknikal-sukan").val('').trigger("change");
 }
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+    $("#profildelegasiteknikal-negeri").prop("disabled", false);
+});
         
 JS;
         

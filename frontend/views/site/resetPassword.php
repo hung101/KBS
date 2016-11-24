@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <!--<p>Please choose your new password:</p>-->
-    <p>Sila masukkan kata laluan baru anda:</p>
+    <p><?=GeneralLabel::sila_masukkan_kata_laluan_baru_anda?>:</p>
 
     <div class="row">
         <div class="col-lg-5">

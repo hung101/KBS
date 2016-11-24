@@ -1116,14 +1116,14 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                             'items' => [
                                 ['label' => GeneralLabel::permohonan_lesen, 'url' => ['/akademi-akk/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['akademi-akk']['module'])],
                                 //['label' => GeneralLabel::cce, 'url' => ['/kursus/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['kursus']['module'])],
-                                ['label' => GeneralLabel::penganjuran_kursus, 'url' => ['/penganjuran-kursus/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['module'])],
+                                ['label' => GeneralLabel::penganjuran_kursus, 'url' => ['/penganjuran-kursus-akk/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['module'])],
                                 //['label' => GeneralLabel::penganjuran_kursus_senarai_peserta, 'url' => ['/penganjuran-kursus-peserta/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-peserta']['module'])],
                                 //['label' => GeneralLabel::penganjuran_kursus_penganjur, 'url' => ['/penganjuran-kursus-penganjur/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-penganjur']['module'])],
                                 [
                                     'label' => GeneralLabel::laporan,
                                     'items' => [
-                                        ['label' => GeneralLabel::laporan_senarai_peserta, 'url' => ['/penganjuran-kursus/laporan-senarai-peserta'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['module'])],
-                                        ['label' => GeneralLabel::laporan_senarai_kursus, 'url' => ['/penganjuran-kursus/laporan-senarai-kursus'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['module'])],
+                                        ['label' => GeneralLabel::laporan_senarai_peserta, 'url' => ['/penganjuran-kursus-akk/laporan-senarai-peserta'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['module'])],
+                                        ['label' => GeneralLabel::laporan_senarai_kursus, 'url' => ['/penganjuran-kursus-akk/laporan-senarai-kursus'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['module'])],
                                         ['label' => GeneralLabel::laporan_skim_pelesenan_kejurulatihan_kebangsaan, 'url' => ['/akademi-akk/laporan-skim-pelesenan-kejurulatihan-kebangsaan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['akademi-akk']['module'])],
                                         ['label' => GeneralLabel::laporan_kursus_sains_sukan, 'url' => ['/akademi-akk/laporan-kursus-sains-sukan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['akademi-akk']['module'])],
                                     ],

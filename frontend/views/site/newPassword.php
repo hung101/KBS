@@ -15,7 +15,7 @@ $this->title = GeneralLabel::new_password;
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Sila mengisi bidang-bidang kata laluan baru:</p>
+    <p><?=GeneralLabel::sila_mengisi_bidang_bidang_kata_laluan_baru?></p>
 
     <div class="row">
         <div class="col-lg-5">
@@ -25,7 +25,7 @@ $this->title = GeneralLabel::new_password;
                 <?= $form->field($model, 'password')->passwordInput() ?>
                 <?= $form->field($model, 'confirm_password')->passwordInput() ?>
                 <div class="form-group">
-                    <?= Html::submitButton('Hantar', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                    <?= Html::submitButton(GeneralLabel::send, ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>
             <?php
  ActiveForm::end(); ?>

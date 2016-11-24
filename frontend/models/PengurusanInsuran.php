@@ -83,15 +83,15 @@ class PengurusanInsuran extends \yii\db\ActiveRecord
             'program' => GeneralLabel::program,
             'ic_no' => GeneralLabel::ic_no_insuran,
             'lampiran' => GeneralLabel::lampiran,
-            'no_acc' => 'No. Akaun Bank',
+            'no_acc' => GeneralLabel::no_akaun_bank,
             'jenis_tuntutan' => GeneralLabel::jenis_tuntutan,
             'tarikh_kejadian' => GeneralLabel::tarikh_kejadian,
             'status_permohonan' => GeneralLabel::status_permohonan,
             'tarikh_pembayaran' => GeneralLabel::tarikh_pembayaran,
             'tarikh_permohonan' => GeneralLabel::tarikh_permohonan,
             'tindakan_rujukan_memo' => GeneralLabel::tindakan_rujukan_memo,
-            'no_polisi' => 'No. Polisi',
-            'jenis_bank' => 'Jenis Bank',
+            'no_polisi' => GeneralLabel::no_polisi,
+            'jenis_bank' => GeneralLabel::jenis_bank,
         ];
     }
     

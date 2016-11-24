@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PerkhidmatanPermakanan */
 
 //$this->title = $model->perkhidmatan_permakanan_id;
-$this->title = GeneralLabel::viewTitle . ' Perkhidmatan Permakanan';
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::perkhidmatan_permakanan_without_sukan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::perkhidmatan_permakanan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

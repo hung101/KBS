@@ -122,6 +122,9 @@ class PengurusanInsuranController extends Controller
         
         $model = new PengurusanInsuran();
         
+        // set public user id
+        $model->pegawai_yang_bertanggungjawab = Yii::$app->user->identity->full_name;
+        
         $queryPar = null;
         
         Yii::$app->session->open();

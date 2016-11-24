@@ -52,7 +52,7 @@ class LoginForm extends Model
         return [
             'username' => GeneralLabel::id_pengguna,
             'password' => GeneralLabel::kata_laluan,
-            'confirm_password' => 'Pengesahan Kata Laluan',
+            'confirm_password' => GeneralLabel::pengesahan_kata_laluan,
             'rememberMe' => GeneralLabel::ingat_saya,
         ];
     }

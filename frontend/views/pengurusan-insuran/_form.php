@@ -19,6 +19,7 @@ use app\models\RefSukan;
 use app\models\RefJenisTuntutan;
 use app\models\RefStatusPermohonanInsuran;
 use app\models\RefBank;
+use app\models\RefStatusTawaran;
 
 // contant values
 use app\models\general\Placeholder;
@@ -73,7 +74,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'data'=>ArrayHelper::map(Atlet::find()->where('tawaran = :tawaran', [':tawaran' => RefStatusTawaran::LULUS_TAWARAN])->all(),'atlet_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::atlet, 'id'=>'atletId'],],
                     'columnOptions'=>['colspan'=>6]],
                 'ic_no' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>12]],
