@@ -2436,10 +2436,12 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const bahagian_elaporan = "Bahagian Elaporan";
         const bahagian_jurulatih = "Bahagian Jurulatih";
         const bahagian_penerbitan = "Bahagian Penerbitan";
+        const bahagian_kemudahan = "Bahagian Kemudahan";
         const bahasa = "Bahasa";
         const bandar = "Bandar";
         const bidang_diminati_sukarelawan = "Bidang Diminati Sukarelawan";
         const cawangan_elaporan = "Cawangan Elaporan";
+        const cawangan_kemudahan = "Cawangan Kemudahan";
         const delegasi = "Delegasi";
         const doktor_kejohanan_temasya = "Doktor Kejohanan Temasya";
         const dokumen_penyelidikan = "Dokumen Penyelidikan";

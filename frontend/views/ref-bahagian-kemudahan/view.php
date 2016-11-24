@@ -3,11 +3,13 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+use app\models\general\GeneralLabel;
+
 /* @var $this yii\web\View */
-/* @var $model app\models\RefBahagianKemudahan */
+/* @var $model app\models\RefBahagianPenerbitan */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Bahagian Kemudahans', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bahagian_kemudahan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-bahagian-kemudahan-view">
@@ -30,11 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'desc',
-            'aktif',
-            'created_by',
-            'updated_by',
-            'created',
-            'updated',
+            //'aktif',
+            [
+                'attribute' => 'aktif',
+                'value' => $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no,
+            ],
         ],
     ]) ?>
 
