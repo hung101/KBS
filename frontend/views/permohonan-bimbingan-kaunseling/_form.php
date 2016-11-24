@@ -352,15 +352,15 @@ use app\models\general\GeneralMessage;
                                 ]
                             ] : null,
                         ],
-                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'name_penuh'),
                         'options'=>['prompt'=>'',],
                         'pluginOptions' => [
-                            'depends'=>[Html::getInputId($model, 'sukan')],
+                            'depends'=>[Html::getInputId($model, 'sukan_atlet_jurulatih')],
                             'placeholder' => Placeholder::atlet,
                             'url'=>Url::to(['/atlet/sub-atlets-sukan'])],
                         ],
                     'columnOptions'=>['colspan'=>6]],
-                'jurulatih' => [
+                'jurulatih' => /*[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -376,6 +376,28 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
+                    'columnOptions'=>['colspan'=>6]],*/
+                [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
+                    'options'=>[
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                        ],
+                        'data'=>ArrayHelper::map(Jurulatih::find()->all(),'jurulatih_id', 'nama'),
+                        'options'=>['prompt'=>'',],
+                        'pluginOptions' => [
+                            'depends'=>[Html::getInputId($model, 'sukan_atlet_jurulatih')],
+                            'placeholder' => Placeholder::jurulatih,
+                            'url'=>Url::to(['/jurulatih/get-jurulatih-by-sukan'])],
+                        ],
                     'columnOptions'=>['colspan'=>6]],
                 
             ],

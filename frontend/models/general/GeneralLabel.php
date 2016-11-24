@@ -2202,7 +2202,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_statistik_bantuan_elaun_sue_jumlah_kelulusan = "Laporan Statistik Bantuan Elaun SUE/Elaun Penyelaras/Emolumen PSK (Jumlah Kelulusan)";
         const laporan_statistik_bantuan_menghadiri_program_antarabangsa = "Laporan Statistik Bantuan Menghadiri Program Antarabangsa";
         const laporan_statistik_bantuan_menghadiri_program_antarabangsa_jumlah_kelulusan = "Laporan Statistik Bantuan Menghadiri Program Antarabangsa (Jumlah Kelulusan)";
-        const laporan_statistik_bantuan_penganjuran_kejohanan_mengikut_badan_sukan = "Laporan Statistik Bantuan Penganjuran Kejohanan Mengikut Badan Sukan";
+        const laporan_statistik_bantuan_penganjuran_kejohanan_mengikut_badan_sukan = "Laporan Statistik Bantuan Penganjuran Kejohanan Mengikut Sukan";
         const laporan_statistik_bantuan_penganjuran_kursus_bengkel_seminar = "Laporan Statistik Bantuan Penganjuran Kursus / Bengkel / Seminar";
         const laporan_statistik_bayaran_skim_insentif_msn = "Laporan Statistik Skim-skim Insentif MSN";
         const laporan_statistik_bulanan_pengunaan_ubatan_dan_kos = "Statistik Bulanan Penggunaan Ubatan Dan Kos";
@@ -2370,7 +2370,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pesakit_luar_sistem_pendaftaran_dan_temujanji_atlet_pesakit_luar_sistem_proses_rawatan_pesakit_luar_pengurusan_rekod_pemeriksaan_perubatan_pesakit_luar_sistem_pemberian_ubat_kepada_psk = "Pendaftaran Pesakit Luar / Atlet";
         const persetujuan = "Persetujuan";
         const pjs = "PJS";
-        const profil = "Profile";
+        const profil = "Profil";
         const profil_ajk_khas_sukan_malaysia = "Profil AJK Khas Sukan Malaysia";
         const profil_kaunselor = "Profil Ahli Psikologi / Kaunselor";
         const profil_panel_penasihat_kpsk = "Profil Panel KPSK";
@@ -2754,7 +2754,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kelayakan_akademi_akk = "Kelayakan Akademi Akk";
         const kelayakan_sukan_spesifik_akk = "Kelayakan Sukan Spesifik Akk";
         const kemudah_pakaian_peralatan_tiket = "Kemudah Pakaian Peralatan Tiket";
-        const keputusan_analisi_tubuh_badan = "Analisi Tubuh Badan";
+        const keputusan_analisi_tubuh_badan = "Analisis Tubuh Badan";
         const keputusan_ujian_saringan = "Keputusan Ujian Saringan";
         const latihan_dan_program = "Latihan Dan Program";
         const latihan_dan_program_peserta = "Latihan Dan Program Peserta";
@@ -2953,7 +2953,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kemahiran = "Kemahiran";
         const kemudah_pakaian_peralatan_tikets = "Kemudah Pakaian Peralatan Tiket";
         const kemudahan_pakaianperalatantiket_kapal_terbang = "Kemudahan Pakaian/Peralatan/Tiket Kapal Terbang";
-        const keputusan_analisi_tubuh_badans = "Keputusan Analisi Tubuh Badan";
+        const keputusan_analisi_tubuh_badans = "Keputusan Analisis Tubuh Badan";
         const keputusan_ujian_saringans = "Keputusan Ujian Saringan";
         const kerjasama = "Kerjasama";
         const kursuskem = "Kursus/Kem";
@@ -5429,7 +5429,7 @@ if($session->get('language') == "EN") {
         const laporan_statistik_bantuan_elaun_sue_jumlah_kelulusan = "Assistance Statistical Report SUE Allowance / Allowance Coordinator / Emoluments PSK (Total Amount Approved)";
         const laporan_statistik_bantuan_menghadiri_program_antarabangsa = "Assistance Statistical Report Attends International Program";
         const laporan_statistik_bantuan_menghadiri_program_antarabangsa_jumlah_kelulusan = "Assistance Statistical Report Attends International Program (Total Amount Approved)";
-        const laporan_statistik_bantuan_penganjuran_kejohanan_mengikut_badan_sukan = "Assistance Statistical Report Championships Organizing Body By Sport";
+        const laporan_statistik_bantuan_penganjuran_kejohanan_mengikut_badan_sukan = "Assistance Statistical Report Championships By Sport";
         const laporan_statistik_bantuan_penganjuran_kursus_bengkel_seminar = "Reports Statistics Organizing Courses / Workshops / Seminar";
         const laporan_statistik_bayaran_skim_insentif_msn = "Statistical Report MSN Incentive Schemes";
         const laporan_statistik_bulanan_pengunaan_ubatan_dan_kos = "Monthly Statistics Medicinal Use And Cost";
@@ -5597,7 +5597,7 @@ if($session->get('language') == "EN") {
         const pesakit_luar_sistem_pendaftaran_dan_temujanji_atlet_pesakit_luar_sistem_proses_rawatan_pesakit_luar_pengurusan_rekod_pemeriksaan_perubatan_pesakit_luar_sistem_pemberian_ubat_kepada_psk = "Patient Registration / Athletes";
         const persetujuan = "Informed Consent";
         const pjs = "PJS";
-        const profil = "Profil";
+        const profil = "Profile";
         const profil_ajk_khas_sukan_malaysia = "Profile Special Committee Sports Malaysia";
         const profil_kaunselor = "Profile Psychologist / Counsellor";
         const profil_panel_penasihat_kpsk = "Panel Profile Setter";
