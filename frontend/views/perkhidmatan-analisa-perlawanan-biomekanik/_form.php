@@ -64,7 +64,10 @@ use app\models\general\GeneralMessage;
                                     ]
                                 ] : null,
                                 'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
-                                'options' => ['placeholder' => Placeholder::atlet],],
+                                'options' => ['placeholder' => Placeholder::atlet],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                             'columnOptions'=>['colspan'=>6]],
                         'sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -78,7 +81,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],],
+                        'options' => ['placeholder' => Placeholder::sukan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                     ],
                 ],
@@ -106,7 +112,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefPerkhidmatanBiomekanik::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::perkhidmatan],],
+                        'options' => ['placeholder' => Placeholder::perkhidmatan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>6]],
                 'tarikh' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -137,7 +146,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefUjianStatusBiomekanik::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::statusUjian],],
+                        'options' => ['placeholder' => Placeholder::statusUjian],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>6]],
             ],
         ],

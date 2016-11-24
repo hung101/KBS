@@ -76,7 +76,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefBadanSukanAntarabangsa::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::badanSukanAntarabangsa],],
+                        'options' => ['placeholder' => Placeholder::badanSukanAntarabangsa],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],

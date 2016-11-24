@@ -83,7 +83,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJantina::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jantina],],
+                        'options' => ['placeholder' => Placeholder::jantina],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>2]],
                  
             ],
@@ -159,7 +162,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
+                        'options' => ['placeholder' => Placeholder::negeri],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'alamat_bandar' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -203,7 +209,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefTahapKpsk::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::tahap],],
+                        'options' => ['placeholder' => Placeholder::tahap],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>2]],
                 'tarikh_kursus' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -424,7 +433,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefStatusPermohonanJkk::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::statusPermohonan],],
+                        'options' => ['placeholder' => Placeholder::statusPermohonan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>2]],
                 'tarikh_kelulusan' =>[
                     'type'=>Form::INPUT_WIDGET, 

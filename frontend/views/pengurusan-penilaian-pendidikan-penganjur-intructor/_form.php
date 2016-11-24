@@ -64,7 +64,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(PengurusanPermohonanKursusPersatuan::find()->all(),'pengurusan_permohonan_kursus_persatuan_id', 'agensi'),
-                        'options' => ['placeholder' => Placeholder::tarikhKursus, 'id'=>'kursusId'],],
+                        'options' => ['placeholder' => Placeholder::tarikhKursus, 'id'=>'kursusId'],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>6]],
                 'nama_penganjuran_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80,'value'=>'Kursus Pengurusan Sukan Kebangsaan (KPSK)', 'disabled'=>true]],
                 'kod_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
@@ -114,7 +117,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(ProfilPanelPenasihatKpsk::find()->all(),'profil_panel_penasihat_kpsk_id', 'nama'),
-                        'options' => ['placeholder' => Placeholder::instructor],],
+                        'options' => ['placeholder' => Placeholder::instructor],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
             ]
         ],

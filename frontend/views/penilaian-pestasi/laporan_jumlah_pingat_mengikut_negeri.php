@@ -46,7 +46,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
                         'data'=>ArrayHelper::map(PerancanganProgram::find()->where('jenis_aktiviti = :id1 OR jenis_aktiviti = :id2', [':id1' => RefJenisAktiviti::KEJOHANAN_DALAM_NEGARA,':id2' => RefJenisAktiviti::KEJOHANAN_LUAR_NEGARA])->all(),'perancangan_program_id', 'nama_program'),
-                        'options' => ['placeholder' => Placeholder::kejohanan],],
+                        'options' => ['placeholder' => Placeholder::kejohanan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
             ],
         ],

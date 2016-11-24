@@ -54,7 +54,10 @@ use app\models\RefJawatankuasaKhas;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJawatankuasaKhas::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jawatankuasa],],
+                        'options' => ['placeholder' => Placeholder::jawatankuasa],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'jenis_keahlian' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -68,7 +71,10 @@ use app\models\RefJawatankuasaKhas;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJenisKeahlian::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jenisKeahlian],],
+                        'options' => ['placeholder' => Placeholder::jenisKeahlian],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'jenis_keahlian_nyatakan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
             ],
@@ -90,7 +96,10 @@ use app\models\RefJawatankuasaKhas;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJawatanJawatankuasaKhas::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jawatan],],
+                        'options' => ['placeholder' => Placeholder::jawatan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'jawatan_lain_lain' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
                 'negeri' => [
@@ -105,7 +114,10 @@ use app\models\RefJawatankuasaKhas;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
+                        'options' => ['placeholder' => Placeholder::negeri],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],
@@ -125,7 +137,10 @@ use app\models\RefJawatankuasaKhas;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefAgensiOrganisasi::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jawatankuasa],],
+                        'options' => ['placeholder' => Placeholder::jawatankuasa],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                 'agensi_organisasi_nyatakan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
                 'emel' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100]],

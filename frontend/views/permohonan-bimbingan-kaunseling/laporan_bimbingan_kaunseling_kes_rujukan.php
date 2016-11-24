@@ -73,7 +73,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
                         'data'=>['1'=>'Atlet','2'=>'Jurulatih'],
-                        'options' => ['placeholder' => Placeholder::jenis],],
+                        'options' => ['placeholder' => Placeholder::jenis],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],

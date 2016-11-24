@@ -1057,7 +1057,10 @@ use common\models\general\GeneralFunction;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefStatusPermohonanEBiasiswa::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::statusPermohonan],],
+                        'options' => ['placeholder' => Placeholder::statusPermohonan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
             ]
         ],

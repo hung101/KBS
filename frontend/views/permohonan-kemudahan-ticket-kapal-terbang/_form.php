@@ -57,7 +57,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefBahagianKemudahan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::bahagian],],
+                        'options' => ['placeholder' => Placeholder::bahagian],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'cawangan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -71,7 +74,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefCawanganKemudahan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::cawangan],],
+                        'options' => ['placeholder' => Placeholder::cawangan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],
@@ -98,7 +104,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefProgram::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::program],],
+                        'options' => ['placeholder' => Placeholder::program],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>6]],
                 'no_fail_kelulusan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3]],
                 'bil_penumpang' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3]],
@@ -451,7 +460,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefStatusPermohonanKemudahan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::statusPermohonan],],
+                        'options' => ['placeholder' => Placeholder::statusPermohonan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'bilangan_jkb' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>50]],
                 'tarikh_jkb' => [

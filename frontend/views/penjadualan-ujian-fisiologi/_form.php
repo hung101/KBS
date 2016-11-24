@@ -59,7 +59,10 @@ use app\models\general\GeneralLabel;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriAtletFisiologi::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategori],],
+                        'options' => ['placeholder' => Placeholder::kategori],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'kategori_sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -73,7 +76,10 @@ use app\models\general\GeneralLabel;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriSukan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],],
+                        'options' => ['placeholder' => Placeholder::sukan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 
             ],
@@ -94,7 +100,10 @@ use app\models\general\GeneralLabel;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],],
+                        'options' => ['placeholder' => Placeholder::sukan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'acara' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -146,7 +155,10 @@ use app\models\general\GeneralLabel;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefTempatPenjadualanUjianFisiologi::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::tempat],],
+                        'options' => ['placeholder' => Placeholder::tempat],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'tarikh_masa' => [
                     'type'=>Form::INPUT_WIDGET, 

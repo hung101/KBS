@@ -49,7 +49,10 @@ use app\models\general\GeneralLabel;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(PengurusanKemudahanVenue::find()->all(),'pengurusan_kemudahan_venue_id', 'nama_venue'),
-                        'options' => ['placeholder' => Placeholder::kemudahan],],
+                        'options' => ['placeholder' => Placeholder::kemudahan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>5]],
                 'jenama' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -63,7 +66,10 @@ use app\models\general\GeneralLabel;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJenamaPeralatanKemudahan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jenama],],
+                        'options' => ['placeholder' => Placeholder::jenama],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                  
             ],
@@ -85,7 +91,10 @@ use app\models\general\GeneralLabel;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefPeralatanKemudahan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::peralatanKemudahan],],
+                        'options' => ['placeholder' => Placeholder::peralatanKemudahan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>5]],
                 'kuantiti' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>11]],
                  

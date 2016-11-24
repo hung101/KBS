@@ -48,7 +48,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(ProfilWartawanSukan::find()->where(['=', 'aktif', 1])->all(),'profil_wartawan_sukan_id', 'nama'),
-                        'options' => ['placeholder' => Placeholder::wartawan],],
+                        'options' => ['placeholder' => Placeholder::wartawan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                  
             ],

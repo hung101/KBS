@@ -65,7 +65,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJantina::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jantina],],
+                        'options' => ['placeholder' => Placeholder::jantina],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'bangsa' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -79,7 +82,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefBangsa::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::bangsa],],
+                        'options' => ['placeholder' => Placeholder::bangsa],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],

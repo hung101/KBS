@@ -78,7 +78,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,*/
                         'data'=>ArrayHelper::map(RefShuttle::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::driver],],
+                        'options' => ['placeholder' => Placeholder::driver],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
             ]
         ],

@@ -52,7 +52,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriSoalanPenganjur::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategoriSoalan],],
+                        'options' => ['placeholder' => Placeholder::kategoriSoalan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                  'soalan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -89,7 +92,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefRatingSoalan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::rating],],
+                        'options' => ['placeholder' => Placeholder::rating],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>2]],
                  
             ],

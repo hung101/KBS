@@ -146,7 +146,10 @@ use common\models\general\GeneralFunction;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriAgensi::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategori],],
+                        'options' => ['placeholder' => Placeholder::kategori],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                 'agensi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
             ],
@@ -182,7 +185,10 @@ use common\models\general\GeneralFunction;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
+                        'options' => ['placeholder' => Placeholder::negeri],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'alamat_bandar' => [
                     'type'=>Form::INPUT_WIDGET, 

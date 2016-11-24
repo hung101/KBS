@@ -51,7 +51,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriAduanKemudahan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategoriAduan],],
+                        'options' => ['placeholder' => Placeholder::kategoriAduan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                 'pengurusan_kemudahan_venue_id' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -65,7 +68,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(PengurusanKemudahanVenue::find()->all(),'pengurusan_kemudahan_venue_id', 'nama_venue'),
-                        'options' => ['placeholder' => Placeholder::kemudahan],],
+                        'options' => ['placeholder' => Placeholder::kemudahan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                 'peralatan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -79,7 +85,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefPeralatanKemudahan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::peralatanKemudahan],],
+                        'options' => ['placeholder' => Placeholder::peralatanKemudahan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                  
             ],

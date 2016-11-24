@@ -50,7 +50,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriPesertaPerhimpunanKem::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategoriPeserta],],
+                        'options' => ['placeholder' => Placeholder::kategoriPeserta],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                  'jawatan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -64,7 +67,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJawatanPesertaPerhimpunanKem::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jawatan],],
+                        'options' => ['placeholder' => Placeholder::jawatan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
             ],
         ],

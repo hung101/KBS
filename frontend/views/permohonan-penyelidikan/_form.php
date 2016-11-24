@@ -88,7 +88,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJenisProjek::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jenisProjek],],
+                        'options' => ['placeholder' => Placeholder::jenisProjek],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],
@@ -239,7 +242,10 @@ use app\models\general\GeneralMessage;
                                             ]
                                         ] : null,
                                         'data'=>ArrayHelper::map(RefJenisPerkhidmatanAkademik::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                                        'options' => ['placeholder' => Placeholder::jenisPerkhidmatan],],
+                                        'options' => ['placeholder' => Placeholder::jenisPerkhidmatan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                                     'columnOptions'=>['colspan'=>3]],
                                 'akademik_kontrak_tarikh_tamat' => [
                                     'type'=>Form::INPUT_WIDGET, 
@@ -272,7 +278,10 @@ use app\models\general\GeneralMessage;
                                             ]
                                         ] : null,
                                         'data'=>ArrayHelper::map(RefKursusAkademik::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                                        'options' => ['placeholder' => Placeholder::kursus],],
+                                        'options' => ['placeholder' => Placeholder::kursus],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                                     'columnOptions'=>['colspan'=>3]],
                             ],
                         ],

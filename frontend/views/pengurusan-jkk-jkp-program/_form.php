@@ -62,7 +62,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(PengurusanJkkJkp::find()->joinWith(['refNamaAhliJkkJkp'])->all(),'pengurusan_jkk_jkp_id', 'refNamaAhliJkkJkp.desc'),
-                        'options' => ['placeholder' => Placeholder::ahliJKK_JKP],],
+                        'options' => ['placeholder' => Placeholder::ahliJKK_JKP],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],
@@ -110,7 +113,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefPesertaJkkJkp::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::peserta],],
+                        'options' => ['placeholder' => Placeholder::peserta],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],

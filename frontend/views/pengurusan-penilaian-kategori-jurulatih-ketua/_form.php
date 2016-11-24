@@ -51,7 +51,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : '<div></div>',
                         'data'=>ArrayHelper::map(RefKategoriPenilaianJurulatihKetua::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategoriPenilaian],],
+                        'options' => ['placeholder' => Placeholder::kategoriPenilaian],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                 'penilaian_sub_kategori' => [
                     'type'=>Form::INPUT_WIDGET, 

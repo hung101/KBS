@@ -50,7 +50,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriPenilaianPeserta::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategoriPenilaian],],
+                        'options' => ['placeholder' => Placeholder::kategoriPenilaian],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>5]],
                 'nama_temasya' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6]],
                  
@@ -72,7 +75,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSoalanPenilaianPeserta::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::soalan],],
+                        'options' => ['placeholder' => Placeholder::soalan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>9]],
                 'rating' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -86,7 +92,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefRatingSoalanPenilaianPeserta::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::rating],],
+                        'options' => ['placeholder' => Placeholder::rating],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                  
             ],

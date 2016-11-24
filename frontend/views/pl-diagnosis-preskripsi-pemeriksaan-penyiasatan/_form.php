@@ -61,7 +61,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJenisKecederaanMasalahKesihatan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jenisKecederaanMasalahKesihatan],],
+                        'options' => ['placeholder' => Placeholder::jenisKecederaanMasalahKesihatan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>5]],
                 'status_diagnosis_preskripsi_pemeriksaan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -75,7 +78,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefStatusDiagnosisPreskripsiPemeriksaanPenyiasatan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::statusDiagnosisPreskripsiPemeriksaanPenyiasatan],],
+                        'options' => ['placeholder' => Placeholder::statusDiagnosisPreskripsiPemeriksaanPenyiasatan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
             ]
         ],
@@ -95,7 +101,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefUnitDiagnosisPreskripsiPemeriksaanPenyiasatan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::unitDiagnosisPreskripsiPemeriksaanPenyiasatan],],
+                        'options' => ['placeholder' => Placeholder::unitDiagnosisPreskripsiPemeriksaanPenyiasatan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                 'pegawai_yang_bertanggungjawab' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
                 'harga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],

@@ -82,7 +82,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefPegawaiPengurusanPenginapan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::pegawai],],
+                        'options' => ['placeholder' => Placeholder::pegawai],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                 'tarikh_masa_penginapan_mula' => [
                     'type'=>Form::INPUT_WIDGET, 

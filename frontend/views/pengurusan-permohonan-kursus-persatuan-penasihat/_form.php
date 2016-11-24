@@ -52,7 +52,10 @@ use app\models\RefSilibus;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(ProfilPanelPenasihatKpsk::find()->all(),'profil_panel_penasihat_kpsk_id', 'nama'),
-                        'options' => ['placeholder' => Placeholder::penasihat, 'id'=>'penasihatId'],],
+                        'options' => ['placeholder' => Placeholder::penasihat, 'id'=>'penasihatId'],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>6]],
                 'silibus' =>  [
                     'type'=>Form::INPUT_WIDGET, 

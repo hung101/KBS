@@ -71,7 +71,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan, 'id'=>'sukanId'],],
+                        'options' => ['placeholder' => Placeholder::sukan, 'id'=>'sukanId'],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                 'program' => [
                     'type'=>Form::INPUT_WIDGET, 

@@ -62,7 +62,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(PengurusanPermohonanKursusPersatuan::find()->all(),'pengurusan_permohonan_kursus_persatuan_id', 'agensi'),
-                        'options' => ['placeholder' => Placeholder::agensi, 'id'=>'kursusId'],],
+                        'options' => ['placeholder' => Placeholder::agensi, 'id'=>'kursusId'],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>6]],
                 'kod_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
                 'tarikh_kursus' => [

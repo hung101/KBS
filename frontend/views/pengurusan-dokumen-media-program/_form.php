@@ -48,7 +48,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriDokumen::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategoriDokumen],],
+                        'options' => ['placeholder' => Placeholder::kategoriDokumen],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                 'nama_dokumen' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
                 //'muatnaik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>5]],

@@ -67,7 +67,10 @@ $session->close();
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::atlet],],
+                        'options' => ['placeholder' => Placeholder::atlet],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                  'nama_acara' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -81,7 +84,10 @@ $session->close();
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map($acara_list,'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::acara],],
+                        'options' => ['placeholder' => Placeholder::acara],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'tarikh_acara' => [
                     'type'=>Form::INPUT_WIDGET, 

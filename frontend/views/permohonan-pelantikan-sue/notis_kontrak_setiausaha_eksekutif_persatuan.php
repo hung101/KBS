@@ -79,7 +79,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,*/
                         'data'=>ArrayHelper::map(PengurusanJawatankuasaKhasSukanMalaysia::find()->all(),'pengurusan_jawatankuasa_khas_sukan_malaysia_id', 'temasya'),
-                        'options' => ['placeholder' => Placeholder::temasya],],
+                        'options' => ['placeholder' => Placeholder::temasya],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
             ],
         ],

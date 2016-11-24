@@ -75,7 +75,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->where('tawaran = :tawaran', [':tawaran' => RefStatusTawaran::LULUS_TAWARAN])->all(),'atlet_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::atlet, 'id'=>'atletId'],],
+                        'options' => ['placeholder' => Placeholder::atlet, 'id'=>'atletId'],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>6]],
                 'ic_no' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>12]],
             ],

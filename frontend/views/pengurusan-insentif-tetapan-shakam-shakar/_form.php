@@ -90,7 +90,10 @@ use app\models\RefInsentifKelas;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefPingatInsentif::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::pingat],],
+                        'options' => ['placeholder' => Placeholder::pingat],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'peringkat' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -104,7 +107,10 @@ use app\models\RefInsentifKelas;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefInsentifPeringkat::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::peringkat],],
+                        'options' => ['placeholder' => Placeholder::peringkat],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'peringkat' => [
                     'type'=>Form::INPUT_WIDGET, 

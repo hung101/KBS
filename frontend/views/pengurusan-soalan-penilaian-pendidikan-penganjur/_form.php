@@ -49,7 +49,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSoalanPenilaianPendidikanPenganjurInstructor::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::soalan],],
+                        'options' => ['placeholder' => Placeholder::soalan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>10]],
                 'rating' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -63,7 +66,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefRatingSoalan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::rating],],
+                        'options' => ['placeholder' => Placeholder::rating],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>2]],
                  
             ],

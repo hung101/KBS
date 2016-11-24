@@ -50,7 +50,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriKursusPenganjuran::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategoriKursus],],
+                        'options' => ['placeholder' => Placeholder::kategoriKursus],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                 'nama_kursus' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
                  'kod_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],

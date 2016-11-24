@@ -49,7 +49,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(PengurusanJkkJkp::find()->joinWith(['refNamaAhliJkkJkp'])->all(),'pengurusan_jkk_jkp_id', 'refNamaAhliJkkJkp.desc'),
-                        'options' => ['placeholder' => Placeholder::ahliJKK_JKP],],
+                        'options' => ['placeholder' => Placeholder::ahliJKK_JKP],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],
@@ -69,7 +72,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriBajetJkkJkp::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategoriBajet],],
+                        'options' => ['placeholder' => Placeholder::kategoriBajet],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>5]],
                  'jumlah_bajet' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3]],
             ],
