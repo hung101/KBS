@@ -21,6 +21,8 @@ use app\models\RefSixstepPsikologiStatus;
 // contant values
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralVariable;
+use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\SixStepSuaianFizikal */
@@ -151,7 +153,7 @@ use app\models\general\GeneralLabel;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-sixstep-psikologi-stage/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sixsteppsikologi-psikologi-stage/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
@@ -168,7 +170,7 @@ use app\models\general\GeneralLabel;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-sixstep-psikologi-status/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sixsteppsikologi-psikologi-status/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
@@ -206,3 +208,54 @@ use app\models\general\GeneralLabel;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$URLAtlet = Url::to(['/atlet/get-atlet']);
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+            
+$('#sixsteppsikologi-atlet_id').change(function(){
+            
+    if($(this).val() != ''){
+            
+        $.get('$URLAtlet',{id:$(this).val()},function(data){
+            clearForm();
+
+            var data = $.parseJSON(data);
+
+            if(data !== null){
+            
+                if(data.refAtletSukan[0] !== null){ 
+                    $('#sixsteppsikologi-acara').val(data.refAtletSukan[0].acara).trigger("change");
+                    $('#sixsteppsikologi-sukan').val(data.refAtletSukan[0].nama_sukan).trigger("change");
+                    $('#sixsteppsikologi-kategori_atlet').val(data.refAtletSukan[0].program_semasa).trigger("change");
+                }
+            
+                if(data.refAtletPendidikan[0] !== null){ 
+                    //$('#sixsteppsikologi-tahap_pendidikan').val(data.refAtletPendidikan[0].jenis_peringkatan_pendidikan).trigger("change");
+                }
+            }
+        });
+    }
+});
+         
+function clearForm(){
+    $('#sixsteppsikologi-acara').val('').trigger("change");
+    $('#sixsteppsikologi-sukan').val('').trigger("change");
+            $('#sixsteppsikologi-kategori_atlet').val('').trigger("change");
+}
+
+JS;
+        
+$this->registerJs($script);
+?>

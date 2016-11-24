@@ -2159,6 +2159,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_program_kursus = "Laporan Program/Kursus";
         const laporan_senarai_atlet = "Laporan Senarai Atlet";
         const laporan_senarai_atlet_paralimpik = "Laporan Senarai Atlet (Paralimpik)";
+        const laporan_senarai_bantuan_geran_kejohanan = "Laporan Senarai Bantuan Geran Kejohanan";
         const laporan_senarai_jurulatih = "Laporan Senarai Jurulatih";
         const laporan_senarai_harga_perkhidmatan_ubatan_peralatan = "Laporan Senarai Harga Perkhidmatan / Ubatan / Peralatan";
         const laporan_senarai_hpt_laporan_bulanan_pegawai = "Laporan Senarai HPT Laporan Bulanan Pegawai";
@@ -5386,6 +5387,7 @@ if($session->get('language') == "EN") {
         const laporan_program_kursus = "Report Program/Course";
         const laporan_senarai_atlet = "Report Athlete List";
         const laporan_senarai_atlet_paralimpik = "Report Athlete List (Paralympic)";
+        const laporan_senarai_bantuan_geran_kejohanan = "List of Grants Tournament Report";
         const laporan_senarai_jurulatih = "Report Coach List";
         const laporan_senarai_harga_perkhidmatan_ubatan_peralatan = "Report List Price Services / Medicine / Equipment";
         const laporan_senarai_hpt_laporan_bulanan_pegawai = "List HPT Monthly Report Officer";

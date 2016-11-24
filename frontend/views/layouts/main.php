@@ -417,6 +417,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                                     'label' => GeneralLabel::laporan,
                                                     'items' => [
                                                         ['label' => GeneralLabel::laporan_statistik_bantuan_penganjuran_kejohanan_mengikut_badan_sukan, 'url' => ['/bantuan-penganjuran-kejohanan/laporan-statistik-bantuan-penganjuran-kejohanan-mengikut-badan-sukan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['module'])],
+                                                        ['label' => GeneralLabel::laporan_senarai_bantuan_geran_kejohanan, 'url' => ['/bantuan-penganjuran-kejohanan/laporan-senarai-bantuan-geran-kejohanan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['module'])],
                                                     ],
                                                 ],
                                             ],

@@ -8,6 +8,7 @@ use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
 use yii\bootstrap\Modal;
+use kartik\widgets\DepDrop;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 use kartik\datecontrol\DateControl;
@@ -52,7 +53,7 @@ use app\models\general\GeneralMessage;
                     'columns'=>12,
                     'autoGenerateColumns'=>false, // override columns setting
                     'attributes' => [
-                        'atlet_id' => [
+                        'atlet_id' => /*[
                             'type'=>Form::INPUT_WIDGET, 
                             'widgetClass'=>'\kartik\widgets\Select2',
                             'options'=>[
@@ -68,7 +69,29 @@ use app\models\general\GeneralMessage;
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                            'columnOptions'=>['colspan'=>6]],
+                            'columnOptions'=>['colspan'=>6]],*/
+                        [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
+                    'options'=>[
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                        ],
+                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'options'=>['prompt'=>'',],
+                        'pluginOptions' => [
+                            'depends'=>[Html::getInputId($model, 'sukan')],
+                            'placeholder' => Placeholder::atlet,
+                            'url'=>Url::to(['/atlet/sub-atlets-sukan'])],
+                        ],
+                    'columnOptions'=>['colspan'=>6]],
                         'sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -345,17 +368,6 @@ use app\models\general\GeneralMessage;
     <br>
     
 
-    <!--<?= $form->field($model, 'permohonan_perkhidmatan_analisa_perlawanan_dan_bimekanik_id')->textInput() ?>
-
-    <?= $form->field($model, 'perkhidmatan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'tarikh')->textInput() ?>
-
-    <?= $form->field($model, 'pegawai_yang_bertanggungjawab')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'status_ujian')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'catitan_ringkas')->textInput(['maxlength' => 255]) ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -366,3 +378,53 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$URLAtlet = Url::to(['/atlet/get-atlet']);
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+            
+$('#perkhidmatananalisaperlawananbiomekanik-atlet_id').change(function(){
+            
+    if($(this).val() != ''){
+            
+        $.get('$URLAtlet',{id:$(this).val()},function(data){
+            clearForm();
+
+            var data = $.parseJSON(data);
+
+            if(data !== null){
+            
+                if(data.refAtletSukan[0] !== null){ 
+                    //$('#perkhidmatananalisaperlawananbiomekanik-acara').val(data.refAtletSukan[0].acara).trigger("change");
+                    $('#perkhidmatananalisaperlawananbiomekanik-sukan').val(data.refAtletSukan[0].nama_sukan).trigger("change");
+                    //$('#perkhidmatananalisaperlawananbiomekanik-kategori_atlet').val(data.refAtletSukan[0].program_semasa).trigger("change");
+                }
+            
+                if(data.refAtletPendidikan[0] !== null){ 
+                    //$('#perkhidmatananalisaperlawananbiomekanik-tahap_pendidikan').val(data.refAtletPendidikan[0].jenis_peringkatan_pendidikan).trigger("change");
+                }
+            }
+        });
+    }
+});
+         
+function clearForm(){
+    //$('#perkhidmatananalisaperlawananbiomekanik-acara').val('').trigger("change");
+    $('#perkhidmatananalisaperlawananbiomekanik-sukan').val('').trigger("change");
+            //$('#perkhidmatananalisaperlawananbiomekanik-kategori_atlet').val('').trigger("change");
+}
+
+JS;
+        
+$this->registerJs($script);
+?>

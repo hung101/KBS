@@ -8,6 +8,7 @@ use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
 use yii\bootstrap\Modal;
+use kartik\widgets\DepDrop;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 use kartik\datecontrol\DateControl;
@@ -55,7 +56,7 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'atlet_id' => [
+                'atlet_id' => /*[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -71,6 +72,30 @@ use app\models\general\GeneralMessage;
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
+                    'columnOptions'=>['colspan'=>5]],*/
+                [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
+                    'options'=>[
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                        ],
+                        //'data'=>ArrayHelper::map(AtletSukan::find()->joinWith(['refAtlet'])->asArray()->all(),'atlet_id', 'nameAndIC'),
+                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'options'=>['prompt'=>'',],
+                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                        'pluginOptions' => [
+                            'depends'=>[Html::getInputId($model, 'kategori_atlet'), Html::getInputId($model, 'jenis_sukan')],
+                            'placeholder' => Placeholder::atlet,
+                            'url'=>Url::to(['/atlet/sub-atlets-by-program-sukan'])],
+                        ],
                     'columnOptions'=>['colspan'=>5]],
                 'kategori_atlet' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -371,7 +396,7 @@ $DateDisplayFormat = GeneralVariable::displayDateFormat;
 
 $script = <<< JS
         
-$('#atletId').change(function(){
+$('#pltemujanji-atlet_id').change(function(){
     
     $.get('$URLJurulatih',{id:$(this).val()},function(data){
         clearForm();

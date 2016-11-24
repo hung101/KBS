@@ -9,6 +9,7 @@ use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
 use yii\grid\GridView;
 use yii\bootstrap\Modal;
+use kartik\widgets\DepDrop;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 
@@ -69,7 +70,7 @@ use app\models\general\GeneralMessage;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>4]],
-                'atlet_id' =>  [
+                'atlet_id' =>  /*[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -85,6 +86,28 @@ use app\models\general\GeneralMessage;
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
+                    'columnOptions'=>['colspan'=>6]],*/
+                [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
+                    'options'=>[
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                        ],
+                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'options'=>['prompt'=>'',],
+                        'pluginOptions' => [
+                            'depends'=>[Html::getInputId($model, 'jenis_sukan')],
+                            'placeholder' => Placeholder::atlet,
+                            'url'=>Url::to(['/atlet/sub-atlets-sukan'])],
+                        ],
                     'columnOptions'=>['colspan'=>6]],
                  
             ],
@@ -224,3 +247,53 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$URLAtlet = Url::to(['/atlet/get-atlet']);
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+            
+$('#soalselidiksebelumujian-atlet_id').change(function(){
+            
+    if($(this).val() != ''){
+            
+        $.get('$URLAtlet',{id:$(this).val()},function(data){
+            clearForm();
+
+            var data = $.parseJSON(data);
+
+            if(data !== null){
+            
+                if(data.refAtletSukan[0] !== null){ 
+                    //$('#soalselidiksebelumujian-acara').val(data.refAtletSukan[0].acara).trigger("change");
+                    $('#soalselidiksebelumujian-jenis_sukan').val(data.refAtletSukan[0].nama_sukan).trigger("change");
+                    //$('#soalselidiksebelumujian-kategori_atlet').val(data.refAtletSukan[0].program_semasa).trigger("change");
+                }
+            
+                if(data.refAtletPendidikan[0] !== null){ 
+                    //$('#soalselidiksebelumujian-tahap_pendidikan').val(data.refAtletPendidikan[0].jenis_peringkatan_pendidikan).trigger("change");
+                }
+            }
+        });
+    }
+});
+         
+function clearForm(){
+    //$('#soalselidiksebelumujian-acara').val('').trigger("change");
+    $('#soalselidiksebelumujian-jenis_sukan').val('').trigger("change");
+            //$('#soalselidiksebelumujian-kategori_atlet').val('').trigger("change");
+}
+
+JS;
+        
+$this->registerJs($script);
+?>

@@ -22,6 +22,7 @@ use app\models\RefKategoriAtletFisiologi;
 use app\models\RefTujuanUjianFisiologiSub;
 use app\models\RefTujuanUjianFisiologi;
 use app\models\RefPeralatanUjianFisiologi;
+use app\models\RefAtletTahap;
 
 // contant values
 use app\models\general\Placeholder;
@@ -47,7 +48,7 @@ use app\models\general\GeneralLabel;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'kategori_atlet' => [
+                'kategori_atlet' => /*[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -59,6 +60,23 @@ use app\models\general\GeneralLabel;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriAtletFisiologi::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kategori],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],*/
+                [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-atlet-tahap/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefAtletTahap::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kategori],
 'pluginOptions' => [
                             'allowClear' => true

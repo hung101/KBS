@@ -170,20 +170,6 @@ use app\models\general\GeneralMessage;
     ?>
     <?php endif; ?>
 
-    <!--<?= $form->field($model, 'atlet_id')->textInput() ?>
-
-    <?= $form->field($model, 'tarikh')->textInput() ?>
-
-    <?= $form->field($model, 'sukan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'tujuan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'kategori_permohonan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'jenis_perkhidmatan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'kelulusan')->textInput() ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -196,3 +182,53 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$URLAtlet = Url::to(['/atlet/get-atlet']);
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+            
+$('#permohonanperkhidmatanpermakanan-atlet_id').change(function(){
+            
+    if($(this).val() != ''){
+            
+        $.get('$URLAtlet',{id:$(this).val()},function(data){
+            clearForm();
+
+            var data = $.parseJSON(data);
+
+            if(data !== null){
+            
+                if(data.refAtletSukan[0] !== null){ 
+                    //$('#permohonanperkhidmatanpermakanan-acara').val(data.refAtletSukan[0].acara).trigger("change");
+                    $('#permohonanperkhidmatanpermakanan-sukan').val(data.refAtletSukan[0].nama_sukan).trigger("change");
+                    //$('#permohonanperkhidmatanpermakanan-kategori_atlet').val(data.refAtletSukan[0].program_semasa).trigger("change");
+                }
+            
+                if(data.refAtletPendidikan[0] !== null){ 
+                    //$('#permohonanperkhidmatanpermakanan-tahap_pendidikan').val(data.refAtletPendidikan[0].jenis_peringkatan_pendidikan).trigger("change");
+                }
+            }
+        });
+    }
+});
+         
+function clearForm(){
+    //$('#permohonanperkhidmatanpermakanan-acara').val('').trigger("change");
+    $('#permohonanperkhidmatanpermakanan-sukan').val('').trigger("change");
+            //$('#permohonanperkhidmatanpermakanan-kategori_atlet').val('').trigger("change");
+}
+
+JS;
+        
+$this->registerJs($script);
+?>

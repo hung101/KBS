@@ -21,6 +21,7 @@ use app\models\RefSukan;
 use app\models\RefKategoriSukan;
 use app\models\RefAcara;
 use app\models\RefTempatPenjadualanUjianFisiologi;
+use app\models\RefAtletTahap;
 
 /**
  * PenjadualanUjianFisiologiController implements the CRUD actions for PenjadualanUjianFisiologi model.
@@ -85,6 +86,9 @@ class PenjadualanUjianFisiologiController extends Controller
         
         $ref = RefTempatPenjadualanUjianFisiologi::findOne(['id' => $model->tempat]);
         $model->tempat = $ref['desc'];
+        
+        $ref = RefAtletTahap::findOne(['id' => $model->kategori_atlet]);
+        $model->kategori_atlet = $ref['desc'];
         
         $model->tarikh_masa = GeneralFunction::convert($model->tarikh_masa, GeneralFunction::TYPE_DATETIME);
         

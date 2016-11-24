@@ -309,7 +309,14 @@ class AtletSukanController extends Controller
      * @return Array Atlets
      */
     public static function getAtletsBySukan($sukan_id) {
-        $data = AtletSukan::find()->joinWith(['refAtlet'])->where(['nama_sukan'=>$sukan_id])->andWhere('`tbl_atlet`.`atlet_id` IS NOT NULL')->select(['DISTINCT(`tbl_atlet`.`atlet_id`) AS id','tbl_atlet.name_penuh AS name'])->createCommand()->queryAll();
+        $data = AtletSukan::find()->joinWith(['refAtlet'])->andWhere('`tbl_atlet`.`atlet_id` IS NOT NULL')->select(['DISTINCT(`tbl_atlet`.`atlet_id`) AS id','tbl_atlet.name_penuh AS name']);
+        
+        if($sukan_id!="" && isset($sukan_id)){
+            $data = $data->andWhere(['nama_sukan'=>$sukan_id]);
+        }
+                    
+        $data = $data->createCommand()->queryAll();
+        
         $value = (count($data) == 0) ? ['' => ''] : $data;
 
         return $value;

@@ -23,6 +23,8 @@ use app\models\RefFasilitiSatelit;
 // contant values
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralVariable;
+use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\SixStepSuaianFizikal */
@@ -244,3 +246,53 @@ use app\models\general\GeneralLabel;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$URLAtlet = Url::to(['/atlet/get-atlet']);
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+            
+$('#sixstepsatelit-atlet_id').change(function(){
+            
+    if($(this).val() != ''){
+            
+        $.get('$URLAtlet',{id:$(this).val()},function(data){
+            clearForm();
+
+            var data = $.parseJSON(data);
+
+            if(data !== null){
+            
+                if(data.refAtletSukan[0] !== null){ 
+                    $('#sixstepsatelit-acara').val(data.refAtletSukan[0].acara).trigger("change");
+                    $('#sixstepsatelit-sukan').val(data.refAtletSukan[0].nama_sukan).trigger("change");
+                    $('#sixstepsatelit-kategori_atlet').val(data.refAtletSukan[0].program_semasa).trigger("change");
+                }
+            
+                if(data.refAtletPendidikan[0] !== null){ 
+                    //$('#sixstepsatelit-tahap_pendidikan').val(data.refAtletPendidikan[0].jenis_peringkatan_pendidikan).trigger("change");
+                }
+            }
+        });
+    }
+});
+         
+function clearForm(){
+    $('#sixstepsatelit-acara').val('').trigger("change");
+    $('#sixstepsatelit-sukan').val('').trigger("change");
+            $('#sixstepsatelit-kategori_atlet').val('').trigger("change");
+}
+
+JS;
+        
+$this->registerJs($script);
+?>

@@ -6,6 +6,8 @@ use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
+use kartik\widgets\DepDrop;
+use yii\helpers\Url;
 use kartik\datecontrol\DateControl;
 
 // table reference
@@ -61,7 +63,7 @@ use app\models\general\GeneralMessage;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
-                 'atlet_id' => [
+                 'atlet_id' => /*[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -77,6 +79,29 @@ use app\models\general\GeneralMessage;
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
+                    'columnOptions'=>['colspan'=>5]],*/
+                [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
+                    'options'=>[
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
+                        ],
+                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'options'=>['prompt'=>'',],
+                        'pluginOptions' => [
+                            'depends'=>[Html::getInputId($model, 'jenis_sukan')],
+                            'placeholder' => Placeholder::atlet,
+                            'url'=>Url::to(['/atlet/sub-atlets-sukan'])],
+                        ],
                     'columnOptions'=>['colspan'=>5]],
                 'jantina' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -198,18 +223,6 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
 
-    <!--<?= $form->field($model, 'atlet_id')->textInput() ?>
-
-    <?= $form->field($model, 'perkhidmatan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'tarikh_khidmat')->textInput() ?>
-
-    <?= $form->field($model, 'pegawai_yang_bertanggungjawab')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'status_temujanji')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'catitan_ringkas')->textInput(['maxlength' => 255]) ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -219,3 +232,36 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$URLAtlet = Url::to(['/atlet/get-atlet']);
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$script = <<< JS
+        
+$('#temujanjikomplimentari-atlet_id').change(function(){
+    
+    $.get('$URLAtlet',{id:$(this).val()},function(data){
+        clearForm();
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+        
+            if(data.refAtletSukan[0] !== null){ 
+                //$('#temujanjikomplimentari-kategori_atlet').val(data.refAtletSukan[0].program_semasa).trigger("change");
+                $('#temujanjikomplimentari-jenis_sukan').val(data.refAtletSukan[0].nama_sukan).trigger("change");
+            }
+        }
+    });
+});
+     
+function clearForm(){
+    //$("#temujanjikomplimentari-kategori_atlet").val('').trigger("change");
+    $("#temujanjikomplimentari-jenis_sukan").val('').trigger("change");
+}
+        
+JS;
+        
+$this->registerJs($script);
+?>

@@ -627,10 +627,22 @@ Majlis Sukan Negara Malaysia.
         $data = Atlet::find()->joinWith(['refAtletSukan' => function($query) {
                         $query->orderBy(['tbl_atlet_sukan.created' => SORT_DESC])->one();
                     },
-                ])->where(['tbl_atlet_sukan.program_semasa'=>$program_id])
-                            ->andWhere(['tbl_atlet_sukan.nama_sukan'=>$sukan_id])
-                            ->andWhere(['tbl_atlet_sukan.acara'=>$acara_id])->groupBy('tbl_atlet.atlet_id')
-                            ->select(['tbl_atlet.atlet_id AS id','tbl_atlet.name_penuh AS name'])->asArray()->createCommand()->queryAll();
+                ])
+                            ->select(['DISTINCT(`tbl_atlet`.`atlet_id`) AS id','tbl_atlet.name_penuh AS name']);
+                    
+        if($sukan_id!="" && isset($sukan_id)){
+            $data = $data->andWhere(['tbl_atlet_sukan.nama_sukan'=>$sukan_id]);
+        }
+        
+        if($acara_id!="" && isset($acara_id)){
+            $data = $data->andWhere(['tbl_atlet_sukan.acara'=>$acara_id]);
+        }
+        
+        if($program_id!="" && isset($program_id)){
+            $data = $data->andWhere(['tbl_atlet_sukan.program_semasa'=>$program_id]);
+        }
+
+        $data = $data->asArray()->createCommand()->queryAll();
                     
         $value = (count($data) == 0) ? ['' => ''] : $data;
 
@@ -672,8 +684,69 @@ Majlis Sukan Negara Malaysia.
         $data = Atlet::find()->joinWith(['refAtletSukan' => function($query) {
                         $query->orderBy(['tbl_atlet_sukan.created' => SORT_DESC])->one();
                     },
-                ])->andWhere(['tbl_atlet_sukan.nama_sukan'=>$sukan_id])->groupBy('tbl_atlet.atlet_id')
-                            ->select(['tbl_atlet.atlet_id AS id','tbl_atlet.name_penuh AS name'])->asArray()->createCommand()->queryAll();
+                ])
+                            ->select(['DISTINCT(`tbl_atlet`.`atlet_id`) AS id','tbl_atlet.name_penuh AS name']);
+                    
+                    if($sukan_id!="" && isset($sukan_id)){
+                        $data = $data->andWhere(['tbl_atlet_sukan.nama_sukan'=>$sukan_id])->groupBy('tbl_atlet.atlet_id');
+                    }
+                    
+                    $data = $data->asArray()->createCommand()->queryAll();
+                    
+        $value = (count($data) == 0) ? ['' => ''] : $data;
+
+        return $value;
+    }
+    
+    /**
+     * Get Bandars base on Negeri id
+     * @param integer $id actionHryye
+     * @return mixed
+     */
+    public function actionSubAtletsByProgramSukan()
+    {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $cat1_id = $parents[0];
+                $cat2_id = $parents[1];
+                $out = self::getAtletsByProgramSukan($cat1_id, $cat2_id); 
+                // the getSubCatList function will query the database based on the
+                // cat_id and return an array like below:
+                // [
+                //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+                //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+                // ]
+                echo Json::encode(['output'=>$out, 'selected'=>'']);
+                return;
+            }
+        }
+        echo Json::encode(['output'=>'', 'selected'=>'']);
+    }
+    
+    /**
+     * get list of Bandar by Negeri
+     * @param integer $id
+     * @return Array Bandars
+     */
+    public static function getAtletsByProgramSukan($program_id, $sukan_id) {
+        $data = Atlet::find()->joinWith(['refAtletSukan' => function($query) {
+                        $query->orderBy(['tbl_atlet_sukan.created' => SORT_DESC])->one();
+                    },
+                ])
+                            
+                            ->select(['DISTINCT(`tbl_atlet`.`atlet_id`) AS id','tbl_atlet.name_penuh AS name']);
+                    
+        if($sukan_id!="" && isset($sukan_id)){
+            $data = $data->andWhere(['tbl_atlet_sukan.nama_sukan'=>$sukan_id]);
+        }
+        
+        if($program_id!="" && isset($program_id)){
+            $data = $data->andWhere(['tbl_atlet_sukan.program_semasa'=>$program_id]);
+        }
+
+        $data = $data->asArray()->createCommand()->queryAll();
                     
         $value = (count($data) == 0) ? ['' => ''] : $data;
 

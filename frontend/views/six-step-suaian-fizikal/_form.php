@@ -21,6 +21,7 @@ use app\models\RefSixstepSuaianFizikalStatus;
 // contant values
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
@@ -235,3 +236,54 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$URLAtlet = Url::to(['/atlet/get-atlet']);
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+            
+$('#sixstepsuaianfizikal-atlet_id').change(function(){
+            
+    if($(this).val() != ''){
+            
+        $.get('$URLAtlet',{id:$(this).val()},function(data){
+            clearForm();
+
+            var data = $.parseJSON(data);
+
+            if(data !== null){
+            
+                if(data.refAtletSukan[0] !== null){ 
+                    $('#sixstepsuaianfizikal-acara').val(data.refAtletSukan[0].acara).trigger("change");
+                    $('#sixstepsuaianfizikal-sukan').val(data.refAtletSukan[0].nama_sukan).trigger("change");
+                    $('#sixstepsuaianfizikal-kategori_atlet').val(data.refAtletSukan[0].program_semasa).trigger("change");
+                }
+            
+                if(data.refAtletPendidikan[0] !== null){ 
+                    //$('#sixstepsuaianfizikal-tahap_pendidikan').val(data.refAtletPendidikan[0].jenis_peringkatan_pendidikan).trigger("change");
+                }
+            }
+        });
+    }
+});
+         
+function clearForm(){
+    $('#sixstepsuaianfizikal-acara').val('').trigger("change");
+    $('#sixstepsuaianfizikal-sukan').val('').trigger("change");
+            $('#sixstepsuaianfizikal-kategori_atlet').val('').trigger("change");
+}
+
+JS;
+        
+$this->registerJs($script);
+?>
+
