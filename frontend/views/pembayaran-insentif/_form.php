@@ -74,7 +74,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],],
+                        'options' => ['placeholder' => Placeholder::sukan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'nama_kejohanan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -88,7 +91,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(PerancanganProgram::find()->where('jenis_aktiviti = :id1 OR jenis_aktiviti = :id2', [':id1' => RefJenisAktiviti::KEJOHANAN_DALAM_NEGARA, ':id2' => RefJenisAktiviti::KEJOHANAN_LUAR_NEGARA])->all(),'perancangan_program_id', 'nama_program'),
-                        'options' => ['placeholder' => Placeholder::kejohanan, 'id'=>'kejohananId'],],
+                        'options' => ['placeholder' => Placeholder::kejohanan, 'id'=>'kejohananId'],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>5]],
                 
             ]
@@ -331,7 +337,10 @@ use app\models\general\GeneralMessage;
                                             ]
                                         ] : null,
                                         'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
-                                        'options' => ['placeholder' => Placeholder::persatuan],],
+                                        'options' => ['placeholder' => Placeholder::persatuan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                                     'columnOptions'=>['colspan'=>3]],
                                 'nilai_sikap' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
                             ],

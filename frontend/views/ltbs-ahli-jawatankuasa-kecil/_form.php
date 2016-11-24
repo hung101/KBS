@@ -55,7 +55,10 @@ use app\models\RefStatusLaporanMesyuaratAgung;
                                     ]
                                 ] : null,
                                 'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
-                                'options' => ['placeholder' => Placeholder::badanSukan],],
+                                'options' => ['placeholder' => Placeholder::badanSukan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                             'columnOptions'=>['colspan'=>3]],
                     ],
                 ],
@@ -87,7 +90,10 @@ use app\models\RefStatusLaporanMesyuaratAgung;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJawatan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jawatan],],
+                        'options' => ['placeholder' => Placeholder::jawatan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
             ]
         ],
@@ -115,7 +121,10 @@ use app\models\RefStatusLaporanMesyuaratAgung;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJantina::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jantina],],
+                        'options' => ['placeholder' => Placeholder::jantina],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'bangsa' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -129,7 +138,10 @@ use app\models\RefStatusLaporanMesyuaratAgung;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefBangsa::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::bangsa],],
+                        'options' => ['placeholder' => Placeholder::bangsa],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'umur' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>3]],
             ]

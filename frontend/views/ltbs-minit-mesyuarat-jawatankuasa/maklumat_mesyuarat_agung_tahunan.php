@@ -78,7 +78,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ]
                                 ] : null,
                                 'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
-                                'options' => ['placeholder' => Placeholder::badanSukan],],
+                                'options' => ['placeholder' => Placeholder::badanSukan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                             'columnOptions'=>['colspan'=>3]],
             ]
         ],

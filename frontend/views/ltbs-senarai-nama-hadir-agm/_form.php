@@ -62,7 +62,10 @@ use app\models\RefKategoriKeahlian;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJantina::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jantina],],
+                        'options' => ['placeholder' => Placeholder::jantina],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'jawatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>50]],
                 'kategori_keahlian' => [
@@ -77,7 +80,10 @@ use app\models\RefKategoriKeahlian;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriKeahlian::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategoriKeahlian],],
+                        'options' => ['placeholder' => Placeholder::kategoriKeahlian],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
             ]
         ],

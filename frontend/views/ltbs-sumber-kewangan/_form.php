@@ -50,7 +50,10 @@ use app\models\ProfilBadanSukan;
                                     ]
                                 ] : null,
                                 'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
-                                'options' => ['placeholder' => Placeholder::badanSukan],],
+                                'options' => ['placeholder' => Placeholder::badanSukan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                             'columnOptions'=>['colspan'=>3]],
                     ],
                 ],
@@ -81,7 +84,10 @@ use app\models\ProfilBadanSukan;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJenisKewangan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jenisKewangan],],
+                        'options' => ['placeholder' => Placeholder::jenisKewangan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                 'sumber' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -95,7 +101,10 @@ use app\models\ProfilBadanSukan;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJenisKewanganSumber::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jenisKewanganSumber],],
+                        'options' => ['placeholder' => Placeholder::jenisKewanganSumber],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                 'jumlah' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
             ]

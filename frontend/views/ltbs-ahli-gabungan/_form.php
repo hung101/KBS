@@ -56,7 +56,10 @@ use app\models\RefStatusLaporanMesyuaratAgung;
                                     ]
                                 ] : null,
                                 'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
-                                'options' => ['placeholder' => Placeholder::badanSukan],],
+                                'options' => ['placeholder' => Placeholder::badanSukan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                             'columnOptions'=>['colspan'=>3]],
                     ],
                 ],
@@ -88,7 +91,10 @@ use app\models\RefStatusLaporanMesyuaratAgung;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefPeringkatBadanSukan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::peringkatBadanSukan],],
+                        'options' => ['placeholder' => Placeholder::peringkatBadanSukan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
             ]
         ],
@@ -129,7 +135,10 @@ use app\models\RefStatusLaporanMesyuaratAgung;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
+                        'options' => ['placeholder' => Placeholder::negeri],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'alamat_badan_sukan_bandar' => [
                     'type'=>Form::INPUT_WIDGET, 

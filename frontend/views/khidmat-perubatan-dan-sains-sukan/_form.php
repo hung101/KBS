@@ -453,7 +453,10 @@ use app\models\RefTempatKhidmatPerubatan;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefStatusKhidmatPerubatan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::status],],
+                        'options' => ['placeholder' => Placeholder::status],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
             ]
         ],

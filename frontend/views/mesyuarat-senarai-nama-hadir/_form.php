@@ -56,7 +56,10 @@ use app\models\general\GeneralLabel;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefMesyuaratAhliStatus::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::status],],
+                        'options' => ['placeholder' => Placeholder::status],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
@@ -76,7 +79,10 @@ use app\models\general\GeneralLabel;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJawatan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jawatan],],
+                        'options' => ['placeholder' => Placeholder::jawatan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>5]],
                 'organisasi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5]],
             ]
