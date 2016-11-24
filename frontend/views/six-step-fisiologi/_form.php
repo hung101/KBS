@@ -55,7 +55,10 @@ use app\models\general\GeneralLabel;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefAtletTahap::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::tahapAtlet],],
+                        'options' => ['placeholder' => Placeholder::tahapAtlet],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -69,7 +72,10 @@ use app\models\general\GeneralLabel;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],],
+                        'options' => ['placeholder' => Placeholder::sukan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                 'acara' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -153,7 +159,10 @@ use app\models\general\GeneralLabel;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSixstepFisiologiStage::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::stage],],
+                        'options' => ['placeholder' => Placeholder::stage],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>6]],
                 'status' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -167,7 +176,10 @@ use app\models\general\GeneralLabel;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSixstepFisiologiStatus::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::status],],
+                        'options' => ['placeholder' => Placeholder::status],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],

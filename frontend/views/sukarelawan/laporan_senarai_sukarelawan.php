@@ -86,7 +86,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
+                        'options' => ['placeholder' => Placeholder::negeri],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],
@@ -106,7 +109,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJantina::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jantina],],
+                        'options' => ['placeholder' => Placeholder::jantina],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>2]],
             ],
         ],
@@ -134,7 +140,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ]
                                 ] : null,
                                 'data'=>ArrayHelper::map(RefBidangDiminatiSukarelawan::find()->all(),'id', 'desc'),
-                                'options' => ['placeholder' => Placeholder::kecenderungan],],
+                                'options' => ['placeholder' => Placeholder::kecenderungan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                             'columnOptions'=>['colspan'=>3]],
             ],
         ],

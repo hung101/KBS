@@ -110,7 +110,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJantina::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jantina],],
+                        'options' => ['placeholder' => Placeholder::jantina],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>2]],
                 'bangsa' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -163,7 +166,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
+                        'options' => ['placeholder' => Placeholder::negeri],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'alamat_bandar' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -207,7 +213,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefTarafPerkahwinan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::tarafPerkahwinan],],
+                        'options' => ['placeholder' => Placeholder::tarafPerkahwinan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'saiz_baju' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -221,7 +230,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSaizBajuSukarelawan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::saizBaju],],
+                        'options' => ['placeholder' => Placeholder::saizBaju],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
@@ -278,7 +290,10 @@ use app\models\general\GeneralVariable;
                                     ]
                                 ] : null,
                                 'data'=>ArrayHelper::map(RefKelulusanAkademikSukarelawan::find()->all(),'id', 'desc'),
-                                'options' => ['placeholder' => Placeholder::kelulusanAkademik],],
+                                'options' => ['placeholder' => Placeholder::kelulusanAkademik],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                             'columnOptions'=>['colspan'=>4]],
                         
                     ]
@@ -342,7 +357,10 @@ use app\models\general\GeneralVariable;
                                     ]
                                 ] : null,
                                 'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
-                                'options' => ['placeholder' => Placeholder::negeri],],
+                                'options' => ['placeholder' => Placeholder::negeri],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                             'columnOptions'=>['colspan'=>3]],
                         'alamat_majikan_bandar' => [
                             'type'=>Form::INPUT_WIDGET, 
@@ -392,7 +410,10 @@ use app\models\general\GeneralVariable;
                                     ]
                                 ] : null,
                                 'data'=>ArrayHelper::map(RefBidangDiminatiSukarelawan::find()->all(),'id', 'desc'),
-                                'options' => ['placeholder' => Placeholder::kecenderungan],],
+                                'options' => ['placeholder' => Placeholder::kecenderungan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                             'columnOptions'=>['colspan'=>3]],
                         'bidang_diminati_lain_lain' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100]],
                     ]
@@ -414,7 +435,10 @@ use app\models\general\GeneralVariable;
                                     ]
                                 ] : null,
                                 'data'=>ArrayHelper::map(RefBidangKepakaranSukarelawan::find()->all(),'id', 'desc'),
-                                'options' => ['placeholder' => Placeholder::bidangKepakaran],],
+                                'options' => ['placeholder' => Placeholder::bidangKepakaran],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                             'columnOptions'=>['colspan'=>4]],
                     ]
                 ],
@@ -434,7 +458,10 @@ use app\models\general\GeneralVariable;
                                     ]
                                 ] : null,
                                 'data'=>ArrayHelper::map(RefWaktuKetikaDiperlukanSukarelawan::find()->all(),'id', 'desc'),
-                                'options' => ['placeholder' => Placeholder::waktuKetikaDiperlukan],],
+                                'options' => ['placeholder' => Placeholder::waktuKetikaDiperlukan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                             'columnOptions'=>['colspan'=>3]],
                         'menyatakan_waktu_ketika_diperlukan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
                     ]
@@ -455,7 +482,10 @@ use app\models\general\GeneralVariable;
                                     ]
                                 ] : null,
                                 'data'=>ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
-                                'options' => ['placeholder' => Placeholder::sukan],],
+                                'options' => ['placeholder' => Placeholder::sukan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                             'columnOptions'=>['colspan'=>3]],
                         'kursus_latihan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>9],'options'=>['maxlength'=>255]],
                     ]
