@@ -19,6 +19,7 @@ use app\models\RefAcara;
 use app\models\RefKategoriKecacatan;
 use app\models\RefSource;
 use app\models\RefCawangan;
+use app\models\RefTahapPendidikan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -213,6 +214,29 @@ $this->params['breadcrumbs'][] = $this->title;
                         ] : null,
                         'data'=>ArrayHelper::map(RefCawangan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::cawangan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'tahap_pendidikan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-tahap-pendidikan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefTahapPendidikan::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::tahapPendidikan],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
