@@ -7,10 +7,11 @@ use app\models\BorangAduanKerosakanJenisKerosakan;
 use frontend\models\BorangAduanKerosakanJenisKerosakanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\filters\VerbFilter;use yii\web\UploadedFile;
 
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
+use app\models\general\Upload;
 
 // table reference
 use app\models\RefNamaPemeriksaAduan;
@@ -111,13 +112,21 @@ class BorangAduanKerosakanJenisKerosakanController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return '1';
-        } else {
-            return $this->renderAjax('create', [
+            
+             $file = UploadedFile::getInstance($model, 'gambar');
+            if($file){
+                $model->gambar = Upload::uploadFile($file, Upload::borangaduankerosakanjeniskerosakanFolder, $model->borang_aduan_kerosakan_jenis_kerosakan_id);
+            }
+            
+            if($model->save()){
+                return '1';
+            }
+        } 
+        
+        return $this->renderAjax('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -133,15 +142,27 @@ class BorangAduanKerosakanJenisKerosakanController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        $existingGambar = $model->gambar;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return '1';
-        } else {
-            return $this->renderAjax('update', [
+            
+            $file = UploadedFile::getInstance($model, 'gambar');
+            if($file){
+                $model->gambar = Upload::uploadFile($file, Upload::borangaduankerosakanjeniskerosakanFolder, $model->borang_aduan_kerosakan_jenis_kerosakan_id);
+            } else {
+                $model->gambar = $existingGambar;
+            }
+            
+            if($model->save()){
+                return '1';
+            }
+        } 
+        
+        return $this->renderAjax('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -155,6 +176,8 @@ class BorangAduanKerosakanJenisKerosakanController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
+        
+        self::actionDeleteupload($id, 'gambar');
         
         $this->findModel($id)->delete();
 

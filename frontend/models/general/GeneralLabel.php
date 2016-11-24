@@ -357,6 +357,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const catatan_ringkas = "Catatan Ringkas";
         const catatan_tambahan = "Catatan Tambahan";
         const category = "Category";
+        const currency = "Currency";        
         const category_insentif = "Kategory Insentif";
         const catitan_ringkas = "Catatan Ringkas";
         const cawangan = "Cawangan";

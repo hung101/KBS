@@ -44,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'catatan',
             'selesai',
             'ulasan_pemeriksa',
+            'gambar,'
             'session_id',
             'created_by',
             'updated_by',

@@ -30,6 +30,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const anugerahPencalonanPasukanFolder = "anugerah_pencalonan_pasukan";
         const anugerahPencalonanTokohSukanFolder = "anugerah_pencalonan_tokoh_sukan";
         const atletFolder = "atlet";
+        const borangaduankerosakanjeniskerosakanFolder = "borang_aduan_kerosakan_jenis_kerosakan";
         const atletKursusKemFolder = "atlet_kursus_kem";
         const bantuanElaunFolder = "bantuan_elaun";
         const bantuanPenganjuranKejohananFolder = "bantuan_penganjuran_kejohanan";

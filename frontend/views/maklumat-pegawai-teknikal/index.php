@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['maklumat-pegawai-teknikal']['create']) || isset(Yii::$app->user->identity->peranan_akses['ISN']['maklumat-pegawai-teknikal']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::maklumat_pegawai_teknikal, ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('<span class="glyphicon glyphicon-plus"></span>', ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
     <?= GridView::widget([

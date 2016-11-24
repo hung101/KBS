@@ -31,6 +31,41 @@ use app\models\UserPeranan;
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
+    <?php // Gambar Upload
+    
+    $label = $model->getAttributeLabel('gambar');
+    
+    if($model->gambar){
+        echo "<div>";
+        echo "<label>" . $model->getAttributeLabel('gambar') . "</label><br>";
+        echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$model->gambar.'" width="200px">&nbsp;&nbsp;&nbsp;';
+        echo '<br><br>';
+        echo "</div>";
+        
+        //$label = false;
+    }
+    
+    if(!$readonly){
+        echo "<div>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'gambar' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label,'options'=>['accept' => 'image/*'], 'pluginOptions' => ['previewFileType' => 'image'],'hint'=>''],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+    }
+        
+    ?>
+    
     <?php
         echo FormGrid::widget([
     'model' => $model,

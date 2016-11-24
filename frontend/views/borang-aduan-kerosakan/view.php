@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
-        <?= Html::a('Menjana Borang Aduan Kerosakan', ['borang-aduan-kerosakan', 'borang_aduan_kerosakan_id' => $model->borang_aduan_kerosakan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
+        <?= Html::a('Cetak Borang Aduan Kerosakan &nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-print"></span>', ['borang-aduan-kerosakan', 'borang_aduan_kerosakan_id' => $model->borang_aduan_kerosakan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
     </p>
     
     <?= $this->render('_form', [

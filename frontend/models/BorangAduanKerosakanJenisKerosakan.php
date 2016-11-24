@@ -65,7 +65,7 @@ class BorangAduanKerosakanJenisKerosakan extends \yii\db\ActiveRecord
             [['tarikh_pemeriksaan', 'created', 'updated'], 'safe'],
             [['lokasi', 'nama_pemeriksa', 'kategori_kerosakan', 'tindakan'], 'string', 'max' => 80],
             [['jenis_kerosakan', 'session_id'], 'string', 'max' => 100],
-            [['catatan', 'ulasan_pemeriksa'], 'string', 'max' => 255],
+            [['catatan', 'ulasan_pemeriksa', 'gambar'], 'string', 'max' => 255],
         ];
     }
 
@@ -86,6 +86,7 @@ class BorangAduanKerosakanJenisKerosakan extends \yii\db\ActiveRecord
             'catatan' => 'Catatan',
             'selesai' => 'Selesai',
             'ulasan_pemeriksa' => 'Ulasan Pemeriksa',
+            'gambar' => 'Gambar',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
@@ -93,6 +94,30 @@ class BorangAduanKerosakanJenisKerosakan extends \yii\db\ActiveRecord
             'updated' => 'Updated',
         ];
     }
+    
+    
+    
+    public function upload()
+    {
+        if ($this->validate()) {
+            $this->gambar->saveAs('uploads/' . $this->gambar->baseName . '.' . $this->gambar->extension);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+    }
+    
     
     /**
      * @return \yii\db\ActiveQuery

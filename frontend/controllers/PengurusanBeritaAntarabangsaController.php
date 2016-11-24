@@ -22,7 +22,7 @@ use app\models\RefNegara;
 use app\models\RefNegeri;
 use app\models\RefBandar;
 use app\models\RefCountry;
-
+use app\models\RefMatawang;
 
 /**
  * PengurusanBeritaAntarabangsaController implements the CRUD actions for PengurusanBeritaAntarabangsa model.
@@ -88,6 +88,9 @@ class PengurusanBeritaAntarabangsaController extends Controller
         $ref = RefCountry::findOne(['id' => $model->country]);
         $model->country = $ref['desc'];
         
+        $ref = RefMatawang::findOne(['id' => $model->currency]);
+        $model->currency = $ref['desc'];
+
         $queryPar = null;
         
         $queryPar['PengurusanBeritaAntarabangsaMuatnaikSearch']['pengurusan_berita_antarabangsa_id'] = $id;
