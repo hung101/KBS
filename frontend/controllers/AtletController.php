@@ -637,6 +637,49 @@ Majlis Sukan Negara Malaysia.
         return $value;
     }
     
+    /**
+     * Get Bandars base on Negeri id
+     * @param integer $id actionHryye
+     * @return mixed
+     */
+    public function actionSubAtletsSukan()
+    {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $cat1_id = $parents[0];
+                $out = self::getAtletsBySukan($cat1_id); 
+                // the getSubCatList function will query the database based on the
+                // cat_id and return an array like below:
+                // [
+                //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+                //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+                // ]
+                echo Json::encode(['output'=>$out, 'selected'=>'']);
+                return;
+            }
+        }
+        echo Json::encode(['output'=>'', 'selected'=>'']);
+    }
+    
+    /**
+     * get list of Bandar by Negeri
+     * @param integer $id
+     * @return Array Bandars
+     */
+    public static function getAtletsBySukan($sukan_id) {
+        $data = Atlet::find()->joinWith(['refAtletSukan' => function($query) {
+                        $query->orderBy(['tbl_atlet_sukan.created' => SORT_DESC])->one();
+                    },
+                ])->andWhere(['tbl_atlet_sukan.nama_sukan'=>$sukan_id])->groupBy('tbl_atlet.atlet_id')
+                            ->select(['tbl_atlet.atlet_id AS id','tbl_atlet.name_penuh AS name'])->asArray()->createCommand()->queryAll();
+                    
+        $value = (count($data) == 0) ? ['' => ''] : $data;
+
+        return $value;
+    }
+    
     public function actionPrint($id) {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));

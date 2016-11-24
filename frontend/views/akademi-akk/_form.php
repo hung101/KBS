@@ -1050,7 +1050,7 @@ use common\models\general\GeneralFunction;
     <br>
     <br>
     
-    <pre style="text-align: center"><strong>UNTUK KEGUNAAN PENGELUARAN LESEN<?=GeneralLabel::untuk_kegunaan_pengeluaran_lesen?></strong></pre>
+    <pre style="text-align: center"><strong><?=GeneralLabel::untuk_kegunaan_pengeluaran_lesen?></strong></pre>
     
     <div class="panel panel-default">
         <div class="panel-body">

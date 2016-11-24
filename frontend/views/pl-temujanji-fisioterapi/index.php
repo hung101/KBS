@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-fisioterapi']['create'])): ?>
         <p>
             <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::temujanji_fisioterapi, ['create'], ['class' => 'btn btn-success']) ?>
-            <?= Html::a('Jadual Pegawai', ['laporan-jadual-pegawai-temujanji'], ['class' => 'btn btn-primary', 'target' => '_blank']) ?>
+            <?= Html::a(GeneralLabel::jadual_pegawai, ['laporan-jadual-pegawai-temujanji'], ['class' => 'btn btn-primary', 'target' => '_blank']) ?>
         </p>
     <?php endif; ?>
 

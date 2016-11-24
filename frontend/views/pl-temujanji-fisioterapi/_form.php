@@ -377,7 +377,7 @@ use app\models\general\GeneralMessage;
         }
     ?>
     
-    <h4>Jumlah Caj / Fi : RM <?=$calculate_jumlah_caj_fi?></h4>
+    <h4><?=GeneralLabel::jumlah_caj_fi?> : RM <?=$calculate_jumlah_caj_fi?></h4>
     
     <?php if(!$readonly): ?>
     <p>

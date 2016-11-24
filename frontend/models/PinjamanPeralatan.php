@@ -77,6 +77,7 @@ class PinjamanPeralatan extends \yii\db\ActiveRecord
             'tempoh_pinjaman' => GeneralLabel::tempoh_pinjaman,
             'sukan' => GeneralLabel::sukan,
             'nama_pegawai' => GeneralLabel::nama_pegawai,
+            'pulang' => GeneralLabel::pulang,
         ];
     }
     

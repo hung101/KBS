@@ -7,6 +7,7 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use kartik\widgets\DepDrop;
 use yii\helpers\Url;
 
 // table reference
@@ -356,7 +357,7 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'sukan')],
                             'placeholder' => Placeholder::atlet,
-                            'url'=>Url::to(['/atlet/sub-atlets'])],
+                            'url'=>Url::to(['/atlet/sub-atlets-sukan'])],
                         ],
                     'columnOptions'=>['colspan'=>6]],
                 'jurulatih' => [

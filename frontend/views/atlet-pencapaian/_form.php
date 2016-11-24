@@ -14,6 +14,7 @@ use yii\helpers\ArrayHelper;
 use nirvana\showloading\ShowLoadingAsset;
 ShowLoadingAsset::register($this);
 use kartik\datecontrol\DateControl;
+use yii\web\Session;
 
 // table reference
 use app\models\RefPeringkatKejohananTemasya;
@@ -31,6 +32,10 @@ use app\models\general\GeneralMessage;
 /* @var $this yii\web\View */
 /* @var $model app\models\AtletPencapaian */
 /* @var $form yii\widgets\ActiveForm */
+
+// Session
+    $session = new Session;
+    $session->open();
 ?>
 
 <div class="atlet-pencapaian-form">
@@ -403,3 +408,5 @@ JS;
         
 $this->registerJs($script);
 ?>
+
+<?php $session->close(); ?>
