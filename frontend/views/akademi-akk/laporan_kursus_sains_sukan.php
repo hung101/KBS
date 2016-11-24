@@ -86,7 +86,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriKursusPenganjuranAkk::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategoriKursus],],
+                        'options' => ['placeholder' => Placeholder::kategoriKursus],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
@@ -135,7 +138,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
+                        'options' => ['placeholder' => Placeholder::negeri],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],

@@ -254,7 +254,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefReportFormat::find()->where(['=', 'aktif', 1])->all(),'file_extension', 'desc'),
-                        'options' => ['placeholder' => Placeholder::format],],
+                        'options' => ['placeholder' => Placeholder::format],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],

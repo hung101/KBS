@@ -78,7 +78,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJawatanBantuanPentadbiranPejabat::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jawatan],],
+                        'options' => ['placeholder' => Placeholder::jawatan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'persatuan' =>[
                     'type'=>Form::INPUT_WIDGET, 
@@ -147,7 +150,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],],
+                        'options' => ['placeholder' => Placeholder::negeri],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'alamat_bandar' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -363,7 +369,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefStatusPermohonanBantuanPentadbiranPejabat::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::statusPermohonan],],
+                        'options' => ['placeholder' => Placeholder::statusPermohonan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'jumlah_kelulusan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
             ]

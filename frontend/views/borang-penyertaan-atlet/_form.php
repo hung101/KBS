@@ -49,7 +49,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::atlet],],
+                        'options' => ['placeholder' => Placeholder::atlet],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>6]],
             ],
         ],
@@ -69,7 +72,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(PengurusanProgramBinaan::find()->all(),'pengurusan_program_binaan_id', 'nama_program'),
-                        'options' => ['placeholder' => Placeholder::program],],
+                        'options' => ['placeholder' => Placeholder::program],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>6]],
                 'tarikh_program' => [
                     'type'=>Form::INPUT_WIDGET, 

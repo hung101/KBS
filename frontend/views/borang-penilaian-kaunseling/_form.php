@@ -57,7 +57,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::atlet],],
+                        'options' => ['placeholder' => Placeholder::atlet],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>6]],
             ],
         ],
@@ -112,7 +115,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefLatarbelakangKes::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategoriMasalah],],
+                        'options' => ['placeholder' => Placeholder::kategoriMasalah],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>5]],
                 // 'tarikh_temujanji' => ['type'=>Form::INPUT_WIDGET, 'widgetClass'=>'\kartik\widgets\DatePicker','columnOptions'=>['colspan'=>3]],
             ],

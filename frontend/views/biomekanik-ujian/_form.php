@@ -59,7 +59,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefBiomekanikUjian::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::biomekanikUjian],],
+                        'options' => ['placeholder' => Placeholder::biomekanikUjian],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>6]],
             ],
         ],

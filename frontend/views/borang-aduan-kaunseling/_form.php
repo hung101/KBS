@@ -51,7 +51,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::atlet],],
+                        'options' => ['placeholder' => Placeholder::atlet],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>6]],
                 'tarikh_aduan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -82,7 +85,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefStatusAduan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::statusAduan],],
+                        'options' => ['placeholder' => Placeholder::statusAduan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                 'aduan_kategori' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -96,7 +102,10 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriAduan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategoriAduan],],
+                        'options' => ['placeholder' => Placeholder::kategoriAduan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>5]],
             ],
         ],

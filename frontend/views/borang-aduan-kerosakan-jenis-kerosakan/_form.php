@@ -116,7 +116,10 @@ use app\models\UserPeranan;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNamaPemeriksaAduan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::pemeriksa],],
+                        'options' => ['placeholder' => Placeholder::pemeriksa],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'tarikh_pemeriksaan' =>  [
                     'type'=>Form::INPUT_WIDGET, 
@@ -140,7 +143,10 @@ use app\models\UserPeranan;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriKerosakan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategori],],
+                        'options' => ['placeholder' => Placeholder::kategori],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
                 'tindakan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -154,7 +160,10 @@ use app\models\UserPeranan;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefTindakanAduan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::tindakan],],
+                        'options' => ['placeholder' => Placeholder::tindakan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],

@@ -99,7 +99,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan, 'disabled'=>$disablePersatuanInfo],],
+                        'options' => ['placeholder' => Placeholder::sukan, 'disabled'=>$disablePersatuanInfo],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                 'no_pendaftaran' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true, 'disabled'=>$disablePersatuanInfo]],
                  
@@ -721,7 +724,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefStatusBantuanPenganjuranKursus::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::statusPermohonan],],
+                        'options' => ['placeholder' => Placeholder::statusPermohonan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                 'tarikh_permohonan' => [
                     'type'=>Form::INPUT_WIDGET, 

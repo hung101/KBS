@@ -1018,7 +1018,10 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefStatusBantuanPenganjuranKejohanan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::statusPermohonan],],
+                        'options' => ['placeholder' => Placeholder::statusPermohonan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>4]],
                 'tarikh_permohonan' => [
                     'type'=>Form::INPUT_WIDGET, 
