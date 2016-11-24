@@ -18,6 +18,7 @@ use app\models\RefProgramSemasaSukanAtlet;
 use app\models\RefSukan;
 use app\models\RefJenisTuntutan;
 use app\models\RefStatusPermohonanInsuran;
+use app\models\RefBank;
 
 // contant values
 use app\models\general\Placeholder;
@@ -118,24 +119,39 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>4]],
                  
             ],
-        ],
+        ],        
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'nama_insuran' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
-                'no_acc' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
+                'no_acc' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>30]],
                  
-                /*'tarikh_tuntutan' =>  [
+                 
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'no_polisi' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>30]],
+                'jenis_bank' =>  [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=> DateControl::classname(),
-                    'ajaxConversion'=>false,
+                    'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-bank/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefBank::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::jenisBank],
                         'pluginOptions' => [
-                            'autoclose'=>true,
-                        ]
-                    ],
-                    'columnOptions'=>['colspan'=>3]],*/
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],                 
                  
             ],
         ],

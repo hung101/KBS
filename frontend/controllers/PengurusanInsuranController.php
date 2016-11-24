@@ -25,6 +25,7 @@ use app\models\RefProgramSemasaSukanAtlet;
 use app\models\RefSukan;
 use app\models\RefJenisTuntutan;
 use app\models\RefStatusPermohonanInsuran;
+use app\models\RefBank;
 
 /**
  * PengurusanInsuranController implements the CRUD actions for PengurusanInsuran model.
@@ -83,6 +84,9 @@ class PengurusanInsuranController extends Controller
         
         $ref = RefSukan::findOne(['id' => $model->sukan]);
         $model->sukan = $ref['desc'];
+        
+        $ref = RefBank::findOne(['id' => $model->jenis_bank]);
+        $model->jenis_bank = $ref['desc'];
         
         $ref = RefJenisTuntutan::findOne(['id' => $model->jenis_tuntutan]);
         $model->jenis_tuntutan = $ref['desc'];

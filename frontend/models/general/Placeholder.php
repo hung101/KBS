@@ -111,6 +111,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jenisTempahan = "-- Pilih Jenis Tempahan --";
         const jenisTemujanji = "-- Pilih Jenis Temujanji --";
         const jenisTuntutan = "-- Pilih Jenis Tuntutan --";
+        const jenisBank = "-- Pilih Jenis Bank --";
         const jurulatih = "-- Pilih Jurulatih --";
         const juruUrut = "-- Pilih Juru Urut --";
         const kaum = "-- Pilih Kaum --";

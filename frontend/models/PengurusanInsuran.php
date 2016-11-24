@@ -55,12 +55,12 @@ class PengurusanInsuran extends \yii\db\ActiveRecord
         return [
             [['atlet_id', 'nama_insuran', 'jumlah_tuntutan', 'tarikh_tuntutan', 'pegawai_yang_bertanggungjawab', 'sukan', 'program', 
                 'ic_no', 'tarikh_kejadian', 'jenis_tuntutan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id', 'jenis_tuntutan', 'status_permohonan', 'ic_no'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['atlet_id', 'jenis_tuntutan', 'status_permohonan', 'ic_no', 'jenis_bank'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah_tuntutan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tarikh_tuntutan', 'catatan', 'tarikh_kejadian', 'tarikh_pembayaran', 'tarikh_permohonan'], 'safe'],
             [['nama_insuran', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['ic_no'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['no_acc'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_acc','no_polisi'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lampiran', 'tindakan_rujukan_memo'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lampiran'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
@@ -83,13 +83,15 @@ class PengurusanInsuran extends \yii\db\ActiveRecord
             'program' => GeneralLabel::program,
             'ic_no' => GeneralLabel::ic_no_insuran,
             'lampiran' => GeneralLabel::lampiran,
-            'no_acc' => GeneralLabel::no_akaun,
+            'no_acc' => 'No. Akaun Bank',
             'jenis_tuntutan' => GeneralLabel::jenis_tuntutan,
             'tarikh_kejadian' => GeneralLabel::tarikh_kejadian,
             'status_permohonan' => GeneralLabel::status_permohonan,
             'tarikh_pembayaran' => GeneralLabel::tarikh_pembayaran,
             'tarikh_permohonan' => GeneralLabel::tarikh_permohonan,
             'tindakan_rujukan_memo' => GeneralLabel::tindakan_rujukan_memo,
+            'no_polisi' => 'No. Polisi',
+            'jenis_bank' => 'Jenis Bank',
         ];
     }
     
