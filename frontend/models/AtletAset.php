@@ -64,7 +64,9 @@ class AtletAset extends \yii\db\ActiveRecord
             [['jenis_aset', 'jenis_harta_pengangkutan_perniagaan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['daftar_no_pengangkutan'], 'string', 'max' => 10, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['daftar_alamat_1', 'daftar_alamat_2', 'daftar_alamat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_syarikat_perniagaan', 'produk_perkhidmatan_perniagaan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['nama_syarikat_perniagaan', 'produk_perkhidmatan_perniagaan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['daftar_alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['daftar_alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
         ];
     }
 

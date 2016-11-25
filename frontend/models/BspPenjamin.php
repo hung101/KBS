@@ -80,6 +80,7 @@ class BspPenjamin extends \yii\db\ActiveRecord
             [['alamat_negeri', 'alamat_surat_menyurat_negeri', 'alamat_pejabat_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_bandar', 'alamat_surat_menyurat_bandar', 'alamat_pejabat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod', 'alamat_surat_menyurat_poskod', 'alamat_pejabat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod', 'alamat_surat_menyurat_poskod', 'alamat_pejabat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon_rumah', 'no_telefon_pejabat', 'no_telefon_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['email'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];

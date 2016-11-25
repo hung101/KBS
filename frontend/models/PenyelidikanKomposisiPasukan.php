@@ -67,6 +67,7 @@ class PenyelidikanKomposisiPasukan extends \yii\db\ActiveRecord
             [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }

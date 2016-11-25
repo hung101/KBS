@@ -77,6 +77,7 @@ class BantuanPenganjuranKursusPegawaiTeknikal extends \yii\db\ActiveRecord
             [['sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun', 'status_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_negeri'], 'string', 'max' => 3, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['laman_sesawang', 'facebook', 'twitter'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat', 'nama_kursus_seminar_bengkel', 'tujuan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],

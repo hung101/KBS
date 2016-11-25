@@ -57,6 +57,8 @@ class Bsp extends \yii\db\ActiveRecord
         return [
             [['nama_penerima','no_kad_pengenalan','alamat_1','alamat_negeri','alamat_bandar','alamat_poskod','no_tel_bimbit','atlet_id', 'peringkat_pengajian', 'bidang_pengajian', 'falkuti_pengajian', 'ipt', 'tahun_mula_pengajian', 'tahun_tamat_pengajian', 'tahun_ditawarkan_biasiswa', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tahun_mula_pengajian', 'tahun_tamat_pengajian', 'tahun_ditawarkan_biasiswa'], 'safe'],
             [['peringkat_pengajian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['bidang_pengajian', 'falkuti_pengajian', 'ipt'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]

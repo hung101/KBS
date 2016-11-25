@@ -78,6 +78,7 @@ class ElaporanPelaksanaan extends \yii\db\ActiveRecord
             [['objektif_pelaksaan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_tempat_pelaksanaan_1', 'alamat_tempat_pelaksanaan_2', 'alamat_tempat_pelaksanaan_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_tempat_pelaksanaan_bandar', 'alamat_tempat_pelaksanaan_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_tempat_pelaksanaan_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['alamat_tempat_pelaksanaan_negeri', 'alamat_tempat_pelaksanaan_parlimen'], 'string', 'max' => 3, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['creator_mobile_no'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik', 'creator_emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],

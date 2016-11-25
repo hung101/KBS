@@ -68,6 +68,7 @@ class Journal extends \yii\db\ActiveRecord
             [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_negeri', 'bahagian', 'status_journal'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }

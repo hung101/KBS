@@ -75,6 +75,7 @@ class TempahanKemudahanMsn extends \yii\db\ActiveRecord
             [['tel_bimbit_no_pemilik', 'fax_no_pemilik', 'no_tel_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['location_alamat_1', 'location_alamat_2', 'location_alamat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['location_alamat_bandar', 'location_alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['location_alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['location_alamat_negeri'], 'string', 'max' => 3, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['email_pemilik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             //[['lelaki', 'wanita', 'melayu', 'cina', 'india', 'lain_lain', 'jumlah_orang'], 'string', 'max' => 11],

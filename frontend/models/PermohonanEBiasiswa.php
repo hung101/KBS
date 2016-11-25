@@ -102,6 +102,7 @@ class PermohonanEBiasiswa extends \yii\db\ActiveRecord
             [['kawasan_temuduga_anda', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'no_pendaftaran_oku', 'kategori_oku', 'kategori', 'no_matriks', 'mendapat_pembiayaan_pendidikan', 'status_permohonan'], 'string', 'max' => 30, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_bandar'], 'string', 'max' => 40, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod'], 'string', 'max' => 5, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_tel_bimbit'], 'string', 'max' => 14, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat_temuduga'], 'string', 'max' => 90, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['umur'],'validateUmur', 'skipOnEmpty' => false],

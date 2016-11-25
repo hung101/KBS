@@ -67,6 +67,7 @@ class ProfilDelegasiTeknikal extends \yii\db\ActiveRecord
             [['created_by', 'updated_by'], 'integer'],
             [['temasya', 'peringkat', 'nama_badan_sukan'], 'string', 'max' => 80],
             [['negeri', 'alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5],
+            [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['sukan'], 'string', 'max' => 90],
             [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30],
             [['alamat_negeri'], 'string', 'max' => 3],

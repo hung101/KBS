@@ -86,6 +86,7 @@ class PengurusanJaringanAntarabangsa extends \yii\db\ActiveRecord
             [['alamat_surat_menyurat_negeri', 'jenis_program', 'alamat_majikan_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_surat_menyurat_bandar', 'alamat_majikan_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_surat_menyurat_poskod', 'alamat_majikan_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_surat_menyurat_poskod', 'alamat_majikan_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon', 'no_tel_bimbit', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email]

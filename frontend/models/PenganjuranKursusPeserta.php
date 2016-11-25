@@ -113,6 +113,7 @@ class PenganjuranKursusPeserta extends \yii\db\ActiveRecord
             [['alamat_1', 'alamat_2', 'alamat_3', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3'], 'string', 'max' => 90],
             [['alamat_bandar', 'alamat_majikan_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod', 'alamat_majikan_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod', 'alamat_majikan_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_tel_bimbit', 'no_tel_rumah', 'no_tel_majikan', 'no_faks_majikan'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['pencapaian'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['maklumat_persamaan_taraf'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],

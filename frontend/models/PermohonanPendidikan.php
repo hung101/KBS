@@ -100,6 +100,7 @@ class PermohonanPendidikan extends \yii\db\ActiveRecord
             [['alamat_rumah_negeri', 'tahap_pendidikan', 'alamat_pendidikan_negeri', 'kategori_atlet', 'pmn_prau_utk4_sem'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_rumah_bandar', 'alamat_pendidikan_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_rumah_poskod', 'alamat_pendidikan_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_rumah_poskod', 'alamat_pendidikan_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon_rumah', 'no_telefon_bimbit', 'no_tel_pendidikan', 'no_fax_pendidikan', 'no_telefon_pencadang', 'no_telefon_pengesahan'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_ibu_bapa_penjaga', 'aliran', 'pilihan_aliran_spm', 'nama_pencadang', 'jawatan_pencadang', 
                 'sekolah_unit_sukan_pdd_psk_pencadang', 'nama_pengesahan', 'jawatan_pengesahan', 'sekolah_unit_sukan_pdd_psk_pengesahan',

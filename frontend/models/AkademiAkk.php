@@ -87,6 +87,7 @@ class AkademiAkk extends \yii\db\ActiveRecord
             [['tahun'], 'integer', 'min' => GeneralVariable::yearMin, 'max' => GeneralVariable::yearMax, 'message' => GeneralMessage::yii_validation_integer, 'tooBig' => GeneralMessage::yii_validation_integer_max, 'tooSmall' => GeneralMessage::yii_validation_integer_min],
             [['muatnaik_gambar'],'validateFileUpload', 'skipOnEmpty' => false],
             [['tarikh_tamat_lesen'], 'compare', 'compareAttribute'=>'tarikh_mula_lesen', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
+            [['alamat_majikan_poskod', 'alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             //[['nama, nama_jurulatih'], 'validateJurulatihFreeText', 'skipOnEmpty' => false],
         ];
     }

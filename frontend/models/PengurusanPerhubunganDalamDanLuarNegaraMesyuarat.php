@@ -67,6 +67,7 @@ class PengurusanPerhubunganDalamDanLuarNegaraMesyuarat extends \yii\db\ActiveRec
             [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_negeri', 'status_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_tel_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel', 'muatnaik_dokumen', 'muatnaik_dokumen_kejohanan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]

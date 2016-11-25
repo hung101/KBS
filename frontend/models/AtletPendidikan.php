@@ -74,6 +74,7 @@ class AtletPendidikan extends \yii\db\ActiveRecord
             [['keputusan_cgpa'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['biasiswa_tajaan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jenis_biasiswa', 'alamat_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }

@@ -49,6 +49,7 @@ class Inventori extends \yii\db\ActiveRecord
             [['created_by', 'updated_by'], 'integer'],
             [['program', 'sukan', 'no_co', 'alamat_pembekal_1', 'alamat_pembekal_2', 'alamat_pembekal_3'], 'string', 'max' => 30],
             [['alamat_pembekal_negeri'], 'string', 'max' => 3],
+            [['alamat_pembekal_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['alamat_pembekal_bandar', 'alamat_pembekal_poskod'], 'string', 'max' => 5],
         ];
     }

@@ -76,6 +76,7 @@ class ProfilPusatLatihan extends \yii\db\ActiveRecord
             [['alamat_1', 'alamat_2', 'alamat_3', 'status', 'sukan', 'program'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_negeri'], 'string', 'max' => 3, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['keluasan_venue'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
