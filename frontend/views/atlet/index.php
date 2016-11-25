@@ -132,6 +132,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],*/
             [
                 'attribute' => 'sukan',
+                'label' => GeneralLabel::sukan,
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
@@ -144,7 +145,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return "";
                     }
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'sukan', ArrayHelper::map($sukan_list, 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Sukan --']),
+                'filter' => Html::activeDropDownList($searchModel, 'sukan', ArrayHelper::map($sukan_list, 'id', 'desc'),['class'=>'form-control','prompt' => Placeholder::sukan]),
             ],
             [
                 'attribute' => 'program',
@@ -160,7 +161,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return "";
                     }
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'program', ArrayHelper::map($program_list, 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Program --']),
+                'filter' => Html::activeDropDownList($searchModel, 'program', ArrayHelper::map($program_list, 'id', 'desc'),['class'=>'form-control','prompt' => Placeholder::program]),
             ],
             [
                 'attribute' => 'tawaran',
@@ -169,7 +170,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tawaran,
                 ],
                 'value' => 'refStatusTawaran.desc',
-                'filter' => Html::activeDropDownList($searchModel, 'tawaran', ArrayHelper::map(RefStatusTawaran::find()->asArray()->all(), 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Status --']),
+                'filter' => Html::activeDropDownList($searchModel, 'tawaran', ArrayHelper::map(RefStatusTawaran::find()->asArray()->all(), 'id', 'desc'),['class'=>'form-control','prompt' => Placeholder::status]),
             ],
             /*[
                 'attribute' => 'tarikh_lahir',

@@ -44,7 +44,7 @@ use app\models\general\GeneralVariable;
 ?>
 
 <div class="jurulatih-form">
-    <h1>Peribadi</h1>
+    <h1><?php echo GeneralLabel::peribadi ?></h1>
     
     <?php if($readonly): ?>
         <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update']) && $model->approved == 0)  || isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['kemaskini_yang_hantar'])): ?>
@@ -95,7 +95,7 @@ use app\models\general\GeneralVariable;
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL,'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data'], 'id'=>$model->formName()]); ?>
     <?php //echo $form->errorSummary($model); ?>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT PERIBADI</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_peribadi ?></strong></pre>
     
     <?php // Gambar Upload
     

@@ -81,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'nama_pegawai_embassy',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' Nama Pegawai Embassy',
+                    'placeholder' => GeneralLabel::filter.' Nama Pegawai Kedutaan',
                 ],
             ],
             [

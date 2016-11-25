@@ -1,6 +1,5 @@
 <?php
 
-use app\models\general\GeneralLabel;
 
 
 use yii\helpers\Html;
@@ -11,6 +10,7 @@ use yii\web\Session;
 use app\models\Jurulatih;
 
 use app\models\general\GeneralVariable;
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Atlet */
@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
  
     $items = [
         [
-            'label'=>'<i class="glyphicon glyphicon-user"></i> Peribadi',
+            'label'=>'<i class="glyphicon glyphicon-user"></i> '.GeneralLabel::peribadi,
             'content'=>$this->render('_form', [
                 'model' => $model,
                 'readonly' => $readonly,
@@ -81,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'headerOptions' => ['class'=>$disabledTabs]
         ],*/
         [
-            'label'=>'<i class="glyphicon glyphicon-tasks"></i> Pengalaman',
+            'label'=>'<i class="glyphicon glyphicon-tasks"></i> '.GeneralLabel::pengalaman,
             'options' => ['id' => GeneralVariable::tabPengalamanID],
             'linkOptions'=>['data-url'=>Url::to(['/jurulatih-pengalaman','typeJson'=>'1'])],
             'headerOptions' => ['class'=>$disabledTabs]
@@ -93,11 +93,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'headerOptions' => ['class'=>$disabledTabs]
         ],*/
         [
-            'label'=>'<i class="glyphicon glyphicon-education"></i> Pendidikan',
+            'label'=>'<i class="glyphicon glyphicon-education"></i> '.GeneralLabel::pendidikan,
             'headerOptions' => ['class'=>$disabledTabs],
             'items'=>[
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Pendidikan',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::pendidikan,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPendidikanJurulatihID],
@@ -105,7 +105,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'headerOptions' => ['class'=>$disabledTabs]
                 ],
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Skim Pensijilan Kejurulatihan Kebangsaan (SPKK)',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::skim_pensijilan_kejurulatihan_kebangsaan_spkk,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabKelayakanID],
@@ -113,7 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'headerOptions' => ['class'=>$disabledTabs]
                 ],
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Kursus Tertinggi / Spesifik',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::kursus_tertinggi_spesifik,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabKelayakanKursusTertinggiID],
@@ -129,13 +129,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'headerOptions' => ['class'=>$disabledTabs]
         ],*/
         [
-            'label'=>'<i class="glyphicon glyphicon-tint"></i> Maklumat Kesihatan',
+            'label'=>'<i class="glyphicon glyphicon-tint"></i> '.GeneralLabel::kesihatan,
             'options' => ['id' => GeneralVariable::tabKesihatanID],
             'linkOptions'=>['data-url'=>Url::to(['/jurulatih-kesihatan','typeJson'=>'1'])],
             'headerOptions' => ['class'=>$disabledTabs]
         ],
         [
-            'label'=>'<i class="glyphicon glyphicon-heart"></i> Maklumat Keluarga',
+            'label'=>'<i class="glyphicon glyphicon-heart"></i> '.GeneralLabel::keluarga,
             'options' => ['id' => GeneralVariable::tabKeluargaJurulatihID],
             'linkOptions'=>['data-url'=>Url::to(['/jurulatih-keluarga','typeJson'=>'1'])],
             'headerOptions' => ['class'=>$disabledTabs]
@@ -147,11 +147,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'headerOptions' => ['class'=>$disabledTabs]
         ],*/
         [
-            'label'=>'<i class="glyphicon glyphicon-list-alt"></i> Atlet & Sukan',
+            'label'=>'<i class="glyphicon glyphicon-list-alt"></i> '.GeneralLabel::atlet_sukan,
             'headerOptions' => ['class'=>$disabledTabs],
             'items'=>[
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Atlet',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::atlet,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabJurulatihAtletID],
@@ -159,7 +159,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'headerOptions' => ['class'=>$disabledTabs]
                 ],
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Sukan dan Program',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::sukan_program,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabSukanJurulatihID],
@@ -169,7 +169,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
         [
-            'label'=>'<i class="glyphicon glyphicon-stats"></i> Penilaian',
+            'label'=>'<i class="glyphicon glyphicon-stats"></i> '.GeneralLabel::penilaian,
             'options' => ['id' => GeneralVariable::tabJurulatihPenilaianID],
             'linkOptions'=>['data-url'=>Url::to(['/jurulatih-penilaian','typeJson'=>'1'])],
             'headerOptions' => ['class'=>$disabledTabs]

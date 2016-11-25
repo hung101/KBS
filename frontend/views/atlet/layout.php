@@ -98,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php 
     $items = [
         [
-            'label'=>'<i class="glyphicon glyphicon-user"></i> Peribadi',
+            'label'=>'<i class="glyphicon glyphicon-user"></i> '.GeneralLabel::peribadi,
             'content'=>$this->render('_form', [
                 'model' => $model,
                 'readonly' => $readonly,
@@ -106,11 +106,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'active'=>true,
         ],
         [
-            'label'=>'<i class="glyphicon glyphicon-tasks"></i> Pendidikan / Kerjaya / Pembangunan Peribadi',
+            'label'=>'<i class="glyphicon glyphicon-tasks"></i> '.GeneralLabel::pendidikan_Kerjaya_Pembangunan_Peribadi,
             'headerOptions' => ['class'=>$disabledTabs],
             'items'=>[
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Pendidikan',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::pendidikan,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPendidikanID],
@@ -118,7 +118,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'headerOptions' => ['class'=>$disabledTabs]
                 ],
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Kerjaya',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::kerjaya,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabKarrierID],
@@ -126,7 +126,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'headerOptions' => ['class'=>$disabledTabs]
                 ],
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Kursus/Kem',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::kursus_kem,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPembangunanKursuskemID],
@@ -134,7 +134,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'headerOptions' => ['class'=>$disabledTabs]
                 ],
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Kaunseling',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::kaunseling,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPembangunanKaunselingID],
@@ -142,7 +142,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'headerOptions' => ['class'=>$disabledTabs]
                 ],
                [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Kemahiran',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::kemahiran,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPembangunanKemahiranID],
@@ -155,14 +155,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'label'=>'<i class="glyphicon glyphicon-home"></i> Aset',
             'options' => ['id' => GeneralVariable::tabAsetID],
             'linkOptions'=>['data-url'=>Url::to(['/atlet-aset','typeJson'=>'1'])],
-            'headerOptions' => ['class'=>$disabledTabs]
+            'headerOptions' => ['class'=>$disabledTabs] '.GeneralLabel::kaunseling,
         ],*/
         [
-            'label'=>'<i class="glyphicon glyphicon-erase"></i> Perubatan & Sains Sukan',
+            'label'=>'<i class="glyphicon glyphicon-erase"></i> '.GeneralLabel::perubatan_sains_sukan,
             'headerOptions' => ['class'=>$disabledTabs],
             'items'=>[
              [
-                 'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Perubatan',
+                 'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::perubatan,
                  'encode'=>false,
                  'content'=>'&nbsp;',
                  'options' => ['tab_id' => GeneralVariable::tabPerubatanID],
@@ -186,7 +186,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  'headerOptions' => ['class'=>$disabledTabs]
              ],*/
                 [
-                 'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Insurans',
+                 'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::insurans,
                  'encode'=>false,
                  'content'=>'&nbsp;',
                  'options' => ['tab_id' => GeneralVariable::tabPerubatanInsuransID],
@@ -194,7 +194,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  'headerOptions' => ['class'=>$disabledTabs]
              ],
              [
-                 'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Penderma',
+                 'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::penderma,
                  'encode'=>false,
                  'content'=>'&nbsp;',
                  'options' => ['tab_id' => GeneralVariable::tabPerubatanDonatorID],
@@ -202,7 +202,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  'headerOptions' => ['class'=>$disabledTabs]
              ],
              [
-                 'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Rekod',
+                 'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::rekods,
                  'encode'=>false,
                  'content'=>'&nbsp;',
                  'options' => ['tab_id' => GeneralVariable::tabPerubatanRekodsID],
@@ -212,11 +212,11 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         ],
         [
-            'label'=>'<i class="glyphicon glyphicon-usd"></i> Kewangan & Penajaan',
+            'label'=>'<i class="glyphicon glyphicon-usd"></i> '.GeneralLabel::kewangan_penajaan,
             'headerOptions' => ['class'=>$disabledTabs],
             'items'=>[
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Akaun',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::akaun,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabKewanganAkaunID],
@@ -224,7 +224,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'headerOptions' => ['class'=>$disabledTabs]
                 ],
                [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Elaun',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::elaun,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabKewanganElaunID],
@@ -232,7 +232,7 @@ $this->params['breadcrumbs'][] = $this->title;
                    'headerOptions' => ['class'=>$disabledTabs]
                 ],
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Insentif',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::insentif,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabKewanganInsentifID],
@@ -240,7 +240,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'headerOptions' => ['class'=>$disabledTabs]
                 ],
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Penajaan',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::penajaan,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPenajaanID],
@@ -248,7 +248,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'headerOptions' => ['class'=>$disabledTabs]
                 ],
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Biasiswa',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::biasiswa,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabKewanganBiasiswaID],
@@ -265,11 +265,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],*/
         [
-            'label'=>'<i class="glyphicon glyphicon-flag"></i> Program & Sukan',
+            'label'=>'<i class="glyphicon glyphicon-flag"></i>  '.GeneralLabel::program_sukan,
             'headerOptions' => ['class'=>$disabledTabs],
             'items'=>[
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Program & Sukan',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::program_sukan,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabSukanID],
@@ -277,7 +277,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'headerOptions' => ['class'=>$disabledTabs]
                 ],
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Persatuan / Persekutuan Dunia',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::persatuan_persekutuan_dunia,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabSukanPersatuanpersekutuanduniaID],
@@ -287,11 +287,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
         [
-            'label'=>'<i class="glyphicon glyphicon-sunglasses"></i> Kelengkapan Sukan',
+            'label'=>'<i class="glyphicon glyphicon-sunglasses"></i> '.GeneralLabel::kelengkapan_sukan,
             'headerOptions' => ['class'=>$disabledTabs],
             'items'=>[
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Pakaian Sukan',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::pakaian_sukan,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPakaianSukanID],
@@ -299,7 +299,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'headerOptions' => ['class'=>$disabledTabs]
                 ],
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Peralatan Sukan',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::peralatan_sukan,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPeralatanSukanID],
@@ -309,11 +309,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
         [
-            'label'=>'<i class="glyphicon glyphicon-scale"></i> Pencapaian Sukan',
+            'label'=>'<i class="glyphicon glyphicon-scale"></i> '.GeneralLabel::pencapaian_sukan,
             'headerOptions' => ['class'=>$disabledTabs],
             'items'=>[
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Pencapaian',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::pencapaian,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPencapaianID],
@@ -321,7 +321,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'headerOptions' => ['class'=>$disabledTabs]
                 ],
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Anugerah',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::anugerah,
                     'encode'=>false,
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPencapaianAnugerahID],
@@ -346,7 +346,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'visible' => $visibleOKUTab
         ],
         [
-            'label'=>'<i class="glyphicon glyphicon-heart"></i> Keluarga',
+            'label'=>'<i class="glyphicon glyphicon-heart"></i> '.GeneralLabel::keluarga,
             'content'=>'&nbsp;',
             'options' => ['id' => GeneralVariable::tabKeluargaID],
             'linkOptions'=>['data-url'=>Url::to(['/atlet-keluarga','typeJson'=>'1'])],
