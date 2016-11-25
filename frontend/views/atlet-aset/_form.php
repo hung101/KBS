@@ -82,10 +82,10 @@ use app\models\general\GeneralVariable;
                                     'asButton' => true
                                 ]
                             ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(RefJenisAsetSub::find()->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
-                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'jenis_aset')],
                             'placeholder' => Placeholder::jenisAsetSub,
@@ -145,10 +145,10 @@ use app\models\general\GeneralVariable;
                                     'asButton' => true
                                 ]
                             ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(RefBandar::find()->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
-                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'daftar_alamat_negeri')],
                             'placeholder' => Placeholder::bandar,

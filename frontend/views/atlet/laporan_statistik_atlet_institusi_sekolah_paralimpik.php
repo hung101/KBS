@@ -128,10 +128,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'asButton' => true
                                 ]
                             ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all(),'id', 'disciplineAcara'),
                         'options'=>['prompt'=>'',],
-                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'sukan')],
                             'placeholder' => Placeholder::acara,

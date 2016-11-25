@@ -89,6 +89,7 @@ use app\models\general\GeneralMessage;
                                     'asButton' => true
                                 ]
                             ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(RefAcara::find()->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
@@ -131,6 +132,7 @@ use app\models\general\GeneralMessage;
                                     'asButton' => true
                                 ]
                             ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
                         'options'=>['prompt'=>'',],

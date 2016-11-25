@@ -102,7 +102,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'widgetClass'=>'\kartik\widgets\DepDrop', 
                     'options'=>[
                         'type'=>DepDrop::TYPE_SELECT2,
-                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'select2Options'=> [
                             'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                             [
@@ -111,6 +110,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'asButton' => true
                                 ]
                             ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(RefKategoriKursusPenganjuran::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],

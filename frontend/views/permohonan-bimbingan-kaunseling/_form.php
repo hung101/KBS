@@ -351,6 +351,7 @@ use app\models\general\GeneralMessage;
                                     'asButton' => true
                                 ]
                             ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'name_penuh'),
                         'options'=>['prompt'=>'',],
@@ -390,6 +391,7 @@ use app\models\general\GeneralMessage;
                                     'asButton' => true
                                 ]
                             ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(Jurulatih::find()->all(),'jurulatih_id', 'nama'),
                         'options'=>['prompt'=>'',],

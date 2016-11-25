@@ -174,10 +174,10 @@ use app\models\general\GeneralMessage;
                                     'asButton' => true
                                 ]
                             ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(RefBandar::find()->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
-                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'alamat_negeri')],
                             'placeholder' => Placeholder::bandar,

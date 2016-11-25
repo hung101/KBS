@@ -129,6 +129,7 @@ use app\models\general\GeneralVariable;
                                     'asButton' => true
                                 ]
                             ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(PengurusanKemudahanSediaAda::find()->joinWith(['refJenisKemudahan'])->all(),'pengurusan_kemudahan_sedia_ada_id', 'sukanRekreasiDanJenisKemudahan'),
                         'options'=>['prompt'=>'', 'id'=>'kemudahanID'],
@@ -210,6 +211,7 @@ use app\models\general\GeneralVariable;
                                     'asButton' => true
                                 ]
                             ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(RefBandar::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'', 'disabled'=>true],

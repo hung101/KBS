@@ -126,10 +126,10 @@ use app\models\general\Placeholder;
                                     'asButton' => true
                                 ]
                             ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                                 'data'=>ArrayHelper::map(LtbsAhliJawatankuasaIndukKecil::find()->all(),'ahli_jawatan_id', 'nama_penuh'),
                                 'options'=>['prompt'=>'', 'id'=>'ahliJawatanInduk'],
-                                'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                                 'pluginOptions' => [
                                     'depends'=>[Html::getInputId($model, 'nama_badan_sukan')],
                                     'placeholder' => Placeholder::ahliJawatankuasaInduk,
@@ -166,10 +166,10 @@ use app\models\general\Placeholder;
                                     'asButton' => true
                                 ]
                             ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                                 'data'=>ArrayHelper::map(LtbsAhliJawatankuasaKecil::find()->all(),'ahli_jawatan_id', 'nama_penuh'),
                                 'options'=>['prompt'=>'', 'id'=>'ahliJawatanKecilBiro'],
-                                'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                                 'pluginOptions' => [
                                     'depends'=>[Html::getInputId($model, 'nama_badan_sukan')],
                                     'placeholder' => Placeholder::ahliJawatankuasaKecilBiro,

@@ -91,10 +91,10 @@ use app\models\general\GeneralVariable;
                                     'asButton' => true
                                 ]
                             ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(RefSaizPakaian::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
-                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
                             'initialize' => true,
                             'depends'=>[Html::getInputId($model, 'jenis_pakaian')],

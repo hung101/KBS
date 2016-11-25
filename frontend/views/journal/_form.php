@@ -96,6 +96,7 @@ use app\models\general\GeneralMessage;
                                     'asButton' => true
                                 ]
                             ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(RefBandar::find()->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
