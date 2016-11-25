@@ -85,6 +85,7 @@ class ProfilPanelPenasihatKpsk extends \yii\db\ActiveRecord
             [['tahap_akademik', 'silibus', 'created_by', 'updated_by', 'umur', 'no_kad_pengenalan'], 'integer'],
             [['nama', 'nama_jurusan', 'pengkhususan', 'nama_majikan', 'jawatan', 'gred'], 'string', 'max' => 80],
             [['no_kad_pengenalan'], 'string', 'max' => 12],
+            [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],            
             [['jantina'], 'string', 'max' => 1],
             [['alamat_1', 'alamat_2', 'alamat_3', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3'], 'string', 'max' => 30],
             [['alamat_negeri', 'alamat_majikan_negeri'], 'string', 'max' => 3],

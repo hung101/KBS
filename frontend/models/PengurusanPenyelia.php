@@ -63,7 +63,7 @@ class PengurusanPenyelia extends \yii\db\ActiveRecord
             [['full_name', 'new_password', 'password_confirm'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['aduan_jawatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tel_mobile_no', 'tel_no'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tel_mobile_no', 'tel_no'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tel_mobile_no', 'tel_no', 'no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_kad_pengenalan', 'username'], 'string', 'min' => 12, 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min],
             ['new_password', 'validatePassword'],
             ['new_password', 'string', 'min' => 12, 'tooShort' => GeneralMessage::yii_validation_string_min],

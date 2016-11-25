@@ -75,6 +75,7 @@ class BspPenjamin extends \yii\db\ActiveRecord
                 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'no_telefon_bimbit'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['bsp_pemohon_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],            
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_tetap_1', 'alamat_tetap_2', 'alamat_tetap_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 'alamat_pejabat_1', 'alamat_pejabat_2', 'alamat_pejabat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_negeri', 'alamat_surat_menyurat_negeri', 'alamat_pejabat_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],

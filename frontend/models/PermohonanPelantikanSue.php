@@ -52,6 +52,7 @@ class PermohonanPelantikanSue extends \yii\db\ActiveRecord
             [['jumlah_diluluskan'], 'number'],
             [['nama_sue', 'jumlah_dipohon'], 'string', 'max' => 80],
             [['no_kad_pengenalan'], 'string', 'max' => 12],
+            [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],            
             [['emel', 'muatnaik'], 'string', 'max' => 100],
             [['catatan'], 'string', 'max' => 255],
             [['bilangan_jkb'], 'string', 'max' => 30],

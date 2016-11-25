@@ -109,6 +109,7 @@ class PenganjuranKursusPeserta extends \yii\db\ActiveRecord
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['taraf_perkahwinan', 'kaum'], 'string', 'max' => 25, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_passport'], 'string', 'max' => 15, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],            
             [['no_kad_pengenalan', 'no_kp_polis_tentera'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_1', 'alamat_2', 'alamat_3', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3'], 'string', 'max' => 90],
             [['alamat_bandar', 'alamat_majikan_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],

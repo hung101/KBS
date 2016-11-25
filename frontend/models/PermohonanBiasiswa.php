@@ -74,6 +74,7 @@ class PermohonanBiasiswa extends \yii\db\ActiveRecord
                 'jenis_biasiswa', 'kelulusan', 'program'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id', 'umur', 'kelulusan', 'program', 'kategori'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['kadar'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['no_ic'], 'integer', 'message' => GeneralMessage::yii_validation_integer],            
             [['no_ic'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_rumah_1', 'alamat_rumah_2', 'alamat_rumah_3', 'alamat_pengajian_1', 'alamat_pengajian_2', 'alamat_pengajian_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],

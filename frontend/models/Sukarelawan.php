@@ -94,6 +94,7 @@ class Sukarelawan extends \yii\db\ActiveRecord
                 'pekerjaan_semasa', 'nama_majikan', 'bidang_diminati', 'waktu_ketika_diperlukan', 
                 'menyatakan_waktu_ketika_diperlukan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],                    
             [['alamat_1', 'alamat_2', 'alamat_3', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_negeri', 'status', 'alamat_majikan_negeri', 'saiz_baju'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_bandar', 'alamat_majikan_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],

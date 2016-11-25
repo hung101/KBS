@@ -65,7 +65,7 @@ class PengurusanPermohonanPendidikan extends \yii\db\ActiveRecord
         return [
             [['jenis_penganjuran', 'cadangan_program_kursus_bengkel', 'nama_program_kursus_bengkel', 'tarikh', 'nama', 'no_kad_pengenalan', 'tarikh_lahir', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'kelayakan_akademi', 'perkerjaan', 'nama_majikan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir'], 'safe'],
-            [['kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['kelulusan', 'no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama', 'kelayakan_akademi', 'perkerjaan', 'nama_majikan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],

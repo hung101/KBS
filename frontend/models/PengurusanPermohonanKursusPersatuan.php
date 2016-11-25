@@ -76,6 +76,7 @@ class PengurusanPermohonanKursusPersatuan extends \yii\db\ActiveRecord
             [['kelulusan', 'tahap', 'bilangan_peserta', 'no_perhubungan', 'kelulusan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama', 'kelayakan_akademi', 'perkerjaan', 'nama_majikan', 'agensi', 'kursus', 'nama_penganjur', 'jawatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],            
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],

@@ -80,6 +80,7 @@ class PengurusanJaringanAntarabangsa extends \yii\db\ActiveRecord
             [['nama_badan_sukan', 'negara', 'nama_pemohon', 'pegawai_teknikal', 'permohonan', 'nama_majikan', 'jawatan_di_persatuan', 
                 'tahap_kelayakan_sekarang'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                        [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 'alamat_majikan_1', 'alamat_majikan_2', 
                 'alamat_majikan_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],

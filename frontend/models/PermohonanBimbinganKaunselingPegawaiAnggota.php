@@ -68,7 +68,7 @@ class PermohonanBimbinganKaunselingPegawaiAnggota extends \yii\db\ActiveRecord
             [['nama', 'jawatan', 'nama_pegawai_anggota', 'jawatan_pegawai'], 'string', 'max' => 80],
             [['no_kad_pengenalan', 'no_kad_pengenalan_pegawai'], 'string', 'max' => 12],
             [['no_telefon', 'no_tel_pegawai'], 'string', 'max' => 14],
-            [['no_telefon', 'no_tel_pegawai'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['no_telefon', 'no_tel_pegawai', 'no_kad_pengenalan', 'no_kad_pengenalan_pegawai'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_fail_pekerja_pegawai', 'no_fail_pekerja'], 'string', 'max' => 30],
             [['emel', 'emel_pegawai'], 'string', 'max' => 100],
             [['catatan_kaunselor', 'tindakan_kaunselor', 'cadangan_kaunselor', 'catatan_permohonan'], 'string', 'max' => 255],

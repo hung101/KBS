@@ -53,7 +53,7 @@ class LtbsSenaraiNamaHadirJawatankuasa extends \yii\db\ActiveRecord
     {
         return [
             [['nama_penuh', 'no_kad_pengenalan', 'jawatan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['mesyuarat_id', 'kehadiran'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['mesyuarat_id', 'kehadiran', 'no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_penuh'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],

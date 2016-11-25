@@ -60,6 +60,7 @@ class PermohonanPenyelidikan extends \yii\db\ActiveRecord
             [['nama_permohon', 'akademik_nama', 'akademik_nama_yang_dicadangkan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['ringkasan_permohonan', 'pengecualian_persetujuan', 'sebab_tiada_penyertaan_lembaran_maklumat', 'sebab_tiada_borang_persetujuan_penyertaan', 'tajuk_penyelidikan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['isnrp_no', 'akademik_no_kakitangan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['akademik_ic_no'], 'integer', 'message' => GeneralMessage::yii_validation_integer],                            
             [['akademik_ic_no'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['akademik_no_tel_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['akademik_emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],

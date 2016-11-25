@@ -54,7 +54,7 @@ class LtbsSenaraiNamaHadirAgm extends \yii\db\ActiveRecord
     {
         return [
             [['nama_penuh', 'no_kad_pengenalan', 'jantina', 'kategori_keahlian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['mesyuarat_agm_id', 'kehadiran'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['mesyuarat_agm_id', 'kehadiran', 'no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_penuh'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],

@@ -78,6 +78,7 @@ class ProfilDelegasiTeknikalAhli extends \yii\db\ActiveRecord
             [['jantina', 'tarikh_lahir', 'created', 'updated'], 'safe'],
             [['nama', 'jawatan', 'pekerjaan', 'jawatan_lain_lain'], 'string', 'max' => 80],
             [['no_kad_pengenalan'], 'string', 'max' => 12],
+            [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],            
             [['alamat_1', 'alamat_2', 'alamat_3', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3'], 'string', 'max' => 30],
             [['alamat_negeri', 'alamat_majikan_negeri'], 'string', 'max' => 3],
             [['alamat_bandar', 'alamat_poskod', 'alamat_majikan_bandar', 'alamat_majikan_poskod'], 'string', 'max' => 5],

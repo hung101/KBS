@@ -86,6 +86,7 @@ class BorangProfilPesertaKpskPeserta extends \yii\db\ActiveRecord
             [['objektif'], 'integer', 'max' => 60, 'min' => 0],
             [['nama', 'pekerjaan', 'nama_majikan'], 'string', 'max' => 80],
             [['no_kad_pengenalan'], 'string', 'max' => 12],
+            [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],            
             [['jantina'], 'string', 'max' => 1],
             [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30],
             [['alamat_negeri'], 'string', 'max' => 3],
