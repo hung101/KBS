@@ -98,7 +98,7 @@ class Sukarelawan extends \yii\db\ActiveRecord
             [['alamat_negeri', 'status', 'alamat_majikan_negeri', 'saiz_baju'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_bandar', 'alamat_majikan_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod', 'alamat_majikan_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
-                    [['alamat_poskod', 'alamat_majikan_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['alamat_poskod', 'alamat_majikan_poskod', 'no_tel_bimbit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_tel_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel', 'facebook', 'muatnaik', 'bidang_diminati_lain_lain'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],

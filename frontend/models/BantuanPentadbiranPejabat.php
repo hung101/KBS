@@ -72,6 +72,7 @@ class BantuanPentadbiranPejabat extends \yii\db\ActiveRecord
             [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_tel_bimbit', 'no_tel_pejabat', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                        [['no_tel_bimbit', 'no_tel_pejabat', 'no_faks'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }

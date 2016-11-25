@@ -68,6 +68,7 @@ class AnugerahPencalonanKepimpinanSukan extends \yii\db\ActiveRecord
             [['gambar'], 'string', 'max' => 100],
             [['no_kad_pengenalan'], 'string', 'max' => 12],
             [['no_tel_1', 'no_tel_2'], 'string', 'max' => 14],
+                        [['no_tel_1', 'no_tel_2'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['gambar'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }

@@ -68,6 +68,7 @@ class UserPublic extends \yii\db\ActiveRecord
             [['username', 'password_hash', 'password_reset_token', 'email', 'sijil_pendaftaran'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
             [['full_name', 'nama_persatuan_e_bantuan', 'jawatan_e_bantuan'], 'string', 'max' => 80],
+            [['tel_bimbit_no', 'tel_no', 'fax_no'], 'integer', 'message' => GeneralMessage::yii_validation_integer],            
             [['tel_bimbit_no', 'tel_no', 'fax_no'], 'string', 'max' => 14],
         ];
     }

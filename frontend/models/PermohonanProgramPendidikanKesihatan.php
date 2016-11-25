@@ -59,7 +59,7 @@ class PermohonanProgramPendidikanKesihatan extends \yii\db\ActiveRecord
         return [
             //[['nama_program', 'tarikh_program', 'tempat_program', 'nama_pemohon', 'no_tel_pemohon', 'pegawai_bertugas', 'kelulusan_ceo', 'kelulusan_pbu'], 'required', 'skipOnEmpty' => true],
             [['tarikh_program'], 'safe'],
-            [['kelulusan_ceo', 'kelulusan_pbu'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['kelulusan_ceo', 'kelulusan_pbu', 'no_tel_pemohon'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_program', 'nama_pemohon', 'pegawai_bertugas'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat_program'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_tel_pemohon'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],

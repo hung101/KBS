@@ -44,7 +44,8 @@ class AdminPublicUserEBantuan extends Model
             ['email', 'unique', 'targetClass' => '\common\models\PublicUser', 'message' => GeneralMessage::yii_validation_unique],
             
             [['tel_bimbit_no', 'tel_no'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tel_bimbit_no', 'tel_no'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['tel_bimbit_no', 'tel_no'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tel_bimbit_no', 'tel_no'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],            
             ['full_name', 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
 
             ['password', 'required', 'message' => GeneralMessage::yii_validation_required],

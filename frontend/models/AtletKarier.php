@@ -74,6 +74,7 @@ class AtletKarier extends \yii\db\ActiveRecord
             [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kwsp_no'], 'string', 'max' => 10, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tel_no', 'faks_no'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                        [['tel_no', 'faks_no'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
                 ];

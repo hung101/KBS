@@ -90,6 +90,7 @@ class BantuanElaun extends \yii\db\ActiveRecord
             [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_tel_bimbit', 'no_tel_persatuan_pejabat'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                        [['no_tel_bimbit', 'no_tel_persatuan_pejabat'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }

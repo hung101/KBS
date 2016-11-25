@@ -67,6 +67,7 @@ class PublicUserEBantuan extends \yii\db\ActiveRecord
             [['sijil_pendaftaran'],'validateFileUploadWithRequired', 'skipOnEmpty' => false],
             [['tel_bimbit_no', 'tel_no'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tel_bimbit_no', 'tel_no'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tel_bimbit_no', 'tel_no'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],            
             ['new_password', 'validatePassword'],
             [['new_password', 'password_confirm'], 'string', 'min' => 12, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['username'], 'unique', 'message' => GeneralMessage::yii_validation_unique]
