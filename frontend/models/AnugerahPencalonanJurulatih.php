@@ -46,6 +46,7 @@ class AnugerahPencalonanJurulatih extends \yii\db\ActiveRecord
             [['created', 'updated'], 'safe'],
             [['sukan', 'nama_jurulatih'], 'string', 'max' => 80],
             [['no_kad_pengenalan'], 'string', 'max' => 12],
+                        [['no_telefon_1', 'no_telefon_2'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon_1', 'no_telefon_2'], 'string', 'max' => 14],
             [['no_telefon_1', 'no_telefon_2'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],            
             [['ulasan_pencapaian'], 'string', 'max' => 255],

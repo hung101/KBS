@@ -62,6 +62,7 @@ class AtletKeluarga extends \yii\db\ActiveRecord
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['bangsa'], 'string', 'max' => 25, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['agama'], 'string', 'max' => 15, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_tel'], 'integer', 'message' => GeneralMessage::yii_validation_integer],            
             [['no_tel'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }

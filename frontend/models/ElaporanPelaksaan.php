@@ -70,7 +70,7 @@ class ElaporanPelaksaan extends \yii\db\ActiveRecord
             [['nama_projek_program_aktiviti_kejohanan', 'peringkat', 'nama_penganjur_persatuan_kerjasama', 'jumlah_bantuan_peruntukan', 'no_cek_eft', 'tarikh_cek_eft', 'tarikh_pelaksanaan_mula', 'tarikh_pelaksanaan_tarikh', 'objektif_pelaksaan', 'dirasmikan_oleh', 'lelaki', 'wanita', 'melayu', 'cina', 'india', 'lain_lain', 'jumlah_penyertaan', 'rumusan_program', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['jumlah_bantuan_peruntukan', 'jumlah_perbelanjaan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tarikh_cek_eft', 'tarikh_pelaksanaan_mula', 'tarikh_pelaksanaan_tarikh'], 'safe'],
-            [['lelaki', 'wanita', 'melayu', 'cina', 'india', 'lain_lain', 'jumlah_penyertaan', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['lelaki', 'wanita', 'melayu', 'cina', 'india', 'lain_lain', 'jumlah_penyertaan', 'kelulusan', 'creator_mobile_no'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_projek_program_aktiviti_kejohanan', 'nama_penganjur_persatuan_kerjasama', 'dirasmikan_oleh', 'creator_nama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['peringkat', 'rumusan_program'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_cek_eft'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],

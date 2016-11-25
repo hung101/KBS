@@ -68,6 +68,8 @@ class TempahanKemudahanSubMsn extends \yii\db\ActiveRecord
                 'tarikh_akhir', 'jumlah_orang', 'status', 'agensi'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_mula'], 'safe'],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
+            [['no_tel'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['no_tel'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],            
             [['nama', 'venue', 'nama_pemilik'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['quantity_kadar'], 'string', 'max' => 11, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
