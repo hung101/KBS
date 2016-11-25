@@ -87,6 +87,8 @@ class TempahanKemudahanMsn extends \yii\db\ActiveRecord
                 'kadar_sewaan_sejam_siang_cuti_umum','kadar_sewaan_sehari_siang_cuti_umum','kadar_sewaan_seminggu_siang_cuti_umum','kadar_sewaan_sebulan_siang_cuti_umum','kadar_sewaan_sejam_malam_cuti_umum',
                 'kadar_sewaan_sehari_malam_cuti_umum','kadar_sewaan_seminggu_malam_cuti_umum','kadar_sewaan_sebulan_malam_cuti_umum'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_tel', 'no_tel_bimbit', 'fax_no_pemilik', 'tel_bimbit_no_pemilik'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['no_tel', 'no_tel_bimbit', 'fax_no_pemilik', 'tel_bimbit_no_pemilik'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_tel'], 'string', 'min' => 9, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['no_tel_bimbit'], 'string', 'min' => 10, 'tooShort' => GeneralMessage::yii_validation_string_min],
         ];

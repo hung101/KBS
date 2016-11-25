@@ -60,6 +60,7 @@ class PenganjuranKursusAkk extends \yii\db\ActiveRecord
             [['kod_kursus','negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_penyelaras', 'nama_kursus', 'penganjur'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_telefon'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon'], 'integer', 'message' => GeneralMessage::yii_validation_integer],            
             [['tarikh_kursus_tamat'], 'compare', 'compareAttribute'=>'tarikh_kursus_mula', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
         ];
     }

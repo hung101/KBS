@@ -64,6 +64,7 @@ class Journal extends \yii\db\ActiveRecord
             [['artikel_journal'], 'string'],
             [['nama_penulis'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['telefon_no'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['telefon_no'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_negeri', 'bahagian', 'status_journal'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],

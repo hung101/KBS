@@ -75,6 +75,7 @@ class UjianSaringan extends \yii\db\ActiveRecord
             [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_telefon'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan', 'antropometrik_tidak_mengambil_bahagian', 'koordinasi_tidak_mengambil_bahagian', 'kuasa_tidak_mengambil_bahagian', 'kelenturan_tidak_mengambil_bahagian', 'kepantasan_tidak_mengambil_bahagian'], 'integer', 'message' => GeneralMessage::yii_validation_integer],

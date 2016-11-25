@@ -92,6 +92,7 @@ class BorangProfilPesertaKpskPeserta extends \yii\db\ActiveRecord
             [['alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5],
             [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['no_telefon', 'no_telefon_bimbit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon', 'no_telefon_bimbit'], 'string', 'max' => 14],
             [['emel', 'facebook', 'session_id'], 'string', 'max' => 100],
             [['catatan'], 'string', 'max' => 255],

@@ -70,6 +70,7 @@ class AtletPenajaansokongan extends \yii\db\ActiveRecord
             [['nama_syarikat', 'emel', 'barang_yang_penyokong'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_telefon'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['peribadi_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jenis_kontrak', 'alamat_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],

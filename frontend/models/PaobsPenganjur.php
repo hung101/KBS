@@ -63,6 +63,8 @@ class PaobsPenganjur extends \yii\db\ActiveRecord
             [['penganjuran_id', 'no_telefon_penganjur', 'no_faks_penganjur', 'bilangan_peserta', 'negara_peserta'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_penubuhan_syarikat', 'tarikh_aktiviti'], 'safe'],
             [['kos_aktiviti', 'sumber_kewangan'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['no_telefon_penganjur', 'no_faks_penganjur'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['no_telefon_penganjur', 'no_faks_penganjur'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_penganjur_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_penganjur_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['profil_syarikat', 'surat_sokongan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],

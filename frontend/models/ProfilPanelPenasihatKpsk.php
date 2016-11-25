@@ -91,6 +91,7 @@ class ProfilPanelPenasihatKpsk extends \yii\db\ActiveRecord
             [['alamat_bandar', 'alamat_poskod', 'alamat_majikan_bandar', 'alamat_majikan_poskod'], 'string', 'max' => 5],
             [['alamat_bandar', 'alamat_poskod', 'alamat_majikan_bandar', 'alamat_majikan_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon', 'no_telefon_majikan', 'no_faks'], 'string', 'max' => 14],
+            [['no_telefon', 'no_telefon_majikan', 'no_faks'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['emel'], 'string', 'max' => 100],
             [['muatnaik'], 'string', 'max' => 255],
             [['muatnaik'],'validateFileUpload', 'skipOnEmpty' => false],

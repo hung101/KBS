@@ -84,6 +84,7 @@ class BantuanPenganjuranKejohananSirkit extends \yii\db\ActiveRecord
             [['alamat_negeri'], 'string', 'max' => 3, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['no_telefon', 'no_faks'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['laman_sesawang', 'facebook', 'twitter'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat', 'tujuan', 'nama_kejohanan_pertandingan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],

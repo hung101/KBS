@@ -63,6 +63,7 @@ class PengurusanKontraktor extends \yii\db\ActiveRecord
             [['alamat_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['telefon_pejabat', 'telefon_bimbit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['telefon_pejabat', 'telefon_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }

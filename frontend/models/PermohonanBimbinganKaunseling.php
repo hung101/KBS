@@ -65,6 +65,7 @@ class PermohonanBimbinganKaunseling extends \yii\db\ActiveRecord
             [['nama_pemohon_rujukan', 'pekerjaan_bapa', 'pekerjaan_ibu', 'cawangan_isn'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['notis', 'diagnosis', 'cadangan', 'tindakan_kaunselor'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_telefon'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             ['cawangan', 'required', 'message' => GeneralMessage::yii_validation_required, 'when' => function ($model) {
                     return $model->agensi == RefAgensiKaunseling::MSN;
                 }, 'whenClient' => "function (attribute, value) {

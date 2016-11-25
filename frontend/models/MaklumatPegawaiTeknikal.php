@@ -75,6 +75,7 @@ class MaklumatPegawaiTeknikal extends \yii\db\ActiveRecord
             [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_telefon', 'no_telefon_majikan', 'no_faks'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon', 'no_telefon_majikan', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_e_mail', 'tahap_kelayakan_sukan_peringkat_kebangsaan', 'tahap_kelayakan_sukan_peringkat_antarabangsa', 'session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['gred'], 'string', 'max' => 10, 'tooLong' => GeneralMessage::yii_validation_string_max],

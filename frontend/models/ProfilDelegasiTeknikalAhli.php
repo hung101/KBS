@@ -82,6 +82,7 @@ class ProfilDelegasiTeknikalAhli extends \yii\db\ActiveRecord
             [['alamat_negeri', 'alamat_majikan_negeri'], 'string', 'max' => 3],
             [['alamat_bandar', 'alamat_poskod', 'alamat_majikan_bandar', 'alamat_majikan_poskod'], 'string', 'max' => 5],
             [['alamat_poskod','alamat_majikan_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['no_telefon_bimbit','no_telefon_pejabat'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon_bimbit', 'no_telefon_pejabat'], 'string', 'max' => 14],
             [['emel', 'session_id'], 'string', 'max' => 100],
         ];
