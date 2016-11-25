@@ -73,11 +73,11 @@ use app\models\general\GeneralMessage;
                                     'asButton' => true
                                 ]
                             ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
                         //'data'=>ArrayHelper::map(AtletSukan::find()->joinWith(['refAtlet'])->asArray()->all(),'atlet_id', 'nameAndIC'),
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
                         'options'=>['prompt'=>'',],
-                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'sukan')],
                             'placeholder' => Placeholder::atlet,
