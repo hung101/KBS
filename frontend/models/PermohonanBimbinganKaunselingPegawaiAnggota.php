@@ -93,7 +93,7 @@ class PermohonanBimbinganKaunselingPegawaiAnggota extends \yii\db\ActiveRecord
             'taraf_perkahwinan' => 'Taraf Perkahwinan',
             'status_jawatan' => 'Status Jawatan',
             'jantina' => 'Jantina',
-            'tarikh_temujanji' => 'Tarikh Cadangan Temujanji',
+            'tarikh_temujanji' => 'Tarikh Temujanji',
             'kategori_masalah' => 'Kategori Masalah',
             'catatan_kaunselor' => 'Catatan Kaunselor',
             'tindakan_kaunselor' => 'Tindakan Kaunselor',

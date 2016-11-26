@@ -1017,7 +1017,7 @@ use app\models\general\GeneralLabel;
                     <?php
                         $queryPar = null;
 
-                        if($modelJurulatih->jurulatih_id){
+                        if($modelKesihatan && $modelKesihatan->jurulatih_kesihatan_id){
                             //filter by sukan id
                             $queryPar['JurulatihKesihatanMasalahSearch']['jurulatih_kesihatan_id'] = $modelKesihatan->jurulatih_kesihatan_id;
                         }

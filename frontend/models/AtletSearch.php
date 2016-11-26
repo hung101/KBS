@@ -175,7 +175,9 @@ class AtletSearch extends Atlet
                     array_push($arr_sukan_filter,$arr_sukan);
             }
             
-            $query->andFilterWhere(['tbl_atlet_sukan.nama_sukan'=>$arr_sukan_filter]);
+            if(!isset($this->jurulatih)){
+                $query->andFilterWhere(['tbl_atlet_sukan.nama_sukan'=>$arr_sukan_filter]);
+            }
         }
         // add filter base on sukan access role in tbl_user->sukan - END
         
@@ -187,12 +189,15 @@ class AtletSearch extends Atlet
         
         
         // add filter base on view own created data role Atlet -> View Own Data - START
-        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['view_own_data']) && !Yii::$app->request->get()){
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['view_own_data']) && !Yii::$app->request->get() && !isset($this->jurulatih)){
             $query->andFilterWhere(['tbl_atlet.created_by'=>Yii::$app->user->identity->id]);
+            
+            
             
             // see those atlet has not assign sukan & program yet
             if(!isset($this->jurulatih)){
-                $query->orWhere(['tbl_atlet_sukan.nama_sukan' => ''])->orWhere(['tbl_atlet_sukan.nama_sukan' => NULL]);
+                //$query->andWhere(['tbl_atlet_sukan.nama_sukan' => ''])->andWhere(['tbl_atlet_sukan.nama_sukan' => NULL]);
+                $query->orWhere("(tbl_atlet_sukan.nama_sukan = '' OR tbl_atlet_sukan.nama_sukan IS NULL) AND tbl_atlet.created_by = " . Yii::$app->user->identity->id);
             }
         }
         // add filter base on view own created data role Atlet -> View Own Data - END

@@ -453,7 +453,7 @@ $DateDisplayFormat = GeneralVariable::displayDateFormat;
 
 $script = <<< JS
         
-$('#atletId').change(function(){
+$('#pltemujanjifisioterapi-atlet_id').change(function(){
     
     $.get('$URLJurulatih',{id:$(this).val()},function(data){
         clearForm();

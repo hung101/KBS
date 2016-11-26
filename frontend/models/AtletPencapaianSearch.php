@@ -44,7 +44,10 @@ class AtletPencapaianSearch extends AtletPencapaian
     {
         $query = AtletPencapaian::find()
                 ->joinWith(['refJenisRekod'])
-                ->joinWith(['refKeputusan']);
+                ->joinWith(['refKeputusan'])
+                ->orderBy([
+	           'tarikh_mula_kejohanan'=>SORT_DESC,
+	        ]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -61,13 +64,15 @@ class AtletPencapaianSearch extends AtletPencapaian
         $query->andFilterWhere([
             'pencapaian_id' => $this->pencapaian_id,
             'atlet_id' => $this->atlet_id,
-            'tarikh_mula_kejohanan' => $this->tarikh_mula_kejohanan,
-            'tarikh_tamat_kejohanan' => $this->tarikh_tamat_kejohanan,
+            //'tarikh_mula_kejohanan' => $this->tarikh_mula_kejohanan,
+            //'tarikh_tamat_kejohanan' => $this->tarikh_tamat_kejohanan,
             'insentif_id' => $this->insentif_id,
         ]);
 
         $query->andFilterWhere(['like', 'nama_kejohanan_temasya', $this->nama_kejohanan_temasya])
             ->andFilterWhere(['like', 'peringkat_kejohanan', $this->peringkat_kejohanan])
+                 ->andFilterWhere(['like', 'tarikh_mula_kejohanan', $this->tarikh_mula_kejohanan])
+                 ->andFilterWhere(['like', 'tarikh_tamat_kejohanan', $this->tarikh_tamat_kejohanan])
             ->andFilterWhere(['like', 'nama_sukan', $this->nama_sukan])
             ->andFilterWhere(['like', 'nama_acara', $this->nama_acara])
                 ->andFilterWhere(['like', 'tbl_ref_keputusan.desc', $this->nama_acara])

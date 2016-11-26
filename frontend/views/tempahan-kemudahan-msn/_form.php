@@ -662,7 +662,9 @@ use app\models\general\GeneralMessage;
     <?php 
         $jumlah_bayaran_sewa = 0.00;
         foreach($dataProviderTempahanKemudahanSubMsn->models as $PTLmodel){
-            $jumlah_bayaran_sewa += $PTLmodel->bayaran_sewa;
+            //if(isset($PTLmodel->status) && $PTLmodel->status == RefStatusTempahanKemudahan::LULUS){
+                $jumlah_bayaran_sewa += $PTLmodel->bayaran_sewa;
+            //}
         }
     ?>
     

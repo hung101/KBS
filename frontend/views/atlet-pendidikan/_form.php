@@ -59,7 +59,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefTahapPendidikan::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefTahapPendidikan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::tahapPendidikan],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -76,7 +76,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJenisPencapaian::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefJenisPencapaian::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jenis],
                         'pluginOptions' => [
                             'allowClear' => true

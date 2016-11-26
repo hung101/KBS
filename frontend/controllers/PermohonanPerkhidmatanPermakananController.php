@@ -17,6 +17,7 @@ use app\models\Atlet;
 use app\models\RefSukan;
 use app\models\RefKategoriPermohonanPemakanan;
 use app\models\RefPerkhidmatanPemakanan;
+use app\models\RefAtletTahap;
 
 /**
  * PermohonanPerkhidmatanPermakananController implements the CRUD actions for PermohonanPerkhidmatanPermakanan model.
@@ -73,7 +74,8 @@ class PermohonanPerkhidmatanPermakananController extends Controller
         $ref = RefSukan::findOne(['id' => $model->sukan]);
         $model->sukan = $ref['desc'];
         
-        $ref = RefKategoriPermohonanPemakanan::findOne(['id' => $model->kategori_permohonan]);
+        //$ref = RefKategoriPermohonanPemakanan::findOne(['id' => $model->kategori_permohonan]);
+        $ref = RefAtletTahap::findOne(['id' => $model->kategori_permohonan]);
         $model->kategori_permohonan = $ref['desc'];
         
         $ref = RefPerkhidmatanPemakanan::findOne(['id' => $model->jenis_perkhidmatan]);

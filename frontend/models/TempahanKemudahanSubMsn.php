@@ -167,7 +167,7 @@ class TempahanKemudahanSubMsn extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getRefJenisKadarKemudahan(){
-        return $this->hasOne(RefJenisKadarKemudahan::className(), ['id' => 'jenis_kadar']);
+        return $this->hasOne(RefJenisKadarKemudahanMsn::className(), ['id' => 'jenis_kadar']);
     }
     
     /**

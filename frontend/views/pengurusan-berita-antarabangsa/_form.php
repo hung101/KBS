@@ -191,7 +191,7 @@ use app\models\general\GeneralMessage;
                         ],
                     'columnOptions'=>['colspan'=>3]],*/
                 'alamat_bandar' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>50]],
-                'alamat_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5]],
+                'alamat_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
             ]
         ],
         [

@@ -14,6 +14,7 @@ use yii\web\Session;
 
 // contant values
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Jurulatih;
@@ -209,6 +210,30 @@ class PengurusanPemantauanDanPenilaianJurulatihController extends Controller
         
         $this->findModel($id)->delete();
 
+        return $this->redirect(['index']);
+    }
+    
+    /**
+     * Updates an existing Jurulatih model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionSent($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar = 1; // set approved
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date time capture
+        
+        $model->save();
+        
+        //return $this->redirect(['view', 'id' => $model->jurulatih_id]);
+        
         return $this->redirect(['index']);
     }
 

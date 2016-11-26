@@ -58,6 +58,8 @@ use app\models\general\GeneralVariable;
     ?>
    <?php $disablePersatuanInfo = true;?>
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
+   
+   <?php echo $form->errorSummary($model); ?>
     
     <pre style="text-align: center"><strong>MAKLUMAT BADAN SUKAN</strong></pre>
     <?php

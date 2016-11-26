@@ -85,6 +85,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
 
                     },
+                    'update' => function ($url, $model) {
+                         $options = [
+                            'title' => Yii::t('yii', 'Update'),
+                            'aria-label' => Yii::t('yii', 'Update'),
+                            'data-pjax' => '0',
+                            ];
+                        return ($model->hantar == 0) ? '' :Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
+                    },
                 ],
                 'template' => $template,
             ],

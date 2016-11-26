@@ -255,10 +255,10 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                                     'label' => GeneralLabel::laporan,
                                                     'items' => [
                                                         ['label' => GeneralLabel::laporan_senarai_permohonan_pendidikan, 'url' => ['/permohonan-pendidikan/laporan-senarai-permohonan-pendidikan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-pendidikan']['module'])],
-                                                        ['label' => GeneralLabel::laporan_biasiswa, 'url' => ['/permohonan-biasiswa/laporan-permohonan-biasiswa'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-biasiswa']['module'])],
+                                                        ['label' => GeneralLabel::laporan_biasiswa, 'url' => ['/permohonan-pendidikan/laporan-senarai-pendidikan-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-pendidikan']['module'])],
                                                         ['label' => GeneralLabel::laporan_permohonan_pelepasan, 'url' => ['/pertukaran-pengajian/laporan-permohonan-pelepasan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pertukaran-pengajian']['module'])],
                                                         ['label' => GeneralLabel::laporan_penangguhan_universiti, 'url' => ['/pertukaran-pengajian/laporan-penangguhan-universiti'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pertukaran-pengajian']['module'])],
-                                                        ['label' => GeneralLabel::laporan_senarai_pendidikan_atlet, 'url' => ['/permohonan-pendidikan/laporan-senarai-pendidikan-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-pendidikan']['module'])],
+                                                        ['label' => GeneralLabel::laporan_senarai_pendidikan_atlet, 'url' => ['/permohonan-biasiswa/laporan-permohonan-biasiswa'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-biasiswa']['module'])],
                                                     ],
                                                 ],
                                             ],
@@ -601,7 +601,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                 ['label' => GeneralLabel::profil_kaunselor, 'url' => ['/profil-konsultan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-konsultan']['module'])],
                                         ['label' => GeneralLabel::bimbingan_kaunseling_kes_rujukan, 'url' => ['/permohonan-bimbingan-kaunseling/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-bimbingan-kaunseling']['module'])],
                                         ['label' => GeneralLabel::bimbingan_kaunseling_pegawai_anggota, 'url' => ['/permohonan-bimbingan-kaunseling-pegawai-anggota/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-bimbingan-kaunseling']['module'])],
-                                        ['label' => GeneralLabel::borang_aduan_atlet, 'url' => ['/borang-aduan-kaunseling/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-aduan-kaunseling']['module'])],
+                                        //['label' => GeneralLabel::borang_aduan_atlet, 'url' => ['/borang-aduan-kaunseling/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-aduan-kaunseling']['module'])],
                                         ['label' => GeneralLabel::sesi_kaunseling, 'url' => ['/borang-penilaian-kaunseling/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-penilaian-kaunseling']['module'])],
                                 [
                                     'label' => GeneralLabel::laporan,

@@ -64,7 +64,7 @@ class MesyuaratJkkSearch extends MesyuaratJkk
 
         $query->andFilterWhere([
             'mesyuarat_id' => $this->mesyuarat_id,
-            'tarikh' => $this->tarikh,
+            //'tarikh' => $this->tarikh,
             'masa' => $this->masa,
         ]);
 
@@ -75,9 +75,10 @@ class MesyuaratJkkSearch extends MesyuaratJkk
             ->andFilterWhere(['like', 'mesyuarat_tamat', $this->mesyuarat_tamat])
             ->andFilterWhere(['like', 'mesyuarat_seterusnya', $this->mesyuarat_seterusnya])
             ->andFilterWhere(['like', 'disedia_oleh', $this->disedia_oleh])
-            ->andFilterWhere(['like', 'disemak_oleh', $this->disemak_oleh])
-                ->andFilterWhere(['like', 'tbl_ref_fasa.dec', $this->fasa])
-                ->andFilterWhere(['like', 'tbl_ref_bil_jkk.dec', $this->bil_mesyuarat])
+            ->andFilterWhere(['like', 'tarikh', $this->tarikh])
+                ->andFilterWhere(['like', 'disemak_oleh', $this->disemak_oleh])
+                ->andFilterWhere(['like', 'tbl_ref_fasa.desc', $this->fasa])
+                ->andFilterWhere(['like', 'tbl_ref_bil_jkk.desc', $this->bil_mesyuarat])
                 ->andFilterWhere(['like', 'tbl_ref_jenis_cawangan_kuasa_jkk_jkp.desc', $this->jenis_mesyuarat])
                 ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
                 ->andFilterWhere(['like', 'tbl_ref_program_semasa_sukan_atlet.desc', $this->program]);

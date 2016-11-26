@@ -19,10 +19,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-pemantauan-dan-penilaian-jurulatih']['update'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-pemantauan-dan-penilaian-jurulatih']['update']) && $model->hantar == 0 && $model->created_by == Yii::$app->user->identity->id): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->pengurusan_pemantauan_dan_penilaian_jurulatih_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-pemantauan-dan-penilaian-jurulatih']['delete'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-pemantauan-dan-penilaian-jurulatih']['delete']) && $model->hantar == 0 && $model->created_by == Yii::$app->user->identity->id): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->pengurusan_pemantauan_dan_penilaian_jurulatih_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
@@ -30,6 +30,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'method' => 'post',
                 ],
             ]) ?>
+        <?php endif; ?>
+        <?php if($model->hantar == 0 && $model->created_by == Yii::$app->user->identity->id): ?>
+            <?= Html::a(GeneralLabel::send, ['sent', 'id' => $model->pengurusan_pemantauan_dan_penilaian_jurulatih_id], ['class' => 'btn btn-success']) ?>
         <?php endif; ?>
         <?= Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'window.print();' ]); ?>
     </p>

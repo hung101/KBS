@@ -53,7 +53,9 @@ class PengurusanPemantauanDanPenilaianJurulatihKetua extends \yii\db\ActiveRecor
     {
         return [
             [['nama_jurulatih_dinilai', 'nama_sukan', 'pusat_latihan', 'penilaian_oleh', 'tarikh_dinilai'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['nama_jurulatih_dinilai', 'nama_sukan', 'nama_acara', 'pusat_latihan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['nama_jurulatih_dinilai', 'pusat_latihan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['hantar', 'nama_sukan', 'nama_acara'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tarikh_hantar'], 'safe'],
         ];
     }
 

@@ -67,7 +67,7 @@ class ProfilPusatLatihan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['sukan', 'program', 'nama_pusat_latihan', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod',
+            [['sukan', 'program', 'nama_pusat_latihan', 'alamat_1', 'alamat_negeri', 'alamat_poskod',
                 'hakmilik'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_program_bermula', 'tahun_siap_pembinaan', 'created', 'updated'], 'safe'],
             [['kos_project'], 'number', 'message' => GeneralMessage::yii_validation_number],

@@ -36,6 +36,168 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]); ?>
     
+    <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Peringkat Umur 1</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'umur_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+                'umur_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+            ]
+        ],
+    ]
+]);
+    ?>
+                </div>
+            </div>
+        </div>
+    
+    <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Peringkat Umur 1</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'umur_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+                'umur_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+            ]
+        ],
+    ]
+]);
+    ?>
+                </div>
+            </div>
+        </div>
+    <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Peringkat Umur 1</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'umur_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+                'umur_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+            ]
+        ],
+    ]
+]);
+    ?>
+                </div>
+            </div>
+        </div>
+    
+    <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Peringkat Umur 1</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'umur_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+                'umur_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+            ]
+        ],
+    ]
+]);
+    ?>
+                </div>
+            </div>
+        </div>
+    <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Peringkat Umur 1</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'umur_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+                'umur_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+            ]
+        ],
+    ]
+]);
+    ?>
+                </div>
+            </div>
+        </div>
+    
+    <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>Peringkat Umur 1</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'umur_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+                'umur_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+            ]
+        ],
+    ]
+]);
+    ?>
+                </div>
+            </div>
+        </div>
+    
+    
+    
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -163,6 +325,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
+    ]
+]);
+    ?>
+    
+    
+    
+    
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting

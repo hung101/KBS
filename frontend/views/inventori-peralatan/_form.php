@@ -19,6 +19,7 @@ use app\models\general\GeneralLabel;
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data'], 'id'=>$model->formName()]); ?>
+    <?php echo $form->errorSummary($model); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -81,7 +82,6 @@ function calculateJumlah(){
 }
         
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
-
     var form = $(this);
      
      // submit form

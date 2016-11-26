@@ -43,7 +43,7 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'atlet_id' => [
+                'atlet_id' => /*[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -59,6 +59,29 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
+                    'columnOptions'=>['colspan'=>6]],*/
+                [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
+                    'options'=>[
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
+                        ],
+                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'options'=>['prompt'=>'',],
+                        'pluginOptions' => [
+                            'depends'=>[Html::getInputId($model, 'sukan')],
+                            'placeholder' => Placeholder::atlet,
+                            'url'=>Url::to(['/atlet/sub-atlets-sukan'])],
+                        ],
                     'columnOptions'=>['colspan'=>6]],
                 'sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -134,16 +157,6 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
 
-    <!--<?= $form->field($model, 'atlet_id')->textInput() ?>
-
-    <?= $form->field($model, 'tarikh')->textInput() ?>
-
-    <?= $form->field($model, 'sukan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'perkhidmatan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'fasiliti')->textInput(['maxlength' => 80]) ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
@@ -153,3 +166,36 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$URLAtlet = Url::to(['/atlet/get-atlet']);
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$script = <<< JS
+        
+$('#satelit-atlet_id').change(function(){
+    
+    $.get('$URLAtlet',{id:$(this).val()},function(data){
+        clearForm();
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+        
+            if(data.refAtletSukan[0] !== null){ 
+                //$('#satelit-kategori_atlet').val(data.refAtletSukan[0].program_semasa).trigger("change");
+                $('#satelit-sukan').val(data.refAtletSukan[0].nama_sukan).trigger("change");
+            }
+        }
+    });
+});
+     
+function clearForm(){
+    //$("#satelit-kategori_atlet").val('').trigger("change");
+    $("#satelit-sukan").val('').trigger("change");
+}
+        
+JS;
+        
+$this->registerJs($script);
+?>
