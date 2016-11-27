@@ -836,13 +836,14 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             
-            $model->program = implode(",",$model->program);
-            $model->sukan = implode(",",$model->sukan);
-            $model->acara = implode(",",$model->acara);
-            $model->negeri = implode(",",$model->negeri);
-            $model->source = implode(",",$model->source);
-            $model->cawangan = implode(",",$model->cawangan);
-            $model->tahap_pendidikan = implode(",",$model->tahap_pendidikan);
+            
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->source))$model->source = implode(",",$model->source);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
+            if(!empty($model->tahap_pendidikan))$model->tahap_pendidikan = implode(",",$model->tahap_pendidikan);
             
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-senarai-atlet'
@@ -934,6 +935,15 @@ Majlis Sukan Negara Malaysia.
         $model->format = 'html';
 
         if ($model->load(Yii::$app->request->post())) {
+            
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->kategori_kecacatan))$model->kategori_kecacatan = implode(",",$model->kategori_kecacatan);
+            if(!empty($model->source))$model->source = implode(",",$model->source);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
+            if(!empty($model->tahap_pendidikan))$model->tahap_pendidikan = implode(",",$model->tahap_pendidikan);
             
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-senarai-atlet-paralimpik'
@@ -1032,6 +1042,12 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
+            
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-statistik-atlet'
                     , 'program' => $model->program
@@ -1098,6 +1114,13 @@ Majlis Sukan Negara Malaysia.
         $model->format = 'html';
 
         if ($model->load(Yii::$app->request->post())) {
+            
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->kategori_kecacatan))$model->kategori_kecacatan = implode(",",$model->kategori_kecacatan);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
             
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-paralimpik'
@@ -1172,6 +1195,12 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
+            
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-jantina'
                     , 'program' => $model->program
@@ -1239,13 +1268,20 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            //if(!empty($model->kategori_kecacatan))$model->kategori_kecacatan = implode(",",$model->kategori_kecacatan);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
+            
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-jantina-paralimpik'
                     , 'program' => $model->program
                     , 'sukan' => $model->sukan
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
-                    , 'kategori_kecacatan' => $model->kategori_kecacatan
+                    //, 'kategori_kecacatan' => $model->kategori_kecacatan
                     , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ], true);
@@ -1256,7 +1292,7 @@ Majlis Sukan Negara Malaysia.
                     , 'sukan' => $model->sukan
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
-                    , 'kategori_kecacatan' => $model->kategori_kecacatan
+                    //, 'kategori_kecacatan' => $model->kategori_kecacatan
                     , 'cawangan' => $model->cawangan
                     , 'format' => $model->format
                 ]);
@@ -1269,7 +1305,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanStatistikAtletJantinaParalimpik($program, $sukan, $acara, $negeri, $kategori_kecacatan, $cawangan, $format)
+    public function actionGenerateLaporanStatistikAtletJantinaParalimpik($program, $sukan, $acara, $negeri, $cawangan, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -1283,8 +1319,8 @@ Majlis Sukan Negara Malaysia.
         if($negeri == "") $negeri = array();
         else $negeri = array($negeri);
         
-        if($kategori_kecacatan == "") $kategori_kecacatan = array();
-        else $kategori_kecacatan = array($kategori_kecacatan);
+        //if($kategori_kecacatan == "") $kategori_kecacatan = array();
+        //else $kategori_kecacatan = array($kategori_kecacatan);
         
         if($cawangan == "") $cawangan = array();
         else $cawangan = array($cawangan);
@@ -1294,7 +1330,7 @@ Majlis Sukan Negara Malaysia.
             'PROGRAM' => $program,
             'SUKAN' => $sukan,
             'NEGERI' => $negeri,
-            'KATEGORI_CACAT' => $kategori_kecacatan,
+            //'KATEGORI_CACAT' => $kategori_kecacatan,
             'CAWANGAN' => $cawangan,
         );
         
@@ -1431,6 +1467,13 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
+            
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-atlet-pencapaian-prestasi'
                     , 'program' => $model->program
@@ -1515,6 +1558,13 @@ Majlis Sukan Negara Malaysia.
         $model->format = 'html';
 
         if ($model->load(Yii::$app->request->post())) {
+            
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
             
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-atlet-pencapaian-prestasi-paralimpik'
@@ -1601,6 +1651,12 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
+            
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-agama'
                     , 'program' => $model->program
@@ -1673,6 +1729,12 @@ Majlis Sukan Negara Malaysia.
         $model->format = 'html';
 
         if ($model->load(Yii::$app->request->post())) {
+            
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
             
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-agama-paralimpik'
@@ -1747,6 +1809,12 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
+            
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-bangsa'
                     , 'program' => $model->program
@@ -1820,6 +1888,12 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
+            
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-bangsa-paralimpik'
                     , 'program' => $model->program
@@ -1892,6 +1966,11 @@ Majlis Sukan Negara Malaysia.
         $model->format = 'html';
 
         if ($model->load(Yii::$app->request->post())) {
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
             
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-pendidikan'
@@ -1965,6 +2044,11 @@ Majlis Sukan Negara Malaysia.
         $model->format = 'html';
 
         if ($model->load(Yii::$app->request->post())) {
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
             
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-pendidikan-paralimpik'
@@ -2038,6 +2122,12 @@ Majlis Sukan Negara Malaysia.
         $model->format = 'html';
 
         if ($model->load(Yii::$app->request->post())) {
+            
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
             
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-umur'
@@ -2266,6 +2356,12 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
+            
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-umur-paralimpik'
                     , 'program' => $model->program
@@ -2492,6 +2588,11 @@ Majlis Sukan Negara Malaysia.
         $model->format = 'html';
 
         if ($model->load(Yii::$app->request->post())) {
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
             
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-institusi-sekolah'
@@ -2565,6 +2666,11 @@ Majlis Sukan Negara Malaysia.
         $model->format = 'html';
 
         if ($model->load(Yii::$app->request->post())) {
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
             
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-statistik-atlet-institusi-sekolah-paralimpik'
@@ -2638,6 +2744,13 @@ Majlis Sukan Negara Malaysia.
         $model->format = 'html';
 
         if ($model->load(Yii::$app->request->post())) {
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
+            if(!empty($model->jenis_elaun))$model->jenis_elaun = implode(",",$model->jenis_elaun);
             
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-atlet-elaun'
@@ -2729,6 +2842,13 @@ Majlis Sukan Negara Malaysia.
         $model->format = 'html';
 
         if ($model->load(Yii::$app->request->post())) {
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
+            if(!empty($model->jenis_elaun))$model->jenis_elaun = implode(",",$model->jenis_elaun);
             
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-atlet-elaun-paralimpik'
@@ -2855,6 +2975,15 @@ Majlis Sukan Negara Malaysia.
         
         
         if ($model->load(Yii::$app->request->post())) {
+            
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
+            if(!empty($model->jenis_pakaian))$model->jenis_pakaian = implode(",",$model->jenis_pakaian);
+            if(!empty($model->saiz_pakaian))$model->saiz_pakaian = implode(",",$model->saiz_pakaian);
             
             if($model->format == "html") {
                 /*$report_url = BaseUrl::to(['generate-laporan-atlet-pakaian-sukan-paralimpik'
@@ -3010,6 +3139,15 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
+            if(!empty($model->jenis_pakaian))$model->jenis_pakaian = implode(",",$model->jenis_pakaian);
+            if(!empty($model->saiz_pakaian))$model->saiz_pakaian = implode(",",$model->saiz_pakaian);
+            
             if($model->format == "html") {
                 /*$report_url = BaseUrl::to(['generate-laporan-atlet-pakaian-sukan-paralimpik'
                     , 'program' => $model->program
@@ -3164,6 +3302,14 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
+            if(!empty($model->nama_kejohanan_temasya))$model->nama_kejohanan_temasya = implode(",",$model->nama_kejohanan_temasya);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
+            
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-atlet-pencapaian-prestasi-secara-individu'
                     , 'program' => $model->program
@@ -3260,6 +3406,14 @@ Majlis Sukan Negara Malaysia.
         $model->format = 'html';
 
         if ($model->load(Yii::$app->request->post())) {
+            
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
+            if(!empty($model->nama_kejohanan_temasya))$model->nama_kejohanan_temasya = implode(",",$model->nama_kejohanan_temasya);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
             
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-atlet-pencapaian-prestasi-secara-individu-paralimpik'

@@ -88,7 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->where(['=', 'cacat', 0])->all(),'atlet_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::atlet],
+                        'options' => ['multiple' => true,'placeholder' => Placeholder::atlet],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -112,7 +112,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],
+                        'options' => ['multiple' => true,'placeholder' => Placeholder::negeri],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -135,7 +135,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::program],
+                        'options' => ['multiple' => true,'placeholder' => Placeholder::program],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -158,7 +158,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],
+                        'options' => ['multiple' => true,'placeholder' => Placeholder::sukan],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -182,7 +182,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'asButton' => true
                                 ]
                             ] : null,
-                            'pluginOptions'=>['allowClear'=>true]
+                            'pluginOptions'=>['multiple' => true,'allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'disciplineAcara'),
                         'options'=>['prompt'=>'',],
@@ -210,7 +210,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefCawangan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::cawangan],
+                        'options' => ['multiple' => true,'placeholder' => Placeholder::cawangan],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -233,7 +233,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJenisPakaian::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jenisPakaian],
+                        'options' => ['multiple' => true,'placeholder' => Placeholder::jenisPakaian],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -257,14 +257,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'asButton' => true
                                 ]
                             ] : null,
-                            'pluginOptions'=>['allowClear'=>true]
+                            'pluginOptions'=>['multiple' => true,'allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(RefSaizPakaian::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
                         'pluginOptions' => [
                             'initialize' => true,
                             'depends'=>[Html::getInputId($model, 'jenis_pakaian')],
-                            'placeholder' => Placeholder::acara,
+                            'placeholder' => Placeholder::saizPakaian,
                             'url'=>Url::to(['/ref-saiz-pakaian/sub-saiz-pakaians'])],
                         ],
                     'columnOptions'=>['colspan'=>4]],
