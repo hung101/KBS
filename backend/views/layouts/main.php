@@ -43,6 +43,31 @@ AppAsset::register($this);
                 ],
             ]);
             
+            $session = Yii::$app->getSession();
+            $current_language = $session->get('language');
+            $language_string = "Bahasa";
+
+            switch ($current_language) {
+                case "BM":
+                    $language_string = "Bahasa";
+                    break;
+                case "EN":
+                    $language_string = "English";
+                    break;
+                default:
+                    $language_string = "Bahasa";
+            }
+
+
+            $menuItems[] = [
+                'label' => $language_string,
+                'items' => [
+                     '<li class="dropdown-header">'.GeneralLabel::pilih_bahasa.'</li>',
+                     ['label' => GeneralLabel::english, 'url' => ['/language/change','language'=>"EN"]],
+                     ['label' => GeneralLabel::bahasa, 'url' => ['/language/change','language'=>"BM"]],
+                ],
+            ];
+            
             if (!Yii::$app->user->isGuest) {
                 $url_home = '/site';
                 
@@ -50,8 +75,8 @@ AppAsset::register($this);
                     if(Yii::$app->user->identity->category_access == PublicUser::ACCESS_BIASISWA){
                         $url_home = '/site/e-biasiswa-home';
                         $sideMenuItems = [
-                            ['label' => 'Permohonan e-Biasiswa', 'url' => ['/site/e-biasiswa-home']],
-                            ['label' => 'Sejarah Permohonan', 'url' => ['/permohonan-e-biasiswa/index']],
+                            ['label' => GeneralLabel::permohonan_e_biasiswa, 'url' => ['/site/e-biasiswa-home']],
+                            ['label' => GeneralLabel::sejarah_permohonan, 'url' => ['/permohonan-e-biasiswa/index']],
                         ];
                     } else if(Yii::$app->user->identity->category_access == PublicUser::ACCESS_KEMUDAHAN){
                         $url_home = '/site/e-kemudahan-home';

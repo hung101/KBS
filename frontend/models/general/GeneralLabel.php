@@ -839,6 +839,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kumpulan_penyertaan = "Kumpulan Penyertaan";
         const kumpulan_sukan = "Kumpulan Sukan";
         const kumpulan_temasya_kejohanan = "Kumpulan Temasya/Kejohanan";
+        const kumpulan_umur = "Kumpulan Umur";
         const kunci_kira_kira = "Kunci Kira Kira";
         const kuota_kursus = "Kuota Kursus";
         const kurang_upaya = "Kurang Upaya";
@@ -1534,6 +1535,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const permohonan_bimbingan_kaunseling_pegawai_anggota = "Permohonan Bimbingan Kaunseling (Pegawai & Anggota)";
         const permohonan_e_bantuan_cadangan_kertas_kerja_id = "Permohonan E Bantuan Cadangan Kertas Kerja ID";
         const permohonan_e_bantuan_id = "Permohonan E Bantuan ID";
+        const permohonan_e_biasiswa = "Permohonan e-Biasiswa";
         const permohonan_e_biasiswa_id = "Permohonan E Biasiswa ID";
         const permohonan_inovasi_peralatan_id = "Permohonan Inovasi Peralatan ID";
         const permohonan_kemudahan_ticket_kapal_terbang_id = "Permohonan Kemudahan Tiket Kapal Terbang ID";
@@ -1670,6 +1672,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const sebab_tiada_borang_persetujuan_penyertaan = "Jika 'Tiada' Borang Persetujuan Penyertaan, Sila Nyatakan Sebab";
         const sebab_tiada_penyertaan_lembaran_maklumat = "Jika 'Tiada' Penyertaan Lembaran Maklumat, Sila Nyatakan Sebab";
         const sebagai_penjamin_siberhutang = "Sebagai Penjamin Siberhutang (jumlah yang sedang dijamin) (RM)";
+        const sejarah_permohonan = "Sejarah Permohonan";
         const sejarah_perubatan = "Sejarah Perubatan";
         const sejarah_perubatan_id = "Sejarah Perubatan ID";
         const sekolah = "Sekolah";
@@ -4085,6 +4088,7 @@ if($session->get('language') == "EN") {
         const kumpulan_penyertaan = "Group Participation";
         const kumpulan_sukan = "Sport Group";
         const kumpulan_temasya_kejohanan = "Group Festival/Championship";
+        const kumpulan_umur = "Age Group";
         const kunci_kira_kira = "Sheet";
         const kuota_kursus = "Quota Course";
         const kurang_upaya = "Disabled";
@@ -4779,6 +4783,7 @@ if($session->get('language') == "EN") {
         const permohonan_bimbingan_kaunseling_pegawai_anggota = "Application Guidance Counselling (Officers and Members)";
         const permohonan_e_bantuan_cadangan_kertas_kerja_id = "E Application Assistance Proposal Working Paper ID";
         const permohonan_e_bantuan_id = "E Application ID Help";
+        const permohonan_e_biasiswa = "e-Scholarship Application";
         const permohonan_e_biasiswa_id = "E Scholarships Application ID";
         const permohonan_inovasi_peralatan_id = "Application Of Innovation Equipment ID";
         const permohonan_kemudahan_ticket_kapal_terbang_id = "The Other Airplane Facilities Application ID";
@@ -4915,6 +4920,7 @@ if($session->get('language') == "EN") {
         const sebab_tiada_borang_persetujuan_penyertaan = "If 'No' Consent Form, Please State Reason";
         const sebab_tiada_penyertaan_lembaran_maklumat = "If 'No' Participation Information Sheet, Please State Reason";
         const sebagai_penjamin_siberhutang = "As a debtor's Guarantors (the amount is guaranteed) (RM)";
+        const sejarah_permohonan = "History Of Application";
         const sejarah_perubatan = "History Of Medicine";
         const sejarah_perubatan_id = "History Of Medicine ID";
         const sekolah = "School";

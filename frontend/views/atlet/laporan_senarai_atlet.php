@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],
+                        'options' => ['multiple' => true,'placeholder' => Placeholder::negeri],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],

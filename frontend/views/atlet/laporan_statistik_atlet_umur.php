@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <strong>Peringkat Umur 1</strong>
+                    <strong><?=GeneralLabel::kumpulan_umur?> 1</strong>
                 </div>
                 <div class="panel-body">
                     <?php
@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <strong>Peringkat Umur 1</strong>
+                    <strong><?=GeneralLabel::kumpulan_umur?> 2</strong>
                 </div>
                 <div class="panel-body">
                     <?php
@@ -92,60 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <strong>Peringkat Umur 1</strong>
-                </div>
-                <div class="panel-body">
-                    <?php
-        echo FormGrid::widget([
-    'model' => $model,
-    'form' => $form,
-    'autoGenerateColumns' => true,
-    'rows' => [
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'umur_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
-                'umur_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
-            ]
-        ],
-    ]
-]);
-    ?>
-                </div>
-            </div>
-        </div>
-    
-    <div class="col-sm-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <strong>Peringkat Umur 1</strong>
-                </div>
-                <div class="panel-body">
-                    <?php
-        echo FormGrid::widget([
-    'model' => $model,
-    'form' => $form,
-    'autoGenerateColumns' => true,
-    'rows' => [
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'umur_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
-                'umur_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
-            ]
-        ],
-    ]
-]);
-    ?>
-                </div>
-            </div>
-        </div>
-    <div class="col-sm-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <strong>Peringkat Umur 1</strong>
+                    <strong><?=GeneralLabel::kumpulan_umur?> 3</strong>
                 </div>
                 <div class="panel-body">
                     <?php
@@ -172,7 +119,60 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <strong>Peringkat Umur 1</strong>
+                    <strong><?=GeneralLabel::kumpulan_umur?> 4</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'umur_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+                'umur_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+            ]
+        ],
+    ]
+]);
+    ?>
+                </div>
+            </div>
+        </div>
+    <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong><?=GeneralLabel::kumpulan_umur?> 5</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'umur_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+                'umur_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+            ]
+        ],
+    ]
+]);
+    ?>
+                </div>
+            </div>
+        </div>
+    
+    <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong><?=GeneralLabel::kumpulan_umur?> 6</strong>
                 </div>
                 <div class="panel-body">
                     <?php

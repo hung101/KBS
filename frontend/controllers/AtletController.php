@@ -836,6 +836,14 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             
+            $model->program = implode(",",$model->program);
+            $model->sukan = implode(",",$model->sukan);
+            $model->acara = implode(",",$model->acara);
+            $model->negeri = implode(",",$model->negeri);
+            $model->source = implode(",",$model->source);
+            $model->cawangan = implode(",",$model->cawangan);
+            $model->tahap_pendidikan = implode(",",$model->tahap_pendidikan);
+            
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-senarai-atlet'
                     , 'program' => $model->program
@@ -2039,21 +2047,123 @@ Majlis Sukan Negara Malaysia.
                     , 'negeri' => $model->negeri
                     //, 'atlet' => $model->atlet
                     , 'cawangan' => $model->cawangan
-                    , 'cawangan' => $model->cawangan
-                    , 'cawangan' => $model->cawangan
+                   /* , 'umur_dari' => $model->umur_dari
+                    , 'umur_hingga' => $model->umur_hingga
+                    , 'umur_dari_2' => $model->umur_dari_2
+                    , 'umur_hingga_2' => $model->umur_hingga_2
+                    , 'umur_dari_3' => $model->umur_dari_3
+                    , 'umur_hingga_3' => $model->umur_hingga_3
+                    , 'umur_dari_4' => $model->umur_dari_4
+                    , 'umur_hingga_4' => $model->umur_hingga_4
+                    , 'umur_dari_5' => $model->umur_dari_5
+                    , 'umur_hingga_5' => $model->umur_hingga_5
+                    , 'umur_dari_6' => $model->umur_dari_6
+                    , 'umur_hingga_6' => $model->umur_hingga_6*/
                     , 'format' => $model->format
                 ], true);
+                $report_url .= '&umur_dari=' . $model->umur_dari . '&umur_hingga=' . $model->umur_hingga;
+                $report_url .= '&umur_dari_2=' . $model->umur_dari_2 . '&umur_hingga_2=' . $model->umur_hingga_2;
+                $report_url .= '&umur_dari_3=' . $model->umur_dari_3 . '&umur_hingga_3=' . $model->umur_hingga_3;
+                $report_url .= '&umur_dari_4=' . $model->umur_dari_4 . '&umur_hingga_4=' . $model->umur_hingga_4;
+                $report_url .= '&umur_dari_5=' . $model->umur_dari_5 . '&umur_hingga_5=' . $model->umur_hingga_5;
+                $report_url .= '&umur_dari_6=' . $model->umur_dari_6 . '&umur_hingga_6=' . $model->umur_hingga_6;
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
             } else {
-                return $this->redirect(['generate-laporan-statistik-atlet-umur'
+                /*return $this->redirect(['generate-laporan-statistik-atlet-umur'
                     , 'program' => $model->program
                     , 'sukan' => $model->sukan
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     //, 'atlet' => $model->atlet
                     , 'cawangan' => $model->cawangan
+                    , 'umur_dari' => $model->umur_dari
+                    , 'umur_hingga' => $model->umur_hingga
+                    , 'umur_dari_2' => $model->umur_dari_2
+                    , 'umur_hingga_2' => $model->umur_hingga_2
+                    , 'umur_dari_3' => $model->umur_dari_3
+                    , 'umur_hingga_3' => $model->umur_hingga_3
+                    , 'umur_dari_4' => $model->umur_dari_4
+                    , 'umur_hingga_4' => $model->umur_hingga_4
+                    , 'umur_dari_5' => $model->umur_dari_5
+                    , 'umur_hingga_5' => $model->umur_hingga_5
+                    , 'umur_dari_6' => $model->umur_dari_6
+                    , 'umur_hingga_6' => $model->umur_hingga_6
                     , 'format' => $model->format
-                ]);
+                ]);*/
+                
+                if($model->program == "") $program = array();
+                else $program = array($model->program);
+
+                if($model->sukan == "") $sukan = array();
+                else $sukan = array($model->sukan);
+
+                if($model->acara == "") $acara = array();
+                else $acara = array($model->acara);
+
+                if($model->negeri == "") $negeri = array();
+                else $negeri = array($model->negeri);
+
+                if($model->cawangan == "") $cawangan = array();
+                else $cawangan = array($model->cawangan);
+                
+                if($model->umur_dari == "") $umur_dari = array();
+                else $umur_dari = array($model->umur_dari);
+
+                if($model->umur_hingga == "") $umur_hingga = array();
+                else $umur_hingga = array($model->umur_hingga);
+
+                if($model->umur_dari_2 == "") $umur_dari_2 = array();
+                else $umur_dari_2 = array($model->umur_dari_2);
+
+                if($model->umur_hingga_2 == "") $umur_hingga_2 = array();
+                else $umur_hingga_2 = array($model->umur_hingga_2);
+
+                if($model->umur_dari_3 == "") $umur_dari_3 = array();
+                else $umur_dari_3 = array($model->umur_dari_3);
+
+                if($model->umur_hingga_3 == "") $umur_hingga_3 = array();
+                else $umur_hingga_3 = array($model->umur_hingga_3);
+
+                if($model->umur_dari_4 == "") $umur_dari_4 = array();
+                else $umur_dari_4 = array($model->umur_dari_4);
+
+                if($model->umur_hingga_4 == "") $umur_hingga_4 = array();
+                else $umur_hingga_4 = array($model->umur_hingga_4);
+
+                if($model->umur_dari_5 == "") $umur_dari_5 = array();
+                else $umur_dari_5 = array($model->umur_dari_5);
+
+                if($model->umur_hingga_5 == "") $umur_hingga_5 = array();
+                else $umur_hingga_5 = array($model->umur_hingga_5);
+
+                if($model->umur_dari_6 == "") $umur_dari_6 = array();
+                else $umur_dari_6 = array($model->umur_dari_6);
+
+                if($model->umur_hingga_6 == "") $umur_hingga_6 = array();
+                else $umur_hingga_6 = array($model->umur_hingga_6);
+                
+                $controls = array(
+                    'ACARA' => $acara,
+                    'PROGRAM' => $program,
+                    'SUKAN' => $sukan,
+                    'NEGERI' => $negeri,
+                    //'ATLET' => $atlet,
+                    'CAWANGAN' => $cawangan,
+                    'UMUR_FROM_1' => $umur_dari,
+                    'UMUR_TO_1' => $umur_hingga,
+                    'UMUR_FROM_2' => $umur_dari_2,
+                    'UMUR_TO_2' => $umur_hingga_2,
+                    'UMUR_FROM_3' => $umur_dari_3,
+                    'UMUR_TO_3' => $umur_hingga_3,
+                    'UMUR_FROM_4' => $umur_dari_4,
+                    'UMUR_TO_4' => $umur_hingga_4,
+                    'UMUR_FROM_5' => $umur_dari_5,
+                    'UMUR_TO_5' => $umur_hingga_5,
+                    'UMUR_FROM_6' => $umur_dari_6,
+                    'UMUR_TO_6' => $umur_hingga_6,
+                );
+
+                GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletUmur', $model->format, $controls, 'laporan_statistik_atlet_umur');
             }
         } 
 
@@ -2063,7 +2173,9 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanStatistikAtletUmur($program, $sukan, $acara, $negeri, $cawangan, $format)
+    public function actionGenerateLaporanStatistikAtletUmur($program, $sukan, $acara, $negeri, $cawangan,
+            $umur_dari, $umur_hingga, $umur_dari_2, $umur_hingga_2, $umur_dari_3, $umur_hingga_3, $umur_dari_4, $umur_hingga_4, $umur_dari_5, $umur_hingga_5, 
+            $umur_dari_6, $umur_hingga_6,  $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -2083,6 +2195,42 @@ Majlis Sukan Negara Malaysia.
         if($cawangan == "") $cawangan = array();
         else $cawangan = array($cawangan);
         
+        if($umur_dari == "") $umur_dari = array();
+        else $umur_dari = array($umur_dari);
+        
+        if($umur_hingga == "") $umur_hingga = array();
+        else $umur_hingga = array($umur_hingga);
+        
+        if($umur_dari_2 == "") $umur_dari_2 = array();
+        else $umur_dari_2 = array($umur_dari_2);
+        
+        if($umur_hingga_2 == "") $umur_hingga_2 = array();
+        else $umur_hingga_2 = array($umur_hingga_2);
+        
+        if($umur_dari_3 == "") $umur_dari_3 = array();
+        else $umur_dari_3 = array($umur_dari_3);
+        
+        if($umur_hingga_3 == "") $umur_hingga_3 = array();
+        else $umur_hingga_3 = array($umur_hingga_3);
+        
+        if($umur_dari_4 == "") $umur_dari_4 = array();
+        else $umur_dari_4 = array($umur_dari_4);
+        
+        if($umur_hingga_4 == "") $umur_hingga_4 = array();
+        else $umur_hingga_4 = array($umur_hingga_4);
+        
+        if($umur_dari_5 == "") $umur_dari_5 = array();
+        else $umur_dari_5 = array($umur_dari_5);
+        
+        if($umur_hingga_5 == "") $umur_hingga_5 = array();
+        else $umur_hingga_5 = array($umur_hingga_5);
+        
+        if($umur_dari_6 == "") $umur_dari_6 = array();
+        else $umur_dari_6 = array($umur_dari_6);
+        
+        if($umur_hingga_6 == "") $umur_hingga_6 = array();
+        else $umur_hingga_6 = array($umur_hingga_6);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
@@ -2090,6 +2238,18 @@ Majlis Sukan Negara Malaysia.
             'NEGERI' => $negeri,
             //'ATLET' => $atlet,
             'CAWANGAN' => $cawangan,
+            'UMUR_FROM_1' => $umur_dari,
+            'UMUR_TO_1' => $umur_hingga,
+            'UMUR_FROM_2' => $umur_dari_2,
+            'UMUR_TO_2' => $umur_hingga_2,
+            'UMUR_FROM_3' => $umur_dari_3,
+            'UMUR_TO_3' => $umur_hingga_3,
+            'UMUR_FROM_4' => $umur_dari_4,
+            'UMUR_TO_4' => $umur_hingga_4,
+            'UMUR_FROM_5' => $umur_dari_5,
+            'UMUR_TO_5' => $umur_hingga_5,
+            'UMUR_FROM_6' => $umur_dari_6,
+            'UMUR_TO_6' => $umur_hingga_6,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletUmur', $format, $controls, 'laporan_statistik_atlet_umur');
@@ -2112,21 +2272,125 @@ Majlis Sukan Negara Malaysia.
                     , 'sukan' => $model->sukan
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
-                   // , 'atlet' => $model->atlet
+                    //, 'atlet' => $model->atlet
                     , 'cawangan' => $model->cawangan
+                   /* , 'umur_dari' => $model->umur_dari
+                    , 'umur_hingga' => $model->umur_hingga
+                    , 'umur_dari_2' => $model->umur_dari_2
+                    , 'umur_hingga_2' => $model->umur_hingga_2
+                    , 'umur_dari_3' => $model->umur_dari_3
+                    , 'umur_hingga_3' => $model->umur_hingga_3
+                    , 'umur_dari_4' => $model->umur_dari_4
+                    , 'umur_hingga_4' => $model->umur_hingga_4
+                    , 'umur_dari_5' => $model->umur_dari_5
+                    , 'umur_hingga_5' => $model->umur_hingga_5
+                    , 'umur_dari_6' => $model->umur_dari_6
+                    , 'umur_hingga_6' => $model->umur_hingga_6*/
                     , 'format' => $model->format
                 ], true);
+                $report_url .= '&umur_dari=' . $model->umur_dari . '&umur_hingga=' . $model->umur_hingga;
+                $report_url .= '&umur_dari_2=' . $model->umur_dari_2 . '&umur_hingga_2=' . $model->umur_hingga_2;
+                $report_url .= '&umur_dari_3=' . $model->umur_dari_3 . '&umur_hingga_3=' . $model->umur_hingga_3;
+                $report_url .= '&umur_dari_4=' . $model->umur_dari_4 . '&umur_hingga_4=' . $model->umur_hingga_4;
+                $report_url .= '&umur_dari_5=' . $model->umur_dari_5 . '&umur_hingga_5=' . $model->umur_hingga_5;
+                $report_url .= '&umur_dari_6=' . $model->umur_dari_6 . '&umur_hingga_6=' . $model->umur_hingga_6;
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
             } else {
-                return $this->redirect(['generate-laporan-statistik-atlet-umur-paralimpik'
+                /*return $this->redirect(['generate-laporan-statistik-atlet-umur-paralimpik'
                     , 'program' => $model->program
                     , 'sukan' => $model->sukan
                     , 'acara' => $model->acara
                     , 'negeri' => $model->negeri
                     //, 'atlet' => $model->atlet
                     , 'cawangan' => $model->cawangan
+                    , 'umur_dari' => $model->umur_dari
+                    , 'umur_hingga' => $model->umur_hingga
+                    , 'umur_dari_2' => $model->umur_dari_2
+                    , 'umur_hingga_2' => $model->umur_hingga_2
+                    , 'umur_dari_3' => $model->umur_dari_3
+                    , 'umur_hingga_3' => $model->umur_hingga_3
+                    , 'umur_dari_4' => $model->umur_dari_4
+                    , 'umur_hingga_4' => $model->umur_hingga_4
+                    , 'umur_dari_5' => $model->umur_dari_5
+                    , 'umur_hingga_5' => $model->umur_hingga_5
+                    , 'umur_dari_6' => $model->umur_dari_6
+                    , 'umur_hingga_6' => $model->umur_hingga_6
                     , 'format' => $model->format
-                ]);
+                ]);*/
+                
+                if($model->program == "") $program = array();
+                else $program = array($model->program);
+
+                if($model->sukan == "") $sukan = array();
+                else $sukan = array($model->sukan);
+
+                if($model->acara == "") $acara = array();
+                else $acara = array($model->acara);
+
+                if($model->negeri == "") $negeri = array();
+                else $negeri = array($model->negeri);
+
+                if($model->cawangan == "") $cawangan = array();
+                else $cawangan = array($model->cawangan);
+                
+                if($model->umur_dari == "") $umur_dari = array();
+                else $umur_dari = array($model->umur_dari);
+
+                if($model->umur_hingga == "") $umur_hingga = array();
+                else $umur_hingga = array($model->umur_hingga);
+
+                if($model->umur_dari_2 == "") $umur_dari_2 = array();
+                else $umur_dari_2 = array($model->umur_dari_2);
+
+                if($model->umur_hingga_2 == "") $umur_hingga_2 = array();
+                else $umur_hingga_2 = array($model->umur_hingga_2);
+
+                if($model->umur_dari_3 == "") $umur_dari_3 = array();
+                else $umur_dari_3 = array($model->umur_dari_3);
+
+                if($model->umur_hingga_3 == "") $umur_hingga_3 = array();
+                else $umur_hingga_3 = array($model->umur_hingga_3);
+
+                if($model->umur_dari_4 == "") $umur_dari_4 = array();
+                else $umur_dari_4 = array($model->umur_dari_4);
+
+                if($model->umur_hingga_4 == "") $umur_hingga_4 = array();
+                else $umur_hingga_4 = array($model->umur_hingga_4);
+
+                if($model->umur_dari_5 == "") $umur_dari_5 = array();
+                else $umur_dari_5 = array($model->umur_dari_5);
+
+                if($model->umur_hingga_5 == "") $umur_hingga_5 = array();
+                else $umur_hingga_5 = array($model->umur_hingga_5);
+
+                if($model->umur_dari_6 == "") $umur_dari_6 = array();
+                else $umur_dari_6 = array($model->umur_dari_6);
+
+                if($model->umur_hingga_6 == "") $umur_hingga_6 = array();
+                else $umur_hingga_6 = array($model->umur_hingga_6);
+                
+                $controls = array(
+                    'ACARA' => $acara,
+                    'PROGRAM' => $program,
+                    'SUKAN' => $sukan,
+                    'NEGERI' => $negeri,
+                    //'ATLET' => $atlet,
+                    'CAWANGAN' => $cawangan,
+                    'UMUR_FROM_1' => $umur_dari,
+                    'UMUR_TO_1' => $umur_hingga,
+                    'UMUR_FROM_2' => $umur_dari_2,
+                    'UMUR_TO_2' => $umur_hingga_2,
+                    'UMUR_FROM_3' => $umur_dari_3,
+                    'UMUR_TO_3' => $umur_hingga_3,
+                    'UMUR_FROM_4' => $umur_dari_4,
+                    'UMUR_TO_4' => $umur_hingga_4,
+                    'UMUR_FROM_5' => $umur_dari_5,
+                    'UMUR_TO_5' => $umur_hingga_5,
+                    'UMUR_FROM_6' => $umur_dari_6,
+                    'UMUR_TO_6' => $umur_hingga_6,
+                );
+
+                GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletUmurParalimpik', $model->format, $controls, 'laporan_statistik_atlet_umur_paralimpik');
             }
         } 
 
@@ -2136,7 +2400,9 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanStatistikAtletUmurParalimpik($program, $sukan, $acara, $negeri, $cawangan, $format)
+    public function actionGenerateLaporanStatistikAtletUmurParalimpik($program, $sukan, $acara, $negeri, $cawangan,
+            $umur_dari, $umur_hingga, $umur_dari_2, $umur_hingga_2, $umur_dari_3, $umur_hingga_3, $umur_dari_4, $umur_hingga_4, $umur_dari_5, $umur_hingga_5, 
+            $umur_dari_6, $umur_hingga_6, $format)
     {
         if($program == "") $program = array();
         else $program = array($program);
@@ -2156,6 +2422,42 @@ Majlis Sukan Negara Malaysia.
         if($cawangan == "") $cawangan = array();
         else $cawangan = array($cawangan);
         
+        if($umur_dari == "") $umur_dari = array();
+        else $umur_dari = array($umur_dari);
+        
+        if($umur_hingga == "") $umur_hingga = array();
+        else $umur_hingga = array($umur_hingga);
+        
+        if($umur_dari_2 == "") $umur_dari_2 = array();
+        else $umur_dari_2 = array($umur_dari_2);
+        
+        if($umur_hingga_2 == "") $umur_hingga_2 = array();
+        else $umur_hingga_2 = array($umur_hingga_2);
+        
+        if($umur_dari_3 == "") $umur_dari_3 = array();
+        else $umur_dari_3 = array($umur_dari_3);
+        
+        if($umur_hingga_3 == "") $umur_hingga_3 = array();
+        else $umur_hingga_3 = array($umur_hingga_3);
+        
+        if($umur_dari_4 == "") $umur_dari_4 = array();
+        else $umur_dari_4 = array($umur_dari_4);
+        
+        if($umur_hingga_4 == "") $umur_hingga_4 = array();
+        else $umur_hingga_4 = array($umur_hingga_4);
+        
+        if($umur_dari_5 == "") $umur_dari_5 = array();
+        else $umur_dari_5 = array($umur_dari_5);
+        
+        if($umur_hingga_5 == "") $umur_hingga_5 = array();
+        else $umur_hingga_5 = array($umur_hingga_5);
+        
+        if($umur_dari_6 == "") $umur_dari_6 = array();
+        else $umur_dari_6 = array($umur_dari_6);
+        
+        if($umur_hingga_6 == "") $umur_hingga_6 = array();
+        else $umur_hingga_6 = array($umur_hingga_6);
+        
         $controls = array(
             'ACARA' => $acara,
             'PROGRAM' => $program,
@@ -2163,6 +2465,18 @@ Majlis Sukan Negara Malaysia.
             'NEGERI' => $negeri,
             //'ATLET' => $atlet,
             'CAWANGAN' => $cawangan,
+            'UMUR_FROM_1' => $umur_dari,
+            'UMUR_TO_1' => $umur_hingga,
+            'UMUR_FROM_2' => $umur_dari_2,
+            'UMUR_TO_2' => $umur_hingga_2,
+            'UMUR_FROM_3' => $umur_dari_3,
+            'UMUR_TO_3' => $umur_hingga_3,
+            'UMUR_FROM_4' => $umur_dari_4,
+            'UMUR_TO_4' => $umur_hingga_4,
+            'UMUR_FROM_5' => $umur_dari_5,
+            'UMUR_TO_5' => $umur_hingga_5,
+            'UMUR_FROM_6' => $umur_dari_6,
+            'UMUR_TO_6' => $umur_hingga_6,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikAtletUmurParalimpik', $format, $controls, 'laporan_statistik_atlet_umur_paralimpik');
@@ -2627,7 +2941,7 @@ Majlis Sukan Negara Malaysia.
             'SAIZ' => $saiz_pakaian,
         );
         
-        GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPakaianSukan', $format, $controls, 'laporan_atlet_pakaian_sukan');
+        GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPakaianSukan', $model->format, $controls, 'laporan_atlet_pakaian_sukan');
             }
         } 
 
@@ -2781,7 +3095,7 @@ Majlis Sukan Negara Malaysia.
             'SAIZ' => $saiz_pakaian,
         );
         
-        GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPakaianSukanParalimpik', $format, $controls, 'laporan_atlet_pakaian_sukan_paralimpik');
+        GeneralFunction::generateReport('/spsb/MSN/LaporanAtletPakaianSukanParalimpik', $model->format, $controls, 'laporan_atlet_pakaian_sukan_paralimpik');
             }
         } 
 

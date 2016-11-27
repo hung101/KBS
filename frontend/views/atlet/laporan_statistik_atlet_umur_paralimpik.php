@@ -36,6 +36,168 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]); ?>
     
+    <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong><?=GeneralLabel::kumpulan_umur?> 1</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'umur_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+                'umur_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+            ]
+        ],
+    ]
+]);
+    ?>
+                </div>
+            </div>
+        </div>
+    
+    <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong><?=GeneralLabel::kumpulan_umur?> 2</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'umur_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+                'umur_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+            ]
+        ],
+    ]
+]);
+    ?>
+                </div>
+            </div>
+        </div>
+    <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong><?=GeneralLabel::kumpulan_umur?> 3</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'umur_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+                'umur_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+            ]
+        ],
+    ]
+]);
+    ?>
+                </div>
+            </div>
+        </div>
+    
+    <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong><?=GeneralLabel::kumpulan_umur?> 4</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'umur_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+                'umur_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+            ]
+        ],
+    ]
+]);
+    ?>
+                </div>
+            </div>
+        </div>
+    <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong><?=GeneralLabel::kumpulan_umur?> 5</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'umur_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+                'umur_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+            ]
+        ],
+    ]
+]);
+    ?>
+                </div>
+            </div>
+        </div>
+    
+    <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong><?=GeneralLabel::kumpulan_umur?> 6</strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'umur_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+                'umur_hingga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>3]],
+            ]
+        ],
+    ]
+]);
+    ?>
+                </div>
+            </div>
+        </div>
+    
+    
+    
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -80,7 +242,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->andWhere(['=', 'cacat', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::program],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -103,7 +265,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -130,7 +292,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ] : null,
                             'pluginOptions'=>['allowClear'=>true]
                         ],
-                        'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all(),'id', 'disciplineAcara'),
+                        'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'disciplineAcara'),
                         'options'=>['prompt'=>'',],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'sukan')],
@@ -163,6 +325,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
+    ]
+]);
+    ?>
+    
+    
+    
+    
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -180,9 +356,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         ] : null,
                         'data'=>ArrayHelper::map(RefReportFormat::find()->where(['=', 'aktif', 1])->all(),'file_extension', 'desc'),
                         'options' => ['placeholder' => Placeholder::format],
-                        'pluginOptions' => [
-                                    'allowClear' => true
-                                ],],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],

@@ -36,6 +36,8 @@ class MsnLaporanSenaraiAtlet extends Model
     public $umur_hingga_4;
     public $umur_dari_5;
     public $umur_hingga_5;
+    public $umur_dari_6;
+    public $umur_hingga_6;
 
     public function rules()
     {
@@ -44,7 +46,7 @@ class MsnLaporanSenaraiAtlet extends Model
             [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'negeri', 'acara', 'kategori_kecacatan', 'atlet', 'source', 'cawangan', 'jenis_elaun', 
                 'jenis_pakaian', 'saiz_pakaian', 'tahap_pendidikan'], 'safe'],
             [['umur_hingga', 'umur_dari', 'umur_dari_2', 'umur_hingga_2', 'umur_dari_3',
-                'umur_hingga_3', 'umur_dari_4', 'umur_hingga_4', 'umur_dari_5', 'umur_hingga_5'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+                'umur_hingga_3', 'umur_dari_4', 'umur_hingga_4', 'umur_dari_5', 'umur_hingga_5', 'umur_dari_6', 'umur_hingga_6'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
             [['jumlah_geran_hingga'], 'compare', 'compareAttribute'=>'negeri', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
             [['umur_hingga'], 'compare', 'compareAttribute'=>'umur_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
@@ -52,6 +54,7 @@ class MsnLaporanSenaraiAtlet extends Model
             [['umur_hingga_3'], 'compare', 'compareAttribute'=>'umur_dari_3', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
             [['umur_hingga_4'], 'compare', 'compareAttribute'=>'umur_dari_4', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
             [['umur_hingga_5'], 'compare', 'compareAttribute'=>'umur_dari_5', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
+            [['umur_hingga_6'], 'compare', 'compareAttribute'=>'umur_dari_6', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
 
@@ -83,6 +86,8 @@ class MsnLaporanSenaraiAtlet extends Model
             'umur_hingga_4' => GeneralLabel::umur_hingga,
             'umur_dari_5' => GeneralLabel::umur_dari,
             'umur_hingga_5' => GeneralLabel::umur_hingga,
+            'umur_dari_6' => GeneralLabel::umur_dari,
+            'umur_hingga_6' => GeneralLabel::umur_hingga,
         ];
     }
 }
