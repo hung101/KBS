@@ -31,6 +31,8 @@ class EKemudahanLaporanPenggunaanDanHasilBagiKombesTahunan extends Model
             'kategori' => GeneralLabel::kategori,
             'tarikh_dari' => GeneralLabel::tarikh_dari,
             'tarikh_hingga' => GeneralLabel::tarikh_hingga,
+            'tahun_1' => GeneralLabel::tahun_1,
+            'tahun_2' => GeneralLabel::tahun_2,
             'format' => GeneralLabel::format,
 
         ];

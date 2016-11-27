@@ -465,7 +465,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     <br>
     <br>
     
-    <h3>Jawatankuasa Kerja Yang Terkini</h3>
+    <h3><?=GeneralLabel::jawatankuasa_kerja_yang_terkini?></h3>
     
     <?php
         echo FormGrid::widget([
@@ -507,7 +507,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
 ]);
     ?>
     
-    <h4>Ahli Jawatankuasa</h4>
+    <h4><?=GeneralLabel::ahli_jawatankuasa?></h4>
     
     <?php 
             Modal::begin([
@@ -556,13 +556,13 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-jawatankuasa/update', 'id' => $model->jawatankuasa_id]).'", "'.GeneralLabel::updateTitle . ' Jawatankuasa Kerja Yang Terkini");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-jawatankuasa/update', 'id' => $model->jawatankuasa_id]).'", "'.GeneralLabel::updateTitle . ' ' . GeneralLabel::jawatankuasa_kerja_yang_terkini . '");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-jawatankuasa/view', 'id' => $model->jawatankuasa_id]).'", "'.GeneralLabel::viewTitle . ' Jawatankuasa Kerja Yang Terkini");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-jawatankuasa/view', 'id' => $model->jawatankuasa_id]).'", "'.GeneralLabel::viewTitle . ' ' . GeneralLabel::jawatankuasa_kerja_yang_terkini . '");',
                         ]);
                     }
                 ],
@@ -583,7 +583,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-jawatankuasa/create', 'permohonan_id' => $permohonan_e_bantuan_id]).'", "'.GeneralLabel::createTitle . ' Jawatankuasa Kerja Yang Terkini");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-jawatankuasa/create', 'permohonan_id' => $permohonan_e_bantuan_id]).'", "'.GeneralLabel::createTitle . ' ' . GeneralLabel::jawatankuasa_kerja_yang_terkini . '");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -592,7 +592,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     <br>
     <br>
     
-    <h3>Objektif Pertubuhan</h3>
+    <h3><?=GeneralLabel::objektif_pertubuhan?></h3>
     
 
     <?php Pjax::begin(['id' => 'objektifPertubuhanGrid', 'timeout' => 100000]); ?>
@@ -621,13 +621,13 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-objektif-pertubuhan/update', 'id' => $model->objektif_pertubuhan_id]).'", "'.GeneralLabel::updateTitle . ' Objektif Pertubuhan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-objektif-pertubuhan/update', 'id' => $model->objektif_pertubuhan_id]).'", "'.GeneralLabel::updateTitle . ' ' . GeneralLabel::objektif_pertubuhan . '");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-objektif-pertubuhan/view', 'id' => $model->objektif_pertubuhan_id]).'", "'.GeneralLabel::viewTitle . ' Objektif Pertubuhan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-objektif-pertubuhan/view', 'id' => $model->objektif_pertubuhan_id]).'", "'.GeneralLabel::viewTitle . ' ' . GeneralLabel::objektif_pertubuhan . '");',
                         ]);
                     }
                 ],
@@ -642,7 +642,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-objektif-pertubuhan/create', 'permohonan_id' => $permohonan_e_bantuan_id]).'", "'.GeneralLabel::createTitle . ' Objektif Pertubuhan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-objektif-pertubuhan/create', 'permohonan_id' => $permohonan_e_bantuan_id]).'", "'.GeneralLabel::createTitle . ' ' . GeneralLabel::objektif_pertubuhan . '");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -698,13 +698,13 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-senarai-permohonan/update', 'id' => $model->senarai_permohonan_id]).'", "'.GeneralLabel::updateTitle . ' Senarai Permohonan Yang Telah Diluluskan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-senarai-permohonan/update', 'id' => $model->senarai_permohonan_id]).'", "'.GeneralLabel::updateTitle . ' ' . GeneralLabel::senarai_permohonan_yang_telah_diluluskan . '");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-senarai-permohonan/view', 'id' => $model->senarai_permohonan_id]).'", "'.GeneralLabel::viewTitle . ' Senarai Permohonan Yang Telah Diluluskan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-senarai-permohonan/view', 'id' => $model->senarai_permohonan_id]).'", "'.GeneralLabel::viewTitle . ' ' . GeneralLabel::senarai_permohonan_yang_telah_diluluskan . '");',
                         ]);
                     }
                 ],
@@ -719,7 +719,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-senarai-permohonan/create', 'permohonan_id' => $permohonan_e_bantuan_id]).'", "'.GeneralLabel::createTitle . ' Senarai Permohonan Yang Telah Diluluskan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-senarai-permohonan/create', 'permohonan_id' => $permohonan_e_bantuan_id]).'", "'.GeneralLabel::createTitle . ' ' . GeneralLabel::senarai_permohonan_yang_telah_diluluskan . '");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -728,7 +728,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     <br>
     <br>
     
-    <h3>Pendapatan Tahun Lepas</h3>
+    <h3><?=GeneralLabel::pendapatan_tahun_lepas?></h3>
     
     
     <?php Pjax::begin(['id' => 'pendapatanTahunLepasGrid', 'timeout' => 100000]); ?>
@@ -763,13 +763,13 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-pendapatan-tahun-lepas/update', 'id' => $model->pendapatan_tahun_lepas_id]).'", "'.GeneralLabel::updateTitle . ' Pendapatan Tahun Lepas");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-pendapatan-tahun-lepas/update', 'id' => $model->pendapatan_tahun_lepas_id]).'", "'.GeneralLabel::updateTitle . ' ' . GeneralLabel::pendapatan_tahun_lepas . '");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-pendapatan-tahun-lepas/view', 'id' => $model->pendapatan_tahun_lepas_id]).'", "'.GeneralLabel::viewTitle . ' Pendapatan Tahun Lepas");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-pendapatan-tahun-lepas/view', 'id' => $model->pendapatan_tahun_lepas_id]).'", "'.GeneralLabel::viewTitle . ' ' . GeneralLabel::pendapatan_tahun_lepas . '");',
                         ]);
                     }
                 ],
@@ -782,7 +782,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-pendapatan-tahun-lepas/create', 'permohonan_id' => $permohonan_e_bantuan_id]).'", "'.GeneralLabel::createTitle . ' Pendapatan Tahun Lepas");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-pendapatan-tahun-lepas/create', 'permohonan_id' => $permohonan_e_bantuan_id]).'", "'.GeneralLabel::createTitle . ' ' . GeneralLabel::pendapatan_tahun_lepas . '");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -796,7 +796,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
         }
     ?>
     
-    <h4>Jumlah Pendapatan: RM <?=$calculate_jumlah_pendapatan?></h4>
+    <h4><?=GeneralLabel::jumlah_pendapatan_without_rm?>: RM <?=$calculate_jumlah_pendapatan?></h4>
     
     <?php Pjax::end(); ?>
     
@@ -870,7 +870,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     <br>
     <br>
     
-    <h3>Anggaran Perbelanjaan Program / Aktiviti Yang Dipohon</h3>
+    <h3><?=GeneralLabel::anggaran_perbelanjaan_program_aktiviti_yang_dipohon?></h3>
     
     <?php Pjax::begin(['id' => 'anggaranPerbelanjaanGrid', 'timeout' => 100000]); ?>
 
@@ -901,13 +901,13 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-anggaran-perbelanjaan/update', 'id' => $model->anggaran_perbelanjaan_id]).'", "'.GeneralLabel::updateTitle . ' Anggaran Perbelanjaan Program / Aktiviti Yang Dipohon");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-anggaran-perbelanjaan/update', 'id' => $model->anggaran_perbelanjaan_id]).'", "'.GeneralLabel::updateTitle . ' ' . GeneralLabel::anggaran_perbelanjaan_program_aktiviti_yang_dipohon . '");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-anggaran-perbelanjaan/view', 'id' => $model->anggaran_perbelanjaan_id]).'", "'.GeneralLabel::viewTitle . ' Anggaran Perbelanjaan Program / Aktiviti Yang Dipohon");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-anggaran-perbelanjaan/view', 'id' => $model->anggaran_perbelanjaan_id]).'", "'.GeneralLabel::viewTitle . ' ' . GeneralLabel::anggaran_perbelanjaan_program_aktiviti_yang_dipohon . '");',
                         ]);
                     }
                 ],
@@ -920,7 +920,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-anggaran-perbelanjaan/create', 'permohonan_id' => $permohonan_e_bantuan_id]).'", "'.GeneralLabel::createTitle . ' Anggaran Perbelanjaan Program / Aktiviti Yang Dipohon");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-bantuan-anggaran-perbelanjaan/create', 'permohonan_id' => $permohonan_e_bantuan_id]).'", "'.GeneralLabel::createTitle . ' ' . GeneralLabel::anggaran_perbelanjaan_program_aktiviti_yang_dipohon . '");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -933,7 +933,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
         }
     ?>
     
-    <h4>Jumlah Perbelanjaan: RM <?=$calculate_jumlah_perbelanjaan?></h4>
+    <h4><?=GeneralLabel::jumlah_perbelanjaan_without_rm?>: RM <?=$calculate_jumlah_perbelanjaan?></h4>
     
     <?php Pjax::end(); ?>
     

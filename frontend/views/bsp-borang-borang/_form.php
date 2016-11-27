@@ -24,11 +24,11 @@ use app\models\general\Placeholder;
     
     <div class="panel panel-danger">
         <div class="panel-body">
-            <strong>Arahan</strong>
+            <strong><?= GeneralLabel::arahan?></strong>
         </div>
         <ul >
-            <li >Sila muat turun borang-borang dan isi dengan betul.</li>
-            <li >Sila muat naik selepas lengkap isi borang-borang yang muat turun.</li>
+            <li ><?= GeneralLabel::sila_muat_turun_borang_borang_dan_isi_dengan_betul?></li>
+            <li ><?= GeneralLabel::sila_muat_naik_selepas_lengkap_isi_borang_borang_yang_muat_turun?></li>
           </ul>
     </div>
 

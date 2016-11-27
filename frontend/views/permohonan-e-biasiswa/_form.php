@@ -155,7 +155,7 @@ use common\models\general\GeneralFunction;
     ?>
     
     <div class="alert alert-success">
-        <strong>Tahniah!</strong> Pendaftaran Permohonan anda telah berjaya dihantar. Anda masih boleh kemas kini permohonan anda sebelum tarikh tamat.
+        <strong><?=GeneralLabel::tahniah?>!</strong><?=GeneralLabel::pendaftaran_permohonan_anda_telah_berjaya_dihantar?>
     </div>
     
     <?php
@@ -167,7 +167,7 @@ use common\models\general\GeneralFunction;
     ?>
     
     <div class="alert alert-success">
-        <strong>Tahniah!</strong> Anda layak untuk temuduga. Sila muat turun Slip Panggilan Temuduga anda. <?php echo '&nbsp;&nbsp;' . Html::a('Muat Turun Slip Layak Temuduga', ['print', 'id' => $model->permohonan_e_biasiswa_id, 'template' => 'SLIP_PANGGILAN_TEMUDUGA'], ['class' => 'btn btn-warning', 'target' => '_blank']);?>
+        <strong><?=GeneralLabel::tahniah?>!</strong><?=GeneralLabel::anda_layak_untuk_temuduga_sila_muat_turun_slip?>  <?php echo '&nbsp;&nbsp;' . Html::a(GeneralLabel::muat_turun_slip_layak_temuduga, ['print', 'id' => $model->permohonan_e_biasiswa_id, 'template' => 'SLIP_PANGGILAN_TEMUDUGA'], ['class' => 'btn btn-warning', 'target' => '_blank']);?>
     </div>
     
     <?php
@@ -179,9 +179,9 @@ use common\models\general\GeneralFunction;
     ?>
     
     <div class="alert alert-success">
-        <strong>Tahniah!</strong> Sukacita dimaklumkan bahawa tuan/puan telah berjaya untuk ditawarkan Biasiswa Sukan Persekutuan Kementerian Belia dan Sukan. Sila muat turun borang-borang berkaitan dan muat naik semula borang yang telah lengkap.
-        <?php echo '&nbsp;&nbsp;' . Html::a('Muat Turun Borang-Borang', Url::to(['/bsp-borang-borang/load', 'bsp_pemohon_id' => $model->permohonan_e_biasiswa_id]), ['class'=>'btn btn-warning']);?>
-        <?= Html::a('Muat Turun Surat Tawaran Biasiswa', ['print', 'id' => $model->permohonan_e_biasiswa_id, 'template' => 'SLIP_BERJAYA_DAPAT_BIASISWA'], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
+        <strong><?=GeneralLabel::tahniah?>!</strong><?=GeneralLabel::sukacita_dimaklumkan_bahawa_tuan_puan_telah_berjaya_untuk_ditawarkan?> 
+        <?php echo '&nbsp;&nbsp;' . Html::a(GeneralLabel::muat_turun_borangborang, Url::to(['/bsp-borang-borang/load', 'bsp_pemohon_id' => $model->permohonan_e_biasiswa_id]), ['class'=>'btn btn-warning']);?>
+        <?= Html::a(GeneralLabel::muat_turun_surat_tawaran_biasiswa, ['print', 'id' => $model->permohonan_e_biasiswa_id, 'template' => 'SLIP_BERJAYA_DAPAT_BIASISWA'], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
     </div>
     
     <?php
@@ -206,13 +206,13 @@ use common\models\general\GeneralFunction;
 
     <div class="panel panel-danger">
         <div class="panel-body">
-            <strong>Arahan</strong>
+            <strong><?= GeneralLabel::arahan?></strong>
         </div>
         <ul >
-            <li >Sila lengkapkan borang dengan betul.</li>
-            <li >Maklumat yang lengkap sahaja yang akan diproses.</li>
-            <li >Pengemaskinian maklumat permohonan baru yang dihantar akan membatalkan permohonan yang terdahulu.</li>
-            <li >Pemohon yang telah menerima Biasiswa/Tajaan daripada agensi lain tidak dibenarkan memohon.</li>
+            <li ><?= GeneralLabel::sila_lengkapkan_borang_denga_betul?></li>
+            <li ><?= GeneralLabel::maklumat_yang_lengkap_sahaja_yang_akan_diproses?></li>
+            <li ><?= GeneralLabel::pengemaskinian_maklumat_permohonan_baru_yang_dihantar_akan_membatalkan_permohonan_yang_terdahulu?></li>
+            <li ><?= GeneralLabel::pemohon_yang_telah_menerima_biasiswa_tajaan_daripada_agensi_lain_tidak_dibenarkan_memohon?></li>
           </ul>
     </div>
     
@@ -260,7 +260,7 @@ use common\models\general\GeneralFunction;
     ?>
     
     <br>
-    <pre style="text-align: center"><strong>BUTIRAN PERIBADI</strong></pre>
+    <pre style="text-align: center"><strong><?= strtoupper(GeneralLabel::butiran_peribadi)?></strong></pre>
     
     <?php
     if($model->muat_naik_gambar){
@@ -540,7 +540,7 @@ use common\models\general\GeneralFunction;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>BUTIRAN CALON ORANG KURANG UPAYA (OKU)</strong></pre>
+    <pre style="text-align: center"><strong><?= strtoupper(GeneralLabel::butiran_calon_orang_kurang_upaya_oku)?></strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -579,7 +579,7 @@ use common\models\general\GeneralFunction;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>BUTIRAN PENGAJIAN TERKINI</strong></pre>
+    <pre style="text-align: center"><strong><?= strtoupper(GeneralLabel::butiran_pengajian_terkini)?></strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -742,7 +742,7 @@ use common\models\general\GeneralFunction;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>BUTIRAN PENCAPAIAN SUKAN / KEJOHANAN</strong></pre>
+    <pre style="text-align: center"><strong><?= strtoupper(GeneralLabel::butiran_pencapaian_sukan_kejohanan)?></strong></pre>
     
     <?php
        /* echo FormGrid::widget([
@@ -777,15 +777,15 @@ use common\models\general\GeneralFunction;
 ]);*/
     ?>
     <br>
-    <h3>Penyertaan Kejohanan</h3>
+    <h3><?= GeneralLabel::penyertaan_kejohanan?></h3>
     <div class="panel panel-danger">
         <div class="panel-body">
-            <strong>Arahan</strong>
+            <strong><?= GeneralLabel::arahan?></strong>
   </div>
         <ul >
             <!--<li >Sila pilih tahun untuk memulakan maklumat.</li>-->
-            <li >Pastikan anda menyenaraikan maklumat kejohanan sukan mengikut susunan tarikh & tahun.</li>
-            <li >Setiap kejohanan yang dinyatakan perlu ada sijil penyertaan / surat pengesahan sebagai bukti penyertaan bagi temuduga nanti.</li>
+            <li ><?= GeneralLabel::pastikan_anda_menyenaraikan_maklumat_kejohanan_sukan?></li>
+            <li ><?= GeneralLabel::setiap_kejohanan_yang_dinyatakan_perlu_ada_sijil_penyertaan?></li>
           </ul>
     </div>
   
@@ -857,13 +857,13 @@ use common\models\general\GeneralFunction;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-biasiswa-penyertaan-kejohanan/update', 'id' => $model->penyertaan_kejohanan_id]).'", "'.GeneralLabel::updateTitle . ' Penyertaan Kejohanan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-biasiswa-penyertaan-kejohanan/update', 'id' => $model->penyertaan_kejohanan_id]).'", "'.GeneralLabel::updateTitle . ' ' . GeneralLabel::penyertaan_kejohanan . '");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-biasiswa-penyertaan-kejohanan/view', 'id' => $model->penyertaan_kejohanan_id]).'", "'.GeneralLabel::viewTitle . ' Penyertaan Kejohanan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-biasiswa-penyertaan-kejohanan/view', 'id' => $model->penyertaan_kejohanan_id]).'", "'.GeneralLabel::viewTitle . ' ' . GeneralLabel::penyertaan_kejohanan . '");',
                         ]);
                     }
                 ],
@@ -885,10 +885,10 @@ use common\models\general\GeneralFunction;
             $permohonan_e_biasiswa_id = $model->permohonan_e_biasiswa_id;
         }
         
-        echo Html::a('Contoh', 'javascript:void(0);', ['onclick' => 'viewUpload("'.\Yii::$app->request->BaseUrl.'/downloads/permohonan_e_biasiswa/contoh.jpg");']);
+        echo Html::a( GeneralLabel::contoh, 'javascript:void(0);', ['onclick' => 'viewUpload("'.\Yii::$app->request->BaseUrl.'/downloads/permohonan_e_biasiswa/contoh.jpg");']);
         echo '<br>';
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-biasiswa-penyertaan-kejohanan/create', 'permohonan_e_biasiswa_id' => $permohonan_e_biasiswa_id]).'", "'.GeneralLabel::createTitle . ' Penyertaan Kejohanan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-biasiswa-penyertaan-kejohanan/create', 'permohonan_e_biasiswa_id' => $permohonan_e_biasiswa_id]).'", "'.GeneralLabel::createTitle . ' ' . GeneralLabel::penyertaan_kejohanan . '");',
                         'class' => 'btn btn-success',
                         ]);
         

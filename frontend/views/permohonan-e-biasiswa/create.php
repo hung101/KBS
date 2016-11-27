@@ -8,14 +8,14 @@ use app\models\UserPeranan;
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanEBiasiswa */
 
-$this->title = GeneralLabel::createTitle . ' Permohonan e-Biasiswa';
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::permohonan_ebiasiswa;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebiasiswa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebiasiswa-create">
     <?php 
         if(Yii::$app->user->identity->peranan == UserPeranan::PERANAN_KBS_E_BIASISWA_BENDAHARI_IPT){ // START for Bendahari IPT
-            $this->title = GeneralLabel::createTitle . ' Yuran Pengajian';
+            $this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::yuran_pengajian;
         }
     ?>
 

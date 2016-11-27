@@ -12,7 +12,7 @@ use app\models\UserPeranan;
 /* @var $model app\models\PermohonanEBiasiswa */
 
 //$this->title = $model->permohonan_e_biasiswa_id;
-$this->title = GeneralLabel::viewTitle . ' Permohonan e-Biasiswa';
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::permohonan_ebiasiswa;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebiasiswa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <?php 
         if(Yii::$app->user->identity->peranan == UserPeranan::PERANAN_KBS_E_BIASISWA_BENDAHARI_IPT){ // START for Bendahari IPT
-            $this->title = GeneralLabel::viewTitle . ' Yuran Pengajian';
+            $this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::yuran_pengajian;
         }
     ?>
 

@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->bsp_borang_borang_id;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebiasiswa, 'url' => ['permohonan-e-biasiswa/view', 'id' => $model->bsp_pemohon_id]];
-$this->title = GeneralLabel::viewTitle . ' Muat Turun Borang-Borang';
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::muat_turun_borangborang;
 //$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bsp_borang_borangs, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

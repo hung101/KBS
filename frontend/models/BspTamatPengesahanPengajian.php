@@ -75,7 +75,7 @@ class BspTamatPengesahanPengajian extends \yii\db\ActiveRecord
             'cgpa_pngk' => GeneralLabel::cgpa_pngk,
             'tarikh_tamat' => GeneralLabel::tarikh_tamat,
             'muat_naik' => GeneralLabel::muat_naik,
-
+            'nama_pelajar' => GeneralLabel::nama_pelajar,
         ];
     }
     

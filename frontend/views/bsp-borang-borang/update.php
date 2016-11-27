@@ -12,7 +12,7 @@ use app\models\general\GeneralLabel;
 $this->title = GeneralLabel::muat_turun_borangborang;
 //$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bsp_borang_borangs, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebiasiswa, 'url' => ['permohonan-e-biasiswa/view', 'id' => $model->bsp_pemohon_id]];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Muat Turun Borang-Borang', 'url' => ['view', 'id' => $model->bsp_borang_borang_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::muat_turun_borangborang, 'url' => ['view', 'id' => $model->bsp_borang_borang_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="bsp-borang-borang-update">

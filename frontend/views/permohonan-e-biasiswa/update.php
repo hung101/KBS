@@ -10,16 +10,16 @@ use app\models\UserPeranan;
 /* @var $model app\models\PermohonanEBiasiswa */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::permohonan_ebiasiswa.': ' . ' ' . $model->permohonan_e_biasiswa_id;
-$this->title = GeneralLabel::updateTitle . ' Permohonan e-Biasiswa';
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::permohonan_ebiasiswa;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_ebiasiswa, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Permohonan e-Biasiswa', 'url' => ['view', 'id' => $model->permohonan_e_biasiswa_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::permohonan_ebiasiswa, 'url' => ['view', 'id' => $model->permohonan_e_biasiswa_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebiasiswa-update">
     
     <?php 
         if(Yii::$app->user->identity->peranan == UserPeranan::PERANAN_KBS_E_BIASISWA_BENDAHARI_IPT){ // START for Bendahari IPT
-            $this->title = GeneralLabel::updateTitle . ' Yuran Pengajian';
+            $this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::yuran_pengajian;
         }
     ?>
 

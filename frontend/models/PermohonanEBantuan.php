@@ -169,6 +169,7 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
             'jawatankuasa_bendahari' => GeneralLabel::jawatankuasa_bendahari,
             'kertas_kerja' => GeneralLabel::kertas_kerja,
             'profil_badan_sukan_id' => GeneralLabel::badan_sukan,
+            'laporan' => GeneralLabel::laporan,
         ];
     }
     
