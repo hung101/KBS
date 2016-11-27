@@ -19,6 +19,8 @@ use yii\filters\AccessControl;
 
 use common\models\PublicUser;
 
+use app\models\general\GeneralLabel;
+
 /**
  * Site controller
  */
@@ -368,12 +370,12 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
                 //Yii::$app->getSession()->setFlash('success', 'Check your email for further instructions.');
-                Yii::$app->getSession()->setFlash('success', 'Sila semak e-mel anda untuk mendapatkan arahan lanjut.');
+                Yii::$app->getSession()->setFlash('success', GeneralLabel::sila_semak_e_mel_anda_untuk_mendapatkan_arahan_lanjut);
 
                 return $this->goHome();
             } else {
                 //Yii::$app->getSession()->setFlash('error', 'Sorry, we are unable to reset password for email provided.');
-                Yii::$app->getSession()->setFlash('error', 'Maaf, kami tidak dapat untuk menetapkan semula kata laluan untuk e-mel yang disediakan.');
+                Yii::$app->getSession()->setFlash('error', GeneralLabel::maaf_kami_tidak_dapat_untuk_menetapkan_semula_kata_laluan_untuk_e_mel_yang_disediakan);
             }
         }
 

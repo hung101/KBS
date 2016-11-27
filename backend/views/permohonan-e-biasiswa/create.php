@@ -7,7 +7,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanEBiasiswa */
 
-$this->title = 'Permohonan e-Biasiswa';
+$this->title = GeneralLabel::permohonan_e_biasiswa;
 //$this->params['breadcrumbs'][] = ['label' => 'e-Biasiswa', 'url' => ['site/e-biasiswa-home']];
 //$this->params['breadcrumbs'][] = $this->title;
 ?>

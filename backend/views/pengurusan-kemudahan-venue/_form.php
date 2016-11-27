@@ -149,7 +149,7 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     
-    <h3>Pengurusan Fasiliti</h3>
+    <h3><?=GeneralLabel::maklumat_fasiliti?></h3>
     
     <?php 
             Modal::begin([
@@ -209,13 +209,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kemudahan-sedia-ada/update', 'id' => $model->pengurusan_kemudahan_sedia_ada_id]).'", "'.GeneralLabel::updateTitle . ' Pengurusan Fasiliti");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kemudahan-sedia-ada/update', 'id' => $model->pengurusan_kemudahan_sedia_ada_id]).'", "'.GeneralLabel::updateTitle . ' ' . GeneralLabel::pengurusan_fasiliti . '");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kemudahan-sedia-ada/view', 'id' => $model->pengurusan_kemudahan_sedia_ada_id]).'", "'.GeneralLabel::viewTitle . ' Pengurusan Fasiliti");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kemudahan-sedia-ada/view', 'id' => $model->pengurusan_kemudahan_sedia_ada_id]).'", "'.GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_fasiliti . '");',
                         ]);
                     }
                 ],
@@ -236,7 +236,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kemudahan-sedia-ada/create', 'pengurusan_kemudahan_venue_id' => $pengurusan_kemudahan_venue_id]).'", "'.GeneralLabel::createTitle . ' Pengurusan Fasiliti");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kemudahan-sedia-ada/create', 'pengurusan_kemudahan_venue_id' => $pengurusan_kemudahan_venue_id]).'", "'.GeneralLabel::createTitle . ' ' . GeneralLabel::pengurusan_fasiliti . '");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -246,7 +246,7 @@ use app\models\general\GeneralMessage;
 
     <div class="form-group">
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? 'Hantar' : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::send : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?php endif; ?>
         <?= Html::a(GeneralLabel::backToList, ['pengurusan-kemudahan-venue/index'], ['class' => 'btn btn-warning']) ?>
     </div>

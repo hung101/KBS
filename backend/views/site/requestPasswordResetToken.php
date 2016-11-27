@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-request-password-reset">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Sila isi e-mel anda. Link untuk menetapkan semula kata laluan akan dihantar ke e-mel.</p>
+    <p><?=GeneralLabel::sila_isi_e_mel_anda?></p>
 
     <div class="row">
         <div class="col-lg-5">

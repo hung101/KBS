@@ -7,7 +7,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanKemudahanVenue */
 
-$this->title = GeneralLabel::createTitle . ' Iklan';
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::iklan;
 //$this->params['breadcrumbs'][] = ['label' => 'Pengurusan Venue', 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
 ?>

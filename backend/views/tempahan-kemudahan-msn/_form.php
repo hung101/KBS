@@ -203,7 +203,7 @@ use app\models\general\GeneralMessage;
     <br>
     <br>
     <!--<pre style="text-align: center"><strong>BUTIRAN VENUE</strong></pre>-->
-    <legend>BUTIRAN VENUE</legend>
+    <legend><?= strtoupper(GeneralLabel::butiran_venue)?></legend>
     <?php // Venue info
     
         if(!$readonly){
@@ -280,7 +280,7 @@ use app\models\general\GeneralMessage;
     <br>
     <br>
     <!--<pre style="text-align: center"><strong>BUTIRAN PEMILIK</strong></pre>-->
-    <legend>BUTIRAN PEMILIK</legend>
+    <legend><?= strtoupper(GeneralLabel::butiran_pemilik)?></legend>
     <?php
         if(!$readonly){
             echo $form->field($model, 'public_user_pemilik_id')->hiddenInput()->label(false);
@@ -346,7 +346,7 @@ use app\models\general\GeneralMessage;
     <br>
     <br>
     <!--<pre style="text-align: center"><strong>BUTIRAN TEMPAHAN</strong></pre>-->
-    <legend>BUTIRAN TEMPAHAN</legend>
+    <legend><?= strtoupper(GeneralLabel::butiran_tempahan)?></legend>
     <?php
         echo FormGrid::widget([
     'model' => $model,

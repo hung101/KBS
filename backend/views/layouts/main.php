@@ -83,36 +83,36 @@ AppAsset::register($this);
                         $ref = RefKategoriHakmilik::findOne(['id' => \Yii::$app->user->identity->kategory_hakmilik_e_kemudahan]);
 
                         if(\Yii::$app->user->identity->jenis_pengguna_e_kemudahan == SignupEKemudahanForm::PEMILIK){
-                            $sideMenuItems[] = ['label' => 'Pengurusan Iklan', 'url' => ['/pengurusan-kemudahan-venue/index']];
+                            $sideMenuItems[] = ['label' => GeneralLabel::pengurusan_iklan, 'url' => ['/pengurusan-kemudahan-venue/index']];
                             if($ref['tempahan_display_flag']){
-                                $sideMenuItems[] = ['label' => 'Pengurusan Tempahan', 'url' => ['/tempahan-kemudahan/index']];
+                                $sideMenuItems[] = ['label' => GeneralLabel::pengurusan_tempahan, 'url' => ['/tempahan-kemudahan/index']];
                             }
                         }elseif(\Yii::$app->user->identity->jenis_pengguna_e_kemudahan == SignupEKemudahanForm::PENGGUNA){
                             $sideMenuItems = [
-                                ['label' => 'Tempahan', 'url' => ['/tempahan-kemudahan/create']],
-                                ['label' => 'Sejarah Tempahan', 'url' => ['/tempahan-kemudahan/index']],
+                                ['label' => GeneralLabel::tempahan, 'url' => ['/tempahan-kemudahan/create']],
+                                ['label' => GeneralLabel::sejarah_tempahan, 'url' => ['/tempahan-kemudahan/index']],
                             ];
                         }
                     }  else if(Yii::$app->user->identity->category_access == PublicUser::ACCESS_BANTUAN){
                         $url_home = '/site/e-bantuan-home';
                         $sideMenuItems = [
-                            ['label' => 'Permohonan', 'url' => ['/permohonan-e-bantuan/create']],
-                            ['label' => 'Permohonan Terdahulu', 'url' => ['/permohonan-e-bantuan/index']],
+                            ['label' => GeneralLabel::permohonan, 'url' => ['/permohonan-e-bantuan/create']],
+                            ['label' =>  GeneralLabel::permohonan_terdahulu, 'url' => ['/permohonan-e-bantuan/index']],
                         ];
                     } else if(Yii::$app->user->identity->category_access == PublicUser::ACCESS_LAPORAN){
                         $url_home = '/site/e-laporan-home';
 
                         $sideMenuItems = [
-                            ['label' => 'e-Laporan', 'url' => ['/elaporan-pelaksanaan/create', 'permohonan_e_bantuan_id' => '']],
-                            ['label' => 'Sejarah e-Laporan', 'url' => ['/elaporan-pelaksanaan/index']],
+                            ['label' => GeneralLabel::elaporan, 'url' => ['/elaporan-pelaksanaan/create', 'permohonan_e_bantuan_id' => '']],
+                            ['label' => GeneralLabel::sejarah_e_laporan, 'url' => ['/elaporan-pelaksanaan/index']],
                         ];
                     } else if(Yii::$app->user->identity->category_access == PublicUser::ACCESS_KEMUDAHAN_MSN){
                         $url_home = '/site/e-kemudahan-msn-home';
 
                         $sideMenuItems = [
-                            ['label' => 'Tempahan', 'url' => ['/tempahan-kemudahan-msn/create']],
-                            ['label' => 'Sejarah Tempahan', 'url' => ['/tempahan-kemudahan-msn/index']],
-                            ['label' => 'Kemaskini Profil', 'url' => ['/site/update-profile-kemudahan-msn']],
+                            ['label' => GeneralLabel::tempahan, 'url' => ['/tempahan-kemudahan-msn/create']],
+                            ['label' => GeneralLabel::sejarah_tempahan, 'url' => ['/tempahan-kemudahan-msn/index']],
+                            ['label' => GeneralLabel::kemaskini_profil, 'url' => ['/site/update-profile-kemudahan-msn']],
                         ];
                     }
                 }
@@ -120,7 +120,7 @@ AppAsset::register($this);
                     ['label' => 'Home', 'url' => [$url_home]],
                 ];*/
                 $menuItems[] = [
-                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                    'label' => GeneralLabel::logout . ' (' . Yii::$app->user->identity->username . ')',
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ];

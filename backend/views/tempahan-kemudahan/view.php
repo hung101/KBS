@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\TempahanKemudahan */
 
 //$this->title = $model->tempahan_kemudahan_id;
-$this->title = GeneralLabel::viewTitle . ' Tempahan';
+$this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::tempahan;
 //$this->params['breadcrumbs'][] = ['label' => 'Tempahan', 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
 ?>

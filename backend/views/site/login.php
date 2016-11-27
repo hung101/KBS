@@ -16,7 +16,7 @@ $this->title = GeneralLabel::login;
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Sila mengisi bidang-bidang berikut untuk login:</p>
+    <p><?= GeneralLabel::sila_mengisi_bidang_bidang_berikut_untuk_login?>:</p>
 
     <div class="row">
         <div class="col-lg-5">
@@ -25,11 +25,11 @@ $this->title = GeneralLabel::login;
                 <?= $form->field($model, 'password')->passwordInput() ?>
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>
                 <div style="color:#999;margin:1em 0">
-                    Jika anda terlupa kata laluan anda, anda boleh <?= Html::a('menetapkan semula', ['site/request-password-reset', 'access_id' => $access_id]) ?>.
+                    <?= GeneralLabel::jika_anda_terlupa_kata_laluan_anda?> <?= Html::a(GeneralLabel::menetapkan_semula, ['site/request-password-reset', 'access_id' => $access_id]) ?>.
                 </div>
                 <div class="form-group">
-                    <?= Html::submitButton('Log Masuk', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                    <?= Html::a('Daftar', Url::to(['signup', 'access_id' => $access_id]), ['class' => 'btn btn-warning']) ?>
+                    <?= Html::submitButton(GeneralLabel::log_masuk, ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                    <?= Html::a(GeneralLabel::daftar, Url::to(['signup', 'access_id' => $access_id]), ['class' => 'btn btn-warning']) ?>
                 </div>
             <?php ActiveForm::end(); ?>
         </div>

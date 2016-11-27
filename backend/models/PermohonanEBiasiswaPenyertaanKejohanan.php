@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 
 /**
  * This is the model class for table "tbl_permohonan_e_biasiswa_penyertaan_kejohanan".
@@ -67,17 +68,17 @@ class PermohonanEBiasiswaPenyertaanKejohanan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'penyertaan_kejohanan_id' => 'Penyertaan Kejohanan ID',
-            'permohonan_e_biasiswa_id' => 'Permohonan E Biasiswa ID',
-            'sukan' => 'Sukan',
-            'tarikh_mula' => 'Tarikh Mula',
-            'tarikh_akhir' => 'Tarikh Akhir',
-            'anjuran' => 'Anjuran',
-            'kejohanan_mewakili' => 'Peringkat Kejohanan',
-            'acara' => 'Acara',
-            'nama_kejohanan' => 'Nama Kejohanan',
-            'tempat' => 'Tempat',
-            'pencapaian' => 'Pencapaian',
+            'penyertaan_kejohanan_id' => GeneralLabel::penyertaan_kejohanan_id,
+            'permohonan_e_biasiswa_id' => GeneralLabel::permohonan_e_biasiswa_id,
+            'sukan' => GeneralLabel::sukan,
+            'tarikh_mula' => GeneralLabel::tarikh_mula,
+            'tarikh_akhir' => GeneralLabel::tarikh_akhir,
+            'anjuran' => GeneralLabel::anjuran,
+            'kejohanan_mewakili' => GeneralLabel::kejohanan_mewakili,
+            'acara' => GeneralLabel::acara,
+            'nama_kejohanan' => GeneralLabel::nama_kejohanan,
+            'tempat' => GeneralLabel::tempat,
+            'pencapaian' => GeneralLabel::pencapaian,
         ];
     }
     

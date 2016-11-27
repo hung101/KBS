@@ -4,6 +4,7 @@ namespace backend\models;
 use common\models\PublicUser;
 use yii\base\Model;
 use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 
 /**
  * Password reset request form
@@ -50,7 +51,7 @@ class PasswordResetRequestForm extends Model
     public function attributeLabels()
     {
         return [
-            'email' => 'E-mel',
+            'email' => GeneralLabel::emel,
         ];
     }
 

@@ -4,6 +4,8 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 
+use app\models\general\GeneralLabel;
+
 /**
  * Login form
  */
@@ -51,9 +53,10 @@ class LoginFormPublic extends Model
     public function attributeLabels()
     {
         return [
-            'username' => 'ID Pengguna',
-            'password' => 'Kata Laluan',
-            'rememberMe' => 'Ingat Saya',
+            'username' => GeneralLabel::id_pengguna,
+            'password' => GeneralLabel::kata_laluan,
+            'confirm_password' => GeneralLabel::pengesahan_kata_laluan,
+            'rememberMe' => GeneralLabel::ingat_saya,
         ];
     }
 

@@ -4759,7 +4759,7 @@ if($session->get('language') == "EN") {
         const tarikh = "The date of the";
         const tarikh_acara = "Event Date";
         const tarikh_aduan = "Date Of Complaint";
-        const tarikh_akhir = "The Deadline";
+        const tarikh_akhir = "End Date";
         const tarikh_aktiviti = "Date Of Activity";
         const tarikh_balik = "Date Back";
         const tarikh_bayar = "Date Paid";

@@ -11,7 +11,7 @@ use common\models\general\GeneralFunction;
 /* @var $searchModel frontend\models\PermohonanEBantuanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Permohonan Terdahulu';
+$this->title = GeneralLabel::permohonan_terdahulu;
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebantuan-index">
@@ -24,7 +24,7 @@ $this->title = 'Permohonan Terdahulu';
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
         <p>
-            <?= Html::a('Permohonan Baru', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::permohonan_baru, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
 
     <?= GridView::widget([

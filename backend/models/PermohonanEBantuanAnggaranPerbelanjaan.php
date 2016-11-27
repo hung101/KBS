@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
 /**
@@ -60,12 +61,12 @@ class PermohonanEBantuanAnggaranPerbelanjaan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'anggaran_perbelanjaan_id' => 'Anggaran Perbelanjaan ID',
-            'permohonan_e_bantuan_id' => 'Permohonan E Bantuan ID',
-            'butir_butir_perbelanjaan' => 'Butir-butir Perbelanjaan',
-            'jumlah_perbelanjaan' => 'Jumlah Perbelanjaan (RM)',
-            'jumlah_disokong' => 'Disokong (RM)',
-            'jumlah_diperakuankan' => 'Diperakukan (RM)',
+             'anggaran_perbelanjaan_id' => GeneralLabel::anggaran_perbelanjaan_id,
+            'permohonan_e_bantuan_id' => GeneralLabel::permohonan_e_bantuan_id,
+            'butir_butir_perbelanjaan' => GeneralLabel::butir_butir_perbelanjaan,
+            'jumlah_perbelanjaan' => GeneralLabel::jumlah_perbelanjaan,
+            'jumlah_disokong' => GeneralLabel::jumlah_disokong,
+            'jumlah_diperakuankan' => GeneralLabel::jumlah_diperakuankan,
         ];
     }
 }

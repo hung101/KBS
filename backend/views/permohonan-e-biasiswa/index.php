@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PermohonanEBiasiswaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Sejarah Permohonan';
+$this->title = GeneralLabel::sejarah_permohonan;
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-ebiasiswa-index">
@@ -23,7 +23,7 @@ $this->title = 'Sejarah Permohonan';
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
         <!--<p>
-            <?= Html::a(GeneralLabel::createTitle . ' Permohonan E-Biasiswa', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::permohonan_e_biasiswa, ['create'], ['class' => 'btn btn-success']) ?>
         </p>-->
 
     <?= GridView::widget([

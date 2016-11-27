@@ -6,6 +6,7 @@ use yii\base\Model;
 use Yii;
 
 use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 
 /**
  * Signup form
@@ -59,10 +60,11 @@ class SignupELaporanForm extends Model
     public function attributeLabels()
     {
         return [
-            'email' => 'Emel',
-            'full_name' => 'Nama Penuh',
-            'tel_mobile_no' => 'No Tel Bimbit',
-            'password' => 'Kata Laluan',
+            'email' => GeneralLabel::emel,
+            'full_name' => GeneralLabel::nama_penuh,
+            'tel_bimbit_no' => GeneralLabel::no_tel_bimbit,
+            'tel_no' => GeneralLabel::no_tel,
+            'password' => GeneralLabel::kata_laluan,
         ];
     }
 

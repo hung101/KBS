@@ -18,7 +18,7 @@ use app\models\RefStatusLaporanMesyuaratAgung;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\SignupForm */
 
-$this->title = 'Daftar';
+$this->title = GeneralLabel::daftar;
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-signup">

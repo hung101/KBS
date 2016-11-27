@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanKemudahanVenueSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pengurusan Iklan';
+$this->title = GeneralLabel::pengurusan_iklan;
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-kemudahan-venue-index">
@@ -23,7 +23,7 @@ $this->title = 'Pengurusan Iklan';
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(GeneralLabel::createTitle . ' Iklan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::iklan, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

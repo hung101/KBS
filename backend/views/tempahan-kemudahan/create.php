@@ -1,12 +1,13 @@
 <?php
 
 use yii\helpers\Html;
+use app\models\general\GeneralLabel;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\TempahanKemudahan */
 
-$this->title = 'Tempahan';
+$this->title = GeneralLabel::tempahan;
 //$this->params['breadcrumbs'][] = ['label' => 'Tempahan', 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
 ?>

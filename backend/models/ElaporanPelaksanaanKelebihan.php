@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
 /**
@@ -55,14 +56,14 @@ class ElaporanPelaksanaanKelebihan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'elaporan_pelaksanaan_kelebihan_id' => 'Elaporan Pelaksanaan Kelebihan ID',
-            'elaporan_pelaksaan_id' => 'Elaporan Pelaksaan ID',
-            'kelebihan' => 'Kelebihan',
-            'session_id' => 'Session ID',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
-            'created' => 'Created',
-            'updated' => 'Updated',
+            'elaporan_pelaksanaan_kelebihan_id' => GeneralLabel::elaporan_pelaksanaan_kelebihan_id,
+            'elaporan_pelaksaan_id' => GeneralLabel::elaporan_pelaksaan_id,
+            'kelebihan' => GeneralLabel::kelebihan,
+            'session_id' => GeneralLabel::session_id,
+            'created_by' => GeneralLabel::created_by,
+            'updated_by' => GeneralLabel::updated_by,
+            'created' => GeneralLabel::created,
+            'updated' => GeneralLabel::updated,
         ];
     }
 }

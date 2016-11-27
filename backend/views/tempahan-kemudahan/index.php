@@ -12,7 +12,7 @@ use backend\models\SignupEKemudahanForm;
 /* @var $searchModel frontend\models\TempahanKemudahanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tempahan';
+$this->title = GeneralLabel::tempahan;
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tempahan-kemudahan-index">
@@ -30,7 +30,7 @@ $this->title = 'Tempahan';
 
     <?php if(\Yii::$app->user->identity->jenis_pengguna_e_kemudahan == SignupEKemudahanForm::PENGGUNA):?>
         <p>
-            <?= Html::a('Tempahan', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::tempahan, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif;?>
         

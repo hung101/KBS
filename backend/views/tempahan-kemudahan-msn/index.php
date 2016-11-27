@@ -24,7 +24,7 @@ $this->title = GeneralLabel::tempahan;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
         <p>
-            <?= Html::a('Tempahan', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::tempahan, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
 
     <?= GridView::widget([

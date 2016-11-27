@@ -8,12 +8,13 @@ use app\models\AdminEBiasiswa;
 
 use common\models\general\GeneralFunction;
 use app\models\general\GeneralVariable;
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \common\models\LoginForm */
 
-$this->title = 'Permohonan e-Biasiswa';
+$this->title = GeneralLabel::permohonan_e_biasiswa;
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
@@ -27,8 +28,8 @@ $this->title = 'Permohonan e-Biasiswa';
             foreach ($results as $modelAdminEBiasiswa) { 
                 echo '<a href="'.Url::to(['/permohonan-e-biasiswa/load', 'admin_e_biasiswa_id' => $modelAdminEBiasiswa->admin_e_biasiswa_id]).'" class="list-group-item">';
                 echo '<h4 class="list-group-item-heading">'.$modelAdminEBiasiswa->nama.'</h4>';
-                echo '<p class="list-group-item-text">Tarikh permohonan dibuka '.GeneralFunction::convert($modelAdminEBiasiswa->tarikh_mula).' hingga '.GeneralFunction::convert($modelAdminEBiasiswa->tarikh_tamat).'</p>';
-                echo '<!--<p class="list-group-item-text">'.Html::a('Muat Turun Syarat Kelayakan', 'javascript:void(0);', ['onclick' => 'viewUpload("'.\Yii::$app->request->BaseUrl . '/' . $modelAdminEBiasiswa->muat_naik_syarat_kelayakan . '");']).'</p>-->';
+                echo '<p class="list-group-item-text">'.GeneralLabel::tarikh_permohonan_dibuka.' '.GeneralFunction::convert($modelAdminEBiasiswa->tarikh_mula).' '.strtolower(GeneralLabel::hingga).' '.GeneralFunction::convert($modelAdminEBiasiswa->tarikh_tamat).'</p>';
+                echo '<!--<p class="list-group-item-text">'.Html::a(GeneralLabel::muat_turun_syarat_kelayakan, 'javascript:void(0);', ['onclick' => 'viewUpload("'.\Yii::$app->request->BaseUrl . '/' . $modelAdminEBiasiswa->muat_naik_syarat_kelayakan . '");']).'</p>-->';
                 echo '</a>';
             }
         } else {
@@ -36,7 +37,7 @@ $this->title = 'Permohonan e-Biasiswa';
                 'options' => [
                     'class' => 'alert-info',
                 ],
-                'body' => 'Tiada apa-apa permohonan membenarkan pada masa ini',
+                'body' => GeneralLabel::tiada_apa_apa_permohonan_membenarkan_pada_masa_ini,
             ]);
         }
     ?>

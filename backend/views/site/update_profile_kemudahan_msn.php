@@ -20,7 +20,7 @@ use app\models\general\GeneralMessage;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\SignupForm */
 
-$this->title = 'Kemaskini Profil';
+$this->title = GeneralLabel::kemaskini_profil;
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-signup">
@@ -62,7 +62,7 @@ $this->title = 'Kemaskini Profil';
             <?= $form->field($model, 'majikan_kemudahan_msn')->textInput(['maxlength' => 80]) ?>
             <?= $form->field($model, 'majikan_alamat_kemudahan_msn')->textInput(['maxlength' => 90]) ?>
             <div class="form-group">
-                <?= Html::submitButton('Kemaskini', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                <?= Html::submitButton(GeneralLabel::update, ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
             </div>
             
             <?php ActiveForm::end(); ?>
