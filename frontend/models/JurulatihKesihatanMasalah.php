@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_jurulatih_kesihatan_masalah".
  *
@@ -66,7 +68,7 @@ class JurulatihKesihatanMasalah extends \yii\db\ActiveRecord
         return [
             'jurulatih_kesihatan_kesihatan_id' => 'Jurulatih Kesihatan Kesihatan ID',
             'jurulatih_kesihatan_id' => 'Jurulatih Kesihatan ID',
-            'masalah_kesihatan' => 'Masalah Kesihatan',
+            'masalah_kesihatan' => GeneralLabel::masalah_kesihatan,
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

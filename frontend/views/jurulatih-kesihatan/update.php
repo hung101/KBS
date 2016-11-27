@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\JurulatihKesihatan */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::jurulatih_kesihatan.': ' . ' ' . $model->jurulatih_kesihatan_id;
-$this->title = GeneralLabel::updateTitle . ' Maklumat Kesihatan';
+$this->title = GeneralLabel::updateTitle . ' '.GeneralLabel::maklumat_kesihatan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::maklumat_kesihatan, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Maklumat Kesihatan', 'url' => ['view', 'id' => $model->jurulatih_kesihatan_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' '. GeneralLabel::maklumat_kesihatan, 'url' => ['view', 'id' => $model->jurulatih_kesihatan_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="jurulatih-kesihatan-update">

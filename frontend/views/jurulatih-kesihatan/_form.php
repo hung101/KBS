@@ -114,7 +114,7 @@ use app\models\general\GeneralMessage;
         ?>
     
     <br>
-    <h3>Masalah Kesihatan</h3>
+    <h3><?php echo GeneralLabel::masalah_kesihatan; ?></h3>
     
     <?php 
             Modal::begin([
@@ -172,13 +172,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['jurulatih-kesihatan-masalah/update', 'id' => $model->jurulatih_kesihatan_kesihatan_id]).'", "'.GeneralLabel::updateTitle . ' Masalah Kesihatan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['jurulatih-kesihatan-masalah/update', 'id' => $model->jurulatih_kesihatan_kesihatan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::masalah_kesihatan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['jurulatih-kesihatan-masalah/view', 'id' => $model->jurulatih_kesihatan_kesihatan_id]).'", "'.GeneralLabel::viewTitle . ' Masalah Kesihatan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['jurulatih-kesihatan-masalah/view', 'id' => $model->jurulatih_kesihatan_kesihatan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::masalah_kesihatan.'");',
                         ]);
                     }
                 ],
@@ -198,7 +198,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['jurulatih-kesihatan-masalah/create', 'jurulatih_kesihatan_id' => $jurulatih_kesihatan_id]).'", "'.GeneralLabel::createTitle . ' Masalah Kesihatan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['jurulatih-kesihatan-masalah/create', 'jurulatih_kesihatan_id' => $jurulatih_kesihatan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::masalah_kesihatan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

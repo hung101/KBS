@@ -7,7 +7,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View delete()*/
 /* @var $model app\models\JurulatihKeluarga Atlet::findOne($id)*/
 
-$this->title = GeneralLabel::createTitle . ' Maklumat Keluarga';
+$this->title = GeneralLabel::createTitle . ' '.GeneralLabel::maklumat_keluarga;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::maklumat_keluarga, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'linkOptions'=>['value'=>Url::to(['/atlet/index']),'onclick'=>'Testing()']
         ],
         [
-            'label'=>'<i class="glyphicon glyphicon-education"></i> Pendidikan',
+            'label'=>'<i class="glyphicon glyphicon-education"></i> '.GeneralLabel::pendidikan,
             'content'=>'',
             'linkOptions'=>['data-url'=>Url::to(['/site/fetch-tab?tab=2'])]
         ],

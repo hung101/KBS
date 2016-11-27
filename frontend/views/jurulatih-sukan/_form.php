@@ -219,7 +219,7 @@ use app\models\general\GeneralMessage;
     ?>
     
     <br>
-    <h3>Acara</h3>
+    <h3><?php echo GeneralLabel::acara; ?></h3>
     
     <?php 
             Modal::begin([

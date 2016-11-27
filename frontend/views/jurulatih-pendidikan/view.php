@@ -14,7 +14,7 @@ use app\models\general\GeneralVariable;
 /* @var $model app\models\JurulatihPendidikan */
 
 //$this->title = $model->jurulatih_pendidikan_id;
-$this->title = GeneralLabel::viewTitle . ' Pendidikan';
+$this->title = GeneralLabel::viewTitle . ' '.GeneralLabel::pendidikan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::pendidikan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 

@@ -53,7 +53,7 @@ use yii\web\Session;
     
     <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['create'])&& $approved == 0)  || isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['kemaskini_yang_hantar'])): ?>
         <p>
-            <?= Html::button(GeneralLabel::createTitle . ' Maklumat Kesihatan', ['value'=>Url::to(['create']),'class' => 'btn btn-success', 'onclick' => 'updateRenderAjax("'.Url::to(['create']).'", "'.GeneralVariable::tabKesihatanID.'");']) ?>
+            <?= Html::button(GeneralLabel::createTitle . ' '. GeneralLabel::maklumat_kesihatan, ['value'=>Url::to(['create']),'class' => 'btn btn-success', 'onclick' => 'updateRenderAjax("'.Url::to(['create']).'", "'.GeneralVariable::tabKesihatanID.'");']) ?>
         </p>
     <?php endif; ?>
     

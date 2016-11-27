@@ -205,7 +205,7 @@ class Jurulatih extends \yii\db\ActiveRecord
             'alamat_majikan_poskod' => GeneralLabel::alamat_majikan_poskod,
             'tarikh_mula_lantikan' => GeneralLabel::tarikh_mula_lantikan,
             'tarikh_tamat_lantikan' => GeneralLabel::tarikh_tamat_lantikan,
-            'agensi' => 'Agensi Pelantik',
+            'agensi' => GeneralLabel::agensi_pelantik,
             'status_tawaran' => GeneralLabel::status_tawaran,
             'approved_date' => GeneralLabel::tarikh_hantar,
         ];

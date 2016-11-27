@@ -675,6 +675,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jurulatih = "Jurulatih";
         const jurulatih_di_negeri = "Jurulatih Di Negeri";
         const jurulatih_id = "Jurulatih";
+        const jurulatih_sukan_id = "ID";
         const jurulatih_keluarga_id = "Jurulatih Keluarga ID";
         const jurulatih_kesihatan_id = "Jurulatih Kesihatan ID";
         const jurulatih_pendidikan_id = "Jurulatih Pendidikan ID";
@@ -809,7 +810,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kes_latarbelakang_lain = "";
         const kesan_klinikal = "Kesan Klinikal";
         const keseluruhan = "Keseluruhan";
-                const kesihatan = "Kesihatan";
+        const kesihatan = "Kesihatan";
         const keterangan = "Keterangan";
         const keterangan_ringkas = "Keterangan Ringkas";
         const ketidakpatuhan = "Ketidakpatuhan";
@@ -3936,6 +3937,7 @@ if($session->get('language') == "EN") {
         const jurulatih = "Coach";
         const jurulatih_di_negeri = "Coach State";
         const jurulatih_id = "Coach";
+        const jurulatih_sukan_id = "ID";
         const jurulatih_keluarga_id = "Family Trainer ID";
         const jurulatih_kesihatan_id = "Health Coach ID";
         const jurulatih_pendidikan_id = "Coach Education ID";

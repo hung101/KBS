@@ -20,7 +20,7 @@ use app\models\RefProgramSemasaSukanAtlet;
 /* @var $searchModel app\models\MesyuaratSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = "Penilaian";
+$this->title = "".GeneralLabel::penilaian;;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mesyuarat-index">
