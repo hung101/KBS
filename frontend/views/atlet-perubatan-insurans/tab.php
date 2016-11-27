@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  'linkOptions'=>['data-url'=>Url::to(['/site/fetch-tab?tab=4'])]
              ],
                 [
-                 'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Insurans',
+                 'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::insurans,
                  'encode'=>false,
                 /*  'content'=>$this->render('index', [
                 'searchModel' => $searchModel,

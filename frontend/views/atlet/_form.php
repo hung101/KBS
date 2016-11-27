@@ -633,7 +633,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>Maklumat Alamat Surat Menyurat</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_alamat_surat_menyurat; ?></strong></pre>
     
     
     <?php if(!$readonly):?>
@@ -877,7 +877,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>Maklumat Perhubungan Kecemasan</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_perhubungan_kecemasan; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -907,7 +907,7 @@ use app\models\general\GeneralVariable;
     ?>
     
     <hr>
-    <pre style="text-align: center"><strong>Status Tawaran</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::status_tawaran; ?></strong></pre>
     
     <?php
     if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['tawaran'])){

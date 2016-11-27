@@ -101,7 +101,7 @@ class AtletPenajaansokongan extends \yii\db\ActiveRecord
             'nilai_kontrak' => GeneralLabel::nilai_kontrak,
             'tahun_permulaan' => GeneralLabel::tahun_permulaan,
             'tahun_akhir' => GeneralLabel::tahun_akhir,
-            'barang_yang_penyokong' => 'Bentuk Tajaan',
+            'barang_yang_penyokong' => GeneralLabel::bentuk_tajaan,
 
         ];
     }

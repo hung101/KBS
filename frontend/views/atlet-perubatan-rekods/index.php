@@ -15,7 +15,7 @@ use common\models\general\GeneralFunction;
 /* @var $searchModel app\models\MesyuaratSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = "Perubatan & Sains Sukan : Rekod";
+$this->title = GeneralLabel::rekod_perubatan_sains_sukan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mesyuarat-index">
@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <!-- Six Step Biomekanik - START -->
     <div class="panel panel-default copyright-wrap" id="sixstep_biomekanik-list">
-        <div class="panel-heading"><a data-toggle="collapse" href="#sixstep_biomekanik-body"><?= GeneralLabel::six_step ?> - Biomekanik</a>
+        <div class="panel-heading"><a data-toggle="collapse" href="#sixstep_biomekanik-body"><?= GeneralLabel::six_step .' - '.GeneralLabel::biomekanik; ?></a>
             <button type="button" class="close" data-target="#sixstep_biomekanik-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         </div>
         <div id="sixstep_biomekanik-body" class="panel-collapse collapse">
@@ -130,7 +130,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <!-- Six Step Fisiologi - START -->
     <div class="panel panel-default copyright-wrap" id="sixstep_fisiologi-list">
-        <div class="panel-heading"><a data-toggle="collapse" href="#sixstep_fisiologi-body"><?= GeneralLabel::six_step ?> - Fisiologi</a>
+        <div class="panel-heading"><a data-toggle="collapse" href="#sixstep_fisiologi-body"><?= GeneralLabel::six_step.' - '.GeneralLabel::fisiologi; ?></a>
             <button type="button" class="close" data-target="#sixstep_fisiologi-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         </div>
         <div id="sixstep_fisiologi-body" class="panel-collapse collapse">
@@ -181,7 +181,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <!-- Six Step Psikologi - START -->
     <div class="panel panel-default copyright-wrap" id="sixstep_psikologi-list">
-        <div class="panel-heading"><a data-toggle="collapse" href="#sixstep_psikologi-body"><?= GeneralLabel::six_step ?> - Psikologi</a>
+        <div class="panel-heading"><a data-toggle="collapse" href="#sixstep_psikologi-body"><?= GeneralLabel::six_step.' - '.GeneralLabel::psikologi; ?></a>
             <button type="button" class="close" data-target="#sixstep_psikologi-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         </div>
         <div id="sixstep_psikologi-body" class="panel-collapse collapse">
@@ -283,7 +283,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <!-- Six Step Suaian Fizikal - START -->
     <div class="panel panel-default copyright-wrap" id="sixstep_suaian_fizikal-list">
-        <div class="panel-heading"><a data-toggle="collapse" href="#sixstep_suaian_fizikal-body"><?= GeneralLabel::six_step ?> - Suaian Fizikal (Gym)</a>
+        <div class="panel-heading"><a data-toggle="collapse" href="#sixstep_suaian_fizikal-body"><?= GeneralLabel::six_step.' - '.GeneralLabel::suaian_fizikal_gym; ?></a>
             <button type="button" class="close" data-target="#sixstep_suaian_fizikal-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         </div>
         <div id="sixstep_suaian_fizikal-body" class="panel-collapse collapse">

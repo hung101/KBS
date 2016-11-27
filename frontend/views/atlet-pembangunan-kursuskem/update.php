@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\AtletPembangunanKursuskem */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::atlet_pembangunan_kursuskem.': ' . ' ' . $model->kursus_kem_id;
-$this->title = GeneralLabel::updateTitle . ' Kursus/Kem';
+$this->title = GeneralLabel::updateTitle . ' '.GeneralLabel::kursuskem;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::kursuskem, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Kursus/Kem', 'url' => ['view', 'id' => $model->kursus_kem_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' '.GeneralLabel::kursuskem, 'url' => ['view', 'id' => $model->kursus_kem_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-pembangunan-kursuskem-update">

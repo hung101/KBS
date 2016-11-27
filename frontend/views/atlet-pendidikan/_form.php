@@ -220,7 +220,7 @@ use app\models\general\GeneralVariable;
     
      <br>
     <br>
-    <pre style="text-align: center"><strong>Maklumat Biasiswa</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_biasiswa; ?></strong></pre>
     
      <?php
         echo FormGrid::widget([

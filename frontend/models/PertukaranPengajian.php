@@ -83,7 +83,7 @@ class PertukaranPengajian extends \yii\db\ActiveRecord
             'tarikh' => 'Tarikh Mula Pelepasan',
             'tarikh_akhir' => 'Tarikh Akhir Pelepasan',
             'tempat' => GeneralLabel::tempat,
-            'sebab' => 'No Matrik',
+            'sebab' => GeneralLabel::no_matriks,
             'tempoh_penangguhan' => 'Tempoh Penangguhan',
         ];
     }

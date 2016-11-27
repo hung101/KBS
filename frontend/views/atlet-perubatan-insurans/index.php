@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php if( ( !isset($session['program_semasa_id']) || (isset($session['program_semasa_id']) && $session['program_semasa_id'] != RefProgramSemasaSukanAtlet::PODIUM && $session['program_semasa_id'] != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['create'])) || 
             (isset($session['program_semasa_id']) && ($session['program_semasa_id'] == RefProgramSemasaSukanAtlet::PODIUM || $session['program_semasa_id'] == RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))  ): ?>
         <p>
-            <?= Html::button(GeneralLabel::createTitle . ' Insurans', ['value'=>Url::to(['create']),'class' => 'btn btn-success', 'onclick' => 'updateRenderAjax("'.Url::to(['create']).'", "'.GeneralVariable::tabPerubatanInsuransID.'");']) ?>
+            <?= Html::button(GeneralLabel::createTitle . ' '.GeneralLabel::insurans, ['value'=>Url::to(['create']),'class' => 'btn btn-success', 'onclick' => 'updateRenderAjax("'.Url::to(['create']).'", "'.GeneralVariable::tabPerubatanInsuransID.'");']) ?>
         </p>
     <?php endif; ?>
     
@@ -123,7 +123,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <!-- Kaunseling Rekod - START -->
     <div class="panel panel-default copyright-wrap" id="pengurusan_insurans_rekods-list">
-        <div class="panel-heading"><a data-toggle="collapse" href="#pengurusan_insurans_rekods-body">Rekod Pengurusan Insurans</a>
+        <div class="panel-heading"><a data-toggle="collapse" href="#pengurusan_insurans_rekods-body"><?php echo GeneralLabel::rekod_pengurusan_insurans; ?></a>
             <button type="button" class="close" data-target="#pengurusan_insurans_rekods-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         </div>
         <div id="pengurusan_insurans_rekods-body" class="panel-collapse collapse">
