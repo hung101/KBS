@@ -5376,12 +5376,9 @@ if($session->get('language') == "EN") {
         const data_klinikal = "Clinical Data";
         const delegasi_teknikal = "Technical Delegates";
         const delegasi_teknikal_pengurusan_delegasi_teknikal_serta_analisa = "Technical Delegate: Delegate Management And Technical Analysis";
-<<<<<<< HEAD
+
         const ebantuan = "e-Help";
-=======
         const duit_tiket_lain_lain = "Money / Ticket / Others";
-        const ebantuan = "e-help";
->>>>>>> origin/master
         const ebiasiswa = "e-Scholarship";
         const efasiliti_ekemudahan = "e-Facility";
         const elaporan = "e-Report";
