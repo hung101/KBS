@@ -146,7 +146,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-        Status Tawaran</a>
+        <?php echo GeneralLabel::status_tawaran; ?></a>
       </h4>
     </div>
     <div id="collapse2" class="panel-collapse collapse">
@@ -186,7 +186,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-        Sukan</a>
+        <?php echo GeneralLabel::sukan; ?></a>
       </h4>
     </div>
     <div id="collapse3" class="panel-collapse collapse">
@@ -236,7 +236,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
-        Program</a>
+        <?php echo GeneralLabel::program; ?></a>
       </h4>
     </div>
     <div id="collapse4" class="panel-collapse collapse">
@@ -286,7 +286,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
-        Sijil</a>
+        <?php echo GeneralLabel::sijil; ?></a>
       </h4>
     </div>
     <div id="collapse5" class="panel-collapse collapse">
@@ -431,7 +431,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Jurulatih', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' .GeneralLabel::jurulatih, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

@@ -8,7 +8,7 @@ use yii\helpers\Html;
 /* @var $model app\models\RefStatusTawaran */
 
 $this->title = GeneralLabel::updateTitle. ' Status Tawaran: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Status Tawaran', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::status_tawaran, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

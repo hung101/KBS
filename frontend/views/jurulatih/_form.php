@@ -717,7 +717,7 @@ use app\models\general\GeneralVariable;
     ?>
     
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT MAJIKAN (Jika berkenaan)</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_majikan_jurulatih; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -869,17 +869,17 @@ use app\models\general\GeneralVariable;
     
     <div class="panel panel-danger">
         <div class="panel-body">
-            <strong>Senarai Dokumen</strong>
+            <strong><?php echo GeneralLabel::senarai_document; ?></strong>
         </div>
         <ol>
-            <li >Surat sokongan daripada PSK atau kelulusan Mesyuarat Jawatan Kuasa Kerja (JKK).</li>
-            <li >Surat Permohonan rasmi daripada jurulatih.</li>
-            <li >Resume Jurulatih.</li>
-            <li >Gambar berwarna ukuran passport.</li>
-            <li >Salinan kad pengenalan / passport.</li>
-            <li >Salinan Sijil Akademik Jurulatih.</li>
-            <li >Salinan Sijil Pendidikan Kejurulatihan.</li>
-            <li >Salinan Sijil Skim Persijilan Kejurulatihan Kebangsaan (SPKK) terkini. (Kursus Sains Sukan dan Kursus Sukan Spesifik)</li>
+            <li ><?php echo GeneralLabel::senarai_document_1; ?></li>
+            <li ><?php echo GeneralLabel::senarai_document_2; ?></li>
+            <li ><?php echo GeneralLabel::senarai_document_3; ?></li>
+            <li ><?php echo GeneralLabel::senarai_document_4; ?></li>
+            <li ><?php echo GeneralLabel::senarai_document_5; ?></li>
+            <li ><?php echo GeneralLabel::senarai_document_6; ?></li>
+            <li ><?php echo GeneralLabel::senarai_document_7; ?></li>
+            <li ><?php echo GeneralLabel::senarai_document_8; ?></li>
           </ol>
     </div>
 

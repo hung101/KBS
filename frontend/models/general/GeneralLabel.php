@@ -1018,6 +1018,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const maklumat_atlet = 'Senarai Atlet';
         const maklumat_keluarga_jika_berlaku_kecemasan = 'Maklumat Keluarga (Jika Berlaku Kecemasan)';
         const maklumat_majikan = 'Maklumat Majikan';
+        const maklumat_majikan_jurulatih = 'MAKLUMAT MAJIKAN (Jika berkenaan)';
         const maklumat_pengalaman_penglibatan_sukan_dan_kejurulatihan = 'Pengalaman (Penglibatan Sukan Dan Kejurulatihan)';
         const maklumat_skim_pensijilan_kejurulatihan_kebangsaan = 'Skim Pensijilan Kejurulatihan Kebangsaan (SPKK)';
         const maklumat_kelayakan_kursus_tertinggi_spesifik = 'Kelayakan Kursus Tertinggi/Spesifik';
@@ -2438,6 +2439,15 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const satelit_sistem_six_step = "ISN Negeri Sistem ‘SIX Step’";
         const senarai = "Senarai";
         const senarai_tugas = "Senarai Tugas";
+        const senarai_document = "Senarai Dokumen";
+        const senarai_document_1 = "Surat sokongan daripada PSK atau kelulusan Mesyuarat Jawatan Kuasa Kerja (JKK)";
+        const senarai_document_2 = "Surat Permohonan rasmi daripada jurulatih.";
+        const senarai_document_3 = "Resume Jurulatih.";
+        const senarai_document_4 = "Gambar berwarna ukuran passport.";
+        const senarai_document_5 = "Salinan kad pengenalan / passport.";
+        const senarai_document_6 = "Salinan Sijil Akademik Jurulatih.";
+        const senarai_document_7 = "Salinan Sijil Pendidikan Kejurulatihan.";
+        const senarai_document_8 = "Salinan Sijil Skim Persijilan Kejurulatihan Kebangsaan (SPKK) terkini. (Kursus Sains Sukan dan Kursus Sukan Spesifik)";        
         const sesi_kaunseling = "Sesi Kaunseling";
         const sijil_tambahan_yang_dikehendaki_bagi_sukan_akuatik_sahaja = "SIJIL TAMBAHAN YANG DIKEHENDAKI BAGI SUKAN AKUATIK SAHAJA";
         const sistem_pengurusan_atlet = "Sistem Pengurusan Atlet";
@@ -4270,9 +4280,9 @@ if($session->get('language') == "EN") {
         const maklumat_fasiliti = "Information Facility";
         const maklumat_peribadi = "PERSONAL INFORMATION";
         const maklumat_perhubungan_kecemasan = "Emergency Contact Information";
-        const maklumat_sukan_dan_program = "Current Sports And Program Information";
+        const maklumat_sukan_dan_program = "Current Sports And Programme Information";
         const maklumat_acara = "Event List";
-        const maklumat_sejarah_sukan_dan_program = "History Sports And Program Information";
+        const maklumat_sejarah_sukan_dan_program = "History Sports And Programme Information";
         const maklumat_sejarah_acara = "Event History Information";
         const maklumat_sejarah_sukan = "Sports History Information";
         const maklumat_kewangan = "Current Financial Information";
@@ -4309,6 +4319,7 @@ if($session->get('language') == "EN") {
         const maklumat_atlet = 'List Of Athletes';
         const maklumat_keluarga_jika_berlaku_kecemasan = 'Family Information (In Case Of Emergency)';
         const maklumat_majikan = 'Employer Information';
+        const maklumat_majikan_jurulatih = 'EMPLOYER INFORMATION (If Applicable)';
         const maklumat_pengalaman_penglibatan_sukan_dan_kejurulatihan = 'Experiences (Involvement Sport and Coaching)';
         const maklumat_skim_pensijilan_kejurulatihan_kebangsaan = 'National Coaching Certification Scheme (SPKK)';
         const maklumat_kelayakan_kursus_tertinggi_spesifik = 'Qualification Course Highest / Specification';
@@ -4553,12 +4564,12 @@ if($session->get('language') == "EN") {
         const no_kad_pengenalan_tentera_polis = "No. IC/Army/Police";
         const no_kakitangan = "Staff Number";
         const no_kaunselor_berdaftar = "No Registered Counselor";
-        const no_kp = "No. IC";
-        const no_kp_isteri_suami = "No I/C The Spouse";
-        const no_kp_no_kp_lama = "No. IC / No. IC Lama";
-        const no_kp_polis_tentera = "Police/Military IC";
-        const no_kwsp = "No. EPF";
-        const no_lesen_ipc = "No. License IPC";
+        const no_kp = "IC No.";
+        const no_kp_isteri_suami = "I/C No. Of The Spouse";
+        const no_kp_no_kp_lama = "IC No./Old IC No.";
+        const no_kp_polis_tentera = "Police/Military ID";
+        const no_kwsp = "EPF No.";
+        const no_lesen_ipc = "License IPC No.";
         const no_lesen_jurulatih = "No License Coach";
         const no_lesen_pendaftaran = "No License Registration";
         const no_lesen_sukan = "Sport License No.";
@@ -4638,8 +4649,8 @@ if($session->get('language') == "EN") {
         const panjang_depa = "Long Span (cm)";
         const paobs_penganjuran_sumber_kewangan_id = "Paobs Organisation Of Financial Resource ID";
         const paralimpik = "Paralympic";
-        const passport_no = "No. Passport";
-        const passport_no_wajib_diisi = "No Passport (Required for JLN)";
+        const passport_no = "Passport No.";
+        const passport_no_wajib_diisi = "Passport No.(Required for JLN)";
         const passport_tamat_tempoh = "Expired";
         const passport_tempat_dikeluarkan = "Place Of Issued";
         const password = "Password";
@@ -5025,6 +5036,7 @@ if($session->get('language') == "EN") {
         const senarai_permohonan_id = "List Of Application ID";
         const senarai_semak_id = "Checklist ID";
         const senarai_tugas_id = "The Task List ID.";
+        
         const session_id = "Session ID";
         const setiap_kejohanan_yang_dinyatakan_perlu_ada_sijil_penyertaan = "Each tournament that otherwise there should be a certificate / confirmation letter as proof of participation for the interview later.";
         const sewaan = "Rental";
@@ -5115,7 +5127,7 @@ if($session->get('language') == "EN") {
         const sukan = "Sports";
         const sukan_acara = "Sports Event";
         const sukan_asia_komenwel_para_asia_ead = "Asian/Asian/Was/Shelf EAD (RM)";
-        const sukan_dan_program =  "Sports and Program";
+        const sukan_dan_program =  "Sports and Programme";
         const sukan_id = "Sports ID";
         const sukan_olimpik_paralimpik = "Olympic Games/Paralympic Games (RM)";
         const sukan_rekreasi = "Sports/Recreation";
@@ -5729,6 +5741,15 @@ if($session->get('language') == "EN") {
         const satelit_sistem_six_step = "Satellite System ' SIX Step '";
         const senarai = "List";
         const senarai_tugas = "List of tasks";
+        const senarai_document = "Document Listing";
+        const senarai_document_1 = "Letters of support from PSK or meeting approval from Jawatan Kuasa Kerja (JKK)";
+        const senarai_document_2 = "Official application form from the coach.";
+        const senarai_document_3 = "Resume of the coach.";
+        const senarai_document_4 = "Passport size pictures.";
+        const senarai_document_5 = "Copy of identity card or passport.";
+        const senarai_document_6 = "Copy of academic certificates.";
+        const senarai_document_7 = "Copy of coaching education certificates.";
+        const senarai_document_8 = "Copy of latest certificates from Skim Persijilan Kejurulatihan Kebangsaan (SPKK).";
         const sesi_kaunseling = "Counselling Session";
         const sijil_tambahan_yang_dikehendaki_bagi_sukan_akuatik_sahaja = "ADDITIONAL CERTIFICATES REQUIRED ONLY FOR AQUATIC SPORTS";
         const sistem_pengurusan_atlet = "Athlete Management System";

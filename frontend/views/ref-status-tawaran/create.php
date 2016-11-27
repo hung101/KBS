@@ -8,7 +8,7 @@ use yii\helpers\Html;
 /* @var $model app\models\RefStatusTawaran */
 
 $this->title = GeneralLabel::createTitle.' Status Tawaran';
-$this->params['breadcrumbs'][] = ['label' => 'Status Tawaran', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::status_tawaran, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-tawaran-create">

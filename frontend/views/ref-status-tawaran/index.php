@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefStatusTawaranSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Status Tawaran';
+$this->title = GeneralLabel::status_tawaran;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-status-tawaran-index">
