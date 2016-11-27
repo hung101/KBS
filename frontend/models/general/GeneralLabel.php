@@ -4846,7 +4846,7 @@ if($session->get('language') == "EN") {
         const profil_sukarelawan = "Profile Volunteer";
         const profil_syarikat = "Company Profile/Sports Body";
         const profil_wartawan_sukan_id = "Sports Journalist Profile ID";
-        const program = "Program";
+        const program = "Programme";
         const program_aktiviti_butir = "Programmes/Activities/Detail";
         const program_binaan = "Patronage Program";
         const program_msn = "MSN Program";
@@ -5356,7 +5356,7 @@ if($session->get('language') == "EN") {
         const data_klinikal = "Clinical Data";
         const delegasi_teknikal = "Technical Delegates";
         const delegasi_teknikal_pengurusan_delegasi_teknikal_serta_analisa = "Technical Delegate: Delegate Management And Technical Analysis";
-        const ebantuan = "e-help";
+        const ebantuan = "e-Help";
         const ebiasiswa = "e-Scholarship";
         const efasiliti_ekemudahan = "e-Facility";
         const elaporan = "e-Report";

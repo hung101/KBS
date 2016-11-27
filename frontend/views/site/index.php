@@ -718,7 +718,7 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                     FROM
                                     (
                                         SELECT COUNT(*) AS JUMLAH,
-                                        (SELECT r.desc FROM tbl_ref_status_jurulatih r WHERE r.id = p.status_jurulatih) AS STATUS_JURULATIH,
+                                        (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_status_jurulatih r WHERE r.id = p.status_jurulatih) AS STATUS_JURULATIH,
                                         (SELECT COUNT(*) FROM `tbl_jurulatih` pe ) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_jurulatih` p
                                         GROUP BY p.status_jurulatih
@@ -1749,7 +1749,7 @@ $this->registerJs($script);
                                         FROM
                                         (
                                             SELECT COUNT(*) AS JUMLAH,
-                                            (SELECT r.desc FROM tbl_ref_jantina r WHERE r.id = p.jantina) AS JANTINA,
+                                            (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_jantina r WHERE r.id = p.jantina) AS JANTINA,
                                             (SELECT COUNT(*) FROM `tbl_sukarelawan` pe) AS JUMLAH_KESELURUHAN
                                             FROM `tbl_sukarelawan` p
                                             GROUP BY p.jantina
@@ -1867,7 +1867,7 @@ $this->registerJs($script);
                                         FROM
                                         (
                                             SELECT COUNT(*) AS JUMLAH,
-                                            (SELECT r.desc FROM tbl_ref_bidang_diminati_sukarelawan r WHERE r.id = p.bidang_diminati) AS KECENDERUNGAN,
+                                            (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_bidang_diminati_sukarelawan r WHERE r.id = p.bidang_diminati) AS KECENDERUNGAN,
                                             (SELECT COUNT(*) FROM `tbl_sukarelawan` pe) AS JUMLAH_KESELURUHAN
                                             FROM `tbl_sukarelawan` p
                                             GROUP BY p.bidang_diminati
@@ -1925,7 +1925,7 @@ $this->registerJs($script);
                                         FROM
                                         (
                                             SELECT COUNT(*) AS JUMLAH,
-                                            (SELECT r.desc FROM tbl_ref_bangsa r WHERE r.id = p.bangsa) AS BANGSA,
+                                            (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_bangsa r WHERE r.id = p.bangsa) AS BANGSA,
                                             (SELECT COUNT(*) FROM `tbl_sukarelawan` pe) AS JUMLAH_KESELURUHAN
                                             FROM `tbl_sukarelawan` p
                                             GROUP BY p.bangsa
@@ -4158,7 +4158,7 @@ $this->registerJs($script);
           
           
           
-          <!-- E-Biasisiwa - START -->
+          <!-- E-Biasiswa - START -->
           
           <?php if(isset(Yii::$app->user->identity->peranan_akses['KBS']['dashboard-kbs']['module']) && isset(Yii::$app->user->identity->peranan_akses['KBS']['dashboard-kbs']['e-biasiswa'])): ?>
           
@@ -4176,7 +4176,7 @@ $this->registerJs($script);
                 FROM
                 (
                         SELECT COUNT(*) AS JUMLAH,
-                        (SELECT r.desc FROM tbl_ref_status_permohonan_e_biasiswa r WHERE r.id = p.status_permohonan) AS STATUS,
+                        (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_status_permohonan_e_biasiswa r WHERE r.id = p.status_permohonan) AS STATUS,
                         (SELECT COUNT(*) FROM tbl_permohonan_e_biasiswa pe WHERE YEAR(p.tarikh_permohonan) = :year) AS JUMLAH_KESELURUHAN
                         FROM `tbl_permohonan_e_biasiswa` p
                         WHERE YEAR(p.tarikh_permohonan) = :year
@@ -4234,7 +4234,7 @@ $this->registerJs($script);
                 FROM
                 (
                     SELECT COUNT(*) AS JUMLAH,
-                    (SELECT r.desc FROM tbl_ref_program_pengajian r WHERE r.id = p.program_pengajian) AS PROGRAM_PENGAJIAN,
+                    (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_program_pengajian r WHERE r.id = p.program_pengajian) AS PROGRAM_PENGAJIAN,
                     (SELECT COUNT(*) FROM tbl_permohonan_e_biasiswa pe WHERE YEAR(p.tarikh_permohonan) = :year) AS JUMLAH_KESELURUHAN
                     FROM `tbl_permohonan_e_biasiswa` p
                     WHERE YEAR(p.tarikh_permohonan) = :year
@@ -4370,7 +4370,7 @@ $this->registerJs($script);
           <!-- /.box -->
           
           <?php endif; ?>
-          <!-- E-Biasisiwa - END -->
+          <!-- E-Biasiswa - END -->
           
           
           
@@ -4394,7 +4394,7 @@ $this->registerJs($script);
                 FROM
                 (
                     SELECT COUNT(*) AS JUMLAH,
-                    (SELECT r.desc FROM tbl_ref_kategori_persatuan r WHERE r.id = p.kategori_persatuan) AS KATEGORI,
+                    (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_kategori_persatuan r WHERE r.id = p.kategori_persatuan) AS KATEGORI,
                     (SELECT COUNT(*) FROM tbl_permohonan_e_bantuan pe WHERE YEAR(pe.created) = :year) AS JUMLAH_KESELURUHAN
                     FROM `tbl_permohonan_e_bantuan` p
                     WHERE YEAR(p.created) = :year
@@ -4424,7 +4424,7 @@ $this->registerJs($script);
                 FROM
                 (
                     SELECT COUNT(*) AS JUMLAH,
-                    (SELECT r.desc FROM tbl_ref_kategori_program r WHERE r.id = p.kategori_program) AS PROGRAM,
+                    (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_kategori_program r WHERE r.id = p.kategori_program) AS PROGRAM,
                     (SELECT COUNT(*) FROM tbl_permohonan_e_bantuan pe WHERE YEAR(pe.created) = :year) AS JUMLAH_KESELURUHAN
                     FROM `tbl_permohonan_e_bantuan` p
                     WHERE YEAR(p.created) = :year
@@ -4453,7 +4453,7 @@ $this->registerJs($script);
                 FROM
                 (
                     SELECT COUNT(*) AS JUMLAH,
-                    (SELECT r.desc FROM tbl_ref_peringkat_program r WHERE r.id = p.peringkat_program) AS PERINGKAT,
+                    (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_peringkat_program r WHERE r.id = p.peringkat_program) AS PERINGKAT,
                     (SELECT COUNT(*) FROM tbl_permohonan_e_bantuan pe WHERE YEAR(pe.created) = :year) AS JUMLAH_KESELURUHAN
                     FROM `tbl_permohonan_e_bantuan` p
                     WHERE YEAR(p.created) = :year
@@ -4566,7 +4566,7 @@ $this->registerJs($script);
                                     FROM
                                     (
                                         SELECT SUM(p.jumlah_diluluskan) AS JUMLAH,
-                                        (SELECT r.desc FROM tbl_ref_kategori_persatuan r WHERE r.id = p.kategori_persatuan) AS KATEGORI,
+                                        (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_kategori_persatuan r WHERE r.id = p.kategori_persatuan) AS KATEGORI,
                                         (SELECT SUM(pe.jumlah_diluluskan) FROM tbl_permohonan_e_bantuan pe WHERE YEAR(pe.created) = :year) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_permohonan_e_bantuan` p
                                         WHERE YEAR(p.created) = :year
@@ -4731,7 +4731,7 @@ $this->registerJs($script);
                 FROM
                 (
                     SELECT COUNT(*) AS JUMLAH,
-                    (SELECT r.desc FROM tbl_ref_kategori_e_laporan r WHERE r.id = p.kategori_elaporan) AS KATEGORI,
+                    (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_kategori_e_laporan r WHERE r.id = p.kategori_elaporan) AS KATEGORI,
                     (SELECT COUNT(*) FROM tbl_elaporan_pelaksanaan pe WHERE YEAR(pe.created) = :year) AS JUMLAH_KESELURUHAN
                     FROM `tbl_elaporan_pelaksanaan` p
                     WHERE YEAR(p.created) = :year
@@ -4755,13 +4755,19 @@ $this->registerJs($script);
             
             
             // Laporan Cawangan START
+            $sql_dashboard_desc_selector = 'desc_dashboard';
+            if($session->get('language') == "BM"){
+                $sql_dashboard_desc_selector = 'desc_dashboard';
+            }elseif($session->get('language') == "EN"){
+                $sql_dashboard_desc_selector = 'desc_en_dashboard';
+            }
             $command = $connection->createCommand('
                 SELECT *,
                 IFNULL((final.JUMLAH / final.JUMLAH_KESELURUHAN) * 100,0.0) AS PERATUS
                 FROM
                 (
                     SELECT COUNT(*) AS JUMLAH,
-                    (SELECT r.desc_dashboard FROM tbl_ref_cawangan_e_laporan r WHERE r.id = p.cawangan) AS CAWANGAN,
+                    (SELECT r.'.$sql_dashboard_desc_selector.' FROM tbl_ref_cawangan_e_laporan r WHERE r.id = p.cawangan) AS CAWANGAN,
                     (SELECT COUNT(*) FROM tbl_elaporan_pelaksanaan pe WHERE YEAR(pe.created) = :year) AS JUMLAH_KESELURUHAN
                     FROM `tbl_elaporan_pelaksanaan` p
                     WHERE YEAR(p.created) = :year
@@ -4790,7 +4796,7 @@ $this->registerJs($script);
                 FROM
                 (
                     SELECT COUNT(*) AS JUMLAH,
-                    (SELECT r.desc FROM tbl_ref_peringkat_e_laporan r WHERE r.id = p.peringkat) AS PERINGKAT,
+                    (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_peringkat_e_laporan r WHERE r.id = p.peringkat) AS PERINGKAT,
                     (SELECT COUNT(*) FROM tbl_elaporan_pelaksanaan pe WHERE YEAR(pe.created) = :year) AS JUMLAH_KESELURUHAN
                     FROM `tbl_elaporan_pelaksanaan` p
                     WHERE YEAR(p.created) = :year
@@ -4819,7 +4825,7 @@ $this->registerJs($script);
                 FROM
                 (
                     SELECT COUNT(*) AS JUMLAH,
-                    (SELECT r.desc FROM tbl_ref_bahagian_e_laporan r WHERE r.id = p.bahagian) AS BAHAGIAN,
+                    (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_bahagian_e_laporan r WHERE r.id = p.bahagian) AS BAHAGIAN,
                     (SELECT COUNT(*) FROM tbl_elaporan_pelaksanaan pe WHERE YEAR(pe.created) = :year) AS JUMLAH_KESELURUHAN
                     FROM `tbl_elaporan_pelaksanaan` p
                     WHERE YEAR(p.created) = :year
@@ -4903,7 +4909,7 @@ $this->registerJs($script);
                                     FROM
                                     (
                                         SELECT SUM(p.jumlah_bantuan_peruntukan) AS JUMLAH,
-                                        (SELECT r.desc FROM tbl_ref_kategori_e_laporan r WHERE r.id = p.kategori_elaporan) AS KATEGORI,
+                                        (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_kategori_e_laporan r WHERE r.id = p.kategori_elaporan) AS KATEGORI,
                                         (SELECT SUM(pe.jumlah_bantuan_peruntukan) FROM tbl_elaporan_pelaksanaan pe WHERE YEAR(pe.created) = :year) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_elaporan_pelaksanaan` p
                                         WHERE YEAR(p.created) = :year
@@ -5068,7 +5074,7 @@ $this->registerJs($script);
                 FROM
                 (
                     SELECT COUNT(*) AS JUMLAH,
-                    (SELECT r.desc FROM tbl_ref_kategori_hakmilik r WHERE r.id = p.kategori_hakmilik) AS HAKMILIK,
+                    (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_kategori_hakmilik r WHERE r.id = p.kategori_hakmilik) AS HAKMILIK,
                     (SELECT COUNT(*) FROM tbl_pengurusan_kemudahan_venue pe WHERE YEAR(pe.created) = :year) AS JUMLAH_KESELURUHAN
                     FROM `tbl_pengurusan_kemudahan_venue` p
                     WHERE YEAR(p.created) = :year
@@ -5098,7 +5104,7 @@ $this->registerJs($script);
                 FROM
                 (
                     SELECT COUNT(*) AS JUMLAH,
-                    (SELECT r.desc FROM tbl_ref_status_venue r WHERE r.id = p.status) AS STATUS,
+                    (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_status_venue r WHERE r.id = p.status) AS STATUS,
                     (SELECT COUNT(*) FROM tbl_pengurusan_kemudahan_venue pe WHERE YEAR(pe.created) = :year) AS JUMLAH_KESELURUHAN
                     FROM `tbl_pengurusan_kemudahan_venue` p
                     WHERE YEAR(p.created) = :year
