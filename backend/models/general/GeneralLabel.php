@@ -375,6 +375,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const catitan_ringkas = "Catatan Ringkas";
         const cawangan = "Cawangan";
         const cawangan_dan_alamat_bank = "Cawangan Dan Alamat Bank";
+        const cetak = "Cetak";
         const cetak_profil_atlet = "Cetak Profil Atlet";
         const cetak_profil_atlet_paralimpik = "Cetak Profil Atlet (Paralimpik)";
         const cetak_profil_jurulatih = "Cetak Profil Jurulatih";
@@ -3695,6 +3696,7 @@ if($session->get('language') == "EN") {
         const catitan_ringkas = "Simple Entry";
         const cawangan = "Branch";
         const cawangan_dan_alamat_bank = "Branch And Address Of The Bank";
+        const cetak = "Print";
         const cetak_profil_atlet = "Print Profile Athlete";
         const cetak_profil_atlet_paralimpik = "Print Profile Athlete (Paralympic)";
         const cetak_profil_jurulatih = "Print Profile Coach";
