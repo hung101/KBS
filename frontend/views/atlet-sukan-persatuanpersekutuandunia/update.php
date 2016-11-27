@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\AtletSukanPersatuanpersekutuandunia */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::atlet_sukan_persatuanpersekutuandunia.': ' . ' ' . $model->persatuan_persekutuan_dunia_id;
-$this->title = GeneralLabel::updateTitle . ' Persatuan/Persekutuan Dunia';
+$this->title = GeneralLabel::updateTitle . ' '. GeneralLabel::persatuanpersekutuan_dunia;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::persatuanpersekutuan_dunia, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Persatuan/Persekutuan Dunia', 'url' => ['view', 'id' => $model->persatuan_persekutuan_dunia_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' '. GeneralLabel::persatuanpersekutuan_dunia, 'url' => ['view', 'id' => $model->persatuan_persekutuan_dunia_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-sukan-persatuanpersekutuandunia-update">

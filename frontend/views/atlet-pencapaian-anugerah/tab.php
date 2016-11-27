@@ -165,13 +165,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'label'=>'<i class="glyphicon glyphicon-scale"></i> Sukan Pencapaian',
             'items'=>[
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Pencapaian',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::pencapaian,
                     'encode'=>false,
                     'content'=>'<div id="sukan"></div>',
                     'linkOptions'=>['data-url'=>Url::to(['/site/fetch-tab?tab=3'])]
                 ],
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Anugerah',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::anugerah,
                     'encode'=>false,
                     /*'content'=>$this->render('index', [
                     'searchModel' => $searchModel,

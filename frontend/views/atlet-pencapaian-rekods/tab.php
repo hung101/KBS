@@ -178,7 +178,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'linkOptions'=>['data-url'=>Url::to(['/site/fetch-tab?tab=3'])]
                 ],
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Anugerah',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::anugerah,
                     'encode'=>false,
                     'content'=>'<div id="pendidikan"></div>',
                     'linkOptions'=>['data-url'=>Url::to(['/site/fetch-tab?tab=4'])]

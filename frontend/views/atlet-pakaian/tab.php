@@ -146,10 +146,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
         [
-            'label'=>'<i class="glyphicon glyphicon-sunglasses"></i> Pakaian Sukan',
+            'label'=>'<i class="glyphicon glyphicon-sunglasses"></i> '.GeneralLabel::atlet_pakaians,
             'items'=>[
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Pakaian Sukan',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::atlet_pakaians,
                     'encode'=>false,
                     /*'content'=>$this->render('index', [
                     'searchModel' => $searchModel,

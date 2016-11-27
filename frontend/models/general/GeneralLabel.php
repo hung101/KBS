@@ -260,6 +260,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const biasiswa_atlet = "Biasiswa Atlet";
         const biasiswa_tajaan = "Biasiswa/Pinjaman";
         const biasiswa = "Biasiswa";
+        const biasiswa_rekod = "Biasiswa : Rekod";
         const bidang = "Bidang";
         const bidang_diminati = "Bidang Diminati";
         const bidang_diminati_lain_lain = "Sila Nyatakan (Mengikut Keutamaan)";
@@ -1631,10 +1632,12 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const rehab_doktor_bertanggungjawab = "Rehab / Doktor Bertanggungjawab";
         const rehabilitasi_id = "Rehabilitasi ID";
         const rehabilitasi_program_id = "Rehabilitasi Program ID";
+        const rekod_anugerah_pencalonan_atlet = "Rekod Anugerah Pencalonan Atlet";
         const rekod_baru = "Rekod Baru";
         const rekod_pembayaran_elaun = "Rekod Pembayaran Elaun";
         const rekod_pengurusan_insurans = "Rekod Pengurusan Insurans";
         const rekod_program_binaan = "Rekod Program Binaan";
+        const rekod_penilaian_prestasi = "Rekod Penilaian Prestasi";
         const rekod_penukaran_penangguhan_pelepasan_sekolah = "Rekod Penukaran / Penangguhan / Pelepasan Sekolah";        
         const rekod_baru_yang_dicipta = "Rekod Baru Yang Dicipta";
         const rekod_baharu = "Rekod Baharu";
@@ -3520,6 +3523,7 @@ if($session->get('language') == "EN") {
         const biasiswa_atlet = "Athletic Scholarship";
         const biasiswa_tajaan = "Scholarships/Loan";
         const biasiswa = "Scholarships";
+        const biasiswa_rekod = "Scholarship : Records";
         const bidang = "Field of";
         const bidang_diminati = "Field Of Interest";
         const bidang_diminati_lain_lain = "Please State (By Priority)";
@@ -4888,10 +4892,12 @@ if($session->get('language') == "EN") {
         const rehab_doktor_bertanggungjawab = "Rehab / Doctor In Charge";
         const rehabilitasi_id = "Rehabilitation ID";
         const rehabilitasi_program_id = "Rehabilitation Program ID";
+        const rekod_anugerah_pencalonan_atlet = "Athlete Award Nomination Records";
         const rekod_baru = "New Record";
         const rekod_pembayaran_elaun = "Allowance Payment Records";
         const rekod_pengurusan_insurans = "Insurance Management Records";
         const rekod_program_binaan = "Program Building Records";
+        const rekod_penilaian_prestasi = "Record Performance Evaluation";
         const rekod_penukaran_penangguhan_pelepasan_sekolah = "School Exchange / Suspension  / Discharge Records";
         const rekod_baru_yang_dicipta = "A New Record Created";
         const rekod_baharu = "New Record";

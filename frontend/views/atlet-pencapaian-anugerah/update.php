@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\AtletPencapaianAnugerah */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::atlet_pencapaian_anugerah.': ' . ' ' . $model->anugerah_id;
-$this->title = GeneralLabel::updateTitle . ' Anugerah';
+$this->title = GeneralLabel::updateTitle . ' '.GeneralLabel::anugerah;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::anugerah, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Anugerah', 'url' => ['view', 'id' => $model->anugerah_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' '.GeneralLabel::anugerah, 'url' => ['view', 'id' => $model->anugerah_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="atlet-pencapaian-anugerah-update">

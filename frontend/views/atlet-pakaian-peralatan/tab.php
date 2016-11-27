@@ -154,7 +154,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'linkOptions'=>['data-url'=>Url::to(['/site/fetch-tab?tab=3'])]
                 ],
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Peralatan Sukan',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::peralatan_sukan,
                     'encode'=>false,
                     'content'=>$this->render('index', [
                     'searchModel' => $searchModel,

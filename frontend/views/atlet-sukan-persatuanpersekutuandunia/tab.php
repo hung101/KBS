@@ -138,7 +138,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'linkOptions'=>['data-url'=>Url::to(['/site/fetch-tab?tab=3'])]
                 ],
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Persatuan/Persekutuan Dunia',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '. GeneralLabel::persatuanpersekutuan_dunia,
                     'encode'=>false,
                     /*'content'=>$this->render('index', [
                     'searchModel' => $searchModel,
