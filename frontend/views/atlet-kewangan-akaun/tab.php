@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'label'=>'<i class="glyphicon glyphicon-usd"></i> Kewangan',
             'items'=>[
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Akaun',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::akaun,
                     'encode'=>false,
                     'content'=>$this->render('index', [
                     'searchModel' => $searchModel,

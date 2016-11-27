@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php if( ( !isset($session['program_semasa_id']) || (isset($session['program_semasa_id']) && $session['program_semasa_id'] != RefProgramSemasaSukanAtlet::PODIUM && $session['program_semasa_id'] != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['create'])) || 
             (isset($session['program_semasa_id']) && ($session['program_semasa_id'] == RefProgramSemasaSukanAtlet::PODIUM || $session['program_semasa_id'] == RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))  ): ?>
         <p>
-            <?= Html::button(GeneralLabel::createTitle . ' Persatuan/Persekutuan Dunia', ['value'=>Url::to(['create']),'class' => 'btn btn-success', 'onclick' => 'updateRenderAjax("'.Url::to(['create']).'", "'.GeneralVariable::tabSukanPersatuanpersekutuanduniaID.'");']) ?>
+            <?= Html::button(GeneralLabel::createTitle . ' '. GeneralLabel::persatuanpersekutuan_dunia, ['value'=>Url::to(['create']),'class' => 'btn btn-success', 'onclick' => 'updateRenderAjax("'.Url::to(['create']).'", "'.GeneralVariable::tabSukanPersatuanpersekutuanduniaID.'");']) ?>
         </p>
     <?php endif; ?>
     

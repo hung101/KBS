@@ -98,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'linkOptions'=>['data-url'=>Url::to(['/site/fetch-tab?tab=4'])]
                 ],
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Insentif',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '. GeneralLabel::insentif,
                     'encode'=>false,
                     'content'=>'<div id="pendidikan"></div>',
                     'linkOptions'=>['data-url'=>Url::to(['/site/fetch-tab?tab=4'])]

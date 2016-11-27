@@ -121,7 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'linkOptions'=>['data-url'=>Url::to(['/site/fetch-tab?tab=4'])]
                 ],
                [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Kemahiran',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::kemahiran,
                     'encode'=>false,
                     /*'content'=>$this->render('index', [
                     'searchModel' => $searchModel,

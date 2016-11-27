@@ -462,7 +462,7 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     
-    <h3>Keputusan SPM</h3>
+    <h3><?php echo GeneralLabel::keputusan; ?> SPM</h3>
     
     <?php 
             Modal::begin([

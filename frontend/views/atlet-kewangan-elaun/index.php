@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php if( ( !isset($session['program_semasa_id']) || (isset($session['program_semasa_id']) && $session['program_semasa_id'] != RefProgramSemasaSukanAtlet::PODIUM && $session['program_semasa_id'] != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['create'])) || 
             (isset($session['program_semasa_id']) && ($session['program_semasa_id'] == RefProgramSemasaSukanAtlet::PODIUM || $session['program_semasa_id'] == RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))  ): ?>
         <p>
-            <?= Html::button(GeneralLabel::createTitle . ' Elaun', ['value'=>Url::to(['create']),'class' => 'btn btn-success', 'onclick' => 'updateRenderAjax("'.Url::to(['create']).'", "'.GeneralVariable::tabKewanganElaunID.'");']) ?>
+            <?= Html::button(GeneralLabel::createTitle . ' '. GeneralLabel::elaun, ['value'=>Url::to(['create']),'class' => 'btn btn-success', 'onclick' => 'updateRenderAjax("'.Url::to(['create']).'", "'.GeneralVariable::tabKewanganElaunID.'");']) ?>
         </p>
     <?php endif; ?>
     
@@ -126,7 +126,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <!-- Kaunseling Rekod - START -->
     <div class="panel panel-default copyright-wrap" id="elaun_rekods-list">
-        <div class="panel-heading"><a data-toggle="collapse" href="#elaun_rekods-body">Rekod Pembayaran Elaun</a>
+        <div class="panel-heading"><a data-toggle="collapse" href="#elaun_rekods-body"><?php echo GeneralLabel::rekod_pembayaran_elaun; ?></a>
             <button type="button" class="close" data-target="#elaun_rekods-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         </div>
         <div id="elaun_rekods-body" class="panel-collapse collapse">

@@ -165,7 +165,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'label'=>'<i class="glyphicon glyphicon-scale"></i> Pencapaian Sukan',
             'items'=>[
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Pencapaian',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::pencapaian,
                     'encode'=>false,
                     'content'=>$this->render('index', [
                     'searchModel' => $searchModel,

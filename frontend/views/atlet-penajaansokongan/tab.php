@@ -109,7 +109,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'label'=>'<i class="glyphicon glyphicon-tasks"></i> Pembangunan Peribadi',
             'items'=>[
                 [
-                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Kursus/Kem',
+                    'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::kursuskem,
                     'encode'=>false,
                     'content'=>'<div id="pendidikan"></div>',
                     'linkOptions'=>['data-url'=>Url::to(['/site/fetch-tab?tab=3'])]

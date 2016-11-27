@@ -16,7 +16,7 @@ use app\models\general\GeneralVariable;
 /* @var $model app\models\AtletPembangunanKursuskem */
 
 //$this->title = $model->kursus_kem_id;
-$this->title = GeneralLabel::viewTitle . ' Kursus/Kem';
+$this->title = GeneralLabel::viewTitle . ' '.GeneralLabel::kursuskem;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::kursuskem, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

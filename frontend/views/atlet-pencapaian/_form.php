@@ -282,7 +282,7 @@ use app\models\general\GeneralMessage;
     <?= $form->field($model, 'insentif_id')->textInput() ?>-->
 
     <br>
-    <h3>Keputusan</h3>
+    <h3><?php echo GeneralLabel::keputusan; ?></h3>
     
     <?php 
             Modal::begin([
