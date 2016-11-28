@@ -20,7 +20,7 @@ class PenyertaanSukanSearch extends PenyertaanSukan
     public function rules()
     {
         return [
-            [['penyertaan_sukan_id', 'mesyuarat_id', 'program'], 'integer'],
+            [['penyertaan_sukan_id', 'mesyuarat_id', 'program', 'sukan'], 'integer'],
             [['nama_sukan', 'tempat_penginapan', 'tempat_latihan', 'nama_atlet', 'nama_pegawai', 'jawatan_pegawai', 'nama_pengurus_sukan', 'nama_sukarelawan'], 'safe'],
         ];
     }

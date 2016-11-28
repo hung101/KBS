@@ -26,6 +26,9 @@ use app\models\general\GeneralMessage;
  */
 class MesyuaratJkk extends \yii\db\ActiveRecord
 {
+    public $sukan_id;
+    public $program_id;
+    
     /**
      * @inheritdoc
      */
@@ -69,6 +72,7 @@ class MesyuaratJkk extends \yii\db\ActiveRecord
             [['jenis_mesyuarat'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['bil_mesyuarat'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jawatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['pengurusi', 'pencatat_minit', 'perkara_perkara_dan_tindakan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['minit_mesyuarat'], 'string', 'max' => 200, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['mesyuarat_tamat', 'mesyuarat_seterusnya', 'disedia_oleh', 'disemak_oleh'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -106,6 +110,7 @@ class MesyuaratJkk extends \yii\db\ActiveRecord
             'disemak_oleh' => GeneralLabel::disemak_oleh,
             'jenis_mesyuarat' => GeneralLabel::jenis_mesyuarat,
             'minit_mesyuarat' => GeneralLabel::minit_mesyuarat,
+            'jawatan' => GeneralLabel::jawatan,
         ];
     }
     

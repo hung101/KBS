@@ -122,23 +122,7 @@ use app\models\general\Placeholder;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
-                'pengerusi_mesyuarat' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/pengurusan-jkk-jkp/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(PengurusanJkkJkp::find()->all(),'pengurusan_jkk_jkp_id', 'nama_pegawai_coach'),
-                        'options' => ['placeholder' => Placeholder::pengerusiMesyuarat],
-                        'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
-                    'columnOptions'=>['colspan'=>3]],
+                
             ],
         ],
         [
@@ -290,7 +274,6 @@ use app\models\general\Placeholder;
                 'pencatat_minit' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
             ]
         ],*/
-        
     ]
 ]);
     ?>
@@ -358,8 +341,42 @@ use app\models\general\Placeholder;
         ]);
     }*/
     ?>
-    
     <br>
+    <h3><?=GeneralLabel::senarai_kehadiran?></h3>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'pengerusi_mesyuarat' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/pengurusan-jkk-jkp/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(PengurusanJkkJkp::find()->all(),'pengurusan_jkk_jkp_id', 'nama_pegawai_coach'),
+                        'options' => ['placeholder' => Placeholder::pengerusiMesyuarat],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+                'jawatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+            ]
+        ],
+    ]
+]);
+    ?>
     
     <?php 
             Modal::begin([
@@ -379,7 +396,7 @@ use app\models\general\Placeholder;
     
     
     
-    <h3><?=GeneralLabel::senarai_kehadiran?></h3>
+    
     
     <?php Pjax::begin(['id' => 'senaraiNamaAhliGrid', 'timeout' => 100000]); ?>
 
@@ -394,11 +411,12 @@ use app\models\general\Placeholder;
             //'mesyuarat_id',
             'nama',
             //'kehadiran',
+            
+            'jawatan',
             [
                 'attribute' => 'agensi',
                 'value' => 'refAgensiJkk.desc'
             ],
-            'jawatan',
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',
@@ -477,7 +495,14 @@ use app\models\general\Placeholder;
 ]);*/
     ?>
     
-    <?= Html::a(GeneralLabel::agenda_perbincangan, ['agenda-perbincangan', 'mesyuarat_id' => $mesyuarat_id], ['class' => 'btn btn-warning btn-lg', 'target' => '_blank', 'id' => 'perbincanganLinkId']) ?>
+    <?php 
+    if(!$readonly){
+        echo Html::a(GeneralLabel::agenda_perbincangan, ['agenda-perbincangan', 'mesyuarat_id' => $mesyuarat_id], ['class' => 'btn btn-warning btn-lg', 'target' => '_blank', 'id' => 'perbincanganLinkId']);
+    } else {
+        echo Html::a(GeneralLabel::agenda_perbincangan, ['agenda-perbincangan', 'mesyuarat_id' => $model->mesyuarat_id, 'sukan_id' => $model->sukan_id, 'program_id' => $model->program_id], ['class' => 'btn btn-warning btn-lg', 'target' => '_blank', 'id' => 'perbincanganLinkId']);
+    }
+        
+    ?>
     <br>
     <br>
     

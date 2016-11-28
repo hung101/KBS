@@ -90,7 +90,7 @@ class PenyertaanSukan extends \yii\db\ActiveRecord
     {
          if (parent::beforeValidate())
          {
-            if (($this->nama_kejohanan==null)&&($this->nama_temasya==null))      
+            /*if (($this->nama_kejohanan==null)&&($this->nama_temasya==null))      
             {
                     $this->addError('nama_kejohanan', GeneralMessage::yii_validation_required_either);
                     $this->addError('nama_temasya', GeneralMessage::yii_validation_required_either);
@@ -100,7 +100,7 @@ class PenyertaanSukan extends \yii\db\ActiveRecord
                     $this->addError('nama_kejohanan', GeneralMessage::yii_validation_required_only_one);
                     $this->addError('nama_temasya', GeneralMessage::yii_validation_required_only_one);
                     return false;
-            }
+            }*/
 
             return true;
          }

@@ -105,8 +105,8 @@ class MesyuaratJkkController extends Controller
             PerancanganProgram::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = "" OR mesyuarat_id IS NULL');
             $queryPar['PerancanganProgramSearch']['mesyuarat_id'] = $mesyuarat_id;
             
-            PenyertaanSukan::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = "" OR mesyuarat_id IS NULL');
-            $queryPar['PenyertaanSukanSearch']['mesyuarat_id'] = $mesyuarat_id;
+            //PenyertaanSukan::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = "" OR mesyuarat_id IS NULL');
+            //$queryPar['PenyertaanSukanSearch']['mesyuarat_id'] = $mesyuarat_id;
             
             ProfilPusatLatihan::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = "" OR mesyuarat_id IS NULL');
             $queryPar['ProfilPusatLatihanSearch']['mesyuarat_id'] = $mesyuarat_id;
@@ -119,7 +119,7 @@ class MesyuaratJkkController extends Controller
             $queryPar['PermohonanPeralatanSearch']['sukan_id'] = $sukan_id;
             $queryPar['PerancanganProgramSearch']['sukan_id'] = $sukan_id;
             $queryPar['PenyertaanSukanSearch']['sukan'] = $sukan_id;
-            $queryPar['PenyertaanSukanSearch']['sukan_id'] = $sukan_id;
+            //$queryPar['PenyertaanSukanSearch']['sukan_id'] = $sukan_id;
         }
         
         if($program_id != ''){
@@ -129,7 +129,8 @@ class MesyuaratJkkController extends Controller
             $queryPar['PermohonanPeralatanSearch']['program_id'] = $program_id;
             $queryPar['PerancanganProgramSearch']['program_id'] = $program_id;
             $queryPar['ProfilPusatLatihanSearch']['program'] = $program_id;
-            $queryPar['ProfilPusatLatihanSearch']['program_id'] = $program_id;
+            //$queryPar['PenyertaanSukanSearch']['program'] = $program_id;
+            //$queryPar['ProfilPusatLatihanSearch']['program_id'] = $program_id;
         }
         
         //$queryPar['AtletSearch']['tawaran'] = RefStatusTawaran::DALAM_PROSES;
@@ -220,6 +221,7 @@ class MesyuaratJkkController extends Controller
         $ref = PengurusanJkkJkp::findOne(['pengurusan_jkk_jkp_id' => $model->pengerusi_mesyuarat]);
         $model->pengerusi_mesyuarat = $ref['nama_pegawai_coach'];
         
+        $model->program_id = $model->program;
         $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program]);
         $model->program = $ref['desc'];
         
@@ -229,6 +231,7 @@ class MesyuaratJkkController extends Controller
         $ref = RefNegeri::findOne(['id' => $model->negeri]);
         $model->negeri = $ref['desc'];
         
+        $model->sukan_id = $model->sukan;
         $ref = RefSukan::findOne(['id' => $model->sukan]);
         $model->sukan = $ref['desc'];
         
@@ -356,7 +359,7 @@ class MesyuaratJkkController extends Controller
      */
     public function actionDelete($id)
     {
-        self::actionDeleteupload($id, 'minit_mesyuarat');
+        //self::actionDeleteupload($id, 'minit_mesyuarat');
         
         $this->findModel($id)->delete();
 
@@ -408,16 +411,16 @@ class MesyuaratJkkController extends Controller
                                     ->setSubject('Mesyuarat ' . $model->jenis_mesyuarat)
                                     ->setTextBody('Salam Sejahtera,
 <br><br>
-Bil Mesyuarat: '. $model->bil_mesyuarat .'
-Tarikh: '. GeneralFunction::getDateTimePrintFormat($model->tarikh) .'
+Bil Mesyuarat: '. $model->bil_mesyuarat .'<br>
+Tarikh: '. GeneralFunction::getDateTimePrintFormat($model->tarikh) .'<br>
 Tempat: '. $model->tempat .'
-<br>
-Berikut adalah minit mesyuarat:-
-<br>
-'.Url::base(true).'/'. $model->minit_mesyuarat . '
 <br><br>
+Berikut adalah minit mesyuarat:-
+<br><br>
+<a href="'.Url::base(true).'/'. $model->minit_mesyuarat . '" ></a>
+<br><br><br>
 
-"KE ARAH KECEMERLANGAN SUKAN"
+"KE ARAH KECEMERLANGAN SUKAN"<br>
 Majlis Sukan Negara Malaysia.
                             ')->send();
                         }
