@@ -153,9 +153,8 @@ use app\models\general\GeneralMessage;
        
     ]
 ]);
-        ?>
-    
-    <h3>Kategori Penilaian Jurulatih</h3>
+        ?>    
+    <h3><?php echo GeneralLabel::kategori_penilaian_jurulatih; ?></h3>
     
     <?php 
             Modal::begin([
@@ -219,13 +218,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-penilaian-kategori-jurulatih/update', 'id' => $model->pengurusan_penilaian_kategori_jurulatih_id]).'", "'.GeneralLabel::updateTitle . ' Kategori Penilaian Jurulatih");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-penilaian-kategori-jurulatih/update', 'id' => $model->pengurusan_penilaian_kategori_jurulatih_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::kategori_penilaian_jurulatih.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-penilaian-kategori-jurulatih/view', 'id' => $model->pengurusan_penilaian_kategori_jurulatih_id]).'", "'.GeneralLabel::viewTitle . ' Kategori Penilaian Jurulatih");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-penilaian-kategori-jurulatih/view', 'id' => $model->pengurusan_penilaian_kategori_jurulatih_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::kategori_penilaian_jurulatih.'");',
                         ]);
                     }
                 ],
@@ -244,7 +243,7 @@ use app\models\general\GeneralMessage;
         
     ?>
     
-    <h4>Jumlah Markah Penilaian: <?=$calculate_jumlah_markah?></h4>
+    <h4><?php echo GeneralLabel::jumlah_markah_penilaian; ?>: <?=$calculate_jumlah_markah?></h4>
     
     <?php 
         $session = new Session;
@@ -281,7 +280,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-penilaian-kategori-jurulatih/create', 'pengurusan_pemantauan_dan_penilaian_jurulatih_id' => $pengurusan_pemantauan_dan_penilaian_jurulatih_id]).'", "'.GeneralLabel::createTitle . ' Kategori Penilaian Jurulatih");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-penilaian-kategori-jurulatih/create', 'pengurusan_pemantauan_dan_penilaian_jurulatih_id' => $pengurusan_pemantauan_dan_penilaian_jurulatih_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::kategori_penilaian_jurulatih.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

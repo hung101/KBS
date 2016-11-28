@@ -80,13 +80,13 @@ class PermohonanPeralatan extends \yii\db\ActiveRecord
             'tarikh' => GeneralLabel::tarikh_permohonan,
             'aktiviti' => GeneralLabel::aktiviti,
             'jumlah_peralatan' => GeneralLabel::jumlah_peralatan,
-            'nota_urus_setia' => 'Catatan (Permohonan)',
+            'nota_urus_setia' => GeneralLabel::catatan_permohonan,
             'kelulusan' => GeneralLabel::kelulusan,
-            'bil_jkb' => 'Bil. JKB',
-            'tarikh_jkb' => 'Tarikh JKB',
-            'jumlah_diluluskan' => 'Jumlah Diluluskan (RM)',
-            'catatan_cadangan' => 'Catatan (Cadangan)',
-            'catatan_kelulusan' => 'Catatan (Kelulusan)',
+            'bil_jkb' => GeneralLabel::bil_jkb,
+            'tarikh_jkb' => GeneralLabel::tarikh_jkb,
+            'jumlah_diluluskan' => GeneralLabel::jumlah_diluluskan,
+            'catatan_cadangan' => GeneralLabel::catatan_cadangan,
+            'catatan_kelulusan' => GeneralLabel::catatan_kelulusan,
         ];
     }
     

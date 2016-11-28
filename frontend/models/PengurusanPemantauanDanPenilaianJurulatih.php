@@ -72,7 +72,7 @@ class PengurusanPemantauanDanPenilaianJurulatih extends \yii\db\ActiveRecord
             'pusat_latihan' => GeneralLabel::pusat_latihan,
             'penilaian_oleh' => GeneralLabel::penilaian_oleh,
             'tarikh_dinilai' => GeneralLabel::tarikh_dinilai,
-
+            'hantar' => GeneralLabel::hantar,
         ];
     }
     

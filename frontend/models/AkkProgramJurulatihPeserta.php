@@ -4,6 +4,9 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
+
 /**
  * This is the model class for table "tbl_akk_program_jurulatih_peserta".
  *
@@ -66,11 +69,11 @@ class AkkProgramJurulatihPeserta extends \yii\db\ActiveRecord
         return [
             'akk_program_jurulatih_peserta_id' => 'Akk Program Jurulatih Peserta ID',
             'akk_program_jurulatih_id' => 'Akk Program Jurulatih ID',
-            'jurulatih' => 'Jurulatih',
-            'sukan' => 'Sukan',
-            'acara' => 'Acara',
-            'program' => 'Program',
-            'status_jurulatih' => 'Status Jurulatih',
+            'jurulatih' => GeneralLabel::jurulatih,
+            'sukan' => GeneralLabel::sukan,
+            'acara' => GeneralLabel::acara,
+            'program' => GeneralLabel::program,
+            'status_jurulatih' => GeneralLabel::status_jurulatih,
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

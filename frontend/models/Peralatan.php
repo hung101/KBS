@@ -72,12 +72,12 @@ class Peralatan extends \yii\db\ActiveRecord
             'spesifikasi' => GeneralLabel::spesifikasi,
             'kuantiti_unit' => GeneralLabel::kuantiti_unit,
             'catatan' => GeneralLabel::catatan,
-            'harga_per_unit_cadangan' => 'Harga (per unit) (RM)',
-            'harga_per_unit' => 'Harga (per unit) (RM)',
-            'jumlah_unit_cadangan' => 'Jumlah Unit',
-            'bilangan_cadangan' => 'Bilangan',
-            'jumlah_cadangan' => 'Jumlah (RM)',
-            'jumlah' => 'Jumlah (RM)',
+            'harga_per_unit_cadangan' => GeneralLabel::harga_per_unit_cadangan,
+            'harga_per_unit' => GeneralLabel::harga_per_unit,
+            'jumlah_unit_cadangan' => GeneralLabel::jumlah_unit_cadangan,
+            'bilangan_cadangan' => GeneralLabel::bilangan_cadangan,
+            'jumlah_cadangan' => GeneralLabel::jumlah_cadangan,
+            'jumlah' => GeneralLabel::jumlah,
         ];
     }
 }

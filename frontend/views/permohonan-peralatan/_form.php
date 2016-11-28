@@ -147,7 +147,7 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     
-    <h3>Peralatan</h3>
+    <h3><?php echo GeneralLabel::peralatan; ?></h3>
     
     <?php 
             Modal::begin([
@@ -227,7 +227,7 @@ use app\models\general\GeneralMessage;
     ?>
     
     <?php 
-        echo "<label>" . $model->getAttributeLabel('jumlah_peralatan') . ": </label> &nbsp;" . $dataProvider->getTotalCount() . ", <label>Jumlah Keseluruhan: </label> RM" . $calculate_jumlah_pendapatan;
+        echo "<label>" . $model->getAttributeLabel('jumlah_peralatan') . ": </label> &nbsp;" . $dataProvider->getTotalCount() . ", <label>".GeneralLabel::jumlah_keseluruhan.": </label> RM" . $calculate_jumlah_pendapatan;
     ?>
     <?php Pjax::end(); ?>
     
@@ -241,7 +241,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', '#', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['peralatan/create', 'permohonan_id' => $permohonan_peralatan_id]).'", "'.GeneralLabel::createTitle . ' Peralatan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['peralatan/create', 'permohonan_id' => $permohonan_peralatan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::peralatan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -310,7 +310,7 @@ use app\models\general\GeneralMessage;
     ?>
     
     <?php 
-        echo "<label>Jumlah Peralatan: </label> &nbsp;" . $dataProviderPermohonanPeralatanPenggunaan->getTotalCount() . ", <label>Jumlah Keseluruhan: </label> RM" . $jumlah;
+        echo "<label>Jumlah Peralatan: </label> &nbsp;" . $dataProviderPermohonanPeralatanPenggunaan->getTotalCount() . ", <label>".GeneralLabel::jumlah_keseluruhan.": </label> RM" . $jumlah;
     ?>
     
     <?php Pjax::end(); ?>

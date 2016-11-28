@@ -273,7 +273,7 @@ use app\models\general\GeneralMessage;
     ?>
     
     <?php 
-        echo "<label>Jumlah Keseluruhan: </label> RM" . $jumlah;
+        echo "<label>".GeneralLabel::jumlah_keseluruhan.": </label> RM" . $jumlah;
     ?>
     
     <?php Pjax::end(); ?>
