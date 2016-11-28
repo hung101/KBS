@@ -945,6 +945,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_usptn_pecahan_umur = "Laporan Pecahan Umur";
         const laporan_usptn_perjumpaan_atlet  = "Laporan Perjumpaan Atlet";
         const laporan_usptn_perjumpaan_jurulatih  = "Laporan Perjumpaan Jurulatih";
+        const perjumpaan_jurulatih  = "Perjumpaan Jurulatih";
+        const perjumpaan_atlet  = "Perjumpaan Atlet";
         const lari_pecut_20_meter = "Lari Pecut 20 Meter (saat)";
         const latihan_dan_program_id = "Latihan Dan Program ID";
         const latihan_dan_program_peserta_id = "Latihan Dan Program Peserta ID";
@@ -1540,6 +1542,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const peranan_akses = "Peranan Akses";
         const perancangan_program_id = "Perancangan Program ID";
         const perbelanjaan_dipohon = "Perbelanjaan Dipohon";
+        const perbelanjaan = "Perbelanjaan";
         const percubaan_1 = "Percubaan 1";
         const percubaan_2 = "Percubaan 2";
         const perempuan = "Perempuan";
@@ -4691,6 +4694,8 @@ if($session->get('language') == "EN") {
         const panjang_depa = "Long Span (cm)";
         const paobs_penganjuran_sumber_kewangan_id = "Paobs Organisation Of Financial Resource ID";
         const paralimpik = "Paralympic";
+        const perjumpaan_jurulatih  = "Coach Meets";
+        const perjumpaan_atlet  = "Athlete Meets";
         const passport_no = "Passport No.";
         const passport_no_wajib_diisi = "Passport No.(Required for JLN)";
         const passport_tamat_tempoh = "Expired";
@@ -4870,6 +4875,7 @@ if($session->get('language') == "EN") {
         const peranan_akses = "Access Role";
         const perancangan_program_id = "Plan ID";
         const perbelanjaan_dipohon = "Applied Expenses";
+        const perbelanjaan = "Expenses";
         const percubaan_1 = "Trial 1";
         const percubaan_2 = "Experiment 2";
         const perempuan = "Female";
@@ -5137,7 +5143,7 @@ if($session->get('language') == "EN") {
         const soalan_penilaian_id = "Evaluation Question ID";
         const socso_no = "No. Socso";
         const sokongan = "Support";
-        const sokongan_pn = "Support PN";
+        const sokongan_pn = "PN Support";
         const sort = "Sort";
         const source = "Source";
         const spesifikasi = "Specification";

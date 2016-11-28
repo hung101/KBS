@@ -71,10 +71,10 @@ class PengurusanUpstnJurulatih extends \yii\db\ActiveRecord
     {
         return [
             'pengurusan_upstn_atlet_id' => 'Pengurusan Upstn Atlet ID',
-            'pengurusan_upstn_id' => 'Pengurusan Upstn ID',
-            'tarikh' => 'Tarikh',
-            'tempat' => 'Tempat',
-            'peserta' => 'Bilangan Peserta',
+            'pengurusan_upstn_id' => GeneralLabel::pengurusan_upstn_id,
+            'tarikh' => GeneralLabel::tarikh,
+            'tempat' => GeneralLabel::tempat,
+            'peserta' => GeneralLabel::peserta,
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

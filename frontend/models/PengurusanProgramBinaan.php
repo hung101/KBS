@@ -94,7 +94,7 @@ class PengurusanProgramBinaan extends \yii\db\ActiveRecord
             'daerah' => GeneralLabel::daerah,
             'tarikh_mula' => GeneralLabel::tarikh_mula,
             'tarikh_tamat' => GeneralLabel::tarikh_tamat,
-            'sokongan_pn' => 'Sokongan Bahagian Atlet',
+            'sokongan_pn' => GeneralLabel::sokongan_pn,
             'kelulusan' => GeneralLabel::kelulusan,
             'aktiviti' => GeneralLabel::nama_program,
             'jumlah_yang_diluluskan' => GeneralLabel::jumlah_yang_diluluskan,

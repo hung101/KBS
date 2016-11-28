@@ -139,7 +139,7 @@ use app\models\general\GeneralMessage;
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <strong>Lelaki</strong>
+                    <strong><?php echo GeneralLabel::lelaki; ?></strong>
                 </div>
                 <div class="panel-body">
                     <?php
@@ -168,7 +168,7 @@ use app\models\general\GeneralMessage;
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <strong>Wanita</strong>
+                    <strong><?php echo GeneralLabel::wanita; ?></strong>
                 </div>
                 <div class="panel-body">
                     <?php
@@ -305,7 +305,7 @@ use app\models\general\GeneralMessage;
     
     
     
-    <h3>Perjumpaan Jurulatih</h3>
+    <h3><?php echo GeneralLabel::perjumpaan_jurulatih; ?></h3>
     
     <?php 
             Modal::begin([
@@ -357,13 +357,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-upstn-jurulatih/update', 'id' => $model->pengurusan_upstn_jurulatih_id]).'", "'.GeneralLabel::updateTitle . ' Perjumpaan Jurulatih");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-upstn-jurulatih/update', 'id' => $model->pengurusan_upstn_jurulatih_id]).'", "'.GeneralLabel::updateTitle . ' '.General::perjumpaan_jurulatih.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-upstn-jurulatih/view', 'id' => $model->pengurusan_upstn_jurulatih_id]).'", "'.GeneralLabel::viewTitle . ' Perjumpaan Jurulatih");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-upstn-jurulatih/view', 'id' => $model->pengurusan_upstn_jurulatih_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::perjumpaan_jurulatih.'");',
                         ]);
                     }
                 ],
@@ -382,7 +382,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-upstn-jurulatih/create', 'pengurusan_upstn_id' => $pengurusan_upstn_id]).'", "'.GeneralLabel::createTitle . ' Perjumpaan Jurulatih");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-upstn-jurulatih/create', 'pengurusan_upstn_id' => $pengurusan_upstn_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::perjumpaan_jurulatih.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -392,7 +392,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     
-    <h3>Perjumpaan Atlet</h3>
+    <h3><?php echo GeneralLabel::perjumpaan_atlet; ?></h3>
     
     <?php Pjax::begin(['id' => 'pengurusanUpstnAtletGrid', 'timeout' => 100000]); ?>
 
@@ -428,13 +428,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-upstn-atlet/update', 'id' => $model->pengurusan_upstn_atlet_id]).'", "'.GeneralLabel::updateTitle . ' Perjumpaan Atlet");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-upstn-atlet/update', 'id' => $model->pengurusan_upstn_atlet_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::perjumpaan_atlet.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-upstn-atlet/view', 'id' => $model->pengurusan_upstn_atlet_id]).'", "'.GeneralLabel::viewTitle . ' Perjumpaan Atlet");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-upstn-atlet/view', 'id' => $model->pengurusan_upstn_atlet_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::perjumpaan_atlet.'");',
                         ]);
                     }
                 ],
@@ -447,7 +447,7 @@ use app\models\general\GeneralMessage;
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-upstn-atlet/create', 'pengurusan_upstn_id' => $pengurusan_upstn_id]).'", "'.GeneralLabel::createTitle . ' Perjumpaan Atlet");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-upstn-atlet/create', 'pengurusan_upstn_id' => $pengurusan_upstn_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::perjumpaan_atlet.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

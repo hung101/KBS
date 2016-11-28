@@ -374,7 +374,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     
-    <h3>Atlet</h3>
+    <h3><?php echo GeneralLabel::atlet; ?></h3>
     
     <?php Pjax::begin(['id' => 'pengurusanProgramBinaanAtletGrid', 'timeout' => 100000]); ?>
 
@@ -442,7 +442,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     
-    <h3>Jurulatih</h3>
+    <h3><?php echo GeneralLabel::jurulatih; ?></h3>
     
     
     <?php Pjax::begin(['id' => 'pengurusanProgramBinaanJurulatihGrid', 'timeout' => 100000]); ?>
@@ -482,13 +482,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-jurulatih/update', 'id' => $model->pengurusan_program_binaan_jurulatih_id]).'", "'.GeneralLabel::updateTitle . ' Jurulatih");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-jurulatih/update', 'id' => $model->pengurusan_program_binaan_jurulatih_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::jurulatih.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-jurulatih/view', 'id' => $model->pengurusan_program_binaan_jurulatih_id]).'", "'.GeneralLabel::viewTitle . ' Jurulatih");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-jurulatih/view', 'id' => $model->pengurusan_program_binaan_jurulatih_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::jurulatih.'");',
                         ]);
                     }
                 ],
@@ -503,7 +503,7 @@ use app\models\general\GeneralMessage;
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-jurulatih/create', 'pengurusan_program_binaan_id' => $pengurusan_program_binaan_id]).'", "'.GeneralLabel::createTitle . ' Jurulatih");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-jurulatih/create', 'pengurusan_program_binaan_id' => $pengurusan_program_binaan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::jurulatih.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
