@@ -55,14 +55,14 @@ class PembayaranInsentifAtlet extends \yii\db\ActiveRecord
             'pembayaran_insentif_id' => 'Pembayaran Insentif ID',
             'atlet' => GeneralLabel::atlet,
             'acara' => GeneralLabel::acara,
-            'negara' => 'Bil Penyertaaan Negara',
+            'negara' => GeneralLabel::bil_penyertaan_negara,
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
             'nilai' => GeneralLabel::nilai,
-            'insentif_khas'=> 'Insentif Khas (RM)',
+            'insentif_khas'=> GeneralLabel::insentif_khas,
             'insentif'=> 'Insentif (RM)',
         ];
     }

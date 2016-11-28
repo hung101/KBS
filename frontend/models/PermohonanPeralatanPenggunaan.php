@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_permohonan_peralatan_penggunaan".
  *
@@ -55,7 +57,7 @@ class PermohonanPeralatanPenggunaan extends \yii\db\ActiveRecord
             'permohonan_peralatan_id' => 'Permohonan Peralatan ID',
             'nama_peralatan' => 'Nama Peralatan',
             'harga_per_unit' => 'Harga (per unit) (RM)',
-            'jumlah_unit' => 'Jumlah Unit',
+            'jumlah_unit' => GeneralLabel::jumlah_unit,
             'bilangan' => 'Bilangan',
             'jumlah' => 'Jumlah (RM)',
             'session_id' => 'Session ID',

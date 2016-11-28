@@ -312,7 +312,7 @@ use app\models\general\GeneralMessage;
     <!--<div class="panel panel-default" id="sikapID" style="display: none;">-->
     <div class="panel panel-default" id="sikapID" >
         <div class="panel-heading">
-            <strong>SIKAP</strong>
+            <strong><?php echo GeneralLabel::sikap_capital; ?></strong>
         </div>
         <div class="panel-body">
             <?php
@@ -351,7 +351,7 @@ use app\models\general\GeneralMessage;
         </div>
     </div>
     
-    <h3>Atlet</h3>
+    <h3><?php echo GeneralLabel::atlet; ?></h3>
     
     <?php 
             Modal::begin([
@@ -460,7 +460,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     
-    <h3>Jurulatih</h3>
+    <h3><?php echo GeneralLabel::jurulatih; ?></h3>
     
     
     <?php Pjax::begin(['id' => 'pembayaranInsentifJurulatihGrid', 'timeout' => 100000]); ?>

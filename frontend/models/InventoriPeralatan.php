@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_inventori_peralatan".
  *
@@ -54,11 +56,11 @@ class InventoriPeralatan extends \yii\db\ActiveRecord
         return [
             'inventori_peralatan_id' => 'Inventori Peralatan ID',
             'inventori_id' => 'Inventori ID',
-            'nama_peralatan' => 'Nama Peralatan',
-            'no_inv_do' => 'No. INV / DO',
-            'kuantiti' => 'Kuantiti',
-            'harga_per_unit' => 'Harga Per Unit (RM)',
-            'jumlah' => 'Jumlah (RM)',
+            'nama_peralatan' => GeneralLabel::nama_peralatan,
+            'no_inv_do' => GeneralLabel::no_inv_do,
+            'kuantiti' => GeneralLabel::kuantiti,
+            'harga_per_unit' => GeneralLabel::harga_per_unit,
+            'jumlah' => GeneralLabel::jumlah,
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

@@ -95,6 +95,7 @@ class PembayaranInsentif extends \yii\db\ActiveRecord
             'nilai_rekod_baharu' => GeneralLabel::rekod_baharu_RM,
             'muat_naik' => GeneralLabel::muat_naik,
             'catatan' => GeneralLabel::catatan,
+            'acara' => GeneralLabel::acara,
         ];
     }
     

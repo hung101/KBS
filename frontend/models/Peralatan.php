@@ -78,6 +78,8 @@ class Peralatan extends \yii\db\ActiveRecord
             'bilangan_cadangan' => GeneralLabel::bilangan_cadangan,
             'jumlah_cadangan' => GeneralLabel::jumlah_cadangan,
             'jumlah' => GeneralLabel::jumlah,
+            'jumlah_unit' => GeneralLabel::jumlah_unit,
+            'bilangan' => GeneralLabel::bilangan,
         ];
     }
 }

@@ -75,7 +75,7 @@ use app\models\general\GeneralMessage;
         <div class="col-sm-3">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <strong>SIKAP</strong>
+                    <strong><?php echo GeneralLabel::sikap_capital; ?></strong>
                 </div>
                 <div class="panel-body">
                     <?php

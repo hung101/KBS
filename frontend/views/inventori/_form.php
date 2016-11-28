@@ -195,7 +195,7 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     
-    <h3>Peralatan</h3>
+    <h3><?php echo GeneralLabel::peralatan; ?></h3>
     
     <?php 
             Modal::begin([
@@ -250,13 +250,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['inventori-peralatan/update', 'id' => $model->inventori_peralatan_id]).'", "'.GeneralLabel::updateTitle . ' Peralatan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['inventori-peralatan/update', 'id' => $model->inventori_peralatan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::peralatan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['inventori-peralatan/view', 'id' => $model->inventori_peralatan_id]).'", "'.GeneralLabel::viewTitle . ' Peralatan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['inventori-peralatan/view', 'id' => $model->inventori_peralatan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::peralatan.'");',
                         ]);
                     }
                 ],
@@ -288,7 +288,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['inventori-peralatan/create', 'inventori_id' => $inventori_id]).'", "'.GeneralLabel::createTitle . ' Peralatan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['inventori-peralatan/create', 'inventori_id' => $inventori_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::peralatan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

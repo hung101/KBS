@@ -97,6 +97,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const alamat_1 = "Alamat";
         const alamat_2 = "";
         const alamat_3 = "";
+        const alamat_pembekal = "Alamat Pembekal";
         const alamat_badan_sukan_1 = "Alamat Badan Sukan";
         const alamat_badan_sukan_2 = "";
         const alamat_badan_sukan_3 = "";
@@ -272,6 +273,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const bidang_pengajian_kursus = "Bidang Pengajian/Kursus";
         const bidang_pengkhususan_aliran = "Bidang Pengkhususan / Aliran";
         const bil = "Bil";
+        const bil_penyertaan_negara = "Bil Penyertaan Negara";
         const bil_adik_beradik = "Bil Adik Beradik";
         const bil_jkb = "Bil. JKB";
         const bil_mesyuarat = "Bil Mesyuarat";
@@ -522,7 +524,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const informasi_persatuan_id = "Informasi Persatuan ID";
         const ingat_saya = "Ingat Saya";
         const insentif_id = "Insentif ID";
-        const insentif_khas = "Insentif Khas";
+        const insentif_khas = "Insentif Khas (RM)";
         const institusi_sekolah = "Institusi / Sekolah";
         const institusi_universiti_syarikat = "Institusi/Universiti/Syarikat";
         const instructor = "Instruktur";
@@ -640,6 +642,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jumlah_caj_fi = "Jumlah Caj / Fi";
         const jumlah_cadangan = "Jumlah Cadangan (RM)";
         const jumlah_unit_cadangan = "Jumlah Unit Cadangan";
+        const jumlah_unit = "Jumlah Unit";
         const jumlah_delegasi = "Jumlah Delegasi";
         const jumlah_dilulus_dari = "Jumlah Dilulus Dari";
         const jumlah_dilulus_hingga = "Hingga";
@@ -1259,10 +1262,14 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const new_password = "Kata Laluan";
         const nilai = "Nilai (RM)";
         const nilai_berpasukan = "Nilai Berpasukan (RM)";
+        const nilai_berpasukan_kurang_5_rm = "Nilai Berpasukan < 5 Orang (RM)";
+        const nilai_berpasukan_lebih_5_rm = "Nilai Berpasukan > 5 Orang (RM)";
         const nilai_harta_pengangkutan = "Nilai Harta/Pengangkutan";
         const nilai_individu = "Nilai Individu (RM)";
         const nilai_kontrak = "Nilai";
         const nilai_pinjaman = "Nilai Pinjaman";
+        const no_co = "No. C/O";
+        const no_inv_do = "No. INV / DO";
         const no_aduan = "No Aduan";
         const no_akaun = "No. Akaun";
         const no_akaun_bank = "No. Akaun Bank";
@@ -1783,6 +1790,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const sijil_spkk_msn = "Sijil SPKK";
         const sikap_nama_persatuan = "SIKAP Nama Persatuan";
         const sikap_peratus = "SIKAP (%)";
+        const sikap_capital = "SIKAP";
         const sila_guna = "Sila guna";
         const sila_isi_e_mel_anda = "Sila isi e-mel anda. Link untuk menetapkan semula kata laluan akan dihantar ke e-mel.";
         const sila_lengkapkan_borang_denga_betul = "Sila lengkapkan borang dengan betul.";
@@ -3442,6 +3450,7 @@ if($session->get('language') == "EN") {
         const alamat_1 = "Address";
         const alamat_2 = "";
         const alamat_3 = "";
+        const alamat_pembekal = "Supplier Address";
         const alamat_badan_sukan_1 = "Address Of Body Sport";
         const alamat_badan_sukan_2 = "";
         const alamat_badan_sukan_3 = "";
@@ -3618,6 +3627,7 @@ if($session->get('language') == "EN") {
         const bidang_pengkhususan_aliran = "Specialization / Stream";
         const bil = "Bil";
         const bil_adik_beradik = "Bill Sister";
+        const bil_penyertaan_negara = "No. Of Country";
         const bil_jkb = "No. JKB";
         const bil_mesyuarat = "Meeting Bill";
         const bil_penumpang = "Bil. The passenger";
@@ -3866,7 +3876,7 @@ if($session->get('language') == "EN") {
         const informasi_persatuan_id = "Help The Association ID";
         const ingat_saya = "Remember Me";
         const insentif_id = "Incentives ID";
-        const insentif_khas = "Special Incentive";
+        const insentif_khas = "Special Incentive (RM)";
         const institusi_sekolah = "Institution / School";
         const institusi_universiti_syarikat = "Institution/University/Company";
         const instructor = "Department of modern";
@@ -3983,6 +3993,7 @@ if($session->get('language') == "EN") {
         const jumlah_caj_fi = "Total Charges / Fees";
         const jumlah_cadangan = "Total Proposal (RM)";
         const jumlah_unit_cadangan = "Total Proposal Unit";
+        const jumlah_unit = "Total Unit";
         const jumlah_delegasi = "Number Of Delegates";
         const jumlah_dilulus_dari = "Total Approved From";
         const jumlah_dilulus_hingga = "To";
@@ -4599,10 +4610,14 @@ if($session->get('language') == "EN") {
         const new_password = "Password";
         const nilai = "Value (RM)";
         const nilai_berpasukan = "Team Value (RM)";
+        const nilai_berpasukan_kurang_5_rm = "Team Value < 5 Orang (RM)";
+        const nilai_berpasukan_lebih_5_rm = "Team Value > 5 Orang (RM)";
         const nilai_harta_pengangkutan = "Value Of Assets/Transportation";
         const nilai_individu = "Individual Value (RM)";
         const nilai_kontrak = "Value";
         const nilai_pinjaman = "Value Of Loan";
+        const no_co = "C/O No.";
+        const no_inv_do = "INV / DO No.";
         const no_aduan = "No Complaint";
         const no_akaun = "Account No.";
         const no_akaun_bank = "Bank Account No.";
@@ -5126,6 +5141,7 @@ if($session->get('language') == "EN") {
         const sijil_spkk_msn = "The Certificate Is PRACTICED";
         const sikap_nama_persatuan = "The ATTITUDE Of The Name Of The Association";
         const sikap_peratus = "SIKAP (%)";
+        const sikap_capital = "SIKAP";
         const sila_guna = "Please use";
         const sila_isi_e_mel_anda = "Please fill out your email. A link to reset password will be sent there.";
         const sila_lengkapkan_borang_denga_betul = "Please complete the form correctly.";
