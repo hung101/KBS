@@ -62,6 +62,7 @@ class PertukaranPengajian extends \yii\db\ActiveRecord
             [['nama_pengajian_sekarang', 'nama_pertukaran_pengajian', 'kejohanan_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
+    
 
     /**
      * @inheritdoc
@@ -72,9 +73,9 @@ class PertukaranPengajian extends \yii\db\ActiveRecord
             'pertukaran_pengajian_id' => GeneralLabel::pertukaran_pengajian_id,
             'atlet_id' => GeneralLabel::atlet_id,
             'sebab_pemohonan' => GeneralLabel::jenis_permohonan,
-            'kategori_pengajian' => 'Fakulti Pengajian',
+            'kategori_pengajian' => GeneralLabel::falkuti_pengajian,
             'nama_pengajian_sekarang' => GeneralLabel::nama_pengajian_sekarang,
-            'nama_pertukaran_pengajian' => 'Nama Institusi Pengajian (Baru)',
+            'nama_pertukaran_pengajian' => GeneralLabel::nama_pertukaran_pengajian,
             'sebab_pertukaran' => GeneralLabel::sebab_pertukaran,
             'sebab_penangguhan' => GeneralLabel::sebab_penangguhan,
             'program' => GeneralLabel::program,
@@ -84,7 +85,9 @@ class PertukaranPengajian extends \yii\db\ActiveRecord
             'tarikh_akhir' => 'Tarikh Akhir Pelepasan',
             'tempat' => GeneralLabel::tempat,
             'sebab' => GeneralLabel::no_matriks,
-            'tempoh_penangguhan' => 'Tempoh Penangguhan',
+            'tempoh_penangguhan' => GeneralLabel::tempoh_penangguhan,
+            'status_permohonan' => GeneralLabel::status_permohonan,
+            'tarikh_permohonan' => GeneralLabel::tarikh_permohonan,
         ];
     }
     

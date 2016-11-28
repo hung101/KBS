@@ -84,7 +84,7 @@ class ProfilBadanSukan extends \yii\db\ActiveRecord
                 [['alamat_tetap_badan_sukan_negeri', 'alamat_surat_menyurat_badan_sukan_negeri'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['no_pendaftaran'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['alamat_tetap_badan_sukan_poskod', 'alamat_surat_menyurat_badan_sukan_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
-                [['alamat_tetap_badan_sukan_poskod'. 'alamat_surat_menyurat_badan_sukan_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+                [['alamat_tetap_badan_sukan_poskod', 'alamat_surat_menyurat_badan_sukan_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
                 [['no_pendaftaran_sijil_pendaftaran'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['bilangan_pindaan_perlembagaan_dilakukan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['muat_naik_perlembagaan_terkini', 'gambar'],'validateFileUpload', 'skipOnEmpty' => false],

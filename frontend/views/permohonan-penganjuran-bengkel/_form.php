@@ -273,7 +273,7 @@ use app\models\general\GeneralVariable;
     <?php
     if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-penganjuran-bengkel']['kelulusan'])){
         echo '<br>
-                <pre style="text-align: center"><strong>KEGUNAAN MSN</strong></pre>';
+                <pre style="text-align: center"><strong>'.GeneralLabel::kegunaan_msn.'</strong></pre>';
         
         echo FormGrid::widget([
             'model' => $model,

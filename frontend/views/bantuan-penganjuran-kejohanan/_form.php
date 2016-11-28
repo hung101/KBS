@@ -719,7 +719,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>KEJOHANAN YANG TELAH DIANJUR (TAHUN SEMASA & TAHUN SEBELUM)</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::kejohanan_yang_telah_dianjurkan_tahun_semasa_tahun_sebelum; ?></strong></pre>
     
     <?php Pjax::begin(['id' => 'bantuanPenganjuranKejohananDianjurkanGrid', 'timeout' => 100000]); ?>
 
@@ -872,7 +872,7 @@ use app\models\general\GeneralVariable;
     
     <div class="panel panel-default">
                 <div class="panel-heading">
-                    <strong>JUMLAH BANTUAN YANG DIPOHON</strong>
+                    <strong><?php echo GeneralLabel::jumlah_bantuan_yang_dipohon_cap; ?></strong>
                 </div>
                 <div class="panel-body">
                     <?php
@@ -899,7 +899,7 @@ use app\models\general\GeneralVariable;
     <?php
     if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['kelulusan'])){
         echo '<br>
-                <pre style="text-align: center"><strong>KEGUNAAN MSN</strong></pre>';
+                <pre style="text-align: center"><strong>'.GeneralLabel::kegunaan_msn.'</strong></pre>';
         
         echo FormGrid::widget([
             'model' => $model,

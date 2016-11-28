@@ -189,7 +189,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT KEJOHANAN / PROGRAM (Sila masukkan, jika permohonan untuk Pelepasan)</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_kejohanan_program_h1; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([

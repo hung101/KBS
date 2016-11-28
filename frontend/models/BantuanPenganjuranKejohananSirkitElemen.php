@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_bantuan_penganjuran_kejohanan_elemen".
  *
@@ -54,12 +56,12 @@ class BantuanPenganjuranKejohananSirkitElemen extends \yii\db\ActiveRecord
         return [
             'bantuan_penganjuran_kejohanan_elemen_id' => 'Bantuan Penganjuran Kejohanan Elemen ID',
             'bantuan_penganjuran_kejohanan_id' => 'Bantuan Penganjuran Kejohanan ID',
-            'elemen_bantuan' => 'Elemen Bantuan',
-            'sub_elemen' => 'Sub-Elemen',
-            'kadar' => 'Kadar (RM)',
-            'bilangan' => 'Bilangan',
-            'hari' => 'Hari',
-            'jumlah' => 'Jumlah (RM)',
+            'elemen_bantuan' => GeneralLabel::elemen_bantuan, //'Elemen Bantuan',
+            'sub_elemen' => GeneralLabel::sub_elemen, //'Sub-Elemen',
+            'kadar' => GeneralLabel::kadar, //'Kadar (RM)',
+            'bilangan' => GeneralLabel::bilangan, //'Bilangan',
+            'hari' => GeneralLabel::hari, //'Hari',
+            'jumlah' => GeneralLabel::jumlah, //'Jumlah (RM)',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
