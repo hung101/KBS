@@ -119,7 +119,7 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
             'no_akaun' => 'No. Akaun',
             'nama_kejohanan' => 'Nama Kejohanan',
             'peringkat' => 'Peringkat',
-            'peringkat_lain_lain' => 'Nyatakan (Jika Lain-lain)',
+            'peringkat_lain_lain' => GeneralLabel::nyatakan_jika_lain_lain,
             'tarikh' => 'Tarikh Mula',
             'tempat' => 'Tempat',
             'tujuan' => 'Tujuan',

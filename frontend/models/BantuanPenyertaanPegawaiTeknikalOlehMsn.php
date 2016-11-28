@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\general\GeneralLabel;
 
 /**
  * This is the model class for table "tbl_bantuan_penyertaan_pegawai_teknikal_oleh_msn".
@@ -69,7 +70,7 @@ class BantuanPenyertaanPegawaiTeknikalOlehMsn extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
-            'status_penganjuran_lain_lain' => 'Nyatakan (Jika Lain-lain)',
+            'status_penganjuran_lain_lain' => GeneralLabel::nyatakan_jika_lain_lain,
         ];
     }
     

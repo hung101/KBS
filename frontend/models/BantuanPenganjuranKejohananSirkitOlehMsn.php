@@ -67,7 +67,7 @@ class BantuanPenganjuranKejohananSirkitOlehMsn extends \yii\db\ActiveRecord
             'tarikh_tamat' => 'Tarikh Tamat',
             'tempat' => 'Tempat',
             'peringkat_penganjuran' => 'Peringkat Penganjuran',
-            'peringkat_penganjuran_lain' => 'Nyatakan (Jika Lain-lain)',
+            'peringkat_penganjuran_lain' => GeneralLabel::nyatakan_jika_lain_lain,
             'jumlah_bantuan' => 'Jumlah Bantuan',
             'laporan_dikemukakan' => 'Laporan Dikemukakan',
             'session_id' => 'Session ID',

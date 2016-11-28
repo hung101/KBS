@@ -82,6 +82,13 @@ class MesyuaratJkk extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'pengurusi' => GeneralLabel::pengurusi,
+            'sukan' => GeneralLabel::sukan,
+            'fasa' => GeneralLabel::fasa,
+            'cawangan' => GeneralLabel::cawangan,
+            'program' => GeneralLabel::program,
+            'penganjur' => GeneralLabel::nama_penganjur,
+            'negeri' => GeneralLabel::negeri,
             'mesyuarat_id' => GeneralLabel::mesyuarat_id,
             'nama_mesyuarat' => GeneralLabel::nama_mesyuarat,
             'agenda' => GeneralLabel::agenda,

@@ -127,7 +127,7 @@ class MaklumatPegawaiTeknikal extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
-            'tahap_akademik_lain_lain' => 'Nyatakan (Jika Lain-lain)',
+            'tahap_akademik_lain_lain' => GeneralLabel::nyatakan_jika_lain_lain,
         ];
     }
     

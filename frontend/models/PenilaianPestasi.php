@@ -82,6 +82,9 @@ class PenilaianPestasi extends \yii\db\ActiveRecord
             'negeri' => GeneralLabel::negeri,
             'tarikh_nilai_mula' => GeneralLabel::tarikh_mula_penilaian,
             'tarikh_nilai_tamat' => GeneralLabel::tarikh_tamat_penilaian,
+            'sukan' => GeneralLabel::sukan,
+            'acara' => GeneralLabel::acara,
+            'program' => GeneralLabel::program,
         ];
     }
     

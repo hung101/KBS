@@ -204,7 +204,7 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     
-    <h3>Perbelanjaan</h3>
+    <h3><?php echo GeneralLabel::perbelanjaan; ?></h3>
     
     <?php 
             Modal::begin([
@@ -260,13 +260,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-kos/update', 'id' => $model->pengurusan_program_binaan_kos_id]).'", "'.GeneralLabel::updateTitle . ' Perbelanjaan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-kos/update', 'id' => $model->pengurusan_program_binaan_kos_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::perbelanjaan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-kos/view', 'id' => $model->pengurusan_program_binaan_kos_id]).'", "'.GeneralLabel::viewTitle . ' Perbelanjaan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-kos/view', 'id' => $model->pengurusan_program_binaan_kos_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::perbelanjaan.'");',
                         ]);
                     }
                 ],
@@ -287,7 +287,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-kos/create', 'pengurusan_program_binaan_id' => $pengurusan_program_binaan_id]).'", "'.GeneralLabel::createTitle . ' Perbelanjaan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-kos/create', 'pengurusan_program_binaan_id' => $pengurusan_program_binaan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::perbelanjaan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -295,7 +295,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     
-    <h3>Pegawai</h3>
+    <h3><?php echo GeneralLabel::pegawai; ?></h3>
     
     <?php Pjax::begin(['id' => 'programBinaanPesertaGrid', 'timeout' => 100000]); ?>
 
@@ -345,13 +345,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-peserta/update', 'id' => $model->pengurusan_program_binaan_peserta_id]).'", "'.GeneralLabel::updateTitle . ' Pegawai");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-peserta/update', 'id' => $model->pengurusan_program_binaan_peserta_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::pegawai.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-peserta/view', 'id' => $model->pengurusan_program_binaan_peserta_id]).'", "'.GeneralLabel::viewTitle . ' Pegawai");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-peserta/view', 'id' => $model->pengurusan_program_binaan_peserta_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::pegawai.'");',
                         ]);
                     }
                 ],
@@ -366,7 +366,7 @@ use app\models\general\GeneralMessage;
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-peserta/create', 'pengurusan_program_binaan_id' => $pengurusan_program_binaan_id]).'", "'.GeneralLabel::createTitle . ' Pegawai");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-peserta/create', 'pengurusan_program_binaan_id' => $pengurusan_program_binaan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::pegawai.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

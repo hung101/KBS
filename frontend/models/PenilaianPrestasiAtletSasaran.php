@@ -53,16 +53,16 @@ class PenilaianPrestasiAtletSasaran extends \yii\db\ActiveRecord
     {
         return [
             'penilaian_prestasi_atlet_sasaran_id' => 'Penilaian Prestasi Atlet Sasaran ID',
-            'penilaian_pestasi_id' => 'Penilaian Pestasi ID',
-            'atlet' => 'Atlet',
-            'sasaran' => 'Sasaran',
-            'keputusan' => 'Keputusan',
+            'penilaian_pestasi_id' => GeneralLabel::penilaian_pestasi_id,
+            'atlet' => GeneralLabel::atlet,
+            'sasaran' => GeneralLabel::sasaran,
+            'keputusan' => GeneralLabel::keputusan,
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
-            'rekod_baru' => 'Rekod Baru',
+            'rekod_baru' => GeneralLabel::rekod_baru,
         ];
     }
     

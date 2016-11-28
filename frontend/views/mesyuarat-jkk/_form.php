@@ -477,13 +477,13 @@ use app\models\general\Placeholder;
 ]);*/
     ?>
     
-    <?= Html::a('Agenda / Perbincangan', ['agenda-perbincangan', 'mesyuarat_id' => $mesyuarat_id], ['class' => 'btn btn-warning btn-lg', 'target' => '_blank', 'id' => 'perbincanganLinkId']) ?>
+    <?= Html::a(GeneralLabel::agenda_perbincangan, ['agenda-perbincangan', 'mesyuarat_id' => $mesyuarat_id], ['class' => 'btn btn-warning btn-lg', 'target' => '_blank', 'id' => 'perbincanganLinkId']) ?>
     <br>
     <br>
     
     <?php
     if(isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])){
-        echo Html::a('Reset Agenda / Perbincangan', ['reset-agenda-perbincangan'], ['class' => 'btn btn-danger btn-lg', 'target' => '_blank']);
+        echo Html::a('Reset '.GeneralLabel::agenda_perbincangan, ['reset-agenda-perbincangan'], ['class' => 'btn btn-danger btn-lg', 'target' => '_blank']);
     }
     ?>
     

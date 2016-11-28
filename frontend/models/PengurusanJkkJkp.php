@@ -92,7 +92,7 @@ class PengurusanJkkJkp extends \yii\db\ActiveRecord
             'nama_atlet' => GeneralLabel::nama_atlet,
             'status_pilihan' => GeneralLabel::status_pilihan,
             'nama_jurulatih' => GeneralLabel::nama_jurulatih,
-            'peranan_lain' => 'Nyatakan (Jika Lain-lain)',
+            'peranan_lain' => GeneralLabel::nyatakan_jika_lain_lain,
         ];
     }
     

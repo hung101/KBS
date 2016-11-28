@@ -346,7 +346,7 @@ use app\models\general\GeneralMessage;
 ]);*/
     ?>
     
-    <h3>Penilaian Atlet</h3>
+    <h3><?php echo GeneralLabel::penilaian_prestasi_atlet; ?></h3>
     
     <?php 
             Modal::begin([
@@ -405,13 +405,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penilaian-prestasi-atlet-sasaran/update', 'id' => $model->penilaian_prestasi_atlet_sasaran_id]).'", "'.GeneralLabel::updateTitle . ' Penilaian Atlet");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penilaian-prestasi-atlet-sasaran/update', 'id' => $model->penilaian_prestasi_atlet_sasaran_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::penilaian_prestasi_atlet.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penilaian-prestasi-atlet-sasaran/view', 'id' => $model->penilaian_prestasi_atlet_sasaran_id]).'", "'.GeneralLabel::viewTitle . ' Penilaian Atlet");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penilaian-prestasi-atlet-sasaran/view', 'id' => $model->penilaian_prestasi_atlet_sasaran_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::penilaian_prestasi_atlet.'");',
                         ]);
                     },
                     'atlet' => function ($url, $model) {
@@ -450,7 +450,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penilaian-prestasi-atlet-sasaran/create', 'penilaian_pestasi_id' => $penilaian_pestasi_id]).'", "'.GeneralLabel::createTitle . ' Penilaian Atlet");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penilaian-prestasi-atlet-sasaran/create', 'penilaian_pestasi_id' => $penilaian_pestasi_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::penilaian_prestasi_atlet.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PerancanganProgram */
 
 //$this->title = $model->perancangan_program_id;
-$this->title = GeneralLabel::viewTitle . ' Program';
+$this->title = GeneralLabel::viewTitle . ' ' .GeneralLabel::program;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::program, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
