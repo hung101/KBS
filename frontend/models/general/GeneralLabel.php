@@ -475,6 +475,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const emel_penganjur = "Emel Penganjur";
         const emel_presiden_badan_sukan = "Emel";
         const emel_setiausaha_badan_sukan = "Emel";
+        const emel_penerima = "Emel Penerima";
         const esei = "Esei (20%)";
         const facebook = "Facebook";
         const fail_rujukan = "Fail Rujukan";
@@ -675,6 +676,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jumlah_kelulusan = "Jumlah Kelulusan";
         const jumlah_keseluruhan = "Jumlah Keseluruhan";
         const jumlah_kos_lain_lain = "Jumlah Kos Lain Lain";
+        const jumlah_kos_perubatan = "Jumlah Kos Perubatan";
         const jumlah_markah = "Jumlah Markah";
         const jumlah_markah_penilaian = "Jumlah Markah Penilaian";
         const jumlah_mengikut_acara = "Jumlah Mengikut Acara";
@@ -906,6 +908,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laman_web = "Laman Web";
         const lantikan = "Lantikan";
         const lampiran = "Lampiran";
+        const laporan_dikemukakan = "Laporan Dikemukakan";
         const laporan_acara_kejohanan_temasya= "Laporan Senarai Acara Kejohanan/Temasya";
         const laporan_aduan_kerosakan = "Laporan Aduan Kerosakan";
         const laporan_aktiviti_muat_naik = "Laporan Aktiviti";
@@ -3848,6 +3851,7 @@ if($session->get('language') == "EN") {
         const emel_penganjur = "Email Organizer";
         const emel_presiden_badan_sukan = "Email";
         const emel_setiausaha_badan_sukan = "Email";
+        const emel_penerima = "Email";
         const esei = "Essay (20%)";
         const facebook = "Facebook";
         const fail_rujukan = "Reference File";
@@ -4047,6 +4051,7 @@ if($session->get('language') == "EN") {
         const jumlah_kelulusan = "Total Approval";
         const jumlah_keseluruhan = "Total Overall";
         const jumlah_kos_lain_lain = "The Total Cost Of Other";
+        const jumlah_kos_perubatan = "The Total Cost Of Medicine";
         const jumlah_markah = "Total Score";
         const jumlah_markah_penilaian = "Total Score Rating";
         const jumlah_mengikut_acara = "Total by Event Type";
@@ -4278,6 +4283,7 @@ if($session->get('language') == "EN") {
         const laman_web = "Website";
         const lantikan = "The appointment of";
         const lampiran = "Appendix";
+        const laporan_dikemukakan = "Reports presents";
         const laporan_acara_kejohanan_temasya= "Report Event List Championship / Carnival";
         const laporan_aduan_kerosakan = "Report Complaint";
         const laporan_aktiviti_muat_naik = "Activity Report";

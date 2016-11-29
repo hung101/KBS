@@ -247,7 +247,7 @@ use app\models\general\GeneralMessage;
 ]);
         ?>
     
-    <h3>Penyertaan Acara Sukan</h3>
+    <h3><?php echo GeneralLabel::penyertaan_acara_sukan; ?></h3>
     
     <?php 
             Modal::begin([
@@ -309,13 +309,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-acara/update', 'id' => $model->penyertaan_sukan_acara_id]).'", "'.GeneralLabel::updateTitle . ' Penyertaan Acara Sukan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-acara/update', 'id' => $model->penyertaan_sukan_acara_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::penyertaan_acara_sukan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-acara/view', 'id' => $model->penyertaan_sukan_acara_id]).'", "'.GeneralLabel::viewTitle . ' Penyertaan Acara Sukan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-acara/view', 'id' => $model->penyertaan_sukan_acara_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::penyertaan_acara_sukan.'");',
                         ]);
                     }
                 ],
@@ -334,7 +334,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-acara/create', 'penyertaan_sukan_id' => $penyertaan_sukan_id]).'", "'.GeneralLabel::createTitle . ' Penyertaan Acara Sukan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-acara/create', 'penyertaan_sukan_id' => $penyertaan_sukan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::penyertaan_acara_sukan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

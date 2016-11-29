@@ -71,6 +71,8 @@ class PenyertaanSukan extends \yii\db\ActiveRecord
             'penyertaan_sukan_id' => GeneralLabel::penyertaan_sukan_id,
             'kategori_penilaian' => GeneralLabel::kategori_penilaian,
             'nama_temasya' => GeneralLabel::nama_temasya,
+            'peringkat' => GeneralLabel::peringkat,
+            'nama_kejohanan' => GeneralLabel::nama_kejohanan,
             'nama_sukan' => GeneralLabel::sukan,
             'tempat_penginapan' => GeneralLabel::tempat,
             'tempat_latihan' => GeneralLabel::tempat_latihan,

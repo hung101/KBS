@@ -88,9 +88,13 @@ class SkimKebajikan extends \yii\db\ActiveRecord
             'lokasi_kejadian' => GeneralLabel::lokasi_kejadian,
             'jenis_bantuan_lain_yang_diterima' => GeneralLabel::jenis_bantuan_lain_yang_diterima,
             'kelulusan' => GeneralLabel::kelulusan,
-            'jumlah_kos_perubatan' => 'Jumlah Kos Perubatan (RM)',
+            'jumlah_kos_perubatan' => GeneralLabel::jumlah_kos_perubatan,
             'jenis_permohonan' => GeneralLabel::jenis_tuntutan,
             'sukan' => GeneralLabel::pencapaian_tertinggi,
+            'emel_penerima' => GeneralLabel::emel_penerima,
+            'perkara' => GeneralLabel::perkara,
+            'catatan' => GeneralLabel::catatan,
+            'muat_naik' => GeneralLabel::muat_naik,
         ];
     }
     

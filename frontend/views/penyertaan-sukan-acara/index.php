@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Tambah Penyertaan Acara Sukan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::tambah_penyertaan_acara_sukan, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
