@@ -1390,7 +1390,7 @@ use app\models\general\GeneralLabel;
         <?php if($model->maklumat_penilaian_ketua_jurulatih): ?>
         <?php
             $modelPenilaianKetuaJurulatih = PengurusanPemantauanDanPenilaianJurulatihKetua::find()
-                ->where('nama_jurulatih_dinilai = :nama_jurulatih_dinilai', [':nama_jurulatih_dinilai' => $id])->orderBy(['created' => SORT_DESC,])->one();
+                ->where('nama_jurulatih_dinilai = :nama_jurulatih_dinilai', [':nama_jurulatih_dinilai' => $id])->orderBy(['created' => SORT_DESC])->one();
         ?>
         <?php
             $queryPar = null;
@@ -1398,7 +1398,7 @@ use app\models\general\GeneralLabel;
             if($modelPenilaianKetuaJurulatih && $modelPenilaianKetuaJurulatih->pengurusan_pemantauan_dan_penilaian_jurulatih_id){
                 //filter by pengurusan_pemantauan_dan_penilaian_jurulatih_id
                 $queryPar['PengurusanPenilaianKategoriJurulatihKetuaSearch']['pengurusan_pemantauan_dan_penilaian_jurulatih_id'] = $modelPenilaianKetuaJurulatih->pengurusan_pemantauan_dan_penilaian_jurulatih_id;
-            }
+            
 
             $searchModelPenilaianKategoriJurulatihKetua = new PengurusanPenilaianKategoriJurulatihKetuaSearch();
             $dataProviderPenilaianKategoriJurulatihKetua = $searchModelPenilaianKategoriJurulatihKetua->search($queryPar);
@@ -1483,6 +1483,7 @@ use app\models\general\GeneralLabel;
                 </div>
             </div>
         </section>
+            <?php } ?>
         <?php endif; ?>
 
 
@@ -1515,7 +1516,7 @@ use app\models\general\GeneralLabel;
                     if($modelLoop && $modelLoop->pengurusan_pemantauan_dan_penilaian_jurulatih_id){
                         //filter by pengurusan_pemantauan_dan_penilaian_jurulatih_id
                         $querySubPar['PengurusanPenilaianKategoriJurulatihSearch']['pengurusan_pemantauan_dan_penilaian_jurulatih_id'] = $modelLoop->pengurusan_pemantauan_dan_penilaian_jurulatih_id;
-                    }
+                    
 
                     $searchModelPenilaianKategoriJurulatih = new PengurusanPenilaianKategoriJurulatihSearch();
                     $dataProviderPenilaianKategoriJurulatih = $searchModelPenilaianKategoriJurulatih->search($querySubPar);
@@ -1598,7 +1599,7 @@ use app\models\general\GeneralLabel;
                         </div>';
                     
                     $counter++;
-                    
+                    }
                 }
             } else {
                 // no records

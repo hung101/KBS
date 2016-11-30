@@ -858,6 +858,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const ketidakpatuhan = "Ketidakpatuhan";
         const ketinggian = "Ketinggian (cm)";
         const kewangan_penajaan = "Kewangan & Penajaan";
+        const keturunan = "Keturunan";
         const kewarganegara = "Kewarganegara";
         const kewarganegaraan = "Kewarganegara";
         const kod = "Kod";
@@ -999,6 +1000,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const lompat_jauh_berdiri = "Lompat Jauh Berdiri (cm)";
         const lawatan = "Lawatan";
         const lawatan_rasmi_luar_negara = "Lawatan Rasmi Luar Negara";
+        const lulus = "Lulus";
         const maaf_kami_tidak_dapat_untuk_menetapkan_semula_kata_laluan_untuk_e_mel_yang_disediakan = "Maaf, kami tidak dapat untuk menetapkan semula kata laluan untuk e-mel yang disediakan.";
         const maklumat_antarabangsa = "Maklumat Antarabangsa";
         const maklumat_alamat_surat_menyurat = "Maklumat Alamat Surat Menyurat";
@@ -1697,6 +1699,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const rehab_doktor_bertanggungjawab = "Rehab / Doktor Bertanggungjawab";
         const rehabilitasi_id = "Rehabilitasi ID";
         const rehabilitasi_program_id = "Rehabilitasi Program ID";
+        const rekod_akk = "Rekod AKK";
         const rekod_anugerah_pencalonan_atlet = "Rekod Anugerah Pencalonan Atlet";
         const rekod_baru = "Rekod Baru";
         const rekod_pembayaran_elaun = "Rekod Pembayaran Elaun";
@@ -1899,6 +1902,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const surat_persetujuan_sue = "Surat Persetujuan SUE";
         const surat_tawaran_atlet = "Surat Tawaran Atlet";
         const surat_tawaran_atlet_paralimpik = "Surat Tawaran Atlet (Paralimpik)";
+        const surat_tawaran_program_podium = "Surat Tawaran Program Podium";
         const susan_ranking_asia = "Susan Ranking Asia";
         const susan_ranking_asia_tenggara = "Susan Ranking Asia Tenggara";
         const susan_ranking_dunia = "Susan Ranking Dunia";
@@ -2128,6 +2132,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tindakan_yang_telah_diambil = "Tindakan Yang Telah Diambil";
         const tinggi = "Tinggi (CM)";
         const tinggi_duduk = "Tinggi Duduk (cm)";
+        const tolak = "Tolak";
         const tujuan = "Tujuan";
         const tujuan_program_aktiviti = "Tujuan Program / Aktiviti";
         const twitter = "Twitter";
@@ -4372,6 +4377,7 @@ if($session->get('language') == "EN") {
         const lompat_jauh_berdiri = "Standing Long Jump (cm)";
         const lawatan = "Visit";
         const lawatan_rasmi_luar_negara = "Official Visits Abroad";
+        const lulus = "Pass";
         const maaf_kami_tidak_dapat_untuk_menetapkan_semula_kata_laluan_untuk_e_mel_yang_disediakan = "Sorry, we are unable to reset the password for the e-mail provided.";
         const maklumat_antarabangsa = "International information";
         const maklumat_alamat_surat_menyurat = "Mailing Address Information";
@@ -5071,6 +5077,7 @@ if($session->get('language') == "EN") {
         const rehab_doktor_bertanggungjawab = "Rehab / Doctor In Charge";
         const rehabilitasi_id = "Rehabilitation ID";
         const rehabilitasi_program_id = "Rehabilitation Program ID";
+        const rekod_akk = "AKK Records";
         const rekod_anugerah_pencalonan_atlet = "Athlete Award Nomination Records";
         const rekod_baru = "New Record";
         const rekod_pembayaran_elaun = "Allowance Payment Records";
@@ -5274,6 +5281,7 @@ if($session->get('language') == "EN") {
         const surat_persetujuan_sue = "Letter Of Agreement SUE";
         const surat_tawaran_atlet = "Letter Of Offer Athlete";
         const surat_tawaran_atlet_paralimpik = "Letter of Offer Athlete (Paralympics)";
+        const surat_tawaran_program_podium = "Letter of Offer Podium Program";
         const susan_ranking_asia = "Susan Asian Ranking";
         const susan_ranking_asia_tenggara = "Susan Ranking Southeast Asia";
         const susan_ranking_dunia = "Susan World Ranking";
@@ -5501,6 +5509,7 @@ if($session->get('language') == "EN") {
         const tindakan_yang_telah_diambil = "Action Has Been Taken";
         const tinggi = "High (CM)";
         const tinggi_duduk = "High Seat (cm)";
+        const tolak = "Reject";
         const tujuan = "The purpose of the";
         const tujuan_program_aktiviti = "The Purpose Of Programmes/Activity";
         const twitter = "Twitter";

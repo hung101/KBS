@@ -12,13 +12,14 @@ use app\models\AkademiAkk;
  */
 class AkademiAkkSearch extends AkademiAkk
 {
+    public $jurulatih;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['akademi_akk_id', 'tahun'], 'integer'],
+            [['akademi_akk_id', 'tahun', 'jurulatih'], 'integer'],
             [['nama', 'muatnaik_gambar', 'no_kad_pengenalan', 'no_passport', 'tarikh_lahir', 'tempat_lahir', 'no_telefon', 'emel', 'nama_majikan', 
                 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 
                 'no_telefon_pejabat', 'kategori_pensijilan', 'jenis_sukan', 'nama_jurulatih'], 'safe'],
@@ -64,6 +65,7 @@ class AkademiAkkSearch extends AkademiAkk
             'akademi_akk_id' => $this->akademi_akk_id,
             'tarikh_lahir' => $this->tarikh_lahir,
             'tahun' => $this->tahun,
+            'tbl_akademi_akk.nama' => $this->jurulatih,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_jurulatih.nama', $this->nama])

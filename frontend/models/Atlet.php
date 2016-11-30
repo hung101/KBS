@@ -169,7 +169,7 @@ class Atlet extends \yii\db\ActiveRecord
                 [['alamat_rumah_1','alamat_rumah_2','alamat_rumah_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['file'], 'safe'],
                 [['file'], 'file', 'extensions' => 'png, jpg'],
-                [['muat_naik_surat_persetujuan'],'validateFileUpload', 'skipOnEmpty' => false],
+                [['muat_naik_surat_persetujuan', 'surat_tawaran_program_podium'],'validateFileUpload', 'skipOnEmpty' => false],
             ];
         }
         
@@ -247,6 +247,7 @@ class Atlet extends \yii\db\ActiveRecord
             'no_lesen_ipc' => GeneralLabel::no_lesen_ipc, 
             'tarikh_luput' => GeneralLabel::tarikh_luput, 
             'agensi' => GeneralLabel::agensi, 
+            'surat_tawaran_program_podium' => GeneralLabel::surat_tawaran_program_podium, 
             'ms_negeri' => "Negeri (Sila pilih, jika agensi 'MS Negeri')", 
         ];
     }

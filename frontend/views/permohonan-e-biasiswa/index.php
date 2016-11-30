@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         
         // Delete Access
         if(isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['delete'])){
-            $template .= ' {delete}';
+            //$template .= ' {delete}';
         }
     ?>
 

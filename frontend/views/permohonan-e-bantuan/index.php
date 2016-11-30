@@ -122,7 +122,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelulusan,
                 ],
-                'value' => 'refKelulusan.desc'
+                //'value' => 'refKelulusan.desc'
+                'value'=>function ($model) {
+                    if($model->kelulusan == 1){
+                        return GeneralLabel::lulus;
+                    } else {
+                        return GeneralLabel::tolak;
+                    }
+                },
             ],
             [
                 'attribute' => 'bil_mesyuarat',

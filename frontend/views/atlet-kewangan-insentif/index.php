@@ -134,7 +134,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <!-- Kaunseling Rekod - START -->
     <div class="panel panel-default copyright-wrap" id="insentif_rekods-list">
-        <div class="panel-heading"><a data-toggle="collapse" href="#insentif_rekods-body"><?php GeneralLabel::rekod_insentif ?></a>
+        <div class="panel-heading"><a data-toggle="collapse" href="#insentif_rekods-body"><?php echo GeneralLabel::rekod_insentif ?></a>
             <button type="button" class="close" data-target="#insentif_rekods-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         </div>
         <div id="insentif_rekods-body" class="panel-collapse collapse">

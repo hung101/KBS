@@ -76,7 +76,7 @@ ditetapkan akan menyebabkan kelulusan ini terbatal.
     </div>
     
     <div class="alert alert-warning">
-            <strong>Perhatian - </strong> Sila muat turun borang Laporan Pelaksanaan Program (PB-6) dan 
+            <strong>Perhatian - </strong> Sila muat turun borang Laporan Pelaksanaan Program (PB-6) dan kemukakan borang PB-6 yang telah lengkap berserta
 penyata perbelanjaan seperti dilampirkan yang berkaitan dengan program yang dilaksanakan dibawah 
 peruntukan ini sama ada dalam bentuk resit pembelian barangan yang lengkap, bil terperinci 
 (<i>itemised bill</i>), laporan program, gambar program atau lain-lain bentuk laporan yang disahkan yang 

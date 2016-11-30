@@ -61,9 +61,9 @@ use app\models\general\GeneralVariable;
         }
         
         if(isset($session['atlet_cacat']) && $session['atlet_cacat']){
-            $cawangan_list = RefCawangan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all();
+            $cawangan_list = RefCawangan::find()->where(['=', 'id', 5])->andWhere(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all();
         } else {
-            $cawangan_list = RefCawangan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all();
+            $cawangan_list = RefCawangan::find()->where(['=', 'id', 5])->andWhere(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all();
         }
         
         $session->close();
@@ -976,6 +976,38 @@ use app\models\general\GeneralVariable;
                     'autoGenerateColumns'=>false, // override columns setting
                     'attributes' => [
                         'muat_naik_surat_persetujuan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+    
+    <?php // Surat Persetujuan
+    if($model->surat_tawaran_program_podium){
+        echo "<label>" . $model->getAttributeLabel('surat_tawaran_program_podium') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->surat_tawaran_program_podium , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->atlet_id, 'field'=> 'surat_tawaran_program_podium'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'surat_tawaran_program_podium' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
                     ],
                 ],
             ]

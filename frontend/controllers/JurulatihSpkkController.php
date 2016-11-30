@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use app\models\JurulatihSpkk;
 use frontend\models\JurulatihSpkkSearch;
+use frontend\models\AkademiAkkSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -56,16 +57,22 @@ class JurulatihSpkkController extends Controller
 
         if(isset($session['jurulatih_id'])){
             $queryPar['JurulatihSpkkSearch']['jurulatih_id'] = $session['jurulatih_id'];
+            $queryPar['AkademiAkkSearch']['jurulatih'] = $session['jurulatih_id'];
         }
         
         $session->close();
         
         $searchModel = new JurulatihSpkkSearch();
         $dataProvider = $searchModel->search($queryPar);
+        
+        $searchModelAkademiAkk = new AkademiAkkSearch();
+        $dataProviderAkademiAkk = $searchModelAkademiAkk->search($queryPar);
 
         $renderContent = $this->renderAjax('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'searchModelAkademiAkk' => $searchModelAkademiAkk,
+            'dataProviderAkademiAkk' => $dataProviderAkademiAkk,
         ]);
 
         if($request->get('typeJson') != NULL){

@@ -154,3 +154,100 @@ use yii\web\Session;
     <?php Pjax::end(); ?>
 
 </div>
+
+
+<br>
+        <br>
+        
+    <!--<p>
+        <?= Html::button('<span class="glyphicon glyphicon-refresh"></span>', ['value'=>Url::to(['index']),'class' => 'btn btn-info', 'onclick' => 'updateRenderAjax("'.Url::to(['index']).'", "'.GeneralVariable::tabKelayakanID.'");']) ?>
+    </p>-->
+    
+    <!-- AKK Rekod - START -->
+    <div class="panel panel-default copyright-wrap" id="akk_rekods-list">
+        <div class="panel-heading"><a data-toggle="collapse" href="#akk_rekods-body"><?php echo GeneralLabel::rekod_akk ?></a>
+            <button type="button" class="close" data-target="#akk_rekods-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        </div>
+        <div id="akk_rekods-body" class="panel-collapse collapse">
+            <div class="panel-body">
+                <?= GridView::widget([
+            'dataProvider' => $dataProviderAkademiAkk,
+            //'filterModel' => $searchModelAkademiAkk,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+                //'akademi_akk_id',
+            //'nama',
+            [
+                'attribute' => 'nama_jurulatih',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ],
+            ],
+            /*[
+                'attribute' => 'nama',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
+                ],
+                'value' => 'refJurulatih.nama'
+            ],*/
+            //'muatnaik_gambar',
+            [
+                'attribute' => 'no_kad_pengenalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
+                ]
+            ],
+            //'no_passport',
+            // 'tarikh_lahir',
+            // 'tempat_lahir',
+            // 'no_telefon',
+            // 'emel',
+            // 'nama_majikan',
+            // 'alamat_majikan_1',
+            // 'alamat_majikan_2',
+            // 'alamat_majikan_3',
+            // 'alamat_majikan_negeri',
+            // 'alamat_majikan_bandar',
+            // 'alamat_majikan_poskod',
+            // 'no_telefon_pejabat',
+            //'kategori_pensijilan',
+            [
+                'attribute' => 'kategori_pensijilan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_pensijilan,
+                ],
+                'value' => 'refKategoriPensijilanAkademiAkk.desc'
+            ],
+            [
+                'attribute' => 'jenis_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_sukan,
+                ],
+                'value' => 'refSukan.desc'
+            ],
+            [
+                'attribute' => 'tahun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun,
+                ]
+            ],
+                ['class' => 'yii\grid\ActionColumn',
+                    'buttons' => [
+                        'view' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', '', ['value'=>Url::to(['/pembayaran-insentif/view', 'id' => $model->pembayaran_insentif_id]), 'class' => 'custom_button']);
+                        },
+                    ],
+                    'template' => '',
+                ],
+            ],
+        ]); ?>
+            </div>
+        </div>
+    </div>
+    <!-- AKK Rekod - END -->

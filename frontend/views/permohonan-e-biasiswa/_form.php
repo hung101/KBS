@@ -49,10 +49,14 @@ use common\models\general\GeneralFunction;
 <div class="permohonan-ebiasiswa-form">
     <?php
         if(!$readonly){
-            $template = '{view} {update} {delete}';
+            //$template = '{view} {update} {delete}';
+            $template = '{view}';
         } else {
             $template = '{view}';
         }
+        
+        $disableFields = true;
+        
     ?>
     
     <?php 
@@ -248,7 +252,7 @@ use common\models\general\GeneralFunction;
                                     ]
                                 ] : null,
                                 'data'=>$DropDownOptionSesiBiasiswa,
-                                'options' => ['placeholder' => Placeholder::sesiPermohonan],
+                                'options' => ['placeholder' => Placeholder::sesiPermohonan, 'disabled'=>$disableFields],
                                 'pluginOptions' => [
                                     'allowClear' => true
                                 ],],
@@ -266,14 +270,14 @@ use common\models\general\GeneralFunction;
     if($model->muat_naik_gambar){
         echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$model->muat_naik_gambar.'" width="200px">&nbsp;&nbsp;&nbsp;';
         if(!$readonly){
-            echo Html::a(GeneralLabel::removeImage, ['deleteupload', 'id'=>$model->permohonan_e_biasiswa_id, 'field'=> 'muat_naik_gambar'], 
+            /*echo Html::a(GeneralLabel::removeImage, ['deleteupload', 'id'=>$model->permohonan_e_biasiswa_id, 'field'=> 'muat_naik_gambar'], 
             [
                 'class'=>'btn btn-danger', 
                 'data' => [
                     'confirm' => GeneralMessage::confirmRemove,
                     'method' => 'post',
                 ]
-            ]).'<p>';
+            ]).'<p>';*/
         }
         echo '<br><br>';
     } else {
@@ -304,8 +308,8 @@ use common\models\general\GeneralFunction;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
-                'no_kad_pengenalan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12, 'id'=>'NoICID']],
+                'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80, 'disabled'=>$disableFields]],
+                'no_kad_pengenalan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>12, 'id'=>'NoICID', 'disabled'=>$disableFields]],
                 'tarikh_lahir' =>[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -314,7 +318,7 @@ use common\models\general\GeneralFunction;
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ],
-                        'options' => ['id'=>'TarikhLahirID'],
+                        'options' => ['id'=>'TarikhLahirID', 'disabled'=>$disableFields],
                     ],
                     'columnOptions'=>['colspan'=>3]],
                 'umur' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>3, 'disabled'=>true, 'id'=>'UmurID']],
@@ -336,7 +340,7 @@ use common\models\general\GeneralFunction;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJantina::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jantina],
+                        'options' => ['placeholder' => Placeholder::jantina, 'disabled'=>$disableFields],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -353,7 +357,7 @@ use common\models\general\GeneralFunction;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefBangsa::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::bangsa],
+                        'options' => ['placeholder' => Placeholder::bangsa, 'disabled'=>$disableFields],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -370,7 +374,7 @@ use common\models\general\GeneralFunction;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefAgama::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::agama],
+                        'options' => ['placeholder' => Placeholder::agama, 'disabled'=>$disableFields],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -387,7 +391,7 @@ use common\models\general\GeneralFunction;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefTarafPerkahwinan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::tarafPerkahwinan],
+                        'options' => ['placeholder' => Placeholder::tarafPerkahwinan, 'disabled'=>$disableFields],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -397,17 +401,17 @@ use common\models\general\GeneralFunction;
         
         [
             'attributes' => [
-                'alamat_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                'alamat_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30, 'disabled'=>$disableFields]],
             ]
         ],
         [
             'attributes' => [
-                'alamat_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                'alamat_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30, 'disabled'=>$disableFields]],
             ]
         ],
         [
             'attributes' => [
-                'alamat_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                'alamat_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30, 'disabled'=>$disableFields]],
             ]
         ],
         [
@@ -426,7 +430,7 @@ use common\models\general\GeneralFunction;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],
+                        'options' => ['placeholder' => Placeholder::negeri, 'disabled'=>$disableFields],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -466,25 +470,26 @@ use common\models\general\GeneralFunction;
                                     'asButton' => true
                                 ]
                             ] : null,
-                            'pluginOptions'=>['allowClear'=>true]
+                            'pluginOptions'=>['allowClear'=>true], 'disabled'=>$disableFields
                         ],
                         'data'=>ArrayHelper::map(RefBandar::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>''],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'alamat_negeri')],
-                            'initialize' => true,
+                            //'initialize' => true,
                             'placeholder' => Placeholder::bandar,
                             'url'=>Url::to(['/ref-bandar/subbandars'])],
+                         'disabled'=>$disableFields
                         ],
                     'columnOptions'=>['colspan'=>3]],
-                'alamat_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5]],
+                'alamat_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5, 'disabled'=>$disableFields]],
             ]
         ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'no_tel_bimbit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>14], 'hint'=>'Keutamaan No Tel Bimbit'],
+                'no_tel_bimbit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>14, 'disabled'=>$disableFields], 'hint'=>'Keutamaan No Tel Bimbit'],
             ]
         ],
     ]
@@ -513,7 +518,7 @@ use common\models\general\GeneralFunction;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKawasanTemuduga::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kawasanTemuduga],
+                        'options' => ['placeholder' => Placeholder::kawasanTemuduga, 'disabled'=>$disableFields],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -527,9 +532,11 @@ use common\models\general\GeneralFunction;
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
+                        , 'disabled'=>$disableFields
+                        
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'tempat_temuduga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>90]],
+                'tempat_temuduga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>90, 'disabled'=>$disableFields]],
             ]
         ],
         
@@ -552,7 +559,7 @@ use common\models\general\GeneralFunction;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'no_pendaftaran_oku' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
+                'no_pendaftaran_oku' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30, 'disabled'=>$disableFields]],
                 'kategori_oku' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -565,12 +572,12 @@ use common\models\general\GeneralFunction;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriOkuEBiasiswa::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategoriOKU, 'id'=>'kategoriOKU'],
+                        'options' => ['placeholder' => Placeholder::kategoriOKU, 'id'=>'kategoriOKU', 'disabled'=>$disableFields],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
-                'oku_lain_lain' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80, 'id'=>'OKULainlain']],
+                'oku_lain_lain' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80, 'id'=>'OKULainlain', 'disabled'=>$disableFields]],
             ]
         ],
     ]
@@ -591,7 +598,7 @@ use common\models\general\GeneralFunction;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'no_matriks' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
+                'no_matriks' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30, 'disabled'=>$disableFields]],
                 'universiti_institusi' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -604,7 +611,7 @@ use common\models\general\GeneralFunction;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefUniversitiInstitusiEBiasiswa::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::universitiInstitusi],
+                        'options' => ['placeholder' => Placeholder::universitiInstitusi, 'disabled'=>$disableFields],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -621,7 +628,7 @@ use common\models\general\GeneralFunction;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefProgramPengajian::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::programPengajian],
+                        'options' => ['placeholder' => Placeholder::programPengajian, 'disabled'=>$disableFields],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -632,8 +639,8 @@ use common\models\general\GeneralFunction;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'kursus_bidang_pengajian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
-                'falkulti' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                'kursus_bidang_pengajian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80, 'disabled'=>$disableFields]],
+                'falkulti' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80, 'disabled'=>$disableFields]],
                 'kategori' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -646,7 +653,7 @@ use common\models\general\GeneralFunction;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriPengajianEBiasiswa::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategori],
+                        'options' => ['placeholder' => Placeholder::kategori, 'disabled'=>$disableFields],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -664,7 +671,7 @@ use common\models\general\GeneralFunction;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ], 'disabled'=>$disableFields
                     ],
                     'columnOptions'=>['colspan'=>3]],
                 'tarikh_tamat' => [
@@ -674,7 +681,7 @@ use common\models\general\GeneralFunction;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ], 'disabled'=>$disableFields
                     ],
                     'columnOptions'=>['colspan'=>3]],
                 'semester_terkini' => [
@@ -689,7 +696,7 @@ use common\models\general\GeneralFunction;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSemesterTerkini::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::semesterTerkini],
+                        'options' => ['placeholder' => Placeholder::semesterTerkini, 'disabled'=>$disableFields],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -712,13 +719,13 @@ use common\models\general\GeneralFunction;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSemesterBaki::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::semesterBaki],
+                        'options' => ['placeholder' => Placeholder::semesterBaki, 'disabled'=>$disableFields],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
-                'png_semasa' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>20]],
-                'pngk_semasa' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>20]],
+                'png_semasa' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>20, 'disabled'=>$disableFields]],
+                'pngk_semasa' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>20, 'disabled'=>$disableFields]],
             ]
         ],
         [
@@ -733,7 +740,7 @@ use common\models\general\GeneralFunction;
                     'value'=>false,
                     'options'=>['inline'=>true],
                     'columnOptions'=>['colspan'=>3]],*/
-                'nyatakan_nama_penaja' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
+                'nyatakan_nama_penaja' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80, 'disabled'=>$disableFields]],
             ]
         ],
     ]
@@ -886,11 +893,11 @@ use common\models\general\GeneralFunction;
         }
         
         echo Html::a( GeneralLabel::contoh, 'javascript:void(0);', ['onclick' => 'viewUpload("'.\Yii::$app->request->BaseUrl.'/downloads/permohonan_e_biasiswa/contoh.jpg");']);
-        echo '<br>';
+        /*echo '<br>';
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
                         'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-biasiswa-penyertaan-kejohanan/create', 'permohonan_e_biasiswa_id' => $permohonan_e_biasiswa_id]).'", "'.GeneralLabel::createTitle . ' ' . GeneralLabel::penyertaan_kejohanan . '");',
                         'class' => 'btn btn-success',
-                        ]);
+                        ]);*/
         
         ?>
     </p>

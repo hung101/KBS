@@ -31,13 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->permohonan_e_biasiswa_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['delete'])): ?>
-            <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->permohonan_e_biasiswa_id], [
+            <!--<?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->permohonan_e_biasiswa_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
                     'confirm' => GeneralMessage::confirmDelete,
                     'method' => 'post',
                 ],
-            ]) ?>
+            ]) ?>-->
         <?php endif; ?>
         <!-- eddie (print) start -->
         <?php if(isset(Yii::$app->user->identity->peranan_akses['KBS']['permohonan-e-biasiswa']['update'])): ?>

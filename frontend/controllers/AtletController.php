@@ -312,6 +312,12 @@ class AtletController extends Controller
                 $model->muat_naik_surat_persetujuan = Upload::uploadFile($file, Upload::atletFolder, 'muat_naik_surat_persetujuan-' . $model->atlet_id);
             }
             
+            
+            $file = UploadedFile::getInstance($model, 'surat_tawaran_program_podium');
+            if($file){
+                $model->surat_tawaran_program_podium = Upload::uploadFile($file, Upload::atletFolder, 'surat_tawaran_program_podium-' . $model->atlet_id);
+            }
+            
             if($model->save()){
                 $session = new Session;
                 $session->open();
@@ -331,11 +337,11 @@ class AtletController extends Controller
         ->setSubject('PSK telah memasukkan atlet baru')
         ->setTextBody("Salam Sejahtera,
             <br><br>
-Nama Atlet: " . $model->name_penuh . "
-No Kad Pengenalan: " . $model->ic_no . '
+Nama Atlet: " . $model->name_penuh . "<br>
+No Kad Pengenalan: " . $model->ic_no . '<br>
     
 <br><br>
-"KE ARAH KECEMERLANGAN SUKAN"
+"KE ARAH KECEMERLANGAN SUKAN"<br>
 Majlis Sukan Negara Malaysia.
 ')->send();
                         }
@@ -351,11 +357,11 @@ Majlis Sukan Negara Malaysia.
         ->setSubject('Majlis Sukan Negeri telah memasukkan atlet baru')
         ->setTextBody("Salam Sejahtera,
 <br><br>
-Nama Atlet: " . $model->name_penuh . "
-No Kad Pengenalan: " . $model->ic_no . '
+Nama Atlet: " . $model->name_penuh . "<br>
+No Kad Pengenalan: " . $model->ic_no . '<br>
     
 <br><br>
-"KE ARAH KECEMERLANGAN SUKAN"
+"KE ARAH KECEMERLANGAN SUKAN"<br>
 Majlis Sukan Negara Malaysia.
 ')->send();
                         }
@@ -416,6 +422,11 @@ Majlis Sukan Negara Malaysia.
                 $model->muat_naik_surat_persetujuan = Upload::uploadFile($file, Upload::atletFolder, 'muat_naik_surat_persetujuan-' . $model->atlet_id);
             }
             
+            $file = UploadedFile::getInstance($model, 'surat_tawaran_program_podium');
+            if($file){
+                $model->surat_tawaran_program_podium = Upload::uploadFile($file, Upload::atletFolder, 'surat_tawaran_program_podium-' . $model->atlet_id);
+            }
+            
             $changedTawaran = false;
             
             $oldTawaran = $model->getOldAttribute('tawaran');
@@ -436,12 +447,12 @@ Majlis Sukan Negara Malaysia.
                                     ->setSubject('Status Tawaran Atlet (' . $model->name_penuh . ') Telah Diproses')
                                     ->setTextBody('Salam Sejahtera,<br><br>
 
-                            Nama Atlet: ' . $model->name_penuh . '
-                            No Kad Pengenalan: ' . $model->ic_no . '
-                            Status Tawaran Terkini: ' . $statusTawaranDesc . '
+                            Nama Atlet: ' . $model->name_penuh . '<br>
+                            No Kad Pengenalan: ' . $model->ic_no . '<br>
+                            Status Tawaran Terkini: ' . $statusTawaranDesc . '<br>
 <br><br>
-                            "KE ARAH KECEMERLANGAN SUKAN"
-                            Majlis Sukan Negara Malaysia.
+                            "KE ARAH KECEMERLANGAN SUKAN"<br>
+                            Majlis Sukan Negara Malaysia.<br>
                             ')->send();
                         }
                         catch(\Swift_SwiftException $exception)
