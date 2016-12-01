@@ -72,8 +72,11 @@ class MuatNaikDokumen extends \yii\db\ActiveRecord
             'tarikh_muat_naik' => GeneralLabel::tarikh_muat_naik,
             'temasya' => GeneralLabel::temasya,
             'negeri' => GeneralLabel::negeri,
-            'kategori_dokumen_nyatakan' => 'Nyatakan Kategori Dokumen (Jika Lain-lain)',
+            'kategori_dokumen_nyatakan' => GeneralLabel::kategori_dokumen_nyatakan,  //'Nyatakan Kategori Dokumen (Jika Lain-lain)',
             'tarikh_muat_naik' => GeneralLabel::tarikh_muat_naik,
+            'tarikh_mula' => GeneralLabel::tarikh_mula,
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,
+            'catatan' => GeneralLabel::catatan,
         ];
     }
     

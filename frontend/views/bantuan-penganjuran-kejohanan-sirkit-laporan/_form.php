@@ -48,7 +48,7 @@ use app\models\general\GeneralVariable;
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
-    <pre style="text-align: center"><strong>MAKLUMAT KEJOHANAN / KURSUS</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_kejohanan_kursus_cap; ?></strong></pre>
     <?php
         echo FormGrid::widget([
     'model' => $model,

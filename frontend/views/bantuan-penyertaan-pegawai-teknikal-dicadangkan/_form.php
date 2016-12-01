@@ -111,7 +111,7 @@ use app\models\general\GeneralVariable;
 ]);
     ?>
     
-    <pre style="text-align: center"><strong>MAKLUMAT DIRI</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_diri_cap; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -281,7 +281,7 @@ use app\models\general\GeneralVariable;
     ?>
     <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT MAJIKAN</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_majikan_cap; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -312,7 +312,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT KEJOHANAN / KURSUS</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_kejohanan_kursus_cap; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([

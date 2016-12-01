@@ -76,21 +76,21 @@ class PengurusanJawatankuasaKhasSukanMalaysiaAhli extends \yii\db\ActiveRecord
     {
         return [
             'pengurusan_jawatankuasa_khas_sukan_malaysia_ahli_id' => 'Pengurusan Jawatankuasa Khas Sukan Malaysia Ahli ID',
-            'jenis_keahlian' => 'Jenis Keahlian',
-            'jenis_keahlian_nyatakan' => 'Nyatakan Jenis Keahlian (Jika Lain-lain)',
-            'nama' => 'Nama',
-            'jawatan' => 'Jawatan',
-            'agensi_organisasi' => 'Agensi / Organisasi',
-            'agensi_organisasi_nyatakan' => 'Nyatakan Agensi / Organisasi (Jika Lain-lain)',
-            'negeri' => 'Negeri',
+            'jenis_keahlian' => GeneralLabel::jenis_keahlian, //'Jenis Keahlian',
+            'jenis_keahlian_nyatakan' => GeneralLabel::jenis_keahlian_nyatakan, //'Nyatakan Jenis Keahlian (Jika Lain-lain)',
+            'nama' => GeneralLabel::nama, //'Nama',
+            'jawatan' => GeneralLabel::jawatan, //'Jawatan',
+            'agensi_organisasi' => GeneralLabel::agensi_organisasi, //'Agensi / Organisasi',
+            'agensi_organisasi_nyatakan' => GeneralLabel::agensi_organisasi_nyatakan, //'Nyatakan Agensi / Organisasi (Jika Lain-lain)',
+            'negeri' => GeneralLabel::negeri, //'Negeri',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
-            'jawatan_lain_lain' => 'Nyatakan Jawatan (Jika Lain-lain)',
-            'jawatankuasa' => 'Jawatankuasa',
-            'emel' => 'Emel',
+            'jawatan_lain_lain' => GeneralLabel::jawatan_lain_lain, //'Nyatakan Jawatan (Jika Lain-lain)',
+            'jawatankuasa' => GeneralLabel::jawatankuasa, //'Jawatankuasa',
+            'emel' => GeneralLabel::emel, //'Emel',
         ];
     }
     

@@ -238,7 +238,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT MAJIKAN</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_majikan_cap; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([

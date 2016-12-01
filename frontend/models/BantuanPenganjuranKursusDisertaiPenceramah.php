@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use app\models\general\GeneralLabel;
+
 use Yii;
 
 /**
@@ -52,11 +54,11 @@ class BantuanPenganjuranKursusDisertaiPenceramah extends \yii\db\ActiveRecord
         return [
             'bantuan_penganjuran_kursus_disertai_penceramah_id' => 'Bantuan Penganjuran Kursus Disertai Penceramah ID',
             'bantuan_penganjuran_kursus_id' => 'Bantuan Penganjuran Kursus ID',
-            'kursus_seminar_bengkel' => 'Kursus / Seminar / Bengkel',
-            'tarikh_mula' => 'Tarikh Mula',
-            'tarikh_tamat' => 'Tarikh Tamat',
-            'tempat' => 'Tempat',
-            'anjuran' => 'Anjuran',
+            'kursus_seminar_bengkel' => GeneralLabel::nama_kursus_seminar_bengkel,  //'Kursus / Seminar / Bengkel',
+            'tarikh_mula' => GeneralLabel::tarikh_mula,  //'Tarikh Mula',
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,  //'Tarikh Tamat',
+            'tempat' => GeneralLabel::tempat,  //'Tempat',
+            'anjuran' => GeneralLabel::anjuran,  //'Anjuran',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

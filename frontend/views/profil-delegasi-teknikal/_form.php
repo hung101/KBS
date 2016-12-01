@@ -44,7 +44,7 @@ use app\models\PengurusanJawatankuasaKhasSukanMalaysia;
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     
-    <pre style="text-align: center"><strong>MAKLUMAT TEMASYA</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_temasya_cap; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -150,7 +150,7 @@ use app\models\PengurusanJawatankuasaKhasSukanMalaysia;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT PERSATUAN</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_persatuan_cap; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -267,7 +267,7 @@ use app\models\PengurusanJawatankuasaKhasSukanMalaysia;
 ]);
     ?>
     
-     <h3>Ahli</h3>
+     <h3><?php echo GeneralLabel::ahli; ?></h3>
     
     <?php 
             Modal::begin([
@@ -368,13 +368,13 @@ use app\models\PengurusanJawatankuasaKhasSukanMalaysia;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-delegasi-teknikal-ahli/update', 'id' => $model->profil_delegasi_teknikal_ahli_id]).'", "'.GeneralLabel::updateTitle . ' Ahli");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-delegasi-teknikal-ahli/update', 'id' => $model->profil_delegasi_teknikal_ahli_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::ahli.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-delegasi-teknikal-ahli/view', 'id' => $model->profil_delegasi_teknikal_ahli_id]).'", "'.GeneralLabel::viewTitle . ' Ahli");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-delegasi-teknikal-ahli/view', 'id' => $model->profil_delegasi_teknikal_ahli_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::ahli.'");',
                         ]);
                     }
                 ],
@@ -395,7 +395,7 @@ use app\models\PengurusanJawatankuasaKhasSukanMalaysia;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-delegasi-teknikal-ahli/create', 'profil_delegasi_teknikal_id' => $profil_delegasi_teknikal_id]).'", "'.GeneralLabel::createTitle . ' Ahli");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-delegasi-teknikal-ahli/create', 'profil_delegasi_teknikal_id' => $profil_delegasi_teknikal_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::ahli.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

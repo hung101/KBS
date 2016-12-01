@@ -123,7 +123,7 @@ use app\models\RefNegeri;
 ]);
     ?>
     
-    <h3>Ahli</h3>
+    <h3><?php echo GeneralLabel::ahli; ?></h3>
     
     <?php 
             Modal::begin([
@@ -209,13 +209,13 @@ use app\models\RefNegeri;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-jawatankuasa-khas-sukan-malaysia-ahli/update', 'id' => $model->pengurusan_jawatankuasa_khas_sukan_malaysia_ahli_id]).'", "'.GeneralLabel::updateTitle . ' Ahli");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-jawatankuasa-khas-sukan-malaysia-ahli/update', 'id' => $model->pengurusan_jawatankuasa_khas_sukan_malaysia_ahli_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::ahli.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-jawatankuasa-khas-sukan-malaysia-ahli/view', 'id' => $model->pengurusan_jawatankuasa_khas_sukan_malaysia_ahli_id]).'", "'.GeneralLabel::viewTitle . ' Ahli");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-jawatankuasa-khas-sukan-malaysia-ahli/view', 'id' => $model->pengurusan_jawatankuasa_khas_sukan_malaysia_ahli_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::ahli.'");',
                         ]);
                     }
                 ],
@@ -236,7 +236,7 @@ use app\models\RefNegeri;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-jawatankuasa-khas-sukan-malaysia-ahli/create', 'pengurusan_jawatankuasa_khas_sukan_malaysia_id' => $pengurusan_jawatankuasa_khas_sukan_malaysia_id]).'", "'.GeneralLabel::createTitle . ' Ahli");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-jawatankuasa-khas-sukan-malaysia-ahli/create', 'pengurusan_jawatankuasa_khas_sukan_malaysia_id' => $pengurusan_jawatankuasa_khas_sukan_malaysia_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::ahli.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

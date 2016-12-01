@@ -70,11 +70,11 @@ class PengurusanJawatankuasaKhasSukanMalaysia extends \yii\db\ActiveRecord
     {
         return [
             'pengurusan_jawatankuasa_khas_sukan_malaysia_id' => 'Pengurusan Jawatankuasa Khas Sukan Malaysia ID',
-            'temasya' => 'Temasya',
-            'tarikh_mula' => 'Tarikh Mula',
-            'tarikh_tamat' => 'Tarikh Tamat',
-            'jawatankuasa' => 'Jawatankuasa',
-            'negeri' => 'Negeri',
+            'temasya' => GeneralLAbel::temasya,  //'Temasya',
+            'tarikh_mula' => GeneralLAbel::tarikh_mula,  //'Tarikh Mula',
+            'tarikh_tamat' => GeneralLAbel::tarikh_tamat,  //'Tarikh Tamat',
+            'jawatankuasa' => GeneralLAbel::jawatankuasa,  //'Jawatankuasa',
+            'negeri' => GeneralLAbel::negeri,  //'Negeri',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',

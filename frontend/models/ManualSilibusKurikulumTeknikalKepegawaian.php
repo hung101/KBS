@@ -54,10 +54,10 @@ class ManualSilibusKurikulumTeknikalKepegawaian extends \yii\db\ActiveRecord
     {
         return [
             'manual_silibus_kurikulum_teknikal_kepegawaian_id' => 'Manual Silibus Kurikulum Teknikal Kepegawaian ID',
-            'persatuan_sukan' => 'Persatuan Sukan',
-            'jilid_versi' => 'Jilid / Versi',
-            'tarikh' => 'Tarikh',
-            'muat_naik' => 'Muat Naik',
+            'persatuan_sukan' => GeneralLabel::persatuan_sukan,  //'Persatuan Sukan',
+            'jilid_versi' => GeneralLabel::jilid_versi,  //'Jilid / Versi',
+            'tarikh' => GeneralLabel::tarikh,  //'Tarikh',
+            'muat_naik' => GeneralLabel::muat_naik,  //'Muat Naik',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',
