@@ -45,7 +45,7 @@ use common\models\general\GeneralFunction;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <pre style="text-align: center"><strong>MAKLUMAT PERIBADI</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_peribadi; ?></strong></pre>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
@@ -122,7 +122,7 @@ use common\models\general\GeneralFunction;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT AGENSI</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_agensi_cap; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -230,7 +230,7 @@ use common\models\general\GeneralFunction;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT KEPAKARAN</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_kepakaran_cap; ?></strong></pre>
     
     
     <?php
@@ -304,7 +304,7 @@ use common\models\general\GeneralFunction;
 ]);
     ?>
     
-    <h3>Kontrak</h3>
+    <h3><?php echo GeneralLabel::kontrak; ?></h3>
     
     <?php 
             Modal::begin([
@@ -355,13 +355,13 @@ use common\models\general\GeneralFunction;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-konsultan-kontrak/update', 'id' => $model->profil_konsultan_kontrak_id]).'", "'.GeneralLabel::updateTitle . ' Kontrak");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-konsultan-kontrak/update', 'id' => $model->profil_konsultan_kontrak_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::kontrak.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-konsultan-kontrak/view', 'id' => $model->profil_konsultan_kontrak_id]).'", "'.GeneralLabel::viewTitle . ' Kontrak");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-konsultan-kontrak/view', 'id' => $model->profil_konsultan_kontrak_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::kontrak.'");',
                         ]);
                     }
                 ],
@@ -382,7 +382,7 @@ use common\models\general\GeneralFunction;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-konsultan-kontrak/create', 'profil_konsultan_id' => $profil_konsultan_id]).'", "'.GeneralLabel::createTitle . ' Kontrak");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-konsultan-kontrak/create', 'profil_konsultan_id' => $profil_konsultan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::kontrak.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

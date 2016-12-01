@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_profil_konsultan_kontrak".
  *
@@ -48,8 +50,8 @@ class ProfilKonsultanKontrak extends \yii\db\ActiveRecord
         return [
             'profil_konsultan_kontrak_id' => 'Profil Konsultan Kontrak ID',
             'profil_konsultan_id' => 'Profil Konsultan ID',
-            'tarikh_kontrak_mula' => 'Tarikh Kontrak (Mula)',
-            'tarikh_kontrak_akhir' => 'Tarikh Kontrak (Akhir)',
+            'tarikh_kontrak_mula' => GeneralLabel::tarikh_kontrak_mula,  //'Tarikh Kontrak (Mula)',
+            'tarikh_kontrak_akhir' => GeneralLabel::tarikh_kontrak_tamat,  //'Tarikh Kontrak (Akhir)',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

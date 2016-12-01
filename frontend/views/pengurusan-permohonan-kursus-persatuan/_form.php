@@ -116,7 +116,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT AGENSI</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_agensi_cap; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([

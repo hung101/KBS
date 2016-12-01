@@ -69,7 +69,7 @@ class BorangPenilaianKaunseling extends \yii\db\ActiveRecord
         return [
             'borang_penilaian_kaunseling_id' => GeneralLabel::borang_penilaian_kaunseling_id,
             'profil_konsultan_id' => GeneralLabel::profil_konsultan_id,
-            'atlet' => 'Atlet / Jurulatih / Pegawai & Anggota',
+            'atlet' => GeneralLabel::atlet_jurulatih_pengawai_anggota,  //'Atlet / Jurulatih / Pegawai & Anggota',
             'diagnosis' => GeneralLabel::diagnosis,
             'preskripsi' => GeneralLabel::preskripsi,
             'cadangan' => GeneralLabel::cadangan,
@@ -77,7 +77,7 @@ class BorangPenilaianKaunseling extends \yii\db\ActiveRecord
             'tindakan_selanjutnya' => GeneralLabel::tindakan_selanjutnya,
             'kategori_permasalahan' => GeneralLabel::kategori_permasalahan,
             'tarikh_temujanji' => GeneralLabel::tarikh_temujanji,
-            'lain_lain_nyatakan' => 'Lain-lain Nyatakan',
+            'lain_lain_nyatakan' => GeneralLabel::nyatakan_jika_lain_lain  //'Lain-lain Nyatakan',
         ];
     }
     

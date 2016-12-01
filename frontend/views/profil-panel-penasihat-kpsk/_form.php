@@ -35,7 +35,7 @@ use app\models\general\GeneralMessage;
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT PERIBADI</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_peribadi; ?></strong></pre>
     
     <?php // Upload
     if($model->muatnaik){

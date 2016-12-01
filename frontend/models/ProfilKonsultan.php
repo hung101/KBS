@@ -96,6 +96,7 @@ class ProfilKonsultan extends \yii\db\ActiveRecord
             'lain_lain' => GeneralLabel::lain_lain,
             'tarikh' => GeneralLabel::tarikh,
             'status_permohonan' => GeneralLabel::status_permohonan,
+            'gambar' => GeneralLabel::gambar,
         ];
     }
     
