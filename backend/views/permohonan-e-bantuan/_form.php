@@ -49,9 +49,15 @@ use app\models\general\GeneralMessage;
         } else {
             $template = '{view}';
         }
+        
+        $disablePersatuanInfo = false;
+        
+        if($model->profil_badan_sukan_id && $model->profil_badan_sukan_id > 0){
+            $disablePersatuanInfo = true;
+        }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
     <?php
         if(($model->kelulusan_id && $model->kelulusan_id == RefKelulusanHqEBantuan::STATUS_LULUS) || ($model->negeri_sokongan_id && $model->negeri_sokongan_id == RefNegeriSokonganEBantuan::STATUS_LULUS)):
@@ -112,13 +118,13 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                  //'ebantuan_id' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
-                'nama_pertubuhan_persatuan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+                'nama_pertubuhan_persatuan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80, 'disabled'=>$disablePersatuanInfo]],
                 'kategori_persatuan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2', 
                     'options'=>[
                         'data'=>ArrayHelper::map(RefKategoriPersatuan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategoriPersatuan],
+                        'options' => ['placeholder' => Placeholder::kategoriPersatuan, 'disabled'=>$disablePersatuanInfo],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -128,7 +134,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                     'widgetClass'=>'\kartik\widgets\Select2', 
                     'options'=>[
                         'data'=>ArrayHelper::map(RefKategoriProgram::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kategoriProgram],
+                        'options' => ['placeholder' => Placeholder::kategoriProgram, 'disabled'=>$disablePersatuanInfo],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -138,7 +144,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                     'widgetClass'=>'\kartik\widgets\Select2', 
                     'options'=>[
                         'data'=>ArrayHelper::map(RefPeringkatProgram::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::peringkatProgram],
+                        'options' => ['placeholder' => Placeholder::peringkatProgram, 'disabled'=>$disablePersatuanInfo],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -149,7 +155,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                 'no_pendaftaran' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3]],
+                 'no_pendaftaran' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30, 'disabled'=>$disablePersatuanInfo]],
                  'tarikh_didaftarkan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -158,6 +164,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
+                        , 'disabled'=>$disablePersatuanInfo
                     ],
                     'columnOptions'=>['colspan'=>3]],
                 'pejabat_yang_mendaftarkan' => [
@@ -165,7 +172,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                     'widgetClass'=>'\kartik\widgets\Select2', 
                     'options'=>[
                         'data'=>ArrayHelper::map(RefPejabatYangMendaftarkan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::pejabatYangMendaftarkan],
+                        'options' => ['placeholder' => Placeholder::pejabatYangMendaftarkan, 'disabled'=>$disablePersatuanInfo],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -174,17 +181,17 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
         ],
         [
             'attributes' => [
-                'alamat_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                'alamat_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30, 'disabled'=>$disablePersatuanInfo]],
             ]
         ],
         [
             'attributes' => [
-                'alamat_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                'alamat_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30, 'disabled'=>$disablePersatuanInfo]],
             ]
         ],
         [
             'attributes' => [
-                'alamat_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                'alamat_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30, 'disabled'=>$disablePersatuanInfo]],
             ]
         ],
         [
@@ -196,7 +203,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                     'widgetClass'=>'\kartik\widgets\Select2', 
                     'options'=>[
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],
+                        'options' => ['placeholder' => Placeholder::negeri, 'disabled'=>$disablePersatuanInfo],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -205,6 +212,10 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\DepDrop', 
                     'options'=>[
+                        'select2Options'=> [
+                            'disabled'=>$disablePersatuanInfo,
+                            'pluginOptions'=>['allowClear'=>true]
+                        ],
                         'type'=>DepDrop::TYPE_SELECT2,
                         'data'=>ArrayHelper::map(RefBandar::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
@@ -214,11 +225,15 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                             'url'=>Url::to(['/ref-bandar/subbandars'])],
                         ],
                     'columnOptions'=>['colspan'=>3]],
-                'alamat_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5]],
+                'alamat_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5, 'disabled'=>$disablePersatuanInfo]],
                 'alamat_parlimen' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\DepDrop', 
                     'options'=>[
+                        'select2Options'=> [
+                            'disabled'=>$disablePersatuanInfo,
+                            'pluginOptions'=>['allowClear'=>true]
+                        ],
                         'type'=>DepDrop::TYPE_SELECT2,
                         'data'=>ArrayHelper::map(RefParlimen::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
@@ -246,17 +261,17 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     'rows' => [
         [
             'attributes' => [
-                'alamat_surat_menyurat_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                'alamat_surat_menyurat_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30, 'disabled'=>$disablePersatuanInfo]],
             ]
         ],
         [
             'attributes' => [
-                'alamat_surat_menyurat_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                'alamat_surat_menyurat_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30, 'disabled'=>$disablePersatuanInfo]],
             ]
         ],
         [
             'attributes' => [
-                'alamat_surat_menyurat_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                'alamat_surat_menyurat_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30, 'disabled'=>$disablePersatuanInfo]],
             ]
         ],
         [
@@ -268,7 +283,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                     'widgetClass'=>'\kartik\widgets\Select2', 
                     'options'=>[
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],
+                        'options' => ['placeholder' => Placeholder::negeri, 'disabled'=>$disablePersatuanInfo],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -277,6 +292,10 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\DepDrop', 
                     'options'=>[
+                        'select2Options'=> [
+                            'disabled'=>$disablePersatuanInfo,
+                            'pluginOptions'=>['allowClear'=>true]
+                        ],
                         'type'=>DepDrop::TYPE_SELECT2,
                         'data'=>ArrayHelper::map(RefBandar::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
@@ -286,11 +305,15 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                             'url'=>Url::to(['/ref-bandar/subbandars'])],
                         ],
                     'columnOptions'=>['colspan'=>3]],
-                'alamat_surat_menyurat_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5]],
+                'alamat_surat_menyurat_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5, 'disabled'=>$disablePersatuanInfo]],
                 'alamat_surat_menyurat_parlimen' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\DepDrop', 
                     'options'=>[
+                        'select2Options'=> [
+                            'disabled'=>$disablePersatuanInfo,
+                            'pluginOptions'=>['allowClear'=>true]
+                        ],
                         'type'=>DepDrop::TYPE_SELECT2,
                         'data'=>ArrayHelper::map(RefParlimen::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
@@ -306,14 +329,14 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'no_telefon_pejabat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
-                'no_telefon_bimbit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
-                'no_fax' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
+                'no_telefon_pejabat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14, 'disabled'=>$disablePersatuanInfo]],
+                'no_telefon_bimbit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14, 'disabled'=>$disablePersatuanInfo]],
+                'no_fax' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14, 'disabled'=>$disablePersatuanInfo]],
             ]
         ],
         [
             'attributes' => [
-                'email' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>100]],
+                'email' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>100, 'disabled'=>$disablePersatuanInfo]],
             ]
         ],
         [
@@ -352,32 +375,32 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     'rows' => [
         [
             'attributes' => [
-                'jawatankuasa_penaung' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>80]],
+                'jawatankuasa_penaung' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>80, 'disabled'=>$disablePersatuanInfo]],
             ]
         ],
         [
             'attributes' => [
-                'jawatankuasa_pegerusi' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>80]],
+                'jawatankuasa_pegerusi' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>80, 'disabled'=>$disablePersatuanInfo]],
             ]
         ],
         [
             'attributes' => [
-                'jawatankuasa_timbalan_pengerusi' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>80]],
+                'jawatankuasa_timbalan_pengerusi' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>80, 'disabled'=>$disablePersatuanInfo]],
             ]
         ],
         [
             'attributes' => [
-                'jawatankuasa_naib_pengerusi' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>80]],
+                'jawatankuasa_naib_pengerusi' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>80, 'disabled'=>$disablePersatuanInfo]],
             ]
         ],
         [
             'attributes' => [
-                'jawatankuasa_setiausaha' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>80]],
+                'jawatankuasa_setiausaha' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>80, 'disabled'=>$disablePersatuanInfo]],
             ]
         ],
         [
             'attributes' => [
-                'jawatankuasa_bendahari' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>80]],
+                'jawatankuasa_bendahari' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>80, 'disabled'=>$disablePersatuanInfo]],
             ]
         ],
     ]
@@ -1151,7 +1174,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::save : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        <?= Html::submitButton('Hantar', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton(GeneralLabel::send, ['class' => 'btn btn-primary']) ?>
             <?php if(!$model->isNewRecord): ?>
             <?php 
             /*if(!$model->isNewRecord){
@@ -1261,6 +1284,24 @@ $("#sama_alamat").change(function() {
         $("#permohonanebantuan-alamat_surat_menyurat_poskod").val($("#permohonanebantuan-alamat_poskod").val());
         $("#permohonanebantuan-alamat_surat_menyurat_parlimen").val($("#permohonanebantuan-alamat_parlimen").val()).trigger("change");
     }
+});
+        
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+    $("#permohonanebantuan-kategori_persatuan").prop("disabled", false);
+    $("#permohonanebantuan-kategori_program").prop("disabled", false);
+    $("#permohonanebantuan-peringkat_program").prop("disabled", false);
+    $("#permohonanebantuan-pejabat_yang_mendaftarkan").prop("disabled", false);
+    $("#permohonanebantuan-alamat_negeri").prop("disabled", false);
+    $("#permohonanebantuan-alamat_bandar").prop("disabled", false);
+    $("#permohonanebantuan-alamat_parlimen").prop("disabled", false);
+    $("#permohonanebantuan-alamat_surat_menyurat_negeri").prop("disabled", false);
+    $("#permohonanebantuan-alamat_surat_menyurat_bandar").prop("disabled", false);
+    $("#permohonanebantuan-alamat_surat_menyurat_parlimen").prop("disabled", false);
 });
         
 JS;

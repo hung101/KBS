@@ -833,6 +833,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kelulusan_akademi = "Kelulusan Akademik";
         const kelulusan_ceo = "Kelulusan CEO";
         const kelulusan_echics = "Kelulusan Etika";
+        const kelulusan_maklumat_kewangan = "Luluskan Permintaan Maklumat Kewangan";
         const kelulusan_pbu = "Kelulusan PBU";
         const kelulusan_sains_sukan = "Kelulusan Kursus";
         const kelulusan_sukan_spesifik = "Kelulusan Sukan Spesifik";
@@ -1612,6 +1613,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const perkhidmatan_analisa_perlawanan_biomekanik_id = "Perkhidmatan Analisa Perlawanan Biomekanik ID";
         const perkhidmatan_permakanan_id = "Perkhidmatan Pemakanan ID";
         const perlembagaan_badan_sukan_id = "Perlembagaan Badan Sukan ID";
+        const permintaan_maklumat_kewangan = "Permintaan Maklumat Kewangan";
         const permit_kerja_jurulatih = "Permit Kerja (Jurulatih Asing)";
         const permohonan = "Permohonan";
         const permohonan_biasiswa_id = "Permohonan Biasiswa ID";
@@ -4238,6 +4240,7 @@ if($session->get('language') == "EN") {
         const kelulusan_akademi = "The Approval Of The Academic";
         const kelulusan_ceo = "The Approval Of The CEO";
         const kelulusan_echics = "Approval Of Ethics";
+        const kelulusan_maklumat_kewangan = "Approval Of Financial Information";
         const kelulusan_pbu = "Approval Of PBU";
         const kelulusan_sains_sukan = "Approval Of Sport Science";
         const kelulusan_sukan_spesifik = "Approval Of The Specific Sport";
@@ -5016,6 +5019,7 @@ if($session->get('language') == "EN") {
         const perkhidmatan_analisa_perlawanan_biomekanik_id = "Biomechanics Analysis Of Service ID Match";
         const perkhidmatan_permakanan_id = "Nutrition ID";
         const perlembagaan_badan_sukan_id = "The Constitution Of The Body ID Sport";
+        const permintaan_maklumat_kewangan = "Request Financial Information";
         const permit_kerja_jurulatih = "Work Permit (Foreign Coach)";
         const permohonan = "Application";
         const permohonan_biasiswa_id = "Scholarship Application ID";

@@ -17,6 +17,7 @@ use app\models\PermohonanEBantuanPendapatanTahunLepas;
 use backend\models\PermohonanEBantuanPendapatanTahunLepasSearch;
 use app\models\PermohonanEBantuanAnggaranPerbelanjaan;
 use backend\models\PermohonanEBantuanAnggaranPerbelanjaanSearch;
+use app\models\LtbsAhliJawatankuasaIndukKecil;
 use app\models\ProfilBadanSukan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -44,6 +45,7 @@ use app\models\RefPeringkatProgram;
 use app\models\RefPejabatYangMendaftarkan;
 use app\models\RefParlimen;
 use app\models\RefPeringkatBadanSukan;
+use app\models\RefJawatanInduk;
 
 /**
  * PermohonanEBantuanController implements the CRUD actions for PermohonanEBantuan model.
@@ -322,10 +324,68 @@ class PermohonanEBantuanController extends Controller
             $model->alamat_negeri = $modelBadanSukan->alamat_tetap_badan_sukan_negeri;
             $model->alamat_bandar = $modelBadanSukan->alamat_tetap_badan_sukan_bandar;
             $model->alamat_poskod = $modelBadanSukan->alamat_tetap_badan_sukan_poskod;
+            $model->alamat_surat_menyurat_1 = $modelBadanSukan->alamat_tetap_badan_sukan_1;
+            $model->alamat_surat_menyurat_2 = $modelBadanSukan->alamat_tetap_badan_sukan_2;
+            $model->alamat_surat_menyurat_3 = $modelBadanSukan->alamat_tetap_badan_sukan_3;
+            $model->alamat_surat_menyurat_negeri = $modelBadanSukan->alamat_tetap_badan_sukan_negeri;
+            $model->alamat_surat_menyurat_bandar = $modelBadanSukan->alamat_tetap_badan_sukan_bandar;
+            $model->alamat_surat_menyurat_poskod = $modelBadanSukan->alamat_tetap_badan_sukan_poskod;
             $model->no_telefon_pejabat = $modelBadanSukan->no_telefon_pejabat;
             $model->no_telefon_bimbit = $modelBadanSukan->no_tel_bimbit;
             $model->no_fax = $modelBadanSukan->no_faks_pejabat;
             $model->email = $modelBadanSukan->emel_badan_sukan;
+            $model->profil_badan_sukan_id = $modelBadanSukan->profil_badan_sukan;
+            
+            //Jawatankuasa Kerja Yang Terkini
+            //Penaung
+            if (($modelLtbsAhliJawatankuasaIndukKecil = LtbsAhliJawatankuasaIndukKecil::find()->where(['jawatan' => RefJawatanInduk::PENAUNG])->andWhere(['profil_badan_sukan_id' => $modelBadanSukan->profil_badan_sukan])->one()) !== null) {
+                $model->jawatankuasa_penaung = $modelLtbsAhliJawatankuasaIndukKecil->nama_penuh;
+            }
+            
+            //Pengerusi/Presiden/Yang Di Pertua
+            if (($modelLtbsAhliJawatankuasaIndukKecil = LtbsAhliJawatankuasaIndukKecil::find()->where(['jawatan' => RefJawatanInduk::PRESIDEN])->andWhere(['profil_badan_sukan_id' => $modelBadanSukan->profil_badan_sukan])->one()) !== null) {
+                $model->jawatankuasa_pegerusi = $modelLtbsAhliJawatankuasaIndukKecil->nama_penuh;
+            }
+            
+            //Timbalan Pengerusi/Timbalan Presiden/Timbalan Yang Di Pertua
+            if (($modelLtbsAhliJawatankuasaIndukKecil = LtbsAhliJawatankuasaIndukKecil::find()->where(['jawatan' => RefJawatanInduk::TIMBALAN_PRESIDEN])->andWhere(['profil_badan_sukan_id' => $modelBadanSukan->profil_badan_sukan])->one()) !== null) {
+                $model->jawatankuasa_timbalan_pengerusi = $modelLtbsAhliJawatankuasaIndukKecil->nama_penuh;
+            }
+            
+            //Naib Pengerusi/Naib Presiden/Naib Yang Di Pertua
+            if (($modelLtbsAhliJawatankuasaIndukKecil = LtbsAhliJawatankuasaIndukKecil::find()->where(['jawatan' => RefJawatanInduk::NAIB_PRESIDEN_1])->andWhere(['profil_badan_sukan_id' => $modelBadanSukan->profil_badan_sukan])->one()) !== null) {
+                $model->jawatankuasa_naib_pengerusi = $modelLtbsAhliJawatankuasaIndukKecil->nama_penuh;
+            } else if(($modelLtbsAhliJawatankuasaIndukKecil = LtbsAhliJawatankuasaIndukKecil::find()->where(['jawatan' => RefJawatanInduk::NAIB_PRESIDEN_2])->andWhere(['profil_badan_sukan_id' => $modelBadanSukan->profil_badan_sukan])->one()) !== null) {
+                $model->jawatankuasa_naib_pengerusi = $modelLtbsAhliJawatankuasaIndukKecil->nama_penuh;
+            } else if(($modelLtbsAhliJawatankuasaIndukKecil = LtbsAhliJawatankuasaIndukKecil::find()->where(['jawatan' => RefJawatanInduk::NAIB_PRESIDEN_3])->andWhere(['profil_badan_sukan_id' => $modelBadanSukan->profil_badan_sukan])->one()) !== null) {
+                $model->jawatankuasa_naib_pengerusi = $modelLtbsAhliJawatankuasaIndukKecil->nama_penuh;
+            } else if(($modelLtbsAhliJawatankuasaIndukKecil = LtbsAhliJawatankuasaIndukKecil::find()->where(['jawatan' => RefJawatanInduk::NAIB_PRESIDEN_4])->andWhere(['profil_badan_sukan_id' => $modelBadanSukan->profil_badan_sukan])->one()) !== null) {
+                $model->jawatankuasa_naib_pengerusi = $modelLtbsAhliJawatankuasaIndukKecil->nama_penuh;
+            } else if(($modelLtbsAhliJawatankuasaIndukKecil = LtbsAhliJawatankuasaIndukKecil::find()->where(['jawatan' => RefJawatanInduk::NAIB_PRESIDEN_5])->andWhere(['profil_badan_sukan_id' => $modelBadanSukan->profil_badan_sukan])->one()) !== null) {
+                $model->jawatankuasa_naib_pengerusi = $modelLtbsAhliJawatankuasaIndukKecil->nama_penuh;
+            } else if(($modelLtbsAhliJawatankuasaIndukKecil = LtbsAhliJawatankuasaIndukKecil::find()->where(['jawatan' => RefJawatanInduk::NAIB_PRESIDEN_6])->andWhere(['profil_badan_sukan_id' => $modelBadanSukan->profil_badan_sukan])->one()) !== null) {
+                $model->jawatankuasa_naib_pengerusi = $modelLtbsAhliJawatankuasaIndukKecil->nama_penuh;
+            } else if(($modelLtbsAhliJawatankuasaIndukKecil = LtbsAhliJawatankuasaIndukKecil::find()->where(['jawatan' => RefJawatanInduk::NAIB_PRESIDEN_7])->andWhere(['profil_badan_sukan_id' => $modelBadanSukan->profil_badan_sukan])->one()) !== null) {
+                $model->jawatankuasa_naib_pengerusi = $modelLtbsAhliJawatankuasaIndukKecil->nama_penuh;
+            } else if(($modelLtbsAhliJawatankuasaIndukKecil = LtbsAhliJawatankuasaIndukKecil::find()->where(['jawatan' => RefJawatanInduk::NAIB_PRESIDEN_8])->andWhere(['profil_badan_sukan_id' => $modelBadanSukan->profil_badan_sukan])->one()) !== null) {
+                $model->jawatankuasa_naib_pengerusi = $modelLtbsAhliJawatankuasaIndukKecil->nama_penuh;
+            } else if(($modelLtbsAhliJawatankuasaIndukKecil = LtbsAhliJawatankuasaIndukKecil::find()->where(['jawatan' => RefJawatanInduk::NAIB_PRESIDEN_9])->andWhere(['profil_badan_sukan_id' => $modelBadanSukan->profil_badan_sukan])->one()) !== null) {
+                $model->jawatankuasa_naib_pengerusi = $modelLtbsAhliJawatankuasaIndukKecil->nama_penuh;
+            } else if(($modelLtbsAhliJawatankuasaIndukKecil = LtbsAhliJawatankuasaIndukKecil::find()->where(['jawatan' => RefJawatanInduk::NAIB_PRESIDEN_10])->andWhere(['profil_badan_sukan_id' => $modelBadanSukan->profil_badan_sukan])->one()) !== null) {
+                $model->jawatankuasa_naib_pengerusi = $modelLtbsAhliJawatankuasaIndukKecil->nama_penuh;
+            }
+            
+            //Setiausaha
+            if (($modelLtbsAhliJawatankuasaIndukKecil = LtbsAhliJawatankuasaIndukKecil::find()->where(['jawatan' => RefJawatanInduk::SETIAUSAHA])->andWhere(['profil_badan_sukan_id' => $modelBadanSukan->profil_badan_sukan])->one()) !== null) {
+                $model->jawatankuasa_timbalan_pengerusi = $modelLtbsAhliJawatankuasaIndukKecil->nama_penuh;
+            } else if(($modelLtbsAhliJawatankuasaIndukKecil = LtbsAhliJawatankuasaIndukKecil::find()->where(['jawatan' => RefJawatanInduk::PENOLONG_SETIAUSAHA])->andWhere(['profil_badan_sukan_id' => $modelBadanSukan->profil_badan_sukan])->one()) !== null) {
+                $model->jawatankuasa_naib_pengerusi = $modelLtbsAhliJawatankuasaIndukKecil->nama_penuh;
+            }
+            
+            //Bendahari
+            if (($modelLtbsAhliJawatankuasaIndukKecil = LtbsAhliJawatankuasaIndukKecil::find()->where(['jawatan' => RefJawatanInduk::BENDAHARI])->andWhere(['profil_badan_sukan_id' => $modelBadanSukan->profil_badan_sukan])->one()) !== null) {
+                $model->jawatankuasa_timbalan_pengerusi = $modelLtbsAhliJawatankuasaIndukKecil->nama_penuh;
+            }
         }
         
         $queryPar = null;

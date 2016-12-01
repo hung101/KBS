@@ -140,14 +140,6 @@ use app\models\general\GeneralLabel;
                         ],
                         'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
-                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                            [
-                                'append' => [
-                                    'content' => Html::a(Html::icon('edit'), ['/ref-acara/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                    'asButton' => true
-                                ]
-                            ] : null,
-                            ],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'sukan')],
                             'placeholder' => Placeholder::acara,
@@ -174,7 +166,7 @@ use app\models\general\GeneralLabel;
                         ] : null,
                         'data'=>ArrayHelper::map(RefTempatPenjadualanUjianFisiologi::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::tempat],
-'pluginOptions' => [
+                        'pluginOptions' => [
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],

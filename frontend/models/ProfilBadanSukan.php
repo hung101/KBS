@@ -60,7 +60,9 @@ class ProfilBadanSukan extends \yii\db\ActiveRecord
             return [
                 [['nama_badan_sukan', 'no_pendaftaran', 'nama_badan_sukan_sebelum_ini', 'no_pendaftaran_sijil_pendaftaran', 'tarikh_lulus_pendaftaran', 'peringkat_badan_sukan', 'jenis_sukan', 'no_telefon_pejabat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
                 [['tarikh_lulus_pendaftaran', 'tarikh_kelulusan_Terkini', 'tarikh_pindaan', 'tarikh_kelulusan'], 'safe'],
-                [['no_telefon_pejabat', 'no_telefon_pejabat_2', 'no_telefon_pejabat_3', 'no_tel_bimbit', 'no_faks_pejabat', 'alamat_tetap_badan_sukan_poskod', 'alamat_surat_menyurat_badan_sukan_poskod', 'status'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+                [['no_telefon_pejabat', 'no_telefon_pejabat_2', 'no_telefon_pejabat_3', 'no_tel_bimbit', 'no_faks_pejabat',
+                    'alamat_tetap_badan_sukan_poskod', 'alamat_surat_menyurat_badan_sukan_poskod', 'status',
+                    'permintaan_maklumat_kewangan_request','permintaan_maklumat_kewangan_approved'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
                 [['no_telefon_pejabat', 'no_telefon_pejabat_2', 'no_telefon_pejabat_3', 'no_tel_bimbit', 'no_faks_pejabat'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['nama_badan_sukan', 'nama_badan_sukan_sebelum_ini', 'emel_badan_sukan', 'pengiktirafan_yang_pernah_diterima_badan_sukan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['jenis_sukan', 'alamat_tetap_badan_sukan_1', 'alamat_tetap_badan_sukan_2', 'alamat_tetap_badan_sukan_3', 'alamat_tetap_badan_sukan_bandar', 'alamat_surat_menyurat_badan_sukan_1', 'alamat_surat_menyurat_badan_sukan_2', 'alamat_surat_menyurat_badan_sukan_3', 'alamat_surat_menyurat_badan_sukan_bandar'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],

@@ -264,6 +264,54 @@ class ProfilBadanSukanController extends Controller
 
         return $this->redirect(['index']);
     }
+    
+    /**
+     * Updates an existing ProfilBadanSukan model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionRequest($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->permintaan_maklumat_kewangan_request = 1; // set approved
+        $model->permintaan_maklumat_kewangan_request_date = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->save();
+        
+        return $this->redirect(['view', 'id' => $id]);
+        
+        return $this->redirect(['index']);
+    }
+    
+    /**
+     * Updates an existing ProfilBadanSukan model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionApproved($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->permintaan_maklumat_kewangan_approved = 1; // set approved
+        $model->permintaan_maklumat_kewangan_approved_date = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->save();
+        
+        return $this->redirect(['view', 'id' => $id]);
+        
+        return $this->redirect(['index']);
+    }
 
     /**
      * Finds the ProfilBadanSukan model based on its primary key value.

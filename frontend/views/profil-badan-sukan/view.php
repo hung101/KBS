@@ -32,6 +32,12 @@ $this->params['breadcrumbs'][] = GeneralLabel::viewTitle;
                 ],
             ]) ?>
         <?php endif; ?>
+        <?php if(!isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['maklumat-kewangan']) && $model->permintaan_maklumat_kewangan_request == 0): ?>
+            <?= Html::a(GeneralLabel::permintaan_maklumat_kewangan, ['request', 'id' => $model->profil_badan_sukan], ['class' => 'btn btn-success']) ?>
+        <?php endif; ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['kelulusan-maklumat-kewangan']) && $model->permintaan_maklumat_kewangan_request == 1 && $model->permintaan_maklumat_kewangan_approved == 0): ?>
+            <?= Html::a(GeneralLabel::kelulusan_maklumat_kewangan, ['approved', 'id' => $model->profil_badan_sukan], ['class' => 'btn btn-warning']) ?>
+        <?php endif; ?>
         <?= Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'window.print();' ]); ?>
     </p>
     
