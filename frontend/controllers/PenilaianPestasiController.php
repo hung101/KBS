@@ -8,6 +8,7 @@ use app\models\PenilaianPestasiSearch;
 use app\models\PenilaianPrestasiAtletSasaran;
 use frontend\models\PenilaianPrestasiAtletSasaranSearch;
 use app\models\MsnLaporan;
+use app\models\MsnLaporanAcaraKejohananTemasya;
 use app\models\AtletPencapaian;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

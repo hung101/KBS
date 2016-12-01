@@ -511,6 +511,7 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-bimbingan-kaunseling']['kelulusan']) || $readonly): ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -563,6 +564,7 @@ use app\models\general\GeneralMessage;
     ]
 ]);
     ?>
+    <?php endif; ?>
 
 
     <div class="form-group">

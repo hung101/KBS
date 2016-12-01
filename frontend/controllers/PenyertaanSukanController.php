@@ -163,8 +163,8 @@ class PenyertaanSukanController extends Controller
                 $modelPenilaianPestasi->save();
 
                 $modelPenyertaanSukanAcaras = PenyertaanSukanAcara::findAll([
-                        'penyertaan_sukan_id' => $model->penyertaan_sukan_id,
-                    ]);
+                    'penyertaan_sukan_id' => $model->penyertaan_sukan_id,
+                ]);
 
                 foreach($modelPenyertaanSukanAcaras as $modelPenyertaanSukanAcara){
                     $modelPenilaianPrestasiAtletSasaran = null;
@@ -180,6 +180,36 @@ class PenyertaanSukanController extends Controller
                     $modelPenilaianPrestasiAtletSasaran->penyertaan_sukan_id = $modelPenyertaanSukanAcara->penyertaan_sukan_id;
                     $modelPenilaianPrestasiAtletSasaran->penyertaan_sukan_acara_id = $modelPenyertaanSukanAcara->penyertaan_sukan_acara_id;
                     $modelPenilaianPrestasiAtletSasaran->save();
+                    
+                    
+                    
+                    $modelAtletPencapaian = null;
+                    if (($modelAtletPencapaian = AtletPencapaian::find()->where(['atlet_id'=>$modelPenyertaanSukanAcara->atlet])
+                            ->andWhere(['penyertaan_sukan_id'=>$model->penyertaan_sukan_id])
+                            ->andWhere(['penyertaan_sukan_acara_id'=>$model->penyertaan_sukan_acara_id])->one()) == null) {
+                        $modelAtletPencapaian = new AtletPencapaian();
+                    }
+
+                    if($model->nama_kejohanan){
+                        $refPerancanganProgram = PerancanganProgram::findOne(['perancangan_program_id' => $model->nama_kejohanan]);
+                        $modelAtletPencapaian->nama_kejohanan_temasya = $refPerancanganProgram['nama_program'];
+                        $modelAtletPencapaian->tarikh_mula_kejohanan = $refPerancanganProgram['tarikh_mula'];
+                        $modelAtletPencapaian->tarikh_tamat_kejohanan = $refPerancanganProgram['tarikh_tamat'];
+                    } elseif($model->nama_temasya) {
+                        $refTemasya = RefTemasya::findOne(['perancangan_program_id' => $model->nama_temasya]);
+                        $modelAtletPencapaian->nama_kejohanan_temasya = $refTemasya['desc'];
+                        $modelAtletPencapaian->tarikh_mula_kejohanan = $model->tarikh_mula;
+                        $modelAtletPencapaian->tarikh_tamat_kejohanan = $model->tarikh_tamat;
+                    }
+
+                    $modelAtletPencapaian->atlet_id = $model->atlet;
+                    $modelAtletPencapaian->nama_sukan = $model->nama_sukan;
+                    $modelAtletPencapaian->nama_acara = $modelPenyertaanSukanAcara->nama_acara;
+                    $modelAtletPencapaian->peringkat_kejohanan = $model->peringkat;
+                    $modelAtletPencapaian->penyertaan_sukan_id = $model->penilaian_pestasi_id;
+                    $modelAtletPencapaian->penyertaan_sukan_acara_id = $model->penilaian_prestasi_atlet_sasaran_id;
+                    $modelAtletPencapaian->pencapaian = $modelPenyertaanSukanAcara->keputusan;
+                    $modelAtletPencapaian->save();
                 }
                 
                 $model->penilaian_pestasi_id = $modelPenilaianPestasi->penilaian_pestasi_id;
@@ -259,6 +289,36 @@ class PenyertaanSukanController extends Controller
                 
                 $model->penilaian_pestasi_id = $modelPenilaianPestasi->penilaian_pestasi_id;
                 $model->save();
+                
+                
+                
+                $modelAtletPencapaian = null;
+                    if (($modelAtletPencapaian = AtletPencapaian::find()->where(['atlet_id'=>$modelPenyertaanSukanAcara->atlet])
+                            ->andWhere(['penyertaan_sukan_id'=>$model->penyertaan_sukan_id])
+                            ->andWhere(['penyertaan_sukan_acara_id'=>$model->penyertaan_sukan_acara_id])->one()) == null) {
+                        $modelAtletPencapaian = new AtletPencapaian();
+                    }
+
+                    if($model->nama_kejohanan){
+                        $refPerancanganProgram = PerancanganProgram::findOne(['perancangan_program_id' => $model->nama_kejohanan]);
+                        $modelAtletPencapaian->nama_kejohanan_temasya = $refPerancanganProgram['nama_program'];
+                        $modelAtletPencapaian->tarikh_mula_kejohanan = $refPerancanganProgram['tarikh_mula'];
+                        $modelAtletPencapaian->tarikh_tamat_kejohanan = $refPerancanganProgram['tarikh_tamat'];
+                    } elseif($model->nama_temasya) {
+                        $refTemasya = RefTemasya::findOne(['perancangan_program_id' => $model->nama_temasya]);
+                        $modelAtletPencapaian->nama_kejohanan_temasya = $refTemasya['desc'];
+                        $modelAtletPencapaian->tarikh_mula_kejohanan = $model->tarikh_mula;
+                        $modelAtletPencapaian->tarikh_tamat_kejohanan = $model->tarikh_tamat;
+                    }
+
+                    $modelAtletPencapaian->atlet_id = $model->atlet;
+                    $modelAtletPencapaian->nama_sukan = $model->nama_sukan;
+                    $modelAtletPencapaian->nama_acara = $modelPenyertaanSukanAcara->nama_acara;
+                    $modelAtletPencapaian->peringkat_kejohanan = $model->peringkat;
+                    $modelAtletPencapaian->penyertaan_sukan_id = $model->penilaian_pestasi_id;
+                    $modelAtletPencapaian->penyertaan_sukan_acara_id = $model->penilaian_prestasi_atlet_sasaran_id;
+                    $modelAtletPencapaian->pencapaian = $modelPenyertaanSukanAcara->keputusan;
+                    $modelAtletPencapaian->save();
             }
             
             return $this->redirect(['view', 'id' => $model->penyertaan_sukan_id]);

@@ -54,7 +54,7 @@ class PenyertaanSukanAcara extends \yii\db\ActiveRecord
     {
         return [
             [['nama_acara', 'tarikh_acara', 'keputusan_acara', 'jumlah_pingat', 'rekod_baru', 'atlet'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['penyertaan_sukan_id', 'jumlah_pingat', 'rekod_baru', 'atlet'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['penyertaan_sukan_id', 'jumlah_pingat', 'rekod_baru', 'atlet', 'keputusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_acara'], 'safe'],
             [['nama_acara', 'keputusan_acara', 'sasaran'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan_rekod_baru'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
@@ -77,6 +77,7 @@ class PenyertaanSukanAcara extends \yii\db\ActiveRecord
             'catatan_rekod_baru' => GeneralLabel::catatan_rekod_baru,
             'atlet' => GeneralLabel::atlet,
             'sasaran' => GeneralLabel::sasaran,
+            'keputusan' => GeneralLabel::keputusan,
         ];
     }
     
