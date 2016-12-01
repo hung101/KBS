@@ -265,6 +265,7 @@ class PermohonanEBantuanController extends Controller
             $JUMLAH_BUTIRAN_DIPERAKUKAN = number_format($JUMLAH_BUTIRAN_DIPERAKUKAN,2);
 
             $html_content = str_replace("[tbl_permohonan_e_bantuan - nama_pertubuhan_persatuan]",$model->nama_pertubuhan_persatuan,$html_content);
+            $html_content = str_replace("[tbl_permohonan_e_bantuan - no_pendaftaran_persatuan]",$model->no_pendaftaran,$html_content);
             $html_content = str_replace("[tbl_permohonan_e_bantuan - nama_program]",$model->nama_program,$html_content);
             $html_content = str_replace("[tbl_permohonan_e_bantuan - tarikh_pelaksanaan]",$model->tarikh_pelaksanaan,$html_content);
             $html_content = str_replace("[tbl_permohonan_e_bantuan - tempat_pelaksanaan]",$model->tempat_pelaksanaan,$html_content);
@@ -275,6 +276,11 @@ class PermohonanEBantuanController extends Controller
             $html_content = str_replace("[JUMLAH_BUTIRAN_DISOKONG]",$JUMLAH_BUTIRAN_DISOKONG,$html_content);
             $html_content = str_replace("[JUMLAH_BUTIRAN_DIPERAKUKAN]",$JUMLAH_BUTIRAN_DIPERAKUKAN,$html_content);
             $html_content = str_replace("[page_break]",$page_break,$html_content);
+            
+            $pdf->methods = [
+                'SetHeader'=>['PB5'], 
+                'SetFooter'=>['{PAGENO}'],
+            ];
 
         }
         
