@@ -81,7 +81,7 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
             'jenis_aktiviti' => 'Jenis',
             'tarikh_kelulusan' => GeneralLabel::tarikh_kelulusan,
             'kelulusan' => GeneralLabel::kelulusan,
-            'status_program' => GeneralLabel::status_kelulusan,
+            'status_program' => 'Kedudukan Kejohanan',
             'sukan' => GeneralLabel::sukan,
         ];
     }
