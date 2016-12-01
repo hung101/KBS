@@ -12,7 +12,7 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PerlembagaanBadanSukan */
 
 //$this->title = $model->perlembagaan_badan_sukan_id;
-$this->title =  'Perlembagaan Badan Sukan';
+$this->title =  ''.GeneralLabel::perlembagaan_badan_sukan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::perlembagaan_badan_sukan, 'url' => Url::to(['index', 'profil_badan_sukan_id' => $profil_badan_sukan_id])];
 $this->params['breadcrumbs'][] = GeneralLabel::viewTitle;
 ?>

@@ -71,9 +71,10 @@ class PengurusanMediaProgram extends \yii\db\ActiveRecord
             'tarikh_tamat' => GeneralLabel::tarikh_tamat,
             'nama_program' => GeneralLabel::nama_program,
             'tempat' => GeneralLabel::tempat,
-            'cawangan' => 'Bahagian / Cawangan',
+            'cawangan' => GeneralLabel::cawangan,  //'Bahagian / Cawangan',
             'maklumat_msn_negeri' => GeneralLabel::maklumat_msn_negeri,
             'catatan' => GeneralLabel::catatan,
+            'pengerusi_program' => GeneralLabel::pengerusi_program,
 
         ];
     }

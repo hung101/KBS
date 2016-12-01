@@ -490,11 +490,11 @@ use app\models\general\GeneralMessage;
         <?php endif; ?>
         <?php
         if(!$model->isNewRecord){
-            echo '&nbsp;&nbsp;' . Html::a('Ahli Jawatankuasa Induk', Url::to(['/ltbs-ahli-jawatankuasa-induk-kecil/index', 'profil_badan_sukan_id' => $model->profil_badan_sukan]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
-            echo '&nbsp;&nbsp;' . Html::a('Ahli Jawatankuasa Kecil / Biro', Url::to(['/ltbs-ahli-jawatankuasa-kecil/index', 'profil_badan_sukan_id' => $model->profil_badan_sukan]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
-            echo '&nbsp;&nbsp;' . Html::a('Senarai Ahli Gabungan', Url::to(['/ltbs-ahli-gabungan/index', 'profil_badan_sukan_id' => $model->profil_badan_sukan]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
-            echo '&nbsp;&nbsp;' . Html::a('Perlembagaan Badan Sukan', Url::to(['/perlembagaan-badan-sukan/index', 'profil_badan_sukan_id' => $model->profil_badan_sukan]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
-            echo '&nbsp;&nbsp;' . Html::a('Maklumat Mesyuarat Agung Tahunan', Url::to(['/ltbs-minit-mesyuarat-jawatankuasa/index', 'profil_badan_sukan_id' => $model->profil_badan_sukan]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
+            echo '&nbsp;&nbsp;' . Html::a(GeneralLabel::ahli_jawatan_induk_id, Url::to(['/ltbs-ahli-jawatankuasa-induk-kecil/index', 'profil_badan_sukan_id' => $model->profil_badan_sukan]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
+            echo '&nbsp;&nbsp;' . Html::a(GeneralLabel::ahli_jawatan_kecil_id, Url::to(['/ltbs-ahli-jawatankuasa-kecil/index', 'profil_badan_sukan_id' => $model->profil_badan_sukan]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
+            echo '&nbsp;&nbsp;' . Html::a(GeneralLabel::senarai_ahli_gabungan, Url::to(['/ltbs-ahli-gabungan/index', 'profil_badan_sukan_id' => $model->profil_badan_sukan]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
+            echo '&nbsp;&nbsp;' . Html::a(GeneralLabel::perlembagaan_badan_sukan, Url::to(['/perlembagaan-badan-sukan/index', 'profil_badan_sukan_id' => $model->profil_badan_sukan]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
+            echo '&nbsp;&nbsp;' . Html::a(GeneralLabel::maklumat_mesyuarat_agung_tahunan_2, Url::to(['/ltbs-minit-mesyuarat-jawatankuasa/index', 'profil_badan_sukan_id' => $model->profil_badan_sukan]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
         }
         ?>
     </div>

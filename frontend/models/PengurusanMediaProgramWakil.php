@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_pengurusan_media_program_wakil".
  *
@@ -48,8 +50,8 @@ class PengurusanMediaProgramWakil extends \yii\db\ActiveRecord
         return [
             'pengurusan_media_program_wakil_id' => 'Pengurusan Media Program Wakil ID',
             'pengurusan_media_program_id' => 'Pengurusan Media Program ID',
-            'nama_wakil' => 'Nama Wakil',
-            'kehadiran' => 'Kehadiran',
+            'nama_wakil' => GeneralLabel::nama_wakil,  //'Nama Wakil',
+            'kehadiran' => GeneralLabel::kehadiran,  //'Kehadiran',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

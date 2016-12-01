@@ -61,7 +61,7 @@ use app\models\general\GeneralVariable;
     <?php $disablePersatuanInfo = true;?>
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
-    <pre style="text-align: center"><strong>MAKLUMAT BADAN SUKAN</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_badan_sukan_cap; ?></strong></pre>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -220,7 +220,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT KURSUS / SEMINAR / BENGKEL</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_kursus_seminar_bengkel_cap; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -446,7 +446,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     
-    <h3>Senarai Nama Pegawai Teknikal Yang Dicadangkan</h3>
+    <h3><?php echo GeneralLabel::senarai_nama_pegawai_teknikal_yang_dicadangkan; ?></h3>
     
     <?php 
             Modal::begin([
@@ -522,13 +522,13 @@ use app\models\general\GeneralVariable;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-dicadangkan/update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id]).'", "'.GeneralLabel::updateTitle . ' Senarai Nama Pegawai Teknikal Yang Dicadangkan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-dicadangkan/update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::senarai_nama_pegawai_teknikal_yang_dicadangkan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-dicadangkan/view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id]).'", "'.GeneralLabel::viewTitle . ' Senarai Nama Pegawai Teknikal Yang Dicadangkan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-dicadangkan/view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::senarai_nama_pegawai_teknikal_yang_dicadangkan.'");',
                         ]);
                     }
                 ],
@@ -549,7 +549,7 @@ use app\models\general\GeneralVariable;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-dicadangkan/create', 'bantuan_penganjuran_kursus_pegawai_teknikal_id' => $bantuan_penganjuran_kursus_pegawai_teknikal_id]).'", "Senarai Nama Pegawai Teknikal Yang Dicadangkan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-dicadangkan/create', 'bantuan_penganjuran_kursus_pegawai_teknikal_id' => $bantuan_penganjuran_kursus_pegawai_teknikal_id]).'", "'.GeneralLabel::senarai_nama_pegawai_teknikal_yang_dicadangkan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -558,7 +558,7 @@ use app\models\general\GeneralVariable;
     <br>
     
     <!--<h3>Maklumat Kursus / Seminar / Bengkel Dalam Dan Luar Negara Yang Telah Disertai Oleh Pegawai Di Atas (Tahun Semasa & Tahun Sebelum)</h3>-->
-    <h3>Maklumat Kursus / Seminar / Bengkel Dalam Dan Luar Negara Yang Telah Disertai</h3>
+    <h3><?php echo GeneralLabel::maklumat_kursus_seminar_bengkel_dalam_dan_luar_negara_yang_telah_disertai; ?></h3>
     
     <?php Pjax::begin(['id' => 'bantuanPenganjuranKursusPegawaiTeknikalDisertaiGrid', 'timeout' => 100000]); ?>
 
@@ -596,13 +596,13 @@ use app\models\general\GeneralVariable;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-disertai/update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_disertai_id]).'", "'.GeneralLabel::updateTitle . ' Maklumat Kursus / Seminar / Bengkel Dalam Dan Luar Negara Yang Telah Disertai Oleh Pegawai Di Atas (Tahun Semasa & Tahun Sebelum)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-disertai/update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_disertai_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::maklumat_kursus_seminar_bengkel_dalam_dan_luar_negara_yang_telah_disertai.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-disertai/view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_disertai_id]).'", "'.GeneralLabel::viewTitle . ' Maklumat Kursus / Seminar / Bengkel Dalam Dan Luar Negara Yang Telah Disertai Oleh Pegawai Di Atas (Tahun Semasa & Tahun Sebelum)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-disertai/view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_disertai_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::maklumat_kursus_seminar_bengkel_dalam_dan_luar_negara_yang_telah_disertai.'");',
                         ]);
                     }
                 ],
@@ -618,7 +618,7 @@ use app\models\general\GeneralVariable;
         <?php 
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-disertai/create', 'bantuan_penganjuran_kursus_pegawai_teknikal_id' => $bantuan_penganjuran_kursus_pegawai_teknikal_id]).'", "Maklumat Kursus / Seminar / Bengkel Dalam Dan Luar Negara Yang Telah Disertai Oleh Pegawai Di Atas (Tahun Semasa & Tahun Sebelum)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-disertai/create', 'bantuan_penganjuran_kursus_pegawai_teknikal_id' => $bantuan_penganjuran_kursus_pegawai_teknikal_id]).'", "'.GeneralLabel::maklumat_kursus_seminar_bengkel_dalam_dan_luar_negara_yang_telah_disertai.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -626,7 +626,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     
-    <h3>Bantuan Geran Pegawai Teknikal Yang Mengikut Kursus / Seminar / Bengkel Dalam Dan Luar Negara Oleh MSN (Tahun Semasa & Tahun Sebelum)</h3>
+    <h3><?php echo GeneralLabel::bantuan_geran_penganjuran_kursus_seminar_bengkel_oleh_msn_tahun_semasa_tahun_sebelum; ?></h3>
     
     
     <?php Pjax::begin(['id' => 'bantuanPenganjuranKursusPegawaiTeknikalOlehMsnGrid', 'timeout' => 100000]); ?>
@@ -669,13 +669,13 @@ use app\models\general\GeneralVariable;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-oleh-msn/update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_oleh_msn_id]).'", "'.GeneralLabel::updateTitle . ' Bantuan Geran Pegawai Teknikal Yang Mengikut Kursus / Seminar / Bengkel Dalam Dan Luar Negara Oleh MSN (Tahun Semasa & Tahun Sebelum)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-oleh-msn/update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_oleh_msn_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::bantuan_geran_penganjuran_kursus_seminar_bengkel_oleh_msn_tahun_semasa_tahun_sebelum.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-oleh-msn/view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_oleh_msn_id]).'", "'.GeneralLabel::viewTitle . ' Bantuan Geran Pegawai Teknikal Yang Mengikut Kursus / Seminar / Bengkel Dalam Dan Luar Negara Oleh MSN (Tahun Semasa & Tahun Sebelum)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-oleh-msn/view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_oleh_msn_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::bantuan_geran_penganjuran_kursus_seminar_bengkel_oleh_msn_tahun_semasa_tahun_sebelum.'");',
                         ]);
                     }
                 ],
@@ -691,7 +691,7 @@ use app\models\general\GeneralVariable;
         <?php 
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-oleh-msn/create', 'bantuan_penganjuran_kursus_pegawai_teknikal_id' => $bantuan_penganjuran_kursus_pegawai_teknikal_id]).'", "Bantuan Geran Pegawai Teknikal Yang Mengikut Kursus / Seminar / Bengkel Dalam Dan Luar Negara Oleh MSN (Tahun Semasa & Tahun Sebelum)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-oleh-msn/create', 'bantuan_penganjuran_kursus_pegawai_teknikal_id' => $bantuan_penganjuran_kursus_pegawai_teknikal_id]).'", "'.GeneralLabel::bantuan_geran_penganjuran_kursus_seminar_bengkel_oleh_msn_tahun_semasa_tahun_sebelum.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

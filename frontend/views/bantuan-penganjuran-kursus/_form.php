@@ -61,7 +61,7 @@ use app\models\general\GeneralVariable;
    
    <?php echo $form->errorSummary($model); ?>
     
-    <pre style="text-align: center"><strong>MAKLUMAT BADAN SUKAN</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_badan_sukan_cap; ?></strong></pre>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -220,7 +220,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT KURSUS / SEMINAR / BENGKEL</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_kursus_seminar_bengkel_cap; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -421,7 +421,7 @@ use app\models\general\GeneralVariable;
     
     
     
-    <h3>Senarai Nama Penceramah Yang Dicadangkan</h3>
+    <h3><?php echo GeneralLabel::senarai_nama_penceramah_yang_dicadangkan; ?></h3>
     
     <?php 
             Modal::begin([
@@ -497,13 +497,13 @@ use app\models\general\GeneralVariable;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-penceramah/update', 'id' => $model->bantuan_penganjuran_kursus_penceramah_id]).'", "'.GeneralLabel::updateTitle . ' Senarai Nama Penceramah Yang Dicadangkan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-penceramah/update', 'id' => $model->bantuan_penganjuran_kursus_penceramah_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::senarai_nama_penceramah_yang_dicadangkan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-penceramah/view', 'id' => $model->bantuan_penganjuran_kursus_penceramah_id]).'", "'.GeneralLabel::viewTitle . ' Senarai Nama Penceramah Yang Dicadangkan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-penceramah/view', 'id' => $model->bantuan_penganjuran_kursus_penceramah_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::senarai_nama_penceramah_yang_dicadangkan.'");',
                         ]);
                     }
                 ],
@@ -524,7 +524,7 @@ use app\models\general\GeneralVariable;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-penceramah/create', 'bantuan_penganjuran_kursus_id' => $bantuan_penganjuran_kursus_id]).'", "'.GeneralLabel::createTitle . ' Senarai Nama Penceramah Yang Dicadangkan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-penceramah/create', 'bantuan_penganjuran_kursus_id' => $bantuan_penganjuran_kursus_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::senarai_nama_penceramah_yang_dicadangkan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -532,7 +532,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     
-    <h3>Maklumat Kursus / Seminar / Bengkel Yang Telah Disertai Oleh Penceramah</h3>
+    <h3><?php echo GeneralLabel::maklumat_kursus_seminar_bengkel_yang_telah_disertai_oleh_penceramah; ?></h3>
     
     <?php Pjax::begin(['id' => 'bantuanPenganjuranKursusDisertaiPenceramahGrid', 'timeout' => 100000]); ?>
 
@@ -570,13 +570,13 @@ use app\models\general\GeneralVariable;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-disertai-penceramah/update', 'id' => $model->bantuan_penganjuran_kursus_disertai_penceramah_id]).'", "'.GeneralLabel::updateTitle . ' Maklumat Kursus / Seminar / Bengkel Yang Telah Disertai Oleh Penceramah");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-disertai-penceramah/update', 'id' => $model->bantuan_penganjuran_kursus_disertai_penceramah_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::maklumat_kursus_seminar_bengkel_yang_telah_disertai_oleh_penceramah.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-disertai-penceramah/view', 'id' => $model->bantuan_penganjuran_kursus_disertai_penceramah_id]).'", "'.GeneralLabel::viewTitle . ' Maklumat Kursus / Seminar / Bengkel Yang Telah Disertai Oleh Penceramah");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-disertai-penceramah/view', 'id' => $model->bantuan_penganjuran_kursus_disertai_penceramah_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::maklumat_kursus_seminar_bengkel_yang_telah_disertai_oleh_penceramah.'");',
                         ]);
                     }
                 ],
@@ -592,7 +592,7 @@ use app\models\general\GeneralVariable;
         <?php 
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-disertai-penceramah/create', 'bantuan_penganjuran_kursus_id' => $bantuan_penganjuran_kursus_id]).'", "'.GeneralLabel::createTitle . ' Maklumat Kursus / Seminar / Bengkel Yang Telah Disertai Oleh Penceramah");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-disertai-penceramah/create', 'bantuan_penganjuran_kursus_id' => $bantuan_penganjuran_kursus_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::maklumat_kursus_seminar_bengkel_yang_telah_disertai_oleh_penceramah.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -600,7 +600,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     
-    <h3>Bantuan Geran Penganjuran Kursus / Seminar / Bengkel Oleh MSN (Tahun Semasa & Tahun Sebelum)</h3>
+    <h3><?php echo GeneralLabel::bantuan_geran_penganjuran_kursus_seminar_bengkel_oleh_msn_tahun_semasa_tahun_sebelum; ?></h3>
     
     
     <?php Pjax::begin(['id' => 'bantuanPenganjuranKursusOlehMsnGrid', 'timeout' => 100000]); ?>
@@ -644,13 +644,13 @@ use app\models\general\GeneralVariable;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-oleh-msn/update', 'id' => $model->bantuan_penganjuran_kursus_oleh_msn_id]).'", "'.GeneralLabel::updateTitle . ' Bantuan Geran Penganjuran Kursus / Seminar / Bengkel Oleh MSN (Tahun Semasa & Tahun Sebelum)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-oleh-msn/update', 'id' => $model->bantuan_penganjuran_kursus_oleh_msn_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::bantuan_geran_penganjuran_kursus_seminar_bengkel_oleh_msn_tahun_semasa_tahun_sebelum.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-oleh-msn/view', 'id' => $model->bantuan_penganjuran_kursus_oleh_msn_id]).'", "'.GeneralLabel::viewTitle . ' Bantuan Geran Penganjuran Kursus / Seminar / Bengkel Oleh MSN (Tahun Semasa & Tahun Sebelum)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-oleh-msn/view', 'id' => $model->bantuan_penganjuran_kursus_oleh_msn_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::bantuan_geran_penganjuran_kursus_seminar_bengkel_oleh_msn_tahun_semasa_tahun_sebelum.'");',
                         ]);
                     }
                 ],
@@ -666,7 +666,7 @@ use app\models\general\GeneralVariable;
         <?php 
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-oleh-msn/create', 'bantuan_penganjuran_kursus_id' => $bantuan_penganjuran_kursus_id]).'", "'.GeneralLabel::createTitle . ' Bantuan Geran Penganjuran Kursus / Seminar / Bengkel Oleh MSN (Tahun Semasa & Tahun Sebelum)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-oleh-msn/create', 'bantuan_penganjuran_kursus_id' => $bantuan_penganjuran_kursus_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::bantuan_geran_penganjuran_kursus_seminar_bengkel_oleh_msn_tahun_semasa_tahun_sebelum.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

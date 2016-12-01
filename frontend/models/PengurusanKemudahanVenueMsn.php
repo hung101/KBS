@@ -99,6 +99,7 @@ class PengurusanKemudahanVenueMsn extends \yii\db\ActiveRecord
             'sewaan' => GeneralLabel::sewaan,
             'status' => GeneralLabel::status,
             'kos_project' => GeneralLabel::kos_project,
+            'kategori_hakmilik' => GeneralLabel::kategori_hakmilik,
 
         ];
     }

@@ -105,7 +105,7 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     
-    <h3>Kehadiran Wartawan</h3>
+    <h3><?php echo GeneralLabel::kehadiran_wartawan; ?></h3>
     
     <?php 
             Modal::begin([
@@ -154,13 +154,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kehadiran-media-program/update', 'id' => $model->pengurusan_kehadiran_media_program_id]).'", "'.GeneralLabel::updateTitle . ' Kehadiran Wartawan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kehadiran-media-program/update', 'id' => $model->pengurusan_kehadiran_media_program_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::kehadiran_wartawan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kehadiran-media-program/view', 'id' => $model->pengurusan_kehadiran_media_program_id]).'", "'.GeneralLabel::viewTitle . ' Kehadiran Wartawan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kehadiran-media-program/view', 'id' => $model->pengurusan_kehadiran_media_program_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::kehadiran_wartawan.'");',
                         ]);
                     }
                 ],
@@ -181,7 +181,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kehadiran-media-program/create', 'pengurusan_media_program_id' => $pengurusan_media_program_id]).'", "'.GeneralLabel::createTitle . ' Kehadiran Wartawan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-kehadiran-media-program/create', 'pengurusan_media_program_id' => $pengurusan_media_program_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::kehadiran_wartawan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -189,7 +189,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     
-    <h3>Kehadiran Wakil</h3>
+    <h3><?php echo GeneralLabel::kehadiran_wakil; ?></h3>
     
     <?php 
             Modal::begin([
@@ -241,13 +241,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-media-program-wakil/update', 'id' => $model->pengurusan_media_program_wakil_id]).'", "'.GeneralLabel::updateTitle . ' Kehadiran Wakil");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-media-program-wakil/update', 'id' => $model->pengurusan_media_program_wakil_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::kehadiran_wakil.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-media-program-wakil/view', 'id' => $model->pengurusan_media_program_wakil_id]).'", "'.GeneralLabel::viewTitle . ' Kehadiran Wakil");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-media-program-wakil/view', 'id' => $model->pengurusan_media_program_wakil_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::kehadiran_wakil.'");',
                         ]);
                     }
                 ],
@@ -262,7 +262,7 @@ use app\models\general\GeneralMessage;
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-media-program-wakil/create', 'pengurusan_media_program_id' => $pengurusan_media_program_id]).'", "'.GeneralLabel::createTitle . ' Kehadiran Wakil");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-media-program-wakil/create', 'pengurusan_media_program_id' => $pengurusan_media_program_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::kehadiran_wakil.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -270,7 +270,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     
-    <h3>Dokumen Media Program</h3>
+    <h3><?php echo GeneralLabel::dokumen_media_program; ?></h3>
     
     <?php 
             Modal::begin([
@@ -332,13 +332,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-dokumen-media-program/update', 'id' => $model->pengurusan_dokumen_media_program_id]).'", "'.GeneralLabel::updateTitle . ' Dokumen Media Program");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-dokumen-media-program/update', 'id' => $model->pengurusan_dokumen_media_program_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::dokumen_media_program.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-dokumen-media-program/view', 'id' => $model->pengurusan_dokumen_media_program_id]).'", "'.GeneralLabel::viewTitle . ' Dokumen Media Program");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-dokumen-media-program/view', 'id' => $model->pengurusan_dokumen_media_program_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::dokumen_media_program.'");',
                         ]);
                     }
                 ],
@@ -353,7 +353,7 @@ use app\models\general\GeneralMessage;
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-dokumen-media-program/create', 'pengurusan_media_program_id' => $pengurusan_media_program_id]).'", "'.GeneralLabel::createTitle . ' Dokumen Media Program");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-dokumen-media-program/create', 'pengurusan_media_program_id' => $pengurusan_media_program_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::dokumen_media_program.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

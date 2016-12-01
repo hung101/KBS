@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use app\models\general\GeneralLabel;
+
 
 /**
  * This is the model class for table "tbl_bantuan_penyertaan_pegawai_teknikal_disertai".
@@ -54,11 +56,11 @@ class BantuanPenyertaanPegawaiTeknikalDisertai extends \yii\db\ActiveRecord
         return [
             'bantuan_penyertaan_pegawai_teknikal_dicadangkan_id' => 'Bantuan Penyertaan Pegawai Teknikal Dicadangkan ID',
             'bantuan_penyertaan_pegawai_teknikal_id' => 'Bantuan Penyertaan Pegawai Teknikal ID',
-            'kursus_seminar_bengkel' => 'Kejohanan',
-            'tarikh_mula' => 'Tarikh Mula',
-            'tarikh_tamat' => 'Tarikh Tamat',
-            'tempat' => 'Tempat',
-            'anjuran' => 'Anjuran',
+            'kursus_seminar_bengkel' => GeneralLabel::kursus_seminar_bengkel,  //'Kejohanan',
+            'tarikh_mula' => GeneralLabel::tarikh_mula,  //'Tarikh Mula',
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,  //'Tarikh Tamat',
+            'tempat' => GeneralLabel::tempat,  //'Tempat',
+            'anjuran' => GeneralLabel::anjuran,  //'Anjuran',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

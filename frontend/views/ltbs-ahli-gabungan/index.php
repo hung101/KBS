@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-ahli-gabungan']['create']) && Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' Ahli Gabungan', Url::to(['create', 'profil_badan_sukan_id' => $profil_badan_sukan_id]), ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' '. GeneralLabel::senarai_ahli_gabungan, Url::to(['create', 'profil_badan_sukan_id' => $profil_badan_sukan_id]), ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

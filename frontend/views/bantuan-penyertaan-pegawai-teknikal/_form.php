@@ -60,7 +60,7 @@ use app\models\general\GeneralVariable;
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     <?php $disablePersatuanInfo = true;?>
-    <pre style="text-align: center"><strong>MAKLUMAT BADAN SUKAN</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_badan_sukan_cap; ?></strong></pre>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -219,7 +219,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT KEJOHANAN</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_kejohanan_cap; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -459,7 +459,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     
-    <h3>Senarai Nama Pegawai Teknikal Yang Dicadangkan</h3>
+    <h3><?php echo GeneralLabel::senarai_nama_pegawai_teknikal_yang_dicadangkan; ?></h3>
     
     <?php 
             Modal::begin([
@@ -535,13 +535,13 @@ use app\models\general\GeneralVariable;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-dicadangkan/update', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_dicadangkan_id]).'", "'.GeneralLabel::updateTitle . ' Nama Pegawai Teknikal Yang Dicadangkan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-dicadangkan/update', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_dicadangkan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::senarai_nama_pegawai_teknikal_yang_dicadangkan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-dicadangkan/view', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_dicadangkan_id]).'", "'.GeneralLabel::viewTitle . ' Nama Pegawai Teknikal Yang Dicadangkan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-dicadangkan/view', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_dicadangkan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::senarai_nama_pegawai_teknikal_yang_dicadangkan.'");',
                         ]);
                     }
                 ],
@@ -562,7 +562,7 @@ use app\models\general\GeneralVariable;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-dicadangkan/create', 'bantuan_penyertaan_pegawai_teknikal_id' => $bantuan_penyertaan_pegawai_teknikal_id]).'", "Nama Pegawai Teknikal Yang Dicadangkan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-dicadangkan/create', 'bantuan_penyertaan_pegawai_teknikal_id' => $bantuan_penyertaan_pegawai_teknikal_id]).'", "'.GeneralLabel::senarai_nama_pegawai_teknikal_yang_dicadangkan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -571,7 +571,7 @@ use app\models\general\GeneralVariable;
     <br>
     
     <!--<h3>Maklumat Kejohanan Yang Telah Disertai Oleh Pegawai Yang Dicadangkan Di Atas (Tahun Semasa & Tahun Sebelum)</h3>-->
-    <h3>Maklumat Kejohanan Yang Telah Disertai Oleh Pegawai</h3>
+    <h3><?php echo GeneralLabel::maklumat_kejohanan_yang_telah_disertai_oleh_pegawai; ?></h3>
     
     <?php Pjax::begin(['id' => 'bantuanPenyertaanPegawaiTeknikalDisertaiGrid', 'timeout' => 100000]); ?>
 
@@ -609,13 +609,13 @@ use app\models\general\GeneralVariable;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-disertai/update', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_dicadangkan_id]).'", "'.GeneralLabel::updateTitle . ' Maklumat Kejohanan Yang Telah Disertai Oleh Pegawai Yang Dicadangkan Di Atas (Tahun Semasa & Tahun Sebelum)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-disertai/update', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_dicadangkan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::maklumat_kejohanan_yang_telah_disertai_oleh_pegawai.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-disertai/view', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_dicadangkan_id]).'", "'.GeneralLabel::viewTitle . ' Maklumat Kejohanan Yang Telah Disertai Oleh Pegawai Yang Dicadangkan Di Atas (Tahun Semasa & Tahun Sebelum)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-disertai/view', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_dicadangkan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::maklumat_kejohanan_yang_telah_disertai_oleh_pegawai.'");',
                         ]);
                     }
                 ],
@@ -631,7 +631,7 @@ use app\models\general\GeneralVariable;
         <?php 
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-disertai/create', 'bantuan_penyertaan_pegawai_teknikal_id' => $bantuan_penyertaan_pegawai_teknikal_id]).'", "'.GeneralLabel::createTitle . ' Maklumat Kejohanan Yang Telah Disertai Oleh Pegawai Yang Dicadangkan Di Atas (Tahun Semasa & Tahun Sebelum)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-disertai/create', 'bantuan_penyertaan_pegawai_teknikal_id' => $bantuan_penyertaan_pegawai_teknikal_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::maklumat_kejohanan_yang_telah_disertai_oleh_pegawai.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -639,7 +639,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     
-    <h3>Bantuan Penyertaan Pegawai Teknikal Ke Kejohanan Dalam Dan Luar Negara Oleh MSN (Tahun Semasa & Tahun Sebelum)</h3>
+    <h3><?php echo GeneralLabel::bantuan_penyertaan_pegawai_teknikal_ke_kejohanan_dalam_dan_luar_negara_oleh_msn_tahun_semasa_tahun_sebelum; ?></h3>
     
     
     <?php Pjax::begin(['id' => 'bantuanPenyertaanPegawaiTeknikalOlehMsnGrid', 'timeout' => 100000]); ?>
@@ -682,13 +682,13 @@ use app\models\general\GeneralVariable;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-oleh-msn/update', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_oleh_msn_id]).'", "'.GeneralLabel::updateTitle . ' Bantuan Penyertaan Pegawai Teknikal Ke Kejohanan Dalam Dan Luar Negara Oleh MSN (Tahun Semasa & Tahun Sebelum)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-oleh-msn/update', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_oleh_msn_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::bantuan_penyertaan_pegawai_teknikal_ke_kejohanan_dalam_dan_luar_negara_oleh_msn_tahun_semasa_tahun_sebelum.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-oleh-msn/view', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_oleh_msn_id]).'", "'.GeneralLabel::viewTitle . ' Bantuan Penyertaan Pegawai Teknikal Ke Kejohanan Dalam Dan Luar Negara Oleh MSN (Tahun Semasa & Tahun Sebelum)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-oleh-msn/view', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_oleh_msn_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::bantuan_penyertaan_pegawai_teknikal_ke_kejohanan_dalam_dan_luar_negara_oleh_msn_tahun_semasa_tahun_sebelum.'");',
                         ]);
                     }
                 ],
@@ -704,7 +704,7 @@ use app\models\general\GeneralVariable;
         <?php 
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-oleh-msn/create', 'bantuan_penyertaan_pegawai_teknikal_id' => $bantuan_penyertaan_pegawai_teknikal_id]).'", "'.GeneralLabel::createTitle . ' Bantuan Penyertaan Pegawai Teknikal Ke Kejohanan Dalam Dan Luar Negara Oleh MSN (Tahun Semasa & Tahun Sebelum)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penyertaan-pegawai-teknikal-oleh-msn/create', 'bantuan_penyertaan_pegawai_teknikal_id' => $bantuan_penyertaan_pegawai_teknikal_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::bantuan_penyertaan_pegawai_teknikal_ke_kejohanan_dalam_dan_luar_negara_oleh_msn_tahun_semasa_tahun_sebelum.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

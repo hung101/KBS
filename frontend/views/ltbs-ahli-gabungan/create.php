@@ -8,7 +8,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\LtbsAhliGabungan */
 
-$this->title =  'Ahli Gabungan';
+$this->title =  GeneralLabel::senarai_ahli_gabungan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::senarai_ahli_gabungan, 'url' => Url::to(['index', 'profil_badan_sukan_id' => $profil_badan_sukan_id])];
 $this->params['breadcrumbs'][] = GeneralLabel::createTitle;
 ?>

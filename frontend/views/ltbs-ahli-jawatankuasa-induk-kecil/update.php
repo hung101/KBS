@@ -10,7 +10,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\LtbsAhliJawatankuasaIndukKecil */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::ltbs_ahli_jawatankuasa_induk_kecil.': ' . ' ' . $model->ahli_jawatan_id;
-$this->title =  'Ahli Jawatankuasa Induk';
+$this->title =  GeneralLabel::ahli_jawatan_induk_id;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::ahli_jawatan_induk_id, 'url' => Url::to(['index', 'profil_badan_sukan_id' => $model->profil_badan_sukan_id])];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle, 'url' => ['view', 'id' => $model->ahli_jawatan_id]];
 $this->params['breadcrumbs'][] = GeneralLabel::updateTitle;

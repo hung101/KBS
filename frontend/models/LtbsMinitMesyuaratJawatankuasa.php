@@ -87,9 +87,9 @@ class LtbsMinitMesyuaratJawatankuasa extends \yii\db\ActiveRecord
             'minit_agm_muat_naik' => GeneralLabel::minit_agm_muat_naik,
             'laporan_kewangan_muat_naik' => GeneralLabel::laporan_kewangan_muat_naik,
             'laporan_aktiviti_muat_naik' => GeneralLabel::laporan_aktiviti_muat_naik,
-            'borang_pt_muat_naik' => 'Borang PT 1@2 / MYKB 1@2',
-            'senarai_ahli_jawatankuasa_muat_naik' => 'Senarai Ahli Jawatankuasa',
-            'senarai_ahli_gabungan_terkini_muat_naik' => 'Senarai Ahli / Gabungan Terkini',
+            'borang_pt_muat_naik' => GeneralLabel::borang_pt_muat_naik,  //'Borang PT 1@2 / MYKB 1@2',
+            'senarai_ahli_jawatankuasa_muat_naik' => GeneralLabel::senarai_ahli_jawatankuasa,  //'Senarai Ahli Jawatankuasa',
+            'senarai_ahli_gabungan_terkini_muat_naik' => GeneralLabel::senarai_ahli_gabungan_terkini,  //'Senarai Ahli / Gabungan Terkini',
             'status' => GeneralLabel::status,
             'catatan' => GeneralLabel::catatan,
         ];

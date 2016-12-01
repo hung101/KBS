@@ -61,7 +61,7 @@ use app\models\general\GeneralVariable;
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
-    <pre style="text-align: center"><strong>MAKLUMAT BADAN SUKAN</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_badan_sukan_cap; ?></strong></pre>
     
     <?php $disablePersatuanInfo = true;?>
     <?php
@@ -222,7 +222,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT KEJOHANAN / PERTANDINGAN</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_kejohanan_cap; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -454,7 +454,7 @@ use app\models\general\GeneralVariable;
     }
     ?>
     
-    <h3>Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandingan</h3>
+    <h3><?php echo GeneralLabel::sumber_sumber_kewangan_lain_untuk_kejohanan_pertandingan; ?></h3>
     
     <?php 
             Modal::begin([
@@ -510,13 +510,13 @@ use app\models\general\GeneralVariable;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-kewangan/update', 'id' => $model->bantuan_penganjuran_kejohanan_kewangan_id]).'", "'.GeneralLabel::updateTitle . ' Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandingan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-kewangan/update', 'id' => $model->bantuan_penganjuran_kejohanan_kewangan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::sumber_sumber_kewangan_lain_untuk_kejohanan_pertandingan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-kewangan/view', 'id' => $model->bantuan_penganjuran_kejohanan_kewangan_id]).'", "'.GeneralLabel::viewTitle . ' Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandingan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-kewangan/view', 'id' => $model->bantuan_penganjuran_kejohanan_kewangan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::sumber_sumber_kewangan_lain_untuk_kejohanan_pertandingan.'");',
                         ]);
                     }
                 ],
@@ -546,7 +546,7 @@ use app\models\general\GeneralVariable;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-kewangan/create', 'bantuan_penganjuran_kejohanan_id' => $bantuan_penganjuran_kejohanan_id]).'", "'.GeneralLabel::createTitle . ' Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandingan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-kewangan/create', 'bantuan_penganjuran_kejohanan_id' => $bantuan_penganjuran_kejohanan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::sumber_sumber_kewangan_lain_untuk_kejohanan_pertandingan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -554,7 +554,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     
-    <h3>Bayaran Penyertaan Kejohanan / Pertandingan Yang Dikenakan Kepada Peserta / Pasukan</h3>
+    <h3><?php echo GeneralLabel::bayaran_penyertaan_kejohanan_pertandingan_yang_dikenakan_kepada_peserta_pasukan; ?></h3>
     
     <?php Pjax::begin(['id' => 'bantuanPenganjuranKejohananBayaranGrid', 'timeout' => 100000]); ?>
 
@@ -594,13 +594,13 @@ use app\models\general\GeneralVariable;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-bayaran/update', 'id' => $model->bantuan_penganjuran_kejohanan_bayaran_id]).'", "'.GeneralLabel::updateTitle . ' Bayaran Penyertaan Kejohanan / Pertandingan Yang Dikenakan Kepada Peserta / Pasukan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-bayaran/update', 'id' => $model->bantuan_penganjuran_kejohanan_bayaran_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::bayaran_penyertaan_kejohanan_pertandingan_yang_dikenakan_kepada_peserta_pasukan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-bayaran/view', 'id' => $model->bantuan_penganjuran_kejohanan_bayaran_id]).'", "'.GeneralLabel::viewTitle . ' Bayaran Penyertaan Kejohanan / Pertandingan Yang Dikenakan Kepada Peserta / Pasukan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-bayaran/view', 'id' => $model->bantuan_penganjuran_kejohanan_bayaran_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::bayaran_penyertaan_kejohanan_pertandingan_yang_dikenakan_kepada_peserta_pasukan.'");',
                         ]);
                     }
                 ],
@@ -625,7 +625,7 @@ use app\models\general\GeneralVariable;
         <?php 
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-bayaran/create', 'bantuan_penganjuran_kejohanan_id' => $bantuan_penganjuran_kejohanan_id]).'", "'.GeneralLabel::createTitle . ' Bayaran Penyertaan Kejohanan / Pertandingan Yang Dikenakan Kepada Peserta / Pasukan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-bayaran/create', 'bantuan_penganjuran_kejohanan_id' => $bantuan_penganjuran_kejohanan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::bayaran_penyertaan_kejohanan_pertandingan_yang_dikenakan_kepada_peserta_pasukan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -633,7 +633,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     
-    <h3>Elemen Bantuan Yang Dipohon</h3>
+    <h3><?php echo GeneralLabel::elemen_bantuan_yang_dipohon; ?></h3>
     
     <?php Pjax::begin(['id' => 'bantuanPenganjuranKejohananElemenGrid', 'timeout' => 100000]); ?>
 
@@ -680,13 +680,13 @@ use app\models\general\GeneralVariable;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-elemen/update', 'id' => $model->bantuan_penganjuran_kejohanan_elemen_id]).'", "'.GeneralLabel::updateTitle . ' Elemen Bantuan Yang Dipohon");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-elemen/update', 'id' => $model->bantuan_penganjuran_kejohanan_elemen_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::elemen_bantuan_yang_dipohon.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-elemen/view', 'id' => $model->bantuan_penganjuran_kejohanan_elemen_id]).'", "'.GeneralLabel::viewTitle . ' Elemen Bantuan Yang Dipohon");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-elemen/view', 'id' => $model->bantuan_penganjuran_kejohanan_elemen_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::elemen_bantuan_yang_dipohon.'");',
                         ]);
                     }
                 ],
@@ -711,7 +711,7 @@ use app\models\general\GeneralVariable;
         <?php 
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-elemen/create', 'bantuan_penganjuran_kejohanan_id' => $bantuan_penganjuran_kejohanan_id]).'", "'.GeneralLabel::createTitle . ' Elemen Bantuan Yang Dipohon");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-elemen/create', 'bantuan_penganjuran_kejohanan_id' => $bantuan_penganjuran_kejohanan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::elemen_bantuan_yang_dipohon.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -792,7 +792,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>BANTUAN GERAN PENGANJURAN OLEH MSN (TAHUN SEMASA & TAHUN SEBELUM)</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::bantuan_geran_penganjuran_oleh_msn_tahun_semasa_tahun_sebelum; ?></strong></pre>
     
     <?php Pjax::begin(['id' => 'bantuanPenganjuranKejohananOlehMsnGrid', 'timeout' => 100000]); ?>
 
@@ -840,13 +840,13 @@ use app\models\general\GeneralVariable;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-oleh-msn/update', 'id' => $model->bantuan_penganjuran_kejohanan_oleh_msn_id]).'", "'.GeneralLabel::updateTitle . ' Bantuan Geran Penganjuran Oleh MSN (Tahun Semas & Tahun Sebelum)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-oleh-msn/update', 'id' => $model->bantuan_penganjuran_kejohanan_oleh_msn_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::bantuan_geran_penganjuran_oleh_msn_tahun_semasa_tahun_sebelum.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-oleh-msn/view', 'id' => $model->bantuan_penganjuran_kejohanan_oleh_msn_id]).'", "'.GeneralLabel::viewTitle . ' Bantuan Geran Penganjuran Oleh MSN (Tahun Semas & Tahun Sebelum)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-oleh-msn/view', 'id' => $model->bantuan_penganjuran_kejohanan_oleh_msn_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::bantuan_geran_penganjuran_oleh_msn_tahun_semasa_tahun_sebelum.'");',
                         ]);
                     }
                 ],
@@ -862,7 +862,7 @@ use app\models\general\GeneralVariable;
         <?php 
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-oleh-msn/create', 'bantuan_penganjuran_kejohanan_id' => $bantuan_penganjuran_kejohanan_id]).'", "'.GeneralLabel::createTitle . ' Bantuan Geran Penganjuran Oleh MSN (Tahun Semas & Tahun Sebelum)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-oleh-msn/create', 'bantuan_penganjuran_kejohanan_id' => $bantuan_penganjuran_kejohanan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::bantuan_geran_penganjuran_oleh_msn_tahun_semasa_tahun_sebelum.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
