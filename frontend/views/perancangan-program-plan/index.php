@@ -66,14 +66,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori,
-                ]
+                ],
+                'value' => 'refKategoriPelan.desc'
             ],
             [
                 'attribute' => 'jenis_aktiviti',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis,
-                ]
+                ],
+                'value' => 'refJenisPelan.desc'
             ],
             [
                 'attribute' => 'nama_program',

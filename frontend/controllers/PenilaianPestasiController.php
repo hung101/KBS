@@ -380,7 +380,7 @@ class PenilaianPestasiController extends Controller
         $model = new MsnLaporanAcaraKejohananTemasya();
         $model->format = 'html';
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-acara-kejohanan-temasya'

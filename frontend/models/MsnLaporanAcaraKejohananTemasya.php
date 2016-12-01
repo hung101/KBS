@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
 
-class MsnLaporanAduanKerosakan extends Model
+class MsnLaporanAcaraKejohananTemasya extends Model
 {
     public $tarikh_dari;
     public $tarikh_hingga;
@@ -23,7 +23,7 @@ class MsnLaporanAduanKerosakan extends Model
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_dari', 'tarikh_hingga','kejohanan', 'temasya'], 'safe'],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
-            [['kejohanan, temasya'], 'validateJurulatihAtlet', 'skipOnEmpty' => false],
+            [['kejohanan, temasya'], 'validateKejohananTemasya', 'skipOnEmpty' => false],
         ];
     }
 

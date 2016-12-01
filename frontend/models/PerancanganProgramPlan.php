@@ -51,7 +51,7 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh_mula', 'tarikh_tamat', 'jenis_program', 'nama_program', 'bahagian', 'jenis_aktiviti', 'status_program'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh_mula', 'tarikh_tamat', 'jenis_program', 'nama_program', 'bahagian', 'jenis_aktiviti'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_mula', 'tarikh_tamat', 'tarikh_kelulusan', 'status_program', 'sukan', 'cawangan'], 'safe'],
             [['mesyuarat_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -100,9 +100,9 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRefStatusProgram(){
+    /*public function getRefStatusProgram(){
         return $this->hasOne(RefStatusProgram::className(), ['id' => 'status_program']);
-    }
+    }*/
     
     /**
      * @return \yii\db\ActiveQuery
@@ -116,5 +116,26 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
      */
     public function getRefProgramSemasaSukanAtlet(){
         return $this->hasOne(RefProgramSemasaSukanAtlet::className(), ['id' => 'jenis_program']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKategoriPelan(){
+        return $this->hasOne(RefKategoriPelan::className(), ['id' => 'bahagian']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJenisPelan(){
+        return $this->hasOne(RefJenisPelan::className(), ['id' => 'jenis_aktiviti']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKedudukanKejohanan(){
+        return $this->hasOne(RefKedudukanKejohanan::className(), ['id' => 'status_program']);
     }
 }

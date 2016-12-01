@@ -46,7 +46,7 @@ class PerancanganProgramPlanSearch extends PerancanganProgramPlan
     public function search($params)
     {
         $query = PerancanganProgramPlan::find()
-                ->joinWith(['refStatusProgram'])
+                ->joinWith(['refKategoriPelan'])
                 ->joinWith(['refSukan'])
                 ->joinWith(['refProgramSemasaSukanAtlet']);
 
