@@ -47,10 +47,29 @@ use app\models\general\GeneralMessage;
                 $arr_sukan = array('id'=>$sukan_access[$i]); 
                     array_push($arr_sukan_filter,$arr_sukan);
             }
-            
-            $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->andFilterWhere(['id'=>$arr_sukan_filter])->all();
+            if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['upaya']) && isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['kurang-upaya'])){
+                $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andFilterWhere(['id'=>$arr_sukan_filter])->all();
+            } elseif(isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['upaya']))  {
+                // Upaya Sukan List
+                $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->andFilterWhere(['id'=>$arr_sukan_filter])->all();
+            } elseif(isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['kurang-upaya']))  {
+                // Upaya Sukan List
+                $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->andFilterWhere(['id'=>$arr_sukan_filter])->all();
+            }
         }
         // add filter base on sukan access role in tbl_user->sukan - END
+        
+        
+        $program_list = RefSukan::find()->where(['=', 'aktif', 1])->all();
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['upaya']) && isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['kurang-upaya'])){
+            $program_list = RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->all();
+        } elseif(isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['upaya']))  {
+            // Upaya Sukan List
+            $program_list = RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all();
+        } elseif(isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['kurang-upaya']))  {
+            // Upaya Sukan List
+            $sukan_list = RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all();
+        }
         
     ?>
 
@@ -148,7 +167,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map($sukan_list,'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],
+                        'options' => ['placeholder' => Placeholder::sukan, 'id'=>'sukanId'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -164,7 +183,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map($program_list,'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::program],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -508,6 +527,7 @@ use app\models\general\GeneralMessage;
 
 <?php
 $DateDisplayFormat = GeneralVariable::displayDateFormat;
+$URLSetSukan = Url::to(['/penilaian-pestasi/set-sukan']);
 
 $script = <<< JS
         
@@ -541,6 +561,15 @@ $("#tarikhNilaiMulaId").change(function(){
     $("#tarikhNilaiTamatId-disp").val(formatDisplayDate(endDate));
     $("#tarikhNilaiTamatId").val(formatSaveDate(endDate));
 });
+    
+$('#sukanId').change(function(){
+    setSukan();
+});
+    
+function setSukan(){
+    $.get('$URLSetSukan',{sukan_id:$('#sukanId').val()},function(data){
+    });
+}
      
 
 JS;

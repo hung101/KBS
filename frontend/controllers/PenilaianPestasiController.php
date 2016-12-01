@@ -14,6 +14,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\helpers\BaseUrl;
+use yii\web\Session;
 
 use app\models\general\GeneralVariable;
 use app\models\general\Upload;
@@ -174,6 +175,8 @@ class PenilaianPestasiController extends Controller
                 $modelAtletPencapaian->tarikh_tamat_kejohanan = $refPerancanganProgram['tarikh_tamat'];
                 $modelAtletPencapaian->lokasi_kejohanan = $refPerancanganProgram['lokasi'];
                 $modelAtletPencapaian->penilaian_pestasi_id = $model->penilaian_pestasi_id;
+                $modelAtletPencapaian->penilaian_prestasi_atlet_sasaran_id = $modelAtletSasaran->penilaian_prestasi_atlet_sasaran_id;
+                $modelAtletPencapaian->pencapaian = $modelAtletSasaran->keputusan;
                 $modelAtletPencapaian->save();
             }
             
@@ -217,6 +220,32 @@ class PenilaianPestasiController extends Controller
                 $model->laporan_kesihatan = Upload::uploadFile($file, Upload::pernilaianPrestasiFolder, $model->penilaian_pestasi_id);
             }
             
+            // update atlet profil Pencapaian
+            $modelAtletSasarans = PenilaianPrestasiAtletSasaran::findAll([
+                    'penilaian_pestasi_id' => $model->penilaian_pestasi_id,
+                ]);
+            
+            foreach($modelAtletSasarans as $modelAtletSasaran){
+                $modelAtletPencapaian = null;
+                if (($modelAtletPencapaian = AtletPencapaian::find()->where(['atlet_id'=>$modelAtletSasaran->atlet])->andWhere(['penilaian_pestasi_id'=>$model->penilaian_pestasi_id])->one()) == null) {
+                    $modelAtletPencapaian = new AtletPencapaian();
+                }
+                
+                $refPerancanganProgram = PerancanganProgram::findOne(['perancangan_program_id' => $model->kejohanan]);
+        
+                $modelAtletPencapaian->atlet_id = $modelAtletSasaran->atlet;
+                $modelAtletPencapaian->nama_kejohanan_temasya = $refPerancanganProgram['nama_program'];
+                $modelAtletPencapaian->nama_sukan = $model->sukan;
+                $modelAtletPencapaian->nama_acara = $model->acara;
+                $modelAtletPencapaian->tarikh_mula_kejohanan = $refPerancanganProgram['tarikh_mula'];
+                $modelAtletPencapaian->tarikh_tamat_kejohanan = $refPerancanganProgram['tarikh_tamat'];
+                $modelAtletPencapaian->lokasi_kejohanan = $refPerancanganProgram['lokasi'];
+                $modelAtletPencapaian->penilaian_pestasi_id = $model->penilaian_pestasi_id;
+                $modelAtletPencapaian->penilaian_prestasi_atlet_sasaran_id = $modelAtletSasaran->penilaian_prestasi_atlet_sasaran_id;
+                $modelAtletPencapaian->pencapaian = $modelAtletSasaran->keputusan;
+                $modelAtletPencapaian->save();
+            }
+            
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->penilaian_pestasi_id]);
             }
@@ -248,6 +277,16 @@ class PenilaianPestasiController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    
+    public function actionSetSukan($sukan_id){
+        
+        $session = new Session;
+        $session->open();
+
+        $session['penilaian-pestasi_sukan_id'] = $sukan_id;
+        
+        $session->close();
     }
 
     /**
@@ -337,7 +376,7 @@ class PenilaianPestasiController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
-        $model = new MsnLaporan();
+        $model = new MsnLaporanAcaraKejohananTemasya();
         $model->format = 'html';
 
         if ($model->load(Yii::$app->request->post())) {

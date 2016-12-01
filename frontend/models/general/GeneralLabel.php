@@ -1614,6 +1614,9 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const perkhidmatan_permakanan_id = "Perkhidmatan Pemakanan ID";
         const perlembagaan_badan_sukan_id = "Perlembagaan Badan Sukan ID";
         const permintaan_maklumat_kewangan = "Permintaan Maklumat Kewangan";
+        const permintaan_untuk_maklumat_kewangan = "Permintaan Untuk Maklumat Kewangan";
+        const permintaan_untuk_maklumat_kewangan_telah_dilulukan = "Permintaan Untuk Maklumat Kewangan Telah Diluluskan";
+        const permintaan_untuk_maklumat_kewangan_sedang_diproses = "Permintaan Untuk Maklumat Kewangan Sedang Diproses";
         const permit_kerja_jurulatih = "Permit Kerja (Jurulatih Asing)";
         const permohonan = "Permohonan";
         const permohonan_biasiswa_id = "Permohonan Biasiswa ID";
@@ -5020,6 +5023,9 @@ if($session->get('language') == "EN") {
         const perkhidmatan_permakanan_id = "Nutrition ID";
         const perlembagaan_badan_sukan_id = "The Constitution Of The Body ID Sport";
         const permintaan_maklumat_kewangan = "Request Financial Information";
+        const permintaan_untuk_maklumat_kewangan = "Request For Financial Information";
+        const permintaan_untuk_maklumat_kewangan_telah_dilulukan = "Request For Financial Information Has Approved";
+        const permintaan_untuk_maklumat_kewangan_sedang_diproses = "Request For Financial Information Is Processing";
         const permit_kerja_jurulatih = "Work Permit (Foreign Coach)";
         const permohonan = "Application";
         const permohonan_biasiswa_id = "Scholarship Application ID";

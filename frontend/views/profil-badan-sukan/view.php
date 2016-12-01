@@ -18,6 +18,39 @@ $this->params['breadcrumbs'][] = GeneralLabel::viewTitle;
 <div class="profil-badan-sukan-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    
+    <?php
+        if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['kelulusan-maklumat-kewangan']) && $model->permintaan_maklumat_kewangan_request == 1 && $model->permintaan_maklumat_kewangan_approved == 0):
+    ?>
+    <div class="alert alert-warning">
+        <strong><?=GeneralLabel::perhatian?> - </strong> <?=GeneralLabel::permintaan_untuk_maklumat_kewangan?> &nbsp;&nbsp;<?= Html::a(GeneralLabel::kelulusan_maklumat_kewangan, ['approved', 'id' => $model->profil_badan_sukan], ['class' => 'btn btn-danger','data' => [
+                    'confirm' => GeneralMessage::confirmKelulusan,
+                    'method' => 'post',
+                ],]) ?>
+    </div>
+    <?php
+        endif;
+    ?>
+    
+    <?php
+        if(!isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['kelulusan-maklumat-kewangan']) && $model->permintaan_maklumat_kewangan_request == 1 && $model->permintaan_maklumat_kewangan_approved == 0):
+    ?>
+    <div class="alert alert-info">
+        <?=GeneralLabel::permintaan_untuk_maklumat_kewangan_sedang_diproses?>
+    </div>
+    <?php
+        endif;
+    ?>
+    
+    <?php
+        if($model->permintaan_maklumat_kewangan_approved == 1):
+    ?>
+    <div class="alert alert-success">
+        <?=GeneralLabel::permintaan_untuk_maklumat_kewangan_telah_dilulukan?>
+    </div>
+    <?php
+        endif;
+    ?>
 
     <p>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['update']) && (Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN)): ?>
@@ -32,11 +65,8 @@ $this->params['breadcrumbs'][] = GeneralLabel::viewTitle;
                 ],
             ]) ?>
         <?php endif; ?>
-        <?php if(!isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['maklumat-kewangan']) && $model->permintaan_maklumat_kewangan_request == 0): ?>
+        <?php if(!isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['maklumat-kewangan']) && !isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['kelulusan-maklumat-kewangan']) && $model->permintaan_maklumat_kewangan_request == 0): ?>
             <?= Html::a(GeneralLabel::permintaan_maklumat_kewangan, ['request', 'id' => $model->profil_badan_sukan], ['class' => 'btn btn-success']) ?>
-        <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['kelulusan-maklumat-kewangan']) && $model->permintaan_maklumat_kewangan_request == 1 && $model->permintaan_maklumat_kewangan_approved == 0): ?>
-            <?= Html::a(GeneralLabel::kelulusan_maklumat_kewangan, ['approved', 'id' => $model->profil_badan_sukan], ['class' => 'btn btn-warning']) ?>
         <?php endif; ?>
         <?= Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'window.print();' ]); ?>
     </p>

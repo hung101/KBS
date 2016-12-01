@@ -9,6 +9,7 @@ use yii\helpers\ArrayHelper;
 use kartik\widgets\DepDrop;
 use yii\helpers\Url;
 use app\models\AtletPencapaian;
+use yii\web\Session;
 
 // table reference
 use app\models\Atlet;
@@ -23,6 +24,17 @@ use app\models\general\GeneralMessage;
 /* @var $this yii\web\View */
 /* @var $model app\models\PenilaianPrestasiAtletSasaran */
 /* @var $form yii\widgets\ActiveForm */
+
+    $session = new Session;
+    $session->open();
+
+    $atlet_list = Atlet::find()->all();
+    
+    if(isset($session['penilaian-pestasi_sukan_id'])){
+        $atlet_list = Atlet::find()->joinWith(['refAtletSukan' => function($query) {$query->orderBy(['tbl_atlet_sukan.created' => SORT_DESC])->one();},
+                ])->andWhere(['tbl_atlet_sukan.nama_sukan'=>$session['penilaian-pestasi_sukan_id']])->groupBy('tbl_atlet.atlet_id')->all();
+    }
+        
 ?>
 
 <div class="penilaian-prestasi-atlet-sasaran-form">
@@ -51,13 +63,13 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'data'=>ArrayHelper::map($atlet_list,'atlet_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::atlet],
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>6]],
-                 'sasaran' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+                'sasaran' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
                 'keputusan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -154,5 +166,8 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 JS;
         
 $this->registerJs($script);
+
+
+$session->close();
 ?>
 

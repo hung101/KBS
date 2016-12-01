@@ -252,8 +252,12 @@ use app\models\general\Placeholder;
     
     <?php // Kertas Kerja Projek / Program Upload
     
-    if(Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN){
-
+    $approvedMaklumatKewangan = 0;
+    if (($modelProfilBadanSukan = ProfilBadanSukan::findOne($model->profil_badan_sukan_id)) !== null) {
+            $approvedMaklumatKewangan =  $modelProfilBadanSukan->permintaan_maklumat_kewangan_approved;
+    } 
+    //if(Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN){
+    if($approvedMaklumatKewangan == 1 || isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['maklumat-kewangan'])){
        $label = $model->getAttributeLabel('laporan_kewangan_muat_naik');
 
        if($model->laporan_kewangan_muat_naik){
@@ -283,6 +287,13 @@ use app\models\general\Placeholder;
                ]);
            echo "</div>";
        }
+    } else {
+        $label = $model->getAttributeLabel('laporan_kewangan_muat_naik');
+        if($model->laporan_kewangan_muat_naik){
+            echo "<div class='required'>";
+            echo "<label>" . $model->getAttributeLabel('laporan_kewangan_muat_naik') . "</label><br>";
+            echo '<div class="well">Laporan kewangan tidak dapat dilihat sehingga permintaan diluluskan.</div>';
+        }
     }
     ?>
     

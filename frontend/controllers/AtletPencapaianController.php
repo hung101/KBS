@@ -9,6 +9,8 @@ use app\models\AtletPencapaianRekods;
 use frontend\models\AtletPencapaianRekodsSearch;
 use app\models\PenilaianPestasi;
 use app\models\PenilaianPestasiSearch;
+use app\models\PenilaianPrestasiAtletSasaran;
+use frontend\models\PenilaianPrestasiAtletSasaranSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -237,6 +239,10 @@ class AtletPencapaianController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if (($modelPenilaianPrestasiAtletSasaran = PenilaianPrestasiAtletSasaran::findOne($model->penilaian_prestasi_atlet_sasaran_id)) !== null) {
+                $modelPenilaianPrestasiAtletSasaran->keputusan = $model->pencapaian;
+                $modelPenilaianPrestasiAtletSasaran->save();
+            } 
             
             //return $this->redirect(['view', 'id' => $model->pencapaian_id]);
             return self::actionView($model->pencapaian_id);

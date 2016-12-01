@@ -494,9 +494,7 @@ use app\models\general\GeneralMessage;
             echo '&nbsp;&nbsp;' . Html::a('Ahli Jawatankuasa Kecil / Biro', Url::to(['/ltbs-ahli-jawatankuasa-kecil/index', 'profil_badan_sukan_id' => $model->profil_badan_sukan]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
             echo '&nbsp;&nbsp;' . Html::a('Senarai Ahli Gabungan', Url::to(['/ltbs-ahli-gabungan/index', 'profil_badan_sukan_id' => $model->profil_badan_sukan]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
             echo '&nbsp;&nbsp;' . Html::a('Perlembagaan Badan Sukan', Url::to(['/perlembagaan-badan-sukan/index', 'profil_badan_sukan_id' => $model->profil_badan_sukan]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
-            if($model->permintaan_maklumat_kewangan_approved == 1 || isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['maklumat-kewangan'])){
-                echo '&nbsp;&nbsp;' . Html::a('Maklumat Mesyuarat Agung Tahunan', Url::to(['/ltbs-minit-mesyuarat-jawatankuasa/index', 'profil_badan_sukan_id' => $model->profil_badan_sukan]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
-            }
+            echo '&nbsp;&nbsp;' . Html::a('Maklumat Mesyuarat Agung Tahunan', Url::to(['/ltbs-minit-mesyuarat-jawatankuasa/index', 'profil_badan_sukan_id' => $model->profil_badan_sukan]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
         }
         ?>
     </div>
