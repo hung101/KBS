@@ -140,7 +140,7 @@ class BorangProfilPesertaKpskPeserta extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
-            'kehadiran' => 'Kehadiran',
+            'kehadiran' => GeneralLabel::kehadiran,
         ];
     }
     

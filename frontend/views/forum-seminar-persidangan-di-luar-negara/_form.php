@@ -108,7 +108,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT PROGRAM</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_program_cap; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -219,11 +219,11 @@ use app\models\general\GeneralVariable;
 ]);
         ?>
     <br>
-    <h3>Lampiran Perbelanjaan/Resit/Surat Jemputan Penganjur</h3>
+    <h3><?php echo GeneralLabel::lampiran_perbelanjaan_resit_surat_jemputan_penganjur; ?></h3>
     
     <div class="panel panel-danger">
         <div class="panel-body">
-            <strong>Nota: Senarai Dokumen Sokongan</strong>
+            <strong><?php echo GeneralLabel::senarai_dokumen_sokongan; ?></strong>
         </div>
         <ol>
             <li >Surat Permohonan.</li>

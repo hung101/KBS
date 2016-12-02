@@ -68,9 +68,9 @@ class BorangProfilPesertaKpsk extends \yii\db\ActiveRecord
     {
         return [
             'borang_profil_peserta_kpsk_id' => 'Borang Profil Peserta Kpsk ID',
-            'penganjur_kursus' => 'Penganjur Kursus',
-            'kod_kursus' => 'Kod Kursus',
-            'tarikh_kursus' => 'Tarikh Kursus',
+            'penganjur_kursus' => GeneralLabel::penganjur_kursus,  //'Penganjur Kursus',
+            'kod_kursus' => GeneralLabel::kod_kursus,  //'Kod Kursus',
+            'tarikh_kursus' => GeneralLabel::tarikh_kursus,  //'Tarikh Kursus',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',

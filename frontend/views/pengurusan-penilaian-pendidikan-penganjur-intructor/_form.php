@@ -128,7 +128,7 @@ use app\models\general\GeneralMessage;
 ]);
         ?>
     
-    <h3>Soalan Penilaian</h3>
+    <h3><?php echo GeneralLabel::soalan_penilaian; ?></h3>
     
     <?php 
             Modal::begin([
@@ -182,13 +182,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-soalan-penilaian-pendidikan-penganjur/update', 'id' => $model->pengurusan_soalan_penilaian_pendidikan_penganjur_id]).'", "'.GeneralLabel::updateTitle . ' Soalan Penilaian");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-soalan-penilaian-pendidikan-penganjur/update', 'id' => $model->pengurusan_soalan_penilaian_pendidikan_penganjur_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::soalan_penilaian.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-soalan-penilaian-pendidikan-penganjur/view', 'id' => $model->pengurusan_soalan_penilaian_pendidikan_penganjur_id]).'", "'.GeneralLabel::viewTitle . ' Soalan Penilaian");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-soalan-penilaian-pendidikan-penganjur/view', 'id' => $model->pengurusan_soalan_penilaian_pendidikan_penganjur_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::soalan_penilaian.'");',
                         ]);
                     }
                 ],
@@ -207,7 +207,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-soalan-penilaian-pendidikan-penganjur/create', 'pengurusan_penilaian_pendidikan_penganjur_intructor_id' => $pengurusan_penilaian_pendidikan_penganjur_intructor_id]).'", "'.GeneralLabel::createTitle . ' Soalan Penilaian");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-soalan-penilaian-pendidikan-penganjur/create', 'pengurusan_penilaian_pendidikan_penganjur_intructor_id' => $pengurusan_penilaian_pendidikan_penganjur_intructor_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::soalan_penilaian.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

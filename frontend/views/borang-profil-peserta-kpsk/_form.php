@@ -76,7 +76,7 @@ use app\models\general\GeneralMessage;
 ]);
         ?>
     
-    <h3>Peserta Kursus</h3>
+    <h3><?php echo GeneralLabel::peserta_kursus; ?></h3>
     
     <?php 
             Modal::begin([
@@ -155,13 +155,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['borang-profil-peserta-kpsk-peserta/update', 'id' => $model->borang_profil_peserta_kpsk_peserta_id]).'", "'.GeneralLabel::updateTitle . ' Peserta Kursus");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['borang-profil-peserta-kpsk-peserta/update', 'id' => $model->borang_profil_peserta_kpsk_peserta_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::peserta_kursus.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['borang-profil-peserta-kpsk-peserta/view', 'id' => $model->borang_profil_peserta_kpsk_peserta_id]).'", "'.GeneralLabel::viewTitle . ' Peserta Kursus");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['borang-profil-peserta-kpsk-peserta/view', 'id' => $model->borang_profil_peserta_kpsk_peserta_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::peserta_kursus.'");',
                         ]);
                     },
                     'surat' => function ($url, $model) {
@@ -190,7 +190,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['borang-profil-peserta-kpsk-peserta/create', 'borang_profil_peserta_kpsk_id' => $borang_profil_peserta_kpsk_id]).'", "'.GeneralLabel::createTitle . ' Peserta Kursus");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['borang-profil-peserta-kpsk-peserta/create', 'borang_profil_peserta_kpsk_id' => $borang_profil_peserta_kpsk_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::peserta_kursus.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

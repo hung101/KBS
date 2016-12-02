@@ -235,7 +235,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>PEMBAHAGIAN MARKAH</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::pembahagian_markah_cap; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([

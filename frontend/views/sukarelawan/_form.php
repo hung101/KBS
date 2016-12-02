@@ -267,7 +267,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT AKADEMIK</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_akademik; ?></strong></pre>
     
     <?php 
         echo FormGrid::widget([
@@ -305,7 +305,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT PEKERJAAN</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_perkerjaan_cap; ?></strong></pre>
     
     <?php 
         echo FormGrid::widget([

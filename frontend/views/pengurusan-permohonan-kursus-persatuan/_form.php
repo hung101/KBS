@@ -46,7 +46,7 @@ use app\models\general\GeneralMessage;
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT PENYELARAS</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_penyelaras_cap; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -260,7 +260,7 @@ use app\models\general\GeneralMessage;
         ?>
     
     <br>
-    <pre style="text-align: center"><strong>KEGUNAAN PEJABAT MSN</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::kegunaan_msn ?></strong></pre>
     
     <h3>Panel Instruktur  KPSK</h3>
     

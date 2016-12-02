@@ -9,9 +9,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PengurusanPerhimpunanKem */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::pengurusan_perhimpunan_kem.': ' . ' ' . $model->pengurusan_perhimpunan_kem_id;
-$this->title = GeneralLabel::updateTitle . ' Bantuan Geran Penganjuran';
+$this->title = GeneralLabel::updateTitle . ' '.GeneralLabel::bantuan_geran_penganjuran;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::bantuan_geran_penganjuran, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Bantuan Geran Penganjuran', 'url' => ['view', 'id' => $model->pengurusan_perhimpunan_kem_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' '.GeneralLabel::bantuan_geran_penganjuran, 'url' => ['view', 'id' => $model->pengurusan_perhimpunan_kem_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-perhimpunan-kem-update">

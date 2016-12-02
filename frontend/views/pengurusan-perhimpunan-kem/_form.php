@@ -248,7 +248,7 @@ use app\models\general\GeneralMessage;
     }
     ?>
     
-    <h3>Kos</h3>
+    <h3><?php echo GeneralLabel::kos; ?></h3>
     
     <?php 
             Modal::begin([
@@ -301,13 +301,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-perhimpunan-kem-kos/update', 'id' => $model->pengurusan_perhimpunan_kem_kos_id]).'", "'.GeneralLabel::updateTitle . ' Kos");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-perhimpunan-kem-kos/update', 'id' => $model->pengurusan_perhimpunan_kem_kos_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::kos.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-perhimpunan-kem-kos/view', 'id' => $model->pengurusan_perhimpunan_kem_kos_id]).'", "'.GeneralLabel::viewTitle . ' Kos");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-perhimpunan-kem-kos/view', 'id' => $model->pengurusan_perhimpunan_kem_kos_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::kos.'");',
                         ]);
                     }
                 ],
@@ -328,7 +328,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-perhimpunan-kem-kos/create', 'pengurusan_perhimpunan_kem_id' => $pengurusan_perhimpunan_kem_id]).'", "'.GeneralLabel::createTitle . ' Kos");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-perhimpunan-kem-kos/create', 'pengurusan_perhimpunan_kem_id' => $pengurusan_perhimpunan_kem_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::kos.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -336,7 +336,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     
-    <h3>Peserta</h3>
+    <h3><?php echo GeneralLabel::peserta; ?></h3>
     
     <?php 
             Modal::begin([
@@ -388,13 +388,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-perhimpunan-kem-peserta/update', 'id' => $model->pengurusan_perhimpunan_kem_peserta_id]).'", "'.GeneralLabel::updateTitle . ' Peserta");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-perhimpunan-kem-peserta/update', 'id' => $model->pengurusan_perhimpunan_kem_peserta_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::peserta.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-perhimpunan-kem-peserta/view', 'id' => $model->pengurusan_perhimpunan_kem_peserta_id]).'", "'.GeneralLabel::viewTitle . ' Peserta");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-perhimpunan-kem-peserta/view', 'id' => $model->pengurusan_perhimpunan_kem_peserta_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::peserta.'");',
                         ]);
                     }
                 ],
@@ -409,7 +409,7 @@ use app\models\general\GeneralMessage;
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-perhimpunan-kem-peserta/create', 'pengurusan_perhimpunan_kem_id' => $pengurusan_perhimpunan_kem_id]).'", "'.GeneralLabel::createTitle . ' Peserta");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-perhimpunan-kem-peserta/create', 'pengurusan_perhimpunan_kem_id' => $pengurusan_perhimpunan_kem_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::peserta.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
