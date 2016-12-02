@@ -217,34 +217,49 @@ use app\models\general\Placeholder;
     
     <?php // Kertas Kerja Projek / Program Upload
     
-    $label = $model->getAttributeLabel('minit_agm_muat_naik');
-    
-    if($model->minit_agm_muat_naik){
-        echo "<div class='required'>";
-        echo "<label>" . $model->getAttributeLabel('minit_agm_muat_naik') . "</label><br>";
-        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->minit_agm_muat_naik , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
-        echo "</div>";
-        
-        $label = false;
-    }
-    
-    if(!$readonly){
-        echo "<div class='required'>";
-        echo FormGrid::widget([
-            'model' => $model,
-            'form' => $form,
-            'autoGenerateColumns' => true,
-            'rows' => [
-                    [
-                        'columns'=>12,
-                        'autoGenerateColumns'=>false, // override columns setting
-                        'attributes' => [
-                            'minit_agm_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label, 'hint'=>GeneralLabel::getFileUploadHint()],
+    $approvedMaklumatKewangan = 0;
+    if (($modelProfilBadanSukan = ProfilBadanSukan::findOne($model->profil_badan_sukan_id)) !== null) {//update or create
+            $approvedMaklumatKewangan =  $modelProfilBadanSukan->permintaan_maklumat_kewangan_approved;
+    } elseif (($modelProfilBadanSukan = ProfilBadanSukan::findOne($model->profil_badan_sukan_id_id)) !== null) { //view
+            $approvedMaklumatKewangan =  $modelProfilBadanSukan->permintaan_maklumat_kewangan_approved;
+    } 
+    if($approvedMaklumatKewangan == 1 || isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['maklumat-kewangan'])){
+        $label = $model->getAttributeLabel('minit_agm_muat_naik');
+
+        if($model->minit_agm_muat_naik){
+            echo "<div class='required'>";
+            echo "<label>" . $model->getAttributeLabel('minit_agm_muat_naik') . "</label><br>";
+            echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->minit_agm_muat_naik , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+            echo "</div>";
+
+            $label = false;
+        }
+
+        if(!$readonly){
+            echo "<div class='required'>";
+            echo FormGrid::widget([
+                'model' => $model,
+                'form' => $form,
+                'autoGenerateColumns' => true,
+                'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'minit_agm_muat_naik' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label, 'hint'=>GeneralLabel::getFileUploadHint()],
+                            ],
                         ],
-                    ],
-                ]
-            ]);
-        echo "</div>";
+                    ]
+                ]);
+            echo "</div>";
+        }
+    } else {
+        $label = $model->getAttributeLabel('laporan_kewangan_muat_naik');
+        if($model->laporan_kewangan_muat_naik){
+            echo "<div class='required'>";
+            echo "<label>" . $model->getAttributeLabel('minit_agm_muat_naik') . "</label><br>";
+            echo '<div class="well">Minit AGM tidak dapat dilihat sehingga permintaan diluluskan.</div>';
+        }
     }
         
     ?>
@@ -252,10 +267,7 @@ use app\models\general\Placeholder;
     
     <?php // Kertas Kerja Projek / Program Upload
     
-    $approvedMaklumatKewangan = 0;
-    if (($modelProfilBadanSukan = ProfilBadanSukan::findOne($model->profil_badan_sukan_id)) !== null) {
-            $approvedMaklumatKewangan =  $modelProfilBadanSukan->permintaan_maklumat_kewangan_approved;
-    } 
+    
     //if(Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN){
     if($approvedMaklumatKewangan == 1 || isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['maklumat-kewangan'])){
        $label = $model->getAttributeLabel('laporan_kewangan_muat_naik');

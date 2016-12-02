@@ -2712,6 +2712,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jenis_permohonan_pendidikan = "Jenis Permohonan Pendidikan";
         const jenis_permohonan_program_binaan = "Jenis Permohonan Program Binaan";
         const jenis_program_bantuan_menghadiri_program_antarabangsa = "Jenis Program Bantuan Menghadiri Program Antarabangsa";
+        const jenis_program_binaan = "Jenis Program Binaan";
         const jenis_program_jaringan_antarabangsa = "Jenis Program Jaringan Antarabangsa";
         const jenis_sijil_kelayakan_jurulatih = "Jenis Sijil Kelayakan Jurulatih";
         const jenis_sukan_persatuan_persekutuandunia = "Jenis Sukan Persatuan Persekutuandunia";
@@ -6178,6 +6179,7 @@ if($session->get('language') == "EN") {
         const jenis_permohonan_pendidikan = "Types Of Educational Application";
         const jenis_permohonan_program_binaan = "Type Of Application Construction";
         const jenis_program_bantuan_menghadiri_program_antarabangsa = "Type Of Assistance Programmes Attend International Program";
+        const jenis_program_binaan = "Type Of Construction Program";
         const jenis_program_jaringan_antarabangsa = "Types Of International Relations Program";
         const jenis_sijil_kelayakan_jurulatih = "Types Of Certificates Of Entitlement Coach";
         const jenis_sukan_persatuan_persekutuandunia = "Sports Association Persekutuandunia";

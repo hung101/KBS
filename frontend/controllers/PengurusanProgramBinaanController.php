@@ -425,6 +425,8 @@ Majlis Sukan Negara Malaysia.
                 $report_url = BaseUrl::to(['generate-laporan-senarai-penganjuran-program-binaan'
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'tarikh_dari' => $model->tarikh_dari
+                    , 'negeri' => $model->negeri
+                    , 'program' => $model->program
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -432,6 +434,8 @@ Majlis Sukan Negara Malaysia.
                 return $this->redirect(['generate-laporan-senarai-penganjuran-program-binaan'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'negeri' => $model->negeri
+                    , 'program' => $model->program
                     , 'format' => $model->format
                 ]);
             }
@@ -443,7 +447,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanSenaraiPenganjuranProgramBinaan($tarikh_dari, $tarikh_hingga, $format)
+    public function actionGenerateLaporanSenaraiPenganjuranProgramBinaan($tarikh_dari, $tarikh_hingga, $negeri, $program, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -451,9 +455,17 @@ Majlis Sukan Negara Malaysia.
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        if($program == "") $program = array();
+        else $program = array($program);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'NEGERI' => $negeri,
+            'PROGRAM' => $program,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanSenaraiPenganjuranProgramBinaan', $format, $controls, 'laporan_senarai_penganjuran_program_binaan');
@@ -474,6 +486,8 @@ Majlis Sukan Negara Malaysia.
                 $report_url = BaseUrl::to(['generate-laporan-statistik-program-binaan-mengikut-negeri'
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'tarikh_dari' => $model->tarikh_dari
+                    , 'negeri' => $model->negeri
+                    , 'program' => $model->program 
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -481,6 +495,8 @@ Majlis Sukan Negara Malaysia.
                 return $this->redirect(['generate-laporan-statistik-program-binaan-mengikut-negeri'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'negeri' => $model->negeri
+                    , 'program' => $model->program 
                     , 'format' => $model->format
                 ]);
             }
@@ -492,7 +508,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanStatistikProgramBinaanMengikutNegeri($tarikh_dari, $tarikh_hingga, $format)
+    public function actionGenerateLaporanStatistikProgramBinaanMengikutNegeri($tarikh_dari, $tarikh_hingga, $negeri, $program, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -500,9 +516,17 @@ Majlis Sukan Negara Malaysia.
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        if($program == "") $program = array();
+        else $program = array($program);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'NEGERI' => $negeri,
+            'PROGRAM' => $program,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikProgramBinaanMengikutNegeri', $format, $controls, 'laporan_statistik_program_binaan_mengikut_negeri');
@@ -523,6 +547,8 @@ Majlis Sukan Negara Malaysia.
                 $report_url = BaseUrl::to(['generate-laporan-statistik-program-binaan-mengikut-sukan'
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'tarikh_dari' => $model->tarikh_dari
+                    , 'negeri' => $model->negeri
+                    , 'program' => $model->program 
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -530,6 +556,8 @@ Majlis Sukan Negara Malaysia.
                 return $this->redirect(['generate-laporan-statistik-program-binaan-mengikut-sukan'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'negeri' => $model->negeri
+                    , 'program' => $model->program
                     , 'format' => $model->format
                 ]);
             }
@@ -541,7 +569,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanStatistikProgramBinaanMengikutSukan($tarikh_dari, $tarikh_hingga, $format)
+    public function actionGenerateLaporanStatistikProgramBinaanMengikutSukan($tarikh_dari, $tarikh_hingga, $negeri, $program, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -549,9 +577,17 @@ Majlis Sukan Negara Malaysia.
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        if($program == "") $program = array();
+        else $program = array($program);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'NEGERI' => $negeri,
+            'PROGRAM' => $program,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikProgramBinaanMengikutSukan', $format, $controls, 'laporan_statistik_program_binaan_mengikut_sukan');

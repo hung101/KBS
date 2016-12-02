@@ -116,13 +116,13 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'aktiviti' =>[
+                /*'aktiviti' =>[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
                         'data'=>ArrayHelper::map(PerancanganProgram::find()->where('jenis_aktiviti = :id1', [':id1' => RefJenisAktiviti::PROGRAM_BINAAN])->all(),'perancangan_program_id', 'nama_program'),
                         'options' => ['placeholder' => Placeholder::program],],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>3]],*/
                 'jenis_aktiviti' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -137,7 +137,7 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefJenisPermohonanProgramBinaan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jenisAktiviti],
 'pluginOptions' => [
-                            'allowClear' => true
+                            'allowClear' => true,
                         ],],
                     'columnOptions'=>['colspan'=>3]],
                 'nama_aktiviti' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],

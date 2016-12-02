@@ -85,7 +85,6 @@ class PengurusanProgramBinaan extends \yii\db\ActiveRecord
             'pengurus_pn' => GeneralLabel::pengurus_pn,
             'kategori_permohonan' => GeneralLabel::kategori_permohonan,
             'jenis_permohonan' => GeneralLabel::jenis_permohonan,
-            'jenis_aktiviti' => GeneralLabel::jenis_aktiviti,
             'nama_aktiviti' => GeneralLabel::nama_aktiviti,
             'sukan' => GeneralLabel::sukan,
             'tempat' => GeneralLabel::tempat,
@@ -101,7 +100,7 @@ class PengurusanProgramBinaan extends \yii\db\ActiveRecord
             'status_permohonan' => GeneralLabel::status_permohonan,
             'bilangan_jkb' => GeneralLabel::bilangan_jkb,
             'tarikh_jkb' => GeneralLabel::tarikh_jkb,
-            'jenis_aktiviti ' => GeneralLabel::jenis_aktiviti,
+            'jenis_aktiviti' => GeneralLabel::jenis_program_binaan,
             'jabatan' => GeneralLabel::jabatan,
         ];
     }

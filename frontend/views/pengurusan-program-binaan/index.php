@@ -70,14 +70,14 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'tahap',
             // 'negeri',
             // 'daerah',
-            [
+            /*[
                 'attribute' => 'aktiviti',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::aktiviti,
                 ],
                 'value' => 'refPerancanganProgram.nama_program'
-            ],
+            ],*/
             [
                 'attribute' => 'nama_aktiviti',
                 'filterInputOptions' => [

@@ -84,6 +84,7 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
         
         $model = $this->findModel($id);
         
+        $model->profil_badan_sukan_id_id = $model->profil_badan_sukan_id;
         $profil_badan_sukan_id = $model->profil_badan_sukan_id;
         $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->profil_badan_sukan_id]);
         $model->profil_badan_sukan_id = $ref['nama_badan_sukan'];
