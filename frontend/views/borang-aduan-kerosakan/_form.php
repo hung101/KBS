@@ -165,7 +165,7 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     
-    <h3>Jenis Kerosakan</h3>
+             <h3><?php echo GeneralLabel::jenis_kerosakan; ?></h3>
     
     <?php 
             Modal::begin([
@@ -247,13 +247,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['borang-aduan-kerosakan-jenis-kerosakan/update', 'id' => $model->borang_aduan_kerosakan_jenis_kerosakan_id]).'", "'.GeneralLabel::updateTitle . ' Jenis Kerosakan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['borang-aduan-kerosakan-jenis-kerosakan/update', 'id' => $model->borang_aduan_kerosakan_jenis_kerosakan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::jenis_kerosakan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['borang-aduan-kerosakan-jenis-kerosakan/view', 'id' => $model->borang_aduan_kerosakan_jenis_kerosakan_id]).'", "'.GeneralLabel::viewTitle . ' Jenis Kerosakan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['borang-aduan-kerosakan-jenis-kerosakan/view', 'id' => $model->borang_aduan_kerosakan_jenis_kerosakan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::jenis_kerosakan.'");',
                         ]);
                     }
                 ],
@@ -274,7 +274,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['borang-aduan-kerosakan-jenis-kerosakan/create', 'borang_aduan_kerosakan_id' => $borang_aduan_kerosakan_id]).'", "'.GeneralLabel::createTitle . ' Jenis Kerosakan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['borang-aduan-kerosakan-jenis-kerosakan/create', 'borang_aduan_kerosakan_id' => $borang_aduan_kerosakan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::jenis_kerosakan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

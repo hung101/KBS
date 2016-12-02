@@ -114,6 +114,7 @@ class PermohonanBimbinganKaunseling extends \yii\db\ActiveRecord
             'negeri' => GeneralLabel::negeri,
             'cawangan_isn' => GeneralLabel::cawangan,
             'sukan_atlet_jurulatih' => GeneralLabel::sukan,
+            'jurulatih' => GeneralLabel::jurulatih,
         ];
     }
     

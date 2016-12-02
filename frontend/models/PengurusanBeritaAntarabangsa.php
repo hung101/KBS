@@ -90,6 +90,7 @@ class PengurusanBeritaAntarabangsa extends \yii\db\ActiveRecord
             'alamat_bandar' => GeneralLabel::alamat_bandar,
             'alamat_poskod' => GeneralLabel::alamat_poskod,
             'gps' => 'GPS',
+            'currency' => GeneralLabel::matawang, 
             'malaysia_rm' => GeneralLabel::malaysia_rm, //Malaysia (RM)',
             'goverment_mayor' => GeneralLabel::goverment_mayor, //'Kerajaan (Datuk Bandar)',
             'area_municipality' => GeneralLabel::area_municipality, //'Kawasan (Perbandaran)',
@@ -99,14 +100,17 @@ class PengurusanBeritaAntarabangsa extends \yii\db\ActiveRecord
             'celcius' => GeneralLabel::celcius, //"Celsius (°C)",
             'area_code' => GeneralLabel::area_code, //"Kod Kawasan",
             'popular_sports' => GeneralLabel::sukan, //"Sukan Popular",
-            'region' => 'Kawasan',
+            'region' => GeneralLabel::kawasan,  //'Kawasan',
             'country' => GeneralLabel::negara, //'Negara',
             'state' => GeneralLabel::negeri, //'Negeri',
-            'population' => 'Jumlah Penduduk',
-            'public_transportation' => 'Pengangkutan Awam',
-            'climate' => 'Iklim',
+            'population' => GeneralLabel::population,
+            'public_transportation' =>  GeneralLabel::pengangkutan, //'Pengangkutan Awam',
+            'climate' => GeneralLabel::iklim, //'Iklim',
             'no_faks' => GeneralLabel::no_faks,
-            'nama_pegawai_embassy' => 'Nama Pegawai Kedutaan'
+            'no_telefon' => GeneralLabel::no_telefon,
+            'nama_pegawai_embassy' => GeneralLabel::nama_pegawai_embassy,  //'Nama Pegawai Kedutaan'
+            'nama_negara' => GeneralLabel::negara,  //'Nama Pegawai Kedutaan'
+            'catatan' => GeneralLabel::catatan,
         ];
     }
     

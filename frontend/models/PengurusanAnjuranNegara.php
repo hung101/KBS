@@ -55,8 +55,8 @@ class PengurusanAnjuranNegara extends \yii\db\ActiveRecord
         return [
             'pengurusan_anjuran_negara_id' => 'Pengurusan Anjuran Negara ID',
             'pengurusan_anjuran_id' => 'Pengurusan Anjuran ID',
-            'negara' => 'Negara',
-            'nama_delegasi_luar_negara' => 'Nama Delegasi Luar Negara',
+            'negara' => GeneralLabel::negara,   //'Negara',
+            'nama_delegasi_luar_negara' => GeneralLabel::nama_delegasi_luar_negara,   //'Nama Delegasi Luar Negara',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

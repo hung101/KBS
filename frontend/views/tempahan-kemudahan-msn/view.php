@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
-        <?= Html::a('Cetak Borang Tempahan Kemudahan', ['tempahan-kemudahan', 'tempahan_kemudahan_id' => $model->tempahan_kemudahan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
+        <?= Html::a(GeneralLabel::cetak_borang_tempahan_kemudahan, ['tempahan-kemudahan', 'tempahan_kemudahan_id' => $model->tempahan_kemudahan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
     </p>
     
     <?= $this->render('_form', [

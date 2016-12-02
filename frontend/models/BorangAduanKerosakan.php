@@ -4,6 +4,13 @@ namespace app\models;
 
 use Yii;
 
+// contant values
+use app\models\general\Placeholder;
+use app\models\general\GeneralLabel;
+use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
+use app\models\general\GeneralMessage;
+
 /**
  * This is the model class for table "tbl_borang_aduan_kerosakan".
  *
@@ -70,15 +77,15 @@ class BorangAduanKerosakan extends \yii\db\ActiveRecord
     {
         return [
             'borang_aduan_kerosakan_id' => 'Borang Aduan Kerosakan ID',
-            'penyelia' => 'Penyelia',
-            'jawatan' => 'Jawatan',
-            'tarikh' => 'Tarikh',
-            'venue' => 'Venue',
-            'bahagian' => 'Bahagian',
-            'no_tel_pejabat' => 'No Tel Pejabat',
-            'no_tel_bimbit' => 'No Tel Bimbit',
-            'kawasan' => 'Kawasan',
-            'tarikh_siap_tindakan' => 'Tarikh Siap Tindakan',
+            'penyelia' => GeneralLabel::penyelia,  //'Penyelia',
+            'jawatan' => GeneralLabel::jawatan,  //'Jawatan',
+            'tarikh' => GeneralLabel::tarikh,  //'Tarikh',
+            'venue' => GeneralLabel::venue,  //'Venue',
+            'bahagian' => GeneralLabel::bahagian,  //'Bahagian',
+            'no_tel_pejabat' => GeneralLabel::no_tel_pejabat,  //'No Tel Pejabat',
+            'no_tel_bimbit' => GeneralLabel::no_tel_bimbit,  //'No Tel Bimbit',
+            'kawasan' => GeneralLabel::kawasan,  //'Kawasan',
+            'tarikh_siap_tindakan' => GeneralLabel::tarikh_siap_tindakan,  //'Tarikh Siap Tindakan',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',

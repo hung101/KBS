@@ -265,6 +265,7 @@ if($session->get('language') == "EN") {
         const yearMax = 2020;
         
         //User - From Module
+        const moduleMSNAduanPenyelia= "MSN Aduan Penyelia";
         const modulePJSPersatuan = "PJS Persatuan";
         const moduleKBSeBiasiswa = "KBS_e-Biasiswa";
         const moduleKBSeBantuan= "KBS_e-Bantuan";

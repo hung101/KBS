@@ -113,7 +113,7 @@ use app\models\general\GeneralMessage;
     ?>
     
     <br>
-    <pre style="text-align: center"><strong>BUTIRAN</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::butiran_cap; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -244,7 +244,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>HAL-HAL LAIN</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::hal_hal_lain; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -263,7 +263,7 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     
-    <h3>Muatnaik</h3>
+    <h3><?php echo GeneralLabel::muatnaik; ?></h3>
     
     <?php 
             Modal::begin([
@@ -332,13 +332,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-berita-antarabangsa-muatnaik/update', 'id' => $model->pengurusan_berita_antarabangsa_muatnaik_id]).'", "'.GeneralLabel::updateTitle . ' Muatnaik");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-berita-antarabangsa-muatnaik/update', 'id' => $model->pengurusan_berita_antarabangsa_muatnaik_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::muatnaik.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-berita-antarabangsa-muatnaik/view', 'id' => $model->pengurusan_berita_antarabangsa_muatnaik_id]).'", "'.GeneralLabel::viewTitle . ' Muatnaik");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-berita-antarabangsa-muatnaik/view', 'id' => $model->pengurusan_berita_antarabangsa_muatnaik_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::muatnaik.'");',
                         ]);
                     }
                 ],
@@ -359,7 +359,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-berita-antarabangsa-muatnaik/create', 'pengurusan_berita_antarabangsa_id' => $pengurusan_berita_antarabangsa_id]).'", "'.GeneralLabel::createTitle . ' Muatnaik");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-berita-antarabangsa-muatnaik/create', 'pengurusan_berita_antarabangsa_id' => $pengurusan_berita_antarabangsa_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::muatnaik.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -367,7 +367,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>BUTIRAN NEGARA</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::butiran_negara_cap; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([

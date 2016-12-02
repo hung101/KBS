@@ -42,7 +42,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const biomekanikUjian = " -- Pilih Biomekanik Ujian -- ";
         const cawangan = " -- Pilih Cawangan -- ";
         const country = " -- Pilih Country -- ";
-        const currency = " -- Pilih Currency --";
+        const currency = " -- Pilih Matawang --";
         const darjah = " -- Pilih Darjah -- ";
         const delegasi = " -- Pilih Delegasi -- ";
         const disiplin = " -- Pilih Disiplin -- ";
@@ -332,6 +332,7 @@ if($session->get('language') == "EN") {
         const biomekanikUjian = " -- Select The Biomechanics Test -- ";
         const cawangan = " -- Select Branch -- ";
         const country = " -- Select Country -- ";
+        const currency = " -- Pilih Currency --";
         const darjah = " -- Select Degree -- ";
         const delegasi = " -- Select Delegation -- ";
         const disiplin = " -- Select Discipline -- ";

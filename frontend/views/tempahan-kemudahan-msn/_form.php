@@ -205,7 +205,7 @@ use app\models\general\GeneralMessage;
     <br>
     <br>
     <!--<pre style="text-align: center"><strong>BUTIRAN VENUE</strong></pre>-->
-    <legend>BUTIRAN VENUE</legend>
+    <legend><?php echo GeneralLabel::butiran_venue_cap; ?></legend>
     <?php // Venue info
     
         if(!$readonly){
@@ -283,7 +283,7 @@ use app\models\general\GeneralMessage;
     <br>
     <br>
     <!--<pre style="text-align: center"><strong>BUTIRAN PEMILIK</strong></pre>-->
-    <legend>BUTIRAN PEMILIK</legend>
+    <legend><?php echo GeneralLabel::butiran_pemilik_cap; ?></legend>
     <?php
         if(!$readonly){
             echo $form->field($model, 'public_user_pemilik_id')->hiddenInput()->label(false);
@@ -349,7 +349,7 @@ use app\models\general\GeneralMessage;
     <br>
     <br>
     <!--<pre style="text-align: center"><strong>BUTIRAN TEMPAHAN</strong></pre>-->
-    <legend>BUTIRAN TEMPAHAN</legend>
+    <legend><?php echo GeneralLabel::butiran_tempahan_cap; ?></legend>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -517,8 +517,8 @@ use app\models\general\GeneralMessage;
         
         ?>
     
-    <h3>Fasiliti Yang Ingin Digunakan &nbsp <?php if(!$readonly): ?><?=Html::a('Senarai Kemudahan', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['tempahan-kemudahan-sub-msn/create', 'tempahan_kemudahan_id' => $tempahan_kemudahan_id]).'", "Senarai Kemudahan");',
+    <h3><?php echo GeneralLabel::fasiliti_yang_ingin_digunakan;?> &nbsp <?php if(!$readonly): ?><?=Html::a(GeneralLabel::fasiliti_yang_ingin_digunakan, 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['tempahan-kemudahan-sub-msn/create', 'tempahan_kemudahan_id' => $tempahan_kemudahan_id]).'", "'.GeneralLabel::fasiliti_yang_ingin_digunakan.'");',
                         'class' => 'btn btn-success',
                         ]);?><?php endif; ?></h3>
     
@@ -644,13 +644,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['tempahan-kemudahan-sub-msn/update', 'id' => $model->tempahan_kemudahan_sub_msn_id]).'", "Senarai Kemudahan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['tempahan-kemudahan-sub-msn/update', 'id' => $model->tempahan_kemudahan_sub_msn_id]).'", "'.GeneralLabel::fasiliti_yang_ingin_digunakan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['tempahan-kemudahan-sub-msn/view', 'id' => $model->tempahan_kemudahan_sub_msn_id]).'", "Senarai Kemudahan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['tempahan-kemudahan-sub-msn/view', 'id' => $model->tempahan_kemudahan_sub_msn_id]).'", "'.GeneralLabel::fasiliti_yang_ingin_digunakan.'");',
                         ]);
                     }
                 ],

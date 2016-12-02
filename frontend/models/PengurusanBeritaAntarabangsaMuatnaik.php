@@ -73,8 +73,8 @@ class PengurusanBeritaAntarabangsaMuatnaik extends \yii\db\ActiveRecord
         return [
             'pengurusan_berita_antarabangsa_muatnaik_id' => 'Pengurusan Berita Antarabangsa Muatnaik ID',
             'pengurusan_berita_antarabangsa_id' => 'Pengurusan Berita Antarabangsa ID',
-            'muatnaik' => 'Muatnaik',
-            'tarikh' => 'Tarikh',
+            'muatnaik' => GeneralLabel::muatnaik,  //'Muatnaik',
+            'tarikh' => GeneralLabel::tarikh,  //'Tarikh',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

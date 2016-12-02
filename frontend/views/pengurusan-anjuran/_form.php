@@ -125,7 +125,7 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     
-    <h3>Penyertaan Negara-negara</h3>
+    <h3><?php echo GeneralLabel::penyertaan_negara_negara; ?></h3>
     
     <?php 
             Modal::begin([
@@ -179,13 +179,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-anjuran-negara/update', 'id' => $model->pengurusan_anjuran_negara_id]).'", "'.GeneralLabel::updateTitle . ' Penyertaan Negara-negara");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-anjuran-negara/update', 'id' => $model->pengurusan_anjuran_negara_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::penyertaan_negara_negara.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-anjuran-negara/view', 'id' => $model->pengurusan_anjuran_negara_id]).'", "'.GeneralLabel::viewTitle . ' Penyertaan Negara-negara");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-anjuran-negara/view', 'id' => $model->pengurusan_anjuran_negara_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::penyertaan_negara_negara.'");',
                         ]);
                     }
                 ],
@@ -206,7 +206,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-anjuran-negara/create', 'pengurusan_anjuran_id' => $pengurusan_anjuran_id]).'", "'.GeneralLabel::createTitle . ' Penyertaan Negara-negara");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-anjuran-negara/create', 'pengurusan_anjuran_id' => $pengurusan_anjuran_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::penyertaan_negara_negara.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

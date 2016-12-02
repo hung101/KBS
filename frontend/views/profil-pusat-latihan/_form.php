@@ -227,7 +227,7 @@ use app\models\general\GeneralMessage;
     ?>
     <br>
     
-    <h3>Jurulatih</h3>
+    <h3><?php echo GeneralLabel::jurulatih; ?></h3>
     
     <?php 
             Modal::begin([
@@ -285,13 +285,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-pusat-latihan-jurulatih/update', 'id' => $model->profil_pusat_latihan_jurulatih_id]).'", "'.GeneralLabel::updateTitle . ' Jurulatih");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-pusat-latihan-jurulatih/update', 'id' => $model->profil_pusat_latihan_jurulatih_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::jurulatih.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-pusat-latihan-jurulatih/view', 'id' => $model->profil_pusat_latihan_jurulatih_id]).'", "'.GeneralLabel::viewTitle . ' Jurulatih");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-pusat-latihan-jurulatih/view', 'id' => $model->profil_pusat_latihan_jurulatih_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::jurulatih.'");',
                         ]);
                     }
                 ],
@@ -312,7 +312,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-pusat-latihan-jurulatih/create', 'profil_pusat_latihan_id' => $profil_pusat_latihan_id]).'", "'.GeneralLabel::createTitle . ' Jurulatih");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-pusat-latihan-jurulatih/create', 'profil_pusat_latihan_id' => $profil_pusat_latihan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::jurulatih.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

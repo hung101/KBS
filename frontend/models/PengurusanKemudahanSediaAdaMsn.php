@@ -112,7 +112,7 @@ class PengurusanKemudahanSediaAdaMsn extends \yii\db\ActiveRecord
             'gambar_3' => GeneralLabel::gambar_3,
             'gambar_4' => GeneralLabel::gambar_4,
             'gambar_5' => GeneralLabel::gambar_5,
-
+            'agensi' => GeneralLabel::agensi,
         ];
     }
     
