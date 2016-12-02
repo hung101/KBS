@@ -1029,6 +1029,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const maklumat_kongres_di_luar_negara_id = "Maklumat Kongres Di Luar Negara ID";
         const maklumat_msn_negeri = "Maklumat Msn Negeri";
         const maklumat_shakam_shakar = "Maklumat Shakam Shakar";
+        const maklumat_pemohon_cap = "MAKLUMAT PEMOHON";
         const maklumat_pegawai_teknikal = "Maklumat Pegawai Teknikal";
         const maklumat_pegawai_teknikal_id = "Maklumat Pegawai Teknikal";
         const maklumat_pegawai_teknikal_paparan = "Maklumat Pegawai Teknikal (Paparan)";
@@ -4494,6 +4495,7 @@ if($session->get('language') == "EN") {
         const maklumat_kongres_di_luar_negara_id = "Congress Information Outside The Country ID";
         const maklumat_msn_negeri = "Msn Information State";
         const maklumat_shakam_shakar = "Information Shakam Shakar";
+        const maklumat_pemohon_cap = "REQUESTER INFORMATION";
         const maklumat_pegawai_teknikal = "Information Technical Officer";
         const maklumat_pegawai_teknikal_id = "Information Technical Officer";
         const maklumat_pegawai_teknikal_paparan = "Information Technical Officer (Shelf)";
