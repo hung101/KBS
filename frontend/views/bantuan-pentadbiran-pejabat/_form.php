@@ -196,7 +196,7 @@ use app\models\general\GeneralVariable;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT SETIAUSAHA EKSEKUTIF / PENYELARAS / EMOLUMEN</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_setiausaha_eksekutif_penyelaras_emolumen; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([
@@ -235,7 +235,7 @@ use app\models\general\GeneralVariable;
 ]);
         ?>
     
-    <h3>Lampiran Perbelanjaan/Resit</h3>
+    <h3><?php echo GeneralLabel::lampiran_perbelanjaanresit; ?></h3>
     
     <div class="alert alert-warning alert-dismissible" role="alert">
         <strong>Nota:</strong> Setiap dokumen yang dimuatnaik perlu disahkan dan dihantar kepada Majlis Sukan Negara
@@ -300,13 +300,13 @@ use app\models\general\GeneralVariable;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['informasi-permohonan/update', 'id' => $model->informasi_permohonan_id]).'", "'.GeneralLabel::updateTitle . ' Lampiran Perbelanjaan/Resit");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['informasi-permohonan/update', 'id' => $model->informasi_permohonan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::lampiran_perbelanjaanresit.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['informasi-permohonan/view', 'id' => $model->informasi_permohonan_id]).'", "'.GeneralLabel::viewTitle . ' Lampiran Perbelanjaan/Resit");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['informasi-permohonan/view', 'id' => $model->informasi_permohonan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::lampiran_perbelanjaanresit.'");',
                         ]);
                     }
                 ],
@@ -325,7 +325,7 @@ use app\models\general\GeneralVariable;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['informasi-permohonan/create', 'bantuan_pentadbiran_pejabat_id' => $bantuan_pentadbiran_pejabat_id]).'", "'.GeneralLabel::createTitle . ' Lampiran Perbelanjaan/Resit");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['informasi-permohonan/create', 'bantuan_pentadbiran_pejabat_id' => $bantuan_pentadbiran_pejabat_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::lampiran_perbelanjaanresit.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

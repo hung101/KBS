@@ -30,7 +30,7 @@ use app\models\general\GeneralMessage;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
     
-    <pre style="text-align: center"><strong>MAKLUMAT PEMOHON / PERUJUK</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_pemohon_perujuk_cap; ?></strong></pre>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     <?php
@@ -145,7 +145,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>PEGAWAI / ANGGOTA YANG DIRUJUK</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::pengawai_anggota_yang_dirujuk_cap; ?></strong></pre>
     <p> <mark>Diisi jika pemohon ingin merujuk pegawai / anggota untuk sesi kaunseling.</mark></p>
     
    <?php
@@ -260,7 +260,7 @@ use app\models\general\GeneralMessage;
     
     <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT KAUNSELING</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_kaunseling_cap; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([

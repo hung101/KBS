@@ -269,7 +269,7 @@ use app\models\general\GeneralMessage;
     
      <br>
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT KLIEN YANG DIRUJUK (ATLET / JURULATIH)</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_klien_yang_dirujuk_atlet_jurulatih_cap; ?></strong></pre>
     
     <?php
         echo FormGrid::widget([

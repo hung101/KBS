@@ -113,8 +113,21 @@ class PermohonanBimbinganKaunseling extends \yii\db\ActiveRecord
             'sukan' => GeneralLabel::sukan,
             'negeri' => GeneralLabel::negeri,
             'cawangan_isn' => GeneralLabel::cawangan,
+            'cawangan' => GeneralLabel::cawangan,
             'sukan_atlet_jurulatih' => GeneralLabel::sukan,
             'jurulatih' => GeneralLabel::jurulatih,
+            'persatuan' => GeneralLabel::persatuan,
+            'emel' => GeneralLabel::emel,
+            'jawatan'=> GeneralLabel::jawatan,
+            'program'=> GeneralLabel::program,
+            'umur'=> GeneralLabel::umur,
+            'jantina'=> GeneralLabel::jantina,
+            'taraf_perkahwinan' => GeneralLabel::taraf_perkahwinan,
+            'diagnosis' => GeneralLabel::diagnosis,
+            'no_rujukan_kes' => GeneralLabel::no_rujukan_kes,
+            'cadangan' => GeneralLabel::cadangan,
+            'tindakan_kaunselor' => GeneralLabel::tindakan_kaunselor,
+            'tarikh_permohonan' => GeneralLabel::tarikh_permohonan,
         ];
     }
     
