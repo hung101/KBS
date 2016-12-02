@@ -13,7 +13,7 @@ $session = Yii::$app->getSession();
 if($session->get('language') == "BM" || $session->get('language') == null || $session->get('language') == "") {
 
 	class GeneralMessage{
-	    const confirmDelete = "Adakah anda pasti anda mahu memadam item ini?";
+	    const confirmDelete = "Adakah anda pasti?";
 	    const confirmRemove = "Adakah anda pasti mahu mengeluarkan?";
             const confirmKelulusan = "Adakah anda pasti mahu meluluskan?";
 	    const uploadEmptyError = "Sila muat naik fail";
@@ -48,13 +48,14 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
             const cth_jkk_bilangan_3_tahun_2015 = "Cth. JKK Bilangan 3 Tahun 2015";
             const cth_tarikh_jkb_bil3_2015 = "Cth. Tarikh JKB Bil3/2015";
             const seperti_dalam_kad_pengenalan = "Seperti dalam kad pengenalan";
+            const sila_pilih_salah_satu_butiran_kejohanan_temasya = "Sila pilih salah satu butiran (Kejohanan/Temasya) untuk penjanaan laporan.";
 	}
 }
 
 if($session->get('language') == "EN") {
 
 	class GeneralMessage{
-	    const confirmDelete = "Are you sure you want to delete this item?";
+	    const confirmDelete = "Are you sure?";
 	    const confirmRemove = "Are you sure you want to remove?";
             const confirmKelulusan = "Are you sure you want to approve?";
 	    const uploadEmptyError = "Please upload a file";
@@ -89,6 +90,7 @@ if($session->get('language') == "EN") {
             const cth_jkk_bilangan_3_tahun_2015 = "sample JKK Bilangan 3 Tahun 2015";
             const cth_tarikh_jkb_bil3_2015 = "sample Tarikh JKB Bil3/2015";
             const seperti_dalam_kad_pengenalan = "Same as IC";
+            const sila_pilih_salah_satu_butiran_kejohanan_temasya = "Please select one of the details (Tournament / Festival) for report generation.";
 	}
 
 }

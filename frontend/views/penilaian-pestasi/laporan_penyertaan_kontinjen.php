@@ -17,6 +17,7 @@ use app\models\RefTemasya;
 // contant values
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanPelaksaan */
@@ -31,6 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]); ?>
+    
+    <div class="alert alert-info"><?=GeneralMessage::sila_pilih_salah_satu_butiran_kejohanan_temasya?></div>
     
     <?php
         echo FormGrid::widget([
