@@ -845,7 +845,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kelulusan_akademi = "Kelulusan Akademik";
         const kelulusan_ceo = "Kelulusan CEO";
         const kelulusan_echics = "Kelulusan Etika";
-        const kelulusan_maklumat_kewangan = "Luluskan Permintaan Maklumat Kewangan";
+        const kelulusan_maklumat_kewangan = "Luluskan Permohonan Lihat Maklumat";
         const kelulusan_pbu = "Kelulusan PBU";
         const kelulusan_sains_sukan = "Kelulusan Kursus";
         const kelulusan_sukan_spesifik = "Kelulusan Sukan Spesifik";
@@ -1029,6 +1029,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const maklumat_kongres_di_luar_negara_id = "Maklumat Kongres Di Luar Negara ID";
         const maklumat_msn_negeri = "Maklumat Msn Negeri";
         const maklumat_shakam_shakar = "Maklumat Shakam Shakar";
+        const maklumat_pemohon_cap = "MAKLUMAT PEMOHON";
         const maklumat_pegawai_teknikal = "Maklumat Pegawai Teknikal";
         const maklumat_pegawai_teknikal_id = "Maklumat Pegawai Teknikal";
         const maklumat_pegawai_teknikal_paparan = "Maklumat Pegawai Teknikal (Paparan)";
@@ -1633,10 +1634,10 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const perkhidmatan_analisa_perlawanan_biomekanik_id = "Perkhidmatan Analisa Perlawanan Biomekanik ID";
         const perkhidmatan_permakanan_id = "Perkhidmatan Pemakanan ID";
         const perlembagaan_badan_sukan_id = "Perlembagaan Badan Sukan ID";
-        const permintaan_maklumat_kewangan = "Permintaan Maklumat Kewangan";
-        const permintaan_untuk_maklumat_kewangan = "Permintaan Untuk Maklumat Kewangan";
-        const permintaan_untuk_maklumat_kewangan_telah_dilulukan = "Permintaan Untuk Maklumat Kewangan Telah Diluluskan";
-        const permintaan_untuk_maklumat_kewangan_sedang_diproses = "Permintaan Untuk Maklumat Kewangan Sedang Diproses";
+        const permintaan_maklumat_kewangan = "Permohonan Lihat Maklumat";
+        const permintaan_untuk_maklumat_kewangan = "Permohonan Lihat Maklumat";
+        const permintaan_untuk_maklumat_kewangan_telah_dilulukan = "Permohonan Lihat Maklumat Telah Diluluskan";
+        const permintaan_untuk_maklumat_kewangan_sedang_diproses = "Permohonan Lihat Maklumat Sedang Diproses";
         const permit_kerja_jurulatih = "Permit Kerja (Jurulatih Asing)";
         const permohonan = "Permohonan";
         const permohonan_biasiswa_id = "Permohonan Biasiswa ID";
@@ -4494,6 +4495,7 @@ if($session->get('language') == "EN") {
         const maklumat_kongres_di_luar_negara_id = "Congress Information Outside The Country ID";
         const maklumat_msn_negeri = "Msn Information State";
         const maklumat_shakam_shakar = "Information Shakam Shakar";
+        const maklumat_pemohon_cap = "REQUESTER INFORMATION";
         const maklumat_pegawai_teknikal = "Information Technical Officer";
         const maklumat_pegawai_teknikal_id = "Information Technical Officer";
         const maklumat_pegawai_teknikal_paparan = "Information Technical Officer (Shelf)";

@@ -53,7 +53,7 @@ use app\models\general\GeneralVariable;
     ?>
     
     <br>
-    <pre style="text-align: center"><strong>MAKLUMAT PEMOHON</strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_pemohon_cap; ?></strong></pre>
     <?php
         echo FormGrid::widget([
     'model' => $model,
