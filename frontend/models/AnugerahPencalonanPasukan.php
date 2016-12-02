@@ -74,17 +74,17 @@ class AnugerahPencalonanPasukan extends \yii\db\ActiveRecord
     {
         return [
             'anugerah_pencalonan_pasukan_id' => 'Anugerah Pencalonan Pasukan ID',
-            'kategori' => 'Kategori',
-            'sukan' => 'Sukan',
-            'nama_pasukan' => 'Nama Pasukan',
-            'gambar_pasukan' => 'Gambar Pasukan',
-            'ulasan_pencapaian' => 'Ulasan Pencapaian',
+            'kategori' => GeneralLabel::kategori,  //'Kategori',
+            'sukan' => GeneralLabel::sukan,  //'Sukan',
+            'nama_pasukan' => GeneralLabel::nama_pasukan,  //'Nama Pasukan',
+            'gambar_pasukan' => GeneralLabel::gambar_pasukan,  //'Gambar Pasukan',
+            'ulasan_pencapaian' => GeneralLabel::ulasan_pencapaian,  //'Ulasan Pencapaian',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
-            'asas_pencalonan' => 'Asas Pencalonan',
-            'sumbangan_pencapaian' => 'Sumbangan/Pencapaian Dalam Bidang Lain Selain Sukan',
+            'asas_pencalonan' => GeneralLabel::asas_pencalonan,  //'Asas Pencalonan',
+            'sumbangan_pencapaian' => GeneralLabel::sumbangan_pencapaian,  //'Sumbangan/Pencapaian Dalam Bidang Lain Selain Sukan',
         ];
     }
     

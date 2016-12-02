@@ -51,7 +51,7 @@ class AnugerahPencalonanPasukanPemain extends \yii\db\ActiveRecord
         return [
             'anugerah_pencalonan_pasukan_pemain_id' => 'Anugerah Pencalonan Pasukan Pemain ID',
             'anugerah_pencalonan_pasukan_id' => 'Anugerah Pencalonan Pasukan ID',
-            'nama_pemain' => 'Nama Pemain',
+            'nama_pemain' => GeneralLabel::nama_pemain,  //'Nama Pemain',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

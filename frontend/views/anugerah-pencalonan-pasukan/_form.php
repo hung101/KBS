@@ -180,7 +180,7 @@ use app\models\general\GeneralMessage;
 ]);
         ?>
     
-    <h3>Senarai Pemain</h3>
+    <h3><?php echo GeneralLabel::senarai_pemain; ?></h3>
     
     
     
@@ -220,13 +220,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['anugerah-pencalonan-pasukan-pemain/update', 'id' => $model->anugerah_pencalonan_pasukan_pemain_id]).'", "'.GeneralLabel::updateTitle . ' Senarai Pemain");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['anugerah-pencalonan-pasukan-pemain/update', 'id' => $model->anugerah_pencalonan_pasukan_pemain_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::senarai_pemain.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['anugerah-pencalonan-pasukan-pemain/view', 'id' => $model->anugerah_pencalonan_pasukan_pemain_id]).'", "'.GeneralLabel::viewTitle . ' Senarai Pemain");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['anugerah-pencalonan-pasukan-pemain/view', 'id' => $model->anugerah_pencalonan_pasukan_pemain_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::senarai_pemain.'");',
                         ]);
                     }
                 ],
@@ -245,7 +245,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['anugerah-pencalonan-pasukan-pemain/create', 'anugerah_pencalonan_pasukan_id' => $anugerah_pencalonan_pasukan_id]).'", "'.GeneralLabel::createTitle . ' Senarai Pemain");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['anugerah-pencalonan-pasukan-pemain/create', 'anugerah_pencalonan_pasukan_id' => $anugerah_pencalonan_pasukan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::senarai_pemain.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
