@@ -124,7 +124,7 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
             'tempat' => GeneralLabel::tempat,  //'Tempat',
             'tujuan' => GeneralLabel::tujuan,  //'Tujuan',
             'surat_rasmi_badan_sukan_ms_negeri' => GeneralLabel::surat_rasmi_badan_sukan_ms_negeri,  //'Surat Rasmi Badan Sukan',
-            'surat_jemputan_lantikan_daripada_pengelola' => GeneralLabel::surat_jemputan_lantikan_daripada_pengelola,  //'Surat Jemputan / Lantikan Daripada Pengelola',
+            'surat_jemputan_lantikan_daripada_pengelola' => 'Surat Jemputan / Lantikan Daripada Pengelola',
             'butiran_perbelanjaan' => GeneralLabel::butiran_perbelanjaan,  //'Butiran Perbelanjaan',
             'salinan_passport' => GeneralLabel::salinan_passport,  //'Salinan Passport',
             'maklumat_lain_sokongan' => GeneralLabel::maklumat_lain_sokongan,  //'Maklumat Lain (Sokongan)',

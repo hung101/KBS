@@ -1853,6 +1853,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const senarai_permohonan_id = "Senarai Permohonan ID";
         const senarai_semak_id = "Senarai Semak ID";
         const senarai_tugas_id = "Senarai Tugas ID";
+        const senarai_nama_pegawai_teknikal_yang_dicadangkan = "Senarai Nama Pegawai Teknikal Yang Dicadangkan";
         const senarai_pemain = "Senarai Pemain";
         const session_id = "Session ID";
         const setiap_kejohanan_yang_dinyatakan_perlu_ada_sijil_penyertaan = "Setiap kejohanan yang dinyatakan perlu ada sijil penyertaan / surat pengesahan sebagai bukti penyertaan bagi temuduga nanti.";
