@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+
 /**
  * This is the model class for table "tbl_anugerah_pencalonan_lain_jawatan".
  *
@@ -50,9 +52,9 @@ class AnugerahPencalonanTokohSukanJawatan extends \yii\db\ActiveRecord
         return [
             'anugerah_pencalonan_lain_jawatan_id' => 'Anugerah Pencalonan Lain Jawatan ID',
             'anugerah_pencalonan_lain_id' => 'Anugerah Pencalonan Lain ID',
-            'jawatan' => 'Jawatan',
-            'nama_persatuan_pertubuhan' => 'Nama Persatuan/Pertubuhan',
-            'tempoh' => 'Tempoh (Tahun)',
+            'jawatan' => GeneralLabel::jawatan,  //'Jawatan',
+            'nama_persatuan_pertubuhan' => GeneralLabel::nama_persatuan,  //'Nama Persatuan/Pertubuhan',
+            'tempoh' => GeneralLabel::jawatan,  //'Tempoh (Tahun)',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

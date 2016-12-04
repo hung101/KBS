@@ -4,6 +4,11 @@ namespace app\models;
 
 use Yii;
 
+
+use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
+
+
 /**
  * This is the model class for table "tbl_anugerah_ahli_jawantankuasa_pengelola".
  *
@@ -46,9 +51,9 @@ class AnugerahAhliJawantankuasaPengelola extends \yii\db\ActiveRecord
     {
         return [
             'anugerah_ahli_jawantankuasa_pengelola_id' => 'Anugerah Ahli Jawantankuasa Pengelola ID',
-            'ajk' => 'AJK',
-            'nama' => 'Nama',
-            'bahagian' => 'Bahagian',
+            'ajk' => GeneralLabel::ahli_jawatankuasa,  //'AJK',
+            'nama' => GeneralLabel::nama,  //'Nama',
+            'bahagian' => GeneralLabel::bahagian,  //'Bahagian',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',

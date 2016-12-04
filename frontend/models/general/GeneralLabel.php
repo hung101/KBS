@@ -574,6 +574,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jaringan_antarabangsa = "Jaringan Antarabangsa";
         const jawapan = "Jawapan";
         const jawatan = "Jawatan";
+        const jawatan_yang_sedang_pernah_disandang_dalam_persatuan_pertubuhan_sukan = "Jawatan yang sedang/pernah disandang dalam persatuan/pertubuhan sukan";
         const jawatan_agensi = "Jawatan (Agensi)";
         const jawatan_di_persatuan = "Jawatan Di Persatuan";
         const jawatan_hakiki = "Jawatan Hakiki";
@@ -1962,6 +1963,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const sukarelawan_id = "Sukarelawan ID";
         const sumber = "Sumber";
         const sumbangan_pencapaian = "Sumbangan/Pencapaian Dalam Bidang Lain Selain Sukan";
+        const sumbangan_dalam_pencapaian = "Sumbangan Dalam Pencapaian Cemerlang Atlet / Pasukan";
         const sumber_kewangan = "Sumber Kewangan";
         const sumber_kewangan_id = "Sumber Kewangan ID";
         const sumber_sumber_kewangan_lain_untuk_kejohanan_pertandingan = "Sumber-Sumber Kewangan Lain Untuk Kejohanan / Pertandingan";
@@ -2226,6 +2228,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const ulasan_pencapaian = "Ulasan Pencapaian";
         const ulasan_permohonan = "Ulasan Permohonan";
         const ulasan_pemeriksa = "Ulasan Pemeriksa";
+        const ulasan_justifikasi = "Ulasan / Justifikasi Pencalonan";
         const umur = "Umur";
         const umur_dari = "Umur Dari";
         const umur_hingga = "Hingga";
@@ -4071,6 +4074,7 @@ if($session->get('language') == "EN") {
         const jaringan_antarabangsa = "International Network";
         const jawapan = "Answer";
         const jawatan = "Position";
+        const jawatan_yang_sedang_pernah_disandang_dalam_persatuan_pertubuhan_sukan = "Positions are / held in association / sports organizations";
         const jawatan_agensi = "Office (Agency)";
         const jawatan_di_persatuan = "Positions In The Association";
         const jawatan_hakiki = "Official position";
@@ -5195,7 +5199,7 @@ if($session->get('language') == "EN") {
         const pertubuhan_persatuan_sendiri = "Estimated income for the Organization/Association own";
         const pertukaran_pengajian_id = "Study Exchange ID";
         const perubatan_id = "Medical ID";
-        const perwakilan = "Perwakilan";
+        const perwakilan = "Representative";
         const pihak_lawan = "Opponent";
         const pilih_bahasa = "Select Language";
         const pilih_semua = "Check All";
@@ -5459,6 +5463,7 @@ if($session->get('language') == "EN") {
         const sukan_sea_para_asean = "Asean/Shelf SEA Games (RM)";
         const sukarelawan_id = "The Volunteer ID";
         const sumbangan_pencapaian = "Achievement in the Field Other Than Sports";
+        const sumbangan_dalam_pencapaian = "Contribution to Outstanding Achievement of Athlete / Team";
         const sumber = "Resource";
         const sumber_kewangan = "Financial Resource";
         const sumber_kewangan_id = "Financial Resource ID";
@@ -5678,7 +5683,7 @@ if($session->get('language') == "EN") {
         const tempat_penginapan = "Accommodation";
         const tempat_program = "Place Of Programme";
         const tempat_temuduga = "Place Of Interview";
-        const tempoh = "The duration of the";
+        const tempoh = "The Duration";
         const tempoh_elaun = "The Period Of Allowance";
         const tempoh_hak = "Duration Of Right";
         const tempoh_hak_jkk_jkp = "Duration Of Rights CONSISTS Of A/CMC";
@@ -5723,6 +5728,7 @@ if($session->get('language') == "EN") {
         const ulasan_pencapaian = "Reviews Achievements";
         const ulasan_permohonan = "Application Review";
         const ulasan_pemeriksa = "Inspection Notes";
+        const ulasan_justifikasi = "Comments / Justification for Nomination";
         const umur = "Age";
         const umur_dari = "Age From";
         const umur_hingga = "To";

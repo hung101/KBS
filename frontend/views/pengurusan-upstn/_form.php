@@ -357,7 +357,7 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-upstn-jurulatih/update', 'id' => $model->pengurusan_upstn_jurulatih_id]).'", "'.GeneralLabel::updateTitle . ' '.General::perjumpaan_jurulatih.'");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-upstn-jurulatih/update', 'id' => $model->pengurusan_upstn_jurulatih_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::perjumpaan_jurulatih.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {

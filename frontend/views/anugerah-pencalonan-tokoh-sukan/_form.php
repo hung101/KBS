@@ -139,7 +139,7 @@ use app\models\general\GeneralMessage;
 ]);
         ?>
     
-    <h3>Jawatan yang sedang/pernah disandang dalam persatuan/pertubuhan sukan</h3>
+    <h3><?php echo GeneralLabel::jawatan_yang_sedang_pernah_disandang_dalam_persatuan_pertubuhan_sukan; ?></h3>
     
     
     
@@ -177,13 +177,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['anugerah-pencalonan-tokoh-sukan-jawatan/update', 'id' => $model->anugerah_pencalonan_lain_jawatan_id]).'", "'.GeneralLabel::updateTitle . ' Jawatan yang sedang/pernah disandang dalam persatuan/pertubuhan sukan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['anugerah-pencalonan-tokoh-sukan-jawatan/update', 'id' => $model->anugerah_pencalonan_lain_jawatan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::jawatan_yang_sedang_pernah_disandang_dalam_persatuan_pertubuhan_sukan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['anugerah-pencalonan-tokoh-sukan-jawatan/view', 'id' => $model->anugerah_pencalonan_lain_jawatan_id]).'", "'.GeneralLabel::viewTitle . ' Jawatan yang sedang/pernah disandang dalam persatuan/pertubuhan sukan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['anugerah-pencalonan-tokoh-sukan-jawatan/view', 'id' => $model->anugerah_pencalonan_lain_jawatan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::jawatan_yang_sedang_pernah_disandang_dalam_persatuan_pertubuhan_sukan.'");',
                         ]);
                     }
                 ],
@@ -202,7 +202,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['anugerah-pencalonan-tokoh-sukan-jawatan/create', 'anugerah_pencalonan_lain_id' => $anugerah_pencalonan_lain_id]).'", "'.GeneralLabel::createTitle . ' Jawatan yang sedang/pernah disandang dalam persatuan/pertubuhan sukan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['anugerah-pencalonan-tokoh-sukan-jawatan/create', 'anugerah_pencalonan_lain_id' => $anugerah_pencalonan_lain_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::jawatan_yang_sedang_pernah_disandang_dalam_persatuan_pertubuhan_sukan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
