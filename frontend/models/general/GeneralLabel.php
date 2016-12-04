@@ -320,6 +320,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const borang_permohonan_kem_id = "Borang Permohonan Kem ID";
         const borang_persetujuan_penyertaan = "Borang Persetujuan Penyertaan";
         const borang_profil_peserta_kpsk = "Borang Profil Peserta";
+        const boucher = "Baucar (BR)";
         const break_record = "Break Record";
         const bsp_01 = "KBS/BSP-01 - Senarai Semak Dokumen Untuk Tawaran Biasiswa";
         const bsp_02 = "KBS/BSP-02 - Borang Persetujuan Penerima Tawaran Biasiswa";
@@ -540,7 +541,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const hubungan = "Hubungan";
         const iaitu = "";
         const ic_no = "No Kad Pengenalan (Baru)";
-        const ic_no_insuran = "I/C No";
+        const ic_no_insuran = "No. Kad Pengenalan";
         const ic_no_lama = "No Kad Pengenalan (Lama)";
         const ic_tentera = "No Tentera";
         const id = "ID";
@@ -1195,7 +1196,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const nama_cadangan_kertas_kerja = "Nama Cadangan Kertas Kerja";
         const nama_calon = "Nama Calon";
         const nama_delegasi = "Nama Delegasi";
-        const nama_delegasi_luar_negara = "Nama Delegasi Lear Negara";
+        const nama_delegasi_luar_negara = "Nama Delegasi Luar Negara";
         const nama_doktor = "Nama Doktor";
         const nama_dokumen = "Nama Dokumen";
         const nama_exercise_modality = "Nama Exercise/Modality";
@@ -1343,6 +1344,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const no_akaun_bank = "No. Akaun Bank";
         const no_bimbit = "No Tel Bimbit";
         const no_cek_eft = "No Cek / EFT";
+        const no_cek = "No. Cek";
         const no_dokumen_penderma = "No. Dokumen Penderma ";
         const no_donator_dokumen = "No Penderma Dokumen";
         const no_fail = "No. Fail";
@@ -1781,10 +1783,10 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const rekod_temujanji = "Rekod Temujanji";
         const rekod_insentif = "Rekod Insentif";        
         const rekods = "Rekod";
-        const remark = "Remark";
+        const remark = "Catatan";
         const report_flag = "Report Flag";
         const result = "Keputusan";
-        const revised_kos_per_kategori = "Revised Kos Per Kategori";
+        const revised_kos_per_kategori = "Semakan Kos Per Kategori";
         const ringkasan_inovasi_peralatan = "Ringkasan Inovasi Peralatan";
         const ringkasan_permohonan = "Ringkasan Permohonan";
         const rujuk_aduan_kepada_atlet = "Rujuk Aduan Kepada Atlet";
@@ -4841,7 +4843,8 @@ if($session->get('language') == "EN") {
         const no_akaun = "Account No.";
         const no_akaun_bank = "Bank Account No.";
         const no_bimbit = "Mobile Tel No";
-        const no_cek_eft = "No Cheque/EFT";
+        const no_cek_eft = "Cheque/EFT No.";
+        const no_cek = "Cheque No.";
         const no_dokumen_penderma = "No. Document Donator ";
         const no_donator_dokumen = "No Donor Document";
         const no_fail = "No. File";
@@ -5283,7 +5286,7 @@ if($session->get('language') == "EN") {
         const rekod_temujanji = "Record Appointment";
         const rekod_insentif = "Record Incentive";                
         const rekods = "Record";
-        const remark = "Remark";
+        const remark = "Remarks";
         const report_flag = "Report Flag";
         const result = "The results of the";
         const revised_kos_per_kategori = "Revised Cost Per Category";
@@ -5787,6 +5790,7 @@ if($session->get('language') == "EN") {
         const borang_aduan_atlet = "Athlete ' Complaint Form";
         const borang_cadangan_penyelidikan = "Research Proposal Form";
         const borang_penyertaan_atlet = "Athlete Participation Form";
+        const boucher = "Voucher (BR)";
         const butiran_akademik = "Academy Detail";
         const butiran_cap = "DETAILS";
         const butiran_negara_cap = "COUNTRY DETAILS";

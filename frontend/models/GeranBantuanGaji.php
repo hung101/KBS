@@ -111,8 +111,8 @@ class GeranBantuanGaji extends \yii\db\ActiveRecord
             'bulan' => GeneralLabel::bulan,
             'rujukan' => GeneralLabel::rujukan,
             'status_terkini_pengeluaran_cek' => GeneralLabel::status_terkini_pengeluaran_cek,
-            'boucher' => 'Boucher (BR)',
-            'no_cek' => 'No. Cek',
+            'boucher' => GeneralLabel::boucher,  //'Boucher (BR)',
+            'no_cek' => GeneralLabel::no_cek,  //'No. Cek',
             'tarikh_cek' => GeneralLabel::tarikh,
         ];
     }
