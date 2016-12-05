@@ -96,7 +96,7 @@ class Persatuan extends \yii\db\ActiveRecord
             'urusetia_negeri_e_bantuan' => GeneralLabel::urusetia_negeri_e_bantuan,
             'urusetia_kategori_program_e_bantuan' => GeneralLabel::urusetia_kategori_program_e_bantuan,
             'sukan' => GeneralLabel::sukan,
-            'expiry_date' => 'Tarikh Penghantaran MYKB',
+            'expiry_date' => GeneralLabel::tarikh_penghantaran_MYKB,  //'Tarikh Penghantaran MYKB',
         ];
     }
     

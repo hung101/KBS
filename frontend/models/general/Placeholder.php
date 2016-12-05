@@ -402,6 +402,7 @@ if($session->get('language') == "EN") {
         const jenisTempahan = "-- Select The Type Of Reservation --";
         const jenisTemujanji = "-- Select The Type Of Appointment --";
         const jenisTuntutan = "-- Select Type Of Claim --";
+        const jenisBank = "-- Type Of Bank --";
         const jurulatih = "-- Choose A Coach --";
         const juruUrut = "-- Choose Juru Massage --";
         const kaum = "-- Select Race --";

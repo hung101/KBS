@@ -6,6 +6,7 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 
 /**
  * This is the model class for table "tbl_akk_permit_kerja".
@@ -73,10 +74,10 @@ class AkkPermitKerja extends \yii\db\ActiveRecord
         return [
             'akk_permit_kerja_id' => 'Akk Permit Kerja ID',
             'akademi_akk_id' => 'Akademi Akk ID',
-            'no_permit' => 'No Permit',
-            'tahun' => 'Tahun',
-            'tarikh_tamat' => 'Tarikh Tamat',
-            'permit' => 'Permit',
+            'no_permit' => GeneralLabel::no_permit,  //'No Permit',
+            'tahun' => GeneralLabel::tahun,  //'Tahun',
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,  //'Tarikh Tamat',
+            'permit' => GeneralLabel::permit,  //'Permit',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

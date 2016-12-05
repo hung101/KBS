@@ -6,6 +6,8 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
+
 
 /**
  * This is the model class for table "tbl_akk_sijil_cpr".
@@ -73,10 +75,10 @@ class AkkSijilCpr extends \yii\db\ActiveRecord
         return [
             'akk_sijil_cpr_id' => 'Akk Sijil Cpr ID',
             'akademi_akk_id' => 'Akademi Akk ID',
-            'no_sijil' => 'No Sijil',
-            'tahun' => 'Tahun',
-            'tarikh_tamat' => 'Tarikh Tamat',
-            'sijil' => 'Sijil',
+            'no_sijil' => GeneralLabel::no_sijil,  //'No Sijil',
+            'tahun' => GeneralLabel::tahun,  //'Tahun',
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,  //'Tarikh Tamat',
+            'sijil' => GeneralLabel::sijil,  //'Sijil',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

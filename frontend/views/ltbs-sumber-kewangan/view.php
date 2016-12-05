@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\LtbsSumberKewangan */
 
 //$this->title = $model->sumber_kewangan_id;
-$this->title = GeneralLabel::viewTitle . ' Sumber Kewangan';
+$this->title = GeneralLabel::viewTitle . ' '.GeneralLabel::sumber_kewangan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::sumber_kewangan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

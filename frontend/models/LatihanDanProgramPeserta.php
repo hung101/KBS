@@ -85,6 +85,7 @@ class LatihanDanProgramPeserta extends \yii\db\ActiveRecord
             'tempoh_memegang_jawatan' => GeneralLabel::tarikh_mula_memegang_jawatan,
             'no_tel_bimbit' => GeneralLabel::no_tel_bimbit,
             'emel' => GeneralLabel::emel,
+            'jenis_jawatankuasa' => GeneralLabel::jenis_jawatankuasa,
 
         ];
     }

@@ -108,7 +108,7 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
     
-    <h3>Maklumat Peserta</h3>
+    <h3><?php echo GeneralLabel::maklumat_peserta; ?></h3>
     
     <?php 
             Modal::begin([
@@ -164,13 +164,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['latihan-dan-program-peserta/update', 'id' => $model->latihan_dan_program_peserta_id]).'", "'.GeneralLabel::updateTitle . ' Maklumat Peserta");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['latihan-dan-program-peserta/update', 'id' => $model->latihan_dan_program_peserta_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::maklumat_peserta.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['latihan-dan-program-peserta/view', 'id' => $model->latihan_dan_program_peserta_id]).'", "'.GeneralLabel::viewTitle . ' Maklumat Peserta");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['latihan-dan-program-peserta/view', 'id' => $model->latihan_dan_program_peserta_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::maklumat_peserta.'");',
                         ]);
                     }
                 ],
@@ -191,7 +191,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['latihan-dan-program-peserta/create', 'latihan_dan_program_id' => $latihan_dan_program_id]).'", "'.GeneralLabel::createTitle . ' Maklumat Peserta");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['latihan-dan-program-peserta/create', 'latihan_dan_program_id' => $latihan_dan_program_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::maklumat_peserta.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

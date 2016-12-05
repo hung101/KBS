@@ -293,7 +293,7 @@ use app\models\general\GeneralMessage;
     }
     ?>
     
-    <h3>Sumber Kewangan</h3>
+    <h3><?php echo GeneralLabel::sumber_kewangan; ?></h3>
     
     <?php 
             Modal::begin([
@@ -344,13 +344,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['paobs-penganjuran-sumber-kewangan/update', 'id' => $model->paobs_penganjuran_sumber_kewangan_id]).'", "'.GeneralLabel::updateTitle . ' Sumber Kewangan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['paobs-penganjuran-sumber-kewangan/update', 'id' => $model->paobs_penganjuran_sumber_kewangan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::sumber_kewangan.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['paobs-penganjuran-sumber-kewangan/view', 'id' => $model->paobs_penganjuran_sumber_kewangan_id]).'", "'.GeneralLabel::viewTitle . ' Sumber Kewangan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['paobs-penganjuran-sumber-kewangan/view', 'id' => $model->paobs_penganjuran_sumber_kewangan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::sumber_kewangan.'");',
                         ]);
                     }
                 ],
@@ -369,7 +369,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['paobs-penganjuran-sumber-kewangan/create', 'penganjuran_id' => $penganjuran_id]).'", "'.GeneralLabel::createTitle . ' Sumber Kewangan");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['paobs-penganjuran-sumber-kewangan/create', 'penganjuran_id' => $penganjuran_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::sumber_kewangan.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

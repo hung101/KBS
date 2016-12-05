@@ -66,13 +66,13 @@ class PengurusanSajianMakan extends \yii\db\ActiveRecord
     {
         return [
             'pengurusan_sajian_makan_id' => GeneralLabel::pengurusan_sajian_makan_id,
-            'atlet_id' => "Tempat Sajian",
+            'atlet_id' => GeneralLabel::tempat_sajian,  //"Tempat Sajian",
             'tarikh_mula' => GeneralLabel::tarikh_mula,
             'tarikh_akhir' => GeneralLabel::tarikh_akhir,
             'bilangan_tempahan_makan' => GeneralLabel::bilangan_tempahan_makan,
             'atlet' => GeneralLabel::atlet,
             'catatan' => GeneralLabel::catatan,
-            'lampiran_senarai_nama' => "Lampiran Senarai Nama",
+            'lampiran_senarai_nama' => GeneralLabel::lampiran_senarai_nama,  //"Lampiran Senarai Nama",
         ];
     }
     

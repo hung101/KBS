@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\LtbsSumberKewangan */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::ltbs_sumber_kewangan.': ' . ' ' . $model->sumber_kewangan_id;
-$this->title =  'Sumber Kewangan';
+$this->title =  GeneralLabel::sumber_kewangan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::sumber_kewangan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle, 'url' => ['view', 'id' => $model->sumber_kewangan_id]];
 $this->params['breadcrumbs'][] = GeneralLabel::updateTitle;

@@ -53,7 +53,7 @@ class PengurusanInsuranLampiran extends \yii\db\ActiveRecord
         return [
             'pengurusan_insuran_lampiran_id' => 'Pengurusan Insuran Lampiran ID',
             'pengurusan_insuran_id' => 'Pengurusan Insuran ID',
-            'lampiran' => 'Lampiran',
+            'lampiran' => GeneralLabel::lampiran,  //'Lampiran',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
