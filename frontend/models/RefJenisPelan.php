@@ -4,6 +4,9 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
+
 /**
  * This is the model class for table "tbl_ref_jenis_pelan".
  *
@@ -31,8 +34,8 @@ class RefJenisPelan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['desc'], 'required'],
-            [['aktif', 'created_by', 'updated_by'], 'integer'],
+            [['desc', 'ref_kategori_pelan_id'], 'required'],
+            [['aktif', 'created_by', 'updated_by', 'ref_kategori_pelan_id'], 'integer'],
             [['created', 'updated'], 'safe'],
             [['desc'], 'string', 'max' => 80],
         ];
@@ -44,13 +47,18 @@ class RefJenisPelan extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'desc' => 'Desc',
-            'aktif' => 'Aktif',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
-            'created' => 'Created',
-            'updated' => 'Updated',
+            'id' => GeneralLabel::id,
+            'ref_kategori_pelan_id' => GeneralLabel::kategori_pelan,
+            'desc' => GeneralLabel::desc,
+            'aktif' => GeneralLabel::aktif,
+            'created_by' => GeneralLabel::created_by,
+            'updated_by' => GeneralLabel::updated_by,
+            'created' => GeneralLabel::created,
+            'updated' => GeneralLabel::updated,
         ];
+    }
+    
+    public function getRefKategoriPelan() {
+        return $this->hasOne(RefKategoriPelan::className(), ['id' => 'ref_kategori_pelan_id']);
     }
 }

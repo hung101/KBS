@@ -8,9 +8,9 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\PerancanganProgramPlan */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::perancangan_program.': ' . ' ' . $model->perancangan_program_id;
-$this->title = GeneralLabel::updateTitle . ' '.GeneralLabel::program;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::program, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' .GeneralLabel::program, 'url' => ['view', 'id' => $model->perancangan_program_id]];
+$this->title = GeneralLabel::updateTitle . ' '.GeneralLabel::pelan_periodisasi;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pelan_periodisasi, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' .GeneralLabel::pelan_periodisasi, 'url' => ['view', 'id' => $model->perancangan_program_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="perancangan-program-update">

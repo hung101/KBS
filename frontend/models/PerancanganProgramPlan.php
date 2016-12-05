@@ -51,7 +51,7 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tarikh_mula', 'tarikh_tamat', 'jenis_program', 'nama_program', 'bahagian', 'jenis_aktiviti'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh_mula', 'tarikh_tamat', 'jenis_program', 'nama_program', 'bahagian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_mula', 'tarikh_tamat', 'tarikh_kelulusan', 'status_program', 'sukan', 'cawangan'], 'safe'],
             [['mesyuarat_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -60,6 +60,11 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
             [['muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
+            ['jenis_aktiviti', 'required', 'message' => GeneralMessage::yii_validation_required, 'when' => function ($model) {
+                    return $model->bahagian != 1;
+                }, 'whenClient' => "function (attribute, value) {
+                    return $('#perancanganprogramplan-bahagian').val() != '" . 1 . "';
+                }"],
         ];
     }
 
@@ -72,16 +77,16 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
             'perancangan_program_id' => GeneralLabel::perancangan_program_id,
             'tarikh_mula' => GeneralLabel::tarikh_mula,
             'tarikh_tamat' => GeneralLabel::tarikh_tamat,
-            'nama_program' => 'Nama / Kenyataan',
+            'nama_program' => GeneralLabel::nama_kenyataan,
             'jenis_program' => GeneralLabel::program,
             'lokasi' => GeneralLabel::tempat,
             'muat_naik' => GeneralLabel::muat_naik,
             'bahagian' => GeneralLabel::kategori,
             'cawangan' => GeneralLabel::cawangan,
-            'jenis_aktiviti' => 'Jenis',
+            'jenis_aktiviti' => GeneralLabel::jenis,
             'tarikh_kelulusan' => GeneralLabel::tarikh_kelulusan,
             'kelulusan' => GeneralLabel::kelulusan,
-            'status_program' => 'Kedudukan Kejohanan',
+            'status_program' => GeneralLabel::kedudukan_kejohanan,
             'sukan' => GeneralLabel::sukan,
         ];
     }

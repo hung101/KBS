@@ -10,8 +10,8 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PerancanganProgramPlan */
 
 //$this->title = $model->perancangan_program_id;
-$this->title = GeneralLabel::viewTitle . ' ' .GeneralLabel::program;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::program, 'url' => ['index']];
+$this->title = GeneralLabel::viewTitle . ' ' .GeneralLabel::pelan_periodisasi;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pelan_periodisasi, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="perancangan-program-view">

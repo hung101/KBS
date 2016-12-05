@@ -142,6 +142,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kategoriMasalah = "-- Pilih Kategori Masalah --";
         const kategoriMuatNaik = "-- Pilih Kategori Muat Naik --";
         const kategoriOKU = "-- Pilih Kategori OKU --";
+        const kategoriPelan = "-- Pilih Kategori Pelan --";
         const kategoriPenilaian = "-- Pilih Kategori Penilaian --";
         const kategoriPengajian = "-- Pilih Kategori Pengajian --";
         const kategoriPenganjuran = "-- Pilih Kategori Penganjuran --";
@@ -431,6 +432,7 @@ if($session->get('language') == "EN") {
         const kategoriMasalah = "-- Select Categories Of Problem --";
         const kategoriMuatNaik = "-- Choose A Category Upload --";
         const kategoriOKU = "-- Select The Category Of DISABLED PERSONS --";
+        const kategoriPelan = "-- Choose A Category Plan --";
         const kategoriPenilaian = "-- Choose A Category Assessment --";
         const kategoriPengajian = "-- Select The Category Of Study --";
         const kategoriPenganjuran = "-- Select Categories Of Organising --";

@@ -3,11 +3,14 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
+use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
+
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\RefJenisPelanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Jenis Pelans';
+$this->title = GeneralLabel::jenis_pelan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-jenis-pelan-index">
@@ -16,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Jenis Pelan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::createTitle.' '.GeneralLabel::jenis_pelan, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -24,13 +27,36 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'desc',
-            'aktif',
-            'created_by',
-            'updated_by',
-            // 'created',
-            // 'updated',
+            //'id',
+            [
+                'attribute' => 'ref_kategori_pelan_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_pelan,
+                ],
+                'value' => 'refKategoriPelan.desc',
+            ],
+            [
+                'attribute' => 'desc',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::desc,
+                ]
+            ],
+            //'aktif',
+            [
+                'attribute' => 'aktif',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::aktif,
+                ],
+                'value' => function ($model) {
+                    return $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no;
+                },
+            ],
+            // ,
+            // ,
+            // ,
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -635,6 +635,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const minit_mesyuarat = "Minit Mesyuarat";
         const jenis_organ = "Jenis Organ";
         const jenis_pakaian = "Jenis Pakaian";
+        const jenis_pelan = "Jenis Pelan";
         const jenis_pencapaian = "Jenis Pencapaian";
         const jenis_pendapatan = "Jenis Pendapatan";
         const jenis_penganjuran = "Jenis Penganjuran";
@@ -793,6 +794,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kategori_muat_naik = "Kategori Muat Naik";
         const kategori_nama_sukan = "Kategori Nama Sukan";
         const kategori_oku = "Kategori OKU";
+        const kategori_pelan = "Kategori Pelan";
         const kategori_pengajian = "Kategori Pengajian";
         const kategori_penganjuran = "Kategori Penganjuran";
         const kategori_penggunaan = "Kategori Penggunaan";
@@ -1227,6 +1229,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const nama_kelulusan = "Nama Kelulusan";
         const nama_kemahiran = "Nama Kemahiran";
         const nama_kemudahan = "Nama Kemudahan";
+        const nama_kenyataan = "Nama / Kenyataan";
         const nama_kerjasama = "Nama Kerjasama";
         const nama_ketua_kontijen = "Nama Ketua Kontijen";
         const nama_konsultan = "Nama";
@@ -1477,6 +1480,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pekerjaan_semasa = "Pekerjaan Semasa";
         const pelajar_id_no = "Pelajar Id No";
         const pelajar_lain_selain_daripada_penerima_di_atas = "Saya adalah penjamin kepada pelajar berikut (Sekiranya ada menjamin pelajar lain selain daripada penerima di atas)";
+        const pelan_periodisasi = "Pelan Periodisasi";
         const pemantauan_penilaian = "Pemantauan / Penilaian";
         const pembaikan = "Pembaikan";
         const pembayaran_elaun_gaji = "Pembayaran Elaun / Gaji";
@@ -3204,6 +3208,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kategori_kursuses = "Kategori Kursuse";
         const kaunseling = "Kaunseling";
         const rekod_kaunseling = "Rekod Kaunseling";
+        const kedudukan_kejohanan = "Kedudukan Kejohanan";
         const kedudukan_kewangan_penjamin = "Kedudukan Kewangan Penjamin";
         const kedudukan_kewangan_penjamin_jenis_harta = "Kedudukan Kewangan Penjamin (Jenis Harta)";
         const kegiatan_pengalaman_atlet_akks = "Kegiatan Pengalaman Atlet Akk";
@@ -4136,7 +4141,8 @@ if($session->get('language') == "EN") {
         const jenis_mesyuarat = "Meeting Type";
         const jenis_organ = "Type Of Organ";
         const jenis_pakaian = "Types Of Clothing";
-        const jenis_pencapaian = "Achievement Types";
+        const jenis_pelan = "Pelan Type";
+        const jenis_pencapaian = "Achievement Type";
         const jenis_pendapatan = "Type Of Income";
         const jenis_penganjuran = "Type Of Organisation";
         const jenis_pengguna = "Type Of User";
@@ -4294,6 +4300,7 @@ if($session->get('language') == "EN") {
         const kategori_muat_naik = "Upload Category";
         const kategori_nama_sukan = "Name Category Sports";
         const kategori_oku = "Categories Of The DISABLED";
+        const kategori_pelan = "Category Plan";
         const kategori_pengajian = "Category Study";
         const kategori_penganjuran = "Organizing Category";
         const kategori_penggunaan = "Category Of Use";
@@ -4726,7 +4733,8 @@ if($session->get('language') == "EN") {
         const nama_kejohonan = "Name Kejohonan";
         const nama_kelulusan = "Name Approval";
         const nama_kemahiran = "Skill Name";
-        const nama_kemudahan = "The Name Of The Facility";
+        const nama_kemudahan = "Facility Name";
+        const nama_kenyataan = "Name / Notice";
         const nama_kerjasama = "The Name Of The Cooperation";
         const nama_ketua_kontijen = "The Name Of The Head Of The March";
         const nama_konsultan = "Name";
@@ -4979,6 +4987,7 @@ if($session->get('language') == "EN") {
         const pekerjaan_semasa = "Current Employment";
         const pelajar_id_no = "Student Id No.";
         const pelajar_lain_selain_daripada_penerima_di_atas = "I was a guarantor of the following (if any guarantee students other than recipients of above)";
+        const pelan_periodisasi = "Periodization Plan";
         const pemantauan_penilaian = "Monitoring / Evaluation";
         const pembaikan = "Repair";
         const pembayaran_elaun_gaji = "Payment of Allowance / Salary";
@@ -6716,6 +6725,7 @@ if($session->get('language') == "EN") {
         const kategori_kursuses = "Category Kursuse";
         const kaunseling = "Counseling";
         const rekod_kaunseling = "Counseling Records";
+        const kedudukan_kejohanan = "Tournament Rating";
         const kedudukan_kewangan_penjamin = "The Financial Position Of The Guarantor";
         const kedudukan_kewangan_penjamin_jenis_harta = "The Financial Position Of The Guarantor (Property Type)";
         const kegiatan_pengalaman_atlet_akks = "Besides, The Experience Of The Athletes ' Akk";

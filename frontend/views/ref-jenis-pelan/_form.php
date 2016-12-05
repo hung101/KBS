@@ -1,31 +1,55 @@
 <?php
 
-use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 
+use kartik\helpers\Html;
+use kartik\widgets\Select2;
+
+use app\models\RefNegeri;
+use app\models\RefKategoriPelan;
+use app\models\general\GeneralLabel;
+use app\models\general\Placeholder;
+
 /* @var $this yii\web\View */
-/* @var $model app\models\RefJenisPelan */
+/* @var $model app\models\RefBandar */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="ref-jenis-pelan-form">
+<div class="ref-bandar-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'ref_kategori_pelan_id')->widget(Select2::classname(), [
+    	'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+        [
+            'append' => [
+                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-pelan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                'asButton' => true
+            ]
+        ] : null,
+	    'data' => ArrayHelper::map(RefKategoriPelan::find()->all(),'id', 'desc'),
+	    'options' => ['placeholder' => Placeholder::kategoriPelan],
+	    'pluginOptions' => [
+	        'allowClear' => true
+	    ],
+	]); ?>
 
-    <?= $form->field($model, 'aktif')->textInput() ?>
+    <?= $form->field($model, 'desc')->textInput(['maxlength' => 80]) ?>
 
-    <?= $form->field($model, 'created_by')->textInput() ?>
+    <?php $model->isNewRecord ? $model->aktif = 1: $model->aktif = $model->aktif ;  ?>
+    <?= $form->field($model, 'aktif')->radioList(array(true=>GeneralLabel::yes,false=>GeneralLabel::no)); ?>
 
-    <?= $form->field($model, 'updated_by')->textInput() ?>
+    
 
-    <?= $form->field($model, 'created')->textInput() ?>
+    
 
-    <?= $form->field($model, 'updated')->textInput() ?>
+    
+
+    
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

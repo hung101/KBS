@@ -19,7 +19,7 @@ class RefJenisPelanSearch extends RefJenisPelan
     {
         return [
             [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
-            [['desc', 'created', 'updated'], 'safe'],
+            [['desc', 'created', 'updated', 'ref_kategori_pelan_id'], 'safe'],
         ];
     }
 
@@ -41,7 +41,8 @@ class RefJenisPelanSearch extends RefJenisPelan
      */
     public function search($params)
     {
-        $query = RefJenisPelan::find();
+        $query = RefJenisPelan::find()
+                ->joinWith('refKategoriPelan');
 
         // add conditions that should always apply here
 
