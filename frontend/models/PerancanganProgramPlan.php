@@ -65,6 +65,11 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
                 }, 'whenClient' => "function (attribute, value) {
                     return $('#perancanganprogramplan-bahagian').val() != '" . 1 . "';
                 }"],
+            ['status_program', 'required', 'message' => GeneralMessage::yii_validation_required, 'when' => function ($model) {
+                    return $model->bahagian == 1;
+                }, 'whenClient' => "function (attribute, value) {
+                    return $('#perancanganprogramplan-bahagian').val() == '" . 1 . "';
+                }"],
         ];
     }
 

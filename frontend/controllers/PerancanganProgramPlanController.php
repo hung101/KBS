@@ -24,6 +24,7 @@ use app\models\RefProgramSemasaSukanAtlet;
 use app\models\RefJenisAktiviti;
 use app\models\RefStatusProgram;
 use app\models\RefSukan;
+use app\models\RefKedudukanKejohanan;
 
 /**
  * PerancanganProgramPlanController implements the CRUD actions for PerancanganProgramPlan model.
@@ -86,7 +87,7 @@ class PerancanganProgramPlanController extends Controller
         $ref = RefJenisAktiviti::findOne(['id' => $model->jenis_aktiviti]);
         $model->jenis_aktiviti = $ref['desc'];
         
-        $ref = RefStatusProgram::findOne(['id' => $model->status_program]);
+        $ref = RefKedudukanKejohanan::findOne(['id' => $model->status_program]);
         $model->status_program = $ref['desc'];
         
         $ref = RefSukan::findOne(['id' => $model->sukan]);
