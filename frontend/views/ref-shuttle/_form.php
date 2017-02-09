@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefShuttle */
@@ -30,7 +31,10 @@ use app\models\general\GeneralLabel;
     
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
+            'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                ],]) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

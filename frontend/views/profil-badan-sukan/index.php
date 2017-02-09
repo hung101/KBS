@@ -96,6 +96,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refStatusLaporanMesyuaratAgung.desc'
             ],
+            /*[
+                'attribute' => 'permintaan_maklumat_kewangan_request',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::permohonan_lihat_maklumat,
+                ],
+                'value' => 'refKelulusan.desc'
+            ],
+            [
+                'attribute' => 'permintaan_maklumat_kewangan_approved',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelulusan_permohonan_lihat_maklumat,
+                ],
+                'value' => 'refKelulusan.desc'
+            ],*/
             // 'jenis_sukan',
             // 'alamat_tetap_badan_sukan',
             // 'alamat_surat_menyurat_badan_sukan',

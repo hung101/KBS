@@ -21,6 +21,7 @@ use app\models\RefNegeri;
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
+use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AtletPenajaansokongan */
@@ -210,7 +211,10 @@ use app\models\general\GeneralVariable;
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['update'])): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
+            'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                ],]) ?>
         <?php endif; ?>
         <?= Html::button(GeneralLabel::backToList, ['value'=>Url::to(['index']),'class' => 'btn btn-warning', 'onclick' => 'updateRenderAjax("'.Url::to(['index']).'", "'.GeneralVariable::tabPenajaanID.'");']) ?>
         <?php endif; ?>

@@ -295,6 +295,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const bilangan_atlet = "Bilangan Atlet (N) = (1-100)";
         const bilangan_cawangan_badan_gabungan = "Bilangan Cawangan / Badan Gabungan";
         const bilangan_jkb = "Bilangan JKB";
+        const bilangan_jkk_jkp = "Bilangan JKK / JKP";
         const bilangan_kanak_kanak = "Bilangan Kanak Kanak";
         const bilangan_keahlian = "Bilangan Keahlian";
         const bilangan_kekerapan_penyenggaran = "Bilangan Kekerapan Penyenggaran";
@@ -855,6 +856,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kelulusan_echics = "Kelulusan Etika";
         const kelulusan_maklumat_kewangan = "Luluskan Permohonan Lihat Maklumat";
         const kelulusan_pbu = "Kelulusan PBU";
+        const kelulusan_permohonan_lihat_maklumat = "Kelulusan Permohonan Lihat Maklumat";
         const kelulusan_sains_sukan = "Kelulusan Kursus";
         const kelulusan_sukan_spesifik = "Kelulusan Sukan Spesifik";
         const kemahiran_id = "Kemahiran ID";
@@ -1677,6 +1679,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const permohonan_hanya_terbuka_kepada_atlet_yang_memenuhi_syarat = "Permohonan hanya terbuka kepada atlet yang memenuhi syarat.";
         const permohonan_inovasi_peralatan_id = "Permohonan Inovasi Peralatan ID";
         const permohonan_kemudahan_ticket_kapal_terbang_id = "Permohonan Kemudahan Tiket Kapal Terbang ID";
+        const permohonan_lihat_maklumat = "Permohonan Liputan Maklumat";
         const permohonan_liputan_perubatan_sukan_id = "Permohonan Liputan Perubatan Sukan ID";
         const permohonan_membaiki_peralatan_id = "Permohonan Membaiki Peralatan ID";
         const permohonan_pelanjutan = "Permohonan Pelanjutan";
@@ -1979,6 +1982,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const surat_jemputan_daripada_pengelola = "Surat Jemputan Daripada Pengelola";
         const surat_akuan_persetujuan_atlet = "Surat Akuan Persetujuan Atlet";
         const surat_sokongan = "Surat Sokongan/Sanksi Dari Badan Antarabangsa";
+        const surat_kelulusan = "Surat Kelulusan";
         const surat_keputusan = "Surat Keputusan";
         const surat_lantikan_sue = "Surat Lantikan SUE";
         const surat_persetujuan_sue = "Surat Persetujuan SUE";
@@ -3810,6 +3814,7 @@ if($session->get('language') == "EN") {
         const bilangan_atlet = "Number Of Athletes (N) = (1-100)";
         const bilangan_cawangan_badan_gabungan = "Number Of Branches/Body Combination";
         const bilangan_jkb = "Number JKB";
+        const bilangan_jkk_jkp = "Number JKK / JKP";
         const bilangan_kanak_kanak = "The Number Of Children";
         const bilangan_keahlian = "No Of Members";
         const bilangan_kekerapan_penyenggaran = "Frequency Penyenggaran";
@@ -4367,6 +4372,7 @@ if($session->get('language') == "EN") {
         const kelulusan_echics = "Approval Of Ethics";
         const kelulusan_maklumat_kewangan = "Approval Of Financial Information";
         const kelulusan_pbu = "Approval Of PBU";
+        const kelulusan_permohonan_lihat_maklumat = "Approval Application View Information";
         const kelulusan_sains_sukan = "Approval Of Sport Science";
         const kelulusan_sukan_spesifik = "Approval Of The Specific Sport";
         const kemahiran_id = "Skill ID";
@@ -5191,6 +5197,7 @@ if($session->get('language') == "EN") {
         const permohonan_hanya_terbuka_kepada_atlet_yang_memenuhi_syarat = "Application is open only to athletes who qualify.";
         const permohonan_inovasi_peralatan_id = "Application Of Innovation Equipment ID";
         const permohonan_kemudahan_ticket_kapal_terbang_id = "The Other Airplane Facilities Application ID";
+        const permohonan_lihat_maklumat = "Grant Application Information";
         const permohonan_liputan_perubatan_sukan_id = "Sports Medicine Coverage Application ID";
         const permohonan_membaiki_peralatan_id = "Application Of Repair Equipment ID";
         const permohonan_pelanjutan = "Application Extension";
@@ -5493,6 +5500,7 @@ if($session->get('language') == "EN") {
         const surat_jemputan_daripada_pengelola = "Letter of Invitation From Manager";
         const surat_akuan_persetujuan_atlet = "Certificate Of Approval Athlete";
         const surat_sokongan = "A Letter Of Support/Sanctions From International Body";
+        const surat_kelulusan = "Approval Letter";
         const surat_keputusan = "Result Letter";
         const surat_lantikan_sue = "Appointment Letter SUE";
         const surat_persetujuan_sue = "Letter Of Agreement SUE";

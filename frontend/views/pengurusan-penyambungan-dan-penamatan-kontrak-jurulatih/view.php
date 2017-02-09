@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ])*/ ?>
         <?php endif; ?>
-        <?= Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'window.print();' ]); ?>
+        <?= Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'if(confirm("'.GeneralMessage::confirmPrint.'")){window.print();}' ]); ?>
     </p>
     
     <?= $this->render('_form', [

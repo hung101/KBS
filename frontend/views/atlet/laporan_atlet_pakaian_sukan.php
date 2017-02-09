@@ -25,12 +25,28 @@ use app\models\RefSaizPakaian;
 // contant values
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanPelaksaan */
 
 $this->title = GeneralLabel::laporan_atlet_pakaian_sukan;
 $this->params['breadcrumbs'][] = $this->title;
+
+// sukan dropdown list
+$param_sukan['cacat'] = 0; //  atlet able
+$sukan_list = GeneralFunction::getSukan($param_sukan);
+
+// atlet dropdown list
+$param_atlet['cacat'] = 0; //  atlet able
+$atlet_list = GeneralFunction::getAtlet($param_atlet);
+
+// negeri dropdown lists
+$negeri_list = GeneralFunction::getNegeri();
+
+// cawangan dropdown lists
+$param_cawangan['cacat'] = 0; //  atlet able
+$cawangan_list = GeneralFunction::getCawangan($param_cawangan);
 ?>
 <div class="laporan-penganjuran-acara">
 
@@ -87,7 +103,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(Atlet::find()->where(['=', 'cacat', 0])->all(),'atlet_id', 'nameAndIC'),
+                        'data'=>ArrayHelper::map($atlet_list,'atlet_id', 'nameAndIC'),
                         'options' => ['multiple' => true,'placeholder' => Placeholder::atlet],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -111,7 +127,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map($negeri_list,'id', 'desc'),
                         'options' => ['multiple' => true,'placeholder' => Placeholder::negeri],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -157,7 +173,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map($sukan_list,'id', 'desc'),
                         'options' => ['multiple' => true,'placeholder' => Placeholder::sukan],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -209,7 +225,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefCawangan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map($cawangan_list,'ref_cawangan_id', 'refCawangan.desc'),
                         'options' => ['multiple' => true,'placeholder' => Placeholder::cawangan],
                         'pluginOptions' => [
                             'allowClear' => true

@@ -216,10 +216,16 @@ use app\models\general\GeneralMessage;
 
     <div class="form-group">
         <?php if(!$readonly && $model->isNewRecord): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary',
+            'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                ],]) ?>
         <?php endif; ?>
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::send : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::send : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
+            'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                ],]) ?>
         <?php endif; ?>
     </div>
 
@@ -231,6 +237,8 @@ use app\models\general\GeneralMessage;
 $DateDisplayFormat = GeneralVariable::displayDateFormat;
 
 $script = <<< JS
+        
+$.fn.modal.Constructor.prototype.enforceFocus = function () {};
         
 $(function(){
 $('.custom_button').click(function(){

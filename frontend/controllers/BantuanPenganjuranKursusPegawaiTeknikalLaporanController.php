@@ -111,6 +111,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
             //$model->bilangan_peserta = $modelBantuanPenganjuranKursusPegawaiTeknikal->bil_peserta;
             //$model->bilangan_pegawai_teknikal = $modelBantuanPenganjuranKursusPegawaiTeknikal->bil_pegawai_teknikal;
             //$model->bilangan_pembantu = $modelBantuanPenganjuranKursusPegawaiTeknikal->bilangan_pembantu;
+            $model->jumlah_kelulusan = $modelBantuanPenganjuranKursusPegawaiTeknikal->jumlah_dilulus;
         }
         
         if (($modelBantuanPenganjuranKursus = BantuanPenganjuranKursus::findOne($bantuan_penganjuran_kursus_id)) !== null && $bantuan_penganjuran_kursus_id != 0) {
@@ -122,6 +123,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
             //$model->bilangan_peserta = $modelBantuanPenganjuranKursusPegawaiTeknikal->bil_peserta;
             //$model->bilangan_pegawai_teknikal = $modelBantuanPenganjuranKursusPegawaiTeknikal->bil_pegawai_teknikal;
             //$model->bilangan_pembantu = $modelBantuanPenganjuranKursusPegawaiTeknikal->bilangan_pembantu;
+            $model->jumlah_kelulusan = $modelBantuanPenganjuranKursus->jumlah_dilulus;
         }
         
         if (($modelBantuanBantuanPenyertaanPegawaiTeknikal = BantuanPenyertaanPegawaiTeknikal::findOne($bantuan_penyertaan_pegawai_teknikal_id)) !== null && $bantuan_penyertaan_pegawai_teknikal_id != 0) {
@@ -133,6 +135,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
             //$model->bilangan_peserta = $modelBantuanPenganjuranKursusPegawaiTeknikal->bil_peserta;
             //$model->bilangan_pegawai_teknikal = $modelBantuanPenganjuranKursusPegawaiTeknikal->bil_pegawai_teknikal;
             //$model->bilangan_pembantu = $modelBantuanPenganjuranKursusPegawaiTeknikal->bilangan_pembantu;
+            $model->jumlah_kelulusan = $modelBantuanBantuanPenyertaanPegawaiTeknikal->jumlah_dilulus;
         }
         
         $dateAdd = new \DateTime($model->tarikh_tamat);
@@ -292,6 +295,20 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
         $dateAdd->modify('+1 month'); // 1 months after kejohanan
         
         $allowSubmit = true;
+        
+        if(($model->jumlah_kelulusan == 0 || !$model->jumlah_kelulusan)){
+            if (($modelBantuanPenganjuranKursusPegawaiTeknikal = BantuanPenganjuranKursusPegawaiTeknikal::findOne($model->bantuan_penganjuran_kursus_pegawai_teknikal_id)) !== null && $model->bantuan_penganjuran_kursus_pegawai_teknikal_id != 0) {
+                $model->jumlah_kelulusan = $modelBantuanPenganjuranKursusPegawaiTeknikal->jumlah_dilulus;
+            }
+
+            if (($modelBantuanPenganjuranKursus = BantuanPenganjuranKursus::findOne($model->bantuan_penganjuran_kursus_id)) !== null && $model->bantuan_penganjuran_kursus_id != 0) {
+                $model->jumlah_kelulusan = $modelBantuanPenganjuranKursus->jumlah_dilulus;
+            }
+
+            if (($modelBantuanBantuanPenyertaanPegawaiTeknikal = BantuanPenyertaanPegawaiTeknikal::findOne($model->bantuan_penyertaan_pegawai_teknikal_id)) !== null && $model->bantuan_penyertaan_pegawai_teknikal_id != 0) {
+                $model->jumlah_kelulusan = $modelBantuanBantuanPenyertaanPegawaiTeknikal->jumlah_dilulus;
+            }
+        }
         
         if($dateAdd->format('Y-m-d') < GeneralFunction::getCurrentDate()){
             Yii::$app->session->setFlash('error', 'Tidak boleh menghantar/kemaskini laporan kerana sudah lepas tempoh 1 bulan selepas kejohanan');

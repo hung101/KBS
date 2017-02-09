@@ -63,8 +63,14 @@ class BantuanPenganjuranKursusController extends Controller
             return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
         }
         
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus']['data-sendiri'])){
+            $queryParams['BantuanPenganjuranKursusSearch']['created_by'] = Yii::$app->user->identity->id;
+        }
+        
         $searchModel = new BantuanPenganjuranKursusSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -204,6 +210,12 @@ class BantuanPenganjuranKursusController extends Controller
                 $model->maklumat_lain_sokongan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusFolder, $filename);
             }
             
+            $file = UploadedFile::getInstance($model, 'surat_kelulusan');
+            $filename = $model->bantuan_penganjuran_kursus_id . "-surat_kelulusan";
+            if($file){
+                $model->surat_kelulusan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusFolder, $filename);
+            }
+            
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_id]);
             }
@@ -273,6 +285,12 @@ class BantuanPenganjuranKursusController extends Controller
             $filename = $model->bantuan_penganjuran_kursus_id . "-maklumat_lain_sokongan";
             if($file){
                 $model->maklumat_lain_sokongan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_kelulusan');
+            $filename = $model->bantuan_penganjuran_kursus_id . "-surat_kelulusan";
+            if($file){
+                $model->surat_kelulusan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusFolder, $filename);
             }
             
             if($model->save()){

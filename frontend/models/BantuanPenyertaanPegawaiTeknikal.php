@@ -75,7 +75,7 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
             [['tarikh', 'tarikh_permohonan', 'tarikh_jkb', 'created', 'updated'], 'safe'],
             [['jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['created_by', 'updated_by', 'no_telefon' ,'no_faks' , 'status_permohonan_id', 'no_akaun', 'status_permohonan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['badan_sukan', 'nama_bank', 'peringkat_lain_lain', 'tujuan', 'jkb', 'negara'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['badan_sukan', 'nama_bank', 'peringkat_lain_lain', 'jkb', 'negara'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun', 'peringkat'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_negeri'], 'string', 'max' => 3, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -86,10 +86,10 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
             [['tujuan', 'nama_kejohanan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['surat_rasmi_badan_sukan_ms_negeri', 'surat_jemputan_lantikan_daripada_pengelola', 'butiran_perbelanjaan', 
-                'salinan_passport', 'maklumat_lain_sokongan', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                'salinan_passport', 'maklumat_lain_sokongan', 'catatan', 'surat_kelulusan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
             [['surat_rasmi_badan_sukan_ms_negeri', 'surat_jemputan_lantikan_daripada_pengelola', 'butiran_perbelanjaan', 
-                'salinan_passport', 'maklumat_lain_sokongan'],'validateFileUpload', 'skipOnEmpty' => false],
+                'salinan_passport', 'maklumat_lain_sokongan', 'surat_kelulusan'],'validateFileUpload', 'skipOnEmpty' => false],
             ['tarikh','validateBeforePenganjuran', 'on' => 'create'],
         ];
     }
@@ -141,6 +141,7 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
             'updated' => 'Updated',
             'tarikh_tamat' => GeneralLabel::tarikh_tamat,  //'Tarikh Tamat',
             'negara' => GeneralLabel::negara,  //'Negara',
+            'surat_kelulusan' => GeneralLabel::surat_kelulusan,
         ];
     }
     

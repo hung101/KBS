@@ -63,12 +63,14 @@ class PengurusanBeritaAntarabangsa extends \yii\db\ActiveRecord
             //[['alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['no_telefon', 'no_faks'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            //[['no_telefon', 'no_faks'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['muatnaik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['gps'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['currency', 'timezone', 'malaysian_timezone'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan', 'public_transportation'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muatnaik'],'validateFileUpload', 'skipOnEmpty' => false],
+            //[['no_telefon'],'validateInternationalPhoneNo', 'skipOnEmpty' => true],
+            [['no_telefon', 'no_faks'], 'match', 'pattern' => '/^[0-9-+.]+$/', 'message' => GeneralMessage::yii_validation_match] //only allow international number
         ];
     }
 

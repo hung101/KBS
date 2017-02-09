@@ -150,4 +150,20 @@ class ProfilBadanSukan extends \yii\db\ActiveRecord
     public function getRefStatusLaporanMesyuaratAgung(){
         return $this->hasOne(RefStatusLaporanMesyuaratAgung::className(), ['id' => 'status']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKelulusanPermohonan()
+    {
+        return $this->hasOne(RefKelulusan::className(), ['id' => 'permintaan_maklumat_kewangan_request'])->from(['rk1' => RefKelulusan::tableName()]);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKelulusan()
+    {
+        return $this->hasOne(RefKelulusan::className(), ['id' => 'permintaan_maklumat_kewangan_approved'])->from(['rk2' => RefKelulusan::tableName()]);
+    }
 }

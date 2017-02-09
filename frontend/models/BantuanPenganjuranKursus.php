@@ -77,7 +77,7 @@ class BantuanPenganjuranKursus extends \yii\db\ActiveRecord
             [['tarikh', 'tarikh_permohonan', 'created', 'updated', 'tarikh_jkb', 'tarikh_tamat'], 'safe'],
             [['bil_penceramah', 'bil_peserta', 'bil_urusetia', 'created_by', 'updated_by', 'status_permohonan_id', 'no_akaun'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['anggaran_perbelanjaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['badan_sukan', 'nama_bank', 'tujuan', 'jkb'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['badan_sukan', 'nama_bank', 'jkb'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_negeri'], 'string', 'max' => 3, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -87,9 +87,10 @@ class BantuanPenganjuranKursus extends \yii\db\ActiveRecord
             [['no_telefon', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['laman_sesawang', 'facebook', 'twitter'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tujuan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
             [['kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri', 'butiran_perbelanjaan', 'maklumat_lain_sokongan', 'catatan', 'nama_kursus_seminar_bengkel'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri', 'butiran_perbelanjaan', 'maklumat_lain_sokongan'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri', 'butiran_perbelanjaan', 'maklumat_lain_sokongan', 'surat_kelulusan'],'validateFileUpload', 'skipOnEmpty' => false],
             ['tarikh','validateBeforePenganjuran', 'on' => 'create'],
         ];
     }
@@ -141,6 +142,7 @@ class BantuanPenganjuranKursus extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
             'tarikh_tamat' => GeneralLabel::tarikh_tamat,   //'Tarikh Tamat',
+            'surat_kelulusan' => GeneralLabel::surat_kelulusan, 
         ];
     }
     

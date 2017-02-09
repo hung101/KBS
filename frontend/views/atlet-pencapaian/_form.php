@@ -22,6 +22,7 @@ use app\models\RefSukan;
 use app\models\RefAcara;
 use app\models\RefJenisRekod;
 use app\models\RefKeputusan;
+use app\models\AtletSukan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -63,7 +64,7 @@ use app\models\general\GeneralMessage;
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>GeneralVariable::formAtletPencapaianID]); ?>
     
     <?php
-        if(isset($session['atlet_cacat']) && $session['atlet_cacat']){
+        /*if(isset($session['atlet_cacat']) && $session['atlet_cacat']){
             $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all();
         } else {
             $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all();
@@ -86,8 +87,13 @@ use app\models\general\GeneralMessage;
             } else {
                 $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->andFilterWhere(['id'=>$arr_sukan_filter])->all();
             }
-        }
+        }*/
         // add filter base on sukan access role in tbl_user->sukan - END
+    
+        // filter base on atlet's sukan
+        if(isset($session['atlet_id'])){
+            $sukan_list = AtletSukan::find()->where(['=', 'atlet_id', $session['atlet_id']])->all();
+        }
         
     ?>
     
@@ -162,7 +168,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map($sukan_list,'id', 'desc'),
+                        'data'=>ArrayHelper::map($sukan_list,'nama_sukan', 'refSukan.desc'),
                         'options' => ['placeholder' => Placeholder::sukan],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -374,7 +380,10 @@ use app\models\general\GeneralMessage;
 
     <div class="form-group">
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
+            'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                ],]) ?>
         <?= Html::button(GeneralLabel::backToList, ['value'=>Url::to(['index']),'class' => 'btn btn-warning', 'onclick' => 'updateRenderAjax("'.Url::to(['index']).'", "'.GeneralVariable::tabPencapaianID.'");']) ?>
         <?php endif; ?>
     </div>

@@ -65,8 +65,14 @@ class BantuanPenganjuranKejohananController extends Controller
             return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
         }
         
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['data-sendiri'])){
+            $queryParams['BantuanPenganjuranKejohananSearch']['created_by'] = Yii::$app->user->identity->id;
+        }
+        
         $searchModel = new BantuanPenganjuranKejohananSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -216,6 +222,12 @@ class BantuanPenganjuranKejohananController extends Controller
                 $model->maklumat_lain_sokongan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananFolder, $filename);
             }
             
+            $file = UploadedFile::getInstance($model, 'surat_kelulusan');
+            $filename = $model->bantuan_penganjuran_kejohanan_id . "-surat_kelulusan";
+            if($file){
+                $model->surat_kelulusan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananFolder, $filename);
+            }
+            
             if(isset(Yii::$app->session->id)){
                 BantuanPenganjuranKejohananKewangan::updateAll(['bantuan_penganjuran_kejohanan_id' => $model->bantuan_penganjuran_kejohanan_id], 'session_id = "'.Yii::$app->session->id.'"');
                 BantuanPenganjuranKejohananKewangan::updateAll(['session_id' => ''], 'bantuan_penganjuran_kejohanan_id = "'.$model->bantuan_penganjuran_kejohanan_id.'"');
@@ -320,6 +332,12 @@ class BantuanPenganjuranKejohananController extends Controller
             $filename = $model->bantuan_penganjuran_kejohanan_id . "-maklumat_lain_sokongan";
             if($file){
                 $model->maklumat_lain_sokongan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_kelulusan');
+            $filename = $model->bantuan_penganjuran_kejohanan_id . "-surat_kelulusan";
+            if($file){
+                $model->surat_kelulusan = Upload::uploadFile($file, Upload::bantuanPenganjuranKejohananFolder, $filename);
             }
         }
         

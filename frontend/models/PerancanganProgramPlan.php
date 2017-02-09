@@ -52,9 +52,9 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
     {
         return [
             [['tarikh_mula', 'tarikh_tamat', 'jenis_program', 'nama_program', 'bahagian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_mula', 'tarikh_tamat', 'tarikh_kelulusan', 'status_program', 'sukan', 'cawangan'], 'safe'],
-            [['mesyuarat_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['nama_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tarikh_mula', 'tarikh_tamat', 'tarikh_kelulusan', 'status_program', 'sukan', 'cawangan', 'tarikh_jkk_jkp'], 'safe'],
+            [['mesyuarat_id', 'status_permohonan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_program', 'bilangan_jkk_jkp'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kelulusan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lokasi'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -93,6 +93,9 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
             'kelulusan' => GeneralLabel::kelulusan,
             'status_program' => GeneralLabel::kedudukan_kejohanan,
             'sukan' => GeneralLabel::sukan,
+            'bilangan_jkk_jkp' => GeneralLabel::bilangan_jkk_jkp,
+            'tarikh_jkk_jkp' => GeneralLabel::tarikh_jkk_jkp,
+            'status_permohonan' => GeneralLabel::status_permohonan,
         ];
     }
     
@@ -147,5 +150,13 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
      */
     public function getRefKedudukanKejohanan(){
         return $this->hasOne(RefKedudukanKejohanan::className(), ['id' => 'status_program']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusPermohonanProgramBinaan()
+    {
+        return $this->hasOne(RefStatusPermohonanProgramBinaan::className(), ['id' => 'status_permohonan']);
     }
 }

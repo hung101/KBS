@@ -62,7 +62,12 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutanController extends C
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id)
+    public function actionCreate($bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id, 
+            $kejohanan_kursus_seminar_bengkel = null,
+            $tarikh_mula = null,
+            $tarikh_tamat = null,
+            $tempat = null,
+            $jumlah_kelulusan = null)
     {
         $model = new BantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan();
         
@@ -75,6 +80,12 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutanController extends C
                 $model->session_id = Yii::$app->session->id;
             }
         }
+        
+        $model->kejohanan_kursus_seminar_bengkel = $kejohanan_kursus_seminar_bengkel;
+        $model->tarikh_mula = $tarikh_mula;
+        $model->tarikh_tamat = $tarikh_tamat;
+        $model->tempat = $tempat;
+        $model->jumlah_kelulusan = $jumlah_kelulusan;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return '1';

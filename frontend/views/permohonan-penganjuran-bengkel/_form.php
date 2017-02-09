@@ -26,6 +26,7 @@ use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanPenganjuranBengkel */
@@ -67,7 +68,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
+                        'data'=>ArrayHelper::map(GeneralFunction::getProfilBadanSukan(),'profil_badan_sukan', 'nama_badan_sukan'),
                         'options' => ['placeholder' => Placeholder::badanSukan, 'disabled'=>$disablePersatuan, 'id'=>'persatuanId'],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -84,7 +85,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(GeneralFunction::getSukan(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan, 'disabled'=>$disablePersatuanInfo],
 'pluginOptions' => [
                             'allowClear' => true
@@ -269,9 +270,10 @@ use app\models\general\GeneralVariable;
         ?>
     
     
-    <hr>
+    
     <?php
-    if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-penganjuran-bengkel']['kelulusan'])){
+    if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-penganjuran-bengkel']['kelulusan']) || $readonly){
+        echo '<hr>';
         echo '<br>
                 <pre style="text-align: center"><strong>'.GeneralLabel::kegunaan_msn.'</strong></pre>';
         
@@ -331,7 +333,10 @@ use app\models\general\GeneralVariable;
 
     <div class="form-group">
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
+            'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                ],]) ?>
         <?php endif; ?>
     </div>
 

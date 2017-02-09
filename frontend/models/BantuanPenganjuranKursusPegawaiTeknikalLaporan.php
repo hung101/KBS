@@ -53,6 +53,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporan extends \yii\db\ActiveRecor
                 'updated_by', 'bantuan_penganjuran_kursus_pegawai_teknikal_id', 'bantuan_penyertaan_pegawai_teknikal_id', 'bantuan_penganjuran_kursus_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tujuan_kursus_kejohanan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jumlah_kelulusan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['laporan_bergambar', 'penyata_perbelanjaan_resit_yang_telah_disahkan', 'jadual_keputusan_pertandingan', 'senarai_peserta', 
                 'statistik_penyertaan', 'senarai_pegawai_penceramah', 'senarai_urusetia_sukarelawan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['penyata_perbelanjaan_resit_yang_telah_disahkan'], 'validateFileUploadRequired', 'skipOnEmpty' => false],

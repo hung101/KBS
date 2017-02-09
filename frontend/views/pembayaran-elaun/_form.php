@@ -19,6 +19,8 @@ use app\models\RefStatusTawaran;
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
+use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PembayaranElaun */
@@ -26,15 +28,18 @@ use app\models\general\GeneralVariable;
 ?>
 
 <?php
-        $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->all();
+        $sukan_list = GeneralFunction::getSukan();
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['upaya']) && isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['kurang-upaya'])){
-            $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->all();
+            $sukan_list = GeneralFunction::getSukan();
         } elseif(isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['upaya']))  {
             // Upaya Sukan List
-            $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all();
+            $param_sukan['cacat'] = 0;
+            //$sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all();
+            $sukan_list = GeneralFunction::getSukan($param_sukan);
         } elseif(isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-elaun']['kurang-upaya']))  {
             // Upaya Sukan List
-            $sukan_list = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all();
+            $param_sukan['cacat'] = 1;
+            $sukan_list = GeneralFunction::getSukan($param_sukan);
         }
         
         $atlet_list = Atlet::find()->where(['=', 'tawaran', RefStatusTawaran::LULUS_TAWARAN])->all();
@@ -209,7 +214,10 @@ use app\models\general\GeneralVariable;
 
     <div class="form-group">
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
+            'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                ],]) ?>
         <?php endif; ?>
     </div>
 

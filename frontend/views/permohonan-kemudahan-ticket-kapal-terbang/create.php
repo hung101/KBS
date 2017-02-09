@@ -17,6 +17,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'searchModelPermohonanKemudahanTicketKapalTerbangSukan' => $searchModelPermohonanKemudahanTicketKapalTerbangSukan,
+        'dataProviderPermohonanKemudahanTicketKapalTerbangSukan' => $dataProviderPermohonanKemudahanTicketKapalTerbangSukan,
+        'searchModelPermohonanKemudahanTicketKapalTerbangAtlet' => $searchModelPermohonanKemudahanTicketKapalTerbangAtlet,
+        'dataProviderPermohonanKemudahanTicketKapalTerbangAtlet' => $dataProviderPermohonanKemudahanTicketKapalTerbangAtlet,
+        'searchModelPermohonanKemudahanTicketKapalTerbangJurulatih' => $searchModelPermohonanKemudahanTicketKapalTerbangJurulatih,
+        'dataProviderPermohonanKemudahanTicketKapalTerbangJurulatih' => $dataProviderPermohonanKemudahanTicketKapalTerbangJurulatih,
+        'searchModelPermohonanKemudahanTicketKapalTerbangPegawai' => $searchModelPermohonanKemudahanTicketKapalTerbangPegawai,
+        'dataProviderPermohonanKemudahanTicketKapalTerbangPegawai' => $dataProviderPermohonanKemudahanTicketKapalTerbangPegawai,
         'readonly' => $readonly,
     ]) ?>
 

@@ -76,7 +76,7 @@ class BantuanPenganjuranKejohananSearch extends BantuanPenganjuranKejohanan
             'tarikh_permohonan' => $this->tarikh_permohonan,
             'jumlah_dilulus' => $this->jumlah_dilulus,
             'tarikh_jkb' => $this->tarikh_jkb,
-            'created_by' => $this->created_by,
+            'tbl_bantuan_penganjuran_kejohanan.created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created' => $this->created,
             'updated' => $this->updated,

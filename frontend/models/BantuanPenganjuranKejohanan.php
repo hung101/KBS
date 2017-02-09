@@ -105,10 +105,10 @@ class BantuanPenganjuranKejohanan extends \yii\db\ActiveRecord
             [['no_telefon', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['laman_sesawang', 'facebook', 'twitter'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat', 'tujuan', 'nama_kejohanan_pertandingan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri', 'permohonan_rasmi_dari_ahli_gabungan', 'maklumat_lain_sokongan', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri', 'permohonan_rasmi_dari_ahli_gabungan', 'maklumat_lain_sokongan', 'surat_kelulusan', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh_mula', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
             [['kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri'], 'validateFileUploadRequired', 'skipOnEmpty' => false],
-            [['permohonan_rasmi_dari_ahli_gabungan', 'maklumat_lain_sokongan'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['permohonan_rasmi_dari_ahli_gabungan', 'maklumat_lain_sokongan', 'surat_kelulusan'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -162,6 +162,7 @@ class BantuanPenganjuranKejohanan extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
+            'surat_kelulusan' => GeneralLabel::surat_kelulusan,
         ];
     }
     

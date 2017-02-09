@@ -178,7 +178,10 @@ use app\models\general\GeneralMessage;
 
     <div class="form-group">
         <?php if(!$readonly): ?>
-        <?= Html::submitButton(GeneralLabel::save, ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton(GeneralLabel::save, ['class' => 'btn btn-primary',
+            'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                ],]) ?>
         <?php endif; ?>
     </div>
 

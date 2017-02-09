@@ -13,6 +13,8 @@ $session = Yii::$app->getSession();
 if($session->get('language') == "BM" || $session->get('language') == null || $session->get('language') == "") {
 
 	class GeneralMessage{
+            const confirmSave = "Adakah anda pasti?";
+            const confirmPrint = "Adakah anda pasti?";
 	    const confirmDelete = "Adakah anda pasti?";
 	    const confirmRemove = "Adakah anda pasti mahu mengeluarkan?";
             const confirmKelulusan = "Adakah anda pasti mahu meluluskan?";
@@ -27,6 +29,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
             const yii_validation_integer = "{attribute} mesti integer";
             const yii_validation_integer_max = "{attribute} mestilah tidak lebih besar daripada {max}";
             const yii_validation_integer_min = "{attribute} mestilah tidak kurang daripada {min}";
+            const yii_validation_match = "{attribute} tidak sah";
             const yii_validation_number = "{attribute} mesti nombor";
             const yii_validation_email = "{attribute} bukan alamat e-mel yang sah";
             const yii_validation_string_max = "{attribute} perlu mengandungi paling banyak {max} aksara";
@@ -55,6 +58,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
 if($session->get('language') == "EN") {
 
 	class GeneralMessage{
+            const confirmSave = "Are you sure?";
+            const confirmPrint = "Are you sure?";
 	    const confirmDelete = "Are you sure?";
 	    const confirmRemove = "Are you sure you want to remove?";
             const confirmKelulusan = "Are you sure you want to approve?";
@@ -69,6 +74,7 @@ if($session->get('language') == "EN") {
             const yii_validation_integer = "{attribute} must be an integer";
             const yii_validation_integer_max = "{attribute} must be no greater than {max}";
             const yii_validation_integer_min = "{attribute} mmust be no less than {min}";
+            const yii_validation_match = "{attribute} invalid";
             const yii_validation_number = "{attribute} must be a number";
             const yii_validation_email = "{attribute} is not a valid email address";
             const yii_validation_string_max = "{attribute} should contain at most {max} characters";

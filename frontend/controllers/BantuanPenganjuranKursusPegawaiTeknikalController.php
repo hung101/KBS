@@ -17,6 +17,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\helpers\BaseUrl;
+use yii\web\Session;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
@@ -60,8 +61,14 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
             return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
         }
         
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus-pegawai-teknikal']['data-sendiri'])){
+            $queryParams['BantuanPenganjuranKursusPegawaiTeknikalSearch']['created_by'] = Yii::$app->user->identity->id;
+        }
+        
         $searchModel = new BantuanPenganjuranKursusPegawaiTeknikalSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -105,7 +112,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
         
         $queryPar['BantuanPenganjuranKursusPegawaiTeknikalDicadangkanSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_id'] = $id;
         $queryPar['BantuanPenganjuranKursusPegawaiTeknikalDisertaiSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_id'] = $id;
-        $queryPar['BantuanPenganjuranKursusOlehMsnSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_id'] = $id;
+        $queryPar['BantuanPenganjuranKursusPegawaiTeknikalOlehMsnSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_id'] = $id;
         
         $searchModelBantuanPenganjuranKursusPegawaiTeknikalDicadangkan  = new BantuanPenganjuranKursusPegawaiTeknikalDicadangkanSearch();
         $dataProviderBantuanPenganjuranKursusPegawaiTeknikalDicadangkan = $searchModelBantuanPenganjuranKursusPegawaiTeknikalDicadangkan->search($queryPar);
@@ -207,6 +214,12 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
                 $model->maklumat_lain_sokongan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalFolder, $filename);
             }
             
+            $file = UploadedFile::getInstance($model, 'surat_kelulusan');
+            $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_id . "-surat_kelulusan";
+            if($file){
+                $model->surat_kelulusan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalFolder, $filename);
+            }
+            
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_id]);
             }
@@ -244,7 +257,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
         
         $queryPar['BantuanPenganjuranKursusPegawaiTeknikalDicadangkanSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_id'] = $id;
         $queryPar['BantuanPenganjuranKursusPegawaiTeknikalDisertaiSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_id'] = $id;
-        $queryPar['BantuanPenganjuranKursusOlehMsnSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_id'] = $id;
+        $queryPar['BantuanPenganjuranKursusPegawaiTeknikalOlehMsnSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_id'] = $id;
         
         $searchModelBantuanPenganjuranKursusPegawaiTeknikalDicadangkan  = new BantuanPenganjuranKursusPegawaiTeknikalDicadangkanSearch();
         $dataProviderBantuanPenganjuranKursusPegawaiTeknikalDicadangkan = $searchModelBantuanPenganjuranKursusPegawaiTeknikalDicadangkan->search($queryPar);
@@ -284,6 +297,12 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
             $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_id . "-maklumat_lain_sokongan";
             if($file){
                 $model->maklumat_lain_sokongan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_kelulusan');
+            $filename = $model->bantuan_penganjuran_kursus_pegawai_teknikal_id . "-surat_kelulusan";
+            if($file){
+                $model->surat_kelulusan = Upload::uploadFile($file, Upload::bantuanPenganjuranKursusPegawaiTeknikalFolder, $filename);
             }
             
             if($model->save()){
@@ -334,6 +353,16 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionSetBadanSukan($badan_sukan_id){
+        
+        $session = new Session;
+        $session->open();
+
+        $session['bantuan-penganjuran-kursus-pegawai-teknikal-badan_sukan_id'] = $badan_sukan_id;
+        
+        $session->close();
     }
     
     public function actionLaporanStatistikPenyertaanPegawaiTeknikalMengikutKursus()

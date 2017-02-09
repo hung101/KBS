@@ -23,7 +23,7 @@ class ProfilBadanSukanSearch extends ProfilBadanSukan
             [['profil_badan_sukan', 'no_telefon_pejabat', 'no_faks_pejabat', 'status_id'], 'integer'],
             [['nama_badan_sukan', 'nama_badan_sukan_sebelum_ini', 'no_pendaftaran_sijil_pendaftaran', 'tarikh_lulus_pendaftaran', 'jenis_sukan', 
                 'alamat_tetap_badan_sukan_1', 'alamat_surat_menyurat_badan_sukan_1', 'emel_badan_sukan', 'pengiktirafan_yang_pernah_diterima_badan_sukan',
-                'status'], 'safe'],
+                'status', 'permintaan_maklumat_kewangan_request', 'permintaan_maklumat_kewangan_approved'], 'safe'],
         ];
     }
 
@@ -46,7 +46,9 @@ class ProfilBadanSukanSearch extends ProfilBadanSukan
     public function search($params)
     {
         $query = ProfilBadanSukan::find()
-                ->joinWith(['refStatusLaporanMesyuaratAgung']);
+                ->joinWith(['refStatusLaporanMesyuaratAgung'])
+                ->joinWith(['refKelulusanPermohonan'])
+                ->joinWith(['refKelulusan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -77,7 +79,9 @@ class ProfilBadanSukanSearch extends ProfilBadanSukan
             ->andFilterWhere(['like', 'emel_badan_sukan', $this->emel_badan_sukan])
             ->andFilterWhere(['like', 'pengiktirafan_yang_pernah_diterima_badan_sukan', $this->pengiktirafan_yang_pernah_diterima_badan_sukan])
                 ->andFilterWhere(['like', 'tarikh_lulus_pendaftaran', $this->tarikh_lulus_pendaftaran])
-                ->andFilterWhere(['like', 'tbl_ref_status_laporan_mesyuarat_agung.desc', $this->status]);
+                ->andFilterWhere(['like', 'tbl_ref_status_laporan_mesyuarat_agung.desc', $this->status])
+                ->andFilterWhere(['like', 'rk1.desc', $this->permintaan_maklumat_kewangan_request])
+            ->andFilterWhere(['like', 'rk2.desc', $this->permintaan_maklumat_kewangan_approved]);
 
         return $dataProvider;
     }

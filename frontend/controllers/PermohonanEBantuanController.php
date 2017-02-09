@@ -549,7 +549,23 @@ class PermohonanEBantuanController extends Controller
                     Yii::$app->mailer->compose()
                     ->setTo($email)
                     ->setSubject('SPSB: Permohonan e-Bantuan')
-                    ->setTextBody('Sukacita dimaklumkan bahawa permohonan tuan telah DILULUSKAN. Surat Kelulusan akan dihantar kepada alamat persatuan tuan dalam tempoh 14 hari.')->send();
+                    ->setTextBody('Tuan/Puan,<br><br>
+Sukacita dimaklumkan permohonan anda diluluskan. Surat kelulusan 
+akan dihantar ke alamat surat menyurat. Sila muat turun borang Surat Setuju Terima (PB-4) dan 
+kemukakan kepada urus setia dalam tempoh 14 hari dari tarikh penerimaan surat kelulusan untuk 
+tujuan penyelarasan dan pembayaran. Kegagalan mengemukakan dokumen tersebut di dalam tempoh yang 
+ditetapkan akan menyebabkan kelulusan ini terbatal.
+<br>
+<br>
+<br>
+Sekian, terima kasih.
+
+<br>
+<br>
+Urusetia Bantuan Induk <br>
+Jabatan Belia dan Sukan Negara<br><br>
+
+Ini adalah cetakan komputer tandatangan tidak diperlukan')->send();
                 } elseif($model->status_permohonan == RefStatusPermohonanEBantuan::STATUS_TOLAK){
                      Yii::$app->mailer->compose()
                     ->setTo($email)

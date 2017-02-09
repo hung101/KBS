@@ -16,6 +16,7 @@ use app\models\RefStatusBantuanPenganjuranKursus;
 // contant values
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanPelaksaan */
@@ -78,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(GeneralFunction::getSukan(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],
 'pluginOptions' => [
                             'allowClear' => true

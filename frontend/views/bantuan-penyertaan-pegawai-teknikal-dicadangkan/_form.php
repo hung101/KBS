@@ -9,6 +9,7 @@ use kartik\widgets\DepDrop;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
+use yii\web\Session;
 
 // table reference
 use app\models\ProfilBadanSukan;
@@ -28,6 +29,21 @@ use app\models\general\GeneralVariable;
 /* @var $this yii\web\View */
 /* @var $model app\models\BantuanPenyertaanPegawaiTeknikalDicadangkan */
 /* @var $form yii\widgets\ActiveForm */
+
+
+//filter by Sukan from parent form
+$session = new Session;
+$session->open();
+
+$pegawai_teknikal_list = null;
+
+if(isset($session['bantuan-penyertaan-pegawai-teknikal-badan_sukan_id']) && $session['bantuan-penyertaan-pegawai-teknikal-badan_sukan_id']){
+    $pegawai_teknikal_list = MaklumatPegawaiTeknikal::find()->andWhere(['=', 'badan_sukan', $session['bantuan-penyertaan-pegawai-teknikal-badan_sukan_id']])->all();
+} else {
+    $pegawai_teknikal_list = MaklumatPegawaiTeknikal::find()->all();
+}
+
+$session->close();
 ?>
 
 <div class="bantuan-penyertaan-pegawai-teknikal-dicadangkan-form">
@@ -57,7 +73,7 @@ use app\models\general\GeneralVariable;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(MaklumatPegawaiTeknikal::find()->all(),'bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id', 'nama'),
+                        'data'=>ArrayHelper::map($pegawai_teknikal_list,'bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id', 'nama'),
                         'options' => ['placeholder' => Placeholder::pegawaiTeknikal, 'id'=>'pegawaiTeknikalId'],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -82,7 +98,7 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
-                        'options' => ['placeholder' => Placeholder::persatuan],
+                        'options' => ['placeholder' => Placeholder::persatuan], 'disabled'=>true,
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -99,7 +115,7 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],
+                        'options' => ['placeholder' => Placeholder::sukan], 'disabled'=>true,
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -124,22 +140,22 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>80]],
+                'nama' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>80, 'disabled'=>true]],
             ]
         ],
         [
             'attributes' => [
-                'alamat_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                'alamat_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30, 'disabled'=>true]],
             ]
         ],
         [
             'attributes' => [
-                'alamat_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                'alamat_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30, 'disabled'=>true]],
             ]
         ],
         [
             'attributes' => [
-                'alamat_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                'alamat_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30, 'disabled'=>true]],
             ]
         ],
         [
@@ -158,7 +174,7 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],
+                        'options' => ['placeholder' => Placeholder::negeri], 'disabled'=>true,
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -179,29 +195,29 @@ use app\models\general\GeneralVariable;
                             'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(RefBandar::find()->all(),'id', 'desc'),
-                        'options'=>['prompt'=>'',],
+                        'options'=>['prompt'=>'', 'disabled'=>true],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'alamat_negeri')],
                             'placeholder' => Placeholder::bandar,
                             'url'=>Url::to(['/ref-bandar/subbandars'])],
                         ],
                     'columnOptions'=>['colspan'=>3]],
-                'alamat_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5]],
+                'alamat_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5, 'disabled'=>true]],
             ]
         ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'no_kad_pengenalan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
-                'umur' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
+                'no_kad_pengenalan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true, 'disabled'=>true]],
+                'umur' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true, 'disabled'=>true]],
             ]
         ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'no_passport' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                'no_passport' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true, 'disabled'=>true]],
                 'jantina' =>[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -214,7 +230,7 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJantina::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jantina],
+                        'options' => ['placeholder' => Placeholder::jantina], 'disabled'=>true,
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -225,8 +241,8 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'no_telefon' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
-                'alamat_e_mail' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                'no_telefon' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true, 'disabled'=>true]],
+                'alamat_e_mail' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true, 'disabled'=>true]],
             ]
         ],
         [
@@ -245,7 +261,7 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefTahapAkademikPegawaiTeknikal::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::tahapAkademik],
+                        'options' => ['placeholder' => Placeholder::tahapAkademik], 'disabled'=>true,
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -266,14 +282,14 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'tahap_kelayakan_sukan_peringkat_kebangsaan' =>  ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                'tahap_kelayakan_sukan_peringkat_kebangsaan' =>  ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true, 'disabled'=>true]],
             ],
         ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'tahap_kelayakan_sukan_peringkat_antarabangsa' =>  ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                'tahap_kelayakan_sukan_peringkat_antarabangsa' =>  ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true, 'disabled'=>true]],
             ],
         ],
     ]
@@ -293,17 +309,17 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama_majikan' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>true]],
-                'no_telefon_majikan' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
-                'no_faks' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                'nama_majikan' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>true, 'disabled'=>true]],
+                'no_telefon_majikan' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true, 'disabled'=>true]],
+                'no_faks' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true, 'disabled'=>true]],
             ],
         ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'jawatan' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
-                'gred' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
+                'jawatan' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true, 'disabled'=>true]],
+                'gred' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true, 'disabled'=>true]],
             ],
         ],
     ]
@@ -324,7 +340,7 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama_kejohanan_kursus' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>true]],
+                'nama_kejohanan_kursus' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>true, 'disabled'=>true]],
                 'tarikh_mula' =>  [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -332,7 +348,7 @@ use app\models\general\GeneralVariable;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ], 'disabled'=>true
                     ],
                     'columnOptions'=>['colspan'=>3]],
                 'tarikh_tamat' => [
@@ -342,7 +358,7 @@ use app\models\general\GeneralVariable;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ], 'disabled'=>true
                     ],
                     'columnOptions'=>['colspan'=>3]],
             ],
@@ -351,7 +367,7 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'tempat' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true],'hint'=>"cth: Burgas, Bulgaria"],
+                'tempat' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true, 'disabled'=>true],'hint'=>"cth: Burgas, Bulgaria"],
             ],
         ],
     ]
@@ -360,7 +376,10 @@ use app\models\general\GeneralVariable;
 
     <div class="form-group">
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
+            'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                ],]) ?>
         <?php endif; ?>
     </div>
 
@@ -377,6 +396,15 @@ $script = <<< JS
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 
     var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+    
+    $("#bantuanpenyertaanpegawaiteknikaldicadangkan-badan_sukan").prop("disabled", false);
+    $("#bantuanpenyertaanpegawaiteknikaldicadangkan-sukan").prop("disabled", false);
+    $("#bantuanpenyertaanpegawaiteknikaldicadangkan-alamat_negeri").prop("disabled", false);
+    $("#bantuanpenyertaanpegawaiteknikaldicadangkan-alamat_bandar").prop("disabled", false);
+    $("#bantuanpenyertaanpegawaiteknikaldicadangkan-jantina").prop("disabled", false);
+    $("#bantuanpenyertaanpegawaiteknikaldicadangkan-tahap_akademik").prop("disabled", false);
      
      // submit form
      $.ajax({
@@ -406,7 +434,7 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 
     var form = $(this);
 
-    $("form#{$model->formName()} input").prop("disabled", false);
+    
 });
         
 $('#pegawaiTeknikalId').change(function(){

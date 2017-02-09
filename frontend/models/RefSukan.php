@@ -50,7 +50,8 @@ class RefSukan extends \yii\db\ActiveRecord
         return [
             [['ref_kategori_sukan_id','desc', 'aktif'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['aktif'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['desc'], 'string', 'max' => 80]
+            [['desc'], 'string', 'max' => 80],
+            [['ref_cawangan_id','id'], 'safe']
         ];
     }
 
@@ -70,5 +71,9 @@ class RefSukan extends \yii\db\ActiveRecord
 
     public function getRefKategoriSukan() {
         return $this->hasOne(RefKategoriSukan::className(), ['id' => 'ref_kategori_sukan_id']);
+    }
+    
+    public function getRefCawangan() {
+        return $this->hasOne(RefCawangan::className(), ['id' => 'ref_cawangan_id']);
     }
 }

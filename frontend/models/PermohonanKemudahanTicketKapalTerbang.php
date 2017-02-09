@@ -60,8 +60,8 @@ class PermohonanKemudahanTicketKapalTerbang extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [
-            [['nama_pemohon', 'bahagian', 'jawatan', 'destinasi', 'tarikh', 'nama_program', 'bil_penumpang', 'aktiviti', 'sukan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+        $rules = [
+            [['nama_pemohon', 'jawatan', 'destinasi', 'tarikh', 'nama_program', 'aktiviti', 'sukan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh', 'tarikh_jkb', 'pulang', 'tarikh_pergi_2', 'tarikh_pergi_3', 'tarikh_pulang_2', 'tarikh_pulang_3', 'jurulatih', 'atlet', 'sukan'], 'safe'],
             [['bil_penumpang', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_pemohon', 'jawatan', 'nama_program', 'aktiviti', 'cawangan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -72,6 +72,13 @@ class PermohonanKemudahanTicketKapalTerbang extends \yii\db\ActiveRecord
             [['no_fail_kelulusan', 'kod_perbelanjaan'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['pegawai_teknikal'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
+        
+        if(!isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['psk'])){
+            // if not PSK, Bahagian must be mandatory
+            $rules[] = [['bahagian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required];
+        }
+        
+        return $rules;
     }
 
     /**

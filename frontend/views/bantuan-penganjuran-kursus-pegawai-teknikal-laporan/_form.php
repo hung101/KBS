@@ -428,7 +428,14 @@ use app\models\general\GeneralVariable;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-laporan-tuntutan/create', 'bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id' => $bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id]).'", "'.GeneralLabel::createTitle . ' Tuntutan Baki Dua Puluh Peratus (20%) Daripada Jumlah Kelulusan (Jika Ada)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-laporan-tuntutan/create', 
+                            'bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id' => $bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id
+                                , 'kejohanan_kursus_seminar_bengkel' => $model->tujuan_kursus_kejohanan
+                                , 'tarikh_mula' => $model->tarikh
+                                , 'tarikh_tamat' => $model->tarikh_tamat
+                                , 'tempat' => $model->tempat
+                                , 'jumlah_kelulusan' => $model->jumlah_kelulusan
+                                ]).'", "'.GeneralLabel::createTitle . ' Tuntutan Baki Dua Puluh Peratus (20%) Daripada Jumlah Kelulusan (Jika Ada)");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -438,7 +445,10 @@ use app\models\general\GeneralVariable;
 
     <div class="form-group">
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
+            'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                ],]) ?>
         <?php endif; ?>
     </div>
 

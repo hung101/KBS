@@ -17,6 +17,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\helpers\BaseUrl;
+use yii\web\Session;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
@@ -61,8 +62,14 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
             return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
         }
         
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penyertaan-pegawai-teknikal']['data-sendiri'])){
+            $queryParams['BantuanPenyertaanPegawaiTeknikalSearch']['created_by'] = Yii::$app->user->identity->id;
+        }
+        
         $searchModel = new BantuanPenyertaanPegawaiTeknikalSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -210,6 +217,12 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
                 $model->maklumat_lain_sokongan = Upload::uploadFile($file, Upload::bantuanPenyertaanPegawaiTeknikalFolder, $filename);
             }
             
+            $file = UploadedFile::getInstance($model, 'surat_kelulusan');
+            $filename = $model->bantuan_penyertaan_pegawai_teknikal_id . "-surat_kelulusan";
+            if($file){
+                $model->surat_kelulusan = Upload::uploadFile($file, Upload::bantuanPenyertaanPegawaiTeknikalFolder, $filename);
+            }
+            
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_id]);
             }
@@ -285,6 +298,12 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
             $filename = $model->bantuan_penyertaan_pegawai_teknikal_id . "-maklumat_lain_sokongan";
             if($file){
                 $model->maklumat_lain_sokongan = Upload::uploadFile($file, Upload::bantuanPenyertaanPegawaiTeknikalFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_kelulusan');
+            $filename = $model->bantuan_penyertaan_pegawai_teknikal_id . "-surat_kelulusan";
+            if($file){
+                $model->surat_kelulusan = Upload::uploadFile($file, Upload::bantuanPenyertaanPegawaiTeknikalFolder, $filename);
             }
             
             if($model->save()){
@@ -368,6 +387,16 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
             $img->update();
 
             return $this->redirect(['update', 'id' => $id]);
+    }
+    
+    public function actionSetBadanSukan($badan_sukan_id){
+        
+        $session = new Session;
+        $session->open();
+
+        $session['bantuan-penyertaan-pegawai-teknikal-badan_sukan_id'] = $badan_sukan_id;
+        
+        $session->close();
     }
     
     public function actionLaporanStatistikPenyertaanPegawaiTeknikalKeKejohanan()

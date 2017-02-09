@@ -108,7 +108,10 @@ use app\models\general\GeneralVariable;
 
     <div class="form-group">
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
+            'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                ],]) ?>
         <?php endif; ?>
     </div>
 
@@ -148,6 +151,10 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 });
 
 $('#bantuanpenganjurankursuspegawaiteknikallaporantuntutan-jumlah_kelulusan').on("keyup", function(){calculatePendahuluanDituntut();});
+
+$(document).ready(function(){   
+    calculatePendahuluanDituntut();
+});
         
 function calculatePendahuluanDituntut(){
     var dituntutPeratus = 0.2;

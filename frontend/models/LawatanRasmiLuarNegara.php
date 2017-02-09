@@ -56,7 +56,7 @@ class LawatanRasmiLuarNegara extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['lawatan', 'negara', 'tarikh', 'delegasi', 'jumlah_delegasi'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['lawatan', 'negara', 'tarikh', 'delegasi', 'jumlah_delegasi'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh', 'created', 'updated'], 'safe'],
             [['delegasi', 'nama_pegawai_terlibat', 'catatan'], 'string'],
             [['jumlah_delegasi', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],

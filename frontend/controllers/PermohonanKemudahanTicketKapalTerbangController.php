@@ -5,6 +5,14 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PermohonanKemudahanTicketKapalTerbang;
 use frontend\models\PermohonanKemudahanTicketKapalTerbangSearch;
+use app\models\PermohonanKemudahanTicketKapalTerbangSukan;
+use frontend\models\PermohonanKemudahanTicketKapalTerbangSukanSearch;
+use app\models\PermohonanKemudahanTicketKapalTerbangAtlet;
+use frontend\models\PermohonanKemudahanTicketKapalTerbangAtletSearch;
+use app\models\PermohonanKemudahanTicketKapalTerbangJurulatih;
+use frontend\models\PermohonanKemudahanTicketKapalTerbangJurulatihSearch;
+use app\models\PermohonanKemudahanTicketKapalTerbangPegawai;
+use frontend\models\PermohonanKemudahanTicketKapalTerbangPegawaiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -19,6 +27,9 @@ use app\models\RefSukan;
 use app\models\RefBahagianKemudahan;
 use app\models\RefCawanganKemudahan;
 use app\models\RefStatusPermohonanKemudahan;
+use app\models\RefBahagianAduan;
+use app\models\RefCawangan;
+use app\models\PerancanganProgram;
 
 // contant values
 use app\models\general\GeneralLabel;
@@ -48,6 +59,10 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $searchModel = new PermohonanKemudahanTicketKapalTerbangSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -64,6 +79,10 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
         
         //$ref = Atlet::findOne(['atlet_id' => $model->atlet]);
@@ -72,16 +91,19 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
         //$ref = Jurulatih::findOne(['jurulatih_id' => $model->jurulatih]);
         //$model->jurulatih = $ref['nameAndIC'];
         
-        $ref = RefProgram::findOne(['id' => $model->nama_program]);
-        $model->nama_program = $ref['desc'];
+        //$ref = RefProgram::findOne(['id' => $model->nama_program]);
+        $ref = PerancanganProgram::findOne(['perancangan_program_id' => $model->nama_program]);
+        $model->nama_program = $ref['nama_program'];
         
         //$ref = RefSukan::findOne(['id' => $model->sukan]);
         //$model->sukan = $ref['desc'];
         
-        $ref = RefBahagianKemudahan::findOne(['id' => $model->bahagian]);
+        //$ref = RefBahagianKemudahan::findOne(['id' => $model->bahagian]);
+        $ref = RefBahagianAduan::findOne(['id' => $model->bahagian]);
         $model->bahagian = $ref['desc'];
         
-        $ref = RefCawanganKemudahan::findOne(['id' => $model->cawangan]);
+        //$ref = RefCawanganKemudahan::findOne(['id' => $model->cawangan]);
+        $ref = RefCawangan::findOne(['id' => $model->cawangan]);
         $model->cawangan = $ref['desc'];
         
         $ref = RefStatusPermohonanKemudahan::findOne(['id' => $model->kelulusan]);
@@ -90,8 +112,37 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
         /*$YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         $model->kelulusan = $YesNo;*/
         
+        $queryPar = null;
+        
+        
+        $queryPar['PermohonanKemudahanTicketKapalTerbangSukanSearch']['permohonan_kemudahan_ticket_kapal_terbang_id'] = $id;
+        $queryPar['PermohonanKemudahanTicketKapalTerbangAtletSearch']['permohonan_kemudahan_ticket_kapal_terbang_id'] = $id;
+        $queryPar['PermohonanKemudahanTicketKapalTerbangJurulatihSearch']['permohonan_kemudahan_ticket_kapal_terbang_id'] = $id;
+        $queryPar['PermohonanKemudahanTicketKapalTerbangPegawaiSearch']['permohonan_kemudahan_ticket_kapal_terbang_id'] = $id;
+
+        
+        $searchModelPermohonanKemudahanTicketKapalTerbangSukan = new PermohonanKemudahanTicketKapalTerbangSukanSearch();
+        $dataProviderPermohonanKemudahanTicketKapalTerbangSukan = $searchModelPermohonanKemudahanTicketKapalTerbangSukan->search($queryPar);
+        
+        $searchModelPermohonanKemudahanTicketKapalTerbangAtlet = new PermohonanKemudahanTicketKapalTerbangAtletSearch();
+        $dataProviderPermohonanKemudahanTicketKapalTerbangAtlet = $searchModelPermohonanKemudahanTicketKapalTerbangAtlet->search($queryPar);
+        
+        $searchModelPermohonanKemudahanTicketKapalTerbangJurulatih = new PermohonanKemudahanTicketKapalTerbangJurulatihSearch();
+        $dataProviderPermohonanKemudahanTicketKapalTerbangJurulatih = $searchModelPermohonanKemudahanTicketKapalTerbangJurulatih->search($queryPar);
+        
+        $searchModelPermohonanKemudahanTicketKapalTerbangPegawai = new PermohonanKemudahanTicketKapalTerbangPegawaiSearch();
+        $dataProviderPermohonanKemudahanTicketKapalTerbangPegawai = $searchModelPermohonanKemudahanTicketKapalTerbangPegawai->search($queryPar);
+        
         return $this->render('view', [
             'model' => $model,
+            'searchModelPermohonanKemudahanTicketKapalTerbangSukan' => $searchModelPermohonanKemudahanTicketKapalTerbangSukan,
+            'dataProviderPermohonanKemudahanTicketKapalTerbangSukan' => $dataProviderPermohonanKemudahanTicketKapalTerbangSukan,
+            'searchModelPermohonanKemudahanTicketKapalTerbangAtlet' => $searchModelPermohonanKemudahanTicketKapalTerbangAtlet,
+            'dataProviderPermohonanKemudahanTicketKapalTerbangAtlet' => $dataProviderPermohonanKemudahanTicketKapalTerbangAtlet,
+            'searchModelPermohonanKemudahanTicketKapalTerbangJurulatih' => $searchModelPermohonanKemudahanTicketKapalTerbangJurulatih,
+            'dataProviderPermohonanKemudahanTicketKapalTerbangJurulatih' => $dataProviderPermohonanKemudahanTicketKapalTerbangJurulatih,
+            'searchModelPermohonanKemudahanTicketKapalTerbangPegawai' => $searchModelPermohonanKemudahanTicketKapalTerbangPegawai,
+            'dataProviderPermohonanKemudahanTicketKapalTerbangPegawai' => $dataProviderPermohonanKemudahanTicketKapalTerbangPegawai,
             'readonly' => true,
         ]);
     }
@@ -103,9 +154,40 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new PermohonanKemudahanTicketKapalTerbang();
         
         $model->kelulusan = RefStatusPermohonanKemudahan::SEDANG_DIPROSES;
+        
+        //auto populate nama pemohon
+        $model->nama_pemohon = Yii::$app->user->identity->full_name;
+        
+        $queryPar = null;
+        
+        Yii::$app->session->open();
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['PermohonanKemudahanTicketKapalTerbangSukanSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['PermohonanKemudahanTicketKapalTerbangAtletSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['PermohonanKemudahanTicketKapalTerbangJurulatihSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['PermohonanKemudahanTicketKapalTerbangPegawaiSearch']['session_id'] = Yii::$app->session->id;
+        }
+        
+        $searchModelPermohonanKemudahanTicketKapalTerbangSukan = new PermohonanKemudahanTicketKapalTerbangSukanSearch();
+        $dataProviderPermohonanKemudahanTicketKapalTerbangSukan = $searchModelPermohonanKemudahanTicketKapalTerbangSukan->search($queryPar);
+        
+        $searchModelPermohonanKemudahanTicketKapalTerbangAtlet = new PermohonanKemudahanTicketKapalTerbangAtletSearch();
+        $dataProviderPermohonanKemudahanTicketKapalTerbangAtlet = $searchModelPermohonanKemudahanTicketKapalTerbangAtlet->search($queryPar);
+        
+        $searchModelPermohonanKemudahanTicketKapalTerbangJurulatih = new PermohonanKemudahanTicketKapalTerbangJurulatihSearch();
+        $dataProviderPermohonanKemudahanTicketKapalTerbangJurulatih = $searchModelPermohonanKemudahanTicketKapalTerbangJurulatih->search($queryPar);
+        
+        $searchModelPermohonanKemudahanTicketKapalTerbangPegawai = new PermohonanKemudahanTicketKapalTerbangPegawaiSearch();
+        $dataProviderPermohonanKemudahanTicketKapalTerbangPegawai = $searchModelPermohonanKemudahanTicketKapalTerbangPegawai->search($queryPar);
+        
         
         if ($model->load(Yii::$app->request->post())) {
             if($model->jurulatih){
@@ -120,12 +202,38 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
                 $model->sukan = implode(",",$model->sukan);
             }
         }
+        
+        // calculate bilanga penumpang
+        $model->bil_penumpang = 0;
+        $model->bil_penumpang += $dataProviderPermohonanKemudahanTicketKapalTerbangAtlet->getTotalCount();
+        $model->bil_penumpang += $dataProviderPermohonanKemudahanTicketKapalTerbangJurulatih->getTotalCount();
+        $model->bil_penumpang += $dataProviderPermohonanKemudahanTicketKapalTerbangPegawai->getTotalCount();
 
         if (Yii::$app->request->post() && $model->save()) {
+            PermohonanKemudahanTicketKapalTerbangSukan::updateAll(['permohonan_kemudahan_ticket_kapal_terbang_id' => $model->permohonan_kemudahan_ticket_kapal_terbang_id], 'session_id = "'.Yii::$app->session->id.'"');
+            PermohonanKemudahanTicketKapalTerbangSukan::updateAll(['session_id' => ''], 'permohonan_kemudahan_ticket_kapal_terbang_id = "'.$model->permohonan_kemudahan_ticket_kapal_terbang_id.'"');
+
+            PermohonanKemudahanTicketKapalTerbangAtlet::updateAll(['permohonan_kemudahan_ticket_kapal_terbang_id' => $model->permohonan_kemudahan_ticket_kapal_terbang_id], 'session_id = "'.Yii::$app->session->id.'"');
+            PermohonanKemudahanTicketKapalTerbangAtlet::updateAll(['session_id' => ''], 'permohonan_kemudahan_ticket_kapal_terbang_id = "'.$model->permohonan_kemudahan_ticket_kapal_terbang_id.'"');
+            
+            PermohonanKemudahanTicketKapalTerbangJurulatih::updateAll(['permohonan_kemudahan_ticket_kapal_terbang_id' => $model->permohonan_kemudahan_ticket_kapal_terbang_id], 'session_id = "'.Yii::$app->session->id.'"');
+            PermohonanKemudahanTicketKapalTerbangJurulatih::updateAll(['session_id' => ''], 'permohonan_kemudahan_ticket_kapal_terbang_id = "'.$model->permohonan_kemudahan_ticket_kapal_terbang_id.'"');
+            
+            PermohonanKemudahanTicketKapalTerbangPegawai::updateAll(['permohonan_kemudahan_ticket_kapal_terbang_id' => $model->permohonan_kemudahan_ticket_kapal_terbang_id], 'session_id = "'.Yii::$app->session->id.'"');
+            PermohonanKemudahanTicketKapalTerbangPegawai::updateAll(['session_id' => ''], 'permohonan_kemudahan_ticket_kapal_terbang_id = "'.$model->permohonan_kemudahan_ticket_kapal_terbang_id.'"');
+                
             return $this->redirect(['view', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'searchModelPermohonanKemudahanTicketKapalTerbangSukan' => $searchModelPermohonanKemudahanTicketKapalTerbangSukan,
+                'dataProviderPermohonanKemudahanTicketKapalTerbangSukan' => $dataProviderPermohonanKemudahanTicketKapalTerbangSukan,
+                'searchModelPermohonanKemudahanTicketKapalTerbangAtlet' => $searchModelPermohonanKemudahanTicketKapalTerbangAtlet,
+                'dataProviderPermohonanKemudahanTicketKapalTerbangAtlet' => $dataProviderPermohonanKemudahanTicketKapalTerbangAtlet,
+                'searchModelPermohonanKemudahanTicketKapalTerbangJurulatih' => $searchModelPermohonanKemudahanTicketKapalTerbangJurulatih,
+                'dataProviderPermohonanKemudahanTicketKapalTerbangJurulatih' => $dataProviderPermohonanKemudahanTicketKapalTerbangJurulatih,
+                'searchModelPermohonanKemudahanTicketKapalTerbangPegawai' => $searchModelPermohonanKemudahanTicketKapalTerbangPegawai,
+                'dataProviderPermohonanKemudahanTicketKapalTerbangPegawai' => $dataProviderPermohonanKemudahanTicketKapalTerbangPegawai,
                 'readonly' => false,
             ]);
         }
@@ -139,7 +247,32 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
+        
+        $queryPar = null;
+        
+        
+        $queryPar['PermohonanKemudahanTicketKapalTerbangSukanSearch']['permohonan_kemudahan_ticket_kapal_terbang_id'] = $id;
+        $queryPar['PermohonanKemudahanTicketKapalTerbangAtletSearch']['permohonan_kemudahan_ticket_kapal_terbang_id'] = $id;
+        $queryPar['PermohonanKemudahanTicketKapalTerbangJurulatihSearch']['permohonan_kemudahan_ticket_kapal_terbang_id'] = $id;
+        $queryPar['PermohonanKemudahanTicketKapalTerbangPegawaiSearch']['permohonan_kemudahan_ticket_kapal_terbang_id'] = $id;
+
+        
+        $searchModelPermohonanKemudahanTicketKapalTerbangSukan = new PermohonanKemudahanTicketKapalTerbangSukanSearch();
+        $dataProviderPermohonanKemudahanTicketKapalTerbangSukan = $searchModelPermohonanKemudahanTicketKapalTerbangSukan->search($queryPar);
+        
+        $searchModelPermohonanKemudahanTicketKapalTerbangAtlet = new PermohonanKemudahanTicketKapalTerbangAtletSearch();
+        $dataProviderPermohonanKemudahanTicketKapalTerbangAtlet = $searchModelPermohonanKemudahanTicketKapalTerbangAtlet->search($queryPar);
+        
+        $searchModelPermohonanKemudahanTicketKapalTerbangJurulatih = new PermohonanKemudahanTicketKapalTerbangJurulatihSearch();
+        $dataProviderPermohonanKemudahanTicketKapalTerbangJurulatih = $searchModelPermohonanKemudahanTicketKapalTerbangJurulatih->search($queryPar);
+        
+        $searchModelPermohonanKemudahanTicketKapalTerbangPegawai = new PermohonanKemudahanTicketKapalTerbangPegawaiSearch();
+        $dataProviderPermohonanKemudahanTicketKapalTerbangPegawai = $searchModelPermohonanKemudahanTicketKapalTerbangPegawai->search($queryPar);
         
         if ($model->load(Yii::$app->request->post())) {
             if($model->jurulatih){
@@ -154,12 +287,26 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
                 $model->sukan = implode(",",$model->sukan);
             }
         }
+        
+        // calculate bilanga penumpang
+        $model->bil_penumpang = 0;
+        $model->bil_penumpang += $dataProviderPermohonanKemudahanTicketKapalTerbangAtlet->getTotalCount();
+        $model->bil_penumpang += $dataProviderPermohonanKemudahanTicketKapalTerbangJurulatih->getTotalCount();
+        $model->bil_penumpang += $dataProviderPermohonanKemudahanTicketKapalTerbangPegawai->getTotalCount();
 
         if (Yii::$app->request->post() && $model->save()) {
             return $this->redirect(['view', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'searchModelPermohonanKemudahanTicketKapalTerbangSukan' => $searchModelPermohonanKemudahanTicketKapalTerbangSukan,
+                'dataProviderPermohonanKemudahanTicketKapalTerbangSukan' => $dataProviderPermohonanKemudahanTicketKapalTerbangSukan,
+                'searchModelPermohonanKemudahanTicketKapalTerbangAtlet' => $searchModelPermohonanKemudahanTicketKapalTerbangAtlet,
+                'dataProviderPermohonanKemudahanTicketKapalTerbangAtlet' => $dataProviderPermohonanKemudahanTicketKapalTerbangAtlet,
+                'searchModelPermohonanKemudahanTicketKapalTerbangJurulatih' => $searchModelPermohonanKemudahanTicketKapalTerbangJurulatih,
+                'dataProviderPermohonanKemudahanTicketKapalTerbangJurulatih' => $dataProviderPermohonanKemudahanTicketKapalTerbangJurulatih,
+                'searchModelPermohonanKemudahanTicketKapalTerbangPegawai' => $searchModelPermohonanKemudahanTicketKapalTerbangPegawai,
+                'dataProviderPermohonanKemudahanTicketKapalTerbangPegawai' => $dataProviderPermohonanKemudahanTicketKapalTerbangPegawai,
                 'readonly' => false,
             ]);
         }
@@ -173,6 +320,10 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

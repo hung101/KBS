@@ -280,7 +280,8 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                 [
                                     'label' => GeneralLabel::latihan_program,
                                     'items' => [
-                                        ['label' => GeneralLabel::takwim_program, 'url' => ['/perancangan-program/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
+                                        //['label' => GeneralLabel::takwim_program, 'url' => ['/perancangan-program/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
+                                        ['label' => GeneralLabel::takwim_program, 'url' => ['/perancangan-program-plan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
                                         [
                                             'label' => GeneralLabel::jkk_jkp,
                                             'items' => [

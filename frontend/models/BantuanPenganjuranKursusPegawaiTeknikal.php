@@ -82,8 +82,8 @@ class BantuanPenganjuranKursusPegawaiTeknikal extends \yii\db\ActiveRecord
             [['no_telefon', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['laman_sesawang', 'facebook', 'twitter'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat', 'nama_kursus_seminar_bengkel', 'tujuan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['surat_rasmi_badan_sukan', 'surat_jemputan_daripada_pengelola', 'butiran_perbelanjaan', 'salinan_passport', 'maklumat_lain_sokongan', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['surat_rasmi_badan_sukan', 'surat_jemputan_daripada_pengelola', 'butiran_perbelanjaan', 'salinan_passport', 'maklumat_lain_sokongan'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['surat_rasmi_badan_sukan', 'surat_jemputan_daripada_pengelola', 'butiran_perbelanjaan', 'salinan_passport', 'maklumat_lain_sokongan', 'surat_kelulusan', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['surat_rasmi_badan_sukan', 'surat_jemputan_daripada_pengelola', 'butiran_perbelanjaan', 'salinan_passport', 'maklumat_lain_sokongan', 'surat_kelulusan'],'validateFileUpload', 'skipOnEmpty' => false],
             ['tarikh','validateBeforePenganjuran', 'on' => 'create'],
         ];
     }
@@ -133,6 +133,7 @@ class BantuanPenganjuranKursusPegawaiTeknikal extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
             'tarikh_tamat'=> GeneralLabel::tarikh_tamat,  //'Tarikh Tamat',
+            'surat_kelulusan' => GeneralLabel::surat_kelulusan,
         ];
     }
     

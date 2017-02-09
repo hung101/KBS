@@ -5,6 +5,11 @@ use Yii;
 // eddie (jasper)
 use Jaspersoft\Client\Client;
 
+use app\models\RefSukan;
+use app\models\Atlet;
+use app\models\RefNegeri;
+use app\models\ProfilBadanSukan;
+
 class GeneralFunction{
     const DATE_FORMAT = 'php:d-m-Y';
     const DATETIME_FORMAT = 'php:d-m-Y H:i';
@@ -251,5 +256,153 @@ class GeneralFunction{
             //local number
             return substr($value,0,2) . '-' . substr($value,2);
         }
+    }
+    
+    public static function getSukan($param = null){
+        
+        $sukan_dd_list = RefSukan::find()->where(['=', 'aktif', 1]); // defauilt show all the sukan
+        
+        // add filter base on sukan access role in tbl_user->sukan - START
+        if(Yii::$app->user->identity->sukan){
+            $sukan_access=explode(',',Yii::$app->user->identity->sukan);
+            
+            $arr_sukan_filter = array();
+            
+            for($i = 0; $i < count($sukan_access); $i++){
+                $arr_sukan = null;
+                $arr_sukan = array('id'=>$sukan_access[$i]); 
+                    array_push($arr_sukan_filter,$arr_sukan);
+            }
+            
+            $sukan_dd_list = RefSukan::find()->where(['=', 'aktif', 1])->andFilterWhere(['id'=>$arr_sukan_filter]);
+        }
+        // add filter base on sukan access role in tbl_user->sukan - END
+        
+        if(isset($param['cacat']) && $param['cacat'] == 0){
+            $sukan_dd_list = $sukan_dd_list->andWhere(['=', 'cacat', 0]);
+        } elseif(isset($param['cacat']) && $param['cacat'] == 1){
+            $sukan_dd_list = $sukan_dd_list->andWhere(['=', 'cacat', 1]);
+        }
+        
+        $sukan_dd_list = $sukan_dd_list->all();
+        
+        return $sukan_dd_list;
+    }
+    
+    
+    public static function getCawangan($param = null){
+        
+        $cawangan_dd_list = RefSukan::find()->where(['=', 'aktif', 1])->groupBy('ref_cawangan_id'); // defauilt show all the cawangan
+        
+        // add filter base on sukan access role in tbl_user->sukan - START
+        if(Yii::$app->user->identity->sukan){
+            $sukan_access=explode(',',Yii::$app->user->identity->sukan);
+            
+            $arr_sukan_filter = array();
+            
+            for($i = 0; $i < count($sukan_access); $i++){
+                $arr_sukan = null;
+                $arr_sukan = array('id'=>$sukan_access[$i]); 
+                    array_push($arr_sukan_filter,$arr_sukan);
+            }
+            
+            $cawangan_dd_list = RefSukan::find()->where(['=', 'aktif', 1])->andFilterWhere(['id'=>$arr_sukan_filter])->groupBy('ref_cawangan_id');
+        }
+        // add filter base on sukan access role in tbl_user->sukan - END
+        
+        if(isset($param['cacat']) && $param['cacat'] == 0){
+            $cawangan_dd_list = $cawangan_dd_list->andWhere(['=', 'cacat', 0]);
+        } elseif(isset($param['cacat']) && $param['cacat'] == 1){
+            $cawangan_dd_list = $cawangan_dd_list->andWhere(['=', 'cacat', 1]);
+        }
+        
+        $cawangan_dd_list = $cawangan_dd_list->all();
+        
+        return $cawangan_dd_list;
+    }
+    
+    public static function getAtlet($param = null){
+        
+        $atlet_dd_list = Atlet::find(); // defauilt show all the cawangan
+        
+        // add filter base on sukan access role in tbl_user->sukan - START
+        if(Yii::$app->user->identity->sukan){
+            $sukan_access=explode(',',Yii::$app->user->identity->sukan);
+            
+            $arr_sukan_filter = array();
+            
+            for($i = 0; $i < count($sukan_access); $i++){
+                $arr_sukan = null;
+                $arr_sukan = array('tbl_atlet_sukan.nama_sukan'=>$sukan_access[$i]); 
+                    array_push($arr_sukan_filter,$arr_sukan);
+            }
+            
+            $atlet_dd_list = Atlet::find()->joinWith(['refAtletSukan' => function($query) {
+                                                    $query->orderBy(['tbl_atlet_sukan.created' => SORT_DESC])->one();
+                                                },
+                                            ])->andFilterWhere(['tbl_atlet_sukan.nama_sukan'=>$arr_sukan_filter]);
+        }
+        // add filter base on sukan access role in tbl_user->sukan - END
+        
+        if(isset($param['cacat']) && $param['cacat'] == 0){
+            $atlet_dd_list = $atlet_dd_list->andWhere(['=', 'cacat', 0]);
+        } elseif(isset($param['cacat']) && $param['cacat'] == 1){
+            $atlet_dd_list = $atlet_dd_list->andWhere(['=', 'cacat', 1]);
+        }
+        
+        $atlet_dd_list = $atlet_dd_list->all();
+        
+        return $atlet_dd_list;
+    }
+    
+    
+    public static function getNegeri($param = null){
+        
+        $negeri_dd_list = RefNegeri::find()->where(['=', 'aktif', 1]); // defauilt show all the cawangan
+        
+        // add filter base on negeri access role in tbl_user->negeri - START
+        if(Yii::$app->user->identity->negeri){
+            $negeri_access=explode(',',Yii::$app->user->identity->negeri);
+            
+            $arr_negeri_filter = array();
+            
+            for($i = 0; $i < count($negeri_access); $i++){
+                $arr_negeri = null;
+                $arr_negeri = array('id'=>$negeri_access[$i]); 
+                    array_push($arr_negeri_filter,$arr_negeri);
+            }
+            
+            $negeri_dd_list = RefNegeri::find()->where(['=', 'aktif', 1])->andFilterWhere(['id'=>$arr_negeri_filter]);
+        }
+        // add filter base on negeri access role in tbl_user->negeri - END
+        
+        $negeri_dd_list = $negeri_dd_list->all();
+        
+        return $negeri_dd_list;
+    }
+    
+    public static function getProfilBadanSukan($param = null){
+        
+        $bandan_sukan_dd_list = ProfilBadanSukan::find(); // defauilt show all the cawangan
+        
+        // add filter base on negeri access role in tbl_user->negeri - START
+        if(Yii::$app->user->identity->sukan){
+            $sukan_access=explode(',',Yii::$app->user->identity->sukan);
+            
+            $arr_sukan_filter = array();
+            
+            for($i = 0; $i < count($sukan_access); $i++){
+                $arr_sukan = null;
+                $arr_sukan = array('tbl_profil_badan_sukan.jenis_sukan'=>$sukan_access[$i]); 
+                    array_push($arr_sukan_filter,$arr_sukan);
+            }
+            
+            $bandan_sukan_dd_list = ProfilBadanSukan::find()->andFilterWhere(['tbl_profil_badan_sukan.jenis_sukan'=>$arr_sukan_filter]);
+        }
+        // add filter base on negeri access role in tbl_user->negeri - END
+        
+        $bandan_sukan_dd_list = $bandan_sukan_dd_list->all();
+        
+        return $bandan_sukan_dd_list;
     }
 }

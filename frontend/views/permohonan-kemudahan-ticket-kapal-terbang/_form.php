@@ -8,6 +8,11 @@ use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use kartik\datecontrol\DateControl;
 use kartik\widgets\Select2;
+use yii\grid\GridView;
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
+use yii\widgets\Pjax;
+use kartik\widgets\DepDrop;
 
 // table reference
 use app\models\Jurulatih;
@@ -17,11 +22,15 @@ use app\models\RefSukan;
 use app\models\RefBahagianKemudahan;
 use app\models\RefCawanganKemudahan;
 use app\models\RefStatusPermohonanKemudahan;
+use app\models\RefBahagianAduan;
+use app\models\RefCawangan;
+use app\models\PerancanganProgram;
 
 // contant values
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
+use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanKemudahanTicketKapalTerbang */
@@ -29,11 +38,19 @@ use app\models\general\GeneralVariable;
 ?>
 
 <div class="permohonan-kemudahan-ticket-kapal-terbang-form">
+    
+    <?php
+        if(!$readonly){
+            $template = '{view} {update} {delete}';
+        } else {
+            $template = '{view}';
+        }
+    ?>
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly,]); ?>
-    <?php echo $form->errorSummary($model); ?>
+    <?php //echo $form->errorSummary($model); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -44,7 +61,7 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama_pemohon' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5]],
+                'nama_pemohon' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
                 'bahagian' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -52,13 +69,13 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-bahagian-kemudahan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-bahagian-aduan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefBahagianKemudahan::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefBahagianAduan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::bahagian],
-'pluginOptions' => [
+                        'pluginOptions' => [
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
@@ -69,11 +86,11 @@ use app\models\general\GeneralVariable;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-cawangan-kemudahan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-cawangan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefCawanganKemudahan::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefCawangan::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::cawangan],
 'pluginOptions' => [
                             'allowClear' => true
@@ -85,7 +102,7 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'jawatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4]],
+                'jawatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
             ],
         ],
         [
@@ -96,21 +113,14 @@ use app\models\general\GeneralVariable;
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-program/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefProgram::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(PerancanganProgram::find()->all(),'perancangan_program_id', 'nama_program'),
                         'options' => ['placeholder' => Placeholder::program],
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>6]],
-                'no_fail_kelulusan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3]],
-                'bil_penumpang' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3]],
+                'no_fail_kelulusan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>20]],
+                'bil_penumpang' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>11,'disabled'=>true]],
             ]
         ],
         
@@ -128,8 +138,8 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'aktiviti' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5]],
-                'kod_perbelanjaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3]],
+                'aktiviti' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
+                'kod_perbelanjaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>20]],
                 /*'sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -151,9 +161,96 @@ use app\models\general\GeneralVariable;
 ]);
     ?>
     
+    <h3><?php echo GeneralLabel::sukan; ?></h3>
+    
+    <?php 
+            Modal::begin([
+                'header' => '<h3 id="modalTitle"></h3>',
+                'id' => 'modal',
+                'size' => 'modal-lg',
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+                'options' => [
+                    'tabindex' => false // important for Select2 to work properly
+                ],
+            ]);
+            
+            echo '<div id="modalContent"></div>';
+            
+            Modal::end();
+        ?>
+    
+    <?php Pjax::begin(['id' => 'permohonanKemudahanTicketKapalTerbangSukanGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPermohonanKemudahanTicketKapalTerbangSukan,
+        //'filterModel' => $searchModelPermohonanKemudahanTicketKapalTerbangSukan,
+        'id' => 'permohonanKemudahanTicketKapalTerbangSukanGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'permohonan_kemudahan_ticket_kapal_terbang_sukan_id',
+            //'permohonan_kemudahan_ticket_kapal_terbang_id',
+            [
+                'attribute' => 'sukan',
+                'value' => 'refSukan.desc'
+            ],
+            //'session_id',
+            //'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-sukan/delete', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_sukan_id]).'", "'.GeneralMessage::confirmDelete.'", "permohonanKemudahanTicketKapalTerbangSukanGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-sukan/update', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_sukan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::sukan.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-sukan/view', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_sukan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::sukan.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        $permohonan_kemudahan_ticket_kapal_terbang_id = "";
+        
+        if(isset($model->permohonan_kemudahan_ticket_kapal_terbang_id)){
+            $permohonan_kemudahan_ticket_kapal_terbang_id = $model->permohonan_kemudahan_ticket_kapal_terbang_id;
+        }
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-sukan/create', 'permohonan_kemudahan_ticket_kapal_terbang_id' => $permohonan_kemudahan_ticket_kapal_terbang_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::sukan.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <?php Pjax::end(); ?>
+    
+    
     <?php
         // selected sukan list
-        $sukan_selected = null;
+        /*$sukan_selected = null;
         if(isset($model->sukan) && $model->sukan != ''){
             $sukan_selected=explode(',',$model->sukan);
         }
@@ -172,13 +269,79 @@ use app\models\general\GeneralVariable;
                 'maximumInputLength' => 10
             ],
             'disabled' => $readonly
-        ]);
+        ]);*/
     ?>
+    
     <br>
+    
+    <h3><?php echo GeneralLabel::atlet; ?></h3>
+    
+    <?php Pjax::begin(['id' => 'permohonanKemudahanTicketKapalTerbangAtletGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPermohonanKemudahanTicketKapalTerbangAtlet,
+        //'filterModel' => $searchModelPermohonanKemudahanTicketKapalTerbangAtlet,
+        'id' => 'permohonanKemudahanTicketKapalTerbangAtletGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'permohonan_kemudahan_ticket_kapal_terbang_atlet_id',
+            //'permohonan_kemudahan_ticket_kapal_terbang_id',
+            [
+                'attribute' => 'atlet',
+                'value' => 'refAtlet.name_penuh'
+            ],
+            //'session_id',
+            //'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-atlet/delete', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_atlet_id]).'", "'.GeneralMessage::confirmDelete.'", "permohonanKemudahanTicketKapalTerbangAtletGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-atlet/update', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_atlet_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::atlet.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-atlet/view', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_atlet_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::atlet.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-atlet/create', 'permohonan_kemudahan_ticket_kapal_terbang_id' => $permohonan_kemudahan_ticket_kapal_terbang_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::atlet.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
     
     <?php
         // selected atlet list
-        $atlet_selected = null;
+        /*$atlet_selected = null;
         if(isset($model->atlet) && $model->atlet != ''){
             $atlet_selected=explode(',',$model->atlet);
         }
@@ -197,14 +360,80 @@ use app\models\general\GeneralVariable;
                 'maximumInputLength' => 10
             ],
             'disabled' => $readonly
-        ]);
+        ]);*/
     ?>
+    
+    <br>
+    
+    <h3><?php echo GeneralLabel::jurulatih; ?></h3>
+    
+    <?php Pjax::begin(['id' => 'permohonanKemudahanTicketKapalTerbangJurulatihGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPermohonanKemudahanTicketKapalTerbangJurulatih,
+        //'filterModel' => $searchModelPermohonanKemudahanTicketKapalTerbangJurulatih,
+        'id' => 'permohonanKemudahanTicketKapalTerbangJurulatihGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'permohonan_kemudahan_ticket_kapal_terbang_jurulatih_id',
+            //'permohonan_kemudahan_ticket_kapal_terbang_id',
+            [
+                'attribute' => 'jurulatih',
+                'value' => 'refJurulatih.nama'
+            ],
+            //'session_id',
+            //'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-jurulatih/delete', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_jurulatih_id]).'", "'.GeneralMessage::confirmDelete.'", "permohonanKemudahanTicketKapalTerbangJurulatihGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-jurulatih/update', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_jurulatih_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::jurulatih.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-jurulatih/view', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_jurulatih_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::jurulatih.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-jurulatih/create', 'permohonan_kemudahan_ticket_kapal_terbang_id' => $permohonan_kemudahan_ticket_kapal_terbang_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::jurulatih.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
     
     <br>
     
     <?php
         // selected jurulatih list
-        $jurulatih_selected = null;
+        /*$jurulatih_selected = null;
         if(isset($model->jurulatih) && $model->jurulatih != ''){
             $jurulatih_selected=explode(',',$model->jurulatih);
         }
@@ -223,13 +452,74 @@ use app\models\general\GeneralVariable;
                 'maximumInputLength' => 10
             ],
             'disabled' => $readonly
-        ]);
+        ]);*/
     ?>
+    
+    <h3><?php echo GeneralLabel::pegawai; ?></h3>
+    
+    <?php Pjax::begin(['id' => 'permohonanKemudahanTicketKapalTerbangPegawaiGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPermohonanKemudahanTicketKapalTerbangPegawai,
+        //'filterModel' => $searchModelPermohonanKemudahanTicketKapalTerbangPegawai,
+        'id' => 'permohonanKemudahanTicketKapalTerbangPegawaiGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'permohonan_kemudahan_ticket_kapal_terbang_pegawai_id',
+            //'permohonan_kemudahan_ticket_kapal_terbang_id',
+            'pegawai',
+            //'session_id',
+            //'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-pegawai/delete', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_pegawai_id]).'", "'.GeneralMessage::confirmDelete.'", "permohonanKemudahanTicketKapalTerbangPegawaiGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-pegawai/update', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_pegawai_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::pegawai.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-pegawai/view', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_pegawai_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::pegawai.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-pegawai/create', 'permohonan_kemudahan_ticket_kapal_terbang_id' => $permohonan_kemudahan_ticket_kapal_terbang_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::pegawai.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
     
     <br>
     
     <?php
-        echo FormGrid::widget([
+        /*echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -274,7 +564,7 @@ use app\models\general\GeneralVariable;
                     'columnOptions'=>['colspan'=>6]],
             ]
         ],*/
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -282,8 +572,10 @@ use app\models\general\GeneralVariable;
             ]
         ],
     ]
-]);
+]);*/
     ?>
+    
+    <br>
     
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -310,9 +602,9 @@ use app\models\general\GeneralVariable;
                                         ]
                                     ],
                                     'columnOptions'=>['colspan'=>3]],
-                                'destinasi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>90],'columnOptions'=>['colspan'=>3]],
+                                'destinasi' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>90],'columnOptions'=>['colspan'=>3]],
                                 
-                                'tarikh_ke' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>90],'columnOptions'=>['colspan'=>3]],
+                                'tarikh_ke' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>90],'columnOptions'=>['colspan'=>3]],
                             ]
                         ],
                         [
@@ -329,9 +621,9 @@ use app\models\general\GeneralVariable;
                                         ]
                                     ],
                                     'columnOptions'=>['colspan'=>3]],
-                                'dari_pergi_2' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>90],'columnOptions'=>['colspan'=>3]],
+                                'dari_pergi_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>90],'columnOptions'=>['colspan'=>3]],
                                 
-                                'ke_pergi_2' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>90],'columnOptions'=>['colspan'=>3]],
+                                'ke_pergi_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>90],'columnOptions'=>['colspan'=>3]],
                             ]
                         ],
                         [
@@ -348,9 +640,9 @@ use app\models\general\GeneralVariable;
                                         ]
                                     ],
                                     'columnOptions'=>['colspan'=>3]],
-                                'dari_pergi_3' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>90],'columnOptions'=>['colspan'=>3]],
+                                'dari_pergi_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>90],'columnOptions'=>['colspan'=>3]],
                                 
-                                'ke_pergi_3' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>90],'columnOptions'=>['colspan'=>3]],
+                                'ke_pergi_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>90],'columnOptions'=>['colspan'=>3]],
                             ]
                         ],
                     ]
@@ -384,8 +676,8 @@ use app\models\general\GeneralVariable;
                                         ]
                                     ],
                                     'columnOptions'=>['colspan'=>3]],
-                                'pulang_tarikh_dari' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>90],'columnOptions'=>['colspan'=>3]],
-                                'pulang_tarikh_ke' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>90],'columnOptions'=>['colspan'=>3]],
+                                'pulang_tarikh_dari' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>90],'columnOptions'=>['colspan'=>3]],
+                                'pulang_tarikh_ke' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>90],'columnOptions'=>['colspan'=>3]],
                             ]
                         ],
                         [
@@ -402,8 +694,8 @@ use app\models\general\GeneralVariable;
                                         ]
                                     ],
                                     'columnOptions'=>['colspan'=>3]],
-                                'dari_pulang_2' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>90],'columnOptions'=>['colspan'=>3]],
-                                'ke_pulang_2' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>90],'columnOptions'=>['colspan'=>3]],
+                                'dari_pulang_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>90],'columnOptions'=>['colspan'=>3]],
+                                'ke_pulang_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>90],'columnOptions'=>['colspan'=>3]],
                             ]
                         ],
                         [
@@ -420,8 +712,8 @@ use app\models\general\GeneralVariable;
                                         ]
                                     ],
                                     'columnOptions'=>['colspan'=>3]],
-                                'dari_pulang_3' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>90],'columnOptions'=>['colspan'=>3]],
-                                'ke_pulang_3' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>90],'columnOptions'=>['colspan'=>3]],
+                                'dari_pulang_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>90],'columnOptions'=>['colspan'=>3]],
+                                'ke_pulang_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>90],'columnOptions'=>['colspan'=>3]],
                             ]
                         ],
                     ]
@@ -515,7 +807,10 @@ use app\models\general\GeneralVariable;
 
     <div class="form-group">
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
+            'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                ],]) ?>
         <?php endif; ?>
     </div>
 

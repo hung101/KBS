@@ -11,6 +11,15 @@ use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
 
+// table reference
+use app\models\ProfilBadanSukan;
+use app\models\RefJantina;
+use app\models\RefSukan;
+use app\models\RefBandar;
+use app\models\RefNegeri;
+use app\models\RefTahapAkademikPegawaiTeknikal;
+use app\models\MaklumatPegawaiTeknikal;
+
 /**
  * BantuanPenganjuranKursusPegawaiTeknikalDicadangkanController implements the CRUD actions for BantuanPenganjuranKursusPegawaiTeknikalDicadangkan model.
  */
@@ -53,8 +62,33 @@ class BantuanPenganjuranKursusPegawaiTeknikalDicadangkanController extends Contr
      */
     public function actionView($id)
     {
+        
+        $model = $this->findModel($id);
+        
+        $ref = MaklumatPegawaiTeknikal::findOne(['bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id' => $model->maklumat_pegawai_teknikal_id]);
+        $model->maklumat_pegawai_teknikal_id = $ref['nama'];
+        
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->badan_sukan]);
+        $model->badan_sukan = $ref['nama_badan_sukan'];
+        
+        $ref = RefJantina::findOne(['id' => $model->jantina]);
+        $model->jantina = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+
+        
+        $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
+        $model->alamat_bandar = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->alamat_negeri]);
+        $model->alamat_negeri = $ref['desc'];
+        
+        $ref = RefTahapAkademikPegawaiTeknikal::findOne(['id' => $model->tahap_akademik]);
+        $model->tahap_akademik = $ref['desc'];
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

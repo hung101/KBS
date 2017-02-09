@@ -5,6 +5,10 @@ namespace frontend\controllers;
 use Yii;
 use app\models\LawatanRasmiLuarNegara;
 use frontend\models\LawatanRasmiLuarNegaraSearch;
+use app\models\LawatanRasmiLuarNegaraDelegasi;
+use frontend\models\LawatanRasmiLuarNegaraDelegasiSearch;
+use app\models\LawatanRasmiLuarNegaraPegawai;
+use frontend\models\LawatanRasmiLuarNegaraPegawaiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -76,8 +80,23 @@ class LawatanRasmiLuarNegaraController extends Controller
         $ref = RefNegara::findOne(['id' => $model->negara]);
         $model->negara = $ref['desc'];
         
+        $queryPar = null;
+        
+        $queryPar['LawatanRasmiLuarNegaraDelegasiSearch']['lawatan_rasmi_luar_negara_id'] = $id;
+        $queryPar['LawatanRasmiLuarNegaraPegawaiSearch']['lawatan_rasmi_luar_negara_id'] = $id;
+        
+        $searchModelLawatanRasmiLuarNegaraDelegasi  = new LawatanRasmiLuarNegaraDelegasiSearch();
+        $dataProviderLawatanRasmiLuarNegaraDelegasi = $searchModelLawatanRasmiLuarNegaraDelegasi->search($queryPar);
+        
+        $searchModelLawatanRasmiLuarNegaraPegawai  = new LawatanRasmiLuarNegaraPegawaiSearch();
+        $dataProviderLawatanRasmiLuarNegaraPegawai = $searchModelLawatanRasmiLuarNegaraPegawai->search($queryPar);
+        
         return $this->render('view', [
             'model' => $model,
+            'searchModelLawatanRasmiLuarNegaraDelegasi' => $searchModelLawatanRasmiLuarNegaraDelegasi,
+            'dataProviderLawatanRasmiLuarNegaraDelegasi' => $dataProviderLawatanRasmiLuarNegaraDelegasi,
+            'searchModelLawatanRasmiLuarNegaraPegawai' => $searchModelLawatanRasmiLuarNegaraPegawai,
+            'dataProviderLawatanRasmiLuarNegaraPegawai' => $dataProviderLawatanRasmiLuarNegaraPegawai,
             'readonly' => true,
         ]);
     }
@@ -94,12 +113,40 @@ class LawatanRasmiLuarNegaraController extends Controller
         }
         
         $model = new LawatanRasmiLuarNegara();
+        
+        $queryPar = null;
+        
+        Yii::$app->session->open();
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['LawatanRasmiLuarNegaraDelegasiSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['LawatanRasmiLuarNegaraPegawaiSearch']['session_id'] = Yii::$app->session->id;
+        }
+        
+        $searchModelLawatanRasmiLuarNegaraDelegasi  = new LawatanRasmiLuarNegaraDelegasiSearch();
+        $dataProviderLawatanRasmiLuarNegaraDelegasi = $searchModelLawatanRasmiLuarNegaraDelegasi->search($queryPar);
+        
+        $searchModelLawatanRasmiLuarNegaraPegawai  = new LawatanRasmiLuarNegaraPegawaiSearch();
+        $dataProviderLawatanRasmiLuarNegaraPegawai = $searchModelLawatanRasmiLuarNegaraPegawai->search($queryPar);
+        
+        $model->jumlah_delegasi = $dataProviderLawatanRasmiLuarNegaraDelegasi->getTotalCount();
+        
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            LawatanRasmiLuarNegaraDelegasi::updateAll(['lawatan_rasmi_luar_negara_id' => $model->lawatan_rasmi_luar_negara_id], 'session_id = "'.Yii::$app->session->id.'"');
+            LawatanRasmiLuarNegaraDelegasi::updateAll(['session_id' => ''], 'lawatan_rasmi_luar_negara_id = "'.$model->lawatan_rasmi_luar_negara_id.'"');
+
+            LawatanRasmiLuarNegaraPegawai::updateAll(['lawatan_rasmi_luar_negara_id' => $model->lawatan_rasmi_luar_negara_id], 'session_id = "'.Yii::$app->session->id.'"');
+            LawatanRasmiLuarNegaraPegawai::updateAll(['session_id' => ''], 'lawatan_rasmi_luar_negara_id = "'.$model->lawatan_rasmi_luar_negara_id.'"');
+            
             return $this->redirect(['view', 'id' => $model->lawatan_rasmi_luar_negara_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'searchModelLawatanRasmiLuarNegaraDelegasi' => $searchModelLawatanRasmiLuarNegaraDelegasi,
+                'dataProviderLawatanRasmiLuarNegaraDelegasi' => $dataProviderLawatanRasmiLuarNegaraDelegasi,
+                'searchModelLawatanRasmiLuarNegaraPegawai' => $searchModelLawatanRasmiLuarNegaraPegawai,
+                'dataProviderLawatanRasmiLuarNegaraPegawai' => $dataProviderLawatanRasmiLuarNegaraPegawai,
                 'readonly' => false,
             ]);
         }
@@ -118,12 +165,29 @@ class LawatanRasmiLuarNegaraController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        $queryPar = null;
+        
+        $queryPar['LawatanRasmiLuarNegaraDelegasiSearch']['lawatan_rasmi_luar_negara_id'] = $id;
+        $queryPar['LawatanRasmiLuarNegaraPegawaiSearch']['lawatan_rasmi_luar_negara_id'] = $id;
+        
+        $searchModelLawatanRasmiLuarNegaraDelegasi  = new LawatanRasmiLuarNegaraDelegasiSearch();
+        $dataProviderLawatanRasmiLuarNegaraDelegasi = $searchModelLawatanRasmiLuarNegaraDelegasi->search($queryPar);
+        
+        $searchModelLawatanRasmiLuarNegaraPegawai  = new LawatanRasmiLuarNegaraPegawaiSearch();
+        $dataProviderLawatanRasmiLuarNegaraPegawai = $searchModelLawatanRasmiLuarNegaraPegawai->search($queryPar);
+        
+        $model->jumlah_delegasi = $dataProviderLawatanRasmiLuarNegaraDelegasi->getTotalCount();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->lawatan_rasmi_luar_negara_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'searchModelLawatanRasmiLuarNegaraDelegasi' => $searchModelLawatanRasmiLuarNegaraDelegasi,
+                'dataProviderLawatanRasmiLuarNegaraDelegasi' => $dataProviderLawatanRasmiLuarNegaraDelegasi,
+                'searchModelLawatanRasmiLuarNegaraPegawai' => $searchModelLawatanRasmiLuarNegaraPegawai,
+                'dataProviderLawatanRasmiLuarNegaraPegawai' => $dataProviderLawatanRasmiLuarNegaraPegawai,
                 'readonly' => false,
             ]);
         }

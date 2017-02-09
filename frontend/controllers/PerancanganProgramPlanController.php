@@ -24,7 +24,10 @@ use app\models\RefProgramSemasaSukanAtlet;
 use app\models\RefJenisAktiviti;
 use app\models\RefStatusProgram;
 use app\models\RefSukan;
+use app\models\RefKategoriPelan;
+use app\models\RefJenisPelan;
 use app\models\RefKedudukanKejohanan;
+use app\models\RefStatusPermohonanProgramBinaan;
 
 /**
  * PerancanganProgramPlanController implements the CRUD actions for PerancanganProgramPlan model.
@@ -75,7 +78,7 @@ class PerancanganProgramPlanController extends Controller
         
         $model = $this->findModel($id);
         
-        $ref = RefBahagianProgram::findOne(['id' => $model->bahagian]);
+        $ref = RefKategoriPelan::findOne(['id' => $model->bahagian]);
         $model->bahagian = $ref['desc'];
         
         $ref = RefCawangan::findOne(['id' => $model->cawangan]);
@@ -84,7 +87,7 @@ class PerancanganProgramPlanController extends Controller
         $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->jenis_program]);
         $model->jenis_program = $ref['desc'];
         
-        $ref = RefJenisAktiviti::findOne(['id' => $model->jenis_aktiviti]);
+        $ref = RefJenisPelan::findOne(['id' => $model->jenis_aktiviti]);
         $model->jenis_aktiviti = $ref['desc'];
         
         $ref = RefKedudukanKejohanan::findOne(['id' => $model->status_program]);
@@ -92,6 +95,9 @@ class PerancanganProgramPlanController extends Controller
         
         $ref = RefSukan::findOne(['id' => $model->sukan]);
         $model->sukan = $ref['desc'];
+        
+        $ref = RefStatusPermohonanProgramBinaan::findOne(['id' => $model->status_permohonan]);
+        $model->status_permohonan = $ref['desc'];
         
         return $this->render('view', [
             'model' => $model,

@@ -61,9 +61,9 @@ use app\models\general\GeneralVariable;
         }
         
         if(isset($session['atlet_cacat']) && $session['atlet_cacat']){
-            $cawangan_list = RefCawangan::find()->where(['=', 'id', 5])->andWhere(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all();
+            $cawangan_list = RefCawangan::find()->andWhere(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->all();
         } else {
-            $cawangan_list = RefCawangan::find()->where(['=', 'id', 5])->andWhere(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all();
+            $cawangan_list = RefCawangan::find()->andWhere(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->all();
         }
         
         $session->close();
@@ -1018,7 +1018,10 @@ use app\models\general\GeneralVariable;
 
     <div class="form-group">
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
+            'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                ],]) ?>
         <?php endif; ?>
         <?= Html::a(GeneralLabel::backToList, ['index'], ['class' => 'btn btn-warning']) ?>
     </div>
@@ -1029,6 +1032,7 @@ use app\models\general\GeneralVariable;
 
 <?php
 $DateDisplayFormat = GeneralVariable::displayDateFormat;
+$ConfirmMsg = GeneralMessage::confirmPrint;
 
 $script = <<< JS
         
@@ -1036,7 +1040,12 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 
     var form = $(this);
 
+    /*if(!confirm("$ConfirmMsg")){
+        return false;
+    }*/
+
     $("form#{$model->formName()} input").prop("disabled", false);
+
 });
      
 $(document).ready(function(){
@@ -1086,8 +1095,12 @@ $("#sama_alamat").change(function() {
             
 $(function(){
 $('.custom_button').click(function(){
+    if(confirm("$ConfirmMsg")){
         window.open($(this).attr('value'), "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no");
-        return false;
+    }
+        
+    return false;
+            
 });});
 
 JS;
