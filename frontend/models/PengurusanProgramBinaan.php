@@ -61,14 +61,14 @@ class PengurusanProgramBinaan extends \yii\db\ActiveRecord
         return [
             [['nama_program', 'kategori_permohonan', 'jenis_permohonan', 'tempat', 'tahap', 'daerah', 'tarikh_mula', 'tarikh_tamat', 
                 'kelulusan', 'program', 'aktiviti', 'nama_aktiviti'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_mula', 'tarikh_tamat', 'tarikh_jkb'], 'safe'],
-            [['sokongan_pn', 'kelulusan', 'status_permohonan', 'mesyuarat_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['jumlah_yang_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['nama_ppn', 'pengurus_pn', 'sukan', 'bilangan_jkb', 'jabatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tarikh_mula', 'tarikh_tamat', 'tarikh_jkb', 'sukan'], 'safe'],
+            [['sokongan_pn', 'kelulusan', 'status_permohonan', 'mesyuarat_id', 'bilangan_peserta', 'usptn_tahap', 'usptn_kategori'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jumlah_yang_diluluskan', 'usptn_sokongan', 'usptn_kelulusan'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['nama_ppn', 'pengurus_pn', 'bilangan_jkb', 'jabatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kategori_permohonan', 'jenis_permohonan', 'tahap', 'negeri', 'jenis_aktiviti'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_program'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan', 'usptn_bajet', 'usptn_jadual'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_program', 'usptn_kuota_lap'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['daerah'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
@@ -102,6 +102,13 @@ class PengurusanProgramBinaan extends \yii\db\ActiveRecord
             'tarikh_jkb' => GeneralLabel::tarikh_jkb,
             'jenis_aktiviti' => GeneralLabel::jenis_program_binaan,
             'jabatan' => GeneralLabel::jabatan,
+            'usptn_tahap' => GeneralLabel::tahap,
+            'usptn_kategori' => GeneralLabel::kategori,
+            'usptn_bajet' => GeneralLabel::usptn_bajet,
+            'usptn_jadual' => GeneralLabel::usptn_jadual,
+            'usptn_sokongan' => GeneralLabel::usptn_sokongan,
+            'usptn_kelulusan' => GeneralLabel::usptn_kelulusan,
+            'usptn_kuota_lap' => GeneralLabel::usptn_kuota_lap,
         ];
     }
     

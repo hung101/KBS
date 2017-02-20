@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RefBangsaController implements the CRUD actions for RefBangsa model.
+ * RefBangsaController implements the CRUD actions for RefBangsa model. chmod($file,0777);
  */
 class RefBangsaController extends Controller
 {
@@ -42,8 +42,8 @@ class RefBangsaController extends Controller
     }
 
     /**
-     * Displays a single RefBangsa model.
-     * @param integer $id
+     * Displays a single RefBangsa model. 
+     * @param integer $id chmod($file,0777);
      * @return mixed
      */
     public function actionView($id)

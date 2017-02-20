@@ -30,7 +30,7 @@ use app\models\RefJenisPerkhidmatanAkademik;
 use app\models\RefKursusAkademik;
 
 /**
- * PermohonanPenyelidikanController implements the CRUD actions for PermohonanPenyelidikan model.
+ * PermohonanPenyelidikanController implements the CRUD actions for PermohonanPenyelidikan model. chmod($file,0777);
  */
 class PermohonanPenyelidikanController extends Controller
 {

@@ -53,8 +53,8 @@ class PengurusanProgramBinaanKos extends \yii\db\ActiveRecord
     {
         return [
             [['kategori_kos', 'anggaran_kos_per_kategori', 'revised_kos_per_kategori', 'approved_kos_per_kategori', 'perbelanjaan_dipohon', 'jumlah_dipohon', 'anggaran_perbelanjaan', 'jumlah_cadangan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['pengurusan_program_binaan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['jumlah_dipohon', 'jumlah_cadangan', 'anggaran_perbelanjaan'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['pengurusan_program_binaan_id', 'kategori_perbelanjaan', 'bilangan_pohon', 'bilangan_cadangan', 'hari_pohon', 'hari_cadangan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jumlah_dipohon', 'jumlah_cadangan', 'anggaran_perbelanjaan', 'kadar_pohon', 'kadar_cadangan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['anggaran_kos_per_kategori', 'revised_kos_per_kategori', 'approved_kos_per_kategori'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['kategori_kos'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan', 'catatan_cadangan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
@@ -79,7 +79,13 @@ class PengurusanProgramBinaanKos extends \yii\db\ActiveRecord
             'jumlah_cadangan' => GeneralLabel::jumlah,
             'catatan_cadangan' => GeneralLabel::catatan,
             'perbelanjaan_dipohon' => GeneralLabel::perbelanjaan_dipohon,
-
+            'kategori_perbelanjaan' => GeneralLabel::kategori_perbelanjaan,
+            'kadar_pohon' => GeneralLabel::kadar,
+            'bilangan_pohon' => GeneralLabel::bilangan,
+            'hari_pohon' => GeneralLabel::hari,
+            'kadar_cadangan' => GeneralLabel::kadar,
+            'bilangan_cadangan' => GeneralLabel::bilangan,
+            'hari_cadangan' => GeneralLabel::hari,
         ];
     }
     
@@ -88,5 +94,9 @@ class PengurusanProgramBinaanKos extends \yii\db\ActiveRecord
      */
     public function getRefKategoriKosProgramBinaan(){
         return $this->hasOne(RefKategoriKosProgramBinaan::className(), ['id' => 'kategori_kos']);
+    }
+    
+    public function getRefKategoriPerbelanjaan(){
+        return $this->hasOne(RefKategoriPerbelanjaan::className(), ['id' => 'kategori_perbelanjaan']);
     }
 }

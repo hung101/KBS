@@ -1,0 +1,90 @@
+/*this is css for report generation*/
+
+html{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:14px;
+}
+
+.text-center{
+    text-align:center;
+}
+
+.text-right{
+    text-align:right;
+}
+
+.text-left{
+    text-align:left;
+}
+
+.text-bold{
+    font-weight:bold;
+}
+
+.form-title{
+    text-align:center;
+    font-size:16px;
+    font-weight:bold;
+}
+
+.aTable table {
+    border-collapse: collapse;
+}
+
+.aTable table, .aTable th, .aTable td {
+    border: 1px solid black;
+}
+
+.aTable table, .aTable th {
+    padding: 15px;
+}
+
+.aTable td {
+    padding:2px
+}
+
+.align-bottom{
+    vertical-align:bottom;
+}
+
+.align-top{
+    vertical-align:top;
+}
+
+.float-left{
+    float:left;
+}
+
+.clear{
+    clear:both
+}
+
+.title-header-wrap{
+    border:1px solid;
+    background-color:#ccc;
+    text-align:center;
+    font-size:18px;
+}
+
+.smaller{
+    font-size:14px;
+}
+
+.form-title-center{
+    margin: 0;
+    /*background: yellow;*/
+    position: absolute;
+    top: 90px;
+    left: 200px;
+    margin-right: -50%;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.solid{
+    border:1px solid #000;
+}
+
+.solid2{
+    border:2px solid #000;
+}

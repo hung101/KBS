@@ -155,10 +155,10 @@ class BantuanPenganjuranKursusPegawaiTeknikalDicadangkanController extends Contr
         //return $this->redirect(['index']);
     }
 
-    /**
+    /** 
      * Finds the BantuanPenganjuranKursusPegawaiTeknikalDicadangkan model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
+     * @param integer $id chmod(
      * @return BantuanPenganjuranKursusPegawaiTeknikalDicadangkan the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

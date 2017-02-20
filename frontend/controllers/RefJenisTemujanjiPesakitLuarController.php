@@ -28,6 +28,7 @@ class RefJenisTemujanjiPesakitLuarController extends Controller
 
     /**
      * Lists all RefJenisTemujanjiPesakitLuar models.
+     * chmod($file,0777);
      * @return mixed
      */
     public function actionIndex()

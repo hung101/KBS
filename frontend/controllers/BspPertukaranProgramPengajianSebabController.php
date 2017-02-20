@@ -66,7 +66,7 @@ class BspPertukaranProgramPengajianSebabController extends Controller
 
     /**
      * Creates a new BspPertukaranProgramPengajianSebab model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * If creation is successful, the browser will be redirected to the 'view' page. chmod(
      * @return mixed
      */
     public function actionCreate($bsp_pertukaran_program_pengajian_id)

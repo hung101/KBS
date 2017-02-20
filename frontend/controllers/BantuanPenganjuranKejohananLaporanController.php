@@ -17,7 +17,7 @@ use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
 
-/**
+/** chmod(
  * BantuanPenganjuranKejohananLaporanController implements the CRUD actions for BantuanPenganjuranKejohananLaporan model.
  */
 class BantuanPenganjuranKejohananLaporanController extends Controller

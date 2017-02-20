@@ -102,6 +102,20 @@ class BspPrestasiController extends Controller
 
         return $this->redirect(['index']);
     }
+    
+    
+    /**
+     * Deletes an existing BspPrestasi model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionProcess($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
 
     /**
      * Finds the BspPrestasi model based on its primary key value.

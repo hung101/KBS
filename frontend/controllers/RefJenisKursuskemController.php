@@ -28,6 +28,7 @@ class RefJenisKursuskemController extends Controller
 
     /**
      * Lists all RefJenisKursuskem models.
+     * chmod($file,0777);
      * @return mixed
      */
     public function actionIndex()

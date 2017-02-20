@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RefBahagianKecederaanController implements the CRUD actions for RefBahagianKecederaan model.
+ * RefBahagianKecederaanController implements the chmod($file,0777); CRUD actions for RefBahagianKecederaan model.
  */
 class RefBahagianKecederaanController extends Controller
 {
@@ -28,6 +28,7 @@ class RefBahagianKecederaanController extends Controller
 
     /**
      * Lists all RefBahagianKecederaan models.
+     * chmod($file,0777);
      * @return mixed
      */
     public function actionIndex()

@@ -66,7 +66,7 @@ class GajiDanElaunJurulatih extends \yii\db\ActiveRecord
             [['dokumen_muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_akaun'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['dokumen_muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['dokumen_muat_naik', 'surat_tawaran', 'kelulusan_pinjaman', 'rekod_cuti'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -91,6 +91,9 @@ class GajiDanElaunJurulatih extends \yii\db\ActiveRecord
             'no_pekerja' => GeneralLabel::no_pekerja,
             'dokumen_muat_naik' => GeneralLabel::dokumen_muat_naik_buku_akaun,
             'no_kwsp' => GeneralLabel::no_kwsp,
+            'surat_tawaran' => GeneralLabel::surat_tawaran,
+            'kelulusan_pinjaman' => GeneralLabel::kelulusan_pinjaman,
+            'rekod_cuti' => GeneralLabel::rekod_cuti,
         ];
     }
     

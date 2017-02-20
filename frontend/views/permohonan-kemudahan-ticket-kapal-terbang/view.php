@@ -43,6 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProviderPermohonanKemudahanTicketKapalTerbangJurulatih' => $dataProviderPermohonanKemudahanTicketKapalTerbangJurulatih,
         'searchModelPermohonanKemudahanTicketKapalTerbangPegawai' => $searchModelPermohonanKemudahanTicketKapalTerbangPegawai,
         'dataProviderPermohonanKemudahanTicketKapalTerbangPegawai' => $dataProviderPermohonanKemudahanTicketKapalTerbangPegawai,
+        'searchModelPermohonanKemudahanTicketKapalTerbangPengurusSukan' => $searchModelPermohonanKemudahanTicketKapalTerbangPengurusSukan,
+        'dataProviderPermohonanKemudahanTicketKapalTerbangPengurusSukan' => $dataProviderPermohonanKemudahanTicketKapalTerbangPengurusSukan,
         'readonly' => $readonly,
     ]) ?>
 

@@ -9,6 +9,10 @@ use app\models\PengurusanProgramBinaanKos;
 use frontend\models\PengurusanProgramBinaanKosSearch;
 use app\models\PengurusanProgramBinaanPeserta;
 use frontend\models\PengurusanProgramBinaanPesertaSearch;
+use app\models\PengurusanProgramBinaanTeknikal;
+use frontend\models\PengurusanProgramBinaanTeknikalSearch;
+use app\models\PengurusanProgramBinaanUrusetia;
+use frontend\models\PengurusanProgramBinaanUrusetiaSearch;
 use app\models\PengurusanProgramBinaanAtlet;
 use frontend\models\PengurusanProgramBinaanAtletSearch;
 use app\models\PengurusanProgramBinaanJurulatih;
@@ -17,13 +21,20 @@ use app\models\AtletPembangunanKursuskem;
 use app\models\MsnLaporanSenaraiPenganjuranProgramBinaan;
 use app\models\MsnLaporanStatistikProgramBinaanMengikutNegeri;
 use app\models\MsnLaporanStatistikProgramBinaanMengikutSukan;
+use app\models\PengurusanProgramBinaanLaporanPenganjuran;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\BaseUrl;
 use yii\web\Session;
 use yii\helpers\Url;
+use yii\web\UploadedFile;
 
+use yii\helpers\Json;
+use kartik\helpers\Html;
+use kartik\mpdf\Pdf;
+
+use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
 use common\models\general\GeneralFunction;
@@ -39,6 +50,10 @@ use app\models\PerancanganProgram;
 use app\models\RefJenisAktiviti;
 use app\models\RefStatusPermohonanProgramBinaan;
 use app\models\RefJenisKursuskem;
+use app\models\RefTahapProgramBinaan;
+use app\models\RefKategoriProgramBinaan;
+use app\models\RefJenisLaporan;
+use app\models\RefJenisAktivitiLaporanPenganjuran;
 
 use common\models\User;
 
@@ -100,11 +115,21 @@ class PengurusanProgramBinaanController extends Controller
         $ref = RefKategoriPermohonanProgramBinaan::findOne(['id' => $model->kategori_permohonan]);
         $model->kategori_permohonan = $ref['desc'];
         
-        $ref = RefJenisPermohonanProgramBinaan::findOne(['id' => $model->jenis_permohonan]);
-        $model->jenis_permohonan = $ref['desc'];
+        // $ref = RefJenisPermohonanProgramBinaan::findOne(['id' => $model->jenis_permohonan]);
+        // $model->jenis_permohonan = $ref['desc'];
         
-        $ref = RefSukan::findOne(['id' => $model->sukan]);
-        $model->sukan = $ref['desc'];
+        // $ref = RefSukan::findOne(['id' => $model->sukan]);
+        // $model->sukan = $ref['desc'];
+        
+        //$model->usptn_tahap = RefTahapProgramBinaan::findOne($model->usptn_tahap)->desc;
+        
+        $ref = RefTahapProgramBinaan::findOne(['id' => $model->usptn_tahap]);
+        $model->usptn_tahap = $ref['desc'];
+        
+        //$model->usptn_kategori = RefKategoriProgramBinaan::findOne($model->usptn_kategori)->desc;
+        
+        $ref = RefKategoriProgramBinaan::findOne(['id' => $model->usptn_kategori]);
+        $model->usptn_kategori = $ref['desc'];
         
         $ref = RefAtletTahap::findOne(['id' => $model->tahap]);
         $model->tahap = $ref['desc'];
@@ -136,6 +161,8 @@ class PengurusanProgramBinaanController extends Controller
         $queryPar['PengurusanProgramBinaanPesertaSearch']['pengurusan_program_binaan_id'] = $id;
         $queryPar['PengurusanProgramBinaanAtletSearch']['pengurusan_program_binaan_id'] = $id;
         $queryPar['PengurusanProgramBinaanJurulatihSearch']['pengurusan_program_binaan_id'] = $id;
+        $queryPar['PengurusanProgramBinaanTeknikalSearch']['pengurusan_program_binaan_id'] = $id;
+        $queryPar['PengurusanProgramBinaanUrusetiaSearch']['pengurusan_program_binaan_id'] = $id;
         
         $searchModelProgramBinaanKos  = new PengurusanProgramBinaanKosSearch();
         $dataProviderProgramBinaanKos = $searchModelProgramBinaanKos->search($queryPar);
@@ -143,11 +170,42 @@ class PengurusanProgramBinaanController extends Controller
         $searchModelProgramBinaanPeserta = new PengurusanProgramBinaanPesertaSearch();
         $dataProviderProgramBinaanPeserta = $searchModelProgramBinaanPeserta->search($queryPar);
         
+        $searchModelProgramBinaanTeknikal = new PengurusanProgramBinaanTeknikalSearch();
+        $dataProviderProgramBinaanTeknikal = $searchModelProgramBinaanTeknikal->search($queryPar);
+        
+        $searchModelProgramBinaanUrusetia = new PengurusanProgramBinaanUrusetiaSearch();
+        $dataProviderProgramBinaanUrusetia = $searchModelProgramBinaanUrusetia->search($queryPar);
+        
         $searchModelPengurusanProgramBinaanAtlet = new PengurusanProgramBinaanAtletSearch();
         $dataProviderPengurusanProgramBinaanAtlet = $searchModelPengurusanProgramBinaanAtlet->search($queryPar);
         
         $searchModelPengurusanProgramBinaanJurulatih = new PengurusanProgramBinaanJurulatihSearch();
         $dataProviderPengurusanProgramBinaanJurulatih = $searchModelPengurusanProgramBinaanJurulatih->search($queryPar);
+        
+        if(isset($model->sukan) && $model->sukan != ''){
+            $sukan_selected=explode(',',$model->sukan);
+            foreach($sukan_selected as $sukan_id){
+                $ref = RefSukan::findOne(['id' => $sukan_id]);
+                $sukanArr[] = $ref->desc;
+            }
+            
+            $model->sukan = implode(", ",$sukanArr);
+        }
+        
+        if(isset($model->tarikh_mula))
+        {
+            $model->tarikh_mula = date('d-m-Y',strtotime($model->tarikh_mula));
+        }
+        
+        if(isset($model->tarikh_tamat))
+        {
+            $model->tarikh_tamat = date('d-m-Y',strtotime($model->tarikh_tamat));
+        }
+        
+        if(isset($model->tarikh_jkb))
+        {
+            $model->tarikh_jkb = date('d-m-Y',strtotime($model->tarikh_jkb));
+        }
         
         return $this->render('view', [
             'model' => $model,
@@ -155,6 +213,10 @@ class PengurusanProgramBinaanController extends Controller
             'dataProviderProgramBinaanKos' => $dataProviderProgramBinaanKos,
             'searchModelProgramBinaanPeserta' => $searchModelProgramBinaanPeserta,
             'dataProviderProgramBinaanPeserta' => $dataProviderProgramBinaanPeserta,
+            'searchModelProgramBinaanTeknikal' => $searchModelProgramBinaanTeknikal,
+            'dataProviderProgramBinaanTeknikal' => $dataProviderProgramBinaanTeknikal,
+            'searchModelProgramBinaanUrusetia' => $searchModelProgramBinaanUrusetia,
+            'dataProviderProgramBinaanUrusetia' => $dataProviderProgramBinaanUrusetia,
             'searchModelPengurusanProgramBinaanAtlet' => $searchModelPengurusanProgramBinaanAtlet,
             'dataProviderPengurusanProgramBinaanAtlet' => $dataProviderPengurusanProgramBinaanAtlet,
             'searchModelPengurusanProgramBinaanJurulatih' => $searchModelPengurusanProgramBinaanJurulatih,
@@ -187,6 +249,8 @@ class PengurusanProgramBinaanController extends Controller
             $queryPar['PengurusanProgramBinaanPesertaSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['PengurusanProgramBinaanAtletSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['PengurusanProgramBinaanJurulatihSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['PengurusanProgramBinaanTeknikalSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['PengurusanProgramBinaanUrusetiaSearch']['session_id'] = Yii::$app->session->id;
         }
         
         $searchModelProgramBinaanKos  = new PengurusanProgramBinaanKosSearch();
@@ -195,13 +259,43 @@ class PengurusanProgramBinaanController extends Controller
         $searchModelProgramBinaanPeserta = new PengurusanProgramBinaanPesertaSearch();
         $dataProviderProgramBinaanPeserta = $searchModelProgramBinaanPeserta->search($queryPar);
         
+        $searchModelProgramBinaanTeknikal = new PengurusanProgramBinaanTeknikalSearch();
+        $dataProviderProgramBinaanTeknikal = $searchModelProgramBinaanTeknikal->search($queryPar);
+        
+        $searchModelProgramBinaanUrusetia = new PengurusanProgramBinaanUrusetiaSearch();
+        $dataProviderProgramBinaanUrusetia = $searchModelProgramBinaanUrusetia->search($queryPar);
+        
         $searchModelPengurusanProgramBinaanAtlet = new PengurusanProgramBinaanAtletSearch();
         $dataProviderPengurusanProgramBinaanAtlet = $searchModelPengurusanProgramBinaanAtlet->search($queryPar);
         
         $searchModelPengurusanProgramBinaanJurulatih = new PengurusanProgramBinaanJurulatihSearch();
         $dataProviderPengurusanProgramBinaanJurulatih = $searchModelPengurusanProgramBinaanJurulatih->search($queryPar);
+        
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->sukan){
+                $model->sukan = implode(",",$model->sukan);
+            }
+            
+            //upload file
+            $file = UploadedFile::getInstance($model, 'usptn_bajet');
+            if(isset($file) && $file != null){
+                $filename = $model->pengurusan_program_binaan_id . "-usptn_bajet";
+                if($file){
+                    $model->usptn_bajet = Upload::uploadFile($file, Upload::pengurusanProgramBinaanFolder, $filename);
+                }
+            }
+            
+            //upload file
+            $file = UploadedFile::getInstance($model, 'usptn_jadual');
+            if(isset($file) && $file != null){
+                $filename = $model->pengurusan_program_binaan_id . "-usptn_jadual";
+                if($file){
+                    $model->usptn_jadual = Upload::uploadFile($file, Upload::pengurusanProgramBinaanFolder, $filename);
+                }
+            }
+        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Yii::$app->request->post() && $model->save()) {
             if(isset(Yii::$app->session->id)){
                 PengurusanProgramBinaanKos::updateAll(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id], 'session_id = "'.Yii::$app->session->id.'"');
                 PengurusanProgramBinaanKos::updateAll(['session_id' => ''], 'pengurusan_program_binaan_id = "'.$model->pengurusan_program_binaan_id.'"');
@@ -209,33 +303,19 @@ class PengurusanProgramBinaanController extends Controller
                 PengurusanProgramBinaanPeserta::updateAll(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id], 'session_id = "'.Yii::$app->session->id.'"');
                 PengurusanProgramBinaanPeserta::updateAll(['session_id' => ''], 'pengurusan_program_binaan_id = "'.$model->pengurusan_program_binaan_id.'"');
                 
+                PengurusanProgramBinaanTeknikal::updateAll(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PengurusanProgramBinaanTeknikal::updateAll(['session_id' => ''], 'pengurusan_program_binaan_id = "'.$model->pengurusan_program_binaan_id.'"');
+                
+                PengurusanProgramBinaanUrusetia::updateAll(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PengurusanProgramBinaanUrusetia::updateAll(['session_id' => ''], 'pengurusan_program_binaan_id = "'.$model->pengurusan_program_binaan_id.'"');
+                
                 PengurusanProgramBinaanAtlet::updateAll(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id], 'session_id = "'.Yii::$app->session->id.'"');
                 PengurusanProgramBinaanAtlet::updateAll(['session_id' => ''], 'pengurusan_program_binaan_id = "'.$model->pengurusan_program_binaan_id.'"');
                 
                 PengurusanProgramBinaanJurulatih::updateAll(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id], 'session_id = "'.Yii::$app->session->id.'"');
                 PengurusanProgramBinaanJurulatih::updateAll(['session_id' => ''], 'pengurusan_program_binaan_id = "'.$model->pengurusan_program_binaan_id.'"');
             }
-            
-            // update atlet profil Kem/Kursus
-            /*$modelAtlets = PengurusanProgramBinaanAtlet::findAll([
-                    'pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id,
-                ]);
-            
-            foreach($modelAtlets as $modelAtlet){
-                $modelAtletKursusKem = null;
-                if (($modelAtletKursusKem = AtletPembangunanKursuskem::find()->where(['atlet_id'=>$modelAtlet->atlet_id])->andWhere(['pengurusan_program_binaan_id'=>$modelAtlet->pengurusan_program_binaan_id])->one()) == null) {
-                    $modelAtletKursusKem = new AtletPembangunanKursuskem();
-                }
-                $modelAtletKursusKem->atlet_id = $modelAtlet->atlet_id;
-                $modelAtletKursusKem->tarikh_mula = $model->tarikh_mula;
-                $modelAtletKursusKem->tarikh_tamat = $model->tarikh_mula;
-                $modelAtletKursusKem->lokasi = $model->tempat;
-                $modelAtletKursusKem->nama_kursus_kem = $model->nama_aktiviti;
-                $modelAtletKursusKem->pengurusan_program_binaan_id = $model->pengurusan_program_binaan_id;
-                $modelAtletKursusKem->save();
-            }*/
-            
-            
+  
             if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_pengurusan-program-binaan'])->groupBy('id')->all()) !== null) {
         
                 foreach($modelUsers as $modelUser){
@@ -272,6 +352,10 @@ Majlis Sukan Negara Malaysia.
                 'dataProviderProgramBinaanKos' => $dataProviderProgramBinaanKos,
                 'searchModelProgramBinaanPeserta' => $searchModelProgramBinaanPeserta,
                 'dataProviderProgramBinaanPeserta' => $dataProviderProgramBinaanPeserta,
+                'searchModelProgramBinaanTeknikal' => $searchModelProgramBinaanTeknikal,
+                'dataProviderProgramBinaanTeknikal' => $dataProviderProgramBinaanTeknikal,
+                'searchModelProgramBinaanUrusetia' => $searchModelProgramBinaanUrusetia,
+                'dataProviderProgramBinaanUrusetia' => $dataProviderProgramBinaanUrusetia,
                 'searchModelPengurusanProgramBinaanAtlet' => $searchModelPengurusanProgramBinaanAtlet,
                 'dataProviderPengurusanProgramBinaanAtlet' => $dataProviderPengurusanProgramBinaanAtlet,
                 'searchModelPengurusanProgramBinaanJurulatih' => $searchModelPengurusanProgramBinaanJurulatih,
@@ -296,11 +380,15 @@ Majlis Sukan Negara Malaysia.
         $model = $this->findModel($id);
         
         $queryPar = null;
+        $oriBajetName = '';
+        $oriJadualName = '';
         
         $queryPar['PengurusanProgramBinaanKosSearch']['pengurusan_program_binaan_id'] = $id;
         $queryPar['PengurusanProgramBinaanPesertaSearch']['pengurusan_program_binaan_id'] = $id;
         $queryPar['PengurusanProgramBinaanAtletSearch']['pengurusan_program_binaan_id'] = $id;
         $queryPar['PengurusanProgramBinaanJurulatihSearch']['pengurusan_program_binaan_id'] = $id;
+        $queryPar['PengurusanProgramBinaanTeknikalSearch']['pengurusan_program_binaan_id'] = $id;
+        $queryPar['PengurusanProgramBinaanUrusetiaSearch']['pengurusan_program_binaan_id'] = $id;
         
         $searchModelProgramBinaanKos  = new PengurusanProgramBinaanKosSearch();
         $dataProviderProgramBinaanKos = $searchModelProgramBinaanKos->search($queryPar);
@@ -308,49 +396,86 @@ Majlis Sukan Negara Malaysia.
         $searchModelProgramBinaanPeserta = new PengurusanProgramBinaanPesertaSearch();
         $dataProviderProgramBinaanPeserta = $searchModelProgramBinaanPeserta->search($queryPar);
         
+        $searchModelProgramBinaanTeknikal = new PengurusanProgramBinaanTeknikalSearch();
+        $dataProviderProgramBinaanTeknikal = $searchModelProgramBinaanTeknikal->search($queryPar);
+        
+        $searchModelProgramBinaanUrusetia = new PengurusanProgramBinaanUrusetiaSearch();
+        $dataProviderProgramBinaanUrusetia = $searchModelProgramBinaanUrusetia->search($queryPar);
+        
         $searchModelPengurusanProgramBinaanAtlet = new PengurusanProgramBinaanAtletSearch();
         $dataProviderPengurusanProgramBinaanAtlet = $searchModelPengurusanProgramBinaanAtlet->search($queryPar);
         
         $searchModelPengurusanProgramBinaanJurulatih = new PengurusanProgramBinaanJurulatihSearch();
         $dataProviderPengurusanProgramBinaanJurulatih = $searchModelPengurusanProgramBinaanJurulatih->search($queryPar);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            AtletPembangunanKursuskem::deleteAll(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id]);
+        
+        if(isset($model->sukan) && $model->sukan != ''){
+            $model->sukan=explode(',',$model->sukan);
+        }
+        
+        if(isset($model->usptn_bajet) && $model->usptn_bajet != ''){
+            $oriBajetName = $model->usptn_bajet;
+        }
+        
+        if(isset($model->usptn_jadual) && $model->usptn_jadual != ''){
+            $oriJadualName = $model->usptn_jadual;
+        }
+        
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->sukan){
+                $model->sukan = implode(",",$model->sukan);
+            }
             
-            // update atlet profil Kem/Kursus
-            /*$modelAtlets = PengurusanProgramBinaanAtlet::findAll([
-                    'pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id,
-                ]);
-            
-            foreach($modelAtlets as $modelAtlet){
-                $modelAtletKursusKem = null;
-                if (($modelAtletKursusKem = AtletPembangunanKursuskem::find()->where(['atlet_id'=>$modelAtlet->atlet_id])->andWhere(['pengurusan_program_binaan_id'=>$modelAtlet->pengurusan_program_binaan_id])->one()) == null) {
-                    $modelAtletKursusKem = new AtletPembangunanKursuskem();
+            //upload file
+            $file = UploadedFile::getInstance($model, 'usptn_bajet');
+            if(isset($file) && $file != null){
+                $filename = $model->pengurusan_program_binaan_id . "-usptn_bajet";
+                if($file){
+                    //clean old file
+                    if($oriBajetName != null || $oriBajetName != ''){
+                        unlink($oriBajetName);
+                    }
+                    
+                    $model->usptn_bajet = Upload::uploadFile($file, Upload::pengurusanProgramBinaanFolder, $filename);
                 }
-                $modelAtletKursusKem->atlet_id = $modelAtlet->atlet_id;
-                $modelAtletKursusKem->tarikh_mula = $model->tarikh_mula;
-                $modelAtletKursusKem->tarikh_tamat = $model->tarikh_tamat;
-                $modelAtletKursusKem->lokasi = $model->tempat;
-                $modelAtletKursusKem->nama_kursus_kem = $model->nama_aktiviti;
-                $modelAtletKursusKem->pengurusan_program_binaan_id = $model->pengurusan_program_binaan_id;
-                $modelAtletKursusKem->save();
-            }*/
+            } else {
+                $model->usptn_bajet = $oriBajetName;
+            }
             
-            return $this->redirect(['view', 'id' => $model->pengurusan_program_binaan_id]);
-        } else {
-            return $this->render('update', [
+            //upload file
+            $file = UploadedFile::getInstance($model, 'usptn_jadual');
+            if(isset($file) && $file != null){
+                $filename = $model->pengurusan_program_binaan_id . "-usptn_jadual";
+                if($file){
+                    //clean old file
+                    if($oriJadualName != null || $oriJadualName != ''){
+                        unlink($oriJadualName);
+                    }
+                    
+                    $model->usptn_jadual = Upload::uploadFile($file, Upload::pengurusanProgramBinaanFolder, $filename);
+                }
+            } else {
+                $model->usptn_jadual = $oriJadualName;
+            }
+            
+            if($model->save()) return $this->redirect(['view', 'id' => $model->pengurusan_program_binaan_id]);
+        }
+
+        return $this->render('update', [
                 'model' => $model,
                 'searchModelProgramBinaanKos' => $searchModelProgramBinaanKos,
                 'dataProviderProgramBinaanKos' => $dataProviderProgramBinaanKos,
                 'searchModelProgramBinaanPeserta' => $searchModelProgramBinaanPeserta,
                 'dataProviderProgramBinaanPeserta' => $dataProviderProgramBinaanPeserta,
+                'searchModelProgramBinaanTeknikal' => $searchModelProgramBinaanTeknikal,
+                'dataProviderProgramBinaanTeknikal' => $dataProviderProgramBinaanTeknikal,
+                'searchModelProgramBinaanUrusetia' => $searchModelProgramBinaanUrusetia,
+                'dataProviderProgramBinaanUrusetia' => $dataProviderProgramBinaanUrusetia,
                 'searchModelPengurusanProgramBinaanAtlet' => $searchModelPengurusanProgramBinaanAtlet,
                 'dataProviderPengurusanProgramBinaanAtlet' => $dataProviderPengurusanProgramBinaanAtlet,
                 'searchModelPengurusanProgramBinaanJurulatih' => $searchModelPengurusanProgramBinaanJurulatih,
                 'dataProviderPengurusanProgramBinaanJurulatih' => $dataProviderPengurusanProgramBinaanJurulatih,
                 'readonly' => false,
-            ]);
-        }
+        ]);
     }
 
     /**
@@ -591,5 +716,346 @@ Majlis Sukan Negara Malaysia.
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikProgramBinaanMengikutSukan', $format, $controls, 'laporan_statistik_program_binaan_mengikut_sukan');
+    }
+    
+    public function actionPrintJkkJkp($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+        
+        if(isset($model->sukan) && $model->sukan != ''){
+            $sukan_selected=explode(',',$model->sukan);
+            $count = 1;
+            foreach($sukan_selected as $sukan_id){
+                $ref = RefSukan::findOne(['id' => $sukan_id]);
+                $sukanArr[] = $count.' '.$ref->desc;
+                $count++;
+            }
+            
+            $model->sukan = implode("<br />",$sukanArr);
+        }
+        
+        if(isset($model->tarikh_mula))
+        {
+            $model->tarikh_mula = date('d/m/Y',strtotime($model->tarikh_mula));
+        }
+        
+        if(isset($model->tarikh_tamat))
+        {
+            $model->tarikh_tamat = date('d/m/Y',strtotime($model->tarikh_tamat));
+        }
+        
+        $ref = RefNegeri::findOne(['id' => $model->negeri]);
+        $model->negeri = $ref['desc'];
+        
+        $binaanKosModel = PengurusanProgramBinaanKos::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])->all();
+        
+        //count orang
+        $atletCount = PengurusanProgramBinaanAtlet::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])->count();
+        $jurulatihCount = PengurusanProgramBinaanJurulatih::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])->count();
+        $pegawaiCount = PengurusanProgramBinaanPeserta::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])->count();
+        $teknikalCount = PengurusanProgramBinaanTeknikal::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])->count();
+        $urusetiaCount = PengurusanProgramBinaanUrusetia::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])->count();
+        
+        $totalOrang = $atletCount+$jurulatihCount+$pegawaiCount+$teknikalCount+$urusetiaCount;
+
+        $pdf = new \mPDF('utf-8', 'A4-L');
+
+        $pdf->title = 'Borang JKK /JKP';
+
+        //$pdf->cssFile = 'report.css';
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print_jkk_jkp', [
+             'model'  => $model,
+             'binaanKosModel' => $binaanKosModel,
+             'totalOrang' => $totalOrang,
+        ]));
+
+        $pdf->Output('Borang_jkk_jkp_'.$model->pengurusan_program_binaan_id.'.pdf', 'I');
+    }
+    
+    public function actionPrintBorangPermohonan($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+        
+        //count by jantina
+        $subFemale = \app\models\RefJantina::find()->select('id')->where(['LIKE', 'desc', 'perempuan']);
+        $subMale = \app\models\RefJantina::find()->select('id')->where(['LIKE', 'desc', 'lelaki']);
+        
+        $atletFemaleCount = PengurusanProgramBinaanAtlet::find()->joinWith(['refAtlet'])
+                            ->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])
+                            ->andWhere(['IN', 'jantina', $subFemale])->count();
+                            
+        $atletMaleCount = PengurusanProgramBinaanAtlet::find()->joinWith(['refAtlet'])
+                            ->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])
+                            ->andWhere(['IN', 'jantina', $subMale])->count();
+                            
+        $atletCount = ['male' => $atletMaleCount, 'female' => $atletFemaleCount, 'total' => $atletMaleCount+$atletFemaleCount];
+                            
+        $jurulatihFemaleCount = PengurusanProgramBinaanJurulatih::find()->joinWith(['refJurulatih'])
+                            ->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])
+                            ->andWhere(['IN', 'jantina', $subFemale])->count();
+                            
+        $jurulatihMaleCount = PengurusanProgramBinaanJurulatih::find()->joinWith(['refJurulatih'])
+                            ->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])
+                            ->andWhere(['IN', 'jantina', $subMale])->count();
+        
+        $jurulatihCount = ['male' => $jurulatihMaleCount, 'female' => $jurulatihFemaleCount, 'total' => $jurulatihMaleCount+$jurulatihFemaleCount];
+        
+        $pegawaiFemaleCount = PengurusanProgramBinaanPeserta::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])
+                        ->andWhere(['IN', 'jantina', $subFemale])->count();
+        $pegawaiMaleCount = PengurusanProgramBinaanPeserta::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])
+                        ->andWhere(['IN', 'jantina', $subMale])->count();
+
+        $pegawaiCount = ['male' => $pegawaiMaleCount, 'female' => $pegawaiFemaleCount, 'total' => $pegawaiMaleCount+$pegawaiFemaleCount];
+        
+        $teknikalFemaleCount = PengurusanProgramBinaanTeknikal::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])
+                        ->andWhere(['IN', 'jantina', $subFemale])->count();
+        $teknikalMaleCount = PengurusanProgramBinaanTeknikal::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])
+                        ->andWhere(['IN', 'jantina', $subMale])->count();
+
+        $teknikalCount = ['male' => $teknikalMaleCount, 'female' => $teknikalFemaleCount, 'total' => $teknikalMaleCount+$teknikalFemaleCount];
+        
+        $urusetiaFemaleCount = PengurusanProgramBinaanUrusetia::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])
+                        ->andWhere(['IN', 'jantina', $subFemale])->count();
+        $urusetiaMaleCount = PengurusanProgramBinaanUrusetia::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])
+                        ->andWhere(['IN', 'jantina', $subMale])->count();
+
+        $urusetiaCount = ['male' => $urusetiaMaleCount, 'female' => $urusetiaFemaleCount, 'total' => $urusetiaMaleCount+$urusetiaFemaleCount];
+        
+         $binaanKosModel = PengurusanProgramBinaanKos::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])->all();
+        // $pegawaiModel = PengurusanProgramBinaanPeserta::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])->all();
+        // $atletModel = PengurusanProgramBinaanAtlet::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])->all();
+        // $jurulatihModel = PengurusanProgramBinaanJurulatih::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])->all();
+        // $teknikalModel = PengurusanProgramBinaanTeknikal::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])->all();
+        // $urusetiaModel = PengurusanProgramBinaanUrusetia::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])->all();
+        
+        if(isset($model->sukan) && $model->sukan != ''){
+            $sukan_selected=explode(',',$model->sukan);
+            foreach($sukan_selected as $sukan_id){
+                $ref = RefSukan::findOne(['id' => $sukan_id]);
+                $sukanArr[] = $ref->desc;
+            }
+            
+            $model->sukan = implode(", ",$sukanArr);
+        }
+        
+        if(isset($model->tarikh_mula))
+        {
+            $model->tarikh_mula = date('d/m/Y',strtotime($model->tarikh_mula));
+        }
+        
+        if(isset($model->tarikh_tamat))
+        {
+            $model->tarikh_tamat = date('d/m/Y',strtotime($model->tarikh_tamat));
+        }
+        
+        $ref = RefNegeri::findOne(['id' => $model->negeri]);
+        $model->negeri = $ref['desc'];
+        
+        $ref = RefTahapProgramBinaan::findOne(['id' => $model->usptn_tahap]);
+        $model->usptn_tahap = $ref['desc'];
+        
+        $YesNo = GeneralLabel::getYesNoLabel($model->sokongan_pn);
+        $model->sokongan_pn = $YesNo;
+        
+        $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
+        $model->kelulusan = $YesNo;
+
+        $pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Borang Permohonan';
+
+        //$pdf->cssFile = 'report.css';
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print_borang_permohonan', [
+             'model'  => $model,
+             'binaanKosModel' => $binaanKosModel,
+             'pegawaiCount' => $pegawaiCount,
+             'teknikalCount' => $teknikalCount,
+             'urusetiaCount' => $urusetiaCount,
+             'atletCount' => $atletCount,
+             'jurulatihCount' => $jurulatihCount,
+        ]));
+
+        $pdf->Output('Borang_permohonan_'.$model->pengurusan_program_binaan_id.'.pdf', 'I');
+    }
+    
+    public function actionLaporanPenganjuran($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $parentModel = $this->findModel($id);
+        $model = PengurusanProgramBinaanLaporanPenganjuran::findOne(['pengurusan_program_binaan_id' => $id]);
+        
+        if($model === NULL) {
+            $model = new PengurusanProgramBinaanLaporanPenganjuran;
+            //autopopulate for new insert
+            $model->negeri = $parentModel->negeri;
+            
+            if(isset($parentModel->sukan) && $parentModel->sukan != null){
+                $model->sukan = explode(',',$parentModel->sukan);
+            }
+            $model->aktiviti = $parentModel->nama_aktiviti;
+            $model->tahap = $parentModel->usptn_tahap;
+            $model->tempat = $parentModel->tempat;
+            $model->tarikh_mula = $parentModel->tarikh_mula;
+            $model->tarikh_tamat = $parentModel->tarikh_tamat;
+            
+            //count by jantina
+            $subFemale = \app\models\RefJantina::find()->select('id')->where(['LIKE', 'desc', 'perempuan']);
+            $subMale = \app\models\RefJantina::find()->select('id')->where(['LIKE', 'desc', 'lelaki']);
+            
+            $atletFemaleCount = PengurusanProgramBinaanAtlet::find()->joinWith(['refAtlet'])
+                                ->where(['pengurusan_program_binaan_id' => $parentModel->pengurusan_program_binaan_id])
+                                ->andWhere(['IN', 'jantina', $subFemale])->count();
+                                
+            $atletMaleCount = PengurusanProgramBinaanAtlet::find()->joinWith(['refAtlet'])
+                                ->where(['pengurusan_program_binaan_id' => $parentModel->pengurusan_program_binaan_id])
+                                ->andWhere(['IN', 'jantina', $subMale])->count();
+                                
+            $model->atlet_lelaki = $atletMaleCount;
+            $model->atlet_perempuan = $atletFemaleCount;
+                                
+            $jurulatihFemaleCount = PengurusanProgramBinaanJurulatih::find()->joinWith(['refJurulatih'])
+                                ->where(['pengurusan_program_binaan_id' => $parentModel->pengurusan_program_binaan_id])
+                                ->andWhere(['IN', 'jantina', $subFemale])->count();
+                                
+            $jurulatihMaleCount = PengurusanProgramBinaanJurulatih::find()->joinWith(['refJurulatih'])
+                                ->where(['pengurusan_program_binaan_id' => $parentModel->pengurusan_program_binaan_id])
+                                ->andWhere(['IN', 'jantina', $subMale])->count();
+            
+            $model->jurulatih_lelaki = $jurulatihMaleCount;
+            $model->jurulatih_perempuan = $jurulatihFemaleCount;
+            
+            $pegawaiFemaleCount = PengurusanProgramBinaanPeserta::find()->where(['pengurusan_program_binaan_id' => $parentModel->pengurusan_program_binaan_id])
+                            ->andWhere(['IN', 'jantina', $subFemale])->count();
+            $pegawaiMaleCount = PengurusanProgramBinaanPeserta::find()->where(['pengurusan_program_binaan_id' => $parentModel->pengurusan_program_binaan_id])
+                            ->andWhere(['IN', 'jantina', $subMale])->count();
+
+            $model->pegawai_lelaki = $pegawaiMaleCount;
+            $model->pegawai_perempuan = $pegawaiFemaleCount;
+            
+            $teknikalFemaleCount = PengurusanProgramBinaanTeknikal::find()->where(['pengurusan_program_binaan_id' => $parentModel->pengurusan_program_binaan_id])
+                            ->andWhere(['IN', 'jantina', $subFemale])->count();
+            $teknikalMaleCount = PengurusanProgramBinaanTeknikal::find()->where(['pengurusan_program_binaan_id' => $parentModel->pengurusan_program_binaan_id])
+                            ->andWhere(['IN', 'jantina', $subMale])->count();
+                            
+            $model->teknikal_lelaki = $teknikalMaleCount;
+            $model->teknikal_perempuan = $teknikalFemaleCount;
+            
+            $urusetiaFemaleCount = PengurusanProgramBinaanUrusetia::find()->where(['pengurusan_program_binaan_id' => $parentModel->pengurusan_program_binaan_id])
+                            ->andWhere(['IN', 'jantina', $subFemale])->count();
+            $urusetiaMaleCount = PengurusanProgramBinaanUrusetia::find()->where(['pengurusan_program_binaan_id' => $parentModel->pengurusan_program_binaan_id])
+                            ->andWhere(['IN', 'jantina', $subMale])->count();
+                            
+            $model->urusetia_lelaki = $urusetiaMaleCount;
+            $model->urusetia_perempuan = $urusetiaFemaleCount;
+            
+            //count dipohon
+            $binaanKosModel = PengurusanProgramBinaanKos::find()->where(['pengurusan_program_binaan_id' => $parentModel->pengurusan_program_binaan_id])->all();
+            
+            $totalDipohonPSN = 0;
+            foreach($binaanKosModel as $item){
+                $totalDipohonPSN = $totalDipohonPSN+$item->jumlah_dipohon;
+            }
+            
+            $model->peruntukan_dipohon_psn = $totalDipohonPSN;
+            $model->peruntukan_dilulus_psn = $parentModel->jumlah_yang_diluluskan;
+            
+        } else {
+            //var_dump($model->sukan); die;
+            $model->sukan = explode(',',$model->sukan);
+        }
+        
+
+        
+        if (Yii::$app->request->post()) {
+            
+            //echo '<pre>';
+            $model->load(Yii::$app->request->post());
+            $model->pengurusan_program_binaan_id = $parentModel->pengurusan_program_binaan_id;
+            if($model->sukan){
+                $model->sukan = implode(",",$model->sukan);
+            }
+            //var_dump($model->sukan); die;
+            if($model->save())
+            {
+                Yii::$app->session->setFlash('success', 'Laporan berjaya dikemaskini');
+            }
+            //refresh model sukan model after kemaskini
+            if(isset($model->sukan) && $model->sukan != null)
+            $model->sukan = explode(',',$model->sukan);
+            
+        }
+        
+        return $this->render('laporan_penganjuran_form', [
+            'parentModel' => $parentModel,
+            'model' => $model,
+        ]);
+    }
+    
+    public function actionPrintLaporanPenganjuran($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = PengurusanProgramBinaanLaporanPenganjuran::findOne(['pengurusan_program_binaan_id' => $id]);
+        
+        if(isset($model->sukan) && $model->sukan != ''){
+            $sukan_selected = explode(',',$model->sukan);
+            foreach($sukan_selected as $sukan_id){
+                $ref = RefSukan::findOne(['id' => $sukan_id]);
+                $sukanArr[] = $ref->desc;
+            }
+            $model->sukan = implode(", ",$sukanArr);
+        }
+        
+        if(isset($model->tarikh_mula))
+        {
+            $model->tarikh_mula = date('d/m/Y',strtotime($model->tarikh_mula));
+        }
+        
+        if(isset($model->tarikh_tamat))
+        {
+            $model->tarikh_tamat = date('d/m/Y',strtotime($model->tarikh_tamat));
+        }
+        
+        $ref = RefNegeri::findOne(['id' => $model->negeri]);
+        $model->negeri = $ref['desc'];
+        
+        $ref = RefJenisLaporan::findOne(['id' => $model->jenis_laporan]);
+        $model->jenis_laporan = $ref['desc'];
+        
+        $ref = RefTahapProgramBinaan::findOne(['id' => $model->tahap]);
+        $model->tahap = $ref['desc'];
+        
+        $ref = RefJenisAktivitiLaporanPenganjuran::findOne(['id' => $model->jenis_aktiviti]);
+        $model->jenis_aktiviti = $ref['desc'];
+
+        $pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Laporan Penganjuran/Penyertaan';
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print_laporan_penganjuran', [
+             'model'  => $model,
+        ]));
+
+        $pdf->Output('Laporan_Pengajuran_'.$model->pengurusan_program_binaan_laporan_penganjuran_id.'.pdf', 'I');
     }
 }

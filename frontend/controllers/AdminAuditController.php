@@ -28,7 +28,7 @@ class AdminAuditController extends Controller
 
     /**
      * Lists all AdminEBiasiswa models.
-     * @return mixed
+     * @return mixedchmod(
      */
     public function actionAudit()
     {

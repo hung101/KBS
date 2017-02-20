@@ -27,7 +27,7 @@ class PeralatanController extends Controller
     }
 
     /**
-     * Lists all Peralatan models.
+     * Lists all Peralatan models. chmod($file,0777);
      * @return mixed
      */
     public function actionIndex()

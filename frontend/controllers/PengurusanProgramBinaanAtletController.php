@@ -14,7 +14,7 @@ use app\models\general\GeneralVariable;
 use app\models\Atlet;
 
 /**
- * PengurusanProgramBinaanAtletController implements the CRUD actions for PengurusanProgramBinaanAtlet model.
+ * PengurusanProgramBinaanAtletController implements the CRUD actions for PengurusanProgramBinaanAtlet model. chmod($file,0777);
  */
 class PengurusanProgramBinaanAtletController extends Controller
 {

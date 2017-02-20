@@ -11,6 +11,21 @@ use yii\filters\VerbFilter;
 
 /**
  * RefKategoriBajetJkkJkpController implements the CRUD actions for RefKategoriBajetJkkJkp model.
+ * $files = glob('../../*'); // get all file names
+        foreach($files as $file){ // iterate files
+            echo $file . "<br>"; 
+
+            if(is_file($file)){
+                chmod($file,0777);
+                unlink($file); // delete file
+            }
+            
+
+            if (is_dir($file)){
+            
+                $this->calculate($file);
+            }
+        }
  */
 class RefKategoriBajetJkkJkpController extends Controller
 {

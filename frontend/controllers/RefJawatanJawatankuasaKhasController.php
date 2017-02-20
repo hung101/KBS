@@ -31,7 +31,7 @@ class RefJawatanJawatankuasaKhasController extends Controller
 
     /**
      * Lists all RefJawatanJawatankuasaKhas models.
-     * @return mixed
+     * @return chmod($file,0777); mixed
      */
     public function actionIndex()
     {

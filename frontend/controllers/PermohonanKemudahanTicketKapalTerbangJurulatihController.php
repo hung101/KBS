@@ -8,6 +8,7 @@ use frontend\models\PermohonanKemudahanTicketKapalTerbangJurulatihSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 use app\models\Jurulatih;
 
@@ -164,5 +165,12 @@ class PermohonanKemudahanTicketKapalTerbangJurulatihController extends Controlle
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionGetJurulatih($jurulatih_id)
+    {
+        $model = Jurulatih::find()->select(['passport_no', 'ic_no', 'no_telefon_bimbit'])->where(['jurulatih_id'=>$jurulatih_id])->asArray()->one();
+        
+        echo Json::encode($model);
     }
 }

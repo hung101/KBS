@@ -8,6 +8,7 @@ use frontend\models\PermohonanKemudahanTicketKapalTerbangAtletSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 use app\models\Atlet;
 
@@ -164,5 +165,12 @@ class PermohonanKemudahanTicketKapalTerbangAtletController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionGetAtlet($atlet_id)
+    {
+        $model = Atlet::find()->select(['passport_no', 'ic_no', 'tel_bimbit_no_1'])->where(['atlet_id'=>$atlet_id])->asArray()->one();
+        
+        echo Json::encode($model);
     }
 }

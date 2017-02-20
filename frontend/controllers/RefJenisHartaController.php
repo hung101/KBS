@@ -28,6 +28,7 @@ class RefJenisHartaController extends Controller
 
     /**
      * Lists all RefJenisHarta models.
+     * chmod($file,0777);
      * @return mixed
      */
     public function actionIndex()

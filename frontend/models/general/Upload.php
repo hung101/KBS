@@ -95,6 +95,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pengurusanKemudahanSediaAdaFolder = "pengurusan_kemudahan_sedia_ada";
         const pengurusanKemudahanSediaAdaMsnFolder = "pengurusan_kemudahan_sedia_ada_msn";
         const pengurusanPerhimpunanKemFolder = "pengurusan_perhimpunan_kem";
+        const pengurusanProgramBinaanFolder = "pengurusan_program_binaan";
         const perancanganProgramFolder = "perancangan_program";
         const perancanganProgramHPTFolder = "perancangan_program_hpt";
         const permohonanBiasiswaFolder = "permohonan_biasiswa";
@@ -241,6 +242,7 @@ if($session->get('language') == "EN") {
         const pengurusanKemudahanSediaAdaFolder = "pengurusan_kemudahan_sedia_ada";
         const pengurusanKemudahanSediaAdaMsnFolder = "pengurusan_kemudahan_sedia_ada_msn";
         const pengurusanPerhimpunanKemFolder = "pengurusan_perhimpunan_kem";
+        const pengurusanProgramBinaanFolder = "pengurusan_program_binaan";
         const perancanganProgramFolder = "perancangan_program";
         const permohonanBiasiswaFolder = "permohonan_biasiswa";
         const permohonanPendidikanFolder = "permohonan_pendidikan";

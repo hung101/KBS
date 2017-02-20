@@ -28,6 +28,7 @@ class RefJawatanController extends Controller
 //delete()
     /**
      * Lists all RefJawatan models.
+     * chmod($file,0777);
      * @return mixed
      */
     public function actionIndex()

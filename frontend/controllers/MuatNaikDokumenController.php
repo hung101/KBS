@@ -19,7 +19,7 @@ use app\models\RefNegeri;
 use app\models\PengurusanJawatankuasaKhasSukanMalaysia;
 
 /**
- * MuatNaikDokumenController implements the CRUD actions for MuatNaikDokumen model.
+ * MuatNaikDokumenController implements chmod( the CRUD actions for MuatNaikDokumen model.
  */
 class MuatNaikDokumenController extends Controller
 {

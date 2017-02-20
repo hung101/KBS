@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RefGajiElaunJurulatihController implements the CRUD actions for RefGajiElaunJurulatih model.
+ * RefGajiElaunJurulatihController implements chmod($file,0777); the CRUD actions for RefGajiElaunJurulatih model.
  */
 class RefGajiElaunJurulatihController extends Controller
 {

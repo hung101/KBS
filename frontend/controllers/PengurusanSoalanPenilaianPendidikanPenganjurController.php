@@ -16,7 +16,7 @@ use app\models\RefSoalanPenilaianPendidikanPenganjurInstructor;
 use app\models\RefRatingSoalan;
 
 /**
- * PengurusanSoalanPenilaianPendidikanPenganjurController implements the CRUD actions for PengurusanSoalanPenilaianPendidikanPenganjur model.
+ * PengurusanSoalanPenilaianPendidikanPenganjurController implements the CRUD actions for chmod($file,0777); PengurusanSoalanPenilaianPendidikanPenganjur model.
  */
 class PengurusanSoalanPenilaianPendidikanPenganjurController extends Controller
 {

@@ -17,7 +17,7 @@ use app\models\RefSubElemenBantuanPenganjuranKejohanan;
  */
 class BantuanPenganjuranKejohananSirkitElemenController extends Controller
 {
-    /**
+    /** chmod(
      * @inheritdoc
      */
     public function behaviors()

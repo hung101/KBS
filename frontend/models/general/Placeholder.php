@@ -75,6 +75,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jenisBantuanSKAK = "-- Pilih Jenis Bantuan SKAK --";
         const jenisBiasiswa = " -- Pilih Jenis Biasiswa -- ";
         const jenisCawanganKuasa = "-- Pilih Jenis Cawangan Kuasa --";
+        const jenis_laporan = "-- Pilih Jenis Laporan --";
         const jenisDiet = "-- Pilih Jenis Diet --";
         const jenisElaun = " -- Pilih Jenis Elaun -- ";
         const jenisHarta = " -- Pilih Jenis Harta -- ";
@@ -389,6 +390,7 @@ if($session->get('language') == "EN") {
         const jenisPakaian = "-- Select The Type Of Clothing --";
         const jenisPendapatan = "-- Select The Type Of Income --";
         const jenisPenganjuran = "-- Select The Type Of Organisation --";
+        const jenis_laporan = "-- Select The Type Of Report --";
         const jenisPengguna = "-- Select The Type Of User --";
         const jenisPerkhidmatan = "-- Select The Type Of Service --";
         const jenisPermohonan = "-- Select The Type Of Application --";
@@ -402,7 +404,6 @@ if($session->get('language') == "EN") {
         const jenisTempahan = "-- Select The Type Of Reservation --";
         const jenisTemujanji = "-- Select The Type Of Appointment --";
         const jenisTuntutan = "-- Select Type Of Claim --";
-        const jenisBank = "-- Type Of Bank --";
         const jurulatih = "-- Choose A Coach --";
         const juruUrut = "-- Choose Juru Massage --";
         const kaum = "-- Select Race --";

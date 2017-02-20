@@ -26,6 +26,7 @@ use app\models\general\GeneralMessage;
  * @property string $jurulatih
  * @property string $pegawai_teknikal
  * @property integer $kelulusan
+ * @property integer $catatan
  */
 class PermohonanKemudahanTicketKapalTerbang extends \yii\db\ActiveRecord
 {
@@ -61,7 +62,7 @@ class PermohonanKemudahanTicketKapalTerbang extends \yii\db\ActiveRecord
     public function rules()
     {
         $rules = [
-            [['nama_pemohon', 'jawatan', 'destinasi', 'tarikh', 'nama_program', 'aktiviti', 'sukan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama_pemohon', 'jawatan', 'nama_program', 'aktiviti', 'sukan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh', 'tarikh_jkb', 'pulang', 'tarikh_pergi_2', 'tarikh_pergi_3', 'tarikh_pulang_2', 'tarikh_pulang_3', 'jurulatih', 'atlet', 'sukan'], 'safe'],
             [['bil_penumpang', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_pemohon', 'jawatan', 'nama_program', 'aktiviti', 'cawangan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -70,7 +71,7 @@ class PermohonanKemudahanTicketKapalTerbang extends \yii\db\ActiveRecord
             [['destinasi', 'tarikh_ke', 'pulang_tarikh_dari', 'pulang_tarikh_ke', 'dari_pergi_2', 'ke_pergi_2', 'dari_pergi_3', 'ke_pergi_3', 'dari_pulang_2', 'ke_pulang_2',
                 'dari_pulang_3', 'ke_pulang_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_fail_kelulusan', 'kod_perbelanjaan'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['pegawai_teknikal'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['pegawai_teknikal', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
         
         if(!isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['psk'])){
@@ -122,6 +123,7 @@ class PermohonanKemudahanTicketKapalTerbang extends \yii\db\ActiveRecord
             'tarikh_pulang_3' => GeneralLabel::tarikh,
             'dari_pulang_3' => GeneralLabel::dari,
             'ke_pulang_3' => GeneralLabel::ke,
+            'catatan' => GeneralLabel::catatan,
         ];
     }
     

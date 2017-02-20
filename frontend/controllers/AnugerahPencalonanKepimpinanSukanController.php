@@ -24,7 +24,7 @@ use app\models\RefKategoriPencalonanLain;
  */
 class AnugerahPencalonanKepimpinanSukanController extends Controller
 {
-    /**
+    /** chmod(
      * @inheritdoc
      */
     public function behaviors()

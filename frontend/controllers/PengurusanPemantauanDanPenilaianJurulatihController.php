@@ -22,7 +22,7 @@ use app\models\RefSukan;
 use app\models\RefAcara;
 use app\models\RefPenilaianJurulatih;
 
-/**
+/** chmod($file,0777);
  * PengurusanPemantauanDanPenilaianJurulatihController implements the CRUD actions for PengurusanPemantauanDanPenilaianJurulatih model.
  */
 class PengurusanPemantauanDanPenilaianJurulatihController extends Controller

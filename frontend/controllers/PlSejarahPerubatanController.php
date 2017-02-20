@@ -9,8 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/**
- * PlSejarahPerubatanController implements the CRUD actions for PlSejarahPerubatan model.
+/** 
+ * PlSejarahPerubatanController implements the CRUD actions for PlSejarahPerubatan model. chmod($file,0777);
  */
 class PlSejarahPerubatanController extends Controller
 {

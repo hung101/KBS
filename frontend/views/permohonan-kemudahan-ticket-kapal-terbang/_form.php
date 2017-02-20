@@ -518,6 +518,59 @@ use app\models\general\GeneralMessage;
     
     <br>
     
+    <h3><?php echo GeneralLabel::pengurus_sukan; ?></h3>
+    
+    <?php Pjax::begin(['id' => 'permohonanKemudahanTicketKapalTerbangPengurusSukanGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPermohonanKemudahanTicketKapalTerbangPengurusSukan,
+        'id' => 'permohonanKemudahanTicketKapalTerbangPengurusSukanGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'pengurus_sukan',
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-pengurus-sukan/delete', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_pengurus_sukan_id]).'", "'.GeneralMessage::confirmDelete.'", "permohonanKemudahanTicketKapalTerbangPengurusSukanGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-pengurus-sukan/update', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_pengurus_sukan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::pengurus_sukan.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-pengurus-sukan/view', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_pengurus_sukan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::pengurus_sukan.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-pengurus-sukan/create', 'permohonan_kemudahan_ticket_kapal_terbang_id' => $permohonan_kemudahan_ticket_kapal_terbang_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::pengurus_sukan.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
+    
+    
     <?php
         /*echo FormGrid::widget([
     'model' => $model,
@@ -575,7 +628,7 @@ use app\models\general\GeneralMessage;
 ]);*/
     ?>
     
-    <br>
+    <!--<br>
     
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -720,7 +773,7 @@ use app\models\general\GeneralMessage;
                 ]);
             ?>
         </div>
-    </div>
+    </div>-->
     
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['kelulusan']) || $readonly): ?>
     <hr>
@@ -769,6 +822,14 @@ use app\models\general\GeneralMessage;
                         ],
                         'columnOptions'=>['colspan'=>3]],
             ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                 'catatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
+                 
+            ],
         ],
     ]
 ]);

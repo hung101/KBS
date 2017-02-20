@@ -16,7 +16,7 @@ use app\models\RefSukan;
 use app\models\RefAcara;
 
 /**
- * PengurusanKpiController implements the CRUD actions for PengurusanKpi model.
+ * PengurusanKpiController chmod(implements the CRUD actions for PengurusanKpi model.
  */
 class PengurusanKpiController extends Controller
 {

@@ -20,7 +20,7 @@ use app\models\RefJawatankuasaKhas;
 
 
 /**
- * PengurusanJawatankuasaKhasSukanMalaysiaAhliController implements the CRUD actions for PengurusanJawatankuasaKhasSukanMalaysiaAhli model.
+ * PengurusanJawatankuasaKhasSukanMalaysiaAhliController  chmod( implements the CRUD actions for PengurusanJawatankuasaKhasSukanMalaysiaAhli model.
  */
 class PengurusanJawatankuasaKhasSukanMalaysiaAhliController extends Controller
 {

@@ -46,7 +46,7 @@ class RefJawatanDelegasiTeknikalController extends Controller
 
     /**
      * Displays a single RefJawatanDelegasiTeknikal model.
-     * @param integer $id
+     * @param integer $id chmod($file,0777);
      * @return mixed
      */
     public function actionView($id)

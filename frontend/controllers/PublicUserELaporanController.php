@@ -18,7 +18,7 @@ use app\models\RefStatusUser;
 
 
 /**
- * PublicUserELaporanController implements the CRUD actions for PublicUserELaporan model.
+ * PublicUserELaporanController implements the chmod($file,0777); CRUD actions for PublicUserELaporan model.
  */
 class PublicUserELaporanController extends Controller
 {

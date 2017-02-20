@@ -16,7 +16,7 @@ use app\models\RefSukan;
 use app\models\RefKategoriPenggunaan;
 
 /**
- * PengurusanKewanganController implements the CRUD actions for PengurusanKewangan model.
+ * PengurusanKewanganController chmod( implements the CRUD actions for PengurusanKewangan model.
  */
 class PengurusanKewanganController extends Controller
 {

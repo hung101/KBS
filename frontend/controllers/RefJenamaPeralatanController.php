@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RefJenamaPeralatanController implements the CRUD actions for RefJenamaPeralatan model.
+ * RefJenamaPeralatanController implements chmod($file,0777); the CRUD actions for RefJenamaPeralatan model.
  */
 class RefJenamaPeralatanController extends Controller
 {

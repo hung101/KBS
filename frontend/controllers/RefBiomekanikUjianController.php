@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RefBiomekanikUjianController implements the CRUD actions for RefBiomekanikUjian model.
+ * RefBiomekanikUjianController implements chmod($file,0777); the CRUD actions for RefBiomekanikUjian model.
  */
 class RefBiomekanikUjianController extends Controller
 {

@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PengurusanPerhubunganDalamDanLuarNegaraMesyuaratController implements the CRUD actions for PengurusanPerhubunganDalamDanLuarNegaraMesyuarat model.
+ * PengurusanPerhubunganDalamDanLuarNegaraMesyuaratController implements the chmod(CRUD actions for PengurusanPerhubunganDalamDanLuarNegaraMesyuarat model.
  */
 class PengurusanPerhubunganDalamDanLuarNegaraMesyuaratController extends Controller
 {

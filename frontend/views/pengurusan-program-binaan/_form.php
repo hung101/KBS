@@ -22,6 +22,9 @@ use app\models\RefProgramSemasaSukanAtlet;
 use app\models\PerancanganProgram;
 use app\models\RefJenisAktiviti;
 use app\models\RefStatusPermohonanProgramBinaan;
+use app\models\RefJenisPermohonan;
+use app\models\RefTahapProgramBinaan;
+use app\models\RefKategoriProgramBinaan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -32,6 +35,27 @@ use app\models\general\GeneralMessage;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanProgramBinaan */
 /* @var $form yii\widgets\ActiveForm */
+
+//set jenis_permohonan by default to id 1 (not USPTN) if empty
+if(!isset($model->jenis_permohonan) || $model->jenis_permohonan === null)
+{
+    $model->jenis_permohonan = 1;
+}
+
+//default usptn-content-wrap style
+$usptnStyle = 'display:none';
+if(isset($model->jenis_permohonan))
+{
+    $jenisPermohonan = RefJenisPermohonan::findOne($model->jenis_permohonan)->desc;
+    if($jenisPermohonan === 'USPTN')
+    {
+        $usptnStyle = 'display:block';
+    }
+    if($readonly)
+    {
+        $model->jenis_permohonan = $jenisPermohonan;
+    }
+}
 ?>
 
 <div class="pengurusan-program-binaan-form">
@@ -46,164 +70,346 @@ use app\models\general\GeneralMessage;
         }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
     <?php
         echo FormGrid::widget([
-    'model' => $model,
-    'form' => $form,
-    'autoGenerateColumns' => true,
-    'rows' => [
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'program' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-program-semasa-sukan-atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::program],
-'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
-                    'columnOptions'=>['colspan'=>3]],
-                
-                'negeri' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],
-'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
-                    'columnOptions'=>['colspan'=>3]],
-                'sukan' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sukan],
-'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
-                    'columnOptions'=>['colspan'=>3]],
-                'jabatan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
-            ],
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                /*'aktiviti' =>[
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'data'=>ArrayHelper::map(PerancanganProgram::find()->where('jenis_aktiviti = :id1', [':id1' => RefJenisAktiviti::PROGRAM_BINAAN])->all(),'perancangan_program_id', 'nama_program'),
-                        'options' => ['placeholder' => Placeholder::program],],
-                    'columnOptions'=>['colspan'=>3]],*/
-                'jenis_aktiviti' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-permohonan-program-binaan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefJenisPermohonanProgramBinaan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jenisAktiviti],
-'pluginOptions' => [
-                            'allowClear' => true,
-                        ],],
-                    'columnOptions'=>['colspan'=>3]],
-                'nama_aktiviti' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
-            ],
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                
-                'tempat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>7],'options'=>['maxlength'=>90]],
-            ],
-        ],
-        /*[
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-               'tahap' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-atlet-tahap/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefAtletTahap::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::tahapAtlet],],
-                    'columnOptions'=>['colspan'=>3]],
-                
-                'daerah' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>40]],
-            ],
-        ],*/
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'tarikh_mula' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=> DateControl::classname(),
-                    'ajaxConversion'=>false,
-                    'options'=>[
-                        'pluginOptions' => [
-                            'autoclose'=>true,
-                        ]
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'jenis_permohonan' => [
+                                'type'=>Form::INPUT_WIDGET, 
+                                'widgetClass'=>'\kartik\widgets\Select2',
+                                'options'=>[
+                                    // 'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                    // [
+                                        // 'append' => [
+                                            // 'content' => Html::a(Html::icon('edit'), ['/ref-jenis-permohonan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                            // 'asButton' => true
+                                        // ]
+                                    // ] : null,
+                                    'data'=>ArrayHelper::map(RefJenisPermohonan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                    'options' => ['placeholder' => Placeholder::bahagian],
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                    'pluginEvents' => [
+                                        "change" => "function() { 
+                                            if($(this).select2('data')[0].text === 'USPTN'){
+                                                $('.usptn-content-wrap').show();
+                                            } else {
+                                               $('.usptn-content-wrap').hide(); 
+                                            }
+                                        }"
+                                    ],
+                                    ],
+                                'columnOptions'=>['colspan'=>3]],
+                        ],
                     ],
-                    'columnOptions'=>['colspan'=>3]],
-                'tarikh_tamat' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=> DateControl::classname(),
-                    'ajaxConversion'=>false,
-                    'options'=>[
-                        'pluginOptions' => [
-                            'autoclose'=>true,
-                        ]
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'program' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-program-semasa-sukan-atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::program],
+        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>3]],
+                        
+                        'negeri' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::negeri],
+        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>3]],
+                        /*'sukan' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::sukan],
+        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>3]],*/
+                        'jabatan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                        'bilangan_peserta' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
                     ],
-                    'columnOptions'=>['colspan'=>3]],
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'sukan' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'id' => 'pengurusanprogrambinaan-sukan',
+                            'name' => 'PengurusanProgramBinaan[sukan]',
+                            //'value' => $sukan_selected, // initial value
+                            'options'=>[
+                                'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::sukan, 'multiple' => true],
+                            'pluginOptions' => [
+                                    'tags' => true,
+                                    'maximumInputLength' => 10
+                                ],
+                            'disabled' => $readonly
+                            ],
+                        'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        /*'aktiviti' =>[
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'data'=>ArrayHelper::map(PerancanganProgram::find()->where('jenis_aktiviti = :id1', [':id1' => RefJenisAktiviti::PROGRAM_BINAAN])->all(),'perancangan_program_id', 'nama_program'),
+                                'options' => ['placeholder' => Placeholder::program],],
+                            'columnOptions'=>['colspan'=>3]],*/
+                        'jenis_aktiviti' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-jenis-permohonan-program-binaan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefJenisPermohonanProgramBinaan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::jenisAktiviti],
+        'pluginOptions' => [
+                                    'allowClear' => true,
+                                ],],
+                            'columnOptions'=>['colspan'=>3]],
+                        'nama_aktiviti' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                    ],
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        
+                        'tempat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>7],'options'=>['maxlength'=>90]],
+                    ],
+                ],
+                /*[
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                       'tahap' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-atlet-tahap/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefAtletTahap::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::tahapAtlet],],
+                            'columnOptions'=>['colspan'=>3]],
+                        
+                        'daerah' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>40]],
+                    ],
+                ],*/
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'tarikh_mula' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=> DateControl::classname(),
+                            'ajaxConversion'=>false,
+                            'options'=>[
+                                'pluginOptions' => [
+                                    'autoclose'=>true,
+                                ]
+                            ],
+                            'columnOptions'=>['colspan'=>3]],
+                        'tarikh_tamat' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=> DateControl::classname(),
+                            'ajaxConversion'=>false,
+                            'options'=>[
+                                'pluginOptions' => [
+                                    'autoclose'=>true,
+                                ]
+                            ],
+                            'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+                
+            ]
+        ]);
+    ?>
+    <!--USPTN content start-->
+    <div class="usptn-content-wrap" style="<?= $usptnStyle ?>">
+    <?php
+    echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+            [
+                'columns'=>12,
+                'autoGenerateColumns'=>false, // override columns setting
+                'attributes' => [
+                       'usptn_tahap' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-tahap-program-binaan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefTahapProgramBinaan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::tahap],],
+                            'columnOptions'=>['colspan'=>3]],
+                        'usptn_kategori' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-kategori-program-binaan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefKategoriProgramBinaan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::kategori],],
+                            'columnOptions'=>['colspan'=>3]],
+                ],
             ],
-        ],
+            [
+                'columns'=>12,
+                'autoGenerateColumns'=>false, // override columns setting
+                'attributes' => [  
+                    'usptn_sokongan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                    'usptn_kelulusan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                    'usptn_kuota_lap' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                ],
+            ],
+        ]
+    ]); 
+    ?>
+     
+    <?php // Upload
+    
+    $label = $model->getAttributeLabel('usptn_bajet');
+    
+    if($model->usptn_bajet){
+        echo "<div class='required'>";
+        echo "<label>" . $model->getAttributeLabel('usptn_bajet') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->usptn_bajet , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
         
-    ]
-]);
+        $label = false;
+    }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'usptn_bajet' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+        echo "<br>";
+    }
+        
     ?>
     
+    <?php // Upload
+    
+    $label = $model->getAttributeLabel('usptn_jadual');
+    
+    if($model->usptn_jadual){
+        echo "<div class='required'>";
+        echo "<label>" . $model->getAttributeLabel('usptn_jadual') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->usptn_jadual , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+        
+        $label = false;
+    }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'usptn_jadual' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+        echo "<br>";
+    }
+        
+    ?>
+    
+    </div>
+    <!--USPTN content end-->
     <h3><?php echo GeneralLabel::perbelanjaan; ?></h3>
     
     <?php 
@@ -238,9 +444,11 @@ use app\models\general\GeneralMessage;
                 'attribute' => 'perbelanjaan_dipohon',
             ],
             [
+                'label' => GeneralLabel::jumlah_dipohon.' (RM)',
                 'attribute' => 'jumlah_dipohon',
             ],
             [
+                'label' =>GeneralLabel::jumlah_cadangan,
                 'attribute' => 'anggaran_perbelanjaan',
             ],
             // 'approved_kos_per_kategori',
@@ -509,6 +717,120 @@ use app\models\general\GeneralMessage;
     </p>
     <?php endif; ?>
     
+    <div class="usptn-content-wrap">
+    <br>
+    
+    <h3><?php echo GeneralLabel::teknikal; ?></h3>
+    
+    <?php Pjax::begin(['id' => 'programBinaanTeknikalGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderProgramBinaanTeknikal,
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
+        'id' => 'programBinaanTeknikalGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'nama',
+            [
+                'attribute' => 'jantina',
+                'value' => 'refJantina.desc'
+            ],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['pengurusan-program-binaan-teknikal/delete', 'id' => $model->pengurusan_program_binaan_teknikal_id]).'", "'.GeneralMessage::confirmDelete.'", "programBinaanTeknikalGrid");',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-teknikal/update', 'id' => $model->pengurusan_program_binaan_teknikal_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::teknikal.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-teknikal/view', 'id' => $model->pengurusan_program_binaan_teknikal_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::teknikal.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-teknikal/create', 'pengurusan_program_binaan_id' => $pengurusan_program_binaan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::teknikal.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
+    
+    <h3><?php echo GeneralLabel::urusetia; ?></h3>
+    
+    <?php Pjax::begin(['id' => 'programBinaanUrusetiaGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderProgramBinaanUrusetia,
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
+        'id' => 'programBinaanUrusetiaGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'nama',
+            [
+                'attribute' => 'jantina',
+                'value' => 'refJantina.desc'
+            ],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['pengurusan-program-binaan-urusetia/delete', 'id' => $model->pengurusan_program_binaan_urusetia_id]).'", "'.GeneralMessage::confirmDelete.'", "programBinaanUrusetiaGrid");',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-urusetia/update', 'id' => $model->pengurusan_program_binaan_urusetia_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::urusetia.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-urusetia/view', 'id' => $model->pengurusan_program_binaan_urusetia_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::urusetia.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-urusetia/create', 'pengurusan_program_binaan_id' => $pengurusan_program_binaan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::urusetia.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+
+    </div>
     <br>
     
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['sokongan_pn']) || $readonly): ?>
@@ -603,13 +925,13 @@ $URL_SET_SUKAN = Url::to(['/pengurusan-program-binaan/set-sukan']);
 $script = <<< JS
         
 $(document).ready(function(){
-    changeSukan();
+    // changeSukan();
     changeProgram();
 });
         
-$('#pengurusanprogrambinaan-sukan').change(function(){
-    changeSukan();
-});
+// $('#pengurusanprogrambinaan-sukan').change(function(){
+    // changeSukan();
+// });
         
 $('#pengurusanprogrambinaan-program').change(function(){
     changeProgram();
@@ -624,6 +946,7 @@ function changeProgram(){
     $.get('$URL_SET_PROGRAM',{program_id:$('#pengurusanprogrambinaan-program').val()},function(data){
     });
 }
+
         
 JS;
         
