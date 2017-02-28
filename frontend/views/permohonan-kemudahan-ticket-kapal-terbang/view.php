@@ -31,6 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['update'])): ?>
+            <?= Html::a(GeneralLabel::borang_penempahan_tiket, ['borang-penempahan', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_id], ['class' => 'btn btn-success', 'target' => '_blank']) ?>
+        <?php endif; ?>
     </p>
     
     <?= $this->render('_form', [

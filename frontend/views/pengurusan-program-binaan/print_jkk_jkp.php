@@ -6,7 +6,14 @@
 <!DOCTYPE html>
 <body>
     <div class="form-title" style="margin:0px 0px 20px">
-    Borang JKK / JKP
+    PERMOHONAN JAWATANKUASA BANTUAN<br />
+    BAHAGIAN ATLET<br />
+    MAJLIS SUKAN NEGARA
+    <?php
+    if(isset($model->bilangan_jkb) && $model->bilangan_jkb != null){
+        echo '<br />BIL : '.$model->bilangan_jkb.'<br />';
+    }
+    ?>
     </div>
     
     <table class="aTable" cellspacing="0" cellpadding="0">

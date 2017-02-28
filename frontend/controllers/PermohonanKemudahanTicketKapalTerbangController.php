@@ -296,17 +296,17 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
         $dataProviderPermohonanKemudahanTicketKapalTerbangPengurusSukan = $searchModelPermohonanKemudahanTicketKapalTerbangPengurusSukan->search($queryPar);
         
         if ($model->load(Yii::$app->request->post())) {
-            if($model->jurulatih){
-                $model->jurulatih = implode(",",$model->jurulatih);
-            }
+            // if($model->jurulatih){
+                // $model->jurulatih = implode(",",$model->jurulatih);
+            // }
             
-            if($model->atlet){
-                $model->atlet = implode(",",$model->atlet);
-            }
+            // if($model->atlet){
+                // $model->atlet = implode(",",$model->atlet);
+            // }
             
-            if($model->sukan){
-                $model->sukan = implode(",",$model->sukan);
-            }
+            // if($model->sukan){
+                // $model->sukan = implode(",",$model->sukan);
+            // }
         }
         
         // calculate bilanga penumpang
@@ -517,5 +517,42 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikPermohonanKemudahanTiket', $format, $controls, 'laporan_statistik_permohonan_kemudahan_tiket');
+    }
+    
+    public function actionBorangPenempahan($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        
+        $parentModel = PermohonanKemudahanTicketKapalTerbang::findOne(['permohonan_kemudahan_ticket_kapal_terbang_id' => $id]);
+        
+        $pdf = new \mPDF('utf-8', 'A4-L');
+
+        $pdf->title = 'Borang Penempahan Tiket Kapal Terbang';
+
+        //$pdf->cssFile = 'report.css';
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print_borang_penempahan', [
+            'parentModel'  => $parentModel,
+        ]));
+
+        $pdf->Output('Borang_Penempahan_Tiket_Kapal_Terbang'.$parentModel->permohonan_kemudahan_ticket_kapal_terbang_id.'.pdf', 'I');
+    }
+    
+    public function actionSetPrimary()
+    {
+        if(Yii::$app->request->isAjax){
+            $session = Yii::$app->session;
+            $type = $_POST['type'];
+            $setValue = $_POST['set'];
+            $session->set($type, $setValue);
+
+            //$session->remove($type);
+
+        }
     }
 }

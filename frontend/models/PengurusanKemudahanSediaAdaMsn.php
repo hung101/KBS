@@ -131,7 +131,7 @@ class PengurusanKemudahanSediaAdaMsn extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getRefPengurusanVenue(){
-        return $this->hasOne(PengurusanKemudahanVenue::className(), ['pengurusan_kemudahan_venue_id' => 'pengurusan_kemudahan_venue_id']);
+        return $this->hasOne(PengurusanKemudahanVenueMsn::className(), ['pengurusan_kemudahan_venue_id' => 'pengurusan_kemudahan_venue_id']);
     }
     
     /**

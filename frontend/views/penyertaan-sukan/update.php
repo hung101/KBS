@@ -22,6 +22,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'searchModelPenyertaanSukanAcara' => $searchModelPenyertaanSukanAcara,
         'dataProviderPenyertaanSukanAcara' => $dataProviderPenyertaanSukanAcara,
+        'searchModelPenyertaanSukanJurulatih' => $searchModelPenyertaanSukanJurulatih,
+        'dataProviderPenyertaanSukanJurulatih' => $dataProviderPenyertaanSukanJurulatih,
+        'searchModelPenyertaanSukanPegawai' => $searchModelPenyertaanSukanPegawai,
+        'dataProviderPenyertaanSukanPegawai' => $dataProviderPenyertaanSukanPegawai,
+        'searchModelPenyertaanSukanPengurus' => $searchModelPenyertaanSukanPengurus,
+        'dataProviderPenyertaanSukanPengurus' => $dataProviderPenyertaanSukanPengurus,
+        'searchModelPenyertaanSukanPerbelanjaan' => $searchModelPenyertaanSukanPerbelanjaan,
+        'dataProviderPenyertaanSukanPerbelanjaan' => $dataProviderPenyertaanSukanPerbelanjaan,
         'readonly' => $readonly,
     ]) ?>
 

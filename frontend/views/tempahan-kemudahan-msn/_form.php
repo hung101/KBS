@@ -152,7 +152,7 @@ use app\models\general\GeneralMessage;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>4]],
-                'agensi' => [
+                /*'agensi' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -168,8 +168,8 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>4]],
-                /*'kemudahan' => [
+                    'columnOptions'=>['colspan'=>4]],*/
+                'agensi' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\DepDrop', 
                     'options'=>[
@@ -182,17 +182,17 @@ use app\models\general\GeneralMessage;
                                     'asButton' => true
                                 ]
                             ] : null,*/
-                            /*'pluginOptions'=>['allowClear'=>true]
+                            'pluginOptions'=>['allowClear'=>true]
                         ],
-                        'data'=>ArrayHelper::map(PengurusanKemudahanSediaAdaMsn::find()->joinWith(['refJenisKemudahan'])->all(),'pengurusan_kemudahan_sedia_ada_id', 'sukanRekreasiDanJenisKemudahan'),
+                        'data'=>ArrayHelper::map(PengurusanKemudahanSediaAdaMsn::find()->joinWith(['refAgensiKemudahan'])->all(),'agensi', 'refAgensiKemudahan.desc'),
                         'options'=>['prompt'=>'', 'id'=>'kemudahanID'],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'venue')],
                             'initialize' => true,
                             'placeholder' => Placeholder::kemudahan,
-                            'url'=>Url::to(['/pengurusan-kemudahan-sedia-ada-msn/subkemudahans'])],
+                            'url'=>Url::to(['/pengurusan-kemudahan-sedia-ada-msn/subagensis'])],
                         ],
-                    'columnOptions'=>['colspan'=>4]],*/
+                    'columnOptions'=>['colspan'=>4]],
             ],
         ],
     ]

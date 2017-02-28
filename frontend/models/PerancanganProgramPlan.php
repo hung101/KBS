@@ -19,6 +19,7 @@ use app\models\general\GeneralLabel;
  */
 class PerancanganProgramPlan extends \yii\db\ActiveRecord
 {
+    public $tarikh_dari, $tarikh_hingga;
     /**
      * @inheritdoc
      */
@@ -58,6 +59,7 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
             [['kelulusan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lokasi'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['anggaran_perbelanjaan', 'perbelanjaan_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
             ['jenis_aktiviti', 'required', 'message' => GeneralMessage::yii_validation_required, 'when' => function ($model) {
@@ -96,6 +98,8 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
             'bilangan_jkk_jkp' => GeneralLabel::bilangan_jkk_jkp,
             'tarikh_jkk_jkp' => GeneralLabel::tarikh_jkk_jkp,
             'status_permohonan' => GeneralLabel::status_permohonan,
+            'anggaran_perbelanjaan' => GeneralLabel::anggaran_perbelanjaan,
+            'perbelanjaan_diluluskan' => GeneralLabel::perbelanjaan_diluluskan.' (RM)',
         ];
     }
     

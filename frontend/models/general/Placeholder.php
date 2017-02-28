@@ -288,6 +288,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tahapPenganjuran = " -- Pilih Tahap Penganjuran -- ";
         const tarafPerkahwinan = " -- Pilih Taraf Perkahwinan -- "; 
         const tarikhKursus = " -- Pilih Tarikh Kursus -- "; 
+        const tawaranAtlet = " -- Pilih Tawaran Atlet -- "; 
         const temasya = " -- Pilih Temasya -- "; 
         const tempat = " -- Pilih Tempat -- "; 
         const tindakan = " -- Pilih Tindakan -- "; 
@@ -298,6 +299,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const venue = " -- Pilih Venue -- "; 
         const wartawan = " -- Pilih Wartawan -- ";
         const waktuKetikaDiperlukan = " -- Pilih Waktu Ketika Diperlukan -- ";
+        const kejohanan_temasya = "-- Pilih Nama Kejohanan / Temasya --";
     }
 
 }
@@ -579,6 +581,7 @@ if($session->get('language') == "EN") {
         const tahapPenganjuran = " -- Select The Level Of Organisation Of -- ";
         const tarafPerkahwinan = " -- Select Marital Status -- "; 
         const tarikhKursus = " -- Select Course Date -- ";
+        const tawaranAtlet = " -- Select Offer Athlete -- "; 
         const temasya = " -- Select Events -- "; 
         const tempat = " -- Select A Location -- "; 
         const tindakan = " -- Select An Action -- "; 
@@ -589,6 +592,7 @@ if($session->get('language') == "EN") {
         const venue = " -- Select Venue -- "; 
         const wartawan = " -- Select Journalists -- ";
         const waktuKetikaDiperlukan = " -- Select The Time When Needed -- ";
+        const kejohanan_temasya = "-- Select The Name Of Tournament / Games --";
     }
 }
 

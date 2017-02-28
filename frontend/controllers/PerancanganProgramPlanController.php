@@ -10,11 +10,13 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
 use yii\web\UploadedFile;
+use yii\helpers\BaseUrl;
 
 use app\models\general\Upload;
 
 // contant values
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefJenisProgram;
@@ -28,6 +30,7 @@ use app\models\RefKategoriPelan;
 use app\models\RefJenisPelan;
 use app\models\RefKedudukanKejohanan;
 use app\models\RefStatusPermohonanProgramBinaan;
+use app\models\MsnLaporan;
 
 /**
  * PerancanganProgramPlanController implements the CRUD actions for PerancanganProgramPlan model.
@@ -204,5 +207,104 @@ class PerancanganProgramPlanController extends Controller
         $model = PerancanganProgramPlan::findOne($id);
         
         echo Json::encode($model);
+    }
+    
+    public function actionLaporanKewangan()
+    {
+        // if (Yii::$app->user->isGuest) {
+            // return $this->redirect(array(GeneralVariable::loginPagePath));
+        // }
+        
+        // $model = new PerancanganProgramPlan;
+        
+        // if ($model->load(Yii::$app->request->post())) {
+            
+            // $query = PerancanganProgramPlan::find()->all();
+            
+            // if(isset($model->sukan) && $model->sukan != '')
+            // {
+                // echo 'afa';
+            // } 
+            // $query->andFilterWhere([
+            // 'status' => $this->status
+        // ]);
+            
+    
+            // $pdf = new \mPDF('utf-8', 'A4-L');
+
+            // $pdf->title = "Laporan Kewangan Plan Periodisasi";
+            // $stylesheet = file_get_contents('css/report.css');
+
+            // $pdf->WriteHTML($stylesheet,1);
+            
+            // $pdf->WriteHTML($this->renderpartial('generate_kewangan_plan_periodisasi', [
+                  // 'model'  => $model,
+            // ]));
+
+            // $pdf->Output('Laporan Kewangan Plan Periodisasi'.$model->sukan.'_'.$model->jenis_program.'.pdf', 'I');
+        // }
+        
+        // return $this->render('laporan_kewangan_plan', [
+             // 'model' => $model,
+        // ]);
+        
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-kewangan-plan-periodisasi'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'sukan' => $model->sukan
+                    , 'program' => $model->program
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-kewangan-plan-periodisasi'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'sukan' => $model->sukan
+                    , 'program' => $model->program
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_kewangan_plan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+        
+    }
+
+    public function actionGenerateLaporanKewanganPlanPeriodisasi($tarikh_dari, $tarikh_hingga, $sukan, $program, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'SUKAN' => $sukan,
+            'PROGRAM' => $program,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanKewanganPlanPeriodisasi', $format, $controls, 'laporan_kewangan_plan_periodisasi');
     }
 }

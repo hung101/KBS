@@ -13,6 +13,7 @@ use yii\bootstrap\Modal;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 use kartik\widgets\DepDrop;
+use kartik\widgets\TimePicker;
 
 // table reference
 use app\models\Jurulatih;
@@ -35,6 +36,14 @@ use app\models\general\GeneralMessage;
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanKemudahanTicketKapalTerbang */
 /* @var $form yii\widgets\ActiveForm */
+if($readonly){
+    if(isset($model->pri_tarikh_pergi)){
+        $model->pri_tarikh_pergi = date('d/m/Y',strtotime($model->pri_tarikh_pergi));
+    }
+    if(isset($model->pri_tarikh_balik)){
+        $model->pri_tarikh_balik = date('d/m/Y',strtotime($model->pri_tarikh_balik));
+    }
+}
 ?>
 
 <div class="permohonan-kemudahan-ticket-kapal-terbang-form">
@@ -160,6 +169,105 @@ use app\models\general\GeneralMessage;
     ]
 ]);
     ?>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong><?=GeneralLabel::pergi?></strong>
+        </div>
+        <div class="panel-body">
+            <?php
+            echo FormGrid::widget([
+                'model' => $model,
+                'form' => $form,
+                'autoGenerateColumns' => true,
+                'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'pri_tarikh_pergi' => [
+                                'type'=>Form::INPUT_WIDGET, 
+                                'widgetClass'=> DateControl::classname(),
+                                'ajaxConversion'=>false,
+                                'options'=>[
+                                    'pluginOptions' => [
+                                        'autoclose'=>true,
+                                    ]
+                                ],
+                                // 'pluginEvents' => [
+                                    // "changeDate" => "function(e) {  alert('sadsad'); }",
+                                // ],
+                                // 'clientOptions' => [
+                                    // 'onSelect' => "function(e) {  alert('sadsad'); }",
+                                // ],
+                                
+                                'columnOptions'=>['colspan'=>3]],
+                            'pri_flight_pergi' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>true],'columnOptions'=>['colspan'=>3]],
+                            'pri_masa_pergi' => [
+                                'type'=>Form::INPUT_WIDGET, 
+                                'widgetClass'=> TimePicker::classname(),
+                                'ajaxConversion'=>false,
+                                'data-type' => 'testabc',
+                                'options'=>[
+                                    'pluginOptions' => [
+                                        'autoclose'=>true,
+                                    ]
+                                ],
+                                'columnOptions'=>['colspan'=>3]],
+                            'pri_destinasi_pergi' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>90],'columnOptions'=>['colspan'=>3]],
+                        ]
+                    ],
+                ]
+            ]);
+            ?>
+        </div>
+    </div>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong><?=GeneralLabel::balik?></strong>
+        </div>
+        <div class="panel-body">
+            <?php
+            echo FormGrid::widget([
+                'model' => $model,
+                'form' => $form,
+                'autoGenerateColumns' => true,
+                'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'pri_tarikh_balik' => [
+                                'type'=>Form::INPUT_WIDGET, 
+                                'widgetClass'=> DateControl::classname(),
+                                'ajaxConversion'=>false,
+                                'options'=>[
+                                    'pluginOptions' => [
+                                        'autoclose'=>true,
+                                    ]
+                                ],
+                                'columnOptions'=>['colspan'=>3]],
+                            'pri_flight_balik' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>90],'columnOptions'=>['colspan'=>3]],
+                            'pri_masa_balik' => [
+                                'type'=>Form::INPUT_WIDGET, 
+                                'widgetClass'=> TimePicker::classname(),
+                                'ajaxConversion'=>false,
+                                'options'=>[
+                                    'pluginOptions' => [
+                                        'autoclose'=>true,
+                                    ]
+                                ],
+                                'columnOptions'=>['colspan'=>3]],
+                            'pri_destinasi_balik' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>90],'columnOptions'=>['colspan'=>3]],
+                        ]
+                    ],
+                ]
+            ]);
+            ?>
+        </div>
+    </div>
+    
     
     <h3><?php echo GeneralLabel::sukan; ?></h3>
     
@@ -425,6 +533,7 @@ use app\models\general\GeneralMessage;
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
                         'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-kemudahan-ticket-kapal-terbang-jurulatih/create', 'permohonan_kemudahan_ticket_kapal_terbang_id' => $permohonan_kemudahan_ticket_kapal_terbang_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::jurulatih.'");',
                         'class' => 'btn btn-success',
+                        'id' => 'plus-jurulatih',
                         ]);?>
     </p>
     <?php endif; ?>
@@ -880,6 +989,8 @@ use app\models\general\GeneralMessage;
 </div>
 
 <?php
+$URL_TIKET = Url::to(['/permohonan-kemudahan-ticket-kapal-terbang/set-primary']);
+
 $DateDisplayFormat = GeneralVariable::displayDateFormat;
 
 $script = <<< JS
@@ -926,6 +1037,46 @@ $('.custom_button').click(function(){
         window.open($(this).attr('value'), "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no");
         return false;
 });});
+
+
+
+$("#permohonankemudahanticketkapalterbang-pri_tarikh_pergi").change(function() {
+    setPrimary('pri_tarikh_pergi', $(this).val());
+});
+
+$("#permohonankemudahanticketkapalterbang-pri_flight_pergi").change(function() {
+    setPrimary('pri_flight_pergi', $(this).val());
+});
+
+$("#permohonankemudahanticketkapalterbang-pri_masa_pergi").change(function() {
+    setPrimary('pri_masa_pergi', $(this).val());
+});
+
+$("#permohonankemudahanticketkapalterbang-pri_destinasi_pergi").change(function() {
+    setPrimary('pri_destinasi_pergi', $(this).val());
+});
+//balik
+$("#permohonankemudahanticketkapalterbang-pri_tarikh_balik").change(function() {
+    setPrimary('pri_tarikh_balik', $(this).val());
+});
+
+$("#permohonankemudahanticketkapalterbang-pri_flight_balik").change(function() {
+    setPrimary('pri_flight_balik', $(this).val());
+});
+
+$("#permohonankemudahanticketkapalterbang-pri_masa_balik").change(function() {
+    setPrimary('pri_masa_balik', $(this).val());
+});
+
+$("#permohonankemudahanticketkapalterbang-pri_destinasi_balik").change(function() {
+    setPrimary('pri_destinasi_balik', $(this).val());
+});
+
+function setPrimary(type, value){
+    $.post('$URL_TIKET',{'type':type, 'set': value},function(data){
+        //alert(data);
+    });
+}
 
 JS;
         

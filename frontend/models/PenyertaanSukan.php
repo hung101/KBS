@@ -55,10 +55,11 @@ class PenyertaanSukan extends \yii\db\ActiveRecord
     {
         return [
             [['peringkat', 'program', 'nama_sukan', 'tempat_penginapan', 'nama_atlet',
-               'tarikh_mula', 'tarikh_tamat', 'tempat_latihan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['mesyuarat_id', 'penilaian_pestasi_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+               'tarikh_mula', 'tarikh_tamat', 'tempat_latihan', 'nama_kejohanan_temasya'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['mesyuarat_id', 'penilaian_pestasi_id', 'nama_kejohanan_temasya'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_sukan', 'nama_kejohanan', 'nama_pegawai', 'jawatan_pegawai', 'nama_pengurus_sukan', 'nama_sukarelawan', 'nama_temasya'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat_penginapan', 'tempat_latihan'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['sasaran_kejohanan', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
 
@@ -85,6 +86,9 @@ class PenyertaanSukan extends \yii\db\ActiveRecord
             'program' => GeneralLabel::program,
             'tarikh_mula' => GeneralLabel::tarikh_mula,
             'tarikh_tamat' => GeneralLabel::tarikh_tamat,
+            'nama_kejohanan_temasya' => GeneralLabel::nama_kejohanan_temasya,
+            'sasaran_kejohanan' => GeneralLabel::sasaran_kejohanan,
+            'catatan' => GeneralLabel::catatan,
         ];
     }
     
@@ -92,17 +96,17 @@ class PenyertaanSukan extends \yii\db\ActiveRecord
     {
          if (parent::beforeValidate())
          {
-            if (($this->nama_kejohanan==null)&&($this->nama_temasya==null))      
-            {
-                    $this->addError('nama_kejohanan', GeneralMessage::yii_validation_required_either);
-                    $this->addError('nama_temasya', GeneralMessage::yii_validation_required_either);
-                    return false;
-            } else if (($this->nama_kejohanan!=null)&&($this->nama_temasya!=null))      
-            {
-                    $this->addError('nama_kejohanan', GeneralMessage::yii_validation_required_only_one);
-                    $this->addError('nama_temasya', GeneralMessage::yii_validation_required_only_one);
-                    return false;
-            }
+            // if (($this->nama_kejohanan==null)&&($this->nama_temasya==null))      
+            // {
+                    // $this->addError('nama_kejohanan', GeneralMessage::yii_validation_required_either);
+                    // $this->addError('nama_temasya', GeneralMessage::yii_validation_required_either);
+                    // return false;
+            // } else if (($this->nama_kejohanan!=null)&&($this->nama_temasya!=null))      
+            // {
+                    // $this->addError('nama_kejohanan', GeneralMessage::yii_validation_required_only_one);
+                    // $this->addError('nama_temasya', GeneralMessage::yii_validation_required_only_one);
+                    // return false;
+            // }
 
             return true;
          }

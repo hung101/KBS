@@ -158,13 +158,11 @@ class RefSukanController extends Controller
         $session = new Session;
         $session->open();
         
-        if(isset($session['atlet_cacat']) && $session['atlet_cacat']){
+        if(isset($session['atlet_cacat']) && $session['atlet_cacat'] == true){
             $data = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->select(['id','desc AS name'])->asArray()->all();
-        } else {
+        } elseif(isset($session['atlet_cacat']) && $session['atlet_cacat'] == false){
             $data = RefSukan::find()->where(['ref_cawangan_id'=>$kategori_id])->andWhere(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->select(['id','desc AS name'])->asArray()->all();
-        }
-        
-        if(!isset($session['atlet_cacat'])){
+        } else {
             $data = RefSukan::find()->where(['ref_cawangan_id'=>$kategori_id])->andWhere(['=', 'aktif', 1])->select(['id','desc AS name'])->asArray()->all();
         }
         
@@ -180,13 +178,11 @@ class RefSukanController extends Controller
                     array_push($arr_sukan_filter,$arr_sukan);
             }
             
-            if(isset($session['atlet_cacat']) && $session['atlet_cacat']){
+            if(isset($session['atlet_cacat']) && $session['atlet_cacat'] == true){
                 $data = RefSukan::find()->where(['=', 'aktif', 1])->andWhere(['=', 'cacat', 1])->andFilterWhere(['id'=>$arr_sukan_filter])->select(['id','desc AS name'])->asArray()->all();
-            } else {
+            } elseif(isset($session['atlet_cacat']) && $session['atlet_cacat'] == false){
                 $data = RefSukan::find()->where(['ref_cawangan_id'=>$kategori_id])->andWhere(['=', 'aktif', 1])->andWhere(['=', 'cacat', 0])->andFilterWhere(['id'=>$arr_sukan_filter])->select(['id','desc AS name'])->asArray()->all();
-            }
-
-            if(!isset($session['atlet_cacat'])){
+            } else {
                 $data = RefSukan::find()->where(['ref_cawangan_id'=>$kategori_id])->andWhere(['=', 'aktif', 1])->andFilterWhere(['id'=>$arr_sukan_filter])->select(['id','desc AS name'])->asArray()->all();
             }
         }

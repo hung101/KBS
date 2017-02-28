@@ -63,15 +63,15 @@ class PermohonanKemudahanTicketKapalTerbang extends \yii\db\ActiveRecord
     {
         $rules = [
             [['nama_pemohon', 'jawatan', 'nama_program', 'aktiviti', 'sukan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh', 'tarikh_jkb', 'pulang', 'tarikh_pergi_2', 'tarikh_pergi_3', 'tarikh_pulang_2', 'tarikh_pulang_3', 'jurulatih', 'atlet', 'sukan'], 'safe'],
+            [['tarikh', 'tarikh_jkb', 'pulang', 'tarikh_pergi_2', 'tarikh_pergi_3', 'tarikh_pulang_2', 'tarikh_pulang_3', 'jurulatih', 'atlet', 'sukan', 'pri_tarikh_pergi', 'pri_tarikh_balik'], 'safe'],
             [['bil_penumpang', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_pemohon', 'jawatan', 'nama_program', 'aktiviti', 'cawangan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['bahagian'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['bilangan_jkb'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['bilangan_jkb', 'pri_flight_pergi', 'pri_flight_balik'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['destinasi', 'tarikh_ke', 'pulang_tarikh_dari', 'pulang_tarikh_ke', 'dari_pergi_2', 'ke_pergi_2', 'dari_pergi_3', 'ke_pergi_3', 'dari_pulang_2', 'ke_pulang_2',
                 'dari_pulang_3', 'ke_pulang_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['no_fail_kelulusan', 'kod_perbelanjaan'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['pegawai_teknikal', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['no_fail_kelulusan', 'kod_perbelanjaan', 'pri_masa_pergi', 'pri_masa_balik'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['pegawai_teknikal', 'catatan', 'pri_destinasi_pergi', 'pri_destinasi_balik'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
         
         if(!isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['psk'])){
@@ -124,6 +124,14 @@ class PermohonanKemudahanTicketKapalTerbang extends \yii\db\ActiveRecord
             'dari_pulang_3' => GeneralLabel::dari,
             'ke_pulang_3' => GeneralLabel::ke,
             'catatan' => GeneralLabel::catatan,
+            'pri_tarikh_pergi' => GeneralLabel::tarikh,
+            'pri_flight_pergi' => GeneralLabel::flight_no,
+            'pri_masa_pergi' => GeneralLabel::masa,
+            'pri_destinasi_pergi' => GeneralLabel::destinasi,
+            'pri_tarikh_balik' => GeneralLabel::tarikh,
+            'pri_flight_balik' => GeneralLabel::flight_no,
+            'pri_masa_balik' => GeneralLabel::masa,
+            'pri_destinasi_balik' => GeneralLabel::destinasi,
         ];
     }
     

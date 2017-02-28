@@ -81,10 +81,56 @@ html{
     font-weight:bold;
 }
 
+.form-title-center2{
+    margin: 0;
+    /*background: yellow;*/
+    position: absolute;
+    top: 90px;
+    left: 250px;
+    margin-right: -50%;
+    font-size:18px;
+    font-weight:bold;
+    font-size:28px;
+}
+
+.centerHeaderForm{
+    text-align:center;
+    font-weight:bold;
+}
+
+.leftMargin{
+    margin-left:60px
+}
+
 .solid{
     border:1px solid #000;
 }
 
 .solid2{
     border:2px solid #000;
+}
+
+.sectionWrap{
+    margin:20px 0px;
+}
+
+.innerText{
+    border:1px solid #000;
+    padding:5px;
+}
+
+hr.style-eight {
+    padding: 0;
+    border: none;
+    border-top: medium double #333;
+    color: #333;
+    text-align: center;
+}
+hr.style-eight:after {
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: white;
 }

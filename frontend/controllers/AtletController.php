@@ -40,6 +40,7 @@ use app\models\RefJenisLesenParalimpik;
 use app\models\RefAgensiOku;
 use app\models\RefKategoriKecacatan;
 use app\models\RefPassportTempatDikeluarkan;
+use app\models\RefTawaranAtlet;
 
 use app\models\general\GeneralLabel;
 use app\models\general\Upload;
@@ -264,6 +265,9 @@ class AtletController extends Controller
         
         $YesNo = GeneralLabel::getYesNoLabel($atlet->cacat);
         $atlet->cacat = $YesNo;
+        
+        $ref = RefTawaranAtlet::findOne(['id' => $atlet->tawaran_atlet]);
+        $atlet->tawaran_atlet = $ref['desc'];
         
         return $this->render('layout', [
             'model' => $atlet,

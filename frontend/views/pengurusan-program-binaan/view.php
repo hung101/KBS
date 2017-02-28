@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ]) ?>
         <?php endif; ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['update'])): ?>
-            <?= Html::a(GeneralLabel::print_jkk_jkp, ['print-jkk-jkp', 'id' => $model->pengurusan_program_binaan_id], ['class' => 'btn btn-info custom_button', 'target' => '_blank']) ?>
+            <?= Html::a(GeneralLabel::print_jkb, ['print-jkk-jkp', 'id' => $model->pengurusan_program_binaan_id], ['class' => 'btn btn-info custom_button', 'target' => '_blank']) ?>
         <?php endif; ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['update']) && $jenisPermohonan === 'USPTN'): ?>
             <?= Html::a(GeneralLabel::print_borang_permohonan, ['print-borang-permohonan', 'id' => $model->pengurusan_program_binaan_id], ['class' => 'btn btn-success custom_button', 'target' => '_blank']) ?>

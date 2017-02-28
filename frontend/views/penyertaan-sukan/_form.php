@@ -59,6 +59,30 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'nama_kejohanan_temasya' => [
+                'type'=>Form::INPUT_WIDGET, 
+                'widgetClass'=>'\kartik\widgets\Select2',
+                'options'=>[
+                    // 'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                    // [
+                        // 'append' => [
+                            // 'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                            // 'asButton' => true
+                        // ]
+                    // ] : null,
+                    'data'=>ArrayHelper::map(\app\models\PerancanganProgramPlan::find()->joinWith('refKategoriPelan')
+                            ->where(['LIKE', 'desc', 'kejohanan'])->all(),'perancangan_program_id', 'nama_program'),
+                    'options' => ['placeholder' => Placeholder::kejohanan_temasya],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],],
+                'columnOptions'=>['colspan'=>4]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                 'nama_sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -96,11 +120,11 @@ use app\models\general\GeneralMessage;
                 
             ],
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                /* 'kategori_penilaian' => [
+                 'kategori_penilaian' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -113,7 +137,7 @@ use app\models\general\GeneralMessage;
                         ] : null,
                         'data'=>ArrayHelper::map(RefKategoriPenilaian::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::kategoriPenilaian],],
-                    'columnOptions'=>['colspan'=>4]],*/
+                    'columnOptions'=>['colspan'=>4]],
                 'nama_kejohanan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -151,7 +175,7 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>4]],
                 
             ],
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -226,21 +250,29 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>6]],*/
             ],
         ],
+        // [
+            // 'columns'=>12,
+            // 'autoGenerateColumns'=>false, // override columns setting
+            // 'attributes' => [
+               
+                 // 'nama_pegawai' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                // 'jawatan_pegawai' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+            // ],
+        // ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-               
-                 'nama_pegawai' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
-                'jawatan_pegawai' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                //'nama_pengurus_sukan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                'sasaran_kejohanan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                'nama_sukarelawan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
             ],
         ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama_pengurus_sukan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
-                'nama_sukarelawan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                'catatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
             ],
         ],
     ]
@@ -343,22 +375,226 @@ use app\models\general\GeneralMessage;
     <?php Pjax::end(); ?>
     
     <br>
+    
+    <h3><?php echo GeneralLabel::perbelanjaan; ?></h3>
+    
+    
+    <?php Pjax::begin(['id' => 'penyertaanSukanPerbelanjaanGrid', 'timeout' => 100000]); ?>
 
-    <!--<?= $form->field($model, 'nama_sukan')->textInput(['maxlength' => 80]) ?>
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPenyertaanSukanPerbelanjaan,
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
+        'id' => 'penyertaanSukanPerbelanjaanGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'label' => GeneralLabel::kategori,
+                'attribute' => 'refKategoriPerbelanjaanSukan.desc',
+            ],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['penyertaan-sukan-perbelanjaan/delete', 'id' => $model->penyertaan_sukan_perbelanjaan_id]).'", "'.GeneralMessage::confirmDelete.'", "penyertaanSukanPerbelanjaanGrid");',
+                        ]);
 
-    <?= $form->field($model, 'tempat_penginapan')->textInput(['maxlength' => 90]) ?>
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-perbelanjaan/update', 'id' => $model->penyertaan_sukan_perbelanjaan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::perbelanjaan.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-perbelanjaan/view', 'id' => $model->penyertaan_sukan_perbelanjaan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::perbelanjaan.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-perbelanjaan/create', 'penyertaan_sukan_id' => $penyertaan_sukan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::perbelanjaan.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br />
+    
+    <h3><?php echo GeneralLabel::jurulatih; ?></h3>
+    
+    
+    <?php Pjax::begin(['id' => 'penyertaanSukanJurulatihGrid', 'timeout' => 100000]); ?>
 
-    <?= $form->field($model, 'tempat_latihan')->textInput(['maxlength' => 90]) ?>
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPenyertaanSukanJurulatih,
+        //'filterModel' => $searchModelPengurusanProgramBinaanJurulatih,
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
+        'id' => 'penyertaanSukanJurulatihGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'attribute' => 'jurulatih_id',
+                'value' => 'refJurulatih.nama'
+            ],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['penyertaan-sukan-jurulatih/delete', 'id' => $model->penyertaan_sukan_jurulatih_id]).'", "'.GeneralMessage::confirmDelete.'", "penyertaanSukanJurulatihGrid");',
+                        ]);
 
-    <?= $form->field($model, 'nama_atlet')->textInput(['maxlength' => 80]) ?>
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-jurulatih/update', 'id' => $model->penyertaan_sukan_jurulatih_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::jurulatih.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-jurulatih/view', 'id' => $model->penyertaan_sukan_jurulatih_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::jurulatih.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-jurulatih/create', 'penyertaan_sukan_id' => $penyertaan_sukan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::jurulatih.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br />
+    
+    <h3><?php echo GeneralLabel::pegawai; ?></h3>
+    
+    
+    <?php Pjax::begin(['id' => 'penyertaanSukanPegawaiGrid', 'timeout' => 100000]); ?>
 
-    <?= $form->field($model, 'nama_pegawai')->textInput(['maxlength' => 80]) ?>
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPenyertaanSukanPegawai,
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
+        'id' => 'penyertaanSukanPegawaiGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'nama',
+            'jawatan',
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['penyertaan-sukan-pegawai/delete', 'id' => $model->penyertaan_sukan_pegawai_id]).'", "'.GeneralMessage::confirmDelete.'", "penyertaanSukanPegawaiGrid");',
+                        ]);
 
-    <?= $form->field($model, 'jawatan_pegawai')->textInput(['maxlength' => 80]) ?>
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-pegawai/update', 'id' => $model->penyertaan_sukan_pegawai_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::pegawai.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-pegawai/view', 'id' => $model->penyertaan_sukan_pegawai_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::pegawai.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-pegawai/create', 'penyertaan_sukan_id' => $penyertaan_sukan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::pegawai.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br />
+    
+    <h3><?php echo GeneralLabel::pengurus_sukan; ?></h3>
+    
+    
+    <?php Pjax::begin(['id' => 'penyertaanSukanPengurusGrid', 'timeout' => 100000]); ?>
 
-    <?= $form->field($model, 'nama_pengurus_sukan')->textInput(['maxlength' => 80]) ?>
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPenyertaanSukanPengurus,
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
+        'id' => 'penyertaanSukanPengurusGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'nama',
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['penyertaan-sukan-pengurus/delete', 'id' => $model->penyertaan_sukan_pengurus_id]).'", "'.GeneralMessage::confirmDelete.'", "penyertaanSukanPengurusGrid");',
+                        ]);
 
-    <?= $form->field($model, 'nama_sukarelawan')->textInput(['maxlength' => 80]) ?>-->
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-pengurus/update', 'id' => $model->penyertaan_sukan_pengurus_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::pengurus_sukan.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-pengurus/view', 'id' => $model->penyertaan_sukan_pengurus_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::pengurus_sukan.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-pengurus/create', 'penyertaan_sukan_id' => $penyertaan_sukan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::pengurus_sukan.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br />
 
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -366,6 +602,7 @@ use app\models\general\GeneralMessage;
             'data' => [
                     'confirm' => GeneralMessage::confirmSave,
                 ],]) ?>
+        <?= Html::a(GeneralLabel::permohonan_kemudahan_ticket_kapal_terbang, ['/permohonan-kemudahan-ticket-kapal-terbang/create'], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
         <?php endif; ?>
     </div>
 

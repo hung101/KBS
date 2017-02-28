@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use Yii;
+use app\models\PermohonanKemudahanTicketKapalTerbang;
 use app\models\PermohonanKemudahanTicketKapalTerbangJurulatih;
 use frontend\models\PermohonanKemudahanTicketKapalTerbangJurulatihSearch;
 use yii\web\Controller;
@@ -92,9 +93,65 @@ class PermohonanKemudahanTicketKapalTerbangJurulatihController extends Controlle
         
         if($permohonan_kemudahan_ticket_kapal_terbang_id != ''){
             $model->permohonan_kemudahan_ticket_kapal_terbang_id = $permohonan_kemudahan_ticket_kapal_terbang_id;
+            
+            $parentModel = PermohonanKemudahanTicketKapalTerbang::findOne(['permohonan_kemudahan_ticket_kapal_terbang_id' => $permohonan_kemudahan_ticket_kapal_terbang_id]);
+            
+            if(isset($parentModel->pri_tarikh_pergi) && $parentModel->pri_tarikh_pergi != null){
+                $model->tarikh_pergi = $parentModel->pri_tarikh_pergi;
+            }     
+            if(isset($parentModel->pri_flight_pergi) && $parentModel->pri_flight_pergi != null){
+                $model->flight_no_pergi = $parentModel->pri_flight_pergi;
+            }    
+            if(isset($parentModel->pri_masa_pergi) && $parentModel->pri_masa_pergi != null){
+                $model->masa_pergi = $parentModel->pri_masa_pergi;
+            }   
+            if(isset($parentModel->pri_destinasi_pergi) && $parentModel->pri_destinasi_pergi != null){
+                $model->destinasi_pergi = $parentModel->pri_destinasi_pergi;
+            }              
+            //balik
+            if(isset($parentModel->pri_tarikh_balik) && $parentModel->pri_tarikh_balik != null){
+                $model->tarikh_balik = $parentModel->pri_tarikh_balik;
+            }     
+            if(isset($parentModel->pri_flight_balik) && $parentModel->pri_flight_balik != null){
+                $model->flight_no_balik = $parentModel->pri_flight_balik;
+            }    
+            if(isset($parentModel->pri_masa_balik) && $parentModel->pri_masa_balik != null){
+                $model->masa_balik = $parentModel->pri_masa_balik;
+            }   
+            if(isset($parentModel->pri_destinasi_balik) && $parentModel->pri_destinasi_balik != null){
+                $model->destinasi_balik = $parentModel->pri_destinasi_balik;
+            }  
+            
         } else {
             if(isset(Yii::$app->session->id)){
                 $model->session_id = Yii::$app->session->id;
+                
+                $session = Yii::$app->session;
+                if ($session->has('pri_tarikh_pergi')){
+                    $model->tarikh_pergi = $session->get('pri_tarikh_pergi');
+                }
+                if ($session->has('pri_flight_pergi')){
+                    $model->flight_no_pergi = $session->get('pri_flight_pergi');
+                }
+                if ($session->has('pri_masa_pergi')){
+                    $model->masa_pergi = $session->get('pri_masa_pergi');
+                }
+                if ($session->has('pri_destinasi_pergi')){
+                    $model->destinasi_pergi = $session->get('pri_destinasi_pergi');
+                }
+                //balik
+                if ($session->has('pri_tarikh_balik')){
+                    $model->tarikh_balik = $session->get('pri_tarikh_balik');
+                }
+                if ($session->has('pri_flight_balik')){
+                    $model->flight_no_balik = $session->get('pri_flight_balik');
+                }
+                if ($session->has('pri_masa_balik')){
+                    $model->masa_balik = $session->get('pri_masa_balik');
+                }
+                if ($session->has('pri_destinasi_balik')){
+                    $model->destinasi_balik = $session->get('pri_destinasi_balik');
+                }
             }
         }
 

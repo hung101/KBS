@@ -61,7 +61,7 @@ class PengurusanKemudahanSediaAdaMsnSearch extends PengurusanKemudahanSediaAdaMs
 
         $query->andFilterWhere([
             'pengurusan_kemudahan_sedia_ada_id' => $this->pengurusan_kemudahan_sedia_ada_id,
-            'tbl_pengurusan_kemudahan_venue.pengurusan_kemudahan_venue_id' => $this->pengurusan_kemudahan_venue_id,
+            'tbl_pengurusan_kemudahan_sedia_ada_msn.pengurusan_kemudahan_venue_id' => $this->pengurusan_kemudahan_venue_id,
             'jumlah_kapasiti' => $this->jumlah_kapasiti,
             'bilangan_kekerapan_penyenggaran' => $this->bilangan_kekerapan_penyenggaran,
             'kekerapan_penggunaan' => $this->kekerapan_penggunaan,

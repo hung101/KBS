@@ -257,6 +257,14 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>4]],
             ]
         ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+               'anggaran_perbelanjaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                'perbelanjaan_diluluskan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+            ]
+        ],
     ]
 ]);
     ?>

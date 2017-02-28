@@ -551,7 +551,7 @@ class GajiDanElaunJurulatihController extends Controller
         
         $model = new MsnSuratTawaranAtlet();
         $model->gaji_dan_elaun_jurulatih_id = $gaji_dan_elaun_jurulatih_id;
-        $model->format = 'html';
+        $model->format = 'pdf';
 
         if ($model->load(Yii::$app->request->post())) {
             

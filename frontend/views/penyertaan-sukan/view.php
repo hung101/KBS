@@ -32,12 +32,32 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update'])): ?>
+            <?= Html::a(GeneralLabel::print_jkb, ['print-jkk-jkp', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-info custom_button', 'target' => '_blank']) ?>
+        <?php endif; ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update'])): ?>
+            <?= Html::a(GeneralLabel::laporan_penyertaan_kejohanan, ['laporan-penyertaan-kejohanan', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-success custom_button', 'target' => '_blank']) ?>
+        <?php endif; ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update'])): ?>
+            <?= Html::a(GeneralLabel::laporan_pendedahan_latihan, ['laporan-pendedahan-latihan', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-warning custom_button', 'target' => '_blank']) ?>
+        <?php endif; ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update'])): ?>
+            <?= Html::a('Penilaian Prestasi Mengikut Kejohanan', ['print-penilaian-prestasi', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-default custom_button', 'target' => '_blank']) ?>
+        <?php endif; ?>
     </p>
     
     <?= $this->render('_form', [
         'model' => $model,
         'searchModelPenyertaanSukanAcara' => $searchModelPenyertaanSukanAcara,
         'dataProviderPenyertaanSukanAcara' => $dataProviderPenyertaanSukanAcara,
+        'searchModelPenyertaanSukanJurulatih' => $searchModelPenyertaanSukanJurulatih,
+        'dataProviderPenyertaanSukanJurulatih' => $dataProviderPenyertaanSukanJurulatih,
+        'searchModelPenyertaanSukanPegawai' => $searchModelPenyertaanSukanPegawai,
+        'dataProviderPenyertaanSukanPegawai' => $dataProviderPenyertaanSukanPegawai,
+        'searchModelPenyertaanSukanPengurus' => $searchModelPenyertaanSukanPengurus,
+        'dataProviderPenyertaanSukanPengurus' => $dataProviderPenyertaanSukanPengurus,
+        'searchModelPenyertaanSukanPerbelanjaan' => $searchModelPenyertaanSukanPerbelanjaan,
+        'dataProviderPenyertaanSukanPerbelanjaan' => $dataProviderPenyertaanSukanPerbelanjaan,
         'readonly' => $readonly,
     ]) ?>
 

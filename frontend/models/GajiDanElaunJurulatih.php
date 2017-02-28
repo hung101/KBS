@@ -57,7 +57,7 @@ class GajiDanElaunJurulatih extends \yii\db\ActiveRecord
     {
         return [
             [['nama_jurulatih', 'bank', 'no_akaun', 'cawangan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['nama_jurulatih', 'program', 'no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['nama_jurulatih', 'program', 'no_kad_pengenalan', 'no_akaun'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_passport'], 'string', 'max' => 15, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_sukan', 'bank', 'cawangan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],

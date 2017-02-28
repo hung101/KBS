@@ -272,6 +272,11 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                                     'items' => [
                                                         ['label' => GeneralLabel::penilaian_prestasi_kejohanan, 'url' => ['/penyertaan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['module'])],
                                                         //['label' => GeneralLabel::aduan, 'url' => ['/penyertaan-sukan-aduan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan-aduan']['module'])],
+                                                        ['label' => GeneralLabel::laporan,
+                                                            'items' => [
+                                                                ['label' => GeneralLabel::competition_and_training_information, 'url' => ['/penyertaan-sukan/laporan-competition-training'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['module'])],
+                                                            ],
+                                                        ],
                                                     ],
                                                 ],
                                             ],
@@ -282,7 +287,19 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                     'label' => GeneralLabel::latihan_program,
                                     'items' => [
                                         //['label' => GeneralLabel::takwim_program, 'url' => ['/perancangan-program/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
-                                        ['label' => GeneralLabel::takwim_program, 'url' => ['/perancangan-program-plan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
+                                        // ['label' => GeneralLabel::takwim_program, 'url' => ['/perancangan-program-plan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
+                                        [
+                                            'label' => GeneralLabel::takwim_program,
+                                            'items' => [
+                                                ['label' => GeneralLabel::takwim_program, 'url' => ['/perancangan-program-plan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
+                                                [
+                                                    'label' => GeneralLabel::laporan,
+                                                    'items' => [
+                                                        ['label' => GeneralLabel::laporan_kewangan_plan_periodisasi, 'url' => ['/perancangan-program-plan/laporan-kewangan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
                                         [
                                             'label' => GeneralLabel::jkk_jkp,
                                             'items' => [

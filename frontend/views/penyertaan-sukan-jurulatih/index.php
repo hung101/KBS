@@ -1,0 +1,39 @@
+<?php
+
+use yii\helpers\Html;
+use yii\grid\GridView;
+
+/* @var $this yii\web\View */
+/* @var $searchModel frontend\models\PenyertaanSukanJurulatihSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Penyertaan Sukan Jurulatih';
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="penyertaan-sukan-jurulatih-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <p>
+        <?= Html::a('Create Penyertaan Sukan Jurulatih', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'penyertaan_sukan_jurulatih_id',
+            'penyertaan_sukan_id',
+            'jurulatih_id',
+            'session_id',
+            'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
+</div>
