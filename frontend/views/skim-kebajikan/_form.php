@@ -16,6 +16,7 @@ use app\models\RefSukan;
 use app\models\RefPerkara;
 use app\models\RefSukanSkimKebajikan;
 use app\models\RefJenisPermohonanSkim;
+use app\models\RefBank;
 
 // contant values
 use app\models\general\Placeholder;
@@ -156,6 +157,30 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+               'bank_penerima' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-bank/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefBank::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::sukan],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>4]],
+                'no_akaun_penerima' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                 'jenis_sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -167,7 +192,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::sukan],
 'pluginOptions' => [
                             'allowClear' => true
@@ -299,6 +324,7 @@ use app\models\general\GeneralMessage;
 
 <?php
 $URL = Url::to(['/jenis-kebajikan/get-tetapan']);
+$URLAtlet = Url::to(['/atlet/get-atlet']);
 
 $JUMLAH = RefJenisPermohonanSkim::JUMLAH;
 $MAKSIMUM = RefJenisPermohonanSkim::MAKSIMUM;
@@ -360,6 +386,46 @@ $script = <<< JS
             });
         }
     }
+                
+    $('#skimkebajikan-nama_pemohon').change(function(){
+            
+    if($(this).val() != ''){
+            
+        $.get('$URLAtlet',{id:$(this).val()},function(data){
+            clearForm();
+
+            var data = $.parseJSON(data);
+
+            if(data !== null){
+                
+                $('#skimkebajikan-nama_penerima').val(data.name_penuh);
+                $('#skimkebajikan-emel_penerima').val(data.emel);
+                
+                if(data.refAtletKewanganAkaun !== null){ 
+                    $('#skimkebajikan-bank_penerima').val(data.refAtletKewanganAkaun[0].nama_bank).trigger("change");
+                    $('#skimkebajikan-no_akaun_penerima').val(data.refAtletKewanganAkaun[0].no_akaun);
+                }
+            
+                if(data.refAtletSukan[0] !== null){ 
+                    $('#skimkebajikan-jenis_sukan').val(data.refAtletSukan[0].nama_sukan).trigger("change");
+                }
+            
+                if(data.refAtletPendidikan[0] !== null){ 
+                    //$('#skimkebajikan-tahap_pendidikan').val(data.refAtletPendidikan[0].jenis_peringkatan_pendidikan).trigger("change");
+                }
+            }
+        });
+    }
+                
+    function clearForm(){
+        $('#skimkebajikan-nama_penerima').val('');
+        $('#skimkebajikan-emel_penerima').val('');
+        $('#skimkebajikan-bank_penerima').val('').trigger("change");
+        $('#skimkebajikan-no_akaun_penerima').val('');
+        $('#skimkebajikan-jenis_sukan').val('').trigger("change");
+    }
+                
+});
 JS;
         
 $this->registerJs($script);

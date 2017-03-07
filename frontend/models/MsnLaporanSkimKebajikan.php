@@ -17,13 +17,14 @@ class MsnLaporanSkimKebajikan extends Model
     public $sukan;
     public $nama_kejohanan;
     public $jawatan;
+    public $atlet;
     public $format;
 
     public function rules()
     {
         return [
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga', 'kelulusan', 'sukan', 'nama_kejohanan', 'jawatan'], 'safe'],
+            [['tarikh_dari', 'tarikh_hingga', 'kelulusan', 'sukan', 'nama_kejohanan', 'jawatan', 'atlet'], 'safe'],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
@@ -37,6 +38,7 @@ class MsnLaporanSkimKebajikan extends Model
             'sukan' => GeneralLabel::sukan,
             'nama_kejohanan' => GeneralLabel::nama_kejohanan,
             'jawatan' => GeneralLabel::jawatan,
+            'atlet' => GeneralLabel::atlet,
             'format' => GeneralLabel::format,
         ];
     }

@@ -41,12 +41,12 @@ class AtletKewanganAkaun extends \yii\db\ActiveRecord
                 'updatedAtAttribute' => 'updated',
                 'value' => new \yii\db\Expression('NOW()'),
             ],
-            'encryption' => [
+            /*'encryption' => [
                 'class' => '\nickcv\encrypter\behaviors\EncryptionBehavior',
                 'attributes' => [
                     'no_akaun',
                 ],
-            ],
+            ],*/
         ];
     }
 

@@ -36,9 +36,9 @@ class PembayaranInsentifAtlet extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet', 'negara', 'acara', 'nilai'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet', 'negara', 'acara', 'nilai', 'sukan', 'kelayakan_pingat', 'pingat', 'pembayaran_kepada'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['pembayaran_insentif_id', 'atlet', 'negara', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['nilai', 'insentif_khas', 'insentif'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['nilai', 'insentif_khas', 'insentif', 'rekod_baru'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['created', 'updated'], 'safe'],
             [['session_id'], 'string', 'max' => 100],
             //[['pembayaran_insentif_id', 'atlet', 'acara', 'session_id'], 'unique', 'targetAttribute' => [ 'atlet', 'acara'] , 'message' => GeneralMessage::yii_validation_unique_multiple],
@@ -63,7 +63,12 @@ class PembayaranInsentifAtlet extends \yii\db\ActiveRecord
             'updated' => 'Updated',
             'nilai' => GeneralLabel::nilai,
             'insentif_khas'=> GeneralLabel::insentif_khas,
-            'insentif'=> 'Insentif (RM)',
+            'insentif' => GeneralLabel::insentif_rm,
+            'sukan' => GeneralLabel::sukan,
+            'kelayakan_pingat' => GeneralLabel::kelayakan_pingat,
+            'pingat' => GeneralLabel::pingat,
+            'rekod_baru' => GeneralLabel::rekod_baru_rm,
+            'pembayaran_kepada' => GeneralLabel::pembayaran_kepada,
         ];
     }
     
@@ -79,5 +84,12 @@ class PembayaranInsentifAtlet extends \yii\db\ActiveRecord
      */
     public function getRefAcara(){
         return $this->hasOne(RefAcara::className(), ['id' => 'acara']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSukan(){
+        return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
     }
 }

@@ -72,7 +72,7 @@ class GeranBantuanGaji extends \yii\db\ActiveRecord
             [['boucher', 'no_cek'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_jurulatih', 'cawangan', 'sub_cawangan', 'program_msn', 'lain_lain_program', 'pusat_latihan', 'agensi'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max, 'skipOnEmpty' => true],
             [['kelulusan', 'status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 'kategori_geran', 'status_geran'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catatan', 'rujukan', 'status_terkini_pengeluaran_cek'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan', 'rujukan', 'status_terkini_pengeluaran_cek', 'salinan_tawaran', 'persetujuan_terima'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tarikh_tamat_kontrak'], 'compare', 'compareAttribute'=>'tarikh_mula_kontrak', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
             [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh_mula', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
         ];
@@ -114,6 +114,8 @@ class GeranBantuanGaji extends \yii\db\ActiveRecord
             'boucher' => GeneralLabel::boucher,  //'Boucher (BR)',
             'no_cek' => GeneralLabel::no_cek,  //'No. Cek',
             'tarikh_cek' => GeneralLabel::tarikh,
+            'salinan_tawaran' => GeneralLabel::salinan_tawaran,
+            'persetujuan_terima' => GeneralLabel::persetujuan_terima,
         ];
     }
     

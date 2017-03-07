@@ -36,7 +36,7 @@ class PembayaranInsentifJurulatih extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_jurulatih', 'nilai'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama_jurulatih', 'nilai', 'sukan', 'pembayaran_kepada'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['pembayaran_insentif_id', 'nama_jurulatih', 'created_by', 'updated_by'], 'integer'],
             [['nilai'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['created', 'updated'], 'safe'],
@@ -60,6 +60,8 @@ class PembayaranInsentifJurulatih extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
+            'sukan' => GeneralLabel::sukan,
+            'pembayaran_kepada' => GeneralLabel::pembayaran_kepada,
         ];
     }
     
@@ -69,10 +71,11 @@ class PembayaranInsentifJurulatih extends \yii\db\ActiveRecord
     public function validateNilai($attribute, $params){
         $session = new Session;
         $session->open();
-        $nilai = 0;
+        $jumlah_insentif_allocated_atlet = 0;
+        $jumlah_insentif_allocated_jurulatih_max = 0;
         $jumlah_insentif_allocated = 0;
         
-        if(isset($session['acara_id'])){
+        /*if(isset($session['acara_id'])){
             if($session['acara_id'] == RefAcaraInsentif::BERPASUKAN_KURANG_5_ORANG || $session['acara_id'] == RefAcaraInsentif::BERPASUKAN_LEBIH_5_ORANG){
                 if(isset($session['nilai_SGAR_berpasukan'])){
                     $nilai = $session['nilai_SGAR_berpasukan'];
@@ -88,11 +91,29 @@ class PembayaranInsentifJurulatih extends \yii\db\ActiveRecord
             if (($modelPembayaranInsentif = PembayaranInsentif::findOne($this->pembayaran_insentif_id)) !== null) {
                 $nilai = $modelPembayaranInsentif->jumlah;
             }
-        }
-        
+        }*/
         
         $session->close();
         
+        // calculate total insentif allocated to atlets
+        $modelInsentifAtlet= null;
+        
+        if($this->pembayaran_insentif_id != null or $this->pembayaran_insentif_id != ""){
+            $modelInsentifAtlet = PembayaranInsentifAtlet::find()->where(['pembayaran_insentif_id'=>$this->pembayaran_insentif_id])->all();
+        } else if($this->session_id != null or $this->session_id != ""){
+            $modelInsentifAtlet = PembayaranInsentifAtlet::find()->where(['session_id'=>$this->session_id])->all();
+        }
+        
+        if($modelInsentifAtlet){
+            foreach($modelInsentifAtlet as $insentifAtlet){
+                $jumlah_insentif_allocated_atlet += $insentifAtlet->nilai;
+            }
+        }
+        
+        $jumlah_insentif_allocated_jurulatih_max = ($jumlah_insentif_allocated_atlet*0.2); // 20% from total allocated to atlets 
+        
+        
+        // calculate total insentif allocated to jurulatih dan overall cannot more than 20% from total allocated to atlets
         $modelInsentifJurulatih = null;
         
         if($this->pembayaran_insentif_id != null or $this->pembayaran_insentif_id != ""){
@@ -107,11 +128,13 @@ class PembayaranInsentifJurulatih extends \yii\db\ActiveRecord
             }
         }
         
-        if($nilai < ($jumlah_insentif_allocated + $this->nilai)){
-            if(($nilai-$jumlah_insentif_allocated) < 1){
+        $jumlah_insentif_allocated -= $this->getOldAttribute('nilai');
+        
+        if($jumlah_insentif_allocated_jurulatih_max < ($jumlah_insentif_allocated + $this->nilai)){
+            if(($jumlah_insentif_allocated_jurulatih_max-$jumlah_insentif_allocated) < 1){
                 $this->addError($attribute, "Semua insentif SGAR telah diperuntukkan");
             } else {
-                $this->addError($attribute, "Nilai yang boleh diperuntukkan tidak boleh lebih daripada RM " . ($nilai-$jumlah_insentif_allocated));
+                $this->addError($attribute, "Nilai yang boleh diperuntukkan tidak boleh lebih daripada RM " . ($jumlah_insentif_allocated_jurulatih_max-$jumlah_insentif_allocated));
             }
         }
     }
@@ -121,5 +144,12 @@ class PembayaranInsentifJurulatih extends \yii\db\ActiveRecord
      */
     public function getRefJurulatih(){
         return $this->hasOne(Jurulatih::className(), ['jurulatih_id' => 'nama_jurulatih']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefSukan(){
+        return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
     }
 }

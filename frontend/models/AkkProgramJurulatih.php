@@ -54,9 +54,9 @@ class AkkProgramJurulatih extends \yii\db\ActiveRecord
     {
         return [
             [['jurulatih','penganjur', 'nama_program', 'tarikh_program', 'tempat_program'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['peningkatan_kerjaya_jurulatih_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['tarikh_program'], 'safe'],
-            [['nama_program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['peningkatan_kerjaya_jurulatih_id', 'senarai_kursus_akk'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tarikh_program', 'tarikh_mpj', 'tarikh_jkb', 'kelulusan_mpj', 'kelulusan_jkb'], 'safe'],
+            [['nama_program', 'bilangan_mpj', 'bilangan_jkb'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat_program'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kod_kursus', 'tahap'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -81,6 +81,13 @@ class AkkProgramJurulatih extends \yii\db\ActiveRecord
             'tahap' => GeneralLabel::tahap,
             'muat_naik' => GeneralLabel::muat_naik,
             'catatan' => GeneralLabel::catatan,
+            'senarai_kursus_akk' => GeneralLabel::senarai_kursus_akk,
+            'bilangan_mpj' => GeneralLabel::bilangan_mpj,
+            'tarikh_mpj' => GeneralLabel::tarikh_mpj,
+            'kelulusan_mpj' => GeneralLabel::kelulusan_mpj,
+            'bilangan_jkb' => GeneralLabel::bilangan_jkb,
+            'tarikh_jkb' => GeneralLabel::tarikh_jkb,
+            'kelulusan_jkb' => GeneralLabel::kelulusan_jkb,
         ];
     }
     

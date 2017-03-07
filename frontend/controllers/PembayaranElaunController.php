@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use Yii;
 use app\models\PembayaranElaun;
 use app\models\PembayaranElaunSearch;
+use app\models\PembayaranElaunTransaksi;
+use frontend\models\PembayaranElaunTransaksiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -74,8 +76,16 @@ class PembayaranElaunController extends Controller
         $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         $model->kelulusan = $YesNo;
         
+        $queryPar = null;
+        $queryPar['PembayaranElaunTransaksiSearch']['pembayaran_elaun_id'] = $id;
+
+        $searchModelPembayaranElaunTransaksi = new PembayaranElaunTransaksiSearch();
+        $dataProviderPembayaranElaunTransaksi = $searchModelPembayaranElaunTransaksi->search($queryPar, $id);
+        
         return $this->render('view', [
             'model' => $model,
+            'searchModelPembayaranElaunTransaksi' => $searchModelPembayaranElaunTransaksi,
+            'dataProviderPembayaranElaunTransaksi' => $dataProviderPembayaranElaunTransaksi,
             'readonly' => true,
         ]);
     }
@@ -88,12 +98,28 @@ class PembayaranElaunController extends Controller
     public function actionCreate()
     {
         $model = new PembayaranElaun();
+        
+        $queryPar = null;
+        
+        Yii::$app->session->open();
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['PembayaranElaunTransaksiSearch']['session_id'] = Yii::$app->session->id;
+        }
+        
+        $searchModelPembayaranElaunTransaksi = new PembayaranElaunTransaksiSearch();
+        $dataProviderPembayaranElaunTransaksi = $searchModelPembayaranElaunTransaksi->search($queryPar, null);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            PembayaranElaunTransaksi::updateAll(['pembayaran_elaun_id' => $model->pembayaran_elaun_id], 'session_id = "'.Yii::$app->session->id.'"');
+            PembayaranElaunTransaksi::updateAll(['session_id' => ''], 'pembayaran_elaun_id = "'.$model->pembayaran_elaun_id.'"');
+            
             return $this->redirect(['view', 'id' => $model->pembayaran_elaun_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'searchModelPembayaranElaunTransaksi' => $searchModelPembayaranElaunTransaksi,
+                'dataProviderPembayaranElaunTransaksi' => $dataProviderPembayaranElaunTransaksi,
                 'readonly' => false,
             ]);
         }
@@ -108,12 +134,21 @@ class PembayaranElaunController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        
+        $queryPar = null;
+        
+        $queryPar['PembayaranElaunTransaksiSearch']['pembayaran_elaun_id'] = $id;
+        
+        $searchModelPembayaranElaunTransaksi = new PembayaranElaunTransaksiSearch();
+        $dataProviderPembayaranElaunTransaksi = $searchModelPembayaranElaunTransaksi->search($queryPar, $id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->pembayaran_elaun_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'searchModelPembayaranElaunTransaksi' => $searchModelPembayaranElaunTransaksi,
+                'dataProviderPembayaranElaunTransaksi' => $dataProviderPembayaranElaunTransaksi,
                 'readonly' => false,
             ]);
         }

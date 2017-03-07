@@ -39,6 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProviderPembayaranInsentifAtlet' => $dataProviderPembayaranInsentifAtlet,
         'searchModelPembayaranInsentifJurulatih' => $searchModelPembayaranInsentifJurulatih,
         'dataProviderPembayaranInsentifJurulatih' => $dataProviderPembayaranInsentifJurulatih,
+        'searchModelPembayaranInsentifPersatuan' => $searchModelPembayaranInsentifPersatuan,
+        'dataProviderPembayaranInsentifPersatuan' => $dataProviderPembayaranInsentifPersatuan,
         'readonly' => $readonly,
     ]) ?>
 

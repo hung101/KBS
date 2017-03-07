@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'kejohanan' => [
+                'kejohanan' => /*[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -50,7 +50,25 @@ $this->params['breadcrumbs'][] = $this->title;
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>4]]*/
+                [
+                'type'=>Form::INPUT_WIDGET, 
+                'widgetClass'=>'\kartik\widgets\Select2',
+                'options'=>[
+                    // 'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                    // [
+                        // 'append' => [
+                            // 'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                            // 'asButton' => true
+                        // ]
+                    // ] : null,
+                    'data'=>ArrayHelper::map(\app\models\PerancanganProgramPlan::find()->joinWith('refKategoriPelan')
+                            ->where(['LIKE', 'desc', 'kejohanan'])->all(),'perancangan_program_id', 'nama_program'),
+                    'options' => ['placeholder' => Placeholder::kejohanan, 'id' => 'kejohananTemasya'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],],
+                'columnOptions'=>['colspan'=>4]],
             ],
         ],
         [

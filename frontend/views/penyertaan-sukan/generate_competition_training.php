@@ -32,12 +32,13 @@ $datas = PenyertaanSukan::find()->where(['nama_sukan' => $model->nama_sukan, 'pr
         <th rowspan="2">PLACE</th>
         <th rowspan="2">DATE</th>
         <th colspan="3">PARTICIPATION</th>
-        <th colspan="2">OVERALL RESULT</th>
+        <th colspan="3">OVERALL RESULT</th>
       </tr>
       <tr>
         <th>ATHLETE</th>
         <th>COACH</th>
         <th>OFFICER</th>
+        <th>TARGET</th>
         <th>RESULT</th>
         <th>REMARKS</th>
       </tr>
@@ -129,6 +130,7 @@ $datas = PenyertaanSukan::find()->where(['nama_sukan' => $model->nama_sukan, 'pr
             <td align="center"><?= $atletCount ?></td>
             <td align="center"><?= $jurulatihCount ?></td>
             <td align="center"><?= $pegawaiCount ?></td>
+            <td><?= $item->sasaran_kejohanan ?></td>
             <td><?= $resultStr ?></td>
             <td><?= $item->catatan ?></td>
           </tr>

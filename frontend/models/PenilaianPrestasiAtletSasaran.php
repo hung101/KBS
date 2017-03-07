@@ -43,6 +43,7 @@ class PenilaianPrestasiAtletSasaran extends \yii\db\ActiveRecord
             [['sasaran'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['rekod_baru', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['acara'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
         ];
     }
 
@@ -64,6 +65,7 @@ class PenilaianPrestasiAtletSasaran extends \yii\db\ActiveRecord
             'updated' => 'Updated',
             'rekod_baru' => GeneralLabel::rekod_baru,
             'catatan' => GeneralLabel::catatan,
+            'acara' => GeneralLabel::acara,
         ];
     }
     

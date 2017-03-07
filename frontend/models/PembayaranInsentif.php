@@ -49,8 +49,9 @@ class PembayaranInsentif extends \yii\db\ActiveRecord
             [['jumlah', 'nilai_rekod_baharu', 'nilai_sikap'], 'number'],
             [['tarikh_kelulusan', 'tarikh_pembayaran_insentif', 'created', 'updated', 'kelas', 'tarikh_mula', 'tarikh_tamat', 'persatuan'], 'safe'],
             [['kejohanan'], 'string', 'max' => 100],
-            [['catatan'], 'string', 'max' => 255],
+            [['catatan', 'catatan_atlet', 'catatan_jurulatih', 'catatan_persatuan'], 'string', 'max' => 255],
             [['tempat'], 'string', 'max' => 90],
+            [['no_vaucer'], 'string', 'max' => 80],
             ['kelas', 'required', 'message' => GeneralMessage::yii_validation_required, 'when' => function ($model) {
                     return $model->kejohanan == RefInsentifKejohanan::INDIVIDU;
                 }, 'whenClient' => "function (attribute, value) {
@@ -96,6 +97,10 @@ class PembayaranInsentif extends \yii\db\ActiveRecord
             'muat_naik' => GeneralLabel::muat_naik,
             'catatan' => GeneralLabel::catatan,
             'acara' => GeneralLabel::acara,
+            'catatan_atlet' => GeneralLabel::catatan,
+            'catatan_jurulatih' => GeneralLabel::catatan,
+            'catatan_persatuan' => GeneralLabel::catatan,
+            'no_vaucer' => GeneralLabel::no_vaucer,
         ];
     }
     
@@ -138,6 +143,6 @@ class PembayaranInsentif extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getRefPerancanganProgram(){
-        return $this->hasOne(PerancanganProgram::className(), ['perancangan_program_id' => 'nama_kejohanan']);
+        return $this->hasOne(PerancanganProgramPlan::className(), ['perancangan_program_id' => 'nama_kejohanan']);
     }
 }

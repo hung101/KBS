@@ -10,6 +10,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\BaseUrl;
+use yii\web\UploadedFile;
+
+use app\models\general\Upload;
 
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
@@ -25,6 +28,7 @@ use app\models\RefSukan;
 use app\models\RefProgramJurulatih;
 use app\models\RefKelulusanGeranBantuanGajiJurulatih;
 use app\models\RefAgensiJurulatih;
+use app\models\User;
 
 /**
  * GeranBantuanGajiController implements the CRUD actions for GeranBantuanGaji model.
@@ -125,7 +129,26 @@ class GeranBantuanGajiController extends Controller
         $model = new GeranBantuanGaji();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->geran_bantuan_gaji_id]);
+            $upload = new Upload();
+            $file = UploadedFile::getInstance($model, 'salinan_tawaran');
+            if($file){
+                $model->salinan_tawaran = $upload->uploadFile($file, Upload::geranBantuanGajiFolder, $model->geran_bantuan_gaji_id);
+            }
+            $file = UploadedFile::getInstance($model, 'persetujuan_terima');
+            if($file){
+                $model->persetujuan_terima = $upload->uploadFile($file, Upload::geranBantuanGajiFolder, $model->geran_bantuan_gaji_id);
+            }
+            if($model->save()){
+                $query = RefKelulusanGeranBantuanGajiJurulatih::find()->where(['id' => $model->kelulusan])->andWhere(['or',
+                ['like', 'desc', 'lulus'],
+                ['like', 'desc', 'gagal']])->one();
+                
+                if(count($query) > 0){
+                    $this->emailToCreator($model);
+                }
+                
+                return $this->redirect(['view', 'id' => $model->geran_bantuan_gaji_id]);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -147,9 +170,31 @@ class GeranBantuanGajiController extends Controller
         }
         
         $model = $this->findModel($id);
+        $oriKelulusan = $model->kelulusan;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->geran_bantuan_gaji_id]);
+            $upload = new Upload();
+            $file = UploadedFile::getInstance($model, 'salinan_tawaran');
+            if($file){
+                $model->salinan_tawaran = $upload->uploadFile($file, Upload::geranBantuanGajiFolder, $model->geran_bantuan_gaji_id);
+            }
+            $file = UploadedFile::getInstance($model, 'persetujuan_terima');
+            if($file){
+                $model->persetujuan_terima = $upload->uploadFile($file, Upload::geranBantuanGajiFolder, $model->geran_bantuan_gaji_id);
+            }
+            if($model->save()){
+                if($oriKelulusan != $model->kelulusan) {
+                    $query = RefKelulusanGeranBantuanGajiJurulatih::find()->where(['id' => $model->kelulusan])->andWhere(['or',
+                    ['like', 'desc', 'lulus'],
+                    ['like', 'desc', 'gagal']])->one();
+                    
+                    if(count($query) > 0){
+                        $this->emailToCreator($model);
+                    }
+                }
+
+                return $this->redirect(['view', 'id' => $model->geran_bantuan_gaji_id]);
+            }
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -170,6 +215,10 @@ class GeranBantuanGajiController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        // delete upload file
+        self::actionDeleteupload($id, 'salinan_tawaran');
+        self::actionDeleteupload($id, 'persetujuan_terima');
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -189,6 +238,32 @@ class GeranBantuanGajiController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            
+            if ($img->update()) {
+                return $this->redirect(['update', 'id' => $id]);
+            } else {
+                return $this->render('update', [
+                    'model' => $img,
+                    'readonly' => false,
+                ]);
+            }
+
+            
     }
     
     public function actionLaporanMaklumatPembayaranGeranBantuan()
@@ -232,6 +307,38 @@ class GeranBantuanGajiController extends Controller
             'model' => $model,
             'readonly' => false,
         ]);
+    }
+    
+    public function emailToCreator($model)
+    {
+        //email
+        $modelUser = User::findOne($model->created_by);
+        if (count($modelUser) > 0) {
+            $jurulatihModel = Jurulatih::findOne(['jurulatih_id' => $model->nama_jurulatih]);
+            
+            $ref = RefKelulusanGeranBantuanGajiJurulatih::findOne(['id' => $model->kelulusan]);
+            $statusPermohonanDesc = $ref['desc'];
+            try {
+                Yii::$app->mailer->compose()
+                        ->setTo($modelUser->email)
+                        ->setFrom('noreply@spsb.com')
+                        ->setSubject('Status Permohonan (' . $jurulatihModel->nama . '- '.$jurulatihModel->ic_no.') Geran Bantuan Gaji Jurulatih')
+                        ->setTextBody('Salam Sejahtera,<br><br>
+
+                Nama Jurulatih: ' . $jurulatihModel->nama . '<br>
+                No Kad Pengenalan: ' . $jurulatihModel->ic_no . '<br>
+                Status Permohonan Terkini: ' . $statusPermohonanDesc . '<br>
+<br><br>
+                "KE ARAH KECEMERLANGAN SUKAN"<br>
+                Majlis Sukan Negara Malaysia.<br>
+                ')->send();
+            }
+            catch(\Swift_SwiftException $exception)
+            {
+                //var_dump($exception); die;
+                //return 'Can sent mail due to the following exception'.print_r($exception);
+            }
+        }
     }
     
     public function actionGenerateLaporanMaklumatPembayaranGeranBantuan($tarikh_dari, $tarikh_hingga, $program, $sukan, $jumlah_geran_dari, $jumlah_geran_hingga, $agensi, $format)

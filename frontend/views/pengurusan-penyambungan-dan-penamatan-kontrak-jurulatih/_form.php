@@ -227,10 +227,42 @@ use app\models\general\GeneralMessage;
                                                     'allowClear' => true
                                                 ],],
                                             'columnOptions'=>['colspan'=>3]],
+                                        //'muat_naik_cadangan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>[]],
                                     ],
                                 ],
                             ]
                         ]);
+                    
+                    // Muat Naik Dokumen
+                    if($model->muat_naik_cadangan){
+                        echo "<label>" . $model->getAttributeLabel('muat_naik_cadangan') . "</label><br>";
+                        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->muat_naik_cadangan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+                        if(!$readonly){
+                            echo Html::a(GeneralLabel::delete, ['deleteupload', 'id'=>$model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id, 'field'=> 'muat_naik_cadangan'], 
+                            [
+                                'class'=>'btn btn-danger', 
+                                'data' => [
+                                    'confirm' => GeneralMessage::confirmDelete,
+                                    'method' => 'post',
+                                ]
+                            ]).'<p>';
+                        }
+                    } else {
+                        echo FormGrid::widget([
+                        'model' => $model,
+                        'form' => $form,
+                        'autoGenerateColumns' => true,
+                        'rows' => [
+                                [
+                                    'columns'=>12,
+                                    'autoGenerateColumns'=>false, // override columns setting
+                                    'attributes' => [
+                                        'muat_naik_cadangan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                                    ],
+                                ],
+                            ]
+                        ]);
+                    }
                     ?>
                 </div>
             </div>

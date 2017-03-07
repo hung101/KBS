@@ -119,6 +119,11 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const formJurulatihKeluargaID = "jurulatih_keluarga_form";
         const formJurulatihSukanID = "jurulatih_sukan_form";
         
+        // Jurulatih tab mutiple entry model ids
+        const jurulatihSukanTabModalTitle = "modalTitleJurulatihSukanAcara";
+        const jurulatihSukanTabModal = "modalJurulatihSukanAcara";
+        const jurulatihSukanTabModalContent = "modalContentJurulatihSukanAcara";
+        
         //System Display Date Format 
         const displayDateFormat = "dd-mm-yyyy";
         
@@ -252,6 +257,11 @@ if($session->get('language') == "EN") {
         const formJurulatihKesihatanID = "jurulatih_kesihatan_form";
         const formJurulatihKeluargaID = "jurulatih_keluarga_form";
         const formJurulatihSukanID = "jurulatih_sukan_form";
+        
+        // Jurulatih tab mutiple entry model ids
+        const jurulatihSukanTabModalTitle = "modalTitleJurulatihSukanAcara";
+        const jurulatihSukanTabModal = "modalJurulatihSukanAcara";
+        const jurulatihSukanTabModalContent = "modalContentJurulatihSukanAcara";
         
         //System Display Date Format 
         const displayDateFormat = "dd-mm-yyyy";

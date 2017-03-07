@@ -60,10 +60,12 @@ class JurulatihSukan extends \yii\db\ActiveRecord
         return [
             [['jurulatih_id', 'program', 'sukan', 'cawangan', 'bahagian', 'tarikh_mula_lantikan', 'tarikh_tamat_lantikan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['jurulatih_id', 'created_by', 'updated_by', 'gaji_dan_elaun_jurulatih_id', 'gaji_jurulatih_id', 'elaun_jurulatih_id', 'gaji_elaun'
-                , 'bahagian'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['tarikh_mula_lantikan', 'tarikh_tamat_lantikan', 'created', 'updated'], 'safe'],
-            [['jumlah'], 'number', 'message' => GeneralMessage::yii_validation_number],
+                , 'bahagian', 'jumlah_bulan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tarikh_mula_lantikan', 'tarikh_tamat_lantikan', 'letak_jawatan', 'kenaikan_mulai', 'created', 'updated'], 'safe'],
+            [['jumlah', 'jumlah_keseluruhan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['program', 'sukan', 'cawangan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['bersamaan_usd'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            
         ];
     }
 
@@ -83,6 +85,11 @@ class JurulatihSukan extends \yii\db\ActiveRecord
             'tarikh_tamat_lantikan' => GeneralLabel::tarikh_tamat_lantikan,
             'gaji_elaun' => GeneralLabel::gaji_elaun,
             'jumlah' => GeneralLabel::jumlah,
+            'jumlah_bulan' => GeneralLabel::jumlah_bulan,
+            'jumlah_keseluruhan' => GeneralLabel::jumlah_keseluruhan. '(RM)',
+            'bersamaan_usd' => GeneralLabel::bersamaan_usd,
+            'letak_jawatan' => GeneralLabel::letak_jawatan,
+            'kenaikan_mulai' => GeneralLabel::kenaikan_mulai,
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',

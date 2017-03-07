@@ -122,9 +122,12 @@ if($readonly){
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
-                        'data'=>ArrayHelper::map(PerancanganProgram::find()->all(),'perancangan_program_id', 'nama_program'),
-                        'options' => ['placeholder' => Placeholder::program],
-'pluginOptions' => [
+                        // 'data'=>ArrayHelper::map(PerancanganProgram::find()->all(),'perancangan_program_id', 'nama_program'),
+                        // 'options' => ['placeholder' => Placeholder::program],
+                        'data'=>ArrayHelper::map(\app\models\PerancanganProgramPlan::find()->joinWith('refKategoriPelan')
+                            ->where(['LIKE', 'desc', 'kejohanan'])->all(),'perancangan_program_id', 'nama_program'),
+                        'options' => ['placeholder' => Placeholder::kejohanan_temasya],
+                        'pluginOptions' => [
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>6]],

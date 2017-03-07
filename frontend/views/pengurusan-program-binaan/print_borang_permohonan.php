@@ -11,7 +11,7 @@ foreach($binaanKosModel as $item)
     <img src="<?php echo \Yii::$app->request->BaseUrl;?>/img/msn_logo.jpg" alt="" width="">
 </div>
 <div class="float-left form-title-center" style="width:80%">
-    BORANG PERMOHONAN PENGELOLAAN
+    BORANG PERMOHONAN/PENGANJURAN AKTIVITI
 </div>
 <div class="clear"></div>
 <div class="title-header-wrap" style="margin:20px 0px">
@@ -117,15 +117,28 @@ foreach($binaanKosModel as $item)
 <br />
 <table>
     <tr>
-        <td>DICADANGKAN UNTUK KELULUSAN</td><td>:</td><td>RM <?= $model->jumlah_yang_diluluskan ?></td>
+        <td>SOKONGAN KETUA UNIT/CAWANGAN (RM)</td><td>:</td><td><?= $model->usptn_sokongan ?></td>
     </tr>
     <tr>
-        <td>SOKONGAN KU (PN)</td><td>:</td><td><?= $model->sokongan_pn ?></td>
+        <td>SOKONGAN PENGARAH (RM)</td><td>:</td><td><?= $model->usptn_kelulusan ?></td>
     </tr>
     <tr>
-        <td>KELULUSAN PCP</td><td>:</td><td><?= $model->kelulusan ?></td>
+        <td>STATUS PERMOHONAN</td><td>:</td><td><?= $model->status_permohonan ?></td>
     </tr>
+</table>
+
+<div class="title-header-wrap" style="margin:20px 0px; padding:10px 0px">
+    BILANGAN PERMOHONAN / KUOTA & LAPORAN TERTUNGGAK
+</div>
+
+<table width="70%" align="center" border="0">
     <tr>
-        <td>PERMOHONAN KUOTA, LAP. TERTUNGGAK</td><td>:</td><td><?= $model->usptn_kuota_lap ?></td>
+        <td align="center" style="border:2px solid;padding:5px">PERMOHONAN / KUOTA</td>
+        <td>:</td>
+        <td style="border:1px solid;padding:5px"><?= $model->usptn_kuota_lap ?></td>
+        <td>&nbsp;&nbsp;&nbsp;</td>
+        <td align="center" style="border:2px solid;padding:5px">LAP. TERTUNGGAK</td>
+        <td>:</td>
+        <td style="border:1px solid;padding:5px"><?= $model->usptn_lap_tertunggak ?></td>
     </tr>
 </table>

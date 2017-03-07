@@ -113,10 +113,10 @@ class Jurulatih extends \yii\db\ActiveRecord
                 'jantina', 'warganegara', 'tarikh_lahir', 'tempat_lahir', 'taraf_perkahwinan', 'alamat_rumah_1', 
                 'alamat_rumah_negeri', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri', 'no_telefon_bimbit', 
                 'tarikh_mula_lantikan', 'tarikh_tamat_lantikan', 'agensi'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_lahir', 'tamat_tempoh', 'tamat_visa_tempoh', 'tamat_permit_tempoh', 'status_tawaran', 'approved_date'], 'safe'],
+            [['tarikh_lahir', 'tamat_tempoh', 'tamat_visa_tempoh', 'tamat_permit_tempoh', 'status_tawaran', 'approved_date', 'tarikh_jkb', 'tarikh_mpj'], 'safe'],
             [['bil_tanggungan', 'approved', 'nama_sukan', 'nama_acara', 'ic_no', 'ic_tentera', 'ic_no_lama',
                 'alamat_rumah_poskod', 'alamat_surat_menyurat_poskod', 'alamat_majikan_poskod', 'mesyuarat_id',
-                'no_telefon', 'no_telefon_pejabat', 'no_telefon_bimbit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+                'no_telefon', 'no_telefon_pejabat', 'no_telefon_bimbit', 'status_tawaran_mpj', 'status_tawaran_jkb', 'tawaran_jurulatih'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['gambar', 'warganegara', 'emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['cawangan', 'sub_cawangan_pelapis', 'lain_lain_program', 'pusat_latihan', 'nama', 'nama_majikan', 'jawatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 'no_visa', 'no_permit_kerja', 'alamat_rumah_negeri', 'alamat_surat_menyurat_negeri', 'status', 'sektor', 'alamat_majikan_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -128,14 +128,15 @@ class Jurulatih extends \yii\db\ActiveRecord
                 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 'alamat_majikan_1', 'alamat_majikan_2', 'alamat_majikan_3','no_fail'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['ic_no', 'ic_tentera'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['ic_no_lama'], 'string', 'max' => 8, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['ic_no'], 'integer', 'message' => GeneralMessage::yii_validation_integer],                            
-            [['alamat_rumah_bandar', 'alamat_surat_menyurat_bandar', 'alamat_majikan_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['ic_no', 'umur_jurulatih'], 'integer', 'message' => GeneralMessage::yii_validation_integer],                            
+            [['alamat_rumah_bandar', 'alamat_surat_menyurat_bandar', 'alamat_majikan_bandar', 'bilangan_jkb', 'bilangan_mpj'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_rumah_poskod', 'alamat_surat_menyurat_poskod', 'alamat_majikan_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_telefon', 'no_telefon_pejabat', 'no_telefon_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_telefon', 'no_telefon_pejabat'], 'string', 'min' => 9, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['no_telefon_bimbit'], 'string', 'min' => 10, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['gambar'], 'validateFileUpload', 'skipOnEmpty' => false],
             [['tarikh_tamat_lantikan'], 'compare', 'compareAttribute'=>'tarikh_mula_lantikan', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
+            [['pengerusi', 'kelulusan_dkp', 'catatan_spkk', 'bersyarat', 'lain_lain', 'catatan', 'borang_maklumat', 'borang_kesihatan', 'borang_hrmis', 'borang_rawatan', 'borang_keselamatan', 'borang_pelekat', 'borang_income_tax', 'keputusan_mesyuarat', 'salinan_ic_passport'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
 
@@ -208,6 +209,29 @@ class Jurulatih extends \yii\db\ActiveRecord
             'agensi' => GeneralLabel::agensi_pelantik,
             'status_tawaran' => GeneralLabel::status_tawaran,
             'approved_date' => GeneralLabel::tarikh_hantar,
+            'tarikh_jkb' => GeneralLabel::tarikh_jkb,
+            'bilangan_jkb' => GeneralLabel::bilangan_jkb,
+            'tarikh_mpj' => GeneralLabel::tarikh_mpj,
+            'bilangan_mpj' => GeneralLabel::bilangan_mpj,
+            'pengerusi' => GeneralLabel::pengerusi,
+            'kelulusan_dkp' => GeneralLabel::kelulusan_dkp,
+            'catatan_spkk' => GeneralLabel::catatan_spkk,
+            'bersyarat' => GeneralLabel::bersyarat,
+            'lain_lain' => GeneralLabel::lain_lain,
+            'catatan' => GeneralLabel::catatan,
+            'borang_maklumat' => GeneralLabel::borang_maklumat,
+            'borang_kesihatan' => GeneralLabel::borang_kesihatan,
+            'borang_hrmis' => GeneralLabel::borang_hrmis, 
+            'borang_rawatan' => GeneralLabel::borang_rawatan,
+            'borang_keselamatan' => GeneralLabel::borang_keselamatan,
+            'borang_pelekat' => GeneralLabel::borang_pelekat,
+            'borang_income_tax' => GeneralLabel::borang_income_tax,
+            'keputusan_mesyuarat' => GeneralLabel::keputusan_mesyuarat_jkk,
+            'salinan_ic_passport' => GeneralLabel::salinan_ic_passport,
+            'umur_jurulatih' => GeneralLabel::umur,
+            'status_tawaran_mpj' => GeneralLabel::status_tawaran_mpj,
+            'status_tawaran_jkb' => GeneralLabel::status_tawaran_jkb,
+            'tawaran_jurulatih' => GeneralLabel::tawaran_jurulatih,
         ];
     }
     
@@ -306,5 +330,19 @@ class Jurulatih extends \yii\db\ActiveRecord
      */
     public function getRefJurulatihSukan(){
         return $this->hasMany(JurulatihSukan::className(), ['jurulatih_id' => 'jurulatih_id']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusJkb(){
+        return $this->hasOne(RefStatusTawaran::className(), ['id' => 'status_tawaran_jkb']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusMpj(){
+        return $this->hasOne(RefStatusTawaran::className(), ['id' => 'status_tawaran_mpj']);
     }
 }

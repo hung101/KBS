@@ -12,13 +12,16 @@ use app\models\AkkProgramJurulatihPeserta;
  */
 class AkkProgramJurulatihPesertaSearch extends AkkProgramJurulatihPeserta
 {
+    public $penganjuran_kursus_id;
+    public $kelulusan_mpj;
+    public $kelulusan_jkb;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['akk_program_jurulatih_peserta_id', 'akk_program_jurulatih_id', 'created_by', 'updated_by'], 'integer'],
+            [['akk_program_jurulatih_peserta_id', 'akk_program_jurulatih_id', 'created_by', 'updated_by', 'penganjuran_kursus_id', 'kelulusan_mpj', 'kelulusan_jkb'], 'integer'],
             [['session_id', 'jurulatih', 'sukan', 'acara', 'created', 'updated'], 'safe'],
         ];
     }
@@ -44,7 +47,8 @@ class AkkProgramJurulatihPesertaSearch extends AkkProgramJurulatihPeserta
         $query = AkkProgramJurulatihPeserta::find()
                 ->joinWith(['refJurulatih'])
                 ->joinWith(['refSukan'])
-                ->joinWith(['refAcara']);
+                ->joinWith(['refAcara'])
+                ->joinWith(['refAkkProgramJurulatih']);
 
         // add conditions that should always apply here
 
@@ -63,7 +67,8 @@ class AkkProgramJurulatihPesertaSearch extends AkkProgramJurulatihPeserta
         // grid filtering conditions
         $query->andFilterWhere([
             'akk_program_jurulatih_peserta_id' => $this->akk_program_jurulatih_peserta_id,
-            'akk_program_jurulatih_id' => $this->akk_program_jurulatih_id,
+            'tbl_akk_program_jurulatih_peserta.akk_program_jurulatih_id' => $this->akk_program_jurulatih_id,
+            'tbl_akk_program_jurulatih.senarai_kursus_akk' => $this->penganjuran_kursus_id,
             //'jurulatih' => $this->jurulatih,
             //'sukan' => $this->sukan,
             //'acara' => $this->acara,
@@ -71,6 +76,8 @@ class AkkProgramJurulatihPesertaSearch extends AkkProgramJurulatihPeserta
             'updated_by' => $this->updated_by,
             'created' => $this->created,
             'updated' => $this->updated,
+            'tbl_akk_program_jurulatih.kelulusan_mpj' => $this->kelulusan_mpj,
+            'tbl_akk_program_jurulatih.kelulusan_jkb' => $this->kelulusan_jkb,
         ]);
 
         $query->andFilterWhere(['like', 'session_id', $this->session_id])

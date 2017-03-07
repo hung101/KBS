@@ -21,6 +21,8 @@ use common\models\general\GeneralFunction;
 // table reference
 use app\models\Jurulatih;
 use app\models\RefTahapKerjayaJurulatih;
+use app\models\PenganjuranKursusAkk;
+use app\models\RefKelulusan;
 
 /**
  * AkkProgramJurulatihController implements the CRUD actions for AkkProgramJurulatih model. delete()
@@ -77,6 +79,15 @@ class AkkProgramJurulatihController extends Controller
         $ref = RefTahapKerjayaJurulatih::findOne(['id' => $model->tahap]);
         $model->tahap = $ref['desc'];
         
+        $ref = PenganjuranKursusAkk::findOne(['penganjuran_kursus_id' => $model->senarai_kursus_akk]);
+        $model->senarai_kursus_akk = $ref['nama_kursus'];
+        
+        $ref = RefKelulusan::findOne(['id' => $model->kelulusan_mpj]);
+        $model->kelulusan_mpj = $ref['desc'];
+        
+        $ref = RefKelulusan::findOne(['id' => $model->kelulusan_jkb]);
+        $model->kelulusan_jkb = $ref['desc'];
+        
         $queryPar = null;
         
         $queryPar['AkkProgramJurulatihPesertaSearch']['akk_program_jurulatih_id'] = $id;
@@ -120,6 +131,29 @@ class AkkProgramJurulatihController extends Controller
             if(isset(Yii::$app->session->id)){
                 AkkProgramJurulatihPeserta::updateAll(['akk_program_jurulatih_id' => $model->akk_program_jurulatih_id], 'session_id = "'.Yii::$app->session->id.'"');
                 AkkProgramJurulatihPeserta::updateAll(['session_id' => ''], 'akk_program_jurulatih_id = "'.$model->akk_program_jurulatih_id.'"');
+                
+                if($model->kelulusan_mpj == RefKelulusan::YA && $model->kelulusan_jkb == RefKelulusan::YA){
+                    foreach($dataProviderAkkProgramJurulatihPeserta->models as $AkkProgramJurulatihPesertaModel){
+                        if($AkkProgramJurulatihPesertaModel->emel_pengurus_sukan && trim($AkkProgramJurulatihPesertaModel->emel_pengurus_sukan) != ""){
+                            $refJurulatih = Jurulatih::findOne(['jurulatih_id' => $model->jurulatih]);
+
+                            Yii::$app->mailer->compose()
+            ->setTo($AkkProgramJurulatihPesertaModel->emel_pengurus_sukan)
+                                        ->setFrom('noreply@spsb.com')
+            ->setSubject('Peningkatan Kerjaya Jurulatih')
+            ->setTextBody("Salam Sejahtera,
+                <br><br>
+    Peningkatan kerjaya jurulatih berikut telah dilulukan: <br>
+    Nama Program/Kursus: " . $model->nama_program . "<br>
+    Nama Jurulatih: " . $refJurulatih['nameAndIC'] . '<br>
+
+    <br><br>
+    "KE ARAH KECEMERLANGAN SUKAN"<br>
+    Majlis Sukan Negara Malaysia.
+    ')->send();
+                        }
+                    }
+                }
             }
             
             $file = UploadedFile::getInstance($model, 'muat_naik');
@@ -165,6 +199,29 @@ class AkkProgramJurulatihController extends Controller
             $file = UploadedFile::getInstance($model, 'muat_naik');
             if($file){
                 $model->muat_naik = Upload::uploadFile($file, Upload::akkProgramJurulatihFolder, $model->akk_program_jurulatih_id);
+            }
+            
+            if($model->kelulusan_mpj == RefKelulusan::YA && $model->kelulusan_jkb == RefKelulusan::YA){
+                foreach($dataProviderAkkProgramJurulatihPeserta->models as $AkkProgramJurulatihPesertaModel){
+                    if($AkkProgramJurulatihPesertaModel->emel_pengurus_sukan && trim($AkkProgramJurulatihPesertaModel->emel_pengurus_sukan) != ""){
+                        $refJurulatih = Jurulatih::findOne(['jurulatih_id' => $model->jurulatih]);
+        
+                        Yii::$app->mailer->compose()
+        ->setTo($AkkProgramJurulatihPesertaModel->emel_pengurus_sukan)
+                                    ->setFrom('noreply@spsb.com')
+        ->setSubject('Peningkatan Kerjaya Jurulatih')
+        ->setTextBody("Salam Sejahtera,
+            <br><br>
+Peningkatan kerjaya jurulatih berikut telah dilulukan: <br>
+Nama Program/Kursus: " . $model->nama_program . "<br>
+Nama Jurulatih: " . $refJurulatih['nameAndIC'] . '<br>
+    
+<br><br>
+"KE ARAH KECEMERLANGAN SUKAN"<br>
+Majlis Sukan Negara Malaysia.
+')->send();
+                    }
+                }
             }
             
             if($model->save()){

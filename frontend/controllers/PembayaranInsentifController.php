@@ -9,6 +9,8 @@ use app\models\PembayaranInsentifAtlet;
 use frontend\models\PembayaranInsentifAtletSearch;
 use app\models\PembayaranInsentifJurulatih;
 use frontend\models\PembayaranInsentifJurulatihSearch;
+use app\models\PembayaranInsentifPersatuan;
+use frontend\models\PembayaranInsentifPersatuanSearch;
 use app\models\MsnLaporanInsentifMesyuaratJawatankuasaBantuanSgar;
 use app\models\MsnLaporan;
 use yii\web\Controller;
@@ -34,6 +36,7 @@ use app\models\RefInsentifKelas;
 use app\models\RefAcaraInsentif;
 use app\models\RefKelulusanInsentif;
 use app\models\ProfilBadanSukan;
+use app\models\PerancanganProgramPlan;
 
 /**
  * PembayaranInsentifController implements the CRUD actions for PembayaranInsentif model.
@@ -100,7 +103,7 @@ class PembayaranInsentifController extends Controller
         $ref = RefInsentifKejohanan::findOne(['id' => $model->kejohanan]);
         $model->kejohanan = $ref['desc'];
         
-        $ref = PerancanganProgram::findOne(['perancangan_program_id' => $model->nama_kejohanan]);
+        $ref = PerancanganProgramPlan::findOne(['perancangan_program_id' => $model->nama_kejohanan]);
         $model->nama_kejohanan = $ref['nama_program'];
         
         $ref = RefSukan::findOne(['id' => $model->sukan]);
@@ -126,6 +129,7 @@ class PembayaranInsentifController extends Controller
         
         $queryPar['PembayaranInsentifAtletSearch']['pembayaran_insentif_id'] = $id;
         $queryPar['PembayaranInsentifJurulatihSearch']['pembayaran_insentif_id'] = $id;
+        $queryPar['PembayaranInsentifPersatuanSearch']['pembayaran_insentif_id'] = $id;
         
         $searchModelPembayaranInsentifAtlet  = new PembayaranInsentifAtletSearch();
         $dataProviderPembayaranInsentifAtlet = $searchModelPembayaranInsentifAtlet->search($queryPar);
@@ -133,12 +137,17 @@ class PembayaranInsentifController extends Controller
         $searchModelPembayaranInsentifJurulatih  = new PembayaranInsentifJurulatihSearch();
         $dataProviderPembayaranInsentifJurulatih = $searchModelPembayaranInsentifJurulatih->search($queryPar);
         
+        $searchModelPembayaranInsentifPersatuan  = new PembayaranInsentifPersatuanSearch();
+        $dataProviderPembayaranInsentifPersatuan = $searchModelPembayaranInsentifPersatuan->search($queryPar);
+        
         return $this->render('view', [
             'model' => $model,
             'searchModelPembayaranInsentifAtlet' => $searchModelPembayaranInsentifAtlet,
             'dataProviderPembayaranInsentifAtlet' => $dataProviderPembayaranInsentifAtlet,
             'searchModelPembayaranInsentifJurulatih' => $searchModelPembayaranInsentifJurulatih,
             'dataProviderPembayaranInsentifJurulatih' => $dataProviderPembayaranInsentifJurulatih,
+            'searchModelPembayaranInsentifPersatuan' => $searchModelPembayaranInsentifPersatuan,
+            'dataProviderPembayaranInsentifPersatuan' => $dataProviderPembayaranInsentifPersatuan,
             'readonly' => true,
         ]);
     }
@@ -165,6 +174,7 @@ class PembayaranInsentifController extends Controller
         if(isset(Yii::$app->session->id)){
             $queryPar['PembayaranInsentifAtletSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['PembayaranInsentifJurulatihSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['PembayaranInsentifPersatuanSearch']['session_id'] = Yii::$app->session->id;
         }
         
         $searchModelPembayaranInsentifAtlet  = new PembayaranInsentifAtletSearch();
@@ -172,6 +182,9 @@ class PembayaranInsentifController extends Controller
         
         $searchModelPembayaranInsentifJurulatih  = new PembayaranInsentifJurulatihSearch();
         $dataProviderPembayaranInsentifJurulatih = $searchModelPembayaranInsentifJurulatih->search($queryPar);
+        
+        $searchModelPembayaranInsentifPersatuan  = new PembayaranInsentifPersatuanSearch();
+        $dataProviderPembayaranInsentifPersatuan = $searchModelPembayaranInsentifPersatuan->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $AtletInsentif = 0;
@@ -187,6 +200,9 @@ class PembayaranInsentifController extends Controller
                 
                 PembayaranInsentifJurulatih::updateAll(['pembayaran_insentif_id' => $model->pembayaran_insentif_id], 'session_id = "'.Yii::$app->session->id.'"');
                 PembayaranInsentifJurulatih::updateAll(['session_id' => ''], 'pembayaran_insentif_id = "'.$model->pembayaran_insentif_id.'"');
+                
+                PembayaranInsentifPersatuan::updateAll(['pembayaran_insentif_id' => $model->pembayaran_insentif_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PembayaranInsentifPersatuan::updateAll(['session_id' => ''], 'pembayaran_insentif_id = "'.$model->pembayaran_insentif_id.'"');
             }
             
             return $this->redirect(['view', 'id' => $model->pembayaran_insentif_id]);
@@ -197,6 +213,8 @@ class PembayaranInsentifController extends Controller
                 'dataProviderPembayaranInsentifAtlet' => $dataProviderPembayaranInsentifAtlet,
                 'searchModelPembayaranInsentifJurulatih' => $searchModelPembayaranInsentifJurulatih,
                 'dataProviderPembayaranInsentifJurulatih' => $dataProviderPembayaranInsentifJurulatih,
+                'searchModelPembayaranInsentifPersatuan' => $searchModelPembayaranInsentifPersatuan,
+                'dataProviderPembayaranInsentifPersatuan' => $dataProviderPembayaranInsentifPersatuan,
                 'readonly' => false,
             ]);
         }
@@ -220,12 +238,16 @@ class PembayaranInsentifController extends Controller
         
         $queryPar['PembayaranInsentifAtletSearch']['pembayaran_insentif_id'] = $id;
         $queryPar['PembayaranInsentifJurulatihSearch']['pembayaran_insentif_id'] = $id;
+        $queryPar['PembayaranInsentifPersatuanSearch']['pembayaran_insentif_id'] = $id;
         
         $searchModelPembayaranInsentifAtlet  = new PembayaranInsentifAtletSearch();
         $dataProviderPembayaranInsentifAtlet = $searchModelPembayaranInsentifAtlet->search($queryPar);
         
         $searchModelPembayaranInsentifJurulatih  = new PembayaranInsentifJurulatihSearch();
         $dataProviderPembayaranInsentifJurulatih = $searchModelPembayaranInsentifJurulatih->search($queryPar);
+        
+        $searchModelPembayaranInsentifPersatuan  = new PembayaranInsentifPersatuanSearch();
+        $dataProviderPembayaranInsentifPersatuan = $searchModelPembayaranInsentifPersatuan->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $AtletInsentif = 0;
@@ -245,6 +267,8 @@ class PembayaranInsentifController extends Controller
                 'dataProviderPembayaranInsentifAtlet' => $dataProviderPembayaranInsentifAtlet,
                 'searchModelPembayaranInsentifJurulatih' => $searchModelPembayaranInsentifJurulatih,
                 'dataProviderPembayaranInsentifJurulatih' => $dataProviderPembayaranInsentifJurulatih,
+                'searchModelPembayaranInsentifPersatuan' => $searchModelPembayaranInsentifPersatuan,
+                'dataProviderPembayaranInsentifPersatuan' => $dataProviderPembayaranInsentifPersatuan,
                 'readonly' => false,
             ]);
         }
@@ -299,6 +323,46 @@ class PembayaranInsentifController extends Controller
         $session->open();
 
         $session['pembayaran_insentif_sukan_id'] = $sukan_id;
+        
+        $session->close();
+    }
+    
+    public function actionSetJenisInsentif($jenis_insentif_id){
+        
+        $session = new Session;
+        $session->open();
+
+        $session['pembayaran_insentif_jenis_insentif_id'] = $jenis_insentif_id;
+        
+        $session->close();
+    }
+    
+    public function actionSetKejohanan($kejohanan_id){
+        
+        $session = new Session;
+        $session->open();
+
+        $session['pembayaran_insentif_kejohanan_id'] = $kejohanan_id;
+        
+        $session->close();
+    }
+    
+    public function actionSetPeringkat($peringkat_id){
+        
+        $session = new Session;
+        $session->open();
+
+        $session['pembayaran_insentif_peringkat_id'] = $peringkat_id;
+        
+        $session->close();
+    }
+    
+    public function actionSetKelas($kelas_id){
+        
+        $session = new Session;
+        $session->open();
+
+        $session['pembayaran_insentif_kelas_id'] = $kelas_id;
         
         $session->close();
     }

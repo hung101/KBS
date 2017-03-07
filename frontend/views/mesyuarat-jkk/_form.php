@@ -162,7 +162,7 @@ use app\models\general\Placeholder;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>2]],
+                    'columnOptions'=>['colspan'=>3]],
                 'sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\DepDrop', 

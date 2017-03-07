@@ -12,6 +12,7 @@ use app\models\MsnLaporanStatistikJurulatihProgramJantina;
 use app\models\MsnLaporanSenaraiJurulatihSukan;
 use app\models\MsnLaporanSenaraiJurulatihNegeri;
 use app\models\MsnLaporanJurulatihWajaran;
+use app\models\MsnSuratTawaranJurulatih;
 use app\models\MsnLaporan;
 use app\models\JurulatihPrintForm;
 use yii\web\Controller;
@@ -25,6 +26,7 @@ use yii\helpers\BaseUrl;
 use app\models\general\GeneralVariable;
 use app\models\general\Upload;
 use common\models\general\GeneralFunction;
+use app\models\general\GeneralLabel;
 
 // table reference
 use app\models\RefJantina;
@@ -47,6 +49,8 @@ use app\models\RefKeaktifanJurulatih;
 use app\models\RefSektorPekerjaan;
 use app\models\RefStatusTawaran;
 use app\models\RefAgensiJurulatih;
+use app\models\RefTawaran;
+use app\models\RefBahasaLaporan;
 
 /**
  * JurulatihController implements the CRUD actions for Jurulatih model.
@@ -183,8 +187,17 @@ class JurulatihController extends Controller
         $ref = RefSektorPekerjaan::findOne(['id' => $model->sektor]);
         $model->sektor = $ref['desc'];
         
-        $ref = RefStatusTawaran::findOne(['id' => $model->status_tawaran]);
-        $model->status_tawaran = $ref['desc'];
+        // $ref = RefStatusTawaran::findOne(['id' => $model->status_tawaran]);
+        // $model->status_tawaran = $ref['desc'];
+        
+        $ref = RefStatusTawaran::findOne(['id' => $model->status_tawaran_jkb]);
+        $model->status_tawaran_jkb = $ref['desc'];
+        
+        $ref = RefStatusTawaran::findOne(['id' => $model->status_tawaran_mpj]);
+        $model->status_tawaran_mpj = $ref['desc'];
+        
+        // $ref = RefTawaran::findOne(['id' => $model->tawaran_jurulatih]);
+        // $model->tawaran_jurulatih = $ref['desc'];
         
          $ref = RefAgensiJurulatih::findOne(['id' => $model->agensi]);
         $model->agensi = $ref['desc'];
@@ -221,6 +234,18 @@ class JurulatihController extends Controller
             $file = UploadedFile::getInstance($model, 'gambar');
             if($file){
                 $model->gambar = Upload::uploadFile($file, Upload::jurulatihFolder, $model->jurulatih_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'keputusan_mesyuarat');
+            if($file){
+                $filename = $model->jurulatih_id . "-keputusan_mesyuarat";
+                $model->keputusan_mesyuarat = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'salinan_ic_passport');
+            if($file){
+                $filename = $model->jurulatih_id . "-salinan_ic_passport";
+                $model->salinan_ic_passport = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);
             }
             
             if($model->save()){
@@ -263,6 +288,8 @@ class JurulatihController extends Controller
         $model = $this->findModel($id);
         
         $existingGambar = $model->gambar;
+        $existingKeputusan = $model->keputusan_mesyuarat;
+        $existingIcPass = $model->salinan_ic_passport;
         
         if($model->load(Yii::$app->request->post())){
             $file = UploadedFile::getInstance($model, 'gambar');
@@ -276,6 +303,26 @@ class JurulatihController extends Controller
                 //remain existing file
                 $model->gambar = $existingGambar;
             }
+            
+            $file = UploadedFile::getInstance($model, 'keputusan_mesyuarat');
+            if($file){
+                if($model->keputusan_mesyuarat != null || $model->keputusan_mesyuarat != '')//cleanup
+                {
+                    unlink($model->keputusan_mesyuarat);
+                }
+                $filename = $model->jurulatih_id . "-keputusan_mesyuarat";
+                $model->keputusan_mesyuarat = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);
+            } else { $model->keputusan_mesyuarat = $existingKeputusan; }
+            
+            $file = UploadedFile::getInstance($model, 'salinan_ic_passport');
+            if($file){
+                if($model->salinan_ic_passport != null || $model->salinan_ic_passport != '')//cleanup
+                {
+                    unlink($model->salinan_ic_passport);
+                }
+                $filename = $model->jurulatih_id . "-salinan_ic_passport";
+                $model->salinan_ic_passport = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);
+            } else { $model->salinan_ic_passport = $existingIcPass; }
         }
 
         if (Yii::$app->request->post() && $model->save()) {
@@ -959,7 +1006,7 @@ class JurulatihController extends Controller
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikJurulatihPecahanMengikutNegara', $format, $controls, 'laporan_statistik_jurulatih_pecahan_mengikut_negara');
     }
     
-    public function actionLaporanJurulatihWajaran()
+    public function actionLaporanJurulatihWajaran($id = null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -967,6 +1014,10 @@ class JurulatihController extends Controller
         
         $model = new MsnLaporanJurulatihWajaran();
         $model->format = 'html';
+        
+        if($id != null){
+            $model->jurulatih = $id;
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             
@@ -1068,4 +1119,208 @@ class JurulatihController extends Controller
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikJurulatihMengikutKursus', $format, $controls, 'laporan_statistik_jurulatih_mengikut_kursus');
     }
+    
+    
+    public function actionSuratTawaranJurulatih($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }    
+        
+        $model = new MsnSuratTawaranJurulatih();
+        $model->jurulatih_id = $id;
+        $model->format = 'pdf';
+
+        if ($model->load(Yii::$app->request->post())) {
+            $parentModel = $this->findModel($id);
+            
+            $ref = RefBahasaLaporan::findOne(['id' => $model->bahasa]);
+            $model->bahasa = $ref['desc'];
+            
+            if (stripos($model->bahasa, 'bahasa') !== false) {
+                $model->bahasa = 'bm';
+                $template = 'generate_surat_tawaran_bm';
+            } else {
+                $model->bahasa = 'bi';
+                $template = 'generate_surat_tawaran';
+            }
+            
+            $pdf = new \mPDF('utf-8', 'A4');
+
+            $pdf->title = 'Surat Tawaran Jurulatih';
+            $stylesheet = file_get_contents('css/report.css');
+
+            $pdf->WriteHTML($stylesheet,1);
+            
+            $pdf->WriteHTML($this->renderpartial($template, [
+                 'parentModel'  => $parentModel,
+                 'model' => $model,
+            ]));
+
+            $pdf->Output('Surat_Tawaran_Jurulatih_'.$model->bahasa.'_'.$model->jurulatih_id.'.pdf', 'I');
+        }
+        
+        return $this->render('surat_tawaran_jurulatih', [
+            'model' => $model,
+        ]);
+    }
+    
+    public function actionJurulatihSambunganOversea($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }    
+        
+        $model = new MsnSuratTawaranJurulatih();
+        $model->jurulatih_id = $id;
+        $model->format = 'pdf';
+
+        if ($model->load(Yii::$app->request->post())) {
+            $parentModel = $this->findModel($id);
+            
+            $ref = RefBahasaLaporan::findOne(['id' => $model->bahasa]);
+            $model->bahasa = $ref['desc'];
+            
+            if (stripos($model->bahasa, 'bahasa') !== false) {
+                $model->bahasa = 'bm';
+                $template = 'generate_jurulatih_sambungan_bm';
+            } else {
+                $model->bahasa = 'bi';
+                $template = 'generate_jurulatih_sambungan_oversea';
+            }
+            
+            $pdf = new \mPDF('utf-8', 'A4');
+
+            $pdf->title = GeneralLabel::surat_setuju_terima.' ('.GeneralLabel::sambungan.')';;
+            $stylesheet = file_get_contents('css/report.css');
+
+            $pdf->WriteHTML($stylesheet,1);
+            
+            $pdf->WriteHTML($this->renderpartial($template, [
+                 'parentModel'  => $parentModel,
+                 'model' => $model,
+            ]));
+
+            $pdf->Output('Jurulatih_Sambungan_'.$model->bahasa.'_'.$model->jurulatih_id.'.pdf', 'I');
+        }
+        
+        return $this->render('jurulatih_sambungan_oversea', [
+            'model' => $model,
+        ]);
+    }
+    
+    public function actionJurulatihBaruOversea($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }    
+        
+        $model = new MsnSuratTawaranJurulatih();
+        $model->jurulatih_id = $id;
+        $model->format = 'pdf';
+
+        if ($model->load(Yii::$app->request->post())) {
+            $parentModel = $this->findModel($id);
+            
+            $ref = RefBahasaLaporan::findOne(['id' => $model->bahasa]);
+            $model->bahasa = $ref['desc'];
+            
+            if (stripos($model->bahasa, 'bahasa') !== false) {
+                $model->bahasa = 'bm';
+                $template = 'generate_jurulatih_baru_bm';
+            } else {
+                $model->bahasa = 'bi';
+                $template = 'generate_jurulatih_baru_oversea';
+            }
+            
+            $pdf = new \mPDF('utf-8', 'A4');
+
+            $pdf->title = GeneralLabel::surat_setuju_terima.' ('.GeneralLabel::lantikan_baru.')';
+            $stylesheet = file_get_contents('css/report.css');
+
+            $pdf->WriteHTML($stylesheet,1);
+            
+            $pdf->WriteHTML($this->renderpartial($template, [
+                 'parentModel'  => $parentModel,
+                 'model' => $model,
+            ]));
+
+            $pdf->Output('Jurulatih_Baru_'.$model->bahasa.'_'.$model->jurulatih_id.'.pdf', 'I');
+        }
+        
+        return $this->render('jurulatih_baru_oversea', [
+            'model' => $model,
+        ]);
+    }
+    
+    public function actionLaporanCawanganPengurusanJurulatih()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        } 
+
+        $model = new MsnLaporan();
+        $model->format = 'pdf';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            $pdf = new \mPDF('utf-8', 'A4-L');
+
+            $pdf->title = 'Laporan Cawangan Pengurusan Jurulatih';
+            $stylesheet = file_get_contents('css/report.css');
+
+            $pdf->WriteHTML($stylesheet,1);
+            
+            $pdf->WriteHTML($this->renderpartial('generate_laporan_cawangan_pengurusan_jurulatih', [
+                 'model' => $model,
+            ]));
+
+            $pdf->Output('Laporan_Cawangan_Pengurusan_Jurulatih.pdf', 'I');
+            
+            // return $this->renderpartial('generate_laporan_cawangan_pengurusan_jurulatih', [
+                // 'model' => $model,
+                // 'readonly' => false,
+            // ]);
+            
+        } 
+
+        return $this->render('laporan_cawangan_pengurusan_jurulatih', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+        
+    }
+    
+    public function actionLaporanPermohonanJawatankuasaBantuan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        } 
+
+        $model = new MsnLaporan();
+        $model->format = 'pdf';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            $pdf = new \mPDF('utf-8', 'A4-L');
+
+            $pdf->title = 'Laporan Permohonan Jawatankuasa Bantuan';
+            $stylesheet = file_get_contents('css/report.css');
+
+            $pdf->WriteHTML($stylesheet,1);
+            
+            $pdf->WriteHTML($this->renderpartial('generate_laporan_permohonan_jawatankuasa_bantuan', [
+                 'model' => $model,
+            ]));
+
+            $pdf->Output('Laporan_Permohonan_Jawatankuasa_Bantuan.pdf', 'I');
+        } 
+
+        return $this->render('laporan_permohonan_jawatankuasa_bantuan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+        
+    }
+
 }

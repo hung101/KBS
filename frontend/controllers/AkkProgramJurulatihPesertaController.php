@@ -42,14 +42,20 @@ class AkkProgramJurulatihPesertaController extends Controller
      * Lists all AkkProgramJurulatihPeserta models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($penganjuran_kursus_id = null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryPar = Yii::$app->request->queryParams;
+        
+        $queryPar['AkkProgramJurulatihPesertaSearch']['penganjuran_kursus_id'] = $penganjuran_kursus_id;
+        $queryPar['AkkProgramJurulatihPesertaSearch']['kelulusan_mpj'] = 1; // only LULUS
+        $queryPar['AkkProgramJurulatihPesertaSearch']['kelulusan_jkb'] = 1; // only LULUS
+        
         $searchModel = new AkkProgramJurulatihPesertaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryPar);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

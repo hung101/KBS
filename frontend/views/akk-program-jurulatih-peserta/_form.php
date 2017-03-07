@@ -142,6 +142,13 @@ use app\models\RefProgramJurulatih;
                     'columnOptions'=>['colspan'=>3]],
             ],
         ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'emel_pengurus_sukan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
+            ],
+        ],
     ]
 ]);
         ?>

@@ -8,9 +8,14 @@ use frontend\models\JurulatihPendidikanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 use yii\web\Session;
+use yii\helpers\Json;
+use yii\helpers\BaseUrl;
 
 use app\models\general\GeneralVariable;
+use app\models\general\Upload;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefTahapPendidikan;
@@ -115,16 +120,24 @@ class JurulatihPendidikanController extends Controller
         }
         
         $session->close();
-
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            //return $this->redirect(['view', 'id' => $model->jurulatih_pendidikan_id]);
-            return self::actionView($model->jurulatih_pendidikan_id);
-        } else {
-            return $this->renderAjax('create', [
-                'model' => $model,
-                'readonly' => false,
-            ]);
+            $file = UploadedFile::getInstance($model, 'salinan_sijil');
+            if($file){
+                $filename = $model->jurulatih_id . "-salinan_sijil";
+                $model->salinan_sijil = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);
+            }
+            
+            if($model->save()){
+                return self::actionView($model->jurulatih_pendidikan_id);
+            }
         }
+            
+        return $this->renderAjax('create', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+        
     }
 
     /**
@@ -140,9 +153,22 @@ class JurulatihPendidikanController extends Controller
         }
         
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            //return $this->redirect(['view', 'id' => $model->jurulatih_pendidikan_id]);
+        
+        $existingSijil = $model->salinan_sijil;
+        if ($model->load(Yii::$app->request->post())) {
+            
+            $file = UploadedFile::getInstance($model, 'salinan_sijil');
+            if($file){
+                if($model->salinan_sijil != null || $model->salinan_sijil != '')//cleanup
+                {
+                    unlink($model->salinan_sijil);
+                }
+                $filename = $model->jurulatih_id . "-salinan_sijil";
+                $model->salinan_sijil = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);
+            } else { $model->salinan_sijil = $existingSijil; }
+        }
+        
+        if (Yii::$app->request->post() && $model->save()) {
             return self::actionView($model->jurulatih_pendidikan_id);
         } else {
             return $this->renderAjax('update', [
@@ -150,6 +176,7 @@ class JurulatihPendidikanController extends Controller
                 'readonly' => false,
             ]);
         }
+        
     }
 
     /**

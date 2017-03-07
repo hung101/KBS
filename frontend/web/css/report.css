@@ -134,3 +134,38 @@ hr.style-eight:after {
     padding: 0 0.25em;
     background: white;
 }
+
+.square {
+	width: 70px;
+	height: 100px;
+	border:2px solid #000;
+}
+
+.border1{
+    border:1px solid #000;
+}
+
+.border2{
+    border:1px solid #000;
+    border-left:none;
+}
+
+.padding1 {
+    padding:6px;
+}
+
+.padding-top3{
+    padding-top:3px;
+}
+
+.padding2 {
+    padding:3px;
+}
+
+.borderBottom1{
+    border-right:1px solid #000;border-bottom:1px solid #000;
+}
+
+.borderBottom2{
+    border-bottom:1px solid #000;
+}

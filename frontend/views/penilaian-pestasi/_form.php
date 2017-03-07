@@ -20,6 +20,7 @@ use app\models\RefProgramSemasaSukanAtlet;
 use app\models\PerancanganProgram;
 use app\models\RefJenisAktiviti;
 use app\models\RefNegeri;
+use app\models\RefPeringkatKejohananTemasya;
 use common\models\User;
 
 // contant values
@@ -151,7 +152,7 @@ use app\models\general\GeneralMessage;
                 'tahap_sihat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6]],
             ]
         ],*/
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -207,12 +208,12 @@ use app\models\general\GeneralMessage;
                         ],],
                     'columnOptions'=>['colspan'=>3]],
             ],
-        ],
-        [
+        ],*/
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                /*'disiplin' => [
+                'disiplin' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -225,7 +226,7 @@ use app\models\general\GeneralMessage;
                         ] : null,
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::disiplin],],
-                    'columnOptions'=>['colspan'=>4]],*/
+                    'columnOptions'=>['colspan'=>4]],
                 'acara' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\DepDrop', 
@@ -252,8 +253,8 @@ use app\models\general\GeneralMessage;
                         ],
                     'columnOptions'=>['colspan'=>4]],
             ],
-        ],
-        [
+        ],*/
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -269,6 +270,123 @@ use app\models\general\GeneralMessage;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>4]],
+            ],
+        ],*/
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'nama_kejohanan_temasya' => [
+                'type'=>Form::INPUT_WIDGET, 
+                'widgetClass'=>'\kartik\widgets\Select2',
+                'options'=>[
+                    // 'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                    // [
+                        // 'append' => [
+                            // 'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                            // 'asButton' => true
+                        // ]
+                    // ] : null,
+                    'data'=>ArrayHelper::map(\app\models\PerancanganProgramPlan::find()->joinWith('refKategoriPelan')
+                            ->where(['LIKE', 'desc', 'kejohanan'])->all(),'perancangan_program_id', 'nama_program'),
+                    'options' => ['placeholder' => Placeholder::kejohanan_temasya, 'id' => 'kejohananTemasya'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],],
+                'columnOptions'=>['colspan'=>4]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'sukan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::sukan, 'id'=>'sukanId'],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>4]],
+                'program' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-program-semasa-sukan-atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::program, 'id'=>'programId'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>4]],
+                
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+               
+                 
+                'tempat' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'tarikh_mula' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                'tarikh_tamat' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                'negeri' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::negeri],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
         [
@@ -533,6 +651,7 @@ use app\models\general\GeneralMessage;
 <?php
 $DateDisplayFormat = GeneralVariable::displayDateFormat;
 $URLSetSukan = Url::to(['/penilaian-pestasi/set-sukan']);
+$URLGetKejohanan = Url::to(['/perancangan-program-plan/get-program-plan']);
 
 $script = <<< JS
         
@@ -547,6 +666,20 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
     var form = $(this);
 
     $("form#{$model->formName()} input").prop("disabled", false);
+});
+
+$('#kejohananTemasya').on('select2:select', function (evt) {
+    $.get('$URLGetKejohanan', {id:$(this).val()}, function(data){
+        if(data !== null){
+            $('#penilaianpestasi-tempat').val(data.tempat);
+            $('#sukanId').select2().val(data.sukan).trigger("change");
+            $('#programId').select2().val(data.jenis_program).trigger("change");
+            $("#penilaianpestasi-tarikh_mula-disp").val(formatDisplayDate(data.tarikh_mula));
+            $("#penilaianpestasi-tarikh_tamat-disp").val(formatDisplayDate(data.tarikh_tamat));
+            $("#penilaianpestasi-tarikh_mula").val(data.tarikh_mula);
+            $("#penilaianpestasi-tarikh_tamat").val(data.tarikh_tamat);
+        }
+    });
 });
         
         

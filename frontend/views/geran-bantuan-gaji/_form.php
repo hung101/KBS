@@ -35,7 +35,7 @@ use app\models\general\GeneralMessage;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
     <?php //echo $form->errorSummary($model); ?>
     
@@ -363,6 +363,70 @@ use app\models\general\GeneralMessage;
             </div>
     
     <?php endif; ?>
+    
+    <?php
+    // Muat Naik Dokumen
+    if($model->salinan_tawaran){
+        echo "<label>" . $model->getAttributeLabel('salinan_tawaran') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->salinan_tawaran , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::delete, ['deleteupload', 'id'=>$model->geran_bantuan_gaji_id, 'field'=> 'salinan_tawaran'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmDelete,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'salinan_tawaran' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    echo '<br />';
+    // Muat Naik Dokumen
+    if($model->persetujuan_terima){
+        echo "<label>" . $model->getAttributeLabel('persetujuan_terima') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->persetujuan_terima , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::delete, ['deleteupload', 'id'=>$model->geran_bantuan_gaji_id, 'field'=> 'persetujuan_terima'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmDelete,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'persetujuan_terima' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
     
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['kelulusan']) || $readonly): ?>
     <?php

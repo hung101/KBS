@@ -72,7 +72,7 @@ use app\models\general\GeneralMessage;
                     // ] : null,
                     'data'=>ArrayHelper::map(\app\models\PerancanganProgramPlan::find()->joinWith('refKategoriPelan')
                             ->where(['LIKE', 'desc', 'kejohanan'])->all(),'perancangan_program_id', 'nama_program'),
-                    'options' => ['placeholder' => Placeholder::kejohanan_temasya],
+                    'options' => ['placeholder' => Placeholder::kejohanan_temasya, 'id' => 'kejohananTemasya'],
                     'pluginOptions' => [
                         'allowClear' => true
                     ],],
@@ -112,7 +112,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefProgramSemasaSukanAtlet::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::program],
+                        'options' => ['placeholder' => Placeholder::program, 'id'=>'programId'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -602,7 +602,6 @@ use app\models\general\GeneralMessage;
             'data' => [
                     'confirm' => GeneralMessage::confirmSave,
                 ],]) ?>
-        <?= Html::a(GeneralLabel::permohonan_kemudahan_ticket_kapal_terbang, ['/permohonan-kemudahan-ticket-kapal-terbang/create'], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
         <?php endif; ?>
     </div>
 
@@ -612,6 +611,7 @@ use app\models\general\GeneralMessage;
 
 <?php
 $URL = Url::to(['/perancangan-program/get-program']);
+$URLGetKejohanan = Url::to(['/perancangan-program-plan/get-program-plan']);
 $URLSetSukan = Url::to(['/penyertaan-sukan/set-sukan']);
 
 $script = <<< JS
@@ -634,6 +634,20 @@ $('#kejohananId').change(function(){
         }
     });
     
+});
+
+$('#kejohananTemasya').on('select2:select', function (evt) {
+    $.get('$URLGetKejohanan', {id:$(this).val()}, function(data){
+        if(data !== null){
+            $('#penyertaansukan-tempat_penginapan').val(data.tempat);
+            $('#sukanId').select2().val(data.sukan).trigger("change");
+            $('#programId').select2().val(data.jenis_program).trigger("change");
+            $("#penyertaansukan-tarikh_mula-disp").val(formatDisplayDate(data.tarikh_mula));
+            $("#penyertaansukan-tarikh_tamat-disp").val(formatDisplayDate(data.tarikh_tamat));
+            $("#penyertaansukan-tarikh_mula").val(data.tarikh_mula);
+            $("#penyertaansukan-tarikh_tamat").val(data.tarikh_tamat);
+        }
+    });
 });
         
         

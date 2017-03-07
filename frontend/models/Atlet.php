@@ -308,4 +308,11 @@ class Atlet extends \yii\db\ActiveRecord
     public function getRefAtletPendidikan(){
         return $this->hasMany(AtletPendidikan::className(), ['atlet_id' => 'atlet_id']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefAtletKewanganAkaun(){
+        return $this->hasMany(AtletKewanganAkaun::className(), ['atlet_id' => 'atlet_id']);
+    }
 }

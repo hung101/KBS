@@ -68,7 +68,7 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatih extends \yii\db\ActiveR
             //[[ 'muat_naik_document'], 'string', 'max' => 100],
             [['status_permohonan', 'jenis_permohonan', 'program_baru', 'cadangan_gaji_elaun', 'bil_jkb'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['gaji_elaun', 'program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['sebab'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['sebab', 'muat_naik_cadangan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik_document'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }
@@ -94,6 +94,7 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatih extends \yii\db\ActiveR
             'sebab' => 'Sebab',
             'bil_jkb' => 'Bil JKB',
             'tarikh_jkb' => 'Tarikh JKB',
+            'muat_naik_cadangan' => GeneralLabel::upload,
         ];
     }
     

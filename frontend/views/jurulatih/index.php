@@ -21,7 +21,7 @@ use app\models\RefStatusTawaran;
 $this->title = GeneralLabel::senarai_jurulatih;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="jurulatih-index">
+<div class="jurulatih-index" style="overflow-x:scroll;">
     
     <?php
         $template = '{view}';
@@ -524,13 +524,31 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'program', ArrayHelper::map(RefProgramJurulatih::find()->where(['=', 'aktif', 1])->all(), 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Program --']),
             ],
-            [
+/*             [
                 'attribute' => 'status_tawaran',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_tawaran,
                 ],
                 'value' => 'refStatusTawaran.desc'
+            ], */
+            [
+                'attribute' => 'status_tawaran_jkb',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_tawaran_jkb,
+                ],
+                'filter' => Html::activeDropDownList($searchModel, 'status_tawaran_jkb', ArrayHelper::map(RefStatusTawaran::find()->where(['=', 'aktif', 1])->all(), 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Status --']),
+                'value' => 'refStatusJkb.desc'
+            ],
+            [
+                'attribute' => 'status_tawaran_mpj',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_tawaran_mpj,
+                ],
+                'filter' => Html::activeDropDownList($searchModel, 'status_tawaran_mpj', ArrayHelper::map(RefStatusTawaran::find()->where(['=', 'aktif', 1])->all(), 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Status --']),
+                'value' => 'refStatusMpj.desc'
             ],
             [
                 //'attribute' => 'created',

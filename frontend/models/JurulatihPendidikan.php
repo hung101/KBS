@@ -8,6 +8,9 @@ use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
+use yii\web\UploadedFile;
+use app\models\general\Upload;
+
 /**
  * This is the model class for table "tbl_jurulatih_pendidikan".
  *
@@ -57,7 +60,8 @@ class JurulatihPendidikan extends \yii\db\ActiveRecord
             [['tahun'], 'integer','min'=>GeneralVariable::yearMin,'max'=>GeneralVariable::yearMax, 'message' => GeneralMessage::yii_validation_integer, 'tooBig' => GeneralMessage::yii_validation_integer_max, 'tooSmall' => GeneralMessage::yii_validation_integer_min],
             [['sekolah_kolej_universiti'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tahap_pendidikan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['gred'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['gred', 'salinan_sijil'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['salinan_sijil'], 'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -73,7 +77,23 @@ class JurulatihPendidikan extends \yii\db\ActiveRecord
             'sekolah_kolej_universiti' => GeneralLabel::nama_institusi_sekolah,
             'gred' => GeneralLabel::pencapaian,
             'tahap_pendidikan' => GeneralLabel::tahap_pendidikan,
+            'salinan_sijil' => GeneralLabel::salinan_sijil_pendidikan,
         ];
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+
+        if(!$file && $this->$attribute==""){
+            $this->addError($attribute, GeneralMessage::uploadEmptyError);
+        }
     }
     
     /**

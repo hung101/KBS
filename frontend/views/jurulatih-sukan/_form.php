@@ -26,6 +26,7 @@ use app\models\RefBahagianJurulatih;
 // contant values
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
 
@@ -163,7 +164,6 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
-        
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -173,6 +173,7 @@ use app\models\general\GeneralMessage;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
+                        'options' => ['id'=>'tarikhMula'],
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
@@ -183,6 +184,7 @@ use app\models\general\GeneralMessage;
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
                     'options'=>[
+                        'options' => ['id'=>'tarikhTamat'],
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
@@ -211,7 +213,43 @@ use app\models\general\GeneralMessage;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
-                'jumlah' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
+                //'jumlah' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'jumlah' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                'jumlah_bulan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true, 'id' => 'jumlahBulanId']],
+                'jumlah_keseluruhan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                'bersamaan_usd' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'letak_jawatan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                'kenaikan_mulai' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
             ]
         ],
     ]
@@ -222,9 +260,13 @@ use app\models\general\GeneralMessage;
     <h3><?php echo GeneralLabel::acara; ?></h3>
     
     <?php 
+    $modelTitleID = GeneralVariable::jurulatihSukanTabModalTitle;
+    $modelID = GeneralVariable::jurulatihSukanTabModal;
+    $modelContentID = GeneralVariable::jurulatihSukanTabModalContent;
+    
             Modal::begin([
-                'header' => '<h3 id="modalTitle"></h3>',
-                'id' => 'modal',
+                'header' => '<h3 id='.$modelTitleID.'></h3>',
+                'id' => $modelID,
                 'size' => 'modal-lg',
                 'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
                 'options' => [
@@ -232,7 +274,7 @@ use app\models\general\GeneralMessage;
                 ],
             ]);
             
-            echo '<div id="modalContent"></div>';
+            echo '<div id="'.$modelContentID.'"></div>';
             
             Modal::end();
         ?>
@@ -276,13 +318,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['jurulatih-sukan-acara/update', 'id' => $model->jurulatih_sukan_acara_id]).'", "'.GeneralLabel::updateTitle . ' Acara");',
+                        'onclick' => 'loadModalRenderAjaxTab("'.Url::to(['jurulatih-sukan-acara/update', 'id' => $model->jurulatih_sukan_acara_id]).'", "'.GeneralLabel::updateTitle . ' '. GeneralLabel::acara .'", "'.GeneralVariable::jurulatihSukanTabModal.'", "'.GeneralVariable::jurulatihSukanTabModalContent.'", "'.GeneralVariable::jurulatihSukanTabModalTitle.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['jurulatih-sukan-acara/view', 'id' => $model->jurulatih_sukan_acara_id]).'", "'.GeneralLabel::viewTitle . ' Acara");',
+                        'onclick' => 'loadModalRenderAjaxTab("'.Url::to(['jurulatih-sukan-acara/view', 'id' => $model->jurulatih_sukan_acara_id]).'", "'.GeneralLabel::viewTitle . ' '. GeneralLabel::acara .'", "'.GeneralVariable::jurulatihSukanTabModal.'", "'.GeneralVariable::jurulatihSukanTabModalContent.'", "'.GeneralVariable::jurulatihSukanTabModalTitle.'");',
                         ]);
                     }
                 ],
@@ -302,7 +344,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['jurulatih-sukan-acara/create', 'jurulatih_sukan_id' => $jurulatih_sukan_id]).'", "'.GeneralLabel::createTitle . ' Acara");',
+                        'onclick' => 'loadModalRenderAjaxTab("'.Url::to(['jurulatih-sukan-acara/create', 'jurulatih_sukan_id' => $jurulatih_sukan_id]).'", "'.GeneralLabel::createTitle . ' '. GeneralLabel::acara .'", "'.GeneralVariable::jurulatihSukanTabModal.'", "'.GeneralVariable::jurulatihSukanTabModalContent.'", "'.GeneralVariable::jurulatihSukanTabModalTitle.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
@@ -332,7 +374,45 @@ $script = <<< JS
         
 var sukan_Id = "";
         
+$("#tarikhMula").change(function(){
+    setDuration();
+    setTotal();
+});
         
+$("#tarikhTamat").change(function(){
+    setDuration();
+    setTotal();
+});
+
+$("#jurulatihsukan-jumlah").change(function(){
+    setTotal();
+});
+
+$("#jumlahBulanId").change(function(){
+    setTotal();
+});
+
+function setTotal()
+{
+    if($('#jumlahBulanId').val() != '' && $("#jurulatihsukan-jumlah").val() != ''){
+        var total = parseFloat($("#jurulatihsukan-jumlah").val())*parseInt($('#jumlahBulanId').val());
+        $('#jurulatihsukan-jumlah_keseluruhan').val(total.toFixed(2));
+    }
+}
+        
+function setDuration(){
+    if($("#tarikhMula").val() !== "" && $("#tarikhTamat").val() !== ""){
+        var fromDatetime = $("#tarikhMula").val();
+        var toDatetime = $("#tarikhTamat").val();
+
+        var fromDate = moment(fromDatetime,'YYYY-MM-DD');
+        var toDate = moment(toDatetime,'YYYY-MM-DD');
+
+        if(fromDatetime != "" && toDatetime != ""){
+            $("#jumlahBulanId").val(monthDiff2(fromDate,toDate));
+        }
+    }
+}       
         
 $('#sukanId').change(function(){
     setSukan();

@@ -31,6 +31,7 @@ use app\models\RefProgramSemasaSukanAtlet;
 use app\models\PerancanganProgram;
 use app\models\RefJenisAktiviti;
 use app\models\RefNegeri;
+use \app\models\PerancanganProgramPlan;
 
 /**
  * PenilaianPestasiController implements the CRUD actions for PenilaianPestasi model.
@@ -101,6 +102,9 @@ class PenilaianPestasiController extends Controller
         
         $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program]);
         $model->program = $ref['desc'];
+        
+        $ref = PerancanganProgramPlan::findOne(['perancangan_program_id' => $model->nama_kejohanan_temasya]);
+        $model->nama_kejohanan_temasya = $ref['nama_program'];
         
         $ref = RefNegeri::findOne(['id' => $model->negeri]);
         $model->negeri = $ref['desc'];

@@ -190,13 +190,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ],*/
             // 'rekod_baharu',
             //'jumlah',
-            [
+            /*[
                 'attribute' => 'jumlah',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah,
                 ],
-            ],
+            ],*/
             //'kelulusan',
             [
                 'attribute' => 'kelulusan',

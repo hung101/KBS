@@ -32,7 +32,7 @@ class JurulatihSearch extends Jurulatih
                 'tamat_permit_tempoh', 'alamat_rumah_1', 'alamat_rumah_2', 'alamat_rumah_3', 'alamat_rumah_negeri', 'alamat_rumah_bandar', 'alamat_rumah_poskod', 
                 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_bandar', 
                 'alamat_surat_menyurat_poskod', 'no_telefon', 'emel', 'status', 'sektor', 'jawatan', 'no_telefon_pejabat', 'nama_majikan', 'alamat_majikan_1', 
-                'alamat_majikan_2', 'alamat_majikan_3', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 'bahagian', 'program', 'status_tawaran', 'created', 'approved_date'], 'safe'],
+                'alamat_majikan_2', 'alamat_majikan_3', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 'bahagian', 'program', 'status_tawaran', 'created', 'approved_date', 'status_tawaran_jkb', 'status_tawaran_mpj'], 'safe'],
         ];
     }
 
@@ -104,6 +104,8 @@ class JurulatihSearch extends Jurulatih
             'tbl_jurulatih_sukan.sukan' => $this->nama_sukan,
             'tbl_jurulatih_sukan.program' => $this->program,
             'mesyuarat_id' => $this->mesyuarat_id,
+            'status_tawaran_jkb' => $this->status_tawaran_jkb,
+            'status_tawaran_mpj' => $this->status_tawaran_mpj,
         ]);
         
         if($this->ic_no){

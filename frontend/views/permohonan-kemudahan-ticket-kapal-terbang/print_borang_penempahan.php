@@ -134,17 +134,17 @@ foreach($balikPengurus as $bps){
 
 foreach($atlet as $item){
     $name = Atlet::findOne(['atlet_id' => $item->atlet])->name_penuh;
-    $namaPenumpang[] = [$name];
+    $namaPenumpang[] = ['name' => $name, 'tarikh_pergi' => $item->tarikh_pergi, 'flight_pergi' => $item->flight_no_pergi, 'masa_pergi' => $item->masa_pergi, 'destinasi_pergi' => $item->destinasi_pergi, 'tarikh_balik' => $item->tarikh_balik, 'flight_balik' => $item->flight_no_balik, 'masa_balik' => $item->masa_balik, 'destinasi_balik' => $item->destinasi_balik];
 }
 foreach($jurulatih as $item){
     $name = Jurulatih::findOne(['jurulatih_id' => $item->jurulatih])->nama;
-    $namaPenumpang[] = [$name];
+    $namaPenumpang[] = ['name' => $name, 'tarikh_pergi' => $item->tarikh_pergi, 'flight_pergi' => $item->flight_no_pergi, 'masa_pergi' => $item->masa_pergi, 'destinasi_pergi' => $item->destinasi_pergi, 'tarikh_balik' => $item->tarikh_balik, 'flight_balik' => $item->flight_no_balik, 'masa_balik' => $item->masa_balik, 'destinasi_balik' => $item->destinasi_balik];
 }
 foreach($pegawai as $item){
-    $namaPenumpang[] = [$item->pegawai];
+    $namaPenumpang[] = ['name' => $item->pegawai, 'tarikh_pergi' => $item->tarikh_pergi, 'flight_pergi' => $item->flight_no_pergi, 'masa_pergi' => $item->masa_pergi, 'destinasi_pergi' => $item->destinasi_pergi, 'tarikh_balik' => $item->tarikh_balik, 'flight_balik' => $item->flight_no_balik, 'masa_balik' => $item->masa_balik, 'destinasi_balik' => $item->destinasi_balik];
 }
 foreach($pengurus as $item){
-    $namaPenumpang[] = [$item->pengurus_sukan];
+    $namaPenumpang[] = ['name' => $item->pengurus_sukan, 'tarikh_pergi' => $item->tarikh_pergi, 'flight_pergi' => $item->flight_no_pergi, 'masa_pergi' => $item->masa_pergi, 'destinasi_pergi' => $item->destinasi_pergi, 'tarikh_balik' => $item->tarikh_balik, 'flight_balik' => $item->flight_no_balik, 'masa_balik' => $item->masa_balik, 'destinasi_balik' => $item->destinasi_balik];
 }
 //var_dump($namaPenumpang); die;
 ?>
@@ -255,18 +255,38 @@ foreach($pengurus as $item){
     
     <div class="sectionWrap" style="border:0px">
     <span class="text-bold">3. SENARAI PENUMPANG</span><br /><br />
-        <table border="1" width="90%" cellspacing="0" cellpadding="5" align="center">
-            <tr>
-                <th width="7%">Bil</th>
-                <th>Nama</th>
-            </tr>
+        <table border="1" width="100%" cellspacing="0" cellpadding="5" align="center">
+          <tr>
+            <th rowspan="2">Bil</th>
+            <th rowspan="2">Nama</th>
+            <th colspan="4">Pergi</th>
+            <th colspan="4">Balik</th>
+          </tr>
+          <tr>
+            <th>Tarikh</th>
+            <th>No Flight</th>
+            <th>Masa</th>
+            <th>Destinasi</th>
+            <th>Tarikh</th>
+            <th>No Flight</th>
+            <th>Masa</th>
+            <th>Destinasi</th>
+          </tr>
             <?php
             $bil = 1;
-            foreach($namaPenumpang as $nama){
+            foreach($namaPenumpang as $penumpang){
             ?>
                 <tr>
                     <td align="center"><?= $bil ?></td>
-                    <td><?= $nama[0] ?></td>
+                    <td><?= $penumpang['name'] ?></td>
+                    <td><?= date('d/m/Y',strtotime($penumpang['tarikh_pergi'])) ?></td>
+                    <td><?= $penumpang['flight_pergi'] ?></td>
+                    <td><?= $penumpang['masa_pergi'] ?></td>
+                    <td><?= $penumpang['destinasi_pergi'] ?></td>
+                    <td><?= date('d/m/Y',strtotime($penumpang['tarikh_balik'])) ?></td>
+                    <td><?= $penumpang['flight_balik'] ?></td>
+                    <td><?= $penumpang['masa_balik'] ?></td>
+                    <td><?= $penumpang['destinasi_balik'] ?></td>
                 </tr>
             <?php
                 $bil++;

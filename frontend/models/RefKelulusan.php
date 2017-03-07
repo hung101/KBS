@@ -20,6 +20,9 @@ use app\models\general\GeneralMessage;
  */
 class RefKelulusan extends \yii\db\ActiveRecord
 {
+    const TIDAK = 0;
+    const YA = 1;
+    
     /**
      * @inheritdoc
      */

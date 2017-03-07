@@ -14,6 +14,7 @@ use yii\web\Session;
 // table reference
 use app\models\Atlet;
 use app\models\RefKeputusan;
+use app\models\RefAcara;
 
 // contant values
 use app\models\general\Placeholder;
@@ -89,6 +90,37 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>2]],
                  
             ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'acara' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
+                    'options'=>[
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/ref-acara/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
+                        ],
+                        'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'disciplineAcara'),
+                        'options'=>['prompt'=>'',],
+                        'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+                        'pluginOptions' => [
+                            'initialize' => true,
+                            'depends'=>[Html::getInputId($model, 'sukan')],
+                            'placeholder' => Placeholder::acara,
+                            'url'=>Url::to(['/ref-acara/subacaras'])],
+                        ],
+                    'columnOptions'=>['colspan'=>4]],
+            ]
         ],
         [
             'columns'=>12,

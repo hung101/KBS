@@ -35,6 +35,16 @@ function loadModalRenderAjax(url, modalTitle){
    return false;
 }
 
+function loadModalRenderAjaxTab(url, modalTitle, modalId, modalContentId, modalTitleId){
+    $('#' + modalContentId).html('');
+    $('#' + modalTitleId).html(modalTitle);
+    $('#' + modalId).modal('show')
+                .find('#' + modalContentId)
+                .load(url);
+    
+   return false;
+}
+
 function deleteRecordModalAjax(url, confirmMsg, gridId){
     var r = confirm(confirmMsg);
        
@@ -259,6 +269,21 @@ function monthDiff(d1, d2) {
     months += d2.getMonth();
     return months <= 0 ? 0 : months;
 }
+
+function monthDiff2(d1, d2) {
+    d1 = new Date(d1);
+    d2 = new Date(d2);
+    
+    var d1Y = d1.getFullYear();
+    var d2Y = d2.getFullYear();
+    var d1M = d1.getMonth();
+    var d2M = d2.getMonth();
+
+    var months = (d2M+12*d2Y)-(d1M+12*d1Y)+1;
+    return months;
+}
+
+//DisplayTo.getMonth() - DisplayFrom.getMonth() + (12 * (DisplayTo.getFullYear() - DisplayFrom.getFullYear())));
 
 /*Chart.defaults.global.scaleLabel = function (label) {
     return label.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -980,7 +1005,10 @@ $('body').on('beforeSubmit', 'form#jurulatih_pendidikan_form', function () {
      $.ajax({
           url: form.attr('action'),
           type: 'post',
-          data: form.serialize(),
+          data:  new FormData(this),
+            contentType: false,
+            cache: false,
+            processData:false,
           success: function (response) {
                // do something with response
                $("#" + tabId).hideLoading();

@@ -49,7 +49,7 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
      * Lists all LtbsMinitMesyuaratJawatankuasa models.
      * @return mixed
      */
-    public function actionIndex($profil_badan_sukan_id)
+    public function actionIndex($profil_badan_sukan_id=null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));

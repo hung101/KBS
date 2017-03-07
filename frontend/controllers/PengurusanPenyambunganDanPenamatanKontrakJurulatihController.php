@@ -21,6 +21,7 @@ use app\models\RefProgramJurulatih;
 use app\models\RefGajiElaunJurulatih;
 use app\models\RefJenisPermohonanKontrakJurulatih;
 use app\models\RefStatusTawaran;
+use app\models\User;
 
 /**
  * PengurusanPenyambunganDanPenamatanKontrakJurulatihController implements the CRUD actions for PengurusanPenyambunganDanPenamatanKontrakJurulatih model.
@@ -70,7 +71,7 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
         }
         
         $model = $this->findModel($id);
-        
+        $jurulatih_id = $model->jurulatih;
         $ref = Jurulatih::findOne(['jurulatih_id' => $model->jurulatih]);
         $model->jurulatih = $ref['nameAndIC'];
         
@@ -94,6 +95,7 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
         
         return $this->render('view', [
             'model' => $model,
+            'jurulatih_id' => $jurulatih_id,
             'readonly' => true,
         ]);
     }
@@ -117,6 +119,10 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
             if($file){
                 $model->muat_naik_document = $upload->uploadFile($file, Upload::pelanjutanPenamatanKontrakJurulatihFolder, $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id);
             }
+            $file = UploadedFile::getInstance($model, 'muat_naik_cadangan');
+            if($file){
+                $model->muat_naik_cadangan = $upload->uploadFile($file, Upload::pelanjutanPenamatanKontrakJurulatihFolder, $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id);
+            }
             
                 if($model->status_permohonan == RefStatusPermohonanKontrakJurulatih::LULUS){
                     // update to Jurulatih profile Sukan if LULUS
@@ -136,13 +142,42 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
                 }
                 
                 if($model->status_permohonan == RefStatusPermohonanKontrakJurulatih::GAGAL){
-                    if (($modelJurulatih = Jurulatih::findOne($id)) !== null) {
+                    if (($modelJurulatih = Jurulatih::findOne($model->jurulatih)) !== null) {
                         $modelJurulatih->status_tawaran = RefStatusTawaran::TIDAK_DILULUSKAN;
                         $modelJurulatih->save();
                     }
                 }
             
             if($model->save()){
+                //email
+                $modelUser = User::findOne($model->created_by);
+                if (count($modelUser) > 0) {
+                    $jurulatihModel = Jurulatih::findOne(['jurulatih_id' => $model->jurulatih]);
+                    
+                    $ref = RefStatusPermohonanKontrakJurulatih::findOne(['id' => $model->status_permohonan]);
+                    $statusPermohonanDesc = $ref['desc'];
+                    try {
+                        Yii::$app->mailer->compose()
+                                ->setTo($modelUser->email)
+                                ->setFrom('noreply@spsb.com')
+                                ->setSubject('Status Permohonan (' . $jurulatihModel->nama . '- '.$jurulatihModel->ic_no.') Kontrak Jurulatih')
+                                ->setTextBody('Salam Sejahtera,<br><br>
+
+                        Nama Jurulatih: ' . $jurulatihModel->nama . '<br>
+                        No Kad Pengenalan: ' . $jurulatihModel->ic_no . '<br>
+                        Status Permohonan Terkini: ' . $statusPermohonanDesc . '<br>
+<br><br>
+                        "KE ARAH KECEMERLANGAN SUKAN"<br>
+                        Majlis Sukan Negara Malaysia.<br>
+                        ')->send();
+                    }
+                    catch(\Swift_SwiftException $exception)
+                    {
+                        //var_dump($exception); die;
+                        //return 'Can sent mail due to the following exception'.print_r($exception);
+                    }
+                }
+                
                 return $this->redirect(['view', 'id' => $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id]);
             }
         } else {
@@ -166,12 +201,17 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
         }
         
         $model = $this->findModel($id);
+        $oriStatusPermohonan = $model->status_permohonan;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $upload = new Upload();
             $file = UploadedFile::getInstance($model, 'muat_naik_document');
             if($file){
                 $model->muat_naik_document = $upload->uploadFile($file, Upload::pelanjutanPenamatanKontrakJurulatihFolder, $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id);
+            }
+            $file = UploadedFile::getInstance($model, 'muat_naik_cadangan');
+            if($file){
+                $model->muat_naik_cadangan = $upload->uploadFile($file, Upload::pelanjutanPenamatanKontrakJurulatihFolder, $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id);
             }
             
             if($model->status_permohonan == RefStatusPermohonanKontrakJurulatih::LULUS){
@@ -199,6 +239,37 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
                 }
             
             if($model->save()){
+                if($oriStatusPermohonan != $model->status_permohonan) {
+                    //email
+                    $modelUser = User::findOne($model->created_by);
+                    if (count($modelUser) > 0) {
+                        $jurulatihModel = Jurulatih::findOne(['jurulatih_id' => $model->jurulatih]);
+                        
+                        $ref = RefStatusPermohonanKontrakJurulatih::findOne(['id' => $model->status_permohonan]);
+                        $statusPermohonanDesc = $ref['desc'];
+                        try {
+                            Yii::$app->mailer->compose()
+                                    ->setTo($modelUser->email)
+                                    ->setFrom('noreply@spsb.com')
+                                    ->setSubject('Status Permohonan (' . $jurulatihModel->nama . '- '.$jurulatihModel->ic_no.') Kontrak Jurulatih')
+                                    ->setTextBody('Salam Sejahtera,<br><br>
+
+                            Nama Jurulatih: ' . $jurulatihModel->nama . '<br>
+                            No Kad Pengenalan: ' . $jurulatihModel->ic_no . '<br>
+                            Status Permohonan Terkini: ' . $statusPermohonanDesc . '<br>
+    <br><br>
+                            "KE ARAH KECEMERLANGAN SUKAN"<br>
+                            Majlis Sukan Negara Malaysia.<br>
+                            ')->send();
+                        }
+                        catch(\Swift_SwiftException $exception)
+                        {
+                            //var_dump($exception); die;
+                            //return 'Can sent mail due to the following exception'.print_r($exception);
+                        }
+                    }
+                }
+                
                 return $this->redirect(['view', 'id' => $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id]);
             }
         }
@@ -223,6 +294,7 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
         
         // delete upload file
         self::actionDeleteupload($id, 'muat_naik_document');
+        self::actionDeleteupload($id, 'muat_naik_cadangan');
         
         $this->findModel($id)->delete();
 

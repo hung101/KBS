@@ -92,6 +92,10 @@ $session->close();
 
 
 <?php
+$modelTitleID = GeneralVariable::jurulatihSukanTabModalTitle;
+$modelID = GeneralVariable::jurulatihSukanTabModal;
+$modelContentID = GeneralVariable::jurulatihSukanTabModalContent;
+    
 $script = <<< JS
         
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
@@ -111,9 +115,9 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
                 var resArr = response.split("/pipe?");
                
                 if(resArr[0] != 1){
-                    $('#modalContent').html(resArr[1]);
+                    $('#$modelContentID').html(resArr[1]);
                 } else {
-                    $(document).find('#modal').modal('hide');
+                    $(document).find('#$modelID').modal('hide');
                     form.trigger("reset");
                     //$.pjax.defaults.timeout = 100000;
                     //$.pjax.reload({container:'#acaraGrid'});

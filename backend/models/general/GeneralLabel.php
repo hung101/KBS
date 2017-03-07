@@ -464,6 +464,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const email_verification_message = "Anda perlu mengesahkan alamat e-mel anda sebelum anda boleh menghantar permohonan. E-mel telah dihantar kepada alamat e-mel yang berdaftar. Sila buka dan klik pada link menyediakan untuk mengaktifkan akaun anda";
         const emel = "Emel";
         const emel_badan_sukan = "Emel Badan Sukan";
+        const emel_jurulatih = "Emel Jurulatih";
         const emel_pengadu = "Emel Pengadu";
         const emel_penganjur = "Emel Penganjur";
         const emel_presiden_badan_sukan = "Emel";
@@ -3172,6 +3173,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const senarai_jurulatihs = "Senarai Jurulatih";
         const senarai_kehadiran = "Senarai Kehadiran";
         const senarai_kehadiran_mesyuarat_jawatankuasa_menetapkan_mesyuarat_agong = "Senarai Kehadiran Mesyuarat Jawatankuasa Menetapkan Mesyuarat Agong";
+        const senarai_kursus_akk = "Senarai Kursus AKK";
         const senarai_nama_ahli = "Senarai Nama Ahli";
         const senarai_nama_kehadiran_mesyuarat_agong = "Senarai Nama Kehadiran Mesyuarat Agong";
         const senarai_pencalonan_anugerah_khas = "Senarai Pencalonan Anugerah Khas";
@@ -3817,6 +3819,7 @@ if($session->get('language') == "EN") {
         const email_verification_message = "You must verify your email address before you can send application. An email has been sent to the registered address. Please open it and click on the provide link to activate your account";
         const emel = "Email";
         const emel_badan_sukan = "Email Body Sport";
+        const emel_jurulatih = "Email Coach";
         const emel_pengadu = "Email The Complainant";
         const emel_penganjur = "Email Organizer";
         const emel_presiden_badan_sukan = "Email";
@@ -6533,6 +6536,7 @@ if($session->get('language') == "EN") {
         const senarai_jurulatihs = "List Of Coach";
         const senarai_kehadiran = "Attendance List";
         const senarai_kehadiran_mesyuarat_jawatankuasa_menetapkan_mesyuarat_agong = "List Of Attendance At Meetings Of The Committee Set The General Meeting";
+        const senarai_kursus_akk = "AKK Course List";
         const senarai_nama_ahli = "List Member's Name";
         const senarai_nama_kehadiran_mesyuarat_agong = "Name List Of The Presence Of The General Meeting";
         const senarai_pencalonan_anugerah_khas = "Special Award Nominations List";

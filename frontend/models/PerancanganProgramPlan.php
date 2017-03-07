@@ -60,7 +60,7 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
             [['lokasi'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['anggaran_perbelanjaan', 'perbelanjaan_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan', 'tempat'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
             ['jenis_aktiviti', 'required', 'message' => GeneralMessage::yii_validation_required, 'when' => function ($model) {
                     return $model->bahagian != 1;
@@ -100,6 +100,8 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
             'status_permohonan' => GeneralLabel::status_permohonan,
             'anggaran_perbelanjaan' => GeneralLabel::anggaran_perbelanjaan,
             'perbelanjaan_diluluskan' => GeneralLabel::perbelanjaan_diluluskan.' (RM)',
+            'tempat' => GeneralLabel::tempat,
+            'catatan' => GeneralLabel::catatan,
         ];
     }
     

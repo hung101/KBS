@@ -16,7 +16,11 @@ use common\models\general\GeneralFunction;
 // table reference
 use app\models\Atlet;
 use app\models\RefAcara;
+use app\models\RefSukan;
+use app\models\RefPingatInsentif;
+use app\models\RefPembayaranKepada;
 use app\models\RefAcaraInsentif;
+
 /**
  * PembayaranInsentifAtletController implements the CRUD actions for PembayaranInsentifAtlet model.
  */
@@ -74,6 +78,18 @@ class PembayaranInsentifAtletController extends Controller
         
         $ref = RefAcara::findOne(['id' => $model->acara]);
         $model->acara = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefPingatInsentif::findOne(['id' => $model->pingat]);
+        $model->pingat = $ref['desc'];
+        
+        $ref = RefAcaraInsentif::findOne(['id' => $model->kelayakan_pingat]);
+        $model->kelayakan_pingat = $ref['desc'];
+        
+        $ref = RefPembayaranKepada::findOne(['id' => $model->pembayaran_kepada]);
+        $model->pembayaran_kepada = $ref['desc'];
         
         return $this->renderAjax('view', [
             'model' => $model,

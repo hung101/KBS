@@ -49,8 +49,9 @@ class PembayaranInsentifSearch extends PembayaranInsentif
                 ->joinWith(['refPingatInsentif'])
                 ->joinWith(['refPengurusanInsentifTetapanShakamShakar'])
                 ->joinWith(['refKelulusan'])
-                ->joinWith(['refPembayaranInsentifAtlet'])
                 ->joinWith(['refPerancanganProgram']);
+        
+        
 
         // add conditions that should always apply here
 
@@ -59,6 +60,10 @@ class PembayaranInsentifSearch extends PembayaranInsentif
         ]);
 
         $this->load($params);
+        
+        if(isset($this->atlet)){ // to solved the gridview page items issue
+            $query->joinWith(['refPembayaranInsentifAtlet']);
+        }
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails

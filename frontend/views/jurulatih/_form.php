@@ -9,6 +9,9 @@ use yii\helpers\Url;
 use kartik\widgets\DepDrop;
 use kartik\datecontrol\DateControl;
 use yii\helpers\ArrayHelper;
+use yii\bootstrap\Modal;
+use yii\widgets\Pjax;
+use yii\grid\GridView;
 
 // table reference
 use app\models\RefJantina;
@@ -31,6 +34,7 @@ use app\models\RefKeaktifanJurulatih;
 use app\models\RefSektorPekerjaan;
 use app\models\RefAgensiJurulatih;
 use app\models\RefStatusTawaran;
+use app\models\RefTawaran;
 
 // contant values
 use app\models\general\Placeholder;
@@ -41,6 +45,19 @@ use app\models\general\GeneralVariable;
 /* @var $this yii\web\View */
 /* @var $model app\models\Jurulatih */
 /* @var $form yii\widgets\ActiveForm */
+
+// $subStatus = RefStatusJurulatih::find()->select('id')->where(['LIKE', 'desc', '%JPM%']);
+// $checkStatus = Jurulatih::find()->where(['jurulatih_id' => $mode])->one();
+// var_dump($model->status_jurulatih); die;
+$isTerima = false;
+$query = RefTawaran::find()->where(['id' => $model->tawaran_jurulatih])->andWhere(['LIKE', 'desc', 'terima'])->one();
+if(count($query) > 0) $isTerima = true;
+//var_dump($isTerima); die;
+
+if ($readonly) {
+    $ref = RefTawaran::findOne(['id' => $model->tawaran_jurulatih]);
+    $model->tawaran_jurulatih = $ref['desc'];
+}
 ?>
 
 <div class="jurulatih-form">
@@ -64,6 +81,16 @@ use app\models\general\GeneralVariable;
         <?php endif; ?>
         <?php //echo Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'window.print();' ]); ?>
         <?php echo Html::a(GeneralLabel::print_pdf, '', ['value'=>Url::to(['/jurulatih/print', 'id' => $model->jurulatih_id]), 'class' => 'btn btn-info custom_button']); ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update'])): ?>
+            <?php echo Html::a(GeneralLabel::surat_tawaran, ['surat-tawaran-jurulatih', 'id' => $model->jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+            ?>
+            <?php if($isTerima): ?>
+                <?php echo Html::a(GeneralLabel::surat_setuju_terima.' ('.GeneralLabel::sambungan.')', ['jurulatih-sambungan-oversea', 'id' => $model->jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+                ?>
+                <?php echo Html::a(GeneralLabel::surat_setuju_terima.' ('.GeneralLabel::lantikan_baru.')', ['jurulatih-baru-oversea', 'id' => $model->jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+                ?>
+            <?php endif; ?>
+        <?php endif; ?>
     <?php endif; ?>
     <br>
     <br>
@@ -332,6 +359,7 @@ use app\models\general\GeneralVariable;
                         'options' => ['id'=>'TarikhLahirID'],
                     ],
                     'columnOptions'=>['colspan'=>3]],
+                'umur_jurulatih' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true, 'disabled'=>true, 'id'=>'UmurID']],
                 'tempat_lahir' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>90],'hint'=>'cth: Tapah, Perak @ Bandung, Indonesia'],
             ]
         ],
@@ -818,20 +846,79 @@ use app\models\general\GeneralVariable;
                 'no_telefon_pejabat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
                 //'nama_majikan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
             ]
-        ],
-        
+        ],        
     ]
 ]);
     ?>
     
     <?php
     if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['tawaran'])){
+        
+        $label = $model->getAttributeLabel('keputusan_mesyuarat');
+        if($model->keputusan_mesyuarat){
+            echo "<div><label>" . $model->getAttributeLabel('keputusan_mesyuarat') . "</label><br>";
+            echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->keputusan_mesyuarat , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+            echo "</div>";
+            
+            $label = false;
+        }
+        
+        if(!$readonly){
+            echo "<div class='required'>";
+            echo FormGrid::widget([
+                'model' => $model,
+                'form' => $form,
+                'autoGenerateColumns' => true,
+                'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'keputusan_mesyuarat' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>4], 'label' => $label],
+                            ],
+                        ],
+                    ]
+                ]);
+            echo "</div>";
+        }
+        echo '<br />';
+        
+        $label = $model->getAttributeLabel('salinan_ic_passport');
+        if($model->salinan_ic_passport){
+            
+            echo "<div><label>" . $model->getAttributeLabel('salinan_ic_passport') . "</label><br>";
+            echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->salinan_ic_passport , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+            echo "</div>";
+            
+            $label = false;
+        }
+        
+        if(!$readonly){
+            echo "<div class='required'>";
+            echo FormGrid::widget([
+                'model' => $model,
+                'form' => $form,
+                'autoGenerateColumns' => true,
+                'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'salinan_ic_passport' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>4], 'label' => $label],
+                            ],
+                        ],
+                    ]
+                ]);
+            echo "</div>";
+        }
+        echo '<br />';  
+        
         echo FormGrid::widget([
             'model' => $model,
             'form' => $form,
             'autoGenerateColumns' => true,
             'rows' => [
-                [
+/*                 [
                     'columns'=>12,
                     'autoGenerateColumns'=>false, // override columns setting
                     'attributes' => [
@@ -853,12 +940,215 @@ use app\models\general\GeneralVariable;
                                 ],],
                             'columnOptions'=>['colspan'=>3]],
                     ]
-                ]
+                ], */
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'status_tawaran_jkb' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-status-tawaran/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefStatusTawaran::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::status],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>4]],
+                        'tarikh_jkb' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=> DateControl::classname(),
+                            'ajaxConversion'=>false,
+                            'options'=>[
+                                'pluginOptions' => [
+                                    'autoclose'=>true,
+                                ]
+                            ],
+                            'columnOptions'=>['colspan'=>4]],
+                        'bilangan_jkb' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'status_tawaran_mpj' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-status-tawaran/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefStatusTawaran::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::status],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>4]],
+                        'tarikh_mpj' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=> DateControl::classname(),
+                            'ajaxConversion'=>false,
+                            'options'=>[
+                                'pluginOptions' => [
+                                    'autoclose'=>true,
+                                ]
+                            ],
+                            'columnOptions'=>['colspan'=>4]],
+                        'bilangan_mpj' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'pengerusi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                        'kelulusan_dkp' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'catatan_spkk' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                        'bersyarat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'lain_lain' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                        'tawaran_jurulatih' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-tawaran/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefTawaran::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::status],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>6]],
+                        'catatan' => ['type'=>Form::INPUT_TEXTAREA, 'options'=>['rows'=>2],'columnOptions'=>['colspan'=>12]],
+                    ]
+                ],
             ]
         ]);
     }
     ?>
+    
+    <?php 
+    if(!$model->isNewRecord){
+        Modal::begin([
+            'header' => '<h3 id="modalTitle"></h3>',
+            'id' => 'modal',
+            'size' => 'modal-lg',
+            'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+            'options' => [
+                'tabindex' => false // important for Select2 to work properly
+            ],
+        ]);
+        
+        echo '<div id="modalContent"></div>';
+        
+        Modal::end();
+    ?>    
+    <?php Pjax::begin(['id' => 'jurulatihBorangGrid', 'timeout' => 100000]); ?>
 
+    <?php 
+    if($model->borang_maklumat != null || $model->borang_maklumat != ''){
+        
+        $label = $model->getAttributeLabel('borang_maklumat');
+        
+        echo "<div><label>" . $model->getAttributeLabel('borang_maklumat') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->borang_maklumat , ['class'=>'btn btn-link', 'target'=>'_blank', 'data-pjax' => '0']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+    }
+    ?>
+    <?php 
+    if($model->borang_kesihatan != null || $model->borang_kesihatan != ''){
+        
+        $label = $model->getAttributeLabel('borang_kesihatan');
+        
+        echo "<div><label>" . $model->getAttributeLabel('borang_kesihatan') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->borang_kesihatan , ['class'=>'btn btn-link', 'target'=>'_blank', 'data-pjax' => '0']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+    }
+    ?>
+    <?php 
+    if($model->borang_hrmis != null || $model->borang_hrmis != ''){
+        
+        $label = $model->getAttributeLabel('borang_hrmis');
+        
+        echo "<div><label>" . $model->getAttributeLabel('borang_hrmis') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->borang_hrmis , ['class'=>'btn btn-link', 'target'=>'_blank', 'data-pjax' => '0']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+    }
+    ?>
+    <?php 
+    if($model->borang_rawatan != null || $model->borang_rawatan != ''){
+        
+        $label = $model->getAttributeLabel('borang_rawatan');
+        
+        echo "<div><label>" . $model->getAttributeLabel('borang_rawatan') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->borang_rawatan , ['class'=>'btn btn-link', 'target'=>'_blank', 'data-pjax' => '0']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+    }
+    ?>
+    <?php 
+    if($model->borang_keselamatan != null || $model->borang_keselamatan != ''){
+        
+        $label = $model->getAttributeLabel('borang_keselamatan');
+        
+        echo "<div><label>" . $model->getAttributeLabel('borang_keselamatan') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->borang_keselamatan , ['class'=>'btn btn-link', 'target'=>'_blank', 'data-pjax' => '0']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+    }
+    ?>
+    <?php 
+    if($model->borang_pelekat != null || $model->borang_pelekat != ''){
+        
+        $label = $model->getAttributeLabel('borang_pelekat');
+        
+        echo "<div><label>" . $model->getAttributeLabel('borang_pelekat') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->borang_pelekat , ['class'=>'btn btn-link', 'target'=>'_blank', 'data-pjax' => '0']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+    }
+    ?>
+    <?php 
+    if($model->borang_income_tax != null || $model->borang_income_tax != ''){
+        
+        $label = $model->getAttributeLabel('borang_income_tax');
+        
+        echo "<div><label>" . $model->getAttributeLabel('borang_income_tax') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->borang_income_tax , ['class'=>'btn btn-link', 'target'=>'_blank', 'data-pjax' => '0']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+    }
+    ?>
+    <?php Pjax::end(); ?>
+    
+    <?php
+    }
+    ?>
+    <br />
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
@@ -866,8 +1156,17 @@ use app\models\general\GeneralVariable;
                     'confirm' => GeneralMessage::confirmSave,
                 ],]) ?>
         <?php endif; ?>
+        <?php
+        if(!$model->isNewRecord && !$readonly)
+        echo Html::a(GeneralLabel::borang_kontrak, 'javascript:void(0);', [
+                'onclick' => 'loadModalRenderAjax("'.Url::to(['jurulatih-borang-kontrak/create', 'id' => $model->jurulatih_id]).'", "'.GeneralLabel::upload . '");',
+                'class' => 'btn btn-warning',
+            ]);
+        ?>
     </div>
-    
+    <div id="borangKontrakMsg" style="display:none">
+        <div class="alert alert-success" role="alert"> <strong>Fail berjaya di muat naik</strong></div>
+    </div>
     <br>
     
     <div class="panel panel-danger">
@@ -891,6 +1190,8 @@ use app\models\general\GeneralVariable;
 </div>
 
 <?php
+$URLUploadBorang = Url::to(['jurulatih/upload-borang', 'id' => $model->jurulatih_id]);
+
 $DateDisplayFormat = GeneralVariable::displayDateFormat;
 $ConfirmMsg = GeneralMessage::confirmPrint;
 
@@ -949,13 +1250,20 @@ $("#sama_alamat").change(function() {
 });
             
 $(function(){
-$('.custom_button').click(function(){
-    if(confirm("$ConfirmMsg")){
-        window.open($(this).attr('value'), "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no");
-    }
-        
-    return false;
-});});
+    $('.custom_button').click(function(){
+        if(confirm("$ConfirmMsg")){
+            window.open($(this).attr('value'), "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no");
+        }
+            
+        return false;
+    });
+
+    $('#uploadBorang').click(function(e){
+        e.preventDefault();
+        window.open("$URLUploadBorang", "_blank", "toolbar=no,scrollbars=yes,resizable=yes,top=100,left=300,width=500,height=700");
+    });
+
+});
 
 JS;
         

@@ -55,10 +55,11 @@ class PenilaianPestasi extends \yii\db\ActiveRecord
         return [
             [['atlet_id', 'tarikh', 'tahap_sihat', 'pencapaian_sukan_dalam_tahun_yang_dinilai', 'kategori_kecergasan', 'sukan', 'program', 'disiplin', 'acara',
                 'kejohanan', 'tarikh_nilai_mula', 'tarikh_nilai_tamat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['atlet_id', 'nama_kejohanan_temasya'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['elaun_yang_diterima'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['kejohanan', 'negeri'], 'safe'],
-            [['tahap_sihat', 'pencapaian_sukan_dalam_tahun_yang_dinilai', 'kecederaan_jika_ada', 'laporan_kesihatan', 'skim_hadiah_kemenangan_sukan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['kejohanan', 'negeri', 'tarikh_mula', 'tarikh_tamat'], 'safe'],
+            [['tahap_sihat', 'pencapaian_sukan_dalam_tahun_yang_dinilai', 'kecederaan_jika_ada', 'laporan_kesihatan', 'skim_hadiah_kemenangan_sukan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 
@@ -85,6 +86,10 @@ class PenilaianPestasi extends \yii\db\ActiveRecord
             'sukan' => GeneralLabel::sukan,
             'acara' => GeneralLabel::acara,
             'program' => GeneralLabel::program,
+            'tarikh_mula' => GeneralLabel::tarikh_mula,
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat,
+            'nama_kejohanan_temasya' => GeneralLabel::nama_kejohanan_temasya,
+            'tempat' => GeneralLabel::tempat,
         ];
     }
     

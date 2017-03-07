@@ -461,6 +461,7 @@ Majlis Sukan Negara Malaysia.
                         }
                         catch(\Swift_SwiftException $exception)
                         {
+                            Yii::$app->getSession()->setFlash('error', 'Can sent mail due to the following exception: '.print_r($exception));
                             //return 'Can sent mail due to the following exception'.print_r($exception);
                         }
                             
@@ -585,6 +586,9 @@ Majlis Sukan Negara Malaysia.
                     },
                 ])->joinWith(['refAtletPendidikan' => function($query) {
                         $query->orderBy(['tbl_atlet_pendidikan.created' => SORT_DESC])->one();
+                    },
+                ])->joinWith(['refAtletKewanganAkaun' => function($query) {
+                        $query->orderBy(['tbl_atlet_kewangan_akaun.created' => SORT_DESC])->one();
                     },
                 ])->asArray()->one();
         

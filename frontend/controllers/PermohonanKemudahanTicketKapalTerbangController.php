@@ -32,6 +32,7 @@ use app\models\RefStatusPermohonanKemudahan;
 use app\models\RefBahagianAduan;
 use app\models\RefCawangan;
 use app\models\PerancanganProgram;
+use app\models\PerancanganProgramPlan;
 
 // contant values
 use app\models\general\GeneralLabel;
@@ -94,7 +95,7 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
         //$model->jurulatih = $ref['nameAndIC'];
         
         //$ref = RefProgram::findOne(['id' => $model->nama_program]);
-        $ref = PerancanganProgram::findOne(['perancangan_program_id' => $model->nama_program]);
+        $ref = PerancanganProgramPlan::findOne(['perancangan_program_id' => $model->nama_program]);
         $model->nama_program = $ref['nama_program'];
         
         //$ref = RefSukan::findOne(['id' => $model->sukan]);

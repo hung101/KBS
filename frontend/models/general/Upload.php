@@ -63,6 +63,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const farmasiPermohonanLiputanPerubatanSukanFolder = "farmasi_permohonan_liputan_perubatan_sukan";
         const farmasiPermohonanUbatanFolder = "farmasi_permohonan_ubatan";
         const gajiDanElaunJurulatihFolder = "gaji_dan_elaun_jurulatih";
+        const geranBantuanGajiFolder = "geran_bantuan_gaji";
         const hptLaporanBulananPegawaiFolder = "hpt_laporan_bulanan_pegawai";
         const jurulatihFolder = "jurulatih";
         const jurulatihKelayakan = "jurulatih_kelayakan";

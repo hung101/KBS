@@ -174,6 +174,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const kumpulanDarah = "-- Pilih Kumpulan Darah --";
         const kursus = "-- Pilih Kursus --";
         const kodKursus = "-- Pilih Kod Kursus --";
+        const kursusAkk = "-- Pilih Kursus AKK --";
         const lantikan = "-- Pilih Lantikan--";
         const laporan = "-- Pilih Laporan --";
         const latarbelakangKes = "-- Pilih Latarbelakang Kes --";
@@ -200,6 +201,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const pencapaianTertinggi  = " -- Pilih Pencapaian Tertinggi -- ";
         const pangkat = " -- Pilih Pangkat -- ";
         const pejabatYangMendaftarkan = " -- Pilih Pejabat Yang Mendaftarkan -- ";
+        const pembayaranKepada = " -- Pilih Pembayaran Kepada -- ";
         const pemeriksa = " -- Pilih Pemeriksa -- ";
         const pemohon = " -- Pilih Pemohon -- ";
         const pengajian = " -- Pilih Pengajian -- ";
@@ -467,6 +469,7 @@ if($session->get('language') == "EN") {
         const kumpulanDarah = "-- Select Blood Group --";
         const kursus = "-- Select Course --";
         const kodKursus = "-- Select Code Course --";
+        const kursusAkk = "-- Select AKK Course --";
         const lantikan = "-- Select Appointment--";
         const laporan = "-- Select Report --";
         const latarbelakangKes = "-- Select The Background To The Case --";
@@ -493,6 +496,7 @@ if($session->get('language') == "EN") {
         const pencapaianTertinggi  = " -- Select Hit Highest -- ";
         const pangkat = " -- Select Rank -- ";
         const pejabatYangMendaftarkan = " -- Select The Register Office -- ";
+        const pembayaranKepada = " -- Select Payment To -- ";
         const pemeriksa = " -- Select An Examiner -- ";
         const pemohon = " -- Select The Applicant -- ";
         const pengajian = " -- Select Study -- ";

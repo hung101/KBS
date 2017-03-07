@@ -26,6 +26,7 @@ use app\models\RefInsentifKelas;
 use app\models\RefAcaraInsentif;
 use app\models\RefKelulusanInsentif;
 use app\models\ProfilBadanSukan;
+use app\models\PerancanganProgramPlan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -50,7 +51,7 @@ use app\models\general\GeneralMessage;
         }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     <?php //echo $form->errorSummary($model); ?>
     <?php
         echo FormGrid::widget([
@@ -59,6 +60,48 @@ use app\models\general\GeneralMessage;
     'autoGenerateColumns' => true,
     'rows' => [
         [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'nama_kejohanan' => /*[
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-penilaian/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(PerancanganProgram::find()->where('jenis_aktiviti = :id1 OR jenis_aktiviti = :id2', [':id1' => RefJenisAktiviti::KEJOHANAN_DALAM_NEGARA, ':id2' => RefJenisAktiviti::KEJOHANAN_LUAR_NEGARA])->all(),'perancangan_program_id', 'nama_program'),
+                        'options' => ['placeholder' => Placeholder::kejohanan, 'id'=>'kejohananId'],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>5]],*/
+                [
+                'type'=>Form::INPUT_WIDGET, 
+                'widgetClass'=>'\kartik\widgets\Select2',
+                'options'=>[
+                    // 'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                    // [
+                        // 'append' => [
+                            // 'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                            // 'asButton' => true
+                        // ]
+                    // ] : null,
+                    'data'=>ArrayHelper::map(\app\models\PerancanganProgramPlan::find()->joinWith('refKategoriPelan')
+                            ->where(['LIKE', 'desc', 'kejohanan'])->all(),'perancangan_program_id', 'nama_program'),
+                    'options' => ['placeholder' => Placeholder::kejohanan, 'id' => 'kejohananTemasya'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],],
+                'columnOptions'=>['colspan'=>4]],
+                
+            ]
+        ],
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -79,31 +122,14 @@ use app\models\general\GeneralMessage;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
-                'nama_kejohanan' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-penilaian/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(PerancanganProgram::find()->where('jenis_aktiviti = :id1 OR jenis_aktiviti = :id2', [':id1' => RefJenisAktiviti::KEJOHANAN_DALAM_NEGARA, ':id2' => RefJenisAktiviti::KEJOHANAN_LUAR_NEGARA])->all(),'perancangan_program_id', 'nama_program'),
-                        'options' => ['placeholder' => Placeholder::kejohanan, 'id'=>'kejohananId'],
-'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
-                    'columnOptions'=>['colspan'=>5]],
                 
             ]
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'tempat' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>90]],
+                'tempat' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>90, 'disabled'=>true]],
                 'tarikh_mula' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -111,7 +137,7 @@ use app\models\general\GeneralMessage;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ], 'disabled'=>true
                     ],
                     'columnOptions'=>['colspan'=>3]],
                 'tarikh_tamat' => [
@@ -121,7 +147,7 @@ use app\models\general\GeneralMessage;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ], 'disabled'=>true
                     ],
                     'columnOptions'=>['colspan'=>3]],
             ],
@@ -164,7 +190,7 @@ use app\models\general\GeneralMessage;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
-                'pingat' => [
+                /*'pingat' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -180,7 +206,7 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>3]],*/
                 'peringkat' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\DepDrop', 
@@ -247,7 +273,7 @@ use app\models\general\GeneralMessage;
     </div>
     
     <?php
-        echo FormGrid::widget([
+        /*echo FormGrid::widget([
             'model' => $model,
             'form' => $form,
             'autoGenerateColumns' => true,
@@ -272,8 +298,8 @@ use app\models\general\GeneralMessage;
                                 'pluginOptions'=>['allowClear'=>true]],
                             'columnOptions'=>['colspan'=>3]],
                     ]
-                ],
-                [
+                ],*/
+                /*[
                     'columns'=>12,
                     'autoGenerateColumns'=>false, // override columns setting
                     'attributes' => [
@@ -301,16 +327,16 @@ use app\models\general\GeneralMessage;
                                     'url'=>Url::to(['/pengurusan-insentif-tetapan-shakam-shakar/subkumpulans'])],
                                 ],
                             'columnOptions'=>['colspan'=>4]],*/
-                        'jumlah' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
+                        /*'jumlah' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
                         'nilai_rekod_baharu' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
                     ]
                 ],
             ]
-        ]);
+        ]);*/
     ?>
     
     <!--<div class="panel panel-default" id="sikapID" style="display: none;">-->
-    <div class="panel panel-default" id="sikapID" >
+    <!--<div class="panel panel-default" id="sikapID" >
         <div class="panel-heading">
             <strong><?php echo GeneralLabel::sikap_capital; ?></strong>
         </div>
@@ -349,10 +375,15 @@ use app\models\general\GeneralMessage;
                 ]);
             ?>
         </div>
-    </div>
+    </div>-->
     
-    <h3><?php echo GeneralLabel::atlet; ?></h3>
+    <br/>
     
+    <div class="panel panel-default" >
+        <div class="panel-heading">
+            <strong><?php echo GeneralLabel::atlet; ?></strong>
+        </div>
+        <div class="panel-body">
     <?php 
             Modal::begin([
                 'header' => '<h3 id="modalTitle"></h3>',
@@ -390,6 +421,14 @@ use app\models\general\GeneralMessage;
                 'value' => 'refAtlet.name_penuh'
             ],
             [
+                'attribute' => 'sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
+                'value' => 'refSukan.desc'
+            ],
+            [
                 'attribute' => 'acara',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -398,7 +437,7 @@ use app\models\general\GeneralMessage;
                 'value' => 'refAcara.desc'
             ],
             'negara',
-            //'nilai',
+            'nilai',
             //'session_id',
             // 'created_by',
             // 'updated_by',
@@ -434,11 +473,20 @@ use app\models\general\GeneralMessage;
         ],
     ]); ?>
     <?php 
-    $totalAtlets = $dataProviderPembayaranInsentifAtlet->getTotalCount();
+    /*$totalAtlets = $dataProviderPembayaranInsentifAtlet->getTotalCount();
     if(($model->acara == RefAcaraInsentif::BERPASUKAN_KURANG_5_ORANG || $model->acara_id == RefAcaraInsentif::BERPASUKAN_KURANG_5_ORANG) && $totalAtlets > 0 && $model->jumlah){
         echo "<h4>Setiap Atlet Peroleh : RM" . number_format($model->jumlah / $totalAtlets , 2) . "</h4>"; 
-    }
+    }*/
     ?>
+            
+    <?php 
+        $jumlah = 0.00;
+        foreach($dataProviderPembayaranInsentifAtlet->models as $PIAmodel){
+            $jumlah += $PIAmodel->nilai;
+        }
+    ?>
+    
+    <h4><?= GeneralLabel::jumlah_keseluruhan ?> (RM): <?php echo number_format($jumlah, 2);?></h4>
     
     <?php Pjax::end(); ?>
     
@@ -458,11 +506,32 @@ use app\models\general\GeneralMessage;
     </p>
     <?php endif; ?>
     
-    <br>
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'catatan_atlet' =>  ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>255]],
+            ],
+        ],
+    ]
+]);
+    ?>
+        </div>
+    </div>
     
-    <h3><?php echo GeneralLabel::jurulatih; ?></h3>
+    <br/>
     
-    
+    <div class="panel panel-default" >
+        <div class="panel-heading">
+            <strong><?php echo GeneralLabel::jurulatih; ?></strong>
+        </div>
+        <div class="panel-body">
     <?php Pjax::begin(['id' => 'pembayaranInsentifJurulatihGrid', 'timeout' => 100000]); ?>
 
     <?= GridView::widget([
@@ -482,6 +551,14 @@ use app\models\general\GeneralMessage;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_jurulatih,
                 ],
                 'value' => 'refJurulatih.nama'
+            ],
+            [
+                'attribute' => 'sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::sukan,
+                ],
+                'value' => 'refSukan.desc'
             ],
             'nilai',
             //'session_id',
@@ -518,6 +595,15 @@ use app\models\general\GeneralMessage;
             ],
         ],
     ]); ?>
+            
+    <?php 
+        $jumlah = 0.00;
+        foreach($dataProviderPembayaranInsentifJurulatih->models as $PIJAmodel){
+            $jumlah += $PIJAmodel->nilai;
+        }
+    ?>
+    
+    <h4><?= GeneralLabel::jumlah_keseluruhan ?> (RM): <?php echo number_format($jumlah, 2);?></h4>
     
     <?php Pjax::end(); ?>
     
@@ -531,6 +617,131 @@ use app\models\general\GeneralMessage;
                         ]);?>
     </p>
     <?php endif; ?>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'catatan_jurulatih' =>  ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>255]],
+            ],
+        ],
+    ]
+]);
+    ?>
+    
+    </div>
+    </div>
+    
+    <br>
+    
+    <div class="panel panel-default" >
+        <div class="panel-heading">
+            <strong><?php echo GeneralLabel::persatuan; ?></strong>
+        </div>
+        <div class="panel-body">
+    <?php Pjax::begin(['id' => 'pembayaranInsentifPersatuanGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPembayaranInsentifPersatuan,
+        //'filterModel' => $searchModelPembayaranInsentifPersatuan,
+        'id' => 'pembayaranInsentifPersatuanGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'pembayaran_pembayaran_insentif_jurulatih_id',
+            //'pembayaran_insentif_id',
+            //'nama_jurulatih',
+            [
+                'attribute' => 'persatuan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::persatuan,
+                ],
+                'value' => 'refProfilBadanSukan.nama_badan_sukan'
+            ],
+            'nilai',
+            //'session_id',
+            // 'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['pembayaran-insentif-persatuan/delete', 'id' => $model->pembayaran_insentif_persatuan_id]).'", "'.GeneralMessage::confirmDelete.'", "pembayaranInsentifPersatuanGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pembayaran-insentif-persatuan/update', 'id' => $model->pembayaran_insentif_persatuan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::persatuan.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pembayaran-insentif-persatuan/view', 'id' => $model->pembayaran_insentif_persatuan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::persatuan.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+            
+    <?php 
+        $jumlah = 0.00;
+        foreach($dataProviderPembayaranInsentifPersatuan->models as $PIPAmodel){
+            $jumlah += $PIPAmodel->nilai;
+        }
+    ?>
+    
+    <h4><?= GeneralLabel::jumlah_keseluruhan ?> (RM): <?php echo number_format($jumlah, 2);?></h4>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pembayaran-insentif-persatuan/create', 'pembayaran_insentif_id' => $pembayaran_insentif_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::persatuan.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'catatan_persatuan' =>  ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>255]],
+            ],
+        ],
+    ]
+]);
+    ?>
+    
+    </div>
+    </div>
     
     <br>
     
@@ -580,6 +791,7 @@ use app\models\general\GeneralMessage;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
+                'no_vaucer' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
             ]
         ],
         [
@@ -613,6 +825,11 @@ $URL = Url::to(['/pengurusan-insentif-tetapan-shakam-shakar/get-jumlah']);
 $URL_PROGRAM = Url::to(['/perancangan-program/get-program']);
 $URL_SET_ACARA = Url::to(['/pembayaran-insentif/set-acara']);
 $URL_SET_SUKAN = Url::to(['/pembayaran-insentif/set-sukan']);
+$URLGetKejohanan = Url::to(['/perancangan-program-plan/get-program-plan']);
+$URLSetJenisInsentif = Url::to(['/pembayaran-insentif/set-jenis-insentif']);
+$URLSetKejohanan = Url::to(['/pembayaran-insentif/set-kejohanan']);
+$URLSetPeringkat = Url::to(['/pembayaran-insentif/set-peringkat']);
+$URLSetKelas = Url::to(['/pembayaran-insentif/set-kelas']);
 
 $ACARA_INDIVIDU = RefAcaraInsentif::INDIVIDU;
 $ACARA_BERPASUKAN_KURANG_5_ORANG = RefAcaraInsentif::BERPASUKAN_KURANG_5_ORANG;
@@ -635,23 +852,27 @@ $this->registerJs($script);
 
 $script = <<< JS
         
-var nilai_individu = 0;
-var nilai_berpasukan_kurang_5_orang = 0;
-var nilai_berpasukan_lebih_5_orang = 0;
-var peratus_sikap = 0;
-var peratus_sgar = 0;
+//var nilai_individu = 0;
+//var nilai_berpasukan_kurang_5_orang = 0;
+//var nilai_berpasukan_lebih_5_orang = 0;
+//var peratus_sikap = 0;
+//var peratus_sgar = 0;
 var is_new_record = '$NEW_RECORD';
         
 $('#pembayaraninsentif-jenis_insentif').change(function(){
     if(is_new_record == '1'){
         getJumlah();
     }
+        
+    setJenisInsentif();
 });
         
 $('#pembayaraninsentif-kejohanan').change(function(){
     if(is_new_record == '1'){
         getJumlah();
     }
+        
+    setKejohanan();
 });
         
 $('#pembayaraninsentif-pingat').change(function(){
@@ -664,12 +885,15 @@ $('#pembayaraninsentif-peringkat').change(function(){
     if(is_new_record == '1'){
         getJumlah();
     }
+        
+    setPeringkat();
 });
         
 $('#pembayaraninsentif-kelas').change(function(){
     if(is_new_record == '1'){
         getJumlah();
     }
+    setKelas();
 });
 
 $('#pembayaraninsentif-acara').change(function(){
@@ -687,6 +911,11 @@ $('#pembayaraninsentif-sukan').change(function(){
 $(document).ready(function(){
     toggleKelas();
     //changeAcara();
+    
+    setJenisInsentif();
+    setKejohanan();
+    setPeringkat();
+    setKelas();
 });
         
 function toggleKelas(){
@@ -694,9 +923,31 @@ function toggleKelas(){
         if($('#pembayaraninsentif-kejohanan').val() === '$KEJOHANAN_INDIVIDU'){
             $('#kelasID').show("slow");
         } else {
+            $('#pembayaraninsentif-kelas').select2().val("").trigger("change");
+            setKelas();
             $('#kelasID').hide("slow");
         }
     }
+}
+        
+function setJenisInsentif(){
+    $.get('$URLSetJenisInsentif',{jenis_insentif_id:$('#pembayaraninsentif-jenis_insentif').val()},function(data){
+    });
+}
+        
+function setKejohanan(){
+    $.get('$URLSetKejohanan',{kejohanan_id:$('#pembayaraninsentif-kejohanan').val()},function(data){
+    });
+}
+        
+function setPeringkat(){
+    $.get('$URLSetPeringkat',{peringkat_id:$('#pembayaraninsentif-peringkat').val()},function(data){
+    });
+}
+        
+function setKelas(){
+    $.get('$URLSetKelas',{kelas_id:$('#pembayaraninsentif-kelas').val()},function(data){
+    });
 }
         
 function getJumlah(){
@@ -790,7 +1041,7 @@ $("#pembayaraninsentif-jumlah").keyup(function(){
         $('#pembayaraninsentif-nilai_sikap').val(nilai_sikap.toFixed(2));
 });
         
-$('#kejohananId').change(function(){
+/*$('#kejohananId').change(function(){
     
     $.get('$URL_PROGRAM',{id:$(this).val()},function(data){
         clearProgram();
@@ -806,6 +1057,22 @@ $('#kejohananId').change(function(){
         }
     });
     
+});*/
+        
+$('#kejohananTemasya').on('select2:select', function (evt) {
+        clearProgram();
+        
+    $.get('$URLGetKejohanan', {id:$(this).val()}, function(data){
+        if(data !== null){
+            $('#pembayaraninsentif-tempat').val(data.tempat);
+            //$('#sukanId').select2().val(data.sukan).trigger("change");
+            //$('#programId').select2().val(data.jenis_program).trigger("change");
+            $("#pembayaraninsentif-tarikh_mula-disp").val(formatDisplayDate(data.tarikh_mula));
+            $("#pembayaraninsentif-tarikh_tamat-disp").val(formatDisplayDate(data.tarikh_tamat));
+            $("#pembayaraninsentif-tarikh_mula").val(data.tarikh_mula);
+            $("#pembayaraninsentif-tarikh_tamat").val(data.tarikh_tamat);
+        }
+    });
 });
      
 function clearProgram(){
@@ -817,6 +1084,14 @@ function clearProgram(){
     $("#pembayaraninsentif-tarikh_tamat-disp").val('');
     $("#pembayaraninsentif-tarikh_tamat").val('');
 }
+        
+// enable all the disabled field before submit
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
         
 JS;
         

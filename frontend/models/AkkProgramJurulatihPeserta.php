@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 
+use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
 
 
@@ -55,9 +56,11 @@ class AkkProgramJurulatihPeserta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['akk_program_jurulatih_id', 'jurulatih', 'sukan', 'acara', 'created_by', 'updated_by', 'program', 'status_jurulatih'], 'integer'],
+            [['akk_program_jurulatih_id', 'jurulatih', 'sukan', 'acara', 'created_by', 'updated_by', 'program', 'status_jurulatih'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
-            [['session_id'], 'string', 'max' => 100],
+            [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel_pengurus_sukan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel_pengurus_sukan'], 'email', 'message' => GeneralMessage::yii_validation_email],
         ];
     }
 
@@ -74,6 +77,7 @@ class AkkProgramJurulatihPeserta extends \yii\db\ActiveRecord
             'acara' => GeneralLabel::acara,
             'program' => GeneralLabel::program,
             'status_jurulatih' => GeneralLabel::status_jurulatih,
+            'emel_pengurus_sukan' => GeneralLabel::emel_jurulatih,
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
@@ -101,5 +105,12 @@ class AkkProgramJurulatihPeserta extends \yii\db\ActiveRecord
      */
     public function getRefAcara(){
         return $this->hasOne(RefAcara::className(), ['id' => 'acara']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefAkkProgramJurulatih(){
+        return $this->hasOne(AkkProgramJurulatih::className(), ['akk_program_jurulatih_id' => 'akk_program_jurulatih_id']);
     }
 }

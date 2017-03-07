@@ -204,6 +204,25 @@ class PengurusanMediaProgramController extends Controller
         $dataProviderPengurusanMediaProgramWakil = $searchModelPengurusanMediaProgramWakil->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $modelWartawans = PengurusanKehadiranMediaProgram::findAll([
+                    'pengurusan_media_program_id' => $model->pengurusan_media_program_id,
+                ]);
+            
+            foreach($modelWartawans as $modelWartawan){
+                $modelProfilWartawan = ProfilWartawanSukan::findOne($modelWartawan->nama_wartawan);
+                if($modelProfilWartawan->emel && $modelProfilWartawan->emel != ''){
+                    Yii::$app->mailer->compose()
+                        ->setTo($modelProfilWartawan->emel)
+                        ->setFrom('noreply@spsb.com')
+                        ->setSubject('Jemputan Media Telah Dikemaskini')
+                        ->setTextBody("<br>Nama Program: " . $model->nama_program . "
+<br>Tarikh: " . $model->tarikh_mula . " - " . $model->tarikh_tamat . "
+<br>Tempat: " . $model->tempat . "
+<br>Catatan: " . $model->catatan . "
+")->send();
+                }
+            }
+            
             return $this->redirect(['view', 'id' => $model->pengurusan_media_program_id]);
         } else {
             return $this->render('update', [

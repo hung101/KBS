@@ -10,7 +10,8 @@ use app\models\general\GeneralMessage;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanProgramBinaan */
 
-$jenisPermohonan = \app\models\RefJenisPermohonan::findOne($model->jenis_permohonan)->desc;
+$ref = \app\models\RefJenisPermohonan::findOne($model->jenis_permohonan);
+$jenisPermohonan = $ref['desc'];
 
 $this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::pengurusan_program_binaan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_program_binaan, 'url' => ['index']];
@@ -58,6 +59,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProviderPengurusanProgramBinaanAtlet' => $dataProviderPengurusanProgramBinaanAtlet,
         'searchModelPengurusanProgramBinaanJurulatih' => $searchModelPengurusanProgramBinaanJurulatih,
         'dataProviderPengurusanProgramBinaanJurulatih' => $dataProviderPengurusanProgramBinaanJurulatih,
+        'searchModelPengurusanProgramBinaanSukan' => $searchModelPengurusanProgramBinaanSukan,
+        'dataProviderPengurusanProgramBinaanSukan' => $dataProviderPengurusanProgramBinaanSukan,            'searchModelPengurusanProgramBinaanKategori' => $searchModelPengurusanProgramBinaanKategori,
+        'dataProviderPengurusanProgramBinaanKategori' => $dataProviderPengurusanProgramBinaanKategori,
         'readonly' => $readonly,
     ]) ?>
 

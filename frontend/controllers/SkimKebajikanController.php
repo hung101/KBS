@@ -26,6 +26,7 @@ use app\models\RefSukan;
 use app\models\RefPerkara;
 use app\models\RefSukanSkimKebajikan;
 use app\models\RefJenisPermohonanSkim;
+use app\models\RefBank;
 
 /**
  * SkimKebajikanController implements the CRUD actions for SkimKebajikan model.
@@ -94,6 +95,9 @@ class SkimKebajikanController extends Controller
         $ref = RefJenisPermohonanSkim::findOne(['id' => $model->jenis_permohonan]);
         $model->jenis_permohonan = $ref['desc'];
         
+        $ref = RefBank::findOne(['id' => $model->bank_penerima]);
+        $model->bank_penerima = $ref['desc'];
+        
         $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         $model->kelulusan = $YesNo;
         
@@ -131,31 +135,31 @@ class SkimKebajikanController extends Controller
                 if($model->emel_penerima && $model->emel_penerima != "" && $model->kelulusan ){
                     if($model->kelulusan != $oldKelulusan){
                         try {
-                            if($model->kelulusan == 1){ // Approved
+                            $refJenisKebajikan = RefJenisKebajikan::findOne(['id' => $model->jenis_bantuan_skak]);
+                            $refJenisKebajikan['desc'] = strtoupper($refJenisKebajikan['desc']);
+        
                                 Yii::$app->mailer->compose()
                                         ->setTo($model->emel_penerima)
                                                                     ->setFrom('noreply@spsb.com')
                                         ->setSubject('Permohonan Skim Kebajikan Tuan/Puan Telah Diproses')
                                         ->setTextBody('Salam Sejahtera,
 <br><br>
-                                Sukacita, permohonan Tuan/Puan telah LULUS.
+Tuan/Puan,
+<br><br>
+MAKLUMAN PERMOHONAN ' . $refJenisKebajikan['desc'] . '
+<br><br>
+Dengan hormatnya saya ingin menarik perhatian tuan mengenai perkara di atas adalah berkaitan.
+<br><br>
+2. Adalah dimaklumkan bahawa pihak Majlis <b>' .($model->kelulusan == 1)?'TELAH MELULUSKAN':'TIDAK MELULUSKAN'. '</b> permohonan bantuan dan peruntukan seperti berikut:
+<br><br>
+Permohonan:  ' . $refJenisKebajikan['desc'] . '
+Jumlah Bantuan:  RM' . $model->jumlah_bantuan . '
+<br><br>
+3. Segala kerjasama dan perhatian pihak tuan diucapkan ribuan terima kasih.
 <br><br>
                                 "KE ARAH KECEMERLANGAN SUKAN"
                                 Majlis Sukan Negara Malaysia.
                                 ')->send();
-                            } else { // Not Approved
-                                Yii::$app->mailer->compose()
-                                        ->setTo($model->emel_penerima)
-                                                                    ->setFrom('noreply@spsb.com')
-                                        ->setSubject('Permohonan Skim Kebajikan Tuan/Puan Telah Diproses')
-                                        ->setTextBody('Salam Sejahtera,
-<br><br>
-                                Permohonan Tuan/Puan TIDAK LULUS.
-<br><br>
-                                "KE ARAH KECEMERLANGAN SUKAN"
-                                Majlis Sukan Negara Malaysia.
-                                ')->send();
-                            }
                         }
                         catch(\Swift_SwiftException $exception)
                         {
@@ -321,6 +325,8 @@ Majlis Sukan Negara Malaysia.
                 $report_url = BaseUrl::to(['generate-laporan-skim-kebajikan'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'atlet' => $model->atlet
+                    , 'sukan' => $model->sukan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -328,6 +334,8 @@ Majlis Sukan Negara Malaysia.
                 return $this->redirect(['generate-laporan-skim-kebajikan'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'atlet' => $model->atlet
+                    , 'sukan' => $model->sukan
                     , 'format' => $model->format
                 ]);
             }
@@ -339,7 +347,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanSkimKebajikan($tarikh_dari, $tarikh_hingga, $format)
+    public function actionGenerateLaporanSkimKebajikan($tarikh_dari, $tarikh_hingga, $atlet, $sukan, $format)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -351,9 +359,17 @@ Majlis Sukan Negara Malaysia.
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($atlet == "") $atlet = array();
+        else $atlet = array($atlet);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'ATLET' => $atlet,
+            'SUKAN' => $sukan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanSkimKebajikan', $format, $controls, 'laporan_skim_kebajikan');

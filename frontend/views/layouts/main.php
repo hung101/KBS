@@ -267,18 +267,19 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                         [
                                             'label' => GeneralLabel::kejohanan_temasya_atlet,
                                             'items' => [
-                                                [
+                                                ['label' => GeneralLabel::penilaian_prestasi_kejohanan, 'url' => ['/penyertaan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['module'])],
+/*                                                 [
                                                     'label' => GeneralLabel::merekod_maklumat_sukan_program_termasuk,
                                                     'items' => [
                                                         ['label' => GeneralLabel::penilaian_prestasi_kejohanan, 'url' => ['/penyertaan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['module'])],
                                                         //['label' => GeneralLabel::aduan, 'url' => ['/penyertaan-sukan-aduan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan-aduan']['module'])],
-                                                        ['label' => GeneralLabel::laporan,
-                                                            'items' => [
-                                                                ['label' => GeneralLabel::competition_and_training_information, 'url' => ['/penyertaan-sukan/laporan-competition-training'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['module'])],
-                                                            ],
-                                                        ],
+                                                        // ['label' => GeneralLabel::laporan,
+                                                            // 'items' => [
+                                                                // ['label' => GeneralLabel::competition_and_training_information, 'url' => ['/penyertaan-sukan/laporan-competition-training'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['module'])],
+                                                            // ],
+                                                        // ],
                                                     ],
-                                                ],
+                                                ], */
                                             ],
                                         ],
                                     ],
@@ -296,6 +297,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                                     'label' => GeneralLabel::laporan,
                                                     'items' => [
                                                         ['label' => GeneralLabel::laporan_kewangan_plan_periodisasi, 'url' => ['/perancangan-program-plan/laporan-kewangan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
+                                                        ['label' => GeneralLabel::laporan_pelan_periodisasi, 'url' => ['/perancangan-program-plan/laporan-pelan-periodisasi'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
                                                     ],
                                                 ],
                                             ],
@@ -329,6 +331,8 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                                         ['label' => GeneralLabel::laporan_rekod_baru, 'url' => ['/penilaian-pestasi/laporan-rekod-baru'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['module'])],
                                                         ['label' => GeneralLabel::laporan_penyertaan_kontinjen, 'url' => ['/penilaian-pestasi/laporan-penyertaan-kontinjen'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penilaian-pestasi']['module'])],
                                                         ['label' => GeneralLabel::laporan_khidmat_perubatan_dan_sains_sukan, 'url' => ['/khidmat-perubatan-dan-sains-sukan/laporan-khidmat-perubatan-dan-sains-sukan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['khidmat-perubatan-dan-sains-sukan']['module'])],
+                                                        ['label' => GeneralLabel::competition_and_training_information, 'url' => ['/penyertaan-sukan/laporan-competition-training'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['module'])],
+                                                        
                                                     ],
                                                 ],
                                             ],
@@ -393,6 +397,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                             'items' => [
                                                 ['label' => GeneralLabel::penilaian_jurulatih, 'url' => ['/pengurusan-pemantauan-dan-penilaian-jurulatih/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-pemantauan-dan-penilaian-jurulatih']['module'])],
                                                 ['label' => GeneralLabel::penilaian_ketua_jurulatih, 'url' => ['/pengurusan-pemantauan-dan-penilaian-jurulatih-ketua/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-pemantauan-dan-penilaian-jurulatih-ketua']['module'])],
+                                                ['label' => GeneralLabel::pemantauan_jurulatih, 'url' => ['/laporan-pemantauan-jurulatih/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-pemantauan-dan-penilaian-jurulatih']['module'])],
                                             ],
                                         ],
                                         ['label' => GeneralLabel::peningkatan_kerjaya, 'url' => ['/akk-program-jurulatih/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['akk-program-jurulatih']['module'])], 
@@ -410,6 +415,8 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                                 ['label' => GeneralLabel::laporan_kewangan_elaun_jurulatih, 'url' => ['/gaji-dan-elaun-jurulatih/laporan-kewangan-elaun-jurulatih'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['laporan'])],
                                                         ['label' => GeneralLabel::laporan_kewangan_gaji_jurulatih, 'url' => ['/gaji-dan-elaun-jurulatih/laporan-kewangan-gaji-jurulatih'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['laporan-senarai-jurulatih'])],
                                                         ['label' => GeneralLabel::laporan_maklumat_pembayaran_geran_bantuan, 'url' => ['/geran-bantuan-gaji/laporan-maklumat-pembayaran-geran-bantuan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['laporan'])],
+                                                ['label' => GeneralLabel::laporan_cawangan_pengurusan_jurulatih, 'url' => ['/jurulatih/laporan-cawangan-pengurusan-jurulatih'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['laporan'])],
+                                                ['label' => GeneralLabel::laporan_permohonan_jawatankuasa_bantuan, 'url' => ['/jurulatih/laporan-permohonan-jawatankuasa-bantuan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['laporan'])],
                                             ],
                                         ],
                                     ],

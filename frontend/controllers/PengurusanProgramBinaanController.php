@@ -15,6 +15,10 @@ use app\models\PengurusanProgramBinaanUrusetia;
 use frontend\models\PengurusanProgramBinaanUrusetiaSearch;
 use app\models\PengurusanProgramBinaanAtlet;
 use frontend\models\PengurusanProgramBinaanAtletSearch;
+use app\models\PengurusanProgramBinaanSukan;
+use frontend\models\PengurusanProgramBinaanSukanSearch;
+use app\models\PengurusanProgramBinaanKategori;
+use frontend\models\PengurusanProgramBinaanKategoriSearch;
 use app\models\PengurusanProgramBinaanJurulatih;
 use frontend\models\PengurusanProgramBinaanJurulatihSearch;
 use app\models\AtletPembangunanKursuskem;
@@ -163,6 +167,8 @@ class PengurusanProgramBinaanController extends Controller
         $queryPar['PengurusanProgramBinaanJurulatihSearch']['pengurusan_program_binaan_id'] = $id;
         $queryPar['PengurusanProgramBinaanTeknikalSearch']['pengurusan_program_binaan_id'] = $id;
         $queryPar['PengurusanProgramBinaanUrusetiaSearch']['pengurusan_program_binaan_id'] = $id;
+        $queryPar['PengurusanProgramBinaanSukanSearch']['pengurusan_program_binaan_id'] = $id;
+        $queryPar['PengurusanProgramBinaanKategoriSearch']['pengurusan_program_binaan_id'] = $id;
         
         $searchModelProgramBinaanKos  = new PengurusanProgramBinaanKosSearch();
         $dataProviderProgramBinaanKos = $searchModelProgramBinaanKos->search($queryPar);
@@ -181,6 +187,12 @@ class PengurusanProgramBinaanController extends Controller
         
         $searchModelPengurusanProgramBinaanJurulatih = new PengurusanProgramBinaanJurulatihSearch();
         $dataProviderPengurusanProgramBinaanJurulatih = $searchModelPengurusanProgramBinaanJurulatih->search($queryPar);
+        
+        $searchModelPengurusanProgramBinaanSukan = new PengurusanProgramBinaanSukanSearch();
+        $dataProviderPengurusanProgramBinaanSukan = $searchModelPengurusanProgramBinaanSukan->search($queryPar);
+        
+        $searchModelPengurusanProgramBinaanKategori = new PengurusanProgramBinaanKategoriSearch();
+        $dataProviderPengurusanProgramBinaanKategori = $searchModelPengurusanProgramBinaanKategori->search($queryPar);
         
         if(isset($model->sukan) && $model->sukan != ''){
             $sukan_selected=explode(',',$model->sukan);
@@ -221,6 +233,10 @@ class PengurusanProgramBinaanController extends Controller
             'dataProviderPengurusanProgramBinaanAtlet' => $dataProviderPengurusanProgramBinaanAtlet,
             'searchModelPengurusanProgramBinaanJurulatih' => $searchModelPengurusanProgramBinaanJurulatih,
             'dataProviderPengurusanProgramBinaanJurulatih' => $dataProviderPengurusanProgramBinaanJurulatih,
+            'searchModelPengurusanProgramBinaanSukan' => $searchModelPengurusanProgramBinaanSukan,
+            'dataProviderPengurusanProgramBinaanSukan' => $dataProviderPengurusanProgramBinaanSukan,
+            'searchModelPengurusanProgramBinaanKategori' => $searchModelPengurusanProgramBinaanKategori,
+            'dataProviderPengurusanProgramBinaanKategori' => $dataProviderPengurusanProgramBinaanKategori,
             'readonly' => true,
         ]);
     }
@@ -251,6 +267,8 @@ class PengurusanProgramBinaanController extends Controller
             $queryPar['PengurusanProgramBinaanJurulatihSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['PengurusanProgramBinaanTeknikalSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['PengurusanProgramBinaanUrusetiaSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['PengurusanProgramBinaanSukanSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['PengurusanProgramBinaanKategoriSearch']['session_id'] = Yii::$app->session->id;
         }
         
         $searchModelProgramBinaanKos  = new PengurusanProgramBinaanKosSearch();
@@ -270,6 +288,12 @@ class PengurusanProgramBinaanController extends Controller
         
         $searchModelPengurusanProgramBinaanJurulatih = new PengurusanProgramBinaanJurulatihSearch();
         $dataProviderPengurusanProgramBinaanJurulatih = $searchModelPengurusanProgramBinaanJurulatih->search($queryPar);
+        
+        $searchModelPengurusanProgramBinaanSukan = new PengurusanProgramBinaanSukanSearch();
+        $dataProviderPengurusanProgramBinaanSukan = $searchModelPengurusanProgramBinaanSukan->search($queryPar);
+        
+        $searchModelPengurusanProgramBinaanKategori= new PengurusanProgramBinaanKategoriSearch();
+        $dataProviderPengurusanProgramBinaanKategori = $searchModelPengurusanProgramBinaanKategori->search($queryPar);
         
         if ($model->load(Yii::$app->request->post())) {
             if($model->sukan){
@@ -360,6 +384,10 @@ Majlis Sukan Negara Malaysia.
                 'dataProviderPengurusanProgramBinaanAtlet' => $dataProviderPengurusanProgramBinaanAtlet,
                 'searchModelPengurusanProgramBinaanJurulatih' => $searchModelPengurusanProgramBinaanJurulatih,
                 'dataProviderPengurusanProgramBinaanJurulatih' => $dataProviderPengurusanProgramBinaanJurulatih,
+                'searchModelPengurusanProgramBinaanSukan' => $searchModelPengurusanProgramBinaanSukan,
+                'dataProviderPengurusanProgramBinaanSukan' => $dataProviderPengurusanProgramBinaanSukan,
+                'searchModelPengurusanProgramBinaanKategori' => $searchModelPengurusanProgramBinaanKategori,
+                'dataProviderPengurusanProgramBinaanKategori' => $dataProviderPengurusanProgramBinaanKategori,
                 'readonly' => false,
             ]);
         }
@@ -389,6 +417,8 @@ Majlis Sukan Negara Malaysia.
         $queryPar['PengurusanProgramBinaanJurulatihSearch']['pengurusan_program_binaan_id'] = $id;
         $queryPar['PengurusanProgramBinaanTeknikalSearch']['pengurusan_program_binaan_id'] = $id;
         $queryPar['PengurusanProgramBinaanUrusetiaSearch']['pengurusan_program_binaan_id'] = $id;
+        $queryPar['PengurusanProgramBinaanSukanSearch']['pengurusan_program_binaan_id'] = $id;
+        $queryPar['PengurusanProgramBinaanKategoriSearch']['pengurusan_program_binaan_id'] = $id;
         
         $searchModelProgramBinaanKos  = new PengurusanProgramBinaanKosSearch();
         $dataProviderProgramBinaanKos = $searchModelProgramBinaanKos->search($queryPar);
@@ -407,6 +437,12 @@ Majlis Sukan Negara Malaysia.
         
         $searchModelPengurusanProgramBinaanJurulatih = new PengurusanProgramBinaanJurulatihSearch();
         $dataProviderPengurusanProgramBinaanJurulatih = $searchModelPengurusanProgramBinaanJurulatih->search($queryPar);
+        
+        $searchModelPengurusanProgramBinaanSukan = new PengurusanProgramBinaanSukanSearch();
+        $dataProviderPengurusanProgramBinaanSukan = $searchModelPengurusanProgramBinaanSukan->search($queryPar);
+        
+        $searchModelPengurusanProgramBinaanKategori = new PengurusanProgramBinaanKategoriSearch();
+        $dataProviderPengurusanProgramBinaanKategori = $searchModelPengurusanProgramBinaanKategori->search($queryPar);
         
         if(isset($model->sukan) && $model->sukan != ''){
             $model->sukan=explode(',',$model->sukan);
@@ -474,6 +510,10 @@ Majlis Sukan Negara Malaysia.
                 'dataProviderPengurusanProgramBinaanAtlet' => $dataProviderPengurusanProgramBinaanAtlet,
                 'searchModelPengurusanProgramBinaanJurulatih' => $searchModelPengurusanProgramBinaanJurulatih,
                 'dataProviderPengurusanProgramBinaanJurulatih' => $dataProviderPengurusanProgramBinaanJurulatih,
+                'searchModelPengurusanProgramBinaanSukan' => $searchModelPengurusanProgramBinaanSukan,
+                'dataProviderPengurusanProgramBinaanSukan' => $dataProviderPengurusanProgramBinaanSukan,
+                'searchModelPengurusanProgramBinaanKategori' => $searchModelPengurusanProgramBinaanKategori,
+                'dataProviderPengurusanProgramBinaanKategori' => $dataProviderPengurusanProgramBinaanKategori,
                 'readonly' => false,
         ]);
     }
@@ -769,14 +809,14 @@ Majlis Sukan Negara Malaysia.
         $stylesheet = file_get_contents('css/report.css');
 
         $pdf->WriteHTML($stylesheet,1);
-        
+
         $pdf->WriteHTML($this->renderpartial('print_jkk_jkp', [
              'model'  => $model,
              'binaanKosModel' => $binaanKosModel,
              'totalOrang' => $totalOrang,
         ]));
 
-        $pdf->Output('Borang_jkk_jkp_'.$model->pengurusan_program_binaan_id.'.pdf', 'I');
+        $pdf->Output('Borang_jkk_jkp_'.$model->pengurusan_program_binaan_id.'.pdf', 'I'); 
     }
     
     public function actionPrintBorangPermohonan($id)
@@ -864,11 +904,14 @@ Majlis Sukan Negara Malaysia.
         $ref = RefTahapProgramBinaan::findOne(['id' => $model->usptn_tahap]);
         $model->usptn_tahap = $ref['desc'];
         
-        $YesNo = GeneralLabel::getYesNoLabel($model->sokongan_pn);
-        $model->sokongan_pn = $YesNo;
+        // $YesNo = GeneralLabel::getYesNoLabel($model->sokongan_pn);
+        // $model->sokongan_pn = $YesNo;
         
-        $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
-        $model->kelulusan = $YesNo;
+        // $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
+        // $model->kelulusan = $YesNo;
+        
+        $ref = RefStatusPermohonanProgramBinaan::findOne(['id' => $model->status_permohonan]);
+        $model->status_permohonan = $ref['desc'];
 
         $pdf = new \mPDF('utf-8', 'A4');
 

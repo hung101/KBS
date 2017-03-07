@@ -45,6 +45,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a('Penilaian Prestasi Mengikut Kejohanan', ['print-penilaian-prestasi', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-default custom_button', 'target' => '_blank']) ?>
         <?php endif; ?>
     </p>
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update'])): ?>
+        <p><?= Html::a(GeneralLabel::tempah_tiket_kapal_terbang, ['/permohonan-kemudahan-ticket-kapal-terbang/create'], ['class' => 'btn btn-warning', 'target' => '_blank']) ?></p>
+    <?php endif; ?>
     
     <?= $this->render('_form', [
         'model' => $model,
