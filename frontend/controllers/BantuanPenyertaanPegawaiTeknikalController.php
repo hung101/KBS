@@ -32,6 +32,8 @@ use app\models\ProfilBadanSukan;
 use app\models\RefStatusBantuanPenyertaanPegawaiTeknikal;
 use app\models\RefPeringkatBantuanPenyertaanPegawaiTeknikal;
 
+use common\models\User;
+
 /**
  * BantuanPenyertaanPegawaiTeknikalController implements the CRUD actions for BantuanPenyertaanPegawaiTeknikal model.
  */
@@ -59,7 +61,7 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $queryParams = Yii::$app->request->queryParams;
@@ -85,7 +87,7 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
     public function actionView($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $queryPar = null;
@@ -147,7 +149,7 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
     public function actionCreate()
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = new BantuanPenyertaanPegawaiTeknikal();
@@ -224,6 +226,36 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
             }
             
             if($model->save()){
+                if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_bantuan-penyertaan-pegawai-teknikal'])->groupBy('id')->all()) !== null) {
+                    $refProfilBadanSukan = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->badan_sukan]);
+                    foreach($modelUsers as $modelUser){
+
+                        if($modelUser->email && $modelUser->email != ""){
+                            //echo "E-mail: " . $modelUser->email . "\n";
+                            Yii::$app->mailer->compose()
+                            ->setTo($modelUser->email)
+                            ->setFrom('noreply@spsb.com')
+                            ->setSubject('Pemberitahuan - Permohonan Baru: Penyertaan Pegawai Teknikal Ke Kejohanan Dalam & Luar Negara ')
+                            ->setTextBody("Salam Sejahtera,
+    <br><br>
+    Berikut adalah butir permohonan telah dihantar : 
+    <br>
+    Badan Sukan: " . $refProfilBadanSukan['nama_badan_sukan'] . "
+    Nama Kejohanan: " . $model->nama_kejohanan . '
+    Tempat: ' . $model->tempat . '
+    Tarikh Mula: ' . $model->tarikh . '
+    Tarikh Tamat: ' . $model->tarikh_tamat . '
+    Jumlah Bantuan Yang Dipohon: RM' . $model->jumlah_bantuan_yang_dipohon . '
+    <br>
+    Link: ' . BaseUrl::to(['bantuan-penyertaan-pegawai-teknikal/view', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_id], true) . '
+    <br><br>
+    "KE ARAH KECEMERLANGAN SUKAN"
+    Majlis Sukan Negara Malaysia.
+        ')->send();
+                        }
+                    }
+                }
+                
                 return $this->redirect(['view', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_id]);
             }
         } 
@@ -249,7 +281,7 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
     public function actionUpdate($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = $this->findModel($id);
@@ -332,7 +364,7 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
     public function actionDelete($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         // delete upload file
@@ -371,7 +403,7 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
     public function actionDeleteupload($id, $field)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
             $img = $this->findModel($id)->$field;

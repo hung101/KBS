@@ -38,7 +38,7 @@ class BajetPenyelidikanSumbanganController extends Controller
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $searchModel = new BajetPenyelidikanSumbanganSearch();
@@ -58,7 +58,7 @@ class BajetPenyelidikanSumbanganController extends Controller
     public function actionView($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = $this->findModel($id);
@@ -83,7 +83,7 @@ class BajetPenyelidikanSumbanganController extends Controller
     public function actionCreate($permohonana_penyelidikan_id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = new BajetPenyelidikanSumbangan();
@@ -117,7 +117,7 @@ class BajetPenyelidikanSumbanganController extends Controller
     public function actionUpdate($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = $this->findModel($id);
@@ -141,7 +141,7 @@ class BajetPenyelidikanSumbanganController extends Controller
     public function actionDelete($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $this->findModel($id)->delete();

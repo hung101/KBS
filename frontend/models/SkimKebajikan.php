@@ -67,7 +67,10 @@ class SkimKebajikan extends \yii\db\ActiveRecord
             [['masalah_dihadapi', 'emel_penerima'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lokasi_kejadian'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan', 'muat_naik'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['muat_naik', 'sijil_kematian', 'dokumen_yang_mengesahkan_hubungan', 'surat_pengesahan_atlet_negara', 'laporan_doktor',
+                'resit_perubatan', 'surat_pengesahan_atlet_majlis_sukan_negara_perubatan', 'keratan_akhbar', 'laporan_polis_bomba',
+                'surat_pengesahan_atlet_majlis_sukan_negara_bencana', 'dokumen_yang_berkenaan_mengikut_situasi_kes'],'validateFileUpload', 'skipOnEmpty' => false],
+            //[['kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri'], 'validateFileUploadRequired', 'skipOnEmpty' => false],
         ];
     }
 
@@ -97,6 +100,16 @@ class SkimKebajikan extends \yii\db\ActiveRecord
             'muat_naik' => GeneralLabel::muat_naik,
             'bank_penerima' => GeneralLabel::bank_penerima,
             'no_akaun_penerima' => GeneralLabel::no_akaun_penerima,
+            'sijil_kematian' => GeneralLabel::sijil_kematian,
+            'dokumen_yang_mengesahkan_hubungan' => GeneralLabel::dokumen_yang_mengesahkan_hubungan,
+            'surat_pengesahan_atlet_negara' => GeneralLabel::surat_pengesahan_atlet_negara,
+            'laporan_doktor' => GeneralLabel::laporan_doktor,
+            'resit_perubatan' => GeneralLabel::resit_perubatan,
+            'surat_pengesahan_atlet_majlis_sukan_negara_perubatan' => GeneralLabel::surat_pengesahan_atlet_majlis_sukan_negara,
+            'keratan_akhbar' => GeneralLabel::keratan_akhbar,
+            'laporan_polis_bomba' => GeneralLabel::laporan_polis_bomba,
+            'surat_pengesahan_atlet_majlis_sukan_negara_bencana' => GeneralLabel::surat_pengesahan_atlet_majlis_sukan_negara,
+            'dokumen_yang_berkenaan_mengikut_situasi_kes' => GeneralLabel::dokumen_yang_berkenaan_mengikut_situasi_kes,
         ];
     }
     
@@ -108,6 +121,21 @@ class SkimKebajikan extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUploadRequired($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+
+        if(!$file && $this->$attribute==""){
+            $this->addError($attribute, GeneralMessage::uploadEmptyError);
         }
     }
     

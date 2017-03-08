@@ -48,7 +48,7 @@ class AtletSukanController extends Controller
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $request = Yii::$app->request;
@@ -87,7 +87,7 @@ class AtletSukanController extends Controller
     public function actionTab()
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         /*$searchModel = new AtletSukanSearch();
@@ -117,7 +117,7 @@ class AtletSukanController extends Controller
     public function actionView($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = $this->findModel($id);
@@ -163,7 +163,7 @@ class AtletSukanController extends Controller
     public function actionCreate()
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = new AtletSukan();
@@ -198,7 +198,7 @@ class AtletSukanController extends Controller
     public function actionUpdate($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = $this->findModel($id);
@@ -223,7 +223,7 @@ class AtletSukanController extends Controller
     public function actionDelete($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $this->findModel($id)->delete();

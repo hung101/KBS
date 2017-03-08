@@ -38,7 +38,7 @@ class BiomekanikAnthropometricsController extends Controller
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $searchModel = new BiomekanikAnthropometricsSearch();
@@ -58,7 +58,7 @@ class BiomekanikAnthropometricsController extends Controller
     public function actionView($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = $this->findModel($id);
@@ -80,7 +80,7 @@ class BiomekanikAnthropometricsController extends Controller
     public function actionCreate($perkhidmatan_analisa_perlawanan_biomekanik_id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = new BiomekanikAnthropometrics();
@@ -114,7 +114,7 @@ class BiomekanikAnthropometricsController extends Controller
     public function actionUpdate($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = $this->findModel($id);
@@ -138,7 +138,7 @@ class BiomekanikAnthropometricsController extends Controller
     public function actionDelete($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $this->findModel($id)->delete();

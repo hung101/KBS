@@ -47,7 +47,7 @@ class BantuanPentadbiranPejabatController extends Controller
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $searchModel = new BantuanPentadbiranPejabatSearch();
@@ -67,7 +67,7 @@ class BantuanPentadbiranPejabatController extends Controller
     public function actionView($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = $this->findModel($id);
@@ -110,7 +110,7 @@ class BantuanPentadbiranPejabatController extends Controller
     public function actionCreate()
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = new BantuanPentadbiranPejabat();
@@ -187,7 +187,7 @@ Majlis Sukan Negara Malaysia.
     public function actionUpdate($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = $this->findModel($id);
@@ -251,7 +251,7 @@ Majlis Sukan Negara Malaysia.
     public function actionDelete($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $this->findModel($id)->delete();

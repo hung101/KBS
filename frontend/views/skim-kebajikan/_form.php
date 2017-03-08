@@ -280,6 +280,354 @@ use app\models\general\GeneralMessage;
     }
     ?>
     
+    <div class="panel panel-default" >
+        <div class="panel-heading">
+            <strong><?php echo GeneralLabel::bantuan_khairat_kematian; ?></strong>
+        </div>
+        <div class="panel-body">
+            <?php // Upload
+    if($model->sijil_kematian){
+        echo "<label>" . $model->getAttributeLabel('sijil_kematian') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->sijil_kematian , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->skim_kebajikan_id, 'field'=> 'sijil_kematian'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'sijil_kematian' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+            
+            <?php // Upload
+    if($model->dokumen_yang_mengesahkan_hubungan){
+        echo "<label>" . $model->getAttributeLabel('dokumen_yang_mengesahkan_hubungan') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->dokumen_yang_mengesahkan_hubungan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->skim_kebajikan_id, 'field'=> 'dokumen_yang_mengesahkan_hubungan'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'dokumen_yang_mengesahkan_hubungan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+            
+            <?php // Upload
+    if($model->surat_pengesahan_atlet_negara){
+        echo "<label>" . $model->getAttributeLabel('surat_pengesahan_atlet_negara') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->surat_pengesahan_atlet_negara , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->skim_kebajikan_id, 'field'=> 'surat_pengesahan_atlet_negara'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'surat_pengesahan_atlet_negara' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+        </div>
+    </div>
+    
+    <div class="panel panel-default" >
+        <div class="panel-heading">
+            <strong><?php echo GeneralLabel::bantuan_perubatan; ?></strong>
+        </div>
+        <div class="panel-body">
+            <?php // Upload
+    if($model->laporan_doktor){
+        echo "<label>" . $model->getAttributeLabel('laporan_doktor') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->laporan_doktor , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->skim_kebajikan_id, 'field'=> 'laporan_doktor'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'laporan_doktor' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+            
+            <?php // Upload
+    if($model->resit_perubatan){
+        echo "<label>" . $model->getAttributeLabel('resit_perubatan') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->resit_perubatan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->skim_kebajikan_id, 'field'=> 'resit_perubatan'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'resit_perubatan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+            
+            <?php // Upload
+    if($model->surat_pengesahan_atlet_majlis_sukan_negara_perubatan){
+        echo "<label>" . $model->getAttributeLabel('surat_pengesahan_atlet_majlis_sukan_negara_perubatan') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->surat_pengesahan_atlet_majlis_sukan_negara_perubatan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->skim_kebajikan_id, 'field'=> 'surat_pengesahan_atlet_majlis_sukan_negara_perubatan'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'surat_pengesahan_atlet_majlis_sukan_negara_perubatan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+        </div>
+    </div>
+    
+    <div class="panel panel-default" >
+        <div class="panel-heading">
+            <strong><?php echo GeneralLabel::bantuan_bencana_alam; ?></strong>
+        </div>
+        <div class="panel-body">
+            <?php // Upload
+    if($model->keratan_akhbar){
+        echo "<label>" . $model->getAttributeLabel('keratan_akhbar') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->keratan_akhbar , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->skim_kebajikan_id, 'field'=> 'keratan_akhbar'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'keratan_akhbar' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+            
+            <?php // Upload
+    if($model->laporan_polis_bomba){
+        echo "<label>" . $model->getAttributeLabel('laporan_polis_bomba') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->laporan_polis_bomba , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->skim_kebajikan_id, 'field'=> 'laporan_polis_bomba'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'laporan_polis_bomba' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+            
+            <?php // Upload
+    if($model->surat_pengesahan_atlet_majlis_sukan_negara_bencana){
+        echo "<label>" . $model->getAttributeLabel('surat_pengesahan_atlet_majlis_sukan_negara_bencana') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->surat_pengesahan_atlet_majlis_sukan_negara_bencana , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->skim_kebajikan_id, 'field'=> 'surat_pengesahan_atlet_majlis_sukan_negara_bencana'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'surat_pengesahan_atlet_majlis_sukan_negara_bencana' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+        </div>
+    </div>
+    
+    <div class="panel panel-default" >
+        <div class="panel-heading">
+            <strong><?php echo GeneralLabel::bantuan_kewangan_lain_akan_dipertimbangan_dengan_kelulusan_khas_ketua_pengarah_msn; ?></strong>
+        </div>
+        <div class="panel-body">
+            <?php // Upload
+    if($model->dokumen_yang_berkenaan_mengikut_situasi_kes){
+        echo "<label>" . $model->getAttributeLabel('dokumen_yang_berkenaan_mengikut_situasi_kes') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->dokumen_yang_berkenaan_mengikut_situasi_kes , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->skim_kebajikan_id, 'field'=> 'dokumen_yang_berkenaan_mengikut_situasi_kes'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'dokumen_yang_berkenaan_mengikut_situasi_kes' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+        </div>
+    </div>
+    
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['skim-kebajikan']['kelulusan']) || $readonly): ?>
     <?php
         echo FormGrid::widget([

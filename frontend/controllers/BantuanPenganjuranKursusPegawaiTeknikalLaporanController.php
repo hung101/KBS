@@ -46,7 +46,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $searchModel = new BantuanPenganjuranKursusPegawaiTeknikalLaporanSearch();
@@ -66,7 +66,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
     public function actionView($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         
@@ -93,7 +93,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
     public function actionCreate($bantuan_penganjuran_kursus_pegawai_teknikal_id=0, $bantuan_penyertaan_pegawai_teknikal_id=0, $bantuan_penganjuran_kursus_id=0)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = new BantuanPenganjuranKursusPegawaiTeknikalLaporan();
@@ -230,7 +230,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
     public function actionLoad($bantuan_penganjuran_kursus_pegawai_teknikal_id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         if (($model = BantuanPenganjuranKursusPegawaiTeknikalLaporan::find()->where(['bantuan_penganjuran_kursus_pegawai_teknikal_id'=>$bantuan_penganjuran_kursus_pegawai_teknikal_id])->one()) !== null) {
@@ -248,7 +248,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
     public function actionLoadBantuanPenyertaan($bantuan_penyertaan_pegawai_teknikal_id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         if (($model = BantuanPenganjuranKursusPegawaiTeknikalLaporan::find()->where(['bantuan_penyertaan_pegawai_teknikal_id'=>$bantuan_penyertaan_pegawai_teknikal_id])->one()) !== null) {
@@ -266,7 +266,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
     public function actionLoadBantuanPenganjuran($bantuan_penganjuran_kursus_id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         if (($model = BantuanPenganjuranKursusPegawaiTeknikalLaporan::find()->where(['bantuan_penganjuran_kursus_id'=>$bantuan_penganjuran_kursus_id])->one()) !== null) {
@@ -285,7 +285,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
     public function actionUpdate($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = $this->findModel($id);
@@ -400,7 +400,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
     public function actionDelete($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $this->findModel($id)->delete();

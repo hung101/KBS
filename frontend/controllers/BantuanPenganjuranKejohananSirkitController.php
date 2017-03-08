@@ -19,6 +19,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\BaseUrl;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
@@ -32,6 +33,8 @@ use app\models\RefBank;
 use app\models\RefPeringkatBantuanPenganjuranKejohanan;
 use app\models\ProfilBadanSukan;
 use app\models\RefStatusBantuanPenganjuranKejohanan;
+
+use common\models\User;
 
 /**
  * BantuanPenganjuranKejohananSirkitController implements the CRUD actions for BantuanPenganjuranKejohananSirkit model.
@@ -60,7 +63,7 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $searchModel = new BantuanPenganjuranKejohananSirkitSearch();
@@ -80,7 +83,7 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
     public function actionView($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = $this->findModel($id);
@@ -157,7 +160,7 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
     public function actionCreate()
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = new BantuanPenganjuranKejohananSirkit();
@@ -235,6 +238,33 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
             }
             
             if($model->save()){
+                if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_bantuan-penganjuran-kejohanan-sirkit'])->groupBy('id')->all()) !== null) {
+                    foreach($modelUsers as $modelUser){
+
+                        if($modelUser->email && $modelUser->email != ""){
+                            //echo "E-mail: " . $modelUser->email . "\n";
+                            Yii::$app->mailer->compose()
+                            ->setTo($modelUser->email)
+                            ->setFrom('noreply@spsb.com')
+                            ->setSubject('Pemberitahuan - Permohonan Baru: Maklumat Penyertaan (Sirkit Remaja / Karnival)')
+                            ->setTextBody("Salam Sejahtera,
+    <br><br>
+    Berikut adalah butir permohonan telah dihantar : 
+    <br>
+    Nama Kejohanan / Pertandingan: " . $model->nama_kejohanan_pertandingan . '
+    Tempat: ' . $model->tempat . '
+    Tarikh Mula: ' . $model->tarikh_mula . '
+    Tarikh Tamat: ' . $model->tarikh_tamat . '
+    <br>
+    Link: ' . BaseUrl::to(['bantuan-penganjuran-kejohanan/view', 'id' => $model->bantuan_penganjuran_kejohanan_id], true) . '
+    <br><br>
+    "KE ARAH KECEMERLANGAN SUKAN"
+    Majlis Sukan Negara Malaysia.
+        ')->send();
+                        }
+                    }
+                }
+            
                 return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_id]);
             }
         } 
@@ -264,7 +294,7 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
     public function actionUpdate($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = $this->findModel($id);
@@ -376,7 +406,7 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
     public function actionDelete($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         // delete upload file
@@ -413,7 +443,7 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
     public function actionDeleteupload($id, $field)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
             $img = $this->findModel($id)->$field;

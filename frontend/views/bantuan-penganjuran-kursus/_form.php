@@ -60,7 +60,7 @@ use common\models\general\GeneralFunction;
    <?php $disablePersatuanInfo = true;?>
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
    
-   <?php echo $form->errorSummary($model); ?>
+   <?php //echo $form->errorSummary($model); ?>
     
     <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_badan_sukan_cap; ?></strong></pre>
     <?php

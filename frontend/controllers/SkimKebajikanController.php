@@ -127,8 +127,69 @@ class SkimKebajikanController extends Controller
 
         if (Yii::$app->request->post() && $model->save()) {
             $file = UploadedFile::getInstance($model, 'muat_naik');
+            $filename = $model->skim_kebajikan_id . "-muat_naik";
             if($file){
-                $model->muat_naik = Upload::uploadFile($file, Upload::skimKebajikanFolder, $model->skim_kebajikan_id);
+                $model->muat_naik = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'sijil_kematian');
+            $filename = $model->skim_kebajikan_id . "-sijil_kematian";
+            if($file){
+                $model->sijil_kematian = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'dokumen_yang_mengesahkan_hubungan');
+            $filename = $model->skim_kebajikan_id . "-dokumen_yang_mengesahkan_hubungan";
+            if($file){
+                $model->dokumen_yang_mengesahkan_hubungan = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_pengesahan_atlet_negara');
+            $filename = $model->skim_kebajikan_id . "-surat_pengesahan_atlet_negara";
+            if($file){
+                $model->surat_pengesahan_atlet_negara = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'laporan_doktor');
+            $filename = $model->skim_kebajikan_id . "-laporan_doktor";
+            if($file){
+                $model->laporan_doktor = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'resit_perubatan');
+            $filename = $model->skim_kebajikan_id . "-resit_perubatan";
+            if($file){
+                $model->resit_perubatan = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_pengesahan_atlet_majlis_sukan_negara_perubatan');
+            $filename = $model->skim_kebajikan_id . "-surat_pengesahan_atlet_majlis_sukan_negara_perubatan";
+            if($file){
+                $model->surat_pengesahan_atlet_majlis_sukan_negara_perubatan = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'keratan_akhbar');
+            $filename = $model->skim_kebajikan_id . "-keratan_akhbar";
+            if($file){
+                $model->keratan_akhbar = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'laporan_polis_bomba');
+            $filename = $model->skim_kebajikan_id . "-laporan_polis_bomba";
+            if($file){
+                $model->laporan_polis_bomba = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_pengesahan_atlet_majlis_sukan_negara_bencana');
+            $filename = $model->skim_kebajikan_id . "-surat_pengesahan_atlet_majlis_sukan_negara_bencana";
+            if($file){
+                $model->surat_pengesahan_atlet_majlis_sukan_negara_bencana = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'dokumen_yang_berkenaan_mengikut_situasi_kes');
+            $filename = $model->skim_kebajikan_id . "-dokumen_yang_berkenaan_mengikut_situasi_kes";
+            if($file){
+                $model->dokumen_yang_berkenaan_mengikut_situasi_kes = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
             }
             
             if($model->save()){
@@ -200,8 +261,69 @@ Jumlah Bantuan:  RM' . $model->jumlah_bantuan . '
 
         if (Yii::$app->request->post() && $model->save()) {
             $file = UploadedFile::getInstance($model, 'muat_naik');
+            $filename = $model->skim_kebajikan_id . "-muat_naik";
             if($file){
-                $model->muat_naik = Upload::uploadFile($file, Upload::skimKebajikanFolder, $model->skim_kebajikan_id);
+                $model->muat_naik = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'sijil_kematian');
+            $filename = $model->skim_kebajikan_id . "-sijil_kematian";
+            if($file){
+                $model->sijil_kematian = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'dokumen_yang_mengesahkan_hubungan');
+            $filename = $model->skim_kebajikan_id . "-dokumen_yang_mengesahkan_hubungan";
+            if($file){
+                $model->dokumen_yang_mengesahkan_hubungan = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_pengesahan_atlet_negara');
+            $filename = $model->skim_kebajikan_id . "-surat_pengesahan_atlet_negara";
+            if($file){
+                $model->surat_pengesahan_atlet_negara = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'laporan_doktor');
+            $filename = $model->skim_kebajikan_id . "-laporan_doktor";
+            if($file){
+                $model->laporan_doktor = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'resit_perubatan');
+            $filename = $model->skim_kebajikan_id . "-resit_perubatan";
+            if($file){
+                $model->resit_perubatan = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_pengesahan_atlet_majlis_sukan_negara_perubatan');
+            $filename = $model->skim_kebajikan_id . "-surat_pengesahan_atlet_majlis_sukan_negara_perubatan";
+            if($file){
+                $model->surat_pengesahan_atlet_majlis_sukan_negara_perubatan = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'keratan_akhbar');
+            $filename = $model->skim_kebajikan_id . "-keratan_akhbar";
+            if($file){
+                $model->keratan_akhbar = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'laporan_polis_bomba');
+            $filename = $model->skim_kebajikan_id . "-laporan_polis_bomba";
+            if($file){
+                $model->laporan_polis_bomba = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'surat_pengesahan_atlet_majlis_sukan_negara_bencana');
+            $filename = $model->skim_kebajikan_id . "-surat_pengesahan_atlet_majlis_sukan_negara_bencana";
+            if($file){
+                $model->surat_pengesahan_atlet_majlis_sukan_negara_bencana = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'dokumen_yang_berkenaan_mengikut_situasi_kes');
+            $filename = $model->skim_kebajikan_id . "-dokumen_yang_berkenaan_mengikut_situasi_kes";
+            if($file){
+                $model->dokumen_yang_berkenaan_mengikut_situasi_kes = Upload::uploadFile($file, Upload::skimKebajikanFolder, $filename);
             }
             
             if($model->save()){
@@ -262,6 +384,16 @@ Majlis Sukan Negara Malaysia.
     {
         // delete upload file
         self::actionDeleteupload($id, 'muat_naik');
+        self::actionDeleteupload($id, 'sijil_kematian');
+        self::actionDeleteupload($id, 'dokumen_yang_mengesahkan_hubungan');
+        self::actionDeleteupload($id, 'surat_pengesahan_atlet_negara');
+        self::actionDeleteupload($id, 'laporan_doktor');
+        self::actionDeleteupload($id, 'resit_perubatan');
+        self::actionDeleteupload($id, 'surat_pengesahan_atlet_majlis_sukan_negara_perubatan');
+        self::actionDeleteupload($id, 'keratan_akhbar');
+        self::actionDeleteupload($id, 'laporan_polis_bomba');
+        self::actionDeleteupload($id, 'surat_pengesahan_atlet_majlis_sukan_negara_bencana');
+        self::actionDeleteupload($id, 'dokumen_yang_berkenaan_mengikut_situasi_kes');
         
         $this->findModel($id)->delete();
 

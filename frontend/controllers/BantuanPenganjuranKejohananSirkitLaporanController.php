@@ -43,7 +43,7 @@ class BantuanPenganjuranKejohananSirkitLaporanController extends Controller
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $searchModel = new BantuanPenganjuranKejohananSirkitLaporanSearch();
@@ -63,7 +63,7 @@ class BantuanPenganjuranKejohananSirkitLaporanController extends Controller
     public function actionView($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $queryPar = null;
@@ -89,7 +89,7 @@ class BantuanPenganjuranKejohananSirkitLaporanController extends Controller
     public function actionCreate($bantuan_penganjuran_kejohanan_id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = new BantuanPenganjuranKejohananSirkitLaporan();
@@ -183,7 +183,7 @@ class BantuanPenganjuranKejohananSirkitLaporanController extends Controller
     public function actionLoad($bantuan_penganjuran_kejohanan_id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         if (($model = BantuanPenganjuranKejohananSirkitLaporan::find()->where(['bantuan_penganjuran_kejohanan_id'=>$bantuan_penganjuran_kejohanan_id])->one()) !== null) {
@@ -202,7 +202,7 @@ class BantuanPenganjuranKejohananSirkitLaporanController extends Controller
     public function actionUpdate($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = $this->findModel($id);
@@ -299,7 +299,7 @@ class BantuanPenganjuranKejohananSirkitLaporanController extends Controller
     public function actionDelete($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $this->findModel($id)->delete();
@@ -327,7 +327,7 @@ class BantuanPenganjuranKejohananSirkitLaporanController extends Controller
     public function actionDeleteupload($id, $field)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
             $img = $this->findModel($id)->$field;
