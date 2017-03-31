@@ -92,7 +92,7 @@ if(count($sukanList) > 0)
 
 Dear Sir,
 <p>
-    I hereby accept your employment offer as <b>COACH</b> and agree to the terms and conditions as mentioned in your letter Reference No: <b><?= $model->bil_msnm ?></b> dated <b><?= $model->tarikh ?></b>. I will report for duty effective from <b><?= $tarikhMula ?></b> - <b><?= $tarikhTamat ?></b>.
+    I hereby accept / decline your employment offer as <b>COACH</b> and agree to the terms and conditions as mentioned in your letter Reference No: <b><?= $model->bil_msnm ?></b> dated <b><?= $model->tarikh ?></b>. I will report for duty effective from <b><?= $tarikhMula ?></b> - <b><?= $tarikhTamat ?></b>.
 </p>
 <p>
 2.&nbsp;&nbsp;&nbsp;&nbsp;Enclosed herewith the following documents for your further action:-

@@ -26,8 +26,16 @@ use app\models\general\GeneralMessage;
     $session = new Session;
     $session->open();
     
-    $sukan_list = RefSukan::find()->all();
-        
+	if(isset($session['pengurusan_program_binaan_bahagian_id']) && $session['pengurusan_program_binaan_bahagian_id']){
+		if($session['pengurusan_program_binaan_bahagian_id'] === '1')//assume normal
+		{
+			$sukan_list = RefSukan::find()->where(['cacat' => 0, 'aktif' => 1])->all();
+		} else {
+			$sukan_list = RefSukan::find()->where(['cacat' => 1, 'aktif' => 1])->all();
+		}
+	} else {
+		$sukan_list = RefSukan::find()->where(['aktif' => 1])->all();
+	}   
     $session->close();
 ?>
 
@@ -58,7 +66,7 @@ use app\models\general\GeneralMessage;
                                     'asButton' => true
                                 ]
                             ] : null,
-                            'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                            'data'=>ArrayHelper::map($sukan_list,'id', 'desc'),
                             'options' => ['placeholder' => Placeholder::sukan],
                             'pluginOptions' => [
                                 'allowClear' => true

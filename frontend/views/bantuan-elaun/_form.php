@@ -48,7 +48,7 @@ use app\models\general\GeneralVariable;
     ?>
     
     <?php //echo $form->errorSummary($model); ?>
-    
+    <?php $disablePersatuanInfo = true;?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -76,7 +76,7 @@ use app\models\general\GeneralVariable;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>4]],
-                 'tarikh' => [
+/*                  'tarikh' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
                     'ajaxConversion'=>false,
@@ -84,6 +84,19 @@ use app\models\general\GeneralVariable;
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]], */
+				'tarikh' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'type'=>DateControl::FORMAT_DATETIME,
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                                    'todayBtn' => true,
+                        ],
+                        'options'=>['disabled'=>true]
                     ],
                     'columnOptions'=>['colspan'=>3]],
                 'nama_persatuan' =>[
@@ -98,7 +111,7 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(ProfilBadanSukan::find()->all(),'profil_badan_sukan', 'nama_badan_sukan'),
-                        'options' => ['placeholder' => Placeholder::badanSukan, 'disabled'=>$disablePersatuan],
+                        'options' => ['placeholder' => Placeholder::badanSukan, 'disabled'=>$disablePersatuan, 'id'=>'persatuanId'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -322,17 +335,17 @@ use app\models\general\GeneralVariable;
         ],
         [
             'attributes' => [
-                'alamat_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                'alamat_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30, 'disabled'=>$disablePersatuanInfo]],
             ]
         ],
         [
             'attributes' => [
-                'alamat_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                'alamat_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30, 'disabled'=>$disablePersatuanInfo]],
             ]
         ],
         [
             'attributes' => [
-                'alamat_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                'alamat_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30, 'disabled'=>$disablePersatuanInfo]],
             ]
         ],
         [
@@ -351,7 +364,7 @@ use app\models\general\GeneralVariable;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],
+                        'options' => ['placeholder' => Placeholder::negeri, 'disabled'=>$disablePersatuanInfo],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -377,9 +390,10 @@ use app\models\general\GeneralVariable;
                             'depends'=>[Html::getInputId($model, 'alamat_negeri')],
                             'placeholder' => Placeholder::bandar,
                             'url'=>Url::to(['/ref-bandar/subbandars'])],
+							'disabled'=>$disablePersatuanInfo
                         ],
                     'columnOptions'=>['colspan'=>3]],
-                'alamat_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5]],
+                'alamat_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5, 'disabled'=>$disablePersatuanInfo]],
             ]
         ],
         [
@@ -421,6 +435,40 @@ use app\models\general\GeneralVariable;
                         'autoGenerateColumns'=>false, // override columns setting
                         'attributes' => [
                             'muatnaik_dokumen' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label, 'hint' => 'Senarai semak dokumen yang perlu dilampirkan'],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+    }
+        
+    ?>
+	
+	<?php // Muatnaik Surat Permohonan Rasmi Upload
+    
+    $label = $model->getAttributeLabel('surat_permohonan');
+    
+    if($model->surat_permohonan){
+        echo "<div class='required'>";
+        echo "<label>" . $model->getAttributeLabel('surat_permohonan') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->surat_permohonan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+        
+        $label = false;
+    }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'surat_permohonan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label],
                         ],
                     ],
                 ]
@@ -521,6 +569,7 @@ use app\models\general\GeneralVariable;
 
 
 <?php
+$URL = Url::to(['/profil-badan-sukan/get-badan-sukan']);
 $DateDisplayFormat = GeneralVariable::displayDateFormat;
 
 $script = <<< JS
@@ -530,6 +579,9 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
     var form = $(this);
 
     $("form#{$model->formName()} input").prop("disabled", false);
+	$("#bantuanelaun-alamat_negeri").prop("disabled", false);
+    $("#bantuanelaun-alamat_bandar").prop("disabled", false);
+    $("#bantuanelaun-alamat_poskod").prop("disabled", false);
 });
     
 $(document).ready(function(){
@@ -561,6 +613,33 @@ $("#NoICID").focusout(function(){
 $('#TarikhLahirID').change(function(){
     $("#UmurID").val(calculateAge(this.value));
 });
+
+$('#persatuanId').change(function(){
+    
+    $.get('$URL',{id:$(this).val()},function(data){
+        clearForm();
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+            $('#bantuanelaun-alamat_1').attr('value',data.alamat_tetap_badan_sukan_1);
+            $('#bantuanelaun-alamat_2').attr('value',data.alamat_tetap_badan_sukan_2);
+            $('#bantuanelaun-alamat_3').attr('value',data.alamat_tetap_badan_sukan_3);
+            $('#bantuanelaun-alamat_negeri').val(data.alamat_tetap_badan_sukan_negeri).trigger("change");
+            $('#bantuanelaun-alamat_bandar').val(data.alamat_tetap_badan_sukan_bandar).trigger("change");
+            $('#bantuanelaun-alamat_poskod').attr('value',data.alamat_tetap_badan_sukan_poskod);
+        }
+    });
+});
+
+function clearForm(){
+    $('#bantuanelaun-alamat_1').attr('value','');
+    $('#bantuanelaun-alamat_2').attr('value','');
+    $('#bantuanelaun-alamat_3').attr('value','');
+    $('#bantuanelaun-alamat_negeri').val('').trigger("change");
+    $('#bantuanelaun-alamat_bandar').val('').trigger("change");
+    $('#bantuanelaun-alamat_poskod').attr('value','');
+}
            
 
 JS;

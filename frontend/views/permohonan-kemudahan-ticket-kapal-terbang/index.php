@@ -91,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_program,
                 ],
-                'value' => 'program.desc'
+                'value' => 'program.nama_program'
             ],
             // 'no_fail_kelulusan',
              [

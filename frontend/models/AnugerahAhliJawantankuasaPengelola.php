@@ -30,6 +30,24 @@ class AnugerahAhliJawantankuasaPengelola extends \yii\db\ActiveRecord
     {
         return 'tbl_anugerah_ahli_jawantankuasa_pengelola';
     }
+    
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => \yii\behaviors\BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'updated',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
+        ];
+    }
+
 
     /**
      * @inheritdoc
@@ -37,8 +55,8 @@ class AnugerahAhliJawantankuasaPengelola extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ajk', 'nama', 'bahagian'], 'required'],
-            [['created_by', 'updated_by'], 'integer'],
+            [['tahun'], 'required'],
+            [['created_by', 'updated_by', 'tahun'], 'integer'],
             [['created', 'updated'], 'safe'],
             [['ajk', 'nama', 'bahagian'], 'string', 'max' => 80],
         ];
@@ -54,6 +72,7 @@ class AnugerahAhliJawantankuasaPengelola extends \yii\db\ActiveRecord
             'ajk' => GeneralLabel::ahli_jawatankuasa,  //'AJK',
             'nama' => GeneralLabel::nama,  //'Nama',
             'bahagian' => GeneralLabel::bahagian,  //'Bahagian',
+            'tahun' => GeneralLabel::tahun,
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',

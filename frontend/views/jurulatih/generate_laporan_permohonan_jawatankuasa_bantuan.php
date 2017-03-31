@@ -239,26 +239,49 @@ Hingga: <?= $hinggaDisplay ?>
             </table>
         </td>
         <td valign="top" class="border2">
+            <div style="margin:5px">Telah dibincangkan dan diluluskan melalui:</div>
+            <table>
+                <tr>
+                    <td>MPJ</td>
+                    <td valign="top">:</td>
+                    <td valign="top"><?= $item->bilangan_mpj ?></td>
+                </tr>
+                <tr>
+                    <td>Tarikh</td>
+                    <td valign="top">:</td>
+                    <td valign="top"><?= date('d.m.Y', strtotime($item->tarikh_mpj)) ?></td>
+                </tr>
+                <tr>
+                    <td>Pengerusi</td>
+                    <td valign="top">:</td>
+                    <td valign="top"><?= $item->pengerusi ?></td>
+                </tr>
+                <tr>
+                    <td>Kelulusan DKP</td>
+                    <td valign="top">:</td>
+                    <td valign="top"><?= $item->kelulusan_dkp ?></td>
+                </tr>
+            </table>
             <table>
                 <tr>
                     <td>SPKK</td>
-                    <td>:</td>
-                    <td><?= $item->catatan_spkk ?></td>
+                    <td valign="top">:</td>
+                    <td valign="top"><?= $item->catatan_spkk ?></td>
                 </tr>
                 <tr>
                     <td>Bersyarat</td>
-                    <td>:</td>
-                    <td><?= $item->bersyarat ?></td>
+                    <td valign="top">:</td>
+                    <td valign="top"><?= $item->bersyarat ?></td>
                 </tr>
                 <tr>
                     <td>Lain-lain</td>
-                    <td>:</td>
-                    <td><?= $item->lain_lain ?></td>
+                    <td valign="top">:</td>
+                    <td valign="top"><?= $item->lain_lain ?></td>
                 </tr>
                 <tr>
                     <td>Catatan</td>
-                    <td>:</td>
-                    <td><?= $item->catatan ?></td>
+                    <td valign="top">:</td>
+                    <td valign="top"><?= $item->catatan ?></td>
                 </tr>
             </table>
         </td>

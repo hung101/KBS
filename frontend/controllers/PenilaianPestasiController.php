@@ -293,6 +293,16 @@ class PenilaianPestasiController extends Controller
         
         $session->close();
     }
+    
+    public function actionSetKejohanan($nama_kejohanan_temasya){
+        
+        $session = new Session;
+        $session->open();
+
+        $session['penilaian-pestasi_nama_kejohanan_temasya'] = $nama_kejohanan_temasya;
+        
+        $session->close();
+    }
 
     /**
      * Finds the PenilaianPestasi model based on its primary key value.
@@ -557,5 +567,31 @@ class PenilaianPestasiController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanPenyertaanKontinjen', $format, $controls, 'laporan_penyertaan_kontinjen');
+    }
+	
+	public function actionPrint($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+		
+		$items = PenilaianPrestasiAtletSasaran::find()->where(['penilaian_pestasi_id' => $model->penilaian_pestasi_id])->all();
+        
+        $pdf = new \mPDF('utf-8', 'A4-L');
+
+        $pdf->title = 'Penilaian Prestasi Mengikut Kejohanan';
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print_penilaian_prestasi', [
+            'items'  => $items,
+             'model'  => $model,
+			 'title' => $pdf->title,
+        ]));
+
+        $pdf->Output('Penilaian_Prestasi_Mengikut_Kejohanan'.$model->penilaian_pestasi_id.'.pdf', 'I');
     }
 }

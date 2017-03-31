@@ -6,11 +6,15 @@ use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
+use yii\web\Session;
+use yii\helpers\Url;
 
 // table reference
 use app\models\RefMesyuaratAhliStatus;
 use app\models\RefJawatan;
 use app\models\RefAgensiJkk;
+use app\models\RefJawatanJkkJkp;
+use app\models\PengurusanJkkJkp;
 
 // contant values
 use app\models\general\Placeholder;
@@ -20,6 +24,16 @@ use app\models\general\GeneralMessage;
 /* @var $this yii\web\View */
 /* @var $model app\models\MesyuaratJkkKehadiran */
 /* @var $form yii\widgets\ActiveForm */
+
+    $session = new Session;
+    $session->open();
+    
+    if(isset($session['mesyuarat-jkk_jenis_mesyuarat']) && $session['mesyuarat-jkk_jenis_mesyuarat']){
+		$ahli_list = PengurusanJkkJkp::find()->where(['jenis_cawangan_kuasa' => $session['mesyuarat-jkk_jenis_mesyuarat']])->all();
+	} else {
+		$ahli_list = PengurusanJkkJkp::find()->all();
+	}
+	$session->close();
 ?>
 
 <div class="mesyuarat-jkk-kehadiran-form">
@@ -45,7 +59,17 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                //'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+				'nama' => [
+                        'type'=>Form::INPUT_WIDGET, 
+                        'widgetClass'=>'\kartik\widgets\Select2',
+                        'options'=>[
+                            'data'=>ArrayHelper::map($ahli_list,'pengurusan_jkk_jkp_id', 'nama_pegawai_coach'),
+                            'options' => ['placeholder' => Placeholder::namaAhli, 'id' => 'namaID'],
+    'pluginOptions' => [
+                                'allowClear' => true
+                            ],],
+                        'columnOptions'=>['colspan'=>6]],
                 'agensi' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -58,21 +82,39 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefAgensiJkk::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::agensi],
+                        'options' => ['placeholder' => Placeholder::agensi, 'disabled'=>true],
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
-                'jawatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                //'jawatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+				'jawatan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-jawatan-jkk-jkp/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefJawatanJkkJkp::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::jawatan, 'disabled'=>true],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+				'emel' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>100, 'disabled' => true]],
             ]
         ],
-        [
+/*         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'emel' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>100]],
+                'emel' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>100, 'disabled' => true]],
             ]
-        ],
+        ], */
         /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -133,11 +175,18 @@ use app\models\general\GeneralMessage;
 
 
 <?php
+$URLAhliJKKJKP = Url::to(['/pengurusan-jkk-jkp/get-ahli']);
+
 $script = <<< JS
         
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
     
      var \$form = $(this);
+	 
+	 $("form#{$model->formName()} input").prop("disabled", false);
+	 $("#mesyuaratjkkkehadiran-jawatan").prop("disabled", false);
+	 $("#mesyuaratjkkkehadiran-agensi").prop("disabled", false);
+	 
 
      $.post(
         \$form.attr("action"), //serialize Yii2 form
@@ -161,6 +210,29 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 
     return false;
 });
+
+$('#namaID').change(function(){
+	if($(this).val() != ''){
+            
+        $.get('$URLAhliJKKJKP',{id:$(this).val()},function(data){
+            clearForm();
+
+            var data = $.parseJSON(data);
+            if(data !== null){
+                $('#mesyuaratjkkkehadiran-emel').val(data.email);
+                $("#mesyuaratjkkkehadiran-jawatan").val(data.jawatan).trigger("change");
+                $("#mesyuaratjkkkehadiran-agensi").val(data.agensi).trigger("change");
+            }
+        });
+    }
+});
+
+function clearForm(){
+	$('#mesyuaratjkkkehadiran-emel').attr('value','');
+    $("#mesyuaratjkkkehadiran-jawatan").val('').trigger("change");
+    $("#mesyuaratjkkkehadiran-agensi").val('').trigger("change");
+}
+
      
 
 JS;

@@ -91,4 +91,18 @@ class MesyuaratJkkKehadiran extends \yii\db\ActiveRecord
     public function getRefAgensiJkk(){
         return $this->hasOne(RefAgensiJkk::className(), ['id' => 'agensi']);
     }
+	
+	/**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJawatanJkkJkp(){
+        return $this->hasOne(RefJawatanJkkJkp::className(), ['id' => 'jawatan']);
+    }
+	
+	/**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPengurusanJkkJkp(){
+        return $this->hasOne(PengurusanJkkJkp::className(), ['pengurusan_jkk_jkp_id' => 'nama']);
+    }
 }

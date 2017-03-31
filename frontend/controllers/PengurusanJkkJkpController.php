@@ -8,6 +8,7 @@ use frontend\models\PengurusanJkkJkpSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
@@ -18,6 +19,10 @@ use app\models\RefStatusJkkJkp;
 use app\models\RefNamaAhliJkkJkp;
 use app\models\RefJawatanJkkJkp;
 use app\models\RefSukan;
+use app\models\RefCawangan;
+use app\models\RefAgensiJkk;
+use app\models\RefBahagianAduan;
+
 
 /**
  * PengurusanJkkJkpController implements the CRUD actions for PengurusanJkkJkp model.
@@ -85,6 +90,15 @@ class PengurusanJkkJkpController extends Controller
         
         $YesNo = GeneralLabel::getYesNoLabel($model->status_pilihan);
         $model->status_pilihan = $YesNo;
+		
+		$ref = RefCawangan::findOne(['id' => $model->cawangan]);
+		$model->cawangan = $ref['desc'];
+		
+		$ref = RefAgensiJkk::findOne(['id' => $model->agensi]);
+		$model->agensi = $ref['desc'];
+		
+		$ref = RefBahagianAduan::findOne(['id' => $model->bahagian]);
+		$model->bahagian = $ref['desc'];
         
         return $this->render('view', [
             'model' => $model,
@@ -154,6 +168,13 @@ class PengurusanJkkJkpController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+	
+	public function actionGetAhli($id){
+        // find Jurulatih
+        $model = $this->findModel($id);
+        
+        echo Json::encode($model);
     }
 
     /**

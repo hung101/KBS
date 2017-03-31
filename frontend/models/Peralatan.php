@@ -56,7 +56,7 @@ class Peralatan extends \yii\db\ActiveRecord
             [['harga_per_unit', 'jumlah', 'harga_per_unit_cadangan', 'jumlah_cadangan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['nama_peralatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['spesifikasi', 'kuantiti_unit'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['catatan', 'catatan_cadangan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 
@@ -72,11 +72,12 @@ class Peralatan extends \yii\db\ActiveRecord
             'spesifikasi' => GeneralLabel::spesifikasi,
             'kuantiti_unit' => GeneralLabel::kuantiti_unit,
             'catatan' => GeneralLabel::catatan,
-            'harga_per_unit_cadangan' => GeneralLabel::harga_per_unit_cadangan,
+			'catatan_cadangan' => GeneralLabel::catatan,
+            'harga_per_unit_cadangan' => GeneralLabel::harga_per_unit,
             'harga_per_unit' => GeneralLabel::harga_per_unit,
-            'jumlah_unit_cadangan' => GeneralLabel::jumlah_unit_cadangan,
-            'bilangan_cadangan' => GeneralLabel::bilangan_cadangan,
-            'jumlah_cadangan' => GeneralLabel::jumlah_cadangan,
+            'jumlah_unit_cadangan' => GeneralLabel::jumlah_unit,
+            'bilangan_cadangan' => GeneralLabel::bilangan,
+            'jumlah_cadangan' => GeneralLabel::jumlah,
             'jumlah' => GeneralLabel::jumlah,
             'jumlah_unit' => GeneralLabel::jumlah_unit,
             'bilangan' => GeneralLabel::bilangan,

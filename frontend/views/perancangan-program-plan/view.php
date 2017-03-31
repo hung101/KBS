@@ -20,10 +20,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['update'])): ?>
-            <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->perancangan_program_id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->perancangan_program_plan_master_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['delete'])): ?>
-            <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->perancangan_program_id], [
+            <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->perancangan_program_plan_master_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
                     'confirm' => GeneralMessage::confirmDelete,
@@ -31,11 +31,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
+        <?= Html::a(GeneralLabel::laporan_pelan_periodisasi, ['/perancangan-program-plan/laporan-pelan-periodisasi', 'id' => $model->perancangan_program_plan_master_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
     </p>
     
     <?= $this->render('_form', [
         'model' => $model,
         'readonly' => $readonly,
+		'searchModelPerancanganProgramPlanItem' => $searchModelPerancanganProgramPlanItem,
+        'dataProviderPerancanganProgramPlanItem' => $dataProviderPerancanganProgramPlanItem,
     ]) ?>
 
     <?php /*echo DetailView::widget([

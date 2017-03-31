@@ -44,7 +44,7 @@ class Inventori extends \yii\db\ActiveRecord
     {
         return [
             [['sukan', 'tarikh', 'negeri'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh', 'created', 'updated'], 'safe'],
+            [['tarikh', 'created', 'updated', 'tarikh_terima', 'tarikh_keluar', 'catatan'], 'safe'],
             [['perkara'], 'string'],
             [['created_by', 'updated_by'], 'integer'],
             [['program', 'sukan', 'no_co', 'alamat_pembekal_1', 'alamat_pembekal_2', 'alamat_pembekal_3'], 'string', 'max' => 30],
@@ -72,6 +72,9 @@ class Inventori extends \yii\db\ActiveRecord
             'alamat_pembekal_bandar' => GeneralLabel::bandar,
             'alamat_pembekal_poskod' => GeneralLabel::poskod,
             'perkara' => GeneralLabel::perkara,
+            'tarikh_terima' => GeneralLabel::tarikh_terima,
+            'tarikh_keluar' => GeneralLabel::tarikh_keluar,
+            'catatan' => GeneralLabel::catatan,
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',

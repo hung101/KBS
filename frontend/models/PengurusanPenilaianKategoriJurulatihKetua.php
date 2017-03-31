@@ -75,13 +75,13 @@ class PengurusanPenilaianKategoriJurulatihKetua extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getRefKategoriPenilaianJurulatih(){
-        return $this->hasOne(RefKategoriPenilaianJurulatih::className(), ['id' => 'penilaian_kategori']);
+        return $this->hasOne(RefKategoriPenilaianJurulatihKetua::className(), ['id' => 'penilaian_kategori']);
     }
     
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getRefSubKategoriPenilaianJurulatih(){
-        return $this->hasOne(RefSubKategoriPenilaianJurulatih::className(), ['id' => 'penilaian_sub_kategori']);
+        return $this->hasOne(RefSubKategoriPenilaianJurulatihKetua::className(), ['id' => 'penilaian_sub_kategori']);
     }
 }

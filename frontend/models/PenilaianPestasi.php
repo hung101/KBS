@@ -127,6 +127,13 @@ class PenilaianPestasi extends \yii\db\ActiveRecord
     public function getRefPerancanganProgram(){
         return $this->hasOne(PerancanganProgram::className(), ['perancangan_program_id' => 'kejohanan']);
     }
+	
+	/**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefPerancanganProgramPlan(){
+        return $this->hasOne(PerancanganProgramPlan::className(), ['perancangan_program_id' => 'nama_kejohanan_temasya']);
+    }
     
     /**
      * @return \yii\db\ActiveQuery

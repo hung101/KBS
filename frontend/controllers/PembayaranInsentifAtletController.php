@@ -20,6 +20,7 @@ use app\models\RefSukan;
 use app\models\RefPingatInsentif;
 use app\models\RefPembayaranKepada;
 use app\models\RefAcaraInsentif;
+use app\models\RefBank;
 
 /**
  * PembayaranInsentifAtletController implements the CRUD actions for PembayaranInsentifAtlet model.
@@ -90,6 +91,9 @@ class PembayaranInsentifAtletController extends Controller
         
         $ref = RefPembayaranKepada::findOne(['id' => $model->pembayaran_kepada]);
         $model->pembayaran_kepada = $ref['desc'];
+        
+        $ref = RefBank::findOne(['id' => $model->nama_bank]);
+        $model->nama_bank = $ref['desc'];
         
         return $this->renderAjax('view', [
             'model' => $model,

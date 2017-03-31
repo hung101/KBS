@@ -3,7 +3,8 @@
 namespace app\models;
 
 use Yii;
-
+use yii\web\UploadedFile;
+use app\models\general\Upload;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
@@ -57,7 +58,8 @@ class ForumSeminarPersidanganDiLuarNegara extends \yii\db\ActiveRecord
             [['amaun', 'jumlah_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['nama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['negara', 'status_permohonan', 'bilangan_jkb'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['catatan', 'surat_permohonan', 'surat_jemputan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+			[['surat_permohonan', 'surat_jemputan'], 'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -88,7 +90,24 @@ class ForumSeminarPersidanganDiLuarNegara extends \yii\db\ActiveRecord
             'bilangan_jkb' => GeneralLabel::bilangan_jkb,
             'peringkat' => GeneralLabel::peringkat,
             'tarikh_tamat' => GeneralLabel::tarikh_tamat,
+			'surat_permohonan' => GeneralLabel::surat_permohonan_rasmi,
+			'surat_jemputan' => GeneralLabel::surat_jemputan_penganjur,
         ];
+    }
+	
+	/**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+
+        if(!$file && $this->$attribute==""){
+            $this->addError($attribute, GeneralMessage::uploadEmptyError);
+        }
     }
     
     /**

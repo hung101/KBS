@@ -37,10 +37,11 @@ class PembayaranInsentifAtlet extends \yii\db\ActiveRecord
     {
         return [
             [['atlet', 'negara', 'acara', 'nilai', 'sukan', 'kelayakan_pingat', 'pingat', 'pembayaran_kepada'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['pembayaran_insentif_id', 'atlet', 'negara', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['pembayaran_insentif_id', 'atlet', 'negara', 'created_by', 'updated_by', 'nama_bank', 'no_akaun_bank'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nilai', 'insentif_khas', 'insentif', 'rekod_baru'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['created', 'updated'], 'safe'],
             [['session_id'], 'string', 'max' => 100],
+            [['no_akaun_bank'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             //[['pembayaran_insentif_id', 'atlet', 'acara', 'session_id'], 'unique', 'targetAttribute' => [ 'atlet', 'acara'] , 'message' => GeneralMessage::yii_validation_unique_multiple],
         ];
     }
@@ -69,6 +70,8 @@ class PembayaranInsentifAtlet extends \yii\db\ActiveRecord
             'pingat' => GeneralLabel::pingat,
             'rekod_baru' => GeneralLabel::rekod_baru_rm,
             'pembayaran_kepada' => GeneralLabel::pembayaran_kepada,
+            'nama_bank' => GeneralLabel::nama_bank,
+            'no_akaun_bank' => GeneralLabel::no_akaun_bank,
         ];
     }
     
@@ -91,5 +94,12 @@ class PembayaranInsentifAtlet extends \yii\db\ActiveRecord
      */
     public function getRefSukan(){
         return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
+    }
+	
+	/**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefPembayaranInsentif(){
+        return $this->hasOne(PembayaranInsentif::className(), ['pembayaran_insentif_id' => 'pembayaran_insentif_id']);
     }
 }

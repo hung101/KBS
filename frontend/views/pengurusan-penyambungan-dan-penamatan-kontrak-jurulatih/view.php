@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ])*/ ?>
         <?php endif; ?>
-        <?= Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'if(confirm("'.GeneralMessage::confirmPrint.'")){window.print();}' ]); ?>
+        <?= Html::a(GeneralLabel::cetak, ['print', 'id' => $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penyambungan-dan-penamatan-kontrak-jurulatih']['update'])): ?>
             <?= Html::a(GeneralLabel::pemantauan_jurulatih, ['/laporan-pemantauan-jurulatih/create/', 'id' => $jurulatih_id], ['class' => 'btn btn-success', 'target' => '_blank']) ?>
         <?php endif; ?>

@@ -219,6 +219,47 @@ class PengurusanBeritaAntarabangsaController extends Controller
 
         return $this->redirect(['index']);
     }
+	
+	public function actionPrint($id)
+	{
+		if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+		$ref = RefKategoriBerita::findOne(['id' => $model->kategori_berita]);
+        $model->kategori_berita = $ref['desc'];
+        
+        $ref = RefNegara::findOne(['id' => $model->nama_negara]);
+        $model->nama_negara = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->alamat_negeri]);
+        $model->alamat_negeri = $ref['desc'];
+        
+        $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
+        $model->alamat_bandar = $ref['desc'];
+        
+        $ref = RefCountry::findOne(['id' => $model->country]);
+        $model->country = $ref['desc'];
+        
+        $ref = RefMatawang::findOne(['id' => $model->currency]);
+        $model->currency = $ref['desc'];
+		
+		$pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Maklumat Antarabangsa';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print_maklumat_antarabangsa', [
+             'model'  => $model,
+			 'title' => $pdf->title,
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->pengurusan_berita_antarabangsa_id.'.pdf', 'I'); 
+	}
 
     /**
      * Finds the PengurusanBeritaAntarabangsa model based on its primary key value.

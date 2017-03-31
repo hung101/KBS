@@ -31,6 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['update'])): ?>
+            <?= Html::a(GeneralLabel::permohonan_penerimaan_peralatan, ['print-permohonan-penerimaan-peralatan', 'id' => $model->permohonan_peralatan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
+            <?= Html::a(GeneralLabel::borang_jkb, ['print-jkb', 'id' => $model->permohonan_peralatan_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
+        <?php endif; ?>
     </p>
     
     <?= $this->render('_form', [

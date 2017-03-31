@@ -14,6 +14,7 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\helpers\Json;
 use yii\helpers\BaseUrl;
+use yii\web\Session;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
@@ -26,6 +27,9 @@ use app\models\RefSukan;
 use app\models\RefJenisTuntutan;
 use app\models\RefStatusPermohonanInsuran;
 use app\models\RefBank;
+use app\models\RefKelulusanJkb;
+
+use common\models\User;
 
 /**
  * PengurusanInsuranController implements the CRUD actions for PengurusanInsuran model.
@@ -94,6 +98,9 @@ class PengurusanInsuranController extends Controller
         $ref = RefStatusPermohonanInsuran::findOne(['id' => $model->status_permohonan]);
         $model->status_permohonan = $ref['desc'];
         
+        $ref = RefKelulusanJkb::findOne(['id' => $model->kelulusan_jkb]);
+        $model->kelulusan_jkb = $ref['desc'];
+        
         $queryPar = null;
         
         $queryPar['PengurusanInsuranLampiranSearch']['pengurusan_insuran_id'] = $id;
@@ -150,6 +157,34 @@ class PengurusanInsuranController extends Controller
             }
             
             if($model->save()){
+				if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_pengurusan-insuran'])->groupBy('id')->all()) !== null) {
+        
+					foreach($modelUsers as $modelUser){
+
+						if($modelUser->email && $modelUser->email != ""){
+							//echo "E-mail: " . $modelUser->email . "\n";
+							Yii::$app->mailer->compose()
+							->setTo($modelUser->email)
+							->setFrom('noreply@spsb.com')
+							->setSubject('Pemberitahuan: Permohonan Insuran')
+							->setTextBody("Salam Sejahtera,
+	<br><br>
+	Berikut adalah permohonan insurans baru telah dihantar : 
+	<br>
+	Nama Pemohon: " . $model->pegawai_yang_bertanggungjawab . '
+	Nama Insuran: ' . $model->nama_insuran . '
+	Tarikh Kejadian: ' . $model->tarikh_kejadian . '
+	Jumlah Tuntutan: RM ' . number_format($model->jumlah_tuntutan, 2) . '
+	<br>
+	Link: ' . BaseUrl::to(['pengurusan-insuran/view', 'id' => $model->pengurusan_insuran_id], true) . '
+	<br><br>
+	"KE ARAH KECEMERLANGAN SUKAN"
+	Majlis Sukan Negara Malaysia.
+		')->send();
+						}
+					}
+				}
+				
                 return $this->redirect(['view', 'id' => $model->pengurusan_insuran_id]);
             }
         } 
@@ -307,5 +342,15 @@ class PengurusanInsuranController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanTuntutanInsurans', $format, $controls, 'laporan_tuntutan_insurans');
+    }
+	
+	public function actionSetTuntutan($tuntutan_id){
+        
+        $session = new Session;
+        $session->open();
+
+        $session['pengurusan-insuran-tuntutan_id'] = $tuntutan_id;
+        
+        $session->close();
     }
 }

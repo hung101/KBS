@@ -27,6 +27,8 @@ use app\models\RefPerkara;
 use app\models\RefSukanSkimKebajikan;
 use app\models\RefJenisPermohonanSkim;
 use app\models\RefBank;
+use app\models\RefHubunganSkimKebajian;
+use app\models\RefKelulusanInsentif;
 
 /**
  * SkimKebajikanController implements the CRUD actions for SkimKebajikan model.
@@ -98,8 +100,14 @@ class SkimKebajikanController extends Controller
         $ref = RefBank::findOne(['id' => $model->bank_penerima]);
         $model->bank_penerima = $ref['desc'];
         
-        $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
-        $model->kelulusan = $YesNo;
+        //$YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
+        //$model->kelulusan = $YesNo;
+        
+        $ref = RefKelulusanInsentif::findOne(['id' => $model->kelulusan]);
+        $model->kelulusan = $ref['desc'];
+        
+        $ref = RefHubunganSkimKebajian::findOne(['id' => $model->hubungan_penerima]);
+        $model->hubungan_penerima = $ref['desc'];
         
         return $this->render('view', [
             'model' => $model,
@@ -555,4 +563,56 @@ Majlis Sukan Negara Malaysia.
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikPemberianSkak', $format, $controls, 'laporan_statistik_pemberian_skak');
     }
+	
+	public function actionPrintJkb($id)
+	{
+		if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+		
+        $model = $this->findModel($id);
+		
+		$ref = Atlet::findOne(['atlet_id' => $model->nama_pemohon]);
+        $model->nama_pemohon = $ref['name_penuh'];
+        
+        $ref = RefSukan::findOne(['id' => $model->jenis_sukan]);
+        $model->jenis_sukan = $ref['desc'];
+        
+        $ref = RefJenisKebajikan::findOne(['id' => $model->jenis_bantuan_skak]);
+        $model->jenis_bantuan_skak = $ref['desc'];
+        
+        $ref = RefPerkara::findOne(['id' => $model->perkara]);
+        $model->perkara = $ref['desc'];
+        
+        $ref = RefSukanSkimKebajikan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefJenisPermohonanSkim::findOne(['id' => $model->jenis_permohonan]);
+        $model->jenis_permohonan = $ref['desc'];
+        
+        $ref = RefBank::findOne(['id' => $model->bank_penerima]);
+        $model->bank_penerima = $ref['desc'];
+        
+        $ref = RefKelulusanInsentif::findOne(['id' => $model->kelulusan]);
+        $model->kelulusan = $ref['desc'];
+        
+        $ref = RefHubunganSkimKebajian::findOne(['id' => $model->hubungan_penerima]);
+        $model->hubungan_penerima = $ref['desc'];
+		
+        $pdf = new \mPDF('utf-8', 'A4-L');
+
+        $pdf->title = 'Borang JKB';
+
+        //$pdf->cssFile = 'report.css';
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print_jkb', [
+             'model'  => $model,
+        ]));
+
+        $pdf->Output('Borang_jkb_'.$model->skim_kebajikan_id.'.pdf', 'I'); 
+		
+	}
 }

@@ -375,9 +375,9 @@ use app\models\general\GeneralMessage;
                     ?>
     
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penyambungan-dan-penamatan-kontrak-jurulatih']['status_permohonan']) || $readonly): ?>
-    <hr>
+    <!--<hr>-->
     <?php
-        echo FormGrid::widget([
+       /* echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -423,8 +423,95 @@ use app\models\general\GeneralMessage;
             ]
         ],
     ]
-]);
+]);*/
     ?>
+	
+	<br>
+    <pre style="text-align: center"><strong>MPJ</strong></pre>
+    <?php
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'tarikh_mpj' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=> DateControl::classname(),
+                            'ajaxConversion'=>false,
+                            'options'=>[
+                                'pluginOptions' => [
+                                    'autoclose'=>true,
+                                ]
+                            ],
+                            'columnOptions'=>['colspan'=>3]],
+                        'bil_mpj' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'pengerusi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'catatan_mpj' => ['type'=>Form::INPUT_TEXTAREA, 'options'=>['rows'=>2],'columnOptions'=>['colspan'=>12]],
+                    ]
+                ],
+            ]
+        ]);
+    ?>
+	
+	<br>
+    <pre style="text-align: center"><strong>JKB</strong></pre>
+    <?php
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'tarikh_jkb' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=> DateControl::classname(),
+                            'ajaxConversion'=>false,
+                            'options'=>[
+                                'pluginOptions' => [
+                                    'autoclose'=>true,
+                                ]
+                            ],
+                            'columnOptions'=>['colspan'=>4]],
+                        'bil_jkb' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'kelulusan_dkp' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'catatan_jkb' => ['type'=>Form::INPUT_TEXTAREA, 'options'=>['rows'=>2],'columnOptions'=>['colspan'=>12]],
+                    ]
+                ],
+            ]
+        ]);
+    ?>
+	
     <?php endif; ?>
 
     <!--<?= $form->field($model, 'jurulatih')->textInput(['maxlength' => 80]) ?>

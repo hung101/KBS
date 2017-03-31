@@ -17,6 +17,8 @@ use app\models\RefPerkara;
 use app\models\RefSukanSkimKebajikan;
 use app\models\RefJenisPermohonanSkim;
 use app\models\RefBank;
+use app\models\RefKelulusanInsentif;
+use app\models\RefHubunganSkimKebajian;
 
 // contant values
 use app\models\general\Placeholder;
@@ -149,8 +151,25 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-               'nama_penerima' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
-                'emel_penerima' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>100]],
+               'nama_penerima' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
+               'emel_penerima' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>100]],
+               'hubungan_penerima' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-hubungan-skim-kebajian/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefHubunganSkimKebajian::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::hubungan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
             ]
         ],
         [
@@ -649,7 +668,21 @@ use app\models\general\GeneralMessage;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'kelulusan' => ['type'=>Form::INPUT_RADIO_LIST, 'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],'options'=>['inline'=>true],'columnOptions'=>['colspan'=>3]],
+                'kelulusan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kelulusan-insentif/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefKelulusanInsentif::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kelulusan],
+                        'pluginOptions'=>['allowClear'=>true]],
+                    'columnOptions'=>['colspan'=>3]],
             ]
         ],
     ]
@@ -735,7 +768,7 @@ $script = <<< JS
         }
     }
                 
-    $('#skimkebajikan-nama_pemohon').change(function(){
+    /*$('#skimkebajikan-nama_pemohon').change(function(){
             
     if($(this).val() != ''){
             
@@ -763,7 +796,8 @@ $script = <<< JS
                 }
             }
         });
-    }
+    }          
+    });*/
                 
     function clearForm(){
         $('#skimkebajikan-nama_penerima').val('');
@@ -772,8 +806,6 @@ $script = <<< JS
         $('#skimkebajikan-no_akaun_penerima').val('');
         $('#skimkebajikan-jenis_sukan').val('').trigger("change");
     }
-                
-});
 JS;
         
 $this->registerJs($script);

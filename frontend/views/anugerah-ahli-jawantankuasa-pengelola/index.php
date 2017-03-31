@@ -26,10 +26,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
+            [
+                'attribute' => 'tahun',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahun,
+                ],
+            ],
             //'anugerah_ahli_jawantankuasa_pengelola_id',
             //'ajk',
-            [
+/*             [
                 'attribute' => 'ajk',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -53,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bahagian,
                 ],
                 'value' => 'refBahagianAjk.desc'
-            ],
+            ], */
             //'created_by',
             // 'updated_by',
             // 'created',

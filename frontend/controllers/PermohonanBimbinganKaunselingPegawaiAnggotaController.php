@@ -178,6 +178,35 @@ class PermohonanBimbinganKaunselingPegawaiAnggotaController extends Controller
         $model->status_permohonan = RefStatusPermohonan::SEDANG_DISEMAK;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			
+			if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_permohonan-bimbingan-kaunseling'])->groupBy('id')->all()) !== null) {
+        
+                foreach($modelUsers as $modelUser){
+
+                    if($modelUser->email && $modelUser->email != ""){
+                        //echo "E-mail: " . $modelUser->email . "\n";
+                        Yii::$app->mailer->compose()
+                        ->setTo($modelUser->email)
+                        ->setFrom('noreply@spsb.com')
+                        ->setSubject('Pemberitahuan: Permohonan Bimbingan Kaunseling (Pegawai & Anggota)')
+                        ->setTextBody("Salam Sejahtera,
+<br><br>
+Berikut adalah permohonan bimbingan kaunseling (pegawai & anggota) baru telah dihantar : 
+<br>
+Nama Pemohon: " . $model->nama . '
+E-mail: ' . $model->emel . '
+Jawatan: ' . $model->jawatan . '
+No. Telefon: ' . $model->no_telefon . '
+<br>
+Link: ' . BaseUrl::to(['permohonan-bimbingan-kaunseling-pegawai-anggota/view', 'id' => $model->permohonan_bimbingan_kaunseling_pegawai_anggota_id], true) . '
+<br><br>
+"KE ARAH KECEMERLANGAN SUKAN"
+Majlis Sukan Negara Malaysia.
+    ')->send();
+                    }
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->permohonan_bimbingan_kaunseling_pegawai_anggota_id]);
         } else {
             return $this->render('create', [

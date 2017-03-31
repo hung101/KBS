@@ -169,3 +169,43 @@ hr.style-eight:after {
 .borderBottom2{
     border-bottom:1px solid #000;
 }
+
+.avoid {
+    page-break-inside: avoid !important;
+    margin: 4px 0 4px 0;  /* to keep the page break from cutting too close to the text in the div */
+}
+
+.titleSize {
+	font-size:18px;
+}
+
+.text-underline{
+	text-decoration:underline;
+}
+
+#data {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+#data th {
+    border: 1px solid
+}
+
+#data th {
+  padding: 5px;
+  text-align: center
+}
+
+#data td {
+  padding: 5px;
+  text-align: left;
+}
+#data thead {
+  /*color: #fdfdfd;*/
+}
+#data thead tr {
+  display: block;
+  position: relative;
+}
+

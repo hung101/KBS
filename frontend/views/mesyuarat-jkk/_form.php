@@ -86,7 +86,7 @@ use app\models\general\Placeholder;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJenisCawanganKuasaJkkJkp::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jenisCawanganKuasa],],
+                        'options' => ['placeholder' => Placeholder::jenisCawanganKuasa, 'id' => 'jenisMesyuaratId'],],
                     'columnOptions'=>['colspan'=>3]],
                 'penganjur' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -409,10 +409,17 @@ use app\models\general\Placeholder;
 
             //'senarai_nama_hadir_id',
             //'mesyuarat_id',
-            'nama',
+            //'nama',
             //'kehadiran',
-            
-            'jawatan',
+            //'jawatan',
+			[
+                'attribute' => 'nama',
+                'value' => 'pengurusanJkkJkp.nama_pegawai_coach'
+            ],
+			[
+                'attribute' => 'jawatan',
+                'value' => 'refJawatanJkkJkp.desc'
+            ],
             [
                 'attribute' => 'agensi',
                 'value' => 'refAgensiJkk.desc'
@@ -532,6 +539,8 @@ $MAJLIS_SUKAN_NEGERI = RefPenganjurJkk::MAJLIS_SUKAN_NEGERI;
 
 $BASE_URL_PERBINCANGAN = Url::to(['agenda-perbincangan', 'mesyuarat_id' => $mesyuarat_id]);
 
+$URLSetJenisMesyuarat = Url::to(['/mesyuarat-jkk/set-jenis-mesyuarat']);
+
 $script = <<< JS
         
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
@@ -552,6 +561,15 @@ $('#programId').change(function(){
 $('#mesyuaratjkk-sukan').change(function(){
     checkProgramSukan();
 });
+
+$('#jenisMesyuaratId').change(function(){
+    setJenisMesyuarat();
+});
+
+function setJenisMesyuarat(){
+	$.get('$URLSetJenisMesyuarat',{jenis_mesyuarat:$('#jenisMesyuaratId').val()},function(data){
+    });
+}
         
 function checkPenganjur(){
     if($('#penganjurId').val() === "$MAJLIS_SUKAN_NEGERI"){

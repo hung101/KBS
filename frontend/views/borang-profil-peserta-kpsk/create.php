@@ -21,7 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'searchModelBorangProfilPesertaKpskPeserta' => $searchModelBorangProfilPesertaKpskPeserta,
         'dataProviderBorangProfilPesertaKpskPeserta' => $dataProviderBorangProfilPesertaKpskPeserta,
-        'readonly' => $readonly,
+        'disabled' => $disabled,
+		'readonly' => $readonly,
     ]) ?>
 
 </div>

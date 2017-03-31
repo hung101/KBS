@@ -15,6 +15,12 @@ use app\models\PermohonanKemudahanTicketKapalTerbangPegawai;
 use frontend\models\PermohonanKemudahanTicketKapalTerbangPegawaiSearch;
 use app\models\PermohonanKemudahanTicketKapalTerbangPengurusSukan;
 use frontend\models\PermohonanKemudahanTicketKapalTerbangPengurusSukanSearch;
+use app\models\PenyertaanSukan;
+use app\models\PenyertaanSukanAcara;
+use app\models\PenyertaanSukanJurulatih;
+use app\models\PenyertaanSukanPegawai;
+use app\models\PenyertaanSukanPengurus;
+
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -161,7 +167,7 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id = null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -184,6 +190,73 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
             $queryPar['PermohonanKemudahanTicketKapalTerbangJurulatihSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['PermohonanKemudahanTicketKapalTerbangPegawaiSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['PermohonanKemudahanTicketKapalTerbangPengurusSukanSearch']['session_id'] = Yii::$app->session->id;
+            
+            if($id != null){
+                //autopopulate sukan, atlet etc
+                $penyertaanSukan = PenyertaanSukan::findOne(['penyertaan_sukan_id' => $id]);
+                if(count($penyertaanSukan) > 0) {
+                    $model->nama_program = $penyertaanSukan->nama_kejohanan_temasya;
+                    if($penyertaanSukan->nama_sukan != null) {
+                        $exist = PermohonanKemudahanTicketKapalTerbangSukan::findOne(['session_id' => Yii::$app->session->id, 'sukan' => $penyertaanSukan->nama_sukan]);
+                        if($exist === null) {
+                            $sukan = new PermohonanKemudahanTicketKapalTerbangSukan;
+                            $sukan->sukan = $penyertaanSukan->nama_sukan;
+                            $sukan->session_id = Yii::$app->session->id;
+                            $sukan->save();
+                        }
+                    }
+                }
+                
+                $penyertaanSukanAcara = PenyertaanSukanAcara::find()->joinWith('refAtlet')->where(['penyertaan_sukan_id' => $penyertaanSukan->penyertaan_sukan_id])->all();
+                foreach($penyertaanSukanAcara as $atlet){
+                    $exist = PermohonanKemudahanTicketKapalTerbangAtlet::findOne(['session_id' => Yii::$app->session->id, 'atlet' => $atlet->atlet]);
+                    if($exist === null) {
+                        $atletTiket = new PermohonanKemudahanTicketKapalTerbangAtlet;
+                        $atletTiket->atlet = $atlet->atlet;
+                        $atletTiket->session_id = Yii::$app->session->id;
+                        $atletTiket->ic_no = $atlet->refAtlet->ic_no;
+                        $atletTiket->passport_no = $atlet->refAtlet->passport_no;
+                        $atletTiket->hp_no = $atlet->refAtlet->tel_bimbit_no_1;
+                        $atletTiket->save();
+                    }
+                }
+                
+                $penyertaanSukanJurulatih = PenyertaanSukanJurulatih::find()->joinWith('refJurulatih')->where(['penyertaan_sukan_id' => $penyertaanSukan->penyertaan_sukan_id])->all();
+                foreach($penyertaanSukanJurulatih as $jurulatih){
+                    $exist = PermohonanKemudahanTicketKapalTerbangJurulatih::findOne(['session_id' => Yii::$app->session->id, 'jurulatih' => $jurulatih->jurulatih_id]);
+                    if($exist === null) {
+                        $jurulatihTiket = new PermohonanKemudahanTicketKapalTerbangJurulatih;
+                        $jurulatihTiket->jurulatih = $jurulatih->jurulatih_id;
+                        $jurulatihTiket->session_id = Yii::$app->session->id;
+                        $jurulatihTiket->ic_no = $jurulatih->refJurulatih->ic_no;
+                        $jurulatihTiket->passport_no = $jurulatih->refJurulatih->passport_no;
+                        $jurulatihTiket->hp_no = $jurulatih->refJurulatih->no_telefon_bimbit;
+                        $jurulatihTiket->save();
+                    }
+                }
+                
+                $penyertaanSukanPegawai = PenyertaanSukanPegawai::find()->where(['penyertaan_sukan_id' => $penyertaanSukan->penyertaan_sukan_id])->all();
+                foreach($penyertaanSukanPegawai as $pegawai){
+                    $exist = PermohonanKemudahanTicketKapalTerbangPegawai::findOne(['session_id' => Yii::$app->session->id, 'pegawai' => $pegawai->nama]);
+                    if($exist === null) {
+                        $pegawaiTiket = new PermohonanKemudahanTicketKapalTerbangPegawai;
+                        $pegawaiTiket->pegawai = $pegawai->nama;
+                        $pegawaiTiket->session_id = Yii::$app->session->id;
+                        $pegawaiTiket->save();
+                    }
+                }
+                
+                $penyertaanSukanPengurus = PenyertaanSukanPengurus::find()->where(['penyertaan_sukan_id' => $penyertaanSukan->penyertaan_sukan_id])->all();
+                foreach($penyertaanSukanPengurus as $pengurus){
+                    $exist = PermohonanKemudahanTicketKapalTerbangPengurusSukan::findOne(['session_id' => Yii::$app->session->id, 'pengurus_sukan' => $pengurus->nama]);
+                    if($exist === null) {
+                        $pengurusTiket = new PermohonanKemudahanTicketKapalTerbangPengurusSukan;
+                        $pengurusTiket->pengurus_sukan = $pengurus->nama;
+                        $pengurusTiket->session_id = Yii::$app->session->id;
+                        $pengurusTiket->save();
+                    }
+                }
+            }
         }
         
         $searchModelPermohonanKemudahanTicketKapalTerbangSukan = new PermohonanKemudahanTicketKapalTerbangSukanSearch();

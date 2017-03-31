@@ -19,6 +19,7 @@ use yii\web\UploadedFile;
 use yii\helpers\BaseUrl;
 use yii\web\Session;
 
+use app\models\general\GeneralLabel;
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
@@ -478,5 +479,59 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikPenyertaanPegawaiTeknikalKeKejohanan', $format, $controls, 'laporan_statistik_penyertaan_pegawai_teknikal_ke_kejohanan');
+    }
+	
+	public function actionPrint($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+		$BantuanPenyertaanPegawaiTeknikalDicadangkan = BantuanPenyertaanPegawaiTeknikalDicadangkan::find()->where(['bantuan_penyertaan_pegawai_teknikal_id' => $model->bantuan_penyertaan_pegawai_teknikal_id])->all();
+		
+		$BantuanPenyertaanPegawaiTeknikalDisertai = BantuanPenyertaanPegawaiTeknikalDisertai::find()->where(['bantuan_penyertaan_pegawai_teknikal_id' => $model->bantuan_penyertaan_pegawai_teknikal_id])->all();
+				
+		$BantuanPenyertaanPegawaiTeknikalOlehMsn = BantuanPenyertaanPegawaiTeknikalOlehMsn::find()->where(['bantuan_penyertaan_pegawai_teknikal_id' => $model->bantuan_penyertaan_pegawai_teknikal_id])->all();
+		
+		$ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
+        $model->alamat_bandar = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->alamat_negeri]);
+        $model->alamat_negeri = $ref['desc'];
+        
+        $ref = RefBank::findOne(['id' => $model->nama_bank]);
+        $model->nama_bank = $ref['desc'];
+        
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->badan_sukan]);
+        $model->badan_sukan = $ref['nama_badan_sukan'];
+        
+        $ref = RefPeringkatBantuanPenyertaanPegawaiTeknikal::findOne(['id' => $model->peringkat]);
+        $model->peringkat = $ref['desc'];
+        
+        $model->status_permohonan_id = $model->status_permohonan;
+        $ref = RefStatusBantuanPenyertaanPegawaiTeknikal::findOne(['id' => $model->status_permohonan]);
+        $model->status_permohonan = $ref['desc'];
+
+        $pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = GeneralLabel::bantuan_penyertaan_pegawai_teknikal;
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+             'model'  => $model,
+		     'title' => $pdf->title,
+			 'BantuanPenyertaanPegawaiTeknikalDicadangkan' => $BantuanPenyertaanPegawaiTeknikalDicadangkan,
+			 'BantuanPenyertaanPegawaiTeknikalDisertai' => $BantuanPenyertaanPegawaiTeknikalDisertai,
+			 'BantuanPenyertaanPegawaiTeknikalOlehMsn' => $BantuanPenyertaanPegawaiTeknikalOlehMsn,
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->bantuan_penyertaan_pegawai_teknikal_id.'.pdf', 'I');
     }
 }

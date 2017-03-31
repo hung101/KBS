@@ -35,9 +35,6 @@ use app\models\RefPeringkatBantuanPenganjuranKejohanan;
 use app\models\ProfilBadanSukan;
 use app\models\RefStatusBantuanPenganjuranKejohanan;
 
-use common\models\User;
-
-
 /**
  * BantuanPenganjuranKejohananController implements the CRUD actions for BantuanPenganjuranKejohanan model.
  */
@@ -65,7 +62,7 @@ class BantuanPenganjuranKejohananController extends Controller
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
         }
         
         $queryParams = Yii::$app->request->queryParams;
@@ -91,7 +88,7 @@ class BantuanPenganjuranKejohananController extends Controller
     public function actionView($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
         }
         
         $model = $this->findModel($id);
@@ -165,7 +162,7 @@ class BantuanPenganjuranKejohananController extends Controller
     public function actionCreate()
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
         }
         
         $model = new BantuanPenganjuranKejohanan();
@@ -249,36 +246,6 @@ class BantuanPenganjuranKejohananController extends Controller
             }
             
             if($model->save()){
-                if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_bantuan-penganjuran-kejohanan'])->groupBy('id')->all()) !== null) {
-                    $refProfilBadanSukan = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->badan_sukan]);
-                    foreach($modelUsers as $modelUser){
-
-                        if($modelUser->email && $modelUser->email != ""){
-                            //echo "E-mail: " . $modelUser->email . "\n";
-                            Yii::$app->mailer->compose()
-                            ->setTo($modelUser->email)
-                            ->setFrom('noreply@spsb.com')
-                            ->setSubject('Pemberitahuan - Permohonan Baru: Bantuan Penganjuran Kejohanan')
-                            ->setTextBody("Salam Sejahtera,
-    <br><br>
-    Berikut adalah butir permohonan telah dihantar : 
-    <br>
-    Badan Sukan: " . $refProfilBadanSukan['nama_badan_sukan'] . "
-    Nama Kejohanan / Pertandingan: " . $model->nama_kejohanan_pertandingan . '
-    Tempat: ' . $model->tempat . '
-    Tarikh Mula: ' . $model->tarikh_mula . '
-    Tarikh Tamat: ' . $model->tarikh_tamat . '
-    Jumlah Bantuan Yang Dipohon: RM' . $model->jumlah_bantuan_yang_dipohon . '
-    <br>
-    Link: ' . BaseUrl::to(['bantuan-penganjuran-kejohanan-sirkit/view', 'id' => $model->bantuan_penganjuran_kejohanan_id], true) . '
-    <br><br>
-    "KE ARAH KECEMERLANGAN SUKAN"
-    Majlis Sukan Negara Malaysia.
-        ')->send();
-                        }
-                    }
-                }
-                
                 return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_id]);
             }
         } 
@@ -308,7 +275,7 @@ class BantuanPenganjuranKejohananController extends Controller
     public function actionUpdate($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
         }
         
         $model = $this->findModel($id);
@@ -426,7 +393,7 @@ class BantuanPenganjuranKejohananController extends Controller
     public function actionDelete($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
         }
         
         // delete upload file
@@ -463,7 +430,7 @@ class BantuanPenganjuranKejohananController extends Controller
     public function actionDeleteupload($id, $field)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
         }
         
             $img = $this->findModel($id)->$field;
@@ -577,5 +544,66 @@ class BantuanPenganjuranKejohananController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanSenaraiBantuanGeranKejohanan', $format, $controls, 'laporan_senarai_bantuan_geran_kejohanan');
+    }
+	
+	public function actionPrint($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+		$ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
+        $model->alamat_bandar = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->alamat_negeri]);
+        $model->alamat_negeri = $ref['desc'];
+        
+        $ref = RefBank::findOne(['id' => $model->nama_bank]);
+        $model->nama_bank = $ref['desc'];
+        
+        $ref = RefPeringkatBantuanPenganjuranKejohanan::findOne(['id' => $model->peringkat]);
+        $model->peringkat = $ref['desc'];
+        
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->badan_sukan]);
+        $model->badan_sukan = $ref['nama_badan_sukan'];
+        
+        $model->status_permohonan_id = $model->status_permohonan;
+        $ref = RefStatusBantuanPenganjuranKejohanan::findOne(['id' => $model->status_permohonan]);
+        $model->status_permohonan = $ref['desc'];
+		
+		$BantuanPenganjuranKejohananKewangan = BantuanPenganjuranKejohananKewangan::find()->joinWith(['refSumberKewanganBantuanPenganjuranKejohanan'])->where(['bantuan_penganjuran_kejohanan_id' => $model->bantuan_penganjuran_kejohanan_id])->all();
+		
+		$BantuanPenganjuranKejohananBayaran = BantuanPenganjuranKejohananBayaran::find()->joinWith(['refJenisBayaranBantuanPenganjuranKejohanan'])->where(['bantuan_penganjuran_kejohanan_id' => $model->bantuan_penganjuran_kejohanan_id])->all();
+		
+		$BantuanPenganjuranKejohananElemen = BantuanPenganjuranKejohananElemen::find()->joinWith(['refElemenBantuanPenganjuranKejohanan'])
+                ->joinWith(['refSubElemenBantuanPenganjuranKejohanan'])->where(['bantuan_penganjuran_kejohanan_id' => $model->bantuan_penganjuran_kejohanan_id])->all();
+		
+		$BantuanPenganjuranKejohananDianjurkan = BantuanPenganjuranKejohananDianjurkan::find()->where(['bantuan_penganjuran_kejohanan_id' => $model->bantuan_penganjuran_kejohanan_id])->all();
+		
+		$BantuanPenganjuranKejohananOlehMsn = BantuanPenganjuranKejohananOlehMsn::find()->where(['bantuan_penganjuran_kejohanan_id' => $model->bantuan_penganjuran_kejohanan_id])->all();
+
+        $pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Bantuan Penganjuran Kejohanan';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+             'model'  => $model,
+		     'title' => $pdf->title,
+			 'BantuanPenganjuranKejohananKewangan' => $BantuanPenganjuranKejohananKewangan,
+			 'BantuanPenganjuranKejohananBayaran' => $BantuanPenganjuranKejohananBayaran,
+			 'BantuanPenganjuranKejohananElemen' => $BantuanPenganjuranKejohananElemen,
+			 'BantuanPenganjuranKejohananDianjurkan' => $BantuanPenganjuranKejohananDianjurkan,
+			 'BantuanPenganjuranKejohananOlehMsn' => $BantuanPenganjuranKejohananOlehMsn,
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->bantuan_penganjuran_kejohanan_id.'.pdf', 'I');
     }
 }

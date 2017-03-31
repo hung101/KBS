@@ -407,6 +407,34 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
 
         return $this->redirect(['index']);
     }
+	
+	public function actionPrint($id)
+	{
+		if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+		
+		$BantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan = BantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan::find()->where(['bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id])->all();
+	
+		$pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Laporan Teknikal & Kepegawaian';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+             'model'  => $model,
+			 'title' => $pdf->title,
+			 'BantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan' => $BantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan,
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id.'.pdf', 'I'); 
+		
+	}
 
     /**
      * Finds the BantuanPenganjuranKursusPegawaiTeknikalLaporan model based on its primary key value.

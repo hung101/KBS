@@ -14,7 +14,7 @@ use common\models\general\GeneralFunction;
 $this->title = GeneralLabel::bantuan_penganjuran_kursus_bengkel_seminar;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="bantuan-penganjuran-kursus-index">
+<div class="bantuan-penganjuran-kursus-index" style="overflow-x:scroll !important">
     
     <?php
         $template = '{view}';
@@ -93,7 +93,9 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'maklumat_lain_sokongan',
             //'jumlah_bantuan_yang_dipohon',
             [
+				'label' => GeneralLabel::jumlah_bantuan_yang_dipohon_index,
                 'attribute' => 'jumlah_bantuan_yang_dipohon',
+				'headerOptions' => ['style' => 'width:100px'],
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_bantuan_yang_dipohon,

@@ -18,7 +18,7 @@ class AnugerahAhliJawantankuasaPengelolaSearch extends AnugerahAhliJawantankuasa
     public function rules()
     {
         return [
-            [['anugerah_ahli_jawantankuasa_pengelola_id', 'created_by', 'updated_by'], 'integer'],
+            [['anugerah_ahli_jawantankuasa_pengelola_id', 'created_by', 'updated_by', 'tahun'], 'integer'],
             [['ajk', 'nama', 'bahagian', 'created', 'updated'], 'safe'],
         ];
     }
@@ -66,6 +66,7 @@ class AnugerahAhliJawantankuasaPengelolaSearch extends AnugerahAhliJawantankuasa
             'updated_by' => $this->updated_by,
             'created' => $this->created,
             'updated' => $this->updated,
+            'tahun' => $this->tahun,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_ajk.desc', $this->ajk])

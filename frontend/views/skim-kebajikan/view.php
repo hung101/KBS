@@ -31,6 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
+		<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['skim-kebajikan']['update'])): ?>
+            <?= Html::a(GeneralLabel::print_jkb, ['print-jkb', 'id' => $model->skim_kebajikan_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
+		<?php endif; ?>
     </p>
     
     <?= $this->render('_form', [

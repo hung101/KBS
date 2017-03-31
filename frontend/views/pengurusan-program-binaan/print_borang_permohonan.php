@@ -118,9 +118,11 @@ foreach($binaanKosModel as $item)
 <table>
     <tr>
         <td>SOKONGAN KETUA UNIT/CAWANGAN (RM)</td><td>:</td><td><?= $model->usptn_sokongan ?></td>
+		<td>TARIKH</td><td>:</td><td><?= ($model->tarikh_sokongan)?date('d.m.Y', strtotime($model->tarikh_sokongan)):null ?></td>
     </tr>
     <tr>
         <td>SOKONGAN PENGARAH (RM)</td><td>:</td><td><?= $model->usptn_kelulusan ?></td>
+		<td>TARIKH</td><td>:</td><td><?= ($model->tarikh_lulus)?date('d.m.Y', strtotime($model->tarikh_lulus)):null ?></td>
     </tr>
     <tr>
         <td>STATUS PERMOHONAN</td><td>:</td><td><?= $model->status_permohonan ?></td>

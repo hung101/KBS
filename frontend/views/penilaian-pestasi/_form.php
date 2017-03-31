@@ -584,16 +584,17 @@ use app\models\general\GeneralMessage;
                             'value'=>Url::to(['/atlet/view', 'id' => $model->atlet])
                         ]);
                     },
-                    'jadual' => function ($url, $model) {
+/*                     'jadual' => function ($url, $model) {
                         return  Html::a('<span class="glyphicon glyphicon-calendar"></span>', 
-                        ['penilaian-prestasi-atlet-latihan/index', 'penilaian_prestasi_atlet_sasaran_id' =>$model->penilaian_prestasi_atlet_sasaran_id, 'atlet_id' =>$model->atlet, 'penilaian_pestasi_id' =>$model->penilaian_pestasi_id], 
+                        ['perancangan-program-plan/index'], 
                         [
                             'title' => GeneralLabel::jadual_latihan_periodisasi_jurulatih,
                             'target' => '_blank',
                             'class' => 'custom_button',
-                            'value'=>Url::to(['/penilaian-prestasi-atlet-latihan/index', 'penilaian_prestasi_atlet_sasaran_id' => $model->penilaian_prestasi_atlet_sasaran_id, 'atlet_id' =>$model->atlet, 'penilaian_pestasi_id' =>$model->penilaian_pestasi_id])
+                            // 'value'=>Url::to(['/penilaian-prestasi-atlet-latihan/index', 'penilaian_prestasi_atlet_sasaran_id' => $model->penilaian_prestasi_atlet_sasaran_id, 'atlet_id' =>$model->atlet, 'penilaian_pestasi_id' =>$model->penilaian_pestasi_id])
+                            'value'=>Url::to(['/perancangan-program-plan/index'])
                         ]);
-                    },
+                    }, */
                 ],
                 'template' => $template . ' {atlet} {jadual}',
             ],
@@ -651,6 +652,7 @@ use app\models\general\GeneralMessage;
 <?php
 $DateDisplayFormat = GeneralVariable::displayDateFormat;
 $URLSetSukan = Url::to(['/penilaian-pestasi/set-sukan']);
+$URLSetKejohanan = Url::to(['/penilaian-pestasi/set-kejohanan']);
 $URLGetKejohanan = Url::to(['/perancangan-program-plan/get-program-plan']);
 
 $script = <<< JS
@@ -680,6 +682,7 @@ $('#kejohananTemasya').on('select2:select', function (evt) {
             $("#penilaianpestasi-tarikh_tamat").val(data.tarikh_tamat);
         }
     });
+    setKejohanan();
 });
         
         
@@ -706,6 +709,11 @@ $('#sukanId').change(function(){
     
 function setSukan(){
     $.get('$URLSetSukan',{sukan_id:$('#sukanId').val()},function(data){
+    });
+}
+
+function setKejohanan(){
+    $.get('$URLSetKejohanan',{nama_kejohanan_temasya:$('#kejohananTemasya').val()},function(data){
     });
 }
      

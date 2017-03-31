@@ -21,6 +21,7 @@ use app\models\RefJenisAktiviti;
 use app\models\RefPeringkatKejohananTemasya;
 use app\models\RefProgramSemasaSukanAtlet;
 use app\models\RefTemasya;
+use app\models\RefStatusPermohonanProgramBinaan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -265,7 +266,7 @@ use app\models\general\GeneralMessage;
             'attributes' => [
                 //'nama_pengurus_sukan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
                 'sasaran_kejohanan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
-                'nama_sukarelawan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                //'nama_sukarelawan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
             ],
         ],
         [
@@ -279,7 +280,7 @@ use app\models\general\GeneralMessage;
 ]);
         ?>
     
-    <h3><?php echo GeneralLabel::penyertaan_acara_sukan; ?></h3>
+    <h3><?php echo GeneralLabel::atlet; ?></h3>
     
     <?php 
             Modal::begin([
@@ -375,62 +376,6 @@ use app\models\general\GeneralMessage;
     <?php Pjax::end(); ?>
     
     <br>
-    
-    <h3><?php echo GeneralLabel::perbelanjaan; ?></h3>
-    
-    
-    <?php Pjax::begin(['id' => 'penyertaanSukanPerbelanjaanGrid', 'timeout' => 100000]); ?>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProviderPenyertaanSukanPerbelanjaan,
-        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
-        'id' => 'penyertaanSukanPerbelanjaanGrid',
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            [
-                'label' => GeneralLabel::kategori,
-                'attribute' => 'refKategoriPerbelanjaanSukan.desc',
-            ],
-            ['class' => 'yii\grid\ActionColumn',
-                'buttons' => [
-                    'delete' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
-                        'title' => Yii::t('yii', 'Delete'),
-                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['penyertaan-sukan-perbelanjaan/delete', 'id' => $model->penyertaan_sukan_perbelanjaan_id]).'", "'.GeneralMessage::confirmDelete.'", "penyertaanSukanPerbelanjaanGrid");',
-                        ]);
-
-                    },
-                    'update' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
-                        'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-perbelanjaan/update', 'id' => $model->penyertaan_sukan_perbelanjaan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::perbelanjaan.'");',
-                        ]);
-                    },
-                    'view' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
-                        'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-perbelanjaan/view', 'id' => $model->penyertaan_sukan_perbelanjaan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::perbelanjaan.'");',
-                        ]);
-                    }
-                ],
-                'template' => $template,
-            ],
-        ],
-    ]); ?>
-    
-    <?php Pjax::end(); ?>
-    
-     <?php if(!$readonly): ?>
-    <p>
-        <?php 
-        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-perbelanjaan/create', 'penyertaan_sukan_id' => $penyertaan_sukan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::perbelanjaan.'");',
-                        'class' => 'btn btn-success',
-                        ]);?>
-    </p>
-    <?php endif; ?>
-    
-    <br />
     
     <h3><?php echo GeneralLabel::jurulatih; ?></h3>
     
@@ -593,8 +538,139 @@ use app\models\general\GeneralMessage;
                         ]);?>
     </p>
     <?php endif; ?>
+	
+	<br />
+	
+	<h3><?php echo GeneralLabel::perbelanjaan; ?></h3>
     
+    <?php Pjax::begin(['id' => 'penyertaanSukanPerbelanjaanGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderPenyertaanSukanPerbelanjaan,
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
+        'id' => 'penyertaanSukanPerbelanjaanGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'label' => GeneralLabel::kategori,
+                'attribute' => 'refKategoriPerbelanjaanSukan.desc',
+            ],
+			'perkara',
+			[
+                'label' => GeneralLabel::jumlah_permohonan,
+                'attribute' => 'jumlah_pohon',
+            ],
+			[
+                'label' => GeneralLabel::jumlah_cadang,
+                'attribute' => 'jumlah_cadang',
+            ],
+			[
+                'label' => GeneralLabel::jumlah_kelulusan.' (RM)',
+                'attribute' => 'jumlah_lulus',
+            ],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['penyertaan-sukan-perbelanjaan/delete', 'id' => $model->penyertaan_sukan_perbelanjaan_id]).'", "'.GeneralMessage::confirmDelete.'", "penyertaanSukanPerbelanjaanGrid");',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-perbelanjaan/update', 'id' => $model->penyertaan_sukan_perbelanjaan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::perbelanjaan.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-perbelanjaan/view', 'id' => $model->penyertaan_sukan_perbelanjaan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::perbelanjaan.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+	
+	<?php 
+        $jumlah_dipohon = 0.00;
+        foreach($dataProviderPenyertaanSukanPerbelanjaan->models as $PBKmodel){
+            $jumlah_dipohon += $PBKmodel->jumlah_pohon;
+        }
+    ?>
+    
+    <h4><?= GeneralLabel::jumlah_yang_dipohon ?> (RM): <?php echo number_format($jumlah_dipohon, 2);?></h4>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['penyertaan-sukan-perbelanjaan/create', 'penyertaan_sukan_id' => $penyertaan_sukan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::perbelanjaan.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+
     <br />
+	
+	<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['kelulusan'])): ?>
+    <?php
+    echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+            [
+                'columns'=>12,
+                'autoGenerateColumns'=>false, // override columns setting
+                'attributes' => [
+                    'jkb_status_permohonan' => [
+                        'type'=>Form::INPUT_WIDGET, 
+                        'widgetClass'=>'\kartik\widgets\Select2',
+                        'options'=>[
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan-program-binaan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                            'data'=>ArrayHelper::map(RefStatusPermohonanProgramBinaan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                            'options' => ['placeholder' => Placeholder::statusPermohonan],
+    'pluginOptions' => [
+                                'allowClear' => true
+                            ],],
+                        'columnOptions'=>['colspan'=>4]],
+                    'jkb_jumlah_diluluskan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                ]
+            ],
+			[
+                'columns'=>12,
+                'autoGenerateColumns'=>false, // override columns setting
+                'attributes' => [  
+                   'bilangan_jkb' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                    'tarikh_jkb' => [
+                        'type'=>Form::INPUT_WIDGET, 
+                        'widgetClass'=> DateControl::classname(),
+                        'ajaxConversion'=>false,
+                        'options'=>[
+                            'pluginOptions' => [
+                                'autoclose'=>true,
+                            ]
+                        ],
+                    'columnOptions'=>['colspan'=>4]],
+                ],
+            ],
+        ]
+    ]);
+    ?>
+    <?php endif; ?>
+	
 
     <div class="form-group">
         <?php if(!$readonly): ?>

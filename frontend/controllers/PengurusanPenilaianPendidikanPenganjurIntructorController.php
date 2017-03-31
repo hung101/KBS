@@ -17,6 +17,7 @@ use app\models\general\GeneralVariable;
 use app\models\RefInstructorPenilaianPendidikan;
 use app\models\ProfilPanelPenasihatKpsk;
 use app\models\PengurusanPermohonanKursusPersatuan;
+use app\models\RefTahapKpsk;
 
 /**
  * PengurusanPenilaianPendidikanPenganjurIntructorController implements the CRUD actions for PengurusanPenilaianPendidikanPenganjurIntructor model.
@@ -67,6 +68,9 @@ class PengurusanPenilaianPendidikanPenganjurIntructorController extends Controll
         
         $model = $this->findModel($id);
         
+		$ref = RefTahapKpsk::findOne(['id' => $model->tahap]);
+		$model->tahap = $ref['desc'];
+		
         $ref = ProfilPanelPenasihatKpsk::findOne(['profil_panel_penasihat_kpsk_id' => $model->instructor]);
         $model->instructor = $ref['nama'];
         
@@ -179,6 +183,41 @@ class PengurusanPenilaianPendidikanPenganjurIntructorController extends Controll
         return $this->redirect(['index']);
     }
 
+	public function actionPrint($id)
+	{
+		if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+		$ref = RefTahapKpsk::findOne(['id' => $model->tahap]);
+		$model->tahap = $ref['desc'];
+		
+        $ref = ProfilPanelPenasihatKpsk::findOne(['profil_panel_penasihat_kpsk_id' => $model->instructor]);
+        $model->instructor = $ref['nama'];
+        
+        $ref = PengurusanPermohonanKursusPersatuan::findOne(['pengurusan_permohonan_kursus_persatuan_id' => $model->pengurusan_permohonan_kursus_persatuan_id]);
+        $model->pengurusan_permohonan_kursus_persatuan_id = $ref['agensi'];
+		
+		$items = PengurusanSoalanPenilaianPendidikanPenganjur::find()->where(['pengurusan_penilaian_pendidikan_penganjur_intructor_id' => $model->pengurusan_penilaian_pendidikan_penganjur_intructor_id])->all();
+		
+		$pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Maklum Balas Penilaian Panel Instruktur KPSK';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print_maklum_balas', [
+             'model'  => $model,
+			 'items' => $items,
+			 'title' => $pdf->title,
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->pengurusan_penilaian_pendidikan_penganjur_intructor_id.'.pdf', 'I'); 
+	}
+	
     /**
      * Finds the PengurusanPenilaianPendidikanPenganjurIntructor model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

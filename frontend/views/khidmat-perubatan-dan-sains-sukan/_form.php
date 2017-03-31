@@ -441,6 +441,7 @@ use app\models\RefTempatKhidmatPerubatan;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+				'catatan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>12],'options'=>['maxlength'=>true]],
                 'status' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',

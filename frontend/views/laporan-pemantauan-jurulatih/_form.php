@@ -192,7 +192,13 @@ use app\models\general\GeneralMessage;
                 //'penilaian_sub_kategori',
                 [
                     'attribute' => 'penilaian_sub_kategori',
-                    'value' => 'refSubKategoriLaporanPenilaianJurulatih.desc'
+                    'value' => function ($model) {
+									if(isset($model->refSubKategoriLaporanPenilaianJurulatih->desc)){
+										return $model->refSubKategoriLaporanPenilaianJurulatih->desc;
+									} else {
+										return '(Tiada)';
+									}
+								},
                 ],
                 'syor',
                 'ulasan',

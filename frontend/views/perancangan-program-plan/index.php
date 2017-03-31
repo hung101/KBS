@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
@@ -46,12 +47,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'perancangan_program_id',
             [
-                'attribute' => 'jenis_program',
+                'attribute' => 'cawangan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program,
-                ],
-                    'value' => 'refProgramSemasaSukanAtlet.desc'
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::cawangan             ],
+                    'value' => 'refCawangan.desc'
             ],
             [
                 'attribute' => 'sukan',
@@ -62,27 +62,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' => 'refSukan.desc'
             ],
             [
-                'attribute' => 'bahagian',
+                'attribute' => 'program',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::program,
                 ],
-                'value' => 'refKategoriPelan.desc'
-            ],
-            [
-                'attribute' => 'jenis_aktiviti',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis,
-                ],
-                'value' => 'refJenisPelan.desc'
-            ],
-            [
-                'attribute' => 'nama_program',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_program,
-                ]
+                'value' => 'refProgramSemasaSukanAtlet.desc'
             ],
             [
                 'attribute' => 'tarikh_mula',
@@ -98,43 +83,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat,
                 ]
             ],
-            /*[
-                'attribute' => 'lokasi',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::lokasi,
-                ]
-            ],*/
-            
-            //'muat_naik',
-            /*[
-                'attribute' => 'muat_naik',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::muat_naik,
-                ],
-                'format' => 'raw',
-                'value'=>function ($model) {
-                    if($model->muat_naik){
-                        return Html::a(GeneralLabel::viewAttachment, 'javascript:void(0);', 
-                                        [ 
-                                            'onclick' => 'viewUpload("'.\Yii::$app->request->BaseUrl.'/' . $model->muat_naik .'");'
-                                        ]);
-                    } else {
-                        return "";
-                    }
-                },
-            ],*/
-            /*[
-                'attribute' => 'status_program',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_program,
-                ],
-                    'value' => 'refStatusProgram.desc'
-            ],*/
-
-            //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',
                 'buttons' => [
                     'delete' => function ($url, $model) {
@@ -145,8 +93,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
 
                     },
+                    'print' => function ($url, $model) {
+                        return  ($model->perancangan_program_plan_master_id) ? Html::a('<span class="glyphicon glyphicon-list-alt"></span>', 
+                        ['perancangan-program-plan/laporan-pelan-periodisasi', 'id' =>$model->perancangan_program_plan_master_id], 
+                        [
+                            'title' => GeneralLabel::laporan_pelan_periodisasi,
+                            'target' => '_blank',
+                            'class' => 'custom_button',
+                            'value'=>Url::to(['/perancangan-program-plan/laporan-pelan-periodisasi', 'id' => $model->perancangan_program_plan_master_id])
+                        ]) : '';
+                    },
                 ],
-                'template' => $template,
+                'template' => $template . ' {print}',
             ],
         ],
     ]); ?>

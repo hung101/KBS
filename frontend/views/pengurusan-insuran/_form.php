@@ -20,6 +20,7 @@ use app\models\RefJenisTuntutan;
 use app\models\RefStatusPermohonanInsuran;
 use app\models\RefBank;
 use app\models\RefStatusTawaran;
+use app\models\RefKelulusanJkb;
 
 // contant values
 use app\models\general\Placeholder;
@@ -58,7 +59,7 @@ use app\models\general\GeneralMessage;
                 'pegawai_yang_bertanggungjawab' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
                  
             ],
-        ],
+        ], 
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -82,7 +83,7 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>6]],
                 'ic_no' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>12]],
             ],
-        ],
+        ],  
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -123,22 +124,11 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>4]],
                  
             ],
-        ],        
+        ],         
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama_insuran' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
-                'no_acc' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>30]],
-                 
-                 
-            ],
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'no_polisi' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>30]],
                 'jenis_bank' =>  [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -155,8 +145,18 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>3]],                 
+                    'columnOptions'=>['colspan'=>3]],   
+                'no_acc' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>30]],
                  
+                 
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'nama_insuran' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                'no_polisi' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>30]], 
             ],
         ],
         [
@@ -185,7 +185,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJenisTuntutan::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jenisTuntutan],
+                        'options' => ['placeholder' => Placeholder::jenisTuntutan, 'id' => 'jenisTuntutanID'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -198,8 +198,7 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'catatan' =>  ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>255]],
-                 
+                'butiran_kemalangan' =>  ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>255]],
             ],
         ],
     ]
@@ -236,6 +235,10 @@ use app\models\general\GeneralMessage;
             //'pengurusan_insuran_lampiran_id',
             //'pengurusan_insuran_id',
             //'lampiran',
+			[
+                'attribute' => 'nama_dokumen',
+                'value' => 'refDokumenPengurusanInsurans.desc',
+            ],
             [
                 'attribute' => 'lampiran',
                 'filterInputOptions' => [
@@ -382,14 +385,55 @@ use app\models\general\GeneralMessage;
                             ,'hint'=>'(Sila masukkan Tarikh Pembayaran, Jika Status Permohonan "Selesai")'],
                     ],
                 ],
-            [
-                'columns'=>12,
-                'autoGenerateColumns'=>false, // override columns setting
-                'attributes' => [
-                    'tindakan_rujukan_memo' =>  ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>255]],
-
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'bilangan_jkb' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                        'tarikh_jkb' =>  [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=> DateControl::classname(),
+                            'ajaxConversion'=>false,
+                            'options'=>[
+                                'pluginOptions' => [
+                                    'autoclose'=>true,
+                                ]
+                            ],
+                            'columnOptions'=>['colspan'=>3]],
+                        'kelulusan_jkb' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-kelulusan-jkb/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefKelulusanJkb::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::kelulusanJkb],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>3]],
+                    ],
                 ],
-            ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'catatan' =>  ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>255]],
+                    ],
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'tindakan_rujukan_memo' =>  ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>255]],
+
+                    ],
+                ],
             ]
         ]);
     ?>
@@ -426,7 +470,7 @@ use app\models\general\GeneralMessage;
 
     <div class="form-group">
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::send : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
             'data' => [
                     'confirm' => GeneralMessage::confirmSave,
                 ],]) ?>
@@ -439,6 +483,7 @@ use app\models\general\GeneralMessage;
 
 <?php
 $URL = Url::to(['/atlet/get-atlet']);
+$URLSetTuntutan = Url::to(['/pengurusan-insuran/set-tuntutan']);
 $DateDisplayFormat = GeneralVariable::displayDateFormat;
 
 $script = <<< JS
@@ -457,14 +502,31 @@ $('#atletId').change(function(){
                 $('#pengurusaninsuran-program').val(data.refAtletSukan[0].program_semasa).trigger("change");
                 $('#pengurusaninsuran-sukan').val(data.refAtletSukan[0].nama_sukan).trigger("change");
             }
+            
+            if(data.refAtletKewanganAkaun !== null){ 
+                $('#pengurusaninsuran-jenis_bank').val(data.refAtletKewanganAkaun[0].nama_bank).trigger("change");
+                $('#pengurusaninsuran-no_acc').val(data.refAtletKewanganAkaun[0].no_akaun);
+            }
         }
     });
 });
+
+$('#jenisTuntutanID').change(function(){
+	setTuntutan();
+});
+
+function setTuntutan(){
+	$.get('$URLSetTuntutan',{tuntutan_id:$('#jenisTuntutanID').val()},function(data){
+    });
+}
+
      
 function clearForm(){
     $("#pengurusaninsuran-ic_no").val('');
     $("#pengurusaninsuran-program").val('').trigger("change");
     $("#pengurusaninsuran-sukan").val('').trigger("change");
+    $('#pengurusaninsuran-jenis_bank').val('').trigger("change");
+    $("#pengurusaninsuran-no_acc").val('');
 }
         
 JS;

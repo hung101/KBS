@@ -6,6 +6,7 @@ use Yii;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /**
  * This is the model class for table "tbl_pengurusan_permohonan_kursus_persatuan".
@@ -71,7 +72,7 @@ class PengurusanPermohonanKursusPersatuan extends \yii\db\ActiveRecord
                 'kelayakan_akademi', 'perkerjaan', 'nama_majikan', 'yuran_program', 'agensi', 'kursus', 'tahap',
                 'tarikh_kursus', 'tarikh_tamat_kursus', 'tempat', 'no_perhubungan', 'bilangan_peserta', 'jumlah_yuran', 'nama_penganjur',
                 'emel', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_lahir', 'tarikh_kursus', 'tarikh_tamat_kursus', 'tarikh_kelulusan'], 'safe'],
+            [['tarikh_lahir', 'tarikh_kursus', 'tarikh_tamat_kursus', 'tarikh_kelulusan', 'tarikh_permohonan'], 'safe'],
             [['yuran_program', 'jumlah_yuran', 'jumlah_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['kelulusan', 'tahap', 'bilangan_peserta', 'no_perhubungan', 'kelulusan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama', 'kelayakan_akademi', 'perkerjaan', 'nama_majikan', 'agensi', 'kursus', 'nama_penganjur', 'jawatan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -86,8 +87,9 @@ class PengurusanPermohonanKursusPersatuan extends \yii\db\ActiveRecord
             [['alamat_poskod','no_tel_bimbit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_tel_bimbit', 'no_perhubungan'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel', 'facebook'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['memo'], 'string', 'max' => 500, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['catatan', 'surat_permohonan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['memo'], 'string', 'max' => 500, 'tooLong' => GeneralMessage::yii_validation_string_max],
+			['tarikh_kursus','validateBeforePengurusan', 'on' => 'create'],
         ];
     }
 
@@ -130,8 +132,19 @@ class PengurusanPermohonanKursusPersatuan extends \yii\db\ActiveRecord
             'jumlah_diluluskan' => GeneralLabel::jumlah_diluluskan,
             'catatan' => GeneralLabel::catatan,
             'jawatan' => GeneralLabel::jawatan,
+			'surat_permohonan' => GeneralLabel::surat_permohonan_rasmi,
+			'tarikh_permohonan' => GeneralLabel::tarikh_permohonan,  //'Tarikh Permohonan',
             'memo' => '',
         ];
+    }
+	
+	public function validateBeforePengurusan(){
+        $dateMinus = new \DateTime($this->tarikh_kursus);
+        $dateMinus->modify('-1 month'); // 1 months before tarikh mula kursus
+
+        if($dateMinus->format('Y-m-d') <= GeneralFunction::getCurrentDate()){
+            $this->addError('tarikh_kursus','Tarikh mula kursus tidak boleh kurang 30 hari dari tarikh hari ini');
+        }
     }
     
     /**

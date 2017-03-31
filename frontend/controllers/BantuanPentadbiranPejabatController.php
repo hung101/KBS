@@ -11,8 +11,10 @@ use app\models\MsnLaporan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 use yii\helpers\BaseUrl;
 
+use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
 
@@ -134,9 +136,16 @@ class BantuanPentadbiranPejabatController extends Controller
         
         if($model->load(Yii::$app->request->post())){
             $oldStatusPermohonan = $model->getOldAttribute('status_permohonan');
+			
+			$file = UploadedFile::getInstance($model, 'surat_permohonan');
+            $filename = $model->bantuan_pentadbiran_pejabat_id . "-surat_permohonan";
+            if($file){
+                $model->surat_permohonan = Upload::uploadFile($file, Upload::bantuanPentadbiranPejabatFolder, $filename);
+            }
         }
 
         if (Yii::$app->request->post() && $model->save()) {
+			
             if(isset(Yii::$app->session->id)){
                 InformasiPermohonan::updateAll(['bantuan_pentadbiran_pejabat_id' => $model->bantuan_pentadbiran_pejabat_id], 'session_id = "'.Yii::$app->session->id.'"');
                 InformasiPermohonan::updateAll(['session_id' => ''], 'bantuan_pentadbiran_pejabat_id = "'.$model->bantuan_pentadbiran_pejabat_id.'"');
@@ -191,6 +200,8 @@ Majlis Sukan Negara Malaysia.
         }
         
         $model = $this->findModel($id);
+		
+		$existingSurat = $model->surat_permohonan;
         
         $oldStatusPermohonan = null;
         
@@ -203,6 +214,19 @@ Majlis Sukan Negara Malaysia.
         
         if($model->load(Yii::$app->request->post())){
             $oldStatusPermohonan = $model->getOldAttribute('status_permohonan');
+			
+			$file = UploadedFile::getInstance($model, 'surat_permohonan');
+
+            if($file){
+                //valid file to upload
+                //upload file to server
+                $filename = $model->bantuan_pentadbiran_pejabat_id . "-surat_permohonan";
+                $model->surat_permohonan = Upload::uploadFile($file,  Upload::bantuanPentadbiranPejabatFolder, $filename);
+            } else {
+                //invalid file to upload
+                //remain existing file
+                $model->surat_permohonan = $existingSurat;
+            }
         }
 
         if (Yii::$app->request->post() && $model->save()) {

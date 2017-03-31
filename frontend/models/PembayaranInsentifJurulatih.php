@@ -37,10 +37,11 @@ class PembayaranInsentifJurulatih extends \yii\db\ActiveRecord
     {
         return [
             [['nama_jurulatih', 'nilai', 'sukan', 'pembayaran_kepada'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['pembayaran_insentif_id', 'nama_jurulatih', 'created_by', 'updated_by'], 'integer'],
+            [['pembayaran_insentif_id', 'nama_jurulatih', 'created_by', 'updated_by', 'nama_bank', 'no_akaun_bank'], 'integer'],
             [['nilai'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['created', 'updated'], 'safe'],
             [['session_id'], 'string', 'max' => 100],
+            [['no_akaun_bank'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nilai'], 'validateNilai', 'skipOnEmpty' => false],
         ];
     }
@@ -62,6 +63,8 @@ class PembayaranInsentifJurulatih extends \yii\db\ActiveRecord
             'updated' => 'Updated',
             'sukan' => GeneralLabel::sukan,
             'pembayaran_kepada' => GeneralLabel::pembayaran_kepada,
+            'nama_bank' => GeneralLabel::nama_bank,
+            'no_akaun_bank' => GeneralLabel::no_akaun_bank,
         ];
     }
     

@@ -723,4 +723,56 @@ class BantuanPenganjuranKursusController extends Controller
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikBantuanPenganjuranKursusBengkelSeminar', $format, $controls, 'laporan_statistik_bantuan_penganjuran_kursus_bengkel_seminar');
     }
+	
+	public function actionPrint($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+		$ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
+        $model->alamat_bandar = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->alamat_negeri]);
+        $model->alamat_negeri = $ref['desc'];
+        
+        $ref = RefBank::findOne(['id' => $model->nama_bank]);
+        $model->nama_bank = $ref['desc'];
+        
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->badan_sukan]);
+        $model->badan_sukan = $ref['nama_badan_sukan'];
+        
+        $model->status_permohonan_id = $model->status_permohonan;
+        $ref = RefStatusBantuanPenganjuranKursus::findOne(['id' => $model->status_permohonan]);
+        $model->status_permohonan = $ref['desc'];
+		
+		$BantuanPenganjuranKursusPenceramah = BantuanPenganjuranKursusPenceramah::find()->where(['bantuan_penganjuran_kursus_id' => $model->bantuan_penganjuran_kursus_id])->all();
+		
+		$BantuanPenganjuranKursusDisertaiPenceramah = BantuanPenganjuranKursusDisertaiPenceramah::find()->where(['bantuan_penganjuran_kursus_id' => $model->bantuan_penganjuran_kursus_id])->all();
+		
+		$BantuanPenganjuranKursusOlehMsn = BantuanPenganjuranKursusOlehMsn::find()->where(['bantuan_penganjuran_kursus_id' => $model->bantuan_penganjuran_kursus_id])->all();
+
+        $pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Bantuan Penganjuran Kursus / Bengkel / Seminar';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+             'model'  => $model,
+		     'title' => $pdf->title,
+			 'BantuanPenganjuranKursusPenceramah' => $BantuanPenganjuranKursusPenceramah,
+			 'BantuanPenganjuranKursusDisertaiPenceramah' => $BantuanPenganjuranKursusDisertaiPenceramah,
+			 'BantuanPenganjuranKursusOlehMsn' => $BantuanPenganjuranKursusOlehMsn,
+
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->bantuan_penganjuran_kursus_id.'.pdf', 'I');
+    }
 }

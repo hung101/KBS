@@ -32,6 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
+		<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penilaian-pendidikan-penganjur-intructor']['update'])): ?>
+            <?= Html::a(GeneralLabel::cetak, ['print', 'id' => $model->pengurusan_penilaian_pendidikan_penganjur_intructor_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
+        <?php endif; ?>
     </p>
     
     <?= $this->render('_form', [

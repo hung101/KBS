@@ -201,6 +201,42 @@ class LaporanPemantauanJurulatihController extends Controller
 
         return $this->redirect(['index']);
     }
+	
+	public function actionPrint($id)
+	{
+		if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+		$ref = Jurulatih::findOne(['jurulatih_id' => $model->jurulatih_id]);
+        $model->jurulatih_id = $ref['nama'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan_id]);
+        $model->sukan_id = $ref['desc'];
+        
+        $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program_id]);
+        $model->program_id = $ref['desc'];
+		
+		$items = LaporanPemantauanJurulatihKategori::find()->where(['laporan_pemantauan_jurulatih_id' => $model->laporan_pemantauan_jurulatih_id])
+				 ->orderBy('penilaian_kategori')->all();
+		
+		$pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Laporan Pemantauan Jurulatih';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+             'model'  => $model,
+			 'title' => $pdf->title,
+			 'items' =>  $items,
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->laporan_pemantauan_jurulatih_id.'.pdf', 'I'); 
+	}
 
     /**
      * Finds the LaporanPemantauanJurulatih model based on its primary key value.

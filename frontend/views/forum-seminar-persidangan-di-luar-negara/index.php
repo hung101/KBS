@@ -68,6 +68,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refNegara.desc'
             ],
+			[
+                'attribute' => 'jumlah_diluluskan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_diluluskan,
+                ]
+            ],
             //'status_permohonan',
             [
                 'attribute' => 'status_permohonan',

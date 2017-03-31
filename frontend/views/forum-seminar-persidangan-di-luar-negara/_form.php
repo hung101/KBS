@@ -43,7 +43,7 @@ use app\models\general\GeneralVariable;
         }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
     <?php 
     $disablePersatuan = false; // default
@@ -191,7 +191,7 @@ use app\models\general\GeneralVariable;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                  
-                 'nama_wakil_persatuan_1' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                 //'nama_wakil_persatuan_1' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
                 'negara' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -217,37 +217,161 @@ use app\models\general\GeneralVariable;
         
     ]
 ]);
-        ?>
+    ?>
+	
+	<?php 
+		Modal::begin([
+			'header' => '<h3 id="modalTitle"></h3>',
+			'id' => 'modal',
+			'size' => 'modal-lg',
+			'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+			'options' => [
+				'tabindex' => false // important for Select2 to work properly
+			],
+		]);
+		
+		echo '<div id="modalContent"></div>';
+		
+		Modal::end();
+		
+		$forum_seminar_persidangan_di_luar_negara_id = "";
+        
+        if(isset($model->forum_seminar_persidangan_di_luar_negara_id)){
+            $forum_seminar_persidangan_di_luar_negara_id = $model->forum_seminar_persidangan_di_luar_negara_id;
+        }
+	?>
+	
+	<h3><?php echo GeneralLabel::nama_peserta_program; ?></h3>
+    
+    <?php Pjax::begin(['id' => 'forumSeminarPesertaGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderForumSeminarPeserta,
+        'id' => 'forumSeminarPesertaGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'nama',
+            'jawatan',
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['forum-seminar-peserta/delete', 'id' => $model->forum_seminar_peserta_id]).'", "'.GeneralMessage::confirmDelete.'", "forumSeminarPesertaGrid");',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['forum-seminar-peserta/update', 'id' => $model->forum_seminar_peserta_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::peserta.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['forum-seminar-peserta/view', 'id' => $model->forum_seminar_peserta_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::peserta.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['forum-seminar-peserta/create', 'forum_seminar_persidangan_di_luar_negara_id' => $forum_seminar_persidangan_di_luar_negara_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::peserta.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <?php Pjax::end(); ?>
+    
     <br>
-    <h3><?php echo GeneralLabel::lampiran_perbelanjaan_resit_surat_jemputan_penganjur; ?></h3>
+	
+	
+	<?php // Muatnaik Surat Permohonan Rasmi Upload
+    
+    $label = $model->getAttributeLabel('surat_permohonan');
+    
+    if($model->surat_permohonan){
+        echo "<div class='required'>";
+        echo "<label>" . $model->getAttributeLabel('surat_permohonan') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->surat_permohonan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+        
+        $label = false;
+    }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'surat_permohonan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+    }
+	
+	$label = $model->getAttributeLabel('surat_jemputan');
+    
+    if($model->surat_jemputan){
+        echo "<div class='required'>";
+        echo "<label>" . $model->getAttributeLabel('surat_jemputan') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->surat_jemputan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+        
+        $label = false;
+    }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'surat_jemputan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+    }
+        
+    ?>
+
+    <h3><?php echo GeneralLabel::lampiran_perbelanjaanresit; ?></h3>
     
     <div class="panel panel-danger">
         <div class="panel-body">
             <strong><?php echo GeneralLabel::senarai_dokumen_sokongan; ?></strong>
         </div>
         <ol>
-            <li >Surat Permohonan.</li>
-            <li >Surat Jemputan Penganjur.</li>
             <li >Resit-resit.</li>
             <li >Surat Tuntutan (Setelah Permohonan Diluluskan).</li>
           </ol>
     </div>
-    
-    <?php 
-            Modal::begin([
-                'header' => '<h3 id="modalTitle"></h3>',
-                'id' => 'modal',
-                'size' => 'modal-lg',
-                'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
-                'options' => [
-                    'tabindex' => false // important for Select2 to work properly
-                ],
-            ]);
-            
-            echo '<div id="modalContent"></div>';
-            
-            Modal::end();
-        ?>
     
     <?php Pjax::begin(['id' => 'informasiPermohonanGrid', 'timeout' => 100000]); ?>
 

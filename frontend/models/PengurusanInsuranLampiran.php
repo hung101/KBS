@@ -37,7 +37,7 @@ class PengurusanInsuranLampiran extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pengurusan_insuran_id', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['pengurusan_insuran_id', 'created_by', 'updated_by', 'nama_dokumen'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
             [['lampiran'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -54,6 +54,7 @@ class PengurusanInsuranLampiran extends \yii\db\ActiveRecord
             'pengurusan_insuran_lampiran_id' => 'Pengurusan Insuran Lampiran ID',
             'pengurusan_insuran_id' => 'Pengurusan Insuran ID',
             'lampiran' => GeneralLabel::lampiran,  //'Lampiran',
+			'nama_dokumen' => GeneralLabel::nama_dokumen,
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
@@ -75,5 +76,12 @@ class PengurusanInsuranLampiran extends \yii\db\ActiveRecord
         if(!$file && $this->$attribute==""){
             $this->addError($attribute, GeneralMessage::uploadEmptyError);
         }
+    }
+	
+	/**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefDokumenPengurusanInsurans(){
+        return $this->hasOne(RefDokumenPengurusanInsurans::className(), ['id' => 'nama_dokumen']);
     }
 }

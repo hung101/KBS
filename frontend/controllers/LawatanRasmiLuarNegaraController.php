@@ -9,6 +9,7 @@ use app\models\LawatanRasmiLuarNegaraDelegasi;
 use frontend\models\LawatanRasmiLuarNegaraDelegasiSearch;
 use app\models\LawatanRasmiLuarNegaraPegawai;
 use frontend\models\LawatanRasmiLuarNegaraPegawaiSearch;
+use app\models\MsnLaporan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -258,6 +259,37 @@ class LawatanRasmiLuarNegaraController extends Controller
 
         return $this->redirect(['index']);
     }
+	
+	public function actionLaporanLawatanNegaraLuar()
+	{
+		$model = new MsnLaporan();
+        $model->format = 'pdf';
+		$title = 'Laporan Lawatan Negara-Negara Luar Ke Malaysia';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            $pdf = new \mPDF('utf-8', 'A4-L');
+
+            $pdf->title = $title;
+            $stylesheet = file_get_contents('css/report.css');
+
+            $pdf->WriteHTML($stylesheet,1);
+            
+            $pdf->WriteHTML($this->renderpartial('generate_laporan_lawatan_negara_luar', [
+                 'model' => $model,
+				 'title' => $title,
+            ]));
+
+            $pdf->Output(str_replace(' ', '_', $title).'_'.time().'.pdf', 'I');
+			
+		} 
+
+        return $this->render('laporan_lawatan_negara_luar', [
+            'model' => $model,
+            'readonly' => false,
+			'title' => $title,
+        ]);
+	}
 
     /**
      * Finds the LawatanRasmiLuarNegara model based on its primary key value.

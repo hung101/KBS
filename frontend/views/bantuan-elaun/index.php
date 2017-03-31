@@ -90,6 +90,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_elaun,
                 ],
             ],
+			[
+                'attribute' => 'jumlah_kelulusan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_kelulusan,
+                ],
+            ],
             [
                 'attribute' => 'status_permohonan',
                 'filterInputOptions' => [

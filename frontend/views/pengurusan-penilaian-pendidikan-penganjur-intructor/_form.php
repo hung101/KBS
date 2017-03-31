@@ -14,6 +14,8 @@ use yii\widgets\Pjax;
 use kartik\datecontrol\DateControl;
 
 // table reference
+use app\models\RefTahapKpsk;
+
 //use app\models\RefInstructorPenilaianPendidikan;
 use app\models\ProfilPanelPenasihatKpsk;
 use app\models\PengurusanPermohonanKursusPersatuan;
@@ -68,9 +70,26 @@ use app\models\general\GeneralMessage;
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>6]],
+                    'columnOptions'=>['colspan'=>4]],
                 'nama_penganjuran_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80,'value'=>'Kursus Pengurusan Sukan Kebangsaan (KPSK)', 'disabled'=>true]],
-                'kod_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
+				'tahap' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-tahap-kpsk/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefTahapKpsk::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::tahap],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+                'kod_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>30]],
                  
             ],
         ],
@@ -79,7 +98,6 @@ use app\models\general\GeneralMessage;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'nama_penyelaras' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
-                
                 'tarikh_kursus' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -90,7 +108,16 @@ use app\models\general\GeneralMessage;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                 
+                'tarikh_tamat_kursus' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
         [
@@ -248,9 +275,15 @@ $('#kursusId').change(function(){
             $('#pengurusanpenilaianpendidikanpenganjurintructor-kod_kursus').attr('value',data.kod_kursus);
             $('#pengurusanpenilaianpendidikanpenganjurintructor-tempat_kursus').attr('value',data.tempat);
             //$('#pengurusanpenilaianpendidikanpenganjurintructor-nama_penganjuran_kursus').attr('value',data.kursus);
+			$('#pengurusanpenilaianpendidikanpenganjurintructor-tahap').val(data.tahap).trigger("change");
             $("#pengurusanpenilaianpendidikanpenganjurintructor-tarikh_kursus-disp").val(formatDisplayDate(data.tarikh_kursus));
             $("#pengurusanpenilaianpendidikanpenganjurintructor-tarikh_kursus").val(data.tarikh_kursus);
             $("#pengurusanpenilaianpendidikanpenganjurintructor-tarikh_kursus").kvDatepicker("$DateDisplayFormat", new Date(data.tarikh_kursus)).kvDatepicker({
+                format: "$DateDisplayFormat"
+            });
+			$("#pengurusanpenilaianpendidikanpenganjurintructor-tarikh_tamat_kursus-disp").val(formatDisplayDate(data.tarikh_tamat_kursus));
+            $("#pengurusanpenilaianpendidikanpenganjurintructor-tarikh_tamat_kursus").val(data.tarikh_tamat_kursus);
+            $("#pengurusanpenilaianpendidikanpenganjurintructor-tarikh_tamat_kursus").kvDatepicker("$DateDisplayFormat", new Date(data.tarikh_tamat_kursus)).kvDatepicker({
                 format: "$DateDisplayFormat"
             });
         }
@@ -264,6 +297,9 @@ function clearForm(){
     //$('#pengurusanpenilaianpendidikanpenganjurintructor-nama_penganjuran_kursus').attr('value','');
     $('#pengurusanpenilaianpendidikanpenganjurintructor-tarikh_kursus').attr('value','');
     $('#pengurusanpenilaianpendidikanpenganjurintructor-tarikh_kursus-disp').attr('value','');
+	$('#pengurusanpenilaianpendidikanpenganjurintructor-tarikh_tamat_kursus').attr('value','');
+    $('#pengurusanpenilaianpendidikanpenganjurintructor-tarikh_tamat_kursus-disp').attr('value','');
+	$('#pengurusanpenilaianpendidikanpenganjurintructor-tahap').val('').trigger("change");
 }
         
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {

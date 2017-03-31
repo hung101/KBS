@@ -322,4 +322,83 @@ class PermohonanPeralatanController extends Controller
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikPermohonanPeralatan', $format, $controls, 'laporan_statistik_permohonan_peralatan');
     }
+    
+    public function actionPrintPermohonanPenerimaanPeralatan($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+        
+        $ref = RefCawangan::findOne(['id' => $model->cawangan]);
+        $model->cawangan = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->negeri]);
+        $model->negeri = $ref['desc'];
+        
+        $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program]);
+        $model->program = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefKelulusanPeralatan::findOne(['id' => $model->kelulusan]);
+        $model->kelulusan = $ref['desc'];
+        
+        $peralatan = Peralatan::find()->where(['permohonan_peralatan_id' => $model->permohonan_peralatan_id])->all();
+        
+        $pdf = new \mPDF('utf-8', 'A4-L');
+
+        $pdf->title = GeneralLabel::permohonan_penerimaan_peralatan;
+
+        //$pdf->cssFile = 'report.css';
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print_borang_permohonan_penerimaan_peralatan', [
+             'model'  => $model,
+             'peralatan' => $peralatan,
+        ]));
+
+        $pdf->Output(GeneralLabel::permohonan_penerimaan_peralatan.'_'.$model->permohonan_peralatan_id.'.pdf', 'I');
+    }
+    
+    public function actionPrintJkb($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+		$ref = RefCawangan::findOne(['id' => $model->cawangan]);
+        $model->cawangan = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->negeri]);
+        $model->negeri = $ref['desc'];
+        
+        $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program]);
+        $model->program = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $peralatan = Peralatan::find()->where(['permohonan_peralatan_id' => $model->permohonan_peralatan_id])->all();
+
+        $pdf = new \mPDF('utf-8', 'A4-L');
+
+        $pdf->title = 'Borang JKB';
+
+        //$pdf->cssFile = 'report.css';
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print_jkb', [
+             'model'  => $model,
+             'peralatan' => $peralatan,
+        ]));
+
+        $pdf->Output('Borang_jkb_'.$model->permohonan_peralatan_id.'.pdf', 'I');
+    }
 }

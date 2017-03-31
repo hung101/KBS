@@ -46,6 +46,7 @@ class InformasiPermohonanSearch extends InformasiPermohonan
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'pagination' => false,
         ]);
 
         $this->load($params);

@@ -1,9 +1,8 @@
-<?php
-
-
-?>
-
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
 <body>
     <div class="form-title" style="margin:0px 0px 20px">
     PERMOHONAN JAWATANKUASA BANTUAN<br />
@@ -16,7 +15,7 @@
     ?>
     </div>
     
-    <table class="aTable" cellspacing="0" cellpadding="0">
+    <table id="data">
       <tr>
         <th rowspan="2">BIL</th>
         <th rowspan="2">AKTIVITI</th>
@@ -32,80 +31,110 @@
         <th>JUMLAH</th>
         <th>CATATAN</th>
       </tr>
-      <tr>
-        <td class="align-top">1.</td>
-        <td class="align-top"><?= $model->nama_aktiviti ?><br /><br /><br /><div style="margin:40px 0px 0px">Sukan:<br /><?= $model->sukan ?></div></td>
-        <td class="align-top text-left">I) <?= $model->tempat.', '.$model->negeri ?><br />
-            II) <?= $model->tarikh_mula,'-'.$model->tarikh_tamat ?><br />
-            III) <?= $totalOrang ?> orang
-        </td>
-        <td class="align-top">
-            <?php
-            $count = 1;
-            $grandTotal = 0;
-            foreach($binaanKosModel as $item)
+      <?php
+      $grandTotalPohon = 0;
+      $grandTotalCadang = 0;
+	  $itemBil = 1;
+	  $tdStyle = 'border-bottom:0;border-right:1px solid; border-left:1px solid';
+      foreach($binaanKosModel as $key => $value)
+      {
+		  if($key === (count($binaanKosModel)-1)){
+			  $tdStyle = 'border-bottom:1px solid;border-right:1px solid; border-left:1px solid';
+		  }
+		?>
+		<tr>
+			<td style="<?= $tdStyle ?>" class="align-top">
+				<?php if($key === 0) echo '1.'; ?>
+			</td>
+			<td style="<?= $tdStyle ?>">
+			<?php 
+				if($key === 0){
+					if ($model->nama_aktiviti != null)
+					{
+						echo $model->nama_aktiviti.'<br /><br />';
+					}
+					echo 'Sukan:<br />'.$model->sukan;
+				}
+			?>
+			</td>
+			<td class="align-top text-left" style="<?= $tdStyle ?>">
+				<?php
+				if($key === 0){
+					if ($model->tempat != null) {
+						echo 'I) '.$model->tempat;
+					}
+					if ($model->negeri != null) {
+						echo ', '.$model->negeri.'<br />';
+					}
+					if ($model->tarikh_mula != null) {
+						echo 'II) '.$model->tarikh_mula;
+					}
+					if ($model->tarikh_tamat != null) {
+						echo '-'.$model->tarikh_tamat.'<br />';
+					}
+					if ($totalOrang != null) {
+						echo $totalOrang.' orang';
+					}
+				}
+				?>
+			</td>
+			<td class="align-top" style="<?= $tdStyle ?>">
+				<?php
+				$grandTotalPohon = $grandTotalPohon+$value['jumlah_dipohon'];
+				$ref = \app\models\RefKategoriPerbelanjaan::findOne($value['kategori_perbelanjaan']);
+                $kategori = $ref['desc'];
+				?>
+				<?= $itemBil ?>. <?= $kategori ?><br /><?= $value['perbelanjaan_dipohon'] ?>
+				<?php
+				if($value['kadar_pohon'] != null && $value['bilangan_pohon'] != null && $value['hari_pohon'] != null)
+				{
+					echo '<br />RM '.$value['kadar_pohon'].' x '.$value['bilangan_pohon'].' x '.$value['hari_pohon'];
+				} 
+				?>
+					<br />Jumlah: RM <?= $value['jumlah_dipohon'] ?>
+			</td>
+			<td class="align-bottom text-bold" style="<?= $tdStyle ?>">
+			<?php
+            if($key === (count($binaanKosModel)-1))
             {
-                $grandTotal = $grandTotal+$item->jumlah_dipohon;
-                $kategori = \app\models\RefKategoriPerbelanjaan::findOne($item->kategori_perbelanjaan)->desc;
-            ?>
-            <div style="margin-bottom:50px">
-            <?= $count ?>. <?= $kategori ?><br /><?= $item->perbelanjaan_dipohon ?>
-            <?php
-            if($item->kadar_pohon != null && $item->bilangan_pohon != null && $item->hari_pohon != null)
-            {
-                echo '<br />RM '.$item->kadar_pohon.' x '.$item->bilangan_pohon.' x '.$item->hari_pohon;
-            } 
-            ?>
-                <br />Jumlah: RM <?= $item->jumlah_dipohon ?><br /><br />
-            </div>
-            <?php
-                $count++;
+                echo 'RM '.number_format((float)$grandTotalPohon, 2, '.', '');
             }
             ?>
-        </td>
-        <td class="align-bottom text-bold">RM <?= number_format((float)$grandTotal, 2, '.', '') ?></td>
-        <td>
-            <?php
-            foreach($binaanKosModel as $item)
+            </td>
+			<td valign="top" style="<?= $tdStyle ?>">
+				<?= $value['catatan'] ?>
+			</td>
+			<td class="align-top" style="<?= $tdStyle ?>">
+				<?php
+				$grandTotalCadang = $grandTotalCadang+$value['anggaran_perbelanjaan'];
+				$ref = \app\models\RefKategoriPerbelanjaan::findOne($value['kategori_perbelanjaan']);
+                $kategori = $ref['desc'];
+				?>
+				<?= $itemBil ?>. <?= $kategori ?><br /><?= $value['perbelanjaan_dipohon'] ?>
+				<?php
+				if($value['kadar_cadangan'] != null && $value['bilangan_cadangan'] != null && $value['hari_cadangan'] != null)
+				{
+					echo '<br />RM '.$value['kadar_cadangan'].' x '.$value['bilangan_cadangan'].' x '.$value['hari_cadangan'];
+				} 
+				?>
+					<br />Jumlah: RM <?= $value['anggaran_perbelanjaan'] ?>
+			</td>
+			<td class="align-bottom text-bold" style="<?= $tdStyle ?>">
+			<?php
+            if($key === (count($binaanKosModel)-1))
             {
-                echo $item->catatan.'<br /><br />';
+                echo 'RM '.number_format((float)$grandTotalCadang, 2, '.', '');
             }
             ?>
-        </td>
-        <td class="align-top">
-            <?php
-            $count = 1;
-            $grandTotal = 0;
-            foreach($binaanKosModel as $item)
-            {
-                $grandTotal = $grandTotal+$item->anggaran_perbelanjaan;
-                $kategori = \app\models\RefKategoriPerbelanjaan::findOne($item->kategori_perbelanjaan)->desc;
-            ?>
-            <div style="margin-bottom:50px">
-            <?= $count ?>. <?= $kategori ?><br /><?= $item->perbelanjaan_dipohon ?>
-            <?php
-            if($item->kadar_cadangan != null && $item->bilangan_cadangan != null && $item->hari_cadangan != null)
-            {
-                echo '<br />RM '.$item->kadar_cadangan.' x '.$item->bilangan_cadangan.' x '.$item->hari_cadangan;
-            } 
-            ?>
-                <br />Jumlah: RM <?= $item->anggaran_perbelanjaan ?><br /><br />
-            </div>
-            <?php
-                $count++;
-            }
-            ?>
-        </td>
-        <td class="align-bottom text-bold">RM <?= number_format((float)$grandTotal, 2, '.', '') ?></td>
-        <td>
-            <?php
-            foreach($binaanKosModel as $item)
-            {
-                echo $item->catatan_cadangan.'<br /><br />';
-            }
-            ?>
-        </td>
-      </tr>
+            </td>
+			<td valign="top" style="<?= $tdStyle ?>">
+				<?= $value['catatan_cadangan'] ?>
+			</td>
+		</tr>
+		<?php
+		$itemBil++;
+	  }
+	  ?>
     </table>
 </body>
 </html>

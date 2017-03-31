@@ -296,6 +296,43 @@ use common\models\general\GeneralFunction;
     <?php endif; ?>
     
     <br>
+    
+    <?php
+    echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+            [
+                'columns'=>12,
+                'autoGenerateColumns'=>false, // override columns setting
+                'attributes' => [
+                    'tarikh_terima' => [
+                        'type'=>Form::INPUT_WIDGET, 
+                        'widgetClass'=> DateControl::classname(),
+                        'ajaxConversion'=>false,
+                        'options'=>[
+                            'pluginOptions' => [
+                                'autoclose'=>true,
+                            ]
+                        ],
+                        'columnOptions'=>['colspan'=>3]],
+                    'tarikh_keluar' => [
+                        'type'=>Form::INPUT_WIDGET, 
+                        'widgetClass'=> DateControl::classname(),
+                        'ajaxConversion'=>false,
+                        'options'=>[
+                            'pluginOptions' => [
+                                'autoclose'=>true,
+                            ]
+                        ],
+                        'columnOptions'=>['colspan'=>3]],
+                    'catatan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>12],'options'=>['maxlength'=>true]],
+                ]
+            ],
+        ]
+    ]);
+    ?>
 
     <div class="form-group">
         <?php if(!$readonly): ?>

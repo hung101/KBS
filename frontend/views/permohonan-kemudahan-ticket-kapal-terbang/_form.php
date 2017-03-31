@@ -402,6 +402,9 @@ if($readonly){
                 'attribute' => 'atlet',
                 'value' => 'refAtlet.name_penuh'
             ],
+			'passport_no',
+			'ic_no',
+			'hp_no',
             //'session_id',
             //'created_by',
             // 'updated_by',
@@ -493,6 +496,9 @@ if($readonly){
                 'attribute' => 'jurulatih',
                 'value' => 'refJurulatih.nama'
             ],
+			'passport_no',
+			'ic_no',
+			'hp_no',
             //'session_id',
             //'created_by',
             // 'updated_by',
@@ -581,6 +587,9 @@ if($readonly){
             //'permohonan_kemudahan_ticket_kapal_terbang_pegawai_id',
             //'permohonan_kemudahan_ticket_kapal_terbang_id',
             'pegawai',
+			'passport_no',
+			'ic_no',
+			'hp_no',
             //'session_id',
             //'created_by',
             // 'updated_by',
@@ -640,6 +649,9 @@ if($readonly){
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'pengurus_sukan',
+			'passport_no',
+			'ic_no',
+			'hp_no',
             ['class' => 'yii\grid\ActionColumn',
                 'buttons' => [
                     'delete' => function ($url, $model) {

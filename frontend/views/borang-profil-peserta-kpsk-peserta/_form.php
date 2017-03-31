@@ -9,6 +9,7 @@ use yii\helpers\ArrayHelper;
 use kartik\widgets\DepDrop;
 use kartik\datecontrol\DateControl;
 use yii\helpers\Url;
+use yii\web\Session;
 
 // table reference
 use app\models\RefNegeri;
@@ -25,6 +26,22 @@ use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
 
+$penilaian =  ['objektif' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>2]],
+                'esei' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>2]],
+				'laporan_projek' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>2]],
+				'penilaian_refleksi' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>2]],
+                'jumlah' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>3, 'disabled'=>true]]];
+// Session
+$session = new Session;
+$session->open();
+
+if(isset($session['borang_profil_peserta_kpsk_tahap_id']) && $session['borang_profil_peserta_kpsk_tahap_id'] === '1'){
+	$penilaian = ['objektif' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>2]],
+                'esei' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>2]],
+				'penilaian_refleksi' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>2]],
+                'jumlah' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>3, 'disabled'=>true]]];
+}
+$session->close();
 /* @var $this yii\web\View */
 /* @var $model app\models\BorangProfilPesertaKpskPeserta */
 /* @var $form yii\widgets\ActiveForm */
@@ -226,7 +243,7 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'kehadiran' => ['type'=>Form::INPUT_RADIO_LIST, 'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],'options'=>['inline'=>true],'columnOptions'=>['colspan'=>6]],
+                'kehadiran' => ['type'=>Form::INPUT_RADIO_LIST, 'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],'options'=>['inline'=>true],		'columnOptions'=>['colspan'=>6]],
             ]
         ],
     ]
@@ -244,17 +261,13 @@ use app\models\general\GeneralMessage;
     'autoGenerateColumns' => true,
     'rows' => [
         [
-            'attributes' => [
-                'objektif' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>2]],
-                'struktur' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>2]],
-                'esei' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>2]],
-                'jumlah' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>3, 'disabled'=>true]],
-            ]
+            'attributes' => $penilaian
         ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+				'gred' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
                 'keputusan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -271,7 +284,7 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>6]],
             ]
         ],
         [
@@ -364,24 +377,28 @@ $('#TarikhLahirID').change(function(){
 });
             
 $('#borangprofilpesertakpskpeserta-objektif').on("keyup", function(){calculateJumlahMarkah();});
-$('#borangprofilpesertakpskpeserta-struktur').on("keyup", function(){calculateJumlahMarkah();});
+$('#borangprofilpesertakpskpeserta-laporan_projek').on("keyup", function(){calculateJumlahMarkah();});
+$('#borangprofilpesertakpskpeserta-penilaian_refleksi').on("keyup", function(){calculateJumlahMarkah();});
 $('#borangprofilpesertakpskpeserta-esei').on("keyup", function(){calculateJumlahMarkah();});
         
 function calculateJumlahMarkah(){
     var objektif = 0;
-    var struktur = 0;
+    var laporan_projek = 0;
     var esei = 0;
+	var penilaian_refleksi = 0;
     var jumlah_markah = 0;
         
     if($('#borangprofilpesertakpskpeserta-objektif').val() > 0){objektif = parseInt($('#borangprofilpesertakpskpeserta-objektif').val());}
-    if($('#borangprofilpesertakpskpeserta-struktur').val() > 0){struktur = parseInt($('#borangprofilpesertakpskpeserta-struktur').val());}
+    if($('#borangprofilpesertakpskpeserta-laporan_projek').val() > 0){laporan_projek = parseInt($('#borangprofilpesertakpskpeserta-laporan_projek').val());}
     if($('#borangprofilpesertakpskpeserta-esei').val() > 0){esei = parseInt($('#borangprofilpesertakpskpeserta-esei').val());}
-    
+    if($('#borangprofilpesertakpskpeserta-penilaian_refleksi').val() > 0){penilaian_refleksi = parseInt($('#borangprofilpesertakpskpeserta-penilaian_refleksi').val());}
         
-    if(objektif > 0 || struktur >0 || esei >0){
+    if(objektif > 0 || laporan_projek >0 || esei >0 || penilaian_refleksi > 0){
         // Total Yuran
-        jumlah_markah = objektif + struktur + esei;
-
+        jumlah_markah = objektif + laporan_projek + esei + penilaian_refleksi;
+		if(jumlah_markah > 100){
+			alert('Jumlah markah tidak boleh lebih daripada 100');
+		}
         //display at fields accordingly
         $('#borangprofilpesertakpskpeserta-jumlah').val(jumlah_markah);
     }

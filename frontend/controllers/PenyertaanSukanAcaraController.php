@@ -3,11 +3,13 @@
 namespace frontend\controllers;
 
 use Yii;
+use app\models\PenyertaanSukan;
 use app\models\PenyertaanSukanAcara;
 use frontend\models\PenyertaanSukanAcaraSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
@@ -157,6 +159,21 @@ class PenyertaanSukanAcaraController extends Controller
         //return $this->redirect(['index']);
     }
 
+    public function actionGetAtletSukan($atlet_id, $kejohanan)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $penyertaanSukanIds = PenyertaanSukan::find()->select('penyertaan_sukan_id')->where(['nama_kejohanan_temasya' => $kejohanan]);
+    
+        $sukanAcara = PenyertaanSukanAcara::find()->joinWith('refAtlet')->where(['IN', 'penyertaan_sukan_id', $penyertaanSukanIds])
+                      ->andWhere(['atlet' => $atlet_id])->orderBy(['created' => SORT_DESC])->all();
+        if(count($sukanAcara) > 0){
+            return ['nama_acara' => $sukanAcara[0]->nama_acara, 'keputusan' => $sukanAcara[0]->keputusan, 'sasaran' => $sukanAcara[0]->sasaran, 'catatan' => $sukanAcara[0]->catatan];
+        } else {
+            return [];
+        }
+
+    }
+    
     /**
      * Finds the PenyertaanSukanAcara model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

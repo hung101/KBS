@@ -55,10 +55,10 @@ class PengurusanInsuran extends \yii\db\ActiveRecord
         return [
             [['atlet_id', 'nama_insuran', 'jumlah_tuntutan', 'tarikh_tuntutan', 'pegawai_yang_bertanggungjawab', 'sukan', 'program', 
                 'ic_no', 'tarikh_kejadian', 'jenis_tuntutan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id', 'jenis_tuntutan', 'status_permohonan', 'ic_no', 'jenis_bank'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['atlet_id', 'jenis_tuntutan', 'status_permohonan', 'ic_no', 'jenis_bank', 'kelulusan_jkb'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah_tuntutan'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['tarikh_tuntutan', 'catatan', 'tarikh_kejadian', 'tarikh_pembayaran', 'tarikh_permohonan'], 'safe'],
-            [['nama_insuran', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tarikh_tuntutan', 'catatan', 'tarikh_kejadian', 'tarikh_pembayaran', 'tarikh_permohonan', 'butiran_kemalangan', 'tarikh_jkb'], 'safe'],
+            [['nama_insuran', 'pegawai_yang_bertanggungjawab', 'bilangan_jkb'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['ic_no'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_acc','no_polisi'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lampiran', 'tindakan_rujukan_memo'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -78,7 +78,7 @@ class PengurusanInsuran extends \yii\db\ActiveRecord
             'jumlah_tuntutan' => GeneralLabel::jumlah_tuntutan,
             'tarikh_tuntutan' => GeneralLabel::tarikh_tuntutan,
             'pegawai_yang_bertanggungjawab' => GeneralLabel::nama_pemohon,
-            'catatan' => GeneralLabel::catatan,
+            'catatan' => GeneralLabel::sebab_tuntutan,
             'sukan' => GeneralLabel::sukan,
             'program' => GeneralLabel::program,
             'ic_no' => GeneralLabel::ic_no_insuran,
@@ -92,6 +92,10 @@ class PengurusanInsuran extends \yii\db\ActiveRecord
             'tindakan_rujukan_memo' => GeneralLabel::tindakan_rujukan_memo,
             'no_polisi' => GeneralLabel::no_polisi,
             'jenis_bank' => GeneralLabel::jenis_bank,
+            'butiran_kemalangan' => GeneralLabel::butiran_kemalangan,
+            'bilangan_jkb' => GeneralLabel::bilangan_jkb,
+            'tarikh_jkb' => GeneralLabel::tarikh_jkb,
+            'kelulusan_jkb' => GeneralLabel::kelulusan_jkb,
         ];
     }
     

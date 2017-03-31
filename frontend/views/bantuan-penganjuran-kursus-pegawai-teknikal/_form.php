@@ -38,7 +38,7 @@ use common\models\general\GeneralFunction;
     <?php //echo Html::a('Laporan Teknikal & Kepegawaian', ['bantuan-penganjuran-kursus-pegawai-teknikal-laporan/create'], ['class' => 'btn btn-warning', 'target' => '_blank']); ?>
     
     <?php 
-    if($model->status_permohonan_id && $model->status_permohonan_id==RefStatusBantuanPenganjuranKursusPegawaiTeknikal::LULUS){
+    if($model->status_permohonan_id && $model->status_permohonan_id==RefStatusBantuanPenganjuranKursusPegawaiTeknikal::LULUS && $readonly){
         echo Html::a('Laporan Teknikal & Kepegawaian', ['bantuan-penganjuran-kursus-pegawai-teknikal-laporan/load', 'bantuan_penganjuran_kursus_pegawai_teknikal_id' =>$model->bantuan_penganjuran_kursus_pegawai_teknikal_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
         echo '<br><br>';
     }

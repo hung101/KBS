@@ -27,11 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a(GeneralLabel::cetak, ['print', 'id' => $model->anugerah_ahli_jawantankuasa_pengelola_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
     </p>
     
     <?= $this->render('_form', [
         'model' => $model,
         'readonly' => $readonly,
+        'searchModelAnugerahAhliJawantankuasaPengelolaItem' => $searchModelAnugerahAhliJawantankuasaPengelolaItem,
+        'dataProviderAnugerahAhliJawantankuasaPengelolaItem' => $dataProviderAnugerahAhliJawantankuasaPengelolaItem,
     ]) ?>
 
     <?php /*echo DetailView::widget([

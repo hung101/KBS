@@ -44,7 +44,7 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
         }
         
         $searchModel = new BantuanPenganjuranKejohananLaporanSearch();
@@ -64,7 +64,7 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
     public function actionView($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
         }
         
         $queryPar = null;
@@ -90,7 +90,7 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
     public function actionCreate($bantuan_penganjuran_kejohanan_id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
         }
         
         $model = new BantuanPenganjuranKejohananLaporan();
@@ -205,7 +205,7 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
     public function actionLoad($bantuan_penganjuran_kejohanan_id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
         }
         
         if (($model = BantuanPenganjuranKejohananLaporan::find()->where(['bantuan_penganjuran_kejohanan_id'=>$bantuan_penganjuran_kejohanan_id])->one()) !== null) {
@@ -224,7 +224,7 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
     public function actionUpdate($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
         }
         
         $model = $this->findModel($id);
@@ -331,7 +331,7 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
     public function actionDelete($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
         }
         
         $this->findModel($id)->delete();
@@ -359,7 +359,7 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
     public function actionDeleteupload($id, $field)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
+            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
         }
         
             $img = $this->findModel($id)->$field;
@@ -376,4 +376,32 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
 
             return $this->redirect(['update', 'id' => $id]);
     }
+	
+	public function actionPrint($id)
+	{
+		if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+		
+		$BantuanPenganjuranKejohananLaporanTuntutan  = BantuanPenganjuranKejohananLaporanTuntutan::find()->where(['bantuan_penganjuran_kejohanan_laporan_id' => $model->bantuan_penganjuran_kejohanan_laporan_id])->all();
+	
+		$pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Laporan Penganjuran Kejohanan';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+             'model'  => $model,
+			 'title' => $pdf->title,
+			 'BantuanPenganjuranKejohananLaporanTuntutan' => $BantuanPenganjuranKejohananLaporanTuntutan,
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->bantuan_penganjuran_kejohanan_id.'.pdf', 'I'); 
+		
+	}
 }

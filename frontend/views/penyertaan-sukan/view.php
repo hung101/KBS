@@ -1,11 +1,24 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 // contant values
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+
+use app\models\RefStatusPermohonanProgramBinaan;
+
+//check date
+$isTamat = false;
+if(time() > strtotime($model->tarikh_tamat))
+{
+	$isTamat = true;
+}
+
+$isLulus = false;
+if (strpos($model->jkb_status_permohonan, 'Lulus') !== false) {
+    $isLulus = true;
+}
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PenyertaanSukan */
@@ -35,18 +48,20 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update'])): ?>
             <?= Html::a(GeneralLabel::print_jkb, ['print-jkk-jkp', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-info custom_button', 'target' => '_blank']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update'])): ?>
-            <?= Html::a(GeneralLabel::laporan_penyertaan_kejohanan, ['laporan-penyertaan-kejohanan', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-success custom_button', 'target' => '_blank']) ?>
-        <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update'])): ?>
-            <?= Html::a(GeneralLabel::laporan_pendedahan_latihan, ['laporan-pendedahan-latihan', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-warning custom_button', 'target' => '_blank']) ?>
-        <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update'])): ?>
-            <?= Html::a('Penilaian Prestasi Mengikut Kejohanan', ['print-penilaian-prestasi', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-default custom_button', 'target' => '_blank']) ?>
-        <?php endif; ?>
+		<?php if($isTamat): ?>
+			<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update'])): ?>
+				<?= Html::a(GeneralLabel::laporan_penyertaan_kejohanan, ['laporan-penyertaan-kejohanan', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-success custom_button', 'target' => '_blank']) ?>
+			<?php endif; ?>
+			<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update'])): ?>
+				<?= Html::a(GeneralLabel::laporan_pendedahan_latihan, ['laporan-pendedahan-latihan', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-warning custom_button', 'target' => '_blank']) ?>
+			<?php endif; ?>
+			<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update'])): ?>
+				<?= Html::a(GeneralLabel::cetak_pencapaian_atlet, ['print-penilaian-prestasi', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-default custom_button', 'target' => '_blank']) ?>
+			<?php endif; ?>
+		<?php endif; ?>
     </p>
-    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update'])): ?>
-        <p><?= Html::a(GeneralLabel::tempah_tiket_kapal_terbang, ['/permohonan-kemudahan-ticket-kapal-terbang/create'], ['class' => 'btn btn-warning', 'target' => '_blank']) ?></p>
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update']) && $isLulus): ?>
+        <p><?= Html::a(GeneralLabel::tempah_tiket_kapal_terbang, ['/permohonan-kemudahan-ticket-kapal-terbang/create', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?></p>
     <?php endif; ?>
     
     <?= $this->render('_form', [

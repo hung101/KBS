@@ -50,8 +50,20 @@ use app\models\general\GeneralVariable;
 // $checkStatus = Jurulatih::find()->where(['jurulatih_id' => $mode])->one();
 // var_dump($model->status_jurulatih); die;
 $isTerima = false;
-$query = RefTawaran::find()->where(['id' => $model->tawaran_jurulatih])->andWhere(['LIKE', 'desc', 'terima'])->one();
-if(count($query) > 0) $isTerima = true;
+$mpjLulus = false;
+$jkbLulus = false;
+
+// $query = RefStatusTawaran::find()->where(['id' => $model->status_tawaran_mpj])->andWhere(['LIKE', 'desc', '%lulus%'])->one();
+// if(count($query) > 0) $mpjLulus = true;
+// $query = RefStatusTawaran::find()->where(['id' => $model->status_tawaran_jkb])->andWhere(['LIKE', 'desc', '%lulus%'])->one();
+// if(count($query) > 0) $jkbLulus = true;
+$substrMpj = stripos($model->status_tawaran_mpj, 'lulus');
+if(is_bool($substrMpj) === false) $mpjLulus = true;
+
+$substrJkb = stripos($model->status_tawaran_jkb, 'lulus');
+if(is_bool($substrJkb) === false)  $jkbLulus = true;
+
+if($mpjLulus && $jkbLulus) $isTerima = true;
 //var_dump($isTerima); die;
 
 if ($readonly) {
@@ -81,15 +93,13 @@ if ($readonly) {
         <?php endif; ?>
         <?php //echo Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'window.print();' ]); ?>
         <?php echo Html::a(GeneralLabel::print_pdf, '', ['value'=>Url::to(['/jurulatih/print', 'id' => $model->jurulatih_id]), 'class' => 'btn btn-info custom_button']); ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update']) && $isTerima): ?>
             <?php echo Html::a(GeneralLabel::surat_tawaran, ['surat-tawaran-jurulatih', 'id' => $model->jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
             ?>
-            <?php if($isTerima): ?>
-                <?php echo Html::a(GeneralLabel::surat_setuju_terima.' ('.GeneralLabel::sambungan.')', ['jurulatih-sambungan-oversea', 'id' => $model->jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
-                ?>
-                <?php echo Html::a(GeneralLabel::surat_setuju_terima.' ('.GeneralLabel::lantikan_baru.')', ['jurulatih-baru-oversea', 'id' => $model->jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
-                ?>
-            <?php endif; ?>
+			<?php echo Html::a(GeneralLabel::surat_setuju_terima.' ('.GeneralLabel::sambungan.')', ['jurulatih-sambungan-oversea', 'id' => $model->jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+			?>
+			<?php echo Html::a(GeneralLabel::surat_setuju_terima.' ('.GeneralLabel::lantikan_baru.')', ['jurulatih-baru-oversea', 'id' => $model->jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+			?>
         <?php endif; ?>
     <?php endif; ?>
     <br>
@@ -941,11 +951,11 @@ if ($readonly) {
                             'columnOptions'=>['colspan'=>3]],
                     ]
                 ], */
-                [
+/*                 [
                     'columns'=>12,
                     'autoGenerateColumns'=>false, // override columns setting
                     'attributes' => [
-                        'status_tawaran_jkb' => [
+                        'status_tawaran_mpj' => [
                             'type'=>Form::INPUT_WIDGET, 
                             'widgetClass'=>'\kartik\widgets\Select2',
                             'options'=>[
@@ -962,7 +972,7 @@ if ($readonly) {
                                     'allowClear' => true
                                 ],],
                             'columnOptions'=>['colspan'=>4]],
-                        'tarikh_jkb' => [
+                        'tarikh_mpj' => [
                             'type'=>Form::INPUT_WIDGET, 
                             'widgetClass'=> DateControl::classname(),
                             'ajaxConversion'=>false,
@@ -972,9 +982,63 @@ if ($readonly) {
                                 ]
                             ],
                             'columnOptions'=>['colspan'=>4]],
-                        'bilangan_jkb' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                        'bilangan_mpj' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                    ]
+                ], */
+/*                 [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'pengerusi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                        //'kelulusan_dkp' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                    ]
+                ], */
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'catatan_spkk' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                        'bersyarat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
                     ]
                 ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'lain_lain' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                        'tawaran_jurulatih' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-tawaran/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefTawaran::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::status],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>6]],
+                        //'catatan' => ['type'=>Form::INPUT_TEXTAREA, 'options'=>['rows'=>2],'columnOptions'=>['colspan'=>12]],
+                    ]
+                ],
+            ]
+        ]);
+    }
+    ?>
+    
+    <br>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::kelulusan_mpj ?></strong></pre>
+    <?php
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
                 [
                     'columns'=>12,
                     'autoGenerateColumns'=>false, // override columns setting
@@ -1014,6 +1078,66 @@ if ($readonly) {
                     'autoGenerateColumns'=>false, // override columns setting
                     'attributes' => [
                         'pengerusi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'catatan_mpj' => ['type'=>Form::INPUT_TEXTAREA, 'options'=>['rows'=>2],'columnOptions'=>['colspan'=>12]],
+                    ]
+                ],
+            ]
+        ]);
+        
+    ?>
+    
+    <br>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::kelulusan_jkb ?></strong></pre>
+    <?php
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'status_tawaran_jkb' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-status-tawaran/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefStatusTawaran::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::status],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>4]],
+                        'tarikh_jkb' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=> DateControl::classname(),
+                            'ajaxConversion'=>false,
+                            'options'=>[
+                                'pluginOptions' => [
+                                    'autoclose'=>true,
+                                ]
+                            ],
+                            'columnOptions'=>['colspan'=>4]],
+                        'bilangan_jkb' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
                         'kelulusan_dkp' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
                     ]
                 ],
@@ -1021,38 +1145,11 @@ if ($readonly) {
                     'columns'=>12,
                     'autoGenerateColumns'=>false, // override columns setting
                     'attributes' => [
-                        'catatan_spkk' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
-                        'bersyarat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
-                    ]
-                ],
-                [
-                    'columns'=>12,
-                    'autoGenerateColumns'=>false, // override columns setting
-                    'attributes' => [
-                        'lain_lain' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
-                        'tawaran_jurulatih' => [
-                            'type'=>Form::INPUT_WIDGET, 
-                            'widgetClass'=>'\kartik\widgets\Select2',
-                            'options'=>[
-                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                                [
-                                    'append' => [
-                                        'content' => Html::a(Html::icon('edit'), ['/ref-tawaran/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                        'asButton' => true
-                                    ]
-                                ] : null,
-                                'data'=>ArrayHelper::map(RefTawaran::find()->all(),'id', 'desc'),
-                                'options' => ['placeholder' => Placeholder::status],
-                                'pluginOptions' => [
-                                    'allowClear' => true
-                                ],],
-                            'columnOptions'=>['colspan'=>6]],
                         'catatan' => ['type'=>Form::INPUT_TEXTAREA, 'options'=>['rows'=>2],'columnOptions'=>['colspan'=>12]],
                     ]
                 ],
             ]
         ]);
-    }
     ?>
     
     <?php 

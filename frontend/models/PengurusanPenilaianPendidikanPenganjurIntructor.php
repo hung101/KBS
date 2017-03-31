@@ -51,8 +51,8 @@ class PengurusanPenilaianPendidikanPenganjurIntructor extends \yii\db\ActiveReco
     {
         return [
             [['nama_penganjuran_kursus', 'tarikh_kursus', 'instructor'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_kursus'], 'safe'],
-            [['pengurusan_permohonan_kursus_persatuan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tarikh_kursus', 'tarikh_tamat_kursus'], 'safe'],
+            [['pengurusan_permohonan_kursus_persatuan_id', 'tahap'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_penganjuran_kursus', 'instructor', 'nama_penyelaras'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat_kursus'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kod_kursus'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
@@ -69,10 +69,12 @@ class PengurusanPenilaianPendidikanPenganjurIntructor extends \yii\db\ActiveReco
             'pengurusan_permohonan_kursus_persatuan_id' => GeneralLabel::agensi,
             'nama_penganjuran_kursus' => GeneralLabel::nama_kursus,
             'kod_kursus' => GeneralLabel::kod_kursus,
-            'tarikh_kursus' => GeneralLabel::tarikh_kursus,
+            'tarikh_kursus' => GeneralLabel::tarikh_mula_kursus,
             'instructor' => GeneralLabel::instructor,
             'nama_penyelaras' => GeneralLabel::nama_penyelaras,
             'tempat_kursus' => GeneralLabel::tempat_kursus,
+			'tahap' => GeneralLabel::tahap,
+			'tarikh_tamat_kursus' => GeneralLabel::tarikh_tamat_kursus,
         ];
     }
     

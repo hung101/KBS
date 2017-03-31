@@ -2,10 +2,18 @@
 
 use kartik\helpers\Html;
 //use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\builder\FormGrid;
-use yii\helpers\ArrayHelper;
+use kartik\datecontrol\DateControl;
+use yii\helpers\Url;
+use yii\grid\GridView;
+use yii\bootstrap\Modal;
+use yii\widgets\Pjax;
+use yii\web\Session;
+
+use app\models\RefDokumenPengurusanInsurans;
 
 // contant values
 use app\models\general\Placeholder;
@@ -16,14 +24,61 @@ use app\models\general\GeneralMessage;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanInsuranLampiran */
 /* @var $form yii\widgets\ActiveForm */
+$session = new Session;
+$session->open();
+
+if(isset($session['pengurusan-insuran-tuntutan_id']) && $session['pengurusan-insuran-tuntutan_id']){
+	if($session['pengurusan-insuran-tuntutan_id'] === '1'){
+		$dokumen_list = RefDokumenPengurusanInsurans::find()->where(['parent_id' => 1, 'aktif' => 1])->all();
+	} else {
+		$dokumen_list = RefDokumenPengurusanInsurans::find()->where(['parent_id' => 2, 'aktif' => 1])->all();
+	}
+} else {
+	$dokumen_list = RefDokumenPengurusanInsurans::find()->where(['aktif' => 1])->all();
+}
+
+$session->close();
 ?>
 
 <div class="pengurusan-insuran-lampiran-form">
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
-    
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); 
+	
+	echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+						'nama_dokumen' =>  [
+							'type'=>Form::INPUT_WIDGET, 
+							'widgetClass'=>'\kartik\widgets\Select2',
+							'options'=>[
+								'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+								[
+									'append' => [
+										'content' => Html::a(Html::icon('edit'), ['/ref-dokumen-pengurusan-insurans/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+										'asButton' => true
+									]
+								] : null,
+								'data'=>ArrayHelper::map($dokumen_list,'id', 'desc'),
+								'options' => ['placeholder' => Placeholder::nama_dokumen],
+								'pluginOptions' => [
+									'allowClear' => true
+								],],
+							'columnOptions'=>['colspan'=>4]],
+                    ],
+                ],
+            ]
+        ]);
+	
+	?>
+
     <?php // Lampiran Upload
     
     $label = $model->getAttributeLabel('lampiran');

@@ -47,14 +47,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'penilaian_pestasi_id',
             //'atlet_id',
-            [
-                'attribute' => 'kejohanan',
-                'label' => GeneralLabel::kejohanan,
+            // [
+                // 'attribute' => 'kejohanan',
+                // 'label' => GeneralLabel::kejohanan,
+                // 'filterInputOptions' => [
+                    // 'class'       => 'form-control',
+                    // 'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kejohanan,
+                // ],
+                // 'value' => 'refPerancanganProgram.nama_program'
+            // ],
+			[
+                'attribute' => 'nama_kejohanan_temasya',
+                //'label' => GeneralLabel::program,
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kejohanan,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_kejohanan_temasya,
                 ],
-                'value' => 'refPerancanganProgram.nama_program'
+                'value' => 'refPerancanganProgramPlan.nama_program'
             ],
             [
                 'attribute' => 'program',
@@ -74,7 +83,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refSukan.desc'
             ],
-            [
+			'tarikh_nilai_mula',
+			'tarikh_nilai_tamat',
+/*             [
                 'attribute' => 'acara',
                 'label' => GeneralLabel::acara,
                 'filterInputOptions' => [
@@ -82,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::acara,
                 ],
                 'value' => 'refAcara.desc'
-            ],
+            ], */
             // 'laporan_kesihatan',
             // 'elaun_yang_diterima',
             // 'skim_hadiah_kemenangan_sukan',

@@ -136,7 +136,7 @@ class Jurulatih extends \yii\db\ActiveRecord
             [['no_telefon_bimbit'], 'string', 'min' => 10, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['gambar'], 'validateFileUpload', 'skipOnEmpty' => false],
             [['tarikh_tamat_lantikan'], 'compare', 'compareAttribute'=>'tarikh_mula_lantikan', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
-            [['pengerusi', 'kelulusan_dkp', 'catatan_spkk', 'bersyarat', 'lain_lain', 'catatan', 'borang_maklumat', 'borang_kesihatan', 'borang_hrmis', 'borang_rawatan', 'borang_keselamatan', 'borang_pelekat', 'borang_income_tax', 'keputusan_mesyuarat', 'salinan_ic_passport'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['pengerusi', 'kelulusan_dkp', 'catatan_spkk', 'bersyarat', 'lain_lain', 'catatan', 'catatan_mpj', 'borang_maklumat', 'borang_kesihatan', 'borang_hrmis', 'borang_rawatan', 'borang_keselamatan', 'borang_pelekat', 'borang_income_tax', 'keputusan_mesyuarat', 'salinan_ic_passport'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
 
@@ -219,6 +219,7 @@ class Jurulatih extends \yii\db\ActiveRecord
             'bersyarat' => GeneralLabel::bersyarat,
             'lain_lain' => GeneralLabel::lain_lain,
             'catatan' => GeneralLabel::catatan,
+            'catatan_mpj' => GeneralLabel::catatan,
             'borang_maklumat' => GeneralLabel::borang_maklumat,
             'borang_kesihatan' => GeneralLabel::borang_kesihatan,
             'borang_hrmis' => GeneralLabel::borang_hrmis, 

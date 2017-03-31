@@ -42,13 +42,46 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
     
-    <?php if(isset($model->pengurusan_program_binaan_laporan_penganjuran_id)): ?>
-        <?= Html::a(GeneralLabel::cetak, ['print-laporan-penganjuran', 'id' => $parentModel->pengurusan_program_binaan_id], ['class' => 'btn btn-primary custom_button', 'target' => '_blank']) ?><br /><br />
+    <?php if($readonly): ?>
+            <?= Html::a(GeneralLabel::update, ['laporan-penganjuran', 'id' => $model->pengurusan_program_binaan_id, 'readonly' => false], ['class' => 'btn btn-primary']) ?>
     <?php endif; ?>
+    <?php if(isset($model->pengurusan_program_binaan_laporan_penganjuran_id) && $readonly): ?>
+        <?= Html::a(GeneralLabel::cetak, ['print-laporan-penganjuran', 'id' => $parentModel->pengurusan_program_binaan_id], ['class' => 'btn btn-success custom_button', 'target' => '_blank']) ?><br /><br />
+    <?php endif; ?>
+
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]); ?>
+    <?php
+        if(!$readonly){
+            $template = '{view} {update} {delete}';
+            
+            $pengurusan_program_binaan_id = "";
+        
+            if(isset($parentModel->pengurusan_program_binaan_id)){
+                $pengurusan_program_binaan_id = $parentModel->pengurusan_program_binaan_id;
+            }
+            
+        } else {
+            $template = '{view}';
+        }
+        
+        Modal::begin([
+            'header' => '<h3 id="modalTitle"></h3>',
+            'id' => 'modal',
+            'size' => 'modal-lg',
+            'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+            'options' => [
+                'tabindex' => false // important for Select2 to work properly
+            ],
+        ]);
+        
+        echo '<div id="modalContent"></div>';
+        
+        Modal::end();
+    ?>
+    
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
     
     <?php
         echo FormGrid::widget([
@@ -100,8 +133,62 @@ $this->params['breadcrumbs'][] = $this->title;
         ]);
     ?>
     
+    <h3><?php echo GeneralLabel::sukan; ?></h3>
+    
+    <?php Pjax::begin(['id' => 'pengurusanProgramBinaanLaporanPenganjuranSukanGrid', 'timeout' => 100000]); ?>
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderProgramBinaanLaporanPenganjuranSukan,
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
+        'id' => 'pengurusanProgramBinaanLaporanPenganjuranSukanGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'attribute' => 'sukan_id',
+                'value' => 'refSukan.desc'
+            ],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['pengurusan-program-binaan-laporan-penganjuran-sukan/delete', 'id' => $model->laporan_penganjuran_sukan_id]).'", "'.GeneralMessage::confirmDelete.'", "pengurusanProgramBinaanLaporanPenganjuranSukanGrid");',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-laporan-penganjuran-sukan/update', 'id' => $model->laporan_penganjuran_sukan_id]).'", "'.GeneralLabel::updateTitle . ' Sukan");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-laporan-penganjuran-sukan/view', 'id' => $model->laporan_penganjuran_sukan_id]).'", "'.GeneralLabel::viewTitle . ' Sukan");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['pengurusan-program-binaan-laporan-penganjuran-sukan/create', 'pengurusan_program_binaan_id' => $pengurusan_program_binaan_id]).'", "'.GeneralLabel::createTitle . ' Sukan");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
+    
     <?php
-        echo FormGrid::widget([
+/*         echo FormGrid::widget([
             'model' => $model,
             'form' => $form,
             'autoGenerateColumns' => true,
@@ -128,7 +215,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                 ],
             ]
-        ]);
+        ]); */
     ?>
     
     <pre style="text-align: center"><strong>MAKLUMAT AKTIVITI</strong></pre>
@@ -333,13 +420,14 @@ $this->params['breadcrumbs'][] = $this->title;
       </tr>
     </table>
     <br />
-    
+    <?php if(!$readonly): ?>
     <div class="form-group">
         <?= Html::submitButton(GeneralLabel::update, ['class' => 'btn btn-primary',
             'data' => [
                     'confirm' => GeneralMessage::confirmSave,
                 ],]) ?>
     </div>
+    <?php endif; ?>
 
     <?php ActiveForm::end(); ?>
     

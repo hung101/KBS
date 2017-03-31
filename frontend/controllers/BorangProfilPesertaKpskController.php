@@ -6,6 +6,7 @@ use Yii;
 use app\models\BorangProfilPesertaKpsk;
 use frontend\models\BorangProfilPesertaKpskSearch;
 use app\models\BorangProfilPesertaKpskPeserta;
+use app\models\PengurusanPermohonanKursusPersatuan;
 use frontend\models\BorangProfilPesertaKpskPesertaSearch;
 use app\models\MsnLaporanStatistikKehadiranPesertaMengikutKursusJantina;
 use app\models\MsnLaporanStatistikKehadiranPesertaMengikutKursusBangsa;
@@ -16,6 +17,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\BaseUrl;
+use yii\web\Session;
 
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
@@ -82,6 +84,7 @@ class BorangProfilPesertaKpskController extends Controller
             'searchModelBorangProfilPesertaKpskPeserta' => $searchModelBorangProfilPesertaKpskPeserta,
             'dataProviderBorangProfilPesertaKpskPeserta' => $dataProviderBorangProfilPesertaKpskPeserta,
             'readonly' => true,
+			'disabled' => false,
         ]);
     }
 
@@ -90,14 +93,28 @@ class BorangProfilPesertaKpskController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id = null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
-        
+		
         $model = new BorangProfilPesertaKpsk();
         
+		$disabled = false;
+		if($id != null){
+			$disabled = true;
+			$pengurusanPermohonan = PengurusanPermohonanKursusPersatuan::findOne(['pengurusan_permohonan_kursus_persatuan_id' => $id]);
+			
+			if($pengurusanPermohonan != null){
+				$model->penganjur_kursus = $pengurusanPermohonan->agensi;
+				$model->tarikh_kursus = $pengurusanPermohonan->tarikh_kursus;
+				$model->tarikh_tamat_kursus = $pengurusanPermohonan->tarikh_tamat_kursus;
+				$model->kod_kursus = $pengurusanPermohonan->kod_kursus;
+				$model->tahap = $pengurusanPermohonan->tahap;
+			}
+		}
+		
          $queryPar = null;
         
         Yii::$app->session->open();
@@ -121,6 +138,7 @@ class BorangProfilPesertaKpskController extends Controller
                 'model' => $model,
                 'searchModelBorangProfilPesertaKpskPeserta' => $searchModelBorangProfilPesertaKpskPeserta,
                 'dataProviderBorangProfilPesertaKpskPeserta' => $dataProviderBorangProfilPesertaKpskPeserta,
+				'disabled' => $disabled,
                 'readonly' => false,
             ]);
         }
@@ -155,6 +173,7 @@ class BorangProfilPesertaKpskController extends Controller
                 'searchModelBorangProfilPesertaKpskPeserta' => $searchModelBorangProfilPesertaKpskPeserta,
                 'dataProviderBorangProfilPesertaKpskPeserta' => $dataProviderBorangProfilPesertaKpskPeserta,
                 'readonly' => false,
+				'disabled' => false,
             ]);
         }
     }
@@ -488,5 +507,15 @@ Majlis Sukan Negara Malaysia.
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanSenaraiKehadiranPesertaMengikutKursus', $format, $controls, 'laporan_senarai_kehadiran_peserta_mengikut_kursus');
+    }
+	
+	public function actionSetTahap($tahap_id){
+        
+        $session = new Session;
+        $session->open();
+
+        $session['borang_profil_peserta_kpsk_tahap_id'] = $tahap_id;
+        
+        $session->close();
     }
 }

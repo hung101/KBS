@@ -10,7 +10,7 @@ use app\models\general\GeneralLabel;
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::perancangan_program.': ' . ' ' . $model->perancangan_program_id;
 $this->title = GeneralLabel::updateTitle . ' '.GeneralLabel::pelan_periodisasi;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::pelan_periodisasi, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' .GeneralLabel::pelan_periodisasi, 'url' => ['view', 'id' => $model->perancangan_program_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' .GeneralLabel::pelan_periodisasi, 'url' => ['view', 'id' => $model->perancangan_program_plan_master_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="perancangan-program-update">
@@ -20,6 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $this->render('_form', [
         'model' => $model,
         'readonly' => $readonly,
+		'searchModelPerancanganProgramPlanItem' => $searchModelPerancanganProgramPlanItem,
+        'dataProviderPerancanganProgramPlanItem' => $dataProviderPerancanganProgramPlanItem,
     ]) ?>
 
 </div>

@@ -64,6 +64,7 @@ use app\models\RefAcara;
 use app\models\RefKeputusan;
 use app\models\RefAktivitiPendedahan;
 use \app\models\PerancanganProgramPlan;
+use app\models\RefStatusPermohonanProgramBinaan;
 
 /**
  * PenyertaanSukanController implements the CRUD actions for PenyertaanSukan model.
@@ -139,6 +140,9 @@ class PenyertaanSukanController extends Controller
         
         $ref = PerancanganProgramPlan::findOne(['perancangan_program_id' => $model->nama_kejohanan_temasya]);
         $model->nama_kejohanan_temasya = $ref['nama_program'];
+		
+		$ref = RefStatusPermohonanProgramBinaan::findOne(['id' => $model->jkb_status_permohonan]);
+		$model->jkb_status_permohonan = $ref['desc'];
         
         $queryPar = null;
         
@@ -530,6 +534,9 @@ class PenyertaanSukanController extends Controller
         
         $ref = RefSukan::findOne(['id' => $model->nama_sukan]);
         $model->nama_sukan = $ref['desc'];
+		
+		$ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program]);
+        $model->program = $ref['desc'];
         
         $perbelanjaanSukanModel = PenyertaanSukanPerbelanjaan::find()->where(['penyertaan_sukan_id' => $model->penyertaan_sukan_id])->all();
         
@@ -543,9 +550,8 @@ class PenyertaanSukanController extends Controller
 
         $pdf = new \mPDF('utf-8', 'A4-L');
 
-        $pdf->title = 'Borang JKK /JKP';
+        $pdf->title = 'Borang JKB';
 
-        //$pdf->cssFile = 'report.css';
         $stylesheet = file_get_contents('css/report.css');
 
         $pdf->WriteHTML($stylesheet,1);
@@ -554,9 +560,13 @@ class PenyertaanSukanController extends Controller
              'model'  => $model,
              'perbelanjaanSukanModel' => $perbelanjaanSukanModel,
              'totalOrang' => $totalOrang,
+			 'atletCount' => $atletCount,
+			 'jurulatihCount' => $jurulatihCount,
+			 'pegawaiCount' => $pegawaiCount,
+			 'pengurusCount' => $pengurusCount,
         ]));
 
-        $pdf->Output('Borang_jkk_jkp_'.$model->penyertaan_sukan_id.'.pdf', 'I');
+        $pdf->Output('Borang_jkb_'.$model->penyertaan_sukan_id.'.pdf', 'I');
     }
     
     public function actionLaporanCompetitionTraining()

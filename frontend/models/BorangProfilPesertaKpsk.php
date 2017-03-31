@@ -53,9 +53,9 @@ class BorangProfilPesertaKpsk extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['penganjur_kursus', 'tarikh_kursus', 'kod_kursus'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_kursus', 'created', 'updated'], 'safe'],
-            [['created_by', 'updated_by'], 'integer'],
+            [['penganjur_kursus', 'tarikh_kursus'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh_kursus', 'tarikh_tamat_kursus', 'created', 'updated'], 'safe'],
+            [['created_by', 'updated_by', 'tahap'], 'integer'],
             [['penganjur_kursus'], 'string', 'max' => 80],
             [['kod_kursus'], 'string', 'max' => 30],
         ];
@@ -68,9 +68,11 @@ class BorangProfilPesertaKpsk extends \yii\db\ActiveRecord
     {
         return [
             'borang_profil_peserta_kpsk_id' => 'Borang Profil Peserta Kpsk ID',
-            'penganjur_kursus' => GeneralLabel::penganjur_kursus,  //'Penganjur Kursus',
+            'penganjur_kursus' => GeneralLabel::agensi,  //'Penganjur Kursus',
             'kod_kursus' => GeneralLabel::kod_kursus,  //'Kod Kursus',
-            'tarikh_kursus' => GeneralLabel::tarikh_kursus,  //'Tarikh Kursus',
+            'tarikh_tamat_kursus' => GeneralLabel::tarikh_tamat_kursus,
+			'tarikh_kursus' => GeneralLabel::tarikh_mula_kursus,  //'Tarikh Kursus',
+			'tahap' => GeneralLabel::tahap,
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',

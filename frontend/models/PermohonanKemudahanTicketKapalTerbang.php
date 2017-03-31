@@ -62,7 +62,7 @@ class PermohonanKemudahanTicketKapalTerbang extends \yii\db\ActiveRecord
     public function rules()
     {
         $rules = [
-            [['nama_pemohon', 'jawatan', 'nama_program', 'aktiviti', 'sukan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama_pemohon', 'jawatan', 'sukan', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh', 'tarikh_jkb', 'pulang', 'tarikh_pergi_2', 'tarikh_pergi_3', 'tarikh_pulang_2', 'tarikh_pulang_3', 'jurulatih', 'atlet', 'sukan', 'pri_tarikh_pergi', 'pri_tarikh_balik'], 'safe'],
             [['bil_penumpang', 'kelulusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_pemohon', 'jawatan', 'nama_program', 'aktiviti', 'cawangan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -95,7 +95,7 @@ class PermohonanKemudahanTicketKapalTerbang extends \yii\db\ActiveRecord
             'destinasi' => GeneralLabel::dari,
             'tarikh' => GeneralLabel::tarikh,
             'tarikh_ke' => GeneralLabel::ke,
-            'nama_program' => GeneralLabel::nama_program,
+            'nama_program' => GeneralLabel::kejohanan,
             'no_fail_kelulusan' => GeneralLabel::no_fail_kelulusan,
             'bil_penumpang' => GeneralLabel::bil_penumpang,
             'aktiviti' => GeneralLabel::aktiviti,
@@ -139,20 +139,23 @@ class PermohonanKemudahanTicketKapalTerbang extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery
      */
     public function getProgram(){
-        return $this->hasOne(RefProgram::className(), ['id' => 'nama_program']);
+        //return $this->hasOne(RefProgram::className(), ['id' => 'nama_program']);
+        return $this->hasOne(PerancanganProgramPlan::className(), ['perancangan_program_id' => 'nama_program']);
     }
     
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getRefBahagianKemudahan(){
-        return $this->hasOne(RefBahagianKemudahan::className(), ['id' => 'bahagian']);
+        //return $this->hasOne(RefBahagianKemudahan::className(), ['id' => 'bahagian']);
+        return $this->hasOne(RefBahagianAduan::className(), ['id' => 'bahagian']);
     }
     
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getRefCawanganKemudahan(){
-        return $this->hasOne(RefCawanganKemudahan::className(), ['id' => 'cawangan']);
+        //return $this->hasOne(RefCawanganKemudahan::className(), ['id' => 'cawangan']);
+        return $this->hasOne(RefCawangan::className(), ['id' => 'cawangan']);
     }
 }

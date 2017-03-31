@@ -34,8 +34,13 @@ $acara_list = null;
 
 if(isset($session['penyertaan-sukan_sukan_id']) && $session['penyertaan-sukan_sukan_id']){
     $acara_list = RefAcara::find()->where(['=', 'aktif', 1])->andWhere(['=', 'ref_sukan_id', $session['penyertaan-sukan_sukan_id']])->all();
+    $atlet_list = Atlet::find()->joinWith(['refAtletSukan' => function($query) {
+                        $query->orderBy(['tbl_atlet_sukan.created' => SORT_DESC])->one();
+                    },
+                ])->where(['=', 'tbl_atlet_sukan.nama_sukan', $session['penyertaan-sukan_sukan_id']])->all();
 } else {
     $acara_list = RefAcara::find()->where(['=', 'aktif', 1])->all();
+	$atlet_list = Atlet::find()->all();
 }
 
 $session->close();
@@ -67,7 +72,7 @@ $session->close();
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'data'=>ArrayHelper::map($atlet_list,'atlet_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::atlet],
 'pluginOptions' => [
                             'allowClear' => true

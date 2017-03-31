@@ -342,4 +342,49 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
 
             
     }
+	
+	public function actionPrint($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+		$jurulatih_id = $model->jurulatih;
+        $ref = Jurulatih::findOne(['jurulatih_id' => $model->jurulatih]);
+        $model->jurulatih = $ref['nameAndIC'];
+        
+        $ref = RefStatusPermohonanKontrakJurulatih::findOne(['id' => $model->status_permohonan]);
+        $model->status_permohonan = $ref['desc'];
+        
+        $ref = RefProgramJurulatih::findOne(['id' => $model->program]);
+        $model->program = $ref['desc'];
+        
+        $ref = RefGajiElaunJurulatih::findOne(['id' => $model->gaji_elaun]);
+        $model->gaji_elaun = $ref['desc'];
+        
+        $ref = RefJenisPermohonanKontrakJurulatih::findOne(['id' => $model->jenis_permohonan]);
+        $model->jenis_permohonan = $ref['desc'];
+        
+        $ref = RefProgramJurulatih::findOne(['id' => $model->program_baru]);
+        $model->program_baru = $ref['desc'];
+        
+        $ref = RefGajiElaunJurulatih::findOne(['id' => $model->cadangan_gaji_elaun]);
+        $model->cadangan_gaji_elaun = $ref['desc'];
+
+        $pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Kontrak Jurulatih';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+             'model'  => $model,
+			 'title' => $pdf->title,
+        ]));
+
+        $pdf->Output('Kontrak_jurulatih'.$model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id.'.pdf', 'I'); 
+    }
 }

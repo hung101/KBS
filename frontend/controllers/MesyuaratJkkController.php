@@ -28,6 +28,7 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\helpers\Url;
 use yii\helpers\BaseUrl;
+use yii\web\Session;
 
 use app\models\general\Upload;
 use common\models\general\GeneralFunction;
@@ -547,4 +548,14 @@ Majlis Sukan Negara Malaysia.
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanJadualMesyuaratJkkJkp', $format, $controls, 'laporan_jadual_mesyuarat_jkk_jkp');
     }
+	
+	public function actionSetJenisMesyuarat($jenis_mesyuarat)
+	{
+		$session = new Session;
+        $session->open();
+
+        $session['mesyuarat-jkk_jenis_mesyuarat'] = $jenis_mesyuarat;
+        
+        $session->close();
+	}
 }

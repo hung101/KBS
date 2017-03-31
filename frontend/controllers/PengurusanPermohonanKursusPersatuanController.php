@@ -12,9 +12,11 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use yii\web\UploadedFile;
 use yii\helpers\BaseUrl;
 
 // contant values
+use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
 use common\models\general\GeneralFunction;
@@ -120,6 +122,9 @@ class PengurusanPermohonanKursusPersatuanController extends Controller
         }
         
         $model = new PengurusanPermohonanKursusPersatuan();
+		
+		$model->scenario = 'create';
+		$model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
         
         $queryPar = null;
         
@@ -133,6 +138,13 @@ class PengurusanPermohonanKursusPersatuanController extends Controller
         $dataProviderPengurusanPermohonanKursusPersatuanPenasihat = $searchModelPengurusanPermohonanKursusPersatuanPenasihat->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			$file = UploadedFile::getInstance($model, 'surat_permohonan');
+            $filename = $model->pengurusan_permohonan_kursus_persatuan_id . "-surat_permohonan";
+            if($file){
+                $model->surat_permohonan = Upload::uploadFile($file, Upload::pengurusanPermohonanKursusPersatuanFolder, $filename);
+				$model->save();
+            }	
+			
             if(isset(Yii::$app->session->id)){
                 PengurusanPermohonanKursusPersatuanPenasihat::updateAll(['pengurusan_permohonan_kursus_persatuan_id' => $model->pengurusan_permohonan_kursus_persatuan_id], 'session_id = "'.Yii::$app->session->id.'"');
                 PengurusanPermohonanKursusPersatuanPenasihat::updateAll(['session_id' => ''], 'pengurusan_permohonan_kursus_persatuan_id = "'.$model->pengurusan_permohonan_kursus_persatuan_id.'"');
@@ -162,6 +174,8 @@ class PengurusanPermohonanKursusPersatuanController extends Controller
         }
         
         $model = $this->findModel($id);
+		
+		$existingSurat = $model->surat_permohonan;
         
         $queryPar = null;
         
@@ -170,7 +184,18 @@ class PengurusanPermohonanKursusPersatuanController extends Controller
         $searchModelPengurusanPermohonanKursusPersatuanPenasihat  = new PengurusanPermohonanKursusPersatuanPenasihatSearch();
         $dataProviderPengurusanPermohonanKursusPersatuanPenasihat = $searchModelPengurusanPermohonanKursusPersatuanPenasihat->search($queryPar);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+		if($model->load(Yii::$app->request->post())){	
+			$file = UploadedFile::getInstance($model, 'surat_permohonan');
+
+            if($file){
+                $filename = $model->pengurusan_permohonan_kursus_persatuan_id . "-surat_permohonan";
+                $model->surat_permohonan = Upload::uploadFile($file,  Upload::pengurusanPermohonanKursusPersatuanFolder, $filename);
+            } else {
+                $model->surat_permohonan = $existingSurat;
+            }
+        }
+		
+        if (Yii::$app->request->post() && $model->save()) {
             return $this->redirect(['view', 'id' => $model->pengurusan_permohonan_kursus_persatuan_id]);
         } else {
             return $this->render('update', [

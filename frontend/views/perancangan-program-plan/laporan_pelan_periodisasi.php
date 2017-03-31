@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
     'form' => $form,
     'autoGenerateColumns' => true,
     'rows' => [
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -130,7 +130,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'attributes' => [
                 'target_medal' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>'255']],
             ]
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting

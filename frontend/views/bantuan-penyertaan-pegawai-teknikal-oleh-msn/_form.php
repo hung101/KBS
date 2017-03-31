@@ -144,7 +144,7 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
                     $(document).find('#modal').modal('hide');
                     form.trigger("reset");
                     $.pjax.defaults.timeout = 100000;
-                    $.pjax.reload({container:'#bantuanPenyertaanPegawaiTeknikalDisertaiGrid'});
+                    $.pjax.reload({container:'#bantuanPenyertaanPegawaiTeknikalOlehMsnGrid'});
                 }
           }
      });

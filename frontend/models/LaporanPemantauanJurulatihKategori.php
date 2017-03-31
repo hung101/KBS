@@ -35,10 +35,11 @@ class LaporanPemantauanJurulatihKategori extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['penilaian_kategori'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['laporan_pemantauan_jurulatih_id', 'penilaian_kategori', 'penilaian_sub_kategori', 'created_by', 'updated_by'], 'integer'],
             [['created', 'updated'], 'safe'],
             [['session_id'], 'string', 'max' => 100],
-            [['syor', 'ulasan'], 'string', 'max' => 255],
+            [['syor', 'ulasan', 'muat_naik'], 'string', 'max' => 255],
         ];
     }
 
@@ -50,8 +51,9 @@ class LaporanPemantauanJurulatihKategori extends \yii\db\ActiveRecord
         return [
             'laporan_pemantauan_jurulatih_kategori_id' => 'Laporan Pemantauan Jurulatih Kategori ID',
             'laporan_pemantauan_jurulatih_id' => 'Laporan Pemantauan Jurulatih ID',
-            'penilaian_kategori' => GeneralLabel::kategori,
+            'penilaian_kategori' => GeneralLabel::pemerhatian,
             'penilaian_sub_kategori' => GeneralLabel::sub_kategori,
+            'muat_naik' => GeneralLabel::upload,
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

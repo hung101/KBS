@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php if($model->hantar == 0 && $model->created_by == Yii::$app->user->identity->id): ?>
             <?= Html::a(GeneralLabel::send, ['sent', 'id' => $model->pengurusan_pemantauan_dan_penilaian_jurulatih_id], ['class' => 'btn btn-success']) ?>
         <?php endif; ?>
-        <?= Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'if(confirm("'.GeneralMessage::confirmPrint.'")){window.print();}' ]); ?>
+        <?= Html::a(GeneralLabel::cetak, ['print', 'id' => $model->pengurusan_pemantauan_dan_penilaian_jurulatih_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
     </p>
     
     <?= $this->render('_form', [

@@ -19,6 +19,7 @@ use yii\web\UploadedFile;
 use yii\helpers\BaseUrl;
 use yii\web\Session;
 
+use app\models\general\GeneralLabel;
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
@@ -444,5 +445,56 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikPenyertaanPegawaiTeknikalMengikutKursus', $format, $controls, 'laporan_statistik_penyertaan_pegawai_teknikal_mengikut_kursus');
+    }
+	
+	public function actionPrint($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
+        $model->alamat_bandar = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->alamat_negeri]);
+        $model->alamat_negeri = $ref['desc'];
+        
+        $ref = RefBank::findOne(['id' => $model->nama_bank]);
+        $model->nama_bank = $ref['desc'];
+        
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->badan_sukan]);
+        $model->badan_sukan = $ref['nama_badan_sukan'];
+        
+        $model->status_permohonan_id = $model->status_permohonan;
+        $ref = RefStatusBantuanPenganjuranKursusPegawaiTeknikal::findOne(['id' => $model->status_permohonan]);
+        $model->status_permohonan = $ref['desc'];
+
+		$BantuanPenganjuranKursusPegawaiTeknikalDicadangkan = BantuanPenganjuranKursusPegawaiTeknikalDicadangkan::find()->where(['bantuan_penganjuran_kursus_pegawai_teknikal_id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_id])->all();
+		
+		$BantuanPenganjuranKursusPegawaiTeknikalDisertai = BantuanPenganjuranKursusPegawaiTeknikalDisertai::find()->where(['bantuan_penganjuran_kursus_pegawai_teknikal_id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_id])->all();
+				
+		$BantuanPenganjuranKursusPegawaiTeknikalOlehMsn = BantuanPenganjuranKursusPegawaiTeknikalOlehMsn::find()->where(['bantuan_penganjuran_kursus_pegawai_teknikal_id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_id])->all();
+
+        $pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = GeneralLabel::bantuan_penganjuran_kursus_pegawai_teknikal;
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+             'model'  => $model,
+		     'title' => $pdf->title,
+			 'BantuanPenganjuranKursusPegawaiTeknikalDicadangkan' => $BantuanPenganjuranKursusPegawaiTeknikalDicadangkan,
+			 'BantuanPenganjuranKursusPegawaiTeknikalDisertai' => $BantuanPenganjuranKursusPegawaiTeknikalDisertai,
+			 'BantuanPenganjuranKursusPegawaiTeknikalOlehMsn' => $BantuanPenganjuranKursusPegawaiTeknikalOlehMsn,
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->bantuan_penganjuran_kursus_pegawai_teknikal_id.'.pdf', 'I');
     }
 }

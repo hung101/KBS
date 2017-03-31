@@ -8,8 +8,12 @@ use frontend\models\LaporanPemantauanJurulatihKategoriSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
+use app\models\general\Upload;
 use app\models\general\GeneralVariable;
+use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefKategoriLaporanPenilaianJurulatih;
@@ -98,8 +102,25 @@ class LaporanPemantauanJurulatihKategoriController extends Controller
                 $model->session_id = Yii::$app->session->id;
             }
         }
-
+        
+        // if(Yii::$app->request->post())
+        // {
+            // $file = UploadedFile::getInstance($model, 'muat_naik');
+            // if(isset($file) && $file != null){                
+                // $filename = $model->laporan_pemantauan_jurulatih_kategori_id . "-muat_naik";
+                // $model->muat_naik = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);
+            // }
+            // die;
+        // }    
+        
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $file = UploadedFile::getInstance($model, 'muat_naik');
+            if(isset($file) && $file != null){                
+                $filename = $model->laporan_pemantauan_jurulatih_kategori_id . "-muat_naik";
+                $model->muat_naik = Upload::uploadFile($file, Upload::laporanPemantauanJurulatihKategoriFolder, $filename);
+                $model->save();
+            }
             return '1';
         } else {
             return $this->renderAjax('create', [
@@ -124,6 +145,13 @@ class LaporanPemantauanJurulatihKategoriController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $file = UploadedFile::getInstance($model, 'muat_naik');
+            if(isset($file) && $file != null){
+                $filename = $model->laporan_pemantauan_jurulatih_kategori_id . "-muat_naik";
+                $model->muat_naik = Upload::uploadFile($file, Upload::laporanPemantauanJurulatihKategoriFolder, $filename);
+                $model->save();
+            }
+            
             return '1';
         } else {
             return $this->renderAjax('update', [
@@ -148,6 +176,28 @@ class LaporanPemantauanJurulatihKategoriController extends Controller
         $this->findModel($id)->delete();
 
         //return $this->redirect(['index']);
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $img = $this->findModel($id)->$field;
+        
+        if($img){
+            if (!unlink($img)) {
+                return false;
+            }
+        }
+
+        $img = $this->findModel($id);
+        $img->$field = NULL;
+        $img->update();
+
+        return '1';
     }
 
     /**

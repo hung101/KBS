@@ -39,11 +39,12 @@ class PenilaianPenganjurKursus extends \yii\db\ActiveRecord
     {
         return [
             [['pengurusan_permohonan_kursus_persatuan_id', 'nama_penganjur_kursus'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['pengurusan_permohonan_kursus_persatuan_id', 'created_by', 'updated_by'], 'integer'],
-            [['tarikh_kursus', 'created', 'updated'], 'safe'],
+            [['pengurusan_permohonan_kursus_persatuan_id', 'created_by', 'updated_by', 'tahap'], 'integer'],
+            [['tarikh_kursus', 'created', 'updated', 'tarikh_tamat_kursus'], 'safe'],
             [['nama_penganjur_kursus', 'nama_penyelaras'], 'string', 'max' => 80],
             [['kod_kursus'], 'string', 'max' => 30],
             [['tempat_kursus'], 'string', 'max' => 90],
+			[['nama_kursus'], 'string', 'max' => 255],
         ];
     }
 
@@ -55,11 +56,14 @@ class PenilaianPenganjurKursus extends \yii\db\ActiveRecord
         return [
             'penilaian_penganjur_kursus_id' => 'Penilaian Penganjur Kursus ID',
             'pengurusan_permohonan_kursus_persatuan_id' => GeneralLabel::agensi,
-            'tarikh_kursus' => GeneralLabel::tarikh_kursus,
+            'tarikh_kursus' => GeneralLabel::tarikh_mula_kursus,
             'nama_penganjur_kursus' => GeneralLabel::nama_penganjur_kursus,
             'kod_kursus' => GeneralLabel::kod_kursus,
             'tempat_kursus' => GeneralLabel::tempat_kursus,
             'nama_penyelaras' => GeneralLabel::nama_penyelaras,
+			'tahap' => GeneralLabel::tahap,
+			'nama_kursus' => GeneralLabel::nama_kursus,
+			'tarikh_tamat_kursus' => GeneralLabel::tarikh_tamat_kursus,
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',

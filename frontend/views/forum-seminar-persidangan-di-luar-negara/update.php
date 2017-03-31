@@ -22,6 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'searchModelInformasiPermohonanProgramAntarabangsa' => $searchModelInformasiPermohonanProgramAntarabangsa,
         'dataProviderInformasiPermohonanProgramAntarabangsa' => $dataProviderInformasiPermohonanProgramAntarabangsa,
+		'searchModelForumSeminarPeserta' => $searchModelForumSeminarPeserta,
+		'dataProviderForumSeminarPeserta' => $dataProviderForumSeminarPeserta,
         'readonly' => $readonly,
     ]) ?>
 

@@ -832,4 +832,138 @@ class PembayaranInsentifController extends Controller
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanInsentifAtletKeseluruhan', $format, $controls, 'laporan_insentif_atlet_keseluruhan');
     }
+	
+	public function actionPrintJkb($id)
+	{
+		if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+		$PembayaranInsentifAtlet = PembayaranInsentifAtlet::find()->joinWith(['refAtlet'])->joinWith(['refAcara'])
+									->where(['pembayaran_insentif_id' => $model->pembayaran_insentif_id])->all();
+									
+		$PembayaranInsentifAtletGroupCount = PembayaranInsentifAtlet::find()->where(['pembayaran_insentif_id' => $model->pembayaran_insentif_id])
+											->groupBy('atlet')->count();
+									
+		$PembayaranInsentifJurulatih = PembayaranInsentifJurulatih::find()->joinWith(['refJurulatih'])
+										->where(['pembayaran_insentif_id' => $model->pembayaran_insentif_id])->all();
+										
+		$PembayaranInsentifJurulatihGroupCount = PembayaranInsentifJurulatih::find()
+										->where(['pembayaran_insentif_id' => $model->pembayaran_insentif_id])->groupBy('nama_jurulatih')->count();
+										
+		$PembayaranInsentifPersatuan = PembayaranInsentifPersatuan::find()->where(['pembayaran_insentif_id' => $model->pembayaran_insentif_id])->all();
+		
+		$PembayaranInsentifPersatuanGroupCount = PembayaranInsentifPersatuan::find()->where(['pembayaran_insentif_id' => $model->pembayaran_insentif_id])->groupBy('persatuan')->count();
+
+        // get atlet dropdown value's descriptions
+        $ref = RefJenisInsentif::findOne(['id' => $model->jenis_insentif]);
+        $model->jenis_insentif = $ref['desc'];
+        
+        $ref = RefPingatInsentif::findOne(['id' => $model->pingat]);
+        $model->pingat = $ref['desc'];
+        
+        $ref = PengurusanInsentifTetapanShakamShakar::findOne(['pengurusan_insentif_tetapan_shakam_shakar_id' => $model->kumpulan_temasya_kejohanan]);
+        $model->kumpulan_temasya_kejohanan = $ref['kumpulan_temasya_kejohanan'];
+        
+        $ref = RefInsentifKejohanan::findOne(['id' => $model->kejohanan]);
+        $model->kejohanan = $ref['desc'];
+        
+        $ref = PerancanganProgramPlan::findOne(['perancangan_program_id' => $model->nama_kejohanan]);
+        $model->nama_kejohanan = $ref['nama_program'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefInsentifPeringkat::findOne(['id' => $model->peringkat]);
+        $model->peringkat = $ref['desc'];
+        
+        $ref = RefInsentifKelas::findOne(['id' => $model->kelas]);
+        $model->kelas = $ref['desc'];
+        
+        $model->acara_id = $model->acara;
+        $ref = RefAcaraInsentif::findOne(['id' => $model->acara]);
+        $model->acara = $ref['desc'];
+        
+        $ref = RefKelulusanInsentif::findOne(['id' => $model->kelulusan]);
+        $model->kelulusan = $ref['desc'];
+        
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->persatuan]);
+        $model->persatuan = $ref['nama_badan_sukan'];
+		
+        $pdf = new \mPDF('utf-8', 'A4-L');
+
+        $pdf->title = 'Borang JKB';
+
+        //$pdf->cssFile = 'report.css';
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print_jkb', [
+             'model'  => $model,
+			 'PembayaranInsentifAtlet' => $PembayaranInsentifAtlet,
+			 'PembayaranInsentifJurulatih' => $PembayaranInsentifJurulatih,
+			 'PembayaranInsentifPersatuan' => $PembayaranInsentifPersatuan,
+			 'PembayaranInsentifAtletGroupCount' => $PembayaranInsentifAtletGroupCount,
+			 'PembayaranInsentifJurulatihGroupCount' => $PembayaranInsentifJurulatihGroupCount,
+			 'PembayaranInsentifPersatuanGroupCount' => $PembayaranInsentifPersatuanGroupCount,
+        ]));
+
+        $pdf->Output('Borang_jkb_'.$model->pembayaran_insentif_id.'.pdf', 'I'); 
+	}
+	
+	public function actionLaporanSkimHadiahKemenanganSukanMengikutAtlet()
+	{
+		if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporan();
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+			$query = PembayaranInsentifAtlet::find()->joinWith(['refAtlet'])->joinWith(['refAcara'])->where(['IS NOT', 'sukan', null]);
+			
+			if(isset($model->sukan) && $model->sukan != '')
+			{
+				$query = $query->andFilterWhere(['sukan' => $model->sukan]);
+			}
+			
+			if(isset($model->atlet) && $model->atlet != '')
+			{
+				$query = $query->andFilterWhere(['atlet' => $model->atlet]);
+			}
+			
+			$query = $query->groupBy('atlet', 'sukan')->all();
+			
+			// echo '<pre>';
+			// foreach($query as $key => $value){
+				// var_dump($value['refAtlet']['name_penuh']);
+			// }
+			// die;
+			
+			$pdf = new \mPDF('utf-8', 'A4-L');
+
+			$pdf->title = GeneralLabel::skim_hadiah_kemenangan_mengikut_atlet;
+
+			//$pdf->cssFile = 'report.css';
+			$stylesheet = file_get_contents('css/report.css');
+
+			$pdf->WriteHTML($stylesheet,1);
+			
+			$pdf->WriteHTML($this->renderpartial('print_laporan_skim_hadiah_kemenangan_sukan_mengikut_atlet', [
+				 'model'  => $model,
+				 'title' => $pdf->title,
+				 'query' => $query,
+			]));
+
+			$pdf->Output(str_replace(' ', '_', $pdf->title).'_.pdf', 'I'); 
+        } 
+
+        return $this->render('laporan_skim_hadiah_kemenangan_sukan_mengikut_atlet', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+	}
 }

@@ -37,8 +37,8 @@ class AnugerahAhliJawantankuasaPemilihan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['perwakilan', 'nama'], 'required'],
-            [['created_by', 'updated_by'], 'integer'],
+            [['tahun'], 'required'],
+            [['created_by', 'updated_by', 'tahun'], 'integer'],
             [['created', 'updated'], 'safe'],
             [['perwakilan', 'nama', 'jawatan'], 'string', 'max' => 80],
         ];
@@ -54,6 +54,7 @@ class AnugerahAhliJawantankuasaPemilihan extends \yii\db\ActiveRecord
             'perwakilan' => GeneralLabel::perwakilan,  //'Perwakilan',
             'nama' => GeneralLabel::nama,  //'Nama',
             'jawatan' => GeneralLabel::jawatan,  //'Jawatan',
+            'tahun' => GeneralLabel::tahun,
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created' => 'Created',

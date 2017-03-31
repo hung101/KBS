@@ -19,6 +19,7 @@ class BantuanPentadbiranPejabatSearch extends BantuanPentadbiranPejabat
     {
         return [
             [['bantuan_pentadbiran_pejabat_id'], 'integer'],
+			[['jumlah_dipohon', 'jumlah_kelulusan'], 'number'],
             [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 
                 'status_permohonan', 'catatan', 'persatuan', 'jawatan'], 'safe'],
         ];
@@ -62,6 +63,8 @@ class BantuanPentadbiranPejabatSearch extends BantuanPentadbiranPejabat
         $query->andFilterWhere([
             'bantuan_pentadbiran_pejabat_id' => $this->bantuan_pentadbiran_pejabat_id,
             'tarikh_lahir' => $this->tarikh_lahir,
+			'jumlah_dipohon' => $this->jumlah_dipohon,
+			'jumlah_kelulusan' => $this->jumlah_kelulusan,
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama])

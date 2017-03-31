@@ -41,7 +41,7 @@ class PengurusanInsuranLampiranSearch extends PengurusanInsuranLampiran
      */
     public function search($params)
     {
-        $query = PengurusanInsuranLampiran::find();
+        $query = PengurusanInsuranLampiran::find()->joinWith(['refDokumenPengurusanInsurans']);
 
         // add conditions that should always apply here
 

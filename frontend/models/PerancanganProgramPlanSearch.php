@@ -22,8 +22,8 @@ class PerancanganProgramPlanSearch extends PerancanganProgramPlan
     public function rules()
     {
         return [
-            [['perancangan_program_id', 'status_program_id', 'mesyuarat_id', 'sukan_id', 'program_id'], 'integer'],
-            [['tarikh_tamat', 'nama_program', 'muat_naik', 'tarikh_mula', 'status_program', 'sukan', 'jenis_program', 'lokasi', 'bahagian', 'jenis_aktiviti'], 'safe'],
+            [['perancangan_program_id', 'perancangan_program_plan_master_id', 'status_program_id', 'mesyuarat_id', 'sukan_id', 'program_id'], 'integer'],
+            [['tarikh_tamat', 'nama_program', 'muat_naik', 'tarikh_mula', 'status_program', 'sukan', 'jenis_program', 'lokasi', 'bahagian', 'jenis_aktiviti', 'session_id'], 'safe'],
         ];
     }
 
@@ -69,6 +69,7 @@ class PerancanganProgramPlanSearch extends PerancanganProgramPlan
 
         $query->andFilterWhere([
             'perancangan_program_id' => $this->perancangan_program_id,
+			'perancangan_program_plan_master_id' => $this->perancangan_program_plan_master_id,
             'status_program' => $this->status_program_id,
             'mesyuarat_id' => $this->mesyuarat_id,
             'sukan' => $this->sukan_id,
@@ -82,6 +83,7 @@ class PerancanganProgramPlanSearch extends PerancanganProgramPlan
                 ->andFilterWhere(['like', 'lokasi', $this->lokasi])
                 ->andFilterWhere(['like', 'tbl_ref_status_program.desc', $this->status_program])
                 ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
+				->andFilterWhere(['like', 'session_id', $this->session_id])
                 ->andFilterWhere(['like', 'tbl_ref_program_semasa_sukan_atlet.desc', $this->jenis_program]);
 
         return $dataProvider;

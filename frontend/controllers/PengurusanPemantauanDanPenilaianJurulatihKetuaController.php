@@ -245,6 +245,45 @@ class PengurusanPemantauanDanPenilaianJurulatihKetuaController extends Controlle
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+	
+	public function actionPrint($id)
+	{
+		if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+        $ref = Jurulatih::findOne(['jurulatih_id' => $model->nama_jurulatih_dinilai]);
+        $model->nama_jurulatih_dinilai = $ref['nameAndIC'];
+        
+        $ref = RefSukan::findOne(['id' => $model->nama_sukan]);
+        $model->nama_sukan = $ref['desc'];
+        
+        $ref = RefAcara::findOne(['id' => $model->nama_acara]);
+        $model->nama_acara = $ref['desc'];
+        
+        $model->penilaian_oleh_id = $model->penilaian_oleh;
+        $ref = RefPenilaianJurulatihKetua::findOne(['id' => $model->penilaian_oleh]);
+        $model->penilaian_oleh = $ref['desc'];
+		
+		$items = PengurusanPenilaianKategoriJurulatihKetua::find()->where(['pengurusan_pemantauan_dan_penilaian_jurulatih_id' => $model->pengurusan_pemantauan_dan_penilaian_jurulatih_id])->all();
+		
+		$pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Penilaian Ketua Jurulatih';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+             'model'  => $model,
+			 'title' => $pdf->title,
+			 'items' =>  $items,
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->pengurusan_pemantauan_dan_penilaian_jurulatih_id.'.pdf', 'I'); 
+	}
     
     public function actionSetPernilaianOleh($penilaian_oleh_ketua_id){
         

@@ -90,6 +90,20 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'alamat_poskod',
             // 'no_tel_bimbit',
             //'status_permohonan',
+			[
+                'attribute' => 'jumlah_dipohon',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_dipohon,
+                ]
+            ],
+			[
+                'attribute' => 'jumlah_kelulusan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_kelulusan,
+                ]
+            ],
             [
                 'attribute' => 'status_permohonan',
                 'filterInputOptions' => [

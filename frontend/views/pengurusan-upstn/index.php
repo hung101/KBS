@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\PengurusanUpstnSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = GeneralLabel::pengurusan_usptn;
+$this->title = GeneralLabel::laporan_pemantauan_usptn;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-upstn-index">
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' USPTN', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle .' '. GeneralLabel::laporan_pemantauan_usptn, ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 

@@ -22,36 +22,42 @@ use app\models\general\GeneralMessage;
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     <?php
         echo FormGrid::widget([
-    'model' => $model,
-    'form' => $form,
-    'autoGenerateColumns' => true,
-    'rows' => [
-        /*[
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'nama_peralatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5]],
-                'spesifikasi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4]],
-                'kuantiti_unit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3]],
-            ],
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'catatan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>5]],
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                /*[
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'nama_peralatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5]],
+                        'spesifikasi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4]],
+                        'kuantiti_unit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'catatan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>5]],
+                    ]
+                ],*/
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'nama_peralatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>true]],
+                    ],
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'spesifikasi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>true]],
+                    ],
+                ],
             ]
-        ],*/
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'nama_peralatan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>true]],
-                
-            ],
-        ],
-    ]
-]);
+        ]);
     ?>
     
     <div class="panel panel-default">
@@ -74,6 +80,7 @@ use app\models\general\GeneralMessage;
                                 'jumlah_unit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
                                 'bilangan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
                                 'jumlah' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+								'catatan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>12]],
                             ]
                         ],
                     ]
@@ -82,7 +89,7 @@ use app\models\general\GeneralMessage;
         </div>
     </div>
     
-    <!--<div class="panel panel-default">
+    <div class="panel panel-default">
         <div class="panel-heading">
             <strong><?=GeneralLabel::cadangan?></strong>
         </div>
@@ -102,13 +109,33 @@ use app\models\general\GeneralMessage;
                                 'jumlah_unit_cadangan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
                                 'bilangan_cadangan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
                                 'jumlah_cadangan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+								'catatan_cadangan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>12]],
                             ]
                         ],
                     ]
                 ]);
             ?>
         </div>
-    </div>-->
+    </div>
+    
+    <?php
+/*         echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'catatan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>5]],
+                    ]
+                ],
+            ]
+        ]); */
+    ?>
+    
+
 
     <!--<?= $form->field($model, 'permohonan_peralatan_id')->textInput() ?>
 
@@ -139,6 +166,10 @@ $script = <<< JS
 $('#peralatan-harga_per_unit').on("keyup", function(){calculateJumlah();});
 $('#peralatan-jumlah_unit').on("keyup", function(){calculateJumlah();});
 $('#peralatan-bilangan').on("keyup", function(){calculateJumlah();});
+
+$('#peralatan-harga_per_unit_cadangan').on("keyup", function(){calculateJumlahCadang();});
+$('#peralatan-jumlah_unit_cadangan').on("keyup", function(){calculateJumlahCadang();});
+$('#peralatan-bilangan_cadangan').on("keyup", function(){calculateJumlahCadang();});
         
 function calculateJumlah(){
     var harga_per_unit = 0;
@@ -155,7 +186,24 @@ function calculateJumlah(){
         
     //display at fields accordingly
     $('#peralatan-jumlah').val(jumlah);
-}  
+}
+
+function calculateJumlahCadang(){
+    var harga_per_unit = 0;
+    var jumlah_unit = 0;
+    var bilangan = 0;
+    var jumlah = 0;
+        
+    if($('#peralatan-harga_per_unit_cadangan').val() > 0){harga_per_unit = parseFloat($('#peralatan-harga_per_unit_cadangan').val());}
+    if($('#peralatan-jumlah_unit_cadangan').val() > 0){jumlah_unit = parseInt($('#peralatan-jumlah_unit_cadangan').val());}
+    if($('#peralatan-bilangan_cadangan').val() > 0){bilangan = parseInt($('#peralatan-bilangan_cadangan').val());}
+    
+    // Jumlah formula
+    jumlah = harga_per_unit * jumlah_unit * bilangan;
+        
+    //display at fields accordingly
+    $('#peralatan-jumlah_cadangan').val(jumlah);
+} 
         
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
     

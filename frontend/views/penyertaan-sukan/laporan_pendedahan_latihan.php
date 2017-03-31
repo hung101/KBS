@@ -98,7 +98,8 @@ $model->tempat = $parentModel->tempat_penginapan;
                                 'data'=>ArrayHelper::map(RefSukan::find()->where(['aktif' => 1])->all(),'id', 'desc'),
                                  'options' => ['placeholder' => Placeholder::sukan],
                                     'pluginOptions' => [
-                                    'allowClear' => true
+                                    'allowClear' => true,
+									'disabled' => true,
                                 ],],
                             'columnOptions'=>['colspan'=>6]],
                         'kategori_kejohanan' => [
@@ -131,7 +132,8 @@ $model->tempat = $parentModel->tempat_penginapan;
                             'options'=>[
                                 'pluginOptions' => [
                                     'autoclose'=>true,
-                                ]
+                                ],
+								'options'=>['disabled'=>true]
                             ],
                             'columnOptions'=>['colspan'=>5]],
                         'tarikh_tamat' => [
@@ -141,7 +143,8 @@ $model->tempat = $parentModel->tempat_penginapan;
                             'options'=>[
                                 'pluginOptions' => [
                                     'autoclose'=>true,
-                                ]
+                                ],
+								'options'=>['disabled'=>true]
                             ],
                             'columnOptions'=>['colspan'=>5]],
                     ],
@@ -150,7 +153,7 @@ $model->tempat = $parentModel->tempat_penginapan;
                     'columns'=>12,
                     'autoGenerateColumns'=>false, // override columns setting
                     'attributes' => [
-                        'tempat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                        'tempat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true, 'disabled' => true]],
                     ],
                 ],
                 [

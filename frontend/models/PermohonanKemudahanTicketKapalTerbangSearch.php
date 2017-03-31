@@ -67,10 +67,10 @@ class PermohonanKemudahanTicketKapalTerbangSearch extends PermohonanKemudahanTic
         ]);
 
         $query->andFilterWhere(['like', 'nama_pemohon', $this->nama_pemohon])
-            ->andFilterWhere(['like', 'tbl_ref_bahagian_kemudahan.desc', $this->bahagian])
+            ->andFilterWhere(['like', 'tbl_ref_bahagian_aduan.desc', $this->bahagian])
             ->andFilterWhere(['like', 'jawatan', $this->jawatan])
             ->andFilterWhere(['like', 'destinasi', $this->destinasi])
-            ->andFilterWhere(['like', 'tbl_ref_program.desc', $this->nama_program])
+            ->andFilterWhere(['like', 'tbl_perancangan_program_plan.nama_program', $this->nama_program])
             ->andFilterWhere(['like', 'no_fail_kelulusan', $this->no_fail_kelulusan])
             ->andFilterWhere(['like', 'aktiviti', $this->aktiviti])
             ->andFilterWhere(['like', 'kod_perbelanjaan', $this->kod_perbelanjaan])
@@ -78,7 +78,7 @@ class PermohonanKemudahanTicketKapalTerbangSearch extends PermohonanKemudahanTic
             ->andFilterWhere(['like', 'atlet', $this->atlet])
             ->andFilterWhere(['like', 'jurulatih', $this->jurulatih])
             ->andFilterWhere(['like', 'pegawai_teknikal', $this->pegawai_teknikal])
-                ->andFilterWhere(['like', 'tbl_ref_cawangan_kemudahan.desc', $this->cawangan]);
+                ->andFilterWhere(['like', 'tbl_ref_cawangan.desc', $this->cawangan]);
 
         return $dataProvider;
     }

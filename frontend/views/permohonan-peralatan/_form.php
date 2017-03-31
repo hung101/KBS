@@ -9,6 +9,7 @@ use kartik\builder\FormGrid;
 use yii\grid\GridView;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
+use kartik\widgets\DepDrop;
 use yii\widgets\Pjax;
 use kartik\datecontrol\DateControl;
 
@@ -84,7 +85,7 @@ $cawangan_list = GeneralFunction::getCawangan();
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>4]],
-                'sukan' => [
+/*                 'sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -100,7 +101,31 @@ $cawangan_list = GeneralFunction::getCawangan();
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>4]], */
+					'sukan' => [
+						'type'=>Form::INPUT_WIDGET, 
+						'widgetClass'=>'\kartik\widgets\DepDrop', 
+						'options'=>[
+							'type'=>DepDrop::TYPE_SELECT2,
+							'select2Options'=> [
+								'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+								[
+									'append' => [
+										'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+										'asButton' => true
+									]
+								] : null,
+								'pluginOptions'=>['multiple' => false,'allowClear'=>true]
+							],
+							'data'=>ArrayHelper::map(GeneralFunction::getSukan(),'id', 'desc'),
+							'options'=>['prompt'=>'',],
+							'pluginOptions' => [
+								'depends'=>[Html::getInputId($model, 'cawangan')],
+								'placeholder' => Placeholder::sukan,
+								'url'=>Url::to(['/ref-sukan/subsukan'])],
+							],
+						'columnOptions'=>['colspan'=>4]],
+					
             ],
         ],
         [
@@ -333,23 +358,6 @@ $cawangan_list = GeneralFunction::getCawangan();
     <br>
     <br>-->
     
-    <?php
-        /*echo FormGrid::widget([
-    'model' => $model,
-    'form' => $form,
-    'autoGenerateColumns' => true,
-    'rows' => [
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'nota_urus_setia' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>255]],
-            ]
-        ],
-    ]
-]);*/
-    ?>
-    
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['kelulusan']) || $readonly): ?>
     
     <?php
@@ -374,6 +382,23 @@ $cawangan_list = GeneralFunction::getCawangan();
         ],
     ]
 ]);*/
+    ?>
+    
+    <?php
+    echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+            [
+                'columns'=>12,
+                'autoGenerateColumns'=>false, // override columns setting
+                'attributes' => [
+                    'nota_urus_setia' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>255]],
+                ]
+            ],
+        ]
+    ]);
     ?>
     
     <?php

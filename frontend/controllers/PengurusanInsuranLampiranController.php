@@ -10,6 +10,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
+use app\models\RefDokumenPengurusanInsurans;
+
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 
@@ -63,8 +65,13 @@ class PengurusanInsuranLampiranController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+		$model = $this->findModel($id);
+		
+		$ref = RefDokumenPengurusanInsurans::findOne(['id' => $model->nama_dokumen]);
+		$model->nama_dokumen = $ref['desc'];
+		
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

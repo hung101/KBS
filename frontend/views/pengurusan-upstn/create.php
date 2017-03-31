@@ -7,8 +7,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanUpstn */
 
-$this->title = GeneralLabel::createTitle . ' USPTN';
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pengurusan_usptn, 'url' => ['index']];
+$this->title = GeneralLabel::createTitle .' '. GeneralLabel::laporan_pemantauan_usptn;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::laporan_pemantauan_usptn, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-upstn-create">

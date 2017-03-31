@@ -26,6 +26,7 @@ use app\models\RefJenisPermohonan;
 use app\models\RefTahapProgramBinaan;
 use app\models\RefKategoriProgramBinaan;
 use app\models\RefJantina;
+use app\models\RefBahagianProgramBinaan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -171,7 +172,21 @@ if(isset($model->jenis_permohonan))
                                     'allowClear' => true
                                 ],],
                             'columnOptions'=>['colspan'=>3]],*/
-                        'jabatan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                        //'jabatan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+						'bahagian' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-bahagian-program-binaan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefBahagianProgramBinaan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::bahagian],],
+                            'columnOptions'=>['colspan'=>3]],
                         'bilangan_peserta' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
                     ],
                 ],
@@ -328,15 +343,6 @@ if(isset($model->jenis_permohonan))
                                 'data'=>ArrayHelper::map(RefKategoriProgramBinaan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                                 'options' => ['placeholder' => Placeholder::kategori],],
                             'columnOptions'=>['colspan'=>3]], */
-                ],
-            ],
-            [
-                'columns'=>12,
-                'autoGenerateColumns'=>false, // override columns setting
-                'attributes' => [  
-                    'usptn_sokongan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
-                    'usptn_kelulusan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
-                    //'usptn_kuota_lap' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
                 ],
             ],
         ]
@@ -616,13 +622,15 @@ if(isset($model->jenis_permohonan))
     
     <?php 
         $jumlah_dipohon = 0.00;
+		$jumlah_dicadang = 0.00;
         foreach($dataProviderProgramBinaanKos->models as $PBKmodel){
             $jumlah_dipohon += $PBKmodel->jumlah_dipohon;
+			$jumlah_dicadang += $PBKmodel->anggaran_perbelanjaan;
         }
     ?>
     
     <h4><?= GeneralLabel::jumlah_yang_dipohon ?> (RM): <?php echo number_format($jumlah_dipohon, 2);?></h4>
-    
+    <h4><?= GeneralLabel::jumlah_dicadang ?> (RM): <?php echo number_format($jumlah_dicadang, 2);?></h4>
     <?php Pjax::end(); ?>
     
      <?php if(!$readonly): ?>
@@ -806,9 +814,11 @@ if(isset($model->jenis_permohonan))
             [
 				'label' => GeneralLabel::jantina,
 				'value' => function ($data) {
-                    $query = RefJantina::findOne(['id' => $data->refJurulatih->jantina]);
-                    $ref = $query['desc'];
-					return $ref;
+					if(isset($data->refJurulatih->jantina) && $data->refJurulatih->jantina != null){
+						$query = RefJantina::findOne(['id' => $data->refJurulatih->jantina]);
+						$ref = $query['desc'];
+						return $ref;
+					} else return null;
 				},
 			],
             ['class' => 'yii\grid\ActionColumn',
@@ -1083,6 +1093,25 @@ if(isset($model->jenis_permohonan))
                     'usptn_lap_tertunggak' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
                 ],
             ],
+            [
+                'columns'=>12,
+                'autoGenerateColumns'=>false, // override columns setting
+                'attributes' => [  
+					'tarikh_sokongan' => [
+                        'type'=>Form::INPUT_WIDGET, 
+                        'widgetClass'=> DateControl::classname(),
+                        'ajaxConversion'=>false,
+                        'options'=>[
+                            'pluginOptions' => [
+                                'autoclose'=>true,
+                            ]
+                        ],
+                    'columnOptions'=>['colspan'=>3]],
+                    'usptn_sokongan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                    //'usptn_kelulusan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                    //'usptn_kuota_lap' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                ],
+            ],
         ]
     ]);
     ?>
@@ -1108,6 +1137,7 @@ if(isset($model->jenis_permohonan))
                             ]
                         ],
                     'columnOptions'=>['colspan'=>3]],
+					'usptn_kelulusan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
                 ],
             ],
         ]
@@ -1130,12 +1160,14 @@ if(isset($model->jenis_permohonan))
 <?php
 $URL_SET_PROGRAM = Url::to(['/pengurusan-program-binaan/set-program']);
 $URL_SET_SUKAN = Url::to(['/pengurusan-program-binaan/set-sukan']);
+$URL_SET_BAHAGIAN = Url::to(['/pengurusan-program-binaan/set-bahagian']);
 
 $script = <<< JS
         
 $(document).ready(function(){
     // changeSukan();
     changeProgram();
+	changeBahagian();
 });
         
 // $('#pengurusanprogrambinaan-sukan').change(function(){
@@ -1144,6 +1176,10 @@ $(document).ready(function(){
         
 $('#pengurusanprogrambinaan-program').change(function(){
     changeProgram();
+});
+
+$('#pengurusanprogrambinaan-bahagian').change(function(){
+    changeBahagian();
 });
         
 function changeSukan(){
@@ -1154,6 +1190,13 @@ function changeSukan(){
 function changeProgram(){
     $.get('$URL_SET_PROGRAM',{program_id:$('#pengurusanprogrambinaan-program').val()},function(data){
     });
+}
+
+function changeBahagian(){
+	if($('#pengurusanprogrambinaan-bahagian').val() != ''){		
+		$.get('$URL_SET_BAHAGIAN',{bahagian_id:$('#pengurusanprogrambinaan-bahagian').val()},function(data){
+		});
+	}
 }
 
         

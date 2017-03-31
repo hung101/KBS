@@ -47,7 +47,7 @@ class KhidmatPerubatanDanSainsSukan extends \yii\db\ActiveRecord
         return [
             [['kategori_servis', 'tempat', 'tarikh_mula', 'tarikh_tamat', 'status'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['kategori_servis', 'servis', 'sukan', 'program', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['tarikh_mula', 'tarikh_tamat', 'created', 'updated'], 'safe'],
+            [['tarikh_mula', 'tarikh_tamat', 'created', 'updated', 'catatan'], 'safe'],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['status', 'mod_latihan', 'sasaran'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -70,6 +70,7 @@ class KhidmatPerubatanDanSainsSukan extends \yii\db\ActiveRecord
             'tarikh_tamat' => GeneralLabel::tarikh_tamat,
             'status' => GeneralLabel::status,
             'muat_naik' => GeneralLabel::muat_naik,
+			'catatan' => GeneralLabel::catatan,
             'kecederaan_jika_ada' => 'Kecederaan Jika Ada',
             'sukan' => 'Sukan',
             'program' => 'Program',

@@ -21,7 +21,7 @@ class PenilaianPestasiSearch extends PenilaianPestasi
         return [
             [['penilaian_pestasi_id', 'atlet'], 'integer'],
             [['tahap_sihat', 'atlet_id', 'pencapaian_sukan_dalam_tahun_yang_dinilai', 'kecederaan_jika_ada', 'laporan_kesihatan', 'skim_hadiah_kemenangan_sukan', 'sukan',
-                'program', 'acara', 'kejohanan'], 'safe'],
+                'program', 'acara', 'kejohanan', 'nama_kejohanan_temasya', 'tarikh_nilai_mula', 'tarikh_nilai_tamat'], 'safe'],
             [['elaun_yang_diterima'], 'number'],
         ];
     }
@@ -50,6 +50,7 @@ class PenilaianPestasiSearch extends PenilaianPestasi
                 ->joinWith(['refProgramSemasaSukanAtlet'])
                 ->joinWith(['refAcara'])
                 ->joinWith(['refPerancanganProgram'])
+				->joinWith(['refPerancanganProgramPlan'])
                 ->joinWith(['refPenilaianPrestasiAtletSasaran']);
 
         $dataProvider = new ActiveDataProvider([
@@ -68,6 +69,8 @@ class PenilaianPestasiSearch extends PenilaianPestasi
             'penilaian_pestasi_id' => $this->penilaian_pestasi_id,
             //'atlet_id' => $this->atlet_id,
             'elaun_yang_diterima' => $this->elaun_yang_diterima,
+			'tarikh_nilai_mula' => $this->tarikh_nilai_mula,
+			'tarikh_nilai_tamat' => $this->tarikh_nilai_tamat,
             'tbl_penilaian_prestasi_atlet_sasaran.atlet' => $this->atlet,
         ]);
 
@@ -80,7 +83,8 @@ class PenilaianPestasiSearch extends PenilaianPestasi
                 ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
                 ->andFilterWhere(['like', 'tbl_ref_program_semasa_sukan_atlet.desc', $this->program])
                 ->andFilterWhere(['like', 'tbl_ref_acara.desc', $this->acara])
-                ->andFilterWhere(['like', 'tbl_perancangan_program.nama_program', $this->kejohanan]);
+                ->andFilterWhere(['like', 'tbl_perancangan_program.nama_program', $this->kejohanan])
+				->andFilterWhere(['like', 'tbl_perancangan_program_plan.nama_program', $this->nama_kejohanan_temasya]);
 
         return $dataProvider;
     }

@@ -16,9 +16,11 @@ use yii\helpers\BaseUrl;
 // contant values
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
+use app\models\general\GeneralLabel;
 
 // table reference
 use app\models\PengurusanPermohonanKursusPersatuan;
+use app\models\RefTahapKpsk;
 
 /**
  * PenilaianPesertaTerhadapKursusController implements the CRUD actions for PenilaianPesertaTerhadapKursus model.
@@ -73,6 +75,29 @@ class PenilaianPesertaTerhadapKursusController extends Controller
         
         $ref = PengurusanPermohonanKursusPersatuan::findOne(['pengurusan_permohonan_kursus_persatuan_id' => $model->pengurusan_permohonan_kursus_persatuan_id]);
         $model->pengurusan_permohonan_kursus_persatuan_id = $ref['agensi'];
+		
+		$ref = RefTahapKpsk::findOne(['id' => $model->tahap]);
+		$model->tahap = $ref['desc'];
+		
+		if($model->lain_lain1 === null){
+			$model->lain_lain1 = GeneralLabel::tiada_pilihan_dibuat;
+		} else {
+			if($model->lain_lain1 === 0){
+				$model->lain_lain1 = GeneralLabel::no;
+			} else {
+				$model->lain_lain1 = GeneralLabel::yes;
+			}
+		}
+		
+		if($model->lain_lain2 === null){
+			$model->lain_lain2 = GeneralLabel::tiada_pilihan_dibuat;
+		} else {
+			if($model->lain_lain2 === 0){
+				$model->lain_lain2 = GeneralLabel::no;
+			} else {
+				$model->lain_lain2 = GeneralLabel::yes;
+			}
+		}
         
         $queryPar = null;
         
@@ -245,4 +270,56 @@ class PenilaianPesertaTerhadapKursusController extends Controller
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanKelemahanProgramKursus', $format, $controls, 'laporan_kelemahan_program_kursus');
     }
+	
+	public function actionPrint($id)
+	{
+		if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+        $ref = PengurusanPermohonanKursusPersatuan::findOne(['pengurusan_permohonan_kursus_persatuan_id' => $model->pengurusan_permohonan_kursus_persatuan_id]);
+        $model->pengurusan_permohonan_kursus_persatuan_id = $ref['agensi'];
+		
+		$ref = RefTahapKpsk::findOne(['id' => $model->tahap]);
+		$model->tahap = $ref['desc'];
+		
+		if($model->lain_lain1 === null){
+			$model->lain_lain1 = GeneralLabel::tiada_pilihan_dibuat;
+		} else {
+			if($model->lain_lain1 === 0){
+				$model->lain_lain1 = GeneralLabel::no;
+			} else {
+				$model->lain_lain1 = GeneralLabel::yes;
+			}
+		}
+		
+		if($model->lain_lain2 === null){
+			$model->lain_lain2 = GeneralLabel::tiada_pilihan_dibuat;
+		} else {
+			if($model->lain_lain2 === 0){
+				$model->lain_lain2 = GeneralLabel::no;
+			} else {
+				$model->lain_lain2 = GeneralLabel::yes;
+			}
+		}
+		
+		$items = PenilaianPesertaTerhadapKursusSoalan::find()->where(['penilaian_peserta_terhadap_kursus_id' => $model->penilaian_peserta_terhadap_kursus_id])->all();
+		
+		$pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Maklum Balas Penilaian Peserta Terhadap Kursus';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print_maklum_balas', [
+             'model'  => $model,
+			 'items' => $items,
+			 'title' => $pdf->title,
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->penilaian_peserta_terhadap_kursus_id.'.pdf', 'I'); 
+	}
 }

@@ -5,8 +5,11 @@ namespace frontend\controllers;
 use Yii;
 use app\models\GeranBantuanGaji;
 use frontend\models\GeranBantuanGajiSearch;
+use app\models\GeranBantuanGajiLampiran;
+use frontend\models\GeranBantuanGajiLampiranSearch;
 use app\models\MsnLaporanMaklumatPembayaranGeranBantuan;
 use yii\web\Controller;
+use yii\web\Session;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\BaseUrl;
@@ -108,9 +111,18 @@ class GeranBantuanGajiController extends Controller
         
         //$YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         //$model->kelulusan = $YesNo;
+		
+		$queryPar = null;
+        
+        $queryPar['GeranBantuanGajiLampiranSearch']['geran_bantuan_gaji_id'] = $id;
+        
+        $searchModelGeranBantuanGajiLampiran  = new GeranBantuanGajiLampiranSearch();
+        $dataProviderGeranBantuanGajiLampiran = $searchModelGeranBantuanGajiLampiran->search($queryPar);
         
         return $this->render('view', [
             'model' => $model,
+			'searchModelGeranBantuanGajiLampiran' => $searchModelGeranBantuanGajiLampiran,
+            'dataProviderGeranBantuanGajiLampiran' => $dataProviderGeranBantuanGajiLampiran,
             'readonly' => true,
         ]);
     }
@@ -127,6 +139,17 @@ class GeranBantuanGajiController extends Controller
         }
         
         $model = new GeranBantuanGaji();
+		
+		$queryPar = null;
+        
+        Yii::$app->session->open();
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['GeranBantuanGajiLampiranSearch']['session_id'] = Yii::$app->session->id;
+        }
+        
+        $searchModelGeranBantuanGajiLampiran  = new GeranBantuanGajiLampiranSearch();
+        $dataProviderGeranBantuanGajiLampiran = $searchModelGeranBantuanGajiLampiran->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $upload = new Upload();
@@ -137,6 +160,10 @@ class GeranBantuanGajiController extends Controller
             $file = UploadedFile::getInstance($model, 'persetujuan_terima');
             if($file){
                 $model->persetujuan_terima = $upload->uploadFile($file, Upload::geranBantuanGajiFolder, $model->geran_bantuan_gaji_id);
+            }
+			if(isset(Yii::$app->session->id)){
+                GeranBantuanGajiLampiran::updateAll(['geran_bantuan_gaji_id' => $model->geran_bantuan_gaji_id], 'session_id = "'.Yii::$app->session->id.'"');
+                GeranBantuanGajiLampiran::updateAll(['session_id' => ''], 'geran_bantuan_gaji_id = "'.$model->geran_bantuan_gaji_id.'"');
             }
             if($model->save()){
                 $query = RefKelulusanGeranBantuanGajiJurulatih::find()->where(['id' => $model->kelulusan])->andWhere(['or',
@@ -152,6 +179,8 @@ class GeranBantuanGajiController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+				'searchModelGeranBantuanGajiLampiran' => $searchModelGeranBantuanGajiLampiran,
+				'dataProviderGeranBantuanGajiLampiran' => $dataProviderGeranBantuanGajiLampiran,
                 'readonly' => false,
             ]);
         }
@@ -171,6 +200,13 @@ class GeranBantuanGajiController extends Controller
         
         $model = $this->findModel($id);
         $oriKelulusan = $model->kelulusan;
+		
+		$queryPar = null;
+        
+        $queryPar['GeranBantuanGajiLampiranSearch']['geran_bantuan_gaji_id'] = $id;
+        
+        $searchModelGeranBantuanGajiLampiran  = new GeranBantuanGajiLampiranSearch();
+        $dataProviderGeranBantuanGajiLampiran = $searchModelGeranBantuanGajiLampiran->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $upload = new Upload();
@@ -198,6 +234,8 @@ class GeranBantuanGajiController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+				'searchModelGeranBantuanGajiLampiran' => $searchModelGeranBantuanGajiLampiran,
+				'dataProviderGeranBantuanGajiLampiran' => $dataProviderGeranBantuanGajiLampiran,
                 'readonly' => false,
             ]);
         }

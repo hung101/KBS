@@ -18,7 +18,7 @@ class AnugerahAhliJawantankuasaPemilihanSearch extends AnugerahAhliJawantankuasa
     public function rules()
     {
         return [
-            [['anugerah_ahli_jawantankuasa_pemilihan_id', 'created_by', 'updated_by'], 'integer'],
+            [['anugerah_ahli_jawantankuasa_pemilihan_id', 'created_by', 'updated_by', 'tahun'], 'integer'],
             [['perwakilan', 'nama', 'jawatan', 'created', 'updated'], 'safe'],
         ];
     }
@@ -41,9 +41,9 @@ class AnugerahAhliJawantankuasaPemilihanSearch extends AnugerahAhliJawantankuasa
      */
     public function search($params)
     {
-        $query = AnugerahAhliJawantankuasaPemilihan::find()
-                ->joinWith(['refPerwakilan'])
-                ->joinWith(['refJawatanJawatankuasaPemilihan']);
+        $query = AnugerahAhliJawantankuasaPemilihan::find();
+                // ->joinWith(['refPerwakilan'])
+                // ->joinWith(['refJawatanJawatankuasaPemilihan']);
 
         // add conditions that should always apply here
 
@@ -66,11 +66,12 @@ class AnugerahAhliJawantankuasaPemilihanSearch extends AnugerahAhliJawantankuasa
             'updated_by' => $this->updated_by,
             'created' => $this->created,
             'updated' => $this->updated,
+            'tahun' => $this->tahun,
         ]);
 
-        $query->andFilterWhere(['like', 'tbl_ref_perwakilan.desc', $this->perwakilan])
-            ->andFilterWhere(['like', 'nama', $this->nama])
-            ->andFilterWhere(['like', 'tbl_ref_jawatan_jawatankuasa_pemilihan.desc', $this->jawatan]);
+        // $query->andFilterWhere(['like', 'tbl_ref_perwakilan.desc', $this->perwakilan])
+            // ->andFilterWhere(['like', 'nama', $this->nama])
+            // ->andFilterWhere(['like', 'tbl_ref_jawatan_jawatankuasa_pemilihan.desc', $this->jawatan]);
 
         return $dataProvider;
     }

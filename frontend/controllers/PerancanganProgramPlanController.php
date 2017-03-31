@@ -3,11 +3,15 @@
 namespace frontend\controllers;
 
 use Yii;
+use app\models\PerancanganProgramPlanMaster;
+use frontend\models\PerancanganProgramPlanMasterSearch;
 use app\models\PerancanganProgramPlan;
 use frontend\models\PerancanganProgramPlanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Session;
+use yii\helpers\Url;
 use yii\helpers\Json;
 use yii\web\UploadedFile;
 use yii\web\Response;
@@ -60,7 +64,7 @@ class PerancanganProgramPlanController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
-        $searchModel = new PerancanganProgramPlanSearch();
+        $searchModel = new PerancanganProgramPlanMasterSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -81,31 +85,28 @@ class PerancanganProgramPlanController extends Controller
         }
         
         $model = $this->findModel($id);
+		
+		$queryPar = null;
         
-        $ref = RefKategoriPelan::findOne(['id' => $model->bahagian]);
-        $model->bahagian = $ref['desc'];
+        $queryPar['PerancanganProgramPlanSearch']['perancangan_program_plan_master_id'] = $id;
+		
+		$searchModelPerancanganProgramPlanItem  = new PerancanganProgramPlanSearch();
+        $dataProviderPerancanganProgramPlanItem = $searchModelPerancanganProgramPlanItem->search($queryPar);
         
         $ref = RefCawangan::findOne(['id' => $model->cawangan]);
         $model->cawangan = $ref['desc'];
         
-        $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->jenis_program]);
-        $model->jenis_program = $ref['desc'];
-        
-        $ref = RefJenisPelan::findOne(['id' => $model->jenis_aktiviti]);
-        $model->jenis_aktiviti = $ref['desc'];
-        
-        $ref = RefKedudukanKejohanan::findOne(['id' => $model->status_program]);
-        $model->status_program = $ref['desc'];
+        $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program]);
+        $model->program = $ref['desc'];
         
         $ref = RefSukan::findOne(['id' => $model->sukan]);
         $model->sukan = $ref['desc'];
         
-        $ref = RefStatusPermohonanProgramBinaan::findOne(['id' => $model->status_permohonan]);
-        $model->status_permohonan = $ref['desc'];
-        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,
+			'searchModelPerancanganProgramPlanItem' => $searchModelPerancanganProgramPlanItem,
+            'dataProviderPerancanganProgramPlanItem' => $dataProviderPerancanganProgramPlanItem,
         ]);
     }
 
@@ -120,22 +121,34 @@ class PerancanganProgramPlanController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
-        $model = new PerancanganProgramPlan();
+        $model = new PerancanganProgramPlanMaster();
+		
+		$queryPar = null;
+        
+        Yii::$app->session->open();
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['PerancanganProgramPlanSearch']['session_id'] = Yii::$app->session->id;
+        }
+		
+		$searchModelPerancanganProgramPlanItem  = new PerancanganProgramPlanSearch();
+        $dataProviderPerancanganProgramPlanItem = $searchModelPerancanganProgramPlanItem->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $file = UploadedFile::getInstance($model, 'muat_naik');
-            if($file){
-                $model->muat_naik = Upload::uploadFile($file, Upload::perancanganProgramFolder, $model->perancangan_program_id);
+            if(isset(Yii::$app->session->id)){
+                PerancanganProgramPlan::updateAll(['perancangan_program_plan_master_id' => $model->perancangan_program_plan_master_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PerancanganProgramPlan::updateAll(['session_id' => ''], 'perancangan_program_plan_master_id = "'.$model->perancangan_program_plan_master_id.'"');
             }
-            
-            if($model->save()){
-                return $this->redirect(['view', 'id' => $model->perancangan_program_id]);
-            }
+            //if($model->save()){
+            return $this->redirect(['view', 'id' => $model->perancangan_program_plan_master_id]);
+            //}
         }
         
         return $this->render('create', [
             'model' => $model,
             'readonly' => false,
+			'searchModelPerancanganProgramPlanItem' => $searchModelPerancanganProgramPlanItem,
+            'dataProviderPerancanganProgramPlanItem' => $dataProviderPerancanganProgramPlanItem,
         ]);
     }
 
@@ -152,20 +165,25 @@ class PerancanganProgramPlanController extends Controller
         }
         
         $model = $this->findModel($id);
+		
+		$queryPar = null;
+        
+        $queryPar['PerancanganProgramPlanSearch']['perancangan_program_plan_master_id'] = $id;
+		
+		$searchModelPerancanganProgramPlanItem  = new PerancanganProgramPlanSearch();
+        $dataProviderPerancanganProgramPlanItem = $searchModelPerancanganProgramPlanItem->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $file = UploadedFile::getInstance($model, 'muat_naik');
-            if($file){
-                $model->muat_naik = Upload::uploadFile($file, Upload::perancanganProgramFolder, $model->perancangan_program_id);
-            }
             
             if($model->save()){
-                return $this->redirect(['view', 'id' => $model->perancangan_program_id]);
+                return $this->redirect(['view', 'id' => $model->perancangan_program_plan_master_id]);
             }
         } else {
             return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
+				'searchModelPerancanganProgramPlanItem' => $searchModelPerancanganProgramPlanItem,
+				'dataProviderPerancanganProgramPlanItem' => $dataProviderPerancanganProgramPlanItem,
             ]);
         }
     }
@@ -196,7 +214,7 @@ class PerancanganProgramPlanController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = PerancanganProgramPlan::findOne($id)) !== null) {
+        if (($model = PerancanganProgramPlanMaster::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
@@ -212,6 +230,42 @@ class PerancanganProgramPlanController extends Controller
     
     public function actionLaporanKewangan()
     {
+        // if (Yii::$app->user->isGuest) {
+            // return $this->redirect(array(GeneralVariable::loginPagePath));
+        // }
+        
+        // $model = new PerancanganProgramPlan;
+        
+        // if ($model->load(Yii::$app->request->post())) {
+            
+            // $query = PerancanganProgramPlan::find()->all();
+            
+            // if(isset($model->sukan) && $model->sukan != '')
+            // {
+                // echo 'afa';
+            // } 
+            // $query->andFilterWhere([
+            // 'status' => $this->status
+        // ]);
+            
+    
+            // $pdf = new \mPDF('utf-8', 'A4-L');
+
+            // $pdf->title = "Laporan Kewangan Plan Periodisasi";
+            // $stylesheet = file_get_contents('css/report.css');
+
+            // $pdf->WriteHTML($stylesheet,1);
+            
+            // $pdf->WriteHTML($this->renderpartial('generate_kewangan_plan_periodisasi', [
+                  // 'model'  => $model,
+            // ]));
+
+            // $pdf->Output('Laporan Kewangan Plan Periodisasi'.$model->sukan.'_'.$model->jenis_program.'.pdf', 'I');
+        // }
+        
+        // return $this->render('laporan_kewangan_plan', [
+             // 'model' => $model,
+        // ]);
         
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -249,7 +303,7 @@ class PerancanganProgramPlanController extends Controller
         
     }
     
-    public function actionGenerateLaporanKewanganPlanPeriodisasi($tarikh_dari="", $tarikh_hingga="", $sukan="", $program="",  $format="")
+    public function actionGenerateLaporanKewanganPlanPeriodisasi($tarikh_dari, $tarikh_hingga, $sukan, $program, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -257,25 +311,24 @@ class PerancanganProgramPlanController extends Controller
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
-        if($program == "") $program = array();
-        else $program = array($program);
-        
         if($sukan == "") $sukan = array();
         else $sukan = array($sukan);
+        
+        if($program == "") $program = array();
+        else $program = array($program);
         
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
-            'PROGRAM' => $program,
             'SUKAN' => $sukan,
+            'PROGRAM' => $program,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanKewanganPlanPeriodisasi', $format, $controls, 'laporan_kewangan_plan');
     }
     
-    public function actionLaporanPelanPeriodisasi()
+    public function actionLaporanPelanPeriodisasi($id)
     {
-        
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
@@ -287,27 +340,13 @@ class PerancanganProgramPlanController extends Controller
             
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-pelan-periodisasi'
-                    , 'tarikh_dari' => $model->tarikh_dari
-                    , 'tarikh_hingga' => $model->tarikh_hingga
-                    , 'cawangan' => $model->cawangan
-                    , 'sukan' => $model->sukan
-                    , 'remark' => $model->remark
-                    , 'competition' => $model->competition
-                    , 'competition_target' => $model->competition_target
-                    , 'target_medal' => $model->target_medal
+                    , 'id' => $id
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
             } else {
                 return $this->redirect(['generate-laporan-pelan-periodisasi'
-                    , 'tarikh_dari' => $model->tarikh_dari
-                    , 'tarikh_hingga' => $model->tarikh_hingga
-                    , 'cawangan' => $model->cawangan
-                    , 'sukan' => $model->sukan
-                    , 'remark' => $model->remark
-                    , 'competition' => $model->competition
-                    , 'competition_target' => $model->competition_target
-                    , 'target_medal' => $model->target_medal
+                    , 'id' => $id
                     , 'format' => $model->format
                 ]);
             }
@@ -320,42 +359,13 @@ class PerancanganProgramPlanController extends Controller
         
     }
     
-    public function actionGenerateLaporanPelanPeriodisasi($tarikh_dari="", $tarikh_hingga="", $cawangan="", $sukan="", 
-            $remark="", $competition="", $competition_target="",  $target_medal="", $format="")
+    public function actionGenerateLaporanPelanPeriodisasi($id, $format)
     {
-        if($tarikh_dari == "") $tarikh_dari = array();
-        else $tarikh_dari = array($tarikh_dari);
-        
-        if($tarikh_hingga == "") $tarikh_hingga = array();
-        else $tarikh_hingga = array($tarikh_hingga);
-        
-        if($cawangan == "") $cawangan = array();
-        else $cawangan = array($cawangan);
-        
-        if($sukan == "") $sukan = array();
-        else $sukan = array($sukan);
-        
-        if($remark == "") $remark = array();
-        else $remark = array($remark);
-        
-        if($competition == "") $competition = array();
-        else $competition = array($competition);
-        
-        if($competition_target == "") $competition_target = array();
-        else $competition_target = array($competition_target);
-        
-        if($target_medal == "") $target_medal = array();
-        else $target_medal = array($target_medal);
+        if($id == "") $id = array();
+        else $id = array($id);
         
         $controls = array(
-            'FROM_DATE' => $tarikh_dari,
-            'TO_DATE' => $tarikh_hingga,
-            'CAWANGAN' => $cawangan,
-            'SUKAN' => $sukan,
-            'PHASE_COMPETITION' => $competition,
-            'PHASE_REMARK' => $remark,
-            'PHASE_TARGET' => $competition_target,
-            'TARGET_MEDAL' => $target_medal,
+            'ID' => $id,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanPelanPeriodisasi', $format, $controls, 'laporan_pelan_periodisasi');
@@ -366,7 +376,7 @@ class PerancanganProgramPlanController extends Controller
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             $id = $_GET['id'];
-            $model = $this->findModel($id);
+            $model = PerancanganProgramPlan::findOne($id);
             return $model;
         }
     }

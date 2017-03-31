@@ -19,6 +19,7 @@ class ForumSeminarPersidanganDiLuarNegaraSearch extends ForumSeminarPersidanganD
     {
         return [
             [['forum_seminar_persidangan_di_luar_negara_id'], 'integer'],
+			[['jumlah_diluluskan'], 'number'],
             [['nama', 'negara', 'status_permohonan', 'catatan'], 'safe'],
             [['amaun'], 'number'],
         ];
@@ -61,6 +62,7 @@ class ForumSeminarPersidanganDiLuarNegaraSearch extends ForumSeminarPersidanganD
         $query->andFilterWhere([
             'forum_seminar_persidangan_di_luar_negara_id' => $this->forum_seminar_persidangan_di_luar_negara_id,
             'amaun' => $this->amaun,
+			'jumlah_diluluskan' => $this->jumlah_diluluskan,
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama])

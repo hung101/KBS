@@ -43,7 +43,7 @@ use app\models\general\GeneralMessage;
         }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data'], 'id'=>$model->formName()]); ?>
     
     <br>
     <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_penyelaras_cap; ?></strong></pre>
@@ -112,8 +112,39 @@ use app\models\general\GeneralMessage;
         ],
     ]
 ]);
-        ?>
+	// Muatnaik Surat Permohonan Rasmi Upload
     
+    $label = $model->getAttributeLabel('surat_permohonan');
+    
+    if($model->surat_permohonan){
+        echo "<div class='required'>";
+        echo "<label>" . $model->getAttributeLabel('surat_permohonan') . "</label><br>";
+        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->surat_permohonan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        echo "</div>";
+        
+        $label = false;
+    }
+    
+    if(!$readonly){
+        echo "<div class='required'>";
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'surat_permohonan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'label'=>$label],
+                        ],
+                    ],
+                ]
+            ]);
+        echo "</div>";
+    }
+	?>
+	
     <br>
     <br>
     <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_agensi_cap; ?></strong></pre>
@@ -242,7 +273,7 @@ use app\models\general\GeneralMessage;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'tempat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>90]],
-                'nama_penganjur' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
+                //'nama_penganjur' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
                 'no_tel_bimbit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
             ],
         ],
@@ -449,13 +480,26 @@ use app\models\general\GeneralMessage;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
+				'tarikh_permohonan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'type'=>DateControl::FORMAT_DATETIME,
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                                    'todayBtn' => true,
+                        ],
+                        'options'=>['disabled'=>true]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
             ]
         ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'jumlah_diluluskan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>10]],
+                //'jumlah_diluluskan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>10]],
                 'kod_kursus' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>30]],
             ]
         ],
@@ -513,6 +557,9 @@ use app\models\general\GeneralMessage;
             'data' => [
                     'confirm' => GeneralMessage::confirmSave,
                 ],]) ?>
+			<?php if(!$model->isNewRecord): ?>
+			<?= Html::a(GeneralLabel::borang_profil_peserta, ['/borang-profil-peserta-kpsk/create', 'id' => $model->pengurusan_permohonan_kursus_persatuan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
+			<?php endif; ?>
         <?php endif; ?>
     </div>
 

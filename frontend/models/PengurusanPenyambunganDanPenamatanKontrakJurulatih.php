@@ -64,11 +64,11 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatih extends \yii\db\ActiveR
             [['jurulatih', 'tarikh_mula', 'status_permohonan', 'tarikh_tamat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['jurulatih'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah_gaji_elaun', 'cadangan_jumlah_gaji_elaun'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['tarikh_mula_lantikan', 'tarikh_tamat_lantikan', 'penamatan_tarikh_berkuatkuasa', 'tarikh_jkb'], 'safe'],
+            [['tarikh_mula_lantikan', 'tarikh_tamat_lantikan', 'penamatan_tarikh_berkuatkuasa', 'tarikh_jkb', 'tarikh_mpj'], 'safe'],
             //[[ 'muat_naik_document'], 'string', 'max' => 100],
-            [['status_permohonan', 'jenis_permohonan', 'program_baru', 'cadangan_gaji_elaun', 'bil_jkb'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['status_permohonan', 'jenis_permohonan', 'program_baru', 'cadangan_gaji_elaun', 'bil_jkb', 'bil_mpj'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['gaji_elaun', 'program'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['sebab', 'muat_naik_cadangan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['sebab', 'muat_naik_cadangan', 'kelulusan_dkp', 'catatan_jkb', 'pengerusi', 'catatan_mpj'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik_document'],'validateFileUpload', 'skipOnEmpty' => false]
         ];
     }
@@ -92,9 +92,15 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatih extends \yii\db\ActiveR
             'cadangan_gaji_elaun' => GeneralLabel::gaji_elaun,
             'jenis_permohonan' => GeneralLabel::jenis_permohonan,
             'sebab' => 'Sebab',
-            'bil_jkb' => 'Bil JKB',
-            'tarikh_jkb' => 'Tarikh JKB',
+            'bil_jkb' => GeneralLabel::bilangan_jkb,
+            'tarikh_jkb' => GeneralLabel::tarikh_jkb,
             'muat_naik_cadangan' => GeneralLabel::upload,
+			'kelulusan_dkp' => GeneralLabel::kelulusan_dkp,
+			'catatan_jkb' => GeneralLabel::catatan,
+            'bil_mpj' => GeneralLabel::bilangan_mpj,
+			'tarikh_mpj' => GeneralLabel::tarikh_mpj,
+			'pengerusi' => GeneralLabel::pengerusi,
+			'catatan_mpj' => GeneralLabel::catatan,
         ];
     }
     

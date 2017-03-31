@@ -8,6 +8,9 @@ use kartik\builder\FormGrid;
 use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
 use yii\helpers\Url;
+use yii\grid\GridView;
+use yii\bootstrap\Modal;
+use yii\widgets\Pjax;
 
 // table reference
 use app\models\Jurulatih;
@@ -34,6 +37,13 @@ use app\models\general\GeneralMessage;
 <div class="geran-bantuan-gaji-form">
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
+	<?php
+        if(!$readonly){
+            $template = '{view} {update} {delete}';
+        } else {
+            $template = '{view}';
+        }
+    ?>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
@@ -365,6 +375,7 @@ use app\models\general\GeneralMessage;
     <?php endif; ?>
     
     <?php
+	/*
     // Muat Naik Dokumen
     if($model->salinan_tawaran){
         echo "<label>" . $model->getAttributeLabel('salinan_tawaran') . "</label><br>";
@@ -425,41 +436,228 @@ use app\models\general\GeneralMessage;
                 ],
             ]
         ]);
-    }
+    }*/
     ?>
+	<h3><?= GeneralLabel::muat_naik ?></h3>
+	
+	<?php 
+		Modal::begin([
+			'header' => '<h3 id="modalTitle"></h3>',
+			'id' => 'modal',
+			'size' => 'modal-lg',
+			'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
+			'options' => [
+				'tabindex' => false // important for Select2 to work properly
+			],
+		]);
+		
+		echo '<div id="modalContent"></div>';
+		
+		Modal::end();
+	?>
+    
+    <?php Pjax::begin(['id' => 'geranBantuanGajiLampiranGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderGeranBantuanGajiLampiran,
+        //'filterModel' => $searchModelPengurusanInsuranLampiran,
+        'id' => 'geranBantuanGajiLampiranGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+			[
+                'attribute' => 'nama_dokumen',
+                'value' => 'refDokumenGeranBantuanGaji.desc',
+            ],
+            [
+                'attribute' => 'lampiran',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::lampiran,
+                ],
+                'format' => 'raw',
+                'value'=>function ($model) {
+                    if($model->lampiran){
+                        return Html::a(GeneralLabel::viewAttachment, 'javascript:void(0);', 
+                                        [ 
+                                            'onclick' => 'viewUpload("'.\Yii::$app->request->BaseUrl.'/' . $model->lampiran .'");'
+                                        ]);
+                    } else {
+                        return "";
+                    }
+                },
+            ],
+            //'session_id',
+            //'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['geran-bantuan-gaji-lampiran/delete', 'id' => $model->geran_bantuan_gaji_lampiran_id]).'", "'.GeneralMessage::confirmDelete.'", "geranBantuanGajiLampiranGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['geran-bantuan-gaji-lampiran/update', 'id' => $model->geran_bantuan_gaji_lampiran_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::lampiran.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['geran-bantuan-gaji-lampiran/view', 'id' => $model->geran_bantuan_gaji_lampiran_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::lampiran.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        $geran_bantuan_gaji_id = "";
+        
+        if(isset($model->geran_bantuan_gaji_id)){
+            $geran_bantuan_gaji_id = $model->geran_bantuan_gaji_id;
+        }
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['geran-bantuan-gaji-lampiran/create', 'geran_bantuan_gaji_id' => $geran_bantuan_gaji_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::lampiran.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
     
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['kelulusan']) || $readonly): ?>
+    <pre style="text-align: center"><strong>MPJ</strong></pre>
     <?php
         echo FormGrid::widget([
-    'model' => $model,
-    'form' => $form,
-    'autoGenerateColumns' => true,
-    'rows' => [
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'kelulusan' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-kelulusan-geran-bantuan-gaji-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefKelulusanGeranBantuanGajiJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kelulusan],
-'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
-                    'columnOptions'=>['colspan'=>3]],
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'tarikh_mpj' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=> DateControl::classname(),
+                            'ajaxConversion'=>false,
+                            'options'=>[
+                                'pluginOptions' => [
+                                    'autoclose'=>true,
+                                ]
+                            ],
+                            'columnOptions'=>['colspan'=>3]],
+                        'bil_mpj' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'pengerusi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'catatan_mpj' => ['type'=>Form::INPUT_TEXTAREA, 'options'=>['rows'=>2],'columnOptions'=>['colspan'=>12]],
+                    ]
+                ],
             ]
-        ],
-    ]
-]);
+        ]);
+    ?>
+	
+	<br>
+    <pre style="text-align: center"><strong>JKB</strong></pre>
+    <?php
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'tarikh_jkb' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=> DateControl::classname(),
+                            'ajaxConversion'=>false,
+                            'options'=>[
+                                'pluginOptions' => [
+                                    'autoclose'=>true,
+                                ]
+                            ],
+                            'columnOptions'=>['colspan'=>4]],
+                        'bil_jkb' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'kelulusan_dkp' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'catatan_jkb' => ['type'=>Form::INPUT_TEXTAREA, 'options'=>['rows'=>2],'columnOptions'=>['colspan'=>12]],
+                    ]
+                ],
+            ]
+        ]);
+    ?>
+	<hr>
+	<?php
+        echo FormGrid::widget([
+			'model' => $model,
+			'form' => $form,
+			'autoGenerateColumns' => true,
+			'rows' => [
+				[
+					'columns'=>12,
+					'autoGenerateColumns'=>false, // override columns setting
+					'attributes' => [
+						'kelulusan' => [
+							'type'=>Form::INPUT_WIDGET, 
+							'widgetClass'=>'\kartik\widgets\Select2',
+							'options'=>[
+								'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+								[
+									'append' => [
+										'content' => Html::a(Html::icon('edit'), ['/ref-kelulusan-geran-bantuan-gaji-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+										'asButton' => true
+									]
+								] : null,
+								'data'=>ArrayHelper::map(RefKelulusanGeranBantuanGajiJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+								'options' => ['placeholder' => Placeholder::kelulusan],
+		'pluginOptions' => [
+									'allowClear' => true
+								],],
+							'columnOptions'=>['colspan'=>3]],
+					]
+				],
+			]
+		]);
     ?>
     <?php endif; ?>
 

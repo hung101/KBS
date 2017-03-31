@@ -43,7 +43,9 @@ class MesyuaratJkkKehadiranSearch extends MesyuaratJkkKehadiran
     {
         $query = MesyuaratJkkKehadiran::find()
                 ->joinWith(['refKelulusan'])
-                ->joinWith(['refAgensiJkk']);
+                ->joinWith(['refAgensiJkk'])
+				->joinWith(['pengurusanJkkJkp'])
+				->joinWith(['refJawatanJkkJkp']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

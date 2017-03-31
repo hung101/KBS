@@ -104,7 +104,7 @@ use app\models\general\GeneralMessage;
                             ] : null,
                             'pluginOptions'=>['allowClear'=>true]
                         ],
-                        'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'disciplineAcara'),
                         'options'=>['prompt'=>'',],
                         'pluginOptions' => [
                             'initialize' => true,
@@ -112,7 +112,7 @@ use app\models\general\GeneralMessage;
                             'placeholder' => Placeholder::acara,
                             'url'=>Url::to(['/ref-acara/subacaras'])],
                         ],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
         [

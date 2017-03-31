@@ -354,7 +354,7 @@ use app\models\general\GeneralMessage;
                             'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'name_penuh'),
-                        'options'=>['prompt'=>'',],
+                        'options'=>['prompt'=>'', 'id'=>'atletId'],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'sukan_atlet_jurulatih')],
                             'placeholder' => Placeholder::atlet,
@@ -394,7 +394,7 @@ use app\models\general\GeneralMessage;
                             'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(Jurulatih::find()->all(),'jurulatih_id', 'nama'),
-                        'options'=>['prompt'=>'',],
+                        'options'=>['prompt'=>'', 'id'=>'jurulatihId'],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'sukan_atlet_jurulatih')],
                             'placeholder' => Placeholder::jurulatih,
@@ -601,7 +601,8 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 });
     
 $('#jurulatihId').change(function(){
-    if($(this).val() != ''){
+	//alert($(this).val());
+	if($(this).val() != '' && $(this).val() != null){
         $("#atletId").val('').trigger("change");
     
         $.get('$URLJurulatih',{id:$(this).val()},function(data){
@@ -616,12 +617,11 @@ $('#jurulatihId').change(function(){
             }
         });
     }
-    
 });
             
 $('#atletId').change(function(){
-            
-    if($(this).val() != ''){
+	//alert($(this).val());
+	if($(this).val() != '' && $(this).val() != null){
         $("#jurulatihId").val('').trigger("change");
             
         $.get('$URLAtlet',{id:$(this).val()},function(data){

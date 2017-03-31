@@ -15,6 +15,8 @@ use yii\web\Session;
 use app\models\Atlet;
 use app\models\RefKeputusan;
 use app\models\RefAcara;
+use app\models\PenyertaanSukan;
+use app\models\PenyertaanSukanAcara;
 
 // contant values
 use app\models\general\Placeholder;
@@ -26,16 +28,36 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PenilaianPrestasiAtletSasaran */
 /* @var $form yii\widgets\ActiveForm */
 
-    $session = new Session;
-    $session->open();
+$session = new Session;
+$session->open();
 
-    $atlet_list = Atlet::find()->all();
+$atlet_list = null;
+$kejohananTemasya = null;
+
+if(isset($session['penilaian-pestasi_nama_kejohanan_temasya']) && $session['penilaian-pestasi_nama_kejohanan_temasya']){
+    $penyertaanSukanIds = PenyertaanSukan::find()->select('penyertaan_sukan_id')->where(['nama_kejohanan_temasya' => $session['penilaian-pestasi_nama_kejohanan_temasya']]);
     
-    if(isset($session['penilaian-pestasi_sukan_id'])){
-        $atlet_list = Atlet::find()->joinWith(['refAtletSukan' => function($query) {$query->orderBy(['tbl_atlet_sukan.created' => SORT_DESC])->one();},
-                ])->andWhere(['tbl_atlet_sukan.nama_sukan'=>$session['penilaian-pestasi_sukan_id']])->groupBy('tbl_atlet.atlet_id')->all();
-    }
-        
+    $atlet_list = PenyertaanSukanAcara::find()->joinWith('refAtlet')->where(['IN', 'penyertaan_sukan_id', $penyertaanSukanIds])->groupBy('tbl_penyertaan_sukan_acara.atlet')->all();
+	
+	$atlet_id = 'refAtlet.atlet_id';
+	$atlet_name = 'refAtlet.nameAndIC';
+    
+    $kejohananTemasya = $session['penilaian-pestasi_nama_kejohanan_temasya'];
+    //var_dump(count($atlet_list)); die;
+} else {
+    $atlet_list = Atlet::find()->all();
+	$atlet_id = 'atlet_id';
+	$atlet_name = 'nameAndIC';
+}
+
+$acara_list = null;
+
+if(isset($session['penilaian-pestasi_sukan_id']) && $session['penilaian-pestasi_sukan_id']){
+    $acara_list = RefAcara::find()->where(['=', 'aktif', 1])->andWhere(['=', 'ref_sukan_id', $session['penilaian-pestasi_sukan_id']])->all();
+} else {
+    $acara_list = RefAcara::find()->where(['=', 'aktif', 1])->all();
+}
+$session->close();
 ?>
 
 <div class="penilaian-prestasi-atlet-sasaran-form">
@@ -64,7 +86,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map($atlet_list,'atlet_id', 'nameAndIC'),
+                        'data'=>ArrayHelper::map($atlet_list, $atlet_id, $atlet_name),
                         'options' => ['placeholder' => Placeholder::atlet],
 'pluginOptions' => [
                             'allowClear' => true
@@ -110,7 +132,8 @@ use app\models\general\GeneralMessage;
                             ] : null,
                             'pluginOptions'=>['allowClear'=>true]
                         ],
-                        'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'disciplineAcara'),
+                        //'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'disciplineAcara'),
+                        'data'=>ArrayHelper::map($acara_list,'id', 'desc'),
                         'options'=>['prompt'=>'',],
                         'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
                         'pluginOptions' => [
@@ -175,6 +198,8 @@ use app\models\general\GeneralMessage;
 
 
 <?php
+$URLGetAtletSukan = Url::to(['/penyertaan-sukan-acara/get-atlet-sukan']);
+
 $script = <<< JS
         
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
@@ -204,7 +229,29 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
      });
      return false;
 });
-     
+
+$('#penilaianprestasiatletsasaran-atlet').change(function(){
+    //alert($(this).val());
+    clearForm();
+    $.get('$URLGetAtletSukan', {atlet_id:$(this).val(), kejohanan:'$kejohananTemasya'}, function(data){
+        //alert(data.nama_acara);
+        if(data !== null){
+            //alert(data.keputusan);
+            $('#penilaianprestasiatletsasaran-catatan').val(data.catatan);
+            $('#penilaianprestasiatletsasaran-sasaran').val(data.sasaran);
+            $('#penilaianprestasiatletsasaran-keputusan').select2().val(data.keputusan).trigger("change");
+            $('#penilaianprestasiatletsasaran-acara').select2().val(data.nama_acara).trigger("change");
+        }
+    });
+});  
+
+function clearForm()
+{
+    $('#penilaianprestasiatletsasaran-catatan').val('');
+    $('#penilaianprestasiatletsasaran-sasaran').val('');
+    $('#penilaianprestasiatletsasaran-keputusan').select2().val('').trigger("change");
+    $('#penilaianprestasiatletsasaran-acara').select2().val('').trigger("change");
+}
 
 JS;
         

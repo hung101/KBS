@@ -38,11 +38,15 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const bantuanPenganjuranKejohananSirkitFolder = "bantuan_penganjuran_kejohanan_sirkit";
         const bantuanPenganjuranKejohananSirkitLaporanFolder = "bantuan_penganjuran_kejohanan_sirkit_laporan";
         const bantuanPenganjuranKursusFolder = "bantuan_penganjuran_kursus";
+		const bantuanPentadbiranPejabatFolder = "bantuan_pentadbiran_pejabat";
+		const forumSeminarPersidanganDiLuarNegaraFolder = "forum_seminar_persidangan_di_luar_negara";
+		const pengurusanPermohonanKursusPersatuanFolder = "pengurusan_permohonan_kursus_persatuan";
         const bantuanPenganjuranKursusPegawaiTeknikalFolder = "bantuan_penganjuran_kursus_pegawai_teknikal";
         const bantuanPenganjuranKursusPegawaiTeknikalLaporanFolder = "bantuan_penganjuran_kursus_pegawai_teknikal_laporan";
         const bantuanPenganjuranKursusPenceramahFolder = "bantuan_penganjuran_kursus_penceramah";
         const bantuanPenyertaanPegawaiTeknikalFolder = "bantuan_penyertaan_pegawai_teknikal";
         const bspElaunLatihanPraktikal = "bsp_elaun_latihan_praktikal";
+        const laporanPemantauanJurulatihKategoriFolder = "laporan_pemantauan_jurulatih_kategori";
         const bspBorangBorang = "bsp_borang_borang";
         const bspBorang10Folder = "bsp_borang_10";
         const bspBorang11Folder = "bsp_borang_11";
@@ -64,6 +68,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const farmasiPermohonanUbatanFolder = "farmasi_permohonan_ubatan";
         const gajiDanElaunJurulatihFolder = "gaji_dan_elaun_jurulatih";
         const geranBantuanGajiFolder = "geran_bantuan_gaji";
+		const geranBantuanGajiLampiranFolder = "geran_bantuan_gaji_lampiran";
         const hptLaporanBulananPegawaiFolder = "hpt_laporan_bulanan_pegawai";
         const jurulatihFolder = "jurulatih";
         const jurulatihKelayakan = "jurulatih_kelayakan";

@@ -26,6 +26,8 @@ use app\models\MsnLaporanSenaraiPenganjuranProgramBinaan;
 use app\models\MsnLaporanStatistikProgramBinaanMengikutNegeri;
 use app\models\MsnLaporanStatistikProgramBinaanMengikutSukan;
 use app\models\PengurusanProgramBinaanLaporanPenganjuran;
+use frontend\models\PengurusanProgramBinaanLaporanPenganjuranSukanSearch;
+use app\models\PengurusanProgramBinaanLaporanPenganjuranSukan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -58,6 +60,7 @@ use app\models\RefTahapProgramBinaan;
 use app\models\RefKategoriProgramBinaan;
 use app\models\RefJenisLaporan;
 use app\models\RefJenisAktivitiLaporanPenganjuran;
+use app\models\RefBahagianProgramBinaan;
 
 use common\models\User;
 
@@ -158,6 +161,9 @@ class PengurusanProgramBinaanController extends Controller
         
         $ref = RefJenisPermohonanProgramBinaan::findOne(['id' => $model->jenis_aktiviti]);
         $model->jenis_aktiviti = $ref['desc'];
+		
+		$ref = RefBahagianProgramBinaan::findOne(['id' => $model->bahagian]);
+        $model->bahagian = $ref['desc'];
         
         $queryPar = null;
         
@@ -338,6 +344,9 @@ class PengurusanProgramBinaanController extends Controller
                 
                 PengurusanProgramBinaanJurulatih::updateAll(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id], 'session_id = "'.Yii::$app->session->id.'"');
                 PengurusanProgramBinaanJurulatih::updateAll(['session_id' => ''], 'pengurusan_program_binaan_id = "'.$model->pengurusan_program_binaan_id.'"');
+                
+                PengurusanProgramBinaanSukan::updateAll(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id], 'session_id = "'.Yii::$app->session->id.'"');
+                PengurusanProgramBinaanSukan::updateAll(['session_id' => ''], 'pengurusan_program_binaan_id = "'.$model->pengurusan_program_binaan_id.'"');
             }
   
             if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_pengurusan-program-binaan'])->groupBy('id')->all()) !== null) {
@@ -574,6 +583,16 @@ Majlis Sukan Negara Malaysia.
         
         $session->close();
     }
+	
+	public function actionSetBahagian($bahagian_id){
+        
+        $session = new Session;
+        $session->open();
+
+        $session['pengurusan_program_binaan_bahagian_id'] = $bahagian_id;
+        
+        $session->close();
+    }
     
     public function actionLaporanSenaraiPenganjuranProgramBinaan()
     {
@@ -803,20 +822,20 @@ Majlis Sukan Negara Malaysia.
 
         $pdf = new \mPDF('utf-8', 'A4-L');
 
-        $pdf->title = 'Borang JKK /JKP';
+        $pdf->title = 'Borang JKB';
 
         //$pdf->cssFile = 'report.css';
         $stylesheet = file_get_contents('css/report.css');
 
         $pdf->WriteHTML($stylesheet,1);
-
+        
         $pdf->WriteHTML($this->renderpartial('print_jkk_jkp', [
              'model'  => $model,
              'binaanKosModel' => $binaanKosModel,
              'totalOrang' => $totalOrang,
         ]));
 
-        $pdf->Output('Borang_jkk_jkp_'.$model->pengurusan_program_binaan_id.'.pdf', 'I'); 
+        $pdf->Output('Borang_jkb_'.$model->pengurusan_program_binaan_id.'.pdf', 'I'); 
     }
     
     public function actionPrintBorangPermohonan($id)
@@ -935,22 +954,42 @@ Majlis Sukan Negara Malaysia.
         $pdf->Output('Borang_permohonan_'.$model->pengurusan_program_binaan_id.'.pdf', 'I');
     }
     
-    public function actionLaporanPenganjuran($id)
+    public function actionLaporanPenganjuran($id, $readonly)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }  
         $parentModel = $this->findModel($id);
+        $programBinaanSukan = PengurusanProgramBinaanSukan::find()->where(['pengurusan_program_binaan_id' => $parentModel->pengurusan_program_binaan_id])->all();
+        
         $model = PengurusanProgramBinaanLaporanPenganjuran::findOne(['pengurusan_program_binaan_id' => $id]);
+        
+        //autopopulate if not exist
+        foreach($programBinaanSukan as $pbs){
+            $exist = PengurusanProgramBinaanLaporanPenganjuranSukan::findOne(['pengurusan_program_binaan_id' => $parentModel->pengurusan_program_binaan_id, 'sukan_id' => $pbs->sukan]);
+            if($exist === NULL){
+                $insert = new PengurusanProgramBinaanLaporanPenganjuranSukan;
+                $insert->pengurusan_program_binaan_id = $parentModel->pengurusan_program_binaan_id;
+                $insert->sukan_id = $pbs->sukan;
+                $insert->save();
+            }
+        }
+        
+        $queryPar = null;
+        
+        $queryPar['PengurusanProgramBinaanLaporanPenganjuranSukanSearch']['pengurusan_program_binaan_id'] = $id;
+        
+        $searchModelProgramBinaanLaporanPenganjuranSukan = new PengurusanProgramBinaanLaporanPenganjuranSukanSearch();
+        $dataProviderProgramBinaanLaporanPenganjuranSukan = $searchModelProgramBinaanLaporanPenganjuranSukan->search($queryPar, $id);
         
         if($model === NULL) {
             $model = new PengurusanProgramBinaanLaporanPenganjuran;
             //autopopulate for new insert
             $model->negeri = $parentModel->negeri;
             
-            if(isset($parentModel->sukan) && $parentModel->sukan != null){
-                $model->sukan = explode(',',$parentModel->sukan);
-            }
+            // if(isset($parentModel->sukan) && $parentModel->sukan != null){
+                // $model->sukan = explode(',',$parentModel->sukan);
+            // }
             $model->aktiviti = $parentModel->nama_aktiviti;
             $model->tahap = $parentModel->usptn_tahap;
             $model->tempat = $parentModel->tempat;
@@ -1020,7 +1059,7 @@ Majlis Sukan Negara Malaysia.
             
         } else {
             //var_dump($model->sukan); die;
-            $model->sukan = explode(',',$model->sukan);
+            //$model->sukan = explode(',',$model->sukan);
         }
         
 
@@ -1030,23 +1069,51 @@ Majlis Sukan Negara Malaysia.
             //echo '<pre>';
             $model->load(Yii::$app->request->post());
             $model->pengurusan_program_binaan_id = $parentModel->pengurusan_program_binaan_id;
-            if($model->sukan){
-                $model->sukan = implode(",",$model->sukan);
-            }
+            // if($model->sukan){
+                // $model->sukan = implode(",",$model->sukan);
+            // }
             //var_dump($model->sukan); die;
-            if($model->save())
-            {
-                Yii::$app->session->setFlash('success', 'Laporan berjaya dikemaskini');
+            if($model->save()) {
+                return $this->redirect(['laporan-penganjuran', 'id' => $model->pengurusan_program_binaan_id, 'readonly' => true]);
             }
             //refresh model sukan model after kemaskini
-            if(isset($model->sukan) && $model->sukan != null)
-            $model->sukan = explode(',',$model->sukan);
+            // if(isset($model->sukan) && $model->sukan != null)
+            // $model->sukan = explode(',',$model->sukan);
             
         }
+        
+        if($readonly === '1') {
+            $readonly = true;
+            
+            if(isset($model->tarikh_mula))
+            {
+                $model->tarikh_mula = date('d/m/Y',strtotime($model->tarikh_mula));
+            }
+            
+            if(isset($model->tarikh_tamat))
+            {
+                $model->tarikh_tamat = date('d/m/Y',strtotime($model->tarikh_tamat));
+            }
+            
+            $ref = RefNegeri::findOne(['id' => $model->negeri]);
+            $model->negeri = $ref['desc'];
+            
+            $ref = RefJenisLaporan::findOne(['id' => $model->jenis_laporan]);
+            $model->jenis_laporan = $ref['desc'];
+            
+            $ref = RefTahapProgramBinaan::findOne(['id' => $model->tahap]);
+            $model->tahap = $ref['desc'];
+            
+            $ref = RefJenisAktivitiLaporanPenganjuran::findOne(['id' => $model->jenis_aktiviti]);
+            $model->jenis_aktiviti = $ref['desc'];
+        }
+        else { $readonly = false; }
         
         return $this->render('laporan_penganjuran_form', [
             'parentModel' => $parentModel,
             'model' => $model,
+            'dataProviderProgramBinaanLaporanPenganjuranSukan' => $dataProviderProgramBinaanLaporanPenganjuranSukan,
+            'readonly' => $readonly,
         ]);
     }
     
@@ -1057,14 +1124,25 @@ Majlis Sukan Negara Malaysia.
         }  
         $model = PengurusanProgramBinaanLaporanPenganjuran::findOne(['pengurusan_program_binaan_id' => $id]);
         
-        if(isset($model->sukan) && $model->sukan != ''){
-            $sukan_selected = explode(',',$model->sukan);
-            foreach($sukan_selected as $sukan_id){
-                $ref = RefSukan::findOne(['id' => $sukan_id]);
-                $sukanArr[] = $ref->desc;
+        // if(isset($model->sukan) && $model->sukan != ''){
+            // $sukan_selected = explode(',',$model->sukan);
+            // foreach($sukan_selected as $sukan_id){
+                // $ref = RefSukan::findOne(['id' => $sukan_id]);
+                // $sukanArr[] = $ref->desc;
+            // }
+            // $model->sukan = implode(", ",$sukanArr);
+        // }
+        $sukanStr = "";
+        $laporanSukan = PengurusanProgramBinaanLaporanPenganjuranSukan::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])->all();
+        for($x=0; $x < count($laporanSukan); $x++){
+            $ref = RefSukan::findOne(['id' => $laporanSukan[$x]['sukan_id']]);
+            $sukanStr = $sukanStr.$ref['desc'];
+            if($x < count($laporanSukan)-1){
+                $sukanStr = $sukanStr.', ';
             }
-            $model->sukan = implode(", ",$sukanArr);
         }
+        
+        $model->sukan = $sukanStr;
         
         if(isset($model->tarikh_mula))
         {

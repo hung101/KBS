@@ -60,7 +60,7 @@ class SkimKebajikan extends \yii\db\ActiveRecord
             [['jenis_bantuan_skak', 'jumlah_bantuan', 'nama_pemohon', 'nama_penerima', 'jenis_sukan', 'perkara', 'sukan', 'jenis_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['jumlah_bantuan', 'jumlah_kos_perubatan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tarikh_kejadian', 'tarikh_kelulusan'], 'safe'],
-            [['kelulusan', 'bank_penerima', 'no_akaun_penerima'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['kelulusan', 'bank_penerima', 'no_akaun_penerima', 'hubungan_penerima'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['emel_penerima'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['jenis_bantuan_skak', 'jenis_sukan', 'jenis_bantuan_lain_yang_diterima', 'no_akaun_penerima'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_pemohon', 'nama_penerima'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -110,6 +110,7 @@ class SkimKebajikan extends \yii\db\ActiveRecord
             'laporan_polis_bomba' => GeneralLabel::laporan_polis_bomba,
             'surat_pengesahan_atlet_majlis_sukan_negara_bencana' => GeneralLabel::surat_pengesahan_atlet_majlis_sukan_negara,
             'dokumen_yang_berkenaan_mengikut_situasi_kes' => GeneralLabel::dokumen_yang_berkenaan_mengikut_situasi_kes,
+            'hubungan_penerima' => GeneralLabel::hubungan_penerima,
         ];
     }
     

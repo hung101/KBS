@@ -30,6 +30,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-elaun']['update'])): ?>
+            <?= Html::a(GeneralLabel::cetak, ['print', 'id' => $model->bantuan_penganjuran_kejohanan_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
+        <?php endif; ?>
         <?= Html::a(GeneralLabel::backToList, ['index'], ['class' => 'btn btn-warning']) ?>
     </p>
     

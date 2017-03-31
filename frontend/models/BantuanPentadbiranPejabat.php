@@ -3,7 +3,8 @@
 namespace app\models;
 
 use Yii;
-
+use yii\web\UploadedFile;
+use app\models\general\Upload;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
@@ -62,7 +63,7 @@ class BantuanPentadbiranPejabat extends \yii\db\ActiveRecord
             [['tarikh_lahir', 'tarikh', 'tarikh_lantikan'], 'safe'],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['no_kad_pengenalan', 'alamat_poskod', 'no_tel_bimbit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['jumlah_kelulusan'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['jumlah_kelulusan', 'jumlah_dipohon'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['nama', 'nama_sue', 'jawatan', 'persatuan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -73,7 +74,8 @@ class BantuanPentadbiranPejabat extends \yii\db\ActiveRecord
             [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_tel_bimbit', 'no_tel_pejabat', 'no_faks'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
                         [['no_tel_bimbit', 'no_tel_pejabat', 'no_faks'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['catatan', 'surat_permohonan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+			[['surat_permohonan'], 'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -101,12 +103,28 @@ class BantuanPentadbiranPejabat extends \yii\db\ActiveRecord
             'no_tel_pejabat' => GeneralLabel::no_untuk_dihubungi,
             'no_faks' => GeneralLabel::no_faks,
             'emel' => GeneralLabel::emel,
-            'jumlah_dipohon' => GeneralLabel::jumlah_dipohon,
+            'jumlah_dipohon' => GeneralLabel::jumlah_dipohon. ' (RM)',
             'status_permohonan' => GeneralLabel::status_permohonan,
             'catatan' => GeneralLabel::catatan,
             'tarikh_lantikan' => GeneralLabel::tarikh_lantikan,
             'jumlah_kelulusan' => GeneralLabel::jumlah_diluluskan,
+			'surat_permohonan' => GeneralLabel::surat_permohonan_rasmi,
         ];
+    }
+	
+	/**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+
+        if(!$file && $this->$attribute==""){
+            $this->addError($attribute, GeneralMessage::uploadEmptyError);
+        }
     }
     
     /**

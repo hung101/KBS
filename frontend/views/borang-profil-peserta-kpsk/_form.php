@@ -17,6 +17,7 @@ use app\models\RefJabatanUser;
 use app\models\RefStatusUser;
 use app\models\UserPeranan;
 use app\models\ProfilBadanSukan;
+use app\models\RefTahapKpsk;
 use app\models\RefUniversitiInstitusiEBiasiswa;
 
 
@@ -58,8 +59,8 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'penganjur_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
-                'kod_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>30]],
+                'penganjur_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80, 'disabled' => $disabled]],
+                'kod_kursus' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>30, 'disabled' => $disabled]],
                 'tarikh_kursus' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -67,8 +68,37 @@ use app\models\general\GeneralMessage;
                     'options'=>[
                         'pluginOptions' => [
                             'autoclose'=>true,
-                        ]
+                        ],
+						'options'=>['disabled' => $disabled],
                     ],
+                    'columnOptions'=>['colspan'=>3]],
+				'tarikh_tamat_kursus' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ],
+						'options'=>['disabled' => $disabled],
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+				'tahap' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-tahap-kpsk/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefTahapKpsk::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::tahap, 'id' => 'tahapID', 'disabled' => $disabled],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
@@ -234,6 +264,7 @@ use app\models\general\GeneralMessage;
 </div>
 
 <?php
+$URL_SET_TAHAP = Url::to(['/borang-profil-peserta-kpsk/set-tahap']);
 $DateDisplayFormat = GeneralVariable::displayDateFormat;
 
 $script = <<< JS
@@ -252,6 +283,15 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 
     $("form#{$model->formName()} input").prop("disabled", false);
 });
+
+$('#tahapID').change(function(){
+    changeTahap();
+});
+
+function changeTahap(){
+    $.get('$URL_SET_TAHAP',{tahap_id:$('#tahapID').val()},function(data){
+    });
+}
      
 
 JS;

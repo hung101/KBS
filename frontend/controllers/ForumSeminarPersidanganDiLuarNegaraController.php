@@ -7,12 +7,17 @@ use app\models\ForumSeminarPersidanganDiLuarNegara;
 use frontend\models\ForumSeminarPersidanganDiLuarNegaraSearch;
 use app\models\InformasiPermohonanProgramAntarabangsa;
 use frontend\models\InformasiPermohonanProgramAntarabangsaSearch;
+use app\models\ForumSeminarPeserta;
+use frontend\models\ForumSeminarPesertaSearch;
+
 use app\models\MsnLaporan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 use yii\helpers\BaseUrl;
 
+use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
 
@@ -94,14 +99,20 @@ class ForumSeminarPersidanganDiLuarNegaraController extends Controller
         $queryPar = null;
         
         $queryPar['InformasiPermohonanProgramAntarabangsaSearch']['forum_seminar_persidangan_di_luar_negara_id'] = $id;
+		$queryPar['ForumSeminarPesertaSearch']['forum_seminar_persidangan_di_luar_negara_id'] = $id;
         
         $searchModelInformasiPermohonanProgramAntarabangsa  = new InformasiPermohonanProgramAntarabangsaSearch();
         $dataProviderInformasiPermohonanProgramAntarabangsa = $searchModelInformasiPermohonanProgramAntarabangsa->search($queryPar);
+		
+		$searchModelForumSeminarPeserta = new ForumSeminarPesertaSearch();
+        $dataProviderForumSeminarPeserta = $searchModelForumSeminarPeserta->search($queryPar);
         
         return $this->render('view', [
             'model' => $model,
             'searchModelInformasiPermohonanProgramAntarabangsa' => $searchModelInformasiPermohonanProgramAntarabangsa,
             'dataProviderInformasiPermohonanProgramAntarabangsa' => $dataProviderInformasiPermohonanProgramAntarabangsa,
+			'searchModelForumSeminarPeserta' => $searchModelForumSeminarPeserta,
+            'dataProviderForumSeminarPeserta' => $dataProviderForumSeminarPeserta,
             'readonly' => true,
         ]);
     }
@@ -125,15 +136,36 @@ class ForumSeminarPersidanganDiLuarNegaraController extends Controller
         
         if(isset(Yii::$app->session->id)){
             $queryPar['InformasiPermohonanProgramAntarabangsaSearch']['session_id'] = Yii::$app->session->id;
+			$queryPar['ForumSeminarPesertaSearch']['session_id'] = Yii::$app->session->id;
         }
         
         $searchModelInformasiPermohonanProgramAntarabangsa  = new InformasiPermohonanProgramAntarabangsaSearch();
         $dataProviderInformasiPermohonanProgramAntarabangsa = $searchModelInformasiPermohonanProgramAntarabangsa->search($queryPar);
+		
+		$searchModelForumSeminarPeserta = new ForumSeminarPesertaSearch();
+        $dataProviderForumSeminarPeserta = $searchModelForumSeminarPeserta->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			$file = UploadedFile::getInstance($model, 'surat_permohonan');
+            $filename = $model->forum_seminar_persidangan_di_luar_negara_id . "-surat_permohonan";
+            if($file){
+                $model->surat_permohonan = Upload::uploadFile($file, Upload::forumSeminarPersidanganDiLuarNegaraFolder, $filename);
+				$model->save();
+            }			
+			
+			$file = UploadedFile::getInstance($model, 'surat_jemputan');
+            $filename = $model->forum_seminar_persidangan_di_luar_negara_id . "-surat_jemputan";
+            if($file){
+                $model->surat_jemputan = Upload::uploadFile($file, Upload::forumSeminarPersidanganDiLuarNegaraFolder, $filename);
+				$model->save();
+            }
+			
             if(isset(Yii::$app->session->id)){
                 InformasiPermohonanProgramAntarabangsa::updateAll(['forum_seminar_persidangan_di_luar_negara_id' => $model->forum_seminar_persidangan_di_luar_negara_id], 'session_id = "'.Yii::$app->session->id.'"');
                 InformasiPermohonanProgramAntarabangsa::updateAll(['session_id' => ''], 'forum_seminar_persidangan_di_luar_negara_id = "'.$model->forum_seminar_persidangan_di_luar_negara_id.'"');
+				
+				ForumSeminarPeserta::updateAll(['forum_seminar_persidangan_di_luar_negara_id' => $model->forum_seminar_persidangan_di_luar_negara_id], 'session_id = "'.Yii::$app->session->id.'"');
+                ForumSeminarPeserta::updateAll(['session_id' => ''], 'forum_seminar_persidangan_di_luar_negara_id = "'.$model->forum_seminar_persidangan_di_luar_negara_id.'"');
             }
             
             return $this->redirect(['view', 'id' => $model->forum_seminar_persidangan_di_luar_negara_id]);
@@ -142,6 +174,8 @@ class ForumSeminarPersidanganDiLuarNegaraController extends Controller
                 'model' => $model,
                 'searchModelInformasiPermohonanProgramAntarabangsa' => $searchModelInformasiPermohonanProgramAntarabangsa,
                 'dataProviderInformasiPermohonanProgramAntarabangsa' => $dataProviderInformasiPermohonanProgramAntarabangsa,
+				'searchModelForumSeminarPeserta' => $searchModelForumSeminarPeserta,
+				'dataProviderForumSeminarPeserta' => $dataProviderForumSeminarPeserta,
                 'readonly' => false,
             ]);
         }
@@ -160,21 +194,52 @@ class ForumSeminarPersidanganDiLuarNegaraController extends Controller
         }
         
         $model = $this->findModel($id);
+		
+		$existingSurat = $model->surat_permohonan;
+		$existingJemputan = $model->surat_jemputan;
         
         $queryPar = null;
         
         $queryPar['InformasiPermohonanProgramAntarabangsaSearch']['forum_seminar_persidangan_di_luar_negara_id'] = $id;
+		$queryPar['ForumSeminarPesertaSearch']['forum_seminar_persidangan_di_luar_negara_id'] = $id;
         
         $searchModelInformasiPermohonanProgramAntarabangsa  = new InformasiPermohonanProgramAntarabangsaSearch();
         $dataProviderInformasiPermohonanProgramAntarabangsa = $searchModelInformasiPermohonanProgramAntarabangsa->search($queryPar);
+		
+		$searchModelForumSeminarPeserta = new ForumSeminarPesertaSearch();
+        $dataProviderForumSeminarPeserta = $searchModelForumSeminarPeserta->search($queryPar);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+		if($model->load(Yii::$app->request->post())){	
+			$file = UploadedFile::getInstance($model, 'surat_permohonan');
+
+            if($file){
+                //valid file to upload
+                //upload file to server
+                $filename = $model->forum_seminar_persidangan_di_luar_negara_id . "-surat_permohonan";
+                $model->surat_permohonan = Upload::uploadFile($file,  Upload::forumSeminarPersidanganDiLuarNegaraFolder, $filename);
+            } else {
+                $model->surat_permohonan = $existingSurat;
+            }
+			
+			$file = UploadedFile::getInstance($model, 'surat_jemputan');
+
+            if($file){
+                $filename = $model->forum_seminar_persidangan_di_luar_negara_id . "-surat_jemputan";
+                $model->surat_jemputan = Upload::uploadFile($file,  Upload::forumSeminarPersidanganDiLuarNegaraFolder, $filename);
+            } else {
+                $model->surat_jemputan = $existingJemputan;
+            }
+        }
+		
+        if (Yii::$app->request->post() && $model->save()) {
             return $this->redirect(['view', 'id' => $model->forum_seminar_persidangan_di_luar_negara_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
                 'searchModelInformasiPermohonanProgramAntarabangsa' => $searchModelInformasiPermohonanProgramAntarabangsa,
                 'dataProviderInformasiPermohonanProgramAntarabangsa' => $dataProviderInformasiPermohonanProgramAntarabangsa,
+				'searchModelForumSeminarPeserta' => $searchModelForumSeminarPeserta,
+				'dataProviderForumSeminarPeserta' => $dataProviderForumSeminarPeserta,
                 'readonly' => false,
             ]);
         }

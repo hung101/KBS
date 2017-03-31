@@ -51,7 +51,8 @@ use app\models\general\GeneralMessage;
                             'pluginOptions' => [
                                 'allowClear' => true
                             ],],
-                        'columnOptions'=>['colspan'=>3]],
+                        'columnOptions'=>['colspan'=>12]],
+					'perkara' =>  ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>12],'options'=>['maxlength'=>true]],
                 ],
             ],
             
@@ -92,7 +93,8 @@ use app\models\general\GeneralMessage;
         ?>
         </div>
     </div>
-    
+   
+	<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['kelulusan'])): ?>
     <div class="panel panel-default">
         <div class="panel-heading">
             <strong><?= GeneralLabel::cadangan ?></strong>
@@ -160,6 +162,7 @@ use app\models\general\GeneralMessage;
         ?>
         </div>
     </div>
+	<?php endif; ?>
     
     <div class="form-group">
         <?php if(!$readonly): ?>

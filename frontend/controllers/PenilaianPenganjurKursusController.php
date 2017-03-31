@@ -16,6 +16,8 @@ use app\models\general\GeneralVariable;
 
 // table reference
 use app\models\PengurusanPermohonanKursusPersatuan;
+use app\models\RefTahapKpsk;
+
 
 /**
  * PenilaianPenganjurKursusController implements the CRUD actions for PenilaianPenganjurKursus model.
@@ -70,6 +72,9 @@ class PenilaianPenganjurKursusController extends Controller
         
         $ref = PengurusanPermohonanKursusPersatuan::findOne(['pengurusan_permohonan_kursus_persatuan_id' => $model->pengurusan_permohonan_kursus_persatuan_id]);
         $model->pengurusan_permohonan_kursus_persatuan_id = $ref['agensi'];
+		
+		$ref = RefTahapKpsk::findOne(['id' => $model->tahap]);
+		$model->tahap = $ref['desc'];
         
         $queryPar = null;
         
@@ -178,6 +183,38 @@ class PenilaianPenganjurKursusController extends Controller
         return $this->redirect(['index']);
     }
 
+	public function actionPrint($id)
+	{
+		if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+        $ref = PengurusanPermohonanKursusPersatuan::findOne(['pengurusan_permohonan_kursus_persatuan_id' => $model->pengurusan_permohonan_kursus_persatuan_id]);
+        $model->pengurusan_permohonan_kursus_persatuan_id = $ref['agensi'];
+		
+		$ref = RefTahapKpsk::findOne(['id' => $model->tahap]);
+		$model->tahap = $ref['desc'];
+		
+		$items = PenilaianPenganjurKursusSoalan::find()->where(['penilaian_penganjur_kursus_id' => $model->penilaian_penganjur_kursus_id])->all();
+		
+		$pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Maklum Balas Penilaian Penganjur Kursus';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print_maklum_balas', [
+             'model'  => $model,
+			 'items' => $items,
+			 'title' => $pdf->title,
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->penilaian_penganjur_kursus_id.'.pdf', 'I'); 
+	}
+	
     /**
      * Finds the PenilaianPenganjurKursus model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

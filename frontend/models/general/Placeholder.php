@@ -21,6 +21,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const ahliJawatankuasaKecilBiro = " -- Pilih Ahli Jawatankuasa Kecil / Biro -- ";
         const ahliJKK_JKP = "-- Pilih Ahli JKK/JKP --";
         const ajk = "-- Pilih AJK --";
+		const hari = "-- Pilih Hari --";
         const akademik = "-- Pilih Akademik --";
         const aktiviti = "-- Pilih Aktiviti --";
         const anthropometricsUjian =  "-- Pilih Anthropometrics Ujian --";
@@ -32,8 +33,10 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const bahagianKecederaan = " -- Pilih Bahagian Kecederaan -- ";
         const bahasa = " -- Pilih Bahasa -- ";
         const bandar = " -- Pilih Bandar -- ";
+		const nama_dokumen = "-- Pilih Nama Dokumen --";
         const bank = "-- Pilih Bank --";
         const bangsa = " -- Pilih Bangsa -- ";
+        const kelulusanJkb = " -- Pilih Kelulusan JKB -- ";
         const beratBadan = " -- Pilih Berat Badan -- ";
         const bidangDiminati = " -- Pilih Bidang Diminati -- ";
         const bidangKepakaran = " -- Pilih Bidang Kepakaran -- ";
@@ -401,6 +404,7 @@ if($session->get('language') == "EN") {
         const jenisPermohonanProgramBinaan = "-- Select The Type Of Application --";
         const jenisProgram = "-- Select The Type Of Program --";
         const jenisProjek = "-- Select The Type Of Project --";
+        const kelulusanJkb = " -- Select JKB Approval -- ";
         const jenisRekod = "-- Select Record Type --";
         const jenisSejarahPerubatan = "-- Select The Type Of History Of Medicine --";
         const jenisSijil = "-- Select The Type Of Certificate --";
@@ -452,6 +456,7 @@ if($session->get('language') == "EN") {
         const kategoriSoalan = "-- Select Category Question --";
         const kategoriSukan = "-- Select The Sports Category --";
         const kawasanKemudahan = "-- Select Kawasan / Kemudahan --";
+		const hari = "-- Select Day --";
         const kawasanTemuduga = "-- Select An Area Of The Interview --";
         const keaktifanJurulatih = "-- Select The Keaktifan Coach --";
         const kecenderungan = "-- Select Tendency --";
@@ -528,6 +533,7 @@ if($session->get('language') == "EN") {
         const persatuan = "-- Select Association --";
         const perwakilan = "-- Select Representation --";
         const peserta = "-- Select Participants --";
+		const nama_dokumen = "-- Select Document Name --";
         const pingat = "-- Select A Medal --";
         const program = "-- Select Program --";
         const programPengajian = "-- Select Study Programs --";

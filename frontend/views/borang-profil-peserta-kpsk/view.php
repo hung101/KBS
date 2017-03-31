@@ -40,6 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'searchModelBorangProfilPesertaKpskPeserta' => $searchModelBorangProfilPesertaKpskPeserta,
         'dataProviderBorangProfilPesertaKpskPeserta' => $dataProviderBorangProfilPesertaKpskPeserta,
         'readonly' => $readonly,
+		'disabled' => false,
     ]) ?>
 
     <?php /*echo DetailView::widget([

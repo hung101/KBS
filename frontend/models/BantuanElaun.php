@@ -3,7 +3,8 @@
 namespace app\models;
 
 use Yii;
-
+use yii\web\UploadedFile;
+use app\models\general\Upload;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
@@ -91,7 +92,8 @@ class BantuanElaun extends \yii\db\ActiveRecord
             [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_tel_bimbit', 'no_tel_persatuan_pejabat'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
                         [['no_tel_bimbit', 'no_tel_persatuan_pejabat'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['catatan', 'surat_permohonan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+			[['surat_permohonan'], 'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -136,7 +138,23 @@ class BantuanElaun extends \yii\db\ActiveRecord
             'catatan' => GeneralLabel::catatan,
             'kursus' => GeneralLabel::bidang_pengkhususan_aliran,
             'jumlah_kelulusan' => GeneralLabel::jumlah_diluluskan,
+			'surat_permohonan' => GeneralLabel::surat_permohonan_rasmi,
         ];
+    }
+	
+	/**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+
+        if(!$file && $this->$attribute==""){
+            $this->addError($attribute, GeneralMessage::uploadEmptyError);
+        }
     }
     
     /**

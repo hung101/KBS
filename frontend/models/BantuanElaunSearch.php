@@ -22,7 +22,7 @@ class BantuanElaunSearch extends BantuanElaun
             [['nama', 'muatnaik_gambar', 'no_kad_pengenalan', 'tarikh_lahir', 'jantina', 'kewarganegara', 'bangsa', 'agama', 'kelayakan_akademi', 'alamat_1', 'alamat_2', 
                 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'emel', 'kontrak', 'muatnaik_dokumen', 'status_permohonan', 
                 'catatan', 'jenis_bantuan', 'nama_persatuan'], 'safe'],
-            [['jumlah_elaun'], 'number'],
+            [['jumlah_elaun', 'jumlah_kelulusan'], 'number'],
         ];
     }
 
@@ -66,6 +66,7 @@ class BantuanElaunSearch extends BantuanElaun
             'tarikh_lahir' => $this->tarikh_lahir,
             'umur' => $this->umur,
             'jumlah_elaun' => $this->jumlah_elaun,
+			'jumlah_kelulusan' => $this->jumlah_kelulusan,
             'tbl_bantuan_elaun.created_by' => $this->created_by,
         ]);
 
