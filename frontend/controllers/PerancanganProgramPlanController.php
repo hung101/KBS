@@ -140,6 +140,7 @@ class PerancanganProgramPlanController extends Controller
                 PerancanganProgramPlan::updateAll(['session_id' => ''], 'perancangan_program_plan_master_id = "'.$model->perancangan_program_plan_master_id.'"');
             }
             //if($model->save()){
+			$this->updateChildItem($model);
             return $this->redirect(['view', 'id' => $model->perancangan_program_plan_master_id]);
             //}
         }
@@ -176,6 +177,7 @@ class PerancanganProgramPlanController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             
             if($model->save()){
+				$this->updateChildItem($model);
                 return $this->redirect(['view', 'id' => $model->perancangan_program_plan_master_id]);
             }
         } else {
@@ -228,44 +230,30 @@ class PerancanganProgramPlanController extends Controller
         echo Json::encode($model);
     }
     
+    public function updateChildItem($model)
+    {
+            $update = PerancanganProgramPlan::updateAll(['jenis_program' => $model->program, 'cawangan' => $model->cawangan, 'sukan' => $model->sukan], 'perancangan_program_plan_master_id = "'. $model->perancangan_program_plan_master_id.'"');
+    }
+    
+    public function actionGetProgramPlan()
+    {
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            $id = $_GET['id'];
+            $model = PerancanganProgramPlan::findOne(['perancangan_program_id' => $id]);
+			if(isset($model->perancangan_program_plan_master_id) && $model->perancangan_program_plan_master_id != NULL){
+				$parent = PerancanganProgramPlanMaster::findOne(['perancangan_program_plan_master_id' => $model->perancangan_program_plan_master_id]);
+				$arr = ['sukan' => $parent->sukan, 'program' => $parent->program, 'cawangan' => $parent->cawangan, 'tarikh_mula' => $model->tarikh_mula, 'tarikh_tamat' => $model->tarikh_tamat, 'tempat' => $model->tempat];
+			} else {
+				$arr = [];
+			}
+
+            return $arr;
+        }
+    }
+    
     public function actionLaporanKewangan()
     {
-        // if (Yii::$app->user->isGuest) {
-            // return $this->redirect(array(GeneralVariable::loginPagePath));
-        // }
-        
-        // $model = new PerancanganProgramPlan;
-        
-        // if ($model->load(Yii::$app->request->post())) {
-            
-            // $query = PerancanganProgramPlan::find()->all();
-            
-            // if(isset($model->sukan) && $model->sukan != '')
-            // {
-                // echo 'afa';
-            // } 
-            // $query->andFilterWhere([
-            // 'status' => $this->status
-        // ]);
-            
-    
-            // $pdf = new \mPDF('utf-8', 'A4-L');
-
-            // $pdf->title = "Laporan Kewangan Plan Periodisasi";
-            // $stylesheet = file_get_contents('css/report.css');
-
-            // $pdf->WriteHTML($stylesheet,1);
-            
-            // $pdf->WriteHTML($this->renderpartial('generate_kewangan_plan_periodisasi', [
-                  // 'model'  => $model,
-            // ]));
-
-            // $pdf->Output('Laporan Kewangan Plan Periodisasi'.$model->sukan.'_'.$model->jenis_program.'.pdf', 'I');
-        // }
-        
-        // return $this->render('laporan_kewangan_plan', [
-             // 'model' => $model,
-        // ]);
         
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -329,6 +317,7 @@ class PerancanganProgramPlanController extends Controller
     
     public function actionLaporanPelanPeriodisasi($id)
     {
+        
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
@@ -369,15 +358,5 @@ class PerancanganProgramPlanController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanPelanPeriodisasi', $format, $controls, 'laporan_pelan_periodisasi');
-    }
-    
-    public function actionGetProgramPlan()
-    {
-        if (Yii::$app->request->isAjax) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            $id = $_GET['id'];
-            $model = PerancanganProgramPlan::findOne($id);
-            return $model;
-        }
     }
 }

@@ -21,6 +21,7 @@ use app\models\RefJantina;
 use app\models\RefLatarbelakangKes;
 use app\models\RefStatusJawatan;
 use app\models\RefBahagianBimbinganKaunseling;
+use common\models\User;
 
 /**
  * PermohonanBimbinganKaunselingPegawaiAnggotaController implements the CRUD actions for PermohonanBimbinganKaunselingPegawaiAnggota model.

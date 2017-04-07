@@ -76,8 +76,7 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
     {
         return [
             [['nama_pertubuhan_persatuan','no_akaun','nama_bank','cawangan_dan_alamat_bank','kategori_persatuan','kategori_program', 'no_pendaftaran','email', 
-                'tarikh_didaftarkan', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri', 
-                'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'no_telefon_pejabat', 'no_telefon_bimbit', 'bilangan_keahlian', 'sokongan', 
+                'tarikh_didaftarkan', 'alamat_1', 'alamat_negeri', 'alamat_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_poskod', 'no_telefon_pejabat', 'no_telefon_bimbit', 'bilangan_keahlian', 'sokongan', 
                 'alamat_parlimen', 'alamat_surat_menyurat_parlimen', 'jawatankuasa_penaung', 'jawatankuasa_pegerusi', 'jawatankuasa_timbalan_pengerusi', 'jawatankuasa_naib_pengerusi', 
                 'jawatankuasa_setiausaha', 'jawatankuasa_bendahari'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_didaftarkan', 'catatan', 'nama_program', 'tarikh_pelaksanaan', 'tempat_pelaksanaan', 'bilangan_peserta', 'tujuan_program_aktiviti', 'tarikh_mesyuarat', 'tarikh_bayar'], 'safe'],

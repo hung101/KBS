@@ -43,7 +43,7 @@ class LaporanPemantauanJurulatihController extends Controller
      * Lists all LaporanPemantauanJurulatih models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id = null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -55,6 +55,7 @@ class LaporanPemantauanJurulatihController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+			'id' => $id,
         ]);
     }
 

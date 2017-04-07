@@ -34,14 +34,20 @@ $penilaian =  ['objektif' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>
 // Session
 $session = new Session;
 $session->open();
-
+//var_dump($session['borang_profil_peserta_kpsk_tahap_id']);
 if(isset($session['borang_profil_peserta_kpsk_tahap_id']) && $session['borang_profil_peserta_kpsk_tahap_id'] === '1'){
+	
 	$penilaian = ['objektif' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>2]],
                 'esei' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>2]],
 				'penilaian_refleksi' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>2]],
                 'jumlah' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>3, 'disabled'=>true]]];
+				
+	echo '<script>var isTahap1 = true;</script>';
+} else {
+	echo '<script>var isTahap1 = false;</script>';
 }
 $session->close();
+
 /* @var $this yii\web\View */
 /* @var $model app\models\BorangProfilPesertaKpskPeserta */
 /* @var $form yii\widgets\ActiveForm */
@@ -387,21 +393,33 @@ function calculateJumlahMarkah(){
     var esei = 0;
 	var penilaian_refleksi = 0;
     var jumlah_markah = 0;
-        
+  
     if($('#borangprofilpesertakpskpeserta-objektif').val() > 0){objektif = parseInt($('#borangprofilpesertakpskpeserta-objektif').val());}
     if($('#borangprofilpesertakpskpeserta-laporan_projek').val() > 0){laporan_projek = parseInt($('#borangprofilpesertakpskpeserta-laporan_projek').val());}
     if($('#borangprofilpesertakpskpeserta-esei').val() > 0){esei = parseInt($('#borangprofilpesertakpskpeserta-esei').val());}
     if($('#borangprofilpesertakpskpeserta-penilaian_refleksi').val() > 0){penilaian_refleksi = parseInt($('#borangprofilpesertakpskpeserta-penilaian_refleksi').val());}
-        
-    if(objektif > 0 || laporan_projek >0 || esei >0 || penilaian_refleksi > 0){
-        // Total Yuran
-        jumlah_markah = objektif + laporan_projek + esei + penilaian_refleksi;
-		if(jumlah_markah > 100){
-			alert('Jumlah markah tidak boleh lebih daripada 100');
+    
+	if(isTahap1 === true){
+		if(objektif > 0 || esei >0 || penilaian_refleksi > 0){
+			// Total Yuran
+			jumlah_markah = objektif + esei + penilaian_refleksi;
+			if(jumlah_markah > 100){
+				alert('Jumlah markah tidak boleh lebih daripada 100');
+			}
+			//display at fields accordingly
+			$('#borangprofilpesertakpskpeserta-jumlah').val(jumlah_markah);
 		}
-        //display at fields accordingly
-        $('#borangprofilpesertakpskpeserta-jumlah').val(jumlah_markah);
-    }
+	} else {
+		if(objektif > 0 || laporan_projek >0 || esei >0 || penilaian_refleksi > 0){
+			// Total Yuran
+			jumlah_markah = objektif + laporan_projek + esei + penilaian_refleksi;
+			if(jumlah_markah > 100){
+				alert('Jumlah markah tidak boleh lebih daripada 100');
+			}
+			//display at fields accordingly
+			$('#borangprofilpesertakpskpeserta-jumlah').val(jumlah_markah);
+		}
+	}
 }
 
 JS;

@@ -56,7 +56,7 @@ class PengurusanKontraktor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_kontraktor', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'telefon_pejabat', 'telefon_bimbit', 'peralatan_yang_dibekal'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama_kontraktor', 'alamat_1', 'alamat_negeri', 'alamat_poskod', 'telefon_pejabat', 'telefon_bimbit', 'peralatan_yang_dibekal'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['nama_kontraktor', 'peralatan_yang_dibekal'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],

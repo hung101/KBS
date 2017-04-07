@@ -29,6 +29,7 @@ use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanBimbinganKaunseling findOne()*/
@@ -393,7 +394,7 @@ use app\models\general\GeneralMessage;
                             ] : null,
                             'pluginOptions'=>['allowClear'=>true]
                         ],
-                        'data'=>ArrayHelper::map(Jurulatih::find()->all(),'jurulatih_id', 'nama'),
+                        'data'=>ArrayHelper::map(GeneralFunction::getJurulatih(),'jurulatih_id', 'nameAndIC'),
                         'options'=>['prompt'=>'', 'id'=>'jurulatihId'],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'sukan_atlet_jurulatih')],

@@ -66,8 +66,16 @@ class MesyuaratController extends Controller
         $STsearchModel = new MesyuaratSenaraiTugasSearch();
         $STdataProvider = $STsearchModel->search($queryPar);
         
+        $model = $this->findModel($id);
+        
+        $ref = MesyuaratSenaraiNamaHadir::findOne(['senarai_nama_hadir_id' => $model->disedia_oleh]);
+        $model->disedia_oleh = $ref['nama'];
+        
+        $ref = MesyuaratSenaraiNamaHadir::findOne(['senarai_nama_hadir_id' => $model->disemak_oleh]);
+        $model->disemak_oleh = $ref['nama'];
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'SNHsearchModel' => $SNHsearchModel,
             'SNHdataProvider' => $SNHdataProvider,
             'STsearchModel' => $STsearchModel,

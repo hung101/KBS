@@ -53,7 +53,7 @@ class ProfilKonsultan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_konsultan', 'ic_no', 'no_bimbit', 'umur', 'kategori_agensi', 'agensi', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod',
+            [['nama_konsultan', 'ic_no', 'no_bimbit', 'umur', 'kategori_agensi', 'agensi', 'alamat_1', 'alamat_negeri', 'alamat_poskod',
                 'no_tel_pejabat', 'no_kaunselor_berdaftar', 'tarikh', 'status_permohonan', 'emel'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['nama_konsultan', 'bidang_konsultansi', 'lain_lain', 'agensi'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
@@ -63,7 +63,7 @@ class ProfilKonsultan extends \yii\db\ActiveRecord
             [['kepakaran_pengalaman'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_bimbit', 'no_tel_pejabat'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_bimbit', 'no_tel_pejabat'], 'integer', 'message' => GeneralMessage::yii_validation_integer],            
-            [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod', 'alamat_bandar'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['gambar'], 'validateFileUpload', 'skipOnEmpty' => false],
         ];

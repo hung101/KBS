@@ -44,6 +44,7 @@ $model->nama_kejohanan = $parentModel->nama_kejohanan_temasya;
 $model->tarikh_mula = $parentModel->tarikh_mula;
 $model->tarikh_tamat = $parentModel->tarikh_tamat;
 $model->tempat = $parentModel->tempat_penginapan;
+
 ?>
 <div class="laporan-penyertaan-kejohanan">
 
@@ -55,7 +56,7 @@ $model->tempat = $parentModel->tempat_penginapan;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
     <?php
         echo FormGrid::widget([
@@ -652,3 +653,22 @@ $model->tempat = $parentModel->tempat_penginapan;
 
     <?php ActiveForm::end(); ?>
 </div>
+
+<?php
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);	
+	$("#laporanpenyertaankejohanan-sukan").prop("disabled", false);
+	$("#laporanpenyertaankejohanan-nama_kejohanan").prop("disabled", false);
+
+});
+     
+
+JS;
+        
+$this->registerJs($script);
+?>

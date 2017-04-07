@@ -61,7 +61,7 @@ class PengurusanPerhubunganDalamDanLuarNegaraMesyuarat extends \yii\db\ActiveRec
     public function rules()
     {
         return [
-            [['nama', 'no_kad_pengenalan', 'jawatan', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'nama_kejohonan', 'status_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama', 'no_kad_pengenalan', 'jawatan', 'alamat_1', 'alamat_negeri', 'alamat_poskod', 'no_tel_bimbit', 'nama_kejohonan', 'status_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['nama', 'jawatan', 'nama_kejohonan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],            

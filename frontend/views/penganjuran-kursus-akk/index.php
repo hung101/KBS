@@ -79,6 +79,28 @@ $this->params['breadcrumbs'][] = $this->title;
             //'nama_penyelaras',
             // 'no_telefon',
             // 'kuota_kursus',
+            [
+                'attribute' => 'jenis_kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_kursus,
+                ],
+                'value' => 'refKategoriKursusPenganjuran.desc'
+            ],
+            [
+                'attribute' => 'nama_kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_kursus,
+                ]
+            ],
+            [
+                'attribute' => 'kod_kursus',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kod_kursus,
+                ]
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',

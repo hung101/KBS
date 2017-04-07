@@ -413,6 +413,7 @@ Majlis Sukan Negara Malaysia.
                 $report_url = BaseUrl::to(['generate-laporan-program-kursus'
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tahap' => $model->tahap
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -420,6 +421,7 @@ Majlis Sukan Negara Malaysia.
                 return $this->redirect(['generate-laporan-program-kursus'
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tahap' => $model->tahap
                     , 'format' => $model->format
                 ]);
             }
@@ -431,7 +433,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanProgramKursus($tarikh_dari, $tarikh_hingga, $format)
+    public function actionGenerateLaporanProgramKursus($tarikh_dari, $tarikh_hingga, $tahap, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -439,9 +441,13 @@ Majlis Sukan Negara Malaysia.
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($tahap == "") $tahap = array();
+        else $tahap = array($tahap);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'TAHAP' => $tahap,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanProgramKursus', $format, $controls, 'laporan_program_kursus');

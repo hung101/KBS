@@ -43,7 +43,7 @@ class MesyuaratSenaraiTugasSearch extends MesyuaratSenaraiTugas
     {
         $query = MesyuaratSenaraiTugas::find()
                 ->joinWith(['atlet'])
-                ->joinWith(['refMesyuaratPegawai']);
+                ->joinWith(['refMesyuaratSenaraiNamaHadir']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -66,7 +66,7 @@ class MesyuaratSenaraiTugasSearch extends MesyuaratSenaraiTugas
 
         $query->andFilterWhere(['like', 'name_tugas', $this->name_tugas])
             ->andFilterWhere(['like', 'pegawai', $this->pegawai])
-                ->andFilterWhere(['like', 'session_id', $this->session_id])
+                ->andFilterWhere(['like', 'tbl_mesyuarat_senarai_tugas.session_id', $this->session_id])
             ->andFilterWhere(['like', 'persatuan', $this->persatuan])
             ->andFilterWhere(['like', 'status', $this->status]);
 

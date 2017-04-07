@@ -53,7 +53,7 @@ class MesyuaratSenaraiTugas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name_tugas', 'tarikh_tamat', 'pegawai', 'atlet_id', 'status'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['name_tugas', 'tarikh_tamat', 'pegawai', 'status'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['mesyuarat_id', 'atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_tamat'], 'safe'],
             [['name_tugas', 'persatuan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -83,8 +83,8 @@ class MesyuaratSenaraiTugas extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRefMesyuaratPegawai(){
-        return $this->hasOne(RefMesyuaratPegawai::className(), ['id' => 'pegawai']);
+    public function getRefMesyuaratSenaraiNamaHadir(){
+        return $this->hasOne(MesyuaratSenaraiNamaHadir::className(), ['senarai_nama_hadir_id' => 'pegawai']);
     }
     
     /**

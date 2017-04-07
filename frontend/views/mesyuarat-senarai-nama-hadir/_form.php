@@ -141,7 +141,8 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
             $(document).find('#modal').modal('hide');
             $(\$form).trigger("reset");
             $.pjax.defaults.timeout = 6000;
-            $.pjax.reload({container:'#senaraiNamaAhliGrid'});
+            $.pjax.reload({container:'#senaraiNamaAhliGrid', async:false});
+            $.pjax.reload({container:'#boxPajax', async:false});
         } else {
             $("#message").html(result);
         }

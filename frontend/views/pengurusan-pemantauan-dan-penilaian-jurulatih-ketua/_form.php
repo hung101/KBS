@@ -26,6 +26,7 @@ use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanPemantauanDanPenilaianJurulatihKetua */
@@ -66,7 +67,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(Jurulatih::find()->where('status_tawaran = :status_tawaran', [':status_tawaran' => RefStatusTawaran::LULUS_TAWARAN])->all(),'jurulatih_id', 'nameAndIC'),
+                        'data'=>ArrayHelper::map(GeneralFunction::getJurulatih(),'jurulatih_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::jurulatih, 'id'=>'jurulatihId'],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -104,7 +105,7 @@ use app\models\general\GeneralMessage;
                             ] : null,
                             'pluginOptions'=>['allowClear'=>true]
                         ],
-                        'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'disciplineAcara'),
+                        'data'=>ArrayHelper::map(RefAcara::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
                         'pluginOptions' => [
                             'initialize' => true,
@@ -112,7 +113,7 @@ use app\models\general\GeneralMessage;
                             'placeholder' => Placeholder::acara,
                             'url'=>Url::to(['/ref-acara/subacaras'])],
                         ],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>4]],
             ],
         ],
         [

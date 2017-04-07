@@ -64,7 +64,7 @@ class BantuanPenyertaanPegawaiTeknikalDicadangkan extends \yii\db\ActiveRecord
         return [
             [['bantuan_penyertaan_pegawai_teknikal_dicadangkan_id', 'umur', 'created_by', 'updated_by', 'no_kad_pengenalan',
                 'maklumat_pegawai_teknikal_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['badan_sukan', 'sukan', 'nama', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_kad_pengenalan', 'umur', 'jantina', 
+            [['badan_sukan', 'sukan', 'nama', 'alamat_1', 'alamat_negeri', 'alamat_poskod', 'no_kad_pengenalan', 'umur', 'jantina', 
                 'no_telefon', 'tahap_akademik', 'nama_majikan', 'no_telefon_majikan', 'jawatan', 'nama_kejohanan_kursus', 'tarikh_mula', 'tarikh_tamat', 
                 'tempat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_mula', 'tarikh_tamat', 'created', 'updated'], 'safe'],

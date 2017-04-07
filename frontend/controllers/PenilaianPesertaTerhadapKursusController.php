@@ -237,6 +237,7 @@ class PenilaianPesertaTerhadapKursusController extends Controller
                 $report_url = BaseUrl::to(['generate-laporan-kelemahan-program-kursus'
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tahap' => $model->tahap
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -244,6 +245,7 @@ class PenilaianPesertaTerhadapKursusController extends Controller
                 return $this->redirect(['generate-laporan-kelemahan-program-kursus'
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tahap' => $model->tahap
                     , 'format' => $model->format
                 ]);
             }
@@ -255,7 +257,7 @@ class PenilaianPesertaTerhadapKursusController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanKelemahanProgramKursus($tarikh_dari, $tarikh_hingga, $format)
+    public function actionGenerateLaporanKelemahanProgramKursus($tarikh_dari, $tarikh_hingga, $tahap, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -263,9 +265,13 @@ class PenilaianPesertaTerhadapKursusController extends Controller
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($tahap == "") $tahap = array();
+        else $tahap = array($tahap);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'TAHAP' => $tahap,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanKelemahanProgramKursus', $format, $controls, 'laporan_kelemahan_program_kursus');

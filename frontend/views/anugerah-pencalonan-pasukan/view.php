@@ -19,11 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->anugerah_pencalonan_pasukan_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->anugerah_pencalonan_pasukan_id], [
+        <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->anugerah_pencalonan_pasukan_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->anugerah_pencalonan_pasukan_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => GeneralMessage::confirmDelete,
                 'method' => 'post',
             ],
         ]) ?>

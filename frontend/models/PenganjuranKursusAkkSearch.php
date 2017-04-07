@@ -19,7 +19,7 @@ class PenganjuranKursusAkkSearch extends PenganjuranKursusAkk
     {
         return [
             [['penganjuran_kursus_id', 'kuota_kursus'], 'integer'],
-            [['tarikh_kursus_mula', 'tarikh_kursus_tamat', 'tempat_kursus', 'negeri', 'nama_penyelaras', 'no_telefon', 'jenis_kursus'], 'safe'],
+            [['tarikh_kursus_mula', 'tarikh_kursus_tamat', 'tempat_kursus', 'negeri', 'nama_penyelaras', 'no_telefon', 'jenis_kursus', 'nama_kursus', 'kod_kursus'], 'safe'],
         ];
     }
 
@@ -42,7 +42,7 @@ class PenganjuranKursusAkkSearch extends PenganjuranKursusAkk
     public function search($params)
     {
         $query = PenganjuranKursusAkk::find()
-                ->joinWith(['refJenisKursusPenganjuran'])
+                ->joinWith(['refKategoriKursusPenganjuran'])
                 ->joinWith(['refNegeri']);
 
         $dataProvider = new ActiveDataProvider([
@@ -64,12 +64,14 @@ class PenganjuranKursusAkkSearch extends PenganjuranKursusAkk
         ]);
 
         $query->andFilterWhere(['like', 'tempat_kursus', $this->tempat_kursus])
-                ->andFilterWhere(['like', 'tbl_ref_jenis_kursus_penganjuran.desc', $this->jenis_kursus])
+                ->andFilterWhere(['like', 'tbl_ref_kategori_kursus_penganjuran.desc', $this->jenis_kursus])
             ->andFilterWhere(['like', 'tbl_ref_negeri.desc', $this->negeri])
             ->andFilterWhere(['like', 'nama_penyelaras', $this->nama_penyelaras])
             ->andFilterWhere(['like', 'no_telefon', $this->no_telefon])
                 ->andFilterWhere(['like', 'tarikh_kursus_tamat', $this->tarikh_kursus_tamat])
-                ->andFilterWhere(['like', 'tarikh_kursus_mula', $this->tarikh_kursus_mula]);
+                ->andFilterWhere(['like', 'tarikh_kursus_mula', $this->tarikh_kursus_mula])
+                ->andFilterWhere(['like', 'nama_kursus', $this->nama_kursus])
+                ->andFilterWhere(['like', 'kod_kursus', $this->kod_kursus]);
 
         return $dataProvider;
     }

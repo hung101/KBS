@@ -89,7 +89,7 @@ class PermohonanPendidikan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'no_ic', 'umur', 'jantina', 'tinggi', 'berat', 'alamat_rumah_1', 'alamat_rumah_negeri', 'alamat_rumah_bandar', 'alamat_rumah_poskod', 'no_telefon_rumah', 'no_telefon_bimbit', 'nama_ibu_bapa_penjaga', 'tahap_pendidikan', 'sukan', 'acara', 'alamat_pendidikan_1', 'alamat_pendidikan_negeri', 'alamat_pendidikan_bandar', 'alamat_pendidikan_poskod', 'no_tel_pendidikan', 'kelulusan', 'nama_pengesahan', 'jawatan_pengesahan', 'no_telefon_pengesahan', 'sekolah_unit_sukan_pdd_psk_pengesahan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'no_ic', 'umur', 'jantina', 'tinggi', 'berat', 'alamat_rumah_1', 'alamat_rumah_negeri', 'alamat_rumah_poskod', 'no_telefon_rumah', 'no_telefon_bimbit', 'nama_ibu_bapa_penjaga', 'tahap_pendidikan', 'sukan', 'acara', 'alamat_pendidikan_1', 'alamat_pendidikan_negeri', 'alamat_pendidikan_poskod', 'no_tel_pendidikan', 'kelulusan', 'nama_pengesahan', 'jawatan_pengesahan', 'no_telefon_pengesahan', 'sekolah_unit_sukan_pdd_psk_pengesahan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id', 'umur', 'kelulusan', 'muet_band', 'kelulusan_id', 'no_ic', 'no_telefon_rumah', 'no_telefon_bimbit', 
                 'no_tel_pendidikan', 'no_fax_pendidikan', 'no_telefon_pencadang', 'no_telefon_pengesahan', 'alamat_rumah_poskod', 'alamat_pendidikan_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tinggi', 'berat', 'tahun_program', 'pngk_prau'], 'number', 'message' => GeneralMessage::yii_validation_number],

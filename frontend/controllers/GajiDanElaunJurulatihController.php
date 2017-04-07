@@ -598,4 +598,44 @@ class GajiDanElaunJurulatihController extends Controller
         
         GeneralFunction::generateReport('/spsb/MSN/SuratPersetujuanTerimaPelantikanDanPembayaran', $format, $controls, 'surat_persetujuan_terima_pelantikan_dan_pembayaran');
     }
+	
+	public function actionPrint($id)
+	{
+		if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+		$ref = Jurulatih::findOne(['jurulatih_id' => $model->nama_jurulatih]);
+        $model->nama_jurulatih = $ref['nama'];
+        
+        $ref = RefBank::findOne(['id' => $model->bank]);
+        $model->bank = $ref['desc'];
+        
+        $ref = RefProgramJurulatih::findOne(['id' => $model->program]);
+        $model->program = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->nama_sukan]);
+        $model->nama_sukan = $ref['desc'];
+		
+		$ElaunJurulatih = ElaunJurulatih::find()->where(['gaji_dan_elaun_jurulatih_id' => $model->gaji_dan_elaun_jurulatih_id])->all();
+        $GajiJurulatih = GajiJurulatih::find()->where(['gaji_dan_elaun_jurulatih_id' => $model->gaji_dan_elaun_jurulatih_id])->all();
+		
+		$pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Elaun dan Gaji Jurulatih';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+             'model'  => $model,
+			 'title' => $pdf->title,
+			 'ElaunJurulatih' => $ElaunJurulatih,
+			 'GajiJurulatih' => $GajiJurulatih,
+        ]));
+
+        $pdf->Output('Elaun_dan_gaji_jurulatih'.$model->gaji_dan_elaun_jurulatih_id.'.pdf', 'I'); 	
+	}
 }

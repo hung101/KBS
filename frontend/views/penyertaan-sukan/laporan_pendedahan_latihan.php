@@ -55,7 +55,7 @@ $model->tempat = $parentModel->tempat_penginapan;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
     <?php
         echo FormGrid::widget([
@@ -456,3 +456,22 @@ $model->tempat = $parentModel->tempat_penginapan;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);	
+	$("#laporanpendedahanlatihan-sukan").prop("disabled", false);
+	$("#laporanpendedahanlatihan-tempat").prop("disabled", false);
+
+});
+     
+
+JS;
+        
+$this->registerJs($script);
+?>

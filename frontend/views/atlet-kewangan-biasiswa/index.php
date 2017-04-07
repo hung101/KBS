@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <!-- e-Biasiswa - START -->
     <div class="panel panel-default copyright-wrap" id="kbs_biasiswa-list">
-        <div class="panel-heading"><a data-toggle="collapse" href="#kbs_biasiswa-body">KBS:<?php echo ' '.GeneralLabel::kbs_biasiswa_rekod; ?></a>
+        <div class="panel-heading"><a data-toggle="collapse" href="#kbs_biasiswa-body"><?php echo ' '.GeneralLabel::kbs_biasiswa_rekod; ?></a>
             <button type="button" class="close" data-target="#kbs_biasiswa-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         </div>
         <div id="kbs_biasiswa-body" class="panel-collapse collapse">
@@ -129,7 +129,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <!-- MSN: Biasiswa Rekod - START -->
     <div class="panel panel-default copyright-wrap" id="penukaran_rekods-list">
-        <div class="panel-heading"><a data-toggle="collapse" href="#penukaran_rekods-body">MSN:<?php echo ' '.GeneralLabel::kbs_biasiswa_rekod; ?></a>
+        <div class="panel-heading"><a data-toggle="collapse" href="#penukaran_rekods-body"><?php echo ' '.GeneralLabel::msn_biasiswa_rekod; ?></a>
             <button type="button" class="close" data-target="#penukaran_rekods-list" data-dismiss="alert"> <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         </div>
         <div id="penukaran_rekods-body" class="panel-collapse collapse">

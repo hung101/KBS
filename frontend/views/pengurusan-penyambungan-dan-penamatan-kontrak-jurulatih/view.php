@@ -34,11 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php endif; ?>
         <?= Html::a(GeneralLabel::cetak, ['print', 'id' => $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penyambungan-dan-penamatan-kontrak-jurulatih']['update'])): ?>
-            <?= Html::a(GeneralLabel::pemantauan_jurulatih, ['/laporan-pemantauan-jurulatih/create/', 'id' => $jurulatih_id], ['class' => 'btn btn-success', 'target' => '_blank']) ?>
+            <?= Html::a(GeneralLabel::pemantauan_jurulatih, ['/laporan-pemantauan-jurulatih/', 'LaporanPemantauanJurulatihSearch[jurulatih_id]' => $namaJurulatih, 'id' => $jurulatih_id], ['class' => 'btn btn-success', 'target' => '_blank']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penyambungan-dan-penamatan-kontrak-jurulatih']['update'])): ?>
+        <!--<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penyambungan-dan-penamatan-kontrak-jurulatih']['update'])): ?>
             <?= Html::a(GeneralLabel::laporan_jurulatih_wajaran, ['/jurulatih/laporan-jurulatih-wajaran/', 'id' => $jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
-        <?php endif; ?>
+        <?php endif; ?>-->
     </p>
     
     <?= $this->render('_form', [

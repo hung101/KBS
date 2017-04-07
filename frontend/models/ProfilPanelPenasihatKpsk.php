@@ -78,9 +78,8 @@ class ProfilPanelPenasihatKpsk extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'no_kad_pengenalan', 'jantina', 'tarikh_lahir', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod',
-                'no_telefon', 'emel', 'tahap_akademik', 'nama_jurusan', 'pengkhususan', 'nama_majikan', 'alamat_majikan_1', 'alamat_majikan_negeri', 
-                'alamat_majikan_bandar', 'alamat_majikan_poskod', 'no_telefon_majikan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama', 'no_kad_pengenalan', 'jantina', 'tarikh_lahir', 'alamat_1', 'alamat_negeri', 'alamat_poskod',
+                'no_telefon', 'emel', 'tahap_akademik', 'nama_jurusan', 'pengkhususan', 'nama_majikan', 'alamat_majikan_1', 'alamat_majikan_negeri', 'alamat_majikan_poskod', 'no_telefon_majikan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir', 'created', 'updated'], 'safe'],
             [['tahap_akademik', 'silibus', 'created_by', 'updated_by', 'umur', 'no_kad_pengenalan'], 'integer'],
             [['nama', 'nama_jurusan', 'pengkhususan', 'nama_majikan', 'jawatan', 'gred'], 'string', 'max' => 80],

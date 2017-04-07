@@ -288,7 +288,8 @@ use app\models\general\GeneralMessage;
                         // ]
                     // ] : null,
                     'data'=>ArrayHelper::map(\app\models\PerancanganProgramPlan::find()->joinWith('refKategoriPelan')
-                            ->where(['LIKE', 'desc', 'kejohanan'])->all(),'perancangan_program_id', 'nama_program'),
+							->where(['IS NOT', 'perancangan_program_plan_master_id', NULL])
+                            ->andWhere(['LIKE', 'desc', 'kejohanan'])->all(),'perancangan_program_id', 'nama_program'),
                     'options' => ['placeholder' => Placeholder::kejohanan_temasya, 'id' => 'kejohananTemasya'],
                     'pluginOptions' => [
                         'allowClear' => true
@@ -674,8 +675,8 @@ $('#kejohananTemasya').on('select2:select', function (evt) {
     $.get('$URLGetKejohanan', {id:$(this).val()}, function(data){
         if(data !== null){
             $('#penilaianpestasi-tempat').val(data.tempat);
-            $('#sukanId').select2().val(data.sukan).trigger("change");
-            $('#programId').select2().val(data.jenis_program).trigger("change");
+            $('#sukanId').val(data.sukan).trigger("change");
+            $('#programId').val(data.program).trigger("change");
             $("#penilaianpestasi-tarikh_mula-disp").val(formatDisplayDate(data.tarikh_mula));
             $("#penilaianpestasi-tarikh_tamat-disp").val(formatDisplayDate(data.tarikh_tamat));
             $("#penilaianpestasi-tarikh_mula").val(data.tarikh_mula);

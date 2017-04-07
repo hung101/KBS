@@ -31,7 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]);*/ ?>
         <?php endif; ?>
-        <?= Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'if(confirm("'.GeneralMessage::confirmPrint.'")){window.print();}' ]); ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['akk-program-jurulatih']['update'])): ?>
+            <?= Html::a(GeneralLabel::cetak, ['print', 'id' => $model->akk_program_jurulatih_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
+        <?php endif; ?>
     </p>
     
     <?= $this->render('_form', [

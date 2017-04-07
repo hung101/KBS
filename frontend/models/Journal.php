@@ -59,7 +59,7 @@ class Journal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_penulis', 'telefon_no', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'tarikh_journal', 'bahagian', 'artikel_journal'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama_penulis', 'telefon_no', 'alamat_1', 'alamat_negeri', 'alamat_poskod', 'tarikh_journal', 'bahagian', 'artikel_journal'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_journal'], 'safe'],
             [['artikel_journal'], 'string'],
             [['nama_penulis'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],

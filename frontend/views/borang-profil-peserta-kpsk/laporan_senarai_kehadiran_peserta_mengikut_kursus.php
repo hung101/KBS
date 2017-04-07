@@ -11,6 +11,7 @@ use kartik\datecontrol\DateControl;
 // table reference
 use app\models\RefReportFormat;
 use app\models\BorangProfilPesertaKpsk;
+use app\models\RefTahapKpsk;
 
 // contant values
 use app\models\general\Placeholder;
@@ -75,6 +76,29 @@ $this->params['breadcrumbs'][] = $this->title;
                         'pluginOptions' => [
                                     'allowClear' => true
                                 ],],
+                    'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'tahap' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-tahap-kpsk/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefTahapKpsk::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::tahap],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],

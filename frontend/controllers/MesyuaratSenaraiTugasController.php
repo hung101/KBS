@@ -9,6 +9,12 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+// table reference
+use app\models\RefMesyuaratPegawai;
+use app\models\Atlet;
+use app\models\RefMesyuaratTugasStatus;
+use app\models\MesyuaratSenaraiNamaHadir;
+
 /**
  * MesyuaratSenaraiTugasController implements the CRUD actions for MesyuaratSenaraiTugas model.
  */
@@ -48,8 +54,19 @@ class MesyuaratSenaraiTugasController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        
+        $ref = Atlet::findOne(['atlet_id' => $model->atlet_id]);
+        $model->atlet_id = $ref['nameAndIC'];
+        
+        $ref = RefMesyuaratTugasStatus::findOne(['id' => $model->status]);
+        $model->status = $ref['desc'];
+        
+        $ref = MesyuaratSenaraiNamaHadir::findOne(['senarai_nama_hadir_id' => $model->pegawai]);
+        $model->pegawai = $ref['nama'];
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

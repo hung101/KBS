@@ -78,10 +78,9 @@ class Sukarelawan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['sukan','nama', 'no_kad_pengenalan', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 
+            [['sukan','nama', 'no_kad_pengenalan', 'alamat_1', 'alamat_negeri', 'alamat_poskod', 
                 'tarikh_lahir', 'jantina', 'no_tel_bimbit', 'status', 'kebatasan_fizikal', 'kelulusan_akademi', 
-                'bidang_kepakaran', 'pekerjaan_semasa', 'alamat_majikan_1', 'alamat_majikan_negeri', 
-                'alamat_majikan_bandar', 'alamat_majikan_poskod', 'bidang_diminati', 'waktu_ketika_diperlukan', 
+                'bidang_kepakaran', 'pekerjaan_semasa', 'alamat_majikan_1', 'alamat_majikan_negeri', 'alamat_majikan_poskod', 'bidang_diminati', 'waktu_ketika_diperlukan', 
                 'clause', 'bangsa', 'emel'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             ['menyatakan_jika_ada_kebatasan_fizikal', 'required', 'when' => function ($model) {
                 return $model->kebatasan_fizikal == 1;

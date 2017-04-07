@@ -69,7 +69,7 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['badan_sukan', 'sukan', 'no_pendaftaran', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 
+            [['badan_sukan', 'sukan', 'no_pendaftaran', 'alamat_1', 'alamat_negeri', 'alamat_poskod', 
                 'no_telefon', 'nama_bank', 'no_akaun', 'nama_kejohanan', 'peringkat', 'tarikh', 'tempat', 'tujuan', 
                 'jumlah_bantuan_yang_dipohon', 'tarikh_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh', 'tarikh_permohonan', 'tarikh_jkb', 'created', 'updated'], 'safe'],

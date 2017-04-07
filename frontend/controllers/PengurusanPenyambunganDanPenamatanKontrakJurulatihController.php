@@ -74,6 +74,7 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
         $jurulatih_id = $model->jurulatih;
         $ref = Jurulatih::findOne(['jurulatih_id' => $model->jurulatih]);
         $model->jurulatih = $ref['nameAndIC'];
+		$namaJurulatih = $ref['nama'];
         
         $ref = RefStatusPermohonanKontrakJurulatih::findOne(['id' => $model->status_permohonan]);
         $model->status_permohonan = $ref['desc'];
@@ -96,6 +97,7 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
         return $this->render('view', [
             'model' => $model,
             'jurulatih_id' => $jurulatih_id,
+			'namaJurulatih' => $namaJurulatih,
             'readonly' => true,
         ]);
     }

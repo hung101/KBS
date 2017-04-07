@@ -15,6 +15,7 @@ use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Jurulatih;
@@ -81,7 +82,7 @@ use app\models\RefBank;
                             ] : null,
                             'pluginOptions'=>['allowClear'=>true]
                         ],
-                        'data'=>ArrayHelper::map(Jurulatih::find()->all(),'jurulatih_id', 'nama'),
+                        'data'=>ArrayHelper::map(GeneralFunction::getJurulatih(),'jurulatih_id', 'nameAndIC'),
                         'options'=>['prompt'=>'',],
                         'pluginOptions' => [
                             'initialize' => true,

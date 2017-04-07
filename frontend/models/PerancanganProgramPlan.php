@@ -54,7 +54,7 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
         return [
             [['tarikh_mula', 'tarikh_tamat', 'jenis_program', 'nama_program', 'bahagian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_mula', 'tarikh_tamat', 'tarikh_kelulusan', 'status_program', 'sukan', 'cawangan', 'tarikh_jkk_jkp'], 'safe'],
-            [['mesyuarat_id', 'status_permohonan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['mesyuarat_id', 'status_permohonan', 'jenis_aktiviti'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_program', 'bilangan_jkk_jkp'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kelulusan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lokasi'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -62,16 +62,16 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
             [['anggaran_perbelanjaan', 'perbelanjaan_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['catatan', 'tempat'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
-            ['jenis_aktiviti', 'required', 'message' => GeneralMessage::yii_validation_required, 'when' => function ($model) {
+/*             ['jenis_aktiviti', 'required', 'message' => GeneralMessage::yii_validation_required, 'when' => function ($model) {
                     return $model->bahagian != 1;
                 }, 'whenClient' => "function (attribute, value) {
                     return $('#perancanganprogramplan-bahagian').val() != '" . 1 . "';
-                }"],
-            ['status_program', 'required', 'message' => GeneralMessage::yii_validation_required, 'when' => function ($model) {
+                }"], */
+/*             ['status_program', 'required', 'message' => GeneralMessage::yii_validation_required, 'when' => function ($model) {
                     return $model->bahagian == 1;
                 }, 'whenClient' => "function (attribute, value) {
                     return $('#perancanganprogramplan-bahagian').val() == '" . 1 . "';
-                }"],
+                }"], */
         ];
     }
 

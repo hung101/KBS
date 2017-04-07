@@ -71,8 +71,8 @@ class BspPenjamin extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'no_kad_pengenalan', 'alamat_tetap_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod',
-                'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'no_telefon_bimbit'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama', 'no_kad_pengenalan', 'alamat_tetap_1', 'alamat_negeri', 'alamat_poskod',
+                'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_poskod', 'no_telefon_bimbit'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['bsp_pemohon_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],            

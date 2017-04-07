@@ -12,6 +12,7 @@ use kartik\datecontrol\DateControl;
 use app\models\RefMesyuaratPegawai;
 use app\models\Atlet;
 use app\models\RefMesyuaratTugasStatus;
+use app\models\MesyuaratSenaraiNamaHadir;
 
 // contant values
 use app\models\general\Placeholder;
@@ -21,6 +22,13 @@ use app\models\general\GeneralVariable;
 /* @var $this yii\web\View */
 /* @var $model app\models\MesyuaratSenaraiTugas */
 /* @var $form yii\widgets\ActiveForm */
+
+$MesyuaratSenaraiNamaHadir = null;
+if($model->session_id){
+    $MesyuaratSenaraiNamaHadir = MesyuaratSenaraiNamaHadir::find()->where(['=', 'session_id', $model->session_id])->all();
+} else {
+    $MesyuaratSenaraiNamaHadir = MesyuaratSenaraiNamaHadir::find()->where(['=', 'mesyuarat_id', $model->mesyuarat_id])->all();
+}
 ?>
 
 <div class="mesyuarat-senarai-tugas-form">
@@ -66,16 +74,9 @@ use app\models\general\GeneralVariable;
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-mesyuarat-pegawai/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefMesyuaratPegawai::find()->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map($MesyuaratSenaraiNamaHadir,'senarai_nama_hadir_id', 'nama'),
                         'options' => ['placeholder' => Placeholder::pegawai],
-'pluginOptions' => [
+                        'pluginOptions' => [
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>6]],

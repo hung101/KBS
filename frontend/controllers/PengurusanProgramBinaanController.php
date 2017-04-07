@@ -784,7 +784,7 @@ Majlis Sukan Negara Malaysia.
         }  
         $model = $this->findModel($id);
         
-        if(isset($model->sukan) && $model->sukan != ''){
+/*         if(isset($model->sukan) && $model->sukan != ''){
             $sukan_selected=explode(',',$model->sukan);
             $count = 1;
             foreach($sukan_selected as $sukan_id){
@@ -794,7 +794,7 @@ Majlis Sukan Negara Malaysia.
             }
             
             $model->sukan = implode("<br />",$sukanArr);
-        }
+        } */
         
         if(isset($model->tarikh_mula))
         {
@@ -808,6 +808,22 @@ Majlis Sukan Negara Malaysia.
         
         $ref = RefNegeri::findOne(['id' => $model->negeri]);
         $model->negeri = $ref['desc'];
+		
+		$PengurusanProgramBinaanSukan = PengurusanProgramBinaanSukan::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])->all();
+		
+		$count = 1;
+		foreach($PengurusanProgramBinaanSukan as $item){
+			$ref = RefSukan::findOne(['id' => $item->sukan]);
+			$sukan = $ref['desc'];
+			$sukanArr[] = $count.'. '.$sukan;
+            $count++;
+		}
+		
+		if(isset($sukanArr) && count($sukanArr) > 0){
+			$sukanList = implode("<br />",$sukanArr);
+		} else {
+			$sukanList = null;
+		}
         
         $binaanKosModel = PengurusanProgramBinaanKos::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])->all();
         
@@ -833,6 +849,7 @@ Majlis Sukan Negara Malaysia.
              'model'  => $model,
              'binaanKosModel' => $binaanKosModel,
              'totalOrang' => $totalOrang,
+			 'sukanList' => $sukanList,
         ]));
 
         $pdf->Output('Borang_jkb_'.$model->pengurusan_program_binaan_id.'.pdf', 'I'); 
@@ -844,6 +861,20 @@ Majlis Sukan Negara Malaysia.
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }  
         $model = $this->findModel($id);
+		
+		$PengurusanProgramBinaanSukan = PengurusanProgramBinaanSukan::find()->where(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id])->all();
+
+		foreach($PengurusanProgramBinaanSukan as $item){
+			$ref = RefSukan::findOne(['id' => $item->sukan]);
+			$sukan = $ref['desc'];
+			$sukanArr[] = $sukan;
+		}
+		
+		if(isset($sukanArr) && count($sukanArr) > 0){
+			$sukanList = implode(", ",$sukanArr);
+		} else {
+			$sukanList = null;
+		}
         
         //count by jantina
         $subFemale = \app\models\RefJantina::find()->select('id')->where(['LIKE', 'desc', 'perempuan']);
@@ -949,6 +980,7 @@ Majlis Sukan Negara Malaysia.
              'urusetiaCount' => $urusetiaCount,
              'atletCount' => $atletCount,
              'jurulatihCount' => $jurulatihCount,
+			 'sukanList' => $sukanList,
         ]));
 
         $pdf->Output('Borang_permohonan_'.$model->pengurusan_program_binaan_id.'.pdf', 'I');

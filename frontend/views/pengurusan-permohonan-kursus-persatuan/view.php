@@ -34,9 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
-                <?php if($model->kelulusan_id == RefStatusPermohonanJkk::LULUS): ?>
-        <?= Html::a('Surat Tawaran', ['surat-tawaran', 'pengurusan_permohonan_kursus_persatuan_id' => $model->pengurusan_permohonan_kursus_persatuan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
+        <?php if($model->kelulusan_id == RefStatusPermohonanJkk::LULUS): ?>
+            <?= Html::a('Surat Tawaran', ['surat-tawaran', 'pengurusan_permohonan_kursus_persatuan_id' => $model->pengurusan_permohonan_kursus_persatuan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
         <?php endif; ?>
+        <?= Html::a(GeneralLabel::borang_profil_peserta, ['/borang-profil-peserta-kpsk/create', 'id' => $model->pengurusan_permohonan_kursus_persatuan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
     </p>
     
     <?= $this->render('_form', [

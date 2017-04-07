@@ -66,6 +66,28 @@ function deleteRecordModalAjax(url, confirmMsg, gridId){
    return false;
 }
 
+function deleteRecordModalAjax2Containers(url, confirmMsg, gridId){
+    var r = confirm(confirmMsg);
+       
+    if (r == true) {
+    
+        $.ajax({
+           url: url,
+           type: 'post',
+           success: function(html) {
+               $.pjax.defaults.timeout = 50000;
+               $.pjax.reload({container:'#' + gridId, async:false});
+                $.pjax.reload({container:'#boxPajax', async:false});
+            //console.log(html);
+           }
+        });
+    } else {
+        return false;
+    }
+    
+   return false;
+}
+
 function deleteRecordSubModalAjax(url, confirmMsg, gridId){
     var r = confirm(confirmMsg);
        

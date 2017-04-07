@@ -557,9 +557,6 @@ use app\models\general\GeneralMessage;
             'data' => [
                     'confirm' => GeneralMessage::confirmSave,
                 ],]) ?>
-			<?php if(!$model->isNewRecord): ?>
-			<?= Html::a(GeneralLabel::borang_profil_peserta, ['/borang-profil-peserta-kpsk/create', 'id' => $model->pengurusan_permohonan_kursus_persatuan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
-			<?php endif; ?>
         <?php endif; ?>
     </div>
 

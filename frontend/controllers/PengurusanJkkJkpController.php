@@ -22,6 +22,7 @@ use app\models\RefSukan;
 use app\models\RefCawangan;
 use app\models\RefAgensiJkk;
 use app\models\RefBahagianAduan;
+use app\models\RefPerananJkkJkp;
 
 
 /**
@@ -79,8 +80,8 @@ class PengurusanJkkJkpController extends Controller
         $ref = RefStatusJkkJkp::findOne(['id' => $model->status]);
         $model->status = $ref['desc'];
         
-        //$ref = RefNamaAhliJkkJkp::findOne(['id' => $model->nama_pegawai_coach]);
-        //$model->nama_pegawai_coach = $ref['desc'];
+        $ref = RefPerananJkkJkp::findOne(['id' => $model->peranan]);
+        $model->peranan = $ref['desc'];
         
         $ref = RefJawatanJkkJkp::findOne(['id' => $model->jawatan]);
         $model->jawatan = $ref['desc'];

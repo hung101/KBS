@@ -68,7 +68,7 @@ class PengurusanPermohonanKursusPersatuan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 
+            [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'alamat_1', 'alamat_negeri', 'alamat_poskod', 'no_tel_bimbit', 
                 'kelayakan_akademi', 'perkerjaan', 'nama_majikan', 'yuran_program', 'agensi', 'kursus', 'tahap',
                 'tarikh_kursus', 'tarikh_tamat_kursus', 'tempat', 'no_perhubungan', 'bilangan_peserta', 'jumlah_yuran', 'nama_penganjur',
                 'emel', 'kelulusan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],

@@ -35,7 +35,7 @@ class PermohonanKemudahanTicketKapalTerbangPegawai extends \yii\db\ActiveRecord
     {
         return [
             [['permohonan_kemudahan_ticket_kapal_terbang_id', 'created_by', 'updated_by'], 'integer'],
-            [['pegawai', 'passport_no', 'ic_no', 'hp_no', 'tarikh_pergi', 'tarikh_balik', 'destinasi_pergi', 'destinasi_balik'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pegawai', 'passport_no', 'ic_no', 'hp_no'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['created', 'updated', 'tarikh_pergi', 'tarikh_balik'], 'safe'],
             [['hp_no', 'masa_pergi', 'masa_balik'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['flight_no_pergi', 'flight_no_balik'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],

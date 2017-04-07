@@ -58,7 +58,7 @@ class Mesyuarat extends \yii\db\ActiveRecord
     {
         return [
             [['bil_mesyuarat', 'nama_mesyuarat', 'agenda', 'tarikh', 'tempat', 'disedia_oleh', 'disemak_oleh'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh'], 'safe'],
+            [['tarikh', 'tarikh_semakan'], 'safe'],
             [['bil_mesyuarat', 'tempat'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['pengurusi', 'pencatat_minit', 'perkara_perkara_dan_tindakan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['mesyuarat_tamat', 'mesyuarat_seterusnya', 'disedia_oleh', 'disemak_oleh'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
@@ -86,7 +86,7 @@ class Mesyuarat extends \yii\db\ActiveRecord
             'muat_naik' => GeneralLabel::muat_naik,
             'disedia_oleh' => GeneralLabel::disedia_oleh,
             'disemak_oleh' => GeneralLabel::disemak_oleh,
-
+            'tarikh_semakan' => GeneralLabel::tarikh_semakan,
         ];
     }
 }

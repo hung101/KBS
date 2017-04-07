@@ -70,7 +70,7 @@ class PermohonanBiasiswa extends \yii\db\ActiveRecord
     {
         return [
             [['atlet_id','sukan','nama_institusi_pengajian','tarikh_mula_pengajian','tarikh_tamat_pengajian','nama_program_pengajian', 'no_ic', 'umur', 
-                'jantina', 'alamat_rumah_1', 'alamat_rumah_negeri', 'alamat_rumah_bandar', 'alamat_rumah_poskod', 'no_tel_rumah', 'no_tel_bimbit', 
+                'jantina', 'alamat_rumah_1', 'alamat_rumah_negeri', 'alamat_rumah_poskod', 'no_tel_rumah', 'no_tel_bimbit', 
                 'jenis_biasiswa', 'kelulusan', 'program'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id', 'umur', 'kelulusan', 'program', 'kategori'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['kadar'], 'number', 'message' => GeneralMessage::yii_validation_number],

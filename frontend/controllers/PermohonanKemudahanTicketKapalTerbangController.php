@@ -391,6 +391,7 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
         $model->bil_penumpang += $dataProviderPermohonanKemudahanTicketKapalTerbangPengurusSukan->getTotalCount();
 
         if (Yii::$app->request->post() && $model->save()) {
+			$this->updateItemPergiBalik($model);
             return $this->redirect(['view', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_id]);
         } else {
             return $this->render('update', [
@@ -629,4 +630,15 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
 
         }
     }
+	
+	public function updateItemPergiBalik($model)
+	{
+		PermohonanKemudahanTicketKapalTerbangAtlet::updateAll(['tarikh_pergi' => $model->pri_tarikh_pergi, 'flight_no_pergi' => $model->pri_flight_pergi, 'masa_pergi' => $model->pri_masa_pergi, 'destinasi_pergi' => $model->pri_destinasi_pergi, 'tarikh_balik' => $model->pri_tarikh_balik, 'flight_no_balik' => $model->pri_flight_balik, 'masa_balik' => $model->pri_masa_balik, 'destinasi_balik' => $model->pri_destinasi_balik], 'permohonan_kemudahan_ticket_kapal_terbang_id = "'.$model->permohonan_kemudahan_ticket_kapal_terbang_id.'"');
+		
+		PermohonanKemudahanTicketKapalTerbangJurulatih::updateAll(['tarikh_pergi' => $model->pri_tarikh_pergi, 'flight_no_pergi' => $model->pri_flight_pergi, 'masa_pergi' => $model->pri_masa_pergi, 'destinasi_pergi' => $model->pri_destinasi_pergi, 'tarikh_balik' => $model->pri_tarikh_balik, 'flight_no_balik' => $model->pri_flight_balik, 'masa_balik' => $model->pri_masa_balik, 'destinasi_balik' => $model->pri_destinasi_balik], 'permohonan_kemudahan_ticket_kapal_terbang_id = "'.$model->permohonan_kemudahan_ticket_kapal_terbang_id.'"');
+		
+		PermohonanKemudahanTicketKapalTerbangPegawai::updateAll(['tarikh_pergi' => $model->pri_tarikh_pergi, 'flight_no_pergi' => $model->pri_flight_pergi, 'masa_pergi' => $model->pri_masa_pergi, 'destinasi_pergi' => $model->pri_destinasi_pergi, 'tarikh_balik' => $model->pri_tarikh_balik, 'flight_no_balik' => $model->pri_flight_balik, 'masa_balik' => $model->pri_masa_balik, 'destinasi_balik' => $model->pri_destinasi_balik], 'permohonan_kemudahan_ticket_kapal_terbang_id = "'.$model->permohonan_kemudahan_ticket_kapal_terbang_id.'"');
+		
+		PermohonanKemudahanTicketKapalTerbangPengurusSukan::updateAll(['tarikh_pergi' => $model->pri_tarikh_pergi, 'flight_no_pergi' => $model->pri_flight_pergi, 'masa_pergi' => $model->pri_masa_pergi, 'destinasi_pergi' => $model->pri_destinasi_pergi, 'tarikh_balik' => $model->pri_tarikh_balik, 'flight_no_balik' => $model->pri_flight_balik, 'masa_balik' => $model->pri_masa_balik, 'destinasi_balik' => $model->pri_destinasi_balik], 'permohonan_kemudahan_ticket_kapal_terbang_id = "'.$model->permohonan_kemudahan_ticket_kapal_terbang_id.'"');	
+	}
 }

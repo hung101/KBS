@@ -71,6 +71,15 @@ class BorangProfilPesertaKpskController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
+		
+		$model = $this->findModel($id);
+		
+		$session = new Session;
+        $session->open();
+
+        $session['borang_profil_peserta_kpsk_tahap_id'] = $model->tahap;
+        
+        $session->close();
         
         $queryPar = null;
         
@@ -80,7 +89,7 @@ class BorangProfilPesertaKpskController extends Controller
         $dataProviderBorangProfilPesertaKpskPeserta = $searchModelBorangProfilPesertaKpskPeserta->search($queryPar);
         
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'searchModelBorangProfilPesertaKpskPeserta' => $searchModelBorangProfilPesertaKpskPeserta,
             'dataProviderBorangProfilPesertaKpskPeserta' => $dataProviderBorangProfilPesertaKpskPeserta,
             'readonly' => true,
@@ -158,6 +167,13 @@ class BorangProfilPesertaKpskController extends Controller
         
         $model = $this->findModel($id);
         
+		$session = new Session;
+        $session->open();
+
+        $session['borang_profil_peserta_kpsk_tahap_id'] = $model->tahap;
+        
+        $session->close();
+		
         $queryPar = null;
         
         $queryPar['BorangProfilPesertaKpskPesertaSearch']['borang_profil_peserta_kpsk_id'] = $id;

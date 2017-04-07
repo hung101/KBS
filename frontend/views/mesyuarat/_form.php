@@ -9,15 +9,28 @@ use yii\grid\GridView;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
+use yii\helpers\ArrayHelper;
 use kartik\datecontrol\DateControl;
 
+use app\models\MesyuaratSenaraiNamaHadir;
+
 // contant values
+use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Mesyuarat */
 /* @var $form yii\widgets\ActiveForm */
+
+
+$MesyuaratSenaraiNamaHadir = null;
+if($model->isNewRecord){
+    $MesyuaratSenaraiNamaHadir = MesyuaratSenaraiNamaHadir::find()->where(['=', 'session_id', Yii::$app->session->id])->all();
+} else {
+    $MesyuaratSenaraiNamaHadir = MesyuaratSenaraiNamaHadir::find()->where(['=', 'mesyuarat_id', $model->mesyuarat_id])->all();
+}
 ?>
 
 <div class="mesyuarat-form">
@@ -193,7 +206,7 @@ use app\models\general\GeneralMessage;
                     'delete' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Delete'),
-                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['mesyuarat-senarai-nama-hadir/delete', 'id' => $model->senarai_nama_hadir_id]).'", "'.GeneralMessage::confirmDelete.'", "senaraiNamaAhliGrid");',
+                        'onclick' => 'deleteRecordModalAjax2Containers("'.Url::to(['mesyuarat-senarai-nama-hadir/delete', 'id' => $model->senarai_nama_hadir_id]).'", "'.GeneralMessage::confirmDelete.'", "senaraiNamaAhliGrid");',
                         //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
                         ]);
 
@@ -256,7 +269,7 @@ use app\models\general\GeneralMessage;
             //'pegawai',
             [
                 'attribute' => 'pegawai',
-                'value' => 'refMesyuaratPegawai.desc'
+                'value' => 'refMesyuaratSenaraiNamaHadir.nama'
             ],
             //'atlet_id',
             [
@@ -311,6 +324,8 @@ use app\models\general\GeneralMessage;
     <br>
     
     <?php
+    Pjax::begin(['id' => 'boxPajax']);
+    
         echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
@@ -320,42 +335,49 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'disedia_oleh' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100]],
+                'disedia_oleh' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'data'=>ArrayHelper::map($MesyuaratSenaraiNamaHadir,'senarai_nama_hadir_id', 'nama'),
+                        'options' => ['placeholder' => Placeholder::pegawai],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>6]],
             ]
         ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'disemak_oleh' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100]],
+                'disemak_oleh' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'data'=>ArrayHelper::map($MesyuaratSenaraiNamaHadir,'senarai_nama_hadir_id', 'nama'),
+                        'options' => ['placeholder' => Placeholder::pegawai],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>6]],
+                'tarikh_semakan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
             ]
         ],
     ]
 ]);
+        Pjax::end();
     ?>
     
-
-    <!--<?= $form->field($model, 'bil_mesyuarat')->textInput(['maxlength' => 20]) ?>
-
-    <?= $form->field($model, 'tarikh')->textInput() ?>
-
-    <?= $form->field($model, 'masa')->textInput() ?>
-
-    <?= $form->field($model, 'tempat')->textInput(['maxlength' => 20]) ?>
-
-    <?= $form->field($model, 'pengurusi')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'pencatat_minit')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'perkara_perkara_dan_tindakan')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'mesyuarat_tamat')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'mesyuarat_seterusnya')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'disedia_oleh')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'disemak_oleh')->textInput(['maxlength' => 100]) ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -366,3 +388,16 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+
+<?php
+$script = <<< JS
+        
+
+     
+
+JS;
+        
+$this->registerJs($script);
+?>

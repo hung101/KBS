@@ -206,7 +206,7 @@ foreach($pengurus as $item){
                     ?>
                     <tr>
                         <td width="40%"><?= $list['destinasi'] ?></td>
-                        <td align="center"><?= date('d/m/Y',strtotime($list['tarikh'])) ?></td>
+                        <td align="center"><?= ($list['tarikh'] != null)?date('d/m/Y',strtotime($list['tarikh'])):null ?></td>
                     </tr>
                     <?php
                     }
@@ -281,11 +281,11 @@ foreach($pengurus as $item){
                     <td align="center"><?= $bil ?></td>
                     <td><?= $penumpang['name'] ?></td>
 					<td><?= $penumpang['passport'].' / '.$penumpang['no_kp'] ?></td>
-                    <td><?= date('d/m/Y',strtotime($penumpang['tarikh_pergi'])) ?></td>
+                    <td><?= ($penumpang['tarikh_pergi'] != null)?date('d/m/Y',strtotime($penumpang['tarikh_pergi'])):null ?></td>
                     <!--<td><?= $penumpang['flight_pergi'] ?></td>-->
                     <td><?= $penumpang['masa_pergi'] ?></td>
                     <td><?= $penumpang['destinasi_pergi'] ?></td>
-                    <td><?= date('d/m/Y',strtotime($penumpang['tarikh_balik'])) ?></td>
+                    <td><?= ($penumpang['tarikh_balik'])?date('d/m/Y',strtotime($penumpang['tarikh_balik'])):null ?></td>
                     <!--<td><?= $penumpang['flight_balik'] ?></td>-->
                     <td><?= $penumpang['masa_balik'] ?></td>
                     <td><?= $penumpang['destinasi_balik'] ?></td>

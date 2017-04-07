@@ -53,13 +53,13 @@ class AtletSukanPersatuanpersekutuandunia extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'jenis', 'name_persatuan_persekutuan_dunia', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'jenis', 'name_persatuan_persekutuan_dunia', 'alamat_1', 'alamat_negeri', 'alamat_poskod'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jenis', 'alamat_1', 'alamat_2', 'alamat_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['name_persatuan_persekutuan_dunia', 'emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_telefon'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_telefon'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_poskod', 'alamat_bandar'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['laman_web'], 'string', 'max' => 120, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];

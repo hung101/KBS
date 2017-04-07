@@ -9,6 +9,9 @@ use app\models\RefSukan;
 use app\models\Atlet;
 use app\models\RefNegeri;
 use app\models\ProfilBadanSukan;
+use app\models\Jurulatih;
+use app\models\RefStatusTawaran;
+
 
 class GeneralFunction{
     const DATE_FORMAT = 'php:d-m-Y';
@@ -404,5 +407,14 @@ class GeneralFunction{
         $bandan_sukan_dd_list = $bandan_sukan_dd_list->all();
         
         return $bandan_sukan_dd_list;
+    }
+	
+	public static function getJurulatih($param = null){
+        
+        $jurulatih_dd_list = Jurulatih::find()->where(['=', 'status_tawaran_mpj', RefStatusTawaran::LULUS_TAWARAN])->andWhere(['=', 'status_tawaran_jkb', RefStatusTawaran::LULUS_TAWARAN]); // defauilt show all lulus mpj and jkb
+        
+        $jurulatih_dd_list = $jurulatih_dd_list->all();
+        
+        return $jurulatih_dd_list;
     }
 }

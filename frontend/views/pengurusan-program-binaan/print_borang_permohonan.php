@@ -32,7 +32,7 @@ foreach($binaanKosModel as $item)
         <td>NEGERI</td><td>:</td><td><?= $model->negeri ?></td>
     </tr>
     <tr>
-        <td>SUKAN</td><td>:</td><td><?= $model->sukan ?></td>
+        <td>SUKAN</td><td>:</td><td><?= $sukanList?></td>
     </tr>
     <tr>
         <td>TARIKH</td><td>:</td><td><?= $model->tarikh_mula.' - '.$model->tarikh_tamat ?></td>

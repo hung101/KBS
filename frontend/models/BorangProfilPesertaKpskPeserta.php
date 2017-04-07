@@ -78,7 +78,7 @@ class BorangProfilPesertaKpskPeserta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'jantina', 'bangsa', 'agama', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod',
+            [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'jantina', 'bangsa', 'agama', 'alamat_1', 'alamat_negeri', 'alamat_poskod',
                 'emel', 'akademik', 'no_telefon_bimbit'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['borang_profil_peserta_kpsk_id', 'umur', 'bangsa', 'agama', 'akademik', 'keputusan', 'objektif', 'struktur', 'esei', 'jumlah', 'penilaian_refleksi', 'laporan_projek', 'created_by', 'updated_by'], 'integer'],
             [['tarikh_lahir', 'created', 'updated'], 'safe'],

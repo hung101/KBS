@@ -26,6 +26,7 @@ use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanPemantauanDanPenilaianJurulatih */
@@ -66,7 +67,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(Jurulatih::find()->where('status_tawaran = :status_tawaran', [':status_tawaran' => RefStatusTawaran::LULUS_TAWARAN])->all(),'jurulatih_id', 'nameAndIC'),
+                        'data'=>ArrayHelper::map(GeneralFunction::getJurulatih(),'jurulatih_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::jurulatih, 'id'=>'jurulatihId'],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -343,7 +344,6 @@ $('#jurulatihId').change(function(){
         
     $.get('$URLJurulatihSukan',{jurulatih_id:$(this).val()},function(data){
         var data = $.parseJSON(data);
-        
         if(data !== null){
             $("#pengurusanpemantauandanpenilaianjurulatih-nama_sukan").val(data.sukan).trigger("change");
             if(data.refJurulatihAcara !== null){ 

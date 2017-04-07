@@ -84,7 +84,7 @@ class PermohonanEBiasiswa extends \yii\db\ActiveRecord
     {
         return [
             [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'jantina', 'keturunan', 'agama', 'taraf_perkahwinan', 
-                'kawasan_temuduga_anda', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 
+                'kawasan_temuduga_anda', 'alamat_1', 'alamat_negeri', 'alamat_poskod', 
                 'no_tel_bimbit', 'universiti_institusi', 'program_pengajian', 'kursus_bidang_pengajian', 'falkulti', 
                 'kategori', 'tarikh_mula', 'tarikh_tamat', 'semester_terkini', 'baki_semester_yang_tinggal', 'no_matriks', 
                 'sukan', 'perakuan_pemohon', 'status_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required ],

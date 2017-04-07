@@ -59,7 +59,7 @@ class PenyelidikanKomposisiPasukan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'jawatan', 'gelaran', 'pasukan', 'telefon_no', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'institusi_universiti_syarikat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama', 'jawatan', 'gelaran', 'pasukan', 'telefon_no', 'alamat_1', 'alamat_negeri', 'alamat_poskod', 'institusi_universiti_syarikat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['permohonana_penyelidikan_id', 'gelaran'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama', 'institusi_universiti_syarikat'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['pasukan', 'jawatan', 'alamat_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],

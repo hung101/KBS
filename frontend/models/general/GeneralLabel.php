@@ -992,8 +992,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_acara_kejohanan_temasya= "Laporan Senarai Acara Kejohanan";
         const laporan_aduan_kerosakan = "Laporan Aduan Kerosakan";
         const laporan_aktiviti_muat_naik = "Laporan Aktiviti";
-        const laporan_atlet_elaun = "Laporan Elaun";
-        const laporan_atlet_elaun_paralimpik = "Laporan Elaun (Paralimpik)";
+        const laporan_atlet_elaun = "Senarai Pembayaran Elaun";
+        const laporan_atlet_elaun_paralimpik = "Senarai Pembayaran Elaun (Paralimpik)";
         const laporan_atlet_pakaian_sukan = "Laporan Pakaian Sukan";
         const laporan_atlet_pakaian_sukan_paralimpik = "Laporan Pakaian Sukan (Paralimpik)";
         const laporan_atlet_pencapaian_prestasi = "Laporan Pencapaian Prestasi";
@@ -1004,6 +1004,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_bulanan_secara_detail = "Laporan Bulanan";
         const laporan_delegasi_teknikal = "Laporan Delegasi Teknikal";
         const laporan_doktor = "Laporan Doktor";
+        const laporan_elaun_atlet_mengikut_sukan = "Laporan Elaun Atlet Mengikut Sukan";
+        const laporan_elaun_atlet_mengikut_sukan_paralimpik = "Laporan Elaun Atlet Mengikut Sukan (Paralimpik)";
         const laporan_fisiologi_jumlah_bilangan_ujian = "Laporan Fisiologi Jumlah Bilangan Ujian";
         const laporan_hadiah_kemenangan_untuk_temasya_sukan = "Laporan Skim Hadiah Kemenangan Sukan";
         const laporan_jadual_pegawai_temujanji = "Jadual Pegawai Temujanji";
@@ -2265,6 +2267,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tarikh_pulang_perjalanan_pesawat = "Ke";
         const tarikh_rujukan = "Tarikh Rujukan";
         const tarikh_siap_tindakan = "Tarikh Siap Tindakan";
+        const tarikh_semakan = "Tarikh Semakan";
         const tarikh_serahan = "Tarikh Serahan";
         const tarikh_sponsor_mula = "Tarikh Sponsor Mula";
         const tarikh_sponsor_tamat = "Tarikh Sponsor Tamat";
@@ -2331,6 +2334,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tempoh_perlanjutan_semester = "Tempoh Perlanjutan Semester";
         const tempoh_pinjaman = "Tempoh Pinjaman";
         const tempoh_penangguhan = "Tempoh Penangguhan";
+        const tempoh_tahun = "Tempoh (Tahun)";
         const temuduga_tarikh = "Temuduga Tarikh";
         const temujanji_komplimentari_id = "Temujanji Komplimentari ID";
         const terbaik = "Terbaik";
@@ -4676,8 +4680,8 @@ if($session->get('language') == "EN") {
         const laporan_acara_kejohanan_temasya= "Report Event List Championship";
         const laporan_aduan_kerosakan = "Report Complaint";
         const laporan_aktiviti_muat_naik = "Activity Report";
-        const laporan_atlet_elaun = "Allowance Report";
-        const laporan_atlet_elaun_paralimpik = "Allowance Report (Paralympic)";
+        const laporan_atlet_elaun = "List of Allowance Payments";
+        const laporan_atlet_elaun_paralimpik = "List of Allowance Payments (Paralympic)";
         const laporan_atlet_pakaian_sukan = "Sportswear Report";
         const laporan_atlet_pakaian_sukan_paralimpik = "Sportswear Report (Paralympic)";
         const laporan_atlet_pencapaian_prestasi = "Performance Report";
@@ -4688,8 +4692,10 @@ if($session->get('language') == "EN") {
         const laporan_bulanan_secara_detail = "Monthly Report";
         const laporan_delegasi_teknikal = "Technical Delegate Report";
         const laporan_doktor = "Doctors Report";
+        const laporan_elaun_atlet_mengikut_sukan = "Report Allowance Athletes by Sport";
+        const laporan_elaun_atlet_mengikut_sukan_paralimpik = "Report Allowance Athletes by Sport (Paralympic)";
         const laporan_fisiologi_jumlah_bilangan_ujian = "Report Physiology Total Number of Test";
-        const laporan_hadiah_kemenangan_untuk_temasya_sukan = "Reports Wins Prize For Sports Meet";
+        const laporan_hadiah_kemenangan_untuk_temasya_sukan = "Report Wins Prize For Sports Meet";
         const laporan_jadual_pegawai_temujanji = "Timetable Officer Appointments";
         const laporan_jadual_perjalanan_bas = "Bus Timetable";
         const laporan_jadual_waktu_sajian_makanan_atlet = "Timetable Serving Food Athletes";
@@ -5942,6 +5948,7 @@ if($session->get('language') == "EN") {
         const tarikh_pulang_perjalanan_pesawat = "To";
         const tarikh_rujukan = "Reference Date";
         const tarikh_siap_tindakan = "Completion Date";
+        const tarikh_semakan = "Revision Date";
         const tarikh_serahan = "The Date Of Surrender";
         const tarikh_sponsor_mula = "Date Start Sponsor";
         const tarikh_sponsor_tamat = "Date End Sponsor";
@@ -6007,6 +6014,7 @@ if($session->get('language') == "EN") {
         const tempoh_perlanjutan_semester = "The Period Of Extension Of The Semester";
         const tempoh_pinjaman = "Loan Period";
         const tempoh_penangguhan = "Period of Suspension";
+        const tempoh_tahun = "Period (Year)";
         const temuduga_tarikh = "Interview Date";
         const temujanji_komplimentari_id = "An Appointment For ID";
         const terbaik = "Best";

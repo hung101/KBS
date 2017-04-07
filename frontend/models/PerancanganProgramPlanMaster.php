@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use app\models\general\GeneralMessage;
+
 use app\models\general\GeneralLabel;
 
 /**
@@ -57,6 +59,7 @@ class PerancanganProgramPlanMaster extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+			[['cawangan', 'sukan', 'program'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['cawangan', 'sukan', 'program', 'created_by', 'updated_by'], 'integer'],
             [['tarikh_mula', 'tarikh_tamat', 'created', 'updated'], 'safe'],
             [['remarks'], 'string'],

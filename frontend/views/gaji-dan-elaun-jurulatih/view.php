@@ -31,7 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]); ?>
         <?php endif; ?>
-        <?= Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'if(confirm("'.GeneralMessage::confirmPrint.'")){window.print();}' ]); ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['gaji-dan-elaun-jurulatih']['update'])): ?>
+            <?php echo Html::a(GeneralLabel::cetak, ['print', 'id' => $model->gaji_dan_elaun_jurulatih_id], ['class' => 'btn btn-info', 'target' => '_blank']); ?>
+        <?php endif; ?>
         <?= Html::a(GeneralLabel::generate . ' ' . GeneralLabel::surat_persetujuan_terima_pelantikan_dan_pembayaran, ['surat-persetujuan-terima-pelantikan-dan-pembayaran', 'gaji_dan_elaun_jurulatih_id' => $model->gaji_dan_elaun_jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); ?>
     </p>
     

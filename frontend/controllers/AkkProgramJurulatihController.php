@@ -294,4 +294,45 @@ Majlis Sukan Negara Malaysia.
 
             return $this->redirect(['update', 'id' => $id]);
     }
+	
+	public function actionPrint($id)
+	{
+		if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+		$ref = Jurulatih::findOne(['jurulatih_id' => $model->jurulatih]);
+        $model->jurulatih = $ref['nameAndIC'];
+        
+        $ref = RefTahapKerjayaJurulatih::findOne(['id' => $model->tahap]);
+        $model->tahap = $ref['desc'];
+        
+        $ref = PenganjuranKursusAkk::findOne(['penganjuran_kursus_id' => $model->senarai_kursus_akk]);
+        $model->senarai_kursus_akk = $ref['nama_kursus'];
+        
+        $ref = RefKelulusan::findOne(['id' => $model->kelulusan_mpj]);
+        $model->kelulusan_mpj = $ref['desc'];
+        
+        $ref = RefKelulusan::findOne(['id' => $model->kelulusan_jkb]);
+        $model->kelulusan_jkb = $ref['desc'];
+		
+		$AkkProgramJurulatihPeserta = AkkProgramJurulatihPeserta::find()->where(['akk_program_jurulatih_id' => $model->akk_program_jurulatih_id])->all();
+		
+		$pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Peningkatan Kerjaya Jurulatih';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+             'model'  => $model,
+			 'title' => $pdf->title,
+			 'AkkProgramJurulatihPeserta' => $AkkProgramJurulatihPeserta,
+        ]));
+
+        $pdf->Output('Peningkatan_Kerjaya_Jurulatih'.$model->akk_program_jurulatih_id.'.pdf', 'I'); 	
+	}
 }

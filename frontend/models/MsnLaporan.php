@@ -25,14 +25,16 @@ class MsnLaporan extends Model
     public $kod_kursus;
     public $kejohanan;
     public $temasya;
-	public $negara;
-	public $jenis_lawatan;
+    public $negara;
+    public $jenis_lawatan;
+    public $tahap;
 
     public function rules()
     {
         return [
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'negeri', 'acara', 'kategori_kecacatan', 'atlet', 'source', 'jenis', 'kod_kursus', 'kejohanan', 'temasya', 'negara', 'jenis_lawatan'], 'safe'],
+            [['tarikh_dari', 'tarikh_hingga', 'program', 'sukan', 'negeri', 'acara', 'kategori_kecacatan', 'atlet', 'source', 'jenis', 'kod_kursus', 
+                'kejohanan', 'temasya', 'negara', 'jenis_lawatan', 'tahap'], 'safe'],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
             [['jumlah_geran_hingga'], 'compare', 'compareAttribute'=>'negeri', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
@@ -54,7 +56,8 @@ class MsnLaporan extends Model
             'kejohanan' => GeneralLabel::kejohanan,
             'temasya' => GeneralLabel::temasya,
             'kategori_kecacatan' => GeneralLabel::kategori_kecacatan,
-			'negara' => GeneralLabel::negara,
+            'negara' => GeneralLabel::negara,
+            'tahap' => GeneralLabel::tahap,
         ];
     }
 }

@@ -49,7 +49,8 @@ $usptnStyle = 'display:none';
 $nonUsptnStyle = 'display:block';
 if(isset($model->jenis_permohonan))
 {
-    $jenisPermohonan = RefJenisPermohonan::findOne($model->jenis_permohonan)->desc;
+	$ref = RefJenisPermohonan::findOne($model->jenis_permohonan);
+    $jenisPermohonan = $ref['desc'];
     if($jenisPermohonan === 'USPTN')
     {
         $usptnStyle = 'display:block';

@@ -414,4 +414,57 @@ class GeranBantuanGajiController extends Controller
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanMaklumatPembayaranGeranBantuan', $format, $controls, 'laporan_maklumat_pembayaran_geran_bantuan');
     }
+	
+	public function actionPrint($id)
+	{
+		if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+		$ref = Jurulatih::findOne(['jurulatih_id' => $model->nama_jurulatih]);
+        $model->nama_jurulatih = $ref['nameAndIC'];
+        
+        $ref = RefStatusPermohonanGeranBantuanGajiJurulatih::findOne(['id' => $model->status_permohonan]);
+        $model->status_permohonan = $ref['desc'];
+        
+        $ref = RefKategoriGeranJurulatih::findOne(['id' => $model->kategori_geran]);
+        $model->kategori_geran = $ref['desc'];
+        
+        $ref = RefStatusGeranJurulatih::findOne(['id' => $model->status_geran]);
+        $model->status_geran = $ref['desc'];
+        
+        $ref = RefProgramJurulatih::findOne(['id' => $model->program_msn]);
+        $model->program_msn = $ref['desc'];
+        
+        $ref = RefStatusJurulatih::findOne(['id' => $model->status_jurulatih]);
+        $model->status_jurulatih = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->nama_sukan]);
+        $model->nama_sukan = $ref['desc'];
+        
+        $ref = RefKelulusanGeranBantuanGajiJurulatih::findOne(['id' => $model->kelulusan]);
+        $model->kelulusan = $ref['desc'];
+        
+        $ref = RefAgensiJurulatih::findOne(['id' => $model->agensi]);
+        $model->agensi = $ref['desc'];
+		
+		$GeranBantuanGajiLampiran = GeranBantuanGajiLampiran::find()->where(['geran_bantuan_gaji_id' => $model->geran_bantuan_gaji_id])->all();
+		
+		$pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Geran Bantuan Gaji';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+             'model'  => $model,
+			 'title' => $pdf->title,
+			 'GeranBantuanGajiLampiran' => $GeranBantuanGajiLampiran,
+        ]));
+
+        $pdf->Output('Geran_bantuan_gaji'.$model->geran_bantuan_gaji_id.'.pdf', 'I'); 	
+	}
 }

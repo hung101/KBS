@@ -92,8 +92,8 @@ class PenganjuranKursusAkk extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRefJenisKursusPenganjuran(){
-        return $this->hasOne(RefJenisKursusPenganjuran::className(), ['id' => 'jenis_kursus']);
+    public function getRefKategoriKursusPenganjuran(){
+        return $this->hasOne(RefKategoriKursusPenganjuran::className(), ['id' => 'jenis_kursus']);
     }
     
     /**

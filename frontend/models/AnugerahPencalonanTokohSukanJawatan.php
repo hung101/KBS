@@ -54,7 +54,7 @@ class AnugerahPencalonanTokohSukanJawatan extends \yii\db\ActiveRecord
             'anugerah_pencalonan_lain_id' => 'Anugerah Pencalonan Lain ID',
             'jawatan' => GeneralLabel::jawatan,  //'Jawatan',
             'nama_persatuan_pertubuhan' => GeneralLabel::nama_persatuan,  //'Nama Persatuan/Pertubuhan',
-            'tempoh' => GeneralLabel::jawatan,  //'Tempoh (Tahun)',
+            'tempoh' => GeneralLabel::tempoh_tahun,  //'Tempoh (Tahun)',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

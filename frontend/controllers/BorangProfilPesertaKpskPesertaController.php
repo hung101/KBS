@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use Yii;
+use app\models\BorangProfilPesertaKpsk;
 use app\models\BorangProfilPesertaKpskPeserta;
 use frontend\models\BorangProfilPesertaKpskPesertaSearch;
 use yii\web\Controller;
@@ -200,8 +201,17 @@ class BorangProfilPesertaKpskPesertaController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
-        $format = 'pdf';
+        $format = 'pdf'; // only pdf format
+        
+        $model = $this->findModel($borang_profil_peserta_kpsk_peserta_id);
+        
+        $tahap = "";
+        
+        if (($modelBorangProfilPesertaKpsk = BorangProfilPesertaKpsk::findOne($model->borang_profil_peserta_kpsk_id)) !== null) {
+            $tahap = $modelBorangProfilPesertaKpsk->tahap;
+        } 
             
+        if($tahap == 1){
             if($format == "html") {
                 $report_url = BaseUrl::to(['generate-surat-keputusan'
                     , 'borang_profil_peserta_kpsk_peserta_id' => $borang_profil_peserta_kpsk_peserta_id
@@ -214,6 +224,20 @@ class BorangProfilPesertaKpskPesertaController extends Controller
                     , 'format' => $format
                 ]);
             }
+        } else {
+            if($format == "html") {
+                $report_url = BaseUrl::to(['generate-surat-keputusan-tahap-2'
+                    , 'borang_profil_peserta_kpsk_peserta_id' => $borang_profil_peserta_kpsk_peserta_id
+                    , 'format' => $format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-surat-keputusan-tahap-2'
+                    , 'borang_profil_peserta_kpsk_peserta_id' => $borang_profil_peserta_kpsk_peserta_id
+                    , 'format' => $format
+                ]);
+            }
+        }
     }
     
     public function actionGenerateSuratKeputusan($borang_profil_peserta_kpsk_peserta_id, $format)
@@ -228,5 +252,19 @@ class BorangProfilPesertaKpskPesertaController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/MSN/SuratKeputusanPesertaKPSK', $format, $controls, 'surat_keputusan_' . $id);
+    }
+    
+    public function actionGenerateSuratKeputusanTahap2($borang_profil_peserta_kpsk_peserta_id, $format)
+    {
+        $id = $borang_profil_peserta_kpsk_peserta_id;
+        
+        if($borang_profil_peserta_kpsk_peserta_id == "") $borang_profil_peserta_kpsk_peserta_id = array();
+        else $borang_profil_peserta_kpsk_peserta_id = array($borang_profil_peserta_kpsk_peserta_id);
+        
+        $controls = array(
+            'PESERTA_ID' => $borang_profil_peserta_kpsk_peserta_id,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/SuratKeputusanPesertaKPSKTahap2', $format, $controls, 'surat_keputusan_' . $id);
     }
 }

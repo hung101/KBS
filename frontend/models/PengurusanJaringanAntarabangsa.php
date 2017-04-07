@@ -73,9 +73,8 @@ class PengurusanJaringanAntarabangsa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_badan_sukan', 'negara', 'nama_pemohon', 'no_kad_pengenalan', 'jantina', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri', 
-                'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'pegawai_teknikal', 'permohonan', 'jenis_program', 'no_telefon', 
-                'no_tel_bimbit', 'nama_majikan', 'alamat_majikan_1', 'alamat_majikan_negeri', 'alamat_majikan_bandar', 'alamat_majikan_poskod', 
+            [['nama_badan_sukan', 'negara', 'nama_pemohon', 'no_kad_pengenalan', 'jantina', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_poskod', 'pegawai_teknikal', 'permohonan', 'jenis_program', 'no_telefon', 
+                'no_tel_bimbit', 'nama_majikan', 'alamat_majikan_1', 'alamat_majikan_negeri', 'alamat_majikan_poskod', 
                 'jawatan_di_persatuan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['nama_badan_sukan', 'negara', 'nama_pemohon', 'pegawai_teknikal', 'permohonan', 'nama_majikan', 'jawatan_di_persatuan', 
                 'tahap_kelayakan_sekarang'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],

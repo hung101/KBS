@@ -53,7 +53,7 @@
 					{
 						echo $model->nama_aktiviti.'<br /><br />';
 					}
-					echo 'Sukan:<br />'.$model->sukan;
+					echo 'Sukan:<br />'.$sukanList;
 				}
 			?>
 			</td>

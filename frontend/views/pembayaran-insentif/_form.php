@@ -438,6 +438,8 @@ use app\models\general\GeneralMessage;
             ],
             'negara',
             'nilai',
+            'rekod_baru',
+            'insentif_khas',
             //'session_id',
             // 'created_by',
             // 'updated_by',
@@ -482,7 +484,7 @@ use app\models\general\GeneralMessage;
     <?php 
         $jumlah = 0.00;
         foreach($dataProviderPembayaranInsentifAtlet->models as $PIAmodel){
-            $jumlah += $PIAmodel->nilai;
+            $jumlah += $PIAmodel->nilai + $PIAmodel->rekod_baru + $PIAmodel->insentif_khas;
         }
     ?>
     

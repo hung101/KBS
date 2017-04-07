@@ -59,13 +59,13 @@ class PaobsPenganjur extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_penganjur', 'no_pendaftaran_syarikat', 'tarikh_penubuhan_syarikat', 'alamat_penganjur_1', 'alamat_penganjur_negeri', 'alamat_penganjur_bandar', 'alamat_penganjur_poskod', 'no_telefon_penganjur', 'nama_aktiviti', 'jenis_sukan', 'tarikh_aktiviti', 'alamat_lokasi', 'bilangan_peserta', 'kos_aktiviti'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama_penganjur', 'no_pendaftaran_syarikat', 'tarikh_penubuhan_syarikat', 'alamat_penganjur_1', 'alamat_penganjur_negeri', 'alamat_penganjur_poskod', 'no_telefon_penganjur', 'nama_aktiviti', 'jenis_sukan', 'tarikh_aktiviti', 'alamat_lokasi', 'bilangan_peserta', 'kos_aktiviti'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['penganjuran_id', 'no_telefon_penganjur', 'no_faks_penganjur', 'bilangan_peserta', 'negara_peserta'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_penubuhan_syarikat', 'tarikh_aktiviti'], 'safe'],
             [['kos_aktiviti', 'sumber_kewangan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['no_telefon_penganjur', 'no_faks_penganjur'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon_penganjur', 'no_faks_penganjur'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['alamat_penganjur_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['alamat_penganjur_poskod', 'alamat_penganjur_bandar'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_penganjur_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['profil_syarikat', 'surat_sokongan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_penganjur', 'nama_aktiviti'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],

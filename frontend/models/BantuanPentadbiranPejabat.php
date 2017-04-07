@@ -59,7 +59,7 @@ class BantuanPentadbiranPejabat extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'status_permohonan', 'emel'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'alamat_1', 'alamat_negeri', 'alamat_poskod', 'no_tel_bimbit', 'status_permohonan', 'emel'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir', 'tarikh', 'tarikh_lantikan'], 'safe'],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['no_kad_pengenalan', 'alamat_poskod', 'no_tel_bimbit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
