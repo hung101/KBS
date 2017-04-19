@@ -2,12 +2,12 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\RefKedudukanKejohananSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Kedudukan Kejohanans';
+$this->title = GeneralLabel::kedudukan_kejohanan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-kedudukan-kejohanan-index">
@@ -16,21 +16,31 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Kedudukan Kejohanan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::createTitle.' '.GeneralLabel::kedudukan_kejohanan, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'desc',
-            'aktif',
-            'created_by',
-            'updated_by',
-            // 'created',
-            // 'updated',
+            [
+                'attribute' => 'desc',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::desc,
+                ]
+            ],
+            //'aktif',
+            [
+                'attribute' => 'aktif',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::aktif,
+                ],
+                'value' => function ($model) {
+                    return $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no;
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

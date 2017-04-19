@@ -57,7 +57,7 @@ use app\models\general\GeneralMessage;
         }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data'], 'id'=>$model->formName()]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -89,7 +89,7 @@ use app\models\general\GeneralMessage;
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
-                        'data'=>ArrayHelper::map(PenganjuranKursusAkk::find()->all(),'penganjuran_kursus_id', 'nama_kursus'),
+                        'data'=>ArrayHelper::map(PenganjuranKursusAkk::find()->orderBy(['created' => SORT_DESC])->all(),'penganjuran_kursus_id', 'nama_kursus'),
                         'options' => ['placeholder' => Placeholder::kursusAkk],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -357,18 +357,6 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
 
-    <!--<?= $form->field($model, 'peningkatan_kerjaya_jurulatih_id')->textInput() ?>
-
-    <?= $form->field($model, 'nama_program')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'tarikh_program')->textInput() ?>
-
-    <?= $form->field($model, 'tempat_program')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'kod_kursus')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'tahap')->textInput(['maxlength' => 30]) ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
@@ -382,3 +370,54 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$URLAkkPenganjuran = Url::to(['/penganjuran-kursus-akk/get-penganjuran-kursus-akk']);
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+    
+$('#akkprogramjurulatih-senarai_kursus_akk').change(function(){
+            
+    if($(this).val() != ''){
+            
+        $.get('$URLAkkPenganjuran',{id:$(this).val()},function(data){
+            clearForm();
+
+            var data = $.parseJSON(data);
+
+            if(data !== null){
+                $('#akkprogramjurulatih-penganjur').attr('value',data.nama_penyelaras);
+                $('#akkprogramjurulatih-nama_program').attr('value',data.nama_kursus);
+                //$('#akkprogramjurulatih-tarikh_program').attr('value',data.tarikh_kursus_mula);
+                $('#akkprogramjurulatih-tempat_program').attr('value',data.tempat_kursus);
+                $('#akkprogramjurulatih-kod_kursus').attr('value',data.kod_kursus);
+                $('#akkprogramjurulatih-tahap').val(data.jenis_kursus).trigger("change");
+                $("#akkprogramjurulatih-tarikh_program-disp").val(formatSaveDate(data.tarikh_kursus_mula));
+                $("#akkprogramjurulatih-tarikh_program").val(formatSaveDate(data.tarikh_kursus_mula));
+            }
+        });
+    }
+});
+            
+function clearForm(){
+    $('#akkprogramjurulatih-penganjur').attr('value','');
+    $('#akkprogramjurulatih-nama_program').attr('value','');
+    $("#akkprogramjurulatih-tarikh_program-disp").val('');
+    $("#akkprogramjurulatih-tarikh_program").val('');
+    $('#akkprogramjurulatih-tempat_program').attr('value','');
+    $('#akkprogramjurulatih-kod_kursus').attr('value','');
+    $('#akkprogramjurulatih-tahap').val('').trigger("change");
+}
+     
+
+JS;
+        
+$this->registerJs($script);
+?>

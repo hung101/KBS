@@ -11,7 +11,7 @@ use yii\helpers\Html;
 $this->title = GeneralLabel::updateTitle.' '.GeneralLabel::bahasa.': ' . ' ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::bahasa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>
 <div class="ref-bahasa-update">
 

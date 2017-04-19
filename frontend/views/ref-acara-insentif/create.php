@@ -1,13 +1,13 @@
 <?php
-
+use app\models\general\GeneralLabel;
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefAcaraInsentif */
 
-$this->title = 'Create Ref Acara Insentif';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Acara Insentifs', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::acara_insentif;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::acara_insentif, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-acara-insentif-create">

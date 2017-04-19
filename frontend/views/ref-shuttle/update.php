@@ -12,7 +12,7 @@ use yii\helpers\Html;
 $this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::maklumat_pemandu;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::maklumat_pemandu, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::maklumat_pemandu, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>
 <div class="ref-shuttle-update">
 

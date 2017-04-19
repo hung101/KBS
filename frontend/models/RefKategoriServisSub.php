@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * This is the model class for table "tbl_ref_kategori_servis_sub".
@@ -26,16 +28,34 @@ class RefKategoriServisSub extends \yii\db\ActiveRecord
         return 'tbl_ref_kategori_servis_sub';
     }
 
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior',
+            [
+                'class' => \yii\behaviors\BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'updated',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
+        ];
+    }
+	
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['ref_kategori_servis_id', 'desc'], 'required'],
-            [['ref_kategori_servis_id', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['ref_kategori_servis_id', 'desc'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['ref_kategori_servis_id', 'aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
-            [['desc'], 'string', 'max' => 80],
+            [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
 
@@ -45,14 +65,22 @@ class RefKategoriServisSub extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'ref_kategori_servis_id' => 'Ref Kategori Servis ID',
-            'desc' => 'Desc',
-            'aktif' => 'Aktif',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
-            'created' => 'Created',
-            'updated' => 'Updated',
+            'ref_kategori_servis_id' => GeneralLabel::kategori_servis,
+            'id' => GeneralLabel::id,
+            'desc' => GeneralLabel::desc,
+            'aktif' => GeneralLabel::aktif,
+            'created_by' => GeneralLabel::created_by,
+            'updated_by' => GeneralLabel::updated_by,
+            'created' => GeneralLabel::created,
+            'updated' => GeneralLabel::updated,
+
         ];
+    }
+	
+	/**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKategoriServis(){
+        return $this->hasOne(RefKategoriServis::className(), ['id' => 'ref_kategori_servis_id']);
     }
 }

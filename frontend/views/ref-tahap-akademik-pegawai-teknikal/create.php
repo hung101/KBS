@@ -7,8 +7,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefTahapAkademikPegawaiTeknikal */
 
-$this->title = GeneralLabel::createTitle.' Tahap Akademik Pegawai Teknikal';
-$this->params['breadcrumbs'][] = ['label' => 'Tahap Akademik Pegawai Teknikal', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::tahap_akademik;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::tahap_akademik, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-tahap-akademik-pegawai-teknikal-create">

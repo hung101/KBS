@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefJenisPermohonanSkim */
 
-$this->title = 'Create Ref Jenis Permohonan Skim';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Jenis Permohonan Skims', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::jenis_permohonan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::jenis_permohonan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-jenis-permohonan-skim-create">

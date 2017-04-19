@@ -9,9 +9,9 @@ use yii\helpers\Html;
 /* @var $model app\models\RefJenisPinjaman */
 
 $this->title = GeneralLabel::updateTitle.' '.GeneralLabel::jenis_pinjaman.': ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::jenis_pinjamen, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::jenis_pinjaman, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>
 <div class="ref-jenis-pinjaman-update">
 

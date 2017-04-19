@@ -50,7 +50,7 @@ class RefSukan extends \yii\db\ActiveRecord
         return [
             [['ref_kategori_sukan_id','desc', 'aktif'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['aktif'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['desc'], 'string', 'max' => 80],
+            [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['ref_cawangan_id','id'], 'safe']
         ];
     }

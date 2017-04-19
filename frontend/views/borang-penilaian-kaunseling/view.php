@@ -37,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $this->render('_form', [
         'model' => $model,
         'readonly' => $readonly,
+		'jenisKlienID' => $jenisKlienID,
     ]) ?>
 
     <?php /*echo DetailView::widget([

@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPerwakilan */
 
-$this->title = 'Create Ref Perwakilan';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Perwakilans', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::perwakilan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::perwakilan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-perwakilan-create">

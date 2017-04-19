@@ -619,7 +619,7 @@ use app\models\general\GeneralMessage;
 
     <br />
 	
-	<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['kelulusan'])): ?>
+	<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['kelulusan']) || $readonly): ?>
     <?php
     echo FormGrid::widget([
         'model' => $model,

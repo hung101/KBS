@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefHubunganSkimKebajian */
 
-$this->title = 'Create Ref Hubungan Skim Kebajian';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Hubungan Skim Kebajians', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::hubungan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::hubungan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-hubungan-skim-kebajian-create">

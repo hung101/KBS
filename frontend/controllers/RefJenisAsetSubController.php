@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use Yii;
+use app\models\RefJenisAset;
 use app\models\RefJenisAsetSub;
 use frontend\models\RefJenisAsetSubSearch;
 use yii\web\Controller;
@@ -14,7 +15,7 @@ use yii\helpers\Json;
 /**
  * RefJenisAsetSubController implements the CRUD actions for RefJenisAsetSub model.
  */
-class RefjenisasetsubController extends Controller
+class RefJenisAsetSubController extends Controller
 {
     public function behaviors()
     {
@@ -50,8 +51,13 @@ class RefjenisasetsubController extends Controller
      */
     public function actionView($id)
     {
+		$model = $this->findModel($id);
+		
+		$ref = RefJenisAset::findOne(['id' => $model->ref_jenis_aset_id]);
+		$model->ref_jenis_aset_id = $ref['desc'];
+		
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 

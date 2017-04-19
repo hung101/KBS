@@ -28,13 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             [
-                'attribute' => 'id',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::id,
-                ]
-            ],
-            [
                 'attribute' => 'desc',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -46,21 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::aktif,
-                ]
-            ],
-            [
-                'attribute' => 'created_by',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::created_by,
-                ]
-            ],
-            [
-                'attribute' => 'updated_by',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::updated_by,
-                ]
+                ],
+                'value' => function ($model) {
+                    return $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no;
+                },
             ],
             // 'created',
             // 'updated',

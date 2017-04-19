@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefSilibus */
 
-$this->title = 'Create Ref Silibus';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Silibuses', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::silibus;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::silibus, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-silibus-create">

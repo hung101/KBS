@@ -1,13 +1,13 @@
 <?php
-
+use app\models\general\GeneralLabel;
 use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefAgensiMedia */
 
-$this->title = 'Create Agensi Media';
-$this->params['breadcrumbs'][] = ['label' => 'Agensi Media', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::agensi_media;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::agensi_media, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-agensi-media-create">

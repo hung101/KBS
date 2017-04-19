@@ -1,14 +1,14 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefTahapAkademikPegawaiTeknikal */
 
-$this->title = 'Update Ref Tahap Akademik Pegawai Teknikal: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Tahap Akademik Pegawai Teknikals', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::tahap_akademik.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::tahap_akademik, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>
 <div class="ref-tahap-akademik-pegawai-teknikal-update">
 

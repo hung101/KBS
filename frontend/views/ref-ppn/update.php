@@ -1,14 +1,14 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPpn */
 
-$this->title = 'Update Ref Ppn: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Ppns', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.'PPN'.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'PPN', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>
 <div class="ref-ppn-update">
 

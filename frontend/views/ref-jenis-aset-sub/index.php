@@ -30,18 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             [
-                'attribute' => 'id',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::id,
-                ]
-            ],
-            [
                 'attribute' => 'ref_jenis_aset_id',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::ref_jenis_aset_id,
-                ]
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_aset,
+                ],
+				'value' => 'refJenisAset.desc',
             ],
             [
                 'attribute' => 'desc',
@@ -55,18 +49,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::aktif,
-                ]
+                ],
+                'value' => function ($model) {
+                    return $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no;
+                },
             ],
-            [
-                'attribute' => 'created_by',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::created_by,
-                ]
-            ],
-            // 'updated_by',
-            // 'created',
-            // 'updated',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

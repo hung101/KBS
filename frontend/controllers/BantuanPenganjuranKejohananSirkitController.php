@@ -460,4 +460,72 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
 
             return $this->redirect(['update', 'id' => $id]);
     }
+	
+	public function actionPrint($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+		
+		$ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
+        $model->alamat_bandar = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->alamat_negeri]);
+        $model->alamat_negeri = $ref['desc'];
+        
+        $ref = RefBank::findOne(['id' => $model->nama_bank]);
+        $model->nama_bank = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->negeri_penyertaan]);
+        $model->negeri_penyertaan = $ref['desc'];
+        
+        $ref = RefPeringkatBantuanPenganjuranKejohanan::findOne(['id' => $model->peringkat]);
+        $model->peringkat = $ref['desc'];
+        
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->badan_sukan]);
+        $model->badan_sukan = $ref['nama_badan_sukan'];
+        
+        $model->status_permohonan_id = $model->status_permohonan;
+        $ref = RefStatusBantuanPenganjuranKejohanan::findOne(['id' => $model->status_permohonan]);
+        $model->status_permohonan = $ref['desc'];
+        
+        $BantuanPenganjuranKejohananSirkitKewangan = BantuanPenganjuranKejohananSirkitKewangan::find()->joinWith(['refSumberKewanganBantuanPenganjuranKejohanan'])
+													->where(['bantuan_penganjuran_kejohanan_id' => $model->bantuan_penganjuran_kejohanan_id])->all();
+													
+		$BantuanPenganjuranKejohananSirkitBayaran = BantuanPenganjuranKejohananSirkitBayaran::find()->joinWith(['refJenisBayaranBantuanPenganjuranKejohanan'])
+													->where(['bantuan_penganjuran_kejohanan_id' => $model->bantuan_penganjuran_kejohanan_id])->all();
+
+        $BantuanPenganjuranKejohananSirkitElemen = BantuanPenganjuranKejohananSirkitElemen::find()->joinWith(['refElemenBantuanPenganjuranKejohanan', 'refSubElemenBantuanPenganjuranKejohanan'])
+													->where(['bantuan_penganjuran_kejohanan_id' => $model->bantuan_penganjuran_kejohanan_id])->all();
+
+        $BantuanPenganjuranKejohananSirkitDianjurkan = BantuanPenganjuranKejohananSirkitDianjurkan::find()->joinWith(['refPeringkatBantuanPenganjuranKejohananDianjurkan'])
+													->where(['bantuan_penganjuran_kejohanan_id' => $model->bantuan_penganjuran_kejohanan_id])->all();
+
+        $BantuanPenganjuranKejohananSirkitOlehMsn = BantuanPenganjuranKejohananSirkitOlehMsn::find()->joinWith(['refPeringkatBantuanPenganjuranKejohananDianjurkan', 'refKelulusan'])
+													->where(['bantuan_penganjuran_kejohanan_id' => $model->bantuan_penganjuran_kejohanan_id])->all();
+        
+        $pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Penyertaan (Sirkit Remaja / Karnival)';
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+		     'BantuanPenganjuranKejohananSirkitKewangan'  => $BantuanPenganjuranKejohananSirkitKewangan,
+			 'BantuanPenganjuranKejohananSirkitBayaran'  => $BantuanPenganjuranKejohananSirkitBayaran,
+			 'BantuanPenganjuranKejohananSirkitElemen'  => $BantuanPenganjuranKejohananSirkitElemen,
+			 'BantuanPenganjuranKejohananSirkitDianjurkan'  => $BantuanPenganjuranKejohananSirkitDianjurkan,
+			 'BantuanPenganjuranKejohananSirkitOlehMsn'  => $BantuanPenganjuranKejohananSirkitOlehMsn,
+             'model'  => $model,
+			 'title' => $pdf->title,
+        ]));
+
+        $pdf->Output('Penyertaan_(Sirkit_Remaja_Karnival)'.$id.'.pdf', 'I');
+    }
 }

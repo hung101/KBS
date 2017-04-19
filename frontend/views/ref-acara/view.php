@@ -32,14 +32,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            //'id',
             'ref_sukan_id',
             'desc',
             //'aktif',
             [
                 'attribute' => 'aktif',
                 'value' => $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no,
-            ],        ],
+            ],        
+		],
     ]) ?>
 
 </div>

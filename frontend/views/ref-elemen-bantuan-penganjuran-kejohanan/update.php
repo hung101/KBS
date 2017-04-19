@@ -2,13 +2,14 @@
 
 use yii\helpers\Html;
 
+use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefElemenBantuanPenganjuranKejohanan */
 
-$this->title = 'Update Ref Elemen Bantuan Penganjuran Kejohanan: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Elemen Bantuan Penganjuran Kejohanans', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::elemen.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::elemen, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>
 <div class="ref-elemen-bantuan-penganjuran-kejohanan-update">
 

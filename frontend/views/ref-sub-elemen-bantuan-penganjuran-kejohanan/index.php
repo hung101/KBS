@@ -2,12 +2,12 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\RefSubElemenBantuanPenganjuranKejohananSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Sub Elemen Bantuan Penganjuran Kejohanans';
+$this->title = GeneralLabel::sub_elemen_bantuan_penganjuran_kejohanan;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-sub-elemen-bantuan-penganjuran-kejohanan-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Sub Elemen Bantuan Penganjuran Kejohanan', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::createTitle.' '.GeneralLabel::sub_elemen_bantuan_penganjuran_kejohanan, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -24,14 +24,32 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'ref_sub_elemen_bantuan_penganjuran_kejohanan_id',
-            'desc',
-            'aktif',
-            'created_by',
-            // 'updated_by',
-            // 'created',
-            // 'updated',
+            [
+                'attribute' => 'ref_sub_elemen_bantuan_penganjuran_kejohanan_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::bantuan_penganjuran_kejohanan,
+                ],
+                'value' => 'refElemenBantuanPenganjuranKejohanan.desc',
+            ],
+            [
+                'attribute' => 'desc',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::desc,
+                ]
+            ],
+            //'aktif',
+            [
+                'attribute' => 'aktif',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::aktif,
+                ],
+                'value' => function ($model) {
+                    return $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no;
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

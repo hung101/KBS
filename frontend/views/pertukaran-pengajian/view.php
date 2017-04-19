@@ -32,6 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
+		<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pertukaran-pengajian']['update']) && $model->status_permohonan === 'Lulus'): ?>
+			<?= Html::a(GeneralLabel::cetak_surat_rasmi, ['surat', 'id' => $model->pertukaran_pengajian_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
+		<?php endif; ?>
     </p>
     
     <?= $this->render('_form', [

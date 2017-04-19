@@ -53,7 +53,7 @@ class BorangProfilPesertaKpsk extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['penganjur_kursus', 'tarikh_kursus'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['penganjur_kursus', 'tarikh_kursus', 'tarikh_tamat_kursus', 'tahap', 'kod_kursus'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_kursus', 'tarikh_tamat_kursus', 'created', 'updated'], 'safe'],
             [['created_by', 'updated_by', 'tahap'], 'integer'],
             [['penganjur_kursus'], 'string', 'max' => 80],

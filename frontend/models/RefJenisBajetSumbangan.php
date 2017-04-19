@@ -68,7 +68,7 @@ class RefJenisBajetSumbangan extends \yii\db\ActiveRecord
     {
         return [
             'id' => GeneralLabel::id,
-            'ref_jenis_aset_id' => GeneralLabel::ref_jenis_aset_id,
+            'ref_jenis_aset_id' => GeneralLabel::jenis_aset,
             'desc' => GeneralLabel::desc,
             'aktif' => GeneralLabel::aktif,
             'created_by' => GeneralLabel::created_by,

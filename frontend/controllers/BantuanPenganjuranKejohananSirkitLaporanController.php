@@ -344,4 +344,31 @@ class BantuanPenganjuranKejohananSirkitLaporanController extends Controller
 
             return $this->redirect(['update', 'id' => $id]);
     }
+	
+	public function actionPrint($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+		
+		$BantuanPenganjuranKejohananSirkitLaporanTuntutan = BantuanPenganjuranKejohananSirkitLaporanTuntutan::find()
+						->where(['bantuan_penganjuran_kejohanan_laporan_id' => $model->bantuan_penganjuran_kejohanan_laporan_id])->all();
+        
+        $pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Laporan Penyertaan Kejohanan <br />(Sirkit Remaja / Karnival)';
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+			'BantuanPenganjuranKejohananSirkitLaporanTuntutan' => $BantuanPenganjuranKejohananSirkitLaporanTuntutan,
+             'model'  => $model,
+			 'title' => $pdf->title,
+        ]));
+
+        $pdf->Output('Laporan_Penyertaan_Kejohanan_(Sirkit_Remaja_Karnival)'.$id.'.pdf', 'I');
+    }
 }

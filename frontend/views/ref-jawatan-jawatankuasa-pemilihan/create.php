@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefJawatanJawatankuasaPemilihan */
 
-$this->title = 'Create Ref Jawatan Jawatankuasa Pemilihan';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Jawatan Jawatankuasa Pemilihans', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::jawatan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::jawatan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-jawatan-jawatankuasa-pemilihan-create">

@@ -3,11 +3,12 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
+use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\RefInsentifPeringkatSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ref Insentif Peringkats';
+$this->title = GeneralLabel::insentif;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-insentif-peringkat-index">
@@ -16,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Insentif Peringkat', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::createTitle.' '.GeneralLabel::insentif, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -24,14 +25,32 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'ref_insentif_kejohanan_id',
-            'desc',
-            'aktif',
-            'created_by',
-            // 'updated_by',
-            // 'created',
-            // 'updated',
+            [
+                'attribute' => 'ref_insentif_kejohanan_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::insentif_kejohanan,
+                ],
+				'value' => 'refInsentifKejohanan.desc',
+            ],
+            [
+                'attribute' => 'desc',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::desc,
+                ]
+            ],
+            //'aktif',
+            [
+                'attribute' => 'aktif',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::aktif,
+                ],
+                'value' => function ($model) {
+                    return $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no;
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

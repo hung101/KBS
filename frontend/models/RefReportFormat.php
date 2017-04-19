@@ -29,6 +29,24 @@ class RefReportFormat extends \yii\db\ActiveRecord
         return 'tbl_ref_report_format';
     }
 
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior',
+            [
+                'class' => \yii\behaviors\BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'updated',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
+        ];
+    }
+	
     /**
      * @inheritdoc
      */
@@ -38,8 +56,8 @@ class RefReportFormat extends \yii\db\ActiveRecord
             [['desc', 'file_extension'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
-            [['desc'], 'string', 'max' => 80],
-            [['file_extension'], 'string', 'max' => 10]
+            [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['file_extension'], 'string', 'max' => 10, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

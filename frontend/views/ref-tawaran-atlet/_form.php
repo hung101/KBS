@@ -11,6 +11,7 @@ use app\models\general\GeneralLabel;
 ?>
 
 <div class="ref-tawaran-atlet-form">
+    <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::lapangan_mandatori ?></p>
 
     <?php $form = ActiveForm::begin(); ?>
 

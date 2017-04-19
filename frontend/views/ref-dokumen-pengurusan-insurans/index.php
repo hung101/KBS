@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\models\RefDokumenPengurusanInsuransSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Dokumen Pengurusan Insurans';
+$this->title = GeneralLabel::dokumen;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-dokumen-pengurusan-insurans-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Ref Dokumen Pengurusan Insurans', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::createTitle.' '.GeneralLabel::dokumen, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -25,7 +25,22 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'desc',
+            [
+                'attribute' => 'parent_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_tuntutan,
+                ],
+                'value' => 'refJenisTuntutan.desc',
+            ],
+            [
+                'attribute' => 'desc',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::desc,
+                ]
+            ],
+            //'aktif',
             [
                 'attribute' => 'aktif',
                 'filterInputOptions' => [
@@ -36,7 +51,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no;
                 },
             ],
-			'parent_id',
             //'created_by',
             //'updated_by',
             // 'created',

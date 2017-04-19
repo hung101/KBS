@@ -1,14 +1,17 @@
 <?php
 
+use app\models\general\GeneralLabel;
+
+
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\RefKategoriPencalonanLain */
+/* @var $model app\models\RefAcara */
 
-$this->title = 'Update Ref Kategori Pencalonan Lain: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Kategori Pencalonan Lains', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::kategori_pencalonan_lain.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kategori_pencalonan_lain, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>
 <div class="ref-kategori-pencalonan-lain-update">
 

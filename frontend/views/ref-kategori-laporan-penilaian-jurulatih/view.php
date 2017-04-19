@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 use app\models\general\GeneralLabel;
-
+use app\models\general\GeneralMessage;
 /* @var $this yii\web\View */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Kategori Laporan Penilaian Jurulatih', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kategori_laporan_penilaian_jurulatih, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-penilaian-jurulatih-ketua-view">
@@ -16,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => GeneralMessage::confirmDelete,
                 'method' => 'post',
             ],
         ]) ?>
@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            // 'id',
             'desc',
             //'aktif',
             [

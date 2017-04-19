@@ -7,8 +7,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPenilaianJurulatihKetua */
 
-$this->title = GeneralLabel::updateTitle.' Ref Kategori Laporan Penilaian Jurulatih: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Kategori Laporan Penilaian Jurulatih', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::kategori_laporan_penilaian_jurulatih.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kategori_laporan_penilaian_jurulatih, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>

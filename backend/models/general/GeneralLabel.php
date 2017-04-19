@@ -1901,7 +1901,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tahap_pendidikan = "Tahap Pendidikan";
         const tahap_penganjuran = "Tahap Penganjuran";
         const tahap_sihat = "Kesihatan / Kecergasan";
-        const tahniah = "Congratulations";
+        const tahniah = "Tahniah";
         const tahun = "Tahun";
         const tahun_1 = "Tahun 1";
         const tahun_2 = "Tahun 2";

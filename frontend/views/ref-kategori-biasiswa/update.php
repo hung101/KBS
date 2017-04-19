@@ -1,14 +1,15 @@
 <?php
 
 use yii\helpers\Html;
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefKategoriBiasiswa */
 
-$this->title = 'Update Ref Kategori Biasiswa: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Kategori Biasiswas', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::kategori_biasiswa.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kategori_biasiswa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>
 <div class="ref-kategori-biasiswa-update">
 

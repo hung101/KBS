@@ -67,7 +67,7 @@ class RefKategoriPenganjuranSub extends \yii\db\ActiveRecord
     {
         return [
             'id' => GeneralLabel::id,
-            'ref_kategori_penganjuran_id' => GeneralLabel::ref_kategori_penganjuran_id,
+            'ref_kategori_penganjuran_id' => GeneralLabel::kategori_penganjuran,
             'desc' => GeneralLabel::desc,
             'aktif' => GeneralLabel::aktif,
             'created_by' => GeneralLabel::created_by,

@@ -8,7 +8,7 @@ use frontend\models\RefInsentifPeringkatSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use app\models\RefInsentifKejohanan;
 use yii\helpers\Json;
 
 /**
@@ -53,8 +53,13 @@ class RefInsentifPeringkatController extends Controller
      */
     public function actionView($id)
     {
+		$model = $this->findModel($id);
+		
+		$ref = RefInsentifKejohanan::findOne(['id' => $model->ref_insentif_kejohanan_id]);
+		$model->ref_insentif_kejohanan_id = $ref['desc'];
+		
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 

@@ -6,10 +6,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefAgensiKemudahan */
 
-$this->title = GeneralLabel::updateTitle.' Agensi Kemudahan: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Agensi Kemudahan', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::agensi_kemudahan.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::agensi_kemudahan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>
 <div class="ref-agensi-kemudahan-update">
 

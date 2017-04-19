@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefSukanRekreasiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = GeneralLabel::sukan_rekreasis;
+$this->title = GeneralLabel::sukan_rekreasi;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-sukan-rekreasi-index">

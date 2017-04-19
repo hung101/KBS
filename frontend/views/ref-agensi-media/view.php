@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\RefAgensiMedia */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Agensi Media', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::agensi_media, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-agensi-media-view">
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            //'id',
             'desc',
             //'aktif',
             [

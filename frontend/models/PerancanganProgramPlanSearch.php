@@ -22,8 +22,8 @@ class PerancanganProgramPlanSearch extends PerancanganProgramPlan
     public function rules()
     {
         return [
-            [['perancangan_program_id', 'perancangan_program_plan_master_id', 'status_program_id', 'mesyuarat_id', 'sukan_id', 'program_id'], 'integer'],
-            [['tarikh_tamat', 'nama_program', 'muat_naik', 'tarikh_mula', 'status_program', 'sukan', 'jenis_program', 'lokasi', 'bahagian', 'jenis_aktiviti', 'session_id'], 'safe'],
+            [['perancangan_program_id', 'perancangan_program_plan_master_id', 'status_program_id', 'mesyuarat_id', 'sukan_id', 'program_id', 'bahagian'], 'integer'],
+            [['tarikh_tamat', 'nama_program', 'muat_naik', 'tarikh_mula', 'status_program', 'sukan', 'jenis_program', 'lokasi', 'jenis_aktiviti', 'session_id'], 'safe'],
         ];
     }
 
@@ -74,6 +74,7 @@ class PerancanganProgramPlanSearch extends PerancanganProgramPlan
             'mesyuarat_id' => $this->mesyuarat_id,
             'sukan' => $this->sukan_id,
             'jenis_program' => $this->program_id,
+            'bahagian' => $this->bahagian,
         ]);
 
         $query->andFilterWhere(['like', 'nama_program', $this->nama_program])

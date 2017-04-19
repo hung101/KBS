@@ -18,8 +18,8 @@ class RefSubElemenBantuanPenganjuranKejohananSearch extends RefSubElemenBantuanP
     public function rules()
     {
         return [
-            [['id', 'ref_sub_elemen_bantuan_penganjuran_kejohanan_id', 'aktif', 'created_by', 'updated_by'], 'integer'],
-            [['desc', 'created', 'updated'], 'safe'],
+            [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['desc', 'created', 'updated', 'ref_sub_elemen_bantuan_penganjuran_kejohanan_id'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class RefSubElemenBantuanPenganjuranKejohananSearch extends RefSubElemenBantuanP
      */
     public function search($params)
     {
-        $query = RefSubElemenBantuanPenganjuranKejohanan::find();
+        $query = RefSubElemenBantuanPenganjuranKejohanan::find()->joinWith(['refElemenBantuanPenganjuranKejohanan']);
 
         // add conditions that should always apply here
 
@@ -60,7 +60,7 @@ class RefSubElemenBantuanPenganjuranKejohananSearch extends RefSubElemenBantuanP
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'ref_sub_elemen_bantuan_penganjuran_kejohanan_id' => $this->ref_sub_elemen_bantuan_penganjuran_kejohanan_id,
+            //'ref_sub_elemen_bantuan_penganjuran_kejohanan_id' => $this->ref_sub_elemen_bantuan_penganjuran_kejohanan_id,
             'aktif' => $this->aktif,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -68,7 +68,8 @@ class RefSubElemenBantuanPenganjuranKejohananSearch extends RefSubElemenBantuanP
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc]);
+        $query->andFilterWhere(['like', 'desc', $this->desc])
+			->andFilterWhere(['like', 'tbl_ref_elemen_bantuan_penganjuran_kejohanan.desc', $this->ref_sub_elemen_bantuan_penganjuran_kejohanan_id]);
 
         return $dataProvider;
     }

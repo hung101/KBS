@@ -2,12 +2,12 @@
 
 use yii\helpers\Html;
 
-
+use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefProgramMsn */
 
-$this->title = 'Create Ref Program Msn';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Program Msns', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::program." MSN";
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::program." MSN", 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-program-msn-create">

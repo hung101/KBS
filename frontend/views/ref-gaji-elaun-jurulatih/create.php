@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefGajiElaunJurulatih */
 
-$this->title = 'Create Ref Gaji Elaun Jurulatih';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Gaji Elaun Jurulatihs', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::gaji_elaun;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::gaji_elaun, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-gaji-elaun-jurulatih-create">

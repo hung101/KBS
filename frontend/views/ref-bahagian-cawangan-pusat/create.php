@@ -9,7 +9,7 @@ use yii\helpers\Html;
 /* @var $model app\models\RefBahagianCawanganPusat */
 
 $this->title = GeneralLabel::createTitle.' '.GeneralLabel::bahagian_cawangan_pusat;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bahagian_cawangan_pusats, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bahagian_cawangan_pusat, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-bahagian-cawangan-pusat-create">

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefAgensiMediaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Agensi Media';
+$this->title = GeneralLabel::agensi_media;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-agensi-media-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Agensi Media', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::createTitle.' '.GeneralLabel::agensi_media, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             [
                 'attribute' => 'desc',
                 'filterInputOptions' => [

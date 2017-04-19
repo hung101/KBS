@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefMatawang */
 
-$this->title = 'Create Ref Matawang';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Matawangs', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::matawang;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::matawang, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-matawang-create">

@@ -56,8 +56,8 @@ class RefNegara extends \yii\db\ActiveRecord
             [['desc', 'kod_1', 'kod_2', 'kod_3'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
-            [['desc'], 'string', 'max' => 80],
-            [['kod_1', 'kod_2', 'kod_3'], 'string', 'max' => 5]
+            [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kod_1', 'kod_2', 'kod_3'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

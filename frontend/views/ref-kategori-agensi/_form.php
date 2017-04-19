@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 use app\models\general\GeneralLabel;
-
+use app\models\general\GeneralMessage;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefKategoriAduanPenyertaanSukan */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="ref-kategori-aduan-penyertaan-sukan-form">
-
+    <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::lapangan_mandatori ?></p>
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>

@@ -41,7 +41,7 @@ class RefJenisAsetSubSearch extends RefJenisAsetSub
      */
     public function search($params)
     {
-        $query = RefJenisAsetSub::find();
+        $query = RefJenisAsetSub::find()->joinWith(['refJenisAset']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,7 +57,7 @@ class RefJenisAsetSubSearch extends RefJenisAsetSub
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'ref_jenis_aset_id' => $this->ref_jenis_aset_id,
+            //'ref_jenis_aset_id' => $this->ref_jenis_aset_id,
             'aktif' => $this->aktif,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -65,7 +65,8 @@ class RefJenisAsetSubSearch extends RefJenisAsetSub
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc]);
+        $query->andFilterWhere(['like', 'desc', $this->desc])
+			->andFilterWhere(['like', 'tbl_ref_jenis_aset.desc', $this->ref_jenis_aset_id]);
 
         return $dataProvider;
     }

@@ -56,7 +56,7 @@ class RefUniversitiInstitusiEBiasiswa extends \yii\db\ActiveRecord
             [['ref_universiti_institusi_kategori_e_biasiswa_id', 'aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['desc'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['created', 'updated'], 'safe'],
-            [['desc'], 'string', 'max' => 80]
+            [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

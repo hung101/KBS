@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefKategoriKursusSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = GeneralLabel::kategori_kursuses;
+$this->title = GeneralLabel::kategori_kursus;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-kategori-kursus-index">

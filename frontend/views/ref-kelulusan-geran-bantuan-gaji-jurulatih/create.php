@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefKelulusanGeranBantuanGajiJurulatih */
 
-$this->title = 'Create Ref Kelulusan Geran Bantuan Gaji Jurulatih';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Kelulusan Geran Bantuan Gaji Jurulatihs', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::kelulusan_geran_bantuan_gaji_jurulatih;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kelulusan_geran_bantuan_gaji_jurulatih, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-kelulusan-geran-bantuan-gaji-jurulatih-create">

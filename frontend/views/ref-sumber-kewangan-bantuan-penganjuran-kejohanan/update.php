@@ -1,14 +1,14 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefSumberKewanganBantuanPenganjuranKejohanan */
 
-$this->title = 'Update Ref Sumber Kewangan Bantuan Penganjuran Kejohanan: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Sumber Kewangan Bantuan Penganjuran Kejohanans', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::sumber_kewangan.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::sumber_kewangan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>
 <div class="ref-sumber-kewangan-bantuan-penganjuran-kejohanan-update">
 

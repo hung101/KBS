@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPpn */
 
-$this->title = 'Create Ref Ppn';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Ppns', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' PPN';
+$this->params['breadcrumbs'][] = ['label' => 'PPN', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-ppn-create">

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefTahapAkademikPegawaiTeknikalSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tahap Akademik Pegawai Teknikal';
+$this->title = GeneralLabel::tahap_akademik;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-tahap-akademik-pegawai-teknikal-index">
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(GeneralLabel::createTitle.' Tahap Akademik Pegawai Teknikal', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::createTitle.' '.GeneralLabel::tahap_akademik, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

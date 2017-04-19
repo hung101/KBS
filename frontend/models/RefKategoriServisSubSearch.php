@@ -18,8 +18,8 @@ class RefKategoriServisSubSearch extends RefKategoriServisSub
     public function rules()
     {
         return [
-            [['id', 'ref_kategori_servis_id', 'aktif', 'created_by', 'updated_by'], 'integer'],
-            [['desc', 'created', 'updated'], 'safe'],
+            [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['desc', 'created', 'updated', 'ref_kategori_servis_id'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class RefKategoriServisSubSearch extends RefKategoriServisSub
      */
     public function search($params)
     {
-        $query = RefKategoriServisSub::find();
+        $query = RefKategoriServisSub::find()->joinWith(['refKategoriServis']);
 
         // add conditions that should always apply here
 
@@ -60,7 +60,7 @@ class RefKategoriServisSubSearch extends RefKategoriServisSub
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'ref_kategori_servis_id' => $this->ref_kategori_servis_id,
+            //'ref_kategori_servis_id' => $this->ref_kategori_servis_id,
             'aktif' => $this->aktif,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -68,7 +68,8 @@ class RefKategoriServisSubSearch extends RefKategoriServisSub
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc]);
+        $query->andFilterWhere(['like', 'desc', $this->desc])
+			->andFilterWhere(['like', 'tbl_ref_kategori_servis.desc', $this->ref_kategori_servis_id]);
 
         return $dataProvider;
     }

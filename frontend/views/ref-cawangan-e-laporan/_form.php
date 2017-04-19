@@ -16,7 +16,7 @@ use app\models\general\Placeholder;
 ?>
 
 <div class="ref-cawangan-elaporan-form">
-
+<p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::lapangan_mandatori ?></p>
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'ref_bahagian_e_laporan_id')->widget(Select2::classname(), [

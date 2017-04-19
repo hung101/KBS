@@ -16,7 +16,7 @@ use app\models\general\Placeholder;
 ?>
 
 <div class="ref-universiti-institusi-ebiasiswa-form">
-
+    <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::lapangan_mandatori ?></p>
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'ref_universiti_institusi_kategori_e_biasiswa_id')->widget(Select2::classname(), [

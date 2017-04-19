@@ -6,6 +6,7 @@ use Yii;
 use app\models\PertukaranPengajian;
 use frontend\models\PertukaranPengajianSearch;
 use app\models\MsnLaporan;
+use app\models\MsnSuratRasmi;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -282,5 +283,65 @@ class PertukaranPengajianController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanPenangguhanUniversiti', $format, $controls, 'laporan_penangguhan_universiti');
+    }
+	
+	public function actionSurat($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }    
+        
+        $model = new MsnSuratRasmi();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $parentModel = $this->findModel($id);
+			
+			$ref = Atlet::findOne(['atlet_id' => $parentModel->atlet_id]);
+			$parentModel->atlet_id = $ref['name_penuh'];
+			
+			$ref = RefPengajian::findOne(['id' => $parentModel->nama_pertukaran_pengajian]);
+			$parentModel->nama_pertukaran_pengajian = $ref['desc'];
+			
+			$ref = PerancanganProgram::findOne(['perancangan_program_id' => $parentModel->kejohanan_program]);
+			$parentModel->kejohanan_program = $ref['nama_program'];
+			
+			$ref = RefProgramSemasaSukanAtlet::findOne(['id' => $parentModel->program]);
+			$parentModel->program = $ref['desc'];
+			
+			$ref = RefSukan::findOne(['id' => $parentModel->sukan]);
+			$parentModel->sukan = $ref['desc'];
+            
+			$ref = RefSebabPermohonanPertukaranPengajian::findOne(['id' => $parentModel->sebab_pemohonan]);
+			$parentModel->sebab_pemohonan = $ref['desc'];
+			
+			if($parentModel->sebab_pemohonan === 'Pertukaran')//pertukaran, 2 penangguhan
+			{
+				$targetView = "generate_surat_pertukaran";
+			} 
+			else if($parentModel->sebab_pemohonan === 'Penangguhan'){
+				$targetView = "generate_surat_penangguhan";
+			}
+			else if($parentModel->sebab_pemohonan === 'Pelepasan'){
+				$targetView = "generate_surat_pelepasan";
+			}
+
+            $pdf = new \mPDF('utf-8', 'A4');
+
+            $pdf->title = "Surat Rasmi";
+            $stylesheet = file_get_contents('css/report.css');
+
+            $pdf->WriteHTML($stylesheet,1);
+            
+            $pdf->WriteHTML($this->renderpartial($targetView, [
+                 'parentModel'  => $parentModel,
+                 'model' => $model,
+            ]));
+
+            $pdf->Output('Surat_rasmi_'.$id.'.pdf', 'I');
+        }
+        
+        return $this->render('surat_rasmi', [
+            'model' => $model,
+        ]);
     }
 }

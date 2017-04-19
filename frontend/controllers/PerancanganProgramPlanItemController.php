@@ -93,6 +93,37 @@ class PerancanganProgramPlanItemController extends Controller
             'readonly' => true,
         ]);
     }
+    
+    /**
+     * Displays a single PerancanganProgramPlan model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionViewJkk($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $ref = RefKategoriPelan::findOne(['id' => $model->bahagian]);
+        $model->bahagian = $ref['desc'];
+		
+        $ref = RefJenisPelan::findOne(['id' => $model->jenis_aktiviti]);
+        $model->jenis_aktiviti = $ref['desc'];
+        
+        $ref = RefKedudukanKejohanan::findOne(['id' => $model->status_program]);
+        $model->status_program = $ref['desc'];
+        
+        $ref = RefStatusPermohonanProgramBinaan::findOne(['id' => $model->status_permohonan]);
+        $model->status_permohonan = $ref['desc'];
+        
+        return $this->render('view_jkk', [
+            'model' => $model,
+            'readonly' => true,
+        ]);
+    }
 
     /**
      * Creates a new PerancanganProgramPlan model. actionDhy
@@ -145,6 +176,30 @@ class PerancanganProgramPlanItemController extends Controller
             return '1';
         } else {
             return $this->renderAjax('update', [
+                'model' => $model,
+                'readonly' => false,
+            ]);
+        }
+    }
+    
+    /**
+     * Updates an existing PerancanganProgramPlan model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionUpdateJkk($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view-jkk', 'id' => $model->perancangan_program_id]);
+        } else {
+            return $this->render('update_jkk', [
                 'model' => $model,
                 'readonly' => false,
             ]);

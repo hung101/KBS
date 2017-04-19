@@ -12,7 +12,7 @@ use app\models\general\Placeholder;
 ?>
 
 <div class="ref-status-tempahan-kemudahan-form">
-
+    <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::lapangan_mandatori ?></p>
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>

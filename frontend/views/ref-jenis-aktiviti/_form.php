@@ -1,6 +1,4 @@
 <?php
-
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,8 +10,7 @@ use app\models\general\GeneralLabel;
 ?>
 
 <div class="ref-jenis-aktiviti-form">
-
-    <?php $form = ActiveForm::begin(); ?>
+    <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::lapangan_mandatori ?></p>
 
     <?php $form = ActiveForm::begin(); ?>
 

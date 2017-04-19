@@ -200,14 +200,14 @@ $this->params['breadcrumbs'][] = $this->title;
             //'filterModel' => $searchModelPengurusanProgramBinaan,
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
-                [
+                /*[
                 'attribute' => 'aktiviti',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::aktiviti,
                 ],
                 'value' => 'refPerancanganProgram.nama_program'
-            ],
+            ],*/
             [
                 'attribute' => 'nama_aktiviti',
                 'filterInputOptions' => [
@@ -469,32 +469,24 @@ $this->params['breadcrumbs'][] = $this->title;
                     'value' => 'refSukan.desc'
             ],*/
             [
-                'attribute' => 'nama_program',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_program,
-                ]
+                'attribute' => 'bahagian',
+                'value' => 'refKategoriPelan.desc'
             ],
-            [
-                'attribute' => 'tarikh_mula',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
-                ]
+			[
+                'attribute' => 'jenis_aktiviti',
+                'value' => 'refJenisPelan.desc'
             ],
-            [
-                'attribute' => 'tarikh_tamat',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat,
-                ]
+			'nama_program',
+			[
+                'attribute' => 'status_program',
+                'value' => 'refKedudukanKejohanan.desc'
             ],
-            [
-                'attribute' => 'lokasi',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::lokasi,
-                ]
+			'tarikh_mula',
+			'tarikh_tamat',
+			'tempat',
+			[
+                'attribute' => 'status_permohonan',
+                'value' => 'refStatusPermohonanProgramBinaan.desc'
             ],
             
             //'muat_naik',
@@ -516,18 +508,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 },
             ],*/
-            [
+            /*[
                 'attribute' => 'status_program',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_program,
                 ],
                     'value' => 'refStatusProgram.desc'
-            ],
+            ],*/
                 ['class' => 'yii\grid\ActionColumn',
                     'buttons' => [
                         'view' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', '', ['value'=>Url::to(['/perancangan-program/view', 'id' => $model->perancangan_program_id]), 'class' => 'custom_button']);
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', '', ['value'=>Url::to(['/perancangan-program-plan-item/view-jkk', 'id' => $model->perancangan_program_id]), 'class' => 'custom_button']);
                         },
                     ],
                     'template' => '{view}',

@@ -9,7 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/** delete()
+/**
  * RefBahagianAduanController implements the CRUD actions for RefBahagianAduan model.
  */
 class RefBahagianAduanController extends Controller

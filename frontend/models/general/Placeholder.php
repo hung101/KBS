@@ -45,10 +45,14 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const biomekanikUjian = " -- Pilih Biomekanik Ujian -- ";
         const cawangan = " -- Pilih Cawangan -- ";
         const country = " -- Pilih Country -- ";
+		const jenis_klien = " -- Pilih Jenis Klien -- ";
         const currency = " -- Pilih Matawang --";
         const darjah = " -- Pilih Darjah -- ";
+		const jenis_tuntutan = "-- Pilih Jenis Tuntutan --";
         const delegasi = " -- Pilih Delegasi -- ";
         const disiplin = " -- Pilih Disiplin -- ";
+		const tempat_aduan = " -- Pilih Tempat Aduan -- ";
+		const kategori_laporan_penilaian_jurulatih = " -- Pilih Kategori Laporan Penilaian Jurulatih -- ";
         const doktor = " -- Pilih Doktor -- ";
         const dokumenPenyelidikan = " -- Pilih Dokumen Penyelidikan -- ";
         const driver = " -- Pilih Pemandu -- ";
@@ -59,11 +63,14 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const fisio = " -- Pilih Fisio -- ";
         const gajiElaun = " -- Pilih Gaji / Elaun -- ";
         const gelaran = " -- Pilih Gelaran -- ";
+		const jenis_aset = "-- Pilih Jenis Aset --";
         const hubungan = " -- Pilih Hubungan -- ";
+		const insentif_kejohanan = " -- Pilih Insentif Kejohanan -- ";
         const instructor = " -- Pilih Instructor -- ";
         const jabatan = " -- Pilih Jabatan -- ";
         const jantina = " -- Pilih Jantina -- ";
         const jawatan = " -- Pilih Jawatan -- ";
+		const kategori_servis = "-- Pilih Kategori Servis -- ";
         const jawatankuasa = " -- Pilih Jawatankuasa -- ";
         const jawapan = " -- Pilih Jawapan -- ";
         const jenama = " -- Pilih Jenama -- ";
@@ -93,6 +100,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jenisKemahiran = "-- Pilih Jenis Kemahiran --";
         const jenisKemudahan = "-- Pilih Jenis Kemudahan --";
         const jenisKewangan = " -- Pilih Jenis -- ";
+		const bantuan_penganjuran_kejohanan = "Pilih Jenis Bantuan Penganjuran Kejohanan";
         const jenisKewanganSumber = " -- Pilih Sumber -- ";
         const jenisKontrak = "-- Pilih Jenis Kontrak --";
         const jenisKurangUpaya = "-- Pilih Jenis Kurang Upaya --";
@@ -360,6 +368,7 @@ if($session->get('language') == "EN") {
         const jabatan = " -- Select Department -- ";
         const jantina = " -- Select Gender -- ";
         const jawatan = " -- Select Position -- ";
+		const kategori_laporan_penilaian_jurulatih = " -- Select Category Of Coach's Evaluation Report -- ";
         const jawatankuasa = " -- Select Committee -- ";
         const jawapan = " -- Select An Answer -- ";
         const jenama = " -- Select Brand -- ";
@@ -383,6 +392,7 @@ if($session->get('language') == "EN") {
         const jenisPinjaman = "-- Select The Type Of Loan --";
         const jenisKadar = "-- Select The Type Of Rates --";
         const jenisKeahlian = "-- Select The Type Of Member --";
+		const jenis_tuntutan = "-- Select The Type Of Claim --";
         const jenisKebajikan = "-- Select The Type Of Welfare --";
         const jenisKecederaanMasalahKesihatan = "-- Select The Type Of Injury/Health Problems --";
         const jenisKemahiran = "-- Select The Type Of Skills --";
@@ -442,6 +452,7 @@ if($session->get('language') == "EN") {
         const kategoriMasalah = "-- Select Categories Of Problem --";
         const kategoriMuatNaik = "-- Choose A Category Upload --";
         const kategoriOKU = "-- Select The Category Of DISABLED PERSONS --";
+		const tempat_aduan = " -- Select Report Venue -- ";
         const kategoriPelan = "-- Choose A Category Plan --";
         const kategoriPenilaian = "-- Choose A Category Assessment --";
         const kategoriPengajian = "-- Select The Category Of Study --";
@@ -495,6 +506,7 @@ if($session->get('language') == "EN") {
         const negeri = " -- Select State -- ";
         const negeriSokongan = " -- Select State Support -- ";
         const parlimen = " -- Select The Parliament -- ";
+		const kategori_servis = "-- Select Category Of Service -- ";
         const passportTempatDikeluarkan = " -- Select Passport Issue Place -- ";
         const pasukan = " -- Select Team -- ";
         const pencapaian = " -- Select Hit -- ";
@@ -518,10 +530,12 @@ if($session->get('language') == "EN") {
         const perkhidmatanPemakanan = " -- Select Nutrition Service -- ";
         const perkhidmatanSatelit = " -- Select Satellite Service -- ";
         const peringkat = " -- Select Level -- ";
+		const bantuan_penganjuran_kejohanan = "Select Type Of Organizing Championships Insentive";
         const peringkatBadanSukan = "-- Select Stage Body Sports --";
         const peringkatProgram = "-- Select A Level Programme --";
         const pertandingan = " -- Select Competition -- ";
         const programRumusan = " -- Select Program Summary -- ";
+		const insentif_kejohanan = " -- Select Insentive Of Tournament -- ";
         const pegawai = " -- Select Officer -- ";
         const pegawaiTeknikal = " -- Select Technical Officer -- ";
         const pegawaiPsikologi = " -- Select The Officers Of Psychology -- ";
@@ -530,6 +544,7 @@ if($session->get('language') == "EN") {
         const penyelia = "-- Select A Supervisor --";
         const permohonan = "-- Select Application --";
         const permohonanPelanjutan = "-- Select The Application Extension --";
+		const jenis_aset = "-- Select Type Of Asset --";
         const persatuan = "-- Select Association --";
         const perwakilan = "-- Select Representation --";
         const peserta = "-- Select Participants --";
@@ -581,6 +596,7 @@ if($session->get('language') == "EN") {
         const subKategoriPenilaian = "-- Select Sub Category Assessment --";
         const subProgramPelapis = "-- Select The Sub Programme Will Become --";
         const sukan = "-- Select Sport --";
+		const jenis_klien = " -- Select Client Type -- ";
         const sukanAkademi = "-- Select Sports Academy --";
         const sukanRekreasi = "-- Select Sport/Recreation --";
         const sumberKewangan  = "-- Select Source Of Income --";

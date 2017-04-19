@@ -1,14 +1,14 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefBahagianAjk */
 
-$this->title = 'Update Ref Bahagian Ajk: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Bahagian Ajks', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::bahagian_ajk.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bahagian_ajk, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>
 <div class="ref-bahagian-ajk-update">
 

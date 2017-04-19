@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\BaseUrl;
+use yii\helpers\Json;
 
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
@@ -171,6 +172,13 @@ class PenganjuranKursusAkkController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionGetPenganjuranKursusAkk($id){
+        // find Penganjuran Kursus AKK
+        $model = PenganjuranKursusAkk::findOne($id);
+        
+        echo Json::encode($model);
     }
     
     public function actionLaporanSenaraiKursus()

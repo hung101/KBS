@@ -8,10 +8,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefTahapPenganjuran */
 
-$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::tahap_penganjuran.': ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::tahap_penganjuran, 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::tahap_pendidikan.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::tahap_pendidikan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>
 <div class="ref-tahap-penganjuran-update">
 

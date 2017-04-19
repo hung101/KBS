@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPassportTempatDikeluarkan */
 
-$this->title = 'Create Ref Passport Tempat Dikeluarkan';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Passport Tempat Dikeluarkans', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::tempat_passport_dikeluarkan;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::tempat_passport_dikeluarkan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-passport-tempat-dikeluarkan-create">

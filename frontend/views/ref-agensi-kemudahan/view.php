@@ -11,7 +11,7 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\RefAgensiKemudahan */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Agensi Kemudahan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::agensi_kemudahan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-agensi-kemudahan-view">
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            //'id',
             'desc',
             //'aktif',
             [

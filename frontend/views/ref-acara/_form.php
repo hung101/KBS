@@ -20,13 +20,13 @@ use app\models\general\Placeholder;
 
 <div class="ref-acara-form">
 
-    <p class="text-muted"><span style="color: red">*</span> lapangan mandatori</p>
+    <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::lapangan_mandatori ?></p>
 
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'discipline')->textInput() ?>
     
-    <?= $form->field($model, 'desc')->textInput() ?>
+    <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'ref_sukan_id')->widget(Select2::classname(), [
         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
@@ -36,7 +36,7 @@ use app\models\general\Placeholder;
                 'asButton' => true
             ]
         ] : null,
-        'data' => ArrayHelper::map(RefSukan::find()->all(),'id', 'desc'),
+        'data' => ArrayHelper::map(RefSukan::find()->where(['aktif' => 1])->all(),'id', 'desc'),
         'options' => ['placeholder' => Placeholder::sukan],
         'pluginOptions' => [
             'allowClear' => true

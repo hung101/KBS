@@ -67,10 +67,19 @@ class RefDokumenPengurusanInsurans extends \yii\db\ActiveRecord
             'id' => GeneralLabel::id,
             'desc' => GeneralLabel::desc,
             'aktif' => GeneralLabel::aktif,
+			'parent_id' => GeneralLabel::jenis_tuntutan,
             'created_by' => GeneralLabel::created_by,
             'updated_by' => GeneralLabel::updated_by,
             'created' => GeneralLabel::created,
             'updated' => GeneralLabel::updated,
         ];
     }
+	
+	/**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJenisTuntutan(){
+        return $this->hasOne(RefJenisTuntutan::className(), ['id' => 'parent_id']);
+    }
+	
 }

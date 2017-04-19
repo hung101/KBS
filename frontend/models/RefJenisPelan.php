@@ -28,16 +28,34 @@ class RefJenisPelan extends \yii\db\ActiveRecord
         return 'tbl_ref_jenis_pelan';
     }
 
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior',
+            [
+                'class' => \yii\behaviors\BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'updated',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
+        ];
+    }
+	
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['desc', 'ref_kategori_pelan_id'], 'required'],
-            [['aktif', 'created_by', 'updated_by', 'ref_kategori_pelan_id'], 'integer'],
+            [['desc', 'ref_kategori_pelan_id'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['aktif', 'created_by', 'updated_by', 'ref_kategori_pelan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
-            [['desc'], 'string', 'max' => 80],
+            [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
 

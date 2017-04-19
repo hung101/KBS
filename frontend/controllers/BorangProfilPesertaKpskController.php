@@ -115,6 +115,13 @@ class BorangProfilPesertaKpskController extends Controller
 			$disabled = true;
 			$pengurusanPermohonan = PengurusanPermohonanKursusPersatuan::findOne(['pengurusan_permohonan_kursus_persatuan_id' => $id]);
 			
+			//check if exist
+			$exist = BorangProfilPesertaKpsk::findOne(['penganjur_kursus' => $pengurusanPermohonan->agensi, 'tarikh_kursus' => $pengurusanPermohonan->tarikh_kursus, 'tarikh_tamat_kursus' => $pengurusanPermohonan->tarikh_tamat_kursus, 'kod_kursus' => $pengurusanPermohonan->kod_kursus, 'tahap' => $pengurusanPermohonan->tahap]);
+			
+			if(count($exist) > 0){
+				return $this->redirect(['view', 'id' => $exist->borang_profil_peserta_kpsk_id]);
+			}
+			
 			if($pengurusanPermohonan != null){
 				$model->penganjur_kursus = $pengurusanPermohonan->agensi;
 				$model->tarikh_kursus = $pengurusanPermohonan->tarikh_kursus;

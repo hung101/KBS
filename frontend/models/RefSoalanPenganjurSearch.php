@@ -18,8 +18,8 @@ class RefSoalanPenganjurSearch extends RefSoalanPenganjur
     public function rules()
     {
         return [
-            [['id', 'ref_kategori_soalan_penganjur_id', 'aktif', 'created_by', 'updated_by'], 'integer'],
-            [['desc', 'created', 'updated'], 'safe'],
+            [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['desc', 'created', 'updated', 'ref_kategori_soalan_penganjur_id'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class RefSoalanPenganjurSearch extends RefSoalanPenganjur
      */
     public function search($params)
     {
-        $query = RefSoalanPenganjur::find();
+        $query = RefSoalanPenganjur::find()->joinWith(['refKategoriSoalanPenganjur']);
 
         // add conditions that should always apply here
 
@@ -60,7 +60,7 @@ class RefSoalanPenganjurSearch extends RefSoalanPenganjur
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'ref_kategori_soalan_penganjur_id' => $this->ref_kategori_soalan_penganjur_id,
+            //'ref_kategori_soalan_penganjur_id' => $this->ref_kategori_soalan_penganjur_id,
             'aktif' => $this->aktif,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -68,7 +68,8 @@ class RefSoalanPenganjurSearch extends RefSoalanPenganjur
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc]);
+        $query->andFilterWhere(['like', 'desc', $this->desc])
+			->andFilterWhere(['like', 'tbl_ref_kategori_soalan_penganjur.desc', $this->ref_kategori_soalan_penganjur_id]);
 
         return $dataProvider;
     }

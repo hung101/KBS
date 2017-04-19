@@ -1,13 +1,12 @@
 <?php
-
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\RefKategoriPengawaiTeknikal */
+/* @var $model app\models\RefAcara */
 
-$this->title = 'Create Ref Kategori Pengawai Teknikal';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Kategori Pengawai Teknikals', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::kategori_pegawai_teknikal;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kategori_pegawai_teknikal, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-kategori-pengawai-teknikal-create">

@@ -16,7 +16,7 @@ use app\models\general\Placeholder;
 ?>
 
 <div class="ref-saiz-pakaian-form">
-
+    <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::lapangan_mandatori ?></p>
     <?php $form = ActiveForm::begin(); ?>
 
     <?php echo $form->field($model, 'ref_jenis_pakaian_id')->widget(Select2::classname(), [

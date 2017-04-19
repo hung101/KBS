@@ -18,8 +18,8 @@ class RefKawasanKemudahanSearch extends RefKawasanKemudahan
     public function rules()
     {
         return [
-            [['id', 'ref_vanue_aduan_id', 'aktif', 'created_by', 'updated_by'], 'integer'],
-            [['desc', 'created', 'updated'], 'safe'],
+            [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['desc', 'created', 'updated', 'ref_vanue_aduan_id'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class RefKawasanKemudahanSearch extends RefKawasanKemudahan
      */
     public function search($params)
     {
-        $query = RefKawasanKemudahan::find();
+        $query = RefKawasanKemudahan::find()->joinWith(['refVenueAduan']);
 
         // add conditions that should always apply here
 
@@ -60,7 +60,7 @@ class RefKawasanKemudahanSearch extends RefKawasanKemudahan
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'ref_vanue_aduan_id' => $this->ref_vanue_aduan_id,
+            //'ref_vanue_aduan_id' => $this->ref_vanue_aduan_id,
             'aktif' => $this->aktif,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -68,7 +68,8 @@ class RefKawasanKemudahanSearch extends RefKawasanKemudahan
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc]);
+        $query->andFilterWhere(['like', 'desc', $this->desc])
+			->andFilterWhere(['like', 'tbl_ref_venue_aduan.desc', $this->ref_vanue_aduan_id]);
 
         return $dataProvider;
     }

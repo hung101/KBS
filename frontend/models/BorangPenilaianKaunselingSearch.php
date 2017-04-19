@@ -19,7 +19,7 @@ class BorangPenilaianKaunselingSearch extends BorangPenilaianKaunseling
     {
         return [
             [['borang_penilaian_kaunseling_id'], 'integer'],
-            [['atlet', 'diagnosis', 'preskripsi', 'cadangan', 'rujukan', 'tindakan_selanjutnya', 'kategori_permasalahan', 'tarikh_temujanji', 'profil_konsultan_id'], 'safe'],
+            [['atlet', 'jenis_klien', 'jurulatih', 'pegawai_anggota', 'diagnosis', 'preskripsi', 'cadangan', 'rujukan', 'tindakan_selanjutnya', 'kategori_permasalahan', 'tarikh_temujanji', 'profil_konsultan_id'], 'safe'],
         ];
     }
 
@@ -44,6 +44,8 @@ class BorangPenilaianKaunselingSearch extends BorangPenilaianKaunseling
         $query = BorangPenilaianKaunseling::find()
                 ->joinWith(['refUser'])
                 ->joinWith(['refAtlet'])
+				->joinWith(['refJurulatih'])
+				->joinWith(['refJenisKlien'])
                 ->joinWith(['refKategoriMasalahKaunseling']);
 
         $dataProvider = new ActiveDataProvider([
@@ -71,6 +73,9 @@ class BorangPenilaianKaunselingSearch extends BorangPenilaianKaunseling
             ->andFilterWhere(['like', 'tindakan_selanjutnya', $this->tindakan_selanjutnya])
             ->andFilterWhere(['like', 'tbl_ref_latarbelakang_kes.desc', $this->kategori_permasalahan])
             ->andFilterWhere(['like', 'tbl_atlet.name_penuh', $this->atlet])
+			->andFilterWhere(['like', 'tbl_jurulatih.nama', $this->jurulatih])
+			->andFilterWhere(['like', 'tbl_ref_jenis_klien.desc', $this->jenis_klien])
+			->andFilterWhere(['like', 'pegawai_anggota', $this->pegawai_anggota])
             ->andFilterWhere(['like', 'tbl_user.full_name', $this->profil_konsultan_id]);
 
         return $dataProvider;

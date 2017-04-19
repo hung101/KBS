@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefTahapKpsk */
 
-$this->title = 'Create Ref Tahap Kpsk';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Tahap Kpsks', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::tahap." KPSK";
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::tahap." KPSK", 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-tahap-kpsk-create">

@@ -54,10 +54,26 @@ class BorangPenilaianKaunseling extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['profil_konsultan_id', 'atlet', 'diagnosis', 'kategori_permasalahan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['profil_konsultan_id', 'atlet'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['profil_konsultan_id', 'diagnosis', 'kategori_permasalahan', 'jenis_klien'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['profil_konsultan_id', 'atlet', 'jurulatih', 'jenis_klien'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_temujanji'], 'safe'],
-            [['diagnosis', 'preskripsi', 'cadangan', 'rujukan', 'tindakan_selanjutnya', 'kategori_permasalahan', 'lain_lain_nyatakan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['diagnosis', 'preskripsi', 'cadangan', 'rujukan', 'tindakan_selanjutnya', 'kategori_permasalahan', 'lain_lain_nyatakan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+			[['pegawai_anggota'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+			['atlet', 'required', 'when' => function ($model) {
+				return $model->jenis_klien === '1';
+			}, 'whenClient' => "function (attribute, value) {
+				return $('#jenisKlienID').val() === '1';
+			}", 'message' => GeneralMessage::yii_validation_required],
+			['jurulatih', 'required', 'when' => function ($model) {
+				return $model->jenis_klien === '2';
+			}, 'whenClient' => "function (attribute, value) {
+				return $('#jenisKlienID').val() === '2';
+			}", 'message' => GeneralMessage::yii_validation_required],
+			['pegawai_anggota', 'required', 'when' => function ($model) {
+				return $model->jenis_klien === '3';
+			}, 'whenClient' => "function (attribute, value) {
+				return $('#jenisKlienID').val() === '3';
+			}", 'message' => GeneralMessage::yii_validation_required],
         ];
     }
 
@@ -69,7 +85,10 @@ class BorangPenilaianKaunseling extends \yii\db\ActiveRecord
         return [
             'borang_penilaian_kaunseling_id' => GeneralLabel::borang_penilaian_kaunseling_id,
             'profil_konsultan_id' => GeneralLabel::profil_konsultan_id,
-            'atlet' => GeneralLabel::atlet_jurulatih_pengawai_anggota,  //'Atlet / Jurulatih / Pegawai & Anggota',
+			'jenis_klien' => GeneralLabel::jenis_klien,
+            'atlet' => GeneralLabel::atlet,
+			'jurulatih' => GeneralLabel::jurulatih,
+			'pegawai_anggota' => GeneralLabel::pegawai_anggota,
             'diagnosis' => GeneralLabel::diagnosis,
             'preskripsi' => GeneralLabel::preskripsi,
             'cadangan' => GeneralLabel::cadangan,
@@ -93,6 +112,20 @@ class BorangPenilaianKaunseling extends \yii\db\ActiveRecord
      */
     public function getRefAtlet(){
         return $this->hasOne(Atlet::className(), ['atlet_id' => 'atlet']);
+    }
+	
+	/**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJurulatih(){
+        return $this->hasOne(Jurulatih::className(), ['jurulatih_id' => 'jurulatih']);
+    }
+	
+	/**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJenisKlien(){
+        return $this->hasOne(RefJenisKlien::className(), ['id' => 'jenis_klien']);
     }
     
     /**

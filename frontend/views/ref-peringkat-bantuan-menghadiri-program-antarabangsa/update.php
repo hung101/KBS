@@ -1,14 +1,15 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPeringkatBantuanMenghadiriProgramAntarabangsa */
 
-$this->title = 'Update Ref Peringkat Bantuan Menghadiri Program Antarabangsa: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Peringkat Bantuan Menghadiri Program Antarabangsas', 'url' => ['index']];
+
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::peringkat_bantuan_menghadiri_program_antarabangsa.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::peringkat_bantuan_menghadiri_program_antarabangsa, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>
 <div class="ref-peringkat-bantuan-menghadiri-program-antarabangsa-update">
 

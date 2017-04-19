@@ -55,8 +55,8 @@ class RefShuttle extends \yii\db\ActiveRecord
             [['desc','phoneno'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['aktif', 'created_by', 'updated_by','phoneno'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
-            [['desc'], 'string', 'max' => 80],
-            [['phoneno'], 'string', 'max' => 14]
+            [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['phoneno'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 

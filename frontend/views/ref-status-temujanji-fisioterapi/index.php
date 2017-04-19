@@ -29,13 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             [
-                'attribute' => 'id',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::id,
-                ]
-            ],
-            [
                 'attribute' => 'desc',
                 'filterInputOptions' => [
                     'class'       => 'form-control',

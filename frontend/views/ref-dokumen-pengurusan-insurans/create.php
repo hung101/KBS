@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefDokumenPengurusanInsurans */
 
-$this->title = GeneralLabel::createTitle.' '.'Dokumen Pengurusan Insurans';
-$this->params['breadcrumbs'][] = ['label' => 'Dokumen Pengurusan Insurans', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::dokumen;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::dokumen, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-dokumen-pengurusan-insurans-create">

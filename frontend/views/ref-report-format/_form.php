@@ -11,11 +11,11 @@ use app\models\general\GeneralLabel;
 ?>
 
 <div class="ref-rekod-baru-form">
-
+    <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::lapangan_mandatori ?></p>
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'desc')->textInput(['maxlength' => true]) ?>
-
+	<?= $form->field($model, 'file_extension')->textInput(['maxlength' => true]) ?>
     <?php $model->isNewRecord ? $model->aktif = 1: $model->aktif = $model->aktif ;  ?>
     <?= $form->field($model, 'aktif')->radioList(array(true=>GeneralLabel::yes,false=>GeneralLabel::no)); ?>
 

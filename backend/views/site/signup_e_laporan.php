@@ -5,6 +5,12 @@ use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\builder\FormGrid;
 
+// contant values
+use app\models\general\Placeholder;
+use app\models\general\GeneralLabel;
+use app\models\general\GeneralVariable;
+use app\models\general\GeneralMessage;
+
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \frontend\models\SignupForm */

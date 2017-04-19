@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefBahagianAjk */
 
-$this->title = 'Create Ref Bahagian Ajk';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Bahagian Ajks', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::bahagian_ajk;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bahagian_ajk, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-bahagian-ajk-create">

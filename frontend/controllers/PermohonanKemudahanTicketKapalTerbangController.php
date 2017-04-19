@@ -172,7 +172,8 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
-        
+        $this->unsetAllPrime();
+		
         $model = new PermohonanKemudahanTicketKapalTerbang();
         
         $model->kelulusan = RefStatusPermohonanKemudahan::SEDANG_DIPROSES;
@@ -625,11 +626,30 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
             $type = $_POST['type'];
             $setValue = $_POST['set'];
             $session->set($type, $setValue);
-
+			
+			//update existing record based on session=>for case autopopulate from penyertaan sukan
+			$this->updateItemBySession(Yii::$app->session->id, $type, $setValue);
             //$session->remove($type);
-
         }
     }
+	
+	public function updateItemBySession($session_id, $type, $value)
+	{
+		$fieldArr = ['pri_tarikh_pergi' => 'tarikh_pergi', 'pri_flight_pergi' => 'flight_no_pergi', 'pri_masa_pergi' => 'masa_pergi', 'pri_destinasi_pergi' => 'destinasi_pergi', 'pri_tarikh_balik' => 'tarikh_balik', 'pri_flight_balik' => 'flight_no_balik', 'pri_masa_balik' => 'masa_balik', 'pri_destinasi_balik' => 'destinasi_balik'];
+		
+		PermohonanKemudahanTicketKapalTerbangAtlet::updateAll([$fieldArr[$type] => $value], 'session_id = "'.$session_id.'"');
+		PermohonanKemudahanTicketKapalTerbangJurulatih::updateAll([$fieldArr[$type] => $value], 'session_id = "'.$session_id.'"');
+		PermohonanKemudahanTicketKapalTerbangPegawai::updateAll([$fieldArr[$type] => $value], 'session_id = "'.$session_id.'"');
+		PermohonanKemudahanTicketKapalTerbangPengurusSukan::updateAll([$fieldArr[$type] => $value], 'session_id = "'.$session_id.'"');
+	}
+	
+	public function unsetAllPrime()
+	{
+		$session = Yii::$app->session;
+		unset($session['pri_tarikh_pergi']); unset($session['pri_flight_pergi']); unset($session['pri_masa_pergi']); unset($session['pri_destinasi_pergi']);
+		unset($session['pri_tarikh_balik']); unset($session['pri_flight_balik']); unset($session['pri_masa_balik']); unset($session['pri_destinasi_balik']);
+		$session->close();
+	}
 	
 	public function updateItemPergiBalik($model)
 	{

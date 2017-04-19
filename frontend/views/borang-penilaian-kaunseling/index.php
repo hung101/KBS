@@ -54,6 +54,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refUser.full_name'
             ],*/
+			[
+                'attribute' => 'jenis_klien',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_klien,
+                ],
+                'value' => 'refJenisKlien.desc'
+            ],
             [
                 'attribute' => 'atlet',
                 'filterInputOptions' => [
@@ -61,6 +69,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::atlet,
                 ],
                 'value' => 'refAtlet.name_penuh'
+            ],
+			[
+                'attribute' => 'jurulatih',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jurulatih,
+                ],
+                'value' => 'refJurulatih.nama'
+            ],
+			[
+                'attribute' => 'pegawai_anggota',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pegawai_anggota,
+                ],
+                'value' => 'pegawai_anggota'
             ],
             //'diagnosis',
            // 'preskripsi',

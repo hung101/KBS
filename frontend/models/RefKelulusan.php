@@ -58,7 +58,7 @@ class RefKelulusan extends \yii\db\ActiveRecord
             [['desc'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
-            [['desc'], 'string', 'max' => 80]
+            [['desc', 'desc_en'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 
@@ -70,6 +70,7 @@ class RefKelulusan extends \yii\db\ActiveRecord
         return [
             'id' => GeneralLabel::id,
             'desc' => GeneralLabel::desc,
+			'desc_en' => GeneralLabel::desc_en,
             'aktif' => GeneralLabel::aktif,
             'created_by' => GeneralLabel::created_by,
             'updated_by' => GeneralLabel::updated_by,

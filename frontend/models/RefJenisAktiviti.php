@@ -3,7 +3,8 @@
 namespace app\models;
 
 use Yii;
-
+use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 /**
  * This is the model class for table "tbl_ref_jenis_aktiviti".
  *
@@ -31,6 +32,24 @@ class RefJenisAktiviti extends \yii\db\ActiveRecord
     {
         return 'tbl_ref_jenis_aktiviti';
     }
+	
+	public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior',
+            [
+                'class' => \yii\behaviors\BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'updated',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -38,10 +57,10 @@ class RefJenisAktiviti extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['desc'], 'required'],
-            [['aktif', 'created_by', 'updated_by'], 'integer'],
+            [['desc'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
-            [['desc', 'peringkat'], 'string', 'max' => 80],
+            [['desc', 'peringkat'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
 
@@ -51,14 +70,15 @@ class RefJenisAktiviti extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'desc' => 'Desc',
-            'peringkat' => 'Peringkat',
-            'aktif' => 'Aktif',
-            'created_by' => 'Created By',
-            'updated_by' => 'Updated By',
-            'created' => 'Created',
-            'updated' => 'Updated',
+            'peringkat' => GeneralLabel::peringkat,
+            'id' => GeneralLabel::id,
+            'desc' => GeneralLabel::desc,
+            'aktif' => GeneralLabel::aktif,
+            'created_by' => GeneralLabel::created_by,
+            'updated_by' => GeneralLabel::updated_by,
+            'created' => GeneralLabel::created,
+            'updated' => GeneralLabel::updated,
+
         ];
     }
 }

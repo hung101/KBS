@@ -66,7 +66,7 @@ class RefJenisAsetSub extends \yii\db\ActiveRecord
     {
         return [
             'id' => GeneralLabel::id,
-            'ref_jenis_aset_id' => GeneralLabel::ref_jenis_aset_id,
+            'ref_jenis_aset_id' => GeneralLabel::jenis_aset,
             'desc' => GeneralLabel::desc,
             'aktif' => GeneralLabel::aktif,
             'created_by' => GeneralLabel::created_by,
@@ -75,5 +75,12 @@ class RefJenisAsetSub extends \yii\db\ActiveRecord
             'updated' => GeneralLabel::updated,
 
         ];
+    }
+	
+	/**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJenisAset(){
+        return $this->hasOne(RefStatusTawaran::className(), ['id' => 'ref_jenis_aset_id']);
     }
 }

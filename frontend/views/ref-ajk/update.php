@@ -8,10 +8,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefAgensiAntarabangsa */
 
-$this->title = GeneralLabel::updateTitle.' '.''.': ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => '', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' =>  GeneralLabel::view.' ' .''.': ' . ' ' . $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = GeneralLabel::updateTitle.' '.'AJK'.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'AJK', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>
 <div class="ref-agensi-antarabangsa-update">
 

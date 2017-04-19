@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'ref_kategori_penilaian_jurulatih_id',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::ref_sukan_id,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori,
                 ],
                 'value' => 'refKategoriPenilaianJurulatih.desc',
             ],

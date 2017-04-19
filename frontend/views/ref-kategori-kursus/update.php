@@ -9,9 +9,9 @@ use yii\helpers\Html;
 /* @var $model app\models\RefKategoriKursus */
 
 $this->title = GeneralLabel::updateTitle.' '.GeneralLabel::kategori_kursus.': ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kategori_kursuses, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::kategori_kursus, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>
 <div class="ref-kategori-kursus-update">
 

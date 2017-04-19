@@ -16,7 +16,7 @@ use app\models\RefKategoriPenilaianJurulatih;
 ?>
 
 <div class="ref-sub-kategori-penilaian-jurulatih-form">
-
+    <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::lapangan_mandatori ?></p>
     <?php $form = ActiveForm::begin(); ?>
     
     <?= $form->field($model, 'ref_kategori_penilaian_jurulatih_id')->widget(Select2::classname(), [

@@ -56,7 +56,7 @@ class RefBank extends \yii\db\ActiveRecord
             [['desc'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
-            [['kod'], 'string', 'max' => 5],
+            [['kod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }

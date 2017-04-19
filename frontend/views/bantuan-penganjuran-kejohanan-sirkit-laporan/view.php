@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <p>
         <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id], ['class' => 'btn btn-primary']) ?>
-
+		<?= Html::a(GeneralLabel::cetak, ['print', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
         <?php /*echo Html::a(GeneralLabel::delete, ['delete', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id], [
             'class' => 'btn btn-danger',
             'data' => [

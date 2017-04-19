@@ -11,7 +11,7 @@ use app\models\general\GeneralLabel;
 ?>
 
 <div class="ref-negeri-form">
-
+    <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::lapangan_mandatori ?></p>
     <?php $form = ActiveForm::begin(); ?>
     
     <?= $form->field($model, 'kod')->textInput(['maxlength' => true]) ?>

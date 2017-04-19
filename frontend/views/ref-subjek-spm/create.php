@@ -1,13 +1,14 @@
 <?php
 
 use yii\helpers\Html;
+use app\models\general\GeneralLabel;
 
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefSubjekSpm */
 
-$this->title = 'Create Ref Subjek Spm';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Subjek Spms', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::subjek;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::subjek, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-subjek-spm-create">

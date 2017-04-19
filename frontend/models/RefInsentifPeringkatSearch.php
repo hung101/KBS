@@ -18,8 +18,8 @@ class RefInsentifPeringkatSearch extends RefInsentifPeringkat
     public function rules()
     {
         return [
-            [['id', 'ref_insentif_kejohanan_id', 'aktif', 'created_by', 'updated_by'], 'integer'],
-            [['desc', 'created', 'updated'], 'safe'],
+            [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
+            [['desc', 'created', 'updated', 'ref_insentif_kejohanan_id'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class RefInsentifPeringkatSearch extends RefInsentifPeringkat
      */
     public function search($params)
     {
-        $query = RefInsentifPeringkat::find();
+        $query = RefInsentifPeringkat::find()->joinWith(['refInsentifKejohanan']);
 
         // add conditions that should always apply here
 
@@ -60,7 +60,7 @@ class RefInsentifPeringkatSearch extends RefInsentifPeringkat
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'ref_insentif_kejohanan_id' => $this->ref_insentif_kejohanan_id,
+            //'ref_insentif_kejohanan_id' => $this->ref_insentif_kejohanan_id,
             'aktif' => $this->aktif,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
@@ -68,7 +68,8 @@ class RefInsentifPeringkatSearch extends RefInsentifPeringkat
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc]);
+        $query->andFilterWhere(['like', 'desc', $this->desc])
+			->andFilterWhere(['like', 'tbl_ref_insentif_kejohanan.desc', $this->ref_insentif_kejohanan_id]);
 
         return $dataProvider;
     }

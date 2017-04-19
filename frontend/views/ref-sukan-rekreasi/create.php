@@ -10,7 +10,7 @@ use yii\helpers\Html;
 /* @var $model app\models\RefSukanRekreasi */
 
 $this->title = GeneralLabel::createTitle.' '.GeneralLabel::sukan_rekreasi;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::sukan_rekreasis, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::sukan_rekreasi, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-sukan-rekreasi-create">

@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefJenisAktivitiSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Jenis Aktiviti';
+$this->title = GeneralLabel::jenis_aktiviti;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-jenis-aktiviti-index">
@@ -19,15 +19,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Jenis Aktiviti', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::createTitle.' '.GeneralLabel::jenis_aktiviti, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             [
                 'attribute' => 'desc',
                 'filterInputOptions' => [
@@ -35,7 +33,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::desc,
                 ]
             ],
-            'peringkat',
+			[
+                'attribute' => 'peringkat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::peringkat,
+                ]
+            ],
             //'aktif',
             [
                 'attribute' => 'aktif',

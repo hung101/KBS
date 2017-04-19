@@ -14,13 +14,14 @@ class MsnLaporanStatistikProgramBinaanMengikutNegeri extends Model
     public $tarikh_dari;
     public $tarikh_hingga;
     public $program;
+    public $negeri;
     public $format;
 
     public function rules()
     {
         return [
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga', 'program'], 'safe'],
+            [['tarikh_dari', 'tarikh_hingga', 'program', 'negeri'], 'safe'],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
@@ -31,6 +32,7 @@ class MsnLaporanStatistikProgramBinaanMengikutNegeri extends Model
             'tarikh_dari' => GeneralLabel::tarikh_dari,
             'tarikh_hingga' => GeneralLabel::tarikh_hingga,
             'program' => GeneralLabel::program,
+            'negeri' => GeneralLabel::negeri,
             'format' => GeneralLabel::format,
         ];
     }

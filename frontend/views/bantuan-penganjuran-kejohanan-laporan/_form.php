@@ -472,7 +472,7 @@ use app\models\general\GeneralVariable;
 
     <div class="form-group">
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
+        <?= Html::submitButton(GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
             'data' => [
                     'confirm' => GeneralMessage::confirmSave,
                 ],]) ?>

@@ -15,6 +15,8 @@ use app\models\general\GeneralVariable;
 use app\models\RefKategoriMasalahKaunseling;
 use app\models\RefLatarbelakangKes;
 use app\models\Atlet;
+use app\models\Jurulatih;
+use app\models\RefJenisKlien;
 
 /**
  * BorangPenilaianKaunselingController implements the CRUD actions for BorangPenilaianKaunseling model.
@@ -64,16 +66,25 @@ class BorangPenilaianKaunselingController extends Controller
         }
         
         $model = $this->findModel($id);
+		
+		$jenisKlienID = $model->jenis_klien;
         
         $ref = Atlet::findOne(['atlet_id' => $model->atlet]);
         $model->atlet = $ref['nameAndIC'];
+		
+		$ref = Jurulatih::findOne(['jurulatih_id' => $model->jurulatih]);
+        $model->jurulatih = $ref['nama'];
         
         $ref = RefLatarbelakangKes::findOne(['id' => $model->kategori_permasalahan]);
         $model->kategori_permasalahan = $ref['desc'];
-        
+		
+		$ref = RefJenisKlien::findOne(['id' => $model->jenis_klien]);
+        $model->jenis_klien = $ref['desc'];
+		
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,
+			'jenisKlienID' => $jenisKlienID,
         ]);
     }
 
@@ -115,6 +126,7 @@ class BorangPenilaianKaunselingController extends Controller
         }
         
         $model = $this->findModel($id);
+		$jenisKlienID = $model->jenis_klien;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->borang_penilaian_kaunseling_id]);
@@ -122,6 +134,7 @@ class BorangPenilaianKaunselingController extends Controller
             return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
+				'jenisKlienID' => $jenisKlienID,
             ]);
         }
     }

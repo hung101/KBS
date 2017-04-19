@@ -8,6 +8,7 @@ use frontend\models\RefAcaraSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 use yii\helpers\Json;
 
@@ -150,7 +151,11 @@ class RefAcaraController extends Controller
                 echo Json::encode(['output'=>$out, 'selected'=>'']);
                 return;
             }
-        }
+        } else {
+			$out = self::getAcarasBySukan(null);
+			echo Json::encode(['output'=>$out, 'selected'=>'']);
+			return;
+		}
         echo Json::encode(['output'=>'', 'selected'=>'']);
     }
     
@@ -160,7 +165,12 @@ class RefAcaraController extends Controller
      * @return Array Bandars
      */
     public static function getAcarasBySukan($sukan_id) {
-        $data = RefAcara::find()->where(['ref_sukan_id'=>$sukan_id])->select(['id','desc AS name','discipline'])->asArray()->all();
+		if($sukan_id != null){
+			$data = RefAcara::find()->where(['ref_sukan_id'=>$sukan_id])->select(['id','desc AS name','discipline'])->asArray()->all();
+		} else {
+			$data = RefAcara::find()->select(['id','desc AS name','discipline'])->asArray()->all();
+		}
+        
         for($i=0; $i < count($data); $i++){
             if(isset($data[$i]['discipline']) && $data[$i]['discipline'] != ""){
                 $data[$i]['name'] = $data[$i]['discipline'] . ' - ' . $data[$i]['name'];

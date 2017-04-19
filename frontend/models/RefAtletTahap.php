@@ -53,7 +53,7 @@ class RefAtletTahap extends \yii\db\ActiveRecord
     {
         return [
             [['desc'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['aktif', 'created_by', 'updated_by'], 'integer'],
+            [['aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
             [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];

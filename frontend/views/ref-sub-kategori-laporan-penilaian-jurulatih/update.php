@@ -1,14 +1,14 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefSubKategoriPenilaianJurulatihKetua */
 
-$this->title = 'Update Ref Sub Kategori Laporan Penilaian Jurulatih: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Ref Sub Kategori Laporan Penilaian Jurulatih', 'url' => ['index']];
+$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::sub_kategori_laporan_penilaian_jurulatih.': ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::sub_kategori_laporan_penilaian_jurulatih, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 ?>
 <div class="ref-sub-kategori-penilaian-jurulatih-ketua-update">
 

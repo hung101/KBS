@@ -19,7 +19,7 @@ class RefDokumenPengurusanInsuransSearch extends RefDokumenPengurusanInsurans
     {
         return [
             [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
-            [['desc', 'created', 'updated'], 'safe'],
+            [['desc', 'created', 'updated', 'parent_id'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class RefDokumenPengurusanInsuransSearch extends RefDokumenPengurusanInsurans
      */
     public function search($params)
     {
-        $query = RefDokumenPengurusanInsurans::find();
+        $query = RefDokumenPengurusanInsurans::find()->joinWith(['refJenisTuntutan']);
 
         // add conditions that should always apply here
 
@@ -67,7 +67,8 @@ class RefDokumenPengurusanInsuransSearch extends RefDokumenPengurusanInsurans
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc]);
+        $query->andFilterWhere(['like', 'desc', $this->desc])
+				->andFilterWhere(['like', 'tbl_ref_jenis_tuntutan.desc', $this->parent_id]);
 
         return $dataProvider;
     }

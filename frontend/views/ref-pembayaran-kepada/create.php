@@ -1,13 +1,13 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\general\GeneralLabel;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPembayaranKepada */
 
-$this->title = 'Create Ref Pembayaran Kepada';
-$this->params['breadcrumbs'][] = ['label' => 'Ref Pembayaran Kepadas', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle.' '.GeneralLabel::pembayaran_kepada;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pembayaran_kepada, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-pembayaran-kepada-create">
