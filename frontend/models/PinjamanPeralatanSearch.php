@@ -18,7 +18,7 @@ class PinjamanPeralatanSearch extends PinjamanPeralatan
     public function rules()
     {
         return [
-            [['pinjaman_peralatan_id', 'kuantiti'], 'integer'],
+            [['pinjaman_peralatan_id', 'kuantiti', 'tempoh_lewat'], 'integer'],
             [['nama_peralatan', 'atlet_id', 'tarikh_diberi', 'tarikh_dipulang', 'tempoh_pinjaman', 'nama_pegawai'], 'safe'],
         ];
     }
@@ -61,6 +61,7 @@ class PinjamanPeralatanSearch extends PinjamanPeralatan
             'pinjaman_peralatan_id' => $this->pinjaman_peralatan_id,
             //'atlet_id' => $this->atlet_id,
             'kuantiti' => $this->kuantiti,
+			'tempoh_lewat' => $this->tempoh_lewat,
             //'tarikh_diberi' => $this->tarikh_diberi,
             //'tarikh_dipulang' => $this->tarikh_dipulang,
         ]);

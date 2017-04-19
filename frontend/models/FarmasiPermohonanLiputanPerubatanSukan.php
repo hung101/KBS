@@ -58,7 +58,7 @@ class FarmasiPermohonanLiputanPerubatanSukan extends \yii\db\ActiveRecord
     {
         return [
             //[['nama_program', 'tarikh_program', 'tempat_program', 'nama_pemohon', 'no_tel_pemohon', 'pegawai_bertugas', 'kategori_program'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_program'], 'safe'],
+            [['tarikh_program', 'tarikh_kelulusan'], 'safe'],
             [['kelulusan_ceo', 'kelulusan_pbu', 'kategori_program', 'kategori_nama_sukan', 'jumlah_peserta_atlet'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_program', 'nama_pemohon', 'pegawai_bertugas'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat_program'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -88,6 +88,7 @@ class FarmasiPermohonanLiputanPerubatanSukan extends \yii\db\ActiveRecord
             'kategori_program' => GeneralLabel::kategori_program,
             'kategori_nama_sukan' => GeneralLabel::kategori_nama_sukan,
             'jumlah_peserta_atlet' => GeneralLabel::jumlah_peserta_atlet,
+			'tarikh_kelulusan' => GeneralLabel::tarikh_kelulusan,
         ];
     }
     

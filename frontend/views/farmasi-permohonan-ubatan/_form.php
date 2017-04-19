@@ -279,24 +279,34 @@ use app\models\general\GeneralMessage;
     <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['kelulusan']) || $readonly): ?>
     <?php
         echo FormGrid::widget([
-    'model' => $model,
-    'form' => $form,
-    'autoGenerateColumns' => true,
-    'rows' => [
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'kelulusan' => [
-                    'type'=>Form::INPUT_RADIO_LIST, 
-                    'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
-                    'value'=>false,
-                    'options'=>['inline'=>true],
-                    'columnOptions'=>['colspan'=>3]],
-            ]
-        ],
-    ]
-]);
+			'model' => $model,
+			'form' => $form,
+			'autoGenerateColumns' => true,
+			'rows' => [
+				[
+					'columns'=>12,
+					'autoGenerateColumns'=>false, // override columns setting
+					'attributes' => [
+						'kelulusan' => [
+							'type'=>Form::INPUT_RADIO_LIST, 
+							'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
+							'value'=>false,
+							'options'=>['inline'=>true],
+							'columnOptions'=>['colspan'=>3]],
+						'tarikh_kelulusan' => [
+							'type'=>Form::INPUT_WIDGET, 
+							'widgetClass'=> DateControl::classname(),
+							'ajaxConversion'=>false,
+							'options'=>[
+								'pluginOptions' => [
+									'autoclose'=>true,
+								]
+							],
+							'columnOptions'=>['colspan'=>3]],
+					]
+				],
+			]
+		]);
     ?>
     <?php endif; ?>
 

@@ -63,7 +63,7 @@ class PermohonanMembaikiPeralatan extends \yii\db\ActiveRecord
     {
         return [
             [['tarikh_permohonan', 'pemohon', 'nama_peralatan', 'pegawai_yang_bertanggungjawab', 'status_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_permohonan', 'tarikh_diterima', 'tarikh_dipulang'], 'safe'],
+            [['tarikh_permohonan', 'tarikh_diterima', 'tarikh_dipulang', 'tarikh_status'], 'safe'],
             [['pemohon', 'nama_peralatan', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['model', 'nombor_siri'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kerosakan', 'simptom_kerosakan', 'komponen_utama', 'proses_pemeriksaan', 'pembaikan', 'cadangan', 'catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -94,7 +94,7 @@ class PermohonanMembaikiPeralatan extends \yii\db\ActiveRecord
             'pegawai_yang_bertanggungjawab' => GeneralLabel::pegawai_yang_bertanggungjawab,
             'catitan_ringkas' => GeneralLabel::catitan_ringkas,
             'status_permohonan' => GeneralLabel::status_permohonan,
-
+			'tarikh_status' => GeneralLabel::tarikh_status_permohonan,
         ];
     }
     

@@ -53,7 +53,7 @@ class PenganjuranKursus extends \yii\db\ActiveRecord
     {
         return [
             [['kategori_kursus_penganjuran','kod_kursus', 'tarikh_kursus_mula', 'tarikh_kursus_tamat', 'penganjur', 'tempat_kursus', 'negeri', 'nama_penyelaras', 'no_telefon', 'kuota_kursus', 'nama_kursus'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_kursus_mula', 'tarikh_kursus_tamat', 'jenis_kursus'], 'safe'],
+            [['tarikh_kursus_mula', 'tarikh_kursus_tamat', 'jenis_kursus', 'tarikh_status'], 'safe'],
             [['kuota_kursus', 'kategori_kursus_penganjuran'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tempat_kursus'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempoh_kursus'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -86,6 +86,7 @@ class PenganjuranKursus extends \yii\db\ActiveRecord
             'penganjur' => GeneralLabel::penganjur,
             'tempoh_kursus' => GeneralLabel::tempoh_kursus,
             'kategori_kursus_penganjuran' => GeneralLabel::kategori_kursus_penganjuran,
+			'tarikh_status' => GeneralLabel::tarikh_status_permohonan,
         ];
     }
     

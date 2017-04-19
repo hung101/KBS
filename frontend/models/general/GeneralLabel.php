@@ -1413,6 +1413,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
 		const bil_kredit = "Bilangan Kredit";
         const nama_projek = "Nama Projek";
 		const berat_badans = "Berat Badan";
+		const tempoh_lewat = "Tempoh Lewat";
+		const tarikh_pulang_sebenar = "Tarikh Pulang Sebenar";
 		const lapangan_mandatori = "lapangan mandatori";
 		const nama_pensyarah = "Nama Pensyarah";
         const nama_projek_program_aktiviti_kejohanan = "Nama Projek Program / Aktiviti / Kejohanan";
@@ -2352,6 +2354,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
 		const penjadualan_ujian = "Penjadualan Ujian";
         const tarikh_penggunaan = "Tarikh Penggunaan";
         const tarikh_penghantaran_MYKB = "Tarikh Penghantaran MYKB";
+		const tarikh_status_permohonan = "Tarikh Status Permohonan";
         const tarikh_penginapan_akhir = "Tarikh Penginapan Akhir";
         const tarikh_penginapan_mula = "Tarikh Penginapan Mula";
         const tarikh_penubuhan_syarikat = "Tarikh Penubuhan Syarikat/Badan Sukan";
@@ -6069,6 +6072,7 @@ if($session->get('language') == "EN") {
         const tarikh_kejohanan = "The Date Of The Tournament";
         const tarikh_kejohanan_program_aktiviti_yang_disertai = "Date Of Activity";
         const tarikh_kelulusan = "Date Of Approval";
+		const tarikh_status_permohonan = "Date Of Application Status";
         const tarikh_kelulusan_jkb = "Date Of Approval JKB";
         const tarikh_kelulusan_Terkini = "Date Of Approval";
         const tarikh_khidmat = "Date Of Service";
@@ -6400,6 +6404,8 @@ if($session->get('language') == "EN") {
         const laporan_profil_wartawan = "Media Profile Report";
         const tarikh_terima = "Received Date";
         const tarikh_keluar = "Exit Date";
+		const tempoh_lewat = "Late Duration";
+		const tarikh_pulang_sebenar = "Actual Date Returned";
         const laporan_satelit_sistem_laporan_pusat = "Report Satellite System Center Reporting";
         const laporan_program_kursus = "Report Program/Course";
         const laporan_senarai_atlet = "Report Athlete List";

@@ -54,7 +54,7 @@ class PermohonanInovasiPeralatan extends \yii\db\ActiveRecord
     {
         return [
             [['tarikh_permohonan', 'pemohon', 'nama_peralatan', 'ringkasan_inovasi_peralatan', 'pegawai_yang_bertanggungjawab', 'status_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_permohonan'], 'safe'],
+            [['tarikh_permohonan', 'tarikh_status'], 'safe'],
             [['pemohon', 'nama_peralatan', 'pegawai_yang_bertanggungjawab'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['ringkasan_inovasi_peralatan', 'catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['status_permohonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -77,6 +77,7 @@ class PermohonanInovasiPeralatan extends \yii\db\ActiveRecord
             'catitan_ringkas' => GeneralLabel::catitan_ringkas,
             'status_permohonan' => GeneralLabel::status_permohonan,
             'bahagian_cawangan_pusat' => GeneralLabel::bahagian_cawangan_pusat,
+			'tarikh_status' => GeneralLabel::tarikh_status_permohonan,
         ];
     }
     

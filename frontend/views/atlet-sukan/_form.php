@@ -38,7 +38,11 @@ use app\models\general\GeneralMessage;
 // Session
     $session = new Session;
     $session->open();
-    
+ 
+if($model->isNewRecord){
+	echo "<script>var athlete_status = '1';</script>";
+}
+ 
 ?>
 
 <div class="atlet-sukan-form">

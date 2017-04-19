@@ -191,6 +191,7 @@ class AtletController extends Controller
         $atlet = $this->findModel($id);
         
         $session['atlet_cacat'] = $atlet->cacat;
+		$session['kelulusan_atlet'] = $atlet->tawaran;
         
         // get atlet dropdown value's descriptions
         $ref = RefAtletTahap::findOne(['id' => $atlet->tahap]);
@@ -292,6 +293,7 @@ class AtletController extends Controller
         $session->open();
         
         $session->remove('atlet_id');
+		$session->remove('kelulusan_atlet');
         
         $model = new Atlet();
         
@@ -405,6 +407,7 @@ Majlis Sukan Negara Malaysia.
         $model = $this->findModel($id);
         
         $session['atlet_cacat'] = $model->cacat;
+		$session['kelulusan_atlet'] = $model->tawaran;
         
         $existingGambar = $model->gambar;
         
@@ -3562,195 +3565,5 @@ Majlis Sukan Negara Malaysia.
         );
         
         GeneralFunction::generateReport('/spsb/MSN/SuratAkuanPersetujuanAtlet', $format, $controls, 'surat_akuan_persetujuan_atlet');
-    }
-    
-    public function actionLaporanElaunAtletMengikutSukan()
-    {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
-        }
-        
-        $model = new MsnLaporanSenaraiAtlet();
-        $model->format = 'html';
-
-        if ($model->load(Yii::$app->request->post())) {
-            if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
-            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
-            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
-            if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
-            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
-            if(!empty($model->jenis_elaun))$model->jenis_elaun = implode(",",$model->jenis_elaun);
-            
-            if($model->format == "html") {
-                $report_url = BaseUrl::to(['generate-laporan-elaun-atlet-mengikut-sukan'
-                    , 'program' => $model->program
-                    , 'sukan' => $model->sukan
-                    , 'acara' => $model->acara
-                    , 'negeri' => $model->negeri
-                    , 'atlet' => $model->atlet
-                    , 'tarikh_dari' => $model->tarikh_dari
-                    , 'tarikh_hingga' => $model->tarikh_hingga
-                    , 'cawangan' => $model->cawangan
-                    , 'jenis_elaun' => $model->jenis_elaun
-                    , 'format' => $model->format
-                ], true);
-                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
-            } else {
-                return $this->redirect(['generate-laporan-elaun-atlet-mengikut-sukan'
-                    , 'program' => $model->program
-                    , 'sukan' => $model->sukan
-                    , 'acara' => $model->acara
-                    , 'negeri' => $model->negeri
-                    , 'atlet' => $model->atlet
-                    , 'tarikh_dari' => $model->tarikh_dari
-                    , 'tarikh_hingga' => $model->tarikh_hingga
-                    , 'cawangan' => $model->cawangan
-                    , 'jenis_elaun' => $model->jenis_elaun
-                    , 'format' => $model->format
-                ]);
-            }
-        } 
-
-        return $this->render('laporan_elaun_atlet_mengikut_sukan', [
-            'model' => $model,
-            'readonly' => false,
-        ]);
-    }
-    
-    public function actionGenerateLaporanElaunAtletMengikutSukan($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $cawangan, $jenis_elaun, $format)
-    {
-        if($program == "") $program = array();
-        else $program = array($program);
-        
-        if($sukan == "") $sukan = array();
-        else $sukan = array($sukan);
-        
-        if($acara == "") $acara = array();
-        else $acara = array($acara);
-        
-        if($negeri == "") $negeri = array();
-        else $negeri = array($negeri);
-        
-        if($atlet == "") $atlet = array();
-        else $atlet = array($atlet);
-        
-        if($tarikh_dari == "") $tarikh_dari = array();
-        else $tarikh_dari = array($tarikh_dari);
-        
-        if($tarikh_hingga == "") $tarikh_hingga = array();
-        else $tarikh_hingga = array($tarikh_hingga);
-        
-        if($cawangan == "") $cawangan = array();
-        else $cawangan = array($cawangan);
-        
-        if($jenis_elaun == "") $jenis_elaun = array();
-        else $jenis_elaun = array($jenis_elaun);
-        
-        $controls = array(
-            'ACARA' => $acara,
-            'PROGRAM' => $program,
-            'SUKAN' => $sukan,
-            'NEGERI' => $negeri,
-            'ATLET' => $atlet,
-            'FROM_DATE' => $tarikh_dari,
-            'TO_DATE' => $tarikh_hingga,
-            'CAWANGAN' => $cawangan,
-            'JENIS_ELAUN' => $jenis_elaun,
-        );
-        
-        GeneralFunction::generateReport('/spsb/MSN/LaporanElaunAtletMengikutSukan', $format, $controls, 'laporan_elaun_atlet_mengikut_sukan');
-    }
-    
-    public function actionLaporanElaunAtletMengikutSukanParalimpik()
-    {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
-        }
-        
-        $model = new MsnLaporanSenaraiAtlet();
-        $model->format = 'html';
-
-        if ($model->load(Yii::$app->request->post())) {
-            if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
-            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
-            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
-            if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
-            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
-            if(!empty($model->jenis_elaun))$model->jenis_elaun = implode(",",$model->jenis_elaun);
-            
-            if($model->format == "html") {
-                $report_url = BaseUrl::to(['generate-laporan-elaun-atlet-mengikut-sukan-paralimpik'
-                    , 'program' => $model->program
-                    , 'sukan' => $model->sukan
-                    , 'acara' => $model->acara
-                    , 'negeri' => $model->negeri
-                    , 'atlet' => $model->atlet
-                    , 'tarikh_dari' => $model->tarikh_dari
-                    , 'tarikh_hingga' => $model->tarikh_hingga
-                    , 'cawangan' => $model->cawangan
-                    , 'format' => $model->format
-                ], true);
-                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
-            } else {
-                return $this->redirect(['generate-laporan-elaun-atlet-mengikut-sukan-paralimpik'
-                    , 'program' => $model->program
-                    , 'sukan' => $model->sukan
-                    , 'acara' => $model->acara
-                    , 'negeri' => $model->negeri
-                    , 'atlet' => $model->atlet
-                    , 'tarikh_dari' => $model->tarikh_dari
-                    , 'tarikh_hingga' => $model->tarikh_hingga
-                    , 'cawangan' => $model->cawangan
-                    , 'format' => $model->format
-                ]);
-            }
-        } 
-
-        return $this->render('laporan_elaun_atlet_mengikut_sukan_paralimpik', [
-            'model' => $model,
-            'readonly' => false,
-        ]);
-    }
-    
-    public function actionGenerateLaporanElaunAtletMengikutSukanParalimpik($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $cawangan, $format)
-    {
-        if($program == "") $program = array();
-        else $program = array($program);
-        
-        if($sukan == "") $sukan = array();
-        else $sukan = array($sukan);
-        
-        if($acara == "") $acara = array();
-        else $acara = array($acara);
-        
-        if($negeri == "") $negeri = array();
-        else $negeri = array($negeri);
-        
-        if($atlet == "") $atlet = array();
-        else $atlet = array($atlet);
-        
-        if($tarikh_dari == "") $tarikh_dari = array();
-        else $tarikh_dari = array($tarikh_dari);
-        
-        if($tarikh_hingga == "") $tarikh_hingga = array();
-        else $tarikh_hingga = array($tarikh_hingga);
-        
-        if($cawangan == "") $cawangan = array();
-        else $cawangan = array($cawangan);
-        
-        $controls = array(
-            'ACARA' => $acara,
-            'PROGRAM' => $program,
-            'SUKAN' => $sukan,
-            'NEGERI' => $negeri,
-            'ATLET' => $atlet,
-            'FROM_DATE' => $tarikh_dari,
-            'TO_DATE' => $tarikh_hingga,
-            'CAWANGAN' => $cawangan,
-        );
-        
-        GeneralFunction::generateReport('/spsb/MSN/LaporanElaunAtletMengikutSukanParalimpik', $format, $controls, 'laporan_elaun_atlet_mengikut_sukan_paralimpik');
     }
 }

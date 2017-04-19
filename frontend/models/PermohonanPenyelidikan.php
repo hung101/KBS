@@ -55,7 +55,7 @@ class PermohonanPenyelidikan extends \yii\db\ActiveRecord
     {
         return [
             [['nama_permohon', 'tarikh_permohonan', 'tajuk_penyelidikan', 'ringkasan_permohonan', 'biasa_dengan_keperluan_penyelidikan', 'kelulusan_echics', 'kelulusan', 'jenis_projek'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_permohonan', 'tarikh_direkodkan', 'akademik_tarikh_pelantikan_pertama', 'akademik_kontrak_tarikh_tamat', 'tarikh_pengisytiharan'], 'safe'],
+            [['tarikh_permohonan', 'tarikh_direkodkan', 'akademik_tarikh_pelantikan_pertama', 'akademik_kontrak_tarikh_tamat', 'tarikh_pengisytiharan', 'tarikh_kelulusan'], 'safe'],
             [['biasa_dengan_keperluan_penyelidikan', 'kelulusan_echics', 'kelulusan', 'jenis_projek', 'akademik_jenis_perkhidmatan', 'akademik_kursus', 'pengisytiharan', 'akademik_no_tel_bimbit'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_permohon', 'akademik_nama', 'akademik_nama_yang_dicadangkan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['ringkasan_permohonan', 'pengecualian_persetujuan', 'sebab_tiada_penyertaan_lembaran_maklumat', 'sebab_tiada_borang_persetujuan_penyertaan', 'tajuk_penyelidikan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -122,6 +122,7 @@ class PermohonanPenyelidikan extends \yii\db\ActiveRecord
             'semak_salinan_dokumen_dokumen_sokongan' => GeneralLabel::semak_salinan_dokumen_dokumen_sokongan,
             'semak_salinan_penepian_persetujuan' => GeneralLabel::semak_salinan_penepian_persetujuan,
             'semak_salinan_soal_selidik' => GeneralLabel::semak_salinan_soal_selidik,
+			'tarikh_kelulusan' => GeneralLabel::tarikh_kelulusan,
         ];
     }
     

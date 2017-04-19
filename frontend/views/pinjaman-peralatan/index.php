@@ -107,6 +107,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     return GeneralFunction::convert($model->tarikh_dipulang, GeneralFunction::TYPE_DATETIME);
                 },
             ],
+			[
+                'attribute' => 'tempoh_lewat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tempoh_lewat,
+                ],
+            ],
             // 'tempoh_pinjaman',
 
             //['class' => 'yii\grid\ActionColumn'],

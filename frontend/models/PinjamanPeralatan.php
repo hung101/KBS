@@ -54,8 +54,8 @@ class PinjamanPeralatan extends \yii\db\ActiveRecord
         return [
             [['atlet_id', 'nama_peralatan', 'nama_pegawai', 'kuantiti', 'tarikh_diberi'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['pulang', 'sukan'], 'safe'],
-            [['atlet_id', 'kuantiti'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            //[['tarikh_diberi'], 'safe'],
+            [['atlet_id', 'kuantiti', 'tempoh_lewat'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tarikh_pulang_sebenar'], 'safe'],
             [['nama_peralatan', 'nama_pegawai'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempoh_pinjaman'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tarikh_dipulang'], 'compare', 'compareAttribute'=>'tarikh_diberi', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
@@ -78,6 +78,8 @@ class PinjamanPeralatan extends \yii\db\ActiveRecord
             'sukan' => GeneralLabel::sukan,
             'nama_pegawai' => GeneralLabel::nama_pegawai,
             'pulang' => GeneralLabel::pulang,
+			'tarikh_pulang_sebenar' => GeneralLabel::tarikh_pulang_sebenar,
+			'tempoh_lewat' => GeneralLabel::tempoh_lewat,
         ];
     }
     

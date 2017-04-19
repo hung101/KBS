@@ -127,12 +127,24 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+				'tarikh_pulang_sebenar' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+						'options' => ['id'=>'tarikhPulangSebenarId',],
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+				'tempoh_lewat' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>50,'id'=>'tempohLewatId','disabled'=>true]],
                 'pulang' => [
                             'type'=>Form::INPUT_RADIO_LIST, 
                             'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
                             'value'=>false,
                             'options'=>['inline'=>true],
-                            'columnOptions'=>['colspan'=>3]],
+                            'columnOptions'=>['colspan'=>12]],
                 
             ],
         ],
@@ -172,10 +184,28 @@ $(document).ready(function(){
 $("#tarikhDiberiId").change(function(){
     setDuration();
 });
+
+$("#tarikhPulangSebenarId").change(function(){
+    setTempohLambat();
+});
+
         
 $("#tarikhDipulangId").change(function(){
     setDuration();
 });
+
+function setTempohLambat(){
+	if($("#tarikhDipulangId").val() != '' && $("#tarikhPulangSebenarId").val() != '')
+	var fromDatetime = $("#tarikhPulangSebenarId").val();
+    var toDatetime = $("#tarikhDipulangId").val();
+		
+    var fromDatetimeMoment = moment(fromDatetime,'YYYY-MM-DD');
+    var toDatetimeMoment = moment(toDatetime,'YYYY-MM-DD');
+        
+    if(fromDatetime != "" && toDatetime != ""){
+        $("#tempohLewatId").val(fromDatetimeMoment.diff(toDatetime, "days")+1);
+    }
+}
         
 function setDuration(){
     var fromDatetime = $("#tarikhDiberiId").val();

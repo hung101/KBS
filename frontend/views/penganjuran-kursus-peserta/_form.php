@@ -797,6 +797,16 @@ use app\models\general\GeneralVariable;
                     'value'=>false,
                     'options'=>['inline'=>true],
                     'columnOptions'=>['colspan'=>3]],
+				'tarikh_kelulusan' => [
+					'type'=>Form::INPUT_WIDGET, 
+					'widgetClass'=> DateControl::classname(),
+					'ajaxConversion'=>false,
+					'options'=>[
+						'pluginOptions' => [
+							'autoclose'=>true,
+						]
+					],
+					'columnOptions'=>['colspan'=>3]],
             ]
         ],
     ]

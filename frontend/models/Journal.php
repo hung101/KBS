@@ -60,7 +60,7 @@ class Journal extends \yii\db\ActiveRecord
     {
         return [
             [['nama_penulis', 'telefon_no', 'alamat_1', 'alamat_negeri', 'alamat_poskod', 'tarikh_journal', 'bahagian', 'artikel_journal'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_journal'], 'safe'],
+            [['tarikh_journal', 'tarikh_kelulusan'], 'safe'],
             [['artikel_journal'], 'string'],
             [['nama_penulis'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['telefon_no'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -94,7 +94,7 @@ class Journal extends \yii\db\ActiveRecord
             'bahagian' => GeneralLabel::jenis_terbitan,
             'artikel_journal' => GeneralLabel::tajuk_artikel,
             'status_journal' => GeneralLabel::status_journal,
-
+			'tarikh_kelulusan' => GeneralLabel::tarikh_kelulusan,
         ];
     }
     

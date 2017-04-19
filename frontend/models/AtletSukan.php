@@ -3,9 +3,10 @@
 namespace app\models;
 
 use Yii;
-
+use yii\web\Session;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use app\models\RefStatusTawaran;
 
 /**
  * This is the model class for table "tbl_atlet_sukan".
@@ -22,6 +23,7 @@ use app\models\general\GeneralMessage;
  */
 class AtletSukan extends \yii\db\ActiveRecord
 {
+	public $athlete_status;
     /**
      * @inheritdoc
      */
@@ -53,14 +55,24 @@ class AtletSukan extends \yii\db\ActiveRecord
      */
     public function rules()
     {
+		$session = new Session;
+        $session->open();
+		
+		if(isset($session['kelulusan_atlet']) && $session['kelulusan_atlet'] === RefStatusTawaran::LULUS_TAWARAN){
+			$required = [['atlet_id', 'jurulatih_id', 'nama_sukan', 'acara', 'tarikh_mula_menyertai_program_msn', 'tarikh_tamat_menyertai_program_msn'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required];
+		} else {
+			$required = [['atlet_id'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required];
+		}
+		
         return [
-            [['atlet_id', 'jurulatih_id', 'nama_sukan', 'acara', 'tarikh_mula_menyertai_program_msn', 'tarikh_tamat_menyertai_program_msn'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            // [['atlet_id', 'jurulatih_id', 'nama_sukan', 'acara', 'tarikh_mula_menyertai_program_msn', 'tarikh_tamat_menyertai_program_msn'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+			$required,
             [['atlet_id', 'tahun_umur_permulaan', 'profil_pusat_latihan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh_mula_menyertai_program_msn', 'cawangan', 'negeri_diwakili', 'status', 'tarikh_tamat_menyertai_program_msn', 
                 'tarikh_kelulusan', 'source'], 'safe'],
             [['nama_sukan', 'acara', 'program_semasa'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_lesen_sukan', 'atlet_persekutuan_dunia_id'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['kelulusan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['kelulusan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
 

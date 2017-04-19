@@ -54,8 +54,14 @@ use app\models\general\GeneralMessage;
     <?php
     if(!$readonly){
             $template = '{view} {update} {delete}';
+			if($model->status === RefStatusTempahanKemudahan::LULUS){
+				echo '<script>var statusLulusFlag = true;</script>';
+			} else { echo '<script>var statusLulusFlag = false;</script>'; }
         } else {
             $template = '{view}';
+			if($model->status === 'Lulus'){
+				echo '<script>var statusLulusFlag = true;</script>';
+			} else { echo '<script>var statusLulusFlag = false;</script>'; }
         }
    ?>
     
@@ -661,14 +667,19 @@ use app\models\general\GeneralMessage;
     
     <?php 
         $jumlah_bayaran_sewa = 0.00;
+		$jumlah_bayaran_sewa_lulus = 0.00;
         foreach($dataProviderTempahanKemudahanSubMsn->models as $PTLmodel){
             //if(isset($PTLmodel->status) && $PTLmodel->status == RefStatusTempahanKemudahan::LULUS){
                 $jumlah_bayaran_sewa += $PTLmodel->bayaran_sewa;
+				
+				if($PTLmodel->status === RefStatusTempahanKemudahan::LULUS){
+					$jumlah_bayaran_sewa_lulus += $PTLmodel->bayaran_sewa;
+				}
             //}
         }
     ?>
     
-    <h4>Jumlah Bayaran Sewa: RM <?php echo $jumlah_bayaran_sewa;?></h4>
+    <h4>Jumlah Bayaran Sewa: RM <span id="jumlahSemuaWrap"><?= $jumlah_bayaran_sewa;?></span><span id="jumlahLulusWrap"><?= $jumlah_bayaran_sewa_lulus;?></span></h4>
     
     <?php Pjax::end(); ?>
     
@@ -701,7 +712,7 @@ use app\models\general\GeneralMessage;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefStatusTempahanKemudahan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::status,],
+                        'options' => ['placeholder' => Placeholder::status, 'id' => 'statusID'],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -754,6 +765,12 @@ $(document).ready(function(){
         
         setAgensi();
         setVenue();
+		
+	if(statusLulusFlag === true){
+		$('#jumlahSemuaWrap').hide(); $('#jumlahLulusWrap').show();
+	} else {
+		$('#jumlahSemuaWrap').show(); $('#jumlahLulusWrap').hide();
+	}
 }); 
 
 $('#kemudahanID').change(function(){
@@ -921,6 +938,16 @@ $('#tempahankemudahanmsn-venue').change(function(){
         
 $('#tempahankemudahanmsn-agensi').change(function(){
     setAgensi();
+});
+
+$('#statusID').change(function(){
+    //alert($(this).val());
+	var selectedText = $('#statusID :selected').text();
+	if(selectedText === 'Lulus'){
+		$('#jumlahSemuaWrap').hide(); $('#jumlahLulusWrap').show();
+	} else {
+		$('#jumlahSemuaWrap').show(); $('#jumlahLulusWrap').hide();
+	}
 });
         
 function setAgensi(){
