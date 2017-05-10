@@ -544,9 +544,10 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
             $img = $this->findModel($id)->$field;
             
             if($img){
-                if (!unlink($img)) {
+/*                 if (!unlink($img)) {
                     return false;
-                }
+                } */
+				@unlink($img);
             }
 
             $img = $this->findModel($id);
@@ -609,5 +610,38 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/PJS/MaklumatMesyuaratAgungTahunan', $format, $controls, 'maklumat_mesyuarat_agung_tahunan');
+    }
+	
+	public function actionPrint($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+        $model->profil_badan_sukan_id_id = $model->profil_badan_sukan_id;
+        $profil_badan_sukan_id = $model->profil_badan_sukan_id;
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->profil_badan_sukan_id]);
+        $model->profil_badan_sukan_id = $ref['nama_badan_sukan'];
+        
+        $ref = RefStatusLaporanMesyuaratAgung::findOne(['id' => $model->status]);
+        $model->status = $ref['desc'];
+        
+        $model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATETIME);
+
+        $pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Maklumat Yang Kena Beri (MYKB)';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+             'model'  => $model,
+		     'title' => $pdf->title,
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->mesyuarat_id.'.pdf', 'I');
     }
 }

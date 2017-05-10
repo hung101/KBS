@@ -78,13 +78,13 @@ class PengurusanKewanganHpt extends \yii\db\ActiveRecord
             'kategori_acara' => GeneralLabel::kategori_acara,
             'objektif' => GeneralLabel::objektif,
             'kategori_penggunaan' => GeneralLabel::kategori_penggunaan,
-            'harga_penggunaan' => GeneralLabel::harga_penggunaan,
-            'jumlah_bajet' => GeneralLabel::jumlah_bajet,
-            'jumlah_penggunaan' => GeneralLabel::jumlah_penggunaan,
+            'harga_penggunaan' => GeneralLabel::peruntukan_rm,
+            'jumlah_bajet' => GeneralLabel::jumlah_bajet_rm,
+            'jumlah_penggunaan' => GeneralLabel::jumlah_penggunaan_rm,
             'catatan' => GeneralLabel::catatan,
-            'bajet_keseluruhan' => GeneralLabel::bajet_keseluruhan,
-            'penggunaan_keseluruhan' => GeneralLabel::penggunaan_keseluruhan,
-            'baki' => GeneralLabel::baki,
+            'bajet_keseluruhan' => GeneralLabel::bajet_keseluruhan_rm,
+            'penggunaan_keseluruhan' => GeneralLabel::penggunaan_keseluruhan_rm,
+            'baki' => GeneralLabel::baki_rm,
 
         ];
     }

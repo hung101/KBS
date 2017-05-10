@@ -19,7 +19,11 @@ class PermohonanEBantuanSearch extends PermohonanEBantuan
     {
         return [
             [['permohonan_e_bantuan_id', 'bilangan_keahlian', 'bilangan_cawangan_badan_gabungan', 'user_public_id'], 'integer'],
-            [['bil_mesyuarat','tarikh_mesyuarat','jumlah_diluluskan','jumlah_bantuan_yang_dipohon','nama_program','ebantuan_id','nama_pertubuhan_persatuan', 'no_pendaftaran', 'tarikh_didaftarkan', 'pejabat_yang_mendaftarkan', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'no_telefon_pejabat', 'no_telefon_bimbit', 'no_fax', 'email', 'objektif_pertubuhan', 'aktiviti_dan_kejayaan_yang_dicapai', 'kelulusan'], 'safe'],
+            [['bil_mesyuarat','tarikh_mesyuarat','jumlah_diluluskan','jumlah_bantuan_yang_dipohon','nama_program','ebantuan_id','nama_pertubuhan_persatuan', 'no_pendaftaran', 
+                'tarikh_didaftarkan', 'pejabat_yang_mendaftarkan', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'alamat_surat_menyurat_1', 
+                'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 
+                'no_telefon_pejabat', 'no_telefon_bimbit', 'no_fax', 'email', 'objektif_pertubuhan', 'aktiviti_dan_kejayaan_yang_dicapai', 'kelulusan',
+                'status_permohonan'], 'safe'],
         ];
     }
 
@@ -42,7 +46,8 @@ class PermohonanEBantuanSearch extends PermohonanEBantuan
     public function search($params)
     {
         $query = PermohonanEBantuan::find()
-                ->joinWith(['refKelulusan']);
+                ->joinWith(['refKelulusan'])
+                ->joinWith(['refStatusPermohonanEBantuan']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -91,7 +96,8 @@ class PermohonanEBantuanSearch extends PermohonanEBantuan
                 ->andFilterWhere(['like', 'bil_mesyuarat', $this->bil_mesyuarat])
                 ->andFilterWhere(['like', 'tarikh_mesyuarat', $this->tarikh_mesyuarat])
                 ->andFilterWhere(['like', 'jumlah_diluluskan', $this->jumlah_diluluskan])
-                ->andFilterWhere(['like', 'jumlah_bantuan_yang_dipohon', $this->jumlah_bantuan_yang_dipohon]);
+                ->andFilterWhere(['like', 'jumlah_bantuan_yang_dipohon', $this->jumlah_bantuan_yang_dipohon])
+                ->andFilterWhere(['like', 'tbl_ref_status_permohonan_e_bantuan.desc', $this->status_permohonan]);
 
         return $dataProvider;
     }

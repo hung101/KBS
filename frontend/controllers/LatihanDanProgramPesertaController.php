@@ -11,6 +11,11 @@ use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
 
+// table reference
+use app\models\LtbsAhliJawatankuasaKecil;
+use app\models\LtbsAhliJawatankuasaIndukKecil;
+use app\models\ProfilBadanSukan;
+
 /**
  * LatihanDanProgramPesertaController implements the CRUD actions for LatihanDanProgramPeserta model.
  */
@@ -58,8 +63,19 @@ class LatihanDanProgramPesertaController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $model = $this->findModel($id);
+        
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->nama_badan_sukan]);
+        $model->nama_badan_sukan = $ref['nama_badan_sukan'];
+        
+        if($model->jenis_jawatankuasa == 1){
+            $model->jenis_jawatankuasa = 'Induk';
+        } else {
+            $model->jenis_jawatankuasa = 'Kecil / Biro';
+        }
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

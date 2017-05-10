@@ -281,9 +281,10 @@ class PlTemujanjiFisioterapiController extends Controller
             $img = $this->findModel($id)->$field;
             
             if($img){
-                if (!unlink($img)) {
+/*                 if (!unlink($img)) {
                     return false;
-                }
+                } */
+				@unlink($img);
             }
 
             $img = $this->findModel($id);
@@ -458,5 +459,60 @@ class PlTemujanjiFisioterapiController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/ISN/LaporanStatistikBulananTemujanjiFisioterapiRehabilitasi', $format, $controls, 'laporan_statistik_bulanan_temujanji_fisioterapi_rehabilitasi');
+    }
+	
+	public function actionPrint($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+        $ref = Atlet::findOne(['atlet_id' => $model->atlet_id]);
+        $model->atlet_id = $ref['nameAndIC'];
+        
+        $ref = RefJenisTemujanjiFisioterapi::findOne(['id' => $model->makmal_perubatan]);
+        $model->makmal_perubatan = $ref['desc'];
+        
+        $ref = RefStatusTemujanjiFisioterapi::findOne(['id' => $model->status_temujanji]);
+        $model->status_temujanji = $ref['desc'];
+        
+        $ref = RefKategoriPesakitLuar::findOne(['id' => $model->kategori_pesakit_luar]);
+        $model->kategori_pesakit_luar = $ref['desc'];
+        
+        $ref = RefTindakanSelanjutnyaFisioterapi::findOne(['id' => $model->tindakan_selanjutnya]);
+        $model->tindakan_selanjutnya = $ref['desc'];
+        
+        $ref = RefNamaFisioterapi::findOne(['id' => $model->nama_fisioterapi]);
+        $model->nama_fisioterapi = $ref['desc'];
+        
+        $ref = RefPegawaiPerubatanFisioterapi::findOne(['id' => $model->pegawai_yang_bertanggungjawab]);
+        $model->pegawai_yang_bertanggungjawab = $ref['desc'];
+        
+        $ref = RefKategoriRawatan::findOne(['id' => $model->kategori_rawatan]);
+        $model->kategori_rawatan = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->jenis_sukan]);
+        $model->jenis_sukan = $ref['desc'];
+        
+        $model->tarikh_temujanji = GeneralFunction::convert($model->tarikh_temujanji, GeneralFunction::TYPE_DATETIME);
+		
+		$PlDiagnosisPreskripsiPemeriksaanFisioterapi = PlDiagnosisPreskripsiPemeriksaanFisioterapi::find()->joinWith(['refBahagianKecederaan', 'refRawatanFisioterapi'])->where(['pl_temujanji_id' => $model->pl_temujanji_id])->all();
+
+        $pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Temujanji Fisioterapi / Rehabilitasi';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+             'model'  => $model,
+		     'title' => $pdf->title,
+			 'PlDiagnosisPreskripsiPemeriksaanFisioterapi' => $PlDiagnosisPreskripsiPemeriksaanFisioterapi,
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->pl_temujanji_id.'.pdf', 'I');
     }
 }

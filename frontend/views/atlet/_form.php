@@ -104,7 +104,7 @@ use app\models\general\GeneralVariable;
         }
         echo " " . Html::a(GeneralLabel::generate . ' ' . GeneralLabel::surat_akuan_persetujuan_atlet, ['surat-akuan-persetujuan-atlet', 'atlet_id' => $model->atlet_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
     }
-    
+    echo " " . Html::a(GeneralLabel::surat_pengesahan, ['surat-pengesahan', 'id' => $model->atlet_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
     ?>
     <?= Html::a(GeneralLabel::backToList, ['index'], ['class' => 'btn btn-warning']) ?>
     <?php endif; ?>
@@ -955,8 +955,9 @@ use app\models\general\GeneralVariable;
     <?php // Surat Persetujuan
     if($model->muat_naik_surat_persetujuan){
         echo "<label>" . $model->getAttributeLabel('muat_naik_surat_persetujuan') . "</label><br>";
-        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->muat_naik_surat_persetujuan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
-        if(!$readonly){
+        //echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->muat_naik_surat_persetujuan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        echo Html::a(GeneralLabel::viewAttachment, $model->muat_naik_surat_persetujuan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+		if(!$readonly){
             echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->atlet_id, 'field'=> 'muat_naik_surat_persetujuan'], 
             [
                 'class'=>'btn btn-danger', 
@@ -965,7 +966,7 @@ use app\models\general\GeneralVariable;
                     'method' => 'post',
                 ]
             ]).'<p>';
-        }
+        } else { echo '<br />'; }
     } else {
         echo FormGrid::widget([
         'model' => $model,
@@ -984,10 +985,11 @@ use app\models\general\GeneralVariable;
     }
     ?>
     
-    <?php // Surat Persetujuan
+    <?php // Surat Tawaran
     if($model->surat_tawaran_program_podium){
         echo "<label>" . $model->getAttributeLabel('surat_tawaran_program_podium') . "</label><br>";
-        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->surat_tawaran_program_podium , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+        //echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->surat_tawaran_program_podium , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+		echo Html::a(GeneralLabel::viewAttachment, $model->surat_tawaran_program_podium , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
         if(!$readonly){
             echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->atlet_id, 'field'=> 'surat_tawaran_program_podium'], 
             [
@@ -1105,9 +1107,8 @@ $("#NoICID").focusout(function(){
     if(this.value != ""){
         DOBVal = getDOBFromICNo(this.value);
     }
-    
         
-    $("#TarikhLahirID-disp").val(formatSaveDate(DOBVal));
+    $("#TarikhLahirID-disp").val(formatDisplayDate(DOBVal));
     $("#TarikhLahirID").val(formatSaveDate(DOBVal));
         
        /* $('#TarikhLahirID').kvDatepicker({

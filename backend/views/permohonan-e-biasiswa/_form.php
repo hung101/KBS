@@ -67,7 +67,7 @@ use common\models\general\GeneralFunction;
     ?>
     
     <div class="alert alert-success">
-        <strong><?=GeneralLabel::tahniah?>!</strong><?=GeneralLabel::anda_layak_untuk_temuduga_sila_muat_turun_slip?> <?php echo '&nbsp;&nbsp;' . Html::a(GeneralLabel::muat_turun_slip_layak_temuduga, ['print', 'id' => $model->permohonan_e_biasiswa_id, 'template' => 'SLIP_PANGGILAN_TEMUDUGA'], ['class' => 'btn btn-warning', 'target' => '_blank']);?>
+        <strong><?=GeneralLabel::tahniah?>! </strong><?=GeneralLabel::anda_layak_untuk_temuduga_sila_muat_turun_slip?> <?php echo '&nbsp;&nbsp;' . Html::a(GeneralLabel::muat_turun_slip_layak_temuduga, ['print', 'id' => $model->permohonan_e_biasiswa_id, 'template' => 'SLIP_PANGGILAN_TEMUDUGA'], ['class' => 'btn btn-warning', 'target' => '_blank']);?>
     </div>
     
     <?php
@@ -79,7 +79,7 @@ use common\models\general\GeneralFunction;
     ?>
     
     <div class="alert alert-success">
-        <strong><?=GeneralLabel::tahniah?>!</strong><?=GeneralLabel::sukacita_dimaklumkan_bahawa_tuan_puan_telah_berjaya_untuk_ditawarkan?> 
+        <strong><?=GeneralLabel::tahniah?>! </strong><?=GeneralLabel::sukacita_dimaklumkan_bahawa_tuan_puan_telah_berjaya_untuk_ditawarkan?> 
             <?php echo '&nbsp;&nbsp;' . Html::a(GeneralLabel::muat_turun_borangborang, Url::to(['/bsp-borang-borang/load', 'bsp_pemohon_id' => $model->permohonan_e_biasiswa_id]), ['class'=>'btn btn-warning']);?>
         <?= Html::a(GeneralLabel::muat_turun_surat_tawaran_biasiswa, ['print', 'id' => $model->permohonan_e_biasiswa_id, 'template' => 'SLIP_BERJAYA_DAPAT_BIASISWA'], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
     </div>

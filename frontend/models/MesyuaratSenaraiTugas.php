@@ -70,7 +70,7 @@ class MesyuaratSenaraiTugas extends \yii\db\ActiveRecord
         return [
             'senarai_tugas_id' => GeneralLabel::senarai_tugas_id,
             'mesyuarat_id' => GeneralLabel::mesyuarat_id,
-            'name_tugas' => GeneralLabel::name_tugas,
+            'name_tugas' => GeneralLabel::tugasan,
             'tarikh_tamat' => GeneralLabel::tarikh_tamat,
             'pegawai' => GeneralLabel::pegawai,
             'atlet_id' => GeneralLabel::atlet_id,

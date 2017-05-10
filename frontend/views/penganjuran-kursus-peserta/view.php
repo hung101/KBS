@@ -13,7 +13,7 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->penganjuran_kursus_peserta_id;
 $this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::penganjuran_kursus_senarai_peserta;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penganjuran_kursus_senarai_peserta, 'url' => Url::to(['index', 'penganjuran_kursus_id' => $model->penganjuran_kursus_id])];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::penganjuran_kursus_senarai_peserta, 'url' => Url::to(['index', 'penganjuran_kursus_id' => $model->penganjuran_kursus_id, 'penganjuran_kursus_akk_id' => $model->penganjuran_kursus_akk_id])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="penganjuran-kursus-peserta-view">

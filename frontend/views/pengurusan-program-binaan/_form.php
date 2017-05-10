@@ -1078,9 +1078,12 @@ if(isset($model->jenis_permohonan))
     ]);
     ?>
     </div>
-    
     <div class="usptn-content-wrap" style="<?= $usptnStyle ?>">
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['sokongan_pn']) || 
+                isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['kelulusan']) || 
+                $readonly): ?>
     <?php
+    
         echo FormGrid::widget([
         'model' => $model,
         'form' => $form,
@@ -1094,6 +1097,17 @@ if(isset($model->jenis_permohonan))
                     'usptn_lap_tertunggak' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
                 ],
             ],
+        ]
+    ]);
+    
+    ?>
+    <?php
+    
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
             [
                 'columns'=>12,
                 'autoGenerateColumns'=>false, // override columns setting
@@ -1115,9 +1129,11 @@ if(isset($model->jenis_permohonan))
             ],
         ]
     ]);
-    ?>
-    </div>
     
+    ?>
+    <?php endif; ?>
+        
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['kelulusan']) || $readonly): ?> 
     <?php
         echo FormGrid::widget([
         'model' => $model,
@@ -1144,6 +1160,9 @@ if(isset($model->jenis_permohonan))
         ]
     ]);
     ?>
+    <?php endif; ?>
+        </div>
+    
 
     <div class="form-group">
         <?php if(!$readonly): ?>

@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = GeneralLabel::viewTitle;
         <?php if(!isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['maklumat-kewangan']) && !isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['kelulusan-maklumat-kewangan']) && $model->permintaan_maklumat_kewangan_request == 0): ?>
             <?= Html::a(GeneralLabel::permintaan_maklumat_kewangan, ['request', 'id' => $model->profil_badan_sukan], ['class' => 'btn btn-success']) ?>
         <?php endif; ?>
-        <?= Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'window.print();' ]); ?>
+        <?= Html::a(GeneralLabel::cetak, ['print', 'id' => $model->profil_badan_sukan], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
     </p>
     
     <?= $this->render('_form', [

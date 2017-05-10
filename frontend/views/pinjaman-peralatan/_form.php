@@ -195,16 +195,22 @@ $("#tarikhDipulangId").change(function(){
 });
 
 function setTempohLambat(){
-	if($("#tarikhDipulangId").val() != '' && $("#tarikhPulangSebenarId").val() != '')
-	var fromDatetime = $("#tarikhPulangSebenarId").val();
-    var toDatetime = $("#tarikhDipulangId").val();
-		
-    var fromDatetimeMoment = moment(fromDatetime,'YYYY-MM-DD');
-    var toDatetimeMoment = moment(toDatetime,'YYYY-MM-DD');
-        
-    if(fromDatetime != "" && toDatetime != ""){
-        $("#tempohLewatId").val(fromDatetimeMoment.diff(toDatetime, "days")+1);
-    }
+	$("#tempohLewatId").val('');
+	if($("#tarikhDipulangId").val() != '' && $("#tarikhPulangSebenarId").val() != ''){
+		var fromDatetime = $("#tarikhPulangSebenarId").val();
+		var toDatetime = $("#tarikhDipulangId").val();
+			
+		var fromDatetimeMoment = moment(fromDatetime,'YYYY-MM-DD');
+		var toDatetimeMoment = moment(toDatetime,'YYYY-MM-DD');
+
+		if(fromDatetime != "" && toDatetime != ""){
+			if(fromDatetimeMoment.isAfter(toDatetimeMoment)){
+				//if(fromDatetimeMoment.diff(toDatetime, "days") > 0){
+					$("#tempohLewatId").val(fromDatetimeMoment.diff(toDatetime, "days")+1);
+				//}
+			}
+		}
+	}
 }
         
 function setDuration(){

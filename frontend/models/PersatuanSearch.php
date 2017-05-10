@@ -126,7 +126,8 @@ class PersatuanSearch extends Persatuan
                 ->andFilterWhere(['like', 'no_kad_pengenalan', $this->no_kad_pengenalan])
                 ->andFilterWhere(['like', 'tbl_ref_universiti_institusi_e_biasiswa.desc', $this->ipt_bendahari_e_biasiswa_desc])
                 ->andFilterWhere(['like', 'tbl_ref_negeri.desc', $this->urusetia_negeri_e_bantuan_desc])
-                ->andFilterWhere(['like', 'tbl_ref_kategori_program.desc', $this->urusetia_kategori_program_e_bantuan_desc]);
+                ->andFilterWhere(['like', 'tbl_ref_kategori_program.desc', $this->urusetia_kategori_program_e_bantuan_desc])
+                ->andFilterWhere(['like', 'tbl_profil_badan_sukan.nama_badan_sukan', $this->profil_badan_sukan_desc]);
 
         return $dataProvider;
     }

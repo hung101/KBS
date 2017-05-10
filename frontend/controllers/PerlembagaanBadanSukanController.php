@@ -15,7 +15,7 @@ use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
 
 use app\models\RefStatusLaporanMesyuaratAgung;
-
+use app\models\ProfilBadanSukan;
 /**
  * PerlembagaanBadanSukanController implements the CRUD actions for PerlembagaanBadanSukan model.
  */
@@ -198,9 +198,10 @@ class PerlembagaanBadanSukanController extends Controller
             $img = $this->findModel($id)->$field;
             
             if($img){
-                if (!unlink($img)) {
+/*                 if (!unlink($img)) {
                     return false;
-                }
+                } */
+				@unlink($img);
             }
 
             $img = $this->findModel($id);
@@ -208,5 +209,37 @@ class PerlembagaanBadanSukanController extends Controller
             $img->update();
 
             return $this->redirect(['update', 'id' => $id]);
+    }
+	
+	public function actionPrint($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+		$profil_badan_sukan_id = $model->profil_badan_sukan_id;
+		$ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->profil_badan_sukan_id]);
+        $model->profil_badan_sukan_id = $ref['nama_badan_sukan'];
+        
+        $ref = RefStatusLaporanMesyuaratAgung::findOne(['id' => $model->status]);
+        $model->status = $ref['desc'];
+        
+        $model->tarikh_kelulusan = GeneralFunction::convert($model->tarikh_kelulusan);
+
+        $pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Perlembagaan Badan Sukan';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+             'model'  => $model,
+		     'title' => $pdf->title,
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->perlembagaan_badan_sukan_id.'.pdf', 'I');
     }
 }

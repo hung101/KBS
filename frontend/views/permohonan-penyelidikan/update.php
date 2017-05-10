@@ -11,7 +11,7 @@ use app\models\general\GeneralLabel;
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::permohonan_penyelidikan.': ' . ' ' . $model->permohonana_penyelidikan_id;
 $this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::permohonan_penyelidikan;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::permohonan_penyelidikan, 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::updateTitle . ' ' . GeneralLabel::permohonan_penyelidikan, 'url' => ['view', 'id' => $model->permohonana_penyelidikan_id]];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::permohonan_penyelidikan, 'url' => ['view', 'id' => $model->permohonana_penyelidikan_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="permohonan-penyelidikan-update">

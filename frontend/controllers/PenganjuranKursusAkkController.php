@@ -227,7 +227,7 @@ class PenganjuranKursusAkkController extends Controller
             'TO_DATE' => $tarikh_hingga,
         );
         
-        GeneralFunction::generateReport('/spsb/ISN/LaporanSenaraiKursus', $format, $controls, 'laporan_senarai_kursus');
+        GeneralFunction::generateReport('/spsb/ISN/LaporanSenaraiKursusAkk', $format, $controls, 'laporan_senarai_kursus');
     }
     
     public function actionLaporanSenaraiPeserta()
@@ -270,6 +270,6 @@ class PenganjuranKursusAkkController extends Controller
             'PENGANJURAN_KURSUS_ID' => $penganjuran_kursus_id,
         );
         
-        GeneralFunction::generateReport('/spsb/ISN/LaporanSenaraiPeserta', $format, $controls, 'laporan_senarai_peserta');
+        GeneralFunction::generateReport('/spsb/ISN/LaporanSenaraiPesertaAkk', $format, $controls, 'laporan_senarai_peserta');
     }
 }

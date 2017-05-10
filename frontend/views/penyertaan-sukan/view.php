@@ -60,10 +60,12 @@ $this->params['breadcrumbs'][] = $this->title;
 			<?php endif; ?>
 		<?php endif; ?>
     </p>
+	<p>
+	<?= Html::a(GeneralLabel::surat_makluman, ['surat-makluman', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update']) && $isLulus): ?>
-        <p><?= Html::a(GeneralLabel::tempah_tiket_kapal_terbang, ['/permohonan-kemudahan-ticket-kapal-terbang/create', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?></p>
+        <?= Html::a(GeneralLabel::tempah_tiket_kapal_terbang, ['/permohonan-kemudahan-ticket-kapal-terbang/create', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
     <?php endif; ?>
-    
+    </p>
     <?= $this->render('_form', [
         'model' => $model,
         'searchModelPenyertaanSukanAcara' => $searchModelPenyertaanSukanAcara,

@@ -17,7 +17,7 @@ $this->title = GeneralLabel::permohonan_terdahulu;
 <div class="permohonan-ebantuan-index">
     
     <?php
-        $template = '{view} {update}';
+        $template = '{view}';
     ?>
 
     <h1><?= Html::encode($this->title) ?></h1>

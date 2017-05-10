@@ -52,10 +52,18 @@ use common\models\general\GeneralFunction;
             //$template = '{view} {update} {delete}';
             $template = '{view}';
         } else {
-            $template = '{view}';
+            if($model->isNewRecord){
+                $template = '{view} {update} {delete}';
+            } else {
+                $template = '{view}';
+            }
         }
         
-        $disableFields = true;
+        if($model->isNewRecord){
+            $disableFields = false;
+        } else {
+            $disableFields = true;
+        }
         
     ?>
     
@@ -159,7 +167,7 @@ use common\models\general\GeneralFunction;
     ?>
     
     <div class="alert alert-success">
-        <strong><?=GeneralLabel::tahniah?>!</strong><?=GeneralLabel::pendaftaran_permohonan_anda_telah_berjaya_dihantar?>
+        <strong><?=GeneralLabel::tahniah?>! </strong><?=GeneralLabel::pendaftaran_permohonan_anda_telah_berjaya_dihantar?>
     </div>
     
     <?php
@@ -171,7 +179,7 @@ use common\models\general\GeneralFunction;
     ?>
     
     <div class="alert alert-success">
-        <strong><?=GeneralLabel::tahniah?>!</strong><?=GeneralLabel::anda_layak_untuk_temuduga_sila_muat_turun_slip?>  <?php echo '&nbsp;&nbsp;' . Html::a(GeneralLabel::muat_turun_slip_layak_temuduga, ['print', 'id' => $model->permohonan_e_biasiswa_id, 'template' => 'SLIP_PANGGILAN_TEMUDUGA'], ['class' => 'btn btn-warning', 'target' => '_blank']);?>
+        <strong><?=GeneralLabel::tahniah?>! </strong><?=GeneralLabel::anda_layak_untuk_temuduga_sila_muat_turun_slip?>  <?php echo '&nbsp;&nbsp;' . Html::a(GeneralLabel::muat_turun_slip_layak_temuduga, ['print', 'id' => $model->permohonan_e_biasiswa_id, 'template' => 'SLIP_PANGGILAN_TEMUDUGA'], ['class' => 'btn btn-warning', 'target' => '_blank']);?>
     </div>
     
     <?php
@@ -893,11 +901,13 @@ use common\models\general\GeneralFunction;
         }
         
         echo Html::a( GeneralLabel::contoh, 'javascript:void(0);', ['onclick' => 'viewUpload("'.\Yii::$app->request->BaseUrl.'/downloads/permohonan_e_biasiswa/contoh.jpg");']);
-        /*echo '<br>';
-        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-biasiswa-penyertaan-kejohanan/create', 'permohonan_e_biasiswa_id' => $permohonan_e_biasiswa_id]).'", "'.GeneralLabel::createTitle . ' ' . GeneralLabel::penyertaan_kejohanan . '");',
-                        'class' => 'btn btn-success',
-                        ]);*/
+        if($model->isNewRecord){
+            echo '<br>';
+            echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                            'onclick' => 'loadModalRenderAjax("'.Url::to(['permohonan-e-biasiswa-penyertaan-kejohanan/create', 'permohonan_e_biasiswa_id' => $permohonan_e_biasiswa_id]).'", "'.GeneralLabel::createTitle . ' ' . GeneralLabel::penyertaan_kejohanan . '");',
+                            'class' => 'btn btn-success',
+                            ]);
+        }
         
         ?>
     </p>

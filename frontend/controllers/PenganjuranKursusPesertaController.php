@@ -54,7 +54,7 @@ class PenganjuranKursusPesertaController extends Controller
      * Lists all PenganjuranKursusPeserta models.
      * @return mixed
      */
-    public function actionIndex($penganjuran_kursus_id)
+    public function actionIndex($penganjuran_kursus_id=null,$penganjuran_kursus_akk_id=null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -66,6 +66,10 @@ class PenganjuranKursusPesertaController extends Controller
             $queryParams['PenganjuranKursusPesertaSearch']['penganjuran_kursus_id'] = $penganjuran_kursus_id;
         }
         
+        if($penganjuran_kursus_akk_id!=""){
+            $queryParams['PenganjuranKursusPesertaSearch']['penganjuran_kursus_akk_id'] = $penganjuran_kursus_akk_id;
+        }
+        
         $searchModel = new PenganjuranKursusPesertaSearch();
         $dataProvider = $searchModel->search($queryParams);
 
@@ -73,6 +77,7 @@ class PenganjuranKursusPesertaController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'penganjuran_kursus_id' => $penganjuran_kursus_id,
+            'penganjuran_kursus_akk_id' => $penganjuran_kursus_akk_id,
         ]);
     }
 
@@ -165,7 +170,7 @@ class PenganjuranKursusPesertaController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($penganjuran_kursus_id)
+    public function actionCreate($penganjuran_kursus_id=null,$penganjuran_kursus_akk_id=null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -174,6 +179,7 @@ class PenganjuranKursusPesertaController extends Controller
         $model = new PenganjuranKursusPeserta();
         
         $model->penganjuran_kursus_id = $penganjuran_kursus_id;
+        $model->penganjuran_kursus_akk_id = $penganjuran_kursus_akk_id;
         
         $queryPar = null;
         
@@ -216,6 +222,7 @@ class PenganjuranKursusPesertaController extends Controller
             'dataProviderPenganjuranKursusPesertaSukan' => $dataProviderPenganjuranKursusPesertaSukan,
             'readonly' => false,
             'penganjuran_kursus_id' => $penganjuran_kursus_id,
+            'penganjuran_kursus_akk_id' => $penganjuran_kursus_akk_id,
         ]);
     }
 
@@ -281,9 +288,13 @@ class PenganjuranKursusPesertaController extends Controller
         self::actionDeleteimg($id, 'muatnaik_gambar');
         self::actionDeleteimg($id, 'dokumen_lampiran');
         
-        $this->findModel($id)->delete();
+		$model = $this->findModel($id);
+		
+		$penganjuran_kursus_id = $model->penganjuran_kursus_id;
+		
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'penganjuran_kursus_id' => $penganjuran_kursus_id]);
     }
 
     /**
@@ -312,9 +323,10 @@ class PenganjuranKursusPesertaController extends Controller
             $img = $this->findModel($id)->$field;
             
             if($img){
-                if (!unlink($img)) {
+/*                 if (!unlink($img)) {
                     return false;
-                }
+                } */
+				@unlink($img);
             }
 
             $img = $this->findModel($id);
@@ -334,9 +346,10 @@ class PenganjuranKursusPesertaController extends Controller
             $img = $this->findModel($id)->$field;
             
             if($img){
-                if (!unlink($img)) {
+/*                 if (!unlink($img)) {
                     return false;
-                }
+                } */
+				@unlink($img);
             }
 
             $img = $this->findModel($id);

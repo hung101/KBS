@@ -339,9 +339,10 @@ class ProfilBadanSukanController extends Controller
             $img = $this->findModel($id)->$field;
             
             if($img){
-                if (!unlink($img)) {
+/*                 if (!unlink($img)) {
                     return false;
-                }
+                } */
+				@unlink($img);
             }
 
             $img = $this->findModel($id);
@@ -591,5 +592,51 @@ class ProfilBadanSukanController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/PJS/LaporanPenganjuranAcara', $format, $controls, 'laporan_penganjuran_acara');
+    }
+	
+	public function actionPrint($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+		$ref = RefPeringkatBadanSukan::findOne(['id' => $model->peringkat_badan_sukan]);
+        $model->peringkat_badan_sukan = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->jenis_sukan]);
+        $model->jenis_sukan = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->alamat_tetap_badan_sukan_negeri]);
+        $model->alamat_tetap_badan_sukan_negeri = $ref['desc'];
+        
+        $ref = RefBandar::findOne(['id' => $model->alamat_tetap_badan_sukan_bandar]);
+        $model->alamat_tetap_badan_sukan_bandar = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->alamat_surat_menyurat_badan_sukan_negeri]);
+        $model->alamat_surat_menyurat_badan_sukan_negeri = $ref['desc'];
+        
+        $ref = RefBandar::findOne(['id' => $model->alamat_surat_menyurat_badan_sukan_bandar]);
+        $model->alamat_surat_menyurat_badan_sukan_bandar = $ref['desc'];
+        
+        $ref = RefStatusLaporanMesyuaratAgung::findOne(['id' => $model->status]);
+        $model->status = $ref['desc'];
+        
+        $model->tarikh_lulus_pendaftaran = GeneralFunction::convert($model->tarikh_lulus_pendaftaran);
+
+        $pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Profil Badan Sukan';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+             'model'  => $model,
+		     'title' => $pdf->title,
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->profil_badan_sukan.'.pdf', 'I');
     }
 }

@@ -177,6 +177,11 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
         return $this->hasOne(RefKelulusan::className(), ['id' => 'kelulusan']);
     }
     
+    public function getRefStatusPermohonanEBantuan()
+    {
+        return $this->hasOne(RefStatusPermohonanEBantuan::className(), ['id' => 'status_permohonan']);
+    }
+    
     /**
      * Validate upload file cannot be empty
      */

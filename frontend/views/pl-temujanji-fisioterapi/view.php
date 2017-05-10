@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
-        <?= Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'window.print();' ]); ?>
+        <?= Html::a(GeneralLabel::cetak, ['print', 'id' => $model->pl_temujanji_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
     </p>
     
     <?= $this->render('_form', [

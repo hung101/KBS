@@ -328,6 +328,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
 											]
 										],
 										['label' => GeneralLabel::six_step, 'url' => ['/six-step/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['six-step']['module'])],
+                                                                                ['label' => GeneralLabel::mesyuarat, 'url' => ['/mesyuarat/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['mesyuarat']['module'])],
 										[
                                             'label' => GeneralLabel::statistik,
                                             'items' => [
@@ -472,9 +473,9 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
 									'items' => [
 										['label' => GeneralLabel::takwim_program, 'url' => ['/perancangan-program-plan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
 										[
-											'label' => GeneralLabel::statistik,
+											'label' => GeneralLabel::laporan,
 											'items' => [
-												['label' => GeneralLabel::laporan_kewangan_plan_periodisasi, 'url' => ['/perancangan-program-plan/laporan-kewangan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
+												['label' => GeneralLabel::anggaran_perbelanjaan_title, 'url' => ['/perancangan-program-plan/laporan-kewangan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['module'])],
 											],
 										],
 									],
@@ -485,7 +486,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
 										['label' => GeneralLabel::permohonan, 'url' => ['/pengurusan-program-binaan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['module'])],
 										// TEMP ['label' => GeneralLabel::borang_penyertaan_atlet, 'url' => ['/borang-penyertaan-atlet/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-penyertaan-atlet']['module'])],
 										[
-											'label' => GeneralLabel::statistik,
+											'label' => GeneralLabel::laporan,
 											'items' => [
 												['label' => GeneralLabel::laporan_senarai_penganjuran_program_binaan, 'url' => ['/pengurusan-program-binaan/laporan-senarai-penganjuran-program-binaan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['module'])],
 												['label' => GeneralLabel::laporan_statistik_program_binaan_mengikut_negeri, 'url' => ['/pengurusan-program-binaan/laporan-statistik-program-binaan-mengikut-negeri'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['module'])],
@@ -500,7 +501,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
 										['label' => GeneralLabel::profil_pusat_latihan, 'url' => ['/profil-pusat-latihan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['module'])],
                                         ['label' => GeneralLabel::pemantauan_usptn, 'url' => ['/pengurusan-upstn/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
 										[
-											'label' => GeneralLabel::statistik,
+											'label' => GeneralLabel::laporan,
 											'items' => [
 												['label' => GeneralLabel::laporan_pusat_latihan, 'url' => ['/profil-pusat-latihan/laporan-pusat-latihan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['module'])],
 												['label' => GeneralLabel::laporan_statistik_pemantauan, 'url' => ['/pengurusan-upstn/laporan-statistik-pemantauan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
@@ -519,7 +520,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
 										['label' => GeneralLabel::pengurusan_jkkjkp, 'url' => ['/pengurusan-jkk-jkp/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-jkk-jkp']['module'])],
 										['label' => GeneralLabel::mesyuarat_jkk_jkp, 'url' => ['/mesyuarat-jkk/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat-jkk']['module'])],
 										[
-											'label' => GeneralLabel::statistik,
+											'label' => GeneralLabel::laporan,
 											'items' => [
 												['label' => GeneralLabel::laporan_mesyuarat_jkk_jkp, 'url' => ['/mesyuarat-jkk/laporan-jadual-mesyuarat-jkk-jkp'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['mesyuarat-jkk']['module'])],
 											],
@@ -683,7 +684,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
 							'items' => [
 								['label' => GeneralLabel::profil, 'url' => ['/maklumat-pegawai-teknikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['maklumat-pegawai-teknikal']['module'])],
 								['label' => GeneralLabel::manual_silibus_kurikulum, 'url' => ['/manual-silibus-kurikulum-teknikal-kepegawaian/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['manual-silibus-kurikulum-teknikal-kepegawaian']['module'])],
-								['label' => GeneralLabel::permohonan_penganjuran_bengkel, 'url' => ['/permohonan-penganjuran-bengkel/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-penganjuran-bengkel']['module'])],
+								//['label' => GeneralLabel::permohonan_penganjuran_bengkel, 'url' => ['/permohonan-penganjuran-bengkel/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-penganjuran-bengkel']['module'])],
 								[
 									'label' => GeneralLabel::geran_bantuan,
 									'items' => [
@@ -809,7 +810,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                                                         [
                                                                             'label' => GeneralLabel::laporan_tahunan_badan_sukan,
                                                                             'items' => [
-                                                                                ['label' => GeneralLabel::maklumat_mesyuarat_agung_tahunan, 'url' => ['/ltbs-minit-mesyuarat-jawatankuasa/maklumat-mesyuarat-agung-tahunan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-minit-mesyuarat-jawatankuasa']['module'])],
+                                                                                ['label' => GeneralLabel::laporan_tahunan, 'url' => ['/ltbs-minit-mesyuarat-jawatankuasa/maklumat-mesyuarat-agung-tahunan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['ltbs-minit-mesyuarat-jawatankuasa']['module'])],
                                                                                 ['label' => GeneralLabel::laporan_ahli_jawatankuasa_induk, 'url' => ['/profil-badan-sukan/laporan-ahli-jawatankuasa-induk'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['module'])],
                                                                                 ['label' => GeneralLabel::laporan_ahli_jawatankuasa_kecil_biro, 'url' => ['/profil-badan-sukan/laporan-ahli-jawatankuasa-kecil-biro'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['module'])],
                                                                             ],
@@ -973,7 +974,6 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
 								],
 							],
 						],
-						['label' => GeneralLabel::mesyuarat, 'url' => ['/mesyuarat/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['mesyuarat']['module'])],
 						[
 							'label' => GeneralLabel::ebiasiswa,
 							'items' => [
@@ -1017,15 +1017,16 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
 					]
 				];
                 
-                if(isset(Yii::$app->user->identity->peranan_akses['Admin'])){
+                //if(isset(Yii::$app->user->identity->peranan_akses['Admin'])){
                     $sideMenuItems[] = ['label' => GeneralLabel::administration, 'url' => ['#'],'items' => [
                         ['label' => GeneralLabel::tetapan_sistem_spsb, 'url' => ['/system/load'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['Admin']['system']['module'])],
                         ['label' => GeneralLabel::user, 'url' => ['/user/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['module'])],
                         ['label' => GeneralLabel::user_peranan, 'url' => ['/user-peranan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['Admin']['user-peranan']['module'])],
                         ['label' => GeneralLabel::admin_ebiasiswa, 'url' => ['/admin-e-biasiswa/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['Admin']['admin-e-biasiswa']['module'])],
+                        ['label' => GeneralLabel::persatuan, 'url' => ['/persatuan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['persatuan']['module'])],
                         ['label' => GeneralLabel::admin_audit_log, 'url' => ['/audit/trail'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['Admin']['admin-audit']['module'])],
                     ]];
-                }
+                //}
                 
                 //$sideMenuItems[] = ['label' => GeneralLabel::laporan, 'url' => 'http://10.19.189.87:8080/jasperserver'];
                 

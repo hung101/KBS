@@ -46,7 +46,7 @@ use app\models\general\GeneralLabel;
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use common\models\general\GeneralFunction;
-
+use app\models\MsnSuratRasmi;
 /**
  * AtletController implements the CRUD actions for Atlet model.
  */
@@ -315,13 +315,14 @@ class AtletController extends Controller
             
             $file = UploadedFile::getInstance($model, 'muat_naik_surat_persetujuan');
             if($file){
-                $model->muat_naik_surat_persetujuan = Upload::uploadFile($file, Upload::atletFolder, 'muat_naik_surat_persetujuan-' . $model->atlet_id);
+                $model->muat_naik_surat_persetujuan = Yii::$app->request->hostInfo.Yii::$app->request->baseUrl.'/'.
+													  Upload::uploadFile($file, Upload::atletFolder, 'muat_naik_surat_persetujuan-' . $model->atlet_id);
             }
-            
             
             $file = UploadedFile::getInstance($model, 'surat_tawaran_program_podium');
             if($file){
-                $model->surat_tawaran_program_podium = Upload::uploadFile($file, Upload::atletFolder, 'surat_tawaran_program_podium-' . $model->atlet_id);
+                $model->surat_tawaran_program_podium = Yii::$app->request->hostInfo.Yii::$app->request->baseUrl.'/'.
+													   Upload::uploadFile($file, Upload::atletFolder, 'surat_tawaran_program_podium-' . $model->atlet_id);
             }
             
             if($model->save()){
@@ -413,6 +414,8 @@ Majlis Sukan Negara Malaysia.
         
         if ($model->load(Yii::$app->request->post())) {
             
+			//var_dump(Yii::$app->request->hostInfo.Yii::$app->request->baseUrl); die;
+			
             if($model->jenis_lesen){
                 $model->jenis_lesen = implode(",",$model->jenis_lesen);
             }
@@ -426,12 +429,16 @@ Majlis Sukan Negara Malaysia.
             
             $file = UploadedFile::getInstance($model, 'muat_naik_surat_persetujuan');
             if($file){
-                $model->muat_naik_surat_persetujuan = Upload::uploadFile($file, Upload::atletFolder, 'muat_naik_surat_persetujuan-' . $model->atlet_id);
+                $model->muat_naik_surat_persetujuan = Yii::$app->request->hostInfo.Yii::$app->request->baseUrl.'/'.
+													  Upload::uploadFile($file, Upload::atletFolder, 'muat_naik_surat_persetujuan-' . $model->atlet_id);
             }
             
             $file = UploadedFile::getInstance($model, 'surat_tawaran_program_podium');
             if($file){
-                $model->surat_tawaran_program_podium = Upload::uploadFile($file, Upload::atletFolder, 'surat_tawaran_program_podium-' . $model->atlet_id);
+                //$model->surat_tawaran_program_podium = Upload::uploadFile($file, Upload::atletFolder, 'surat_tawaran_program_podium-' . $model->atlet_id);
+				$model->surat_tawaran_program_podium = Yii::$app->request->hostInfo.Yii::$app->request->baseUrl.'/'.
+														Upload::uploadFile($file, Upload::atletFolder, 'surat_tawaran_program_podium-' . $model->atlet_id);
+				
             }
             
             $changedTawaran = false;
@@ -510,9 +517,9 @@ Majlis Sukan Negara Malaysia.
     {
         
         // delete upload file
-        self::actionDeleteupload($id, 'gambar');
+        //self::actionDeleteupload($id, 'gambar');
         
-        self::actionDeleteupload($id, 'muat_naik_surat_persetujuan');
+        //self::actionDeleteupload($id, 'muat_naik_surat_persetujuan');
         
         $this->findModel($id)->delete();
 
@@ -548,9 +555,10 @@ Majlis Sukan Negara Malaysia.
             $img = $this->findModel($id)->$field;
             
             if($img){
-                if (!unlink($img)) {
+/*                 if (!unlink($img)) {
                     return false;
-                }
+                } */
+				@unlink($img);
             }
 
             $img = $this->findModel($id);
@@ -570,9 +578,11 @@ Majlis Sukan Negara Malaysia.
             $img = $this->findModel($id)->$field;
             
             if($img){
-                if (!unlink($img)) {
+/*                 if (!unlink($img)) {
                     return false;
-                }
+                } */
+				$img = substr($img, strrpos( $img, 'uploads'));
+				@unlink($img);
             }
 
             $img = $this->findModel($id);
@@ -3565,5 +3575,239 @@ Majlis Sukan Negara Malaysia.
         );
         
         GeneralFunction::generateReport('/spsb/MSN/SuratAkuanPersetujuanAtlet', $format, $controls, 'surat_akuan_persetujuan_atlet');
+    }
+    
+    public function actionLaporanElaunAtletMengikutSukan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
+            if(!empty($model->jenis_elaun))$model->jenis_elaun = implode(",",$model->jenis_elaun);
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-elaun-atlet-mengikut-sukan'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
+                    , 'jenis_elaun' => $model->jenis_elaun
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-elaun-atlet-mengikut-sukan'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
+                    , 'jenis_elaun' => $model->jenis_elaun
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_atlet_elaun', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanElaunAtletMengikutSukan($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $cawangan, $jenis_elaun, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        if($atlet == "") $atlet = array();
+        else $atlet = array($atlet);
+        
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
+        if($jenis_elaun == "") $jenis_elaun = array();
+        else $jenis_elaun = array($jenis_elaun);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            'ATLET' => $atlet,
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'CAWANGAN' => $cawangan,
+            'JENIS_ELAUN' => $jenis_elaun,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanElaunAtletMengikutSukan', $format, $controls, 'laporan_atlet_elaun');
+    }
+    
+    public function actionLaporanElaunAtletMengikutSukanParalimpik()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporanSenaraiAtlet();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            if(!empty($model->program))$model->program = implode(",",$model->program);
+            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->acara))$model->acara = implode(",",$model->acara);
+            if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
+            if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
+            if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
+            if(!empty($model->jenis_elaun))$model->jenis_elaun = implode(",",$model->jenis_elaun);
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-elaun-atlet-mengikut-sukan-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-elaun-atlet-mengikut-sukan-paralimpik'
+                    , 'program' => $model->program
+                    , 'sukan' => $model->sukan
+                    , 'acara' => $model->acara
+                    , 'negeri' => $model->negeri
+                    , 'atlet' => $model->atlet
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'cawangan' => $model->cawangan
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_elaun_atlet_mengikut_sukan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanElaunAtletMengikutSukanParalimpik($program, $sukan, $acara, $negeri, $atlet, $tarikh_dari, $tarikh_hingga, $cawangan, $format)
+    {
+        if($program == "") $program = array();
+        else $program = array($program);
+        
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
+        if($acara == "") $acara = array();
+        else $acara = array($acara);
+        
+        if($negeri == "") $negeri = array();
+        else $negeri = array($negeri);
+        
+        if($atlet == "") $atlet = array();
+        else $atlet = array($atlet);
+        
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        if($cawangan == "") $cawangan = array();
+        else $cawangan = array($cawangan);
+        
+        $controls = array(
+            'ACARA' => $acara,
+            'PROGRAM' => $program,
+            'SUKAN' => $sukan,
+            'NEGERI' => $negeri,
+            'ATLET' => $atlet,
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+            'CAWANGAN' => $cawangan,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanElaunAtletMengikutSukanParalimpik', $format, $controls, 'laporan_elaun_atlet_mengikut_sukan');
+    }
+    
+    public function actionSuratPengesahan($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }    
+        
+        $model = new MsnSuratRasmi();
+
+        if ($model->load(Yii::$app->request->post())) {
+            //$parentModel = $this->findModel($id);
+
+            $parentModel = Atlet::find()->where(['tbl_atlet.atlet_id' => $id])->joinWith(['refAtletSukan' => function($query) {
+            $query->orderBy(['tbl_atlet_sukan.created' => SORT_DESC])->one();
+                                            },
+                                    ])->joinWith(['refAtletPendidikan' => function($query) {
+                                                    $query->orderBy(['tbl_atlet_pendidikan.created' => SORT_DESC])->one();
+                                            },
+                                    ])->joinWith(['refAtletKewanganAkaun' => function($query) {
+                                                    $query->orderBy(['tbl_atlet_kewangan_akaun.created' => SORT_DESC])->one();
+                                            },
+                                    ])->one();
+
+            //echo '<pre>'; var_dump($parentModel); die;
+			
+            $pdf = new \mPDF('utf-8', 'A4');
+
+            $pdf->title = "Surat Pengesahan";
+            $stylesheet = file_get_contents('css/report.css');
+
+            $pdf->WriteHTML($stylesheet,1);
+            
+            $pdf->WriteHTML($this->renderpartial('generate_surat_pengesahan', [
+                 'parentModel'  => $parentModel,
+                 'model' => $model,
+            ]));
+
+            $pdf->Output('Surat_Pengesahan_'.$id.'.pdf', 'I');
+        }
+        
+        return $this->render('surat_pengesahan', [
+            'model' => $model,
+        ]);
     }
 }

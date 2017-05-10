@@ -198,6 +198,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const anggaran_kos_per_kategori = "Anggaran Kos Per Kategori";
         const anggaran_perbelanjaan  = "Anggaran Perbelanjaan (RM)";
         const anggaran_perbelanjaan_id = "Anggaran Perbelanjaan ID";
+        const anggaran_perbelanjaan_title = "Anggaran Perbelanjaan";
         const anjuran = "Anjuran";
         const anthropometrics = "Anthropometric";
         const anugerah_id = "Anugerah ID";
@@ -639,6 +640,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jumlah_bantuan = "Jumlah Bantuan (RM)";
         const jumlah_bantuan_peruntukan = "Jumlah Bantuan / Peruntukan (RM)";
         const jumlah_bantuan_yang_dipohon = "Jumlah Bantuan Yang Dipohon Daripada KBS / JBSN Untuk Program / Aktiviti Ini";
+        const jumlah_bantuan_yang_dipohon_index = "Jumlah Bantuan Yang Dipohon";
         const jumlah_biasiswa = "Jumlah";
         const jumlah_caj_fi = "Jumlah Caj / Fi";
         const jumlah_cadangan = "Jumlah Cadangan (RM)";
@@ -1351,7 +1353,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const no_visa = "No. Visa";
         const no_visa_wajib_diisi = "Visa No (Wajib diisi untuk JLN)";
         const nombor_siri = "Nombor Siri";
-        const nota = "Note";
+        const nota = "Nota";
         const nota_urus_setia = "Nota Urus Setia";
         const notis = "Nota Kes";
         const notis_agm = "Notis AGM";
@@ -1589,7 +1591,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const permohonan_e_bantuan_id = "Permohonan E Bantuan ID";
         const permohonan_e_biasiswa = "Permohonan e-Biasiswa";
         const permohonan_e_biasiswa_id = "Permohonan E Biasiswa ID";
-        const permohonan_hanya_terbuka_kepada_atlet_yang_memenuhi_syarat = "Permohonan hanya terbuka kepada atlet yang memenuhi syarat.";
+        const permohonan_hanya_terbuka_kepada_atlet_yang_memenuhi_syarat = "Permohonan hanya terbuka kepada pemohon yang memenuhi syarat.";
         const permohonan_inovasi_peralatan_id = "Permohonan Inovasi Peralatan ID";
         const permohonan_kemudahan_ticket_kapal_terbang_id = "Permohonan Kemudahan Tiket Kapal Terbang ID";
         const permohonan_liputan_perubatan_sukan_id = "Permohonan Liputan Perubatan Sukan ID";
@@ -3554,6 +3556,7 @@ if($session->get('language') == "EN") {
         const anggaran_kos_per_kategori = "Estimated Cost Per Category";
         const anggaran_perbelanjaan  = "Estimated Expense (RM)";
         const anggaran_perbelanjaan_id = "Estimated Expense ID";
+        const anggaran_perbelanjaan_title = "Estimated Expense";
         const anjuran = "Organised by the";
         const anthropometrics = "Anthropometric";
         const anugerah_id = "Award ID";
@@ -3993,6 +3996,7 @@ if($session->get('language') == "EN") {
         const jumlah_bantuan = "The Amount Of Aid (RM)";
         const jumlah_bantuan_peruntukan = "The Amount Of Allocation Approved (RM)";
         const jumlah_bantuan_yang_dipohon = "Total Aid Applied For From The MINISTRY/DEPARTMENT'S To These Programs/Activity";
+        const jumlah_bantuan_yang_dipohon_index = "Total Aid Applied For";
         const jumlah_biasiswa = "Total";
         const jumlah_caj_fi = "Total Charges / Fees";
         const jumlah_cadangan = "Total Proposal (RM)";

@@ -250,4 +250,46 @@ class LtbsAhliJawatankuasaKecilController extends Controller
 
         return $value;
     }
+	
+	public function actionPrint($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+		// get dropdown value's descriptions
+        $ref = RefJawatan::findOne(['id' => $model->jawatan]);
+        $model->jawatan = $ref['desc'];
+        
+        $ref = RefJantina::findOne(['id' => $model->jantina]);
+        $model->jantina = $ref['desc'];
+        
+        $ref = RefBangsa::findOne(['id' => $model->bangsa]);
+        $model->bangsa = $ref['desc'];
+        
+        $ref = RefStatusLaporanMesyuaratAgung::findOne(['id' => $model->status]);
+        $model->status = $ref['desc'];
+        
+        $profil_badan_sukan_id = $model->profil_badan_sukan_id;
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->profil_badan_sukan_id]);
+        $model->profil_badan_sukan_id = $ref['nama_badan_sukan'];
+        
+        $model->tarikh_mula_memegang_jawatan = GeneralFunction::convert($model->tarikh_mula_memegang_jawatan);
+
+        $pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Ahli Jawatankuasa Kecil / Biro';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+             'model'  => $model,
+		     'title' => $pdf->title,
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->ahli_jawatan_id.'.pdf', 'I');
+    }
 }

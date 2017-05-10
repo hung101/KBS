@@ -18,6 +18,7 @@ use app\models\RefStatusDiagnosisPreskripsiPemeriksaanPenyiasatan;
 use app\models\RefUnitDiagnosisPreskripsiPemeriksaanPenyiasatan;
 use app\models\RefBahagianKecederaan;
 use app\models\RefRawatanFisioterapi;
+use app\models\RefPegawaiPerubatanFisioterapi;
 
 /**
  * PlDiagnosisPreskripsiPemeriksaanFisioterapiController implements the CRUD actions for PlDiagnosisPreskripsiPemeriksaanFisioterapi model.
@@ -76,6 +77,9 @@ class PlDiagnosisPreskripsiPemeriksaanFisioterapiController extends Controller
         
         $ref = RefUnitDiagnosisPreskripsiPemeriksaanPenyiasatan::findOne(['id' => $model->unit]);
         $model->unit = $ref['desc'];
+        
+        $ref = RefPegawaiPerubatanFisioterapi::findOne(['id' => $model->pegawai_yang_bertanggungjawab]);
+        $model->pegawai_yang_bertanggungjawab = $ref['desc'];
         
         $model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATETIME);
         

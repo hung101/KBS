@@ -61,11 +61,11 @@ class PermohonanBimbinganKaunseling extends \yii\db\ActiveRecord
             [['atlet_id', 'bil_adik_beradik', 'umur'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['tarikh_rujukan', 'jurulatih', 'sukan', 'negeri'], 'safe'],
-            [['status_permohonan', 'kes_latarbelakang', 'agensi', 'jantina', 'taraf_perkahwinan', 'no_rujukan_kes'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kes_latarbelakang', 'agensi', 'jantina', 'taraf_perkahwinan', 'no_rujukan_kes'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_pemohon_rujukan', 'pekerjaan_bapa', 'pekerjaan_ibu', 'cawangan_isn'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['notis', 'diagnosis', 'cadangan', 'tindakan_kaunselor'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_telefon'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['no_telefon'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['no_telefon', 'status_permohonan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             ['cawangan', 'required', 'message' => GeneralMessage::yii_validation_required, 'when' => function ($model) {
                     return $model->agensi == RefAgensiKaunseling::MSN;
                 }, 'whenClient' => "function (attribute, value) {

@@ -10,7 +10,7 @@ use kartik\datecontrol\DateControl;
 
 // table reference
 use app\models\RefReportFormat;
-use app\models\PenganjuranKursus;
+use app\models\PenganjuranKursusAkk;
 
 // contant values
 use app\models\general\Placeholder;
@@ -47,11 +47,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/penganjuran-kursus/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/penganjuran-kursus-akk/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(PenganjuranKursus::find()->all(),'penganjuran_kursus_id', 'kod_kursus'),
+                        'data'=>ArrayHelper::map(PenganjuranKursusAkk::find()->all(),'penganjuran_kursus_id', 'kod_kursus'),
                         'options' => ['placeholder' => Placeholder::kodKursus],
                         'pluginOptions' => [
                                     'allowClear' => true

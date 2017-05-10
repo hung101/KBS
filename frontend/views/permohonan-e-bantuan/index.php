@@ -112,11 +112,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_bantuan_yang_dipohon,
                 ],
-                'label' => GeneralLabel::jumlah_bantuan_yang_dipohon,
+                'label' => GeneralLabel::jumlah_bantuan_yang_dipohon_index,
                 'format'=>['decimal',2]
             ],
             //'kelulusan',
-            [
+            /*[
                 'attribute' => 'kelulusan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -130,6 +130,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         return GeneralLabel::tolak;
                     }
                 },
+            ],*/
+            [
+                'attribute' => 'status_permohonan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan,
+                ],
+                'value' => 'refStatusPermohonanEBantuan.desc'
             ],
             [
                 'attribute' => 'bil_mesyuarat',

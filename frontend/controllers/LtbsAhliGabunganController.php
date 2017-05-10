@@ -192,4 +192,44 @@ class LtbsAhliGabunganController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+	
+	public function actionPrint($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }  
+        $model = $this->findModel($id);
+		
+        // get dropdown value's descriptions
+        $ref = RefPeringkatBadanSukan::findOne(['id' => $model->peringkat_badan_sukan]);
+        $model->peringkat_badan_sukan = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->alamat_badan_sukan_negeri]);
+        $model->alamat_badan_sukan_negeri = $ref['desc'];
+        
+        $ref = RefBandar::findOne(['id' => $model->alamat_badan_sukan_bandar]);
+        $model->alamat_badan_sukan_bandar = $ref['desc'];
+        
+        $ref = RefStatusLaporanMesyuaratAgung::findOne(['id' => $model->status]);
+        $model->status = $ref['desc'];
+        
+        $profil_badan_sukan_id = $model->profil_badan_sukan_id;
+        $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->profil_badan_sukan_id]);
+        $model->profil_badan_sukan_id = $ref['nama_badan_sukan'];
+
+        $pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = 'Senarai Ahli Gabungan';
+
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+        
+        $pdf->WriteHTML($this->renderpartial('print', [
+             'model'  => $model,
+		     'title' => $pdf->title,
+        ]));
+
+        $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->ahli_gabungan_id.'.pdf', 'I');
+    }
 }

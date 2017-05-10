@@ -503,10 +503,12 @@ use app\models\general\Placeholder;
     ?>
     
     <?php 
-    if(!$readonly){
-        echo Html::a(GeneralLabel::agenda_perbincangan, ['agenda-perbincangan', 'mesyuarat_id' => $mesyuarat_id], ['class' => 'btn btn-warning btn-lg', 'target' => '_blank', 'id' => 'perbincanganLinkId']);
-    } else {
-        echo Html::a(GeneralLabel::agenda_perbincangan, ['agenda-perbincangan', 'mesyuarat_id' => $model->mesyuarat_id, 'sukan_id' => $model->sukan_id, 'program_id' => $model->program_id], ['class' => 'btn btn-warning btn-lg', 'target' => '_blank', 'id' => 'perbincanganLinkId']);
+    if(!$model->isNewRecord){
+        if(!$readonly){
+            echo Html::a(GeneralLabel::agenda_perbincangan, ['agenda-perbincangan', 'mesyuarat_id' => $mesyuarat_id], ['class' => 'btn btn-warning btn-lg', 'target' => '_blank', 'id' => 'perbincanganLinkId']);
+        } else {
+            echo Html::a(GeneralLabel::agenda_perbincangan, ['agenda-perbincangan', 'mesyuarat_id' => $model->mesyuarat_id, 'sukan_id' => $model->sukan_id, 'program_id' => $model->program_id], ['class' => 'btn btn-warning btn-lg', 'target' => '_blank', 'id' => 'perbincanganLinkId']);
+        }
     }
         
     ?>

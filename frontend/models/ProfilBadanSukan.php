@@ -58,7 +58,8 @@ class ProfilBadanSukan extends \yii\db\ActiveRecord
     {
         if(Yii::$app->user->identity->profil_badan_sukan){
             return [
-                [['nama_badan_sukan', 'no_pendaftaran', 'nama_badan_sukan_sebelum_ini', 'no_pendaftaran_sijil_pendaftaran', 'tarikh_lulus_pendaftaran', 'peringkat_badan_sukan', 'jenis_sukan', 'no_telefon_pejabat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+                [['nama_badan_sukan', 'no_pendaftaran', 'nama_badan_sukan_sebelum_ini', 'no_pendaftaran_sijil_pendaftaran', 'tarikh_lulus_pendaftaran', 'peringkat_badan_sukan', 
+                    'jenis_sukan', 'no_telefon_pejabat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
                 [['tarikh_lulus_pendaftaran', 'tarikh_kelulusan_Terkini', 'tarikh_pindaan', 'tarikh_kelulusan'], 'safe'],
                 [['no_telefon_pejabat', 'no_telefon_pejabat_2', 'no_telefon_pejabat_3', 'no_tel_bimbit', 'no_faks_pejabat',
                     'alamat_tetap_badan_sukan_poskod', 'alamat_surat_menyurat_badan_sukan_poskod', 'status',
@@ -70,15 +71,15 @@ class ProfilBadanSukan extends \yii\db\ActiveRecord
                 [['no_pendaftaran'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['alamat_tetap_badan_sukan_poskod', 'alamat_surat_menyurat_badan_sukan_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['alamat_tetap_badan_sukan_poskod', 'alamat_surat_menyurat_badan_sukan_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-                [['no_pendaftaran_sijil_pendaftaran'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                //[['no_pendaftaran_sijil_pendaftaran'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['bilangan_pindaan_perlembagaan_dilakukan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
-                [['muat_naik_perlembagaan_terkini', 'gambar'],'validateFileUpload', 'skipOnEmpty' => false],
+                [['muat_naik_perlembagaan_terkini', 'gambar', 'no_pendaftaran_sijil_pendaftaran'],'validateFileUpload', 'skipOnEmpty' => false],
                 [['emel_badan_sukan'], 'email', 'message' => GeneralMessage::yii_validation_email],
             ];
         } else {
             return [
                 [['nama_badan_sukan', 'nama_badan_sukan_sebelum_ini'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-                [['tarikh_lulus_pendaftaran', 'tarikh_kelulusan_Terkini', 'tarikh_pindaan', 'tarikh_kelulusan'], 'safe'],
+                [['tarikh_lulus_pendaftaran', 'tarikh_kelulusan_Terkini', 'tarikh_pindaan', 'tarikh_kelulusan', 'peringkat_badan_sukan'], 'safe'],
                 [['no_telefon_pejabat', 'no_telefon_pejabat_2', 'no_telefon_pejabat_3', 'no_tel_bimbit', 'no_faks_pejabat', 'alamat_tetap_badan_sukan_poskod', 'alamat_surat_menyurat_badan_sukan_poskod', 'status'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
                 [['no_telefon_pejabat', 'no_telefon_pejabat_2', 'no_telefon_pejabat_3', 'no_tel_bimbit', 'no_faks_pejabat'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['nama_badan_sukan', 'nama_badan_sukan_sebelum_ini', 'emel_badan_sukan', 'pengiktirafan_yang_pernah_diterima_badan_sukan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -87,9 +88,9 @@ class ProfilBadanSukan extends \yii\db\ActiveRecord
                 [['no_pendaftaran'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['alamat_tetap_badan_sukan_poskod', 'alamat_surat_menyurat_badan_sukan_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['alamat_tetap_badan_sukan_poskod', 'alamat_surat_menyurat_badan_sukan_poskod'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-                [['no_pendaftaran_sijil_pendaftaran'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+                //[['no_pendaftaran_sijil_pendaftaran'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['bilangan_pindaan_perlembagaan_dilakukan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
-                [['muat_naik_perlembagaan_terkini', 'gambar'],'validateFileUpload', 'skipOnEmpty' => false],
+                [['muat_naik_perlembagaan_terkini', 'gambar', 'no_pendaftaran_sijil_pendaftaran'],'validateFileUpload', 'skipOnEmpty' => false],
                 [['emel_badan_sukan'], 'email', 'message' => GeneralMessage::yii_validation_email],
             ];
         }

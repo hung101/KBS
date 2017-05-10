@@ -118,7 +118,7 @@ class ProfilDelegasiTeknikalAhli extends \yii\db\ActiveRecord
             'alamat_majikan_negeri' => GeneralLabel::alamat_negeri,
             'alamat_majikan_bandar' => GeneralLabel::alamat_bandar,
             'alamat_majikan_poskod' => GeneralLabel::alamat_poskod,
-            'no_telefon_pejabat' => GeneralLabel::alamat_1,  //'No Telefon Pejabat',
+            'no_telefon_pejabat' => GeneralLabel::no_telefon_pejabat,  //'No Telefon Pejabat',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

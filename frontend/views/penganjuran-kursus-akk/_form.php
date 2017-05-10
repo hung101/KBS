@@ -174,7 +174,7 @@ use app\models\general\GeneralMessage;
         <?php endif; ?>
         <?php
         if(!$model->isNewRecord){
-            echo '&nbsp;&nbsp;' . Html::a('Maklumat Peribadi Peserta', Url::to(['/penganjuran-kursus-peserta/index', 'penganjuran_kursus_id' => $model->penganjuran_kursus_id]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
+            echo '&nbsp;&nbsp;' . Html::a('Maklumat Peribadi Peserta', Url::to(['/penganjuran-kursus-peserta/index', 'penganjuran_kursus_akk_id' => $model->penganjuran_kursus_id]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
             echo '&nbsp;&nbsp;' . Html::a(GeneralLabel::maklumat_peribadi_peserta_jurulatih_msn, Url::to(['/akk-program-jurulatih-peserta/index', 'penganjuran_kursus_id' => $model->penganjuran_kursus_id]), ['class'=>'btn btn-warning', 'target'=>'_blank']);
         }
         ?>

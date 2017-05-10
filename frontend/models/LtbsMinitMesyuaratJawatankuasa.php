@@ -62,8 +62,11 @@ class LtbsMinitMesyuaratJawatankuasa extends \yii\db\ActiveRecord
             [['tempat'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['mengikut_perlembagaan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['agenda_mesyuarat', 'keputusan_mesyuarat'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['minit_ajk_muat_naik', 'notis_agm_muat_naik', 'minit_agm_muat_naik', 'laporan_kewangan_muat_naik', 'laporan_aktiviti_muat_naik',
+            [['minit_ajk_muat_naik', 'notis_agm_muat_naik', 'laporan_aktiviti_muat_naik',
                 'borang_pt_muat_naik', 'senarai_ahli_jawatankuasa_muat_naik', 'senarai_ahli_gabungan_terkini_muat_naik'],'validateFileUpload', 'skipOnEmpty' => false],
+            [['minit_agm_muat_naik', 'laporan_kewangan_muat_naik'],'validateFileUpload', 'skipOnEmpty' => false, 'when' => function ($model) {
+                    return isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['maklumat-kewangan']);
+                }],
             [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }

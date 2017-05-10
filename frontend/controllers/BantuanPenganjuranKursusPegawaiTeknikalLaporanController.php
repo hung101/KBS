@@ -408,6 +408,29 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
         return $this->redirect(['index']);
     }
 	
+	// Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+/*                 if (!unlink($img)) {
+                    return false;
+                } */
+				@unlink($img);
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            return $this->redirect(['update', 'id' => $id]);
+    }
+	
 	public function actionPrint($id)
 	{
 		if (Yii::$app->user->isGuest) {
@@ -450,5 +473,27 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            //return $this->redirect(['update', 'id' => $id]);
     }
 }

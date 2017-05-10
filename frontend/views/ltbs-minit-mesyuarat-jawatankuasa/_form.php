@@ -39,7 +39,7 @@ use app\models\general\Placeholder;
     ?>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
-    
+    <?php echo $form->errorSummary($model); ?>
     <?php
     if(!Yii::$app->user->identity->profil_badan_sukan || $readonly){
         echo FormGrid::widget([

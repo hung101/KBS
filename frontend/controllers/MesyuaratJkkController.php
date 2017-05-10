@@ -244,9 +244,6 @@ class MesyuaratJkkController extends Controller
         //$ref = RefTempatJkk::findOne(['id' => $model->tempat]);
         //$model->tempat = $ref['desc'];
         
-        $ref = RefSukan::findOne(['id' => $model->sukan]);
-        $model->sukan = $ref['desc'];
-        
         $ref = RefBilJkk::findOne(['id' => $model->bil_mesyuarat]);
         $model->bil_mesyuarat = $ref['desc'];
         
@@ -469,9 +466,10 @@ Majlis Sukan Negara Malaysia.
             $img = $this->findModel($id)->$field;
             
             if($img){
-                if (!unlink($img)) {
+/*                 if (!unlink($img)) {
                     return false;
-                }
+                } */
+				@unlink($img);
             }
 
             $img = $this->findModel($id);

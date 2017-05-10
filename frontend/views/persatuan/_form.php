@@ -397,12 +397,14 @@ $('#badanSukanId').change(function(){
         var data = $.parseJSON(data);
         
         if(data !== null){
-            var tarikhLulus = data.tarikh_lulus_pendaftaran;
-            var tarikhLulusAdd = new Date(tarikhLulus);
-            tarikhLulusAdd.setFullYear(tarikhLulusAdd.getFullYear() + 1); // plus 1 year
-        
-            $("#ExpiryDateID-disp").val(formatDisplayDate(tarikhLulusAdd));
-            $("#ExpiryDateID").val(formatSaveDate(tarikhLulusAdd));
+            if(data.tarikh_lulus_pendaftaran !== null){
+                var tarikhLulus = data.tarikh_lulus_pendaftaran;
+                var tarikhLulusAdd = new Date(tarikhLulus);
+                tarikhLulusAdd.setFullYear(tarikhLulusAdd.getFullYear() + 1); // plus 1 year
+
+                $("#ExpiryDateID-disp").val(formatDisplayDate(tarikhLulusAdd));
+                $("#ExpiryDateID").val(formatSaveDate(tarikhLulusAdd));
+            }
         $('#persatuan-email').attr('value',data.emel_badan_sukan);
         }
     });

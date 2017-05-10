@@ -9,7 +9,7 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\AtletPerubatanInsurans */
 
 //$this->title = GeneralLabel::updateTitle.' '.GeneralLabel::atlet_perubatan_insurans.': ' . ' ' . $model->insurans_id;
-$this->title = GeneralLabel::updateTitle . ' Insurans';
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::insurans;
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::insurans, 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' Insurans', 'url' => ['view', 'id' => $model->insurans_id]];
 $this->params['breadcrumbs'][] = $this->title;

@@ -45,6 +45,7 @@ use yii\filters\VerbFilter;
 use yii\web\Session;
 use yii\helpers\Url;
 use yii\web\UploadedFile;
+use app\models\MsnSuratRasmi;
 
 use app\models\general\Upload;
 use app\models\general\GeneralLabel;
@@ -1002,5 +1003,48 @@ class PenyertaanSukanController extends Controller
         ]));
 
         $pdf->Output('Penilaian_Prestasi_Mengikut_Kejohanan'.$parentModel->penyertaan_sukan_id.'.pdf', 'I');
+    }
+	
+	public function actionSuratMakluman($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }    
+        
+        $model = new MsnSuratRasmi();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $parentModel = $this->findModel($id);
+			
+			$ref = RefSukan::findOne(['id' => $parentModel->nama_sukan]);
+			$parentModel->nama_sukan = $ref['desc'];
+			
+			$ref = PerancanganProgramPlan::findOne(['perancangan_program_id' => $parentModel->nama_kejohanan_temasya]);
+			$parentModel->nama_kejohanan_temasya = $ref['nama_program'];
+			
+			$ref = RefProgramSemasaSukanAtlet::findOne(['id' => $parentModel->program]);
+			$parentModel->program = $ref['desc'];
+			
+			$PenyertaanSukanAcara = PenyertaanSukanAcara::find()->joinWith(['refAtlet', 'refAcara'])->where(['penyertaan_sukan_id' => $parentModel->penyertaan_sukan_id])->all();
+			
+            $pdf = new \mPDF('utf-8', 'A4');
+
+            $pdf->title = "Surat Makluman";
+            $stylesheet = file_get_contents('css/report.css');
+
+            $pdf->WriteHTML($stylesheet,1);
+            
+            $pdf->WriteHTML($this->renderpartial('generate_surat_makluman', [
+                 'parentModel'  => $parentModel,
+                 'model' => $model,
+				 'PenyertaanSukanAcara' => $PenyertaanSukanAcara,
+            ]));
+
+            $pdf->Output('Surat_Makluman_'.$id.'.pdf', 'I');
+        }
+        
+        return $this->render('surat_makluman', [
+            'model' => $model,
+        ]);
     }
 }

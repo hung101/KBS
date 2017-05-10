@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-peserta']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::penganjuran_kursus_senarai_peserta, Url::to(['create', 'penganjuran_kursus_id' => $penganjuran_kursus_id]), ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::penganjuran_kursus_senarai_peserta, Url::to(['create', 'penganjuran_kursus_id' => $penganjuran_kursus_id, 'penganjuran_kursus_akk_id' => $penganjuran_kursus_akk_id]), ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 
