@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\AkkProgramJurulatihSearch */
@@ -67,7 +68,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_program,
-                ]
+                ],
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_program);
+                },
             ],
             [
                 'attribute' => 'tempat_program',

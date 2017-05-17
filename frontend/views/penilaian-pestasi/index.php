@@ -83,8 +83,28 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refSukan.desc'
             ],
-			'tarikh_nilai_mula',
-			'tarikh_nilai_tamat',
+            //'tarikh_nilai_mula',
+            [
+                'attribute' => 'tarikh_nilai_mula',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_nilai_mula,
+                ],
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_nilai_mula, GeneralFunction::TYPE_DATE);
+                },
+            ],
+            //'tarikh_nilai_tamat',
+            [
+                'attribute' => 'tarikh_nilai_tamat',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_nilai_tamat,
+                ],
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_nilai_tamat, GeneralFunction::TYPE_DATE);
+                },
+            ],
 /*             [
                 'attribute' => 'acara',
                 'label' => GeneralLabel::acara,

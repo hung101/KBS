@@ -117,9 +117,13 @@ use app\models\general\GeneralMessage;
     <h3><?php echo GeneralLabel::masalah_kesihatan; ?></h3>
     
     <?php 
+    $modelTitleID = GeneralVariable::jurulatihKesihatanTabModalTitle;
+    $modelID = GeneralVariable::jurulatihKesihatanTabModal;
+    $modelContentID = GeneralVariable::jurulatihKesihatanTabModalContent;
+    
             Modal::begin([
-                'header' => '<h3 id="modalTitle"></h3>',
-                'id' => 'modal',
+                'header' => '<h3 id='.$modelTitleID.'></h3>',
+                'id' => $modelID,
                 'size' => 'modal-lg',
                 'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE],
                 'options' => [
@@ -127,7 +131,7 @@ use app\models\general\GeneralMessage;
                 ],
             ]);
             
-            echo '<div id="modalContent"></div>';
+            echo '<div id="'.$modelContentID.'"></div>';
             
             Modal::end();
         ?>
@@ -172,13 +176,13 @@ use app\models\general\GeneralMessage;
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['jurulatih-kesihatan-masalah/update', 'id' => $model->jurulatih_kesihatan_kesihatan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::masalah_kesihatan.'");',
+                        'onclick' => 'loadModalRenderAjaxTab("'.Url::to(['jurulatih-kesihatan-masalah/update', 'id' => $model->jurulatih_kesihatan_kesihatan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::masalah_kesihatan.'", "'.GeneralVariable::jurulatihKesihatanTabModal.'", "'.GeneralVariable::jurulatihKesihatanTabModalContent.'", "'.GeneralVariable::jurulatihKesihatanTabModalTitle.'");',
                         ]);
                     },
                     'view' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
                         'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['jurulatih-kesihatan-masalah/view', 'id' => $model->jurulatih_kesihatan_kesihatan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::masalah_kesihatan.'");',
+                        'onclick' => 'loadModalRenderAjaxTab("'.Url::to(['jurulatih-kesihatan-masalah/view', 'id' => $model->jurulatih_kesihatan_kesihatan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::masalah_kesihatan.'", "'.GeneralVariable::jurulatihKesihatanTabModal.'", "'.GeneralVariable::jurulatihKesihatanTabModalContent.'", "'.GeneralVariable::jurulatihKesihatanTabModalTitle.'");',
                         ]);
                     }
                 ],
@@ -198,7 +202,7 @@ use app\models\general\GeneralMessage;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['jurulatih-kesihatan-masalah/create', 'jurulatih_kesihatan_id' => $jurulatih_kesihatan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::masalah_kesihatan.'");',
+                        'onclick' => 'loadModalRenderAjaxTab("'.Url::to(['jurulatih-kesihatan-masalah/create', 'jurulatih_kesihatan_id' => $jurulatih_kesihatan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::masalah_kesihatan.'", "'.GeneralVariable::jurulatihKesihatanTabModal.'", "'.GeneralVariable::jurulatihKesihatanTabModalContent.'", "'.GeneralVariable::jurulatihKesihatanTabModalTitle.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

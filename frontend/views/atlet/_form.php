@@ -71,12 +71,17 @@ use app\models\general\GeneralVariable;
     ?>
     
     <?php if($readonly): ?>
-        <?php if( ( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['update'])) || 
-                (isset($model->refAtletSukan[0]->program_semasa) && ($model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM || $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])) ): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['create']) && $model->hantar == 0)): ?>
+            <?= Html::a(GeneralLabel::send, ['hantar', 'id' => $model->atlet_id], ['class' => 'btn btn-success']) ?>
+        <?php endif; ?>
+        <?php if( ((( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['update'])) || 
+                (isset($model->refAtletSukan[0]->program_semasa) && ($model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM || $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))) &&  $model->hantar == 0) || 
+                isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['kemaskini_yang_hantar']) ): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->atlet_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if( ( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['delete']))  || 
-                (isset($model->refAtletSukan[0]->program_semasa) && ($model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM || $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))): ?>
+        <?php if( ((( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['delete']))  || 
+                (isset($model->refAtletSukan[0]->program_semasa) && ($model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM || $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))) &&  $model->hantar == 0) || 
+                isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['kemaskini_yang_hantar']) ): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->atlet_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
@@ -906,12 +911,12 @@ use app\models\general\GeneralVariable;
     ]
 ]);
     ?>
-    
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['tawaran']) && !$model->isNewRecord){ ?>
     <hr>
     <pre style="text-align: center"><strong><?php echo GeneralLabel::status_tawaran; ?></strong></pre>
     
     <?php
-    if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['tawaran'])){
+    
         echo FormGrid::widget([
             'model' => $model,
             'form' => $form,
@@ -949,7 +954,7 @@ use app\models\general\GeneralVariable;
                 ]
             ]
         ]);
-    }
+   
     ?>
     
     <?php // Surat Persetujuan
@@ -1060,6 +1065,7 @@ use app\models\general\GeneralVariable;
         ]
     ]
 ]);
+    }
     ?>
     
 

@@ -111,6 +111,14 @@ class GeranBantuanGajiController extends Controller
         
         //$YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         //$model->kelulusan = $YesNo;
+        
+        if($model->tarikh_mula_kontrak != "") {$model->tarikh_mula_kontrak = GeneralFunction::convert($model->tarikh_mula_kontrak, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat_kontrak != "") {$model->tarikh_tamat_kontrak = GeneralFunction::convert($model->tarikh_tamat_kontrak, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_cek != "") {$model->tarikh_cek = GeneralFunction::convert($model->tarikh_cek, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_mpj != "") {$model->tarikh_mpj = GeneralFunction::convert($model->tarikh_mpj, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_jkb != "") {$model->tarikh_jkb = GeneralFunction::convert($model->tarikh_jkb, GeneralFunction::TYPE_DATE);}
 		
 		$queryPar = null;
         

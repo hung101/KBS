@@ -351,9 +351,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_temujanji,
                 ],
                 'format' => 'raw',
-                /*'value'=>function ($model) {
+                'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_temujanji, GeneralFunction::TYPE_DATETIME);
-                },*/
+                },
             ],
             [
                 'attribute' => 'atlet_id',

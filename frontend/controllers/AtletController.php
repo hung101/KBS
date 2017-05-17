@@ -270,6 +270,12 @@ class AtletController extends Controller
         $ref = RefTawaranAtlet::findOne(['id' => $atlet->tawaran_atlet]);
         $atlet->tawaran_atlet = $ref['desc'];
         
+        if($atlet->tarikh_lahir != "") {$atlet->tarikh_lahir = GeneralFunction::convert($atlet->tarikh_lahir, GeneralFunction::TYPE_DATE);}
+        if($atlet->passport_tamat_tempoh != "") {$atlet->passport_tamat_tempoh= GeneralFunction::convert($atlet->passport_tamat_tempoh, GeneralFunction::TYPE_DATE);}
+        if($atlet->lesen_tamat_tempoh != "") {$atlet->lesen_tamat_tempoh = GeneralFunction::convert($atlet->lesen_tamat_tempoh, GeneralFunction::TYPE_DATE);}
+        if($atlet->tarikh_jkk_jkp != "") {$atlet->tarikh_jkk_jkp = GeneralFunction::convert($atlet->tarikh_jkk_jkp, GeneralFunction::TYPE_DATE);}
+        if($atlet->tarikh_luput != "") {$atlet->tarikh_luput = GeneralFunction::convert($atlet->tarikh_luput, GeneralFunction::TYPE_DATE);}
+        
         return $this->render('layout', [
             'model' => $atlet,
             'readonly' => true,
@@ -491,6 +497,30 @@ Majlis Sukan Negara Malaysia.
             'model' => $model,
             'readonly' => false,
         ]);
+    }
+    
+    /**
+     * Updates an existing Jurulatih model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar = 1; // set approved
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->save();
+        
+        //return $this->redirect(['view', 'id' => $model->jurulatih_id]);
+        
+        return $this->redirect(['index']);
     }
 
     public function actionBulk() {

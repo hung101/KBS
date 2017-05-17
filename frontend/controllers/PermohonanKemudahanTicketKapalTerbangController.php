@@ -121,6 +121,10 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
         /*$YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         $model->kelulusan = $YesNo;*/
         
+        if($model->pri_tarikh_pergi != "") {$model->pri_tarikh_pergi = GeneralFunction::convert($model->pri_tarikh_pergi, GeneralFunction::TYPE_DATE);}
+        if($model->pri_tarikh_balik != "") {$model->pri_tarikh_balik = GeneralFunction::convert($model->pri_tarikh_balik, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_jkb != "") {$model->tarikh_jkb = GeneralFunction::convert($model->tarikh_jkb, GeneralFunction::TYPE_DATE);}
+        
         $queryPar = null;
         
         

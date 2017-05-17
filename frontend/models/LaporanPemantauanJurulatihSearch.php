@@ -20,7 +20,7 @@ class LaporanPemantauanJurulatihSearch extends LaporanPemantauanJurulatih
     {
         return [
             [['laporan_pemantauan_jurulatih_id'], 'integer'],
-            [['jurulatih_id', 'sukan_id', 'program_id', 'pusat_latihan'], 'safe'],
+            [['jurulatih_id', 'sukan_id', 'program_id', 'pusat_latihan', 'tarikh_dinilai'], 'safe'],
         ];
     }
 
@@ -66,7 +66,8 @@ class LaporanPemantauanJurulatihSearch extends LaporanPemantauanJurulatih
         $query->andFilterWhere(['like', 'tbl_jurulatih.nama', $this->jurulatih_id])
               ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan_id])
               ->andFilterWhere(['like', 'tbl_ref_program_semasa_sukan_atlet.desc', $this->program_id])
-              ->andFilterWhere(['like', '{{tbl_laporan_pemantauan_jurulatih}}.pusat_latihan', $this->pusat_latihan]);
+              ->andFilterWhere(['like', '{{tbl_laporan_pemantauan_jurulatih}}.pusat_latihan', $this->pusat_latihan])
+                ->andFilterWhere(['like', 'tarikh_dinilai', $this->tarikh_dinilai]);
             
         return $dataProvider;
     }

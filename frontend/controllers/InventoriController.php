@@ -81,6 +81,10 @@ class InventoriController extends Controller
         $ref = RefNegeri::findOne(['id' => $model->negeri]);
         $model->negeri = $ref['desc'];
         
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_terima != "") {$model->tarikh_terima = GeneralFunction::convert($model->tarikh_terima, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_keluar != "") {$model->tarikh_keluar = GeneralFunction::convert($model->tarikh_keluar, GeneralFunction::TYPE_DATE);}
+        
         $queryPar = null;
         
         $queryPar['InventoriPeralatanSearch']['inventori_id'] = $id;

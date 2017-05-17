@@ -13,6 +13,7 @@ use yii\filters\VerbFilter;
 use yii\web\Session;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefJenisElaun;
@@ -123,6 +124,11 @@ class AtletKewanganElaunController extends Controller
         
         $ref = RefJenisElaun::findOne(['id' => $model->jenis_elaun]);
         $model->jenis_elaun = $ref['desc'];
+        
+        if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_jkb != "") {$model->tarikh_jkb = GeneralFunction::convert($model->tarikh_jkb, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_kelulusan != "") {$model->tarikh_kelulusan = GeneralFunction::convert($model->tarikh_kelulusan, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
             'model' => $model,

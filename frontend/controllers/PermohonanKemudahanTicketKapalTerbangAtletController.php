@@ -14,6 +14,7 @@ use yii\helpers\Json;
 use app\models\Atlet;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 /**
  * PermohonanKemudahanTicketKapalTerbangAtletController implements the CRUD actions for PermohonanKemudahanTicketKapalTerbangAtlet model.
@@ -69,6 +70,9 @@ class PermohonanKemudahanTicketKapalTerbangAtletController extends Controller
         
         $ref = Atlet::findOne(['atlet_id' => $model->atlet]);
         $model->atlet = $ref['nameAndIC'];
+        
+        if($model->tarikh_pergi != "") {$model->tarikh_pergi = GeneralFunction::convert($model->tarikh_pergi, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_balik != "") {$model->tarikh_balik = GeneralFunction::convert($model->tarikh_balik, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
             'model' => $model,

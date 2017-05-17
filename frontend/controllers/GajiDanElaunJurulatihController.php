@@ -91,6 +91,9 @@ class GajiDanElaunJurulatihController extends Controller
         $ref = RefSukan::findOne(['id' => $model->nama_sukan]);
         $model->nama_sukan = $ref['desc'];
         
+        if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
+        
         $queryPar = null;
         
         $queryPar['ElaunJurulatihSearch']['gaji_dan_elaun_jurulatih_id'] = $id;

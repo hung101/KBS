@@ -109,6 +109,9 @@ class SkimKebajikanController extends Controller
         $ref = RefHubunganSkimKebajian::findOne(['id' => $model->hubungan_penerima]);
         $model->hubungan_penerima = $ref['desc'];
         
+        if($model->tarikh_kejadian != "") {$model->tarikh_kejadian = GeneralFunction::convert($model->tarikh_kejadian, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_kelulusan != "") {$model->tarikh_kelulusan = GeneralFunction::convert($model->tarikh_kelulusan, GeneralFunction::TYPE_DATE);}
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,

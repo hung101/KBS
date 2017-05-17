@@ -15,6 +15,7 @@ use common\models\general\GeneralFunction;
 // table reference
 use app\models\Jurulatih;
 use app\models\RefBank;
+use app\models\RefPembayaranKepada;
 
 /**
  * PembayaranInsentifJurulatihController implements the CRUD actions for PembayaranInsentifJurulatih model.
@@ -73,6 +74,9 @@ class PembayaranInsentifJurulatihController extends Controller
         
         $ref = RefBank::findOne(['id' => $model->nama_bank]);
         $model->nama_bank = $ref['desc'];
+        
+        $ref = RefPembayaranKepada::findOne(['id' => $model->pembayaran_kepada]);
+        $model->pembayaran_kepada = $ref['desc'];
         
         return $this->renderAjax('view', [
             'model' => $model,

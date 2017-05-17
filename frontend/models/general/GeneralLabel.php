@@ -1042,7 +1042,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const laporan_elaun_atlet_mengikut_sukan_paralimpik = "Laporan Elaun Atlet Mengikut Sukan (Paralimpik)";
         const laporan_fisiologi_jumlah_bilangan_ujian = "Laporan Fisiologi Jumlah Bilangan Ujian";
         const laporan_hadiah_kemenangan_untuk_temasya_sukan = "Laporan Skim Hadiah Kemenangan Sukan";
-        const laporan_jadual_pegawai_temujanji = "Jadual Pegawai Temujanji";
+        const laporan_jadual_pegawai_temujanji = "Jadual Temujanji Pegawai";
         const laporan_jadual_perjalanan_bas = "Jadual Perjalanan Bas";
         const laporan_jadual_waktu_sajian_makanan_atlet = "Jadual Waktu Sajian Makanan Atlet";
         const laporan_jumlah_pingat_mengikut_acara = "Laporan Jumlah Pingat Mengikut Acara";
@@ -1264,7 +1264,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const module_name = "Module Name";
         const mou_moa_antarabangsa = "MOU-MOA Antarabangsa";
         const ms_negeri = "MS Negeri";
-        const msn_biasiswa_rekod = "MSN: Scholarship Records";
+        const msn_biasiswa_rekod = "MSN: Biasiswa Rekod";
         const laporan_kewangan_plan_periodisasi = "Laporan Kewangan Plan Periodisasi";
         const muat_naik = "Muat Naik";
         const muat_naik_document = "Muat Naik Document";
@@ -2321,6 +2321,8 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const tarikh_mesyuarat = "Tarikh Mesyuarat";
         const tarikh_muat_naik = "Tarikh Muat Naik";
         const tarikh_mula = "Tarikh Mula";
+        const tarikh_nilai_mula = "Tarikh Mula Penilaian";
+        const tarikh_nilai_tamat = "Tarikh Tamat Penilaian";
         const print_jkb = "Cetak Borang JKB";
         const laporan_cawangan_pengurusan_jurulatih = "Laporan Cawangan Pengurusan Jurulatih";
         const laporan_permohonan_jawatankuasa_bantuan = "Laporan Permohonan Jawatankuasa Bantuan";
@@ -5075,7 +5077,7 @@ if($session->get('language') == "EN") {
 		const jumlah_bantuan_yang_dipohon_index = "Total Aid Applied";
         const module_name = "Module Name";
         const mou_moa_antarabangsa = "MOU-MOA International";
-        const msn_biasiswa_rekod = "MSN: Biasiswa Rekod";
+        const msn_biasiswa_rekod = "MSN: Scholarship Records";
         const muat_naik = "Upload";
         const muat_naik_document = "Upload Document";
         const muat_naik_dokumen = "Upload Document";
@@ -6108,6 +6110,8 @@ if($session->get('language') == "EN") {
         const tarikh_mesyuarat = "Meeting Date";
         const tarikh_muat_naik = "Date Of Upload";
         const tarikh_mula = "Start Date";
+        const tarikh_nilai_mula = "Start Date Rating";
+        const tarikh_nilai_tamat = "End Date Rating";
         const tarikh_pemantauan = "Date Monitoring";
         const pemantauan_usptn = "USPTN Monitoring";
         const tarikh_pemeriksaan = "Inspection Date";

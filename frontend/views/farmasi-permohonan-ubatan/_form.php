@@ -276,7 +276,10 @@ use app\models\general\GeneralMessage;
     
     <br>
     
-    <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['kelulusan']) || $readonly): ?>
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['kelulusan']) || 
+            isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['kelulusan_ceo']) ||
+            isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['kelulusan_pbu']) ||
+            $readonly): ?>
     <?php
         echo FormGrid::widget([
 			'model' => $model,

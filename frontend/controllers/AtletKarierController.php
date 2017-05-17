@@ -12,6 +12,7 @@ use yii\web\Session;
 
 // contant values
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefBandar;
@@ -109,6 +110,9 @@ class AtletKarierController extends Controller
         
         $ref = \app\models\RefBandar::findOne(['id' => $model->alamat_bandar]);
         $model->alamat_bandar = $ref['desc'];
+        
+        if($model->tahun_mula != "") {$model->tahun_mula = GeneralFunction::convert($model->tahun_mula, GeneralFunction::TYPE_DATE);}
+        if($model->tahun_tamat != "") {$model->tahun_tamat = GeneralFunction::convert($model->tahun_tamat, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
             'model' => $model,

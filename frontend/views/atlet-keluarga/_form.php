@@ -163,7 +163,7 @@ $("#KeluargaNoICID").focusout(function(){
     }
     
         
-    $("#KeluargaTarikhLahirID-disp").val(formatSaveDate(DOBVal));
+    $("#KeluargaTarikhLahirID-disp").val(formatDisplayDate(DOBVal));
     $("#KeluargaTarikhLahirID").val(formatSaveDate(DOBVal));
         
        /* $('#KeluargaTarikhLahirID').kvDatepicker({

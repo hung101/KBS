@@ -88,6 +88,10 @@ class AkkProgramJurulatihController extends Controller
         $ref = RefKelulusan::findOne(['id' => $model->kelulusan_jkb]);
         $model->kelulusan_jkb = $ref['desc'];
         
+        if($model->tarikh_program != "") {$model->tarikh_program = GeneralFunction::convert($model->tarikh_program, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_mpj != "") {$model->tarikh_mpj = GeneralFunction::convert($model->tarikh_mpj, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_jkb != "") {$model->tarikh_jkb = GeneralFunction::convert($model->tarikh_jkb, GeneralFunction::TYPE_DATE);}
+        
         $queryPar = null;
         
         $queryPar['AkkProgramJurulatihPesertaSearch']['akk_program_jurulatih_id'] = $id;

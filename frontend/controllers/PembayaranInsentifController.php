@@ -125,6 +125,11 @@ class PembayaranInsentifController extends Controller
         $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->persatuan]);
         $model->persatuan = $ref['nama_badan_sukan'];
         
+        if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_kelulusan != "") {$model->tarikh_kelulusan = GeneralFunction::convert($model->tarikh_kelulusan, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_pembayaran_insentif != "") {$model->tarikh_pembayaran_insentif = GeneralFunction::convert($model->tarikh_pembayaran_insentif, GeneralFunction::TYPE_DATE);}
+        
         $queryPar = null;
         
         $queryPar['PembayaranInsentifAtletSearch']['pembayaran_insentif_id'] = $id;

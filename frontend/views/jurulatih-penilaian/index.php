@@ -79,6 +79,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_dinilai,
                 ],
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_dinilai);
+                },
             ],
                 ['class' => 'yii\grid\ActionColumn',
                     'buttons' => [

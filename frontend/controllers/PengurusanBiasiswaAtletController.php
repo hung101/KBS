@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 
 // contant values
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Atlet;
@@ -66,6 +67,9 @@ class PengurusanBiasiswaAtletController extends Controller
         
         $ref = Atlet::findOne(['atlet_id' => $model->atlet_id]);
         $model->atlet_id = $ref['nameAndIC'];
+        
+        if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_akhir != "") {$model->tarikh_akhir = GeneralFunction::convert($model->tarikh_akhir, GeneralFunction::TYPE_DATE);}
         
         return $this->render('view', [
             'model' => $model,

@@ -551,43 +551,43 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
 								[
 									'label' => GeneralLabel::farmasi,
 									'items' => [
-										['label' => GeneralLabel::permohonan, 'url' => ['/farmasi-permohonan-ubatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['module'])],
-										[
-                                            'label' => GeneralLabel::statistik,
-                                            'items' => [
-                                                ['label' => GeneralLabel::laporan_statistik_bulanan_pengunaan_ubatan_dan_kos, 'url' => ['/farmasi-permohonan-ubatan/laporan-statistik-bulanan-pengunaan-ubatan-dan-kos'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['module'])],
-                                            ],
-                                        ],
+                                                                            ['label' => GeneralLabel::permohonan, 'url' => ['/farmasi-permohonan-ubatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['module'])],
+                                                                            [
+                                                                                'label' => GeneralLabel::statistik,
+                                                                                'items' => [
+                                                                                    ['label' => GeneralLabel::laporan_statistik_bulanan_pengunaan_ubatan_dan_kos, 'url' => ['/farmasi-permohonan-ubatan/laporan-statistik-bulanan-pengunaan-ubatan-dan-kos'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['module'])],
+                                                                                ],
+                                                                            ],
 									],
 								],
 								[
-									'label' => GeneralLabel::ujian_makmal,
-									'items' => [
-										['label' => GeneralLabel::temujanji, 'url' => ['/pl-temujanji-makmal-perubatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-makmal-perubatan']['module'])],
-										[
-                                            'label' => GeneralLabel::statistik,
-                                            'items' => [
-                                                ['label' => GeneralLabel::laporan_temujanji_makmal_perubatan, 'url' => ['/pl-temujanji-makmal-perubatan/laporan-temujanji-makmal-perubatan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-makmal-perubatan']['module'])],
-                                            ],
-                                        ],
-									],
+                                                                    'label' => GeneralLabel::ujian_makmal,
+                                                                    'items' => [
+                                                                        ['label' => GeneralLabel::temujanji, 'url' => ['/pl-temujanji-makmal-perubatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-makmal-perubatan']['module'])],
+                                                                        [
+                                                                            'label' => GeneralLabel::statistik,
+                                                                            'items' => [
+                                                                                ['label' => GeneralLabel::laporan_temujanji_makmal_perubatan, 'url' => ['/pl-temujanji-makmal-perubatan/laporan-temujanji-makmal-perubatan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-makmal-perubatan']['module'])],
+                                                                            ],
+                                                                        ],
+                                                                    ],
 								],
 								[
-									'label' => GeneralLabel::makmal_pengimejan,
-									'items' => [
-                                        ['label' => GeneralLabel::temujanji, 'url' => ['/pl-temujanji-penyiasatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-penyiasatan']['module'])],
-                                        //['label' => GeneralLabel::data_klinikal, 'url' => ['/pl-data-klinikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-data-klinikal']['module'])],
-                                        [
-                                            'label' => GeneralLabel::statistik,
-                                            'items' => [
-                                                ['label' => GeneralLabel::laporan_temujanji_penyiasatan, 'url' => ['/pl-temujanji-penyiasatan/laporan-temujanji-penyiasatan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-penyiasatan']['module'])],
-                                            ],
-                                        ],
-									],
+                                                                    'label' => GeneralLabel::makmal_pengimejan,
+                                                                    'items' => [
+                                                                        ['label' => GeneralLabel::temujanji, 'url' => ['/pl-temujanji-penyiasatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-penyiasatan']['module'])],
+                                                                        //['label' => GeneralLabel::data_klinikal, 'url' => ['/pl-data-klinikal/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-data-klinikal']['module'])],
+                                                                        [
+                                                                            'label' => GeneralLabel::statistik,
+                                                                            'items' => [
+                                                                                ['label' => GeneralLabel::laporan_temujanji_penyiasatan, 'url' => ['/pl-temujanji-penyiasatan/laporan-temujanji-penyiasatan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-penyiasatan']['module'])],
+                                                                            ],
+                                                                        ],
+                                                                    ],
 								],
-								[
-									'label' => GeneralLabel::caj_perkhidmatan_dan_harga_ubatan,
-									'items' => [
+                                [
+                                    'label' => GeneralLabel::caj_perkhidmatan_dan_harga_ubatan,
+                                    'items' => [
                                         ['label' => GeneralLabel::senarai_harga, 'url' => ['/senarai-harga-perkhidmatan-ubatan-peralatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['senarai-harga-perkhidmatan-ubatan-peralatan']['module'])],
                                         [
                                             'label' => GeneralLabel::statistik,
@@ -595,11 +595,11 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                                 ['label' => GeneralLabel::laporan_senarai_harga_perkhidmatan_ubatan_peralatan, 'url' => ['/senarai-harga-perkhidmatan-ubatan-peralatan/laporan-senarai-harga-perkhidmatan-ubatan-peralatan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['senarai-harga-perkhidmatan-ubatan-peralatan']['module'])],
                                             ],
                                         ],
-									],
-								],
-								[
-									'label' => GeneralLabel::fisioterapi_rehabilitasi,
-									'items' => [
+                                    ],
+                                ],
+                                [
+                                    'label' => GeneralLabel::fisioterapi_rehabilitasi,
+                                    'items' => [
                                         ['label' => GeneralLabel::temujanji, 'url' => ['/pl-temujanji-fisioterapi/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-fisioterapi']['module'])],
                                         [
                                             'label' => GeneralLabel::statistik,
@@ -608,13 +608,13 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                                                 ['label' => GeneralLabel::laporan_bulanan, 'url' => ['/pl-temujanji-fisioterapi/laporan-statistik-bulanan-temujanji-fisioterapi-rehabilitasi'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['pl-temujanji-fisioterapi']['module'])],
                                             ],
                                         ],
-									],
-								],
-								[
+                                    ],
+                                ],
+                                [
                                     'label' => GeneralLabel::liputan_perubatan,
                                     'items' => [
                                         ['label' => GeneralLabel::permohonan, 'url' => ['/farmasi-permohonan-liputan-perubatan-sukan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['module'])],
-                                        ['label' => GeneralLabel::ubatan, 'url' => ['/farmasi-permohonan-ubatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['module'])],
+                                        ['label' => GeneralLabel::ubatan, 'url' => ['/farmasi-permohonan-ubatan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['module'])],
                                         [
                                             'label' => GeneralLabel::statistik,
                                             'items' => [
@@ -1017,7 +1017,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
 					]
 				];
                 
-                //if(isset(Yii::$app->user->identity->peranan_akses['Admin'])){
+                if(isset(Yii::$app->user->identity->peranan_akses['Admin']) || isset(Yii::$app->user->identity->peranan_akses['PJS']['persatuan']['module'])){
                     $sideMenuItems[] = ['label' => GeneralLabel::administration, 'url' => ['#'],'items' => [
                         ['label' => GeneralLabel::tetapan_sistem_spsb, 'url' => ['/system/load'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['Admin']['system']['module'])],
                         ['label' => GeneralLabel::user, 'url' => ['/user/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['module'])],
@@ -1026,7 +1026,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                         ['label' => GeneralLabel::persatuan, 'url' => ['/persatuan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['PJS']['persatuan']['module'])],
                         ['label' => GeneralLabel::admin_audit_log, 'url' => ['/audit/trail'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['Admin']['admin-audit']['module'])],
                     ]];
-                //}
+                }
                 
                 //$sideMenuItems[] = ['label' => GeneralLabel::laporan, 'url' => 'http://10.19.189.87:8080/jasperserver'];
                 

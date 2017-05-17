@@ -202,6 +202,13 @@ class JurulatihController extends Controller
          $ref = RefAgensiJurulatih::findOne(['id' => $model->agensi]);
         $model->agensi = $ref['desc'];
         
+        if($model->tamat_tempoh != "") {$model->tamat_tempoh = GeneralFunction::convert($model->tamat_tempoh, GeneralFunction::TYPE_DATE);}
+        if($model->tamat_visa_tempoh != "") {$model->tamat_visa_tempoh = GeneralFunction::convert($model->tamat_visa_tempoh, GeneralFunction::TYPE_DATE);}
+        if($model->tamat_permit_tempoh != "") {$model->tamat_permit_tempoh = GeneralFunction::convert($model->tamat_permit_tempoh, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_lahir != "") {$model->tarikh_lahir = GeneralFunction::convert($model->tarikh_lahir, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_mpj != "") {$model->tarikh_mpj = GeneralFunction::convert($model->tarikh_mpj, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_jkb != "") {$model->tarikh_jkb = GeneralFunction::convert($model->tarikh_jkb, GeneralFunction::TYPE_DATE);}
+        
         return $this->render('layout', [
             'model' => $model,
             'readonly' => true,

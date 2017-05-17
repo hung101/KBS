@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\web\Session;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefSukan;
@@ -125,6 +126,8 @@ class AtletPakaianController extends Controller
         
         //$ref = RefJenamaPakaian::findOne(['id' => $model->jenama]);
         //$model->jenama = $ref['desc'];
+        
+        if($model->tarikh_serahan != "") {$model->tarikh_serahan = GeneralFunction::convert($model->tarikh_serahan, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
             'model' => $model,

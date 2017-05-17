@@ -9,6 +9,7 @@ use yii\web\Session;
 
 use app\models\Atlet;
 use app\models\AtletSukan;
+use app\models\RefStatusTawaran;
 
 use app\models\general\GeneralVariable;
 
@@ -16,6 +17,9 @@ use app\models\general\GeneralVariable;
 /* @var $model app\models\Atlet */
 
 $disabledTabs = '';
+
+$visibleTabsDuringCadangan = true;
+$visibleAfterLulus = true;
 
 if($this->context->action->id == "create"){
     $disabledTabs = 'disabled';
@@ -57,6 +61,11 @@ $this->params['breadcrumbs'][] = $this->title;
         $modelAtlet = null;
         
         if ($atlet_id != "" && ($modelAtlet = Atlet::findOne($atlet_id)) !== null) {
+            if($modelAtlet->tawaran == RefStatusTawaran::LULUS_TAWARAN){
+                $visibleAfterLulus = true;
+            } else {
+                $visibleAfterLulus = false;
+            }
         }
         
         $modelSukanProgram = AtletSukan::find()->joinWith(['refSukan'])
@@ -115,7 +124,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPendidikanID],
                     'linkOptions'=>['data-url'=>Url::to(['/atlet-pendidikan','typeJson'=>'1'])],
-                    'headerOptions' => ['class'=>$disabledTabs]
+                    'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleTabsDuringCadangan
                 ],
                 [
                     'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::kerjaya,
@@ -123,7 +133,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabKarrierID],
                     'linkOptions'=>['data-url'=>Url::to(['/atlet-karier','typeJson'=>'1'])],
-                    'headerOptions' => ['class'=>$disabledTabs]
+                    'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleTabsDuringCadangan
                 ],
                 [
                     'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::kursus_kem,
@@ -131,7 +142,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPembangunanKursuskemID],
                     'linkOptions'=>['data-url'=>Url::to(['/atlet-pembangunan-kursuskem','typeJson'=>'1'])],
-                    'headerOptions' => ['class'=>$disabledTabs]
+                    'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleAfterLulus
                 ],
                 [
                     'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::kaunseling,
@@ -139,7 +151,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPembangunanKaunselingID],
                     'linkOptions'=>['data-url'=>Url::to(['/atlet-pembangunan-kaunseling','typeJson'=>'1'])],
-                    'headerOptions' => ['class'=>$disabledTabs]
+                    'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleAfterLulus
                 ],
                [
                     'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::kemahiran,
@@ -147,7 +160,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPembangunanKemahiranID],
                     'linkOptions'=>['data-url'=>Url::to(['/atlet-pembangunan-kemahiran','typeJson'=>'1'])],
-                    'headerOptions' => ['class'=>$disabledTabs]
+                    'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleAfterLulus
                 ],
             ],
         ],
@@ -160,6 +174,7 @@ $this->params['breadcrumbs'][] = $this->title;
         [
             'label'=>'<i class="glyphicon glyphicon-erase"></i> '.GeneralLabel::perubatan_sains_sukan,
             'headerOptions' => ['class'=>$disabledTabs],
+            'visible' => $visibleAfterLulus,
             'items'=>[
              [
                  'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::perubatan,
@@ -167,7 +182,8 @@ $this->params['breadcrumbs'][] = $this->title;
                  'content'=>'&nbsp;',
                  'options' => ['tab_id' => GeneralVariable::tabPerubatanID],
                  'linkOptions'=>['data-url'=>Url::to(['/atlet-perubatan/update','typeJson'=>'1'])],
-                 'headerOptions' => ['class'=>$disabledTabs]
+                 'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleAfterLulus
              ],
             /*[
                  'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> Sejarah Perubatan',
@@ -191,7 +207,8 @@ $this->params['breadcrumbs'][] = $this->title;
                  'content'=>'&nbsp;',
                  'options' => ['tab_id' => GeneralVariable::tabPerubatanInsuransID],
                  'linkOptions'=>['data-url'=>Url::to(['/atlet-perubatan-insurans','typeJson'=>'1'])],
-                 'headerOptions' => ['class'=>$disabledTabs]
+                 'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleAfterLulus
              ],
              [
                  'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::penderma,
@@ -199,7 +216,8 @@ $this->params['breadcrumbs'][] = $this->title;
                  'content'=>'&nbsp;',
                  'options' => ['tab_id' => GeneralVariable::tabPerubatanDonatorID],
                  'linkOptions'=>['data-url'=>Url::to(['/atlet-perubatan-donator','typeJson'=>'1'])],
-                 'headerOptions' => ['class'=>$disabledTabs]
+                 'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleAfterLulus
              ],
              [
                  'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::rekods,
@@ -207,13 +225,15 @@ $this->params['breadcrumbs'][] = $this->title;
                  'content'=>'&nbsp;',
                  'options' => ['tab_id' => GeneralVariable::tabPerubatanRekodsID],
                  'linkOptions'=>['data-url'=>Url::to(['/atlet-perubatan-rekods','typeJson'=>'1'])],
-                 'headerOptions' => ['class'=>$disabledTabs]
+                 'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleAfterLulus
              ],
         ],
         ],
         [
             'label'=>'<i class="glyphicon glyphicon-usd"></i> '.GeneralLabel::kewangan_penajaan,
             'headerOptions' => ['class'=>$disabledTabs],
+            'visible' => $visibleAfterLulus,
             'items'=>[
                 [
                     'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::akaun,
@@ -221,7 +241,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabKewanganAkaunID],
                     'linkOptions'=>['data-url'=>Url::to(['/atlet-kewangan-akaun','typeJson'=>'1'])],
-                    'headerOptions' => ['class'=>$disabledTabs]
+                    'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleAfterLulus
                 ],
                [
                     'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::elaun,
@@ -229,7 +250,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabKewanganElaunID],
                     'linkOptions'=>['data-url'=>Url::to(['/atlet-kewangan-elaun','typeJson'=>'1'])],
-                   'headerOptions' => ['class'=>$disabledTabs]
+                   'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleAfterLulus
                 ],
                 [
                     'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::insentif,
@@ -237,7 +259,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabKewanganInsentifID],
                     'linkOptions'=>['data-url'=>Url::to(['/atlet-kewangan-insentif','typeJson'=>'1'])],
-                    'headerOptions' => ['class'=>$disabledTabs]
+                    'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleAfterLulus
                 ],
                 [
                     'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::penajaan,
@@ -245,7 +268,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPenajaanID],
                     'linkOptions'=>['data-url'=>Url::to(['/atlet-penajaansokongan','typeJson'=>'1'])],
-                    'headerOptions' => ['class'=>$disabledTabs]
+                    'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleAfterLulus
                 ],
                 [
                     'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::biasiswa,
@@ -253,7 +277,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabKewanganBiasiswaID],
                     'linkOptions'=>['data-url'=>Url::to(['/atlet-kewangan-biasiswa','typeJson'=>'1'])],
-                    'headerOptions' => ['class'=>$disabledTabs]
+                    'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleAfterLulus
                 ],
             ],
         ],
@@ -274,7 +299,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabSukanID],
                     'linkOptions'=>['data-url'=>Url::to(['/atlet-sukan','typeJson'=>'1'])],
-                    'headerOptions' => ['class'=>$disabledTabs]
+                    'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleTabsDuringCadangan
                 ],
                 [
                     'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::persatuan_persekutuan_dunia,
@@ -282,13 +308,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabSukanPersatuanpersekutuanduniaID],
                     'linkOptions'=>['data-url'=>Url::to(['/atlet-sukan-persatuanpersekutuandunia','typeJson'=>'1'])],
-                    'headerOptions' => ['class'=>$disabledTabs]
+                    'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleAfterLulus
                 ],
             ],
         ],
         [
             'label'=>'<i class="glyphicon glyphicon-sunglasses"></i> '.GeneralLabel::kelengkapan_sukan,
             'headerOptions' => ['class'=>$disabledTabs],
+            'visible' => $visibleAfterLulus,
             'items'=>[
                 [
                     'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::pakaian_sukan,
@@ -296,7 +324,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPakaianSukanID],
                     'linkOptions'=>['data-url'=>Url::to(['/atlet-pakaian','typeJson'=>'1'])],
-                    'headerOptions' => ['class'=>$disabledTabs]
+                    'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleAfterLulus
                 ],
                 [
                     'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::peralatan_sukan,
@@ -304,7 +333,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPeralatanSukanID],
                     'linkOptions'=>['data-url'=>Url::to(['/atlet-pakaian-peralatan','typeJson'=>'1'])],
-                    'headerOptions' => ['class'=>$disabledTabs]
+                    'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleAfterLulus
                 ],
             ],
         ],
@@ -318,7 +348,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPencapaianID],
                     'linkOptions'=>['data-url'=>Url::to(['/atlet-pencapaian','typeJson'=>'1'])],
-                    'headerOptions' => ['class'=>$disabledTabs]
+                    'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleTabsDuringCadangan
                 ],
                 [
                     'label'=>'<i class="glyphicon glyphicon-chevron-right"></i> '.GeneralLabel::anugerah,
@@ -326,7 +357,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'content'=>'&nbsp;',
                     'options' => ['tab_id' => GeneralVariable::tabPencapaianAnugerahID],
                     'linkOptions'=>['data-url'=>Url::to(['/atlet-pencapaian-anugerah','typeJson'=>'1'])],
-                    'headerOptions' => ['class'=>$disabledTabs]
+                    'headerOptions' => ['class'=>$disabledTabs],
+                    'visible' => $visibleAfterLulus
                 ],
             ],
         ],
@@ -343,14 +375,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'options' => ['id' => GeneralVariable::tabOKUID],
             'linkOptions'=>['data-url'=>Url::to(['/atlet-oku','typeJson'=>'1'])],
             'headerOptions' => ['class'=>$disabledTabs],
-            'visible' => $visibleOKUTab
+            'visible' => ($visibleOKUTab && $visibleAfterLulus)
         ],
         [
             'label'=>'<i class="glyphicon glyphicon-heart"></i> '.GeneralLabel::keluarga,
             'content'=>'&nbsp;',
             'options' => ['id' => GeneralVariable::tabKeluargaID],
             'linkOptions'=>['data-url'=>Url::to(['/atlet-keluarga','typeJson'=>'1'])],
-            'headerOptions' => ['class'=>$disabledTabs]
+            'headerOptions' => ['class'=>$disabledTabs],
+            'visible' => $visibleTabsDuringCadangan
         ],
     ];
 

@@ -14,6 +14,7 @@ use yii\helpers\Json;
 use app\models\Jurulatih;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 /**
  * PermohonanKemudahanTicketKapalTerbangJurulatihController implements the CRUD actions for PermohonanKemudahanTicketKapalTerbangJurulatih model.
@@ -69,6 +70,9 @@ class PermohonanKemudahanTicketKapalTerbangJurulatihController extends Controlle
         
         $ref = Jurulatih::findOne(['jurulatih_id' => $model->jurulatih]);
         $model->jurulatih = $ref['nameAndIC'];
+        
+        if($model->tarikh_pergi != "") {$model->tarikh_pergi = GeneralFunction::convert($model->tarikh_pergi, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_balik != "") {$model->tarikh_balik = GeneralFunction::convert($model->tarikh_balik, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
             'model' => $model,

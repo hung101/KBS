@@ -202,8 +202,20 @@ use common\models\general\GeneralFunction;
             //'gaji_jurulatih_id',
             //'gaji_dan_elaun_jurulatih_id',
             'jumlah',
-            'tarikh_mula',
-            'tarikh_tamat',
+            //'tarikh_mula',
+            [
+                'attribute' => 'tarikh_mula',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_mula);
+                },
+            ],
+            //'tarikh_tamat',
+            [
+                'attribute' => 'tarikh_tamat',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_tamat);
+                },
+            ],
             // 'session_id',
             // 'created_by',
             // 'updated_by',

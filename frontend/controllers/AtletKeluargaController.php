@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\web\Session;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefHubungan;
@@ -123,6 +124,8 @@ class AtletKeluargaController extends Controller
         
         $ref = RefBangsa::findOne(['id' => $model->bangsa]);
         $model->bangsa = $ref['desc'];
+        
+        if($model->tarikh_lahir != "") {$model->tarikh_lahir = GeneralFunction::convert($model->tarikh_lahir, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
             'model' => $model,

@@ -81,6 +81,8 @@ class LaporanPemantauanJurulatihController extends Controller
         $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program_id]);
         $model->program_id = $ref['desc'];
         
+        if($model->tarikh_dinilai != "") {$model->tarikh_dinilai = GeneralFunction::convert($model->tarikh_dinilai, GeneralFunction::TYPE_DATE);}
+        
         $queryPar = null;
         
         $queryPar['LaporanPemantauanJurulatihKategoriSearch']['laporan_pemantauan_jurulatih_id'] = $id;

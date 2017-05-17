@@ -13,6 +13,7 @@ use yii\filters\VerbFilter;
 
 // contant values
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Atlet;
@@ -72,6 +73,9 @@ class PengurusanPenginapanController extends Controller
         
         $ref = Atlet::findOne(['atlet_id' => $model->atlet_id]);
         $model->atlet_id = $ref['nameAndIC'];
+        
+        if($model->tarikh_masa_penginapan_mula != "") {$model->tarikh_masa_penginapan_mula = GeneralFunction::convert($model->tarikh_masa_penginapan_mula, GeneralFunction::TYPE_DATETIME);}
+        if($model->tarikh_masa_penginapan_akhir != "") {$model->tarikh_masa_penginapan_akhir = GeneralFunction::convert($model->tarikh_masa_penginapan_akhir, GeneralFunction::TYPE_DATETIME);}
         
         $queryPar = null;
         

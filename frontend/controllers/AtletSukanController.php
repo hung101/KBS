@@ -12,6 +12,7 @@ use yii\web\Session;
 use yii\helpers\Json;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Jurulatih;
@@ -148,6 +149,10 @@ class AtletSukanController extends Controller
         
         $ref = ProfilPusatLatihan::findOne(['profil_pusat_latihan_id' => $model->profil_pusat_latihan_id]);
         $model->profil_pusat_latihan_id = $ref['nama_pusat_latihan'];
+        
+        if($model->tarikh_mula_menyertai_program_msn != "") {$model->tarikh_mula_menyertai_program_msn = GeneralFunction::convert($model->tarikh_mula_menyertai_program_msn, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat_menyertai_program_msn != "") {$model->tarikh_tamat_menyertai_program_msn = GeneralFunction::convert($model->tarikh_tamat_menyertai_program_msn, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_kelulusan != "") {$model->tarikh_kelulusan = GeneralFunction::convert($model->tarikh_kelulusan, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
             'model' => $model,

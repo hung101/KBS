@@ -6,6 +6,7 @@ use yii\helpers\ArrayHelper;
 
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 use app\models\Jurulatih;
 use app\models\RefStatusJurulatih;
@@ -558,6 +559,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_hantar,
                 ],
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->approved_date, GeneralFunction::TYPE_DATETIME);
+                },
             ],
             //'program',
            // 'gambar',

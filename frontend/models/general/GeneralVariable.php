@@ -123,6 +123,9 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jurulatihSukanTabModalTitle = "modalTitleJurulatihSukanAcara";
         const jurulatihSukanTabModal = "modalJurulatihSukanAcara";
         const jurulatihSukanTabModalContent = "modalContentJurulatihSukanAcara";
+        const jurulatihKesihatanTabModalTitle = "modalTitleJurulatihKesihatanMasalah";
+        const jurulatihKesihatanTabModal = "modalJurulatihKesihatanMasalah";
+        const jurulatihKesihatanTabModalContent = "modalContentJurulatihKesihatanMasalah";
         
         //System Display Date Format 
         const displayDateFormat = "dd-mm-yyyy";
@@ -262,6 +265,9 @@ if($session->get('language') == "EN") {
         const jurulatihSukanTabModalTitle = "modalTitleJurulatihSukanAcara";
         const jurulatihSukanTabModal = "modalJurulatihSukanAcara";
         const jurulatihSukanTabModalContent = "modalContentJurulatihSukanAcara";
+        const jurulatihKesihatanTabModalTitle = "modalTitleJurulatihKesihatanMasalah";
+        const jurulatihKesihatanTabModal = "modalJurulatihKesihatanMasalah";
+        const jurulatihKesihatanTabModalContent = "modalContentJurulatihKesihatanMasalah";
         
         //System Display Date Format 
         const displayDateFormat = "dd-mm-yyyy";

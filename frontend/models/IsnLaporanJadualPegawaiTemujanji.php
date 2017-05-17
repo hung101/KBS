@@ -11,6 +11,7 @@ use app\models\general\GeneralMessage;
 
 class IsnLaporanJadualPegawaiTemujanji extends Model
 {
+    public $tarikh;
     public $tarikh_dari;
     public $tarikh_hingga;
     public $pegawai_bertanggungjawab;
@@ -27,7 +28,7 @@ class IsnLaporanJadualPegawaiTemujanji extends Model
     {
         return [
             [['format'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_dari', 'tarikh_hingga', 'pegawai_bertanggungjawab', 'sukan', 'bahagian_kecederaan', 'atlet', 'rawatan', 'status_temujanji', 'kategori_rawatan'], 'safe'],
+            [['tarikh' ,'tarikh_dari', 'tarikh_hingga', 'pegawai_bertanggungjawab', 'sukan', 'bahagian_kecederaan', 'atlet', 'rawatan', 'status_temujanji', 'kategori_rawatan'], 'safe'],
             [['tarikh_hingga'], 'compare', 'compareAttribute'=>'tarikh_dari', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
@@ -35,6 +36,7 @@ class IsnLaporanJadualPegawaiTemujanji extends Model
     public function attributeLabels()
     {
         return [
+            'tarikh' => GeneralLabel::tarikh,
             'tarikh_dari' => GeneralLabel::tarikh_dari,
             'tarikh_hingga' => GeneralLabel::tarikh_hingga,
             'pegawai_bertanggungjawab' => GeneralLabel::pegawai_yang_bertanggungjawab,

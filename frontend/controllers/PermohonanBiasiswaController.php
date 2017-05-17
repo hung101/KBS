@@ -105,6 +105,9 @@ class PermohonanBiasiswaController extends Controller
         $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         $model->kelulusan = $YesNo;
         
+        if($model->tarikh_mula_pengajian != "") {$model->tarikh_mula_pengajian = GeneralFunction::convert($model->tarikh_mula_pengajian, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat_pengajian != "") {$model->tarikh_tamat_pengajian = GeneralFunction::convert($model->tarikh_tamat_pengajian, GeneralFunction::TYPE_DATE);}
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,

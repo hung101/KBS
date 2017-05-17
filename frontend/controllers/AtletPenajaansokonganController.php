@@ -12,6 +12,7 @@ use yii\web\Session;
 
 // contant values
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefJenisKontrakPenajaan;
@@ -122,6 +123,9 @@ class AtletPenajaansokonganController extends Controller
         
         $ref = RefBandar::findOne(['id' => $model->alamat_bandar]);
         $model->alamat_bandar = $ref['desc'];
+        
+        if($model->tahun_permulaan != "") {$model->tahun_permulaan = GeneralFunction::convert($model->tahun_permulaan, GeneralFunction::TYPE_DATE);}
+        if($model->tahun_akhir != "") {$model->tahun_akhir = GeneralFunction::convert($model->tahun_akhir, GeneralFunction::TYPE_DATE);}
         
         //$ref = RefJenisKontrakPenajaan::findOne(['id' => $model->jenis_kontrak]);
         //$model->jenis_kontrak = $ref['desc'];

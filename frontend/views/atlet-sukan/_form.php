@@ -388,6 +388,7 @@ if($model->isNewRecord){
     ?>
     
     <?php
+    if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['tawaran']) && !$model->isNewRecord){
         echo FormGrid::widget([
             'model' => $model,
             'form' => $form,
@@ -414,6 +415,7 @@ if($model->isNewRecord){
                 ]
             ]
         ]);
+    }
     ?>
 
     <!--<?= $form->field($model, 'atlet_id')->textInput() ?>

@@ -94,6 +94,8 @@ class TemujanjiKomplimentariController extends Controller
         $ref = RefLokasiKomplimentari::findOne(['id' => $model->lokasi]);
         $model->lokasi = $ref['desc'];
         
+        if($model->tarikh_khidmat != "") {$model->tarikh_khidmat = GeneralFunction::convert($model->tarikh_khidmat, GeneralFunction::TYPE_DATE);}
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,

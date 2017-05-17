@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use Yii;
+use app\models\Atlet;
 use app\models\AtletPerubatan;
 use app\models\AtletPerubatanSearch;
 use yii\web\Controller;
@@ -129,16 +130,27 @@ class AtletPerubatanController extends Controller
         // set Atlet Id
         $session = new Session;
         $session->open();
+        
+        $hantar = 1;
 
         if(isset($session['atlet_id'])){
             $atlet_id = $session['atlet_id'];
             $model->atlet_id = $atlet_id;
+            
+            $atletModel = null;
+    
+            if (($atletModel = Atlet::findOne($atlet_id)) !== null) {
+                $hantar = $atletModel->hantar;
+            }
         }
+        
+        
         
         $readonly = true;
 
-        if( ( !isset($session['program_semasa_id']) || (isset($session['program_semasa_id']) && $session['program_semasa_id'] != RefProgramSemasaSukanAtlet::PODIUM) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['update'])) || 
-            (isset($session['program_semasa_id']) && $session['program_semasa_id'] == RefProgramSemasaSukanAtlet::PODIUM && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])) ){
+        if( ((( !isset($session['program_semasa_id']) || (isset($session['program_semasa_id']) && $session['program_semasa_id'] != RefProgramSemasaSukanAtlet::PODIUM) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['update'])) || 
+            (isset($session['program_semasa_id']) && $session['program_semasa_id'] == RefProgramSemasaSukanAtlet::PODIUM && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))) &&  $hantar == 0) || 
+                isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['kemaskini_yang_hantar']) ){
             $readonly = false;
         } else {
             $ref = RefKumpulanDarah::findOne(['id' => $model->kumpulan_darah]);
@@ -177,10 +189,18 @@ class AtletPerubatanController extends Controller
         
         $session = new Session;
         $session->open();
+        
+        $hantar = 1;
 
         $atlet_id = null;
         if(isset($session['atlet_id'])){
             $atlet_id = $session['atlet_id'];
+            
+            $atletModel = null;
+    
+            if (($atletModel = Atlet::findOne($atlet_id)) !== null) {
+                $hantar = $atletModel->hantar;
+            }
         }
         
         
@@ -199,8 +219,9 @@ class AtletPerubatanController extends Controller
             } else {
                 $readonly = true;
                 
-                if( ( !isset($session['program_semasa_id']) || (isset($session['program_semasa_id']) && $session['program_semasa_id'] != RefProgramSemasaSukanAtlet::PODIUM) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['update'])) || 
-                    (isset($session['program_semasa_id']) && $session['program_semasa_id'] == RefProgramSemasaSukanAtlet::PODIUM && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini'])) ){
+                if( ((( !isset($session['program_semasa_id']) || (isset($session['program_semasa_id']) && $session['program_semasa_id'] != RefProgramSemasaSukanAtlet::PODIUM) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['update'])) || 
+                    (isset($session['program_semasa_id']) && $session['program_semasa_id'] == RefProgramSemasaSukanAtlet::PODIUM && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))) &&  $hantar == 0) || 
+                isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['kemaskini_yang_hantar']) ){
                     $readonly = false;
                 } else {
                     $ref = RefKumpulanDarah::findOne(['id' => $model->kumpulan_darah]);

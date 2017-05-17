@@ -10,6 +10,7 @@ ShowLoadingAsset::register($this);
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\JurulatihSukanSearch */
@@ -107,6 +108,9 @@ use yii\web\Session;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula_lantikan,
                 ],
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_mula_lantikan);
+                },
             ],
             // 'tarikh_tamat_lantikan',
             [
@@ -115,6 +119,9 @@ use yii\web\Session;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat_lantikan,
                 ],
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_tamat_lantikan);
+                },
             ],
             // 'gaji_elaun',
             [

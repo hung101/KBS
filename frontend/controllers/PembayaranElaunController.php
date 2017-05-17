@@ -19,6 +19,7 @@ use app\models\RefSukan;
 
 // contant values
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /**
  * PembayaranElaunController implements the CRUD actions for PembayaranElaun model.
@@ -75,6 +76,9 @@ class PembayaranElaunController extends Controller
         
         $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         $model->kelulusan = $YesNo;
+        
+        if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
         
         $queryPar = null;
         $queryPar['PembayaranElaunTransaksiSearch']['pembayaran_elaun_id'] = $id;

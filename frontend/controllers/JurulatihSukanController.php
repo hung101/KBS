@@ -16,6 +16,7 @@ use yii\helpers\Json;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefSukan;
@@ -118,6 +119,11 @@ class JurulatihSukanController extends Controller
         
         $ref = RefBahagianJurulatih::findOne(['id' => $model->bahagian]);
         $model->bahagian = $ref['desc'];
+        
+        if($model->tarikh_mula_lantikan != "") {$model->tarikh_mula_lantikan = GeneralFunction::convert($model->tarikh_mula_lantikan, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat_lantikan != "") {$model->tarikh_tamat_lantikan = GeneralFunction::convert($model->tarikh_tamat_lantikan, GeneralFunction::TYPE_DATE);}
+        if($model->letak_jawatan != "") {$model->letak_jawatan = GeneralFunction::convert($model->letak_jawatan, GeneralFunction::TYPE_DATE);}
+        if($model->kenaikan_mulai != "") {$model->kenaikan_mulai = GeneralFunction::convert($model->kenaikan_mulai, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
             'model' => $model,

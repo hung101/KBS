@@ -162,6 +162,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_hantar,
                 ],
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->created, GeneralFunction::TYPE_DATETIME);
+                },
             ],
                 ['class' => 'yii\grid\ActionColumn',
                     'buttons' => [

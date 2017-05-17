@@ -12,6 +12,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Session;
 
+use common\models\general\GeneralFunction;
+
 use app\models\RefJenisPencapaian;
 use app\models\RefStatusPermohonanPendidikan;
 use app\models\RefSekolahInstitusi;
@@ -131,6 +133,11 @@ class AtletPendidikanController extends Controller
         
         $ref = \app\models\RefSekolahInstitusi::findOne(['id' => $atletPendidikan->nama]);
         $atletPendidikan->nama = $ref['desc'];
+        
+        if($atletPendidikan->tahun_mula != "") {$atletPendidikan->tahun_mula = GeneralFunction::convert($atletPendidikan->tahun_mula, GeneralFunction::TYPE_DATE);}
+        if($atletPendidikan->tahun_tamat != "") {$atletPendidikan->tahun_tamat = GeneralFunction::convert($atletPendidikan->tahun_tamat, GeneralFunction::TYPE_DATE);}
+        if($atletPendidikan->tahun_mula_biasiswa != "") {$atletPendidikan->tahun_mula_biasiswa = GeneralFunction::convert($atletPendidikan->tahun_mula_biasiswa, GeneralFunction::TYPE_DATE);}
+        if($atletPendidikan->tahun_tamat_biasiswa != "") {$atletPendidikan->tahun_tamat_biasiswa = GeneralFunction::convert($atletPendidikan->tahun_tamat_biasiswa, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
             'model' => $atletPendidikan,

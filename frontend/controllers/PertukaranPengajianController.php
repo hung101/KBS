@@ -98,6 +98,10 @@ class PertukaranPengajianController extends Controller
         $ref = RefStatusPermohonanPendidikan::findOne(['id' => $model->status_permohonan]);
         $model->status_permohonan = $ref['desc'];
         
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_akhir != "") {$model->tarikh_akhir = GeneralFunction::convert($model->tarikh_akhir, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_permohonan != "") {$model->tarikh_permohonan = GeneralFunction::convert($model->tarikh_permohonan, GeneralFunction::TYPE_DATETIME);}
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,

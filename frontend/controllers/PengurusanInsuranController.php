@@ -101,6 +101,11 @@ class PengurusanInsuranController extends Controller
         $ref = RefKelulusanJkb::findOne(['id' => $model->kelulusan_jkb]);
         $model->kelulusan_jkb = $ref['desc'];
         
+        if($model->tarikh_kejadian != "") {$model->tarikh_kejadian = GeneralFunction::convert($model->tarikh_kejadian, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_pembayaran != "") {$model->tarikh_pembayaran = GeneralFunction::convert($model->tarikh_pembayaran, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_jkb != "") {$model->tarikh_jkb = GeneralFunction::convert($model->tarikh_jkb, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_permohonan != "") {$model->tarikh_permohonan = GeneralFunction::convert($model->tarikh_permohonan, GeneralFunction::TYPE_DATETIME);}
+        
         $queryPar = null;
         
         $queryPar['PengurusanInsuranLampiranSearch']['pengurusan_insuran_id'] = $id;

@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
+
 
 // table reference
 use app\models\RefJenisRekod;
@@ -110,6 +112,8 @@ class AtletPencapaianRekodsController extends Controller
         
         $YesNo = GeneralLabel::getYesNoLabel($model->menang);
         $model->menang = $YesNo;
+        
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
             'model' => $model,

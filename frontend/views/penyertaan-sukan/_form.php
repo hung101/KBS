@@ -28,6 +28,7 @@ use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PenyertaanSukan */
@@ -323,7 +324,13 @@ use app\models\general\GeneralMessage;
                 'attribute' => 'nama_acara',
                 'value' => 'refAcara.desc'
             ],
-            'tarikh_acara',
+            //'tarikh_acara',
+            [
+                'attribute' => 'tarikh_acara',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_acara, GeneralFunction::TYPE_DATE);
+                },
+            ],
             //'keputusan_acara',
             // 'jumlah_pingat',
             // 'rekod_baru',

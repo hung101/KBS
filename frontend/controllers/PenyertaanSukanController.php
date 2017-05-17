@@ -142,8 +142,12 @@ class PenyertaanSukanController extends Controller
         $ref = PerancanganProgramPlan::findOne(['perancangan_program_id' => $model->nama_kejohanan_temasya]);
         $model->nama_kejohanan_temasya = $ref['nama_program'];
 		
-		$ref = RefStatusPermohonanProgramBinaan::findOne(['id' => $model->jkb_status_permohonan]);
-		$model->jkb_status_permohonan = $ref['desc'];
+        $ref = RefStatusPermohonanProgramBinaan::findOne(['id' => $model->jkb_status_permohonan]);
+        $model->jkb_status_permohonan = $ref['desc'];
+                
+        if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_jkb != "") {$model->tarikh_jkb = GeneralFunction::convert($model->tarikh_jkb, GeneralFunction::TYPE_DATE);}
         
         $queryPar = null;
         

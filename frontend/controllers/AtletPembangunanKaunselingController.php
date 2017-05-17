@@ -13,6 +13,7 @@ use yii\filters\VerbFilter;
 use yii\web\Session;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 /**
  * AtletPembangunanKaunselingController implements the CRUD actions for AtletPembangunanKaunseling model.
@@ -115,9 +116,12 @@ class AtletPembangunanKaunselingController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
+        $model = $this->findModel($id);
+        
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

@@ -13,6 +13,7 @@ use yii\web\Response;
 
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefAcara;
@@ -78,6 +79,8 @@ class PenyertaanSukanAcaraController extends Controller
         $model->keputusan = $ref['desc'];
         
         $model->rekod_baru = GeneralLabel::getYesNoLabel($model->rekod_baru);
+        
+        if($model->tarikh_acara != "") {$model->tarikh_acara = GeneralFunction::convert($model->tarikh_acara, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
             'model' => $model,

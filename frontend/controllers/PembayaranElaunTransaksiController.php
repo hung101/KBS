@@ -11,6 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 /**
  * PembayaranElaunTransaksiController implements the CRUD actions for PembayaranElaunTransaksi model.
@@ -61,9 +62,12 @@ class PembayaranElaunTransaksiController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
+        $model = $this->findModel($id);
+        
+        if($model->tarikh_pembayaran != "") {$model->tarikh_pembayaran = GeneralFunction::convert($model->tarikh_pembayaran, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

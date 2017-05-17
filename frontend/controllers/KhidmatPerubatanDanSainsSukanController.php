@@ -107,6 +107,9 @@ class KhidmatPerubatanDanSainsSukanController extends Controller
         $ref = RefTempatKhidmatPerubatan::findOne(['id' => $model->tempat]);
         $model->tempat = $ref['desc'];
         
+        if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
+        
         return $this->render('view', [
             'model' => $model,
             'searchModelAtlet' => $searchModelAtlet,

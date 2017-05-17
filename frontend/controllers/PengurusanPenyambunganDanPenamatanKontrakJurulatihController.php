@@ -13,6 +13,7 @@ use yii\web\UploadedFile;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Jurulatih;
@@ -93,6 +94,14 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
         
         $ref = RefGajiElaunJurulatih::findOne(['id' => $model->cadangan_gaji_elaun]);
         $model->cadangan_gaji_elaun = $ref['desc'];
+        
+        if($model->tarikh_mula_lantikan != "") {$model->tarikh_mula_lantikan = GeneralFunction::convert($model->tarikh_mula_lantikan, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat_lantikan != "") {$model->tarikh_tamat_lantikan = GeneralFunction::convert($model->tarikh_tamat_lantikan, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
+        if($model->penamatan_tarikh_berkuatkuasa != "") {$model->penamatan_tarikh_berkuatkuasa = GeneralFunction::convert($model->penamatan_tarikh_berkuatkuasa, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_mpj != "") {$model->tarikh_mpj = GeneralFunction::convert($model->tarikh_mpj, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_jkb != "") {$model->tarikh_jkb = GeneralFunction::convert($model->tarikh_jkb, GeneralFunction::TYPE_DATE);}
         
         return $this->render('view', [
             'model' => $model,

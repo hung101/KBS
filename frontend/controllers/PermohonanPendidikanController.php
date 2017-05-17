@@ -125,6 +125,8 @@ class PermohonanPendidikanController extends Controller
         $ref = RefStatusPermohonanPendidikan::findOne(['id' => $model->kelulusan]);
         $model->kelulusan = $ref['desc'];
         
+        if($model->tarikh_permohonan != "") {$model->tarikh_permohonan = GeneralFunction::convert($model->tarikh_permohonan, GeneralFunction::TYPE_DATETIME);}
+        
         $queryPar = null;
         
         $queryPar['PermohonanPendidikanKeputusanSpmSearch']['permohonan_pendidikan_id'] = $id;

@@ -98,6 +98,8 @@ class PengurusanPemantauanDanPenilaianJurulatihController extends Controller
         $ref = RefPenilaianJurulatih::findOne(['id' => $model->penilaian_oleh]);
         $model->penilaian_oleh = $ref['desc'];
         
+        if($model->tarikh_dinilai != "") {$model->tarikh_dinilai = GeneralFunction::convert($model->tarikh_dinilai, GeneralFunction::TYPE_DATE);}
+        
         $queryPar = null;
         
         $queryPar['PengurusanPenilaianKategoriJurulatihSearch']['pengurusan_pemantauan_dan_penilaian_jurulatih_id'] = $id;

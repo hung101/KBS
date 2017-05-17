@@ -258,7 +258,13 @@ use app\models\general\GeneralMessage;
         'id' => 'pembayaranElaunTransaksiGrid',
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'tarikh_pembayaran',
+            //'tarikh_pembayaran',
+            [
+                'attribute' => 'tarikh_pembayaran',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_pembayaran, GeneralFunction::TYPE_DATE);
+                },
+            ],
             'jumlah',
             ['class' => 'yii\grid\ActionColumn',
                 'buttons' => [

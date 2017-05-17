@@ -896,7 +896,13 @@ use common\models\general\GeneralFunction;
                     //'akademi_akk_id',
                     'no_sijil',
                     'tahun',
-                    'tarikh_tamat',
+                    //'tarikh_tamat',
+                    [
+                        'attribute' => 'tarikh_tamat',
+                        'value'=>function ($model) {
+                            return GeneralFunction::convert($model->tarikh_tamat);
+                        },
+                    ],
                     [
                         'attribute' => 'sijil',
                         'format' => 'raw',

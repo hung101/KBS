@@ -11,6 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 /**
  * PermohonanKemudahanTicketKapalTerbangPengurusSukanController implements the CRUD actions for PermohonanKemudahanTicketKapalTerbangPengurusSukan model.
@@ -62,8 +63,13 @@ class PermohonanKemudahanTicketKapalTerbangPengurusSukanController extends Contr
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $model = $this->findModel($id);
+        
+        if($model->tarikh_pergi != "") {$model->tarikh_pergi = GeneralFunction::convert($model->tarikh_pergi, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_balik != "") {$model->tarikh_balik = GeneralFunction::convert($model->tarikh_balik, GeneralFunction::TYPE_DATE);}
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

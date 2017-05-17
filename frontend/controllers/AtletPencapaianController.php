@@ -18,6 +18,7 @@ use yii\web\Session;
 use yii\helpers\Json;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefPeringkatKejohananTemasya;
@@ -156,6 +157,9 @@ class AtletPencapaianController extends Controller
         
         $ref = RefKeputusan::findOne(['id' => $model->pencapaian]);
         $model->pencapaian = $ref['desc'];
+        
+        if($model->tarikh_mula_kejohanan != "") {$model->tarikh_mula_kejohanan = GeneralFunction::convert($model->tarikh_mula_kejohanan, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat_kejohanan != "") {$model->tarikh_tamat_kejohanan = GeneralFunction::convert($model->tarikh_tamat_kejohanan, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
             'model' => $model,

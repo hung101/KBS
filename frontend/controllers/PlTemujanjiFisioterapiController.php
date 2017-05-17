@@ -388,13 +388,13 @@ class PlTemujanjiFisioterapiController extends Controller
             
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-jadual-pegawai-temujanji'
-                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh' => $model->tarikh
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
             } else {
                 return $this->redirect(['generate-laporan-jadual-pegawai-temujanji'
-                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh' => $model->tarikh
                     , 'format' => $model->format
                 ]);
             }
@@ -406,13 +406,13 @@ class PlTemujanjiFisioterapiController extends Controller
         ]);
     }
 
-    public function actionGenerateLaporanJadualPegawaiTemujanji($tarikh_dari, $format)
+    public function actionGenerateLaporanJadualPegawaiTemujanji($tarikh, $format)
     {
-        if($tarikh_dari == "") $tarikh_dari = array();
-        else $tarikh_dari = array($tarikh_dari);
+        if($tarikh == "") $tarikh = array();
+        else $tarikh = array($tarikh);
         
         $controls = array(
-            'FROM_DATE' => $tarikh_dari,
+            'FROM_DATE' => $tarikh,
         );
         
         GeneralFunction::generateReport('/spsb/ISN/LaporanJadualPegawaiTemujanji', $format, $controls, 'laporan_jadual_pegawai_temujanji');

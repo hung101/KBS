@@ -109,6 +109,11 @@ class PenilaianPestasiController extends Controller
         $ref = RefNegeri::findOne(['id' => $model->negeri]);
         $model->negeri = $ref['desc'];
         
+        if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_nilai_mula != "") {$model->tarikh_nilai_mula = GeneralFunction::convert($model->tarikh_nilai_mula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_nilai_tamat != "") {$model->tarikh_nilai_tamat = GeneralFunction::convert($model->tarikh_nilai_tamat, GeneralFunction::TYPE_DATE);}
+        
         $queryPar = null;
         
         $queryPar['PenilaianPrestasiAtletSasaranSearch']['penilaian_pestasi_id'] = $id;

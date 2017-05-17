@@ -71,6 +71,9 @@ class PermohonanProgramPendidikanKesihatanController extends Controller
         
         $model->kelulusan_pbu = GeneralLabel::getYesNoLabel($model->kelulusan_pbu);
         
+        if($model->tarikh_program != "") {$model->tarikh_program = GeneralFunction::convert($model->tarikh_program, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_kelulusan != "") {$model->tarikh_kelulusan = GeneralFunction::convert($model->tarikh_kelulusan, GeneralFunction::TYPE_DATE);}
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,

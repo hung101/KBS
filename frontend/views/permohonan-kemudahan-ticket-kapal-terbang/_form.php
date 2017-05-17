@@ -32,18 +32,11 @@ use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanKemudahanTicketKapalTerbang */
 /* @var $form yii\widgets\ActiveForm */
-if($readonly){
-    if(isset($model->pri_tarikh_pergi)){
-        $model->pri_tarikh_pergi = date('d/m/Y',strtotime($model->pri_tarikh_pergi));
-    }
-    if(isset($model->pri_tarikh_balik)){
-        $model->pri_tarikh_balik = date('d/m/Y',strtotime($model->pri_tarikh_balik));
-    }
-}
 ?>
 
 <div class="permohonan-kemudahan-ticket-kapal-terbang-form">
