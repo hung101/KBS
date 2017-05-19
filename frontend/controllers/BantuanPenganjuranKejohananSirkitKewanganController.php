@@ -9,6 +9,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+// table reference
+use app\models\RefSumberKewanganBantuanPenganjuranKejohanan;
+
 /**
  * BantuanPenganjuranKejohananSirkitKewanganController implements the CRUD actions for BantuanPenganjuranKejohananSirkitKewangan model.
  */
@@ -51,8 +54,13 @@ class BantuanPenganjuranKejohananSirkitKewanganController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        
+        $ref = RefSumberKewanganBantuanPenganjuranKejohanan::findOne(['id' => $model->sumber_kewangan]);
+        $model->sumber_kewangan = $ref['desc'];
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

@@ -111,6 +111,11 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
         $ref = RefStatusBantuanPenganjuranKursusPegawaiTeknikal::findOne(['id' => $model->status_permohonan]);
         $model->status_permohonan = $ref['desc'];
         
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_permohonan != "") {$model->tarikh_permohonan = GeneralFunction::convert($model->tarikh_permohonan, GeneralFunction::TYPE_DATETIME);}
+        if($model->tarikh_jkb != "") {$model->tarikh_jkb = GeneralFunction::convert($model->tarikh_jkb, GeneralFunction::TYPE_DATE);}
+        
         $queryPar = null;
         
         $queryPar['BantuanPenganjuranKursusPegawaiTeknikalDicadangkanSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_id'] = $id;

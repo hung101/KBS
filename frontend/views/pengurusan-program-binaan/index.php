@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\PengurusanProgramBinaanSearch */
@@ -90,14 +91,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
-                ]
+                ],
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_mula);
+                },
             ],
              [
                 'attribute' => 'tarikh_tamat',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat,
-                ]
+                ],
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_tamat);
+                },
             ],
             // 'sokongan_pn',
             /*[

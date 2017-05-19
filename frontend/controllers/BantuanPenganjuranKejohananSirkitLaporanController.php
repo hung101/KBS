@@ -66,6 +66,10 @@ class BantuanPenganjuranKejohananSirkitLaporanController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $model = $this->findModel($id);
+        
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);}
+        
         $queryPar = null;
         
         $queryPar['BantuanPenganjuranKejohananSirkitLaporanTuntutanSearch']['bantuan_penganjuran_kejohanan_laporan_id'] = $id;
@@ -74,7 +78,7 @@ class BantuanPenganjuranKejohananSirkitLaporanController extends Controller
         $dataProviderBantuanPenganjuranKejohananSirkitLaporanTuntutan = $searchModelBantuanPenganjuranKejohananSirkitLaporanTuntutan->search($queryPar);
         
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'searchModelBantuanPenganjuranKejohananSirkitLaporanTuntutan' => $searchModelBantuanPenganjuranKejohananSirkitLaporanTuntutan,
             'dataProviderBantuanPenganjuranKejohananSirkitLaporanTuntutan' => $dataProviderBantuanPenganjuranKejohananSirkitLaporanTuntutan,
             'readonly' => true,

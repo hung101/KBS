@@ -117,6 +117,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_permohonan,
                 ],
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_permohonan, GeneralFunction::TYPE_DATETIME);
+                },
             ],
             // 'jumlah_dilulus',
             // 'jkb',

@@ -61,6 +61,7 @@ use common\models\general\GeneralFunction;
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     <?php $disablePersatuanInfo = true;?>
+    <?php //echo $form->errorSummary($model); ?>
     <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_badan_sukan_cap; ?></strong></pre>
     <?php
         echo FormGrid::widget([
@@ -586,8 +587,18 @@ use common\models\general\GeneralFunction;
             //'bantuan_penyertaan_pegawai_teknikal_dicadangkan_id',
             //'bantuan_penyertaan_pegawai_teknikal_id',
             'kursus_seminar_bengkel',
-            'tarikh_mula',
-            'tarikh_tamat',
+            [
+                'attribute' => 'tarikh_mula',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);
+                },
+            ],
+            [
+                'attribute' => 'tarikh_tamat',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);
+                },
+            ],
             'tempat',
             'anjuran',
             // 'session_id',
@@ -655,8 +666,18 @@ use common\models\general\GeneralFunction;
             //'bantuan_penyertaan_pegawai_teknikal_oleh_msn_id',
             //'bantuan_penyertaan_pegawai_teknikal_id',
             'kejohanan',
-            'tarikh_mula',
-            'tarikh_tamat',
+            [
+                'attribute' => 'tarikh_mula',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);
+                },
+            ],
+            [
+                'attribute' => 'tarikh_tamat',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);
+                },
+            ],
             'tempat',
             'jumlah_bantuan',
             [

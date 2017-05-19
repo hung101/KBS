@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 
 use app\models\RefPeringkatBantuanPenganjuranKejohananDianjurkan;
 
+use common\models\general\GeneralFunction;
+
 /**
  * BantuanPenganjuranKejohananDianjurkanController implements the CRUD actions for BantuanPenganjuranKejohananDianjurkan model.
  */
@@ -57,6 +59,9 @@ class BantuanPenganjuranKejohananDianjurkanController extends Controller
         
         $ref = RefPeringkatBantuanPenganjuranKejohananDianjurkan::findOne(['id' => $model->peringkat_penganjuran]);
         $model->peringkat_penganjuran = $ref['desc'];
+        
+        if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
             'model' => $model,

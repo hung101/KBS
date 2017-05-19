@@ -12,6 +12,7 @@ use yii\helpers\Json;
 use yii\web\UploadedFile;
 
 use app\models\general\Upload;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\ProfilBadanSukan;
@@ -94,6 +95,9 @@ class MaklumatPegawaiTeknikalController extends Controller
         
         $ref = RefTahapAkademikPegawaiTeknikal::findOne(['id' => $model->tahap_akademik]);
         $model->tahap_akademik = $ref['desc'];
+        
+        if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
         
         return $this->render('view', [
             'model' => $model,

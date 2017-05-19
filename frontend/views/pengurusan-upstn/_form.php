@@ -20,6 +20,8 @@ use app\models\RefPpn;
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanUpstn */
@@ -334,7 +336,13 @@ use app\models\general\GeneralMessage;
 
             //'pengurusan_upstn_jurulatih_id',
             //'pengurusan_upstn_id',
-            'tarikh',
+            //'tarikh',
+            [
+                'attribute' => 'tarikh',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);
+                },
+            ],
             'tempat',
             'peserta',
             // 'session_id',
@@ -405,7 +413,12 @@ use app\models\general\GeneralMessage;
 
             //'pengurusan_upstn_atlet_id',
             //'pengurusan_upstn_id',
-            'tarikh',
+            [
+                'attribute' => 'tarikh',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);
+                },
+            ],
             'tempat',
             'peserta',
             // 'session_id',

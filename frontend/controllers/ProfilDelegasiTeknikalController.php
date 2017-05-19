@@ -105,6 +105,9 @@ class ProfilDelegasiTeknikalController extends Controller
         $ref = PengurusanJawatankuasaKhasSukanMalaysia::findOne(['pengurusan_jawatankuasa_khas_sukan_malaysia_id' => $model->temasya]);
         $model->temasya = $ref['temasya'];
         
+        if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
+        
         return $this->render('view', [
             'model' => $model,
             'searchModelProfilDelegasiTeknikalAhli' => $searchModelProfilDelegasiTeknikalAhli,

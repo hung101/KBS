@@ -12,6 +12,7 @@ use yii\helpers\Json;
 
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefJenisCawanganKuasaJkkJkp;
@@ -92,14 +93,16 @@ class PengurusanJkkJkpController extends Controller
         $YesNo = GeneralLabel::getYesNoLabel($model->status_pilihan);
         $model->status_pilihan = $YesNo;
 		
-		$ref = RefCawangan::findOne(['id' => $model->cawangan]);
-		$model->cawangan = $ref['desc'];
-		
-		$ref = RefAgensiJkk::findOne(['id' => $model->agensi]);
-		$model->agensi = $ref['desc'];
-		
-		$ref = RefBahagianAduan::findOne(['id' => $model->bahagian]);
-		$model->bahagian = $ref['desc'];
+        $ref = RefCawangan::findOne(['id' => $model->cawangan]);
+        $model->cawangan = $ref['desc'];
+
+        $ref = RefAgensiJkk::findOne(['id' => $model->agensi]);
+        $model->agensi = $ref['desc'];
+
+        $ref = RefBahagianAduan::findOne(['id' => $model->bahagian]);
+        $model->bahagian = $ref['desc'];
+                
+        if($model->tarikh_pelantikan_jkk_jkp != "") {$model->tarikh_pelantikan_jkk_jkp = GeneralFunction::convert($model->tarikh_pelantikan_jkk_jkp, GeneralFunction::TYPE_DATE);}
         
         return $this->render('view', [
             'model' => $model,

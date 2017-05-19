@@ -72,6 +72,8 @@ class ManualSilibusKurikulumTeknikalKepegawaianController extends Controller
         $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->persatuan_sukan]);
         $model->persatuan_sukan = $ref['nama_badan_sukan'];
         
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);}
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,

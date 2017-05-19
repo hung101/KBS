@@ -27,6 +27,7 @@ use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BantuanPenganjuranKejohananSirkit */
@@ -59,7 +60,7 @@ use app\models\general\GeneralVariable;
     ?>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
-    
+    <?php //echo $form->errorSummary($model); ?>
     <!--<pre style="text-align: center"><strong>MAKLUMAT BADAN SUKAN</strong></pre>-->
     <?php
         /*echo FormGrid::widget([
@@ -829,8 +830,18 @@ use app\models\general\GeneralVariable;
             //'bantuan_penganjuran_kejohanan_dianjurkan_id',
             //'bantuan_penganjuran_kejohanan_id',
             'kejohanan',
-            'tarikh_mula',
-            'tarikh_tamat',
+            [
+                'attribute' => 'tarikh_mula',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);
+                },
+            ],
+            [
+                'attribute' => 'tarikh_tamat',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);
+                },
+            ],
             'tempat',
             //'peringkat_penganjuran',
             [
@@ -902,8 +913,18 @@ use app\models\general\GeneralVariable;
             //'bantuan_penganjuran_kejohanan_oleh_msn_id',
             //'bantuan_penganjuran_kejohanan_id',
             'kejohanan',
-            'tarikh_mula',
-            'tarikh_tamat',
+            [
+                'attribute' => 'tarikh_mula',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);
+                },
+            ],
+            [
+                'attribute' => 'tarikh_tamat',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);
+                },
+            ],
             'tempat',
             //'peringkat_penganjuran',
             [

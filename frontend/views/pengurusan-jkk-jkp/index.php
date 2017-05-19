@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\PengurusanJkkJkpSearch */
@@ -68,7 +69,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_pelantikan_jkk_jkp,
-                ]
+                ],
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_pelantikan_jkk_jkp, GeneralFunction::TYPE_DATE);
+                },
             ],
             /*[
                 'attribute' => 'tempoh_hak_jkk_jkp',

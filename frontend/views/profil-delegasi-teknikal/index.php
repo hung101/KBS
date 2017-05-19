@@ -72,21 +72,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refNegeri.desc'
             ],
-            //'tarikh_mula',
             [
                 'attribute' => 'tarikh_mula',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
-                ]
+                ],
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);
+                },
             ],
-            //'tarikh_tamat',
             [
                 'attribute' => 'tarikh_tamat',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat,
-                ]
+                ],
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);
+                },
             ],
             // 'sukan',
             // 'peringkat',

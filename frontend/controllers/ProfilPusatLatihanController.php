@@ -91,6 +91,8 @@ class ProfilPusatLatihanController extends Controller
         $ref = RefProgramMsn::findOne(['id' => $model->program]);
         $model->program = $ref['desc'];
         
+        if($model->tarikh_program_bermula != "") {$model->tarikh_program_bermula = GeneralFunction::convert($model->tarikh_program_bermula, GeneralFunction::TYPE_DATE);}
+        
         $queryPar = null;
         
         $queryPar['ProfilPusatLatihanJurulatihSearch']['profil_pusat_latihan_id'] = $id;

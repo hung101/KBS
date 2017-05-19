@@ -663,7 +663,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jenis_jus = "Jenis Jus";
         const jenis_kadar = "Jenis Kadar";
         const jenis_keahlian = "Jenis Keahlian";
-        const jenis_keahlian_nyatakan = "jenis_keahlian_nyatakan";
+        const jenis_keahlian_nyatakan = "Jenis Keahlian Nyatakan (Jika Lain-lain)";
         const jenis_kebajikan = "Jenis Kebajikan";
         const jenis_kebajikan_id = "Jenis Kebajikan ID";
         const jenis_kelulusan = "Jenis Kelulusan";

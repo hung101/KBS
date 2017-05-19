@@ -250,6 +250,8 @@ class MesyuaratJkkController extends Controller
         $ref = RefJenisCawanganKuasaJkkJkp::findOne(['id' => $model->jenis_mesyuarat]);
         $model->jenis_mesyuarat = $ref['desc'];
         
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATETIME);}
+        
         return $this->render('view', [
             'model' => $model,
             'SNHsearchModel' => $SNHsearchModel,

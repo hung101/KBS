@@ -9,6 +9,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+// table reference
+use app\models\RefJenisBayaranBantuanPenganjuranKejohanan;
+
 /**
  * BantuanPenganjuranKejohananSirkitBayaranController implements the CRUD actions for BantuanPenganjuranKejohananSirkitBayaran model.
  */
@@ -51,8 +54,13 @@ class BantuanPenganjuranKejohananSirkitBayaranController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        
+        $ref = RefJenisBayaranBantuanPenganjuranKejohanan::findOne(['id' => $model->jenis_bayaran]);
+        $model->jenis_bayaran = $ref['desc'];
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

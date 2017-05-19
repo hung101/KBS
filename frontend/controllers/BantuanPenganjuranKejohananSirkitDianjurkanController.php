@@ -9,7 +9,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-use app\models\RefPeringkatBantuanPenganjuranKejohananSirkitDianjurkan;
+use app\models\RefPeringkatBantuanPenganjuranKejohananDianjurkan;
+
+use common\models\general\GeneralFunction;
 
 /**
  * BantuanPenganjuranKejohananSirkitDianjurkanController implements the CRUD actions for BantuanPenganjuranKejohananSirkitDianjurkan model.
@@ -55,8 +57,11 @@ class BantuanPenganjuranKejohananSirkitDianjurkanController extends Controller
     {
         $model = $this->findModel($id);
         
-        $ref = RefPeringkatBantuanPenganjuranKejohananSirkitDianjurkan::findOne(['id' => $model->peringkat_penganjuran]);
+        $ref = RefPeringkatBantuanPenganjuranKejohananDianjurkan::findOne(['id' => $model->peringkat_penganjuran]);
         $model->peringkat_penganjuran = $ref['desc'];
+        
+        if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
             'model' => $model,

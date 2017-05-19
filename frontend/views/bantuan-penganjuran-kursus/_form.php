@@ -547,8 +547,18 @@ use common\models\general\GeneralFunction;
             //'bantuan_penganjuran_kursus_disertai_penceramah_id',
             //'bantuan_penganjuran_kursus_id',
             'kursus_seminar_bengkel',
-            'tarikh_mula',
-            'tarikh_tamat',
+            [
+                'attribute' => 'tarikh_mula',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);
+                },
+            ],
+            [
+                'attribute' => 'tarikh_tamat',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);
+                },
+            ],
             'tempat',
             'anjuran',
             // 'session_id',
@@ -616,8 +626,18 @@ use common\models\general\GeneralFunction;
             //'bantuan_penganjuran_kursus_oleh_msn_id',
             //'bantuan_penganjuran_kursus_id',
             'kursus_seminar_bengkel',
-            'tarikh_mula',
-            'tarikh_tamat',
+            [
+                'attribute' => 'tarikh_mula',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);
+                },
+            ],
+            [
+                'attribute' => 'tarikh_tamat',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);
+                },
+            ],
             'tempat',
             'jumlah_bantuan',
             //'laporan_dikemukakan',

@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\MesyuaratSearch */
@@ -90,7 +91,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
-                ]
+                ],
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATETIME);
+                },
             ],
             //'masa',
             /*[

@@ -29,6 +29,7 @@ use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BantuanPenganjuranKursusPegawaiTeknikalLaporan */
@@ -373,8 +374,18 @@ use app\models\general\GeneralVariable;
             //'bantuan_penganjuran_kursus_pegawai_teknikal_laporan_tuntutan_id',
             //'bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id',
             'kejohanan_kursus_seminar_bengkel',
-            'tarikh_mula',
-            'tarikh_tamat',
+            [
+                'attribute' => 'tarikh_mula',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);
+                },
+            ],
+            [
+                'attribute' => 'tarikh_tamat',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);
+                },
+            ],
             'tempat',
             'jumlah_kelulusan',
             'pendahuluan_80',

@@ -162,8 +162,11 @@ class PengurusanProgramBinaanController extends Controller
         $ref = RefJenisPermohonanProgramBinaan::findOne(['id' => $model->jenis_aktiviti]);
         $model->jenis_aktiviti = $ref['desc'];
 		
-		$ref = RefBahagianProgramBinaan::findOne(['id' => $model->bahagian]);
+	$ref = RefBahagianProgramBinaan::findOne(['id' => $model->bahagian]);
         $model->bahagian = $ref['desc'];
+        
+        if($model->tarikh_sokongan != "") {$model->tarikh_sokongan = GeneralFunction::convert($model->tarikh_sokongan, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_lulus != "") {$model->tarikh_lulus = GeneralFunction::convert($model->tarikh_lulus, GeneralFunction::TYPE_DATE);}
         
         $queryPar = null;
         
@@ -1119,12 +1122,12 @@ Majlis Sukan Negara Malaysia.
             
             if(isset($model->tarikh_mula))
             {
-                $model->tarikh_mula = date('d/m/Y',strtotime($model->tarikh_mula));
+                $model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);
             }
             
             if(isset($model->tarikh_tamat))
             {
-                $model->tarikh_tamat = date('d/m/Y',strtotime($model->tarikh_tamat));
+                $model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);
             }
             
             $ref = RefNegeri::findOne(['id' => $model->negeri]);

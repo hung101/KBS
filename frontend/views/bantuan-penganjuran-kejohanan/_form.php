@@ -734,8 +734,18 @@ use common\models\general\GeneralFunction;
             //'bantuan_penganjuran_kejohanan_dianjurkan_id',
             //'bantuan_penganjuran_kejohanan_id',
             'kejohanan',
-            'tarikh_mula',
-            'tarikh_tamat',
+            [
+                'attribute' => 'tarikh_mula',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);
+                },
+            ],
+            [
+                'attribute' => 'tarikh_tamat',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);
+                },
+            ],
             'tempat',
             //'peringkat_penganjuran',
             [
@@ -807,8 +817,18 @@ use common\models\general\GeneralFunction;
             //'bantuan_penganjuran_kejohanan_oleh_msn_id',
             //'bantuan_penganjuran_kejohanan_id',
             'kejohanan',
-            'tarikh_mula',
-            'tarikh_tamat',
+            [
+                'attribute' => 'tarikh_mula',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);
+                },
+            ],
+            [
+                'attribute' => 'tarikh_tamat',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);
+                },
+            ],
             'tempat',
             //'peringkat_penganjuran',
             [

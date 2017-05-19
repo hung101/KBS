@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 /**
  * PengurusanUpstnJurulatihController implements the CRUD actions for PengurusanUpstnJurulatih model.
@@ -61,8 +62,12 @@ class PengurusanUpstnJurulatihController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $model = $this->findModel($id);
+        
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);}
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

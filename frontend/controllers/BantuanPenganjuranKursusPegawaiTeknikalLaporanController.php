@@ -69,6 +69,11 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $model = $this->findModel($id);
+        
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
+        
         
         $queryPar = null;
         
@@ -78,7 +83,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
         $dataProviderBantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan = $searchModelBantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan->search($queryPar);
         
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'searchModelBantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan' => $searchModelBantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan,
             'dataProviderBantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan' => $dataProviderBantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan,
             'readonly' => true,
@@ -408,29 +413,6 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
         return $this->redirect(['index']);
     }
 	
-	// Add function for delete image or file
-    public function actionDeleteupload($id, $field)
-    {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
-        }
-        
-            $img = $this->findModel($id)->$field;
-            
-            if($img){
-/*                 if (!unlink($img)) {
-                    return false;
-                } */
-				@unlink($img);
-            }
-
-            $img = $this->findModel($id);
-            $img->$field = NULL;
-            $img->update();
-
-            return $this->redirect(['update', 'id' => $id]);
-    }
-	
 	public function actionPrint($id)
 	{
 		if (Yii::$app->user->isGuest) {
@@ -485,15 +467,16 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
             $img = $this->findModel($id)->$field;
             
             if($img){
-                if (!unlink($img)) {
+/*                 if (!unlink($img)) {
                     return false;
-                }
+                } */
+				@unlink($img);
             }
 
             $img = $this->findModel($id);
             $img->$field = NULL;
             $img->update();
 
-            //return $this->redirect(['update', 'id' => $id]);
+            return $this->redirect(['update', 'id' => $id]);
     }
 }

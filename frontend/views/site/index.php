@@ -773,7 +773,7 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                     FROM
                                     (
                                         SELECT COUNT(*) AS JUMLAH,
-                                        (SELECT ass.program FROM tbl_jurulatih_sukan ass WHERE ass.jurulatih_id = a.jurulatih_id ORDER BY ass.created DESC LIMIT 1 ) AS PROGRAM_ID,
+                                        IFNULL((SELECT ass.program FROM tbl_jurulatih_sukan ass WHERE ass.jurulatih_id = a.jurulatih_id ORDER BY ass.created DESC LIMIT 1 ),"") AS PROGRAM_ID,
                                         (SELECT (SELECT r.desc FROM tbl_ref_program_jurulatih r WHERE r.id = ass.program) FROM tbl_jurulatih_sukan ass WHERE ass.jurulatih_id = a.jurulatih_id ORDER BY ass.created DESC LIMIT 1 ) AS PROGRAM,
                                         ( SELECT SUM(inner1.JUMLAH) FROM
                                             (SELECT COUNT(*) AS JUMLAH,

@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 use app\models\RefPeringkatBantuanPenyertaanPegawaiTeknikal;
 
@@ -62,6 +63,9 @@ class BantuanPenyertaanPegawaiTeknikalOlehMsnController extends Controller
         $model->status_penganjuran = $ref['desc'];
         
         $model->laporan_dikemukakan = GeneralLabel::getYesNoLabel($model->laporan_dikemukakan);
+        
+        if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
             'model' => $model,

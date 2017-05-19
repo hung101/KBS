@@ -11,6 +11,7 @@ use yii\helpers\Url;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
 use app\models\general\Placeholder;
+use common\models\general\GeneralFunction;
 
 use app\models\RefStatusTawaran;
 
@@ -220,14 +221,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
-                ]
+                ],
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);
+                },
             ],
              [
                 'attribute' => 'tarikh_tamat',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat,
-                ]
+                ],
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);
+                },
             ],
             [
                 'attribute' => 'status_permohonan',
@@ -293,7 +300,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
-                ]
+                ],
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATETIME);
+                },
             ],
              [
                 'attribute' => 'jumlah_peralatan',
@@ -422,6 +432,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_program_bermula,
                 ],
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_program_bermula, GeneralFunction::TYPE_DATE);
+                },
             ],
                 ['class' => 'yii\grid\ActionColumn',
                     'buttons' => [
@@ -481,10 +494,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'status_program',
                 'value' => 'refKedudukanKejohanan.desc'
             ],
-			'tarikh_mula',
-			'tarikh_tamat',
-			'tempat',
-			[
+            //'tarikh_mula',
+            [
+                'attribute' => 'tarikh_mula',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);
+                },
+            ],
+            //'tarikh_tamat',
+            [
+                'attribute' => 'tarikh_tamat',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);
+                },
+            ],
+            'tempat',
+            [
                 'attribute' => 'status_permohonan',
                 'value' => 'refStatusPermohonanProgramBinaan.desc'
             ],

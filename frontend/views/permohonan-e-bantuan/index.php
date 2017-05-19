@@ -151,7 +151,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mesyuarat,
-                ]
+                ],
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_mesyuarat, GeneralFunction::TYPE_DATE);
+                },
             ],
             [
                 'attribute' => 'jumlah_diluluskan',

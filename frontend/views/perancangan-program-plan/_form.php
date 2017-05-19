@@ -31,6 +31,7 @@ use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PerancanganProgramPlan */
@@ -262,10 +263,22 @@ use app\models\general\GeneralMessage;
                 'attribute' => 'status_program',
                 'value' => 'refKedudukanKejohanan.desc'
             ],
-			'tarikh_mula',
-			'tarikh_tamat',
-			'tempat',
-			[
+            //'tarikh_mula',
+            [
+                'attribute' => 'tarikh_mula',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_mula);
+                },
+            ],
+            //'tarikh_tamat',
+            [
+                'attribute' => 'tarikh_tamat',
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_tamat);
+                },
+            ],
+            'tempat',
+            [
                 'attribute' => 'status_permohonan',
                 'value' => 'refStatusPermohonanProgramBinaan.desc'
             ],

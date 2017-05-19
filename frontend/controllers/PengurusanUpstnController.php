@@ -83,6 +83,8 @@ class PengurusanUpstnController extends Controller
         //$ref = RefPpn::findOne(['id' => $model->nama_pengurus_sukan]);
         //$model->nama_pengurus_sukan = $ref['desc'];
         
+        if($model->tarikh_lawatan != "") {$model->tarikh_lawatan = GeneralFunction::convert($model->tarikh_lawatan, GeneralFunction::TYPE_DATETIME);}
+        
         $queryPar = null;
         
         $queryPar['PengurusanUpstnAtletSearch']['pengurusan_upstn_id'] = $id;

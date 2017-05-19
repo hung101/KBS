@@ -20,7 +20,7 @@ $this->title = GeneralLabel::viewTitle . ' Permohonan e-Bantuan';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->permohonan_e_bantuan_id], ['class' => 'btn btn-primary']) ?>
+        <!--<?= Html::a(GeneralLabel::update, ['update', 'id' => $model->permohonan_e_bantuan_id], ['class' => 'btn btn-primary']) ?>-->
         <?= Html::a('Kembali', ['site/e-bantuan-home'], ['class' => 'btn btn-warning']) ?>
     </p>
     
