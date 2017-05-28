@@ -10,7 +10,7 @@ return [
         ],
         'formatter' => [
             'defaultTimeZone' => 'Asia/Kuala_Lumpur',
-			'nullDisplay' => '(Tiada)',
+            'nullDisplay' => '(Tiada)',
         ],
         'encrypter' => [
             'class'=>'\nickcv\encrypter\components\Encrypter',

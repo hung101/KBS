@@ -54,7 +54,7 @@ class PerlembagaanBadanSukan extends \yii\db\ActiveRecord
     {
         return [
             [['tarikh_kelulusan', 'status'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_kelulusan_Terkini', 'tarikh_pindaan', 'tarikh_kelulusan'], 'safe'],
+            [['tarikh_kelulusan_Terkini', 'tarikh_pindaan', 'tarikh_kelulusan', 'pengesahan'], 'safe'],
             [['bilangan_pindaan_perlembagaan_dilakukan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['profil_badan_sukan_id', 'status'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             //[['muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -74,6 +74,7 @@ class PerlembagaanBadanSukan extends \yii\db\ActiveRecord
             'tarikh_pindaan' => GeneralLabel::tarikh_pindaan,
             'tarikh_kelulusan' => GeneralLabel::tarikh_kelulusan,
             'muat_naik' => GeneralLabel::muat_naik,
+            'pengesahan' => GeneralLabel::pengesahan_perakuan_maklumat_oleh_psk,
             'status' => GeneralLabel::status,
 
         ];

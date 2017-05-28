@@ -463,11 +463,22 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 	$("#bantuanpentadbiranpejabat-alamat_negeri").prop("disabled", false);
     $("#bantuanpentadbiranpejabat-alamat_bandar").prop("disabled", false);
     $("#bantuanpentadbiranpejabat-alamat_poskod").prop("disabled", false);
+    $("#persatuanId").prop("disabled", false);
+});
+
+$(document).ready(function(){
+    if($("#persatuanId").val() != ''){
+        getPersatuanProfile();
+    }
 });
         
 $('#persatuanId').change(function(){
     
-    $.get('$URL',{id:$(this).val()},function(data){
+    getPersatuanProfile();
+});
+            
+function getPersatuanProfile(){
+    $.get('$URL',{id:$('#persatuanId').val()},function(data){
         clearForm();
         
         var data = $.parseJSON(data);
@@ -482,7 +493,7 @@ $('#persatuanId').change(function(){
             $('#bantuanpentadbiranpejabat-alamat_poskod').attr('value',data.alamat_tetap_badan_sukan_poskod);
         }
     });
-});
+}
      
 function clearForm(){
     $('#bantuanpentadbiranpejabat-no_faks').attr('value','');

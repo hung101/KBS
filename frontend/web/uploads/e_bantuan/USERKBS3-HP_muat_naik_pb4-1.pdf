@@ -1,0 +1,299 @@
+%PDF-1.5
+%«»… 
+1 0 obj
+<</Title(1GFMAS installation Summary for : USERKBS3-HP)/Author(Mihai Iancu)/Creator(MIPDF)/Producer(© 1973-2016 Mihai Iancu) /Keywords(pdf, AutoIt)/Subject(Convert text file to pdf)/CreationDate(D:20160401093707+02'00')/ModDate()>>
+endobj
+2 0 obj
+<</Type/Catalog/Pages 3 0 R
+/PageLayout /OneColumn
+/OpenAction [1 0 R /XYZ null 841.89 0.9]
+/PageMode/UseNone/Lang (en) >>
+endobj
+5 0 obj
+<< /Type/Font/Subtype/TrueType/Name/F1/BaseFont/Calibri,Italic/FirstChar 32/LastChar 255/FontDescriptor 6 0 R/Encoding/WinAnsiEncoding/Widths [
+226 326 401 498 507 715 682 221 303 303 498 498 250 306 252 386 
+507 507 507 507 507 507 507 507 507 507 268 268 498 498 498 463 
+894 579 544 533 615 488 459 631 623 252 319 520 420 855 646 662 
+517 673 543 459 487 642 567 890 519 487 468 307 386 307 498 498 
+291 479 525 423 525 498 305 471 525 230 239 455 230 799 525 527 
+525 525 349 391 335 525 452 715 433 453 395 314 460 314 498 507 
+507 507 250 305 418 690 498 498 395 1038 459 339 867 507 507 507 
+507 250 250 418 418 498 498 905 450 705 391 339 850 507 507 487 
+226 326 498 507 498 507 498 498 393 834 402 512 498 306 507 394 
+339 498 336 334 292 550 586 252 307 246 422 512 636 671 675 463 
+579 579 579 579 579 579 763 533 488 488 488 488 252 252 252 252 
+631 646 662 662 662 662 662 498 664 642 642 642 642 252 459 527 
+] >>
+endobj
+6 0 obj
+<< /Type/FontDescriptor/FontName/Calibri/Flags 98 /FontBBox[ -503 -307 1240 964] /MissingWidth 333/StemV 73/StemH 73/ItalicAngle -11/CapHeight 891/Ascent 964/Descent -307/Leading 149/MaxWidth 1000/AvgWidth 402>>
+endobj
+7 0 obj
+<</Type /Page /Parent 3 0 R /Contents 8 0 R /Rotate 0>>
+endobj
+8 0 obj
+<< /Length 9 0 R >>
+stream
+BT
+/F1 10 Tf
+564.37 28.35 Td
+(1) Tj
+ET
+BT
+/F1 10 Tf
+56.69 793.7 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+56.69 779.53 Td
+(==================================================================================) Tj
+ET
+BT
+/F1 10 Tf
+56.69 765.35 Td
+(============================= PC Information =====================================) Tj
+ET
+BT
+/F1 10 Tf
+56.69 751.18 Td
+(==================================================================================) Tj
+ET
+BT
+/F1 10 Tf
+56.69 737.01 Td
+(PC Name: USERKBS3-HP) Tj
+ET
+BT
+/F1 10 Tf
+56.69 722.83 Td
+(OS Version: WIN_7) Tj
+ET
+BT
+/F1 10 Tf
+56.69 708.66 Td
+(Service Pack info: Service Pack 1) Tj
+ET
+BT
+/F1 10 Tf
+56.69 694.49 Td
+(OS Architecture: X64) Tj
+ET
+BT
+/F1 10 Tf
+56.69 680.31 Td
+(Physical RAM in KB: 8292720) Tj
+ET
+BT
+/F1 10 Tf
+56.69 666.14 Td
+(==================================================================================) Tj
+ET
+BT
+/F1 10 Tf
+56.69 651.97 Td
+(======================  Pre Installed Software 783042709========================) Tj
+ET
+BT
+/F1 10 Tf
+56.69 637.8 Td
+(==================================================================================) Tj
+ET
+BT
+/F1 10 Tf
+56.69 623.62 Td
+(Internet explorer version: 11.0.9600.18231 Installed) Tj
+ET
+BT
+/F1 10 Tf
+56.69 609.45 Td
+(Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.4148 installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 595.28 Td
+(Microsoft Visual C++ 2012 x86 Additional Runtime - 11.0.60610 installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 581.1 Td
+(Microsoft Visual C++ 2005 Redistributable installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 566.93 Td
+(Microsoft Visual C++ 2012 Redistributable \(x86\) - 11.0.60610 installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 552.76 Td
+(Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.17 installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 538.58 Td
+(Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.6161 installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 524.41 Td
+(Microsoft Visual C++ 2012 Redistributable \(x64\) - 11.0.60610 installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 510.24 Td
+(Microsoft Visual C++ 2012 x86 Minimum Runtime - 11.0.60610 installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 496.06 Td
+(Microsoft Visual C++ 2010  x86 Redistributable - 10.0.40219 installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 481.89 Td
+(==================================================================================) Tj
+ET
+BT
+/F1 10 Tf
+56.69 467.72 Td
+(====================== Post Installed Software 414023709========================) Tj
+ET
+BT
+/F1 10 Tf
+56.69 453.54 Td
+(==================================================================================) Tj
+ET
+BT
+/F1 10 Tf
+56.69 439.37 Td
+(Internet explorer version: 11.0.9600.18231 Installed) Tj
+ET
+BT
+/F1 10 Tf
+56.69 425.2 Td
+(SAP GUI for Windows 7.40  \(Patch 3\) installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 411.02 Td
+(Epiplex500 Workspace Client 8.0 With IR installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 396.85 Td
+(Scan GPKI Agent version 2 installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 382.68 Td
+(Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.4148 installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 368.5 Td
+(Microsoft Visual C++ 2012 x86 Additional Runtime - 11.0.60610 installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 354.33 Td
+(Microsoft Visual C++ 2005 Redistributable installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 340.16 Td
+(Microsoft Visual C++ 2012 Redistributable \(x86\) - 11.0.60610 installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 325.98 Td
+(Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.17 installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 311.81 Td
+(Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.6161 installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 297.64 Td
+(Microsoft Visual C++ 2012 Redistributable \(x64\) - 11.0.60610 installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 283.46 Td
+(Microsoft Visual C++ 2012 x86 Minimum Runtime - 11.0.60610 installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 269.29 Td
+(Microsoft Visual C++ 2010  x86 Redistributable - 10.0.40219 installed.) Tj
+ET
+BT
+/F1 10 Tf
+56.69 255.12 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+56.69 240.94 Td
+() Tj
+ET
+BT
+/F1 10 Tf
+56.69 226.77 Td
+() Tj
+ET
+endstream
+endobj
+9 0 obj
+0
+endobj
+10 0 obj
+<</Type /Page /Parent 3 0 R /Contents 11 0 R /Rotate 0>>
+endobj
+11 0 obj
+<< /Length 12 0 R >>
+stream
+BT
+/F1 10 Tf
+564.37 28.35 Td
+(2) Tj
+ET
+BT
+/F1 10 Tf
+56.69 793.7 Td
+() Tj
+ET
+endstream
+endobj
+12 0 obj
+0
+endobj
+4 0 obj
+<</Font<</F1 5 0 R 
+>>/ProcSet [/PDF/Text]>>
+endobj
+3 0 obj
+<</Type /Pages /Count 2 /MediaBox [0 0 595.3 841.9] /CropBox [0 0 595.3 841.9] /Kids [ 7 0 R 10 0 R ] /Resources 4 0 R>>
+endobj
+xref
+0 13
+0000000000 65535 f
+0000000019 00000 n
+0000000270 00000 n
+0000006206 00000 n
+0000006143 00000 n
+0000000417 00000 n
+0000001379 00000 n
+0000001610 00000 n
+0000001685 00000 n
+0000005886 00000 n
+0000005907 00000 n
+0000005984 00000 n
+0000006130 00000 n
+trailer
+<<	/Size 13/Info 1 0 R/Root 2 0 R>>
+startxref
+6683
+%%EOF

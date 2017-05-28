@@ -48,6 +48,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan extends \yii\db\Act
             [['tempat'], 'string', 'max' => 90],
             [['no_cek', 'no_boucer'], 'string', 'max' => 50],
             [['session_id'], 'string', 'max' => 100],
+            ['jumlah_yang_dituntut_20','validateJumlahDituntut'],
         ];
     }
 
@@ -74,5 +75,17 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan extends \yii\db\Act
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+    
+    public function validateJumlahDituntut(){
+        $hakJumlahDituntut = 0;
+        
+        if($this->jumlah_kelulusan > 0){
+            $hakJumlahDituntut = $this->jumlah_kelulusan * 0.2;
+        }
+
+        if($this->jumlah_yang_dituntut_20 > $hakJumlahDituntut){
+            $this->addError('jumlah_yang_dituntut_20','Jumlah Yang Dituntut tidak boleh melebihi RM' . $hakJumlahDituntut);
+        }
     }
 }

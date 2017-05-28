@@ -96,6 +96,10 @@ class ForumSeminarPersidanganDiLuarNegaraController extends Controller
         $ref = RefJawatanBantuanMenghadiriProgramAntarabangsa::findOne(['id' => $model->jawatan]);
         $model->jawatan = $ref['desc'];
         
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_kelulusan_jkb != "") {$model->tarikh_kelulusan_jkb = GeneralFunction::convert($model->tarikh_kelulusan_jkb, GeneralFunction::TYPE_DATE);}
+        
         $queryPar = null;
         
         $queryPar['InformasiPermohonanProgramAntarabangsaSearch']['forum_seminar_persidangan_di_luar_negara_id'] = $id;
@@ -129,6 +133,10 @@ class ForumSeminarPersidanganDiLuarNegaraController extends Controller
         }
         
         $model = new ForumSeminarPersidanganDiLuarNegara();
+        
+        if(Yii::$app->user->identity->profil_badan_sukan){
+            $model->persatuan = Yii::$app->user->identity->profil_badan_sukan;
+        }
         
         $queryPar = null;
         

@@ -598,10 +598,9 @@ use app\models\general\GeneralMessage;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
                 ],
-                /*'format' => 'raw',
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATETIME);
-                },*/
+                },
             ],
             [
                 'attribute' => 'jenis_kadar',

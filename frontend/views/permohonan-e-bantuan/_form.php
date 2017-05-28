@@ -449,13 +449,13 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
         ],
         [
             'attributes' => [
-                'aktiviti_dan_kejayaan_yang_dicapai' => ['type'=>Form::INPUT_TEXTAREA,'options'=>['maxlength'=>255]],
+                'aktiviti_dan_kejayaan_yang_dicapai' => ['type'=>Form::INPUT_TEXTAREA],
             ]
         ],
         
         [
             'attributes' => [
-                'catatan' => ['type'=>Form::INPUT_TEXTAREA,'options'=>['maxlength'=>255]],
+                'catatan' => ['type'=>Form::INPUT_TEXTAREA],
             ]
         ],
     ]
@@ -928,12 +928,18 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     
     <?php 
         $calculate_jumlah_perbelanjaan = 0.00;
+        $calculate_jumlah_disokong = 0.00;
+        $calculate_jumlah_diperakuankan = 0.00;
         foreach($dataProviderAP->models as $APmodel){
             $calculate_jumlah_perbelanjaan += $APmodel->jumlah_perbelanjaan;
+            $calculate_jumlah_disokong += $APmodel->jumlah_disokong;
+            $calculate_jumlah_diperakuankan += $APmodel->jumlah_diperakuankan;
         }
     ?>
     
-    <h4><?=GeneralLabel::jumlah_perbelanjaan_without_rm?>: RM <?=$calculate_jumlah_perbelanjaan?></h4>
+    <h4><?=GeneralLabel::jumlah_perbelanjaan_without_rm?>: RM <?=$calculate_jumlah_perbelanjaan?>, 
+            <?=GeneralLabel::jumlah_perbelanjaan_without_rm?>: RM <?=$calculate_jumlah_disokong?>, 
+            <?=GeneralLabel::jumlah_perbelanjaan_without_rm?>: RM <?=$calculate_jumlah_diperakuankan?></h4>
     
     <?php Pjax::end(); ?>
     
@@ -1151,7 +1157,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'catatan_admin' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>255]],
+                'catatan_admin' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4]],
             ]
         ],
     ]

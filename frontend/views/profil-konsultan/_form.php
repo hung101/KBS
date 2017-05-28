@@ -333,8 +333,18 @@ use common\models\general\GeneralFunction;
 
             //'profil_konsultan_kontrak_id',
             //'profil_konsultan_id',
-            'tarikh_kontrak_mula',
-            'tarikh_kontrak_akhir',
+            [
+                'attribute' => 'tarikh_kontrak_mula',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_kontrak_mula, GeneralFunction::TYPE_DATE);
+                },
+            ],
+            [
+                'attribute' => 'tarikh_kontrak_akhir',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_kontrak_akhir, GeneralFunction::TYPE_DATE);
+                },
+            ],
             //'session_id',
             // 'created_by',
             // 'updated_by',

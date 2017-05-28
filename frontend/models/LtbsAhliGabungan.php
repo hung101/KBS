@@ -53,6 +53,7 @@ class LtbsAhliGabungan extends \yii\db\ActiveRecord
             [['peringkat_badan_sukan', 'alamat_badan_sukan_1', 'alamat_badan_sukan_negeri', 'alamat_badan_sukan_poskod', 
                 'nama_penuh_presiden_badan_sukan', 'no_tel_bimbit_presiden_badan_sukan', 'no_tel_bimbit_setiausaha_badan_sukan', 
                 'nama_penuh_setiausaha_badan_sukan', 'status', 'nama'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['pengesahan'], 'safe'],
             [['nama_badan_sukan', 'nama_penuh_presiden_badan_sukan', 'nama_penuh_setiausaha_badan_sukan', 'nama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_badan_sukan_1', 'alamat_badan_sukan_2', 'alamat_badan_sukan_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['emel_presiden_badan_sukan', 'emel_setiausaha_badan_sukan'], 'email', 'message' => GeneralMessage::yii_validation_email],
@@ -86,7 +87,7 @@ class LtbsAhliGabungan extends \yii\db\ActiveRecord
             'emel_setiausaha_badan_sukan' => GeneralLabel::emel_setiausaha_badan_sukan,
             'status' => GeneralLabel::status,
             'nama' => GeneralLabel::nama,
-
+            'pengesahan' => GeneralLabel::pengesahan_perakuan_maklumat_oleh_psk,
         ];
     }
     

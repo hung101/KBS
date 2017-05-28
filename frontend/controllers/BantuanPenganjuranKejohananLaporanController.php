@@ -44,7 +44,7 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $searchModel = new BantuanPenganjuranKejohananLaporanSearch();
@@ -64,7 +64,7 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
     public function actionView($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = $this->findModel($id);
@@ -95,7 +95,7 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
     public function actionCreate($bantuan_penganjuran_kejohanan_id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = new BantuanPenganjuranKejohananLaporan();
@@ -111,6 +111,7 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
             $model->bilangan_pembantu = $modelBantuanPenganjuranKejohanan->bilangan_pembantu;
             $model->tarikh = $modelBantuanPenganjuranKejohanan->tarikh_mula;
             $model->tarikh_tamat = $modelBantuanPenganjuranKejohanan->tarikh_tamat;
+            $model->jumlah_kelulusan = $modelBantuanPenganjuranKejohanan->jumlah_dilulus;
         }
         
         $dateAdd = new \DateTime($model->tarikh_tamat);
@@ -210,7 +211,7 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
     public function actionLoad($bantuan_penganjuran_kejohanan_id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         if (($model = BantuanPenganjuranKejohananLaporan::find()->where(['bantuan_penganjuran_kejohanan_id'=>$bantuan_penganjuran_kejohanan_id])->one()) !== null) {
@@ -229,7 +230,7 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
     public function actionUpdate($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $model = $this->findModel($id);
@@ -336,7 +337,7 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
     public function actionDelete($id)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
         $this->findModel($id)->delete();
@@ -364,7 +365,7 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
     public function actionDeleteupload($id, $field)
     {
         if (Yii::$app->user->isGuest) {
-            return $this->redirect($this->redirect(array(GeneralVariable::loginPagePath)));
+            return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
             $img = $this->findModel($id)->$field;

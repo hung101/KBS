@@ -1,10 +1,10 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
 use Yii;
 use app\models\Sukarelawan;
-use frontend\models\SukarelawanSearch;
+use backend\models\SukarelawanSearch;
 use app\models\MsnLaporanSenaraiSukarelawan;
 use app\models\MsnLaporanStatistikSukarelawanMengikutBangsa;
 use app\models\MsnLaporanStatistikSukarelawanMengikutNegeri;
@@ -12,6 +12,7 @@ use app\models\MsnLaporanStatistikSukarelawanMengikutJantina;
 use app\models\MsnLaporanStatistikSukarelawanMengikutUmur;
 use app\models\MsnLaporanStatistikSukarelawanMengikutKecenderungan;
 use app\models\MsnLaporanStatistikSukarelawanMengikutKeterbatasanFizikal;
+use app\models\MsnLaporan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -33,6 +34,10 @@ use app\models\RefBidangDiminatiSukarelawan;
 use app\models\RefWaktuKetikaDiperlukanSukarelawan;
 use app\models\RefTarafPerkahwinan;
 use app\models\RefBangsa;
+use app\models\RefBidangKepakaranSukarelawan;
+use app\models\RefSukan;
+
+use common\models\User;
 
 /**
  * SukarelawanController implements the CRUD actions for Sukarelawan model.
@@ -68,6 +73,24 @@ class SukarelawanController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+    
+    /**
+     * Displays a single BantuanPenganjuranKejohananSirkitLaporan model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionLoad()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        if (($model = Sukarelawan::find()->where(['user_public_id'=>Yii::$app->user->identity->id])->one()) !== null) {
+            return $this->redirect(['update', 'id' => $model->sukarelawan_id]);
+        } else {
+            return $this->redirect(['create']);
+        }
     }
 
     /**
@@ -110,13 +133,21 @@ class SukarelawanController extends Controller
         $ref = RefBidangDiminatiSukarelawan::findOne(['id' => $model->bidang_diminati]);
         $model->bidang_diminati = $ref['desc'];
         
+        $ref = RefBidangKepakaranSukarelawan::findOne(['id' => $model->bidang_kepakaran]);
+        $model->bidang_kepakaran = $ref['desc'];
+
         $ref = RefWaktuKetikaDiperlukanSukarelawan::findOne(['id' => $model->waktu_ketika_diperlukan]);
         $model->waktu_ketika_diperlukan = $ref['desc'];
         
         $ref = RefBangsa::findOne(['id' => $model->bangsa]);
         $model->bangsa = $ref['desc'];
         
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+
         $model->kebatasan_fizikal = GeneralLabel::getYesNoLabel($model->kebatasan_fizikal);
+        
+        if($model->tarikh_lahir != "") {$model->tarikh_lahir = GeneralFunction::convert($model->tarikh_lahir, GeneralFunction::TYPE_DATE);}
         
         return $this->render('view', [
             'model' => $model,
@@ -136,12 +167,47 @@ class SukarelawanController extends Controller
         }
         
         $model = new Sukarelawan();
+        
+        // set public user id
+        $model->user_public_id = Yii::$app->user->identity->id;
+        
+            
+        if(!Yii::$app->request->post()){
+            $model->nama = Yii::$app->user->identity->full_name;
+            $model->no_kad_pengenalan = Yii::$app->user->identity->username;
+            $model->no_tel_bimbit = Yii::$app->user->identity->tel_bimbit_no;
+            $model->emel = Yii::$app->user->identity->email;
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $upload = new Upload();
             $file = UploadedFile::getInstance($model, 'muatnaik');
             if($file){
                 $model->muatnaik = $upload->uploadFile($file, Upload::sukarelawanFolder, $model->sukarelawan_id, "");
+            }
+            
+            if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_sukarelawan'])->groupBy('id')->all()) !== null) {
+        
+                foreach($modelUsers as $modelUser){
+
+                    if($modelUser->email && $modelUser->email != ""){
+                        //echo "E-mail: " . $modelUser->email . "\n";
+                        Yii::$app->mailer->compose()
+                        ->setTo($modelUser->email)
+                        ->setFrom('noreply@spsb.com')
+                        ->setSubject('Pemberitahuan: Permohonan Sukarelawan Baru')
+                        ->setTextBody("Salam Sejahtera,
+<br><br><br>
+Berikut adalah permohonan sukarelawan baru telah dihantar : <br>
+<br><br>
+Nama : " . $model->nama . '<br>
+No. Kad Pengenalan: ' . GeneralFunction::getFormatIc($model->no_kad_pengenalan) . '
+<br><br><br>
+"KE ARAH KECEMERLANGAN SUKAN"<br><br>
+Majlis Sukan Negara Malaysia.
+    ')->send();
+                    }
+                }
             }
             
             if($model->save()){
@@ -635,5 +701,152 @@ class SukarelawanController extends Controller
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikSukarelawanMengikutKeterbatasanFizikal', $format, $controls, 'laporan_statistik_sukarelawan_mengikut_keterbatasan_fizikal');
+    }
+    
+    public function actionLaporanStatistikSukarelawanMengikutKepakaran()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-sukarelawan-mengikut-kepakaran'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-sukarelawan-mengikut-kepakaran'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_sukarelawan_mengikut_kepakaran', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikSukarelawanMengikutKepakaran($tarikh_dari, $tarikh_hingga, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikSukarelawanMengikutKepakaran', $format, $controls, 'laporan_statistik_sukarelawan_mengikut_kepakaran');
+    }
+    
+    public function actionLaporanStatistikSukarelawanMengikutSukan()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-sukarelawan-mengikut-sukan'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-sukarelawan-mengikut-sukan'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_sukarelawan_mengikut_sukan', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikSukarelawanMengikutSukan($tarikh_dari, $tarikh_hingga, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikSukarelawanMengikutSukan', $format, $controls, 'laporan_statistik_sukarelawan_mengikut_sukan');
+    }
+    
+    public function actionLaporanStatistikSukarelawanMengikutTahun()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = new MsnLaporan();
+        $model->format = 'html';
+
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if($model->format == "html") {
+                $report_url = BaseUrl::to(['generate-laporan-statistik-sukarelawan-mengikut-tahun'
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'format' => $model->format
+                ], true);
+                echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
+            } else {
+                return $this->redirect(['generate-laporan-statistik-sukarelawan-mengikut-tahun'
+                    , 'tarikh_dari' => $model->tarikh_dari
+                    , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'format' => $model->format
+                ]);
+            }
+        } 
+
+        return $this->render('laporan_statistik_sukarelawan_mengikut_tahun', [
+            'model' => $model,
+            'readonly' => false,
+        ]);
+    }
+    
+    public function actionGenerateLaporanStatistikSukarelawanMengikutTahun($tarikh_dari, $tarikh_hingga, $format)
+    {
+        if($tarikh_dari == "") $tarikh_dari = array();
+        else $tarikh_dari = array($tarikh_dari);
+        
+        if($tarikh_hingga == "") $tarikh_hingga = array();
+        else $tarikh_hingga = array($tarikh_hingga);
+        
+        $controls = array(
+            'FROM_DATE' => $tarikh_dari,
+            'TO_DATE' => $tarikh_hingga,
+        );
+        
+        GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikSukarelawanMengikutTahun', $format, $controls, 'laporan_statistik_sukarelawan_mengikut_tahun');
     }
 }

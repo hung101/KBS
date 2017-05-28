@@ -42,6 +42,10 @@ $this->title = GeneralLabel::sistem_pengurusan_sukan_bersepadu;
               <h4 class="list-group-item-heading"><?=GeneralLabel::ekemudahan?> MSN</h4>
               <p class="list-group-item-text"><?=GeneralLabel::membuat_tempahan_mengiklan_secara_online?></p>
             </a>
+            <a href="<?=Url::to(['/site/login', 'access_id' => PublicUser::ACCESS_SUKARELAWAN])?>" class="list-group-item">
+              <h4 class="list-group-item-heading"><?=GeneralLabel::sukarelawan?></h4>
+              <p class="list-group-item-text"><?=GeneralLabel::berdaftar_secara_online?></p>
+            </a>
         </div>
 
     </div>

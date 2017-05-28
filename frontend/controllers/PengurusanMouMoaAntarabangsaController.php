@@ -78,6 +78,9 @@ class PengurusanMouMoaAntarabangsaController extends Controller
         $ref = RefStatusMouMaoAntarabangsa::findOne(['id' => $model->status]);
         $model->status = $ref['desc'];
         
+        if($model->jangka_waktu_mula != "") {$model->jangka_waktu_mula = GeneralFunction::convert($model->jangka_waktu_mula, GeneralFunction::TYPE_DATE);}
+        if($model->jangka_waktu_tamat != "") {$model->jangka_waktu_tamat = GeneralFunction::convert($model->jangka_waktu_tamat, GeneralFunction::TYPE_DATE);}
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,

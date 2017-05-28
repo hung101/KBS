@@ -89,6 +89,9 @@ class BantuanPentadbiranPejabatController extends Controller
         $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->persatuan]);
         $model->persatuan = $ref['nama_badan_sukan'];
         
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATETIME);}
+        if($model->tarikh_lantikan != "") {$model->tarikh_lantikan = GeneralFunction::convert($model->tarikh_lantikan, GeneralFunction::TYPE_DATE);}
+        
         $queryPar = null;
         
         $queryPar['InformasiPermohonanSearch']['bantuan_pentadbiran_pejabat_id'] = $id;
@@ -120,6 +123,10 @@ class BantuanPentadbiranPejabatController extends Controller
         $model->tarikh = GeneralFunction::getCurrentTimestamp();
         
         $model->status_permohonan = RefStatusPermohonanBantuanPentadbiranPejabat::DALAM_PROSES;
+        
+        if(Yii::$app->user->identity->profil_badan_sukan){
+            $model->persatuan = Yii::$app->user->identity->profil_badan_sukan;
+        }
         
         $oldStatusPermohonan = null;
         

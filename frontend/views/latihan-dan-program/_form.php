@@ -41,7 +41,7 @@ use app\models\general\GeneralMessage;
         }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'id'=>$model->formName(), 'staticOnly'=>$readonly]); ?>
     
     <?php
         echo FormGrid::widget([
@@ -198,6 +198,27 @@ use app\models\general\GeneralMessage;
     <?php endif; ?>
     
     <br>
+    
+    <?php
+    if(Yii::$app->user->identity->profil_badan_sukan && $model->isNewRecord){
+        echo '<br>';
+            echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'pengesahan' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>6]],
+                        ],
+                    ],
+                ]
+            ]);
+       }
+    ?>
+    
     <br>
     
     <?php
@@ -267,3 +288,27 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<?php
+
+$script = <<< JS
+        
+// enable all the disabled field before submit
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    if(document.getElementById("latihandanprogram-pengesahan").checked){
+        var form = $(this);
+
+        $("form#{$model->formName()} input").prop("disabled", false);
+    } else {
+        alert('Sila tanda pengesahan perakuan');
+
+        return false;
+    }
+});
+        
+JS;
+        
+$this->registerJs($script);
+?>

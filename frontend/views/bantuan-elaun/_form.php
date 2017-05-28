@@ -582,11 +582,16 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 	$("#bantuanelaun-alamat_negeri").prop("disabled", false);
     $("#bantuanelaun-alamat_bandar").prop("disabled", false);
     $("#bantuanelaun-alamat_poskod").prop("disabled", false);
+    $("#persatuanId").prop("disabled", false);
 });
     
 $(document).ready(function(){
     if($("#TarikhLahirID").val() != ""){
         $("#UmurID").val(calculateAge($("#TarikhLahirID").val()));
+    }
+    
+    if($("#persatuanId").val() != ''){
+        getPersatuanProfile();
     }
 });
         
@@ -616,7 +621,11 @@ $('#TarikhLahirID').change(function(){
 
 $('#persatuanId').change(function(){
     
-    $.get('$URL',{id:$(this).val()},function(data){
+    getPersatuanProfile();
+});
+            
+function getPersatuanProfile(){
+    $.get('$URL',{id:$('#persatuanId').val()},function(data){
         clearForm();
         
         var data = $.parseJSON(data);
@@ -630,7 +639,7 @@ $('#persatuanId').change(function(){
             $('#bantuanelaun-alamat_poskod').attr('value',data.alamat_tetap_badan_sukan_poskod);
         }
     });
-});
+}
 
 function clearForm(){
     $('#bantuanelaun-alamat_1').attr('value','');

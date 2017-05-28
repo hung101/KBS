@@ -68,6 +68,11 @@ class PengurusanMediaProgramController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $model = $this->findModel($id);
+        
+        if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATETIME);}
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATETIME);}
+        
         $queryPar = null;
         
         $queryPar['PengurusanDokumenMediaProgramSearch']['pengurusan_media_program_id'] = $id;
@@ -84,7 +89,7 @@ class PengurusanMediaProgramController extends Controller
         $dataProviderPengurusanMediaProgramWakil = $searchModelPengurusanMediaProgramWakil->search($queryPar);
         
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'searchModelDokumenMediaProgram' => $searchModelDokumenMediaProgram,
             'dataProviderDokumenMediaProgram' => $dataProviderDokumenMediaProgram,
             'searchModelKehadiranMediaProgram' => $searchModelKehadiranMediaProgram,

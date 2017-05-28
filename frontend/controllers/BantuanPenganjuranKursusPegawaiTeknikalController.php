@@ -160,6 +160,10 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
         $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
         $model->status_permohonan = RefStatusBantuanPenganjuranKursusPegawaiTeknikal::SEDANG_DIPROSES;
         
+        if(Yii::$app->user->identity->profil_badan_sukan){
+            $model->badan_sukan = Yii::$app->user->identity->profil_badan_sukan;
+        }
+        
         $queryPar = null;
         
         Yii::$app->session->open();

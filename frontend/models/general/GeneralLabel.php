@@ -71,6 +71,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const acara = "Acara";
         const action = "Action";
         const activiti = "Activiti";
+        const admin = "Admin";
         const admin_e_biasiswa = "Admin E Biasiswa";
         const admin_e_biasiswa_id = "Sesi Permohonan";
         const aduan_dimajukan_kepada_agensi_lain = "Aduan Dimajukan Kepada Agensi Lain";
@@ -289,6 +290,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const berat_badan = "Berat Badan (kg)";
         const berat_badan_naik = "Berat Badan Naik (KG)";
         const berat_badan_turun = "Berat Badan Turun (KG)";
+        const berdaftar_secara_online = "Berdaftar secara online";
         const berita_antarabangsa = "Berita Antarabangsa";
         const bentuk_tajaan = "Bentuk Tajaan";
         const biasa_dengan_keperluan_penyelidikan = "Biasa Dengan Keperluan Penyelidikan";
@@ -739,6 +741,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const jumlah_dipohon_dari = "Jumlah Dipohon Dari";
         const jumlah_dipohon_hingga = "Hingga";
         const jumlah_disokong = "Disokong (RM)";
+        const jumlah_disokong_without_rm = "Disokong";
         const jumlah_ekar_kaki_persegi = "Jumlah/Ekar/Kaki Persegi";
         const jumlah_elaun = "Jumlah Elaun (RM)";
 		const desc_en = "Penerangan (English)";
@@ -2499,7 +2502,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const urusetia_kejohanan = "Urusetia Kejohanan";
         const urusetia_negeri_e_bantuan = "Negeri";
         const user_peranan_id = "User Peranan ID";
-        const username = "Username";
+        const username = "Pengguna";
         const usia_kali_pertama_haid = "Usia Kali Pertama Haid";
         const venue = "Venue";
         const verifyCode = "Verification Code";
@@ -2771,6 +2774,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const penganjuran_kursus_senarai_peserta = "Maklumat Peribadi Peserta";
         const pengemaskinian_maklumat_permohonan_baru_yang_dihantar_akan_membatalkan_permohonan_yang_terdahulu = "Pengemaskinian maklumat permohonan baru yang dihantar akan membatalkan permohonan yang terdahulu.";
         const pengesahan_kata_laluan = "Pengesahan Kata Laluan";
+        const pengesahan_perakuan_maklumat_oleh_psk = "Kami memperakui bahawa sepanjang pengetahuan dan kepercayaan kami maklumat yang diberikan ini adalah benar.";
         const pengesahan_tamat_pengajian = "Pengesahan Tamat Pengajian";
         const pengisytiharan = "Pengisytiharan";
         const pengkomputeran_penilaian_presatasi_sukan_dan_program_latihan = "Pengkomputeran Penilaian Presatasi Sukan Dan Program Latihan";
@@ -3904,6 +3908,7 @@ if($session->get('language') == "EN") {
 		const agensi_kemudahan = "Facilities Agency";
         const action = "Action";
         const activiti = "Activity";
+        const admin = "Admin";
         const admin_e_biasiswa = "Admin e-Scholarship";
         const admin_e_biasiswa_id = "Session Application";
         const aduan_dimajukan_kepada_agensi_lain = "Complaints Forwarded To Other Agency";
@@ -4114,6 +4119,7 @@ if($session->get('language') == "EN") {
 		const berat_badans = "Body Weight";
         const berat_badan_naik = "Weight Ride (KG)";
         const berat_badan_turun = "Weight (KG) For Download";
+        const berdaftar_secara_online = "Apply via online";
         const berita_antarabangsa = "International News";
         const bentuk_tajaan = "Forms Of Sponsorship";
         const biasa_dengan_keperluan_penyelidikan = "Familiar With The Research Needs Of The";
@@ -4568,6 +4574,7 @@ if($session->get('language') == "EN") {
         const jumlah_dipohon_dari = "Amount Requested From";
         const jumlah_dipohon_hingga = "To";
         const jumlah_disokong = "Supported (RM)";
+        const jumlah_disokong_without_rm = "Supported";
         const jumlah_ekar_kaki_persegi = "Total/Acre/Square Feet";
         const jumlah_elaun = "The Amount Of The Allowance (RM)";
         const jumlah_elaun_yang_dipohon = "Total Allowance Applied (RM)";
@@ -5501,6 +5508,7 @@ if($session->get('language') == "EN") {
         const penglihatan_tanpa_cermin_mata_kiri = "Vision Without Glasses Left";
         const pengurus_pn = "Officer Of NSAS";
         const pengurusan_anjuran_id = "Management Organized By ID";
+        const pengurusan_atlet = "Athlete Management";
         const pengurusan_berita_antarabangsa_id = "International News Management ID";
         const pengurusan_biasiswa_atlet_id = "Scholarship Athlete ID Management";
         const pengurusan_dokumen_media_program_id = "Document Management Program Media ID";
@@ -6581,6 +6589,7 @@ if($session->get('language') == "EN") {
         const penganjuran_kursus_senarai_peserta = "Participants Personal Information";
         const pengemaskinian_maklumat_permohonan_baru_yang_dihantar_akan_membatalkan_permohonan_yang_terdahulu = "Updating new application information submitted will cancel the earlier application.";
         const pengesahan_kata_laluan = "Confirm Password";
+        const pengesahan_perakuan_maklumat_oleh_psk = "We certify that all our knowledge and belief the information provided is correct.";
         const pengesahan_tamat_pengajian = "Confirmation Of Graduation";
         const borang_kontrak = "Contract Form";
 		const senarai_harga = "Price List";

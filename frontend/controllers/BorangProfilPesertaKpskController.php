@@ -72,9 +72,12 @@ class BorangProfilPesertaKpskController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
 		
-		$model = $this->findModel($id);
-		
-		$session = new Session;
+        $model = $this->findModel($id);
+        
+        if($model->tarikh_kursus != "") {$model->tarikh_kursus = GeneralFunction::convert($model->tarikh_kursus, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat_kursus != "") {$model->tarikh_tamat_kursus = GeneralFunction::convert($model->tarikh_tamat_kursus, GeneralFunction::TYPE_DATE);}
+
+        $session = new Session;
         $session->open();
 
         $session['borang_profil_peserta_kpsk_tahap_id'] = $model->tahap;

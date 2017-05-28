@@ -13,6 +13,7 @@ use yii\filters\VerbFilter;
 
 // contant values
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefNegara;
@@ -77,6 +78,8 @@ class PengurusanAnjuranController extends Controller
         
         $ref = RefNegara::findOne(['id' => $model->negara]);
         $model->negara = $ref['desc'];
+        
+        if($model->tarikh_program_anjuran != "") {$model->tarikh_program_anjuran = GeneralFunction::convert($model->tarikh_program_anjuran, GeneralFunction::TYPE_DATE);}
         
         $queryPar = null;
         

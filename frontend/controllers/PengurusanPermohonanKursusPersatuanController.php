@@ -95,6 +95,11 @@ class PengurusanPermohonanKursusPersatuanController extends Controller
         
         //$model->kelulusan = GeneralLabel::getYesNoLabel($model->kelulusan);
         
+        if($model->tarikh_kursus != "") {$model->tarikh_kursus = GeneralFunction::convert($model->tarikh_kursus, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat_kursus != "") {$model->tarikh_tamat_kursus = GeneralFunction::convert($model->tarikh_tamat_kursus, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_kelulusan != "") {$model->tarikh_kelulusan = GeneralFunction::convert($model->tarikh_kelulusan, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_permohonan != "") {$model->tarikh_permohonan = GeneralFunction::convert($model->tarikh_permohonan, GeneralFunction::TYPE_DATETIME);}
+        
         $queryPar = null;
         
         $queryPar['PengurusanPermohonanKursusPersatuanPenasihatSearch']['pengurusan_permohonan_kursus_persatuan_id'] = $id;

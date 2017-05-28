@@ -19,14 +19,14 @@ return [
         'audit' => [
             'class' => 'bedezign\yii2\audit\Audit',
             'accessRoles' => null,
-            'accessUsers' => [1],
+            'accessUsers' => null,
         ],
     ],
 // eddie end
     'components' => [
         'user' => [
             'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
+            'enableAutoLogin' => false,
             'identityCookie' => [
                 'name' => '_frontendUser',
                 'path' => '/',

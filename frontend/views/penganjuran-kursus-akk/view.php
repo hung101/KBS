@@ -22,10 +22,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['update'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-akk']['update'])): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->penganjuran_kursus_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['delete'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-akk']['delete'])): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->penganjuran_kursus_id], [
                 'class' => 'btn btn-danger',
                 'data' => [

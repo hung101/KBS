@@ -58,12 +58,15 @@ use app\models\general\GeneralMessage;
             $peranan_akses_arr = json_decode($model->peranan_akses, true);
         }
         
-        foreach ($results as $modelSystemModules) {     
+        foreach ($results as $modelSystemModules) {  
+            if(isset(Yii::$app->user->identity->peranan_akses[trim($modelSystemModules->category)][$modelSystemModules->action]['admin'])){
+                
             if($category != trim($modelSystemModules->category)){
                 echo $html_fieldsetOpen;
                 echo '<legend>' . trim($category) . '</legend>';
                 if(!$readonly){
                     echo '<strong>Select/Unselect All</strong><br />';
+                    echo '<input class="'.trim($category).'_admin" type="checkbox" onclick="checkUncheckAllAction(this)" value="'.trim($category).'_admin" /> <strong>Admin </strong>';
                     echo '<input class="'.trim($category).'" type="checkbox" onclick="checkUncheckAll(this)" value="'.trim($category).'" /> <strong>Module</strong> -  ';
                     echo '<input class="'.trim($category).'_create" type="checkbox" onclick="checkUncheckAllAction(this)" value="'.trim($category).'_create" /> <strong>' . GeneralLabel::create . '</strong> ';
                     echo '<input class="'.trim($category).'_update" type="checkbox" onclick="checkUncheckAllAction(this)" value="'.trim($category).'_update" /> <strong>' . GeneralLabel::update . '</strong> ';
@@ -78,7 +81,15 @@ use app\models\general\GeneralMessage;
                 $html_inputCheckboxes = '';
             }
             
+            
             //echo $modelSystemModules->module_name . "<br>";
+            //
+            // Admin Access
+            $html_inputCheckboxes .= '<input type="checkbox" class="'.trim($modelSystemModules->category).'_admin" name="'
+                                    .trim($modelSystemModules->category).'['.trim($modelSystemModules->action).'][]" value="admin"' .
+                                    (isset($peranan_akses_arr[trim($modelSystemModules->category)][$modelSystemModules->action]['admin']) ? 'checked' : '') .' '.
+                                    ($readonly == true ? 'disabled' : '').' /> '
+                                    .GeneralLabel::admin.' ';
             
             // Module Access
             $html_inputCheckboxes .= '<input type="checkbox" class="'.trim($modelSystemModules->category).'" name="'
@@ -90,6 +101,8 @@ use app\models\general\GeneralMessage;
             if($modelSystemModules->functions && $modelSystemModules->functions != "no_function;"){
                 $html_inputCheckboxes .= ' - ';
             }
+            
+            
             
             if(strpos($modelSystemModules->functions, "no_function;") === false){
             
@@ -137,12 +150,19 @@ use app\models\general\GeneralMessage;
             
             
             $html_inputCheckboxes .= ' <br />';
+            
+            }
         }
 
         echo $html_fieldsetOpen;
         echo '<legend>' . trim($category) . '</legend>';
         if(!$readonly){
-            echo '<input type="checkbox" onclick="checkUncheckAll(this)" value="'.trim($category).'" /> <strong>Select/Unselect All</strong> <br /><br />';
+            echo '<strong>Select/Unselect All</strong><br />';
+            echo '<input class="'.trim($category).'_admin" type="checkbox" onclick="checkUncheckAllAction(this)" value="'.trim($category).'_admin" /> <strong>Admin </strong>';
+            echo '<input class="'.trim($category).'" type="checkbox" onclick="checkUncheckAll(this)" value="'.trim($category).'" /> <strong>Module</strong> ';
+            echo '<input class="'.trim($category).'_create" type="checkbox" onclick="checkUncheckAllAction(this)" value="'.trim($category).'_create" /> <strong>' . GeneralLabel::create . '</strong> ';
+            echo '<input class="'.trim($category).'_update" type="checkbox" onclick="checkUncheckAllAction(this)" value="'.trim($category).'_update" /> <strong>' . GeneralLabel::update . '</strong> ';
+            echo '<input class="'.trim($category).'_delete" type="checkbox" onclick="checkUncheckAllAction(this)" value="'.trim($category).'_delete" /> <strong>' . GeneralLabel::delete . '</strong> <br /><br />';
         }
         echo $html_inputCheckboxes;
         echo $html_fieldsetClose;

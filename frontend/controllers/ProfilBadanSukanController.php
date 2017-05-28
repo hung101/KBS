@@ -26,6 +26,7 @@ use app\models\RefSukan;
 use app\models\RefNegeri;
 use app\models\RefBandar;
 use app\models\RefStatusLaporanMesyuaratAgung;
+use app\models\User;
 
 /**
  * ProfilBadanSukanController implements the CRUD actions for ProfilBadanSukan model.
@@ -178,6 +179,49 @@ class ProfilBadanSukanController extends Controller
             }
             
             if($model->save()){
+                
+                if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_profil-badan-sukan'])->groupBy('id')->all()) !== null) {
+                    foreach($modelUsers as $modelUser){
+
+                        if($modelUser->email && $modelUser->email != ""){
+                            //echo "E-mail: " . $modelUser->email . "\n";
+                            Yii::$app->mailer->compose()
+                            ->setTo($modelUser->email)
+                            ->setFrom('noreply@spsb.com')
+                            ->setSubject('Pemberitahuan - Profil Badan Sukan')
+                            ->setTextBody("Salam ".$modelUser->full_name.",
+    <br><br>
+    Terdapat permohonan pengesahan maklumat untuk semakan dan tindakan pihak tuan/puan. Sila semak sistem SPSB bagi tindakan seterusnya.
+    <br>
+    Nama Badan Sukan: " . $model->nama_badan_sukan . '
+    <br><br>
+    Sekian, terima kasih.
+        ')->send();
+                        }
+                    }
+                }
+                
+                if($model->emel_badan_sukan && $model->emel_badan_sukan != ""){
+
+                        try {
+                                Yii::$app->mailer->compose()
+                                        ->setTo($model->emel_badan_sukan)
+                                                                    ->setFrom('noreply@spsb.com')
+                                        ->setSubject('Profil Badan Sukan Sedang Diproses')
+                                        ->setTextBody('Salam '.$model->nama_badan_sukan.',
+    <br><br>
+    Terima kasih atas maklumat yang telah dihantar oleh pihak anda. Permohonan anda kini sedang diproses bagi tujuan pengesahan.
+    <br><br>
+    Sekian, terima kasih.
+                                ')->send();
+                        }
+                        catch(\Swift_SwiftException $exception)
+                        {
+                            //return 'Can sent mail due to the following exception'.print_r($exception);
+                            Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                        }
+                }
+                
                 return $this->redirect(['view', 'id' => $model->profil_badan_sukan]);
             }
         } 
@@ -202,12 +246,16 @@ class ProfilBadanSukanController extends Controller
         
         $model = $this->findModel($id);
         
+        $oldStatus = null;
+        
         if($model->load(Yii::$app->request->post())){
             $file = UploadedFile::getInstance($model, 'no_pendaftaran_sijil_pendaftaran');
 
             if($file){
                 $model->no_pendaftaran_sijil_pendaftaran = "uploadlater";
             }
+            
+            $oldStatus = $model->getOldAttribute('status');
         }
 
         if (Yii::$app->request->post() && $model->save()) {
@@ -228,6 +276,31 @@ class ProfilBadanSukanController extends Controller
             
             if(Yii::$app->user->identity->profil_badan_sukan){
                 $model->status = RefStatusLaporanMesyuaratAgung::BELUM_DISAHKAN;
+            }
+            
+            if($model->emel_badan_sukan && $model->emel_badan_sukan != "" && $model->status ){
+                if($model->status != $oldStatus && $model->status == RefStatusLaporanMesyuaratAgung::DISAHKAN){
+                    $ref = RefStatusLaporanMesyuaratAgung::findOne(['id' => $model->status]);
+                    $status_desc = $ref['desc'];
+                    
+                    try {
+                            Yii::$app->mailer->compose()
+                                    ->setTo($model->emel_badan_sukan)
+                                                                ->setFrom('noreply@spsb.com')
+                                    ->setSubject('Profil Badan Sukan Tuan/Puan Telah Disahkan')
+                                    ->setTextBody('Salam '.$model->nama_badan_sukan.',
+<br><br>
+Maklumat yang telah dihantar oleh pihak anda telah disahkan. Kemas kini maklumat boleh dibuat dari masa ke masa.
+<br><br>
+Sekian, terima kasih.
+                            ')->send();
+                    }
+                    catch(\Swift_SwiftException $exception)
+                    {
+                        //return 'Can sent mail due to the following exception'.print_r($exception);
+                        Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                    }
+                }
             }
             
             if($model->save()){

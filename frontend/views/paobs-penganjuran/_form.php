@@ -377,6 +377,26 @@ use app\models\general\GeneralMessage;
     
     <?php Pjax::end(); ?>
     
+    <?php
+    if(Yii::$app->user->identity->profil_badan_sukan && $model->isNewRecord){
+        echo '<br>';
+            echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'pengesahan' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>6]],
+                        ],
+                    ],
+                ]
+            ]);
+       }
+    ?>
+    
     <br>
     
     <?php
@@ -488,9 +508,15 @@ function setDuration(){
 // enable all the disabled field before submit
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 
-    var form = $(this);
+    if(document.getElementById("paobspenganjuran-pengesahan").checked){
+        var form = $(this);
 
-    $("form#{$model->formName()} input").prop("disabled", false);
+        $("form#{$model->formName()} input").prop("disabled", false);
+    } else {
+        alert('Sila tanda pengesahan perakuan');
+
+        return false;
+    }
 });
         
 JS;

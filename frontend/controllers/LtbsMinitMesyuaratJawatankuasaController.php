@@ -26,6 +26,7 @@ use app\models\general\GeneralVariable;
 
 // table reference
 use app\models\ProfilBadanSukan;
+use app\models\User;
 use app\models\RefStatusLaporanMesyuaratAgung;
 
 /**
@@ -228,6 +229,50 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
                 LtbsSenaraiNamaHadirAgm::updateAll(['session_id' => ''], 'mesyuarat_agm_id = "'.$model->mesyuarat_id.'"');
             }
             
+            if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_ltbs-minit-mesyuarat-jawatankuasa'])->groupBy('id')->all()) !== null) {
+                    $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->profil_badan_sukan_id]);
+                    
+                    foreach($modelUsers as $modelUser){
+
+                        if($modelUser->email && $modelUser->email != ""){
+                            //echo "E-mail: " . $modelUser->email . "\n";
+                            Yii::$app->mailer->compose()
+                            ->setTo($modelUser->email)
+                            ->setFrom('noreply@spsb.com')
+                            ->setSubject('Pemberitahuan - Laporan Tahunan')
+                            ->setTextBody('Salam '.$modelUser->full_name.',
+    <br><br>
+    Terdapat permohonan pengesahan maklumat untuk semakan dan tindakan pihak tuan/puan. Sila semak sistem SPSB bagi tindakan seterusnya 
+    <br><br>
+    Sekian, terima kasih.
+        ')->send();
+                        }
+                    }
+                }
+                
+                $refBadanSukan = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->profil_badan_sukan_id]);
+                
+                if(isset($refBadanSukan['emel_badan_sukan']) && $refBadanSukan['emel_badan_sukan'] != ""){
+
+                        try {
+                                Yii::$app->mailer->compose()
+                                        ->setTo($refBadanSukan['emel_badan_sukan'])
+                                                                    ->setFrom('noreply@spsb.com')
+                                        ->setSubject('Laporan Tahunan Tuan/Puan Sedang Diproses')
+                                        ->setTextBody('Salam '.$refBadanSukan['nama_badan_sukan'].',
+    <br><br>
+    Terima kasih atas maklumat yang telah dihantar oleh pihak anda. Permohonan anda kini sedang diproses bagi tujuan pengesahan.
+    <br><br>
+    Sekian, terima kasih.
+                                ')->send();
+                        }
+                        catch(\Swift_SwiftException $exception)
+                        {
+                            //return 'Can sent mail due to the following exception'.print_r($exception);
+                            Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                        }
+                }
+            
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->mesyuarat_id]);
             }
@@ -272,6 +317,10 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
         $existingBorangPT = $model->borang_pt_muat_naik;
         $existingSenaraiAhliJawatankuasa = $model->senarai_ahli_jawatankuasa_muat_naik;
         $existingSenaraiAhliGabungan = $model->senarai_ahli_gabungan_terkini_muat_naik;
+        
+         if($model->load(Yii::$app->request->post())){
+            $oldStatus = $model->getOldAttribute('status');
+        }
         
         if($model->load(Yii::$app->request->post())){
             $file = UploadedFile::getInstance($model, 'minit_ajk_muat_naik');
@@ -466,6 +515,33 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
                 // set status to 'Belum Disahkan' if any changes made for persatuan
                 $model->status = RefStatusLaporanMesyuaratAgung::BELUM_DISAHKAN;
             }
+            
+            $refBadanSukan = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->profil_badan_sukan_id]);
+                
+                if(isset($refBadanSukan['emel_badan_sukan']) && $refBadanSukan['emel_badan_sukan'] != "" && $model->status ){
+                    if($model->status != $oldStatus && $model->status == RefStatusLaporanMesyuaratAgung::DISAHKAN){
+                        $ref = RefStatusLaporanMesyuaratAgung::findOne(['id' => $model->status]);
+                        $status_desc = $ref['desc'];
+
+                        try {
+                                Yii::$app->mailer->compose()
+                                        ->setTo($refBadanSukan['emel_badan_sukan'])
+                                                                    ->setFrom('noreply@spsb.com')
+                                        ->setSubject('Laporan Tahunan Tuan/Puan Telah Disahkan')
+                                        ->setTextBody('Salam '.$refBadanSukan['nama_badan_sukan'].',
+    <br><br>
+    Maklumat yang telah dihantar oleh pihak anda telah disahkan. Kemas kini maklumat boleh dibuat dari masa ke masa.
+    <br><br>
+    Sekian, terima kasih.
+                                ')->send();
+                        }
+                        catch(\Swift_SwiftException $exception)
+                        {
+                            //return 'Can sent mail due to the following exception'.print_r($exception);
+                            Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                        }
+                    }
+                }
             
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->mesyuarat_id]);

@@ -22,12 +22,12 @@ $this->params['breadcrumbs'][] = $this->title;
         $template = '{view}';
         
         // Update Access
-        if(isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['update'])){
+        if(isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-akk']['update'])){
             $template .= ' {update}';
         }
         
         // Delete Access
-        if(isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['delete'])){
+        if(isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-akk']['delete'])){
             $template .= ' {delete}';
         }
     ?>
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['create'])): ?>
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-akk']['create'])): ?>
         <p>
             <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::penganjuran_kursus, ['create'], ['class' => 'btn btn-success']) ?>
         </p>

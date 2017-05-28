@@ -39,7 +39,7 @@ use app\models\general\Placeholder;
     ?>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
-    <?php echo $form->errorSummary($model); ?>
+    <?php //echo $form->errorSummary($model); ?>
     <?php
     if(!Yii::$app->user->identity->profil_badan_sukan || $readonly){
         echo FormGrid::widget([
@@ -449,6 +449,27 @@ use app\models\general\Placeholder;
     }
         
     ?>
+    
+    <?php
+    if(Yii::$app->user->identity->profil_badan_sukan && $model->isNewRecord){
+        echo '<br>';
+            echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'pengesahan' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>6]],
+                        ],
+                    ],
+                ]
+            ]);
+       }
+    ?>
+    
     <br>
     
     <?php
@@ -832,9 +853,15 @@ $script = <<< JS
 // enable all the disabled field before submit
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 
-    var form = $(this);
+    if(document.getElementById("ltbsminitmesyuaratjawatankuasa-pengesahan").checked){
+        var form = $(this);
 
-    $("form#{$model->formName()} input").prop("disabled", false);
+        $("form#{$model->formName()} input").prop("disabled", false);
+    } else {
+        alert('Sila tanda pengesahan perakuan');
+
+        return false;
+    }
 });
         
 JS;

@@ -760,7 +760,7 @@ use common\models\general\GeneralFunction;
             </div>
     
     <?php
-    if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penyertaan-pegawai-teknikal']['kelulusan'])){
+    if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penyertaan-pegawai-teknikal']['kelulusan']) || $readonly){
         echo '<br>
             <hr>
                 <pre style="text-align: center"><strong>'.GeneralLabel::kegunaan_msn.'</strong></pre>';
@@ -897,12 +897,25 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
     $("#bantuanpenyertaanpegawaiteknikal-sukan").prop("disabled", false);
     $("#bantuanpenyertaanpegawaiteknikal-alamat_negeri").prop("disabled", false);
     $("#bantuanpenyertaanpegawaiteknikal-alamat_bandar").prop("disabled", false);
+    $("#persatuanId").prop("disabled", false);
     //$("#bantuanpenganjurankejohanan-nama_bank").prop("disabled", false);
+});
+
+$(document).ready(function(){
+    if($("#persatuanId").val() != ''){
+        getPersatuanProfile();
+    }
 });
         
 $('#persatuanId').change(function(){
     
-    $.get('$URL',{id:$(this).val()},function(data){
+    getPersatuanProfile();
+            
+    setBadanSukan();
+});
+            
+function getPersatuanProfile(){
+    $.get('$URL',{id:$('#persatuanId').val()},function(data){
         clearForm();
         
         var data = $.parseJSON(data);
@@ -922,7 +935,7 @@ $('#persatuanId').change(function(){
     });
             
     setBadanSukan();
-});
+}
      
 function clearForm(){
     $('#bantuanpenyertaanpegawaiteknikal-sukan').val('').trigger("change");

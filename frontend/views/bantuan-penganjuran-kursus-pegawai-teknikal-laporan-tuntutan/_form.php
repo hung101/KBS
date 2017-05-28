@@ -35,6 +35,13 @@ use app\models\general\GeneralVariable;
 <div class="bantuan-penganjuran-kursus-pegawai-teknikal-laporan-tuntutan-form">
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
+    
+    <?php 
+    $disablePersatuan = false; // default
+    if(!Yii::$app->user->isGuest && Yii::$app->user->identity->profil_badan_sukan){
+        $disablePersatuan = true;
+    }
+    ?>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
@@ -83,14 +90,14 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'jumlah_kelulusan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true]],
+                'jumlah_kelulusan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true, 'disabled'=>$disablePersatuan]],
             ]
         ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'pendahuluan_80' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                'pendahuluan_80' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true, 'disabled'=>$disablePersatuan]],
                 'no_cek' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
                 'no_boucer' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
             ]
@@ -120,11 +127,16 @@ use app\models\general\GeneralVariable;
 </div>
 
 <?php
+
+$newRecord = $model->isNewRecord;
+
 $script = <<< JS
         
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 
     var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
      
      // submit form
      $.ajax({
@@ -153,7 +165,9 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 $('#bantuanpenganjurankursuspegawaiteknikallaporantuntutan-jumlah_kelulusan').on("keyup", function(){calculatePendahuluanDituntut();});
 
 $(document).ready(function(){   
-    calculatePendahuluanDituntut();
+    if('$newRecord' == 1){
+        calculatePendahuluanDituntut();
+    }
 });
         
 function calculatePendahuluanDituntut(){

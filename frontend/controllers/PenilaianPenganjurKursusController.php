@@ -13,6 +13,7 @@ use yii\filters\VerbFilter;
 
 // contant values
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\PengurusanPermohonanKursusPersatuan;
@@ -73,8 +74,11 @@ class PenilaianPenganjurKursusController extends Controller
         $ref = PengurusanPermohonanKursusPersatuan::findOne(['pengurusan_permohonan_kursus_persatuan_id' => $model->pengurusan_permohonan_kursus_persatuan_id]);
         $model->pengurusan_permohonan_kursus_persatuan_id = $ref['agensi'];
 		
-		$ref = RefTahapKpsk::findOne(['id' => $model->tahap]);
-		$model->tahap = $ref['desc'];
+        $ref = RefTahapKpsk::findOne(['id' => $model->tahap]);
+        $model->tahap = $ref['desc'];
+                
+        if($model->tarikh_kursus != "") {$model->tarikh_kursus = GeneralFunction::convert($model->tarikh_kursus, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat_kursus != "") {$model->tarikh_tamat_kursus = GeneralFunction::convert($model->tarikh_tamat_kursus, GeneralFunction::TYPE_DATE);}
         
         $queryPar = null;
         

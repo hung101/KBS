@@ -129,6 +129,8 @@ class SukarelawanController extends Controller
 
         $model->kebatasan_fizikal = GeneralLabel::getYesNoLabel($model->kebatasan_fizikal);
         
+        if($model->tarikh_lahir != "") {$model->tarikh_lahir = GeneralFunction::convert($model->tarikh_lahir, GeneralFunction::TYPE_DATE);}
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,

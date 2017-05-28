@@ -25,6 +25,7 @@ use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BorangAduanKerosakan */
@@ -205,7 +206,13 @@ use app\models\general\GeneralMessage;
                 ],
                 'value' => 'refNamaPemeriksaAduan.desc'
             ],
-            'tarikh_pemeriksaan',
+            //'tarikh_pemeriksaan',
+            [
+                'attribute' => 'tarikh_pemeriksaan',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_pemeriksaan, GeneralFunction::TYPE_DATE);
+                },
+            ],
             //'kategori_kerosakan',
             [
                 'attribute' => 'kategori_kerosakan',

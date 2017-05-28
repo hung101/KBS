@@ -22,7 +22,9 @@ class PermohonanEBiasiswaSearch extends PermohonanEBiasiswa
     {
         return [
             [['permohonan_e_biasiswa_id', 'semester_terkini', 'baki_semester_yang_tinggal', 'perakuan_pemohon', 'kelulusan', 'universiti_institusi', 'status_permohonan', 'no_ic'], 'integer'],
-            [['admin_e_biasiswa_id','muat_naik_gambar', 'nama', 'no_kad_pengenalan', 'jantina', 'keturunan', 'agama', 'taraf_perkahwinan', 'kawasan_temuduga_anda', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'no_pendaftaran_oku', 'kategori_oku', 'oku_lain_lain', 'program_pengajian', 'kursus_bidang_pengajian', 'falkulti', 'kategori', 'tarikh_tamat', 'no_matriks', 'mendapat_pembiayaan_pendidikan', 'sukan', 'status_permohonan_desc'], 'safe'],
+            [['admin_e_biasiswa_id','muat_naik_gambar', 'nama', 'no_kad_pengenalan', 'jantina', 'keturunan', 'agama', 'taraf_perkahwinan', 'kawasan_temuduga_anda', 'alamat_1', 
+                'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'no_pendaftaran_oku', 'kategori_oku', 'oku_lain_lain', 'program_pengajian', 
+                'kursus_bidang_pengajian', 'falkulti', 'kategori', 'tarikh_tamat', 'no_matriks', 'mendapat_pembiayaan_pendidikan', 'sukan', 'status_permohonan_desc'], 'safe'],
         ];
     }
 

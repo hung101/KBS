@@ -194,9 +194,11 @@ class PsikologiProfilController extends Controller
             $img = $this->findModel($id)->$field;
             
             if($img){
-                if (!unlink($img)) {
+/*                 if (!unlink($img)) {
                     return false;
-                }
+                } */
+                $img = substr($img, strrpos( $img, 'uploads'));
+                @unlink($img);
             }
 
             $img = $this->findModel($id);

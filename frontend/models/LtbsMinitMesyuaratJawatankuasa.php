@@ -56,7 +56,7 @@ class LtbsMinitMesyuaratJawatankuasa extends \yii\db\ActiveRecord
     {
         return [
             [['tarikh', 'tempat', 'mengikut_perlembagaan', 'kehadiran_ahli_yang_layak_mengundi', 'status'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh', 'masa'], 'safe'],
+            [['tarikh', 'masa', 'pengesahan'], 'safe'],
             [['jumlah_ahli_yang_hadir', 'korum_mesyuarat_jumlah_ahli_yang_hadir', 'profil_badan_sukan_id', 'status', 'profil_badan_sukan_id_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tempat'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -97,6 +97,7 @@ class LtbsMinitMesyuaratJawatankuasa extends \yii\db\ActiveRecord
             'senarai_ahli_gabungan_terkini_muat_naik' => GeneralLabel::senarai_ahli_gabungan_terkini,  //'Senarai Ahli / Gabungan Terkini',
             'status' => GeneralLabel::status,
             'catatan' => GeneralLabel::catatan,
+            'pengesahan' => GeneralLabel::pengesahan_perakuan_maklumat_oleh_psk,
         ];
     }
     

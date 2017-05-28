@@ -20,6 +20,8 @@ use common\models\general\GeneralFunction;
 // table reference
 use app\models\RefKategoriKursus;
 use app\models\RefStatusLaporanMesyuaratAgung;
+use app\models\ProfilBadanSukan;
+use app\models\User;
 
 /**
  * LatihanDanProgramController implements the CRUD actions for LatihanDanProgram model.
@@ -123,6 +125,62 @@ class LatihanDanProgramController extends Controller
                 LatihanDanProgramPeserta::updateAll(['session_id' => ''], 'latihan_dan_program_id = "'.$model->latihan_dan_program_id.'"');
             }
             
+            if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_latihan-dan-program'])->groupBy('id')->all()) !== null) {
+                    if($user = User::findOne(['id' => $model->created_by]) !== null){
+                        $badanSukan = '';
+                        if(isset($user['profil_badan_sukan'])){
+                            $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $user['profil_badan_sukan']]);
+                            $badanSukan = $ref['nama_badan_sukan'];
+                        }
+                    
+                    foreach($modelUsers as $modelUser){
+
+                        if($modelUser->email && $modelUser->email != ""){
+                            //echo "E-mail: " . $modelUser->email . "\n";
+                            Yii::$app->mailer->compose()
+                            ->setTo($modelUser->email)
+                            ->setFrom('noreply@spsb.com')
+                            ->setSubject('Pemberitahuan - Latihan Dan Pendidikan Badan Sukan')
+                            ->setTextBody('Salam '.$modelUser->full_name.',
+    <br><br>
+    Terdapat permohonan pengesahan maklumat untuk semakan dan tindakan pihak tuan/puan. Sila semak sistem SPSB bagi tindakan seterusnya 
+    <br><br>
+    Sekian, terima kasih.
+        ')->send();
+                        }
+                    }
+                    
+                    }
+                }
+                
+            if (($modelUser = User::findOne($model->created_by)) !== null) {
+                    if($modelUser->email && $modelUser->email != ''){
+                        $nama_badan_sukan = '';
+                        
+                        if ($modelUser->profil_badan_sukan != '' && ($refBadanSukan = ProfilBadanSukan::findOne(['profil_badan_sukan' => $modelUser->profil_badan_sukan])) !== null) {
+                            $nama_badan_sukan = $refBadanSukan['nama_badan_sukan'];
+                        }
+                        
+                        try {
+                                Yii::$app->mailer->compose()
+                                        ->setTo($refBadanSukan['emel_badan_sukan'])
+                                                                    ->setFrom('noreply@spsb.com')
+                                        ->setSubject('Latihan Dan Pendidikan Badan Sukan Tuan/Puan Sedang Diproses')
+                                        ->setTextBody('Salam '.$nama_badan_sukan.',
+    <br><br>
+    Terima kasih atas maklumat yang telah dihantar oleh pihak anda. Permohonan anda kini sedang diproses bagi tujuan pengesahan.
+    <br><br>
+    Sekian, terima kasih.
+                                ')->send();
+                        }
+                        catch(\Swift_SwiftException $exception)
+                        {
+                            //return 'Can sent mail due to the following exception'.print_r($exception);
+                            Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                        }
+                    }
+                }
+            
             return $this->redirect(['view', 'id' => $model->latihan_dan_program_id]);
         } else {
             return $this->render('create', [
@@ -154,8 +212,48 @@ class LatihanDanProgramController extends Controller
         $dataProviderPeserta = $searchModelPeserta->search($queryPar);
         
         $model = $this->findModel($id);
+        
+        $oldStatus = null;
+        if($model->load(Yii::$app->request->post())){
+            $oldStatus = $model->getOldAttribute('status');
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            
+            if (($modelUser = User::findOne($model->created_by)) !== null) {
+                if($model->status != $oldStatus && $model->status == RefStatusLaporanMesyuaratAgung::DISAHKAN){
+                    if($modelUser->email && $modelUser->email != ''){
+                        $ref = RefStatusLaporanMesyuaratAgung::findOne(['id' => $model->status]);
+                        $status_desc = $ref['desc'];
+                        
+                        $nama_badan_sukan = '';
+                        
+                        if ($modelUser->profil_badan_sukan != '' && ($refBadanSukan = ProfilBadanSukan::findOne(['profil_badan_sukan' => $modelUser->profil_badan_sukan])) !== null) {
+                            $nama_badan_sukan = $refBadanSukan['nama_badan_sukan'];
+                        }
+        
+                        try {
+                             Yii::$app->mailer->compose()
+                                        ->setTo($modelUser->email)
+                                                                    ->setFrom('noreply@spsb.com')
+                                        ->setSubject('Latihan Dan Pendidikan Badan Sukan Tuan/Puan Telah Disahkan')
+                                        ->setTextBody('Salam '.$nama_badan_sukan.',
+    <br><br>
+    Maklumat yang telah dihantar oleh pihak anda telah disahkan. Kemas kini maklumat boleh dibuat dari masa ke masa.
+    <br><br>
+    Sekian, terima kasih.
+                                ')->send();
+                        }
+                        catch(\Swift_SwiftException $exception)
+                        {
+                            Yii::$app->getSession()->setFlash('error', 'Can sent mail due to the following exception: '.print_r($exception));
+                            //return 'Can sent mail due to the following exception'.print_r($exception);
+                        }
+                            
+                    }
+                }
+            }
+            
             return $this->redirect(['view', 'id' => $model->latihan_dan_program_id]);
         } else {
             return $this->render('update', [

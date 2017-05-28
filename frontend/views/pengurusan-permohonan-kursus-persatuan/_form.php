@@ -25,6 +25,7 @@ use app\models\general\Placeholder;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanPermohonanKursusPersatuan */
@@ -347,6 +348,9 @@ use app\models\general\GeneralMessage;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula_bertugas,
                 ],
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_mula_bertugas, GeneralFunction::TYPE_DATE);
+                },
             ],
             //'tarikh_tamat_bertugas',
             [
@@ -355,6 +359,9 @@ use app\models\general\GeneralMessage;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat_bertugas,
                 ],
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_tamat_bertugas, GeneralFunction::TYPE_DATE);
+                },
             ],
             // 'catatan',
             // 'created_by',

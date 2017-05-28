@@ -12,13 +12,16 @@ use app\models\PerancanganProgramPlanMaster;
  */
 class PerancanganProgramPlanMasterSearch extends PerancanganProgramPlanMaster
 {    
+    public $sukan_id;
+    public $program_id;
+        
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            //[['cawangan', 'sukan', 'program'], 'integer'],
+            [['mesyuarat_id', 'sukan_id', 'program_id'], 'integer'],
             [['tarikh_mula', 'tarikh_tamat', 'cawangan', 'sukan', 'program'], 'safe'],
         ];
     }
@@ -61,9 +64,9 @@ class PerancanganProgramPlanMasterSearch extends PerancanganProgramPlanMaster
         $query->andFilterWhere([
             // 'perancangan_program_id' => $this->perancangan_program_id,
             // 'status_program' => $this->status_program_id,
-            // 'mesyuarat_id' => $this->mesyuarat_id,
-            // 'sukan' => $this->sukan_id,
-            // 'jenis_program' => $this->program_id,
+            'mesyuarat_id' => $this->mesyuarat_id,
+            'sukan' => $this->sukan_id,
+            'program' => $this->program_id,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_cawangan.desc', $this->cawangan])

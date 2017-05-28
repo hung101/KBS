@@ -43,7 +43,7 @@ use app\models\general\GeneralVariable;
         }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'id'=>$model->formName(), 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
     <?php 
     $disablePersatuan = false; // default
@@ -534,3 +534,20 @@ use app\models\general\GeneralVariable;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+$script = <<< JS
+ 
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+    $("#persatuanId").prop("disabled", false);
+});
+        
+JS;
+        
+$this->registerJs($script);
+?>

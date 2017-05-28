@@ -13,8 +13,11 @@ $session = Yii::$app->getSession();
 if($session->get('language') == "BM" || $session->get('language') == null || $session->get('language') == "") {
 
 	class GeneralMessage{
-	    const confirmDelete = "Adakah anda pasti anda mahu memadam item ini?";
+            const confirmSave = "Adakah anda pasti?";
+            const confirmPrint = "Adakah anda pasti?";
+	    const confirmDelete = "Adakah anda pasti?";
 	    const confirmRemove = "Adakah anda pasti mahu mengeluarkan?";
+            const confirmKelulusan = "Adakah anda pasti mahu meluluskan?";
 	    const uploadEmptyError = "Sila muat naik fail";
 	    const selamat_datang = "Selamat Datang";
 	    const sistem_pengurusan_sukan_bersepadu = "SISTEM PENGURUSAN SUKAN BERSEPADU";
@@ -26,6 +29,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
             const yii_validation_integer = "{attribute} mesti integer";
             const yii_validation_integer_max = "{attribute} mestilah tidak lebih besar daripada {max}";
             const yii_validation_integer_min = "{attribute} mestilah tidak kurang daripada {min}";
+            const yii_validation_match = "{attribute} tidak sah";
             const yii_validation_number = "{attribute} mesti nombor";
             const yii_validation_email = "{attribute} bukan alamat e-mel yang sah";
             const yii_validation_string_max = "{attribute} perlu mengandungi paling banyak {max} aksara";
@@ -47,14 +51,22 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
             const cth_jkk_bilangan_3_tahun_2015 = "Cth. JKK Bilangan 3 Tahun 2015";
             const cth_tarikh_jkb_bil3_2015 = "Cth. Tarikh JKB Bil3/2015";
             const seperti_dalam_kad_pengenalan = "Seperti dalam kad pengenalan";
+            const sila_pilih_salah_satu_butiran_kejohanan_temasya = "Sila pilih salah satu butiran (Kejohanan/Temasya) untuk penjanaan laporan.";
+            
+            // e-Bantuan BM
+            const objektif_pertubuhan_wajid_diisi = "Objektif Pertubuhan wajid diisi.";
+            const anggaran_perbelanjaan_program_aktivit_yang_dipohon_wajid_diisi = "Anggaran Perbelanjaan Program / Aktiviti Yang Dipohon wajid diisi.";
 	}
 }
 
 if($session->get('language') == "EN") {
 
 	class GeneralMessage{
-	    const confirmDelete = "Are you sure you want to delete this item?";
+            const confirmSave = "Are you sure?";
+            const confirmPrint = "Are you sure?";
+	    const confirmDelete = "Are you sure?";
 	    const confirmRemove = "Are you sure you want to remove?";
+            const confirmKelulusan = "Are you sure you want to approve?";
 	    const uploadEmptyError = "Please upload a file";
 	    const selamat_datang = "Welcome";
 	    const sistem_pengurusan_sukan_bersepadu = "INTEGRATED SPORTS MANAGEMENT SYSTEM";
@@ -66,6 +78,7 @@ if($session->get('language') == "EN") {
             const yii_validation_integer = "{attribute} must be an integer";
             const yii_validation_integer_max = "{attribute} must be no greater than {max}";
             const yii_validation_integer_min = "{attribute} mmust be no less than {min}";
+            const yii_validation_match = "{attribute} invalid";
             const yii_validation_number = "{attribute} must be a number";
             const yii_validation_email = "{attribute} is not a valid email address";
             const yii_validation_string_max = "{attribute} should contain at most {max} characters";
@@ -87,6 +100,11 @@ if($session->get('language') == "EN") {
             const cth_jkk_bilangan_3_tahun_2015 = "sample JKK Bilangan 3 Tahun 2015";
             const cth_tarikh_jkb_bil3_2015 = "sample Tarikh JKB Bil3/2015";
             const seperti_dalam_kad_pengenalan = "Same as IC";
+            const sila_pilih_salah_satu_butiran_kejohanan_temasya = "Please select one of the details (Tournament / Festival) for report generation.";
+            
+            // e-Bantuan EN
+            const objektif_pertubuhan_wajid_diisi = "Objective of the organization is mandatory.";
+            const anggaran_perbelanjaan_program_aktivit_yang_dipohon_wajid_diisi = "Apply budget expenditure program / events is mandatory.";
 	}
 
 }

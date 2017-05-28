@@ -5,6 +5,7 @@ use Yii;
 use yii\base\Model;
 use app\models\UserPeranan;
 use kartik\password\StrengthValidator;
+use yii\web\Session;
 
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
@@ -35,6 +36,7 @@ class LoginForm extends Model
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+            ['confirm_password', 'safe'],
             [['password'], StrengthValidator::className(), 'digit'=>1, 'special'=>1, 'lower' => 1, 'upper' => 0, 
                 'digitError'=>GeneralMessage::yii_validation_password_strength,
                 'specialError'=>GeneralMessage::yii_validation_password_strength,
@@ -92,6 +94,10 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
+            
+            $session = new Session;
+            $session->open();
+            
 		// eddie start
             // start time out
             Yii::$app->user->authTimeout = Yii::$app->params['expiryTimeout'];
@@ -99,6 +105,16 @@ class LoginForm extends Model
             $user = $this->getUser();
             
             $dateActiveExpired = null;
+            
+            
+            /*if(isset($user->last_active)){
+                $lastActiveAddTimeout = date_add($user->last_active,date_interval_create_from_date_string(Yii::$app->params['expiryTimeout'] . " seconds"));
+
+                if(date('Y-m-d H:i:s') < $lastActiveAddTimeout){
+                    $this->addError('username', 'Akaun anda disekat kerana tidak menghantar laporan tahunan. Sila hubungi Pejabat Pesuruhjaya Sukan ditalian 03 8994 4800');
+                    return false;
+                }
+            }*/
             
             if($user->expiry_date){
                 $dateExpiry=date_create($user->expiry_date);
@@ -126,6 +142,8 @@ class LoginForm extends Model
                 
                 $user->current_login = GeneralFunction::getCurrentTimestamp();
                 
+                $session['auth_key'] = $user->getAuthKey();// auth key in session for aviod concurrent login
+                
                 $user->save();
                 
                 if($is_login) {
@@ -133,6 +151,7 @@ class LoginForm extends Model
                         return $is_login;
                     } else {
                         $user->generateAuthKey();
+                        $session['auth_key'] = $user->getAuthKey();// auth key in session for aviod concurrent login
                         if($user->save()) {
                             return $is_login;
                         } else {
@@ -142,6 +161,8 @@ class LoginForm extends Model
                 } else {
                     return false;
                 }
+                
+                $session->close();
             } else {
                 //$this->addError('password', 'Your account is block due to maximum login attemption, please reset your password.');
                 $this->addError('password', 'Akaun anda disekat kerana cubaan login maksimum, sila hubungi admin.');

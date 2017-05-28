@@ -52,6 +52,7 @@ class BantuanPenganjuranKejohananSirkitLaporanTuntutan extends \yii\db\ActiveRec
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_cek', 'no_boucer'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            ['jumlah_yang_dituntut_20','validateJumlahDituntut'],
         ];
     }
 
@@ -78,5 +79,17 @@ class BantuanPenganjuranKejohananSirkitLaporanTuntutan extends \yii\db\ActiveRec
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+    
+    public function validateJumlahDituntut(){
+        $hakJumlahDituntut = 0;
+        
+        if($this->jumlah_kelulusan > 0){
+            $hakJumlahDituntut = $this->jumlah_kelulusan * 0.2;
+        }
+
+        if($this->jumlah_yang_dituntut_20 > $hakJumlahDituntut){
+            $this->addError('jumlah_yang_dituntut_20','Jumlah Yang Dituntut tidak boleh melebihi RM' . $hakJumlahDituntut);
+        }
     }
 }

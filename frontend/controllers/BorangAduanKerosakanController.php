@@ -92,6 +92,9 @@ class BorangAduanKerosakanController extends Controller
         $ref = RefKawasanKemudahan::findOne(['id' => $model->kawasan]);
         $model->kawasan = $ref['desc'];
         
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_siap_tindakan != "") {$model->tarikh_siap_tindakan = GeneralFunction::convert($model->tarikh_siap_tindakan, GeneralFunction::TYPE_DATE);}
+        
         $queryPar = null;
         
         $queryPar['BorangAduanKerosakanJenisKerosakanSearch']['borang_aduan_kerosakan_id'] = $id;

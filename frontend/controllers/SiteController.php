@@ -19,6 +19,7 @@ use yii\filters\AccessControl;
 
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
+use app\models\general\GeneralMessage;
 
 /**
  * Site controller
@@ -100,8 +101,9 @@ class SiteController extends Controller
                 Yii::$app->session->setFlash('info', GeneralLabel::log_masuk_kali_terakhir . $user->last_login);
             }
             
+            //echo "last_login_fail: " . $user->last_login_fail;
             if($user->last_login_fail){
-                Yii::$app->session->setFlash('warning', GeneralLabel::log_masuk_gagal_kali_terakhir . $user->last_login_fail);
+                Yii::$app->session->setFlash('error', GeneralLabel::log_masuk_gagal_kali_terakhir . $user->last_login_fail);
             }
             
             if($user->is_new_user == "YES" || $user->password_expiry < date('Y-m-d H:i:s', time())) {
@@ -301,20 +303,27 @@ class SiteController extends Controller
             if($samePreviousPassword){
                 Yii::$app->getSession()->setFlash('error', GeneralLabel::kata_laluan_baru_tidak_boleh_menggunakan_semula . Yii::$app->params['passwordReused'] . GeneralLabel::kata_laluan_yang_lepas);
             } else {
-                $user = $user->findIdentity(Yii::$app->user->id);
-                $user->setPassword(Yii::$app->request->post()['LoginForm']['password']);
-                $user->is_new_user = "NO";
-                $new_expiry_date = date('Y-m-d H:i:s', time() + Yii::$app->params['passwordExpiry']);
-                $user->password_expiry = $new_expiry_date;
+                //echo "new password:" . trim($model->password);
+                //echo "<br>confirm password:" . trim($model->confirm_password);
+                if(trim($model->password) != trim($model->confirm_password)){
+                    //$this->addError('new_password', 'Sila semak Taip Semula Kata Laluan yang berbeza daripada Kata Laluan');
+                    Yii::$app->getSession()->setFlash('error', GeneralMessage::custom_validation_password_equal);
+                } else {
+                    $user = $user->findIdentity(Yii::$app->user->id);
+                    $user->setPassword(Yii::$app->request->post()['LoginForm']['password']);
+                    $user->is_new_user = "NO";
+                    $new_expiry_date = date('Y-m-d H:i:s', time() + Yii::$app->params['passwordExpiry']);
+                    $user->password_expiry = $new_expiry_date;
 
-                $userPasswordTrail = new UserPasswordTrail();
-                $userPasswordTrail->user_id = Yii::$app->user->id;
-                $userPasswordTrail->password = \Yii::$app->encrypter->encrypt(Yii::$app->request->post()['LoginForm']['password']);
-                $userPasswordTrail->save(); 
+                    $userPasswordTrail = new UserPasswordTrail();
+                    $userPasswordTrail->user_id = Yii::$app->user->id;
+                    $userPasswordTrail->password = \Yii::$app->encrypter->encrypt(Yii::$app->request->post()['LoginForm']['password']);
+                    $userPasswordTrail->save(); 
 
-                if($user->save()) {
-                    Yii::$app->getSession()->setFlash('success', GeneralLabel::kata_laluan_baru_telah_dikemaskini);
-                    return $this->goBack();
+                    if($user->save()) {
+                        Yii::$app->getSession()->setFlash('success', GeneralLabel::kata_laluan_baru_telah_dikemaskini);
+                        return $this->goBack();
+                    }
                 }
             }
         } 

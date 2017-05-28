@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 /**
  * ProfilKonsultanKontrakController implements the CRUD actions for ProfilKonsultanKontrak model.Atlet::findOne($id) chmod($file,0777);
@@ -61,8 +62,13 @@ class ProfilKonsultanKontrakController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $model = $this->findModel($id);
+        
+        if($model->tarikh_kontrak_mula != "") {$model->tarikh_kontrak_mula = GeneralFunction::convert($model->tarikh_kontrak_mula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_kontrak_akhir != "") {$model->tarikh_kontrak_akhir = GeneralFunction::convert($model->tarikh_kontrak_akhir, GeneralFunction::TYPE_DATE);}
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

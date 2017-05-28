@@ -445,6 +445,26 @@ use app\models\general\GeneralMessage;
     ?>-->
 
     <?php
+    if((Yii::$app->user->identity->profil_badan_sukan || $readonly) && $model->pengesahan == 0){
+        echo '<br>';
+            echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'pengesahan' => ['type'=>Form::INPUT_CHECKBOX,'columnOptions'=>['colspan'=>6]],
+                        ],
+                    ],
+                ]
+            ]);
+       }
+    ?>
+    
+    <?php
     $disabledStatus = true;
     if(isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['status'])){
         $disabledStatus = false;
@@ -510,10 +530,16 @@ $script = <<< JS
         
 // enable all the disabled field before submit
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
+    
+    if(document.getElementById("profilbadansukan-pengesahan").checked){
+        var form = $(this);
 
-    var form = $(this);
+        $("form#{$model->formName()} input").prop("disabled", false);
+    } else {
+        alert('Sila tanda pengesahan perakuan');
 
-    $("form#{$model->formName()} input").prop("disabled", false);
+        return false;
+    }
 });
         
 JS;

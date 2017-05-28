@@ -918,7 +918,7 @@ use common\models\general\GeneralFunction;
     
     <hr>
     <?php
-    if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['kelulusan'])){
+    if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['kelulusan']) || $readonly){
         echo '<br>
                 <pre style="text-align: center"><strong>'.GeneralLabel::kegunaan_msn.'</strong></pre>';
         
@@ -1055,12 +1055,23 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
     $("#bantuanpenganjurankejohanan-sukan").prop("disabled", false);
     $("#bantuanpenganjurankejohanan-alamat_negeri").prop("disabled", false);
     $("#bantuanpenganjurankejohanan-alamat_bandar").prop("disabled", false);
+    $("#persatuanId").prop("disabled", false);
     //$("#bantuanpenganjurankejohanan-nama_bank").prop("disabled", false);
+});
+    
+$(document).ready(function(){
+    if($("#persatuanId").val() != ''){
+        getPersatuanProfile();
+    }
 });
         
 $('#persatuanId').change(function(){
     
-    $.get('$URL',{id:$(this).val()},function(data){
+    getPersatuanProfile();
+});
+            
+function getPersatuanProfile(){
+    $.get('$URL',{id:$('#persatuanId').val()},function(data){
         clearForm();
         
         var data = $.parseJSON(data);
@@ -1078,7 +1089,7 @@ $('#persatuanId').change(function(){
             $('#bantuanpenganjurankejohanan-no_faks').attr('value',data.no_faks_pejabat);
         }
     });
-});
+}
      
 function clearForm(){
     $('#bantuanpenganjurankejohanan-sukan').val('').trigger("change");

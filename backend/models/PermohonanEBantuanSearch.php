@@ -18,8 +18,12 @@ class PermohonanEBantuanSearch extends PermohonanEBantuan
     public function rules()
     {
         return [
-            [['permohonan_e_bantuan_id', 'bilangan_keahlian', 'bilangan_cawangan_badan_gabungan', 'user_public_id'], 'integer'],
-            [['status_permohonan','bil_mesyuarat','tarikh_mesyuarat','jumlah_diluluskan','jumlah_bantuan_yang_dipohon','nama_program','ebantuan_id','nama_pertubuhan_persatuan', 'no_pendaftaran', 'tarikh_didaftarkan', 'pejabat_yang_mendaftarkan', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'no_telefon_pejabat', 'no_telefon_bimbit', 'no_fax', 'email', 'objektif_pertubuhan', 'aktiviti_dan_kejayaan_yang_dicapai', 'kelulusan'], 'safe'],
+            [['permohonan_e_bantuan_id', 'bilangan_keahlian', 'bilangan_cawangan_badan_gabungan', 'user_public_id', 'hantar_flag'], 'integer'],
+            [['status_permohonan','bil_mesyuarat','tarikh_mesyuarat','jumlah_diluluskan','jumlah_bantuan_yang_dipohon','nama_program','ebantuan_id',
+                'nama_pertubuhan_persatuan', 'no_pendaftaran', 'tarikh_didaftarkan', 'pejabat_yang_mendaftarkan', 'alamat_1', 'alamat_2', 'alamat_3', 
+                'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3', 
+                'alamat_surat_menyurat_negeri', 'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'no_telefon_pejabat', 'no_telefon_bimbit', 
+                'no_fax', 'email', 'objektif_pertubuhan', 'aktiviti_dan_kejayaan_yang_dicapai', 'kelulusan'], 'safe'],
         ];
     }
 
@@ -63,6 +67,7 @@ class PermohonanEBantuanSearch extends PermohonanEBantuan
             'bilangan_keahlian' => $this->bilangan_keahlian,
             'bilangan_cawangan_badan_gabungan' => $this->bilangan_cawangan_badan_gabungan,
             'user_public_id' => $this->user_public_id,
+            'hantar_flag' => $this->hantar_flag,
         ]);
 
         $query->andFilterWhere(['like', 'nama_pertubuhan_persatuan', $this->nama_pertubuhan_persatuan])

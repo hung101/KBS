@@ -349,13 +349,13 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
         ],
         [
             'attributes' => [
-                'aktiviti_dan_kejayaan_yang_dicapai' => ['type'=>Form::INPUT_TEXTAREA,'options'=>['maxlength'=>255]],
+                'aktiviti_dan_kejayaan_yang_dicapai' => ['type'=>Form::INPUT_TEXTAREA],
             ]
         ],
         
         [
             'attributes' => [
-                'catatan' => ['type'=>Form::INPUT_TEXTAREA,'options'=>['maxlength'=>255]],
+                'catatan' => ['type'=>Form::INPUT_TEXTAREA],
             ]
         ],
     ]
@@ -777,8 +777,8 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
             //'permohonan_e_bantuan_id',
             'butir_butir_perbelanjaan',
             'jumlah_perbelanjaan',
-            'jumlah_disokong',
-            'jumlah_diperakuankan',
+            //'jumlah_disokong',
+            //'jumlah_diperakuankan',
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',
@@ -957,7 +957,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     ]
 ]);
         
-        echo FormGrid::widget([
+        /*echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -979,7 +979,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
             ]
         ],
     ]
-]);
+]);*/
         
         echo FormGrid::widget([
     'model' => $model,
@@ -1005,7 +1005,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     ]
 ]);
         
-        echo FormGrid::widget([
+        /*echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -1018,7 +1018,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
             ]
         ],
     ]
-]);
+]);*/
     ?>
     
     <?php
@@ -1174,7 +1174,9 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::save : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        <?= Html::submitButton(GeneralLabel::send, ['class' => 'btn btn-primary']) ?>
+        <?php if(!$model->isNewRecord && $model->hantar_flag && $model->hantar_flag == 0): ?>
+        <?= Html::a(GeneralLabel::send, ['hantar', 'id' => $model->permohonan_e_bantuan_id], ['class' => 'btn btn-success']) ?>
+        <?php endif; ?>
             <?php if(!$model->isNewRecord): ?>
             <?php 
             /*if(!$model->isNewRecord){

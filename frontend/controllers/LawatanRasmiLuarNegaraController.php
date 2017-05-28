@@ -81,6 +81,8 @@ class LawatanRasmiLuarNegaraController extends Controller
         $ref = RefNegara::findOne(['id' => $model->negara]);
         $model->negara = $ref['desc'];
         
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);}
+        
         $queryPar = null;
         
         $queryPar['LawatanRasmiLuarNegaraDelegasiSearch']['lawatan_rasmi_luar_negara_id'] = $id;

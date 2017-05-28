@@ -19,8 +19,13 @@ $this->title = GeneralLabel::viewTitle . ' Permohonan e-Bantuan';
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <!--<?= Html::a(GeneralLabel::update, ['update', 'id' => $model->permohonan_e_bantuan_id], ['class' => 'btn btn-primary']) ?>-->
+    <p> 
+        <?php if($model->hantar_flag == 0): ?>
+        <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->permohonan_e_bantuan_id], ['class' => 'btn btn-primary']) ?>
+        <?php endif; ?>
+        <?php if($model->hantar_flag == 0): ?>
+            <?= Html::a(GeneralLabel::send, ['hantar', 'id' => $model->permohonan_e_bantuan_id], ['class' => 'btn btn-success']) ?>
+        <?php endif; ?>
         <?= Html::a('Kembali', ['site/e-bantuan-home'], ['class' => 'btn btn-warning']) ?>
     </p>
     

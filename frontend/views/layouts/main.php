@@ -7,11 +7,13 @@ use frontend\assets\AppAsset;
 use frontend\assets\DashboardAsset;
 use frontend\widgets\Alert;
 use kartik\widgets\SideNav;
+use yii\web\Session;
 
 use common\models\User;
 
 use app\models\UserPeranan;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -297,12 +299,12 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
 									'label' => 'AKK',
 									'items' => [
 										['label' => GeneralLabel::permohonan_lesen, 'url' => ['/akademi-akk/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['akademi-akk']['module'])],
-										['label' => GeneralLabel::penganjuran_kursus, 'url' => ['/penganjuran-kursus-akk/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['module'])],
+										['label' => GeneralLabel::penganjuran_kursus, 'url' => ['/penganjuran-kursus-akk/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-akk']['module'])],
 										[
 											'label' => GeneralLabel::statistik,
 											'items' => [
-												['label' => GeneralLabel::laporan_senarai_peserta, 'url' => ['/penganjuran-kursus-akk/laporan-senarai-peserta'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['module'])],
-												['label' => GeneralLabel::laporan_senarai_kursus, 'url' => ['/penganjuran-kursus-akk/laporan-senarai-kursus'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus']['module'])],
+												['label' => GeneralLabel::laporan_senarai_peserta, 'url' => ['/penganjuran-kursus-akk/laporan-senarai-peserta'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-akk']['module'])],
+												['label' => GeneralLabel::laporan_senarai_kursus, 'url' => ['/penganjuran-kursus-akk/laporan-senarai-kursus'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['penganjuran-kursus-akk']['module'])],
 												['label' => GeneralLabel::laporan_skim_pelesenan_kejurulatihan_kebangsaan, 'url' => ['/akademi-akk/laporan-skim-pelesenan-kejurulatihan-kebangsaan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['akademi-akk']['module'])],
 												['label' => GeneralLabel::laporan_kursus_sains_sukan, 'url' => ['/akademi-akk/laporan-kursus-sains-sukan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['ISN']['akademi-akk']['module'])],
 											],
@@ -1120,8 +1122,28 @@ if(isset($sideMenuItems)){
         //echo Yii::$app->controller->action->id . '<br>'; //current controller action id 
         
         if (!Yii::$app->user->isGuest && ($modelUser = User::findIdentity(Yii::$app->user->identity->id)) !== null) {
+            $session = new Session;
+            $session->open();
+            
+            //echo "User auth key: " . $modelUser->auth_key;
+            //echo "<br>Session auth key: " . $session['auth_key'];
+                
+            // validate concurrent login
+            if(isset($session['auth_key']) && !Yii::$app->params['allowConcurrentLogin']){
+                
+                if($modelUser->auth_key != $session['auth_key']){
+                    Yii::$app->user->logout();
+                    
+                    Yii::$app->response->redirect(['site/login']);
+                }
+            }
+            
+            
             // update the user access url to table database
             $modelUser->current_access_module = Yii::$app->request->url;
+            $modelUser->last_active = GeneralFunction::getCurrentTimestamp();
             $modelUser->save();
+            
+            $session->close();
         }
 ?>

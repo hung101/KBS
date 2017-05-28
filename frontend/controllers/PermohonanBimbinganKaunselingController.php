@@ -117,6 +117,9 @@ class PermohonanBimbinganKaunselingController extends Controller
         $ref = RefTarafPerkahwinan::findOne(['id' => $model->taraf_perkahwinan]);
         $model->taraf_perkahwinan = $ref['desc'];  
         
+        if($model->tarikh_temujanji != "") {$model->tarikh_temujanji = GeneralFunction::convert($model->tarikh_temujanji, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_permohonan != "") {$model->tarikh_permohonan = GeneralFunction::convert($model->tarikh_permohonan, GeneralFunction::TYPE_DATETIME);}
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,

@@ -24,6 +24,8 @@ use app\models\PerancanganProgram;
 use frontend\models\PerancanganProgramSearch;
 use app\models\PerancanganProgramPlan;
 use frontend\models\PerancanganProgramPlanSearch;
+use app\models\PerancanganProgramPlanMaster;
+use frontend\models\PerancanganProgramPlanMasterSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -96,25 +98,25 @@ class MesyuaratJkkController extends Controller
         $queryPar['PerancanganProgramPlanSearch']['bahagian'] = RefKategoriPelan::KEJOHANAN_LATIHAN;
         
         if($mesyuarat_id != ''){
-            Atlet::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = "" OR mesyuarat_id IS NULL');
+            Atlet::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = 0 OR mesyuarat_id = "" OR mesyuarat_id IS NULL');
             $queryPar['AtletSearch']['mesyuarat_id'] = $mesyuarat_id;
             
-            Jurulatih::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = "" OR mesyuarat_id IS NULL');
+            Jurulatih::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = 0 OR mesyuarat_id = "" OR mesyuarat_id IS NULL');
             $queryPar['JurulatihSearch']['mesyuarat_id'] = $mesyuarat_id;
             
-            PengurusanProgramBinaan::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = "" OR mesyuarat_id IS NULL');
+            PengurusanProgramBinaan::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = 0 OR mesyuarat_id = "" OR mesyuarat_id IS NULL');
             $queryPar['PengurusanProgramBinaanSearch']['mesyuarat_id'] = $mesyuarat_id;
             
-            PermohonanPeralatan::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = "" OR mesyuarat_id IS NULL');
+            PermohonanPeralatan::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = 0 OR mesyuarat_id = "" OR mesyuarat_id IS NULL');
             $queryPar['PermohonanPeralatanSearch']['mesyuarat_id'] = $mesyuarat_id;
             
-            PerancanganProgramPlan::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = "" OR mesyuarat_id IS NULL');
-            $queryPar['PerancanganProgramPlanSearch']['mesyuarat_id'] = $mesyuarat_id;
+            PerancanganProgramPlanMaster::updateAll(['mesyuarat_id' => $mesyuarat_id], '(mesyuarat_id = 0 OR mesyuarat_id = "" OR mesyuarat_id IS NULL) AND sukan = "'.$sukan_id.'" AND program = "'.$program_id.'"');
+            $queryPar['PerancanganProgramPlanMasterSearch']['mesyuarat_id'] = $mesyuarat_id;
             
-            PenyertaanSukan::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = "" OR mesyuarat_id IS NULL');
+            PenyertaanSukan::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = 0 OR mesyuarat_id = "" OR mesyuarat_id IS NULL');
             $queryPar['PenyertaanSukanSearch']['mesyuarat_id'] = $mesyuarat_id;
             
-            ProfilPusatLatihan::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = "" OR mesyuarat_id IS NULL');
+            ProfilPusatLatihan::updateAll(['mesyuarat_id' => $mesyuarat_id], 'mesyuarat_id = 0 OR mesyuarat_id = "" OR mesyuarat_id IS NULL');
             $queryPar['ProfilPusatLatihanSearch']['mesyuarat_id'] = $mesyuarat_id;
         }
         
@@ -123,7 +125,7 @@ class MesyuaratJkkController extends Controller
             //$queryPar['JurulatihSearch']['nama_sukan'] = $sukan_id;
             //$queryPar['PengurusanProgramBinaanSearch']['sukan'] = $sukan_id;
             $queryPar['PermohonanPeralatanSearch']['sukan_id'] = $sukan_id;
-            //$queryPar['PerancanganProgramPlanSearch']['sukan_id'] = $sukan_id;
+            $queryPar['PerancanganProgramPlanMasterSearch']['sukan_id'] = $sukan_id;
             $queryPar['PenyertaanSukanSearch']['sukan'] = $sukan_id;
             //$queryPar['PenyertaanSukanSearch']['sukan_id'] = $sukan_id;
         }
@@ -133,7 +135,7 @@ class MesyuaratJkkController extends Controller
             //$queryPar['JurulatihSearch']['program'] = $program_id;
             //$queryPar['PengurusanProgramBinaanSearch']['program'] = $program_id;
             $queryPar['PermohonanPeralatanSearch']['program_id'] = $program_id;
-            //$queryPar['PerancanganProgramPlanSearch']['program_id'] = $program_id;
+            $queryPar['PerancanganProgramPlanMasterSearch']['program_id'] = $program_id;
             $queryPar['ProfilPusatLatihanSearch']['program'] = $program_id;
             //$queryPar['PenyertaanSukanSearch']['program'] = $program_id;
             //$queryPar['ProfilPusatLatihanSearch']['program_id'] = $program_id;
@@ -163,7 +165,7 @@ class MesyuaratJkkController extends Controller
         $searchModelPusatLatihan = new ProfilPusatLatihanSearch();
         $dataProviderPusatLatihan = $searchModelPusatLatihan->search($queryPar);
         
-        $searchModelProgram= new PerancanganProgramPlanSearch();
+        $searchModelProgram= new PerancanganProgramPlanMasterSearch();
         $dataProviderProgram = $searchModelProgram->search($queryPar);
 
         return $this->render('agenda_perbincangan', [
@@ -198,7 +200,7 @@ class MesyuaratJkkController extends Controller
 
         PermohonanPeralatan::updateAll(['mesyuarat_id' => ''], 'kelulusan = ' . RefKelulusanPeralatan::SEDANG_DIPROSES);
 
-        PerancanganProgram::updateAll(['mesyuarat_id' => ''], 'status_program = ' . RefStatusProgram::DALAM_PROSES);
+        PerancanganProgramPlanMaster::updateAll(['mesyuarat_id' => '']);
 
         PenyertaanSukan::updateAll(['mesyuarat_id' => '']);
 

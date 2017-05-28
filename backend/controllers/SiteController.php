@@ -10,6 +10,7 @@ use backend\models\SignupEKemudahanForm;
 use backend\models\SignupEBantuanForm;
 use backend\models\SignupELaporanForm;
 use backend\models\SignupEKemudahanMsnForm;
+use backend\models\SignupSukarelawanForm;
 use backend\models\ContactForm;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -104,6 +105,8 @@ class SiteController extends Controller
                     return $this->redirect(['e-laporan-home']); 
                 } else if(\Yii::$app->user->identity->category_access == PublicUser::ACCESS_KEMUDAHAN_MSN){
                     return $this->redirect(['e-kemudahan-msn-home']);
+                } else if(\Yii::$app->user->identity->category_access == PublicUser::ACCESS_SUKARELAWAN){
+                    return $this->redirect(array('sukarelawan/load'));
                 } else {
                     return $this->goHome();
                 }
@@ -185,6 +188,8 @@ class SiteController extends Controller
             return $this->redirect(['signup-e-laporan']);
         } else if($access_id == PublicUser::ACCESS_KEMUDAHAN_MSN){
             return $this->redirect(['signup-e-kemudahan-msn']);
+        } else if($access_id == PublicUser::ACCESS_SUKARELAWAN){
+            return $this->redirect(['signup-sukarelawan']);
         } else {
             return $this->goHome();
         }
@@ -266,6 +271,26 @@ class SiteController extends Controller
         }
 
         return $this->render('signup_e_kemudahan_msn', [
+            'model' => $model,
+        ]);
+    }
+    
+    public function actionSignupSukarelawan()
+    {
+        $model = new SignupSukarelawanForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    if(Yii::$app->user->identity->email_verified == 1){
+                        return $this->redirect(array('sukarelawan/load'));
+                    } else {
+                        return $this->redirect(['email-verification']);
+                    }
+                }
+            }
+        }
+
+        return $this->render('signup_sukarelawan', [
             'model' => $model,
         ]);
     }

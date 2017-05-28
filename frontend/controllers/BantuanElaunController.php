@@ -121,6 +121,11 @@ class BantuanElaunController extends Controller
         //$ref = RefKursusBantuanElaun::findOne(['id' => $model->kursus]);
         //$model->kursus = $ref['desc'];
         
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATETIME);}
+        if($model->tarikh_mula_dilantik != "") {$model->tarikh_mula_dilantik = GeneralFunction::convert($model->tarikh_mula_dilantik, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat_dilantik != "") {$model->tarikh_tamat_dilantik = GeneralFunction::convert($model->tarikh_tamat_dilantik, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_lahir != "") {$model->tarikh_lahir = GeneralFunction::convert($model->tarikh_lahir, GeneralFunction::TYPE_DATE);}
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,

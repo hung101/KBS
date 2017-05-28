@@ -95,7 +95,7 @@ class TempahanKemudahanSubMsnController extends Controller
         $ref = RefAgensiKemudahan::findOne(['id' => $model->agensi]);
         $model->agensi = $ref['desc'];
         
-        //$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATETIME);
+        if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATETIME);}
         
         return $this->renderAjax('view', [
             'model' => $model,

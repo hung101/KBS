@@ -12,6 +12,7 @@ use yii\filters\VerbFilter;use yii\web\UploadedFile;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
 use app\models\general\Upload;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefNamaPemeriksaAduan;
@@ -81,6 +82,8 @@ class BorangAduanKerosakanJenisKerosakanController extends Controller
         
         $YesNo = GeneralLabel::getYesNoLabel($model->selesai);
         $model->selesai = $YesNo;
+        
+        if($model->tarikh_pemeriksaan != "") {$model->tarikh_pemeriksaan = GeneralFunction::convert($model->tarikh_pemeriksaan, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
             'model' => $model,

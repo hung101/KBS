@@ -103,6 +103,10 @@ class PenganjuranKursusController extends Controller
         $model = new PenganjuranKursus();
         
         $model->load(Yii::$app->request->post());
+        
+        if(!Yii::$app->request->post()){
+            $model->tarikh_status = GeneralFunction::getCurrentDate();
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->penganjuran_kursus_id]);

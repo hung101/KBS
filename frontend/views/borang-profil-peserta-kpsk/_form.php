@@ -26,6 +26,7 @@ use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\BorangProfilPesertaKpsk */
@@ -137,7 +138,12 @@ use app\models\general\GeneralMessage;
             //'borang_profil_peserta_kpsk_id',
             'nama',
             'no_kad_pengenalan',
-            'tarikh_lahir',
+            [
+                'attribute' => 'tarikh_lahir',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_lahir, GeneralFunction::TYPE_DATE);
+                },
+            ],
             // 'umur',
             // 'jantina',
             // 'bangsa',

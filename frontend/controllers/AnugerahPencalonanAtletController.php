@@ -106,6 +106,8 @@ class AnugerahPencalonanAtletController extends Controller
         
         $model->kelulusan = GeneralLabel::getYesNoLabel($model->kelulusan);
         
+        if($model->tarikh_mesyuarat != "") {$model->tarikh_mesyuarat = GeneralFunction::convert($model->tarikh_mesyuarat, GeneralFunction::TYPE_DATE);}
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,

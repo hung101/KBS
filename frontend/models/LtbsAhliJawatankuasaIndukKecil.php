@@ -62,7 +62,7 @@ class LtbsAhliJawatankuasaIndukKecil extends \yii\db\ActiveRecord
             [['jawatan', 'nama_penuh', 'no_kad_pengenalan', 'jantina', 'bangsa', 'umur', 'no_tel', 'tarikh_mula_memegang_jawatan', 'status'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['umur', 'profil_badan_sukan_id', 'status', 'no_kad_pengenalan', 'no_tel'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
-            [['tarikh_mula_memegang_jawatan', 'tarikh_lahir'], 'safe'],
+            [['tarikh_mula_memegang_jawatan', 'tarikh_lahir', 'pengesahan'], 'safe'],
             [['jenis_jawatankuasa', 'nama_majikan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_jawatankuasa', 'jawatan', 'pekerjaan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_penuh', 'pengiktirafan_yang_diterima', 'kursus_yang_pernah_diikuti_oleh_pemegang_jawatan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -103,6 +103,7 @@ class LtbsAhliJawatankuasaIndukKecil extends \yii\db\ActiveRecord
             'tempat_lahir' => GeneralLabel::tempat_lahir,
             'alamat_kediaman' => GeneralLabel::alamat_kediaman,
             'no_tel_pej_rumah' => GeneralLabel::no_tel_pej_rumah,
+            'pengesahan' => GeneralLabel::pengesahan_perakuan_maklumat_oleh_psk,
         ];
     }
     

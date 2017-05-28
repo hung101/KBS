@@ -40,7 +40,7 @@ use app\models\general\GeneralLabel;
     
     <?php
     if($readonly){
-        echo FormGrid::widget([
+        /*echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -55,7 +55,7 @@ use app\models\general\GeneralLabel;
         ],
         
     ]
-]);
+]);*/
     }
     ?>
 

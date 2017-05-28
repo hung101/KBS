@@ -22,6 +22,8 @@ use app\models\RefNegeri;
 use app\models\RefBandar;
 use app\models\RefPeringkatBadanSukan;
 use app\models\RefStatusLaporanMesyuaratAgung;
+use app\models\ProfilBadanSukan;
+use app\models\User;
 
 // eddie (jasper)
 use Jaspersoft\Client\Client;
@@ -184,6 +186,63 @@ class PaobsPenganjuranController extends Controller
             }
             
             if($model->save()){
+                if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_paobs-penganjuran'])->groupBy('id')->all()) !== null) {
+                    if($user = User::findOne(['id' => $model->created_by]) !== null){
+                        $badanSukan = '';
+                        if(isset($user['profil_badan_sukan'])){
+                            $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $user['profil_badan_sukan']]);
+                            $badanSukan = $ref['nama_badan_sukan'];
+                        }
+                    
+                    foreach($modelUsers as $modelUser){
+
+                        if($modelUser->email && $modelUser->email != ""){
+                            //echo "E-mail: " . $modelUser->email . "\n";
+                            Yii::$app->mailer->compose()
+                            ->setTo($modelUser->email)
+                            ->setFrom('noreply@spsb.com')
+                            ->setSubject('Pemberitahuan - Penganjuran Acara Sukan')
+                            ->setTextBody('Salam '.$modelUser->full_name.',
+    <br><br>
+    Terdapat permohonan pengesahan maklumat untuk semakan dan tindakan pihak tuan/puan. Sila semak sistem SPSB bagi tindakan seterusnya 
+    <br><br>
+    Sekian, terima kasih.
+        ')->send();
+                        }
+                    }
+                    
+                    }
+                }
+                
+                
+                if (($modelUser = User::findOne($model->created_by)) !== null) {
+                    if($modelUser->email && $modelUser->email != ''){
+                        $nama_badan_sukan = '';
+                        
+                        if ($modelUser->profil_badan_sukan != '' && ($refBadanSukan = ProfilBadanSukan::findOne(['profil_badan_sukan' => $modelUser->profil_badan_sukan])) !== null) {
+                            $nama_badan_sukan = $refBadanSukan['nama_badan_sukan'];
+                        }
+                        
+                        try {
+                                Yii::$app->mailer->compose()
+                                        ->setTo($refBadanSukan['emel_badan_sukan'])
+                                                                    ->setFrom('noreply@spsb.com')
+                                        ->setSubject('Penganjuran Acara Sukan Tuan/Puan Sedang Diproses')
+                                        ->setTextBody('Salam '.$nama_badan_sukan.',
+    <br><br>
+    Terima kasih atas maklumat yang telah dihantar oleh pihak anda. Permohonan anda kini sedang diproses bagi tujuan pengesahan.
+    <br><br>
+    Sekian, terima kasih.
+                                ')->send();
+                        }
+                        catch(\Swift_SwiftException $exception)
+                        {
+                            //return 'Can sent mail due to the following exception'.print_r($exception);
+                            Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                        }
+                    }
+                }
+                
                 return $this->redirect(['view', 'id' => $model->penganjuran_id]);
             }
         } else {
@@ -216,6 +275,11 @@ class PaobsPenganjuranController extends Controller
         
         $searchModelPaobsPenganjuranSumberKewangan  = new PaobsPenganjuranSumberKewanganSearch();
         $dataProviderPaobsPenganjuranSumberKewangan = $searchModelPaobsPenganjuranSumberKewangan->search($queryPar);
+        
+        $oldStatus = null;
+        if($model->load(Yii::$app->request->post())){
+            $oldStatus = $model->getOldAttribute('status');
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'surat_sokongan');
@@ -226,6 +290,40 @@ class PaobsPenganjuranController extends Controller
             $file = UploadedFile::getInstance($model, 'laporan_penganjuran');
             if($file){
                 $model->laporan_penganjuran = Upload::uploadFile($file, Upload::paobsPenganjuranFolder, 'laporan_penganjuran_' . $model->penganjuran_id);
+            }
+            
+            if (($modelUser = User::findOne($model->created_by)) !== null) {
+                if($model->status != $oldStatus && $model->status == RefStatusLaporanMesyuaratAgung::DISAHKAN){
+                    if($modelUser->email && $modelUser->email != ''){
+                        $ref = RefStatusLaporanMesyuaratAgung::findOne(['id' => $model->status]);
+                        $status_desc = $ref['desc'];
+                        
+                        $nama_badan_sukan = '';
+                        
+                        if ($modelUser->profil_badan_sukan != '' && ($refBadanSukan = ProfilBadanSukan::findOne(['profil_badan_sukan' => $modelUser->profil_badan_sukan])) !== null) {
+                            $nama_badan_sukan = $refBadanSukan['nama_badan_sukan'];
+                        }
+        
+                        try {
+                             Yii::$app->mailer->compose()
+                                ->setTo($modelUser->email)
+                                ->setFrom('noreply@spsb.com')
+                                ->setSubject('Penganjuran Acara Sukan Tuan/Puan Telah Disahkan')
+                                ->setTextBody('Salam '.$nama_badan_sukan.',
+    <br><br>
+    Maklumat yang telah dihantar oleh pihak anda telah disahkan. Kemas kini maklumat boleh dibuat dari masa ke masa.
+    <br><br>
+    Sekian, terima kasih.
+                        ')->send();
+                        }
+                        catch(\Swift_SwiftException $exception)
+                        {
+                            Yii::$app->getSession()->setFlash('error', 'Can sent mail due to the following exception: '.print_r($exception));
+                            //return 'Can sent mail due to the following exception'.print_r($exception);
+                        }
+                            
+                    }
+                }
             }
             
             if($model->save()){

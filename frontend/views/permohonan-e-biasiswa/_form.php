@@ -540,11 +540,10 @@ use common\models\general\GeneralFunction;
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ]
-                        , 'disabled'=>$disableFields
                         
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'tempat_temuduga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>90, 'disabled'=>$disableFields]],
+                'tempat_temuduga' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>90]],
             ]
         ],
         

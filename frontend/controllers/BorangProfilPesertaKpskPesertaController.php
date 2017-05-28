@@ -99,6 +99,8 @@ class BorangProfilPesertaKpskPesertaController extends Controller
         $YesNo = GeneralLabel::getYesNoLabel($model->kehadiran);
         $model->kehadiran = $YesNo;
         
+        if($model->tarikh_lahir != "") {$model->tarikh_lahir = GeneralFunction::convert($model->tarikh_lahir, GeneralFunction::TYPE_DATE);}
+        
         return $this->renderAjax('view', [
             'model' => $model,
             'readonly' => true,

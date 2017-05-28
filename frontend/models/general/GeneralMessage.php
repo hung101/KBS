@@ -52,6 +52,10 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
             const cth_tarikh_jkb_bil3_2015 = "Cth. Tarikh JKB Bil3/2015";
             const seperti_dalam_kad_pengenalan = "Seperti dalam kad pengenalan";
             const sila_pilih_salah_satu_butiran_kejohanan_temasya = "Sila pilih salah satu butiran (Kejohanan/Temasya) untuk penjanaan laporan.";
+            
+            // e-Bantuan BM
+            const objektif_pertubuhan_wajid_diisi = "Objektif Pertubuhan wajid diisi.";
+            const anggaran_perbelanjaan_program_aktivit_yang_dipohon_wajid_diisi = "Anggaran Perbelanjaan Program / Aktiviti Yang Dipohon wajid diisi.";
 	}
 }
 
@@ -97,6 +101,10 @@ if($session->get('language') == "EN") {
             const cth_tarikh_jkb_bil3_2015 = "sample Tarikh JKB Bil3/2015";
             const seperti_dalam_kad_pengenalan = "Same as IC";
             const sila_pilih_salah_satu_butiran_kejohanan_temasya = "Please select one of the details (Tournament / Festival) for report generation.";
+            
+            // e-Bantuan EN
+            const objektif_pertubuhan_wajid_diisi = "Objective of the organization is mandatory.";
+            const anggaran_perbelanjaan_program_aktivit_yang_dipohon_wajid_diisi = "Apply budget expenditure program / events is mandatory.";
 	}
 
 }

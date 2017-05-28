@@ -29,6 +29,7 @@ use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
 use common\models\general\GeneralFunction;
+use app\models\general\GeneralMessage;
 
 // table reference
 use app\models\RefKategoriPersatuan;
@@ -288,9 +289,6 @@ class PermohonanEBantuanController extends Controller
         // set public user id
         $model->user_public_id = Yii::$app->user->identity->id;
         
-        // set permohonan status to 'Sedang Di Semak'
-        $model->status_permohonan = '1';
-        
         // set permohonan nama persatuan to public user nama persatuan
         $model->nama_pertubuhan_persatuan = Yii::$app->user->identity->nama_persatuan_e_bantuan;
         
@@ -417,8 +415,23 @@ class PermohonanEBantuanController extends Controller
         
         $searchModelAP = new PermohonanEBantuanAnggaranPerbelanjaanSearch();
         $dataProviderAP = $searchModelAP->search($queryPar);
+        
+        $error_flag = 0;
+        $error_message = '';
+        
+        if(Yii::$app->request->post()){
+            if(!PermohonanEBantuanObjektifPertubuhan::find()->where(['session_id' => Yii::$app->session->id])->exists()){
+                $error_flag = 1;
+                $error_message .= ' - ' . GeneralMessage::objektif_pertubuhan_wajid_diisi;
+            }
+            
+            if(!PermohonanEBantuanAnggaranPerbelanjaan::find()->where(['session_id' => Yii::$app->session->id])->exists()){
+                $error_flag = 1;
+                $error_message .= '<br> - ' . GeneralMessage::anggaran_perbelanjaan_program_aktivit_yang_dipohon_wajid_diisi;
+            }
+        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $error_flag==0) {
             // set e-Bantuan ID
             //$model->ebantuan_id =  $model->permohonan_e_bantuan_id . '/' . date("Y") . '/' . $model->no_pendaftaran . '/' . $model->nama_pertubuhan_persatuan;
             $model->ebantuan_id =  $model->permohonan_e_bantuan_id . '/' . date("Y");
@@ -466,6 +479,10 @@ class PermohonanEBantuanController extends Controller
                 return $this->redirect(['view', 'id' => $model->permohonan_e_bantuan_id]);
             }
         } 
+        
+        if($error_flag == 1 && $error_message != ''){
+            Yii::$app->getSession()->setFlash('error', $error_message);
+        }
         
         return $this->render('create', [
             'model' => $model,
@@ -598,6 +615,29 @@ class PermohonanEBantuanController extends Controller
         
         $this->findModel($id)->delete();
 
+        return $this->redirect(['index']);
+    }
+    
+    /**
+     * Updates an existing PermohonanEBantuan model.
+     * If hantar is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set hantar flag
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set hantar date
+        $model->status_permohonan = '1'; // set permohonan status to 'Sedang Di Semak'
+        
+        $model->save();
+        
         return $this->redirect(['index']);
     }
 

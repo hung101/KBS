@@ -84,7 +84,7 @@ class PsikologiAktivitiController extends Controller
     }
      * @return mixed
      */
-    public function actionIndex($psikologi_profil_id)
+    public function actionIndex($psikologi_profil_id=null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -196,9 +196,13 @@ class PsikologiAktivitiController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        
+        $psikologi_profil_id = $model->psikologi_profil_id;
+        
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'psikologi_profil_id' => $psikologi_profil_id]);
     }
 
     /**

@@ -85,10 +85,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_mula,
                 ],
-               // 'format' => 'raw',
-                /*'value'=>function ($model) {
-                    return GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATETIME);
-                },*/
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);
+                },
             ],
             
             /*[

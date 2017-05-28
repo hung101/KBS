@@ -60,7 +60,7 @@ class PaobsPenganjuran extends \yii\db\ActiveRecord
     {
         return [
             [['nama_aktiviti', 'jenis_sukan', 'peringkat_sukan', 'tarikh_aktiviti', 'alamat_lokasi_1', 'alamat_lokasi_negeri', 'alamat_lokasi_poskod', 'pemilik_lokasi', 'bilangan_peserta', 'kos_aktiviti'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_aktiviti', 'tarikh_tamat_aktiviti'], 'safe'],
+            [['tarikh_aktiviti', 'tarikh_tamat_aktiviti', 'pengesahan'], 'safe'],
             [['bilangan_peserta', 'peringkat_sukan', 'alamat_lokasi_poskod', 'status'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['alamat_lokasi_poskod', 'alamat_lokasi_bandar'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kos_aktiviti'], 'number', 'message' => GeneralMessage::yii_validation_number],
@@ -103,6 +103,7 @@ class PaobsPenganjuran extends \yii\db\ActiveRecord
             'tarikh_tamat_aktiviti' => GeneralLabel::tarikh_tamat_aktiviti,
             'tempoh' => GeneralLabel::tempoh,
             'status' => GeneralLabel::status,
+            'pengesahan' => GeneralLabel::pengesahan_perakuan_maklumat_oleh_psk,
         ];
     }
     

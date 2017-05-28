@@ -96,6 +96,8 @@ class ProfilPanelPenasihatKpskController extends Controller
         $ref = RefBandar::findOne(['id' => $model->alamat_majikan_bandar]);
         $model->alamat_majikan_bandar = $ref['desc'];
         
+        if($model->tarikh_lahir != "") {$model->tarikh_lahir = GeneralFunction::convert($model->tarikh_lahir, GeneralFunction::TYPE_DATE);}
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,

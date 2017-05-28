@@ -62,9 +62,12 @@ class BantuanPenganjuranKejohananLaporanTuntutanController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($bantuan_penganjuran_kejohanan_laporan_id)
+    public function actionCreate($bantuan_penganjuran_kejohanan_laporan_id,
+            $jumlah_kelulusan = null)
     {
         $model = new BantuanPenganjuranKejohananLaporanTuntutan();
+        
+        $model->jumlah_kelulusan = $jumlah_kelulusan;
         
         if($bantuan_penganjuran_kejohanan_laporan_id != ''){
             $model->bantuan_penganjuran_kejohanan_laporan_id = $bantuan_penganjuran_kejohanan_laporan_id;

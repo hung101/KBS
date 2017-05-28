@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\ProfilPanelPenasihatKpsk;
@@ -72,6 +73,9 @@ class PengurusanPermohonanKursusPersatuanPenasihatController extends Controller
         
         $ref = RefSilibus::findOne(['id' => $model->silibus]);
         $model->silibus = $ref['desc'];
+        
+        if($model->tarikh_mula_bertugas != "") {$model->tarikh_mula_bertugas = GeneralFunction::convert($model->tarikh_mula_bertugas, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat_bertugas != "") {$model->tarikh_tamat_bertugas = GeneralFunction::convert($model->tarikh_tamat_bertugas, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
             'model' => $model,
