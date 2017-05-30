@@ -90,6 +90,8 @@ class PerkhidmatanAnalisaPerlawananBiomekanikController extends Controller
         $ref = RefSukan::findOne(['id' => $model->sukan]);
         $model->sukan = $ref['desc'];
         
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);}
+        
         $queryPar = null;
         
         $queryPar['BiomekanikUjianSearch']['perkhidmatan_analisa_perlawanan_biomekanik_id'] = $id;

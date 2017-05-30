@@ -108,6 +108,7 @@ class Jurulatih extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['ic_no'], 'unique', 'message' => GeneralMessage::yii_validation_unique],
             [['bahagian', 'cawangan', 'program', 'sub_cawangan_pelapis', 'lain_lain_program', 'pusat_latihan', 'nama_sukan', 
                 'nama_acara', 'status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 'nama', 'bangsa', 'agama', 
                 'jantina', 'warganegara', 'tarikh_lahir', 'tempat_lahir', 'taraf_perkahwinan', 'alamat_rumah_1', 

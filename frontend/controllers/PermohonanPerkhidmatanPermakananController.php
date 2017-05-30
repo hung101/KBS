@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Atlet;
@@ -83,6 +84,8 @@ class PermohonanPerkhidmatanPermakananController extends Controller
         
         $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         $model->kelulusan = $YesNo;
+        
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);}
         
         return $this->render('view', [
             'model' => $model,

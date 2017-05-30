@@ -27,7 +27,7 @@ use app\models\general\GeneralMessage;
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -113,7 +113,7 @@ use app\models\general\GeneralMessage;
             'attributes' => [
                 'bajet_keseluruhan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
                  'penggunaan_keseluruhan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
-                'baki' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
+                'baki' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10, 'disabled'=>true]],
             ],
         ],
         
@@ -121,30 +121,6 @@ use app\models\general\GeneralMessage;
 ]);
     ?>
 
-
-    <!--<?= $form->field($model, 'nama_acara_program')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'tarikh_acara')->textInput() ?>
-
-    <?= $form->field($model, 'kategori_acara')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'objektif')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'kategori_penggunaan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'harga_penggunaan')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'jumlah_bajet')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'jumlah_penggunaan')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'catatan')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'bajet_keseluruhan')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'penggunaan_keseluruhan')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'baki')->textInput(['maxlength' => 10]) ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -155,3 +131,30 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+$script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
+    
+$('#pengurusankewanganhpt-bajet_keseluruhan').on("keyup", function(){calculateBaki();});
+$('#pengurusankewanganhpt-penggunaan_keseluruhan').on("keyup", function(){calculateBaki();});
+    
+function calculateBaki(){
+    if($('#pengurusankewanganhpt-bajet_keseluruhan').val() !== '' &&
+        $('#pengurusankewanganhpt-penggunaan_keseluruhan').val() !== ''){
+        var baki = $('#pengurusankewanganhpt-bajet_keseluruhan').val() - $('#pengurusankewanganhpt-penggunaan_keseluruhan').val()
+        $('#pengurusankewanganhpt-baki').val(baki);
+    }
+}
+    
+JS;
+        
+$this->registerJs($script);
+?>

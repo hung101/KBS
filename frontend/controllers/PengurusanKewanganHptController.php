@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefSukan;
@@ -69,6 +70,8 @@ class PengurusanKewanganHptController extends Controller
         
         $ref = RefKategoriPenggunaanHpt::findOne(['id' => $model->kategori_penggunaan]);
         $model->kategori_penggunaan = $ref['desc'];
+        
+        if($model->tarikh_acara != "") {$model->tarikh_acara = GeneralFunction::convert($model->tarikh_acara, GeneralFunction::TYPE_DATE);}
         
         return $this->render('view', [
             'model' => $model,

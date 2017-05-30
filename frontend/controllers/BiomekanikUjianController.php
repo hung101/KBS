@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefBiomekanikUjian;
@@ -66,6 +67,8 @@ class BiomekanikUjianController extends Controller
         
         $ref = RefBiomekanikUjian::findOne(['id' => $model->biomekanik_ujian]);
         $model->biomekanik_ujian = $ref['desc'];
+        
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
             'model' => $model,

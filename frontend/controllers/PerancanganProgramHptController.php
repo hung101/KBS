@@ -74,6 +74,9 @@ class PerancanganProgramHptController extends Controller
         $ref = RefJenisProgramHpt::findOne(['id' => $model->jenis_program]);
         $model->jenis_program = $ref['desc'];
         
+        if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,

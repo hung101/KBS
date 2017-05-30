@@ -159,10 +159,11 @@ class BantuanPenganjuranKursus extends \yii\db\ActiveRecord
     
     public function validateBeforePenganjuran(){
         $dateMinus = new \DateTime($this->tarikh);
-        $dateMinus->modify('-3 month'); // 3 months before tarikh kejohanan berlangsung
+        //$dateMinus->modify('-3 month'); // 3 months before tarikh kejohanan berlangsung
+        $dateMinus->modify('-45 days'); // 45 days before tarikh kejohanan berlangsung
 
         if($dateMinus->format('Y-m-d') <= GeneralFunction::getCurrentDate()){
-            $this->addError('tarikh','Permohonan tidak boleh lewat 3 bulan dari tarikh kejohanan berlangsung');
+            $this->addError('tarikh','Permohonan tidak boleh lewat 45 hari dari tarikh kejohanan berlangsung');
         }
     }
     

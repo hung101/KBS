@@ -103,14 +103,14 @@ Saya mengaku bahawa maklumat yang telah diisi seperti di atas adalah benar serta
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td width="50%" style="border-right:1px solid">
-			<b>Pemohon Bagi Pihak Badan Sukan</b><br /><br />
+			<b>Tandatangan Ketua Unit USPTN</b><br /><br />
 			Tandatangan: ____________________________________<br /><br />
 			Nama : __________________________________________<br /><br />
 			Tarikh : __________________________________________<br /><br /><br />
 			Cop :<br /><br /><br />
 		</td>
 		<td width="50%" style="padding-left:5px">
-			<b>Pengesahan Badan Sukan<br />(Jika ahli gabungan yang memohon)</b><br /><br />
+			<b>Pengesahan Pengarah MSNegeri</b><br /><br />
 			Tandatangan: ____________________________________<br /><br />
 			Nama : __________________________________________<br /><br />
 			Tarikh : __________________________________________<br /><br /><br />

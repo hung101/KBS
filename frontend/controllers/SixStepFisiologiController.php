@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefAtletTahap;
@@ -86,6 +87,8 @@ class SixStepFisiologiController extends Controller
         $ref = RefSixstepFisiologiStatus::findOne(['id' => $model->status]);
         $model->status = $ref['desc'];
         
+        $model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,
@@ -104,6 +107,10 @@ class SixStepFisiologiController extends Controller
         }
         
         $model = new SixStepFisiologi();
+        
+        if(!Yii::$app->request->post()){
+            $model->tarikh = GeneralFunction::getCurrentDate();
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->six_step_id]);

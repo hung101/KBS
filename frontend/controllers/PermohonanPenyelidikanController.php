@@ -103,6 +103,8 @@ class PermohonanPenyelidikanController extends Controller
         
         $model->akademik_kontrak_tarikh_tamat = GeneralFunction::convert($model->akademik_kontrak_tarikh_tamat);
         
+        if($model->tarikh_kelulusan != "") {$model->tarikh_kelulusan = GeneralFunction::convert($model->tarikh_kelulusan, GeneralFunction::TYPE_DATE);}
+        
         if($model->semak_borang_permohonan_yang_lengkap == 1){
             $model->semak_borang_permohonan_yang_lengkap = GeneralLabel::semak_borang_permohonan_yang_lengkap;
         } else {

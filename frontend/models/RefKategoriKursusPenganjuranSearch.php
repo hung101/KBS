@@ -19,7 +19,7 @@ class RefKategoriKursusPenganjuranSearch extends RefKategoriKursusPenganjuran
     {
         return [
             [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
-            [['desc', 'created', 'updated'], 'safe'],
+            [['desc', 'created', 'updated', 'ref_kategori_kursus_penganjuran_akk_id'], 'safe'],
         ];
     }
 
@@ -41,7 +41,8 @@ class RefKategoriKursusPenganjuranSearch extends RefKategoriKursusPenganjuran
      */
     public function search($params)
     {
-        $query = RefKategoriKursusPenganjuran::find();
+        $query = RefKategoriKursusPenganjuran::find()
+                ->joinWith('refKategoriKursusPenganjuranAkk');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -58,6 +59,7 @@ class RefKategoriKursusPenganjuranSearch extends RefKategoriKursusPenganjuran
         $query->andFilterWhere([
             'id' => $this->id,
             'aktif' => $this->aktif,
+            'tbl_ref_kategori_kursus_penganjuran_akk.desc' => $this->ref_kategori_kursus_penganjuran_akk_id,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'created' => $this->created,

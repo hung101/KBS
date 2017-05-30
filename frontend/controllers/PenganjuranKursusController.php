@@ -79,9 +79,11 @@ class PenganjuranKursusController extends Controller
         $ref = RefKategoriKursusPenganjuranAkk::findOne(['id' => $model->kategori_kursus_penganjuran]);
         $model->kategori_kursus_penganjuran = $ref['desc'];
         
-        $model->tarikh_kursus_mula = GeneralFunction::convert($model->tarikh_kursus_mula);
+        if($model->tarikh_kursus_mula != "") {$model->tarikh_kursus_mula = GeneralFunction::convert($model->tarikh_kursus_mula);}
         
-        $model->tarikh_kursus_tamat = GeneralFunction::convert($model->tarikh_kursus_tamat);
+        if($model->tarikh_kursus_tamat != "") {$model->tarikh_kursus_tamat = GeneralFunction::convert($model->tarikh_kursus_tamat);}
+        
+        if($model->tarikh_status != "") {$model->tarikh_status = GeneralFunction::convert($model->tarikh_status, GeneralFunction::TYPE_DATE);}
         
         return $this->render('view', [
             'model' => $model,

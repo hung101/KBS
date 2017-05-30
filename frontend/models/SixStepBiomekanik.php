@@ -49,7 +49,7 @@ class SixStepBiomekanik extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['atlet_id', 'stage', 'status'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'stage', 'status', 'tarikh'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id', 'kategori_atlet', 'sukan', 'acara'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['stage', 'status'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
@@ -68,7 +68,7 @@ class SixStepBiomekanik extends \yii\db\ActiveRecord
             'acara' => GeneralLabel::acara,
             'stage' => GeneralLabel::stage,
             'status' => GeneralLabel::status,
-
+            'tarikh' => GeneralLabel::tarikh,
         ];
     }
     

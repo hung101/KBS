@@ -15,6 +15,7 @@ use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
 use app\models\general\Upload;
+use common\models\general\GeneralFunction;
 
 /**
  * MesyuaratController implements the CRUD actions for Mesyuarat model.
@@ -73,6 +74,11 @@ class MesyuaratController extends Controller
         
         $ref = MesyuaratSenaraiNamaHadir::findOne(['senarai_nama_hadir_id' => $model->disemak_oleh]);
         $model->disemak_oleh = $ref['nama'];
+        
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);}
+        if($model->mesyuarat_tamat != "") {$model->mesyuarat_tamat = GeneralFunction::convert($model->mesyuarat_tamat, GeneralFunction::TYPE_DATETIME);}
+        if($model->mesyuarat_seterusnya != "") {$model->mesyuarat_seterusnya = GeneralFunction::convert($model->mesyuarat_seterusnya, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_semakan != "") {$model->tarikh_semakan = GeneralFunction::convert($model->tarikh_semakan, GeneralFunction::TYPE_DATE);}
         
         return $this->render('view', [
             'model' => $model,

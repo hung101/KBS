@@ -13,6 +13,9 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 
+// table reference
+use app\models\RefDokumenPenyelidikan;
+
 /**
  * DokumenPenyelidikanController implements the CRUD actions for DokumenPenyelidikan model.
  */
@@ -60,8 +63,13 @@ class DokumenPenyelidikanController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $model = $this->findModel($id);
+        
+        $ref = RefDokumenPenyelidikan::findOne(['id' => $model->nama_dokumen]);
+        $model->nama_dokumen = $ref['desc'];
+        
         return $this->renderAjax('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
             'readonly' => true,
         ]);
     }

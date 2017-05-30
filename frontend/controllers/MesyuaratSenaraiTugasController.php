@@ -15,6 +15,8 @@ use app\models\Atlet;
 use app\models\RefMesyuaratTugasStatus;
 use app\models\MesyuaratSenaraiNamaHadir;
 
+use common\models\general\GeneralFunction;
+
 /**
  * MesyuaratSenaraiTugasController implements the CRUD actions for MesyuaratSenaraiTugas model.
  */
@@ -64,6 +66,8 @@ class MesyuaratSenaraiTugasController extends Controller
         
         $ref = MesyuaratSenaraiNamaHadir::findOne(['senarai_nama_hadir_id' => $model->pegawai]);
         $model->pegawai = $ref['nama'];
+        
+        if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
         
         return $this->renderAjax('view', [
             'model' => $model,

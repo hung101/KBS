@@ -78,9 +78,11 @@ class PinjamanPeralatanController extends Controller
         $ref = RefSukan::findOne(['id' => $model->sukan]);
         $model->sukan = $ref['desc'];
         
-        $model->tarikh_diberi = GeneralFunction::convert($model->tarikh_diberi, GeneralFunction::TYPE_DATETIME);
+        if($model->tarikh_diberi != "") {$model->tarikh_diberi = GeneralFunction::convert($model->tarikh_diberi, GeneralFunction::TYPE_DATETIME);}
         
-        $model->tarikh_dipulang = GeneralFunction::convert($model->tarikh_dipulang, GeneralFunction::TYPE_DATETIME);
+        if($model->tarikh_dipulang != "") {$model->tarikh_dipulang = GeneralFunction::convert($model->tarikh_dipulang, GeneralFunction::TYPE_DATETIME);}
+        
+        if($model->tarikh_pulang_sebenar != "") {$model->tarikh_pulang_sebenar = GeneralFunction::convert($model->tarikh_pulang_sebenar, GeneralFunction::TYPE_DATE);}
         
         $YesNo = GeneralLabel::getYesNoLabel($model->pulang);
         $model->pulang = $YesNo;

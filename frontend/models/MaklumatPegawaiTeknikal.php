@@ -62,6 +62,7 @@ class MaklumatPegawaiTeknikal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['no_kad_pengenalan'], 'unique', 'message' => GeneralMessage::yii_validation_unique],
             [['bantuan_penganjuran_kursus_pegawai_teknikal_id', 'umur', 'created_by', 'updated_by', 'no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['badan_sukan', 'sukan', 'jawatan_pengawai', 'kategori', 'program', 'nama', 'alamat_1', 'alamat_negeri', 'alamat_poskod', 'no_kad_pengenalan', 'umur', 'jantina', 
                 'no_telefon', 'tahap_akademik', 'nama_majikan', 'no_telefon_majikan', 'jawatan', 'nama_kejohanan_kursus', 'tarikh_mula', 'tarikh_tamat', 

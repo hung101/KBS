@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefBahagianPenerbitan;
@@ -77,6 +78,9 @@ class JournalController extends Controller
         
         $ref = RefStatusJournal::findOne(['id' => $model->status_journal]);
         $model->status_journal = $ref['desc'];
+        
+        if($model->tarikh_journal != "") {$model->tarikh_journal = GeneralFunction::convert($model->tarikh_journal, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_kelulusan != "") {$model->tarikh_kelulusan = GeneralFunction::convert($model->tarikh_kelulusan, GeneralFunction::TYPE_DATE);}
         
         return $this->render('view', [
             'model' => $model,

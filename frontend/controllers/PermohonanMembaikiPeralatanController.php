@@ -71,11 +71,13 @@ class PermohonanMembaikiPeralatanController extends Controller
         $ref = RefPeralatanPermohonanMembaiki::findOne(['id' => $model->nama_peralatan]);
         $model->nama_peralatan = $ref['desc'];
         
-        $model->tarikh_permohonan = GeneralFunction::convert($model->tarikh_permohonan);
+        if($model->tarikh_permohonan != "") {$model->tarikh_permohonan = GeneralFunction::convert($model->tarikh_permohonan);}
         
-        $model->tarikh_diterima = GeneralFunction::convert($model->tarikh_diterima);
+        if($model->tarikh_diterima != "") {$model->tarikh_diterima = GeneralFunction::convert($model->tarikh_diterima);}
         
-        $model->tarikh_dipulang = GeneralFunction::convert($model->tarikh_dipulang);
+        if($model->tarikh_dipulang != "") {$model->tarikh_dipulang = GeneralFunction::convert($model->tarikh_dipulang);}
+        
+        if($model->tarikh_status != "") {$model->tarikh_status = GeneralFunction::convert($model->tarikh_status, GeneralFunction::TYPE_DATE);}
         
         return $this->render('view', [
             'model' => $model,

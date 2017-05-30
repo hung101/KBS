@@ -19,6 +19,7 @@ use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Mesyuarat */
@@ -284,7 +285,12 @@ if($model->isNewRecord){
             //'senarai_tugas_id',
             //'mesyuarat_id',
             'name_tugas',
-            'tarikh_tamat',
+            [
+                'attribute' => 'tarikh_tamat',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);
+                },
+            ],
             //'pegawai',
             [
                 'attribute' => 'pegawai',

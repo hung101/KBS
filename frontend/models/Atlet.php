@@ -107,7 +107,7 @@ class Atlet extends \yii\db\ActiveRecord
                     'bangsa', 'agama', 'jantina', 'taraf_perkahwinan', 'tel_bimbit_no_1', 'alamat_rumah_1', 'alamat_rumah_negeri', 'alamat_rumah_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_negeri', 'alamat_surat_poskod', 
                     'nama_kecemasan', 'pertalian_kecemasan', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan', 'ic_no', 'tempat_lahir_alamat_1', 'cacat', 'status_atlet',
                     'kategori_kecacatan', 'jenis_kecederaan', 'agensi', 'ms_negeri'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-                [['tarikh_lahir', 'lesen_tamat_tempoh', 'passport_tamat_tempoh', 'kategori_kecacatan', 'cacat', 'tawaran', 'tarikh_luput'], 'safe'],
+                [['tarikh_lahir', 'lesen_tamat_tempoh', 'passport_tamat_tempoh', 'kategori_kecacatan', 'cacat', 'tawaran', 'tarikh_luput', 'tarikh_jkk_jkp'], 'safe'],
                 [['umur', 'tel_bimbit_no_1', 'tel_bimbit_no_2', 'tel_no', 'tid', 'tel_no_kecemasan', 'tel_bimbit_no_kecemasan',
                     'tawaran_id', 'mesyuarat_id','alamat_rumah_poskod', 'alamat_surat_poskod', 'tawaran_atlet'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
                 [['tinggi', 'berat'], 'number', 'message' => GeneralMessage::yii_validation_number],

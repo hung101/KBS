@@ -12,6 +12,8 @@ use yii\web\UploadedFile;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
+
 
 // table reference
 use app\models\RefAtletTahap;
@@ -88,6 +90,8 @@ class SixStepSuaianFizikalController extends Controller
         $ref = RefSixstepSuaianFizikalStatus::findOne(['id' => $model->status]);
         $model->status = $ref['desc'];
         
+        $model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,
@@ -106,6 +110,10 @@ class SixStepSuaianFizikalController extends Controller
         }
         
         $model = new SixStepSuaianFizikal();
+        
+        if(!Yii::$app->request->post()){
+            $model->tarikh = GeneralFunction::getCurrentDate();
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'muat_naik');

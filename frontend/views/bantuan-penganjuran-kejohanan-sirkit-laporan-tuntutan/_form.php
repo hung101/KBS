@@ -129,9 +129,11 @@ use app\models\general\GeneralVariable;
 </div>
 
 <?php
+$newRecord = $model->isNewRecord;
+
 $script = <<< JS
         
-$newRecord = $model->isNewRecord;
+
         
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 

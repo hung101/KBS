@@ -82,6 +82,8 @@ class SatelitController extends Controller
         $ref = RefFasilitiSatelit::findOne(['id' => $model->fasiliti]);
         $model->fasiliti = $ref['desc'];
         
+        $model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,

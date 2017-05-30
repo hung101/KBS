@@ -12,6 +12,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Atlet;
@@ -82,6 +83,8 @@ class SoalSelidikSebelumUjianHptController extends Controller
         
         $ref = RefJawapanSoalSelidik::findOne(['id' => $model->jawapan]);
         $model->jawapan = $ref['desc'];
+        
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);}
         
         return $this->render('view', [
             'model' => $model,

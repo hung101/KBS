@@ -938,8 +938,8 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     ?>
     
     <h4><?=GeneralLabel::jumlah_perbelanjaan_without_rm?>: RM <?=$calculate_jumlah_perbelanjaan?>, 
-            <?=GeneralLabel::jumlah_perbelanjaan_without_rm?>: RM <?=$calculate_jumlah_disokong?>, 
-            <?=GeneralLabel::jumlah_perbelanjaan_without_rm?>: RM <?=$calculate_jumlah_diperakuankan?></h4>
+            <?=GeneralLabel::jumlah_disokong_without_rm?>: RM <?=$calculate_jumlah_disokong?>, 
+            <?=GeneralLabel::jumlah_diperakuankan_without_rm?>: RM <?=$calculate_jumlah_diperakuankan?></h4>
     
     <?php Pjax::end(); ?>
     
@@ -960,16 +960,29 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                 'yuran_bayaran_penyertaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>10]],
             ]
         ],
+    ]
+]);
+    ?>
+    
+    <?php Pjax::begin(['id' => 'anggaranPerbelanjaanTotal', 'timeout' => 100000]); ?>
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'jumlah_bantuan_yang_dipohon' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>10]],
+                'jumlah_bantuan_yang_dipohon' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>10, 'disabled'=>true,'value'=>$calculate_jumlah_perbelanjaan]],
             ]
         ],
     ]
 ]);
     ?>
+    
+    <?php Pjax::end(); ?>
     
     <?php // Kertas Kerja
         if($model->kertas_kerja){
@@ -1366,6 +1379,13 @@ $URL = Url::to(['/profil-badan-sukan/get-badan-sukan']);
 $DateDisplayFormat = GeneralVariable::displayDateFormat;
 
 $script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
         
 $(document).ready(function(){
     var readonly = '$readonly';

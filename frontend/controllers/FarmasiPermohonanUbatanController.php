@@ -85,7 +85,8 @@ class FarmasiPermohonanUbatanController extends Controller
         $YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         $model->kelulusan = $YesNo;
         
-        $model->tarikh_pemberian = GeneralFunction::convert($model->tarikh_pemberian);
+        if($model->tarikh_pemberian != "") {$model->tarikh_pemberian = GeneralFunction::convert($model->tarikh_pemberian);}
+        if($model->tarikh_kelulusan != "") {$model->tarikh_kelulusan = GeneralFunction::convert($model->tarikh_kelulusan, GeneralFunction::TYPE_DATE);}
         
         $queryPar = null;
         

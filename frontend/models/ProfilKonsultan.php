@@ -53,6 +53,7 @@ class ProfilKonsultan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['ic_no'], 'unique', 'message' => GeneralMessage::yii_validation_unique],
             [['nama_konsultan', 'ic_no', 'no_bimbit', 'umur', 'kategori_agensi', 'agensi', 'alamat_1', 'alamat_negeri', 'alamat_poskod',
                 'no_tel_pejabat', 'no_kaunselor_berdaftar', 'tarikh', 'status_permohonan', 'emel'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['nama_konsultan', 'bidang_konsultansi', 'lain_lain', 'agensi'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],

@@ -94,7 +94,7 @@ class PembayaranInsentifSearch extends PembayaranInsentif
                 ->andFilterWhere(['like', 'tbl_ref_pengurusan_insentif_tetapan_shakam_shakar.desc', $this->kumpulan_temasya_kejohanan])
             ->andFilterWhere(['like', 'tbl_pembayaran_insentif.jumlah', $this->jumlah])
                 ->andFilterWhere(['like', 'tbl_ref_kelulusan_insentif.desc', $this->kelulusan])
-                ->andFilterWhere(['like', 'tbl_perancangan_program.nama_program', $this->nama_kejohanan]);
+                ->andFilterWhere(['like', 'tbl_perancangan_program_plan.nama_program', $this->nama_kejohanan]);
 
         return $dataProvider;
     }

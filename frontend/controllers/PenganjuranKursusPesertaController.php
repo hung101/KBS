@@ -15,6 +15,7 @@ use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefJantina;
@@ -156,6 +157,12 @@ class PenganjuranKursusPesertaController extends Controller
         $model->sukan = $ref['desc'];
         
         $model->kelulusan = GeneralLabel::getYesNoLabel($model->kelulusan);
+        
+        if($model->tarikh_mula_tempoh_sah_laku_sijil != "") {$model->tarikh_mula_tempoh_sah_laku_sijil = GeneralFunction::convert($model->tarikh_mula_tempoh_sah_laku_sijil);}
+        
+        if($model->tarikh_tamat_tempoh_sah_laku_sijil != "") {$model->tarikh_tamat_tempoh_sah_laku_sijil = GeneralFunction::convert($model->tarikh_tamat_tempoh_sah_laku_sijil);}
+        
+        if($model->tarikh_kelulusan != "") {$model->tarikh_kelulusan = GeneralFunction::convert($model->tarikh_kelulusan, GeneralFunction::TYPE_DATE);}
         
         return $this->render('view', [
             'model' => $model,

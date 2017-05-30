@@ -52,9 +52,9 @@ class RefKategoriKursusPenganjuran extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['desc'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['desc', 'ref_kategori_kursus_penganjuran_akk_id'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['created', 'updated'], 'safe'],
+            [['created', 'updated', 'ref_kategori_kursus_penganjuran_akk_id'], 'safe'],
             [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
@@ -68,10 +68,15 @@ class RefKategoriKursusPenganjuran extends \yii\db\ActiveRecord
             'id' => GeneralLabel::id,
             'desc' => GeneralLabel::desc,
             'aktif' => GeneralLabel::aktif,
+            'ref_kategori_kursus_penganjuran_akk_id' => GeneralLabel::kategori_kursus_penganjuran,
             'created_by' => GeneralLabel::created_by,
             'updated_by' => GeneralLabel::updated_by,
             'created' => GeneralLabel::created,
             'updated' => GeneralLabel::updated,
         ];
+    }
+    
+    public function getRefKategoriKursusPenganjuranAkk() {
+        return $this->hasOne(RefKategoriKursusPenganjuranAkk::className(), ['id' => 'ref_kategori_kursus_penganjuran_akk_id']);
     }
 }

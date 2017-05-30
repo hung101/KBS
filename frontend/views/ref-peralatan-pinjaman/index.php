@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel frontend\models\RefPeralatanPinjamanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = GeneralLabel::peralatan_pinjamen;
+$this->title = GeneralLabel::peralatan_pinjaman;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-peralatan-pinjaman-index">

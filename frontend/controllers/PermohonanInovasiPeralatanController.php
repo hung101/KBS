@@ -71,7 +71,8 @@ class PermohonanInovasiPeralatanController extends Controller
         $ref = RefBahagianCawanganPusat::findOne(['id' => $model->bahagian_cawangan_pusat]);
         $model->bahagian_cawangan_pusat = $ref['desc'];
         
-        $model->tarikh_permohonan = GeneralFunction::convert($model->tarikh_permohonan);
+        if($model->tarikh_permohonan != "") {$model->tarikh_permohonan = GeneralFunction::convert($model->tarikh_permohonan);}
+        if($model->tarikh_status != "") {$model->tarikh_status = GeneralFunction::convert($model->tarikh_status, GeneralFunction::TYPE_DATE);}
         
         return $this->render('view', [
             'model' => $model,

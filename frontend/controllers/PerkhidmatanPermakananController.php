@@ -390,6 +390,7 @@ class PerkhidmatanPermakananController extends Controller
                 $report_url = BaseUrl::to(['generate-laporan-statistik-analisi-tubuh-badan'
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'tarikh_dari' => $model->tarikh_dari
+                    , 'atlet' => $model->atlet
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -397,6 +398,7 @@ class PerkhidmatanPermakananController extends Controller
                 return $this->redirect(['generate-laporan-statistik-analisi-tubuh-badan'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'atlet' => $model->atlet
                     , 'format' => $model->format
                 ]);
             }
@@ -408,7 +410,7 @@ class PerkhidmatanPermakananController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanStatistikAnalisiTubuhBadan($tarikh_dari, $tarikh_hingga, $format)
+    public function actionGenerateLaporanStatistikAnalisiTubuhBadan($tarikh_dari, $tarikh_hingga, $atlet, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -416,9 +418,13 @@ class PerkhidmatanPermakananController extends Controller
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($atlet == "") $atlet = array();
+        else $atlet = array($atlet);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'ATLET' => $atlet,
         );
         
         GeneralFunction::generateReport('/spsb/ISN/LaporanStatistikAnalisiTubuhBadan', $format, $controls, 'laporan_statistik_analisi_tubuh_badan');

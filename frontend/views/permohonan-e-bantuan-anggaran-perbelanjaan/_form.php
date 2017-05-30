@@ -93,7 +93,10 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
                $(document).find('#modal').modal('hide');
                 form.trigger("reset");
                 $.pjax.defaults.timeout = 100000;
-                $.pjax.reload({container:'#anggaranPerbelanjaanGrid'});
+                //$.pjax.reload({container:'.anggaranPerbelanjaan'});
+
+                $.pjax.reload({container: "#anggaranPerbelanjaanGrid", async:false});
+                $.pjax.reload({container: "#anggaranPerbelanjaanTotal", async:false});
           }
      });
      return false;

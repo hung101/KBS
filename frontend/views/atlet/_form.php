@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 use kartik\helpers\Html;
 use yii\helpers\Url;
@@ -98,8 +98,8 @@ use app\models\general\GeneralVariable;
             echo Html::a(GeneralLabel::print_pdf, '', ['value'=>Url::to(['/atlet/print', 'id' => $model->atlet_id]), 'class' => 'btn btn-info custom_button']);
         }
     ?>
-    <?php if( ( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['delete']))  || 
-                (isset($model->refAtletSukan[0]->program_semasa) && ($model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM || $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))): ?>
+    <?php //if( ( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['delete']))  || 
+             //   (isset($model->refAtletSukan[0]->program_semasa) && ($model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM || $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))): ?>
     <?php 
     if($model->tawaran_id && $model->tawaran_id == RefStatusTawaran::LULUS_TAWARAN){
         if($model->cacat == 1 || $model->cacat == 'Ya'){
@@ -112,7 +112,7 @@ use app\models\general\GeneralVariable;
     echo " " . Html::a(GeneralLabel::surat_pengesahan, ['surat-pengesahan', 'id' => $model->atlet_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
     ?>
     <?= Html::a(GeneralLabel::backToList, ['index'], ['class' => 'btn btn-warning']) ?>
-    <?php endif; ?>
+    <?php //endif; ?>
     <br>
     <br>
     <?php endif; ?>

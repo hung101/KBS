@@ -518,8 +518,8 @@ class JurulatihController extends Controller
                ->where(['tbl_jurulatih_sukan.program'=>$program_id])
                ->andWhere(['tbl_jurulatih_sukan.sukan'=>$sukan_id])
                //->andWhere(['=', 'status_tawaran', RefStatusTawaran::LULUS_TAWARAN])
-                ->andWhere(['tbl_jurulatih.status_tawaran_mpj'=>'1'])
-                ->andWhere(['tbl_jurulatih.status_tawaran_jkb'=>'1'])
+                //->andWhere(['tbl_jurulatih.status_tawaran_mpj'=>'1'])
+                //->andWhere(['tbl_jurulatih.status_tawaran_jkb'=>'1'])
                 ->select(['tbl_jurulatih.jurulatih_id AS id','nama AS name'])->asArray()->createCommand()->queryAll();
         
         $value = (count($data) == 0) ? ['' => ''] : $data;

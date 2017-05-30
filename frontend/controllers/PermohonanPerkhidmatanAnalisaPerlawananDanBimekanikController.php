@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Atlet;
@@ -77,6 +78,8 @@ class PermohonanPerkhidmatanAnalisaPerlawananDanBimekanikController extends Cont
         
         $ref = RefSukan::findOne(['id' => $model->jenis_sukan]);
         $model->jenis_sukan = $ref['desc'];
+        
+        if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);}
         
         return $this->render('view', [
             'model' => $model,

@@ -821,12 +821,18 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     
     <?php 
         $calculate_jumlah_perbelanjaan = 0.00;
+        $calculate_jumlah_disokong = 0.00;
+        $calculate_jumlah_diperakuankan = 0.00;
         foreach($dataProviderAP->models as $APmodel){
             $calculate_jumlah_perbelanjaan += $APmodel->jumlah_perbelanjaan;
+            $calculate_jumlah_disokong += $APmodel->jumlah_disokong;
+            $calculate_jumlah_diperakuankan += $APmodel->jumlah_diperakuankan;
         }
     ?>
     
-    <h4><?=GeneralLabel::jumlah_perbelanjaan_without_rm?>: RM <?=$calculate_jumlah_perbelanjaan?></h4>
+    <h4><?=GeneralLabel::jumlah_perbelanjaan_without_rm?>: RM <?=$calculate_jumlah_perbelanjaan?>, 
+            <?=GeneralLabel::jumlah_disokong_without_rm?>: RM <?=$calculate_jumlah_disokong?>, 
+            <?=GeneralLabel::jumlah_diperakuankan_without_rm?>: RM <?=$calculate_jumlah_diperakuankan?></h4>
     
     <?php Pjax::end(); ?>
     
@@ -847,16 +853,29 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                 'yuran_bayaran_penyertaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>10]],
             ]
         ],
+    ]
+]);
+    ?>
+    
+    <?php Pjax::begin(['id' => 'anggaranPerbelanjaanTotal', 'timeout' => 100000]); ?>
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'jumlah_bantuan_yang_dipohon' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>10]],
+                'jumlah_bantuan_yang_dipohon' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>10, 'disabled'=>true,'value'=>$calculate_jumlah_perbelanjaan]],
             ]
         ],
     ]
 ]);
     ?>
+    
+    <?php Pjax::end(); ?>
     
     <?php // Kertas Kerja
         if($model->kertas_kerja){
