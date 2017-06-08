@@ -13,6 +13,7 @@ use app\models\RefReportFormat;
 use app\models\RefSukan;
 use app\models\Atlet;
 use app\models\RefJenisJus;
+use app\models\RefKategoriMakananTambahan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -77,12 +78,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-jus/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-kategori-makanan-tambahan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJenisJus::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jenis],
+                        'data'=>ArrayHelper::map(RefKategoriMakananTambahan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kategori],
                         'pluginOptions' => ['allowClear' => true,],],
                     'columnOptions'=>['colspan'=>3]],
             ]

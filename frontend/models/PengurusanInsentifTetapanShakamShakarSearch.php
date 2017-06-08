@@ -80,7 +80,7 @@ class PengurusanInsentifTetapanShakamShakarSearch extends PengurusanInsentifTeta
         $query->andFilterWhere(['like', 'kumpulan_temasya_kejohanan', $this->kumpulan_temasya_kejohanan])
             ->andFilterWhere(['like', 'session_id', $this->session_id])
                 ->andFilterWhere(['like', 'tbl_ref_jenis_insentif.desc', $this->jenis_insentif])
-                ->andFilterWhere(['like', 'tbl_ref_kelulusan.desc', $this->rekod_baharu])
+                ->andFilterWhere(['like', 'rekod_baharu', $this->rekod_baharu])
                 ->andFilterWhere(['like', 'tbl_ref_pingat_insentif.desc', $this->pingat])
                 ->andFilterWhere(['like', 'tbl_ref_insentif_kejohanan.desc', $this->kejohanan])
                 ->andFilterWhere(['like', 'tbl_ref_insentif_peringkat.desc', $this->peringkat])

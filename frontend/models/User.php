@@ -63,7 +63,7 @@ class User extends \yii\db\ActiveRecord
         return [
             [['username', 'jabatan_id', 'peranan', 'full_name', 'status', 'ipt_bendahari_e_biasiswa'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['jabatan_id', 'peranan', 'status', 'profil_badan_sukan', 'ipt_bendahari_e_biasiswa', 'no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['expiry_date'], 'safe'],
+            //[['expiry_date'], 'safe'],
             [['username'], 'integer', 'message' => GeneralMessage::yii_validation_integer, 'on' => 'create'],
             [['password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['auth_key'], 'string', 'max' => 32, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -82,7 +82,8 @@ class User extends \yii\db\ActiveRecord
                 'specialError'=>GeneralMessage::yii_validation_password_strength,
                 'lowerError'=>GeneralMessage::yii_validation_password_strength,
                 'upperError'=>GeneralMessage::yii_validation_password_strength,
-                'hasUserError'=>GeneralMessage::yii_validation_password_contain_username,]
+                'hasUserError'=>GeneralMessage::yii_validation_password_contain_username,],
+            [['expiry_date'], 'compare', 'compareValue'=>date("Y-m-d"), 'operator'=>'>', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
 

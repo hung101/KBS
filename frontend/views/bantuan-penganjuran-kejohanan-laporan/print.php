@@ -63,7 +63,7 @@
         <td>SENARAI PEGAWAI / PEMBANTU PERUBATAN</td><td>:</td><td><?= ($model->senarai_pegawai_pembantu_perubatan != '')?'Ya (Sila rujuk lampiran di dalam sistem)':'Tiada maklumat' ?></td>
     </tr>
 </table>
-
+<section>
 <?php
 if(count($BantuanPenganjuranKejohananLaporanTuntutan) > 0){
 ?>	
@@ -94,7 +94,8 @@ if(count($BantuanPenganjuranKejohananLaporanTuntutan) > 0){
 <?php
 }
 ?>
-
+</section>
+<section>
 <div class="title-header-wrap" style="margin:20px 0px; padding:5px">
     AKUAN
 </div>
@@ -119,7 +120,8 @@ Saya mengaku bahawa maklumat yang telah diisi seperti di atas adalah benar serta
 		</td>
 	</tr>
 </table>
-
+</section>
+<section>
 <div class="title-header-wrap" style="margin:40px 0px; padding:5px">
 	TINDAKAN BAHAGIAN PENGURUSAN SUKAN MSN
 </div>
@@ -157,3 +159,4 @@ Saya mengaku bahawa maklumat yang telah diisi seperti di atas adalah benar serta
 		</td>
 	</tr>
 </table>
+</section>

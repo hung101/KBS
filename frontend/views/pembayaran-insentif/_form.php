@@ -225,7 +225,7 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefInsentifPeringkat::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
                         'pluginOptions' => [
-                            'initialize' => true,
+                            //'initialize' => true,
                             'depends'=>[Html::getInputId($model, 'kejohanan')],
                             'placeholder' => Placeholder::peringkat,
                             'url'=>Url::to(['/ref-insentif-peringkat/sub-peringkats'])],
@@ -911,13 +911,13 @@ $('#pembayaraninsentif-sukan').change(function(){
 });
 
 $(document).ready(function(){
-    toggleKelas();
-    //changeAcara();
-    
-    setJenisInsentif();
-    setKejohanan();
-    setPeringkat();
-    setKelas();
+        toggleKelas();
+        //changeAcara();
+
+        setJenisInsentif();
+        setKejohanan();
+        setPeringkat();
+        setKelas();
 });
         
 function toggleKelas(){

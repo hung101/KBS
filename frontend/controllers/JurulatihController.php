@@ -1036,7 +1036,7 @@ class JurulatihController extends Controller
                     , 'jurulatih' => $model->jurulatih
                     , 'laporan_jurulatih' => $model->laporan_jurulatih
                     , 'prestasi_atlet' => $model->prestasi_atlet
-                    , 'kenaikan_gaji_elaun' => $model->kenaikan_gaji_elaun
+                    //, 'kenaikan_gaji_elaun' => $model->kenaikan_gaji_elaun
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -1045,7 +1045,7 @@ class JurulatihController extends Controller
                     , 'jurulatih' => $model->jurulatih
                     , 'laporan_jurulatih' => $model->laporan_jurulatih
                     , 'prestasi_atlet' => $model->prestasi_atlet
-                    , 'kenaikan_gaji_elaun' => $model->kenaikan_gaji_elaun
+                    //, 'kenaikan_gaji_elaun' => $model->kenaikan_gaji_elaun
                     , 'format' => $model->format
                 ]);
             }
@@ -1057,13 +1057,13 @@ class JurulatihController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanJurulatihWajaran($jurulatih, $laporan_jurulatih, $prestasi_atlet, $kenaikan_gaji_elaun, $format)
+    public function actionGenerateLaporanJurulatihWajaran($jurulatih, $laporan_jurulatih, $prestasi_atlet, $format)
     {
         if($jurulatih == "") $jurulatih = array();
         else $jurulatih = array($jurulatih);
         
-        if($kenaikan_gaji_elaun == "") $kenaikan_gaji_elaun = array();
-        else $kenaikan_gaji_elaun = array($kenaikan_gaji_elaun);
+        /*if($kenaikan_gaji_elaun == "") $kenaikan_gaji_elaun = array();
+        else $kenaikan_gaji_elaun = array($kenaikan_gaji_elaun);*/
         
         if($laporan_jurulatih == "") $laporan_jurulatih = array();
         else $laporan_jurulatih = array($laporan_jurulatih);
@@ -1073,7 +1073,7 @@ class JurulatihController extends Controller
         
         $controls = array(
             'JURULATIH' => $jurulatih,
-            'KENAIKAN_GAJI_ELAUN' => $kenaikan_gaji_elaun,
+            //'KENAIKAN_GAJI_ELAUN' => $kenaikan_gaji_elaun,
             'LAPORAN_JURULATIH' => $laporan_jurulatih,
             'PRESTASI_ATLET' => $prestasi_atlet,
         );
@@ -1154,6 +1154,9 @@ class JurulatihController extends Controller
                 $model->bahasa = 'bi';
                 $template = 'generate_surat_tawaran';
             }
+            
+            $refStatus = RefStatusJurulatih::findOne(['id' => $parentModel->status_jurulatih]);
+            $model->jurulatih_status_desc = $refStatus['report_desc'];
             
             $pdf = new \mPDF('utf-8', 'A4');
 

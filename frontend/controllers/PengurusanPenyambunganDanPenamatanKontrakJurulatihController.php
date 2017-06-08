@@ -172,7 +172,7 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
                                 ->setTo($modelUser->email)
                                 ->setFrom('noreply@spsb.com')
                                 ->setSubject('Status Permohonan (' . $jurulatihModel->nama . '- '.$jurulatihModel->ic_no.') Kontrak Jurulatih')
-                                ->setTextBody('Salam Sejahtera,<br><br>
+                                ->setHtmlBody('Salam Sejahtera,<br><br>
 
                         Nama Jurulatih: ' . $jurulatihModel->nama . '<br>
                         No Kad Pengenalan: ' . $jurulatihModel->ic_no . '<br>
@@ -263,7 +263,7 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
                                     ->setTo($modelUser->email)
                                     ->setFrom('noreply@spsb.com')
                                     ->setSubject('Status Permohonan (' . $jurulatihModel->nama . '- '.$jurulatihModel->ic_no.') Kontrak Jurulatih')
-                                    ->setTextBody('Salam Sejahtera,<br><br>
+                                    ->setHtmlBody('Salam Sejahtera,<br><br>
 
                             Nama Jurulatih: ' . $jurulatihModel->nama . '<br>
                             No Kad Pengenalan: ' . $jurulatihModel->ic_no . '<br>

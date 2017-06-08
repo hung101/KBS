@@ -246,20 +246,20 @@ class BantuanPenyertaanPegawaiTeknikalController extends Controller
                             ->setTo($modelUser->email)
                             ->setFrom('noreply@spsb.com')
                             ->setSubject('Pemberitahuan - Permohonan Baru: Penyertaan Pegawai Teknikal Ke Kejohanan Dalam & Luar Negara ')
-                            ->setTextBody("Salam Sejahtera,
+                            ->setHtmlBody("Salam Sejahtera,
     <br><br>
     Berikut adalah butir permohonan telah dihantar : 
     <br>
     Badan Sukan: " . $refProfilBadanSukan['nama_badan_sukan'] . "
-    Nama Kejohanan: " . $model->nama_kejohanan . '
-    Tempat: ' . $model->tempat . '
-    Tarikh Mula: ' . $model->tarikh . '
-    Tarikh Tamat: ' . $model->tarikh_tamat . '
-    Jumlah Bantuan Yang Dipohon: RM' . $model->jumlah_bantuan_yang_dipohon . '
-    <br>
+    <br>Nama Kejohanan: " . $model->nama_kejohanan . '
+    <br>Tempat: ' . $model->tempat . '
+    <br>Tarikh Mula: ' . $model->tarikh . '
+    <br>Tarikh Tamat: ' . $model->tarikh_tamat . '
+    <br>Jumlah Bantuan Yang Dipohon: RM' . $model->jumlah_bantuan_yang_dipohon . '
+    <br><br>
     Link: ' . BaseUrl::to(['bantuan-penyertaan-pegawai-teknikal/view', 'id' => $model->bantuan_penyertaan_pegawai_teknikal_id], true) . '
     <br><br>
-    "KE ARAH KECEMERLANGAN SUKAN"
+    "KE ARAH KECEMERLANGAN SUKAN"<br>
     Majlis Sukan Negara Malaysia.
         ')->send();
                         }

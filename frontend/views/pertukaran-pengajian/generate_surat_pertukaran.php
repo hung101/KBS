@@ -34,7 +34,7 @@ if(isset($parentModel->tarikh_akhir) && $parentModel->tarikh_akhir != null)
 <div style="float:left; width:40%; text-align:right">
 	<table border="0" align="right" cellspacing="0">
 		<tr>
-			<td>Bil MSNM</td>
+			<td>Bil</td>
 			<td>:</td>
 			<td><?= $model->bil_msnm ?></td>
 		</tr>

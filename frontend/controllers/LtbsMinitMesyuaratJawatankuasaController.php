@@ -240,7 +240,7 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
                             ->setTo($modelUser->email)
                             ->setFrom('noreply@spsb.com')
                             ->setSubject('Pemberitahuan - Laporan Tahunan')
-                            ->setTextBody('Salam '.$modelUser->full_name.',
+                            ->setHtmlBody('Salam '.$modelUser->full_name.',
     <br><br>
     Terdapat permohonan pengesahan maklumat untuk semakan dan tindakan pihak tuan/puan. Sila semak sistem SPSB bagi tindakan seterusnya 
     <br><br>
@@ -259,7 +259,7 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
                                         ->setTo($refBadanSukan['emel_badan_sukan'])
                                                                     ->setFrom('noreply@spsb.com')
                                         ->setSubject('Laporan Tahunan Tuan/Puan Sedang Diproses')
-                                        ->setTextBody('Salam '.$refBadanSukan['nama_badan_sukan'].',
+                                        ->setHtmlBody('Salam '.$refBadanSukan['nama_badan_sukan'].',
     <br><br>
     Terima kasih atas maklumat yang telah dihantar oleh pihak anda. Permohonan anda kini sedang diproses bagi tujuan pengesahan.
     <br><br>
@@ -306,6 +306,8 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        $model->pengesahan = 0;
         
         $queryPar = null;
         
@@ -528,7 +530,7 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
                                         ->setTo($refBadanSukan['emel_badan_sukan'])
                                                                     ->setFrom('noreply@spsb.com')
                                         ->setSubject('Laporan Tahunan Tuan/Puan Telah Disahkan')
-                                        ->setTextBody('Salam '.$refBadanSukan['nama_badan_sukan'].',
+                                        ->setHtmlBody('Salam '.$refBadanSukan['nama_badan_sukan'].',
     <br><br>
     Maklumat yang telah dihantar oleh pihak anda telah disahkan. Kemas kini maklumat boleh dibuat dari masa ke masa.
     <br><br>
@@ -539,6 +541,27 @@ class LtbsMinitMesyuaratJawatankuasaController extends Controller
                         {
                             //return 'Can sent mail due to the following exception'.print_r($exception);
                             Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                        }
+                    }
+                }
+                
+                if ($model->status == $oldStatus && ($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_ltbs-minit-mesyuarat-jawatankuasa'])->groupBy('id')->all()) !== null) {
+                    $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->profil_badan_sukan_id]);
+                    
+                    foreach($modelUsers as $modelUser){
+
+                        if($modelUser->email && $modelUser->email != ""){
+                            //echo "E-mail: " . $modelUser->email . "\n";
+                            Yii::$app->mailer->compose()
+                            ->setTo($modelUser->email)
+                            ->setFrom('noreply@spsb.com')
+                            ->setSubject('Pemberitahuan - Laporan Tahunan')
+                            ->setHtmlBody('Salam '.$modelUser->full_name.',
+    <br><br>
+    Terdapat permohonan pengesahan maklumat untuk semakan dan tindakan pihak tuan/puan. Sila semak sistem SPSB bagi tindakan seterusnya 
+    <br><br>
+    Sekian, terima kasih.
+        ')->send();
                         }
                     }
                 }

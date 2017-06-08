@@ -15,6 +15,8 @@ use app\models\general\GeneralVariable;
 use app\models\RefPasukanPenyelidikan;
 use app\models\RefNegeri;
 use app\models\RefBandar;
+use app\models\RefGelaran;
+use app\models\RefJawatanPasukanPenyelidikan;
 
 /**
  * PenyelidikanKomposisiPasukanController implements the CRUD actions for PenyelidikanKomposisiPasukan model.
@@ -64,6 +66,12 @@ class PenyelidikanKomposisiPasukanController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        $ref = RefGelaran::findOne(['id' => $model->gelaran]);
+        $model->gelaran = $ref['desc'];
+        
+        $ref = RefJawatanPasukanPenyelidikan::findOne(['id' => $model->jawatan]);
+        $model->jawatan = $ref['desc'];
         
         $ref = RefPasukanPenyelidikan::findOne(['id' => $model->pasukan]);
         $model->pasukan = $ref['desc'];

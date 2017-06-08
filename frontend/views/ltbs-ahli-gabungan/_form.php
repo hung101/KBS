@@ -189,7 +189,7 @@ use app\models\RefStatusLaporanMesyuaratAgung;
     ?>
     
     <?php
-    if(Yii::$app->user->identity->profil_badan_sukan && $model->isNewRecord){
+    if(Yii::$app->user->identity->profil_badan_sukan && !$readonly){
         echo '<br>';
             echo FormGrid::widget([
             'model' => $model,
@@ -272,15 +272,18 @@ $script = <<< JS
         
 // enable all the disabled field before submit
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
+        
+    $("form#{$model->formName()} input").prop("disabled", false);
+    
+    var form = $(this);
+    
+    if($('#ltbsahligabungan-pengesahan').length){
+        if(document.getElementById("ltbsahligabungan-pengesahan").checked){
+        } else {
+            alert('Sila tanda pengesahan perakuan');
 
-    if(document.getElementById("ltbsahligabungan-pengesahan").checked){
-        var form = $(this);
-
-        $("form#{$model->formName()} input").prop("disabled", false);
-    } else {
-        alert('Sila tanda pengesahan perakuan');
-
-        return false;
+            return false;
+        }
     }
 });
         

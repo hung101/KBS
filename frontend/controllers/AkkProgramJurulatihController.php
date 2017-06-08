@@ -145,7 +145,7 @@ class AkkProgramJurulatihController extends Controller
             ->setTo($AkkProgramJurulatihPesertaModel->emel_pengurus_sukan)
                                         ->setFrom('noreply@spsb.com')
             ->setSubject('Peningkatan Kerjaya Jurulatih')
-            ->setTextBody("Salam Sejahtera,
+            ->setHtmlBody("Salam Sejahtera,
                 <br><br>
     Peningkatan kerjaya jurulatih berikut telah dilulukan: <br>
     Nama Program/Kursus: " . $model->nama_program . "<br>
@@ -214,7 +214,7 @@ class AkkProgramJurulatihController extends Controller
         ->setTo($AkkProgramJurulatihPesertaModel->emel_pengurus_sukan)
                                     ->setFrom('noreply@spsb.com')
         ->setSubject('Peningkatan Kerjaya Jurulatih')
-        ->setTextBody("Salam Sejahtera,
+        ->setHtmlBody("Salam Sejahtera,
             <br><br>
 Peningkatan kerjaya jurulatih berikut telah dilulukan: <br>
 Nama Program/Kursus: " . $model->nama_program . "<br>

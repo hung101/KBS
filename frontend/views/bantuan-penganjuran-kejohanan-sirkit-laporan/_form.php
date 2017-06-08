@@ -452,7 +452,10 @@ use app\models\general\GeneralVariable;
         }
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-sirkit-laporan-tuntutan/create', 'bantuan_penganjuran_kejohanan_laporan_id' => $bantuan_penganjuran_kejohanan_laporan_id]).'", "'.GeneralLabel::createTitle . ' Tuntutan Baki Dua Puluh Peratus (20%) Daripada Jumlah Kelulusan (Jika Ada)");',
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kejohanan-sirkit-laporan-tuntutan/create', 
+                            'bantuan_penganjuran_kejohanan_laporan_id' => $bantuan_penganjuran_kejohanan_laporan_id,
+                            'jumlah_kelulusan' => $model->jumlah_kelulusan
+                                ]).'", "'.GeneralLabel::createTitle . ' Tuntutan Baki Dua Puluh Peratus (20%) Daripada Jumlah Kelulusan (Jika Ada)");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

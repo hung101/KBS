@@ -21,12 +21,12 @@ $this->params['breadcrumbs'][] = $this->title;
         
         // Update Access
         if(isset(Yii::$app->user->identity->peranan_akses['ISN']['penjadualan-ujian-fisiologi']['update'])){
-            $template .= ' {update}';
+            //$template .= ' {update}';
         }
         
         // Delete Access
         if(isset(Yii::$app->user->identity->peranan_akses['ISN']['penjadualan-ujian-fisiologi']['delete'])){
-            $template .= ' {delete}';
+            //$template .= ' {delete}';
         }
     ?>
 
@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'tarikh_masa',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_masa,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_format,
                 ],
                 'format' => 'raw',
                 'value'=>function ($model) {

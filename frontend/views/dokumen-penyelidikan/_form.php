@@ -60,21 +60,36 @@ use app\models\general\GeneralVariable;
 ]);
     ?>
      
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'desc' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>255]],
+            ],
+        ],
+        
+    ]
+]);
+    ?>
+    
      <?php // Kertas Kerja Projek / Program Upload
     
     $label = $model->getAttributeLabel('muat_naik');
     
     if($model->muat_naik){
-        echo "<div class='required'>";
         echo "<label>" . $model->getAttributeLabel('muat_naik') . "</label><br>";
         echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->muat_naik , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
-        echo "</div>";
         
         $label = false;
     }
     
     if(!$readonly){
-        echo "<div class='required'>";
         echo FormGrid::widget([
             'model' => $model,
             'form' => $form,
@@ -89,7 +104,6 @@ use app\models\general\GeneralVariable;
                     ],
                 ]
             ]);
-        echo "</div>";
     }
         
     ?>

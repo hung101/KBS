@@ -67,7 +67,7 @@ if(count($sukanList) > 0)
 <?= $aftDear ?>,
 
 <p class="text-bold">
-    TAWARAN PELANTIKAN SECARA KONTRAK SEBAGAI JURULATIH SEPENUH MASA DI MAJLIS SUKAN NEGARA MALAYSIA<br />
+    TAWARAN PELANTIKAN SECARA KONTRAK SEBAGAI <?php echo (($model->jurulatih_status_desc)?$model->jurulatih_status_desc:'JURULATIH');?> DI MAJLIS SUKAN NEGARA MALAYSIA<br />
     - <?= $sukan ?>
 </p>
 

@@ -76,10 +76,10 @@ class BantuanPenganjuranKursusSearch extends BantuanPenganjuranKursus
             //'jumlah_bantuan_yang_dipohon' => $this->jumlah_bantuan_yang_dipohon,
             //'tarikh_permohonan' => $this->tarikh_permohonan,
             'jumlah_dilulus' => $this->jumlah_dilulus,
-            'created_by' => $this->created_by,
-            'updated_by' => $this->updated_by,
-            'created' => $this->created,
-            'updated' => $this->updated,
+            'tbl_bantuan_penganjuran_kursus.created_by' => $this->created_by,
+            'tbl_bantuan_penganjuran_kursus.updated_by' => $this->updated_by,
+            'tbl_bantuan_penganjuran_kursus.created' => $this->created,
+            'tbl_bantuan_penganjuran_kursus.updated' => $this->updated,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_profil_badan_sukan.nama_badan_sukan', $this->badan_sukan])

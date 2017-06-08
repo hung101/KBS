@@ -20,10 +20,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['update'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['update']) || isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['update'])): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->farmasi_permohonan_ubatan_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['delete'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-ubatan']['delete']) || isset(Yii::$app->user->identity->peranan_akses['ISN']['farmasi-permohonan-liputan-perubatan-sukan']['delete'])): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->farmasi_permohonan_ubatan_id], [
                 'class' => 'btn btn-danger',
                 'data' => [

@@ -68,7 +68,9 @@ class ElaporanPelaksanaan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['kelulusan','kategori_elaporan', 'nama_projek_program_aktiviti_kejohanan', 'peringkat', 'nama_penganjur_persatuan_kerjasama', 'jumlah_bantuan_peruntukan', 'tarikh_pelaksanaan_mula', 'tarikh_pelaksanaan_akhir', 'dirasmikan_oleh', 'lelaki', 'perempuan', 'l_melayu', 'l_cina', 'l_india', 'l_lain_lain', 'p_melayu', 'p_cina', 'p_india', 'p_lain_lain', 'jumlah_penyertaan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['kelulusan','kategori_elaporan', 'nama_projek_program_aktiviti_kejohanan', 'peringkat', 'nama_penganjur_persatuan_kerjasama', 'jumlah_bantuan_peruntukan', 
+                'tarikh_pelaksanaan_mula', 'tarikh_pelaksanaan_akhir', 'dirasmikan_oleh', 'lelaki', 'perempuan', 'l_melayu', 'l_cina', 'l_india', 'l_lain_lain', 
+                'p_melayu', 'p_cina', 'p_india', 'p_lain_lain', 'jumlah_penyertaan', 'jumlah_perbelanjaan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['jumlah_bantuan_peruntukan', 'jumlah_perbelanjaan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tarikh_cek_eft', 'tarikh_pelaksanaan_mula', 'tarikh_pelaksanaan_akhir'], 'safe'],
             [['lelaki', 'perempuan', 'l_melayu', 'l_cina', 'l_india', 'l_lain_lain', 'p_melayu', 'p_cina', 'p_india', 'p_lain_lain', 'jumlah_penyertaan', 'bahagian', 'cawangan', 'user_public_id', 'kategori_elaporan', 'permohonan_e_bantuan_id', 'kelulusan', 'creator_mobile_no'], 'integer', 'message' => GeneralMessage::yii_validation_integer],

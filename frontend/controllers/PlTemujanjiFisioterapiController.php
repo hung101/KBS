@@ -30,6 +30,7 @@ use app\models\RefKategoriPesakitLuar;
 use app\models\RefTindakanSelanjutnyaFisioterapi;
 use app\models\RefKategoriRawatan;
 use app\models\RefSukan;
+use app\models\RefAtletTahap;
 
 /**
  * PlTemujanjiFisioterapiController implements the CRUD actions for PlTemujanjiFisioterapi model.
@@ -112,7 +113,7 @@ class PlTemujanjiFisioterapiController extends Controller
         $ref = RefStatusTemujanjiFisioterapi::findOne(['id' => $model->status_temujanji]);
         $model->status_temujanji = $ref['desc'];
         
-        $ref = RefKategoriPesakitLuar::findOne(['id' => $model->kategori_pesakit_luar]);
+        $ref = RefAtletTahap::findOne(['id' => $model->kategori_pesakit_luar]);
         $model->kategori_pesakit_luar = $ref['desc'];
         
         $ref = RefTindakanSelanjutnyaFisioterapi::findOne(['id' => $model->tindakan_selanjutnya]);
@@ -432,12 +433,14 @@ class PlTemujanjiFisioterapiController extends Controller
             if($model->format == "html") {
                 $report_url = BaseUrl::to(['generate-laporan-statistik-bulanan-temujanji-fisioterapi-rehabilitasi'
                     , 'tahun' => $model->tahun
+                    , 'bulan' => $model->bulan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
             } else {
                 return $this->redirect(['generate-laporan-statistik-bulanan-temujanji-fisioterapi-rehabilitasi'
                     , 'tahun' => $model->tahun
+                    , 'bulan' => $model->bulan
                     , 'format' => $model->format
                 ]);
             }
@@ -449,13 +452,17 @@ class PlTemujanjiFisioterapiController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanStatistikBulananTemujanjiFisioterapiRehabilitasi($tahun, $format)
+    public function actionGenerateLaporanStatistikBulananTemujanjiFisioterapiRehabilitasi($tahun, $bulan, $format)
     {
         if($tahun == "") $tahun = array();
         else $tahun = array($tahun);
         
+        if($bulan == "") $bulan = array();
+        else $bulan = array($bulan);
+        
         $controls = array(
             'YEAR' => $tahun,
+            'MONTH' => $bulan,
         );
         
         GeneralFunction::generateReport('/spsb/ISN/LaporanStatistikBulananTemujanjiFisioterapiRehabilitasi', $format, $controls, 'laporan_statistik_bulanan_temujanji_fisioterapi_rehabilitasi');

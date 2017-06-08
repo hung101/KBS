@@ -327,12 +327,12 @@ use common\models\general\GeneralFunction;
 ]);
     ?>
     
+    <!--<br>
     <br>
-    <br>
-    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_kejohanan_kursus_cap; ?></strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_kejohanan_kursus_cap; ?></strong></pre>-->
     
     <?php
-        echo FormGrid::widget([
+       /* echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -372,7 +372,7 @@ use common\models\general\GeneralFunction;
             ],
         ],
     ]
-]);
+]);*/
     ?>
 
     <div class="form-group">

@@ -49,13 +49,17 @@ class LaporanPemantauanJurulatihController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryPar = Yii::$app->request->queryParams;
+        
+        $queryPar['LaporanPemantauanJurulatihSearch']['jurulatih_id_filter'] = $id;
+        
         $searchModel = new LaporanPemantauanJurulatihSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryPar);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-			'id' => $id,
+            'id' => $id,
         ]);
     }
 
@@ -151,6 +155,7 @@ class LaporanPemantauanJurulatihController extends Controller
                 'searchModelLaporanPemantauanJurulatihKategori' => $searchModelLaporanPemantauanJurulatihKategori,
                 'dataProviderLaporanPemantauanJurulatihKategori' => $dataProviderLaporanPemantauanJurulatihKategori,
                 'readonly' => false,
+                'id' => $id,
             ]);
         }
     }

@@ -141,7 +141,7 @@ class LatihanDanProgramController extends Controller
                             ->setTo($modelUser->email)
                             ->setFrom('noreply@spsb.com')
                             ->setSubject('Pemberitahuan - Latihan Dan Pendidikan Badan Sukan')
-                            ->setTextBody('Salam '.$modelUser->full_name.',
+                            ->setHtmlBody('Salam '.$modelUser->full_name.',
     <br><br>
     Terdapat permohonan pengesahan maklumat untuk semakan dan tindakan pihak tuan/puan. Sila semak sistem SPSB bagi tindakan seterusnya 
     <br><br>
@@ -166,7 +166,7 @@ class LatihanDanProgramController extends Controller
                                         ->setTo($refBadanSukan['emel_badan_sukan'])
                                                                     ->setFrom('noreply@spsb.com')
                                         ->setSubject('Latihan Dan Pendidikan Badan Sukan Tuan/Puan Sedang Diproses')
-                                        ->setTextBody('Salam '.$nama_badan_sukan.',
+                                        ->setHtmlBody('Salam '.$nama_badan_sukan.',
     <br><br>
     Terima kasih atas maklumat yang telah dihantar oleh pihak anda. Permohonan anda kini sedang diproses bagi tujuan pengesahan.
     <br><br>
@@ -213,6 +213,8 @@ class LatihanDanProgramController extends Controller
         
         $model = $this->findModel($id);
         
+        $model->pengesahan = 0;
+        
         $oldStatus = null;
         if($model->load(Yii::$app->request->post())){
             $oldStatus = $model->getOldAttribute('status');
@@ -237,7 +239,7 @@ class LatihanDanProgramController extends Controller
                                         ->setTo($modelUser->email)
                                                                     ->setFrom('noreply@spsb.com')
                                         ->setSubject('Latihan Dan Pendidikan Badan Sukan Tuan/Puan Telah Disahkan')
-                                        ->setTextBody('Salam '.$nama_badan_sukan.',
+                                        ->setHtmlBody('Salam '.$nama_badan_sukan.',
     <br><br>
     Maklumat yang telah dihantar oleh pihak anda telah disahkan. Kemas kini maklumat boleh dibuat dari masa ke masa.
     <br><br>
@@ -253,6 +255,34 @@ class LatihanDanProgramController extends Controller
                     }
                 }
             }
+            
+            if ($model->status == $oldStatus && ($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_latihan-dan-program'])->groupBy('id')->all()) !== null) {
+                    if($user = User::findOne(['id' => $model->created_by]) !== null){
+                        $badanSukan = '';
+                        if(isset($user['profil_badan_sukan'])){
+                            $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $user['profil_badan_sukan']]);
+                            $badanSukan = $ref['nama_badan_sukan'];
+                        }
+                    
+                    foreach($modelUsers as $modelUser){
+
+                        if($modelUser->email && $modelUser->email != ""){
+                            //echo "E-mail: " . $modelUser->email . "\n";
+                            Yii::$app->mailer->compose()
+                            ->setTo($modelUser->email)
+                            ->setFrom('noreply@spsb.com')
+                            ->setSubject('Pemberitahuan - Latihan Dan Pendidikan Badan Sukan')
+                            ->setHtmlBody('Salam '.$modelUser->full_name.',
+    <br><br>
+    Terdapat permohonan pengesahan maklumat untuk semakan dan tindakan pihak tuan/puan. Sila semak sistem SPSB bagi tindakan seterusnya 
+    <br><br>
+    Sekian, terima kasih.
+        ')->send();
+                        }
+                    }
+                    
+                    }
+                }
             
             return $this->redirect(['view', 'id' => $model->latihan_dan_program_id]);
         } else {

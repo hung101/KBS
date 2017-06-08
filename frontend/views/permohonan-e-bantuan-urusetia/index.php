@@ -30,6 +30,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
             [
+                'attribute' => 'urusetia_kategori_urusetia_e_bantuan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kategori_urusetia,
+                ],
+                'value' => 'refKategoriUrusetia.desc',
+                'label' => GeneralLabel::kategori_urusetia,
+            ],
+            [
                 'attribute' => 'username',
                 'filterInputOptions' => [
                     'class'       => 'form-control',

@@ -312,7 +312,7 @@ class SiteController extends Controller
                     ->setSubject('Pengesahan E-mel ' . \Yii::$app->name)
                     ->send();
                 
-                Yii::$app->getSession()->setFlash('success', 'E-mel telah dihantar kepada alamat e-mel yang berdaftar. Sila buka dan klik pada link menyediakan untuk mengaktifkan akaun anda.');
+                Yii::$app->getSession()->setFlash('success', GeneralLabel::email_verification_flash_message);
             }
         }
 

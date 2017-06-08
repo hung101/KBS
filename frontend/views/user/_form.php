@@ -27,6 +27,39 @@ use app\models\general\GeneralMessage;
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
 /* @var $form yii\widgets\ActiveForm */
+
+// filter by agency
+$filterAgency=array();
+
+if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['msn'])){
+    $filterAgency[] = RefJabatanUser::MSN;
+}
+
+if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['isn'])){
+    $filterAgency[] = RefJabatanUser::ISN;
+}
+
+if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['pjs'])){
+    $filterAgency[] = RefJabatanUser::PJS;
+}
+
+if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['kbs'])){
+    $filterAgency[] = RefJabatanUser::KBS;
+}
+
+
+$jabatan_list = RefJabatanUser::find()->andWhere(['=', 'aktif', 1])->all();
+
+if(count($filterAgency) > 0){
+    $jabatan_list = RefJabatanUser::find()->andWhere(['=', 'aktif', 1])->andFilterWhere(['in', 'id', $filterAgency])->all();
+}
+
+$user_peranan_list = UserPeranan::find()->where(['=', 'aktif', 1])->all();
+
+if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user-peranan']['view_own_data'])){
+    $user_peranan_list = UserPeranan::find()->where(['=', 'aktif', 1])->where(['=', 'created_by', Yii::$app->user->identity->id])->all();
+}
+
 ?>
 
 <div class="user-form">
@@ -93,7 +126,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(RefJabatanUser::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'data'=>ArrayHelper::map($jabatan_list,'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::jabatan],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -110,7 +143,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(UserPeranan::find()->where(['=', 'aktif', 1])->all(),'user_peranan_id', 'nama_peranan'),
+                        'data'=>ArrayHelper::map($user_peranan_list,'user_peranan_id', 'nama_peranan'),
                         'options' => ['placeholder' => Placeholder::peranan],
                         'pluginOptions' => [
                             'allowClear' => true

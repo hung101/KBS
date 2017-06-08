@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\SoalSelidikSebelumUjianSearch */
@@ -65,8 +66,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'tarikh',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
-                ]
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_format,
+                ],
+                 'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);
+                },
             ],
             [
                 'attribute' => 'pegawai_bertanggungjawab',

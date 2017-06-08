@@ -78,6 +78,7 @@ class ProfilPanelPenasihatKpsk extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['no_kad_pengenalan'], 'unique', 'message' => GeneralMessage::yii_validation_unique],
             [['nama', 'no_kad_pengenalan', 'jantina', 'tarikh_lahir', 'alamat_1', 'alamat_negeri', 'alamat_poskod',
                 'no_telefon', 'emel', 'tahap_akademik', 'nama_jurusan', 'pengkhususan', 'nama_majikan', 'alamat_majikan_1', 'alamat_majikan_negeri', 'alamat_majikan_poskod', 'no_telefon_majikan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir', 'created', 'updated'], 'safe'],

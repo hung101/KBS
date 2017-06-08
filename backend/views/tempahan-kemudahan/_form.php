@@ -39,6 +39,16 @@ use app\models\general\GeneralVariable;
 ?>
 
 <div class="tempahan-kemudahan-form">
+    
+    <?php if((isset($model->status) && $model->status==RefStatusTempahanKemudahan::LULUS) || (isset($model->status_id) && $model->status_id==RefStatusTempahanKemudahan::LULUS)): ?>
+    <div class="alert alert-success">
+        <strong>Tahniah!</strong> Permohonan anda diluluskan. Bayaran perlu dibuat dalam tempoh 3 hari sekurang-kurangnya atau sebelum menggunakannya kemudahan yang ditempah. Sekiranya bayaran tidak perolehi dari tempoh tersebut, pembatalan dilakukan secara automatik. Sila cetak tempahan ini untuk pembayaran.
+    </div>
+    <?php elseif(!$model->isNewRecord): ?>
+    <div class="alert alert-success">
+        Permohonan anda talah berjaya dihantar.
+    </div>
+    <?php endif; ?>
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 

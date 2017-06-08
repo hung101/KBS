@@ -15,6 +15,7 @@ use yii\widgets\Pjax;
 // table reference
 use app\models\RefSukan;
 use app\models\RefPpn;
+use app\models\RefNegeri;
 
 // contant values
 use app\models\general\Placeholder;
@@ -51,7 +52,7 @@ use common\models\general\GeneralFunction;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                 'nama_pengurus_sukan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                 'nama_pengurus_sukan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
                 /*'nama_pengurus_sukan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -82,7 +83,24 @@ use common\models\general\GeneralFunction;
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>5]],
+                    'columnOptions'=>['colspan'=>4]],
+                'negeri' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefNegeri::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::negeri],
+        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>3]],
                  
             ],
         ],
@@ -90,7 +108,6 @@ use common\models\general\GeneralFunction;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                 
                 'tarikh_lawatan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),

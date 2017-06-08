@@ -59,7 +59,7 @@ class TemujanjiKomplimentari extends \yii\db\ActiveRecord
             [['status_temujanji'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catitan_ringkas'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             ['tarikh_khidmat', 'compare', 'compareValue' => date('Y-m-d'), 'operator' => '>=', 'on' => 'create', 'message' => GeneralMessage::yii_validation_compare],
-            ['tarikh_khidmat', 'compare', 'compareValue' => date('Y-m-d', time()+86400), 'operator' => '<=', 'on' => 'create', 'message' => GeneralMessage::yii_validation_compare_max],
+            //['tarikh_khidmat', 'compare', 'compareValue' => date('Y-m-d', time()+86400), 'operator' => '<=', 'on' => 'create', 'message' => GeneralMessage::yii_validation_compare_max],
         ];
     }
 

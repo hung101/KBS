@@ -246,7 +246,14 @@ class PerancanganProgramPlanController extends Controller
             $model = PerancanganProgramPlan::findOne(['perancangan_program_id' => $id]);
 			if(isset($model->perancangan_program_plan_master_id) && $model->perancangan_program_plan_master_id != NULL){
 				$parent = PerancanganProgramPlanMaster::findOne(['perancangan_program_plan_master_id' => $model->perancangan_program_plan_master_id]);
-				$arr = ['sukan' => $parent->sukan, 'program' => $parent->program, 'cawangan' => $parent->cawangan, 'tarikh_mula' => $model->tarikh_mula, 'tarikh_tamat' => $model->tarikh_tamat, 'tempat' => $model->tempat];
+				$arr = ['sukan' => $parent->sukan, 
+                                    'program' => $parent->program, 
+                                    'cawangan' => $parent->cawangan, 
+                                    'tarikh_mula' => $model->tarikh_mula, 
+                                    'tarikh_tamat' => $model->tarikh_tamat, 
+                                    'tempat' => $model->tempat,
+                                    'sasaran' => $parent->sasaran,
+                                    'target' => $parent->target,];
 			} else {
 				$arr = [];
 			}

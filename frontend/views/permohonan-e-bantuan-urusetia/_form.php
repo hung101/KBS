@@ -14,6 +14,7 @@ use app\models\UserPeranan;
 use app\models\ProfilBadanSukan;
 use app\models\RefKategoriProgram;
 use app\models\RefNegeri;
+use app\models\RefKategoriUrusetia;
 
 
 // contant values
@@ -34,7 +35,33 @@ use app\models\general\GeneralMessage;
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly,'options'=>['autocomplete'=>'off']]); ?>
     
     <?php
-        echo $form->field($model, 'peranan')->hiddenInput()->label(false);
+        //echo $form->field($model, 'peranan')->hiddenInput()->label(false);
+    ?>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'urusetia_kategori_urusetia_e_bantuan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'data'=>ArrayHelper::map(RefKategoriUrusetia::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kategori],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+    ]
+]);
     ?>
     
     
@@ -49,7 +76,7 @@ use app\models\general\GeneralMessage;
                         'columns'=>12,
                         'autoGenerateColumns'=>false, // override columns setting
                         'attributes' => [
-                            'username' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>100]],  
+                            'username' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>12]],  
                         ],
                     ],
                 ]
@@ -110,7 +137,7 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>3,'id'=>'field_negeri_e_bantuan']],
                 'urusetia_kategori_program_e_bantuan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -127,7 +154,7 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>3,'id'=>'field_kategori_program_e_bantuan']],
                 'status' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -182,3 +209,60 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$JBS_NEGERI = RefKategoriUrusetia::JBS_NEGERI;
+$INDUK_JBS_NEGERI = RefKategoriUrusetia::INDUK_JBS_NEGERI;
+$BAHAGIAN_JBSN = RefKategoriUrusetia::BAHAGIAN_JBSN;
+$INDUK_JBSN = RefKategoriUrusetia::INDUK_JBSN;
+
+$urusetia_kategori_id = '';
+if($readonly){
+    $urusetia_kategori_id = $model->urusetia_kategori_urusetia_e_bantuan_id;
+} else {
+    $urusetia_kategori_id = $model->urusetia_kategori_urusetia_e_bantuan;
+}
+
+$script = <<< JS
+var urusetia_kategori_id = '$urusetia_kategori_id';
+        
+$(document).ready(function(){
+    var readonly = '$readonly';
+        
+    $(".field-permohonanebantuanurusetia-urusetia_negeri_e_bantuan").addClass("required");
+    $(".field-permohonanebantuanurusetia-urusetia_kategori_program_e_bantuan").addClass("required");
+        
+    checkKategoriUrusetia();
+    
+});
+        
+$('#permohonanebantuanurusetia-urusetia_kategori_urusetia_e_bantuan').change(function(){
+    clear();
+        
+    urusetia_kategori_id = $('#permohonanebantuanurusetia-urusetia_kategori_urusetia_e_bantuan').val();
+    checkKategoriUrusetia();
+});
+        
+function checkKategoriUrusetia(){
+    if(urusetia_kategori_id == '$JBS_NEGERI' ||
+        urusetia_kategori_id == '$INDUK_JBS_NEGERI'){
+        $("#field_negeri_e_bantuan").show();
+        $("#field_kategori_program_e_bantuan").hide();
+    } else if(urusetia_kategori_id == '$BAHAGIAN_JBSN'){
+        $("#field_negeri_e_bantuan").hide();
+        $("#field_kategori_program_e_bantuan").show();
+    } else {
+        $("#field_negeri_e_bantuan").hide();
+        $("#field_kategori_program_e_bantuan").hide();
+    }
+}
+        
+function clear(){
+    $('#permohonanebantuanurusetia-urusetia_negeri_e_bantuan').val('').trigger("change");
+    $('#permohonanebantuanurusetia-urusetia_kategori_program_e_bantuan').val('').trigger("change");
+}
+            
+JS;
+        
+$this->registerJs($script);
+?>

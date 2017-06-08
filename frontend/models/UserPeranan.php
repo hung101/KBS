@@ -22,6 +22,7 @@ class UserPeranan extends \yii\db\ActiveRecord
     public $pjs;
     public $kbs;
     
+    const PERANAN_ADMIN = 3;
     const PERANAN_PJS_PERSATUAN = 6;
     const PERANAN_KBS_E_BIASISWA_BENDAHARI_IPT = 7;
     const PERANAN_KBS_E_BANTUAN_URUSETIA = 8;

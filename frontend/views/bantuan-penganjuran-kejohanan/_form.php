@@ -304,13 +304,6 @@ use common\models\general\GeneralFunction;
                 'bilangan_pembantu' => ['type'=>Form::INPUT_TEXT, 'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
             ]
         ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'anggaran_perbelanjaan' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>true]],
-            ]
-        ],
     ]
 ]);
         ?>
@@ -701,9 +694,24 @@ use common\models\general\GeneralFunction;
         foreach($dataProviderBantuanPenganjuranKejohananElemen->models as $PTLmodel){
             $jumlah_elemen += $PTLmodel->jumlah;
         }
+        
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'anggaran_perbelanjaan' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>true, 'disabled'=>true,'value'=>$jumlah_elemen]],
+            ]
+        ],
+    ]
+]);
     ?>
     
-    <h4>Jumlah: RM <?=$jumlah_elemen?></h4>
+    <!--<h4>Jumlah: RM <?=$jumlah_elemen?></h4>-->
     
     <?php Pjax::end(); ?>
     

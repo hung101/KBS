@@ -148,7 +148,8 @@ use app\models\general\GeneralMessage;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'nama_pengajian_sekarang' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
-                 'nama_pertukaran_pengajian' => [
+                 'nama_pertukaran_pengajian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+        /*[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -164,7 +165,7 @@ use app\models\general\GeneralMessage;
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>6]],
+                    'columnOptions'=>['colspan'=>6]],*/
             ],
         ],
         [
@@ -345,6 +346,11 @@ $('#atletId').change(function(){
                 if(data.refAtletSukan[0] !== null){ 
                     $('#pertukaranpengajian-program').val(data.refAtletSukan[0].program_semasa).trigger("change");
                     $('#pertukaranpengajian-sukan').val(data.refAtletSukan[0].nama_sukan).trigger("change");
+                }
+            
+                if(data.refAtletPendidikan[0] !== null){ 
+                    $('#pertukaranpengajian-kategori_pengajian').val(data.refAtletPendidikan[0].fakulti).trigger("change");
+                    $('#pertukaranpengajian-nama_pengajian_sekarang').val(data.institusi_sekolah).trigger("change");
                 }
             }
         });

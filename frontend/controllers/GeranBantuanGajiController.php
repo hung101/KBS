@@ -32,6 +32,7 @@ use app\models\RefProgramJurulatih;
 use app\models\RefKelulusanGeranBantuanGajiJurulatih;
 use app\models\RefAgensiJurulatih;
 use app\models\User;
+use app\models\RefStatusTawaran;
 
 /**
  * GeranBantuanGajiController implements the CRUD actions for GeranBantuanGaji model.
@@ -108,6 +109,9 @@ class GeranBantuanGajiController extends Controller
         
         $ref = RefAgensiJurulatih::findOne(['id' => $model->agensi]);
         $model->agensi = $ref['desc'];
+        
+        $ref = RefStatusTawaran::findOne(['id' => $model->status_tawaran_jkb]);
+        $model->status_tawaran_jkb = $ref['desc'];
         
         //$YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         //$model->kelulusan = $YesNo;
@@ -370,7 +374,7 @@ class GeranBantuanGajiController extends Controller
                         ->setTo($modelUser->email)
                         ->setFrom('noreply@spsb.com')
                         ->setSubject('Status Permohonan (' . $jurulatihModel->nama . '- '.$jurulatihModel->ic_no.') Geran Bantuan Gaji Jurulatih')
-                        ->setTextBody('Salam Sejahtera,<br><br>
+                        ->setHtmlBody('Salam Sejahtera,<br><br>
 
                 Nama Jurulatih: ' . $jurulatihModel->nama . '<br>
                 No Kad Pengenalan: ' . $jurulatihModel->ic_no . '<br>

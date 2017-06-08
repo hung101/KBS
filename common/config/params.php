@@ -1,7 +1,7 @@
 <?php
 return [
     'adminEmail' => 'admin@example.com',
-    'supportEmail' => 'support@example.com',
+    'supportEmail' => 'noreply@spsb.com',
     'user.passwordResetTokenExpire' => 3600,
 	// eddie start
     'expiryTimeout' => 6000, // 300 sec / 5 minutes

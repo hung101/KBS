@@ -419,7 +419,7 @@ use app\models\general\GeneralMessage;
     <h3><?=GeneralLabel::dokumen_penyelidikan?></h3>
     
     <?php Pjax::begin(['id' => 'dokumenPenyelidikanGrid', 'timeout' => 100000]); ?>
-
+<div class="CGridViewContainer">
     <?= GridView::widget([
         'dataProvider' => $dataProviderDokumenPenyelidikan,
         //'filterModel' => $searchModelDokumenPenyelidikan,
@@ -434,7 +434,7 @@ use app\models\general\GeneralMessage;
                 'attribute' => 'nama_dokumen',
                 'value' => 'refDokumenPenyelidikan.desc'
             ],
-            //'muat_naik',
+            'desc',
             [
                 'attribute' => 'muat_naik',
                 'format' => 'raw',
@@ -479,8 +479,9 @@ use app\models\general\GeneralMessage;
             ],
         ],
     ]); ?>
-    
+    </div>
     <?php Pjax::end(); ?>
+        
     
     <?php if(!$readonly): ?>
     <p>
@@ -989,6 +990,10 @@ $script = <<< JS
             
             return false;
         }
+    });
+    
+    $('#permohonanpenyelidikan-nama_permohon').keyup(function(){
+        this.value = this.value.toUpperCase();
     });
         
 JS;

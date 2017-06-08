@@ -83,7 +83,7 @@ class PlTemujanjiFisioterapi extends \yii\db\ActiveRecord
             'nama_fisioterapi' => GeneralLabel::pegawai_bertanggungjawab,
             'nama_pesakit_luar' => GeneralLabel::nama_pesakit_luar,
             'no_kad_pengenalan' => GeneralLabel::no_kad_pengenalan,
-            'kategori_pesakit_luar' => GeneralLabel::kategori_pesakit_luar,
+            'kategori_pesakit_luar' => GeneralLabel::kategori_atlet,
             'muat_naik' => GeneralLabel::muat_naik,
             'tindakan_selanjutnya' => GeneralLabel::tindakan_selanjutnya,
             'maklumbalas' => GeneralLabel::maklumbalas,

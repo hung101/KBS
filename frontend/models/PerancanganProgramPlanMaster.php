@@ -59,7 +59,7 @@ class PerancanganProgramPlanMaster extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-			[['cawangan', 'sukan', 'program'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['cawangan', 'sukan', 'program'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['cawangan', 'sukan', 'program', 'created_by', 'updated_by'], 'integer'],
             [['tarikh_mula', 'tarikh_tamat', 'created', 'updated'], 'safe'],
             [['remarks'], 'string'],
@@ -90,21 +90,21 @@ class PerancanganProgramPlanMaster extends \yii\db\ActiveRecord
         ];
     }
 	
-	/**
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getRefSukan(){
         return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
     }
 	
-	/**
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getRefProgramSemasaSukanAtlet(){
         return $this->hasOne(RefProgramSemasaSukanAtlet::className(), ['id' => 'program']);
     }
 	
-	/**
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getRefCawangan(){

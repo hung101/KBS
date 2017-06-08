@@ -13,13 +13,14 @@ use app\models\Jurulatih;
  */
 class LaporanPemantauanJurulatihSearch extends LaporanPemantauanJurulatih
 { 
+    public $jurulatih_id_filter;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['laporan_pemantauan_jurulatih_id'], 'integer'],
+            [['laporan_pemantauan_jurulatih_id', 'jurulatih_id_filter'], 'integer'],
             [['jurulatih_id', 'sukan_id', 'program_id', 'pusat_latihan', 'tarikh_dinilai'], 'safe'],
         ];
     }
@@ -61,6 +62,7 @@ class LaporanPemantauanJurulatihSearch extends LaporanPemantauanJurulatih
 
         $query->andFilterWhere([
             'laporan_pemantauan_jurulatih_id' => $this->laporan_pemantauan_jurulatih_id,
+            '{{tbl_laporan_pemantauan_jurulatih}}.jurulatih_id' => $this->jurulatih_id_filter,
         ]);
         
         $query->andFilterWhere(['like', 'tbl_jurulatih.nama', $this->jurulatih_id])

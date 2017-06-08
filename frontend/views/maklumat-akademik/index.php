@@ -10,7 +10,7 @@ use app\models\general\GeneralMessage;
 /* @var $searchModel app\models\MaklumatAkademikSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = GeneralLabel::maklumat_akademik_atlet;
+$this->title = GeneralLabel::kemaskini_maklumat_akademik;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="maklumat-akademik-index">

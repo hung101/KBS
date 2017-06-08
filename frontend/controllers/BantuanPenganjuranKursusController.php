@@ -238,20 +238,20 @@ class BantuanPenganjuranKursusController extends Controller
                             ->setTo($modelUser->email)
                             ->setFrom('noreply@spsb.com')
                             ->setSubject('Pemberitahuan - Permohonan Baru: Bantuan Penganjuran Kursus / Bengkel / Seminar')
-                            ->setTextBody("Salam Sejahtera,
+                            ->setHtmlBody("Salam Sejahtera,
     <br><br>
     Berikut adalah butir permohonan telah dihantar : 
     <br>
     Badan Sukan: " . $refProfilBadanSukan['nama_badan_sukan'] . "
-    Nama Kursus / Seminar / Bengkel: " . $model->nama_kursus_seminar_bengkel . '
-    Tempat: ' . $model->tempat . '
-    Tarikh Mula: ' . $model->tarikh . '
-    Tarikh Tamat: ' . $model->tarikh_tamat . '
-    Jumlah Bantuan Yang Dipohon: RM' . $model->jumlah_bantuan_yang_dipohon . '
-    <br>
+    <br>Nama Kursus / Seminar / Bengkel: " . $model->nama_kursus_seminar_bengkel . '
+    <br>Tempat: ' . $model->tempat . '
+    <br>Tarikh Mula: ' . $model->tarikh . '
+    <br>Tarikh Tamat: ' . $model->tarikh_tamat . '
+    <br>Jumlah Bantuan Yang Dipohon: RM' . $model->jumlah_bantuan_yang_dipohon . '
+    <br><br>
     Link: ' . BaseUrl::to(['bantuan-penganjuran-kursus/view', 'id' => $model->bantuan_penganjuran_kursus_id], true) . '
     <br><br>
-    "KE ARAH KECEMERLANGAN SUKAN"
+    "KE ARAH KECEMERLANGAN SUKAN"<br>
     Majlis Sukan Negara Malaysia.
         ')->send();
                         }

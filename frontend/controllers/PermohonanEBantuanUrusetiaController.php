@@ -19,6 +19,7 @@ use app\models\ProfilBadanSukan;
 use app\models\RefUniversitiInstitusiEBiasiswa;
 use app\models\RefKategoriProgram;
 use app\models\RefNegeri;
+use app\models\RefKategoriUrusetia;
 
 /**
  * PermohonanEBantuanUrusetiaController implements the CRUD actions for PermohonanEBantuanUrusetia model.
@@ -93,6 +94,10 @@ class PermohonanEBantuanUrusetiaController extends Controller
         
         $ref = RefNegeri::findOne(['id' => $model->urusetia_negeri_e_bantuan]);
         $model->urusetia_negeri_e_bantuan = $ref['desc'];
+        
+        $model->urusetia_kategori_urusetia_e_bantuan_id = $model->urusetia_kategori_urusetia_e_bantuan;
+        $ref = RefKategoriUrusetia::findOne(['id' => $model->urusetia_kategori_urusetia_e_bantuan]);
+        $model->urusetia_kategori_urusetia_e_bantuan = $ref['desc'];
         
         return $this->render('view', [
             'model' => $model,

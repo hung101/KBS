@@ -48,6 +48,7 @@ class PengurusanKemudahanVenueMsnSearch extends PengurusanKemudahanVenueMsn
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['nama_venue'=>SORT_ASC]]
         ]);
 
         $this->load($params);

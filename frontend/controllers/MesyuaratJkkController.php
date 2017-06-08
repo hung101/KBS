@@ -416,7 +416,7 @@ class MesyuaratJkkController extends Controller
                                     ->setTo($modelMesyuaratJkkKehadiran->emel)
                                     ->setFrom('noreply@spsb.com')
                                     ->setSubject('Mesyuarat ' . $model->jenis_mesyuarat)
-                                    ->setTextBody('Salam Sejahtera,
+                                    ->setHtmlBody('Salam Sejahtera,
 <br><br>
 Bil Mesyuarat: '. $model->bil_mesyuarat .'<br>
 Tarikh: '. GeneralFunction::getDateTimePrintFormat($model->tarikh) .'<br>

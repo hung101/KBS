@@ -29,7 +29,7 @@ $this->title = GeneralLabel::daftar;
     <div class="row">
         <div class="col-lg-5">
             <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
-            <?php echo $form->errorSummary($model); ?>
+            <?php //echo $form->errorSummary($model); ?>
                 <?= $form->field($model, 'username')->textInput(['maxlength' => 30])->hint('Sila guna No Pendaftaran Persatuan. Cth: ppm/001') ?>
                 <?= $form->field($model, 'password')->passwordInput(['maxlength' => 160]) ?>
                 <?= $form->field($model, 'email')->textInput(['maxlength' => 100]) ?>

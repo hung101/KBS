@@ -213,12 +213,12 @@ use app\models\general\GeneralMessage;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>4]],
-                'kehadiran_pegawai_bertanggungjawab' => [
+                /*'kehadiran_pegawai_bertanggungjawab' => [
                     'type'=>Form::INPUT_RADIO_LIST, 
                     'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
                     'value'=>false,
                     'options'=>['inline'=>true],
-                    'columnOptions'=>['colspan'=>2]],
+                    'columnOptions'=>['colspan'=>2]],*/
             ]
         ],
         [

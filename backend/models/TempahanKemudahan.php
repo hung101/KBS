@@ -31,6 +31,7 @@ class TempahanKemudahan extends \yii\db\ActiveRecord
     
     public $negeri_search;
     public $kategori_hakmilik_search;
+    public $status_id;
     
     /**
      * @inheritdoc

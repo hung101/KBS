@@ -20,6 +20,10 @@ use app\models\general\GeneralMessage;
  */
 class RefSokongan extends \yii\db\ActiveRecord
 {
+    const DISOKONG_NEGERI = 1;
+    const DISOKONG_INDUK = 2;
+    const TAK_LENGKAP = 3;
+    
     /**
      * @inheritdoc
      */

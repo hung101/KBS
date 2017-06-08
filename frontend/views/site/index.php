@@ -449,7 +449,7 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                                 GROUP BY PROGRAM) inner1 ) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_atlet` a 
                                         WHERE a.cacat = 0
-                                        GROUP BY SUKAN_ID,PROGRAM
+                                        GROUP BY SUKAN
                                     ) final 
                                     GROUP BY final.SUKAN_ID
                                     ORDER BY PERATUS DESC', [':year' => date("Y")]);
@@ -3704,9 +3704,8 @@ $this->registerJs($script);
                 (
                     SELECT COUNT(*) AS JUMLAH,
                     (SELECT r.desc FROM tbl_ref_peringkat_badan_sukan r WHERE r.id = p.peringkat_badan_sukan) AS PERINGKAT,
-                    (SELECT COUNT(*) FROM tbl_profil_badan_sukan pe WHERE YEAR(pe.tarikh_lulus_pendaftaran) = :year) AS JUMLAH_KESELURUHAN
+                    (SELECT COUNT(*) FROM tbl_profil_badan_sukan pe) AS JUMLAH_KESELURUHAN
                     FROM `tbl_profil_badan_sukan` p
-                    WHERE YEAR(p.tarikh_lulus_pendaftaran) = :year
                     GROUP BY p.peringkat_badan_sukan
                 ) final ', [':year' => date("Y")]);
 
@@ -3733,9 +3732,8 @@ $this->registerJs($script);
                 (
                     SELECT COUNT(*) AS JUMLAH,
                     (SELECT r.desc FROM tbl_ref_negeri r WHERE r.id = p.alamat_tetap_badan_sukan_negeri) AS NEGERI,
-                    (SELECT COUNT(*) FROM tbl_profil_badan_sukan pe WHERE YEAR(pe.tarikh_lulus_pendaftaran) = :year) AS JUMLAH_KESELURUHAN
+                    (SELECT COUNT(*) FROM tbl_profil_badan_sukan pe) AS JUMLAH_KESELURUHAN
                     FROM `tbl_profil_badan_sukan` p
-                    WHERE YEAR(p.tarikh_lulus_pendaftaran) = :year
                     GROUP BY p.alamat_tetap_badan_sukan_negeri
                 ) final ', [':year' => date("Y")]);
 
@@ -4177,7 +4175,7 @@ $this->registerJs($script);
                 (
                         SELECT COUNT(*) AS JUMLAH,
                         (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_status_permohonan_e_biasiswa r WHERE r.id = p.status_permohonan) AS STATUS,
-                        (SELECT COUNT(*) FROM tbl_permohonan_e_biasiswa pe WHERE YEAR(p.tarikh_permohonan) = :year) AS JUMLAH_KESELURUHAN
+                        (SELECT COUNT(*) FROM tbl_permohonan_e_biasiswa pe WHERE YEAR(pe.tarikh_permohonan) = :year) AS JUMLAH_KESELURUHAN
                         FROM `tbl_permohonan_e_biasiswa` p
                         WHERE YEAR(p.tarikh_permohonan) = :year
                         GROUP BY p.status_permohonan
@@ -4206,7 +4204,7 @@ $this->registerJs($script);
                 (
                     SELECT COUNT(*) AS JUMLAH,
                     (SELECT r.dashboard_desc FROM tbl_ref_universiti_institusi_e_biasiswa r WHERE r.id = p.universiti_institusi) AS UNIVERSITI,
-                    (SELECT COUNT(*) FROM tbl_permohonan_e_biasiswa pe WHERE YEAR(p.tarikh_permohonan) = :year) AS JUMLAH_KESELURUHAN
+                    (SELECT COUNT(*) FROM tbl_permohonan_e_biasiswa pe WHERE YEAR(pe.tarikh_permohonan) = :year) AS JUMLAH_KESELURUHAN
                     FROM `tbl_permohonan_e_biasiswa` p
                     WHERE YEAR(p.tarikh_permohonan) = :year
                     GROUP BY p.universiti_institusi
@@ -4235,7 +4233,7 @@ $this->registerJs($script);
                 (
                     SELECT COUNT(*) AS JUMLAH,
                     (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_program_pengajian r WHERE r.id = p.program_pengajian) AS PROGRAM_PENGAJIAN,
-                    (SELECT COUNT(*) FROM tbl_permohonan_e_biasiswa pe WHERE YEAR(p.tarikh_permohonan) = :year) AS JUMLAH_KESELURUHAN
+                    (SELECT COUNT(*) FROM tbl_permohonan_e_biasiswa pe WHERE YEAR(pe.tarikh_permohonan) = :year) AS JUMLAH_KESELURUHAN
                     FROM `tbl_permohonan_e_biasiswa` p
                     WHERE YEAR(p.tarikh_permohonan) = :year
                     GROUP BY p.program_pengajian
@@ -4270,7 +4268,7 @@ $this->registerJs($script);
             <!-- /.box-header -->
             <div class="box-body nav-tabs-custom">
                 <ul class="nav nav-tabs pull-right">
-                    <li class="active"><a href="#status-program_pengajian-chart" data-toggle="tab"><?=GeneralLabel::status?> & <?=GeneralLabel::program_pengajian?></a></li>
+                    <li class="active"><a href="#status-program_pengajian-chart" data-toggle="tab"><?=GeneralLabel::status_permohonan?> & <?=GeneralLabel::peringkat_pengajian?></a></li>
                     <li><a href="#universiti-chart" data-toggle="tab"><?=GeneralLabel::universiti?></a></li>
                     <li class="pull-left header"><?=GeneralLabel::statistik?> <?=date("Y")?></li>
                   </ul>
@@ -4283,7 +4281,7 @@ $this->registerJs($script);
                                 if($chartDataBiasiswa){
                                   echo Highcharts::widget([
                                           'options' => [
-                                              'title' => ['text' => GeneralLabel::status],
+                                              'title' => ['text' => GeneralLabel::status_permohonan],
                                               'plotOptions' => [
                                                   'pie' => [
                                                       'cursor' => 'pointer',
@@ -4309,7 +4307,7 @@ $this->registerJs($script);
                                 if($chartDataProgramPengajian){
                                   echo Highcharts::widget([
                                           'options' => [
-                                              'title' => ['text' => GeneralLabel::program_pengajian],
+                                              'title' => ['text' => GeneralLabel::peringkat_pengajian],
                                               'plotOptions' => [
                                                   'pie' => [
                                                       'cursor' => 'pointer',
@@ -4395,9 +4393,10 @@ $this->registerJs($script);
                 (
                     SELECT COUNT(*) AS JUMLAH,
                     (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_kategori_persatuan r WHERE r.id = p.kategori_persatuan) AS KATEGORI,
-                    (SELECT COUNT(*) FROM tbl_permohonan_e_bantuan pe WHERE YEAR(pe.created) = :year) AS JUMLAH_KESELURUHAN
+                    (SELECT COUNT(*) FROM tbl_permohonan_e_bantuan pe WHERE YEAR(pe.created) = :year AND pe.hantar_flag = 1) AS JUMLAH_KESELURUHAN
                     FROM `tbl_permohonan_e_bantuan` p
-                    WHERE YEAR(p.created) = :year
+                    WHERE YEAR(p.created) = :year 
+                    AND p.hantar_flag = 1
                     GROUP BY p.kategori_persatuan
                 ) final', [':year' => date("Y")]);
 
@@ -4425,9 +4424,10 @@ $this->registerJs($script);
                 (
                     SELECT COUNT(*) AS JUMLAH,
                     (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_kategori_program r WHERE r.id = p.kategori_program) AS PROGRAM,
-                    (SELECT COUNT(*) FROM tbl_permohonan_e_bantuan pe WHERE YEAR(pe.created) = :year) AS JUMLAH_KESELURUHAN
+                    (SELECT COUNT(*) FROM tbl_permohonan_e_bantuan pe WHERE YEAR(pe.created) = :year AND pe.hantar_flag = 1) AS JUMLAH_KESELURUHAN
                     FROM `tbl_permohonan_e_bantuan` p
                     WHERE YEAR(p.created) = :year
+                    AND p.hantar_flag = 1
                     GROUP BY p.kategori_program
                 ) final', [':year' => date("Y")]);
 
@@ -4454,9 +4454,10 @@ $this->registerJs($script);
                 (
                     SELECT COUNT(*) AS JUMLAH,
                     (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_peringkat_program r WHERE r.id = p.peringkat_program) AS PERINGKAT,
-                    (SELECT COUNT(*) FROM tbl_permohonan_e_bantuan pe WHERE YEAR(pe.created) = :year) AS JUMLAH_KESELURUHAN
+                    (SELECT COUNT(*) FROM tbl_permohonan_e_bantuan pe WHERE YEAR(pe.created) = :year AND pe.hantar_flag = 1) AS JUMLAH_KESELURUHAN
                     FROM `tbl_permohonan_e_bantuan` p
-                    WHERE YEAR(p.created) = :year
+                    WHERE YEAR(p.created) = :year 
+                    AND p.hantar_flag = 1
                     GROUP BY p.peringkat_program
                 ) final', [':year' => date("Y")]);
 
@@ -4483,9 +4484,10 @@ $this->registerJs($script);
                 (
                     SELECT COUNT(*) AS JUMLAH,
                     (SELECT r.desc FROM tbl_ref_negeri r WHERE r.id = p.alamat_negeri) AS NEGERI,
-                    (SELECT COUNT(*) FROM tbl_permohonan_e_bantuan pe WHERE YEAR(pe.created) = :year) AS JUMLAH_KESELURUHAN
+                    (SELECT COUNT(*) FROM tbl_permohonan_e_bantuan pe WHERE YEAR(pe.created) = :year AND pe.hantar_flag = 1) AS JUMLAH_KESELURUHAN
                     FROM `tbl_permohonan_e_bantuan` p
                     WHERE YEAR(p.created) = :year
+                    AND p.hantar_flag = 1
                     GROUP BY p.alamat_negeri
                 ) final', [':year' => date("Y")]);
 
@@ -4567,10 +4569,11 @@ $this->registerJs($script);
                                     (
                                         SELECT SUM(p.jumlah_diluluskan) AS JUMLAH,
                                         (SELECT r.'.$sql_desc_selector.' FROM tbl_ref_kategori_persatuan r WHERE r.id = p.kategori_persatuan) AS KATEGORI,
-                                        (SELECT SUM(pe.jumlah_diluluskan) FROM tbl_permohonan_e_bantuan pe WHERE YEAR(pe.created) = :year) AS JUMLAH_KESELURUHAN
+                                        (SELECT SUM(pe.jumlah_diluluskan) FROM tbl_permohonan_e_bantuan pe WHERE YEAR(pe.created) = :year AND pe.hantar_flag = 1) AS JUMLAH_KESELURUHAN
                                         FROM `tbl_permohonan_e_bantuan` p
                                         WHERE YEAR(p.created) = :year
                                         AND p.jumlah_diluluskan > 0
+                                        AND p.hantar_flag = 1
                                         GROUP BY p.kategori_persatuan
                                     ) final 
                                     ORDER BY PERATUS DESC', [':year' => date("Y")]);
@@ -5057,7 +5060,7 @@ $this->registerJs($script);
           
           <!-- E-Fasiliti - START -->
           
-          <?php if(isset(Yii::$app->user->identity->peranan_akses['KBS']['dashboard-kbs']['module']) && isset(Yii::$app->user->identity->peranan_akses['KBS']['dashboard-kbs']['e-laporan'])): ?>
+          <?php if(isset(Yii::$app->user->identity->peranan_akses['KBS']['dashboard-kbs']['module']) && isset(Yii::$app->user->identity->peranan_akses['KBS']['dashboard-kbs']['e-fasiliti'])): ?>
           
           <?php
             
@@ -5126,7 +5129,7 @@ $this->registerJs($script);
             // Fasiliti Status  END
             
             
-            // Laporan Peringkat START
+            // Fasiliti Negeri START
             $command = $connection->createCommand('
                 SELECT *,
                 IFNULL((final.JUMLAH / final.JUMLAH_KESELURUHAN) * 100,0.0) AS PERATUS
@@ -5152,38 +5155,7 @@ $this->registerJs($script);
             
             //print_r($chartDataBantuanPeringkat);
             
-            // Laporan Peringkat END
-            
-            
-            // Laporan Bahagian START
-            $command = $connection->createCommand('
-                SELECT *,
-                IFNULL((final.JUMLAH / final.JUMLAH_KESELURUHAN) * 100,0.0) AS PERATUS
-                FROM
-                (
-                    SELECT COUNT(*) AS JUMLAH,
-                    (SELECT r.desc FROM tbl_ref_bahagian_e_laporan r WHERE r.id = p.bahagian) AS BAHAGIAN,
-                    (SELECT COUNT(*) FROM tbl_elaporan_pelaksanaan pe WHERE YEAR(pe.created) = :year) AS JUMLAH_KESELURUHAN
-                    FROM `tbl_elaporan_pelaksanaan` p
-                    WHERE YEAR(p.created) = :year
-                    GROUP BY p.bahagian
-                ) final', [':year' => date("Y")]);
-
-            $result = $command->queryAll();
-            
-            $chartDataLaporanBahagian = array();
-            $jumlahKeseluruhanLaporanBahagian = 0;
-            
-            foreach ($result as $row){
-                $chartDataLaporanBahagian[] = [$row['JUMLAH'] . ' - ' . $row['BAHAGIAN'],  (double)$row['PERATUS']];
-                $jumlahKeseluruhanLaporanBahagian = $row['JUMLAH_KESELURUHAN'];
-            }
-            
-            //print_r($chartDataBantuanNegeri);
-            
-            // Laporan Bahagian END
-            
-            
+            // Fasiliti Negeri END
           ?>
           <div class="box box-<?=$dashboard_box_color;?>">
             <div class="box-header with-border">
@@ -5230,7 +5202,7 @@ $this->registerJs($script);
                               ?>
                                 <p class="text-center">
                                     <br>
-                                  <strong><?=GeneralLabel::jumlah_without_RM?> : <?=$jumlahKeseluruhanLaporanCawangan?></strong>
+                                  <strong><?=GeneralLabel::jumlah_without_RM?> : <?=$jumlahKeseluruhanFasilitiHakmilik?></strong>
                                 </p>
                             </div>
                             <div class="col-lg-6">
@@ -5256,7 +5228,7 @@ $this->registerJs($script);
                                 }
                                   ?>
                                 <p class="text-center">
-                                  <strong><?=GeneralLabel::jumlah_without_RM?> : <?=$jumlahKeseluruhanLaporanPeringkat?></strong>
+                                  <strong><?=GeneralLabel::jumlah_without_RM?> : <?=$jumlahKeseluruhanFasilitiStatus?></strong>
                                 </p>
                             </div>
                         </div>
@@ -5286,7 +5258,7 @@ $this->registerJs($script);
                                   ]);
                               ?>
                                 <p class="text-center">
-                                  <strong><?=GeneralLabel::jumlah_without_RM?> : <?=$jumlahKeseluruhanLaporanBahagian?></strong>
+                                  <strong><?=GeneralLabel::jumlah_without_RM?> : <?=$jumlahKeseluruhanFasilitiNegeri?></strong>
                                 </p>
                         </div>
                             <div class="col-lg-3">

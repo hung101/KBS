@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'tarikh_khidmat',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_khidmat,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_format,
                 ],
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_khidmat);

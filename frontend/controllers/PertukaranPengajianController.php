@@ -83,8 +83,8 @@ class PertukaranPengajianController extends Controller
         //$ref = RefKategoriPengajian::findOne(['id' => $model->kategori_pengajian]);
         //$model->kategori_pengajian = $ref['desc'];
         
-        $ref = RefPengajian::findOne(['id' => $model->nama_pertukaran_pengajian]);
-        $model->nama_pertukaran_pengajian = $ref['desc'];
+        //$ref = RefPengajian::findOne(['id' => $model->nama_pertukaran_pengajian]);
+        //$model->nama_pertukaran_pengajian = $ref['desc'];
         
         $ref = PerancanganProgram::findOne(['perancangan_program_id' => $model->kejohanan_program]);
         $model->kejohanan_program = $ref['nama_program'];
@@ -300,34 +300,35 @@ class PertukaranPengajianController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $parentModel = $this->findModel($id);
 			
-			$ref = Atlet::findOne(['atlet_id' => $parentModel->atlet_id]);
-			$parentModel->atlet_id = $ref['name_penuh'];
-			
-			$ref = RefPengajian::findOne(['id' => $parentModel->nama_pertukaran_pengajian]);
-			$parentModel->nama_pertukaran_pengajian = $ref['desc'];
-			
-			$ref = PerancanganProgram::findOne(['perancangan_program_id' => $parentModel->kejohanan_program]);
-			$parentModel->kejohanan_program = $ref['nama_program'];
-			
-			$ref = RefProgramSemasaSukanAtlet::findOne(['id' => $parentModel->program]);
-			$parentModel->program = $ref['desc'];
-			
-			$ref = RefSukan::findOne(['id' => $parentModel->sukan]);
-			$parentModel->sukan = $ref['desc'];
-            
-			$ref = RefSebabPermohonanPertukaranPengajian::findOne(['id' => $parentModel->sebab_pemohonan]);
-			$parentModel->sebab_pemohonan = $ref['desc'];
-			
-			if($parentModel->sebab_pemohonan === 'Pertukaran')//pertukaran, 2 penangguhan
-			{
-				$targetView = "generate_surat_pertukaran";
-			} 
-			else if($parentModel->sebab_pemohonan === 'Penangguhan'){
-				$targetView = "generate_surat_penangguhan";
-			}
-			else if($parentModel->sebab_pemohonan === 'Pelepasan'){
-				$targetView = "generate_surat_pelepasan";
-			}
+            $ref = Atlet::findOne(['atlet_id' => $parentModel->atlet_id]);
+            $parentModel->atlet_id = $ref['name_penuh'];
+
+            $ref = RefPengajian::findOne(['id' => $parentModel->nama_pertukaran_pengajian]);
+            $parentModel->nama_pertukaran_pengajian = $ref['desc'];
+
+            $ref = PerancanganProgram::findOne(['perancangan_program_id' => $parentModel->kejohanan_program]);
+            $parentModel->kejohanan_program = $ref['nama_program'];
+
+            $ref = RefProgramSemasaSukanAtlet::findOne(['id' => $parentModel->program]);
+            $parentModel->program = $ref['desc'];
+
+            $ref = RefSukan::findOne(['id' => $parentModel->sukan]);
+            $parentModel->sukan = $ref['desc'];
+
+            $sebab_pemohonan_id = $parentModel->sebab_pemohonan;
+            $ref = RefSebabPermohonanPertukaranPengajian::findOne(['id' => $parentModel->sebab_pemohonan]);
+            $parentModel->sebab_pemohonan = $ref['desc'];
+
+            if($sebab_pemohonan_id == RefSebabPermohonanPertukaranPengajian::PERTUKARAN)//pertukaran, 2 penangguhan
+            {
+                    $targetView = "generate_surat_pertukaran";
+            } 
+            else if($sebab_pemohonan_id == RefSebabPermohonanPertukaranPengajian::PENANGGUHAN){
+                    $targetView = "generate_surat_penangguhan";
+            }
+            else if($sebab_pemohonan_id == RefSebabPermohonanPertukaranPengajian::PELEPASAN){
+                    $targetView = "generate_surat_pelepasan";
+            }
 
             $pdf = new \mPDF('utf-8', 'A4');
 

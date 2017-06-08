@@ -158,6 +158,8 @@ class PaobsPenganjuranController extends Controller
         
         $model = new PaobsPenganjuran();
         
+        $model->status = RefStatusLaporanMesyuaratAgung::BELUM_DISAHKAN;
+        
         $queryPar = null;
         
         Yii::$app->session->open();
@@ -202,7 +204,7 @@ class PaobsPenganjuranController extends Controller
                             ->setTo($modelUser->email)
                             ->setFrom('noreply@spsb.com')
                             ->setSubject('Pemberitahuan - Penganjuran Acara Sukan')
-                            ->setTextBody('Salam '.$modelUser->full_name.',
+                            ->setHtmlBody('Salam '.$modelUser->full_name.',
     <br><br>
     Terdapat permohonan pengesahan maklumat untuk semakan dan tindakan pihak tuan/puan. Sila semak sistem SPSB bagi tindakan seterusnya 
     <br><br>
@@ -228,7 +230,7 @@ class PaobsPenganjuranController extends Controller
                                         ->setTo($refBadanSukan['emel_badan_sukan'])
                                                                     ->setFrom('noreply@spsb.com')
                                         ->setSubject('Penganjuran Acara Sukan Tuan/Puan Sedang Diproses')
-                                        ->setTextBody('Salam '.$nama_badan_sukan.',
+                                        ->setHtmlBody('Salam '.$nama_badan_sukan.',
     <br><br>
     Terima kasih atas maklumat yang telah dihantar oleh pihak anda. Permohonan anda kini sedang diproses bagi tujuan pengesahan.
     <br><br>
@@ -268,6 +270,8 @@ class PaobsPenganjuranController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        $model->pengesahan = 0;
         
         $queryPar = null;
         
@@ -309,7 +313,7 @@ class PaobsPenganjuranController extends Controller
                                 ->setTo($modelUser->email)
                                 ->setFrom('noreply@spsb.com')
                                 ->setSubject('Penganjuran Acara Sukan Tuan/Puan Telah Disahkan')
-                                ->setTextBody('Salam '.$nama_badan_sukan.',
+                                ->setHtmlBody('Salam '.$nama_badan_sukan.',
     <br><br>
     Maklumat yang telah dihantar oleh pihak anda telah disahkan. Kemas kini maklumat boleh dibuat dari masa ke masa.
     <br><br>
@@ -325,6 +329,34 @@ class PaobsPenganjuranController extends Controller
                     }
                 }
             }
+            
+            if ($model->status == $oldStatus && ($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_paobs-penganjuran'])->groupBy('id')->all()) !== null) {
+                    if($user = User::findOne(['id' => $model->created_by]) !== null){
+                        $badanSukan = '';
+                        if(isset($user['profil_badan_sukan'])){
+                            $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $user['profil_badan_sukan']]);
+                            $badanSukan = $ref['nama_badan_sukan'];
+                        }
+                    
+                    foreach($modelUsers as $modelUser){
+
+                        if($modelUser->email && $modelUser->email != ""){
+                            //echo "E-mail: " . $modelUser->email . "\n";
+                            Yii::$app->mailer->compose()
+                            ->setTo($modelUser->email)
+                            ->setFrom('noreply@spsb.com')
+                            ->setSubject('Pemberitahuan - Penganjuran Acara Sukan')
+                            ->setHtmlBody('Salam '.$modelUser->full_name.',
+    <br><br>
+    Terdapat permohonan pengesahan maklumat untuk semakan dan tindakan pihak tuan/puan. Sila semak sistem SPSB bagi tindakan seterusnya 
+    <br><br>
+    Sekian, terima kasih.
+        ')->send();
+                        }
+                    }
+                    
+                    }
+                }
             
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->penganjuran_id]);

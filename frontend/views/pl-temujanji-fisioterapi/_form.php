@@ -23,6 +23,7 @@ use app\models\RefKategoriPesakitLuar;
 use app\models\RefTindakanSelanjutnyaFisioterapi;
 use app\models\RefKategoriRawatan;
 use app\models\RefSukan;
+use app\models\RefAtletTahap;
 
 // contant values
 use app\models\general\Placeholder;
@@ -66,6 +67,23 @@ use app\models\general\GeneralMessage;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-atlet-tahap/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefAtletTahap::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::tahapAtlet],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+                /*[
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
                                 'content' => Html::a(Html::icon('edit'), ['/ref-kategori-pesakit-luar/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
@@ -75,7 +93,7 @@ use app\models\general\GeneralMessage;
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>3]],*/
                 'atlet_id' => /*[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',

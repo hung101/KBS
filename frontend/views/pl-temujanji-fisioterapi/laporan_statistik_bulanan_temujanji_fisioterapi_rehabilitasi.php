@@ -11,6 +11,7 @@ use kartik\datecontrol\DateControl;
 // table reference
 use app\models\RefReportFormat;
 use app\models\RefKategoriProgramLiputanPerubatanSukan;
+use app\models\RefBulan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -41,6 +42,22 @@ $this->params['breadcrumbs'][] = $this->title;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'tahun' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>4]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'bulan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'data'=>ArrayHelper::map(RefBulan::find()->where(['=', 'aktif', 1])->all(),'code', 'desc'),
+                        'options' => ['placeholder' => Placeholder::format],
+                        'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                    'columnOptions'=>['colspan'=>3]],
             ]
         ],
         [

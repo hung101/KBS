@@ -97,7 +97,7 @@ class GeranBantuanGaji extends \yii\db\ActiveRecord
             'tarikh_mula' => GeneralLabel::tarikh_mula_bayaran,
             'tarikh_tamat' => GeneralLabel::tarikh_tamat_bayaran,
             'status_jurulatih' => GeneralLabel::status_jurulatih,
-            'status_permohonan' => GeneralLabel::status_permohonan,
+            'status_permohonan' => GeneralLabel::jenis_permohonan,
             'status_keaktifan_jurulatih' => GeneralLabel::status_keaktifan_jurulatih,
             'kategori_geran' => GeneralLabel::kategori_geran,
             'jumlah_geran' => GeneralLabel::jumlah_geran,

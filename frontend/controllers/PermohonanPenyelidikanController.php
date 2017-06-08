@@ -553,4 +553,28 @@ class PermohonanPenyelidikanController extends Controller
 
         $pdf->Output(str_replace(' ', '_', $pdf->title).'_'.$model->permohonana_penyelidikan_id.'.pdf', 'I');
     }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+/*                 if (!unlink($img)) {
+                    return false;
+                } */
+				$img = substr($img, strrpos( $img, 'uploads'));
+				@unlink($img);
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            return $this->redirect(['update', 'id' => $id]);
+    }
 }

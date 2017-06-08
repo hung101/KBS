@@ -39,7 +39,7 @@ class MaklumatAkademik extends \yii\db\ActiveRecord
         return 'tbl_maklumat_akademik';
     }
 	
-	public function behaviors()
+    public function behaviors()
     {
         return [
             'bedezign\yii2\audit\AuditTrailBehavior',

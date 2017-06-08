@@ -6,6 +6,7 @@ use yii\widgets\DetailView;
 // contant values
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use app\models\RefStatusPermohonanEBantuan;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanEBantuan */
@@ -20,7 +21,7 @@ $this->title = GeneralLabel::viewTitle . ' Permohonan e-Bantuan';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p> 
-        <?php if($model->hantar_flag == 0): ?>
+        <?php if($model->hantar_flag == 0 || ($model->status_permohonan_id && $model->status_permohonan_id==RefStatusPermohonanEBantuan::STATUS_LULUS)): ?>
         <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->permohonan_e_bantuan_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
         <?php if($model->hantar_flag == 0): ?>

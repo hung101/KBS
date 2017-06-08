@@ -199,7 +199,7 @@ class BorangProfilPesertaKpskController extends Controller
                 'searchModelBorangProfilPesertaKpskPeserta' => $searchModelBorangProfilPesertaKpskPeserta,
                 'dataProviderBorangProfilPesertaKpskPeserta' => $dataProviderBorangProfilPesertaKpskPeserta,
                 'readonly' => false,
-				'disabled' => false,
+				'disabled' => true,
             ]);
         }
     }
@@ -251,13 +251,12 @@ class BorangProfilPesertaKpskController extends Controller
                                     ->setTo($modelBorangProfilPesertaKpskPeserta->emel)
                                     ->setFrom('noreply@spsb.com')
                                     ->setSubject('Keputusan Kursus : '. GeneralFunction::getUpperCaseWords($model->penganjur_kursus) .' ('. $model->kod_kursus .')')
-                                    ->setTextBody('Salam Sejahtera,
+                                    ->setHtmlBody('Salam Sejahtera,
 <br><br><br>
 Dimaklumkan keputusan bagi kursus '. GeneralFunction::getUpperCaseWords($model->penganjur_kursus) .' ('. $model->kod_kursus .') <br>
 bertarikh '. GeneralFunction::getDatePrintFormat($model->tarikh_kursus) .'. Berikut adalah keputusan kursus:-
 <br><br>
 Objektif : '. $modelBorangProfilPesertaKpskPeserta->objektif .'%<br>
-Struktur : '. $modelBorangProfilPesertaKpskPeserta->struktur .'%<br>
 Esei : '. $modelBorangProfilPesertaKpskPeserta->esei .'%<br>
 Jumlah : '. $modelBorangProfilPesertaKpskPeserta->jumlah .'%<br>
 Keputusan: ' . ((isset($modelBorangProfilPesertaKpskPeserta['refKeputusanKpsk']['desc']) && $modelBorangProfilPesertaKpskPeserta['refKeputusanKpsk']['desc'] != "") ? $modelBorangProfilPesertaKpskPeserta['refKeputusanKpsk']['desc'] : "") . '

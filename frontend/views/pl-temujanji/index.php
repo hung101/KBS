@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'tarikh_temujanji',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_temujanji,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_format,
                 ],
                 'format' => 'raw',
                 'value'=>function ($model) {

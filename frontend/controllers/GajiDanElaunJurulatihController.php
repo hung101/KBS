@@ -563,6 +563,7 @@ class GajiDanElaunJurulatihController extends Controller
                     , 'tarikh' => $model->tarikh
                     , 'bil_msnm' => $model->bil_msnm
                     , 'gaji_dan_elaun_jurulatih_id' => $model->gaji_dan_elaun_jurulatih_id
+                    , 'gaji_elaun' => $model->gaji_elaun
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -571,6 +572,7 @@ class GajiDanElaunJurulatihController extends Controller
                     , 'tarikh' => $model->tarikh
                     , 'bil_msnm' => $model->bil_msnm
                     , 'gaji_dan_elaun_jurulatih_id' => $model->gaji_dan_elaun_jurulatih_id
+                    , 'gaji_elaun' => $model->gaji_elaun
                     , 'format' => $model->format
                 ]);
             }
@@ -582,7 +584,7 @@ class GajiDanElaunJurulatihController extends Controller
         ]);
     }
     
-    public function actionGenerateSuratPersetujuanTerimaPelantikanDanPembayaran($tarikh, $bil_msnm, $gaji_dan_elaun_jurulatih_id, $format)
+    public function actionGenerateSuratPersetujuanTerimaPelantikanDanPembayaran($tarikh, $bil_msnm, $gaji_dan_elaun_jurulatih_id, $gaji_elaun, $format)
     {
         if($tarikh == "") $tarikh = array();
         else $tarikh = array($tarikh);
@@ -599,7 +601,11 @@ class GajiDanElaunJurulatihController extends Controller
             'GAJI_ELAUN_ID' => $gaji_dan_elaun_jurulatih_id,
         );
         
-        GeneralFunction::generateReport('/spsb/MSN/SuratPersetujuanTerimaPelantikanDanPembayaran', $format, $controls, 'surat_persetujuan_terima_pelantikan_dan_pembayaran');
+        if($gaji_elaun == '1'){
+            GeneralFunction::generateReport('/spsb/MSN/SuratPersetujuanTerimaPelantikanDanPembayaranGaji', $format, $controls, 'surat_persetujuan_terima_pelantikan_dan_pembayaran');
+        } else {
+            GeneralFunction::generateReport('/spsb/MSN/SuratPersetujuanTerimaPelantikanDanPembayaran', $format, $controls, 'surat_persetujuan_terima_pelantikan_dan_pembayaran');
+        }
     }
 	
 	public function actionPrint($id)
@@ -625,6 +631,24 @@ class GajiDanElaunJurulatihController extends Controller
         $GajiJurulatih = GajiJurulatih::find()->where(['gaji_dan_elaun_jurulatih_id' => $model->gaji_dan_elaun_jurulatih_id])->all();
 		
 		$pdf = new \mPDF('utf-8', 'A4');
+                
+                echo 'Edward = ' . count($ElaunJurulatih);
+                
+        $title = '';
+        
+        if(count($ElaunJurulatih) > 0){
+            $title .= 'Elaun';
+        }
+        
+        if(count($GajiJurulatih) > 0){
+            if($title == ''){
+                $title .= 'Gaji';
+            } else {
+                $title .= ' dan Gaji';
+            }
+        }
+        
+        $title .= ' Jurulatih';
 
         $pdf->title = 'Elaun dan Gaji Jurulatih';
 

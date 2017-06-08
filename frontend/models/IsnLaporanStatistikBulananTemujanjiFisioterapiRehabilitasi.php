@@ -14,6 +14,7 @@ use app\models\general\GeneralMessage;
 class IsnLaporanStatistikBulananTemujanjiFisioterapiRehabilitasi extends Model
 {
     public $tahun;
+    public $bulan;
     public $kategori_program_id;
     public $format;
 
@@ -21,7 +22,7 @@ class IsnLaporanStatistikBulananTemujanjiFisioterapiRehabilitasi extends Model
     {
         return [
             [['format','tahun'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['kategori_program_id'], 'safe'],
+            [['kategori_program_id', 'bulan'], 'safe'],
             [['tahun'], 'integer', 'min'=>GeneralVariable::yearMin, 'max'=>GeneralVariable::yearMax, 'message' => GeneralMessage::yii_validation_integer, 'tooBig' => GeneralMessage::yii_validation_integer_max, 'tooSmall' => GeneralMessage::yii_validation_integer_min],
         ];
     }
@@ -31,6 +32,7 @@ class IsnLaporanStatistikBulananTemujanjiFisioterapiRehabilitasi extends Model
         return [
             'kategori_program_id' => GeneralLabel::kategori_program,
             'tahun' => GeneralLabel::tahun,
+            'bulan' => GeneralLabel::bulan,
             'format' => GeneralLabel::format,
 
         ];

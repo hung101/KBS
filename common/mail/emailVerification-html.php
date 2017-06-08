@@ -9,7 +9,7 @@ $activateLink = Yii::$app->urlManager->createAbsoluteUrl(['site/verify-email', '
 <div class="password-reset">
     <!--<p>Hello <?= Html::encode($user->username) ?>,</p>-->
     
-    <p>Salam Sejahtera <?= Html::encode($user->username) ?>,</p>
+    <p>Salam Sejahtera <?= ($user->nama_persatuan_e_bantuan != '') ? Html::encode($user->nama_persatuan_e_bantuan) . ' - ' : ''; ?> <?= Html::encode($user->username) ?>,</p>
 
     <!--<p>Follow the link below to reset your password:</p>-->
     

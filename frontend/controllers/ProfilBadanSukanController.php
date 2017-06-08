@@ -189,7 +189,7 @@ class ProfilBadanSukanController extends Controller
                             ->setTo($modelUser->email)
                             ->setFrom('noreply@spsb.com')
                             ->setSubject('Pemberitahuan - Profil Badan Sukan')
-                            ->setTextBody("Salam ".$modelUser->full_name.",
+                            ->setHtmlBody("Salam ".$modelUser->full_name.",
     <br><br>
     Terdapat permohonan pengesahan maklumat untuk semakan dan tindakan pihak tuan/puan. Sila semak sistem SPSB bagi tindakan seterusnya.
     <br>
@@ -208,7 +208,7 @@ class ProfilBadanSukanController extends Controller
                                         ->setTo($model->emel_badan_sukan)
                                                                     ->setFrom('noreply@spsb.com')
                                         ->setSubject('Profil Badan Sukan Sedang Diproses')
-                                        ->setTextBody('Salam '.$model->nama_badan_sukan.',
+                                        ->setHtmlBody('Salam '.$model->nama_badan_sukan.',
     <br><br>
     Terima kasih atas maklumat yang telah dihantar oleh pihak anda. Permohonan anda kini sedang diproses bagi tujuan pengesahan.
     <br><br>
@@ -246,6 +246,8 @@ class ProfilBadanSukanController extends Controller
         
         $model = $this->findModel($id);
         
+        $model->pengesahan = 0;
+        
         $oldStatus = null;
         
         if($model->load(Yii::$app->request->post())){
@@ -278,8 +280,8 @@ class ProfilBadanSukanController extends Controller
                 $model->status = RefStatusLaporanMesyuaratAgung::BELUM_DISAHKAN;
             }
             
-            if($model->emel_badan_sukan && $model->emel_badan_sukan != "" && $model->status ){
-                if($model->status != $oldStatus && $model->status == RefStatusLaporanMesyuaratAgung::DISAHKAN){
+            if($model->status ){
+                if($model->emel_badan_sukan && $model->emel_badan_sukan != "" && $model->status != $oldStatus && $model->status == RefStatusLaporanMesyuaratAgung::DISAHKAN){
                     $ref = RefStatusLaporanMesyuaratAgung::findOne(['id' => $model->status]);
                     $status_desc = $ref['desc'];
                     
@@ -288,7 +290,7 @@ class ProfilBadanSukanController extends Controller
                                     ->setTo($model->emel_badan_sukan)
                                                                 ->setFrom('noreply@spsb.com')
                                     ->setSubject('Profil Badan Sukan Tuan/Puan Telah Disahkan')
-                                    ->setTextBody('Salam '.$model->nama_badan_sukan.',
+                                    ->setHtmlBody('Salam '.$model->nama_badan_sukan.',
 <br><br>
 Maklumat yang telah dihantar oleh pihak anda telah disahkan. Kemas kini maklumat boleh dibuat dari masa ke masa.
 <br><br>
@@ -301,7 +303,28 @@ Sekian, terima kasih.
                         Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
                     }
                 }
-            }
+                
+                if ($model->status == $oldStatus && ($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_profil-badan-sukan'])->groupBy('id')->all()) !== null) {
+                    foreach($modelUsers as $modelUser){
+
+                        if($modelUser->email && $modelUser->email != ""){
+                            //echo "E-mail: " . $modelUser->email . "\n";
+                            Yii::$app->mailer->compose()
+                            ->setTo($modelUser->email)
+                            ->setFrom('noreply@spsb.com')
+                            ->setSubject('Pemberitahuan - Profil Badan Sukan')
+                            ->setHtmlBody("Salam ".$modelUser->full_name.",
+    <br><br>
+    Terdapat permohonan pengesahan maklumat untuk semakan dan tindakan pihak tuan/puan. Sila semak sistem SPSB bagi tindakan seterusnya.
+    <br>
+    Nama Badan Sukan: " . $model->nama_badan_sukan . '
+    <br><br>
+    Sekian, terima kasih.
+        ')->send();
+                        }
+                    }
+                }
+            } 
             
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->profil_badan_sukan]);
@@ -352,14 +375,16 @@ Sekian, terima kasih.
         
         $model = $this->findModel($id);
         
-        $model->permintaan_maklumat_kewangan_request = 1; // set approved
+        $model->permintaan_maklumat_kewangan_request = 1; // set request
         $model->permintaan_maklumat_kewangan_request_date = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->permintaan_maklumat_kewangan_approved = 0; // reset approved
         
         $model->save();
         
         return $this->redirect(['view', 'id' => $id]);
         
-        return $this->redirect(['index']);
+        //return $this->redirect(['index']);
     }
     
     /**
@@ -378,6 +403,8 @@ Sekian, terima kasih.
         
         $model->permintaan_maklumat_kewangan_approved = 1; // set approved
         $model->permintaan_maklumat_kewangan_approved_date = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->permintaan_maklumat_kewangan_request = 0; // reset request
         
         $model->save();
         

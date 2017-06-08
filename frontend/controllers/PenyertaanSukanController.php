@@ -517,6 +517,26 @@ class PenyertaanSukanController extends Controller
         $session->close();
     }
     
+    public function actionSetFromDate($from_date){
+        
+        $session = new Session;
+        $session->open();
+
+        $session['penyertaan-tarikh_mula'] = $from_date;
+        
+        $session->close();
+    }
+    
+    public function actionSetToDate($to_date){
+        
+        $session = new Session;
+        $session->open();
+
+        $session['penyertaan-tarikh_tamat'] = $to_date;
+        
+        $session->close();
+    }
+    
     public function actionPrintJkkJkp($id)
     {
         if (Yii::$app->user->isGuest) {

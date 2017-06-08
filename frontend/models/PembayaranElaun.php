@@ -55,11 +55,12 @@ class PembayaranElaun extends \yii\db\ActiveRecord
         return [
             [[ 'atlet_id', 'kategori_elaun', 'tempoh_elaun', 'tarikh_mula', 'tarikh_tamat', 'jumlah_elaun', 'status_elaun', 'kelulusan', 'sukan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id', 'kelulusan', 'sukan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['jumlah_elaun'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['jumlah_elaun', 'jumlah_elaun_sebulan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['kategori_elaun'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jumlah_elaun'], 'string', 'max' => 10, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempoh_elaun'], 'string', 'max' => 20, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['sebab_elaun'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['sebab_elaun'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kelulusan_jkb'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 
@@ -79,8 +80,10 @@ class PembayaranElaun extends \yii\db\ActiveRecord
             'sebab_elaun' => GeneralLabel::sebab_elaun,
             'status_elaun' => GeneralLabel::status_pembayaran_elaun,
             'jumlah_elaun' => GeneralLabel::jumlah_elaun,
+            'jumlah_elaun_sebulan' => GeneralLabel::jumlah_elaun_sebulan_rm,
             'kelulusan' => GeneralLabel::kelulusan,
             'sukan' => GeneralLabel::sukan,
+            'kelulusan_jkb' => GeneralLabel::kelulusan,
         ];
     }
     

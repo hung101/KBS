@@ -72,14 +72,14 @@ class BantuanPenganjuranKejohananSearch extends BantuanPenganjuranKejohanan
             'bil_pegawai_teknikal' => $this->bil_pegawai_teknikal,
             'bilangan_pembantu' => $this->bilangan_pembantu,
             'anggaran_perbelanjaan' => $this->anggaran_perbelanjaan,
-            'jumlah_bantuan_yang_dipohon' => $this->jumlah_bantuan_yang_dipohon,
+            //'jumlah_bantuan_yang_dipohon' => $this->jumlah_bantuan_yang_dipohon,
             'tarikh_permohonan' => $this->tarikh_permohonan,
             'jumlah_dilulus' => $this->jumlah_dilulus,
             'tarikh_jkb' => $this->tarikh_jkb,
             'tbl_bantuan_penganjuran_kejohanan.created_by' => $this->created_by,
-            'updated_by' => $this->updated_by,
-            'created' => $this->created,
-            'updated' => $this->updated,
+            'tbl_bantuan_penganjuran_kejohanan.updated_by' => $this->updated_by,
+            'tbl_bantuan_penganjuran_kejohanan.created' => $this->created,
+            'tbl_bantuan_penganjuran_kejohanan.updated' => $this->updated,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_profil_badan_sukan.nama_badan_sukan', $this->badan_sukan])
@@ -108,7 +108,8 @@ class BantuanPenganjuranKejohananSearch extends BantuanPenganjuranKejohanan
             ->andFilterWhere(['like', 'maklumat_lain_sokongan', $this->maklumat_lain_sokongan])
             ->andFilterWhere(['like', 'tbl_ref_status_bantuan_penganjuran_kejohanan.desc', $this->status_permohonan])
             ->andFilterWhere(['like', 'catatan', $this->catatan])
-            ->andFilterWhere(['like', 'jkb', $this->jkb]);
+            ->andFilterWhere(['like', 'jkb', $this->jkb])
+                ->andFilterWhere(['like', 'jumlah_bantuan_yang_dipohon', $this->jumlah_bantuan_yang_dipohon]);
 
         return $dataProvider;
     }

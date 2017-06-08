@@ -55,6 +55,7 @@ class DokumenPenyelidikan extends \yii\db\ActiveRecord
             [['permohonana_penyelidikan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['nama_dokumen'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['desc'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'], 'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
@@ -69,7 +70,7 @@ class DokumenPenyelidikan extends \yii\db\ActiveRecord
             'permohonana_penyelidikan_id' => GeneralLabel::permohonana_penyelidikan_id,
             'nama_dokumen' => GeneralLabel::nama_dokumen,
             'muat_naik' => GeneralLabel::muat_naik,
-
+            'desc' => '',
         ];
     }
     
@@ -81,10 +82,6 @@ class DokumenPenyelidikan extends \yii\db\ActiveRecord
         
         if($file && $file->getHasError()){
             $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
-        }
-
-        if(!$file && $this->$attribute==""){
-            $this->addError($attribute, GeneralMessage::uploadEmptyError);
         }
     }
     

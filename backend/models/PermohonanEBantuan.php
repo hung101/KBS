@@ -6,6 +6,7 @@ use Yii;
 use yii\web\UploadedFile;
 use app\models\general\Upload;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 use app\models\general\GeneralLabel;
 
@@ -43,6 +44,7 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
     public $jumlah_perbelanjaan;
     public $negeri_sokongan_id;
     public $kelulusan_id;
+    public $status_permohonan_id;
     
     /**
      * @inheritdoc
@@ -77,9 +79,9 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
     {
         if($this->profil_badan_sukan_id && $this->profil_badan_sukan_id > 0){
             return [
-                [['no_akaun','nama_bank','cawangan_dan_alamat_bank', 'sokongan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-                [['tarikh_didaftarkan', 'catatan', 'nama_program', 'tarikh_pelaksanaan', 'tempat_pelaksanaan', 'bilangan_peserta', 'tujuan_program_aktiviti', 'tarikh_mesyuarat', 'tarikh_bayar',
-                    'objektif_pertubuhan', 'aktiviti_dan_kejayaan_yang_dicapai', 'catatan_admin', 'hantar_flag', 'tarikh_hantar'], 'safe'],
+                [['no_akaun','nama_bank','cawangan_dan_alamat_bank', 'sokongan', 'jumlah_bantuan_yang_dipohon'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+                [['catatan', 'nama_program', 'tarikh_pelaksanaan', 'tarikh_pelaksanaan_tamat', 'tempat_pelaksanaan', 'bilangan_peserta', 'tujuan_program_aktiviti', 'tarikh_mesyuarat', 'tarikh_bayar',
+                    'objektif_pertubuhan', 'aktiviti_dan_kejayaan_yang_dicapai', 'catatan_admin', 'hantar_flag', 'tarikh_hantar', 'catatan_pemohon'], 'safe'],
                 [['bilangan_keahlian', 'bilangan_cawangan_badan_gabungan', 'laporan', 'status_permohonan', 'negeri_sokongan', 'user_public_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
                 [['pertubuhan_persatuan_sendiri', 'lain_lain_sumbangan', 'yuran_bayaran_penyertaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_perbelanjaan', 'jumlah_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
                 [[ 'pejabat_yang_mendaftarkan', 'jawatankuasa_penaung', 'jawatankuasa_pegerusi', 'jawatankuasa_timbalan_pengerusi', 'jawatankuasa_naib_pengerusi', 'jawatankuasa_setiausaha', 'jawatankuasa_bendahari'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -91,7 +93,10 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
                 [['no_telefon_pejabat', 'no_telefon_bimbit', 'no_fax'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['email'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['email'], 'email', 'message' => GeneralMessage::yii_validation_email],
-                [['muat_naik_pb4', 'muat_naik_pb5', 'muat_naik_pb6', 'kertas_kerja'],'validateFileUpload', 'skipOnEmpty' => false]
+                [['muat_naik_pb4', 'muat_naik_pb5', 'muat_naik_pb6', 'kertas_kerja','sijil_pendaftaran_persatuan', 
+                    'salinan_perlembagaan_persatuan','senarai_ahli_jawatankuasa_persatuan','salinan_akaun_bank_persatuan', 
+                    'laporan_penyata_kewangan_tahunan'],'validateFileUpload', 'skipOnEmpty' => false],
+                [['tarikh_didaftarkan'], 'compare', 'compareValue'=>date("Y-m-d"), 'operator'=>'<=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
             ];
         } else {
             return [
@@ -99,9 +104,9 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
                     'tarikh_didaftarkan', 'alamat_1', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_negeri', 
                     'alamat_surat_menyurat_bandar', 'alamat_surat_menyurat_poskod', 'no_telefon_pejabat', 'no_telefon_bimbit', 'bilangan_keahlian', 'sokongan', 
                     'alamat_parlimen', 'alamat_surat_menyurat_parlimen', 'jawatankuasa_penaung', 'jawatankuasa_pegerusi', 'jawatankuasa_timbalan_pengerusi', 'jawatankuasa_naib_pengerusi', 
-                    'jawatankuasa_setiausaha', 'jawatankuasa_bendahari'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-                [['tarikh_didaftarkan', 'catatan', 'nama_program', 'tarikh_pelaksanaan', 'tempat_pelaksanaan', 'bilangan_peserta', 'tujuan_program_aktiviti', 'tarikh_mesyuarat', 'tarikh_bayar',
-                    'objektif_pertubuhan', 'aktiviti_dan_kejayaan_yang_dicapai', 'catatan_admin','hantar_flag'], 'safe'],
+                    'jawatankuasa_setiausaha', 'jawatankuasa_bendahari', 'jumlah_bantuan_yang_dipohon'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+                [['catatan', 'nama_program', 'tarikh_pelaksanaan', 'tarikh_pelaksanaan_tamat', 'tempat_pelaksanaan', 'bilangan_peserta', 'tujuan_program_aktiviti', 'tarikh_mesyuarat', 'tarikh_bayar',
+                    'objektif_pertubuhan', 'aktiviti_dan_kejayaan_yang_dicapai', 'catatan_admin','hantar_flag', 'catatan_pemohon'], 'safe'],
                 [['bilangan_keahlian', 'bilangan_cawangan_badan_gabungan', 'laporan', 'status_permohonan', 'negeri_sokongan', 'user_public_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
                 [['pertubuhan_persatuan_sendiri', 'lain_lain_sumbangan', 'yuran_bayaran_penyertaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_perbelanjaan', 'jumlah_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
                 [[ 'pejabat_yang_mendaftarkan', 'jawatankuasa_penaung', 'jawatankuasa_pegerusi', 'jawatankuasa_timbalan_pengerusi', 'jawatankuasa_naib_pengerusi', 'jawatankuasa_setiausaha', 'jawatankuasa_bendahari'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -113,7 +118,12 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
                 [['no_telefon_pejabat', 'no_telefon_bimbit', 'no_fax'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['email'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['email'], 'email', 'message' => GeneralMessage::yii_validation_email],
-                [['muat_naik_pb4', 'muat_naik_pb5', 'muat_naik_pb6', 'kertas_kerja'],'validateFileUpload', 'skipOnEmpty' => false]
+                [['muat_naik_pb4', 'muat_naik_pb5', 'muat_naik_pb6', 'kertas_kerja','sijil_pendaftaran_persatuan', 
+                    'salinan_perlembagaan_persatuan','senarai_ahli_jawatankuasa_persatuan','salinan_akaun_bank_persatuan', 
+                    'laporan_penyata_kewangan_tahunan'],'validateFileUpload', 'skipOnEmpty' => false],
+                [['tarikh_didaftarkan'], 'compare', 'compareValue'=>date("Y-m-d"), 'operator'=>'>', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
+                [['tarikh_pelaksanaan_tamat'], 'compare', 'compareAttribute'=>'tarikh_pelaksanaan', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
+                ['tarikh_pelaksanaan','validateBeforePenganjuran', 'on' => 'create'],
             ];
         }
     }
@@ -155,7 +165,8 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
             'nama_bank' => GeneralLabel::nama_bank,
             'cawangan_dan_alamat_bank' => GeneralLabel::cawangan_dan_alamat_bank,
             'nama_program' => GeneralLabel::nama_program,
-            'tarikh_pelaksanaan' => GeneralLabel::tarikh_pelaksanaan,
+            'tarikh_pelaksanaan' => GeneralLabel::tarikh_mula,
+            'tarikh_pelaksanaan_tamat' => GeneralLabel::tarikh_tamat,
             'tempat_pelaksanaan' => GeneralLabel::tempat_pelaksanaan,
             'bilangan_peserta' => GeneralLabel::bilangan_peserta,
             'tujuan_program_aktiviti' => GeneralLabel::tujuan_program_aktiviti,
@@ -188,10 +199,26 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
             'jawatankuasa_naib_pengerusi' => GeneralLabel::jawatankuasa_naib_pengerusi,
             'jawatankuasa_setiausaha' => GeneralLabel::jawatankuasa_setiausaha,
             'jawatankuasa_bendahari' => GeneralLabel::jawatankuasa_bendahari,
-            'kertas_kerja' => GeneralLabel::kertas_kerja,
+            'kertas_kerja' => GeneralLabel::kertas_kerja_lengkap_bersert_perincian_cadangan_program,
+            'sijil_pendaftaran_persatuan' => GeneralLabel::sijil_pendaftaran_persatuan,
+            'salinan_perlembagaan_persatuan' => GeneralLabel::salinan_perlembagaan_persatuan,
+            'senarai_ahli_jawatankuasa_persatuan' => GeneralLabel::senarai_ahli_jawatankuasa_persatuan,
+            'salinan_akaun_bank_persatuan' => GeneralLabel::salinan_akaun_bank_persatuan,
+            'laporan_penyata_kewangan_tahunan' => GeneralLabel::laporan_penyata_kewangan_tahunan,
             'profil_badan_sukan_id' => GeneralLabel::badan_sukan,
             'laporan' => GeneralLabel::laporan,
+            'catatan_pemohon' => GeneralLabel::catatan,
         ];
+    }
+    
+    public function validateBeforePenganjuran(){
+        $dateMinus = new \DateTime($this->tarikh_pelaksanaan);
+        //$dateMinus->modify('-3 month'); // 3 months before tarikh kejohanan berlangsung
+        $dateMinus->modify('-60 days'); // 45 days before tarikh kejohanan berlangsung
+
+        if($dateMinus->format('Y-m-d') <= GeneralFunction::getCurrentDate()){
+            $this->addError('tarikh_pelaksanaan','Permohonan tidak boleh lewat 60 hari dari tarikh berlangsung');
+        }
     }
     
     public function getRefStatusPermohonanEBantuan()

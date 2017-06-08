@@ -155,18 +155,18 @@ class PermohonanBimbinganKaunselingController extends Controller
                         ->setTo($modelUser->email)
                         ->setFrom('noreply@spsb.com')
                         ->setSubject('Pemberitahuan: Permohonan Bimbingan Kaunseling (Kes Rujukan)')
-                        ->setTextBody("Salam Sejahtera,
+                        ->setHtmlBody("Salam Sejahtera,
 <br><br>
 Berikut adalah permohonan bimbingan kaunseling (kes rujukan) baru telah dihantar : 
 <br>
 Nama Pemohon: " . $model->nama_pemohon_rujukan . '
-E-mail: ' . $model->emel . '
-Jawatan: ' . $model->jawatan . '
-No. Telefon: ' . $model->no_telefon . '
-<br>
+<br>E-mail: ' . $model->emel . '
+<br>Jawatan: ' . $model->jawatan . '
+<br>No. Telefon: ' . $model->no_telefon . '
+<br><br>
 Link: ' . BaseUrl::to(['permohonan-bimbingan-kaunseling/view', 'id' => $model->permohonan_bimbingan_kaunseling_id], true) . '
 <br><br>
-"KE ARAH KECEMERLANGAN SUKAN"
+"KE ARAH KECEMERLANGAN SUKAN"<br>
 Majlis Sukan Negara Malaysia.
     ')->send();
                     }

@@ -97,7 +97,7 @@ class PenganjuranKursusPeserta extends \yii\db\ActiveRecord
         return [
             [['kategori_kursus', 'nama_kursus', 'kod_kursus', 'tarikh', 'tempat', 'yuran', 'nama_penuh', 'jantina', 'taraf_perkahwinan', 'kaum', 
                 'alamat_1', 'alamat_negeri', 'alamat_poskod', 'no_tel_bimbit', 'pekerjaan', 'nama_majikan', 'alamat_majikan_1', 
-                'alamat_majikan_negeri', 'alamat_majikan_poskod', 'no_tel_majikan', 'kelulusan', 'sukan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+                'alamat_majikan_negeri', 'alamat_majikan_poskod', 'kelulusan', 'sukan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh', 'tahun_berkhidmat_mula', 'tahun_berkhidmat_tamat', 'tarikh_mula_tempoh_sah_laku_sijil', 'tarikh_tamat_tempoh_sah_laku_sijil', 'tarikh_kelulusan'], 'safe'],
             [['yuran'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['kelulusan', 'sukan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],

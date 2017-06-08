@@ -697,6 +697,8 @@ use common\models\general\GeneralFunction;
 $URL = Url::to(['/perancangan-program/get-program']);
 $URLGetKejohanan = Url::to(['/perancangan-program-plan/get-program-plan']);
 $URLSetSukan = Url::to(['/penyertaan-sukan/set-sukan']);
+$URLSetFromDate = Url::to(['/penyertaan-sukan/set-from-date']);
+$URLSetToDate = Url::to(['/penyertaan-sukan/set-to-date']);
 
 $script = <<< JS
         
@@ -719,6 +721,14 @@ $('#kejohananId').change(function(){
     });
     
 });
+        
+$('#penyertaansukan-tarikh_mula').change(function(){
+    setFromDate();
+});
+        
+$('#penyertaansukan-tarikh_tamat').change(function(){
+    setToDate();
+});
 
 $('#kejohananTemasya').on('select2:select', function (evt) {
     $.get('$URLGetKejohanan', {id:$(this).val()}, function(data){
@@ -726,12 +736,16 @@ $('#kejohananTemasya').on('select2:select', function (evt) {
             $('#penyertaansukan-tempat_penginapan').val(data.tempat);
             // $('#sukanId').select2().val(data.sukan).trigger("change");
             // $('#programId').select2().val(data.jenis_program).trigger("change");
-			$('#sukanId').val(data.sukan).trigger("change");
+            $('#sukanId').val(data.sukan).trigger("change");
             $('#programId').val(data.program).trigger("change");
             $("#penyertaansukan-tarikh_mula-disp").val(formatDisplayDate(data.tarikh_mula));
             $("#penyertaansukan-tarikh_tamat-disp").val(formatDisplayDate(data.tarikh_tamat));
             $("#penyertaansukan-tarikh_mula").val(data.tarikh_mula);
             $("#penyertaansukan-tarikh_tamat").val(data.tarikh_tamat);
+            $("#penyertaansukan-sasaran_kejohanan").val(data.target);
+        
+            setFromDate();
+            setToDate();
         }
     });
 });
@@ -743,6 +757,20 @@ $('#sukanId').change(function(){
 function setSukan(){
     $.get('$URLSetSukan',{sukan_id:$('#sukanId').val()},function(data){
     });
+}
+        
+function setFromDate(){
+    if($('#penyertaansukan-tarikh_mula').val() != ''){
+        $.get('$URLSetFromDate',{from_date:$('#penyertaansukan-tarikh_mula').val()},function(data){
+        });
+    }
+}
+        
+function setToDate(){
+    if($('#penyertaansukan-tarikh_tamat').val() != ''){
+        $.get('$URLSetToDate',{to_date:$('#penyertaansukan-tarikh_tamat').val()},function(data){
+        });
+    }
 }
      
 function clearForm(){
@@ -757,6 +785,8 @@ function clearForm(){
         
 $(document).ready(function(){
     setSukan();
+    setFromDate();
+    setToDate();
 });
         
 JS;

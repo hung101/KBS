@@ -348,7 +348,7 @@ class AtletController extends Controller
         ->setTo($modelPS->email)
                                     ->setFrom('noreply@spsb.com')
         ->setSubject('PSK telah memasukkan atlet baru')
-        ->setTextBody("Salam Sejahtera,
+        ->setHtmlBody("Salam Sejahtera,
             <br><br>
 Nama Atlet: " . $model->name_penuh . "<br>
 No Kad Pengenalan: " . $model->ic_no . '<br>
@@ -368,7 +368,7 @@ Majlis Sukan Negara Malaysia.
         ->setTo($modelPS->email)
                                     ->setFrom('noreply@spsb.com')
         ->setSubject('Majlis Sukan Negeri telah memasukkan atlet baru')
-        ->setTextBody("Salam Sejahtera,
+        ->setHtmlBody("Salam Sejahtera,
 <br><br>
 Nama Atlet: " . $model->name_penuh . "<br>
 No Kad Pengenalan: " . $model->ic_no . '<br>
@@ -465,7 +465,7 @@ Majlis Sukan Negara Malaysia.
                                     ->setTo($modelUser->email)
                                                                 ->setFrom('noreply@spsb.com')
                                     ->setSubject('Status Tawaran Atlet (' . $model->name_penuh . ') Telah Diproses')
-                                    ->setTextBody('Salam Sejahtera,<br><br>
+                                    ->setHtmlBody('Salam Sejahtera,<br><br>
 
                             Nama Atlet: ' . $model->name_penuh . '<br>
                             No Kad Pengenalan: ' . $model->ic_no . '<br>
@@ -588,6 +588,7 @@ Majlis Sukan Negara Malaysia.
 /*                 if (!unlink($img)) {
                     return false;
                 } */
+                $img = substr($img, strrpos( $img, 'uploads'));
 				@unlink($img);
             }
 

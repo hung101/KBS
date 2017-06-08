@@ -94,21 +94,27 @@ use app\models\general\GeneralMessage;
                 //'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>9]],
                 'nama' => [
                     'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
                     'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-sekolah-institusi/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefSekolahInstitusi::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::sekolah_institusi],
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/ref-sekolah-institusi/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
+                        ],
+                        'data'=>ArrayHelper::map(RefSekolahInstitusi::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options'=>['prompt'=>'',],
                         'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
-                    'columnOptions'=>['colspan'=>2]],
+                            'depends'=>[Html::getInputId($model, 'jenis_peringkatan_pendidikan')],
+                            'placeholder' => Placeholder::bandar,
+                            'url'=>Url::to(['/ref-sekolah-institusi/subinstitusis'])],
+                        ],
+                    'columnOptions'=>['colspan'=>3]],
             ]
         ],
         [

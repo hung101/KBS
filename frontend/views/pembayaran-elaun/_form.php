@@ -175,7 +175,8 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'jumlah_elaun' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100]],
+                'jumlah_elaun' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
+                'jumlah_elaun_sebulan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
                 'status_elaun' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -192,7 +193,8 @@ use app\models\general\GeneralMessage;
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>4]],
+                    'columnOptions'=>['colspan'=>3]],
+                'kelulusan_jkb' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
             ]
         ],
     ]

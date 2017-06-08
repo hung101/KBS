@@ -220,7 +220,7 @@ class PengurusanJawatankuasaKhasSukanMalaysiaController extends Controller
                                     ->setTo($modelPengurusanJawatankuasaKhasSukanMalaysiaAhli->emel)
                                     ->setFrom('noreply@spsb.com')
                                     ->setSubject('Memo/Makluman: Jawatankuasa Khas Sukan Malaysia')
-                                    ->setTextBody('Salam Sejahtera,
+                                    ->setHtmlBody('Salam Sejahtera,
 
 <br><br>
 Memo/Makluman:

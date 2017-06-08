@@ -18,7 +18,7 @@ class UserPerananSearch extends UserPeranan
     public function rules()
     {
         return [
-            [['user_peranan_id'], 'integer'],
+            [['user_peranan_id', 'created_by'], 'integer'],
             [['nama_peranan', 'peranan_akses', 'aktif'], 'safe'],
         ];
     }
@@ -59,6 +59,7 @@ class UserPerananSearch extends UserPeranan
         $query->andFilterWhere([
             'user_peranan_id' => $this->user_peranan_id,
             //'aktif' => $this->aktif,
+            'tbl_user_peranan.created_by' => $this->created_by,
         ]);
 
         $query->andFilterWhere(['like', 'nama_peranan', $this->nama_peranan])

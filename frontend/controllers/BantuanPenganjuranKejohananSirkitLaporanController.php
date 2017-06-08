@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use Yii;
+use app\models\BantuanPenganjuranKejohananSirkit;
 use app\models\BantuanPenganjuranKejohananSirkitLaporan;
 use frontend\models\BantuanPenganjuranKejohananSirkitLaporanSearch;
 use app\models\BantuanPenganjuranKejohananSirkitLaporanTuntutan;
@@ -99,6 +100,18 @@ class BantuanPenganjuranKejohananSirkitLaporanController extends Controller
         $model = new BantuanPenganjuranKejohananSirkitLaporan();
         
         $model->bantuan_penganjuran_kejohanan_id = $bantuan_penganjuran_kejohanan_id;
+        
+        if (($modelBantuanPenganjuranKejohanan = BantuanPenganjuranKejohananSirkit::findOne($bantuan_penganjuran_kejohanan_id)) !== null) {
+            $model->tempat = $modelBantuanPenganjuranKejohanan->tempat;
+            $model->tujuan_penganjuran = $modelBantuanPenganjuranKejohanan->nama_kejohanan_pertandingan;
+            $model->bilangan_pasukan = $modelBantuanPenganjuranKejohanan->bil_pasukan;
+            $model->bilangan_peserta = $modelBantuanPenganjuranKejohanan->bil_peserta;
+            $model->bilangan_pegawai_teknikal = $modelBantuanPenganjuranKejohanan->bil_pegawai_teknikal;
+            $model->bilangan_pembantu = $modelBantuanPenganjuranKejohanan->bilangan_pembantu;
+            $model->tarikh = $modelBantuanPenganjuranKejohanan->tarikh_mula;
+            //$model->tarikh_tamat = $modelBantuanPenganjuranKejohanan->tarikh_tamat;
+            $model->jumlah_kelulusan = $modelBantuanPenganjuranKejohanan->jumlah_dilulus;
+        }
         
         $queryPar = null;
         

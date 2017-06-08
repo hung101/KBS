@@ -166,4 +166,11 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
     {
         return $this->hasOne(RefStatusPermohonanProgramBinaan::className(), ['id' => 'status_permohonan']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPerancanganProgramPlanMaster(){
+        return $this->hasOne(PerancanganProgramPlanMaster::className(), ['perancangan_program_plan_master_id' => 'perancangan_program_plan_master_id']);
+    }
 }

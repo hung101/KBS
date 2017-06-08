@@ -68,36 +68,36 @@ if($model->bahagian === 1 || $model->bahagian === 'Kejohanan / Latihan'){
 										'asButton' => true
 									]
 								] : null,
-								'data'=>ArrayHelper::map(RefKategoriPelan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+								'data'=>ArrayHelper::map(RefKategoriPelan::find()->where(['=', 'aktif', 1])->orderBy('sort')->all(),'id', 'desc'),
 								'options' => ['placeholder' => Placeholder::kategori, 'id' => 'kategoriID'],
 		'pluginOptions' => [
 									'allowClear' => true
 								],],
 							'columnOptions'=>['colspan'=>4]],
-					'jenis_aktiviti' => [
-						'type'=>Form::INPUT_WIDGET, 
-						'widgetClass'=>'\kartik\widgets\DepDrop', 
-						'options'=>[
-							'type'=>DepDrop::TYPE_SELECT2,
-							'select2Options'=> [
-								'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-								[
-									'append' => [
-										'content' => Html::a(Html::icon('edit'), ['/ref-jenis-pelan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-										'asButton' => true
-									]
-								] : null,
-								'pluginOptions'=>['allowClear'=>true]
-							],
-							'data'=>ArrayHelper::map(RefJenisPelan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-							'options'=>['prompt'=>'',],
-							'pluginOptions' => [
-								//'initialize' => true,
-								'depends'=>[Html::getInputId($model, 'bahagian')],
-								'placeholder' => Placeholder::jenis,
-								'url'=>Url::to(['/ref-jenis-pelan/subjenis'])],
-							],
-						'columnOptions'=>['colspan'=>4]],
+                                            'jenis_aktiviti' => [
+                                                    'type'=>Form::INPUT_WIDGET, 
+                                                    'widgetClass'=>'\kartik\widgets\DepDrop', 
+                                                    'options'=>[
+                                                            'type'=>DepDrop::TYPE_SELECT2,
+                                                            'select2Options'=> [
+                                                                    'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                                                    [
+                                                                            'append' => [
+                                                                                    'content' => Html::a(Html::icon('edit'), ['/ref-jenis-pelan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                                                                    'asButton' => true
+                                                                            ]
+                                                                    ] : null,
+                                                                    'pluginOptions'=>['allowClear'=>true]
+                                                            ],
+                                                            'data'=>ArrayHelper::map(RefJenisPelan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                                            'options'=>['prompt'=>'',],
+                                                            'pluginOptions' => [
+                                                                    //'initialize' => true,
+                                                                    'depends'=>[Html::getInputId($model, 'bahagian')],
+                                                                    'placeholder' => Placeholder::jenis,
+                                                                    'url'=>Url::to(['/ref-jenis-pelan/subjenis'])],
+                                                            ],
+                                                    'columnOptions'=>['colspan'=>4]],
 					],
 				],
 				[

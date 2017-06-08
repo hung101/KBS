@@ -25,7 +25,7 @@ class PermohonanEBantuanUrusetiaSearch extends PermohonanEBantuanUrusetia
         return [
             [['id', 'status', 'peranan', 'ipt_bendahari_e_biasiswa', 'urusetia_negeri_e_bantuan', 'urusetia_kategori_program_e_bantuan'], 'integer'],
             [['username', 'jabatan_id', 'auth_key', 'password_hash', 'password_reset_token', 'full_name', 'tel_mobile_no', 'tel_no', 'email', 
-                'no_kad_pengenalan', 'nama_peranan', 'ipt_bendahari_e_biasiswa_desc', 'urusetia_kategori_program_e_bantuan_desc', 'urusetia_negeri_e_bantuan_desc'], 'safe'],
+                'no_kad_pengenalan', 'nama_peranan', 'ipt_bendahari_e_biasiswa_desc', 'urusetia_kategori_program_e_bantuan_desc', 'urusetia_negeri_e_bantuan_desc', 'urusetia_kategori_urusetia_e_bantuan'], 'safe'],
         ];
     }
 
@@ -53,6 +53,7 @@ class PermohonanEBantuanUrusetiaSearch extends PermohonanEBantuanUrusetia
                 ->joinWith(['refUniversitiInstitusiEBiasiswa'])
                 ->joinWith(['refNegeri'])
                 ->joinWith(['refKategoriProgram'])
+                ->joinWith(['refKategoriUrusetia'])
                 ;
 
         $dataProvider = new ActiveDataProvider([
@@ -118,7 +119,8 @@ class PermohonanEBantuanUrusetiaSearch extends PermohonanEBantuanUrusetia
                 ->andFilterWhere(['like', 'no_kad_pengenalan', $this->no_kad_pengenalan])
                 ->andFilterWhere(['like', 'tbl_ref_universiti_institusi_e_biasiswa.desc', $this->ipt_bendahari_e_biasiswa_desc])
                 ->andFilterWhere(['like', 'tbl_ref_negeri.desc', $this->urusetia_negeri_e_bantuan_desc])
-                ->andFilterWhere(['like', 'tbl_ref_kategori_program.desc', $this->urusetia_kategori_program_e_bantuan_desc]);
+                ->andFilterWhere(['like', 'tbl_ref_kategori_program.desc', $this->urusetia_kategori_program_e_bantuan_desc])
+                ->andFilterWhere(['like', 'tbl_ref_kategori_urusetia.desc', $this->urusetia_kategori_urusetia_e_bantuan]);
 
         return $dataProvider;
     }

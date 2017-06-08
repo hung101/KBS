@@ -166,11 +166,11 @@ class BantuanPentadbiranPejabatController extends Controller
                                     ->setTo($model->emel)
                                     ->setFrom('noreply@spsb.com')
                                     ->setSubject('Permohonan Bantuan Pentadbiran Pejabat Tuan/Puan Telah Diproses')
-                                    ->setTextBody('Salam Sejahtera,
+                                    ->setHtmlBody('Salam Sejahtera,
 <br><br>
 Sukacita, permohonan bantuan pentadbiran pejabat Tuan/Puan telah LULUS.
 <br><br>
-"KE ARAH KECEMERLANGAN SUKAN"
+"KE ARAH KECEMERLANGAN SUKAN"<br>
 Majlis Sukan Negara Malaysia.
                             ')->send();
                         }
@@ -245,11 +245,11 @@ Majlis Sukan Negara Malaysia.
                                     ->setTo($model->emel)
                                                                 ->setFrom('noreply@spsb.com')
                                     ->setSubject('Permohonan Bantuan Pentadbiran Pejabat Tuan/Puan Telah Diproses')
-                                    ->setTextBody('Salam Sejahtera,
+                                    ->setHtmlBody('Salam Sejahtera,
 <br><br>
 Sukacita, permohonan bantuan pentadbiran pejabat Tuan/Puan telah LULUS.
 <br><br>
-"KE ARAH KECEMERLANGAN SUKAN"
+"KE ARAH KECEMERLANGAN SUKAN"<br>
 Majlis Sukan Negara Malaysia.
                             ')->send();
                         }

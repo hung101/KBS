@@ -1014,7 +1014,7 @@ use common\models\general\GeneralFunction;
     
     <hr>
     <?php
-    if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan-sirkit']['kelulusan'])){
+    if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan-sirkit']['kelulusan']) || $readonly){
         echo '<br>
                 <pre style="text-align: center"><strong>'.GeneralLabel::kegunaan_msn.'</strong></pre>';
         

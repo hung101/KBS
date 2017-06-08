@@ -41,6 +41,10 @@ use app\models\general\GeneralVariable;
     if(!Yii::$app->user->isGuest && Yii::$app->user->identity->profil_badan_sukan && !$model->isNewRecord){
         $disablePersatuan = true;
     }
+    
+    if(!isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan-sirkit']['kelulusan'])){
+        $disablePersatuan = true;
+    }
     ?>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>

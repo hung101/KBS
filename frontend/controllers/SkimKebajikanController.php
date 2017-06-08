@@ -214,7 +214,7 @@ class SkimKebajikanController extends Controller
                                         ->setTo($model->emel_penerima)
                                                                     ->setFrom('noreply@spsb.com')
                                         ->setSubject('Permohonan Skim Kebajikan Tuan/Puan Telah Diproses')
-                                        ->setTextBody('Salam Sejahtera,
+                                        ->setHtmlBody('Salam Sejahtera,
 <br><br>
 Tuan/Puan,
 <br><br>
@@ -225,7 +225,7 @@ Dengan hormatnya saya ingin menarik perhatian tuan mengenai perkara di atas adal
 2. Adalah dimaklumkan bahawa pihak Majlis <b>' .($model->kelulusan == 1)?'TELAH MELULUSKAN':'TIDAK MELULUSKAN'. '</b> permohonan bantuan dan peruntukan seperti berikut:
 <br><br>
 Permohonan:  ' . $refJenisKebajikan['desc'] . '
-Jumlah Bantuan:  RM' . $model->jumlah_bantuan . '
+<br>Jumlah Bantuan:  RM' . $model->jumlah_bantuan . '
 <br><br>
 3. Segala kerjasama dan perhatian pihak tuan diucapkan ribuan terima kasih.
 <br><br>
@@ -341,31 +341,35 @@ Jumlah Bantuan:  RM' . $model->jumlah_bantuan . '
                 if($model->emel_penerima && $model->emel_penerima != "" && isset($model->kelulusan) ){
                     if($model->kelulusan != $oldKelulusan){
                         try {
-                            if($model->kelulusan == 1){ // Approved
+                            $refJenisKebajikan = RefJenisKebajikan::findOne(['id' => $model->jenis_bantuan_skak]);
+                            $refJenisKebajikan['desc'] = strtoupper($refJenisKebajikan['desc']);
+                            
+                            if($model->tarikh_kelulusan != "") {$model->tarikh_kelulusan = GeneralFunction::convert($model->tarikh_kelulusan, GeneralFunction::TYPE_DATE);}
+        
                                 Yii::$app->mailer->compose()
                                         ->setTo($model->emel_penerima)
                                                                     ->setFrom('noreply@spsb.com')
                                         ->setSubject('Permohonan Skim Kebajikan Tuan/Puan Telah Diproses')
-                                        ->setTextBody('Salam Sejahtera,
+                                        ->setHtmlBody('Salam Sejahtera,
 <br><br>
-Sukacita, permohonan skim kebajikan Tuan/Puan telah LULUS.
+Tuan/Puan,
 <br><br>
-"KE ARAH KECEMERLANGAN SUKAN"
-Majlis Sukan Negara Malaysia.
-')->send();
-                            } else { // Not Approved
-                                Yii::$app->mailer->compose()
-                                        ->setTo($model->emel_penerima)
-                                                                    ->setFrom('noreply@spsb.com')
-                                        ->setSubject('Permohonan Skim Kebajikan Tuan/Puan Telah Diproses')
-                                        ->setTextBody('Salam Sejahtera,
+MAKLUMAN PERMOHONAN ' . $refJenisKebajikan['desc'] . '
 <br><br>
-Permohonan skim kebajikan Tuan/Puan TIDAK LULUS.
+Dengan hormatnya saya ingin menarik perhatian tuan mengenai perkara di atas adalah berkaitan.
 <br><br>
-"KE ARAH KECEMERLANGAN SUKAN"
-Majlis Sukan Negara Malaysia.
+2. Adalah dimaklumkan bahawa pihak Majlis <b>' .($model->kelulusan == 1)?'TELAH MELULUSKAN':'TIDAK MELULUSKAN'. '</b> permohonan bantuan dan peruntukan seperti berikut:
+<br><br>
+Nama Penerima:  ' . $model->nama_penerima . '
+<br>Jenis Bantuan:  ' . $refJenisKebajikan['desc'] . '
+<br>Jumlah Bantuan:  RM' . $model->jumlah_bantuan . '
+<br>Tarikh Kelulusan:  ' . $model->tarikh_kelulusan . '
+<br><br>
+3. Segala kerjasama dan perhatian pihak tuan diucapkan ribuan terima kasih.
+<br><br>
+                                "KE ARAH KECEMERLANGAN SUKAN"
+                                Majlis Sukan Negara Malaysia.
                                 ')->send();
-                            }
                         }
                         catch(\Swift_SwiftException $exception)
                         {

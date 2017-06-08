@@ -15,6 +15,7 @@ class MsnSuratTawaranJurulatih extends Model
     public $tarikh_luput;
     public $bil_msnm;
     public $jurulatih_id;
+    public $jurulatih_status_desc;
     public $format;
     public $bahasa;
 
@@ -22,7 +23,7 @@ class MsnSuratTawaranJurulatih extends Model
     {
         return [
             [['format', 'jurulatih_id', 'tarikh', 'bil_msnm', 'bahasa'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh', 'bil_msnm', 'jurulatih_id', 'tarikh_luput', 'bahasa'], 'safe'],
+            [['tarikh', 'bil_msnm', 'jurulatih_id', 'tarikh_luput', 'bahasa', 'jurulatih_status_desc'], 'safe'],
         ];
     }
 

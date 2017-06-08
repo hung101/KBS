@@ -283,7 +283,9 @@ use common\models\general\GeneralFunction;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'bilangan_peserta' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>11]],
-                'yuran_program' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10], 'hint'=>'Minima Yuran Kursus KPSK ialah RM120'],
+                'yuran_program' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10], 
+                    //'hint'=>'Minima Yuran Kursus KPSK ialah RM120'
+                    ],
                 'jumlah_yuran' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10, 'disabled'=>true]],
             ],
         ],

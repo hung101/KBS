@@ -52,7 +52,7 @@ class DailyCronController extends Controller {
                             ->setTo($modelUser->email)
                             ->setFrom('noreply@spsb.com')
                             ->setSubject('Peringatan: Penilaian Prestasi Atlet')
-                            ->setTextBody("Salam Sejahtera,<br><br><br>
+                            ->setHtmlBody("Salam Sejahtera,<br><br><br>
 
 Sila membuat penilaian prestasi atlet untuk kejohanan berikut: " . $ref['nama_program'] . ". <br>
 Sebelum tarikh berikut: " . GeneralFunction::getDatePrintFormat($modelPenilaianPestasi->tarikh_nilai_tamat) . '<br>
@@ -89,7 +89,7 @@ Majlis Sukan Negara Malaysia.
                                     ->setTo($modelUser->email)
                                     ->setFrom('noreply@spsb.com')
                                     ->setSubject('Peringatan: Jurulatih Yang Akan Tamat Kontrak')
-                                    ->setTextBody("Salam Sejahtera,<br><br><br>
+                                    ->setHtmlBody("Salam Sejahtera,<br><br><br>
 
 
 Jurulatih berikut akan tamat kontrak: <br>
@@ -143,7 +143,7 @@ Majlis Sukan Negara Malaysia.
                                     ->setTo($modelUser->email)
                                     ->setFrom('noreply@spsb.com')
                                     ->setSubject('Peringatan: Jurulatih Yang Belum Dinilai')
-                                    ->setTextBody("Salam Sejahtera,<br><br>
+                                    ->setHtmlBody("Salam Sejahtera,<br><br>
 
 
 Jurulatih berikut belum dinilai: <br>

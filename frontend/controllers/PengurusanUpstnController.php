@@ -27,6 +27,7 @@ use common\models\general\GeneralFunction;
 // table reference
 use app\models\RefSukan;
 use app\models\RefPpn;
+use app\models\RefNegeri;
 
 /**
  * PengurusanUpstnController implements the CRUD actions for PengurusanUpstn model.
@@ -82,6 +83,9 @@ class PengurusanUpstnController extends Controller
         
         //$ref = RefPpn::findOne(['id' => $model->nama_pengurus_sukan]);
         //$model->nama_pengurus_sukan = $ref['desc'];
+        
+        $ref = RefNegeri::findOne(['id' => $model->negeri]);
+        $model->negeri = $ref['desc'];
         
         if($model->tarikh_lawatan != "") {$model->tarikh_lawatan = GeneralFunction::convert($model->tarikh_lawatan, GeneralFunction::TYPE_DATETIME);}
         

@@ -167,7 +167,7 @@ class SukarelawanController extends Controller
                         ->setTo($modelUser->email)
                         ->setFrom('noreply@spsb.com')
                         ->setSubject('Pemberitahuan: Permohonan Sukarelawan Baru')
-                        ->setTextBody("Salam Sejahtera,
+                        ->setHtmlBody("Salam Sejahtera,
 <br><br><br>
 Berikut adalah permohonan sukarelawan baru telah dihantar : <br>
 <br><br>

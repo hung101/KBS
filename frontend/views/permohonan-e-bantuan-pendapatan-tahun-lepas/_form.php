@@ -99,7 +99,10 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
                $(document).find('#modal').modal('hide');
                 form.trigger("reset");
                 $.pjax.defaults.timeout = 100000;
-                $.pjax.reload({container:'#pendapatanTahunLepasGrid'});
+                //$.pjax.reload({container:'#pendapatanTahunLepasGrid'});
+
+                $.pjax.reload({container: "#pendapatanTahunLepasGrid", async:false});
+                $.pjax.reload({container: "#pendapatanTahunLepasTotal", async:false});
           }
      });
      return false;

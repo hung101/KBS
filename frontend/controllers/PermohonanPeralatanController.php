@@ -235,6 +235,11 @@ class PermohonanPeralatanController extends Controller
         
         $model = new MsnLaporan();
         $model->format = 'html';
+        
+        $model->sukan ='';
+        if(Yii::$app->user->identity->sukan){
+            $model->sukan = Yii::$app->user->identity->sukan;
+        }
 
         if ($model->load(Yii::$app->request->post())) {
             
@@ -242,6 +247,7 @@ class PermohonanPeralatanController extends Controller
                 $report_url = BaseUrl::to(['generate-laporan-senarai-permohonan-peralatan'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'sukan' => $model->sukan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -249,6 +255,7 @@ class PermohonanPeralatanController extends Controller
                 return $this->redirect(['generate-laporan-senarai-permohonan-peralatan'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'sukan' => $model->sukan
                     , 'format' => $model->format
                 ]);
             }
@@ -260,7 +267,7 @@ class PermohonanPeralatanController extends Controller
         ]);
     }
 
-    public function actionGenerateLaporanSenaraiPermohonanPeralatan($tarikh_dari, $tarikh_hingga,$format)
+    public function actionGenerateLaporanSenaraiPermohonanPeralatan($tarikh_dari, $tarikh_hingga, $sukan,$format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -268,9 +275,13 @@ class PermohonanPeralatanController extends Controller
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'SUKAN' => $sukan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanSenaraiPermohonanPeralatan', $format, $controls, 'laporan_senarai_permohonan_peralatan');
@@ -285,6 +296,12 @@ class PermohonanPeralatanController extends Controller
         
         $model = new MsnLaporan();
         $model->format = 'html';
+        
+        $model->sukan ='';
+        
+        if(Yii::$app->user->identity->sukan){
+            $model->sukan = Yii::$app->user->identity->sukan;
+        }
 
         if ($model->load(Yii::$app->request->post())) {
             
@@ -292,6 +309,7 @@ class PermohonanPeralatanController extends Controller
                 $report_url = BaseUrl::to(['generate-laporan-statistik-permohonan-peralatan'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'sukan' => $model->sukan
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -299,6 +317,7 @@ class PermohonanPeralatanController extends Controller
                 return $this->redirect(['generate-laporan-statistik-permohonan-peralatan'
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'tarikh_hingga' => $model->tarikh_hingga
+                    , 'sukan' => $model->sukan
                     , 'format' => $model->format
                 ]);
             }
@@ -310,7 +329,7 @@ class PermohonanPeralatanController extends Controller
         ]);
     }
 
-    public function actionGenerateLaporanStatistikPermohonanPeralatan($tarikh_dari, $tarikh_hingga,$format)
+    public function actionGenerateLaporanStatistikPermohonanPeralatan($tarikh_dari, $tarikh_hingga, $sukan, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -318,9 +337,13 @@ class PermohonanPeralatanController extends Controller
         if($tarikh_hingga == "") $tarikh_hingga = array();
         else $tarikh_hingga = array($tarikh_hingga);
         
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
+            'SUKAN' => $sukan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikPermohonanPeralatan', $format, $controls, 'laporan_statistik_permohonan_peralatan');

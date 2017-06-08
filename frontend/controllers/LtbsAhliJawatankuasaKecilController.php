@@ -147,6 +147,8 @@ class LtbsAhliJawatankuasaKecilController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        $model->pengesahan = 0;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             if(Yii::$app->user->identity->profil_badan_sukan){

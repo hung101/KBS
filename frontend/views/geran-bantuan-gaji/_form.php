@@ -22,6 +22,7 @@ use app\models\RefSukan;
 use app\models\RefProgramJurulatih;
 use app\models\RefKelulusanGeranBantuanGajiJurulatih;
 use app\models\RefAgensiJurulatih;
+use app\models\RefStatusTawaran;
 
 // contant values
 use app\models\general\Placeholder;
@@ -286,17 +287,6 @@ use common\models\general\GeneralFunction;
                  'catatan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
             ],
         ],
-    ]
-]);
-    ?>
-    
-    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['status_permohonan']) || $readonly): ?>
-    <?php
-        echo FormGrid::widget([
-    'model' => $model,
-    'form' => $form,
-    'autoGenerateColumns' => true,
-    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -313,67 +303,16 @@ use common\models\general\GeneralFunction;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefStatusPermohonanGeranBantuanGajiJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::statusPermohonan],
+                        'options' => ['placeholder' => Placeholder::jenisPermohonan],
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'rujukan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255],'hint'=>'cth: JKB:BIL 01/2015 BTH 10.01.2015(110)'],
-            ]
-        ],
-        /*[
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'status_terkini_pengeluaran_cek' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
-            ]
-        ],*/
     ]
 ]);
     ?>
-    
-    <div class="panel panel-default">
-                <div class="panel-heading">
-                    <strong>Pengeluaran Cek</strong>
-                </div>
-                <div class="panel-body">
-                    <?php
-                        echo FormGrid::widget([
-                            'model' => $model,
-                            'form' => $form,
-                            'autoGenerateColumns' => true,
-                            'rows' => [
-                                [
-                                    'columns'=>12,
-                                    'autoGenerateColumns'=>false, // override columns setting
-                                    'attributes' => [
-                                        'boucher' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
-                                        'no_cek' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
-                                        'tarikh_cek' => [
-                                            'type'=>Form::INPUT_WIDGET, 
-                                            'widgetClass'=> DateControl::classname(),
-                                            'ajaxConversion'=>false,
-                                            'options'=>[
-                                                'pluginOptions' => [
-                                                    'autoclose'=>true,
-                                                ]
-                                            ],
-                                            'columnOptions'=>['colspan'=>3]],
-                                    ],
-                                ],
-                            ]
-                        ]);
-                    ?>
-                </div>
-            </div>
-    
-    <?php endif; ?>
     
     <?php
 	/*
@@ -597,6 +536,23 @@ use common\models\general\GeneralFunction;
                     'columns'=>12,
                     'autoGenerateColumns'=>false, // override columns setting
                     'attributes' => [
+                        'status_tawaran_jkb' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-status-tawaran/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefStatusTawaran::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::status],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>4]],
                         'tarikh_jkb' => [
                             'type'=>Form::INPUT_WIDGET, 
                             'widgetClass'=> DateControl::classname(),
@@ -629,7 +585,7 @@ use common\models\general\GeneralFunction;
     ?>
 	<hr>
 	<?php
-        echo FormGrid::widget([
+        /*echo FormGrid::widget([
 			'model' => $model,
 			'form' => $form,
 			'autoGenerateColumns' => true,
@@ -658,43 +614,71 @@ use common\models\general\GeneralFunction;
 					]
 				],
 			]
-		]);
+		]);*/
     ?>
     <?php endif; ?>
 
-    <!--<?= $form->field($model, 'muatnaik_gambar')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'nama_jurulatih')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'cawangan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'sub_cawangan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'program_msn')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'lain_lain_program')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'pusat_latihan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'nama_sukan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'nama_acara')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'status_jurulatih')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'status_permohonan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'status_keaktifan_jurulatih')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'kategori_geran')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'jumlah_geran')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'status_geran')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'kelulusan')->textInput() ?>
-
-    <?= $form->field($model, 'catatan')->textInput(['maxlength' => 255]) ?>-->
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['status_permohonan']) || $readonly): ?>
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'rujukan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255],'hint'=>'cth: JKB:BIL 01/2015 BTH 10.01.2015(110)'],
+            ]
+        ],
+        /*[
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'status_terkini_pengeluaran_cek' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>255]],
+            ]
+        ],*/
+    ]
+]);
+    ?>
+    
+    <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong><?=GeneralLabel::pengeluaran_cek?></strong>
+                </div>
+                <div class="panel-body">
+                    <?php
+                        echo FormGrid::widget([
+                            'model' => $model,
+                            'form' => $form,
+                            'autoGenerateColumns' => true,
+                            'rows' => [
+                                [
+                                    'columns'=>12,
+                                    'autoGenerateColumns'=>false, // override columns setting
+                                    'attributes' => [
+                                        'boucher' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                                        'no_cek' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                                        'tarikh_cek' => [
+                                            'type'=>Form::INPUT_WIDGET, 
+                                            'widgetClass'=> DateControl::classname(),
+                                            'ajaxConversion'=>false,
+                                            'options'=>[
+                                                'pluginOptions' => [
+                                                    'autoclose'=>true,
+                                                ]
+                                            ],
+                                            'columnOptions'=>['colspan'=>3]],
+                                    ],
+                                ],
+                            ]
+                        ]);
+                    ?>
+                </div>
+            </div>
+    
+    <?php endif; ?>
 
     <div class="form-group">
         <?php if(!$readonly): ?>

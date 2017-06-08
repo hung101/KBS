@@ -252,18 +252,18 @@ class BantuanPenganjuranKejohananSirkitController extends Controller
                             ->setTo($modelUser->email)
                             ->setFrom('noreply@spsb.com')
                             ->setSubject('Pemberitahuan - Permohonan Baru: Maklumat Penyertaan (Sirkit Remaja / Karnival)')
-                            ->setTextBody("Salam Sejahtera,
+                            ->setHtmlBody("Salam Sejahtera,
     <br><br>
     Berikut adalah butir permohonan telah dihantar : 
     <br>
     Nama Kejohanan / Pertandingan: " . $model->nama_kejohanan_pertandingan . '
-    Tempat: ' . $model->tempat . '
-    Tarikh Mula: ' . $model->tarikh_mula . '
-    Tarikh Tamat: ' . $model->tarikh_tamat . '
-    <br>
+    <br>Tempat: ' . $model->tempat . '
+    <br>Tarikh Mula: ' . $model->tarikh_mula . '
+    <br>Tarikh Tamat: ' . $model->tarikh_tamat . '
+    <br><br>
     Link: ' . BaseUrl::to(['bantuan-penganjuran-kejohanan/view', 'id' => $model->bantuan_penganjuran_kejohanan_id], true) . '
     <br><br>
-    "KE ARAH KECEMERLANGAN SUKAN"
+    "KE ARAH KECEMERLANGAN SUKAN"<br>
     Majlis Sukan Negara Malaysia.
         ')->send();
                         }

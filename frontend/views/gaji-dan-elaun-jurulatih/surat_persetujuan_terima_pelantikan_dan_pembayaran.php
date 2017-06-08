@@ -16,6 +16,7 @@ use app\models\RefProgramSemasaSukanAtlet;
 use app\models\RefSukan;
 use app\models\RefNegeri;
 use app\models\RefAcara;
+use app\models\RefGajiElaunJurulatih;
 
 // contant values
 use app\models\general\Placeholder;
@@ -41,6 +42,29 @@ $this->params['breadcrumbs'][] = $this->title;
     'form' => $form,
     'autoGenerateColumns' => true,
     'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'gaji_elaun' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-gaji-elaun-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefGajiElaunJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::gajiElaun],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting

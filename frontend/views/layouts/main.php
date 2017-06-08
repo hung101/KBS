@@ -223,7 +223,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
 												['label' => GeneralLabel::laporan_biasiswa, 'url' => ['/permohonan-pendidikan/laporan-senarai-pendidikan-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-pendidikan']['module'])],
 												['label' => GeneralLabel::laporan_permohonan_pelepasan, 'url' => ['/pertukaran-pengajian/laporan-permohonan-pelepasan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pertukaran-pengajian']['module'])],
 												['label' => GeneralLabel::laporan_penangguhan_universiti, 'url' => ['/pertukaran-pengajian/laporan-penangguhan-universiti'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pertukaran-pengajian']['module'])],
-												['label' => GeneralLabel::laporan_permohonan_biasiswa, 'url' => ['/permohonan-biasiswa/laporan-permohonan-biasiswa'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-biasiswa']['module'])],
+												//['label' => GeneralLabel::laporan_permohonan_biasiswa, 'url' => ['/permohonan-biasiswa/laporan-permohonan-biasiswa'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-biasiswa']['module'])],
 											],
 										],
 									],
@@ -663,7 +663,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
 					'label' => GeneralLabel::pengurusan_kejohanan, 
 					'items' => [
 						[
-							'label' => GeneralLabel::penganjuran,
+							'label' => GeneralLabel::penyertaan,
 							'items' => [
 								['label' => GeneralLabel::maklumat_penyertaan_sirkit, 'url' => ['/bantuan-penganjuran-kejohanan-sirkit/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan-sirkit']['module'])],
 							],

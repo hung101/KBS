@@ -93,13 +93,13 @@ if ($readonly) {
         <?php endif; ?>
         <?php //echo Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'window.print();' ]); ?>
         <?php echo Html::a(GeneralLabel::print_pdf, '', ['value'=>Url::to(['/jurulatih/print', 'id' => $model->jurulatih_id]), 'class' => 'btn btn-info custom_button']); ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update']) && $isTerima): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update']) && $isTerima && isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['kemaskini_yang_hantar'])): ?>
             <?php echo Html::a(GeneralLabel::surat_tawaran, ['surat-tawaran-jurulatih', 'id' => $model->jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
             ?>
-			<?php echo Html::a(GeneralLabel::surat_setuju_terima.' ('.GeneralLabel::sambungan.')', ['jurulatih-sambungan-oversea', 'id' => $model->jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
-			?>
-			<?php echo Html::a(GeneralLabel::surat_setuju_terima.' ('.GeneralLabel::lantikan_baru.')', ['jurulatih-baru-oversea', 'id' => $model->jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
-			?>
+            <?php echo Html::a(GeneralLabel::surat_setuju_terima.' ('.GeneralLabel::sambungan.')', ['jurulatih-sambungan-oversea', 'id' => $model->jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+            ?>
+            <?php echo Html::a(GeneralLabel::surat_setuju_terima.' ('.GeneralLabel::lantikan_baru.')', ['jurulatih-baru-oversea', 'id' => $model->jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+            ?>
         <?php endif; ?>
     <?php endif; ?>
     <br>
@@ -859,10 +859,6 @@ if ($readonly) {
         ],        
     ]
 ]);
-    ?>
-    
-    <?php
-    if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['tawaran'])){
         
         $label = $model->getAttributeLabel('keputusan_mesyuarat');
         if($model->keputusan_mesyuarat){
@@ -922,6 +918,12 @@ if ($readonly) {
             echo "</div>";
         }
         echo '<br />';  
+    ?>
+    
+    <?php
+    if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['tawaran'])):
+        
+        
         
         echo FormGrid::widget([
             'model' => $model,
@@ -1028,7 +1030,7 @@ if ($readonly) {
                 ],
             ]
         ]);
-    }
+    
     ?>
     
     <br>
@@ -1150,7 +1152,12 @@ if ($readonly) {
                 ],
             ]
         ]);
+        
+        
+        endif; // kelulusan tawaran
     ?>
+    
+    
     
     <?php 
     if(!$model->isNewRecord){

@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\User;
+use app\models\RefJabatanUser;
 
 /**
  * UserSearch represents the model behind the search form about `app\models\User`.
@@ -95,7 +96,31 @@ class UserSearch extends User
                 ->andFilterWhere(['like', 'tbl_user_peranan.nama_peranan', $this->nama_peranan])
                 ->andFilterWhere(['like', 'no_kad_pengenalan', $this->no_kad_pengenalan])
                 ->andFilterWhere(['like', 'tbl_ref_universiti_institusi_e_biasiswa.desc', $this->ipt_bendahari_e_biasiswa_desc]);
-
+        
+        
+        // filter by agency
+        $filterAgency=array();
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['msn'])){
+            $filterAgency[] = RefJabatanUser::MSN;
+        }
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['isn'])){
+            $filterAgency[] = RefJabatanUser::ISN;
+        }
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['pjs'])){
+            $filterAgency[] = RefJabatanUser::PJS;
+        }
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user']['kbs'])){
+            $filterAgency[] = RefJabatanUser::KBS;
+        }
+        
+        if(count($filterAgency) > 0){
+            $query->andFilterWhere(['in', 'jabatan_id', $filterAgency]);
+        }
+        
         return $dataProvider;
     }
 }

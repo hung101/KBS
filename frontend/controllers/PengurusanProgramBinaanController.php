@@ -362,18 +362,18 @@ class PengurusanProgramBinaanController extends Controller
                         ->setTo($modelUser->email)
                         ->setFrom('noreply@spsb.com')
                         ->setSubject('Pemberitahuan: Permohonan Program Binaan Baru')
-                        ->setTextBody("Salam Sejahtera,
+                        ->setHtmlBody("Salam Sejahtera,
 <br><br>
 Berikut adalah permohonan program binaan baru telah dihantar : 
 <br>
-Nama Aktiviti: " . $model->nama_aktiviti . '
-Tempat: ' . $model->tempat . '
-Tarikh Mula: ' . $model->tarikh_mula . '
-Tarikh Tamat: ' . $model->tarikh_tamat . '
-<br>
+<br>Nama Aktiviti: " . $model->nama_aktiviti . '
+<br>Tempat: ' . $model->tempat . '
+<br>Tarikh Mula: ' . $model->tarikh_mula . '
+<br>Tarikh Tamat: ' . $model->tarikh_tamat . '
+<br><br>
 Link: ' . BaseUrl::to(['pengurusan-program-binaan/view', 'id' => $model->pengurusan_program_binaan_id], true) . '
 <br><br>
-"KE ARAH KECEMERLANGAN SUKAN"
+"KE ARAH KECEMERLANGAN SUKAN"<br>
 Majlis Sukan Negara Malaysia.
     ')->send();
                     }

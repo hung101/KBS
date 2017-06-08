@@ -163,6 +163,7 @@ class PermohonanEBantuanController extends Controller
         $ref = RefKelulusanHqEBantuan::findOne(['id' => $model->kelulusan]);
         $model->kelulusan = $ref['desc'];
         
+        $model->status_permohonan_id = $model->status_permohonan;
         $ref = RefStatusPermohonanEBantuan::findOne(['id' => $model->status_permohonan]);
         $model->status_permohonan = $ref['desc'];
         
@@ -184,6 +185,10 @@ class PermohonanEBantuanController extends Controller
         $model->tarikh_didaftarkan = GeneralFunction::convert($model->tarikh_didaftarkan);
         
         $model->tarikh_pelaksanaan = GeneralFunction::convert($model->tarikh_pelaksanaan);
+        
+        //$model->tarikh_mesyuarat = GeneralFunction::convert($model->tarikh_mesyuarat);
+        
+        $model->tarikh_bayar = GeneralFunction::convert($model->tarikh_bayar);
         
         return $this->render('view', [
             'model' => $model,
@@ -285,6 +290,8 @@ class PermohonanEBantuanController extends Controller
         }
         
         $model = new PermohonanEBantuan();
+        
+        $model->scenario = 'create';
         
         // set public user id
         $model->user_public_id = Yii::$app->user->identity->id;
@@ -432,10 +439,12 @@ class PermohonanEBantuanController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $error_flag==0) {
+            
+            $model->save();
+            
             // set e-Bantuan ID
             //$model->ebantuan_id =  $model->permohonan_e_bantuan_id . '/' . date("Y") . '/' . $model->no_pendaftaran . '/' . $model->nama_pertubuhan_persatuan;
             $model->ebantuan_id =  $model->permohonan_e_bantuan_id . '/' . date("Y");
-            $model->save();
                     
             // update all the temporary session id with Permohonan e-Bantuan id
             if(isset(Yii::$app->session->id)){
@@ -473,6 +482,31 @@ class PermohonanEBantuanController extends Controller
             $file = UploadedFile::getInstance($model, 'kertas_kerja');
             if($file){
                 $model->kertas_kerja = Upload::uploadFile($file, Upload::eBantuanFolder, 'kertas_kerja-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'sijil_pendaftaran_persatuan');
+            if($file){
+                $model->sijil_pendaftaran_persatuan = Upload::uploadFile($file, Upload::eBantuanFolder, 'sijil_pendaftaran_persatuan-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'salinan_perlembagaan_persatuan');
+            if($file){
+                $model->salinan_perlembagaan_persatuan = Upload::uploadFile($file, Upload::eBantuanFolder, 'salinan_perlembagaan_persatuan-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_ahli_jawatankuasa_persatuan');
+            if($file){
+                $model->senarai_ahli_jawatankuasa_persatuan = Upload::uploadFile($file, Upload::eBantuanFolder, 'senarai_ahli_jawatankuasa_persatuan-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'salinan_akaun_bank_persatuan');
+            if($file){
+                $model->salinan_akaun_bank_persatuan = Upload::uploadFile($file, Upload::eBantuanFolder, 'salinan_akaun_bank_persatuan-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'laporan_penyata_kewangan_tahunan');
+            if($file){
+                $model->laporan_penyata_kewangan_tahunan = Upload::uploadFile($file, Upload::eBantuanFolder, 'laporan_penyata_kewangan_tahunan-' . $model->permohonan_e_bantuan_id);
             }
             
             if($model->save()){
@@ -569,6 +603,31 @@ class PermohonanEBantuanController extends Controller
                 $model->kertas_kerja = Upload::uploadFile($file, Upload::eBantuanFolder, 'kertas_kerja-' . $model->permohonan_e_bantuan_id);
             }
             
+            $file = UploadedFile::getInstance($model, 'sijil_pendaftaran_persatuan');
+            if($file){
+                $model->sijil_pendaftaran_persatuan = Upload::uploadFile($file, Upload::eBantuanFolder, 'sijil_pendaftaran_persatuan-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'salinan_perlembagaan_persatuan');
+            if($file){
+                $model->salinan_perlembagaan_persatuan = Upload::uploadFile($file, Upload::eBantuanFolder, 'salinan_perlembagaan_persatuan-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_ahli_jawatankuasa_persatuan');
+            if($file){
+                $model->senarai_ahli_jawatankuasa_persatuan = Upload::uploadFile($file, Upload::eBantuanFolder, 'senarai_ahli_jawatankuasa_persatuan-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'salinan_akaun_bank_persatuan');
+            if($file){
+                $model->salinan_akaun_bank_persatuan = Upload::uploadFile($file, Upload::eBantuanFolder, 'salinan_akaun_bank_persatuan-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'laporan_penyata_kewangan_tahunan');
+            if($file){
+                $model->laporan_penyata_kewangan_tahunan = Upload::uploadFile($file, Upload::eBantuanFolder, 'laporan_penyata_kewangan_tahunan-' . $model->permohonan_e_bantuan_id);
+            }
+            
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->permohonan_e_bantuan_id]);
             }
@@ -612,6 +671,16 @@ class PermohonanEBantuanController extends Controller
         self::actionDeleteupload($id, 'muat_naik_pb6');
         
         self::actionDeleteupload($id, 'kertas_kerja');
+        
+        self::actionDeleteupload($id, 'sijil_pendaftaran_persatuan');
+        
+        self::actionDeleteupload($id, 'salinan_perlembagaan_persatuan');
+        
+        self::actionDeleteupload($id, 'senarai_ahli_jawatankuasa_persatuan');
+        
+        self::actionDeleteupload($id, 'salinan_akaun_bank_persatuan');
+        
+        self::actionDeleteupload($id, 'laporan_penyata_kewangan_tahunan');
         
         $this->findModel($id)->delete();
 
@@ -720,9 +789,11 @@ class PermohonanEBantuanController extends Controller
             $img = $this->findModel($id)->$field;
             
             if($img){
-                if (!unlink($img)) {
+/*                 if (!unlink($img)) {
                     return false;
-                }
+                } */
+				$img = substr($img, strrpos( $img, 'uploads'));
+				@unlink($img);
             }
 
             $img = $this->findModel($id);

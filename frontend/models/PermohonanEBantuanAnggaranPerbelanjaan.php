@@ -52,7 +52,9 @@ class PermohonanEBantuanAnggaranPerbelanjaan extends \yii\db\ActiveRecord
             [['butir_butir_perbelanjaan', 'jumlah_perbelanjaan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['permohonan_e_bantuan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah_perbelanjaan', 'jumlah_disokong', 'jumlah_diperakuankan'], 'number', 'message' => GeneralMessage::yii_validation_number],
-            [['butir_butir_perbelanjaan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['butir_butir_perbelanjaan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['jumlah_disokong'], 'compare', 'compareAttribute'=>'jumlah_perbelanjaan', 'operator'=>'<=', 'type' => 'number', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare_max],
+            [['jumlah_diperakuankan'], 'compare', 'compareAttribute'=>'jumlah_perbelanjaan', 'operator'=>'<=', 'type' => 'number', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare_max],
         ];
     }
 

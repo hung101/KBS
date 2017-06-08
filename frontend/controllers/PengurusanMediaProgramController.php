@@ -156,7 +156,7 @@ class PengurusanMediaProgramController extends Controller
                         ->setTo($modelProfilWartawan->emel)
                         ->setFrom('noreply@spsb.com')
                         ->setSubject('Jemputan Media')
-                        ->setTextBody("<br>Nama Program: " . $model->nama_program . "
+                        ->setHtmlBody("<br>Nama Program: " . $model->nama_program . "
 <br>Tarikh: " . $model->tarikh_mula . " - " . $model->tarikh_tamat . "
 <br>Tempat: " . $model->tempat . "
 <br>Catatan: " . $model->catatan . "
@@ -220,7 +220,7 @@ class PengurusanMediaProgramController extends Controller
                         ->setTo($modelProfilWartawan->emel)
                         ->setFrom('noreply@spsb.com')
                         ->setSubject('Jemputan Media Telah Dikemaskini')
-                        ->setTextBody("<br>Nama Program: " . $model->nama_program . "
+                        ->setHtmlBody("<br>Nama Program: " . $model->nama_program . "
 <br>Tarikh: " . $model->tarikh_mula . " - " . $model->tarikh_tamat . "
 <br>Tempat: " . $model->tempat . "
 <br>Catatan: " . $model->catatan . "

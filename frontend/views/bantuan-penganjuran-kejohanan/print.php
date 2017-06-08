@@ -112,7 +112,7 @@
         <td>MAKLUMAT LAIN (SOKONGAN)</td><td>:</td><td><?= ($model->maklumat_lain_sokongan != '')?'Ya (Sila rujuk lampiran di dalam sistem)':'Tiada maklumat' ?></td>
     </tr>
 </table>
-
+<section>
 <div class="text-underline text-bold" style="margin-bottom:10px">SUMBER-SUMBER KEWANGAN LAIN UNTUK KEJOHANAN / PERTANDINGAN</div>
 
 <table border="1" cellspacing="0" cellpadding="4" width="100%">
@@ -141,7 +141,9 @@
 		<td><?= number_format((float)$grandTotal, 2, '.', '') ?></td>
 	</tr>
 </table>
+</section>
 <br />
+<section>
 <div class="text-underline text-bold" style="margin-bottom:10px">BAYARAN PENYERTAAN KEJOHANAN / PERTANDINGAN YANG DIKENAKAN KEPADA PESERTA / PASUKAN</div>
 
 <table border="1" cellspacing="0" cellpadding="4" width="100%">
@@ -170,8 +172,9 @@
 		<td><?= number_format((float)$grandTotal, 2, '.', '') ?></td>
 	</tr>
 </table>
+</section>
 <br />
-
+<section>
 <div class="text-underline text-bold" style="margin-bottom:10px">ELEMEN BANTUAN YANG DIPOHON</div>
 
 <table border="1" cellspacing="0" cellpadding="4" width="100%">
@@ -206,7 +209,8 @@
 		<td><?= number_format((float)$grandTotal, 2, '.', '') ?></td>
 	</tr>
 </table>
-
+</section>
+<section>
 <div class="title-header-wrap" style="margin:20px 0px; padding:5px">
     KEJOHANAN YANG TELAH DIANJUR (TAHUN SEMASA & TAHUN SEBELUM)
 </div>
@@ -237,7 +241,8 @@
 	}
 	?>
 </table>
-
+</section>
+<section>
 <div class="title-header-wrap" style="margin:20px 0px; padding:5px">
     BANTUAN GERAN PENGANJURAN OLEH MSN (TAHUN SEMASA & TAHUN SEBELUM)
 </div>
@@ -270,7 +275,8 @@
 	}
 	?>
 </table>
-
+</section>
+<section>
 <div class="title-header-wrap" style="margin:20px 0px; padding:5px">
     JUMLAH BANTUAN YANG DIPOHON
 </div>
@@ -280,7 +286,8 @@
         <td>RM</td><td>:</td><td><?= $model->jumlah_bantuan_yang_dipohon ?></td>
     </tr>
 </table>
-
+</section>
+<section>
 <div class="title-header-wrap" style="margin:20px 0px; padding:5px">
     KEGUNAAN MSN
 </div>
@@ -308,7 +315,8 @@
         <td>Surat Kelulusan</td><td>:</td><td><?= ($model->surat_kelulusan != '')?'Ya (Sila rujuk lampiran di dalam sistem)':'Tiada maklumat' ?></td>
     </tr>
 </table>
-
+</section>
+<section>
 <div class="title-header-wrap" style="margin:20px 0px; padding:5px">
     AKUAN
 </div>
@@ -333,3 +341,4 @@ Saya mengaku bahawa maklumat yang telah diisi seperti di atas adalah benar serta
 		</td>
 	</tr>
 </table>
+</section>

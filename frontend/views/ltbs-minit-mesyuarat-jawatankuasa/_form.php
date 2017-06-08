@@ -20,6 +20,7 @@ use app\models\RefStatusLaporanMesyuaratAgung;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 use app\models\general\Placeholder;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\LtbsMinitMesyuaratJawatankuasa */
@@ -216,14 +217,27 @@ use app\models\general\Placeholder;
     <br>
     
     <?php // Kertas Kerja Projek / Program Upload
-    
+    $modelProfilBadanSukan = null;
     $approvedMaklumatKewangan = 0;
     if (($modelProfilBadanSukan = ProfilBadanSukan::findOne($model->profil_badan_sukan_id)) !== null) {//update or create
             $approvedMaklumatKewangan =  $modelProfilBadanSukan->permintaan_maklumat_kewangan_approved;
     } elseif (($modelProfilBadanSukan = ProfilBadanSukan::findOne($model->profil_badan_sukan_id_id)) !== null) { //view
             $approvedMaklumatKewangan =  $modelProfilBadanSukan->permintaan_maklumat_kewangan_approved;
     } 
-    if($approvedMaklumatKewangan == 1 || isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['maklumat-kewangan'])){
+    
+    $lihat_flag = true;
+            
+if($modelProfilBadanSukan !== null && isset($modelProfilBadanSukan->permintaan_maklumat_kewangan_approved_date)){
+    $date_approved_expire = new DateTime($modelProfilBadanSukan->permintaan_maklumat_kewangan_approved_date);
+    $date_approved_expire = $date_approved_expire->modify('+1 week');
+    //echo "expired date = " . $date_approved_expire->format('Y-m-d H:i:s');
+
+    if(GeneralFunction::getCurrentTimestamp() > $date_approved_expire->format('Y-m-d H:i:s')){
+        $lihat_flag = false;
+    }
+}
+
+    if(($approvedMaklumatKewangan == 1 && $lihat_flag) || isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['maklumat-kewangan'])){
         $label = $model->getAttributeLabel('minit_agm_muat_naik');
 
         if($model->minit_agm_muat_naik){
@@ -269,7 +283,7 @@ use app\models\general\Placeholder;
     
     
     //if(Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN){
-    if($approvedMaklumatKewangan == 1 || isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['maklumat-kewangan'])){
+    if(($approvedMaklumatKewangan == 1 && $lihat_flag) || isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['maklumat-kewangan'])){
        $label = $model->getAttributeLabel('laporan_kewangan_muat_naik');
 
        if($model->laporan_kewangan_muat_naik){
@@ -451,7 +465,7 @@ use app\models\general\Placeholder;
     ?>
     
     <?php
-    if(Yii::$app->user->identity->profil_badan_sukan && $model->isNewRecord){
+    if(Yii::$app->user->identity->profil_badan_sukan && !$readonly){
         echo '<br>';
             echo FormGrid::widget([
             'model' => $model,
@@ -852,15 +866,18 @@ $script = <<< JS
         
 // enable all the disabled field before submit
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
+        
+    $("form#{$model->formName()} input").prop("disabled", false);
+    
+    var form = $(this);
+    
+    if($('#ltbsminitmesyuaratjawatankuasa-pengesahan').length){
+        if(document.getElementById("ltbsminitmesyuaratjawatankuasa-pengesahan").checked){
+        } else {
+            alert('Sila tanda pengesahan perakuan');
 
-    if(document.getElementById("ltbsminitmesyuaratjawatankuasa-pengesahan").checked){
-        var form = $(this);
-
-        $("form#{$model->formName()} input").prop("disabled", false);
-    } else {
-        alert('Sila tanda pengesahan perakuan');
-
-        return false;
+            return false;
+        }
     }
 });
         

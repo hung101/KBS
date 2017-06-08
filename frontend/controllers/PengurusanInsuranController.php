@@ -172,18 +172,18 @@ class PengurusanInsuranController extends Controller
 							->setTo($modelUser->email)
 							->setFrom('noreply@spsb.com')
 							->setSubject('Pemberitahuan: Permohonan Insuran')
-							->setTextBody("Salam Sejahtera,
+							->setHtmlBody("Salam Sejahtera,
 	<br><br>
 	Berikut adalah permohonan insurans baru telah dihantar : 
 	<br>
 	Nama Pemohon: " . $model->pegawai_yang_bertanggungjawab . '
-	Nama Insuran: ' . $model->nama_insuran . '
-	Tarikh Kejadian: ' . $model->tarikh_kejadian . '
-	Jumlah Tuntutan: RM ' . number_format($model->jumlah_tuntutan, 2) . '
-	<br>
+	<br>Nama Insuran: ' . $model->nama_insuran . '
+	<br>Tarikh Kejadian: ' . $model->tarikh_kejadian . '
+	<br>Jumlah Tuntutan: RM ' . number_format($model->jumlah_tuntutan, 2) . '
+	<br><br>
 	Link: ' . BaseUrl::to(['pengurusan-insuran/view', 'id' => $model->pengurusan_insuran_id], true) . '
 	<br><br>
-	"KE ARAH KECEMERLANGAN SUKAN"
+	"KE ARAH KECEMERLANGAN SUKAN"<br>
 	Majlis Sukan Negara Malaysia.
 		')->send();
 						}

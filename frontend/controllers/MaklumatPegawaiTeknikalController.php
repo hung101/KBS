@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use Yii;
 use app\models\MaklumatPegawaiTeknikal;
 use frontend\models\MaklumatPegawaiTeknikalSearch;
+use app\models\MaklumatPegawaiTeknikalKejohanan;
+use frontend\models\MaklumatPegawaiTeknikalKejohananSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -99,8 +101,17 @@ class MaklumatPegawaiTeknikalController extends Controller
         if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
         if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
         
+        $queryPar = null;
+        
+        $queryPar['MaklumatPegawaiTeknikalKejohananSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id'] = $id;
+        
+        $searchModelMaklumatPegawaiTeknikalKejohanan  = new MaklumatPegawaiTeknikalKejohananSearch();
+        $dataProviderMaklumatPegawaiTeknikalKejohanan = $searchModelMaklumatPegawaiTeknikalKejohanan->search($queryPar);
+        
         return $this->render('view', [
             'model' => $model,
+            'searchModelMaklumatPegawaiTeknikalKejohanan' => $searchModelMaklumatPegawaiTeknikalKejohanan,
+            'dataProviderMaklumatPegawaiTeknikalKejohanan' => $dataProviderMaklumatPegawaiTeknikalKejohanan,
             'readonly' => true,
         ]);
     }
@@ -113,8 +124,22 @@ class MaklumatPegawaiTeknikalController extends Controller
     public function actionCreate()
     {
         $model = new MaklumatPegawaiTeknikal();
+        
+        $queryPar = null;
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['MaklumatPegawaiTeknikalKejohananSearch']['session_id'] = Yii::$app->session->id;
+        }
+        
+        $searchModelMaklumatPegawaiTeknikalKejohanan  = new MaklumatPegawaiTeknikalKejohananSearch();
+        $dataProviderMaklumatPegawaiTeknikalKejohanan = $searchModelMaklumatPegawaiTeknikalKejohanan->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if(isset(Yii::$app->session->id)){
+                MaklumatPegawaiTeknikalKejohanan::updateAll(['bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id], 'session_id = "'.Yii::$app->session->id.'"');
+                MaklumatPegawaiTeknikalKejohanan::updateAll(['session_id' => ''], 'bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id = "'.$model->bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id.'"');
+            }
+            
             $file = UploadedFile::getInstance($model, 'tahap_kelayakan_sukan_peringkat_kebangsaan');
             if($file){
                 $model->tahap_kelayakan_sukan_peringkat_kebangsaan = Upload::uploadFile($file, Upload::maklumatPegawaiTeknikalFolder, 'muat_naik_perlembagaan_terkini-' . $model->bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id);
@@ -131,6 +156,8 @@ class MaklumatPegawaiTeknikalController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'searchModelMaklumatPegawaiTeknikalKejohanan' => $searchModelMaklumatPegawaiTeknikalKejohanan,
+                'dataProviderMaklumatPegawaiTeknikalKejohanan' => $dataProviderMaklumatPegawaiTeknikalKejohanan,
                 'readonly' => false,
             ]);
         }
@@ -145,6 +172,13 @@ class MaklumatPegawaiTeknikalController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        
+        $queryPar = null;
+        
+        $queryPar['MaklumatPegawaiTeknikalKejohananSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_dicadangkan_id'] = $id;
+        
+        $searchModelMaklumatPegawaiTeknikalKejohanan  = new MaklumatPegawaiTeknikalKejohananSearch();
+        $dataProviderMaklumatPegawaiTeknikalKejohanan = $searchModelMaklumatPegawaiTeknikalKejohanan->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'tahap_kelayakan_sukan_peringkat_kebangsaan');
@@ -163,6 +197,8 @@ class MaklumatPegawaiTeknikalController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'searchModelMaklumatPegawaiTeknikalKejohanan' => $searchModelMaklumatPegawaiTeknikalKejohanan,
+                'dataProviderMaklumatPegawaiTeknikalKejohanan' => $dataProviderMaklumatPegawaiTeknikalKejohanan,
                 'readonly' => false,
             ]);
         }

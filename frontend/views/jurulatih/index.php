@@ -542,7 +542,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Html::activeDropDownList($searchModel, 'status_tawaran_jkb', ArrayHelper::map(RefStatusTawaran::find()->where(['=', 'aktif', 1])->all(), 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Status --']),
                 'value' => 'refStatusJkb.desc'
             ],
-            [
+            /*[
                 'attribute' => 'status_tawaran_mpj',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -550,14 +550,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'filter' => Html::activeDropDownList($searchModel, 'status_tawaran_mpj', ArrayHelper::map(RefStatusTawaran::find()->where(['=', 'aktif', 1])->all(), 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Status --']),
                 'value' => 'refStatusMpj.desc'
-            ],
+            ],*/
             [
                 //'attribute' => 'created',
                 'attribute' => 'approved_date',
                 'label' => GeneralLabel::tarikh_hantar,
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_hantar,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_format,
                 ],
                  'value'=>function ($model) {
                     return GeneralFunction::convert($model->approved_date, GeneralFunction::TYPE_DATETIME);

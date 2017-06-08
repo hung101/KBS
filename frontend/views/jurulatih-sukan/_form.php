@@ -164,6 +164,18 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
+    ]
+]);
+    ?>
+    
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['kemaskini_yang_hantar'])): ?>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -255,6 +267,8 @@ use app\models\general\GeneralMessage;
     ]
 ]);
     ?>
+    
+    <?php endif; ?>
     
     <br>
     <h3><?php echo GeneralLabel::acara; ?></h3>

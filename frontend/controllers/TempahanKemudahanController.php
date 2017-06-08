@@ -88,6 +88,7 @@ class TempahanKemudahanController extends Controller
         $ref = RefJenisKadarKemudahan::findOne(['id' => $model->jenis_kadar]);
         $model->jenis_kadar = $ref['desc'];
         
+        $model->status_id = $model->status;
         $ref = RefStatusTempahanKemudahan::findOne(['id' => $model->status]);
         $model->status = $ref['desc'];
         

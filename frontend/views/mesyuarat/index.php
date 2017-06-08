@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'tarikh',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_format,
                 ],
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATETIME);

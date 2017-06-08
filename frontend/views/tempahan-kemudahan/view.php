@@ -6,6 +6,8 @@ use yii\widgets\DetailView;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
+use app\models\RefStatusTempahanKemudahan;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\TempahanKemudahan */
 
@@ -30,6 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'method' => 'post',
                 ],
             ]) ?>
+        <?php endif; ?>
+        <?php if(isset($model->status_id) && $model->status_id==RefStatusTempahanKemudahan::LULUS): ?>
+        <?= Html::a('<span class="glyphicon glyphicon-print"></span> ' . GeneralLabel::cetak, ['create'], ['class' => 'btn btn-info', 'onclick' => 'window.print();']) ?>
         <?php endif; ?>
     </p>
     

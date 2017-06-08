@@ -113,6 +113,13 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'jumlah_bantuan_yang_dipohon',
             //'status_permohonan',
             [
+                'attribute' => 'jumlah_bantuan_yang_dipohon',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_bantuan_yang_dipohon,
+                ],
+            ],
+            [
                 'attribute' => 'status_permohonan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',

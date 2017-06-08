@@ -965,7 +965,7 @@ use common\models\general\GeneralFunction;
     } // END for Not Bendahari IPT
     ?>
     
-    <?php if($model->status_permohonan && $model->status_permohonan == RefStatusPermohonanEBiasiswa::STATUS_BERJAYA){ ?>
+    <?php if(($model->status_permohonan && $model->status_permohonan == RefStatusPermohonanEBiasiswa::STATUS_BERJAYA) || ($model->status_permohonan_id && $model->status_permohonan_id == RefStatusPermohonanEBiasiswa::STATUS_BERJAYA)){ ?>
     
     <h3>Pembayaran</h3>
     

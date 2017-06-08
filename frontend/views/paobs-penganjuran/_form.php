@@ -378,7 +378,7 @@ use app\models\general\GeneralMessage;
     <?php Pjax::end(); ?>
     
     <?php
-    if(Yii::$app->user->identity->profil_badan_sukan && $model->isNewRecord){
+    if(Yii::$app->user->identity->profil_badan_sukan && !$readonly){
         echo '<br>';
             echo FormGrid::widget([
             'model' => $model,
@@ -507,15 +507,18 @@ function setDuration(){
         
 // enable all the disabled field before submit
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
+        
+    $("form#{$model->formName()} input").prop("disabled", false);
+    
+    var form = $(this);
+    
+    if($('#paobspenganjuran-pengesahan').length){
+        if(document.getElementById("paobspenganjuran-pengesahan").checked){
+        } else {
+            alert('Sila tanda pengesahan perakuan');
 
-    if(document.getElementById("paobspenganjuran-pengesahan").checked){
-        var form = $(this);
-
-        $("form#{$model->formName()} input").prop("disabled", false);
-    } else {
-        alert('Sila tanda pengesahan perakuan');
-
-        return false;
+            return false;
+        }
     }
 });
         

@@ -445,7 +445,7 @@ use app\models\general\GeneralMessage;
     ?>-->
 
     <?php
-    if((Yii::$app->user->identity->profil_badan_sukan || $readonly) && $model->pengesahan == 0){
+    if(Yii::$app->user->identity->profil_badan_sukan && !$readonly){
         echo '<br>';
             echo FormGrid::widget([
             'model' => $model,
@@ -530,15 +530,17 @@ $script = <<< JS
         
 // enable all the disabled field before submit
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
+    $("form#{$model->formName()} input").prop("disabled", false);
     
-    if(document.getElementById("profilbadansukan-pengesahan").checked){
-        var form = $(this);
+    var form = $(this);
+    
+    if($('#profilbadansukan-pengesahan').length){
+        if(document.getElementById("profilbadansukan-pengesahan").checked){
+        } else {
+            alert('Sila tanda pengesahan perakuan');
 
-        $("form#{$model->formName()} input").prop("disabled", false);
-    } else {
-        alert('Sila tanda pengesahan perakuan');
-
-        return false;
+            return false;
+        }
     }
 });
         

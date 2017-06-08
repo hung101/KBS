@@ -35,6 +35,8 @@ use app\models\general\GeneralLabel;
  */
 class BantuanPenganjuranKejohananSirkitLaporan extends \yii\db\ActiveRecord
 {
+    public $jumlah_kelulusan;
+    
     /**
      * @inheritdoc
      */
@@ -51,7 +53,7 @@ class BantuanPenganjuranKejohananSirkitLaporan extends \yii\db\ActiveRecord
         return [
             [['bantuan_penganjuran_kejohanan_id', 'bilangan_pasukan', 'bilangan_peserta', 'bilangan_pegawai_teknikal', 'bilangan_pembantu', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tarikh', 'tempat', 'tujuan_penganjuran', 'bilangan_pasukan', 'bilangan_peserta'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh', 'created', 'updated'], 'safe'],
+            [['tarikh', 'created', 'updated', 'jumlah_kelulusan'], 'safe'],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tujuan_penganjuran'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['laporan_bergambar', 'penyata_perbelanjaan_resit_yang_telah_disahkan', 'jadual_keputusan_pertandingan', 'senarai_pasukan', 'senarai_statistik_penyertaan', 
@@ -72,7 +74,7 @@ class BantuanPenganjuranKejohananSirkitLaporan extends \yii\db\ActiveRecord
             'bantuan_penganjuran_kejohanan_id' => 'Bantuan Penganjuran Kejohanan ID',
             'tarikh' => 'Tarikh',
             'tempat' => 'Tempat',
-            'tujuan_penganjuran' => 'Tujuan Penganjuran',
+            'tujuan_penganjuran' => 'Tujuan Penyertaan',
             'bilangan_pasukan' => 'Bilangan Pasukan',
             'bilangan_peserta' => 'Bilangan Peserta',
             'bilangan_pegawai_teknikal' => 'Bilangan Pegawai Teknikal',

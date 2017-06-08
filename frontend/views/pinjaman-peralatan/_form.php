@@ -208,7 +208,9 @@ function setTempohLambat(){
 				//if(fromDatetimeMoment.diff(toDatetime, "days") > 0){
 					$("#tempohLewatId").val(fromDatetimeMoment.diff(toDatetime, "days")+1);
 				//}
-			}
+			} else {
+                            $("#tempohLewatId").val(0);
+                        }
 		}
 	}
 }

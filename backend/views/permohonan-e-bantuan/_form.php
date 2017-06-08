@@ -60,7 +60,7 @@ use app\models\general\GeneralMessage;
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
     <?php
-        if(($model->kelulusan_id && $model->kelulusan_id == RefKelulusanHqEBantuan::STATUS_LULUS) || ($model->negeri_sokongan_id && $model->negeri_sokongan_id == RefNegeriSokonganEBantuan::STATUS_LULUS)):
+        if(($model->status_permohonan_id && $model->status_permohonan_id==RefStatusPermohonanEBantuan::STATUS_LULUS) || ($model->negeri_sokongan_id && $model->negeri_sokongan_id == RefNegeriSokonganEBantuan::STATUS_LULUS)):
     ?>
     
     <div class="alert alert-success">
@@ -626,7 +626,6 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     <?php endif; ?>-->
     
     <br>
-    <br>
     
     <h3><?=GeneralLabel::pendapatan_tahun_lepas?></h3>
     
@@ -698,8 +697,6 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     
     <h4><?=GeneralLabel::jumlah_pendapatan_without_rm?>: RM <?=$calculate_jumlah_pendapatan?></h4>
     
-    <?php Pjax::end(); ?>
-    
     <br>
     
     <?php
@@ -709,10 +706,24 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     'autoGenerateColumns' => true,
     'rows' => [
         [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'jumlah_perbelanjaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
+                'jumlah_perbelanjaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>10, 'disabled'=>true,'value'=>$calculate_jumlah_pendapatan]],
             ]
         ],
+    ]
+]);
+    ?>
+    
+    <?php Pjax::end(); ?>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -735,7 +746,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama_program' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>80]],
+                'nama_program' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
                 'tarikh_pelaksanaan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -746,7 +757,23 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'tempat_pelaksanaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>90]],
+                'tarikh_pelaksanaan_tamat' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'tempat_pelaksanaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>90]],
             ]
         ],
         [
@@ -760,7 +787,6 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     ]
 ]);
     ?>
-    <br>
     <br>
     
     <h3><?=GeneralLabel::anggaran_perbelanjaan_program_aktiviti_yang_dipohon?></h3>
@@ -821,18 +847,12 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     
     <?php 
         $calculate_jumlah_perbelanjaan = 0.00;
-        $calculate_jumlah_disokong = 0.00;
-        $calculate_jumlah_diperakuankan = 0.00;
         foreach($dataProviderAP->models as $APmodel){
             $calculate_jumlah_perbelanjaan += $APmodel->jumlah_perbelanjaan;
-            $calculate_jumlah_disokong += $APmodel->jumlah_disokong;
-            $calculate_jumlah_diperakuankan += $APmodel->jumlah_diperakuankan;
         }
     ?>
     
-    <h4><?=GeneralLabel::jumlah_perbelanjaan_without_rm?>: RM <?=$calculate_jumlah_perbelanjaan?>, 
-            <?=GeneralLabel::jumlah_disokong_without_rm?>: RM <?=$calculate_jumlah_disokong?>, 
-            <?=GeneralLabel::jumlah_diperakuankan_without_rm?>: RM <?=$calculate_jumlah_diperakuankan?></h4>
+    <h4><?=GeneralLabel::jumlah_perbelanjaan_without_rm?>: RM <?=$calculate_jumlah_perbelanjaan?></h4>
     
     <?php Pjax::end(); ?>
     
@@ -857,8 +877,8 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
 ]);
     ?>
     
-    <?php Pjax::begin(['id' => 'anggaranPerbelanjaanTotal', 'timeout' => 100000]); ?>
     <?php
+    //Pjax::begin(['id' => 'anggaranPerbelanjaanTotal', 'timeout' => 100000]);
         echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
@@ -868,14 +888,14 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'jumlah_bantuan_yang_dipohon' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>10, 'disabled'=>true,'value'=>$calculate_jumlah_perbelanjaan]],
+                'jumlah_bantuan_yang_dipohon' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>10]],
             ]
         ],
     ]
 ]);
+        //Pjax::end();
     ?>
     
-    <?php Pjax::end(); ?>
     
     <?php // Kertas Kerja
         if($model->kertas_kerja){
@@ -891,6 +911,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                     ]
                 ]).'<p>';
             }
+            echo '<br>';
         } else {
             echo FormGrid::widget([
             'model' => $model,
@@ -901,7 +922,174 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                         'columns'=>12,
                         'autoGenerateColumns'=>false, // override columns setting
                         'attributes' => [
-                            'kertas_kerja' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                            'kertas_kerja' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]
+                                //, 'hint'=>GeneralLabel::senarai_kertas_kerja_hint
+                            ],
+                        ],
+                    ],
+                ]
+            ]);
+        }
+    ?>
+    
+    <?php // Sijil Pendaftaran persatuan
+        if($model->sijil_pendaftaran_persatuan){
+            echo "<label>" . $model->getAttributeLabel('sijil_pendaftaran_persatuan') . "</label><br>";
+            echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->sijil_pendaftaran_persatuan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+            if(!$readonly){
+                echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->permohonan_e_bantuan_id, 'field'=> 'sijil_pendaftaran_persatuan'], 
+                [
+                    'class'=>'btn btn-danger', 
+                    'data' => [
+                        'confirm' => GeneralMessage::confirmRemove,
+                        'method' => 'post',
+                    ]
+                ]).'<p>';
+            }
+            echo '<br>';
+        } else {
+            echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'sijil_pendaftaran_persatuan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                        ],
+                    ],
+                ]
+            ]);
+        }
+    ?>
+    
+    <?php // Salinan Perlembagaan Persatuan (Jika terdapat pindaan)
+        if($model->salinan_perlembagaan_persatuan){
+            echo "<label>" . $model->getAttributeLabel('salinan_perlembagaan_persatuan') . "</label><br>";
+            echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->salinan_perlembagaan_persatuan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+            if(!$readonly){
+                echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->permohonan_e_bantuan_id, 'field'=> 'salinan_perlembagaan_persatuan'], 
+                [
+                    'class'=>'btn btn-danger', 
+                    'data' => [
+                        'confirm' => GeneralMessage::confirmRemove,
+                        'method' => 'post',
+                    ]
+                ]).'<p>';
+            }
+            echo '<br>';
+        } else {
+            echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'salinan_perlembagaan_persatuan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                        ],
+                    ],
+                ]
+            ]);
+        }
+    ?>
+    
+    <?php // Senarai Ahli Jawatankuasa Persatuan yang lengkap dan terkini
+        if($model->senarai_ahli_jawatankuasa_persatuan){
+            echo "<label>" . $model->getAttributeLabel('senarai_ahli_jawatankuasa_persatuan') . "</label><br>";
+            echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->senarai_ahli_jawatankuasa_persatuan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+            if(!$readonly){
+                echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->permohonan_e_bantuan_id, 'field'=> 'senarai_ahli_jawatankuasa_persatuan'], 
+                [
+                    'class'=>'btn btn-danger', 
+                    'data' => [
+                        'confirm' => GeneralMessage::confirmRemove,
+                        'method' => 'post',
+                    ]
+                ]).'<p>';
+            }
+            echo '<br>';
+        } else {
+            echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'senarai_ahli_jawatankuasa_persatuan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                        ],
+                    ],
+                ]
+            ]);
+        }
+    ?>
+    
+    <?php // Salinan Akaun Bank Persatuan yang terkini
+        if($model->salinan_akaun_bank_persatuan){
+            echo "<label>" . $model->getAttributeLabel('salinan_akaun_bank_persatuan') . "</label><br>";
+            echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->salinan_akaun_bank_persatuan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+            if(!$readonly){
+                echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->permohonan_e_bantuan_id, 'field'=> 'salinan_akaun_bank_persatuan'], 
+                [
+                    'class'=>'btn btn-danger', 
+                    'data' => [
+                        'confirm' => GeneralMessage::confirmRemove,
+                        'method' => 'post',
+                    ]
+                ]).'<p>';
+            }
+            echo '<br>';
+        } else {
+            echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'salinan_akaun_bank_persatuan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                        ],
+                    ],
+                ]
+            ]);
+        }
+    ?>
+    
+    <?php // Laporan Penyata Kewangan Tahunan (Bantuan Pentadbiran)
+        if($model->laporan_penyata_kewangan_tahunan){
+            echo "<label>" . $model->getAttributeLabel('laporan_penyata_kewangan_tahunan') . "</label><br>";
+            echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->laporan_penyata_kewangan_tahunan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+            if(!$readonly){
+                echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->permohonan_e_bantuan_id, 'field'=> 'laporan_penyata_kewangan_tahunan'], 
+                [
+                    'class'=>'btn btn-danger', 
+                    'data' => [
+                        'confirm' => GeneralMessage::confirmRemove,
+                        'method' => 'post',
+                    ]
+                ]).'<p>';
+            }
+            echo '<br>';
+        } else {
+            echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                    [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                            'laporan_penyata_kewangan_tahunan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
                         ],
                     ],
                 ]
@@ -914,7 +1102,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     
     <?php if($readonly): ?>
     <?php
-        echo FormGrid::widget([
+        /*echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -936,12 +1124,12 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
             ]
         ],
     ]
-]);
+]);*/
     ?>
     
     
     <?php
-        echo FormGrid::widget([
+        /*echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -976,7 +1164,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     ]
 ]);
         
-        /*echo FormGrid::widget([
+        echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -1000,7 +1188,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     ]
 ]);*/
         
-        echo FormGrid::widget([
+       /* echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -1022,9 +1210,9 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
             ]
         ],
     ]
-]);
+]);*/
         
-        /*echo FormGrid::widget([
+        echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
     'autoGenerateColumns' => true,
@@ -1033,12 +1221,14 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'catatan_admin' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>10]],
+                'catatan_pemohon' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4]],
             ]
         ],
     ]
-]);*/
+]);
     ?>
+    
+    <?php if($model->hantar_flag == 1): ?>
     
     <?php
         echo FormGrid::widget([
@@ -1062,6 +1252,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     ]
 ]);
         
+    if($model->status_permohonan_id && $model->status_permohonan_id==RefStatusPermohonanEBantuan::STATUS_LULUS){
         echo FormGrid::widget([
             'model' => $model,
             'form' => $form,
@@ -1086,11 +1277,12 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                 ],
             ]
         ]);
+    }
     ?>
     <?php endif; ?>
     
     <?php // Muat Naik PB-4
-    if(($model->kelulusan_id && $model->kelulusan_id == RefKelulusanHqEBantuan::STATUS_LULUS) || ($model->negeri_sokongan_id && $model->negeri_sokongan_id == RefNegeriSokonganEBantuan::STATUS_LULUS)){
+    if(($model->status_permohonan_id && $model->status_permohonan_id==RefStatusPermohonanEBantuan::STATUS_LULUS) || ($model->negeri_sokongan_id && $model->negeri_sokongan_id == RefNegeriSokonganEBantuan::STATUS_LULUS)){
         if($model->muat_naik_pb4){
             echo "<label>" . $model->getAttributeLabel('muat_naik_pb4') . "</label><br>";
             echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->muat_naik_pb4 , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
@@ -1104,6 +1296,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                     ]
                 ]).'<p>';
             }
+            echo '<br>';
         } else {
             echo FormGrid::widget([
             'model' => $model,
@@ -1156,7 +1349,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     ?>
     
     <?php // Muat Naik PB-6
-    if(($model->kelulusan_id && $model->kelulusan_id == RefKelulusanHqEBantuan::STATUS_LULUS) || ($model->negeri_sokongan_id && $model->negeri_sokongan_id == RefNegeriSokonganEBantuan::STATUS_LULUS)){
+    if(($model->status_permohonan_id && $model->status_permohonan_id==RefStatusPermohonanEBantuan::STATUS_LULUS) || ($model->negeri_sokongan_id && $model->negeri_sokongan_id == RefNegeriSokonganEBantuan::STATUS_LULUS)){
         if($model->muat_naik_pb6){
             echo "<label>" . $model->getAttributeLabel('muat_naik_pb6') . "</label><br>";
             echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->muat_naik_pb6 , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
@@ -1170,6 +1363,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                     ]
                 ]).'<p>';
             }
+            echo '<br>';
         } else {
             echo FormGrid::widget([
             'model' => $model,
@@ -1188,6 +1382,8 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
         }
     }
     ?>
+    
+    <?php endif; ?>
     
 
     <div class="form-group">
@@ -1231,6 +1427,13 @@ $KELULUSAN_HQ_LULUS = RefKelulusanHqEBantuan::STATUS_LULUS;
 $KELULUSAN_HQ_TOLAK = RefKelulusanHqEBantuan::STATUS_TOLAK;
 
 $script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+});
         
 $(document).ready(function(){
     var readonly = '$readonly';

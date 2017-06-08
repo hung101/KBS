@@ -196,7 +196,7 @@ class BantuanElaunController extends Controller
                                     ->setTo($model->emel)
                                                                 ->setFrom('noreply@spsb.com')
                                     ->setSubject('Permohonan ' . $jenis_bantuan . ' Tuan/Puan Telah Diproses')
-                                    ->setTextBody('Salam Sejahtera,
+                                    ->setHtmlBody('Salam Sejahtera,
 <br><br>
 Sukacita, permohonan ' . $jenis_bantuan . ' Tuan/Puan telah LULUS.
 <br><br>
@@ -304,7 +304,7 @@ Majlis Sukan Negara Malaysia.
                                     ->setTo($model->emel)
                                                                 ->setFrom('noreply@spsb.com')
                                     ->setSubject('Permohonan ' . $jenis_bantuan . ' Tuan/Puan telah diproses')
-                                    ->setTextBody('Salam Sejahtera,
+                                    ->setHtmlBody('Salam Sejahtera,
 <br><br>
 Dimaklumkan Permohonan ' . $jenis_bantuan . ' Persatuan Sukan Kebangsaan Tuan/Puan telah '.GeneralFunction::getUpperCaseWords($model->status_permohonan).'.
 <br><br>

@@ -20,6 +20,7 @@ class PermohonanEBantuanUrusetia extends \yii\db\ActiveRecord
 {
     public $new_password;
     public $password_confirm;
+    public $urusetia_kategori_urusetia_e_bantuan_id;
     
     /**
      * @inheritdoc
@@ -53,7 +54,17 @@ class PermohonanEBantuanUrusetia extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'peranan', 'full_name', 'status', 'ipt_bendahari_e_biasiswa'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required ],
+            ['urusetia_negeri_e_bantuan', 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required , 'when' => function ($model) {
+                    return $model->urusetia_kategori_urusetia_e_bantuan == RefKategoriUrusetia::JBS_NEGERI || $model->urusetia_kategori_urusetia_e_bantuan == RefKategoriUrusetia::INDUK_JBS_NEGERI;
+                }, 'whenClient' => "function (attribute, value) {
+                    return $('#permohonanebantuanurusetia-urusetia_kategori_urusetia_e_bantuan').val() == '".RefKategoriUrusetia::JBS_NEGERI."' || $('#permohonanebantuanurusetia-urusetia_kategori_urusetia_e_bantuan').val() == '".RefKategoriUrusetia::INDUK_JBS_NEGERI."';
+                }"],
+            ['urusetia_kategori_program_e_bantuan', 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required , 'when' => function ($model) {
+                    return $model->urusetia_kategori_urusetia_e_bantuan == RefKategoriUrusetia::BAHAGIAN_JBSN;
+                }, 'whenClient' => "function (attribute, value) {
+                    return $('#permohonanebantuanurusetia-urusetia_kategori_urusetia_e_bantuan').val() == '".RefKategoriUrusetia::BAHAGIAN_JBSN."';
+                }"],
+            [['username', 'peranan', 'full_name', 'status', 'ipt_bendahari_e_biasiswa', 'urusetia_kategori_urusetia_e_bantuan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required ],
             [['username','jabatan_id', 'peranan', 'status', 'profil_badan_sukan', 'ipt_bendahari_e_biasiswa', 'no_kad_pengenalan', 'urusetia_negeri_e_bantuan', 'urusetia_kategori_program_e_bantuan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['email'], 'email', 'message' => GeneralMessage::yii_validation_email],
@@ -64,7 +75,7 @@ class PermohonanEBantuanUrusetia extends \yii\db\ActiveRecord
             [['no_kad_pengenalan', 'username'], 'string', 'min' => 12, 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max, 'tooShort' => GeneralMessage::yii_validation_string_min],
             ['new_password', 'validatePassword'],
             ['new_password', 'string', 'min' => 12, 'tooShort' => GeneralMessage::yii_validation_string_min],
-            [['username'], 'unique', 'message' => GeneralMessage::yii_validation_unique]
+            [['username'], 'unique', 'message' => GeneralMessage::yii_validation_unique],
         ];
     }
 
@@ -93,6 +104,7 @@ class PermohonanEBantuanUrusetia extends \yii\db\ActiveRecord
             'ipt_bendahari_e_biasiswa' => GeneralLabel::ipt_bendahari_e_biasiswa,
             'urusetia_negeri_e_bantuan' => GeneralLabel::urusetia_negeri_e_bantuan,
             'urusetia_kategori_program_e_bantuan' => GeneralLabel::urusetia_kategori_program_e_bantuan,
+            'urusetia_kategori_urusetia_e_bantuan' => GeneralLabel::kategori_urusetia,
 
         ];
     }
@@ -160,5 +172,12 @@ class PermohonanEBantuanUrusetia extends \yii\db\ActiveRecord
      */
     public function getRefKategoriProgram(){
         return $this->hasOne(RefKategoriProgram::className(), ['id' => 'urusetia_kategori_program_e_bantuan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKategoriUrusetia(){
+        return $this->hasOne(RefKategoriUrusetia::className(), ['id' => 'urusetia_kategori_urusetia_e_bantuan']);
     }
 }

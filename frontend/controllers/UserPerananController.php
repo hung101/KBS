@@ -39,8 +39,14 @@ class UserPerananController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user-peranan']['view_own_data'])){
+            $queryParams['UserPerananSearch']['created_by'] = Yii::$app->user->identity->id;
+        }
+        
         $searchModel = new UserPerananSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

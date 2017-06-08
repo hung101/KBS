@@ -51,7 +51,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_badan_sukan,
-                ]
+                ],
+                'value'=>function ($model) {
+                    if($model->permintaan_maklumat_kewangan_request == 1){
+                        return $model->nama_badan_sukan;
+                    } else {
+                        return $model->nama_badan_sukan;
+                    }
+                },
             ],
             [
                 'attribute' => 'nama_badan_sukan_sebelum_ini',
@@ -131,8 +138,27 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
 
                     },
+                    'approved' => function ($url, $model) {
+                        $laporanLink =  Html::a('<span class="glyphicon glyphicon-list-alt"></span>', 
+                        ['approved', 'id' => $model->profil_badan_sukan], 
+                        [
+                            'title' => GeneralLabel::kelulusan_maklumat_kewangan,
+                            'data' => [
+                                'confirm' => GeneralMessage::confirmKelulusan,
+                                'method' => 'post',
+                            ]
+                        ]);
+                        
+                        //return $laporanLink;
+                        
+                        if($model->permintaan_maklumat_kewangan_request == 1){
+                            return $laporanLink;
+                        } else {
+                            return '';
+                        }
+                    },
                 ],
-                'template' => $template,
+                'template' => $template .= ' {approved}',
             ],
         ],
     ]); ?>

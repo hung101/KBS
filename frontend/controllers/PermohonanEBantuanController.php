@@ -192,6 +192,10 @@ class PermohonanEBantuanController extends Controller
         
         $model->tarikh_pelaksanaan = GeneralFunction::convert($model->tarikh_pelaksanaan);
         
+        $model->tarikh_mesyuarat = GeneralFunction::convert($model->tarikh_mesyuarat);
+        
+        $model->tarikh_bayar = GeneralFunction::convert($model->tarikh_bayar);
+        
         return $this->render('view', [
             'model' => $model,
             'searchModelPermohonan' => $searchModelPermohonan,
@@ -480,6 +484,31 @@ class PermohonanEBantuanController extends Controller
                 $model->kertas_kerja = Upload::uploadFile($file, Upload::eBantuanFolder, 'kertas_kerja-' . $model->permohonan_e_bantuan_id);
             }
             
+            $file = UploadedFile::getInstance($model, 'sijil_pendaftaran_persatuan');
+            if($file){
+                $model->sijil_pendaftaran_persatuan = Upload::uploadFile($file, Upload::eBantuanFolder, 'sijil_pendaftaran_persatuan-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'salinan_perlembagaan_persatuan');
+            if($file){
+                $model->salinan_perlembagaan_persatuan = Upload::uploadFile($file, Upload::eBantuanFolder, 'salinan_perlembagaan_persatuan-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_ahli_jawatankuasa_persatuan');
+            if($file){
+                $model->senarai_ahli_jawatankuasa_persatuan = Upload::uploadFile($file, Upload::eBantuanFolder, 'senarai_ahli_jawatankuasa_persatuan-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'salinan_akaun_bank_persatuan');
+            if($file){
+                $model->salinan_akaun_bank_persatuan = Upload::uploadFile($file, Upload::eBantuanFolder, 'salinan_akaun_bank_persatuan-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'laporan_penyata_kewangan_tahunan');
+            if($file){
+                $model->laporan_penyata_kewangan_tahunan = Upload::uploadFile($file, Upload::eBantuanFolder, 'laporan_penyata_kewangan_tahunan-' . $model->permohonan_e_bantuan_id);
+            }
+            
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->permohonan_e_bantuan_id]);
             }
@@ -573,7 +602,7 @@ class PermohonanEBantuanController extends Controller
                     Yii::$app->mailer->compose()
                     ->setTo($email)
                     ->setSubject('SPSB: Permohonan e-Bantuan')
-                    ->setTextBody('Tuan/Puan,<br><br>
+                    ->setHtmlBody('Tuan/Puan,<br><br>
 Sukacita dimaklumkan permohonan anda diluluskan. Surat kelulusan 
 akan dihantar ke alamat surat menyurat. Sila muat turun borang Surat Setuju Terima (PB-4) dan 
 kemukakan kepada urus setia dalam tempoh 14 hari dari tarikh penerimaan surat kelulusan untuk 
@@ -594,8 +623,12 @@ Ini adalah cetakan komputer tandatangan tidak diperlukan')->send();
                      Yii::$app->mailer->compose()
                     ->setTo($email)
                     ->setSubject('SPSB: Permohonan e-Bantuan')
-                    ->setTextBody('Dimaklumkan bahawa permohonan tuan TIDAK BERJAYA.')->send();
+                    ->setHtmlBody('Dimaklumkan bahawa permohonan tuan TIDAK BERJAYA.')->send();
                 }
+            }
+            
+            if($boolStatusPermohonanChanged && $model->status_permohonan == RefStatusPermohonanEBantuan::STATUS_TAK_LENGKAP){
+                $model->hantar_flag = 0; //if tidak lengkap allow pemohon to kemaskini
             }
             
             // set e-Bantuan ID
@@ -619,6 +652,31 @@ Ini adalah cetakan komputer tandatangan tidak diperlukan')->send();
             $file = UploadedFile::getInstance($model, 'kertas_kerja');
             if($file){
                 $model->kertas_kerja = Upload::uploadFile($file, Upload::eBantuanFolder, 'kertas_kerja-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'sijil_pendaftaran_persatuan');
+            if($file){
+                $model->sijil_pendaftaran_persatuan = Upload::uploadFile($file, Upload::eBantuanFolder, 'sijil_pendaftaran_persatuan-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'salinan_perlembagaan_persatuan');
+            if($file){
+                $model->salinan_perlembagaan_persatuan = Upload::uploadFile($file, Upload::eBantuanFolder, 'salinan_perlembagaan_persatuan-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'senarai_ahli_jawatankuasa_persatuan');
+            if($file){
+                $model->senarai_ahli_jawatankuasa_persatuan = Upload::uploadFile($file, Upload::eBantuanFolder, 'senarai_ahli_jawatankuasa_persatuan-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'salinan_akaun_bank_persatuan');
+            if($file){
+                $model->salinan_akaun_bank_persatuan = Upload::uploadFile($file, Upload::eBantuanFolder, 'salinan_akaun_bank_persatuan-' . $model->permohonan_e_bantuan_id);
+            }
+            
+            $file = UploadedFile::getInstance($model, 'laporan_penyata_kewangan_tahunan');
+            if($file){
+                $model->laporan_penyata_kewangan_tahunan = Upload::uploadFile($file, Upload::eBantuanFolder, 'laporan_penyata_kewangan_tahunan-' . $model->permohonan_e_bantuan_id);
             }
             
             if($model->save()){
@@ -696,9 +754,11 @@ Ini adalah cetakan komputer tandatangan tidak diperlukan')->send();
             $img = $this->findModel($id)->$field;
             
             if($img){
-                if (!unlink($img)) {
+/*                 if (!unlink($img)) {
                     return false;
-                }
+                } */
+				$img = substr($img, strrpos( $img, 'uploads'));
+				@unlink($img);
             }
 
             $img = $this->findModel($id);

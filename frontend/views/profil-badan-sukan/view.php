@@ -6,6 +6,7 @@ use yii\widgets\DetailView;
 // contant values
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ProfilBadanSukan */
@@ -14,6 +15,18 @@ use app\models\general\GeneralMessage;
 $this->title = GeneralLabel::profil_badan_sukan;
 $this->params['breadcrumbs'][] = (Yii::$app->user->identity->jabatan_id!=app\models\RefJabatanUser::MSN) ? ['label' => GeneralLabel::profil_badan_sukan, 'url' => ['index']] : ['label' => GeneralLabel::pengurusan_maklumat_psk, 'url' => ['index-msn']];
 $this->params['breadcrumbs'][] = GeneralLabel::viewTitle;
+
+$permohonan_lihat_flag = true;
+            
+if(isset($model->permintaan_maklumat_kewangan_approved_date)){
+    $date_approved_expire = new DateTime($model->permintaan_maklumat_kewangan_approved_date);
+    $date_approved_expire = $date_approved_expire->modify('+1 week');
+    //echo "expired date = " . $date_approved_expire->format('Y-m-d H:i:s');
+
+    if(GeneralFunction::getCurrentTimestamp() <= $date_approved_expire->format('Y-m-d H:i:s')){
+        $permohonan_lihat_flag = false;
+    }
+}
 ?>
 <div class="profil-badan-sukan-view">
 
@@ -43,7 +56,7 @@ $this->params['breadcrumbs'][] = GeneralLabel::viewTitle;
     ?>
     
     <?php
-        if($model->permintaan_maklumat_kewangan_approved == 1):
+        if($model->permintaan_maklumat_kewangan_approved == 1 && !$permohonan_lihat_flag):
     ?>
     <div class="alert alert-success">
         <?=GeneralLabel::permintaan_untuk_maklumat_kewangan_telah_dilulukan?>
@@ -66,7 +79,12 @@ $this->params['breadcrumbs'][] = GeneralLabel::viewTitle;
             ]) ?>
         <?php endif; ?>
         <?php if(!isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['maklumat-kewangan']) && !isset(Yii::$app->user->identity->peranan_akses['PJS']['profil-badan-sukan']['kelulusan-maklumat-kewangan']) && $model->permintaan_maklumat_kewangan_request == 0): ?>
-            <?= Html::a(GeneralLabel::permintaan_maklumat_kewangan, ['request', 'id' => $model->profil_badan_sukan], ['class' => 'btn btn-success']) ?>
+            <?php 
+            
+            if($permohonan_lihat_flag){
+                echo Html::a(GeneralLabel::permintaan_maklumat_kewangan, ['request', 'id' => $model->profil_badan_sukan], ['class' => 'btn btn-success']);
+            }
+                    ?>
         <?php endif; ?>
         <?= Html::a(GeneralLabel::cetak, ['print', 'id' => $model->profil_badan_sukan], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
     </p>

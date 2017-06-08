@@ -48,6 +48,14 @@ $this->params['breadcrumbs'][] = $this->title;
             //'bantuan_penganjuran_kursus_pegawai_teknikal_id',
             //'badan_sukan',
             [
+                'attribute' => 'badan_sukan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::badan_sukan,
+                ],
+                'value' => 'refProfilBadanSukan.nama_badan_sukan'
+            ],
+            [
                 'attribute' => 'sukan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -63,6 +71,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
             [
+                'attribute' => 'no_kad_pengenalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
+                ],
+            ],
+            /*[
                 'attribute' => 'nama_kejohanan_kursus',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -75,14 +90,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tempat,
                 ],
-            ],
-            /*[
-                'attribute' => 'badan_sukan',
-                'filterInputOptions' => [
-                    'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::badan_sukan,
-                ],
-                'value' => 'refProfilBadanSukan.nama_badan_sukan'
             ],*/
             //'sukan',
             
@@ -95,7 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'alamat_bandar',
             // 'alamat_poskod',
             //'no_kad_pengenalan',
-            [
+            /*[
                 'attribute' => 'tarikh_mula',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -114,7 +121,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);
                 },
-            ],
+            ],*/
             /*[
                 'attribute' => 'no_kad_pengenalan',
                 'filterInputOptions' => [

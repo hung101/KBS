@@ -7,7 +7,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 
 $this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::pemantauan_jurulatih;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pemantauan_jurulatih, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pemantauan_jurulatih, 'url' => ['index', 'id' => $id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengurusan-pemantauan-dan-penilaian-jurulatih-create">

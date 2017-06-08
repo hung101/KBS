@@ -75,13 +75,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'prestasi_atlet' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>6]],
             ],
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'kenaikan_gaji_elaun' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>10]],
             ],
-        ],
+        ],*/
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting

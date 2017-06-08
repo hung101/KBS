@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\web\Session;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
@@ -55,9 +56,10 @@ class PenyertaanSukanAcara extends \yii\db\ActiveRecord
         return [
             [['nama_acara', 'tarikh_acara', 'keputusan_acara', 'jumlah_pingat', 'rekod_baru', 'atlet'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['penyertaan_sukan_id', 'jumlah_pingat', 'rekod_baru', 'atlet', 'keputusan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['tarikh_acara'], 'safe'],
+            //[['tarikh_acara'], 'safe'],
             [['nama_acara', 'keputusan_acara', 'sasaran'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catatan_rekod_baru', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['catatan_rekod_baru', 'catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tarikh_acara'],'validateTarikhAcara', 'skipOnEmpty' => false],  
         ];
     }
 
@@ -80,6 +82,31 @@ class PenyertaanSukanAcara extends \yii\db\ActiveRecord
             'keputusan' => GeneralLabel::keputusan,
             'catatan' => GeneralLabel::catatan,
         ];
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateTarikhAcara($attribute, $params){
+        
+        $session = new Session;
+        $session->open();
+        
+        $error_msg = '';
+
+        if(isset($session['penyertaan-tarikh_mula']) && $session['penyertaan-tarikh_mula'] > $this->tarikh_acara){
+            $error_msg = 'Tarikh tidak berada dalam tarikh kejohanan';
+        }
+        
+        if(isset($session['penyertaan-tarikh_tamat']) && $session['penyertaan-tarikh_tamat'] < $this->tarikh_acara){
+            $error_msg = 'Tarikh tidak berada dalam tarikh kejohanan';
+        }
+        
+        if($error_msg != ''){
+            $this->addError($attribute, $error_msg);
+        }
+        
+        $session->close();
     }
     
     /**

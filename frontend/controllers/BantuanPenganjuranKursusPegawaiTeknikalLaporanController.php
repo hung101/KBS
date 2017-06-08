@@ -239,7 +239,8 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
         }
         
         if (($model = BantuanPenganjuranKursusPegawaiTeknikalLaporan::find()->where(['bantuan_penganjuran_kursus_pegawai_teknikal_id'=>$bantuan_penganjuran_kursus_pegawai_teknikal_id])->one()) !== null) {
-            return $this->redirect(['update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id]);
+            //return $this->redirect(['update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id]);
+            return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id]);
         } else {
             return $this->redirect(['create', 'bantuan_penganjuran_kursus_pegawai_teknikal_id' => $bantuan_penganjuran_kursus_pegawai_teknikal_id]);
         }
@@ -257,7 +258,8 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
         }
         
         if (($model = BantuanPenganjuranKursusPegawaiTeknikalLaporan::find()->where(['bantuan_penyertaan_pegawai_teknikal_id'=>$bantuan_penyertaan_pegawai_teknikal_id])->one()) !== null) {
-            return $this->redirect(['update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id]);
+            //return $this->redirect(['update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id]);
+            return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id]);
         } else {
             return $this->redirect(['create', 'bantuan_penyertaan_pegawai_teknikal_id' => $bantuan_penyertaan_pegawai_teknikal_id]);
         }
@@ -275,7 +277,8 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
         }
         
         if (($model = BantuanPenganjuranKursusPegawaiTeknikalLaporan::find()->where(['bantuan_penganjuran_kursus_id'=>$bantuan_penganjuran_kursus_id])->one()) !== null) {
-            return $this->redirect(['update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id]);
+            //return $this->redirect(['update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id]);
+            return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id]);
         } else {
             return $this->redirect(['create', 'bantuan_penganjuran_kursus_id' => $bantuan_penganjuran_kursus_id]);
         }

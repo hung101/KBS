@@ -315,7 +315,7 @@ class PengurusanPermohonanKursusPersatuanController extends Controller
                                     ->setTo($modelPengurusanPermohonanKursusPersatuanPenasihat['refProfilPanelPenasihatKpsk']['emel'])
                                     ->setFrom('noreply@spsb.com')
                                     ->setSubject('Memo: Permohonan Penganjuran')
-                                    ->setTextBody('Salam Sejahtera,
+                                    ->setHtmlBody('Salam Sejahtera,
 <br><br>
 
 Memo:
@@ -343,7 +343,7 @@ Majlis Sukan Negara Malaysia.
                             ->setTo($model->emel)
                             ->setFrom('noreply@spsb.com')
                             ->setSubject('Memo: Permohonan Penganjuran')
-                            ->setTextBody('Salam Sejahtera,
+                            ->setHtmlBody('Salam Sejahtera,
 <br><br>
 
 Memo:

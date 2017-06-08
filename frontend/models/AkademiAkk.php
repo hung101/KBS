@@ -67,6 +67,7 @@ class AkademiAkk extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['no_kad_pengenalan'], 'unique', 'message' => GeneralMessage::yii_validation_unique],
             [['nama_jurulatih', 'no_kad_pengenalan', 'tarikh_lahir', 'tempat_lahir', 'no_telefon', 'kategori_pensijilan', 'jenis_sukan', 'tahun',
                 'jantina', 'bangsa', 'kategori_jurulatih', 'alamat_1', 'alamat_negeri', 'alamat_poskod'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_lahir', 'tarikh_terima_borang', 'tarikh_mula_lesen', 'tarikh_tamat_lesen'], 'safe'],

@@ -215,7 +215,8 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
         }
         
         if (($model = BantuanPenganjuranKejohananLaporan::find()->where(['bantuan_penganjuran_kejohanan_id'=>$bantuan_penganjuran_kejohanan_id])->one()) !== null) {
-            return $this->redirect(['update', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id]);
+            //return $this->redirect(['update', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id]);
+            return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id]);
         } else {
             return $this->redirect(['create', 'bantuan_penganjuran_kejohanan_id' => $bantuan_penganjuran_kejohanan_id]);
         }

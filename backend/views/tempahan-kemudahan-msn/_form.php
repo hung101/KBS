@@ -144,7 +144,7 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,*/
-                        'data'=>ArrayHelper::map(PengurusanKemudahanVenueMsn::find()->joinWith(['refKategoriHakmilik'])->where(['status'=>1])->orderBy(['alamat_negeri' => SORT_ASC])->all(),'pengurusan_kemudahan_venue_id', 'nama_venue'),
+                        'data'=>ArrayHelper::map(PengurusanKemudahanVenueMsn::find()->joinWith(['refKategoriHakmilik'])->where(['status'=>1])->orderBy(['nama_venue' => SORT_ASC])->all(),'pengurusan_kemudahan_venue_id', 'nama_venue'),
                         'options' => ['placeholder' => Placeholder::venue],
                         'pluginOptions' => [
                             'allowClear' => true
