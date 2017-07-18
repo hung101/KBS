@@ -19,8 +19,24 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id], ['class' => 'btn btn-primary']) ?>
-		<?= Html::a(GeneralLabel::cetak, ['print', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id], ['class' => 'btn btn-success', 'target' => '_blank']) ?>
+        <?php if(($model->hantar_flag == 0)): ?>
+            <?= Html::a(GeneralLabel::send, ['hantar', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id], [
+                'class' => 'btn btn-success',
+                'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                    'method' => 'post',
+                ],
+                ]) ?>
+        <?php endif; ?>
+        <?php if( $model->hantar_flag == 0 || 
+                (isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus']['kelulusan']) ||
+                isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penyertaan-pegawai-teknikal']['kelulusan']) ||
+                isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus-pegawai-teknikal']['kelulusan'])) ): ?>
+            <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id], ['class' => 'btn btn-primary']) ?>
+        <?php endif; ?>
+        <?php if(($model->hantar_flag == 1)): ?>
+            <?= Html::a(GeneralLabel::cetak, ['print', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
+        <?php endif; ?>
         <?php /*echo Html::a('Delete', ['delete', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id], [
             'class' => 'btn btn-danger',
             'data' => [

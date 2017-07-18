@@ -66,6 +66,7 @@ use app\models\RefKeputusan;
 use app\models\RefAktivitiPendedahan;
 use \app\models\PerancanganProgramPlan;
 use app\models\RefStatusPermohonanProgramBinaan;
+use app\models\RefKategoriKejohananTemasya;
 
 /**
  * PenyertaanSukanController implements the CRUD actions for PenyertaanSukan model.
@@ -144,6 +145,9 @@ class PenyertaanSukanController extends Controller
 		
         $ref = RefStatusPermohonanProgramBinaan::findOne(['id' => $model->jkb_status_permohonan]);
         $model->jkb_status_permohonan = $ref['desc'];
+        
+        $ref = RefKategoriKejohananTemasya::findOne(['id' => $model->kategori]);
+        $model->kategori = $ref['desc'];
                 
         if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
         if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}

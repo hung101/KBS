@@ -18,7 +18,7 @@ class PengurusanPermohonanKursusPersatuanSearch extends PengurusanPermohonanKurs
     public function rules()
     {
         return [
-            [['pengurusan_permohonan_kursus_persatuan_id'], 'integer'],
+            [['pengurusan_permohonan_kursus_persatuan_id', 'hantar_flag'], 'integer'],
             [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'jantina', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 
                 'no_tel_bimbit', 'emel', 'facebook', 'kelayakan_akademi', 'perkerjaan', 'nama_majikan', 'kelulusan', 'no_perhubungan', 'tarikh_kursus', 'tarikh_tamat_kursus', 
                 'agensi'], 'safe'],
@@ -64,6 +64,7 @@ class PengurusanPermohonanKursusPersatuanSearch extends PengurusanPermohonanKurs
             'pengurusan_permohonan_kursus_persatuan_id' => $this->pengurusan_permohonan_kursus_persatuan_id,
             'tarikh_lahir' => $this->tarikh_lahir,
             'yuran_program' => $this->yuran_program,
+            'hantar_flag' => $this->hantar_flag,
             //'kelulusan' => $this->kelulusan,
         ]);
 

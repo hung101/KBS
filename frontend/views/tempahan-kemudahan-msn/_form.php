@@ -191,7 +191,7 @@ use app\models\general\GeneralMessage;
                             'pluginOptions'=>['allowClear'=>true]
                         ],
                         'data'=>ArrayHelper::map(PengurusanKemudahanSediaAdaMsn::find()->joinWith(['refAgensiKemudahan'])->all(),'agensi', 'refAgensiKemudahan.desc'),
-                        'options'=>['prompt'=>'', 'id'=>'kemudahanID'],
+                        'options'=>['prompt'=>''],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'venue')],
                             'initialize' => true,
@@ -523,7 +523,7 @@ use app\models\general\GeneralMessage;
         
         ?>
     
-    <h3><?php echo GeneralLabel::fasiliti_yang_ingin_digunakan;?> &nbsp <?php if(!$readonly): ?><?=Html::a(GeneralLabel::fasiliti_yang_ingin_digunakan, 'javascript:void(0);', [
+    <h3><?php echo GeneralLabel::fasiliti_yang_ingin_digunakan;?> &nbsp <?php if(!$readonly): ?><?=Html::a(GeneralLabel::senarai_kemudahan, 'javascript:void(0);', [
                         'onclick' => 'loadModalRenderAjax("'.Url::to(['tempahan-kemudahan-sub-msn/create', 'tempahan_kemudahan_id' => $tempahan_kemudahan_id]).'", "'.GeneralLabel::fasiliti_yang_ingin_digunakan.'");',
                         'class' => 'btn btn-success',
                         ]);?><?php endif; ?></h3>
@@ -601,6 +601,23 @@ use app\models\general\GeneralMessage;
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATETIME);
                 },
+            ],
+            [
+                'attribute' => 'tarikh_akhir',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat,
+                ],
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_akhir, GeneralFunction::TYPE_DATETIME);
+                },
+            ],
+            [
+                'attribute' => 'jumlah_jam',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_jam,
+                ],
             ],
             [
                 'attribute' => 'jenis_kadar',

@@ -77,6 +77,10 @@ class MesyuaratJkkController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $searchModel = new MesyuaratJkkSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -92,6 +96,9 @@ class MesyuaratJkkController extends Controller
      */
     public function actionAgendaPerbincangan($mesyuarat_id, $sukan_id, $program_id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
         
         $queryPar = Yii::$app->request->queryParams;
         
@@ -183,6 +190,7 @@ class MesyuaratJkkController extends Controller
             'dataProviderPusatLatihan' => $dataProviderPusatLatihan,
             'searchModelProgram' => $searchModelProgram,
             'dataProviderProgram' => $dataProviderProgram,
+            'mesyuarat_id' => $mesyuarat_id,
         ]);
     }
     
@@ -192,6 +200,7 @@ class MesyuaratJkkController extends Controller
      */
     public function actionResetAgendaPerbincangan()
     {
+        
         Atlet::updateAll(['mesyuarat_id' => ''], 'tawaran = ' . RefStatusTawaran::DALAM_PROSES);
 
         Jurulatih::updateAll(['mesyuarat_id' => ''], 'status_tawaran = ' . RefStatusTawaran::DALAM_PROSES);
@@ -214,6 +223,10 @@ class MesyuaratJkkController extends Controller
      */
     public function actionView($id)
     {   
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $queryPar = null;
         
         $queryPar['MesyuaratJkkKehadiranSearch']['mesyuarat_id'] = $id;
@@ -269,6 +282,10 @@ class MesyuaratJkkController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new MesyuaratJkk();
         
         Yii::$app->session->open();
@@ -329,6 +346,10 @@ class MesyuaratJkkController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
         
         $queryPar = null;
@@ -366,6 +387,10 @@ class MesyuaratJkkController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         //self::actionDeleteupload($id, 'minit_mesyuarat');
         
         $this->findModel($id)->delete();
@@ -374,6 +399,10 @@ class MesyuaratJkkController extends Controller
     }
     
     public function actionHantarEmel($mesyuarat_id){
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         if (($model = MesyuaratJkk::findOne($mesyuarat_id)) !== null) {
             
             $ref = RefPenganjurJkk::findOne(['id' => $model->penganjur]);
@@ -412,24 +441,38 @@ class MesyuaratJkkController extends Controller
                 foreach($modelMesyuaratJkkKehadirans as $modelMesyuaratJkkKehadiran){
                     if($modelMesyuaratJkkKehadiran->emel && $modelMesyuaratJkkKehadiran->emel != ""){
                         try {
+                            $emailContent = "Assalamualaikum dan Salam Sejahtera, <br>
+Ybhg./Tan Sri/Datuk/Dato'/Datin/Dr./Tuan/Puan, 
+<br><br>
+<b><u>Jemputan ke Mesyuarat <jkk/jkp> ". $model->bil_mesyuarat .' Tahun '. date_format(date_create($model->tarikh),"Y") .'</u></b><br>
+Dengan segala hormatnya perkara diatas dirujuk. <br><br>
+2. Sukacitanya dimaklumkan bahawa Mesyuarat <jkk/jkp> Bil <bil> Tahun <tahun> akan diadakan seperti butiran dibawah: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tarikh: '. GeneralFunction::getDateTimePrintFormat($model->tarikh) .'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tempat: '. $model->tempat .'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pengerusi : '. $model->pengerusi_mesyuarat .'<br><br>
+3. Dengan segala hormatnya dijemput hadir. <br><br>
+4. Perhatian dan kerjasama semua berhubungn perkara ini amatlah dihargai dan didahului dengan ucapan terima kasih. 
+';
+                            // email minits
+                            if($model->minit_mesyuarat != ""){
+                                $emailContent .= '<br><br>
+    Berikut adalah minit mesyuarat:-
+    <br><br>
+    <a href="'.Url::base(true).'/'. $model->minit_mesyuarat . '" ></a>';
+                            }
+                            
+                            $emailContent .= '<br><br><br>
+Sekian<br>
+Bahagian Atlet<br>
+<br>
+"KE ARAH KECEMERLANGAN SUKAN"<br>
+Majlis Sukan Negara Malaysia. ';
+                                    
                             Yii::$app->mailer->compose()
                                     ->setTo($modelMesyuaratJkkKehadiran->emel)
                                     ->setFrom('noreply@spsb.com')
                                     ->setSubject('Mesyuarat ' . $model->jenis_mesyuarat)
-                                    ->setHtmlBody('Salam Sejahtera,
-<br><br>
-Bil Mesyuarat: '. $model->bil_mesyuarat .'<br>
-Tarikh: '. GeneralFunction::getDateTimePrintFormat($model->tarikh) .'<br>
-Tempat: '. $model->tempat .'
-<br><br>
-Berikut adalah minit mesyuarat:-
-<br><br>
-<a href="'.Url::base(true).'/'. $model->minit_mesyuarat . '" ></a>
-<br><br><br>
-
-"KE ARAH KECEMERLANGAN SUKAN"<br>
-Majlis Sukan Negara Malaysia.
-                            ')->send();
+                                    ->setHtmlBody($emailContent)->send();
                         }
                         catch(\Swift_SwiftException $exception)
                         {
@@ -467,6 +510,10 @@ Majlis Sukan Negara Malaysia.
     // Add function for delete image or file
     public function actionDeleteupload($id, $field)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
             $img = $this->findModel($id)->$field;
             
             if($img){

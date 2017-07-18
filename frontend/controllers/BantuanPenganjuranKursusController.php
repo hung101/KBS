@@ -11,6 +11,8 @@ use app\models\BantuanPenganjuranKursusDisertaiPenceramah;
 use frontend\models\BantuanPenganjuranKursusDisertaiPenceramahSearch;
 use app\models\BantuanPenganjuranKursusOlehMsn;
 use frontend\models\BantuanPenganjuranKursusOlehMsnSearch;
+use app\models\BantuanPenganjuranKursusElemen;
+use frontend\models\BantuanPenganjuranKursusElemenSearch;
 use app\models\MsnLaporanBantuanTeknikalDanKepegawaian;
 use app\models\MsnLaporanBantuanTeknikalDanKepegawaianMengikutSukan;
 use app\models\MsnLaporan;
@@ -71,6 +73,10 @@ class BantuanPenganjuranKursusController extends Controller
             $queryParams['BantuanPenganjuranKursusSearch']['created_by'] = Yii::$app->user->identity->id;
         }
         
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus']['kelulusan'])) {
+            $queryParams['BantuanPenganjuranKursusSearch']['hantar_flag'] = 1;
+        }
+        
         $searchModel = new BantuanPenganjuranKursusSearch();
         $dataProvider = $searchModel->search($queryParams);
 
@@ -96,6 +102,7 @@ class BantuanPenganjuranKursusController extends Controller
         $queryPar['BantuanPenganjuranKursusPenceramahSearch']['bantuan_penganjuran_kursus_id'] = $id;
         $queryPar['BantuanPenganjuranKursusDisertaiPenceramahSearch']['bantuan_penganjuran_kursus_id'] = $id;
         $queryPar['BantuanPenganjuranKursusOlehMsnSearch']['bantuan_penganjuran_kursus_id'] = $id;
+        $queryPar['BantuanPenganjuranKursusElemenSearch']['bantuan_penganjuran_kursus_id'] = $id;
         
         $searchModelBantuanPenganjuranKursusPenceramah  = new BantuanPenganjuranKursusPenceramahSearch();
         $dataProviderBantuanPenganjuranKursusPenceramah = $searchModelBantuanPenganjuranKursusPenceramah->search($queryPar);
@@ -105,6 +112,9 @@ class BantuanPenganjuranKursusController extends Controller
         
         $searchModelBantuanPenganjuranKursusOlehMsn  = new BantuanPenganjuranKursusOlehMsnSearch();
         $dataProviderBantuanPenganjuranKursusOlehMsn = $searchModelBantuanPenganjuranKursusOlehMsn->search($queryPar);
+        
+        $searchModelBantuanPenganjuranKursusElemen  = new BantuanPenganjuranKursusElemenSearch();
+        $dataProviderBantuanPenganjuranKursusElemen = $searchModelBantuanPenganjuranKursusElemen->search($queryPar);
         
         $model = $this->findModel($id);
         
@@ -140,6 +150,8 @@ class BantuanPenganjuranKursusController extends Controller
             'dataProviderBantuanPenganjuranKursusDisertaiPenceramah' => $dataProviderBantuanPenganjuranKursusDisertaiPenceramah,
             'searchModelBantuanPenganjuranKursusOlehMsn' => $searchModelBantuanPenganjuranKursusOlehMsn,
             'dataProviderBantuanPenganjuranKursusOlehMsn' => $dataProviderBantuanPenganjuranKursusOlehMsn,
+            'searchModelBantuanPenganjuranKursusElemen' => $searchModelBantuanPenganjuranKursusElemen,
+            'dataProviderBantuanPenganjuranKursusElemen' => $dataProviderBantuanPenganjuranKursusElemen,
             'readonly' => true,
         ]);
     }
@@ -158,8 +170,6 @@ class BantuanPenganjuranKursusController extends Controller
         $model = new BantuanPenganjuranKursus();
         
         $model->scenario = 'create';
-        $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
-        $model->status_permohonan = RefStatusBantuanPenganjuranKursus::SEDANG_DIPROSES;
         
         if(Yii::$app->user->identity->profil_badan_sukan){
             $model->badan_sukan = Yii::$app->user->identity->profil_badan_sukan;
@@ -173,6 +183,7 @@ class BantuanPenganjuranKursusController extends Controller
             $queryPar['BantuanPenganjuranKursusPenceramahSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['BantuanPenganjuranKursusDisertaiPenceramahSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['BantuanPenganjuranKursusOlehMsnSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['BantuanPenganjuranKursusElemenSearch']['session_id'] = Yii::$app->session->id;
         }
         
         $searchModelBantuanPenganjuranKursusPenceramah  = new BantuanPenganjuranKursusPenceramahSearch();
@@ -183,6 +194,9 @@ class BantuanPenganjuranKursusController extends Controller
         
         $searchModelBantuanPenganjuranKursusOlehMsn  = new BantuanPenganjuranKursusOlehMsnSearch();
         $dataProviderBantuanPenganjuranKursusOlehMsn = $searchModelBantuanPenganjuranKursusOlehMsn->search($queryPar);
+        
+        $searchModelBantuanPenganjuranKursusElemen  = new BantuanPenganjuranKursusElemenSearch();
+        $dataProviderBantuanPenganjuranKursusElemen = $searchModelBantuanPenganjuranKursusElemen->search($queryPar);
         
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -195,6 +209,9 @@ class BantuanPenganjuranKursusController extends Controller
                 
                 BantuanPenganjuranKursusOlehMsn::updateAll(['bantuan_penganjuran_kursus_id' => $model->bantuan_penganjuran_kursus_id], 'session_id = "'.Yii::$app->session->id.'"');
                 BantuanPenganjuranKursusOlehMsn::updateAll(['session_id' => ''], 'bantuan_penganjuran_kursus_id = "'.$model->bantuan_penganjuran_kursus_id.'"');
+                
+                BantuanPenganjuranKursusElemen::updateAll(['bantuan_penganjuran_kursus_id' => $model->bantuan_penganjuran_kursus_id], 'session_id = "'.Yii::$app->session->id.'"');
+                BantuanPenganjuranKursusElemen::updateAll(['session_id' => ''], 'bantuan_penganjuran_kursus_id = "'.$model->bantuan_penganjuran_kursus_id.'"');
             }
             
             $file = UploadedFile::getInstance($model, 'kertas_kerja');
@@ -238,9 +255,9 @@ class BantuanPenganjuranKursusController extends Controller
                             ->setTo($modelUser->email)
                             ->setFrom('noreply@spsb.com')
                             ->setSubject('Pemberitahuan - Permohonan Baru: Bantuan Penganjuran Kursus / Bengkel / Seminar')
-                            ->setHtmlBody("Salam Sejahtera,
+                            ->setHtmlBody("Assalamualaikum dan Salam Sejahtera, 
     <br><br>
-    Berikut adalah butir permohonan telah dihantar : 
+    Terdapat permohonan baru yang diterima: 
     <br>
     Badan Sukan: " . $refProfilBadanSukan['nama_badan_sukan'] . "
     <br>Nama Kursus / Seminar / Bengkel: " . $model->nama_kursus_seminar_bengkel . '
@@ -250,6 +267,8 @@ class BantuanPenganjuranKursusController extends Controller
     <br>Jumlah Bantuan Yang Dipohon: RM' . $model->jumlah_bantuan_yang_dipohon . '
     <br><br>
     Link: ' . BaseUrl::to(['bantuan-penganjuran-kursus/view', 'id' => $model->bantuan_penganjuran_kursus_id], true) . '
+    <br><br>
+    Sekian.
     <br><br>
     "KE ARAH KECEMERLANGAN SUKAN"<br>
     Majlis Sukan Negara Malaysia.
@@ -270,6 +289,8 @@ class BantuanPenganjuranKursusController extends Controller
                 'dataProviderBantuanPenganjuranKursusDisertaiPenceramah' => $dataProviderBantuanPenganjuranKursusDisertaiPenceramah,
                 'searchModelBantuanPenganjuranKursusOlehMsn' => $searchModelBantuanPenganjuranKursusOlehMsn,
                 'dataProviderBantuanPenganjuranKursusOlehMsn' => $dataProviderBantuanPenganjuranKursusOlehMsn,
+                'searchModelBantuanPenganjuranKursusElemen' => $searchModelBantuanPenganjuranKursusElemen,
+                'dataProviderBantuanPenganjuranKursusElemen' => $dataProviderBantuanPenganjuranKursusElemen,
                 'readonly' => false,
             ]);
     }
@@ -293,6 +314,7 @@ class BantuanPenganjuranKursusController extends Controller
         $queryPar['BantuanPenganjuranKursusPenceramahSearch']['bantuan_penganjuran_kursus_id'] = $id;
         $queryPar['BantuanPenganjuranKursusDisertaiPenceramahSearch']['bantuan_penganjuran_kursus_id'] = $id;
         $queryPar['BantuanPenganjuranKursusOlehMsnSearch']['bantuan_penganjuran_kursus_id'] = $id;
+        $queryPar['BantuanPenganjuranKursusElemenSearch']['bantuan_penganjuran_kursus_id'] = $id;
         
         $searchModelBantuanPenganjuranKursusPenceramah  = new BantuanPenganjuranKursusPenceramahSearch();
         $dataProviderBantuanPenganjuranKursusPenceramah = $searchModelBantuanPenganjuranKursusPenceramah->search($queryPar);
@@ -302,6 +324,9 @@ class BantuanPenganjuranKursusController extends Controller
         
         $searchModelBantuanPenganjuranKursusOlehMsn  = new BantuanPenganjuranKursusOlehMsnSearch();
         $dataProviderBantuanPenganjuranKursusOlehMsn = $searchModelBantuanPenganjuranKursusOlehMsn->search($queryPar);
+        
+        $searchModelBantuanPenganjuranKursusElemen  = new BantuanPenganjuranKursusElemenSearch();
+        $dataProviderBantuanPenganjuranKursusElemen = $searchModelBantuanPenganjuranKursusElemen->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'kertas_kerja');
@@ -347,6 +372,8 @@ class BantuanPenganjuranKursusController extends Controller
                 'dataProviderBantuanPenganjuranKursusDisertaiPenceramah' => $dataProviderBantuanPenganjuranKursusDisertaiPenceramah,
                 'searchModelBantuanPenganjuranKursusOlehMsn' => $searchModelBantuanPenganjuranKursusOlehMsn,
                 'dataProviderBantuanPenganjuranKursusOlehMsn' => $dataProviderBantuanPenganjuranKursusOlehMsn,
+                'searchModelBantuanPenganjuranKursusElemen' => $searchModelBantuanPenganjuranKursusElemen,
+                'dataProviderBantuanPenganjuranKursusElemen' => $dataProviderBantuanPenganjuranKursusElemen,
                 'readonly' => false,
             ]);
     }
@@ -414,6 +441,31 @@ class BantuanPenganjuranKursusController extends Controller
             $img->update();
 
             return $this->redirect(['update', 'id' => $id]);
+    }
+    
+    /**
+     * Updates an existing BantuanPenganjuranKejohanan model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set approved
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
+        $model->status_permohonan = RefStatusBantuanPenganjuranKursus::SEDANG_DIPROSES;
+        
+        $model->save();
+        
+        return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_id]);
     }
     
     public function actionLaporanBantuanTeknikalDanKepegawaian()

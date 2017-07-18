@@ -18,7 +18,7 @@ class PermohonanKemudahanTicketKapalTerbangSearch extends PermohonanKemudahanTic
     public function rules()
     {
         return [
-            [['permohonan_kemudahan_ticket_kapal_terbang_id', 'bil_penumpang', 'kelulusan'], 'integer'],
+            [['permohonan_kemudahan_ticket_kapal_terbang_id', 'bil_penumpang', 'kelulusan', 'created_by', 'hantar_flag'], 'integer'],
             [['nama_pemohon', 'bahagian', 'jawatan', 'destinasi', 'tarikh', 'nama_program', 'no_fail_kelulusan', 
                 'aktiviti', 'kod_perbelanjaan', 'sukan', 'atlet', 'jurulatih', 'pegawai_teknikal', 'cawangan'], 'safe'],
         ];
@@ -64,6 +64,8 @@ class PermohonanKemudahanTicketKapalTerbangSearch extends PermohonanKemudahanTic
             'tarikh' => $this->tarikh,
             'bil_penumpang' => $this->bil_penumpang,
             'kelulusan' => $this->kelulusan,
+            'tbl_permohonan_kemudahan_ticket_kapal_terbang.created_by' => $this->created_by,
+            'tbl_permohonan_kemudahan_ticket_kapal_terbang.hantar_flag' => $this->hantar_flag,
         ]);
 
         $query->andFilterWhere(['like', 'nama_pemohon', $this->nama_pemohon])
@@ -78,7 +80,7 @@ class PermohonanKemudahanTicketKapalTerbangSearch extends PermohonanKemudahanTic
             ->andFilterWhere(['like', 'atlet', $this->atlet])
             ->andFilterWhere(['like', 'jurulatih', $this->jurulatih])
             ->andFilterWhere(['like', 'pegawai_teknikal', $this->pegawai_teknikal])
-                ->andFilterWhere(['like', 'tbl_ref_cawangan.desc', $this->cawangan]);
+            ->andFilterWhere(['like', 'tbl_ref_cawangan.desc', $this->cawangan]);
 
         return $dataProvider;
     }

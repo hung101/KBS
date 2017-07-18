@@ -2,9 +2,12 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
+
+use app\models\RefStatusTawaran;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\GeranBantuanGajiSearch */
@@ -91,13 +94,22 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             // 'status_geran',
             //'kelulusan',
-            [
+            /*[
                 'attribute' => 'kelulusan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::kelulusan,
                 ],
                 'value' => 'refKelulusan.desc'
+            ],*/
+            [
+                'attribute' => 'status_tawaran_jkb',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_tawaran_jkb,
+                ],
+                'filter' => Html::activeDropDownList($searchModel, 'status_tawaran_jkb', ArrayHelper::map(RefStatusTawaran::find()->where(['=', 'aktif', 1])->all(), 'id', 'desc'),['class'=>'form-control','prompt' => '-- Pilih Status --']),
+                'value' => 'refStatusJkb.desc'
             ],
             // 'catatan',
 

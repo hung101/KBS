@@ -18,7 +18,8 @@ class BantuanPenganjuranKejohananSearch extends BantuanPenganjuranKejohanan
     public function rules()
     {
         return [
-            [['bantuan_penganjuran_kejohanan_id', 'bil_pasukan', 'bil_peserta', 'bil_pengadil_hakim', 'bil_pegawai_teknikal', 'bilangan_pembantu', 'created_by', 'updated_by'], 'integer'],
+            [['bantuan_penganjuran_kejohanan_id', 'bil_pasukan', 'bil_peserta', 'bil_pengadil_hakim', 'bil_pegawai_teknikal', 'bilangan_pembantu', 
+                'created_by', 'updated_by', 'hantar_flag'], 'integer'],
             [['badan_sukan', 'sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_telefon', 'no_faks', 'laman_sesawang', 'facebook', 'twitter', 'nama_bank', 'no_akaun', 'nama_kejohanan_pertandingan', 'peringkat', 'tarikh_mula', 'tarikh_tamat', 'tempat', 'tujuan', 'kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri', 'permohonan_rasmi_dari_ahli_gabungan', 'maklumat_lain_sokongan', 'status_permohonan', 'catatan', 'tarikh_permohonan', 'jkb', 'tarikh_jkb', 'created', 'updated'], 'safe'],
             [['anggaran_perbelanjaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number'],
         ];
@@ -80,6 +81,7 @@ class BantuanPenganjuranKejohananSearch extends BantuanPenganjuranKejohanan
             'tbl_bantuan_penganjuran_kejohanan.updated_by' => $this->updated_by,
             'tbl_bantuan_penganjuran_kejohanan.created' => $this->created,
             'tbl_bantuan_penganjuran_kejohanan.updated' => $this->updated,
+            'tbl_bantuan_penganjuran_kejohanan.hantar_flag' => $this->hantar_flag,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_profil_badan_sukan.nama_badan_sukan', $this->badan_sukan])

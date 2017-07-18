@@ -62,7 +62,7 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatih extends \yii\db\ActiveR
     {
         return [
             [['jurulatih', 'tarikh_mula', 'status_permohonan', 'tarikh_tamat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['jurulatih'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jurulatih', 'status_tawaran_jkb', 'status_tawaran_mpj'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah_gaji_elaun', 'cadangan_jumlah_gaji_elaun'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tarikh_mula_lantikan', 'tarikh_tamat_lantikan', 'penamatan_tarikh_berkuatkuasa', 'tarikh_jkb', 'tarikh_mpj'], 'safe'],
             //[[ 'muat_naik_document'], 'string', 'max' => 100],
@@ -95,12 +95,14 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatih extends \yii\db\ActiveR
             'bil_jkb' => GeneralLabel::bilangan_jkb,
             'tarikh_jkb' => GeneralLabel::tarikh_jkb,
             'muat_naik_cadangan' => GeneralLabel::upload,
-			'kelulusan_dkp' => GeneralLabel::kelulusan_dkp,
-			'catatan_jkb' => GeneralLabel::catatan,
+            'kelulusan_dkp' => GeneralLabel::kelulusan_dkp,
+            'catatan_jkb' => GeneralLabel::catatan,
+            'status_tawaran_jkb' => GeneralLabel::status_tawaran_jkb,
             'bil_mpj' => GeneralLabel::bilangan_mpj,
-			'tarikh_mpj' => GeneralLabel::tarikh_mpj,
-			'pengerusi' => GeneralLabel::pengerusi,
-			'catatan_mpj' => GeneralLabel::catatan,
+            'tarikh_mpj' => GeneralLabel::tarikh_mpj,
+            'pengerusi' => GeneralLabel::pengerusi,
+            'catatan_mpj' => GeneralLabel::catatan,
+            'status_tawaran_mpj' => GeneralLabel::status_tawaran_mpj,
         ];
     }
     
@@ -123,5 +125,12 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatih extends \yii\db\ActiveR
     public function getRefStatusPermohonanKontrakJurulatih()
     {
         return $this->hasOne(RefStatusPermohonanKontrakJurulatih::className(), ['id' => 'status_permohonan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJurulatihSukan(){
+        return $this->hasMany(JurulatihSukan::className(), ['jurulatih_id' => 'jurulatih']);
     }
 }

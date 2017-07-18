@@ -23,6 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProviderBantuanPenyertaanPegawaiTeknikalDisertai' => $dataProviderBantuanPenyertaanPegawaiTeknikalDisertai,
         'searchModelBantuanPenyertaanPegawaiTeknikalOlehMsn' => $searchModelBantuanPenyertaanPegawaiTeknikalOlehMsn,
         'dataProviderBantuanPenyertaanPegawaiTeknikalOlehMsn' => $dataProviderBantuanPenyertaanPegawaiTeknikalOlehMsn,
+        'searchModelBantuanPenyertaanPegawaiTeknikalElemen' => $searchModelBantuanPenyertaanPegawaiTeknikalElemen,
+        'dataProviderBantuanPenyertaanPegawaiTeknikalElemen' => $dataProviderBantuanPenyertaanPegawaiTeknikalElemen,
         'readonly' => $readonly,
     ]) ?>
 

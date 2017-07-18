@@ -473,41 +473,6 @@ use app\models\general\GeneralMessage;
             </div>
         </div>
     </div>
-    
-
-    <!--<?= $form->field($model, 'nama')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'sekolah')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'alamat_1')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_2')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_3')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_negeri')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_bandar')->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'alamat_poskod')->textInput(['maxlength' => 5]) ?>
-
-    <?= $form->field($model, 'jantina')->textInput(['maxlength' => 1]) ?>
-
-    <?= $form->field($model, 'no_telefon')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'darjah')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'berat_badan')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'ketinggian')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'tinggi_duduk')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'panjang_depa')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'body_mass_index')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'catatan')->textInput(['maxlength' => 255]) ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>

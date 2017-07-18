@@ -19,10 +19,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['update'])): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['create']) && $model->hantar_flag == 0)): ?>
+            <?= Html::a(GeneralLabel::send, ['hantar', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_id], [
+                'class' => 'btn btn-success',
+                'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                    'method' => 'post',
+                ],
+                ]) ?>
+        <?php endif; ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['update']) && $model->hantar_flag == 0) || isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['kelulusan'])): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['delete'])): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['delete']) && $model->hantar_flag == 0) || isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['kelulusan'])): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
@@ -31,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['update'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['update']) && $model->hantar_flag == 1): ?>
             <?= Html::a(GeneralLabel::borang_penempahan_tiket, ['borang-penempahan', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_id], ['class' => 'btn btn-success', 'target' => '_blank']) ?>
         <?php endif; ?>
     </p>

@@ -44,13 +44,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'bantuan_penyertaan_pegawai_teknikal_id',
             [
+                'attribute' => 'nama_kejohanan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_kejohanan,
+                ],
+            ],
+            /*[
                 'attribute' => 'badan_sukan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::badan_sukan,
                 ],
                 'value' => 'refProfilBadanSukan.nama_badan_sukan'
-            ],
+            ],*/
             [
                 'attribute' => 'sukan',
                 'filterInputOptions' => [
@@ -129,7 +136,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             'target' => '_blank'
                         ]);
                         
-                        return $model->status_permohonan == app\models\RefStatusBantuanPenyertaanPegawaiTeknikal::LULUS ? $laporanLink : '';
+                        return ($model->status_permohonan == app\models\RefStatusBantuanPenyertaanPegawaiTeknikal::LULUS &&
+        ((isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penyertaan-pegawai-teknikal']['kelulusan']) && $model->laporan_hantar_flag == 1) ||
+        !isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penyertaan-pegawai-teknikal']['kelulusan']))) ? $laporanLink : '';
                     },
                 ],
                 'template' => $template .= ' {report}',

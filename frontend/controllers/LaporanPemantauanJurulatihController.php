@@ -43,7 +43,7 @@ class LaporanPemantauanJurulatihController extends Controller
      * Lists all LaporanPemantauanJurulatih models.
      * @return mixed
      */
-    public function actionIndex($id = null)
+    public function actionIndex($jurulatih_id = null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -51,7 +51,7 @@ class LaporanPemantauanJurulatihController extends Controller
         
         $queryPar = Yii::$app->request->queryParams;
         
-        $queryPar['LaporanPemantauanJurulatihSearch']['jurulatih_id_filter'] = $id;
+        $queryPar['LaporanPemantauanJurulatihSearch']['jurulatih_id_filter'] = $jurulatih_id;
         
         $searchModel = new LaporanPemantauanJurulatihSearch();
         $dataProvider = $searchModel->search($queryPar);
@@ -59,7 +59,7 @@ class LaporanPemantauanJurulatihController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'id' => $id,
+            'jurulatih_id' => $jurulatih_id,
         ]);
     }
 
@@ -68,7 +68,7 @@ class LaporanPemantauanJurulatihController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($id, $jurulatih_id = null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -99,6 +99,7 @@ class LaporanPemantauanJurulatihController extends Controller
             'searchModelLaporanPemantauanJurulatihKategori' => $searchModelLaporanPemantauanJurulatihKategori,
             'dataProviderLaporanPemantauanJurulatihKategori' => $dataProviderLaporanPemantauanJurulatihKategori,
             'readonly' => true,
+            'jurulatih_id' => $jurulatih_id,
         ]);
     }
 
@@ -107,7 +108,7 @@ class LaporanPemantauanJurulatihController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($id = null)
+    public function actionCreate($jurulatih_id = null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -115,12 +116,12 @@ class LaporanPemantauanJurulatihController extends Controller
         
         $model = new LaporanPemantauanJurulatih();
 
-        if($id != null){
-            $jurulatihModel = Jurulatih::findOne($id);
+        if($jurulatih_id != null){
+            $jurulatihModel = Jurulatih::findOne($jurulatih_id);
             $model->jurulatih_id = $jurulatihModel->jurulatih_id;
             $model->pusat_latihan = $jurulatihModel->pusat_latihan;
             
-            $jurulatihSukan = JurulatihSukan::find()->where(['tbl_jurulatih_sukan.jurulatih_id'=>$id])->joinWith(['refJurulatihAcara' => function($query) {
+            $jurulatihSukan = JurulatihSukan::find()->where(['tbl_jurulatih_sukan.jurulatih_id'=>$jurulatih_id])->joinWith(['refJurulatihAcara' => function($query) {
                         $query->orderBy(['tbl_jurulatih_sukan_acara.created' => SORT_DESC])->one();
                     },
             ])->orderBy(['tbl_jurulatih_sukan.created' => SORT_DESC])->one();
@@ -155,7 +156,7 @@ class LaporanPemantauanJurulatihController extends Controller
                 'searchModelLaporanPemantauanJurulatihKategori' => $searchModelLaporanPemantauanJurulatihKategori,
                 'dataProviderLaporanPemantauanJurulatihKategori' => $dataProviderLaporanPemantauanJurulatihKategori,
                 'readonly' => false,
-                'id' => $id,
+                'jurulatih_id' => $jurulatih_id,
             ]);
         }
     }

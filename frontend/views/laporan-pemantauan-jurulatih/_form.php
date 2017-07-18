@@ -33,7 +33,7 @@ use common\models\general\GeneralFunction;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="pengurusan-pemantauan-dan-penilaian-jurulatih-form">
+<div class="laporan-pemantauan-jurulatih-form">
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
     

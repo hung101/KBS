@@ -44,7 +44,7 @@ use app\models\general\GeneralVariable;
     ?>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
-    
+    <?php //echo $form->errorSummary($model); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -97,7 +97,7 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'pendahuluan_80' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true, 'disabled'=>$disablePersatuan]],
+                //'pendahuluan_80' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true, 'disabled'=>$disablePersatuan]],
                 'no_cek' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
                 'no_boucer' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
             ]
@@ -166,7 +166,7 @@ $('#bantuanpenganjurankursuspegawaiteknikallaporantuntutan-jumlah_kelulusan').on
 
 $(document).ready(function(){   
     if('$newRecord' == 1){
-        calculatePendahuluanDituntut();
+        //calculatePendahuluanDituntut();
     }
 });
         

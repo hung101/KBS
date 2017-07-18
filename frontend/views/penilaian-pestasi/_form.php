@@ -21,6 +21,7 @@ use app\models\PerancanganProgram;
 use app\models\RefJenisAktiviti;
 use app\models\RefNegeri;
 use app\models\RefPeringkatKejohananTemasya;
+use app\models\RefKategoriKejohananTemasya;
 use common\models\User;
 
 // contant values
@@ -276,7 +277,50 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
+                'kategori' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        // 'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        // [
+                            // 'append' => [
+                                // 'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                // 'asButton' => true
+                            // ]
+                        // ] : null,
+                        'data'=>ArrayHelper::map(RefKategoriKejohananTemasya::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kategori],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
                 'nama_kejohanan_temasya' => [
+                        'type'=>Form::INPUT_WIDGET, 
+                        'widgetClass'=>'\kartik\widgets\DepDrop', 
+                        'options'=>[
+                            'type'=>DepDrop::TYPE_SELECT2,
+                            'select2Options'=> [
+                                /*'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                        'append' => [
+                                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-pelan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                                'asButton' => true
+                                        ]
+                                ] : null,*/
+                                'pluginOptions'=>['allowClear'=>true]
+                            ],
+                            'data'=>ArrayHelper::map(\app\models\PerancanganProgramPlan::find()->joinWith('refKategoriPelan')
+                                                        ->where(['IS NOT', 'perancangan_program_plan_master_id', NULL])
+                            ->andWhere(['LIKE', 'id', '1'])->orWhere(['LIKE', 'id', '8'])->all(),'perancangan_program_id', 'nama_program'),
+                            'options'=>['prompt'=>'','id' => 'kejohananTemasya',],
+                            'pluginOptions' => [
+                                    'initialize' => true,
+                                    'depends'=>[Html::getInputId($model, 'kategori')],
+                                    'placeholder' => Placeholder::kejohanan_temasya,
+                                    'url'=>Url::to(['/perancangan-program-plan/subitems'])],
+                            ],
+                        'columnOptions'=>['colspan'=>4]],
+                /*'nama_kejohanan_temasya' => [
                 'type'=>Form::INPUT_WIDGET, 
                 'widgetClass'=>'\kartik\widgets\Select2',
                 'options'=>[
@@ -294,7 +338,7 @@ use app\models\general\GeneralMessage;
                     'pluginOptions' => [
                         'allowClear' => true
                     ],],
-                'columnOptions'=>['colspan'=>4]],
+                'columnOptions'=>['colspan'=>4]],*/
             ],
         ],
         [
@@ -371,7 +415,7 @@ use app\models\general\GeneralMessage;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'negeri' => [
+                /*'negeri' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -387,7 +431,7 @@ use app\models\general\GeneralMessage;
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>3]],*/
             ],
         ],
         [

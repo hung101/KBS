@@ -68,10 +68,10 @@ class TempahanKemudahanSubMsn extends \yii\db\ActiveRecord
                 'tarikh_akhir', 'jumlah_orang', 'status', 'agensi'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_mula'], 'safe'],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
-            [['no_tel'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['no_tel', 'jumlah_jam'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_tel'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],            
             [['nama', 'venue', 'nama_pemilik'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['quantity_kadar'], 'string', 'max' => 11, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['quantity_kadar', 'jumlah_jam'], 'string', 'max' => 11, 'skipOnEmpty' => true, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],            
             [['tel_bimbit_no_pemilik', 'fax_no_pemilik'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -112,7 +112,7 @@ class TempahanKemudahanSubMsn extends \yii\db\ActiveRecord
             'quantity_kadar' => GeneralLabel::quantity_kadar,
             'bayaran_sewa' => GeneralLabel::bayaran_sewa_rm,
             'tarikh_mula' => GeneralLabel::tarikh_mula,
-            'tarikh_akhir' => GeneralLabel::tarikh_akhir,
+            'tarikh_akhir' => GeneralLabel::tarikh_tamat,
             'kadar_sewaan_sejam_siang' => GeneralLabel::kadar_sewaan_sejam_siang,
             'kadar_sewaan_sehari_siang' => GeneralLabel::kadar_sewaan_sehari_siang,
             'kadar_sewaan_seminggu_siang' => GeneralLabel::kadar_sewaan_seminggu_siang,
@@ -146,6 +146,7 @@ class TempahanKemudahanSubMsn extends \yii\db\ActiveRecord
             'negeri_search' => GeneralLabel::negeri_search,
             'kategori_hakmilik_search' => GeneralLabel::kategori_hakmilik_search,
             'agensi'=> GeneralLabel::agensi,
+            'jumlah_jam'=> GeneralLabel::jumlah_jam,
         ];
     }
     

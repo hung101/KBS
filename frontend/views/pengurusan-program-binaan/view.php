@@ -22,10 +22,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['update'])): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['create']) && $model->hantar_flag == 0)): ?>
+            <?= Html::a(GeneralLabel::send, ['hantar', 'id' => $model->pengurusan_program_binaan_id], [
+                'class' => 'btn btn-success',
+                'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                    'method' => 'post',
+                ],
+                ]) ?>
+        <?php endif; ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['update']) && $model->hantar_flag == 0)  || isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['kelulusan'])): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->pengurusan_program_binaan_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['delete'])): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['delete']) && $model->hantar_flag == 0)  || isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['kelulusan'])): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->pengurusan_program_binaan_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
@@ -34,13 +43,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['update'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['kelulusan']) && $model->hantar_flag == 1): ?>
             <?= Html::a(GeneralLabel::print_jkb, ['print-jkk-jkp', 'id' => $model->pengurusan_program_binaan_id], ['class' => 'btn btn-info custom_button', 'target' => '_blank']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['update']) && $jenisPermohonan === 'USPTN'): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['update']) && $model->hantar_flag == 1 && $jenisPermohonan === 'USPTN'): ?>
             <?= Html::a(GeneralLabel::print_borang_permohonan, ['print-borang-permohonan', 'id' => $model->pengurusan_program_binaan_id], ['class' => 'btn btn-success custom_button', 'target' => '_blank']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['update']) && $jenisPermohonan === 'USPTN'): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['update']) && $model->hantar_flag == 1 && $jenisPermohonan === 'USPTN'): ?>
             <?= Html::a(GeneralLabel::laporan_penganjuran_penyertaan, ['laporan-penganjuran', 'id' => $model->pengurusan_program_binaan_id, 'readonly' =>false], ['class' => 'btn btn-warning custom_button', 'target' => '_blank']) ?>
         <?php endif; ?>
     </p>

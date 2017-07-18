@@ -1,0 +1,14 @@
+Note Update for 14 July 2017
+===============================
+reports
+-------
+(update)
+-LaporanKewanganPlanPeriodisasi.jrxml
+-LaporanPelanPeriodisasi.jrxml
+
+
+
+
+
+
+,view_own_data;Data Sendiri

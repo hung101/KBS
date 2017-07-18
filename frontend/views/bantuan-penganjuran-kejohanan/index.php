@@ -156,7 +156,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             'target' => '_blank'
                         ]);
                         
-                        return $model->status_permohonan == RefStatusBantuanPenganjuranKejohanan::LULUS ? $laporanLink : '';
+                        return ($model->status_permohonan == RefStatusBantuanPenganjuranKejohanan::LULUS &&
+        ((isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['kelulusan']) && $model->laporan_hantar_flag == 1) ||
+        !isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['kelulusan']))) ? $laporanLink : '';
                     },
                 ],
                 'template' => $template,

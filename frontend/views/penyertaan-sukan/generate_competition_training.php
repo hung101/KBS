@@ -89,19 +89,19 @@ $datas = PenyertaanSukan::find()->where(['nama_sukan' => $model->nama_sukan, 'pr
                         ->all();
             $resultStr = '';
             if($emasCount > 0) {
-                $resultStr = $resultStr.$emasCount.' Gold';
+                $resultStr = $resultStr.$emasCount.' EMAS';
                 if($perakCount > 0 || $gangsaCount > 0 || count($allRank) > 0) {
                     $resultStr = $resultStr.', ';
                 }
             }
             if($perakCount > 0) {
-                $resultStr = $resultStr.$perakCount.' Silver';
+                $resultStr = $resultStr.$perakCount.' PERAK';
                 if($gangsaCount > 0 || count($allRank) > 0) {
                     $resultStr = $resultStr.', ';
                 }
             }
             if($gangsaCount > 0) {
-                $resultStr = $resultStr.$gangsaCount.' Bronze';
+                $resultStr = $resultStr.$gangsaCount.' GANGSA';
                 if(count($allRank) > 0) {
                     $resultStr = $resultStr.', ';
                 }

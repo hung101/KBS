@@ -22,12 +22,12 @@ $this->params['breadcrumbs'][] = $this->title;
         
         // Update Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus-pegawai-teknikal']['update'])){
-            $template .= ' {update}';
+            //$template .= ' {update}';
         }
         
         // Delete Access
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus-pegawai-teknikal']['delete'])){
-            $template .= ' {delete}';
+            //$template .= ' {delete}';
         }
         
         $template .= ' {report}';
@@ -50,13 +50,20 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'bantuan_penganjuran_kursus_pegawai_teknikal_id',
             //'badan_sukan',
-            [
+            /*[
                 'attribute' => 'badan_sukan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::badan_sukan,
                 ],
                 'value' => 'refProfilBadanSukan.nama_badan_sukan'
+            ],*/
+            [
+                'attribute' => 'nama_kursus_seminar_bengkel',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_kursus_seminar_bengkel,
+                ],
             ],
             //'sukan',
             [
@@ -137,7 +144,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             'target' => '_blank'
                         ]);
                         
-                        return $model->status_permohonan == RefStatusBantuanPenganjuranKursusPegawaiTeknikal::LULUS ? $laporanLink : '';
+                        return ($model->status_permohonan == RefStatusBantuanPenganjuranKursusPegawaiTeknikal::LULUS &&
+        ((isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus-pegawai-teknikal']['kelulusan']) && $model->laporan_hantar_flag == 1) ||
+        !isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus-pegawai-teknikal']['kelulusan']))) ? $laporanLink : '';
                     },
                 ],
                 'template' => $template,

@@ -482,4 +482,53 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
 
             return $this->redirect(['update', 'id' => $id]);
     }
+    
+    /**
+     * Updates an existing BantuanPenganjuranKursusPegawaiTeknikalLaporan model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set approved
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->save();
+        
+        if($model->bantuan_penganjuran_kursus_pegawai_teknikal_id && $model->bantuan_penganjuran_kursus_pegawai_teknikal_id != 0){
+            if (($modelBantuanPenganjuranKursusPegawaiTeknikal = BantuanPenganjuranKursusPegawaiTeknikal::findOne($model->bantuan_penganjuran_kursus_pegawai_teknikal_id)) !== null) {
+                $modelBantuanPenganjuranKursusPegawaiTeknikal->laporan_hantar_flag = $model->hantar_flag;
+                $modelBantuanPenganjuranKursusPegawaiTeknikal->tarikh_laporan_hantar = $model->tarikh_hantar;
+
+                $modelBantuanPenganjuranKursusPegawaiTeknikal->save();
+            } 
+        } 
+        
+        if($model->bantuan_penyertaan_pegawai_teknikal_id && $model->bantuan_penyertaan_pegawai_teknikal_id != 0){
+            if (($modelBantuanPenyertaanPegawaiTeknikal = BantuanPenyertaanPegawaiTeknikal::findOne($model->bantuan_penyertaan_pegawai_teknikal_id)) !== null) {
+                $modelBantuanPenyertaanPegawaiTeknikal->laporan_hantar_flag = $model->hantar_flag;
+                $modelBantuanPenyertaanPegawaiTeknikal->tarikh_laporan_hantar = $model->tarikh_hantar;
+
+                $modelBantuanPenyertaanPegawaiTeknikal->save();
+            } 
+        } 
+        
+        if($model->bantuan_penganjuran_kursus_id && $model->bantuan_penganjuran_kursus_id != 0){
+            if (($modelBantuanPenganjuranKursus = BantuanPenganjuranKursus::findOne($model->bantuan_penganjuran_kursus_id)) !== null) {
+                $modelBantuanPenganjuranKursus->laporan_hantar_flag = $model->hantar_flag;
+                $modelBantuanPenganjuranKursus->tarikh_laporan_hantar = $model->tarikh_hantar;
+
+                $modelBantuanPenganjuranKursus->save();
+            } 
+        } 
+        
+        return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id]);
+    }
 }

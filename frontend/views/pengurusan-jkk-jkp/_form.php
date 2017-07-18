@@ -111,7 +111,7 @@ use app\models\general\GeneralMessage;
                         'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options'=>['prompt'=>'',],
                         'pluginOptions' => [
-                            'initialize' => true,
+                            'initialize' => !$model->isNewRecord,
                             'depends'=>[Html::getInputId($model, 'cawangan')],
                             'placeholder' => Placeholder::sukan,
                             'id'=>'sukanId',

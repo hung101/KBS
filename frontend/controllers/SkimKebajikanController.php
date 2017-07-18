@@ -130,6 +130,10 @@ class SkimKebajikanController extends Controller
         }
         
         $model = new SkimKebajikan();
+        
+        // set user full name
+        $model->nama_pemohon_text = Yii::$app->user->identity->full_name;
+        
         $oldKelulusan = null;
         
         if($model->load(Yii::$app->request->post())){
@@ -208,30 +212,57 @@ class SkimKebajikanController extends Controller
                     if($model->kelulusan != $oldKelulusan){
                         try {
                             $refJenisKebajikan = RefJenisKebajikan::findOne(['id' => $model->jenis_bantuan_skak]);
+                            $refJenisKebajikanDesc = $refJenisKebajikan['desc'];
                             $refJenisKebajikan['desc'] = strtoupper($refJenisKebajikan['desc']);
-        
+                            
+                            $ref = Atlet::findOne(['atlet_id' => $model->nama_pemohon]);
+                            $nama_atlet = $ref['nameAndIC'];
+                            
+                            if($model->tarikh_kelulusan != "") {$model->tarikh_kelulusan = GeneralFunction::convert($model->tarikh_kelulusan, GeneralFunction::TYPE_DATE);}
+                            $emailContent = '';
+                            if($model->kelulusan == 1){
+                                $emailContent = '2. Adalah dimaklumkan bahawa pihak Majlis <b>TELAH MELULUSKAN</b> permohonan bantuan dan peruntukan seperti berikut:
+<br><br>
+Nama Penerima:  ' . $model->nama_penerima . '
+<br>Jenis Bantuan:  ' . $refJenisKebajikan['desc'] . '
+<br>Jumlah Bantuan:  RM' . $model->jumlah_bantuan . '
+<br>Tarikh Kelulusan:  ' . $model->tarikh_kelulusan . '
+<br><br>';
+                            } elseif($model->kelulusan == 2) {
+                                $emailContent = '2. Adalah dimaklumkan bahawa pihak Majlis <b>TIDAK MELULUSKAN</b> permohonan bantuan dan peruntukan seperti berikut:
+<br><br>
+Nama Atlet:  ' . $nama_atlet . '
+<br>Jenis Bantuan:  ' . $refJenisKebajikan['desc'] . '
+<br><br>';
+                            } elseif($model->kelulusan == 3) {
+                                $emailContent = '2. Adalah dimaklumkan bahawa pihak Majlis <b>DALAM PROSES</b> permohonan bantuan dan peruntukan seperti berikut:
+<br><br>
+Nama Atlet:  ' . $nama_atlet . '
+<br>Jenis Bantuan:  ' . $refJenisKebajikan['desc'] . '
+<br><br>';
+                            }
+                            
+                            
                                 Yii::$app->mailer->compose()
                                         ->setTo($model->emel_penerima)
-                                                                    ->setFrom('noreply@spsb.com')
-                                        ->setSubject('Permohonan Skim Kebajikan Tuan/Puan Telah Diproses')
+                                        ->setFrom('noreply@spsb.com')
+                                        ->setSubject('Status Permohonan Skim Kebajikan')
                                         ->setHtmlBody('Salam Sejahtera,
 <br><br>
 Tuan/Puan,
 <br><br>
 MAKLUMAN PERMOHONAN ' . $refJenisKebajikan['desc'] . '
 <br><br>
-Dengan hormatnya saya ingin menarik perhatian tuan mengenai perkara di atas adalah berkaitan.
+Dengan hormatnya saya ingin menarik perhatian Tuan/Puan mengenai perkara di atas adalah berkaitan.
 <br><br>
-2. Adalah dimaklumkan bahawa pihak Majlis <b>' .($model->kelulusan == 1)?'TELAH MELULUSKAN':'TIDAK MELULUSKAN'. '</b> permohonan bantuan dan peruntukan seperti berikut:
-<br><br>
-Permohonan:  ' . $refJenisKebajikan['desc'] . '
-<br>Jumlah Bantuan:  RM' . $model->jumlah_bantuan . '
-<br><br>
+'.$emailContent.'
 3. Segala kerjasama dan perhatian pihak tuan diucapkan ribuan terima kasih.
 <br><br>
-                                "KE ARAH KECEMERLANGAN SUKAN"
+                                "KE ARAH KECEMERLANGAN SUKAN"<br>
                                 Majlis Sukan Negara Malaysia.
                                 ')->send();
+                                
+                                Yii::$app->session->setFlash('success', 'E-mel telah dihantar kepada penerima.');
                         }
                         catch(\Swift_SwiftException $exception)
                         {
@@ -342,34 +373,57 @@ Permohonan:  ' . $refJenisKebajikan['desc'] . '
                     if($model->kelulusan != $oldKelulusan){
                         try {
                             $refJenisKebajikan = RefJenisKebajikan::findOne(['id' => $model->jenis_bantuan_skak]);
+                            $refJenisKebajikanDesc = $refJenisKebajikan['desc'];
                             $refJenisKebajikan['desc'] = strtoupper($refJenisKebajikan['desc']);
                             
+                            $ref = Atlet::findOne(['atlet_id' => $model->nama_pemohon]);
+                            $nama_atlet = $ref['nameAndIC'];
+                            
                             if($model->tarikh_kelulusan != "") {$model->tarikh_kelulusan = GeneralFunction::convert($model->tarikh_kelulusan, GeneralFunction::TYPE_DATE);}
-        
+                            $emailContent = '';
+                            if($model->kelulusan == 1){
+                                $emailContent = '2. Adalah dimaklumkan bahawa pihak Majlis <b>TELAH MELULUSKAN</b> permohonan bantuan dan peruntukan seperti berikut:
+<br><br>
+Nama Penerima:  ' . $model->nama_penerima . '
+<br>Jenis Bantuan:  ' . $refJenisKebajikan['desc'] . '
+<br>Jumlah Bantuan:  RM' . $model->jumlah_bantuan . '
+<br>Tarikh Kelulusan:  ' . $model->tarikh_kelulusan . '
+<br><br>';
+                            } elseif($model->kelulusan == 2) {
+                                $emailContent = '2. Adalah dimaklumkan bahawa pihak Majlis <b>TIDAK MELULUSKAN</b> permohonan bantuan dan peruntukan seperti berikut:
+<br><br>
+Nama Atlet:  ' . $nama_atlet . '
+<br>Jenis Bantuan:  ' . $refJenisKebajikan['desc'] . '
+<br><br>';
+                            } elseif($model->kelulusan == 3) {
+                                $emailContent = '2. Adalah dimaklumkan bahawa pihak Majlis <b>DALAM PROSES</b> permohonan bantuan dan peruntukan seperti berikut:
+<br><br>
+Nama Atlet:  ' . $nama_atlet . '
+<br>Jenis Bantuan:  ' . $refJenisKebajikan['desc'] . '
+<br><br>';
+                            }
+                            
+                            
                                 Yii::$app->mailer->compose()
                                         ->setTo($model->emel_penerima)
-                                                                    ->setFrom('noreply@spsb.com')
-                                        ->setSubject('Permohonan Skim Kebajikan Tuan/Puan Telah Diproses')
+                                        ->setFrom('noreply@spsb.com')
+                                        ->setSubject('Status Permohonan Skim Kebajikan')
                                         ->setHtmlBody('Salam Sejahtera,
 <br><br>
 Tuan/Puan,
 <br><br>
 MAKLUMAN PERMOHONAN ' . $refJenisKebajikan['desc'] . '
 <br><br>
-Dengan hormatnya saya ingin menarik perhatian tuan mengenai perkara di atas adalah berkaitan.
+Dengan hormatnya saya ingin menarik perhatian Tuan/Puan mengenai perkara di atas adalah berkaitan.
 <br><br>
-2. Adalah dimaklumkan bahawa pihak Majlis <b>' .($model->kelulusan == 1)?'TELAH MELULUSKAN':'TIDAK MELULUSKAN'. '</b> permohonan bantuan dan peruntukan seperti berikut:
-<br><br>
-Nama Penerima:  ' . $model->nama_penerima . '
-<br>Jenis Bantuan:  ' . $refJenisKebajikan['desc'] . '
-<br>Jumlah Bantuan:  RM' . $model->jumlah_bantuan . '
-<br>Tarikh Kelulusan:  ' . $model->tarikh_kelulusan . '
-<br><br>
+'.$emailContent.'
 3. Segala kerjasama dan perhatian pihak tuan diucapkan ribuan terima kasih.
 <br><br>
-                                "KE ARAH KECEMERLANGAN SUKAN"
+                                "KE ARAH KECEMERLANGAN SUKAN"<br>
                                 Majlis Sukan Negara Malaysia.
                                 ')->send();
+                                
+                                Yii::$app->session->setFlash('success', 'E-mel telah dihantar kepada penerima.');
                         }
                         catch(\Swift_SwiftException $exception)
                         {

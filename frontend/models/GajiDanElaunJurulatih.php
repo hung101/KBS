@@ -61,11 +61,11 @@ class GajiDanElaunJurulatih extends \yii\db\ActiveRecord
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_passport'], 'string', 'max' => 15, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_sukan', 'bank', 'cawangan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['tarikh_mula', 'tarikh_tamat'], 'safe'],
+            [['tarikh_mula', 'tarikh_tamat', 'tarikh_jkb', 'tarikh_mpj', 'status_tawaran_jkb', 'status_tawaran_mpj'], 'safe'],
             [['no_pekerja', 'no_kwsp'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['dokumen_muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['no_akaun'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['catatan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_akaun', 'bil_jkb', 'bil_mpj'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['catatan', 'pengerusi', 'kelulusan_dkp', 'catatan_jkb', 'catatan_mpj'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['dokumen_muat_naik', 'surat_tawaran', 'kelulusan_pinjaman', 'rekod_cuti'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
@@ -94,6 +94,16 @@ class GajiDanElaunJurulatih extends \yii\db\ActiveRecord
             'surat_tawaran' => GeneralLabel::surat_tawaran,
             'kelulusan_pinjaman' => GeneralLabel::kelulusan_pinjaman,
             'rekod_cuti' => GeneralLabel::rekod_cuti,
+            'bil_jkb' => GeneralLabel::bilangan_jkb,
+            'tarikh_jkb' => GeneralLabel::tarikh_jkb,
+            'status_tawaran_jkb' => GeneralLabel::status_tawaran_jkb,
+            'kelulusan_dkp' => GeneralLabel::kelulusan_dkp,
+            'catatan_jkb' => GeneralLabel::catatan,
+            'bil_mpj' => GeneralLabel::bilangan_mpj,
+            'tarikh_mpj' => GeneralLabel::tarikh_mpj,
+            'status_tawaran_mpj' => GeneralLabel::status_tawaran_mpj,
+            'pengerusi' => GeneralLabel::pengerusi,
+            'catatan_mpj' => GeneralLabel::catatan,
         ];
     }
     

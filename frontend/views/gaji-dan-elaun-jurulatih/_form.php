@@ -17,6 +17,7 @@ use app\models\Jurulatih;
 use app\models\RefBank;
 use app\models\RefSukan;
 use app\models\RefProgramJurulatih;
+use app\models\RefStatusTawaran;
 
 // contant values
 use app\models\general\Placeholder;
@@ -367,6 +368,8 @@ use common\models\general\GeneralFunction;
     }
     ?>
     
+    <br>
+    
     <?php // Surat Tawaran Upload
     if($model->surat_tawaran){
         echo "<label>" . $model->getAttributeLabel('surat_tawaran') . "</label><br>";
@@ -398,6 +401,8 @@ use common\models\general\GeneralFunction;
         ]);
     }
     ?>
+    
+    <br>
     
     <?php // Kelulusan Pinjaman Upload
     if($model->kelulusan_pinjaman){
@@ -431,6 +436,8 @@ use common\models\general\GeneralFunction;
     }
     ?>
     
+    <br>
+    
     <?php // Rekod Cuti Upload
     if($model->rekod_cuti){
         echo "<label>" . $model->getAttributeLabel('rekod_cuti') . "</label><br>";
@@ -462,24 +469,130 @@ use common\models\general\GeneralFunction;
         ]);
     }
     ?>
-
-    <!--<?= $form->field($model, 'nama_jurulatih')->textInput() ?>
-
-    <?= $form->field($model, 'no_kad_pengenalan')->textInput(['maxlength' => 12]) ?>
-
-    <?= $form->field($model, 'no_passport')->textInput(['maxlength' => 15]) ?>
-
-    <?= $form->field($model, 'nama_sukan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'tarikh_mula')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'bank')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'no_akaun')->textInput(['maxlength' => 50]) ?>
-
-    <?= $form->field($model, 'cawangan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'catatan')->textInput(['maxlength' => 255]) ?>-->
+    
+    <br>
+    
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['gaji-dan-elaun-jurulatih']['kelulusan']) || $readonly): ?>
+    <pre style="text-align: center"><strong>MPJ</strong></pre>
+    <?php
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'status_tawaran_mpj' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-status-tawaran/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefStatusTawaran::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::status],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>3]],
+                        'tarikh_mpj' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=> DateControl::classname(),
+                            'ajaxConversion'=>false,
+                            'options'=>[
+                                'pluginOptions' => [
+                                    'autoclose'=>true,
+                                ]
+                            ],
+                            'columnOptions'=>['colspan'=>3]],
+                        'bil_mpj' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'pengerusi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'catatan_mpj' => ['type'=>Form::INPUT_TEXTAREA, 'options'=>['rows'=>2],'columnOptions'=>['colspan'=>12]],
+                    ]
+                ],
+            ]
+        ]);
+    ?>
+	
+	<br>
+    <pre style="text-align: center"><strong>JKB</strong></pre>
+    <?php
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'status_tawaran_jkb' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-status-tawaran/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefStatusTawaran::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::status],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>3]],
+                        'tarikh_jkb' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=> DateControl::classname(),
+                            'ajaxConversion'=>false,
+                            'options'=>[
+                                'pluginOptions' => [
+                                    'autoclose'=>true,
+                                ]
+                            ],
+                            'columnOptions'=>['colspan'=>4]],
+                        'bil_jkb' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'kelulusan_dkp' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+                    ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'catatan_jkb' => ['type'=>Form::INPUT_TEXTAREA, 'options'=>['rows'=>2],'columnOptions'=>['colspan'=>12]],
+                    ]
+                ],
+            ]
+        ]);
+    ?>
+    
+    <?php endif; ?>
 
     <div class="form-group">
         <?php if(!$readonly): ?>

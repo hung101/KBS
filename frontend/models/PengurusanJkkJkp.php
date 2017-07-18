@@ -121,4 +121,11 @@ class PengurusanJkkJkp extends \yii\db\ActiveRecord
     public function getRefStatusJkkJkp(){
         return $this->hasOne(RefStatusJkkJkp::className(), ['id' => 'status']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefJawatanJkkJkp(){
+        return $this->hasOne(RefJawatanJkkJkp::className(), ['id' => 'jawatan']);
+    }
 }

@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-pemantauan-dan-penilaian-jurulatih']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::penilaian_jurulatih, ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::penilaian_jurulatih, ['create', 'jurulatih_id' => $jurulatih_id], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 
@@ -85,13 +85,24 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
 
                     },
-                    'update' => function ($url, $model) {
+                    'update' => function ($url, $model) use ($jurulatih_id) {
                          $options = [
                             'title' => Yii::t('yii', 'Update'),
                             'aria-label' => Yii::t('yii', 'Update'),
                             'data-pjax' => '0',
                             ];
                         return ($model->hantar == 0) ? '' :Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, $options);
+                    },
+                    'view' => function ($url, $model) use ($jurulatih_id){
+                        if($jurulatih_id != null){
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url.'&jurulatih_id='.$jurulatih_id, [
+                            'title' => Yii::t('yii', 'View'),
+                            ]);
+                        } else {
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                            'title' => Yii::t('yii', 'View'),
+                            ]);
+                        }
                     },
                 ],
                 'template' => $template,

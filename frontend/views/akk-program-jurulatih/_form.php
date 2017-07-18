@@ -17,6 +17,7 @@ use app\models\Jurulatih;
 use app\models\RefTahapKerjayaJurulatih;
 use app\models\PenganjuranKursusAkk;
 use app\models\RefKelulusan;
+use app\models\RefStatusTawaran;
 
 // contant values
 use app\models\general\Placeholder;
@@ -278,7 +279,9 @@ use app\models\general\GeneralMessage;
     }
     ?>
     
-    
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['akk-program-jurulatih']['kelulusan']) || $readonly): ?>
+    <br>
+    <pre style="text-align: center"><strong>MPJ</strong></pre>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -289,7 +292,23 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'bilangan_mpj' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                'kelulusan_mpj' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-status-tawaran/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefStatusTawaran::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::status],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>3]],
                 'tarikh_mpj' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -300,30 +319,57 @@ use app\models\general\GeneralMessage;
                         ],
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'kelulusan_mpj' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-kelulusan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefKelulusan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kelulusan],
-                        'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
-                    'columnOptions'=>['colspan'=>3]],
+                'bilangan_mpj' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'pengerusi' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
             ]
         ],
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'bilangan_jkb' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                'catatan_mpj' => ['type'=>Form::INPUT_TEXTAREA, 'options'=>['rows'=>2],'columnOptions'=>['colspan'=>12]],
+            ]
+        ],
+    ]
+]);
+    ?>
+    
+    <br>
+    <pre style="text-align: center"><strong>JKB</strong></pre>
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'kelulusan_jkb' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-status-tawaran/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefStatusTawaran::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::status],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>3]],
                 'tarikh_jkb' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=> DateControl::classname(),
@@ -334,28 +380,28 @@ use app\models\general\GeneralMessage;
                         ],
                     ],
                     'columnOptions'=>['colspan'=>3]],
-                'kelulusan_jkb' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-kelulusan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(RefKelulusan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::kelulusan],
-                        'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
-                    'columnOptions'=>['colspan'=>3]],
+                'bilangan_jkb' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
             ]
-        ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'kelulusan_dkp' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'catatan_jkb' => ['type'=>Form::INPUT_TEXTAREA, 'options'=>['rows'=>2],'columnOptions'=>['colspan'=>12]],
+            ]
+        ],
     ]
 ]);
     ?>
+    
+     <?php endif; ?>
 
     <div class="form-group">
         <?php if(!$readonly): ?>

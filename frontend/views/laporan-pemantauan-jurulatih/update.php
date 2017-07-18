@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = ['label' => GeneralLabel::pemantauan_jurulatih,
 $this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle .' '.GeneralLabel::pemantauan_jurulatih, 'url' => ['view', 'id' => $model->laporan_pemantauan_jurulatih_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="pengurusan-pemantauan-dan-penilaian-jurulatih-update">
+<div class="laporan-pemantauan-jurulatih-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

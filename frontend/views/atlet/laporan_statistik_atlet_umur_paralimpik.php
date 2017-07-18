@@ -44,6 +44,8 @@ $negeri_list = GeneralFunction::getNegeri();
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]); ?>
+    <div class="row">
+        
     
      <div class="col-sm-4">
             <div class="panel panel-default">
@@ -205,7 +207,7 @@ $negeri_list = GeneralFunction::getNegeri();
             </div>
         </div>
     
-    
+    </div>
     
     <?php
         echo FormGrid::widget([

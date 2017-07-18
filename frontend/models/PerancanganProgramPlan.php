@@ -54,7 +54,8 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
         return [
             [['tarikh_mula', 'tarikh_tamat', 'jenis_program', 'nama_program', 'bahagian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_mula', 'tarikh_tamat', 'tarikh_kelulusan', 'status_program', 'sukan', 'cawangan', 'tarikh_jkk_jkp'], 'safe'],
-            [['mesyuarat_id', 'status_permohonan', 'jenis_aktiviti'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['mesyuarat_id', 'status_permohonan', 'jenis_aktiviti', 'jumlah_atlet', 'jumlah_jurulatih', 'jumlah_pegawai'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jumlah_atlet', 'jumlah_jurulatih', 'jumlah_pegawai'], 'string', 'max' => 11, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nama_program', 'bilangan_jkk_jkp'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kelulusan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lokasi'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -103,6 +104,9 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
             'perbelanjaan_diluluskan' => GeneralLabel::perbelanjaan_diluluskan.' (RM)',
             'tempat' => GeneralLabel::tempat,
             'catatan' => GeneralLabel::catatan,
+            'jumlah_atlet' => GeneralLabel::jumlah_atlet,
+            'jumlah_jurulatih' => GeneralLabel::jumlah_jurulatih,
+            'jumlah_pegawai' => GeneralLabel::jumlah_pegawai,
         ];
     }
     

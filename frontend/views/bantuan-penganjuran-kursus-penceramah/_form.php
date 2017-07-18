@@ -170,7 +170,7 @@ use common\models\general\GeneralFunction;
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'no_kad_pengenalan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true, 'id'=>'noKadPengenalanId']],
-                'umur' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true, 'id'=>'umurId']],
+                'umur' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>true, 'id'=>'umurId','disabled'=>true]],
             ]
         ],
         [
@@ -190,7 +190,7 @@ use common\models\general\GeneralFunction;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefJantina::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::jantina],
+                        'options' => ['placeholder' => Placeholder::jantina],'disabled'=>true,
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -397,6 +397,10 @@ $script = <<< JS
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 
     var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+    
+    $("#bantuanpenganjurankursuspenceramah-jantina").prop("disabled", false);
      
      // submit form
      $.ajax({

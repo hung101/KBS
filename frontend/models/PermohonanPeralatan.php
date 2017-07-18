@@ -60,7 +60,7 @@ class PermohonanPeralatan extends \yii\db\ActiveRecord
             [['jumlah_peralatan', 'kelulusan', 'mesyuarat_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['cawangan', 'aktiviti', 'bil_jkb'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['negeri', 'sukan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['program'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['nota_urus_setia', 'catatan_cadangan', 'catatan_kelulusan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];

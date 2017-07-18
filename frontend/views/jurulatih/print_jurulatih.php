@@ -578,10 +578,16 @@ use app\models\general\GeneralLabel;
             $ref = RefSektorPekerjaan::findOne(['id' => $modelJurulatih->sektor]);
             $modelJurulatih->sektor = $ref['desc'];
 
-            $ref = RefStatusTawaran::findOne(['id' => $modelJurulatih->status_tawaran]);
-            $modelJurulatih->status_tawaran = $ref['desc'];
+            //$ref = RefStatusTawaran::findOne(['id' => $modelJurulatih->status_tawaran]);
+            //$modelJurulatih->status_tawaran = $ref['desc'];
+            
+            $ref = RefStatusTawaran::findOne(['id' => $modelJurulatih->status_tawaran_jkb]);
+            $modelJurulatih->status_tawaran_jkb = $ref['desc'];
 
-             $ref = RefAgensiJurulatih::findOne(['id' => $modelJurulatih->agensi]);
+            $ref = RefStatusTawaran::findOne(['id' => $modelJurulatih->status_tawaran_mpj]);
+            $modelJurulatih->status_tawaran_mpj = $ref['desc'];
+
+            $ref = RefAgensiJurulatih::findOne(['id' => $modelJurulatih->agensi]);
             $modelJurulatih->agensi = $ref['desc'];
         
         
@@ -1625,15 +1631,65 @@ use app\models\general\GeneralLabel;
                 <div class="title_section">
                     <?=GeneralFunction::getUpperCaseWords(GeneralLabel::maklumat_tawaran)?>
                 </div>
+                <div class="title_section_sub">
+                    <?=GeneralFunction::getUpperCaseWords(GeneralLabel::kelulusan_mpj)?>
+                </div>
+                
                 <div>
                     <table>
                         <tr>
-                            <td class="field_label_2"><?=GeneralLabel::status_tawaran?></td>
+                            <td class="field_label_2"><?=GeneralLabel::status_tawaran_mpj?></td>
                             <td class="field_colon_2">:</td>
-                            <td class="field_value_2"><?=($modelJurulatih && $modelJurulatih->status_tawaran ? GeneralFunction::getUpperCaseWords($modelJurulatih->status_tawaran) : $no_data)?></td>
-                            <td class="field_label_2"><?=GeneralLabel::fail_rujukan?></td>
+                            <td class="field_value_2"><?=($modelJurulatih && $modelJurulatih->status_tawaran_mpj ? GeneralFunction::getUpperCaseWords($modelJurulatih->status_tawaran_mpj) : $no_data)?></td>
+                            <td class="field_label_2"><?=GeneralLabel::tarikh_mpj?></td>
                             <td class="field_colon_2">:</td>
-                            <td class="field_value_2"><?=($modelJurulatih && $modelJurulatih->no_fail ? GeneralFunction::getUpperCaseWords($modelJurulatih->no_fail) : $no_data)?></td>
+                            <td class="field_value_2"><?=($modelJurulatih && $modelJurulatih->tarikh_mpj ? GeneralFunction::getDatePrintFormat($modelJurulatih->tarikh_mpj) : $no_data)?></td>
+                        </tr>
+                        <tr>
+                            <td class="field_label_2"><?=GeneralLabel::bilangan_mpj?></td>
+                            <td class="field_colon_2">:</td>
+                            <td class="field_value_col_4" colspan="4"><?=($modelJurulatih && $modelJurulatih->bilangan_mpj ? GeneralFunction::getUpperCaseWords($modelJurulatih->bilangan_mpj) : $no_data)?></td>
+                        </tr>
+                        <tr>
+                            <td class="field_label_2"><?=GeneralLabel::pengerusi?></td>
+                            <td class="field_colon_2">:</td>
+                            <td class="field_value_col_4" colspan="4"><?=($modelJurulatih && $modelJurulatih->pengerusi ? GeneralFunction::getUpperCaseWords($modelJurulatih->pengerusi) : $no_data)?></td>
+                        </tr>
+                        <tr>
+                            <td class="field_label_2"><?=GeneralLabel::catatan?></td>
+                            <td class="field_colon_2">:</td>
+                            <td class="field_value_col_4" colspan="4"><?=($modelJurulatih && $modelJurulatih->catatan_mpj ? GeneralFunction::getUpperCaseWords($modelJurulatih->catatan_mpj) : $no_data)?></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="title_section_sub">
+                    <?=GeneralFunction::getUpperCaseWords(GeneralLabel::kelulusan_jkb)?>
+                </div>
+                
+                <div>
+                    <table>
+                        <tr>
+                            <td class="field_label_2"><?=GeneralLabel::status_tawaran_jkb?></td>
+                            <td class="field_colon_2">:</td>
+                            <td class="field_value_2"><?=($modelJurulatih && $modelJurulatih->status_tawaran_jkb ? GeneralFunction::getUpperCaseWords($modelJurulatih->status_tawaran_jkb) : $no_data)?></td>
+                            <td class="field_label_2"><?=GeneralLabel::tarikh_jkb?></td>
+                            <td class="field_colon_2">:</td>
+                            <td class="field_value_2"><?=($modelJurulatih && $modelJurulatih->tarikh_jkb ? GeneralFunction::getDatePrintFormat($modelJurulatih->tarikh_jkb) : $no_data)?></td>
+                        </tr>
+                        <tr>
+                            <td class="field_label_2"><?=GeneralLabel::bilangan_jkb?></td>
+                            <td class="field_colon_2">:</td>
+                            <td class="field_value_col_4" colspan="4"><?=($modelJurulatih && $modelJurulatih->bilangan_jkb ? GeneralFunction::getUpperCaseWords($modelJurulatih->bilangan_jkb) : $no_data)?></td>
+                        </tr>
+                        <tr>
+                            <td class="field_label_2"><?=GeneralLabel::kelulusan_dkp?></td>
+                            <td class="field_colon_2">:</td>
+                            <td class="field_value_col_4" colspan="4"><?=($modelJurulatih && $modelJurulatih->kelulusan_dkp ? GeneralFunction::getUpperCaseWords($modelJurulatih->kelulusan_dkp) : $no_data)?></td>
+                        </tr>
+                        <tr>
+                            <td class="field_label_2"><?=GeneralLabel::catatan?></td>
+                            <td class="field_colon_2">:</td>
+                            <td class="field_value_col_4" colspan="4"><?=($modelJurulatih && $modelJurulatih->catatan ? GeneralFunction::getUpperCaseWords($modelJurulatih->catatan) : $no_data)?></td>
                         </tr>
                     </table>
                 </div>

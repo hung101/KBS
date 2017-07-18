@@ -493,6 +493,23 @@ use common\models\general\GeneralFunction;
                     'columns'=>12,
                     'autoGenerateColumns'=>false, // override columns setting
                     'attributes' => [
+                        'status_tawaran_mpj' => [
+                            'type'=>Form::INPUT_WIDGET, 
+                            'widgetClass'=>'\kartik\widgets\Select2',
+                            'options'=>[
+                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                    'append' => [
+                                        'content' => Html::a(Html::icon('edit'), ['/ref-status-tawaran/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                        'asButton' => true
+                                    ]
+                                ] : null,
+                                'data'=>ArrayHelper::map(RefStatusTawaran::find()->all(),'id', 'desc'),
+                                'options' => ['placeholder' => Placeholder::status],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],],
+                            'columnOptions'=>['colspan'=>3]],
                         'tarikh_mpj' => [
                             'type'=>Form::INPUT_WIDGET, 
                             'widgetClass'=> DateControl::classname(),
@@ -552,7 +569,7 @@ use common\models\general\GeneralFunction;
                                 'pluginOptions' => [
                                     'allowClear' => true
                                 ],],
-                            'columnOptions'=>['colspan'=>4]],
+                            'columnOptions'=>['colspan'=>3]],
                         'tarikh_jkb' => [
                             'type'=>Form::INPUT_WIDGET, 
                             'widgetClass'=> DateControl::classname(),

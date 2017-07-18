@@ -54,8 +54,15 @@ use app\models\general\GeneralMessage;
     <?php
     if(!$readonly){
             $template = '{view} {update} {delete}';
+            
+            if($model->status === RefStatusTempahanKemudahan::LULUS){
+				echo '<script>var statusLulusFlag = true;</script>';
+			} else { echo '<script>var statusLulusFlag = false;</script>'; }
         } else {
             $template = '{view}';
+            if($model->status === 'Lulus'){
+				echo '<script>var statusLulusFlag = true;</script>';
+			} else { echo '<script>var statusLulusFlag = false;</script>'; }
         }
    ?>
     
@@ -150,7 +157,7 @@ use app\models\general\GeneralMessage;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>4]],
-                'agensi' => [
+                /*'agensi' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -161,11 +168,35 @@ use app\models\general\GeneralMessage;
                                 'asButton' => true
                             ]
                         ] : null,*/
-                        'data'=>ArrayHelper::map(RefAgensiKemudahan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        /*'data'=>ArrayHelper::map(RefAgensiKemudahan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::agensi],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
+                    'columnOptions'=>['colspan'=>4]],*/
+                'agensi' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
+                    'options'=>[
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            /*'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/pengurusan-kemudahan-sedia-ada/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,*/
+                            'pluginOptions'=>['allowClear'=>true]
+                        ],
+                        'data'=>ArrayHelper::map(PengurusanKemudahanSediaAdaMsn::find()->joinWith(['refAgensiKemudahan'])->all(),'agensi', 'refAgensiKemudahan.desc'),
+                        'options'=>['prompt'=>''],
+                        'pluginOptions' => [
+                            'depends'=>[Html::getInputId($model, 'venue')],
+                            'initialize' => true,
+                            'placeholder' => Placeholder::kemudahan,
+                            'url'=>Url::to(['/pengurusan-kemudahan-sedia-ada-msn/subagensis'])],
+                        ],
                     'columnOptions'=>['colspan'=>4]],
                 /*'kemudahan' => [
                     'type'=>Form::INPUT_WIDGET, 
@@ -515,7 +546,7 @@ use app\models\general\GeneralMessage;
         ?>
     
     
-     <h3>Fasiliti Yang Ingin Digunakan &nbsp <?php if(!$readonly): ?><?=Html::a('Senarai Kemudahan', 'javascript:void(0);', [
+     <h3><?php echo GeneralLabel::fasiliti_yang_ingin_digunakan;?> &nbsp <?php if(!$readonly): ?><?=Html::a(GeneralLabel::senarai_kemudahan, 'javascript:void(0);', [
                         'onclick' => 'loadModalRenderAjax("'.Url::to(['tempahan-kemudahan-sub-msn/create', 'tempahan_kemudahan_id' => $tempahan_kemudahan_id]).'", "Senarai Kemudahan");',
                         'class' => 'btn btn-success',
                         ]);?><?php endif; ?></h3>
@@ -596,6 +627,23 @@ use app\models\general\GeneralMessage;
                 },*/
             ],
             [
+                'attribute' => 'tarikh_akhir',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tarikh_tamat,
+                ],
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh_akhir, GeneralFunction::TYPE_DATETIME);
+                },
+            ],
+            [
+                'attribute' => 'jumlah_jam',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jumlah_jam,
+                ],
+            ],
+            [
                 'attribute' => 'jenis_kadar',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -659,12 +707,19 @@ use app\models\general\GeneralMessage;
     
     <?php 
         $jumlah_bayaran_sewa = 0.00;
+		$jumlah_bayaran_sewa_lulus = 0.00;
         foreach($dataProviderTempahanKemudahanSubMsn->models as $PTLmodel){
-            $jumlah_bayaran_sewa += $PTLmodel->bayaran_sewa;
+            //if(isset($PTLmodel->status) && $PTLmodel->status == RefStatusTempahanKemudahan::LULUS){
+                $jumlah_bayaran_sewa += $PTLmodel->bayaran_sewa;
+				
+				if($PTLmodel->status === RefStatusTempahanKemudahan::LULUS){
+					$jumlah_bayaran_sewa_lulus += $PTLmodel->bayaran_sewa;
+				}
+            //}
         }
     ?>
     
-    <h4>Jumlah Bayaran Sewa: RM <?php echo $jumlah_bayaran_sewa;?></h4>
+    <h4>Jumlah Bayaran Sewa: RM <span id="jumlahSemuaWrap"><?= $jumlah_bayaran_sewa;?></span><span id="jumlahLulusWrap"><?= $jumlah_bayaran_sewa_lulus;?></span></h4>
     
     <?php Pjax::end(); ?>
     
@@ -745,6 +800,12 @@ $(document).ready(function(){
         
         setAgensi();
         setVenue();
+        
+        if(statusLulusFlag === true){
+		$('#jumlahSemuaWrap').hide(); $('#jumlahLulusWrap').show();
+	} else {
+		$('#jumlahSemuaWrap').show(); $('#jumlahLulusWrap').hide();
+	}
 }); 
 
 $('#kemudahanID').change(function(){
@@ -912,6 +973,16 @@ $('#tempahankemudahanmsn-venue').change(function(){
         
 $('#tempahankemudahanmsn-agensi').change(function(){
     setAgensi();
+});
+        
+$('#statusID').change(function(){
+    //alert($(this).val());
+	var selectedText = $('#statusID :selected').text();
+	if(selectedText === 'Lulus'){
+		$('#jumlahSemuaWrap').hide(); $('#jumlahLulusWrap').show();
+	} else {
+		$('#jumlahSemuaWrap').show(); $('#jumlahLulusWrap').hide();
+	}
 });
         
 function setAgensi(){

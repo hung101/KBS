@@ -45,6 +45,13 @@ use common\models\general\GeneralFunction;
         
         $template .= ' {surat}';
     ?>
+    
+    <?php 
+    $isPersatuan = false; // default
+    if(!Yii::$app->user->isGuest && Yii::$app->user->identity->profil_badan_sukan){
+        $isPersatuan = true;
+    }
+    ?>
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
@@ -70,7 +77,7 @@ use common\models\general\GeneralFunction;
                         'pluginOptions' => [
                             'autoclose'=>true,
                         ],
-						'options'=>['disabled' => $disabled],
+                        'options'=>['disabled' => $disabled],
                     ],
                     'columnOptions'=>['colspan'=>3]],
 				'tarikh_tamat_kursus' => [
@@ -84,7 +91,25 @@ use common\models\general\GeneralFunction;
 						'options'=>['disabled' => $disabled],
                     ],
                     'columnOptions'=>['colspan'=>3]],
-				'tahap' => [
+            ]
+        ],
+    ]
+]);
+        ?>
+    
+    <div class="row">
+        <div class="col-sm-3">
+            <?php
+    echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+		'tahap' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -97,15 +122,17 @@ use common\models\general\GeneralFunction;
                         ] : null,
                         'data'=>ArrayHelper::map(RefTahapKpsk::find()->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::tahap, 'id' => 'tahapID', 'disabled' => $disabled],
-'pluginOptions' => [
+                        'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>12]],
             ]
         ],
     ]
 ]);
         ?>
+        </div>
+    </div>
     
     <h3><?php echo GeneralLabel::peserta_kursus; ?></h3>
     
@@ -236,29 +263,9 @@ use common\models\general\GeneralFunction;
     
     <br>
 
-    <!--<?= $form->field($model, 'penganjur_kursus')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'kod_kursus')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'tarikh_kursus')->textInput() ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
-
-    <?= $form->field($model, 'created')->textInput() ?>
-
-    <?= $form->field($model, 'updated')->textInput() ?>-->
-
     <div class="form-group">
-        <?php if(!$readonly && $model->isNewRecord): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary',
-            'data' => [
-                    'confirm' => GeneralMessage::confirmSave,
-                ],]) ?>
-        <?php endif; ?>
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::send : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary',
             'data' => [
                     'confirm' => GeneralMessage::confirmSave,
                 ],]) ?>
@@ -274,6 +281,8 @@ $URL_SET_TAHAP = Url::to(['/borang-profil-peserta-kpsk/set-tahap']);
 $DateDisplayFormat = GeneralVariable::displayDateFormat;
 
 $script = <<< JS
+        
+var isPersatuan = '$isPersatuan';
         
 $.fn.modal.Constructor.prototype.enforceFocus = function () {};
         

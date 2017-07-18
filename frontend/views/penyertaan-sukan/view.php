@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['kelulusan'])): ?>
             <?= Html::a(GeneralLabel::print_jkb, ['print-jkk-jkp', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-info custom_button', 'target' => '_blank']) ?>
         <?php endif; ?>
 		<?php if($isTamat): ?>
@@ -61,9 +61,11 @@ $this->params['breadcrumbs'][] = $this->title;
 		<?php endif; ?>
     </p>
 	<p>
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['kelulusan'])): ?>
 	<?= Html::a(GeneralLabel::surat_makluman, ['surat-makluman', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
+    <?php endif; ?>
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update']) && $isLulus): ?>
-        <?= Html::a(GeneralLabel::tempah_tiket_kapal_terbang, ['/permohonan-kemudahan-ticket-kapal-terbang/create', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
+        <?= Html::a(GeneralLabel::tempah_tiket_kapal_terbang, ['/permohonan-kemudahan-ticket-kapal-terbang/load', 'penyertaan_sukan_id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
     <?php endif; ?>
     </p>
     <?= $this->render('_form', [

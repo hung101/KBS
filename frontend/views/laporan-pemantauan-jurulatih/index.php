@@ -13,18 +13,18 @@ use common\models\general\GeneralFunction;
 $this->title = GeneralLabel::pemantauan_jurulatih;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="pengurusan-pemantauan-dan-penilaian-jurulatih-index">
+<div class="laporan-pemantauan-jurulatih-index">
     
     <?php
         $template = '{view}';
         
         // Update Access
-        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-pemantauan-dan-penilaian-jurulatih']['update'])){
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['laporan-pemantauan-jurulatih']['update'])){
             //$template .= ' {update}';
         }
         
         // Delete Access
-        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-pemantauan-dan-penilaian-jurulatih']['delete'])){
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['laporan-pemantauan-jurulatih']['delete'])){
             //$template .= ' {delete}';
         }
     ?>
@@ -32,9 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-pemantauan-dan-penilaian-jurulatih']['create'])): ?>
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['laporan-pemantauan-jurulatih']['create'])): ?>
         <p>
-            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::pemantauan_jurulatih, ['create', 'id' => $id], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::pemantauan_jurulatih, ['create', 'jurulatih_id' => $jurulatih_id], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 
@@ -92,7 +92,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         'data-confirm' => GeneralMessage::confirmDelete,
                         'data-method' => 'post',
                         ]);
-
+                    },
+                    'view' => function ($url, $model) use ($jurulatih_id){
+                        if($jurulatih_id != null){
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url.'&jurulatih_id='.$jurulatih_id, [
+                            'title' => Yii::t('yii', 'View'),
+                            ]);
+                        } else {
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                            'title' => Yii::t('yii', 'View'),
+                            ]);
+                        }
                     },
                 ],
                 'template' => $template,

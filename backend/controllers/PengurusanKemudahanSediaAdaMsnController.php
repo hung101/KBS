@@ -332,6 +332,48 @@ class PengurusanKemudahanSediaAdaMsnController extends Controller
         return $value;
     }
     
+    /**
+     * Get Agensis base on Negeri id
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionSubagensis()
+    {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $cat_id = $parents[0];
+                $out = self::getAgensisByVenue($cat_id); 
+                // the getSubCatList function will query the database based on the
+                // cat_id and return an array like below:
+                // [
+                //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+                //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+                // ]
+                echo Json::encode(['output'=>$out, 'selected'=>'']);
+                return;
+            }
+        }
+        echo Json::encode(['output'=>'', 'selected'=>'']);
+    }
+    
+    /**
+     * get list of Agensi by Venue
+     * @param integer $id
+     * @return Array Bandars
+     */
+    public static function getAgensisByVenue($venue_id) {
+        
+        $data = null;
+            $data = PengurusanKemudahanSediaAdaMsn::find()->andWhere(['pengurusan_kemudahan_venue_id'=>$venue_id])->select(['agensi as id',
+                    '(SELECT sr.desc FROM tbl_ref_agensi_kemudahan sr WHERE sr.id = tbl_pengurusan_kemudahan_sedia_ada_msn.agensi) AS name'])->groupBy('agensi')->asArray()->all();
+
+        $value = (count($data) == 0) ? ['' => ''] : $data;
+
+        return $value;
+    }
+    
     public function actionGetKemudahan($id){
         // find Venue
         $model = PengurusanKemudahanSediaAdaMsn::find()->where(['pengurusan_kemudahan_sedia_ada_id' => $id])->asArray()->one();

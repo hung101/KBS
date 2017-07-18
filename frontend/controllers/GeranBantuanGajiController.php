@@ -113,6 +113,9 @@ class GeranBantuanGajiController extends Controller
         $ref = RefStatusTawaran::findOne(['id' => $model->status_tawaran_jkb]);
         $model->status_tawaran_jkb = $ref['desc'];
         
+        $ref = RefStatusTawaran::findOne(['id' => $model->status_tawaran_mpj]);
+        $model->status_tawaran_mpj = $ref['desc'];
+        
         //$YesNo = GeneralLabel::getYesNoLabel($model->kelulusan);
         //$model->kelulusan = $YesNo;
         
@@ -124,7 +127,7 @@ class GeranBantuanGajiController extends Controller
         if($model->tarikh_mpj != "") {$model->tarikh_mpj = GeneralFunction::convert($model->tarikh_mpj, GeneralFunction::TYPE_DATE);}
         if($model->tarikh_jkb != "") {$model->tarikh_jkb = GeneralFunction::convert($model->tarikh_jkb, GeneralFunction::TYPE_DATE);}
 		
-		$queryPar = null;
+	$queryPar = null;
         
         $queryPar['GeranBantuanGajiLampiranSearch']['geran_bantuan_gaji_id'] = $id;
         
@@ -151,8 +154,11 @@ class GeranBantuanGajiController extends Controller
         }
         
         $model = new GeranBantuanGaji();
+        
+        $model->status_tawaran_mpj = RefStatusTawaran::DALAM_PROSES;
+        $model->status_tawaran_jkb = RefStatusTawaran::DALAM_PROSES;
 		
-		$queryPar = null;
+	$queryPar = null;
         
         Yii::$app->session->open();
         

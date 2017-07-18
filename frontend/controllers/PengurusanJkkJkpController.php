@@ -174,9 +174,9 @@ class PengurusanJkkJkpController extends Controller
         return $this->redirect(['index']);
     }
 	
-	public function actionGetAhli($id){
-        // find Jurulatih
-        $model = $this->findModel($id);
+    public function actionGetAhli($id){
+        // find Atlet
+        $model = PengurusanJkkJkp::find()->where(['tbl_pengurusan_jkk_jkp.pengurusan_jkk_jkp_id'=>$id])->joinWith(['refJawatanJkkJkp'])->asArray()->one();
         
         echo Json::encode($model);
     }

@@ -235,6 +235,11 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
         }
         
         $model = $this->findModel($id);
+        
+        if (($modelBantuanPenganjuranKejohanan = BantuanPenganjuranKejohanan::findOne($model->bantuan_penganjuran_kejohanan_id)) !== null) {
+            $model->jumlah_kelulusan = $modelBantuanPenganjuranKejohanan->jumlah_dilulus;
+        }
+        
         $existingPenyataPerbelanjaan = $model->penyata_perbelanjaan_resit_yang_telah_disahkan;
         
         $dateAdd = new \DateTime($model->tarikh_tamat);
@@ -383,6 +388,35 @@ class BantuanPenganjuranKejohananLaporanController extends Controller
             $img->update();
 
             return $this->redirect(['update', 'id' => $id]);
+    }
+    
+    /**
+     * Updates an existing BantuanPenganjuranKejohanan model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set approved
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->save();
+        
+        if (($modelBantuanPenganjuranKejohanan = BantuanPenganjuranKejohanan::findOne($model->bantuan_penganjuran_kejohanan_id)) !== null) {
+            $modelBantuanPenganjuranKejohanan->laporan_hantar_flag = $model->hantar_flag;
+            $modelBantuanPenganjuranKejohanan->tarikh_laporan_hantar = $model->tarikh_hantar;
+            
+            $modelBantuanPenganjuranKejohanan->save();
+        } 
+        
+        return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id]);
     }
 	
 	public function actionPrint($id)

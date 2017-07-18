@@ -213,7 +213,7 @@ class BorangProfilPesertaKpskPesertaController extends Controller
             $tahap = $modelBorangProfilPesertaKpsk->tahap;
         } 
             
-        if($tahap == 1){
+        if($tahap == '1'){
             if($format == "html") {
                 $report_url = BaseUrl::to(['generate-surat-keputusan'
                     , 'borang_profil_peserta_kpsk_peserta_id' => $borang_profil_peserta_kpsk_peserta_id

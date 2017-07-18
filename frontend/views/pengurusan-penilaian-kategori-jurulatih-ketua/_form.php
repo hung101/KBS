@@ -145,6 +145,25 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
      return false;
 });
      
+$('#pengurusanpenilaiankategorijurulatihketua-penilaian_sub_kategori').on('depdrop.change', function(event) {
+    checkKategori();
+});
+
+function checkKategori(){
+    if($('#pengurusanpenilaiankategorijurulatihketua-penilaian_kategori').val()=='3' ||
+        $('#pengurusanpenilaiankategorijurulatihketua-penilaian_kategori').val()=='4' ||
+        $('#pengurusanpenilaiankategorijurulatihketua-penilaian_kategori').val()=='5' ||
+        $('#pengurusanpenilaiankategorijurulatihketua-penilaian_kategori').val()=='6' ||
+        $('#pengurusanpenilaiankategorijurulatihketua-penilaian_kategori').val()=='8' ||
+        $('#pengurusanpenilaiankategorijurulatihketua-penilaian_kategori').val()=='10' ||
+        $('#pengurusanpenilaiankategorijurulatihketua-penilaian_kategori').val()=='11'){
+        //$('.field-pengurusanpenilaiankategorijurulatihketua-penilaian_sub_kategori').show();
+        $("#pengurusanpenilaiankategorijurulatihketua-penilaian_sub_kategori").prop("disabled", false);
+    } else {
+        //$('.field-pengurusanpenilaiankategorijurulatihketua-penilaian_sub_kategori').hide();
+        $("#pengurusanpenilaiankategorijurulatihketua-penilaian_sub_kategori").prop("disabled", true);
+    }
+}
 
 JS;
         

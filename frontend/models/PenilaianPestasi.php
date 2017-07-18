@@ -54,8 +54,8 @@ class PenilaianPestasi extends \yii\db\ActiveRecord
     {
         return [
             [['atlet_id', 'tarikh', 'tahap_sihat', 'pencapaian_sukan_dalam_tahun_yang_dinilai', 'kategori_kecergasan', 'sukan', 'program', 'disiplin', 'acara',
-                'kejohanan', 'tarikh_nilai_mula', 'tarikh_nilai_tamat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['atlet_id', 'nama_kejohanan_temasya'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+                'kejohanan', 'tarikh_nilai_mula', 'tarikh_nilai_tamat', 'kategori'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['atlet_id', 'nama_kejohanan_temasya', 'kategori'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['elaun_yang_diterima'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['kejohanan', 'negeri', 'tarikh_mula', 'tarikh_tamat'], 'safe'],
             [['tahap_sihat', 'pencapaian_sukan_dalam_tahun_yang_dinilai', 'kecederaan_jika_ada', 'laporan_kesihatan', 'skim_hadiah_kemenangan_sukan'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -90,6 +90,7 @@ class PenilaianPestasi extends \yii\db\ActiveRecord
             'tarikh_tamat' => GeneralLabel::tarikh_tamat,
             'nama_kejohanan_temasya' => GeneralLabel::nama_kejohanan_temasya,
             'tempat' => GeneralLabel::tempat,
+            'kategori' => GeneralLabel::kategori,
         ];
     }
     

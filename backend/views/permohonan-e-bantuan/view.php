@@ -24,6 +24,9 @@ $this->title = GeneralLabel::viewTitle . ' Permohonan e-Bantuan';
         <?php if($model->hantar_flag == 0 || ($model->status_permohonan_id && $model->status_permohonan_id==RefStatusPermohonanEBantuan::STATUS_LULUS)): ?>
         <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->permohonan_e_bantuan_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
+        <?php if($model->status_permohonan_id && $model->status_permohonan_id==RefStatusPermohonanEBantuan::STATUS_TOLAK): ?>
+        <?=Html::a('Surat', ['surat', 'id' => $model->permohonan_e_bantuan_id], ['class' => 'btn btn-info', 'target' => '_blank'])?>
+        <?php endif; ?>
         <?php if($model->hantar_flag == 0): ?>
             <?= Html::a(GeneralLabel::send, ['hantar', 'id' => $model->permohonan_e_bantuan_id], ['class' => 'btn btn-success']) ?>
         <?php endif; ?>

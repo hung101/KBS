@@ -22,7 +22,7 @@ class PermohonanPeralatanSearch extends PermohonanPeralatan
     public function rules()
     {
         return [
-            [['permohonan_peralatan_id', 'jumlah_peralatan', 'kelulusan_id', 'mesyuarat_id', 'sukan_id', 'program_id'], 'integer'],
+            [['permohonan_peralatan_id', 'jumlah_peralatan', 'kelulusan_id', 'mesyuarat_id', 'sukan_id', 'program_id', 'hantar_flag'], 'integer'],
             [['cawangan', 'negeri', 'sukan', 'program', 'tarikh', 'aktiviti', 'nota_urus_setia', 'kelulusan'], 'safe'],
         ];
     }
@@ -77,6 +77,7 @@ class PermohonanPeralatanSearch extends PermohonanPeralatan
             'mesyuarat_id' => $this->mesyuarat_id,
             'sukan' => $this->sukan_id,
             'program' => $this->program_id,
+            'tbl_permohonan_peralatan.hantar_flag' => $this->hantar_flag,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_cawangan.desc', $this->cawangan])
@@ -87,6 +88,24 @@ class PermohonanPeralatanSearch extends PermohonanPeralatan
             ->andFilterWhere(['like', 'aktiviti', $this->aktiviti])
             ->andFilterWhere(['like', 'nota_urus_setia', $this->nota_urus_setia])
             ->andFilterWhere(['like', 'tbl_ref_kelulusan_peralatan.desc', $this->kelulusan]);
+        
+        // add filter base on sukan access role in tbl_user->sukan - START
+        if(Yii::$app->user->identity->sukan){
+            $sukan_access=explode(',',Yii::$app->user->identity->sukan);
+            
+            $arr_sukan_filter = array();
+            
+            for($i = 0; $i < count($sukan_access); $i++){
+                $arr_sukan = null;
+                $arr_sukan = array('tbl_permohonan_peralatan.sukan'=>$sukan_access[$i]); 
+                    array_push($arr_sukan_filter,$arr_sukan);
+            }
+            
+            $query->andFilterWhere(['tbl_permohonan_peralatan.sukan'=>$arr_sukan_filter]);
+            
+            $query->orFilterWhere(['tbl_permohonan_peralatan.created_by'=>Yii::$app->user->identity->id]);
+        }
+        // add filter base on sukan access role in tbl_user->sukan - END
 
         return $dataProvider;
     }

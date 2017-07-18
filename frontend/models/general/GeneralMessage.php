@@ -44,6 +44,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
             // custom validation general message BM
             const custom_validation_password_equal = "Kata laluan tidak sepadan";
             const custom_validation_nyatakan_oku_lain = "Sila nyatakan OKU Lain-lain";
+            const custom_validation_tarikh_didaftarkan = "Tarikh Didaftarkan adalah tarikh sijil pendaftaran dikeluarkan dan tidak melebihi tarikh permohonan e-Bantuan";
             
             const minimum_4_gambar_dan_10_gambar_maksimum = "Minimum 4 gambar dan 10 gambar maksimum";
             
@@ -93,6 +94,7 @@ if($session->get('language') == "EN") {
             // custom validation general message EN
             const custom_validation_password_equal = "Password do not match";
             const custom_validation_nyatakan_oku_lain = "Please describe other disability";
+            const custom_validation_tarikh_didaftarkan = "Registered date is the date of registration certificates issued and not later than the date of application of e-Bantuan";
             
             const minimum_4_gambar_dan_10_gambar_maksimum = "Minimum 4 pictures dan 10 pictures maximum";
             

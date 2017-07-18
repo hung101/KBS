@@ -65,7 +65,7 @@ class GeranBantuanGaji extends \yii\db\ActiveRecord
         return [
             [['nama_jurulatih', 'tarikh_mula', 'tarikh_tamat', 'status_permohonan', 'kategori_geran', 'jumlah_geran', 'status_geran', 'kelulusan',
                 'tarikh_mula_kontrak', 'tarikh_tamat_kontrak', 'agensi' ], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_mula_kontrak', 'tarikh_tamat_kontrak', 'tarikh_cek', 'tarikh_jkb', 'tarikh_mpj'], 'safe'],
+            [['tarikh_mula_kontrak', 'tarikh_tamat_kontrak', 'tarikh_cek', 'tarikh_jkb', 'tarikh_mpj', 'status_tawaran_jkb', 'status_tawaran_mpj'], 'safe'],
             [['jumlah_geran', 'kadar'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [[ 'bulan', 'nama_acara', 'nama_sukan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['muatnaik_gambar'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -116,14 +116,16 @@ class GeranBantuanGaji extends \yii\db\ActiveRecord
             'tarikh_cek' => GeneralLabel::tarikh,
             'salinan_tawaran' => GeneralLabel::salinan_tawaran,
             'persetujuan_terima' => GeneralLabel::persetujuan_terima,
-			'bil_jkb' => GeneralLabel::bilangan_jkb,
+            'bil_jkb' => GeneralLabel::bilangan_jkb,
             'tarikh_jkb' => GeneralLabel::tarikh_jkb,
-			'kelulusan_dkp' => GeneralLabel::kelulusan_dkp,
-			'catatan_jkb' => GeneralLabel::catatan,
+            'status_tawaran_jkb' => GeneralLabel::status_tawaran_jkb,
+            'kelulusan_dkp' => GeneralLabel::kelulusan_dkp,
+            'catatan_jkb' => GeneralLabel::catatan,
             'bil_mpj' => GeneralLabel::bilangan_mpj,
-			'tarikh_mpj' => GeneralLabel::tarikh_mpj,
-			'pengerusi' => GeneralLabel::pengerusi,
-			'catatan_mpj' => GeneralLabel::catatan,
+            'tarikh_mpj' => GeneralLabel::tarikh_mpj,
+            'status_tawaran_mpj' => GeneralLabel::status_tawaran_mpj,
+            'pengerusi' => GeneralLabel::pengerusi,
+            'catatan_mpj' => GeneralLabel::catatan,
         ];
     }
     
@@ -153,5 +155,12 @@ class GeranBantuanGaji extends \yii\db\ActiveRecord
      */
     public function getRefKelulusan(){
         return $this->hasOne(RefKelulusanGeranBantuanGajiJurulatih::className(), ['id' => 'kelulusan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusJkb(){
+        return $this->hasOne(RefStatusTawaran::className(), ['id' => 'status_tawaran_jkb']);
     }
 }

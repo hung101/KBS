@@ -35,6 +35,8 @@ use app\models\RefPeringkatBantuanPenganjuranKejohanan;
 use app\models\ProfilBadanSukan;
 use app\models\RefStatusBantuanPenganjuranKejohanan;
 
+use common\models\User;
+
 /**
  * BantuanPenganjuranKejohananController implements the CRUD actions for BantuanPenganjuranKejohanan model.
  */
@@ -69,6 +71,10 @@ class BantuanPenganjuranKejohananController extends Controller
         
         if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['data-sendiri'])){
             $queryParams['BantuanPenganjuranKejohananSearch']['created_by'] = Yii::$app->user->identity->id;
+        }
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['kelulusan'])) {
+            $queryParams['BantuanPenganjuranKejohananSearch']['hantar_flag'] = 1;
         }
         
         $searchModel = new BantuanPenganjuranKejohananSearch();
@@ -176,9 +182,6 @@ class BantuanPenganjuranKejohananController extends Controller
             $model->badan_sukan = Yii::$app->user->identity->profil_badan_sukan;
         }
         
-        $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
-        $model->status_permohonan = RefStatusBantuanPenganjuranKejohanan::SEDANG_DIPROSES;
-        
         $queryPar = null;
         
         Yii::$app->session->open();
@@ -253,6 +256,38 @@ class BantuanPenganjuranKejohananController extends Controller
                 BantuanPenganjuranKejohananOlehMsn::updateAll(['bantuan_penganjuran_kejohanan_id' => $model->bantuan_penganjuran_kejohanan_id], 'session_id = "'.Yii::$app->session->id.'"');
                 BantuanPenganjuranKejohananOlehMsn::updateAll(['session_id' => ''], 'bantuan_penganjuran_kejohanan_id = "'.$model->bantuan_penganjuran_kejohanan_id.'"');
             }
+            
+            if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_bantuan-penganjuran-kejohanan'])->groupBy('id')->all()) !== null) {
+                $refProfilBadanSukan = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->badan_sukan]);
+
+                    foreach($modelUsers as $modelUser){
+
+                        if($modelUser->email && $modelUser->email != ""){
+                            //echo "E-mail: " . $modelUser->email . "\n";
+                            Yii::$app->mailer->compose()
+                            ->setTo($modelUser->email)
+                            ->setFrom('noreply@spsb.com')
+                            ->setSubject('Pemberitahuan - Permohonan Baru: Bantuan Penganjuran Kejohanan')
+                            ->setHtmlBody('Assalamualaikum dan Salam Sejahtera, 
+    <br><br>
+    Terdapat permohonan baru yang diterima: 
+    <br>Badan Sukan: ' . $refProfilBadanSukan['nama_badan_sukan'] . '
+    <br>Nama Kejohanan / Pertandingan: ' . $model->nama_kejohanan_pertandingan . '
+    <br>Tempat: ' . $model->tempat . '
+    <br>Tarikh Mula: ' . $model->tarikh_mula . '
+    <br>Tarikh Tamat: ' . $model->tarikh_tamat . '
+    <br>Jumlah bantuan yang dipohon : RM  ' . $model->jumlah_bantuan_yang_dipohon . '
+    <br><br>
+    Link: ' . BaseUrl::to(['bantuan-penganjuran-kejohanan/view', 'id' => $model->bantuan_penganjuran_kejohanan_id], true) . '
+    <br><br>
+    Sekian.
+    <br><br>
+    "KE ARAH KECEMERLANGAN SUKAN"<br>
+    Majlis Sukan Negara Malaysia.
+        ')->send();
+                        }
+                    }
+                }
             
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_id]);
@@ -417,6 +452,31 @@ class BantuanPenganjuranKejohananController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    
+    /**
+     * Updates an existing BantuanPenganjuranKejohanan model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set approved
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
+        $model->status_permohonan = RefStatusBantuanPenganjuranKejohanan::SEDANG_DIPROSES;
+        
+        $model->save();
+        
+        return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_id]);
     }
 
     /**

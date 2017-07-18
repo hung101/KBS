@@ -55,8 +55,8 @@ class PenyertaanSukan extends \yii\db\ActiveRecord
     {
         return [
             [['peringkat', 'program', 'nama_sukan', 'tempat_penginapan', 'nama_atlet',
-               'tarikh_mula', 'tarikh_tamat', 'tempat_latihan', 'nama_kejohanan_temasya'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['mesyuarat_id', 'penilaian_pestasi_id', 'nama_kejohanan_temasya', 'jkb_status_permohonan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+               'tarikh_mula', 'tarikh_tamat', 'tempat_latihan', 'nama_kejohanan_temasya', 'kategori'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['mesyuarat_id', 'penilaian_pestasi_id', 'nama_kejohanan_temasya', 'jkb_status_permohonan', 'kategori'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jkb_jumlah_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tarikh_jkb'], 'safe'],
             [['nama_sukan', 'nama_kejohanan', 'nama_pegawai', 'jawatan_pegawai', 'nama_pengurus_sukan', 'nama_sukarelawan', 'nama_temasya', 'bilangan_jkb'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -95,6 +95,7 @@ class PenyertaanSukan extends \yii\db\ActiveRecord
             'bilangan_jkb' => GeneralLabel::bilangan_jkb,
             'tarikh_jkb' => GeneralLabel::tarikh_jkb,
             'jkb_jumlah_diluluskan' => GeneralLabel::jumlah_diluluskan,
+            'kategori' => GeneralLabel::kategori,
         ];
     }
     

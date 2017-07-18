@@ -43,6 +43,13 @@ use common\models\general\GeneralFunction;
             $template = '{view}';
         }
     ?>
+    
+    <?php 
+    $isPersatuan = false; // default
+    if(!Yii::$app->user->isGuest && Yii::$app->user->identity->profil_badan_sukan){
+        $isPersatuan = true;
+    }
+    ?>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data'], 'id'=>$model->formName()]); ?>
     
@@ -165,17 +172,17 @@ use common\models\general\GeneralFunction;
         ],
         [
             'attributes' => [
-                'alamat_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                'alamat_1' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30, 'disabled'=>$isPersatuan]],
             ]
         ],
         [
             'attributes' => [
-                'alamat_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                'alamat_2' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30, 'disabled'=>$isPersatuan]],
             ]
         ],
         [
             'attributes' => [
-                'alamat_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30]],
+                'alamat_3' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>30, 'disabled'=>$isPersatuan]],
             ]
         ],
         [
@@ -194,7 +201,7 @@ use common\models\general\GeneralFunction;
                             ]
                         ] : null,
                         'data'=>ArrayHelper::map(RefNegeri::find()->all(),'id', 'desc'),
-                        'options' => ['placeholder' => Placeholder::negeri],
+                        'options' => ['placeholder' => Placeholder::negeri, 'disabled'=>$isPersatuan],
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -220,9 +227,10 @@ use common\models\general\GeneralFunction;
                             'depends'=>[Html::getInputId($model, 'alamat_negeri')],
                             'placeholder' => Placeholder::bandar,
                             'url'=>Url::to(['/ref-bandar/subbandars'])],
+                            'disabled'=>$isPersatuan
                         ],
                     'columnOptions'=>['colspan'=>3]],
-                'alamat_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5]],
+                'alamat_poskod' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>5, 'disabled'=>$isPersatuan]],
             ]
         ],
         [
@@ -524,42 +532,6 @@ use common\models\general\GeneralFunction;
     ?>
     <?php endif; ?>
 
-    <!--<?= $form->field($model, 'nama')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'no_kad_pengenalan')->textInput(['maxlength' => 12]) ?>
-
-    <?= $form->field($model, 'tarikh_lahir')->textInput() ?>
-
-    <?= $form->field($model, 'jantina')->textInput(['maxlength' => 1]) ?>
-
-    <?= $form->field($model, 'alamat_1')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_2')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_3')->textInput(['maxlength' => 90]) ?>
-
-    <?= $form->field($model, 'alamat_negeri')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'alamat_bandar')->textInput(['maxlength' => 40]) ?>
-
-    <?= $form->field($model, 'alamat_poskod')->textInput(['maxlength' => 5]) ?>
-
-    <?= $form->field($model, 'no_tel_bimbit')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'emel')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'facebook')->textInput(['maxlength' => 100]) ?>
-
-    <?= $form->field($model, 'kelayakan_akademi')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'perkerjaan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'nama_majikan')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'yuran_program')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'kelulusan')->textInput() ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
@@ -578,6 +550,8 @@ use common\models\general\GeneralFunction;
 $URLKursusPersatuan = Url::to(['/pengurusan-permohonan-kursus-persatuan/send-memo']);
 
 $script = <<< JS
+        
+var isPersatuan = '$isPersatuan';
 
 $('#pengurusanpermohonankursuspersatuan-bilangan_peserta').on("keyup", function(){calculateJumlahYuran();});
 $('#pengurusanpermohonankursuspersatuan-yuran_program').on("keyup", function(){calculateJumlahYuran();});
@@ -605,6 +579,9 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
     var form = $(this);
 
     $("form#{$model->formName()} input").prop("disabled", false);
+    
+    $("#pengurusanpermohonankursuspersatuan-alamat_negeri").prop("disabled", false);
+    $("#pengurusanpermohonankursuspersatuan-alamat_bandar").prop("disabled", false);
 });
   
 $("#btnSendEmail").click(function(){

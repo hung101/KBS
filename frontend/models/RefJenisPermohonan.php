@@ -20,6 +20,10 @@ use app\models\general\GeneralMessage;
  */
 class RefJenisPermohonan extends \yii\db\ActiveRecord
 {
+    const MAJLIS_SUKAN_NEGARA = 1;
+    const PSK = 2;
+    const USPTN = 3;
+    
     /**
      * @inheritdoc
      */

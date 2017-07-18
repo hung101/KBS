@@ -342,6 +342,24 @@ if((isset($session['tempahan-kemudahan-msn-pengurusan_kemudahan_venue_id']) && $
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
+                'tarikh_akhir' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'type'=>DateControl::FORMAT_DATETIME,
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                'jumlah_jam' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>11, 'id'=>'jumlahJam', 'disabled'=>true]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
                 'jenis_kadar' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -361,19 +379,9 @@ if((isset($session['tempahan-kemudahan-msn-pengurusan_kemudahan_venue_id']) && $
                     'columnOptions'=>['colspan'=>3]],
                 'quantity_kadar' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>11, 'id'=>'quantityKadar']],
                 'bayaran_sewa' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10, 'id'=>'bayaranSewa', 'disabled'=>true]],
-                /*'tarikh_akhir' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\DateTimePicker',
-                    'options'=>[
-                        'pluginOptions' => [
-                            'autoclose'=>true,
-                            'format' => 'yyyy-mm-dd hh:ii:00',
-                            'todayHighlight' => true
-                        ]
-                    ],
-                    'columnOptions'=>['colspan'=>3]],*/
             ],
         ],
+        
         /*
         [
             'columns'=>12,
@@ -721,6 +729,30 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
      });
      return false;
 });
+
+
+$("#tempahankemudahansubmsn-tarikh_mula").change(function(){
+    setDuration();
+});
+        
+$("#tempahankemudahansubmsn-tarikh_akhir").change(function(){
+    setDuration();
+});
+
+function setDuration(){
+    var fromDatetime = $("#tempahankemudahansubmsn-tarikh_mula").val();
+    var toDatetime = $("#tempahankemudahansubmsn-tarikh_akhir").val();
+
+    if(fromDatetime != "" && toDatetime != ""){
+        var date1 = new Date(fromDatetime);
+        var date2 = new Date(toDatetime);
+
+        // get hours durations
+        var hours = Math.abs(date1 - date2) / 36e5;
+
+        $("#jumlahJam").val(Math.round(hours));
+    }
+}
 
 JS;
         

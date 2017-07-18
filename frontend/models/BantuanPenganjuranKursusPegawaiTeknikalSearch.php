@@ -18,7 +18,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalSearch extends BantuanPenganjuranKu
     public function rules()
     {
         return [
-            [['bantuan_penganjuran_kursus_pegawai_teknikal_id', 'created_by', 'updated_by'], 'integer'],
+            [['bantuan_penganjuran_kursus_pegawai_teknikal_id', 'created_by', 'updated_by', 'hantar_flag'], 'integer'],
             [['badan_sukan', 'sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_telefon', 'no_faks', 'laman_sesawang', 'facebook', 'twitter', 'nama_bank', 'no_akaun', 'nama_kursus_seminar_bengkel', 'tarikh', 'tempat', 'tujuan', 'surat_rasmi_badan_sukan', 'surat_jemputan_daripada_pengelola', 'butiran_perbelanjaan', 'salinan_passport', 'maklumat_lain_sokongan', 'status_permohonan', 'catatan', 'tarikh_permohonan', 'jkb', 'tarikh_jkb', 'created', 'updated'], 'safe'],
             [['yuran_penyertaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number'],
         ];
@@ -74,6 +74,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalSearch extends BantuanPenganjuranKu
             'tbl_bantuan_penganjuran_kursus_pegawai_teknikal.updated_by' => $this->updated_by,
             'tbl_bantuan_penganjuran_kursus_pegawai_teknikal.created' => $this->created,
             'tbl_bantuan_penganjuran_kursus_pegawai_teknikal.updated' => $this->updated,
+            'tbl_bantuan_penganjuran_kursus_pegawai_teknikal.hantar_flag' => $this->hantar_flag,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_profil_badan_sukan.nama_badan_sukan', $this->badan_sukan])

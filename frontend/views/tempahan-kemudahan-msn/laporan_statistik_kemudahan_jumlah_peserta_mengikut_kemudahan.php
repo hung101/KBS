@@ -20,7 +20,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanPelaksaan */
 
-$this->title = GeneralLabel::laporan_statistik_kemudahan_jumlah_peserta_mengikut_kemudahan;
+$this->title = GeneralLabel::laporan_bulanan_penggunaan_agensi_di_venue;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="laporan-badan-sukan">

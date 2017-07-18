@@ -96,7 +96,7 @@ class BorangProfilPesertaKpskController extends Controller
             'searchModelBorangProfilPesertaKpskPeserta' => $searchModelBorangProfilPesertaKpskPeserta,
             'dataProviderBorangProfilPesertaKpskPeserta' => $dataProviderBorangProfilPesertaKpskPeserta,
             'readonly' => true,
-			'disabled' => false,
+            'disabled' => false,
         ]);
     }
 
@@ -113,26 +113,28 @@ class BorangProfilPesertaKpskController extends Controller
 		
         $model = new BorangProfilPesertaKpsk();
         
-		$disabled = false;
-		if($id != null){
-			$disabled = true;
-			$pengurusanPermohonan = PengurusanPermohonanKursusPersatuan::findOne(['pengurusan_permohonan_kursus_persatuan_id' => $id]);
-			
-			//check if exist
-			$exist = BorangProfilPesertaKpsk::findOne(['penganjur_kursus' => $pengurusanPermohonan->agensi, 'tarikh_kursus' => $pengurusanPermohonan->tarikh_kursus, 'tarikh_tamat_kursus' => $pengurusanPermohonan->tarikh_tamat_kursus, 'kod_kursus' => $pengurusanPermohonan->kod_kursus, 'tahap' => $pengurusanPermohonan->tahap]);
-			
-			if(count($exist) > 0){
-				return $this->redirect(['view', 'id' => $exist->borang_profil_peserta_kpsk_id]);
-			}
-			
-			if($pengurusanPermohonan != null){
-				$model->penganjur_kursus = $pengurusanPermohonan->agensi;
-				$model->tarikh_kursus = $pengurusanPermohonan->tarikh_kursus;
-				$model->tarikh_tamat_kursus = $pengurusanPermohonan->tarikh_tamat_kursus;
-				$model->kod_kursus = $pengurusanPermohonan->kod_kursus;
-				$model->tahap = $pengurusanPermohonan->tahap;
-			}
-		}
+        $disabled = false;
+        if($id != null){
+            $model->pengurusan_permohonan_kursus_persatuan_id = $id;
+                    
+            $disabled = true;
+            $pengurusanPermohonan = PengurusanPermohonanKursusPersatuan::findOne(['pengurusan_permohonan_kursus_persatuan_id' => $id]);
+
+            //check if exist
+            /*$exist = BorangProfilPesertaKpsk::findOne(['penganjur_kursus' => $pengurusanPermohonan->agensi, 'tarikh_kursus' => $pengurusanPermohonan->tarikh_kursus, 'tarikh_tamat_kursus' => $pengurusanPermohonan->tarikh_tamat_kursus, 'kod_kursus' => $pengurusanPermohonan->kod_kursus, 'tahap' => $pengurusanPermohonan->tahap]);
+
+            if(count($exist) > 0){
+                    return $this->redirect(['view', 'id' => $exist->borang_profil_peserta_kpsk_id]);
+            }*/
+
+            if($pengurusanPermohonan != null){
+                    $model->penganjur_kursus = $pengurusanPermohonan->agensi;
+                    $model->tarikh_kursus = $pengurusanPermohonan->tarikh_kursus;
+                    $model->tarikh_tamat_kursus = $pengurusanPermohonan->tarikh_tamat_kursus;
+                    $model->kod_kursus = $pengurusanPermohonan->kod_kursus;
+                    $model->tahap = $pengurusanPermohonan->tahap;
+            }
+        }
 		
          $queryPar = null;
         
@@ -141,6 +143,13 @@ class BorangProfilPesertaKpskController extends Controller
         if(isset(Yii::$app->session->id)){
             $queryPar['BorangProfilPesertaKpskPesertaSearch']['session_id'] = Yii::$app->session->id;
         }
+        
+        $session = new Session;
+        $session->open();
+
+        $session['borang_profil_peserta_kpsk_tahap_id'] = $model->tahap;
+        
+        $session->close();
         
         $searchModelBorangProfilPesertaKpskPeserta  = new BorangProfilPesertaKpskPesertaSearch();
         $dataProviderBorangProfilPesertaKpskPeserta = $searchModelBorangProfilPesertaKpskPeserta->search($queryPar);
@@ -157,9 +166,27 @@ class BorangProfilPesertaKpskController extends Controller
                 'model' => $model,
                 'searchModelBorangProfilPesertaKpskPeserta' => $searchModelBorangProfilPesertaKpskPeserta,
                 'dataProviderBorangProfilPesertaKpskPeserta' => $dataProviderBorangProfilPesertaKpskPeserta,
-				'disabled' => $disabled,
+                'disabled' => $disabled,
                 'readonly' => false,
             ]);
+        }
+    }
+    
+    /**
+     * Displays a single BorangProfilPesertaKpsk model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionLoad($id = null)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        if (($model = BorangProfilPesertaKpsk::find()->where(['pengurusan_permohonan_kursus_persatuan_id'=>$id])->one()) !== null) {
+            return $this->redirect(['view', 'id' => $model->borang_profil_peserta_kpsk_id]);
+        } else {
+            return $this->redirect(['create', 'id' => $id]);
         }
     }
 
@@ -177,7 +204,19 @@ class BorangProfilPesertaKpskController extends Controller
         
         $model = $this->findModel($id);
         
-		$session = new Session;
+        if(isset($model->pengurusan_permohonan_kursus_persatuan_id)){
+            $pengurusanPermohonan = PengurusanPermohonanKursusPersatuan::findOne(['pengurusan_permohonan_kursus_persatuan_id' => $model->pengurusan_permohonan_kursus_persatuan_id]);
+
+            if($pengurusanPermohonan != null){
+                    $model->penganjur_kursus = $pengurusanPermohonan->agensi;
+                    $model->tarikh_kursus = $pengurusanPermohonan->tarikh_kursus;
+                    $model->tarikh_tamat_kursus = $pengurusanPermohonan->tarikh_tamat_kursus;
+                    $model->kod_kursus = $pengurusanPermohonan->kod_kursus;
+                    $model->tahap = $pengurusanPermohonan->tahap;
+            }
+        }
+        
+        $session = new Session;
         $session->open();
 
         $session['borang_profil_peserta_kpsk_tahap_id'] = $model->tahap;
@@ -220,6 +259,30 @@ class BorangProfilPesertaKpskController extends Controller
 
         return $this->redirect(['index']);
     }
+    
+    /**
+     * Updates an existing BorangProfilPesertaKpsk model.
+     * If hantar is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set hantar flag
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set hantar date
+        
+        $model->save();
+        
+        //return $this->redirect(['index']);
+        
+        return $this->redirect(['view', 'id' => $model->borang_profil_peserta_kpsk_id]);
+    }
 
     /**
      * Finds the BorangProfilPesertaKpsk model based on its primary key value.
@@ -250,20 +313,29 @@ class BorangProfilPesertaKpskController extends Controller
                             Yii::$app->mailer->compose()
                                     ->setTo($modelBorangProfilPesertaKpskPeserta->emel)
                                     ->setFrom('noreply@spsb.com')
-                                    ->setSubject('Keputusan Kursus : '. GeneralFunction::getUpperCaseWords($model->penganjur_kursus) .' ('. $model->kod_kursus .')')
-                                    ->setHtmlBody('Salam Sejahtera,
-<br><br><br>
-Dimaklumkan keputusan bagi kursus '. GeneralFunction::getUpperCaseWords($model->penganjur_kursus) .' ('. $model->kod_kursus .') <br>
-bertarikh '. GeneralFunction::getDatePrintFormat($model->tarikh_kursus) .'. Berikut adalah keputusan kursus:-
+                                    ->setSubject('Keputusan Kursus : Pengurusan Sukan Kebangsaan ('. $model->kod_kursus .')')
+                                    ->setHtmlBody('Assalamualaikum dan Salam Sejahtera, <br>
+Tuan/Puan, 
 <br><br>
-Objektif : '. $modelBorangProfilPesertaKpskPeserta->objektif .'%<br>
-Esei : '. $modelBorangProfilPesertaKpskPeserta->esei .'%<br>
-Jumlah : '. $modelBorangProfilPesertaKpskPeserta->jumlah .'%<br>
-Keputusan: ' . ((isset($modelBorangProfilPesertaKpskPeserta['refKeputusanKpsk']['desc']) && $modelBorangProfilPesertaKpskPeserta['refKeputusanKpsk']['desc'] != "") ? $modelBorangProfilPesertaKpskPeserta['refKeputusanKpsk']['desc'] : "") . '
+Sukacita dimaklumkan bahawa keputusan Kursus Persatuan Sukan Kebangsaan Tahap '. $model->tahap .' anda adalah seperti berikut: <br>
+Nama : '. GeneralFunction::getUpperCaseWords($modelBorangProfilPesertaKpskPeserta->nama) .'<br>
+No. Kad Pengenalan : '. GeneralFunction::getFormatIc($modelBorangProfilPesertaKpskPeserta->no_kad_pengenalan) .'<br><br>
+Kursus : Pengurusan Sukan Kebangsaan<br>
+Tahap : '. $model->tahap .'<br>
+Kod Kursus : '. $model->kod_kursus .'<br>
+Keputusan:
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Objektif : '. $modelBorangProfilPesertaKpskPeserta->objektif .'%<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Esei : '. $modelBorangProfilPesertaKpskPeserta->esei .'%<br>
+'. (($model->tahap != '1')?'&nbsp;&nbsp;&nbsp;&nbsp;Laporan Projek : '. $modelBorangProfilPesertaKpskPeserta->laporan_projek .'%<br>': '') .'
+&nbsp;&nbsp;&nbsp;&nbsp;Penilaian Refleksi : '. $modelBorangProfilPesertaKpskPeserta->penilaian_refleksi .'%<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Jumlah : '. $modelBorangProfilPesertaKpskPeserta->jumlah .'%<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Keputusan: ' . ((isset($modelBorangProfilPesertaKpskPeserta['refKeputusanKpsk']['desc']) && $modelBorangProfilPesertaKpskPeserta['refKeputusanKpsk']['desc'] != "") ? $modelBorangProfilPesertaKpskPeserta['refKeputusanKpsk']['desc'] : "") . '
 <br><br><br>
-
-"KE ARAH KECEMERLANGAN SUKAN"<br><br>
-Majlis Sukan Negara Malaysia.
+Sekian, terima kasih
+<br><br>
+"KE ARAH KECEMERLANGAN SUKAN"<br>
+Bahagian Pengurusan Sukan
                             ')->send();
                         }
                         catch(\Swift_SwiftException $exception)

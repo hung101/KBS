@@ -77,29 +77,31 @@ if ($readonly) {
     
     <?php if($readonly): ?>
         <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update']) && $model->approved == 0)  || isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['kemaskini_yang_hantar'])): ?>
-            <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->jurulatih_id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->jurulatih_id, 'mesyuarat_id' => $mesyuarat_id,], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['delete'])): ?>
-            <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->jurulatih_id], [
-                'class' => 'btn btn-danger',
-                'data' => [
-                    'confirm' => GeneralMessage::confirmDelete,
-                    'method' => 'post',
-                ],
-            ]) ?>
-        <?php endif; ?>
-        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['create']) && $model->approved == 0)): ?>
-            <?= Html::a(GeneralLabel::send, ['approved', 'id' => $model->jurulatih_id], ['class' => 'btn btn-success']) ?>
-        <?php endif; ?>
-        <?php //echo Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'window.print();' ]); ?>
-        <?php echo Html::a(GeneralLabel::print_pdf, '', ['value'=>Url::to(['/jurulatih/print', 'id' => $model->jurulatih_id]), 'class' => 'btn btn-info custom_button']); ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update']) && $isTerima && isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['kemaskini_yang_hantar'])): ?>
-            <?php echo Html::a(GeneralLabel::surat_tawaran, ['surat-tawaran-jurulatih', 'id' => $model->jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
-            ?>
-            <?php echo Html::a(GeneralLabel::surat_setuju_terima.' ('.GeneralLabel::sambungan.')', ['jurulatih-sambungan-oversea', 'id' => $model->jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
-            ?>
-            <?php echo Html::a(GeneralLabel::surat_setuju_terima.' ('.GeneralLabel::lantikan_baru.')', ['jurulatih-baru-oversea', 'id' => $model->jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
-            ?>
+        <?php if($mesyuarat_id == null): ?>
+            <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['delete'])): ?>
+                <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->jurulatih_id], [
+                    'class' => 'btn btn-danger',
+                    'data' => [
+                        'confirm' => GeneralMessage::confirmDelete,
+                        'method' => 'post',
+                    ],
+                ]) ?>
+            <?php endif; ?>
+            <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['create']) && $model->approved == 0)): ?>
+                <?= Html::a(GeneralLabel::send, ['approved', 'id' => $model->jurulatih_id], ['class' => 'btn btn-success']) ?>
+            <?php endif; ?>
+            <?php //echo Html::button(GeneralLabel::print_pdf, [ 'class' => 'btn btn-info', 'onclick' => 'window.print();' ]); ?>
+            <?php echo Html::a(GeneralLabel::print_pdf, '', ['value'=>Url::to(['/jurulatih/print', 'id' => $model->jurulatih_id]), 'class' => 'btn btn-info custom_button']); ?>
+            <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update']) && $isTerima && isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['kemaskini_yang_hantar'])): ?>
+                <?php echo Html::a(GeneralLabel::surat_tawaran, ['surat-tawaran-jurulatih', 'id' => $model->jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+                ?>
+                <?php echo Html::a(GeneralLabel::surat_setuju_terima.' ('.GeneralLabel::sambungan.')', ['jurulatih-sambungan-oversea', 'id' => $model->jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+                ?>
+                <?php echo Html::a(GeneralLabel::surat_setuju_terima.' ('.GeneralLabel::lantikan_baru.')', ['jurulatih-baru-oversea', 'id' => $model->jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+                ?>
+            <?php endif; ?>
         <?php endif; ?>
     <?php endif; ?>
     <br>
@@ -861,6 +863,7 @@ if ($readonly) {
 ]);
         
         $label = $model->getAttributeLabel('keputusan_mesyuarat');
+        echo "<div class='required'>";
         if($model->keputusan_mesyuarat){
             echo "<div><label>" . $model->getAttributeLabel('keputusan_mesyuarat') . "</label><br>";
             echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->keputusan_mesyuarat , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
@@ -870,7 +873,7 @@ if ($readonly) {
         }
         
         if(!$readonly){
-            echo "<div class='required'>";
+            
             echo FormGrid::widget([
                 'model' => $model,
                 'form' => $form,
@@ -885,10 +888,43 @@ if ($readonly) {
                         ],
                     ]
                 ]);
-            echo "</div>";
+            
         }
+        echo "</div>";
         echo '<br />';
         
+        $label = $model->getAttributeLabel('surat_sokongan');
+        echo "<div class='required'>";
+        if($model->surat_sokongan){
+            echo "<div><label>" . $model->getAttributeLabel('surat_sokongan') . "</label><br>";
+            echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->surat_sokongan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
+            echo "</div>";
+            
+            $label = false;
+        }
+        
+        if(!$readonly){
+            
+            echo FormGrid::widget([
+                'model' => $model,
+                'form' => $form,
+                'autoGenerateColumns' => true,
+                'rows' => [
+                        [
+                            'columns'=>12,
+                            'autoGenerateColumns'=>false, // override columns setting
+                            'attributes' => [
+                                'surat_sokongan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>4], 'label' => $label],
+                            ],
+                        ],
+                    ]
+                ]);
+            
+        }
+        echo "</div>";
+        echo '<br />';
+        
+        echo "<div class='required'>";
         $label = $model->getAttributeLabel('salinan_ic_passport');
         if($model->salinan_ic_passport){
             
@@ -900,7 +936,7 @@ if ($readonly) {
         }
         
         if(!$readonly){
-            echo "<div class='required'>";
+            
             echo FormGrid::widget([
                 'model' => $model,
                 'form' => $form,
@@ -915,13 +951,14 @@ if ($readonly) {
                         ],
                     ]
                 ]);
-            echo "</div>";
+            
         }
+        echo "</div>";
         echo '<br />';  
     ?>
     
     <?php
-    if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['tawaran'])):
+    if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['tawaran']) || $readonly):
         
         
         

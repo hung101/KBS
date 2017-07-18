@@ -346,10 +346,9 @@ $('#pengurusanpemantauandanpenilaianjurulatih-penilaian_oleh').change(function()
 });
         
 $('#jurulatihId').change(function(){
-    
+    clearForm();
+            
     $.get('$URLJurulatih',{id:$(this).val()},function(data){
-        clearForm();
-        
         var data = $.parseJSON(data);
         
         if(data !== null){
@@ -363,8 +362,10 @@ $('#jurulatihId').change(function(){
         var data = $.parseJSON(data);
         if(data !== null){
             //$("#pengurusanpemantauandanpenilaianjurulatih-nama_sukan").val(data.sukan).trigger("change");
-			$("#pengurusanpemantauandanpenilaianjurulatih-nama_sukan").val(data.sukan).change();
-            if(data.refJurulatihAcara !== null){ 
+            $("#pengurusanpemantauandanpenilaianjurulatih-nama_sukan").val(data.sukan).trigger("change");
+            $('#pengurusanpemantauandanpenilaianjurulatih-nama_acara').depdrop('init');
+            
+            if(data.refJurulatihAcara !== ''){ 
                 $("#pengurusanpemantauandanpenilaianjurulatih-nama_acara").val(data.refJurulatihAcara[0].acara).trigger("change");
             }
         }

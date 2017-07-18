@@ -11,6 +11,7 @@ use yii\grid\GridView;
 use yii\bootstrap\Modal;
 use yii\widgets\Pjax;
 use kartik\datecontrol\DateControl;
+use kartik\widgets\DepDrop;
 
 // table reference
 use app\models\RefKategoriPenilaian;
@@ -22,6 +23,7 @@ use app\models\RefPeringkatKejohananTemasya;
 use app\models\RefProgramSemasaSukanAtlet;
 use app\models\RefTemasya;
 use app\models\RefStatusPermohonanProgramBinaan;
+use app\models\RefKategoriKejohananTemasya;
 
 // contant values
 use app\models\general\Placeholder;
@@ -61,25 +63,69 @@ use common\models\general\GeneralFunction;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama_kejohanan_temasya' => [
-                'type'=>Form::INPUT_WIDGET, 
-                'widgetClass'=>'\kartik\widgets\Select2',
-                'options'=>[
-                    // 'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                    // [
-                        // 'append' => [
-                            // 'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                            // 'asButton' => true
-                        // ]
-                    // ] : null,
-                    'data'=>ArrayHelper::map(\app\models\PerancanganProgramPlan::find()->joinWith('refKategoriPelan')
-							->where(['IS NOT', 'perancangan_program_plan_master_id', NULL])
-                            ->andWhere(['LIKE', 'desc', 'kejohanan'])->all(),'perancangan_program_id', 'nama_program'),
-                    'options' => ['placeholder' => Placeholder::kejohanan_temasya, 'id' => 'kejohananTemasya'],
-                    'pluginOptions' => [
-                        'allowClear' => true
-                    ],],
-                'columnOptions'=>['colspan'=>4]],
+                'kategori' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        // 'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        // [
+                            // 'append' => [
+                                // 'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                // 'asButton' => true
+                            // ]
+                        // ] : null,
+                        'data'=>ArrayHelper::map(RefKategoriKejohananTemasya::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::kategori],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+                'nama_kejohanan_temasya' => /*[
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        // 'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        // [
+                            // 'append' => [
+                                // 'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                // 'asButton' => true
+                            // ]
+                        // ] : null,
+                        'data'=>ArrayHelper::map(\app\models\PerancanganProgramPlan::find()->joinWith('refKategoriPelan')
+                                                            ->where(['IS NOT', 'perancangan_program_plan_master_id', NULL])
+                                ->andWhere(['LIKE', 'id', '1'])->orWhere(['LIKE', 'id', '8'])->all(),'perancangan_program_id', 'nama_program'),
+                        'options' => ['placeholder' => Placeholder::kejohanan_temasya, 'id' => 'kejohananTemasya'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>4]]*/
+                    [
+                        'type'=>Form::INPUT_WIDGET, 
+                        'widgetClass'=>'\kartik\widgets\DepDrop', 
+                        'options'=>[
+                            'type'=>DepDrop::TYPE_SELECT2,
+                            'select2Options'=> [
+                                /*'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                [
+                                        'append' => [
+                                                'content' => Html::a(Html::icon('edit'), ['/ref-jenis-pelan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                                'asButton' => true
+                                        ]
+                                ] : null,*/
+                                'pluginOptions'=>['allowClear'=>true]
+                            ],
+                            'data'=>ArrayHelper::map(\app\models\PerancanganProgramPlan::find()->joinWith('refKategoriPelan')
+                                                        ->where(['IS NOT', 'perancangan_program_plan_master_id', NULL])
+                            ->andWhere(['LIKE', 'id', '1'])->orWhere(['LIKE', 'id', '8'])->all(),'perancangan_program_id', 'nama_program'),
+                            'options'=>['prompt'=>'','id' => 'kejohananTemasya',],
+                            'pluginOptions' => [
+                                    'initialize' => true,
+                                    'depends'=>[Html::getInputId($model, 'kategori')],
+                                    'placeholder' => Placeholder::kejohanan_temasya,
+                                    'url'=>Url::to(['/perancangan-program-plan/subitems'])],
+                            ],
+                        'columnOptions'=>['colspan'=>4]],
+                
             ],
         ],
         [
@@ -605,12 +651,14 @@ use common\models\general\GeneralFunction;
 	
 	<?php 
         $jumlah_dipohon = 0.00;
+        $jumlah_dicadang = 0.00;
         foreach($dataProviderPenyertaanSukanPerbelanjaan->models as $PBKmodel){
             $jumlah_dipohon += $PBKmodel->jumlah_pohon;
+            $jumlah_dicadang += $PBKmodel->jumlah_cadang;
         }
     ?>
     
-    <h4><?= GeneralLabel::jumlah_yang_dipohon ?> (RM): <?php echo number_format($jumlah_dipohon, 2);?></h4>
+    <h4><?= GeneralLabel::jumlah_yang_dipohon ?> (RM): <?php echo number_format($jumlah_dipohon, 2);?>, <?= GeneralLabel::jumlah_yang_dicadangkan ?> (RM): <?php echo number_format($jumlah_dicadang, 2);?></h4>
     
     <?php Pjax::end(); ?>
     

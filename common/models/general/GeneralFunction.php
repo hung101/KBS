@@ -234,7 +234,7 @@ class GeneralFunction{
     }
     
     public static function getDateTimePrintFormat($date){
-        return date("d.m.Y G.i", strtotime($date));
+        return date("d.m.Y g:i A", strtotime($date));
     }
     
     public static function joinAddress($address_1, $address_2, $address_3){

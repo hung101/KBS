@@ -72,13 +72,42 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['view_own_data'])){
+            $queryParams['PermohonanKemudahanTicketKapalTerbangSearch']['created_by'] = Yii::$app->user->identity->id;
+        }
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['kelulusan'])) {
+            $queryParams['PermohonanKemudahanTicketKapalTerbangSearch']['hantar_flag'] = 1;
+        }
+        
         $searchModel = new PermohonanKemudahanTicketKapalTerbangSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+    
+    /**
+     * Displays a single PermohonanKemudahanTicketKapalTerbang model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionLoad($penyertaan_sukan_id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        if (($model = PermohonanKemudahanTicketKapalTerbang::find()->where(['penyertaan_sukan_id'=>$penyertaan_sukan_id])->one()) !== null) {
+            //return $this->redirect(['update', 'id' => $model->bantuan_penganjuran_kejohanan_laporan_id]);
+            return $this->redirect(['view', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_id]);
+        } else {
+            return $this->redirect(['create', 'penyertaan_sukan_id' => $penyertaan_sukan_id]);
+        }
     }
 
     /**
@@ -171,7 +200,7 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($id = null)
+    public function actionCreate($penyertaan_sukan_id = null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -179,8 +208,6 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
         $this->unsetAllPrime();
 		
         $model = new PermohonanKemudahanTicketKapalTerbang();
-        
-        $model->kelulusan = RefStatusPermohonanKemudahan::SEDANG_DIPROSES;
         
         //auto populate nama pemohon
         $model->nama_pemohon = Yii::$app->user->identity->full_name;
@@ -196,9 +223,12 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
             $queryPar['PermohonanKemudahanTicketKapalTerbangPegawaiSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['PermohonanKemudahanTicketKapalTerbangPengurusSukanSearch']['session_id'] = Yii::$app->session->id;
             
-            if($id != null){
+            if($penyertaan_sukan_id != null){
                 //autopopulate sukan, atlet etc
-                $penyertaanSukan = PenyertaanSukan::findOne(['penyertaan_sukan_id' => $id]);
+                $penyertaanSukan = PenyertaanSukan::findOne(['penyertaan_sukan_id' => $penyertaan_sukan_id]);
+                
+                $model->penyertaan_sukan_id = $penyertaan_sukan_id;
+                        
                 if(count($penyertaanSukan) > 0) {
                     $model->nama_program = $penyertaanSukan->nama_kejohanan_temasya;
                     if($penyertaanSukan->nama_sukan != null) {
@@ -233,9 +263,9 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
                         $jurulatihTiket = new PermohonanKemudahanTicketKapalTerbangJurulatih;
                         $jurulatihTiket->jurulatih = $jurulatih->jurulatih_id;
                         $jurulatihTiket->session_id = Yii::$app->session->id;
-                        $jurulatihTiket->ic_no = $jurulatih->refJurulatih->ic_no;
-                        $jurulatihTiket->passport_no = $jurulatih->refJurulatih->passport_no;
-                        $jurulatihTiket->hp_no = $jurulatih->refJurulatih->no_telefon_bimbit;
+                        if(isset($jurulatih->refJurulatih->ic_no)){$jurulatihTiket->ic_no = $jurulatih->refJurulatih->ic_no;}
+                        if(isset($jurulatih->refJurulatih->passport_no)){$jurulatihTiket->passport_no = $jurulatih->refJurulatih->passport_no;}
+                        if(isset($jurulatih->refJurulatih->no_telefon_bimbit)){$jurulatihTiket->hp_no = $jurulatih->refJurulatih->no_telefon_bimbit;}
                         $jurulatihTiket->save();
                     }
                 }
@@ -414,6 +444,30 @@ class PermohonanKemudahanTicketKapalTerbangController extends Controller
                 'readonly' => false,
             ]);
         }
+    }
+    
+    /**
+     * Updates an existing PermohonanKemudahanTicketKapalTerbang model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set approved
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->kelulusan = RefStatusPermohonanKemudahan::SEDANG_DIPROSES;
+        
+        $model->save();
+        
+        return $this->redirect(['view', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_id]);
     }
 
     /**

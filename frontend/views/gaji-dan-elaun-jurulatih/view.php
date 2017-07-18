@@ -34,7 +34,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['gaji-dan-elaun-jurulatih']['update'])): ?>
             <?php echo Html::a(GeneralLabel::cetak, ['print', 'id' => $model->gaji_dan_elaun_jurulatih_id], ['class' => 'btn btn-info', 'target' => '_blank']); ?>
         <?php endif; ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['gaji-dan-elaun-jurulatih']['kelulusan'])): ?>
         <?= Html::a(GeneralLabel::generate . ' ' . GeneralLabel::surat_persetujuan_terima_pelantikan_dan_pembayaran, ['surat-persetujuan-terima-pelantikan-dan-pembayaran', 'gaji_dan_elaun_jurulatih_id' => $model->gaji_dan_elaun_jurulatih_id], ['class' => 'btn btn-warning', 'target' => '_blank']); ?>
+        <?php endif; ?>
     </p>
     
     <?= $this->render('_form', [

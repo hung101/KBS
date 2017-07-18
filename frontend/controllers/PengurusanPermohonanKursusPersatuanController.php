@@ -27,6 +27,7 @@ use app\models\RefBandar;
 use app\models\RefNegeri;
 use app\models\RefTahapKpsk;
 use app\models\RefStatusPermohonanJkk;
+use app\models\ProfilBadanSukan;
 
 /**
  * PengurusanPermohonanKursusPersatuanController implements the CRUD actions for PengurusanPermohonanKursusPersatuan model.
@@ -55,8 +56,14 @@ class PengurusanPermohonanKursusPersatuanController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-permohonan-kursus-persatuan']['kelulusan'])) {
+            $queryParams['PengurusanPermohonanKursusPersatuanSearch']['hantar_flag'] = 1;
+        }
+        
         $searchModel = new PengurusanPermohonanKursusPersatuanSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -128,8 +135,7 @@ class PengurusanPermohonanKursusPersatuanController extends Controller
         
         $model = new PengurusanPermohonanKursusPersatuan();
 		
-		$model->scenario = 'create';
-		$model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
+        $model->scenario = 'create';
         
         $queryPar = null;
         
@@ -141,13 +147,28 @@ class PengurusanPermohonanKursusPersatuanController extends Controller
         
         $searchModelPengurusanPermohonanKursusPersatuanPenasihat  = new PengurusanPermohonanKursusPersatuanPenasihatSearch();
         $dataProviderPengurusanPermohonanKursusPersatuanPenasihat = $searchModelPengurusanPermohonanKursusPersatuanPenasihat->search($queryPar);
+        
+        if(!Yii::$app->request->post()){
+            //$model->kelulusan = RefStatusPermohonanJkk::SEDANG_DIPROSES;
+        }
+        
+        if(!Yii::$app->user->isGuest && Yii::$app->user->identity->profil_badan_sukan){
+            if(($persatuan = ProfilBadanSukan::findOne(Yii::$app->user->identity->profil_badan_sukan)) !== NULL){
+                $model->alamat_1 = $persatuan->alamat_tetap_badan_sukan_1;
+                $model->alamat_2 = $persatuan->alamat_tetap_badan_sukan_2;
+                $model->alamat_3 = $persatuan->alamat_tetap_badan_sukan_3;
+                $model->alamat_negeri = $persatuan->alamat_tetap_badan_sukan_negeri;
+                $model->alamat_bandar = $persatuan->alamat_tetap_badan_sukan_bandar;
+                $model->alamat_poskod = $persatuan->alamat_tetap_badan_sukan_poskod;
+            }
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			$file = UploadedFile::getInstance($model, 'surat_permohonan');
+            $file = UploadedFile::getInstance($model, 'surat_permohonan');
             $filename = $model->pengurusan_permohonan_kursus_persatuan_id . "-surat_permohonan";
             if($file){
                 $model->surat_permohonan = Upload::uploadFile($file, Upload::pengurusanPermohonanKursusPersatuanFolder, $filename);
-				$model->save();
+                $model->save();
             }	
 			
             if(isset(Yii::$app->session->id)){
@@ -180,7 +201,7 @@ class PengurusanPermohonanKursusPersatuanController extends Controller
         
         $model = $this->findModel($id);
 		
-		$existingSurat = $model->surat_permohonan;
+        $existingSurat = $model->surat_permohonan;
         
         $queryPar = null;
         
@@ -189,8 +210,8 @@ class PengurusanPermohonanKursusPersatuanController extends Controller
         $searchModelPengurusanPermohonanKursusPersatuanPenasihat  = new PengurusanPermohonanKursusPersatuanPenasihatSearch();
         $dataProviderPengurusanPermohonanKursusPersatuanPenasihat = $searchModelPengurusanPermohonanKursusPersatuanPenasihat->search($queryPar);
 
-		if($model->load(Yii::$app->request->post())){	
-			$file = UploadedFile::getInstance($model, 'surat_permohonan');
+        if($model->load(Yii::$app->request->post())){	
+            $file = UploadedFile::getInstance($model, 'surat_permohonan');
 
             if($file){
                 $filename = $model->pengurusan_permohonan_kursus_persatuan_id . "-surat_permohonan";
@@ -259,6 +280,31 @@ class PengurusanPermohonanKursusPersatuanController extends Controller
          }
          return true;
          }
+    }
+    
+    /**
+     * Updates an existing PengurusanPermohonanKursusPersatuan model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set approved
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
+        $model->kelulusan = RefStatusPermohonanJkk::SEDANG_DIPROSES;
+        
+        $model->save();
+        
+        return $this->redirect(['view', 'id' => $model->pengurusan_permohonan_kursus_persatuan_id]);
     }
 
     /**

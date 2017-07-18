@@ -95,6 +95,12 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
         $ref = RefGajiElaunJurulatih::findOne(['id' => $model->cadangan_gaji_elaun]);
         $model->cadangan_gaji_elaun = $ref['desc'];
         
+        $ref = RefStatusTawaran::findOne(['id' => $model->status_tawaran_mpj]);
+        $model->status_tawaran_mpj = $ref['desc'];
+        
+        $ref = RefStatusTawaran::findOne(['id' => $model->status_tawaran_jkb]);
+        $model->status_tawaran_jkb = $ref['desc'];
+        
         if($model->tarikh_mula_lantikan != "") {$model->tarikh_mula_lantikan = GeneralFunction::convert($model->tarikh_mula_lantikan, GeneralFunction::TYPE_DATE);}
         if($model->tarikh_tamat_lantikan != "") {$model->tarikh_tamat_lantikan = GeneralFunction::convert($model->tarikh_tamat_lantikan, GeneralFunction::TYPE_DATE);}
         if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}

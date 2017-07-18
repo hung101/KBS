@@ -47,8 +47,8 @@ $cawangan_list = GeneralFunction::getCawangan($param_cawangan);
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL]); ?>
-    
-    <div class="col-sm-4">
+    <div class="row">
+        <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong><?=GeneralLabel::kumpulan_umur?> 1</strong>
@@ -207,6 +207,8 @@ $cawangan_list = GeneralFunction::getCawangan($param_cawangan);
                 </div>
             </div>
         </div>
+    </div>
+    
     
     
     

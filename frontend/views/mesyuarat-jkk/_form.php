@@ -365,7 +365,7 @@ use app\models\general\Placeholder;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(PengurusanJkkJkp::find()->all(),'pengurusan_jkk_jkp_id', 'nama_pegawai_coach'),
+                        'data'=>ArrayHelper::map(PengurusanJkkJkp::find()->where(['=', 'peranan', 1])->all(),'pengurusan_jkk_jkp_id', 'nama_pegawai_coach'),
                         'options' => ['placeholder' => Placeholder::pengerusiMesyuarat],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -543,6 +543,8 @@ $BASE_URL_PERBINCANGAN = Url::to(['agenda-perbincangan', 'mesyuarat_id' => $mesy
 
 $URLSetJenisMesyuarat = Url::to(['/mesyuarat-jkk/set-jenis-mesyuarat']);
 
+$URLAhliJKKJKP = Url::to(['/pengurusan-jkk-jkp/get-ahli']);
+
 $script = <<< JS
         
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
@@ -600,6 +602,24 @@ function checkProgramSukan(){
     //alert(URL_PERBINCANGAN);
             
     $("#perbincanganLinkId").attr("href", URL_PERBINCANGAN)
+}
+            
+$('#mesyuaratjkk-pengerusi_mesyuarat').change(function(){
+	if($(this).val() != ''){
+            
+        $.get('$URLAhliJKKJKP',{id:$(this).val()},function(data){
+            clearForm();
+
+            var data = $.parseJSON(data);
+            if(data !== null && data.refJawatanJkkJkp !== null){
+                $('#mesyuaratjkk-jawatan').val(data.refJawatanJkkJkp.desc);
+            }
+        });
+    }
+});
+            
+function clearForm(){
+	$('#mesyuaratjkk-jawatan').attr('value','');
 }
      
 

@@ -89,7 +89,7 @@ class BantuanPenganjuranKursusPegawaiTeknikal extends \yii\db\ActiveRecord
         return [
             [['badan_sukan', 'sukan', 'jumlah_bantuan_yang_dipohon'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh', 'tarikh_permohonan', 'tarikh_jkb', 'created', 'updated', 'tarikh_tamat'], 'safe'],
-            [['yuran_penyertaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['yuran_penyertaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_dilulus', 'anggaran_perbelanjaan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['created_by', 'updated_by', 'no_akaun', 'status_permohonan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['badan_sukan', 'nama_bank', 'jkb'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'no_akaun'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -152,6 +152,7 @@ class BantuanPenganjuranKursusPegawaiTeknikal extends \yii\db\ActiveRecord
             'updated' => 'Updated',
             'tarikh_tamat'=> GeneralLabel::tarikh_tamat,  //'Tarikh Tamat',
             'surat_kelulusan' => GeneralLabel::surat_kelulusan,
+            'anggaran_perbelanjaan' => GeneralLabel::anggaran_perbelanjaan,   //'Anggaran Perbelanjaan (RM)',
         ];
     }
     

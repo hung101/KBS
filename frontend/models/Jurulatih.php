@@ -135,9 +135,12 @@ class Jurulatih extends \yii\db\ActiveRecord
             [['no_telefon', 'no_telefon_pejabat', 'no_telefon_bimbit'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_telefon', 'no_telefon_pejabat'], 'string', 'min' => 9, 'tooShort' => GeneralMessage::yii_validation_string_min],
             [['no_telefon_bimbit'], 'string', 'min' => 10, 'tooShort' => GeneralMessage::yii_validation_string_min],
-            [['gambar'], 'validateFileUpload', 'skipOnEmpty' => false],
+            [['gambar','salinan_ic_passport','keputusan_mesyuarat', 'surat_sokongan'], 'validateFileUploadRequired', 'skipOnEmpty' => false],
+            //[['keputusan_mesyuarat', 'surat_sokongan'], 'validateFileUpload', 'skipOnEmpty' => false],
             [['tarikh_tamat_lantikan'], 'compare', 'compareAttribute'=>'tarikh_mula_lantikan', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
-            [['pengerusi', 'kelulusan_dkp', 'catatan_spkk', 'bersyarat', 'lain_lain', 'catatan', 'catatan_mpj', 'borang_maklumat', 'borang_kesihatan', 'borang_hrmis', 'borang_rawatan', 'borang_keselamatan', 'borang_pelekat', 'borang_income_tax', 'keputusan_mesyuarat', 'salinan_ic_passport'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['pengerusi', 'kelulusan_dkp', 'catatan_spkk', 'bersyarat', 'lain_lain', 'catatan', 'catatan_mpj', 'borang_maklumat', 'borang_kesihatan', 
+                'borang_hrmis', 'borang_rawatan', 'borang_keselamatan', 'borang_pelekat', 'borang_income_tax', 'keputusan_mesyuarat', 'salinan_ic_passport',
+                'surat_sokongan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
         ];
     }
 
@@ -229,6 +232,7 @@ class Jurulatih extends \yii\db\ActiveRecord
             'borang_pelekat' => GeneralLabel::borang_pelekat,
             'borang_income_tax' => GeneralLabel::borang_income_tax,
             'keputusan_mesyuarat' => GeneralLabel::keputusan_mesyuarat_jkk,
+            'surat_sokongan' => GeneralLabel::surat_sokongan_jurulatih,
             'salinan_ic_passport' => GeneralLabel::salinan_ic_passport,
             'umur_jurulatih' => GeneralLabel::umur,
             'status_tawaran_mpj' => GeneralLabel::status_tawaran_mpj,
@@ -241,6 +245,17 @@ class Jurulatih extends \yii\db\ActiveRecord
      * Validate upload file cannot be empty
      */
     public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUploadRequired($attribute, $params){
         $file = UploadedFile::getInstance($this, $attribute);
         
         if($file && $file->getHasError()){

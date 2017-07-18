@@ -149,6 +149,38 @@ class PengurusanMediaProgramController extends Controller
                     'pengurusan_media_program_id' => $model->pengurusan_media_program_id,
                 ]);
             
+            $emailContent = "Assalamualaikum dan Salam Sejahtera,<br>
+<br>Sukacita dimaklumkan bahawa " . $model->nama_program . " akan diadakan seperti berikut: 
+<br>&nbsp;&nbsp;&nbsp;&nbsp;Tarikh: " . date_format(date_create($model->tarikh_mula),"d.m.Y") . "
+<br>&nbsp;&nbsp;&nbsp;&nbsp;Masa: " . date_format(date_create($model->tarikh_mula),"g:i A") . "
+<br>&nbsp;&nbsp;&nbsp;&nbsp;Tempat: " . $model->tempat;
+  
+            $attachment = "";
+            $modelPengurusanDokumenMediaPrograms = PengurusanDokumenMediaProgram::findAll([
+                    'pengurusan_media_program_id' => $model->pengurusan_media_program_id,
+                ]);
+            
+            foreach($modelPengurusanDokumenMediaPrograms as $modelPengurusanDokumenMediaProgram){
+                if($attachment == ""){
+                    $attachment .= "<br>&nbsp;&nbsp;&nbsp;&nbsp;Attachment:";
+                }
+                
+                if($modelPengurusanDokumenMediaProgram->muatnaik != ""){
+                    $attachment .= "<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $modelPengurusanDokumenMediaProgram->nama_dokumen . " - " . Yii::$app->getUrlManager()->createAbsoluteUrl('') . '/' . $modelPengurusanDokumenMediaProgram->muatnaik;
+                }
+            }
+            
+            $emailContent.= $attachment;
+            
+            $emailContent.= "<br>
+<br>Sehubungan dengan itu, semua rakan media adalah dijemput hadir bagi membuat liputan. 
+<br>
+<br>
+Sekian, terima kasih<br>
+Cawangan Komunikasi Korporat<br>
+Majlis Sukan Negara Malaysia
+";
+            
             foreach($modelWartawans as $modelWartawan){
                 $modelProfilWartawan = ProfilWartawanSukan::findOne($modelWartawan->nama_wartawan);
                 if($modelProfilWartawan->emel && $modelProfilWartawan->emel != ''){
@@ -156,11 +188,7 @@ class PengurusanMediaProgramController extends Controller
                         ->setTo($modelProfilWartawan->emel)
                         ->setFrom('noreply@spsb.com')
                         ->setSubject('Jemputan Media')
-                        ->setHtmlBody("<br>Nama Program: " . $model->nama_program . "
-<br>Tarikh: " . $model->tarikh_mula . " - " . $model->tarikh_tamat . "
-<br>Tempat: " . $model->tempat . "
-<br>Catatan: " . $model->catatan . "
-")->send();
+                        ->setHtmlBody($emailContent)->send();
                 }
             }
             
@@ -213,6 +241,38 @@ class PengurusanMediaProgramController extends Controller
                     'pengurusan_media_program_id' => $model->pengurusan_media_program_id,
                 ]);
             
+            $emailContent = "Assalamualaikum dan Salam Sejahtera,<br>
+<br>Sukacita dimaklumkan bahawa " . $model->nama_program . " akan diadakan seperti berikut: 
+<br>&nbsp;&nbsp;&nbsp;&nbsp;Tarikh: " . date_format(date_create($model->tarikh_mula),"d.m.Y") . "
+<br>&nbsp;&nbsp;&nbsp;&nbsp;Masa: " . date_format(date_create($model->tarikh_mula),"g:i A") . "
+<br>&nbsp;&nbsp;&nbsp;&nbsp;Tempat: " . $model->tempat;
+  
+            $attachment = "";
+            $modelPengurusanDokumenMediaPrograms = PengurusanDokumenMediaProgram::findAll([
+                    'pengurusan_media_program_id' => $model->pengurusan_media_program_id,
+                ]);
+            
+            foreach($modelPengurusanDokumenMediaPrograms as $modelPengurusanDokumenMediaProgram){
+                if($attachment == ""){
+                    $attachment .= "<br>&nbsp;&nbsp;&nbsp;&nbsp;Attachment:";
+                }
+                
+                if($modelPengurusanDokumenMediaProgram->muatnaik != ""){
+                    $attachment .= "<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $modelPengurusanDokumenMediaProgram->nama_dokumen . " - " . Yii::$app->getUrlManager()->createAbsoluteUrl('') . '/' . $modelPengurusanDokumenMediaProgram->muatnaik;
+                }
+            }
+            
+            $emailContent.= $attachment;
+            
+            $emailContent.= "<br>
+<br>Sehubungan dengan itu, semua rakan media adalah dijemput hadir bagi membuat liputan. 
+<br>
+<br>
+Sekian, terima kasih<br>
+Cawangan Komunikasi Korporat<br>
+Majlis Sukan Negara Malaysia
+";
+            
             foreach($modelWartawans as $modelWartawan){
                 $modelProfilWartawan = ProfilWartawanSukan::findOne($modelWartawan->nama_wartawan);
                 if($modelProfilWartawan->emel && $modelProfilWartawan->emel != ''){
@@ -220,11 +280,7 @@ class PengurusanMediaProgramController extends Controller
                         ->setTo($modelProfilWartawan->emel)
                         ->setFrom('noreply@spsb.com')
                         ->setSubject('Jemputan Media Telah Dikemaskini')
-                        ->setHtmlBody("<br>Nama Program: " . $model->nama_program . "
-<br>Tarikh: " . $model->tarikh_mula . " - " . $model->tarikh_tamat . "
-<br>Tempat: " . $model->tempat . "
-<br>Catatan: " . $model->catatan . "
-")->send();
+                        ->setHtmlBody($emailContent)->send();
                 }
             }
             

@@ -177,6 +177,9 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
 ]);*/
     ?>
     
+    <br>
+    <pre style="text-align: center"><strong>A. MAKLUMAT MENGENAI NGO</strong></pre>
+    
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -767,14 +770,26 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     
     <br>
     
+    <br>
+    <pre style="text-align: center"><strong>B. MAKLUMAT MENGENAI KEDUDUKAN KEWANGAN</strong></pre>
+    
     <h3><?=GeneralLabel::pendapatan_tahun_lepas?></h3>
     
     
     <?php Pjax::begin(['id' => 'pendapatanTahunLepasGrid', 'timeout' => 100000]); ?>
+    
+    <?php 
+        $calculate_jumlah_pendapatan = 0.00;
+        foreach($dataProviderPTL->models as $PTLmodel){
+            $calculate_jumlah_pendapatan += $PTLmodel->jumlah_pendapatan;
+        }
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProviderPTL,
         //'filterModel' => $searchModelPTL,
+        'showFooter' =>true,
+        'footerRowOptions'=>['style'=>'font-weight:bold;'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -785,8 +800,16 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                 'attribute' => 'jenis_pendapatan',
                 'value' => 'refJenisPendapatan.desc'
             ],
-            'butir_butir',
-            'jumlah_pendapatan',
+            //'butir_butir',
+            [
+                'attribute' => 'butir_butir',
+                'footer' => GeneralLabel::jumlah
+            ],
+            [
+                'attribute' => 'jumlah_pendapatan',
+                'footer' => sprintf('%0.2f',$calculate_jumlah_pendapatan)
+            ],
+            //'jumlah_pendapatan',
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',
@@ -827,15 +850,7 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     </p>
     <?php endif; ?>
     
-    
-    <?php 
-        $calculate_jumlah_pendapatan = 0.00;
-        foreach($dataProviderPTL->models as $PTLmodel){
-            $calculate_jumlah_pendapatan += $PTLmodel->jumlah_pendapatan;
-        }
-    ?>
-    
-    <h4><?=GeneralLabel::jumlah_pendapatan_without_rm?>: RM <?=$calculate_jumlah_pendapatan?></h4>
+    <!--<h4><?=GeneralLabel::jumlah_pendapatan_without_rm?>: RM <?=$calculate_jumlah_pendapatan?></h4>-->
     
     <br>
     
@@ -891,6 +906,20 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
                 'cawangan_dan_alamat_bank' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>90, 'disabled'=>$disabled_fields]],
             ]
         ],
+    ]
+]);
+    ?>
+    
+    <br>
+    <br>
+    <pre style="text-align: center"><strong>C. MAKLUMAT MENGENAI PROGRAM/AKTIVITI</strong></pre>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -944,19 +973,47 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     <h3><?=GeneralLabel::anggaran_perbelanjaan_program_aktiviti_yang_dipohon?></h3>
     
     <?php Pjax::begin(['id' => 'anggaranPerbelanjaanGrid', 'timeout' => 100000]); ?>
+    
+    <?php 
+        $calculate_jumlah_perbelanjaan = 0.00;
+        $calculate_jumlah_disokong = 0.00;
+        $calculate_jumlah_diperakuankan = 0.00;
+        foreach($dataProviderAP->models as $APmodel){
+            $calculate_jumlah_perbelanjaan += $APmodel->jumlah_perbelanjaan;
+            $calculate_jumlah_disokong += $APmodel->jumlah_disokong;
+            $calculate_jumlah_diperakuankan += $APmodel->jumlah_diperakuankan;
+        }
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProviderAP,
         //'filterModel' => $searchModelAP,
+        'showFooter' =>true,
+        'footerRowOptions'=>['style'=>'font-weight:bold;'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             //'anggaran_perbelanjaan_id',
             //'permohonan_e_bantuan_id',
-            'butir_butir_perbelanjaan',
-            'jumlah_perbelanjaan',
-            'jumlah_disokong',
-            'jumlah_diperakuankan',
+            [
+                'attribute' => 'butir_butir_perbelanjaan',
+                'footer' => GeneralLabel::jumlah
+            ],
+            //'jumlah_perbelanjaan',
+            [
+                'attribute' => 'jumlah_perbelanjaan',
+                'footer' => sprintf('%0.2f',$calculate_jumlah_perbelanjaan)
+            ],
+            //'jumlah_disokong',
+            [
+                'attribute' => 'jumlah_disokong',
+                'footer' => sprintf('%0.2f',$calculate_jumlah_disokong)
+            ],
+            //'jumlah_diperakuankan',
+            [
+                'attribute' => 'jumlah_diperakuankan',
+                'footer' => sprintf('%0.2f',$calculate_jumlah_diperakuankan)
+            ],
 
             //['class' => 'yii\grid\ActionColumn'],
             ['class' => 'yii\grid\ActionColumn',
@@ -997,20 +1054,9 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     </p>
     <?php endif; ?>
     
-    <?php 
-        $calculate_jumlah_perbelanjaan = 0.00;
-        $calculate_jumlah_disokong = 0.00;
-        $calculate_jumlah_diperakuankan = 0.00;
-        foreach($dataProviderAP->models as $APmodel){
-            $calculate_jumlah_perbelanjaan += $APmodel->jumlah_perbelanjaan;
-            $calculate_jumlah_disokong += $APmodel->jumlah_disokong;
-            $calculate_jumlah_diperakuankan += $APmodel->jumlah_diperakuankan;
-        }
-    ?>
-    
-    <h4><?=GeneralLabel::jumlah_perbelanjaan_without_rm?>: RM <?=$calculate_jumlah_perbelanjaan?>, 
+    <!--<h4><?=GeneralLabel::jumlah_perbelanjaan_without_rm?>: RM <?=$calculate_jumlah_perbelanjaan?>, 
             <?=GeneralLabel::jumlah_disokong_without_rm?>: RM <?=$calculate_jumlah_disokong?>, 
-            <?=GeneralLabel::jumlah_diperakuankan_without_rm?>: RM <?=$calculate_jumlah_diperakuankan?></h4>
+            <?=GeneralLabel::jumlah_diperakuankan_without_rm?>: RM <?=$calculate_jumlah_diperakuankan?></h4>-->
     
     <?php Pjax::end(); ?>
     
@@ -1055,197 +1101,68 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     ?>
     
     <?php // Kertas Kerja
+    echo "<label>" . $model->getAttributeLabel('kertas_kerja') . "</label><br>";
         if($model->kertas_kerja){
-            echo "<label>" . $model->getAttributeLabel('kertas_kerja') . "</label><br>";
             echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->kertas_kerja , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
-            if(!$readonly && !$disabled_fields){
-                echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->permohonan_e_bantuan_id, 'field'=> 'kertas_kerja'], 
-                [
-                    'class'=>'btn btn-danger', 
-                    'data' => [
-                        'confirm' => GeneralMessage::confirmRemove,
-                        'method' => 'post',
-                    ]
-                ]).'<p>';
-            }
         } else {
-            if(!$disabled_fields){
-            echo FormGrid::widget([
-            'model' => $model,
-            'form' => $form,
-            'autoGenerateColumns' => true,
-            'rows' => [
-                    [
-                        'columns'=>12,
-                        'autoGenerateColumns'=>false, // override columns setting
-                        'attributes' => [
-                            'kertas_kerja' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3], 'hint'=>GeneralLabel::senarai_kertas_kerja_hint],
-                        ],
-                    ],
-                ]
-            ]);
-            }
+            echo '(Tiada)';
         }
+        echo '<br>';
     ?>
     
     <?php // Sijil Pendaftaran persatuan
+    echo "<label>" . $model->getAttributeLabel('sijil_pendaftaran_persatuan') . "</label><br>";
         if($model->sijil_pendaftaran_persatuan){
-            echo "<label>" . $model->getAttributeLabel('sijil_pendaftaran_persatuan') . "</label><br>";
+            
             echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->sijil_pendaftaran_persatuan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
-            if(!$readonly){
-                echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->permohonan_e_bantuan_id, 'field'=> 'sijil_pendaftaran_persatuan'], 
-                [
-                    'class'=>'btn btn-danger', 
-                    'data' => [
-                        'confirm' => GeneralMessage::confirmRemove,
-                        'method' => 'post',
-                    ]
-                ]).'<p>';
-            }
         } else {
-            echo FormGrid::widget([
-            'model' => $model,
-            'form' => $form,
-            'autoGenerateColumns' => true,
-            'rows' => [
-                    [
-                        'columns'=>12,
-                        'autoGenerateColumns'=>false, // override columns setting
-                        'attributes' => [
-                            'sijil_pendaftaran_persatuan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
-                        ],
-                    ],
-                ]
-            ]);
+            echo '(Tiada)';
         }
+        echo '<br>';
     ?>
     
     <?php // Salinan Perlembagaan Persatuan (Jika terdapat pindaan)
+    echo "<label>" . $model->getAttributeLabel('salinan_perlembagaan_persatuan') . "</label><br>";
         if($model->salinan_perlembagaan_persatuan){
-            echo "<label>" . $model->getAttributeLabel('salinan_perlembagaan_persatuan') . "</label><br>";
+            
             echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->salinan_perlembagaan_persatuan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
-            if(!$readonly){
-                echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->permohonan_e_bantuan_id, 'field'=> 'salinan_perlembagaan_persatuan'], 
-                [
-                    'class'=>'btn btn-danger', 
-                    'data' => [
-                        'confirm' => GeneralMessage::confirmRemove,
-                        'method' => 'post',
-                    ]
-                ]).'<p>';
-            }
+
         } else {
-            echo FormGrid::widget([
-            'model' => $model,
-            'form' => $form,
-            'autoGenerateColumns' => true,
-            'rows' => [
-                    [
-                        'columns'=>12,
-                        'autoGenerateColumns'=>false, // override columns setting
-                        'attributes' => [
-                            'salinan_perlembagaan_persatuan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
-                        ],
-                    ],
-                ]
-            ]);
+            echo '(Tiada)';
         }
+        echo '<br>';
     ?>
     
     <?php // Senarai Ahli Jawatankuasa Persatuan yang lengkap dan terkini
+    echo "<label>" . $model->getAttributeLabel('senarai_ahli_jawatankuasa_persatuan') . "</label><br>";
         if($model->senarai_ahli_jawatankuasa_persatuan){
-            echo "<label>" . $model->getAttributeLabel('senarai_ahli_jawatankuasa_persatuan') . "</label><br>";
             echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->senarai_ahli_jawatankuasa_persatuan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
-            if(!$readonly){
-                echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->permohonan_e_bantuan_id, 'field'=> 'senarai_ahli_jawatankuasa_persatuan'], 
-                [
-                    'class'=>'btn btn-danger', 
-                    'data' => [
-                        'confirm' => GeneralMessage::confirmRemove,
-                        'method' => 'post',
-                    ]
-                ]).'<p>';
-            }
-        } else {
-            echo FormGrid::widget([
-            'model' => $model,
-            'form' => $form,
-            'autoGenerateColumns' => true,
-            'rows' => [
-                    [
-                        'columns'=>12,
-                        'autoGenerateColumns'=>false, // override columns setting
-                        'attributes' => [
-                            'senarai_ahli_jawatankuasa_persatuan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
-                        ],
-                    ],
-                ]
-            ]);
+        }  else {
+            echo '(Tiada)';
         }
+        echo '<br>';
     ?>
     
     <?php // Salinan Akaun Bank Persatuan yang terkini
+    echo "<label>" . $model->getAttributeLabel('salinan_akaun_bank_persatuan') . "</label><br>";
         if($model->salinan_akaun_bank_persatuan){
-            echo "<label>" . $model->getAttributeLabel('salinan_akaun_bank_persatuan') . "</label><br>";
+            
             echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->salinan_akaun_bank_persatuan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
-            if(!$readonly){
-                echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->permohonan_e_bantuan_id, 'field'=> 'salinan_akaun_bank_persatuan'], 
-                [
-                    'class'=>'btn btn-danger', 
-                    'data' => [
-                        'confirm' => GeneralMessage::confirmRemove,
-                        'method' => 'post',
-                    ]
-                ]).'<p>';
-            }
-        } else {
-            echo FormGrid::widget([
-            'model' => $model,
-            'form' => $form,
-            'autoGenerateColumns' => true,
-            'rows' => [
-                    [
-                        'columns'=>12,
-                        'autoGenerateColumns'=>false, // override columns setting
-                        'attributes' => [
-                            'salinan_akaun_bank_persatuan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
-                        ],
-                    ],
-                ]
-            ]);
+        }  else {
+            echo '(Tiada)';
         }
+        echo '<br>';
     ?>
     
     <?php // Laporan Penyata Kewangan Tahunan (Bantuan Pentadbiran)
+    echo "<label>" . $model->getAttributeLabel('laporan_penyata_kewangan_tahunan') . "</label><br>";
         if($model->laporan_penyata_kewangan_tahunan){
-            echo "<label>" . $model->getAttributeLabel('laporan_penyata_kewangan_tahunan') . "</label><br>";
+            
             echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->laporan_penyata_kewangan_tahunan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
-            if(!$readonly){
-                echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->permohonan_e_bantuan_id, 'field'=> 'laporan_penyata_kewangan_tahunan'], 
-                [
-                    'class'=>'btn btn-danger', 
-                    'data' => [
-                        'confirm' => GeneralMessage::confirmRemove,
-                        'method' => 'post',
-                    ]
-                ]).'<p>';
-            }
-        } else {
-            echo FormGrid::widget([
-            'model' => $model,
-            'form' => $form,
-            'autoGenerateColumns' => true,
-            'rows' => [
-                    [
-                        'columns'=>12,
-                        'autoGenerateColumns'=>false, // override columns setting
-                        'attributes' => [
-                            'laporan_penyata_kewangan_tahunan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
-                        ],
-                    ],
-                ]
-            ]);
+        }  else {
+            echo '(Tiada)';
         }
+        echo '<br>';
     ?>
     
     
@@ -1356,21 +1273,6 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     ]
 ]);
     }
-    
-    echo FormGrid::widget([
-    'model' => $model,
-    'form' => $form,
-    'autoGenerateColumns' => true,
-    'rows' => [
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'catatan_pemohon' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4],'options'=>['disabled'=>$disableUrusetia]],
-            ]
-        ],
-    ]
-]);
     ?>
     
     
@@ -1614,6 +1516,155 @@ mana terdahulu. &nbsp;&nbsp;<?= Html::a('Muat Turun PB-6', ['print', 'id' => $mo
     }
     ?>
     
+    <br>
+     <div class="panel panel-default">
+        <div class="panel-heading text-center">
+            <h2><?=strtoupper(GeneralLabel::akuan_penerima)?> (PB-2)</h2>
+            <strong><?=GeneralLabel::senarai_semak_check_list?> <br><?=GeneralLabel::permohonan_bantuan?></strong>
+        </div>
+        <div class="panel-body">
+            <strong><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Lengkap</strong>
+            <?php 
+                echo '<div class="checkbox checkbox_read">
+                        <label>
+                            <input id="permohonanebantuan-semak_borang_permohonan_bantuan" name="PermohonanEBantuan[semak_borang_permohonan_bantuan]" '.
+                        (($model->semak_borang_permohonan_bantuan=='1')?'checked':'').' type="checkbox" disabled> 
+                            '.$model->getAttributeLabel('semak_borang_permohonan_bantuan').'
+                        </label>
+                    </div>';
+                if(!$readonly){
+                    echo '<div class="checkbox_update">';
+                    echo $form->field($model, 'semak_borang_permohonan_bantuan')->checkbox(); 
+                    echo '</div>';
+                }
+            ?>
+            
+            <?php 
+                echo '<div class="checkbox checkbox_read">
+                        <label>
+                            <input id="permohonanebantuan-semak_kertas_kerja_program" name="PermohonanEBantuan[semak_kertas_kerja_program]" '.
+                        (($model->semak_kertas_kerja_program=='1')?'checked':'').' type="checkbox" disabled> 
+                            '.$model->getAttributeLabel('semak_kertas_kerja_program').'
+                        </label>
+                    </div>';
+                if(!$readonly){
+                    echo '<div class="checkbox_update">';
+                    echo $form->field($model, 'semak_kertas_kerja_program')->checkbox(); 
+                    echo '</div>';
+                }
+            ?>
+            
+            <?php 
+                echo '<div class="checkbox checkbox_read">
+                        <label>
+                            <input id="permohonanebantuan-semak_salinan_sijil_pendaftaran_persatuan" name="PermohonanEBantuan[semak_salinan_sijil_pendaftaran_persatuan]" '.
+                        (($model->semak_salinan_sijil_pendaftaran_persatuan=='1')?'checked':'').' type="checkbox" disabled> 
+                            '.$model->getAttributeLabel('semak_salinan_sijil_pendaftaran_persatuan').'
+                        </label>
+                    </div>';
+                if(!$readonly){
+                    echo '<div class="checkbox_update">';
+                    echo $form->field($model, 'semak_salinan_sijil_pendaftaran_persatuan')->checkbox(); 
+                    echo '</div>';
+                }
+            ?>
+            
+            <?php 
+                echo '<div class="checkbox checkbox_read">
+                        <label>
+                            <input id="permohonanebantuan-semak_salinan_perlembagaan_persatuan" name="PermohonanEBantuan[semak_salinan_perlembagaan_persatuan]" '.
+                        (($model->semak_salinan_perlembagaan_persatuan=='1')?'checked':'').' type="checkbox" disabled> 
+                            '.$model->getAttributeLabel('semak_salinan_perlembagaan_persatuan').'
+                        </label>
+                    </div>';
+                if(!$readonly){
+                    echo '<div class="checkbox_update">';
+                    echo $form->field($model, 'semak_salinan_perlembagaan_persatuan')->checkbox(); 
+                    echo '</div>';
+                }
+            ?>
+            
+            <?php 
+                echo '<div class="checkbox checkbox_read">
+                        <label>
+                            <input id="permohonanebantuan-semak_senarai_ahli_jawatankuasa_persatuan" name="PermohonanEBantuan[semak_senarai_ahli_jawatankuasa_persatuan]" '.
+                        (($model->semak_senarai_ahli_jawatankuasa_persatuan=='1')?'checked':'').' type="checkbox" disabled> 
+                            '.$model->getAttributeLabel('semak_senarai_ahli_jawatankuasa_persatuan').'
+                        </label>
+                    </div>';
+                if(!$readonly){
+                    echo '<div class="checkbox_update">';
+                    echo $form->field($model, 'semak_senarai_ahli_jawatankuasa_persatuan')->checkbox(); 
+                    echo '</div>';
+                }
+            ?>
+            
+            <?php 
+                echo '<div class="checkbox checkbox_read">
+                        <label>
+                            <input id="permohonanebantuan-semak_buku_bank_penyata_bank_kewangan_persatuan" name="PermohonanEBantuan[semak_buku_bank_penyata_bank_kewangan_persatuan]" '.
+                        (($model->semak_buku_bank_penyata_bank_kewangan_persatuan=='1')?'checked':'').' type="checkbox" disabled> 
+                            '.$model->getAttributeLabel('semak_buku_bank_penyata_bank_kewangan_persatuan').'
+                        </label>
+                    </div>';
+                if(!$readonly){
+                    echo '<div class="checkbox_update">';
+                    echo $form->field($model, 'semak_buku_bank_penyata_bank_kewangan_persatuan')->checkbox(); 
+                    echo '</div>';
+                }
+            ?>
+            
+            <?php 
+                echo '<div class="checkbox checkbox_read">
+                        <label>
+                            <input id="permohonanebantuan-semak_laporan_pelaksaaan_program_terdahulu" name="PermohonanEBantuan[semak_laporan_pelaksaaan_program_terdahulu]" '.
+                        (($model->semak_laporan_pelaksaaan_program_terdahulu=='1')?'checked':'').' type="checkbox" disabled> 
+                            '.$model->getAttributeLabel('semak_laporan_pelaksaaan_program_terdahulu').'
+                        </label>
+                    </div>';
+                if(!$readonly){
+                    echo '<div class="checkbox_update">';
+                    echo $form->field($model, 'semak_laporan_pelaksaaan_program_terdahulu')->checkbox(); 
+                    echo '</div>';
+                }
+            ?>
+            
+            <?php 
+                echo '<div class="checkbox checkbox_read">
+                        <label>
+                            <input id="permohonanebantuan-semak_surat_setuju_terima_pb_4" name="PermohonanEBantuan[semak_surat_setuju_terima_pb_4]" '.
+                        (($model->semak_surat_setuju_terima_pb_4=='1')?'checked':'').' type="checkbox" disabled> 
+                            '.$model->getAttributeLabel('semak_surat_setuju_terima_pb_4').'
+                        </label>
+                    </div>';
+                if(!$readonly){
+                    echo '<div class="checkbox_update">';
+                    echo $form->field($model, 'semak_surat_setuju_terima_pb_4')->checkbox(); 
+                    echo '</div>';
+                }
+            ?>
+            
+            <?php
+                    echo FormGrid::widget([
+                        'model' => $model,
+                        'form' => $form,
+                        'autoGenerateColumns' => true,
+                        'rows' => [
+                            [
+                                'columns'=>12,
+                                'autoGenerateColumns'=>false, // override columns setting
+                                'attributes' => [
+                                    'catatan_pemohon' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>4]],
+                                ]
+                            ],
+                        ]
+                    ]);
+                ?>
+            
+        </div>
+        <div class="panel-footer">*Sila kemaskini dokumen berkaitan dalam tempoh <strong>14 hari.</strong> Permohonan yang tidak lengkap <strong>tidak akan dipertimbangkan.</strong></div>
+    </div>
+    
 
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -1700,8 +1751,27 @@ $('#permohonanebantuan-sokongan').change(function(){
     clearKelulusan();
     checkSokongan();
 });
+           
+function hideUpdateCheckboxes(){
+    $(".checkbox_update").hide();
+}
+            
+function showUpdateCheckboxes(){
+    $(".checkbox_update").show();
+}
+            
+function hideReadCheckboxes(){
+    $(".checkbox_read").hide();
+}
+            
+function showReadCheckboxes(){
+    $(".checkbox_read").show();
+}
             
 function checkSokongan() {
+    showUpdateCheckboxes(); 
+    hideReadCheckboxes();
+            
     if($('#permohonanebantuan-sokongan').val() == '$SOKONGAN_NEGERI' && 
         '$PARANAN_PENGGUNA' == '$PARANAN_URUSETIA' &&
        // '$KATEGORI_URUSETIA_PENGGUNA' != '$KATEGORI_URUSETIA_BAHAGIAN_JBSN' &&
@@ -1720,6 +1790,8 @@ function checkSokongan() {
         $("#permohonanebantuan-laporan").prop("disabled", true);
         $("#permohonanebantuan-kelulusan").prop("disabled", true);
         $("#permohonanebantuan-catatan_pemohon").prop("disabled", true);
+        hideUpdateCheckboxes(); 
+        showReadCheckboxes();
     } else if($('#permohonanebantuan-sokongan').val() == '$SOKONGAN_NEGERI' && '$PARANAN_PENGGUNA' == '$PARANAN_URUSETIA'){
         $("#permohonanebantuan-status_permohonan").val('$STATUS_PERMOHONAN_SEDANG_DISEMAKAN').trigger("change");
         $( ".field-jumlahDiluluskan" ).hide();
@@ -1728,6 +1800,11 @@ function checkSokongan() {
         $("#permohonanebantuan-status_permohonan").val('$STATUS_PERMOHONAN_TAK_LENGKAP').trigger("change");
         $( ".field-jumlahDiluluskan" ).hide();
         $( ".field-permohonanebantuan-tarikh_bayar" ).hide();
+        $("#permohonanebantuan-bil_mesyuarat").prop("disabled", true);
+        $("#permohonanebantuan-tarikh_mesyuarat-disp").prop("disabled", true);
+        $("#permohonanebantuan-laporan").prop("disabled", true);
+        $("#permohonanebantuan-kelulusan").prop("disabled", true);
+    } else if($('#permohonanebantuan-sokongan').val() == ''){
         $("#permohonanebantuan-bil_mesyuarat").prop("disabled", true);
         $("#permohonanebantuan-tarikh_mesyuarat-disp").prop("disabled", true);
         $("#permohonanebantuan-laporan").prop("disabled", true);

@@ -53,7 +53,7 @@ class PembayaranElaun extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [[ 'atlet_id', 'kategori_elaun', 'tempoh_elaun', 'tarikh_mula', 'tarikh_tamat', 'jumlah_elaun', 'status_elaun', 'kelulusan', 'sukan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [[ 'atlet_id', 'kategori_elaun', 'tempoh_elaun', 'tarikh_mula', 'tarikh_tamat', 'jumlah_elaun_sebulan', 'status_elaun', 'kelulusan', 'sukan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['atlet_id', 'kelulusan', 'sukan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah_elaun', 'jumlah_elaun_sebulan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['kategori_elaun'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],

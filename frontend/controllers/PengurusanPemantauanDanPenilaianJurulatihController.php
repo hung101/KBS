@@ -18,6 +18,7 @@ use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\Jurulatih;
+use app\models\JurulatihSukan;
 use app\models\RefSukan;
 use app\models\RefAcara;
 use app\models\RefPenilaianJurulatih;
@@ -43,7 +44,7 @@ class PengurusanPemantauanDanPenilaianJurulatihController extends Controller
      * Lists all PengurusanPemantauanDanPenilaianJurulatih models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($jurulatih_id = null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -56,12 +57,17 @@ class PengurusanPemantauanDanPenilaianJurulatihController extends Controller
         
         $session->close();
         
+        $queryPar = Yii::$app->request->queryParams;
+        
+        $queryPar['PengurusanPemantauanDanPenilaianJurulatihSearch']['jurulatih'] = $jurulatih_id;
+        
         $searchModel = new PengurusanPemantauanDanPenilaianJurulatihSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryPar);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'jurulatih_id' => $jurulatih_id,
         ]);
     }
 
@@ -70,7 +76,7 @@ class PengurusanPemantauanDanPenilaianJurulatihController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($id,$jurulatih_id = null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -112,6 +118,7 @@ class PengurusanPemantauanDanPenilaianJurulatihController extends Controller
             'searchModelPengurusanPenilaianKategoriJurulatih' => $searchModelPengurusanPenilaianKategoriJurulatih,
             'dataProviderPengurusanPenilaianKategoriJurulatih' => $dataProviderPengurusanPenilaianKategoriJurulatih,
             'readonly' => true,
+            'jurulatih_id' => $jurulatih_id,
         ]);
     }
 
@@ -120,7 +127,7 @@ class PengurusanPemantauanDanPenilaianJurulatihController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($jurulatih_id = null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -129,6 +136,20 @@ class PengurusanPemantauanDanPenilaianJurulatihController extends Controller
         $model = new PengurusanPemantauanDanPenilaianJurulatih();
         
         $model->tarikh_dinilai = date("Y-m-d");
+        
+        if($jurulatih_id != null){
+            $jurulatihModel = Jurulatih::findOne($jurulatih_id);
+            $model->nama_jurulatih_dinilai = $jurulatihModel->jurulatih_id;
+            $model->pusat_latihan = $jurulatihModel->pusat_latihan;
+            
+            $jurulatihSukan = JurulatihSukan::find()->where(['tbl_jurulatih_sukan.jurulatih_id'=>$jurulatih_id])->joinWith(['refJurulatihAcara' => function($query) {
+                        $query->orderBy(['tbl_jurulatih_sukan_acara.created' => SORT_DESC])->one();
+                    },
+            ])->orderBy(['tbl_jurulatih_sukan.created' => SORT_DESC])->one();
+                    
+            $model->nama_sukan = $jurulatihSukan->sukan;
+            $model->nama_acara = $jurulatihSukan['refJurulatihAcara'][0]->acara;
+        }
         
         $queryPar = null;
         
@@ -154,6 +175,7 @@ class PengurusanPemantauanDanPenilaianJurulatihController extends Controller
                 'searchModelPengurusanPenilaianKategoriJurulatih' => $searchModelPengurusanPenilaianKategoriJurulatih,
                 'dataProviderPengurusanPenilaianKategoriJurulatih' => $dataProviderPengurusanPenilaianKategoriJurulatih,
                 'readonly' => false,
+                'jurulatih_id' => $jurulatih_id,
             ]);
         }
     }
@@ -164,7 +186,7 @@ class PengurusanPemantauanDanPenilaianJurulatihController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id,$jurulatih_id = null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -193,6 +215,7 @@ class PengurusanPemantauanDanPenilaianJurulatihController extends Controller
                 'model' => $model,
                 'searchModelPengurusanPenilaianKategoriJurulatih' => $searchModelPengurusanPenilaianKategoriJurulatih,
                 'dataProviderPengurusanPenilaianKategoriJurulatih' => $dataProviderPengurusanPenilaianKategoriJurulatih,
+                'jurulatih_id' => $jurulatih_id,
                 'readonly' => false,
             ]);
         }

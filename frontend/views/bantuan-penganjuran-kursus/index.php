@@ -43,13 +43,20 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'bantuan_penganjuran_kursus_id',
-            [
+            /*[
                 'attribute' => 'badan_sukan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::badan_sukan,
                 ],
                 'value' => 'refProfilBadanSukan.nama_badan_sukan'
+            ],*/
+            [
+                'attribute' => 'nama_kursus_seminar_bengkel',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_kursus_seminar_bengkel,
+                ],
             ],
             [
                 'attribute' => 'sukan',
@@ -147,7 +154,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             'target' => '_blank'
                         ]);
                         
-                        return $model->status_permohonan == app\models\RefStatusBantuanPenganjuranKursus::LULUS ? $laporanLink : '';
+                        return ($model->status_permohonan == app\models\RefStatusBantuanPenganjuranKursus::LULUS &&
+        ((isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['kelulusan']) && $model->laporan_hantar_flag == 1) ||
+        !isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['kelulusan']))) ? $laporanLink : '';
                     },
                 ],
                 'template' => $template .= ' {report}',

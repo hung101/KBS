@@ -18,10 +18,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-elaun']['update'])): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['create']) && $model->hantar_flag == 0)): ?>
+            <?= Html::a(GeneralLabel::send, ['hantar', 'id' => $model->bantuan_penganjuran_kejohanan_id], [
+                'class' => 'btn btn-success',
+                'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                    'method' => 'post',
+                ],
+                ]) ?>
+        <?php endif; ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['update']) && $model->hantar_flag == 0) || isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['kelulusan'])): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->bantuan_penganjuran_kejohanan_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-elaun']['delete'])): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['delete']) && $model->hantar_flag == 0) || isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['kelulusan'])): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->bantuan_penganjuran_kejohanan_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
@@ -30,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-elaun']['update'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['update']) && $model->hantar_flag == 1): ?>
             <?= Html::a(GeneralLabel::cetak, ['print', 'id' => $model->bantuan_penganjuran_kejohanan_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
         <?php endif; ?>
         <?= Html::a(GeneralLabel::backToList, ['index'], ['class' => 'btn btn-warning']) ?>

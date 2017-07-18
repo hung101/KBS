@@ -9,6 +9,7 @@ use kartik\builder\FormGrid;
 use kartik\datecontrol\DateControl;
 use yii\grid\GridView;
 use yii\bootstrap\Modal;
+use kartik\widgets\DepDrop;
 use yii\helpers\Url;
 use yii\widgets\Pjax;
 
@@ -99,7 +100,7 @@ use app\models\general\GeneralMessage;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
-                'atlet_id' => [
+                'atlet_id' => /*[
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -115,7 +116,30 @@ use app\models\general\GeneralMessage;
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>5]],
+                    'columnOptions'=>['colspan'=>5]],*/
+                [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\DepDrop', 
+                    'options'=>[
+                        'type'=>DepDrop::TYPE_SELECT2,
+                        'select2Options'=> [
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                            'pluginOptions'=>['allowClear'=>true]
+                        ],
+                        'data'=>ArrayHelper::map($atlet_list,'atlet_id', 'nameAndIC'),
+                        'options'=>['prompt'=>'',],
+                        'pluginOptions' => [
+                            'depends'=>[Html::getInputId($model, 'sukan')],
+                            'placeholder' => Placeholder::atlet,
+                            'url'=>Url::to(['/atlet/sub-atlets-sukan'])],
+                        ],
+                    'columnOptions'=>['colspan'=>6]],
             ]
         ],
         [
@@ -175,8 +199,8 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'jumlah_elaun' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
                 'jumlah_elaun_sebulan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
+                'jumlah_elaun' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>10]],
                 'status_elaun' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -326,7 +350,10 @@ use app\models\general\GeneralMessage;
 
 $script = <<< JS
         
+var months = 0;
+        
 $(document).ready(function(){
+    setDuration();
 });
         
 $("#tarikhDiberiId").change(function(){
@@ -347,7 +374,19 @@ function setDuration(){
 
         if(fromDatetime != "" && toDatetime != ""){
             $("#tempohPinjamanId").val(getDurationBetweenDatetime(fromDate,toDate));
+            months = monthDiff2(fromDate,toDate);
+            calculateJumlahElaun();
         }
+    }
+}
+        
+$("#pembayaranelaun-jumlah_elaun_sebulan").keyup(function(){
+    calculateJumlahElaun();
+});
+        
+function calculateJumlahElaun(){
+    if(months > 0 && $("#pembayaranelaun-jumlah_elaun_sebulan").val() > 0){
+        $("#pembayaranelaun-jumlah_elaun").val((months * $("#pembayaranelaun-jumlah_elaun_sebulan").val()));
     }
 }
         
@@ -357,6 +396,7 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
     var form = $(this);
 
     $("form#{$model->formName()} input").prop("disabled", false);
+    
 });
         
 JS;

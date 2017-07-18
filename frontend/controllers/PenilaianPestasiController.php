@@ -32,6 +32,7 @@ use app\models\PerancanganProgram;
 use app\models\RefJenisAktiviti;
 use app\models\RefNegeri;
 use \app\models\PerancanganProgramPlan;
+use app\models\RefKategoriKejohananTemasya;
 
 /**
  * PenilaianPestasiController implements the CRUD actions for PenilaianPestasi model.
@@ -108,6 +109,9 @@ class PenilaianPestasiController extends Controller
         
         $ref = RefNegeri::findOne(['id' => $model->negeri]);
         $model->negeri = $ref['desc'];
+        
+        $ref = RefKategoriKejohananTemasya::findOne(['id' => $model->kategori]);
+        $model->kategori = $ref['desc'];
         
         if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
         if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
@@ -424,7 +428,7 @@ class PenilaianPestasiController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanAcaraKejohananTemasya($kejohanan, $temasya, $format)
+    public function actionGenerateLaporanAcaraKejohananTemasya($kejohanan=null, $temasya=null, $format)
     {
         if($kejohanan == "") $kejohanan = array();
         else $kejohanan = array($kejohanan);
@@ -559,7 +563,7 @@ class PenilaianPestasiController extends Controller
         ]);
     }
     
-    public function actionGenerateLaporanPenyertaanKontinjen($kejohanan, $temasya, $format)
+    public function actionGenerateLaporanPenyertaanKontinjen($kejohanan=null, $temasya=null, $format)
     {
         if($kejohanan == "") $kejohanan = array();
         else $kejohanan = array($kejohanan);

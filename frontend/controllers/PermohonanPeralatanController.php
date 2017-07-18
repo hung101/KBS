@@ -50,8 +50,18 @@ class PermohonanPeralatanController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['kelulusan'])) {
+            $queryParams['PermohonanPeralatanSearch']['hantar_flag'] = 1;
+        }
+        
         $searchModel = new PermohonanPeralatanSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -66,6 +76,10 @@ class PermohonanPeralatanController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $queryPar = null;
         $queryPar['PeralatanSearch']['permohonan_peralatan_id'] = $id;
         $queryPar['PermohonanPeralatanPenggunaanSearch']['permohonan_peralatan_id'] = $id;
@@ -116,6 +130,10 @@ class PermohonanPeralatanController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new PermohonanPeralatan();
         
         $queryPar = null;
@@ -169,6 +187,10 @@ class PermohonanPeralatanController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $queryPar = null;
         $queryPar['PeralatanSearch']['permohonan_peralatan_id'] = $id;
         $queryPar['PermohonanPeralatanPenggunaanSearch']['permohonan_peralatan_id'] = $id;
@@ -196,6 +218,30 @@ class PermohonanPeralatanController extends Controller
             ]);
         }
     }
+    
+    /**
+     * Updates an existing PermohonanPeralatan model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set approved
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->kelulusan = RefKelulusanPeralatan::SEDANG_DIPROSES;
+        
+        $model->save();
+        
+        return $this->redirect(['view', 'id' => $model->permohonan_peralatan_id]);
+    }
 
     /**
      * Deletes an existing PermohonanPeralatan model.
@@ -205,6 +251,10 @@ class PermohonanPeralatanController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

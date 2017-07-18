@@ -388,7 +388,7 @@ use common\models\general\GeneralFunction;
             ],
             'tempat',
             'jumlah_kelulusan',
-            'pendahuluan_80',
+            //'pendahuluan_80',
             // 'no_cek',
             // 'no_boucer',
             'jumlah_yang_dituntut_20',

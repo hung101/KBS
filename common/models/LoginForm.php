@@ -116,10 +116,13 @@ class LoginForm extends Model
                 }
             }*/
             
-            if($user->expiry_date){
-                $dateExpiry=date_create($user->expiry_date);
-                date_add($dateExpiry,date_interval_create_from_date_string("30 days"));
-                $dateActiveExpired = date_format($dateExpiry,"Y-m-d");
+            if($user->last_active){
+                $dateActiveExpired = new \DateTime($user->last_active);
+                $dateActiveExpired->modify('+30 days'); // 45 days before tarikh kejohanan berlangsung
+        
+                //$dateActiveExpired=$user->last_active;
+                //$dateActiveExpired=date_add($dateActiveExpired,date_interval_create_from_date_string("30 days"));
+                //$dateActiveExpired = date_format($dateActiveExpired,"Y-m-d");
             }
             
             if($user->expiry_date && ($user->expiry_date < date("Y-m-d")) && $user->peranan == UserPeranan::PERANAN_PJS_PERSATUAN){
@@ -127,10 +130,10 @@ class LoginForm extends Model
                 //$user->save();
                 $this->addError('username', 'Akaun anda disekat kerana tidak menghantar laporan tahunan. Sila hubungi Pejabat Pesuruhjaya Sukan ditalian 03 8994 4800');
                 return false;
-            } else if($user->expiry_date && $dateActiveExpired && $dateActiveExpired < date("Y-m-d")){
+            } elseif($user->last_active && $dateActiveExpired && $dateActiveExpired->format('Y-m-d') < date("Y-m-d")){
                 $this->addError('username', 'Akaun anda telah dinyahaktifkan. Sila hubungi admin SPSB.');
                 return false;
-            } else if($user->expiry_date && $user->expiry_date < date("Y-m-d")){
+            } elseif($user->expiry_date && $user->expiry_date < date("Y-m-d")){
                 $this->addError('username', 'Akaun anda telah digantung. Sila hubungi admin SPSB.');
                 return false;
             }

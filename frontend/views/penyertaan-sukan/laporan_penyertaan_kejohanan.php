@@ -343,7 +343,7 @@ $model->tempat = $parentModel->tempat_penginapan;
 				'label' => GeneralLabel::nama,
 				'value' => function ($data) {
 					$query = \app\models\Jurulatih::findOne(['jurulatih_id' => $data->jurulatih_id]);
-					return $query->nama;
+					return $query['nama'];
 				},
 			],
             
@@ -401,7 +401,7 @@ $model->tempat = $parentModel->tempat_penginapan;
 				'label' => GeneralLabel::nama,
 				'value' => function ($data) {
 					$query = \app\models\Atlet::findOne(['atlet_id' => $data->atlet_id]);
-					return $query->name_penuh;
+					return $query['name_penuh'];
 				},
 			],
             [
@@ -409,7 +409,8 @@ $model->tempat = $parentModel->tempat_penginapan;
 				'label' => GeneralLabel::jantina,
 				'value' => function ($data) {
 					$query = \app\models\Atlet::findOne(['atlet_id' => $data->atlet_id]);
-					return RefJantina::findOne(['id' => $query->jantina])->desc;
+					$ref =  RefJantina::findOne(['id' => $query->jantina]);
+                                        return $ref['desc'];
 				},
 			],
             
@@ -503,7 +504,7 @@ $model->tempat = $parentModel->tempat_penginapan;
 				'label' => GeneralLabel::nama,
 				'value' => function ($data) {
 					$query = \app\models\Atlet::findOne(['atlet_id' => $data->atlet_id]);
-					return $query->name_penuh;
+					return $query['name_penuh'];
 				},
 			],
             [
@@ -511,7 +512,7 @@ $model->tempat = $parentModel->tempat_penginapan;
 				'label' => GeneralLabel::acara,
 				'value' => function ($data) {
 					$query = \app\models\RefAcara::findOne(['id' => $data->acara]);
-					return $query->desc;
+					return $query['desc'];
 				},
 			],
             'sasaran',

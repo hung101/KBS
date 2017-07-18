@@ -34,10 +34,21 @@ use app\models\general\GeneralMessage;
 /* @var $model app\models\PenyertaanSukanAcara */
 /* @var $form yii\widgets\ActiveForm */
 
-if($model->bahagian === 1 || $model->bahagian === 'Kejohanan / Latihan'){
+if($model->bahagian === 1 || $model->bahagian === 'Kejohanan'||
+        $model->bahagian === 7 || $model->bahagian === 'Latihan' ||
+        $model->bahagian === 8 || $model->bahagian === 'Temasya'){
 	echo '<script> var isKejohananFlag = true; </script>';
 } else {
 	echo '<script> var isKejohananFlag = false; </script>';
+}
+
+if($model->bahagian === 1 || $model->bahagian === 'Kejohanan'||
+        $model->bahagian === 6 || $model->bahagian === 'Management' ||
+        $model->bahagian === 7 || $model->bahagian === 'Latihan' ||
+        $model->bahagian === 8 || $model->bahagian === 'Temasya' ){
+	echo '<script> var isCampFlag = true; </script>';
+} else {
+	echo '<script> var isCampFlag = false; </script>';
 }
 
 ?>
@@ -92,8 +103,8 @@ if($model->bahagian === 1 || $model->bahagian === 'Kejohanan / Latihan'){
                                                             'data'=>ArrayHelper::map(RefJenisPelan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                                                             'options'=>['prompt'=>'',],
                                                             'pluginOptions' => [
-                                                                    //'initialize' => true,
-                                                                    'depends'=>[Html::getInputId($model, 'bahagian')],
+                                                                    'initialize' => true,
+                                                                    'depends'=>['kategoriID'],
                                                                     'placeholder' => Placeholder::jenis,
                                                                     'url'=>Url::to(['/ref-jenis-pelan/subjenis'])],
                                                             ],
@@ -288,6 +299,27 @@ if($model->bahagian === 1 || $model->bahagian === 'Kejohanan / Latihan'){
 			]
 		]);
     ?>
+    
+    <div class="isCamp">	
+	<?php
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                       'jumlah_atlet' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                       'jumlah_jurulatih' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                        'jumlah_pegawai' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                    ]
+                ],
+            ]
+        ]);
+    ?>
+	</div>
 	
 	<div class="isKejohanan">	
 	<?php
@@ -408,12 +440,25 @@ if(isKejohananFlag === true){
 	$('.isKejohanan').hide();
 }
 
+if(isCampFlag === true){
+	$('.isCamp').show();
+} else {
+	$('.isCamp').hide();
+}
+
 $('#kategoriID').change(function(){
 	var selected = $(this).val();
-	if(selected != '1'){
+	if(selected != '1' && selected != '7' && selected != '8'){
 		$('.isKejohanan').hide();
 	} else {
 		$('.isKejohanan').show();
+	}
+
+    // Jumlah Atlet, Jumlah Jurulatih, Jumlah Pegawai
+    if(selected != '1' && selected != '7' && selected != '8' && selected != '6'){
+		$('.isCamp').hide();
+	} else {
+		$('.isCamp').show();
 	}
 });
 

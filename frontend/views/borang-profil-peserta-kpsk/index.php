@@ -15,13 +15,29 @@ $this->title = GeneralLabel::borang_profil_peserta_kpsk;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="borang-profil-peserta-kpsk-index">
+    
+    <?php
+        $template = '{view}';
+        
+        // Update Access
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-profil-peserta-kpsk']['update'])){
+            $template .= ' {update}';
+        }
+        
+        // Delete Access
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-profil-peserta-kpsk']['delete'])){
+            $template .= ' {delete}';
+        }
+    ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-profil-peserta-kpsk']['create'])): ?>
     <p>
         <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::borang_profil_peserta_kpsk, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <?php endif; ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -73,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     },
                 ],
-                'template' => '{view} {update} {delete}',
+                'template' => $template,
             ],
         ],
     ]); ?>

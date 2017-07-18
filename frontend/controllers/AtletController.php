@@ -3656,7 +3656,7 @@ Majlis Sukan Negara Malaysia.
             }
         } 
 
-        return $this->render('laporan_atlet_elaun', [
+        return $this->render('laporan_elaun_atlet_mengikut_sukan', [
             'model' => $model,
             'readonly' => false,
         ]);
@@ -3703,7 +3703,7 @@ Majlis Sukan Negara Malaysia.
             'JENIS_ELAUN' => $jenis_elaun,
         );
         
-        GeneralFunction::generateReport('/spsb/MSN/LaporanElaunAtletMengikutSukan', $format, $controls, 'laporan_atlet_elaun');
+        GeneralFunction::generateReport('/spsb/MSN/LaporanElaunAtletMengikutSukan', $format, $controls, 'laporan_elaun_atlet_mengikut_sukan');
     }
     
     public function actionLaporanElaunAtletMengikutSukanParalimpik()

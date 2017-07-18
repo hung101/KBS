@@ -45,6 +45,7 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
     public $negeri_sokongan_id;
     public $kelulusan_id;
     public $status_permohonan_id;
+    public $jumlah_perbelanjaan_yang_dipohon;
     
     /**
      * @inheritdoc
@@ -83,7 +84,8 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
                 [['catatan', 'nama_program', 'tarikh_pelaksanaan', 'tarikh_pelaksanaan_tamat', 'tempat_pelaksanaan', 'bilangan_peserta', 'tujuan_program_aktiviti', 'tarikh_mesyuarat', 'tarikh_bayar',
                     'objektif_pertubuhan', 'aktiviti_dan_kejayaan_yang_dicapai', 'catatan_admin', 'hantar_flag', 'tarikh_hantar', 'catatan_pemohon'], 'safe'],
                 [['bilangan_keahlian', 'bilangan_cawangan_badan_gabungan', 'laporan', 'status_permohonan', 'negeri_sokongan', 'user_public_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-                [['pertubuhan_persatuan_sendiri', 'lain_lain_sumbangan', 'yuran_bayaran_penyertaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_perbelanjaan', 'jumlah_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
+                [['pertubuhan_persatuan_sendiri', 'lain_lain_sumbangan', 'yuran_bayaran_penyertaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_perbelanjaan', 
+                    'jumlah_diluluskan', 'jumlah_perbelanjaan_yang_dipohon'], 'number', 'message' => GeneralMessage::yii_validation_number],
                 [[ 'pejabat_yang_mendaftarkan', 'jawatankuasa_penaung', 'jawatankuasa_pegerusi', 'jawatankuasa_timbalan_pengerusi', 'jawatankuasa_naib_pengerusi', 'jawatankuasa_setiausaha', 'jawatankuasa_bendahari'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['no_pendaftaran', 'alamat_negeri', 'alamat_surat_menyurat_negeri', 'bil_mesyuarat', 'peringkat_program'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['alamat_1', 'alamat_2', 'alamat_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -96,7 +98,10 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
                 [['muat_naik_pb4', 'muat_naik_pb5', 'muat_naik_pb6', 'kertas_kerja','sijil_pendaftaran_persatuan', 
                     'salinan_perlembagaan_persatuan','senarai_ahli_jawatankuasa_persatuan','salinan_akaun_bank_persatuan', 
                     'laporan_penyata_kewangan_tahunan'],'validateFileUpload', 'skipOnEmpty' => false],
-                [['tarikh_didaftarkan'], 'compare', 'compareValue'=>date("Y-m-d"), 'operator'=>'<=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
+                [['tarikh_didaftarkan'], 'compare', 'compareValue'=>date("Y-m-d"), 'operator'=>'<=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::custom_validation_tarikh_didaftarkan],
+                [['tarikh_pelaksanaan_tamat'], 'compare', 'compareAttribute'=>'tarikh_pelaksanaan', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
+                ['tarikh_pelaksanaan','validateBeforePenganjuran', 'on' => 'create'],
+                ['jumlah_bantuan_yang_dipohon','validateJumlahPerbelanjaanDipohon'],
             ];
         } else {
             return [
@@ -108,7 +113,8 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
                 [['catatan', 'nama_program', 'tarikh_pelaksanaan', 'tarikh_pelaksanaan_tamat', 'tempat_pelaksanaan', 'bilangan_peserta', 'tujuan_program_aktiviti', 'tarikh_mesyuarat', 'tarikh_bayar',
                     'objektif_pertubuhan', 'aktiviti_dan_kejayaan_yang_dicapai', 'catatan_admin','hantar_flag', 'catatan_pemohon'], 'safe'],
                 [['bilangan_keahlian', 'bilangan_cawangan_badan_gabungan', 'laporan', 'status_permohonan', 'negeri_sokongan', 'user_public_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-                [['pertubuhan_persatuan_sendiri', 'lain_lain_sumbangan', 'yuran_bayaran_penyertaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_perbelanjaan', 'jumlah_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
+                [['pertubuhan_persatuan_sendiri', 'lain_lain_sumbangan', 'yuran_bayaran_penyertaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_perbelanjaan', 
+                    'jumlah_diluluskan', 'jumlah_perbelanjaan_yang_dipohon'], 'number', 'message' => GeneralMessage::yii_validation_number],
                 [[ 'pejabat_yang_mendaftarkan', 'jawatankuasa_penaung', 'jawatankuasa_pegerusi', 'jawatankuasa_timbalan_pengerusi', 'jawatankuasa_naib_pengerusi', 'jawatankuasa_setiausaha', 'jawatankuasa_bendahari'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['no_pendaftaran', 'alamat_negeri', 'alamat_surat_menyurat_negeri', 'bil_mesyuarat', 'peringkat_program'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
                 [['alamat_1', 'alamat_2', 'alamat_3', 'alamat_surat_menyurat_1', 'alamat_surat_menyurat_2', 'alamat_surat_menyurat_3'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -121,9 +127,10 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
                 [['muat_naik_pb4', 'muat_naik_pb5', 'muat_naik_pb6', 'kertas_kerja','sijil_pendaftaran_persatuan', 
                     'salinan_perlembagaan_persatuan','senarai_ahli_jawatankuasa_persatuan','salinan_akaun_bank_persatuan', 
                     'laporan_penyata_kewangan_tahunan'],'validateFileUpload', 'skipOnEmpty' => false],
-                [['tarikh_didaftarkan'], 'compare', 'compareValue'=>date("Y-m-d"), 'operator'=>'>', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
+                [['tarikh_didaftarkan'], 'compare', 'compareValue'=>date("Y-m-d"), 'operator'=>'<=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::custom_validation_tarikh_didaftarkan],
                 [['tarikh_pelaksanaan_tamat'], 'compare', 'compareAttribute'=>'tarikh_pelaksanaan', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
                 ['tarikh_pelaksanaan','validateBeforePenganjuran', 'on' => 'create'],
+                //['jumlah_bantuan_yang_dipohon','validateJumlahPerbelanjaanDipohon'],
             ];
         }
     }
@@ -218,6 +225,12 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
 
         if($dateMinus->format('Y-m-d') <= GeneralFunction::getCurrentDate()){
             $this->addError('tarikh_pelaksanaan','Permohonan tidak boleh lewat 60 hari dari tarikh berlangsung');
+        }
+    }
+    
+    public function validateJumlahPerbelanjaanDipohon(){
+        if($this->jumlah_perbelanjaan_yang_dipohon < $this->jumlah_bantuan_yang_dipohon){
+            $this->addError('jumlah_bantuan_yang_dipohon','Jumlah yang dipohon tidak melebihi jumlah anggaran perbelanjaan');
         }
     }
     

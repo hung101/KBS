@@ -15,6 +15,7 @@ use app\models\MsnLaporanJurulatihWajaran;
 use app\models\MsnSuratTawaranJurulatih;
 use app\models\MsnLaporan;
 use app\models\JurulatihPrintForm;
+use app\models\MesyuaratJkk;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -51,6 +52,7 @@ use app\models\RefStatusTawaran;
 use app\models\RefAgensiJurulatih;
 use app\models\RefTawaran;
 use app\models\RefBahasaLaporan;
+use app\models\RefBilJkk;
 
 /**
  * JurulatihController implements the CRUD actions for Jurulatih model.
@@ -105,7 +107,7 @@ class JurulatihController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($id,$mesyuarat_id=null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -212,6 +214,7 @@ class JurulatihController extends Controller
         return $this->render('layout', [
             'model' => $model,
             'readonly' => true,
+            'mesyuarat_id' => $mesyuarat_id,
         ]);
     }
 
@@ -220,7 +223,7 @@ class JurulatihController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($mesyuarat_id=null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -249,6 +252,12 @@ class JurulatihController extends Controller
                 $model->keputusan_mesyuarat = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);
             }
             
+            $file = UploadedFile::getInstance($model, 'surat_sokongan');
+            if($file){
+                $filename = $model->jurulatih_id . "-surat_sokongan";
+                $model->surat_sokongan = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);
+            }
+            
             $file = UploadedFile::getInstance($model, 'salinan_ic_passport');
             if($file){
                 $filename = $model->jurulatih_id . "-salinan_ic_passport";
@@ -270,6 +279,7 @@ class JurulatihController extends Controller
         return $this->render('layout', [
             'model' => $model,
             'readonly' => false,
+            'mesyuarat_id' => $mesyuarat_id,
         ]);
     }
 
@@ -279,7 +289,7 @@ class JurulatihController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id,$mesyuarat_id=null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -297,6 +307,15 @@ class JurulatihController extends Controller
         $existingGambar = $model->gambar;
         $existingKeputusan = $model->keputusan_mesyuarat;
         $existingIcPass = $model->salinan_ic_passport;
+        $existingSuratSokongan = $model->surat_sokongan;
+        
+        if($mesyuarat_id!=null && ($modelMesyuaratJkk = MesyuaratJkk::findOne($mesyuarat_id)) !== null){
+            $ref = RefBilJkk::findOne(['id' => $modelMesyuaratJkk->bil_mesyuarat]);
+            $modelMesyuaratJkk->bil_mesyuarat = $ref['desc'];
+            
+            $model->bilangan_jkb = $modelMesyuaratJkk->bil_mesyuarat;
+            $model->tarikh_jkb = date_format(date_create($modelMesyuaratJkk->tarikh),"Y-m-d");
+        }
         
         if($model->load(Yii::$app->request->post())){
             $file = UploadedFile::getInstance($model, 'gambar');
@@ -330,16 +349,27 @@ class JurulatihController extends Controller
                 $filename = $model->jurulatih_id . "-salinan_ic_passport";
                 $model->salinan_ic_passport = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);
             } else { $model->salinan_ic_passport = $existingIcPass; }
+            
+            $file = UploadedFile::getInstance($model, 'surat_sokongan');
+            if($file){
+                if($model->surat_sokongan != null || $model->surat_sokongan != '')//cleanup
+                {
+                    unlink($model->surat_sokongan);
+                }
+                $filename = $model->jurulatih_id . "-surat_sokongan";
+                $model->surat_sokongan = Upload::uploadFile($file, Upload::jurulatihFolder, $filename);
+            } else { $model->surat_sokongan = $existingSuratSokongan; }
         }
 
         if (Yii::$app->request->post() && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->jurulatih_id]);
-        } else {
-            return $this->render('layout', [
-                'model' => $model,
-                'readonly' => false,
-            ]);
-        }
+            return $this->redirect(['view', 'id' => $model->jurulatih_id, 'mesyuarat_id' => $mesyuarat_id]);
+        } 
+        
+        return $this->render('layout', [
+            'model' => $model,
+            'readonly' => false,
+            'mesyuarat_id' => $mesyuarat_id,
+        ]);
     }
     
     /**

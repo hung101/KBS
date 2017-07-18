@@ -23,6 +23,7 @@ use app\models\Jurulatih;
 use app\models\RefTahapKerjayaJurulatih;
 use app\models\PenganjuranKursusAkk;
 use app\models\RefKelulusan;
+use app\models\RefStatusTawaran;
 
 /**
  * AkkProgramJurulatihController implements the CRUD actions for AkkProgramJurulatih model. delete()
@@ -82,10 +83,10 @@ class AkkProgramJurulatihController extends Controller
         $ref = PenganjuranKursusAkk::findOne(['penganjuran_kursus_id' => $model->senarai_kursus_akk]);
         $model->senarai_kursus_akk = $ref['nama_kursus'];
         
-        $ref = RefKelulusan::findOne(['id' => $model->kelulusan_mpj]);
+        $ref = RefStatusTawaran::findOne(['id' => $model->kelulusan_mpj]);
         $model->kelulusan_mpj = $ref['desc'];
         
-        $ref = RefKelulusan::findOne(['id' => $model->kelulusan_jkb]);
+        $ref = RefStatusTawaran::findOne(['id' => $model->kelulusan_jkb]);
         $model->kelulusan_jkb = $ref['desc'];
         
         if($model->tarikh_program != "") {$model->tarikh_program = GeneralFunction::convert($model->tarikh_program, GeneralFunction::TYPE_DATE);}

@@ -104,8 +104,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],*/
                 ['class' => 'yii\grid\ActionColumn',
                     'buttons' => [
-                        'view' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', '', ['value'=>Url::to(['/atlet/view', 'id' => $model->atlet_id]), 'class' => 'custom_button']);
+                        'view' => function ($url, $model) use($mesyuarat_id) {
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', '', ['value'=>Url::to(['/atlet/view', 'id' => $model->atlet_id, 'mesyuarat_id' => $mesyuarat_id]), 'class' => 'custom_button']);
                         },
                     ],
                     'template' => '{view}',
@@ -176,8 +176,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
                 ['class' => 'yii\grid\ActionColumn',
                     'buttons' => [
-                        'view' => function ($url, $model) {
-                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', '', ['value'=>Url::to(['/jurulatih/view', 'id' => $model->jurulatih_id]), 'class' => 'custom_button']);
+                        'view' => function ($url, $model) use($mesyuarat_id){
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', '', ['value'=>Url::to(['/jurulatih/view', 'id' => $model->jurulatih_id, 'mesyuarat_id' => $mesyuarat_id]), 'class' => 'custom_button']);
                         },
                     ],
                     'template' => '{view}',

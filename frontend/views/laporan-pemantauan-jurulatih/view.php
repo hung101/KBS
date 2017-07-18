@@ -10,18 +10,22 @@ use app\models\general\GeneralMessage;
 
 //$this->title = $model->pengurusan_pemantauan_dan_penilaian_jurulatih_id;
 $this->title = GeneralLabel::viewTitle . ' ' . GeneralLabel::pemantauan_jurulatih;
-$this->params['breadcrumbs'][] = ['label' => GeneralLabel::pemantauan_jurulatih, 'url' => ['index']];
+if($jurulatih_id!=null){
+    $this->params['breadcrumbs'][] = ['label' => GeneralLabel::pemantauan_jurulatih, 'url' => ['index','jurulatih_id'=>$jurulatih_id]];
+} else {
+    $this->params['breadcrumbs'][] = ['label' => GeneralLabel::pemantauan_jurulatih, 'url' => ['index']];
+}
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="pengurusan-pemantauan-dan-penilaian-jurulatih-view">
+<div class="laporan-pemantauan-jurulatih-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-pemantauan-dan-penilaian-jurulatih']['update']) && $model->created_by == Yii::$app->user->identity->id): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['laporan-pemantauan-jurulatih']['update']) && $model->created_by == Yii::$app->user->identity->id): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->laporan_pemantauan_jurulatih_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-pemantauan-dan-penilaian-jurulatih']['delete']) && $model->created_by == Yii::$app->user->identity->id): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['laporan-pemantauan-jurulatih']['delete']) && $model->created_by == Yii::$app->user->identity->id): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->laporan_pemantauan_jurulatih_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
@@ -30,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
-		<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-pemantauan-dan-penilaian-jurulatih']['update'])): ?>
+		<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['laporan-pemantauan-jurulatih']['update'])): ?>
             <?= Html::a(GeneralLabel::cetak, ['print', 'id' => $model->laporan_pemantauan_jurulatih_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
         <?php endif; ?>
     </p>

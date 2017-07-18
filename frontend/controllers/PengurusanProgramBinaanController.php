@@ -93,7 +93,7 @@ class PengurusanProgramBinaanController extends Controller
         
         $queryParams = Yii::$app->request->queryParams;
         
-        if(Yii::$app->user->identity->profil_badan_sukan){
+        if(Yii::$app->user->identity->profil_badan_sukan || isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['view_own_data'])){
             $queryParams['PengurusanProgramBinaanSearch']['created_by'] = Yii::$app->user->identity->id;
         }
         
@@ -263,8 +263,6 @@ class PengurusanProgramBinaanController extends Controller
         
         $model = new PengurusanProgramBinaan();
         
-        $model->status_permohonan = RefStatusPermohonanProgramBinaan::SEDANG_DIPROSES;
-        
         $queryPar = null;
         
         Yii::$app->session->open();
@@ -362,9 +360,9 @@ class PengurusanProgramBinaanController extends Controller
                         ->setTo($modelUser->email)
                         ->setFrom('noreply@spsb.com')
                         ->setSubject('Pemberitahuan: Permohonan Program Binaan Baru')
-                        ->setHtmlBody("Salam Sejahtera,
+                        ->setHtmlBody("Assalamualaikum dan Salam Sejahtera,
 <br><br>
-Berikut adalah permohonan program binaan baru telah dihantar : 
+Terdapat permohonan baru yang diterima: 
 <br>
 <br>Nama Aktiviti: " . $model->nama_aktiviti . '
 <br>Tempat: ' . $model->tempat . '
@@ -528,6 +526,29 @@ Majlis Sukan Negara Malaysia.
                 'dataProviderPengurusanProgramBinaanKategori' => $dataProviderPengurusanProgramBinaanKategori,
                 'readonly' => false,
         ]);
+    }
+    
+    /**
+     * Updates an existing BantuanPenganjuranKejohanan model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set hantar flag
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date capture
+        $model->status_permohonan = RefStatusPermohonanProgramBinaan::SEDANG_DIPROSES;
+        
+        $model->save();
+        
+        return $this->redirect(['view', 'id' => $model->pengurusan_program_binaan_id]);
     }
 
     /**
@@ -736,6 +757,7 @@ Majlis Sukan Negara Malaysia.
                     , 'tarikh_dari' => $model->tarikh_dari
                     , 'negeri' => $model->negeri
                     , 'program' => $model->program 
+                    , 'sukan' => $model->sukan 
                     , 'format' => $model->format
                 ], true);
                 echo "<script type=\"text/javascript\" language=\"Javascript\">window.open('".$report_url."');</script>";
@@ -745,6 +767,7 @@ Majlis Sukan Negara Malaysia.
                     , 'tarikh_hingga' => $model->tarikh_hingga
                     , 'negeri' => $model->negeri
                     , 'program' => $model->program
+                    , 'sukan' => $model->sukan 
                     , 'format' => $model->format
                 ]);
             }
@@ -756,7 +779,7 @@ Majlis Sukan Negara Malaysia.
         ]);
     }
     
-    public function actionGenerateLaporanStatistikProgramBinaanMengikutSukan($tarikh_dari, $tarikh_hingga, $negeri, $program, $format)
+    public function actionGenerateLaporanStatistikProgramBinaanMengikutSukan($tarikh_dari, $tarikh_hingga, $negeri, $program, $sukan, $format)
     {
         if($tarikh_dari == "") $tarikh_dari = array();
         else $tarikh_dari = array($tarikh_dari);
@@ -770,11 +793,15 @@ Majlis Sukan Negara Malaysia.
         if($program == "") $program = array();
         else $program = array($program);
         
+        if($sukan == "") $sukan = array();
+        else $sukan = array($sukan);
+        
         $controls = array(
             'FROM_DATE' => $tarikh_dari,
             'TO_DATE' => $tarikh_hingga,
             'NEGERI' => $negeri,
             'PROGRAM' => $program,
+            'SUKAN' => $sukan,
         );
         
         GeneralFunction::generateReport('/spsb/MSN/LaporanStatistikProgramBinaanMengikutSukan', $format, $controls, 'laporan_statistik_program_binaan_mengikut_sukan');

@@ -41,7 +41,17 @@ use app\models\general\GeneralMessage;
 //set jenis_permohonan by default to id 1 (not USPTN) if empty
 if(!isset($model->jenis_permohonan) || $model->jenis_permohonan === null)
 {
-    $model->jenis_permohonan = 1;
+    $disableJenisPermohonan = false;
+    
+    if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['psk'])){
+        $model->jenis_permohonan = RefJenisPermohonan::PSK;
+        $disableJenisPermohonan = true;
+    } else if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['usptn'])){
+        $model->jenis_permohonan = RefJenisPermohonan::USPTN;
+        $disableJenisPermohonan = true;
+    } else {
+        $model->jenis_permohonan = RefJenisPermohonan::MAJLIS_SUKAN_NEGARA;
+    }
 }
 
 //default usptn-content-wrap style
@@ -113,6 +123,7 @@ if(isset($model->jenis_permohonan))
                                             }
                                         }"
                                     ],
+                                    'disabled' => $disableJenisPermohonan
                                     ],
                                 'columnOptions'=>['colspan'=>3]],
                         ],
@@ -862,7 +873,7 @@ if(isset($model->jenis_permohonan))
     </p>
     <?php endif; ?>
     
-    <div class="usptn-content-wrap">
+    <!--<div class="usptn-content-wrap">-->
     <br>
     
     <h3><?php echo GeneralLabel::teknikal; ?></h3>
@@ -975,7 +986,7 @@ if(isset($model->jenis_permohonan))
     </p>
     <?php endif; ?>
 
-    </div>
+    <!--</div>-->
     <br>
     
     <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['sokongan_pn']) || $readonly): ?>
@@ -997,7 +1008,7 @@ if(isset($model->jenis_permohonan))
     ?>
     <?php endif; ?>
     
-    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['kelulusan']) || $readonly): ?>
+    <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['kelulusan']) || $readonly) && $model->hantar_flag == 1): ?>
     <?php
         echo FormGrid::widget([
         'model' => $model,
@@ -1025,7 +1036,7 @@ if(isset($model->jenis_permohonan))
                                 'allowClear' => true
                             ],],
                         'columnOptions'=>['colspan'=>4]],
-                    //'jumlah_yang_diluluskan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                    'jumlah_yang_diluluskan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
                 ]
             ],
 /*             [
@@ -1050,7 +1061,13 @@ if(isset($model->jenis_permohonan))
     ?>
     <?php endif; ?>
     
-    <div class="non-usptn-content-wrap" style="<?= $nonUsptnStyle ?>">
+    
+    <div class="usptn-content-wrap" style="<?= $usptnStyle ?>">
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['sokongan_pn']) || 
+                isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['kelulusan']) || 
+                $readonly): ?>
+        
+        <div class="non-usptn-content-wrap" style="<?= $nonUsptnStyle ?>">
     <?php
         echo FormGrid::widget([
         'model' => $model,
@@ -1078,10 +1095,7 @@ if(isset($model->jenis_permohonan))
     ]);
     ?>
     </div>
-    <div class="usptn-content-wrap" style="<?= $usptnStyle ?>">
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['sokongan_pn']) || 
-                isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['kelulusan']) || 
-                $readonly): ?>
+        
     <?php
     
         echo FormGrid::widget([

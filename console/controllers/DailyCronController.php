@@ -12,6 +12,7 @@ use app\models\JurulatihSukan;
 use app\models\Jurulatih;
 use app\models\PengurusanPemantauanDanPenilaianJurulatih;
 use app\models\PengurusanPemantauanDanPenilaianJurulatihKetua;
+use app\models\RefSukan;
 use common\models\User;
 
 use common\models\general\GeneralFunction;
@@ -70,6 +71,7 @@ Majlis Sukan Negara Malaysia.
      
     protected function reminderKontrakJurulatih()
     {
+        //echo "reminderKontrakJurulatih()\n";
         //send reminder if kontrak jurulatih left less than or equal 30 days
         if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'peringatan_emel_kontrak-jurulatih'])->groupBy('id')->all()) !== null) {
         
@@ -85,22 +87,30 @@ Majlis Sukan Negara Malaysia.
 
                                 if($modelUser->email && $modelUser->email != ""){
                                     //echo "Jurulatih Kontrak E-mail: " . $modelUser->email . "\n";
+
+                                    if($modelJurulatihSukan->sukan){
+                                        $refSukan = RefSukan::findOne(['id' => $modelJurulatihSukan->sukan]);
+                                    }
+
                                     Yii::$app->mailer->compose()
                                     ->setTo($modelUser->email)
                                     ->setFrom('noreply@spsb.com')
                                     ->setSubject('Peringatan: Jurulatih Yang Akan Tamat Kontrak')
-                                    ->setHtmlBody("Salam Sejahtera,<br><br><br>
+                                    ->setHtmlBody("Assalamualaikum dan Salam Sejahtera,<br><br><br>
+<u><b>Penamatan Kontrak Jurulatih</b></u> <br>
+     Perkara diatas dirujuk. <br><br>
 
-
-Jurulatih berikut akan tamat kontrak: <br>
+Berikut merupakan senarai jurulatih yang akan menamatkan kontrak. <br>
 <br>
-Nama: " . $modelJurulatih->nama . '<br>
-No. K/P: ' . $modelJurulatih->ic_no . '<br>
-No. Passport: ' . $modelJurulatih->passport_no . '<br>
+Nama Jurulatih:: " . $modelJurulatih->nama . '<br>
+No. Kad Pengenalan: ' . $modelJurulatih->ic_no . '<br>
+No. Fail: ' . $modelJurulatih->no_fail . '<br>
+Sukan: ' . (isset($refSukan['desc'])?$refSukan['desc']:'') . '<br>
+Tarikh Mula Kontrak: ' . GeneralFunction::getDatePrintFormat($modelJurulatihSukan->tarikh_mula_lantikan) . '<br>
 Tarikh Tamat Kontrak: ' . GeneralFunction::getDatePrintFormat($modelJurulatihSukan->tarikh_tamat_lantikan) . '
 <br><br><br>
 
-"KE ARAH KECEMERLANGAN SUKAN"
+"KE ARAH KECEMERLANGAN SUKAN"<br>
 Majlis Sukan Negara Malaysia.
                 ')->send();
                                 }

@@ -802,4 +802,28 @@ class PermohonanEBantuanController extends Controller
 
             return $this->redirect(['update', 'id' => $id]);
     }
+    
+    public function actionSurat($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+
+        //echo '<pre>'; var_dump($parentModel); die;
+
+        $pdf = new \mPDF('utf-8', 'A4');
+
+        $pdf->title = "Surat";
+        $stylesheet = file_get_contents('css/report.css');
+
+        $pdf->WriteHTML($stylesheet,1);
+
+        $pdf->WriteHTML($this->renderpartial('generate_surat', [
+             'model' => $model,
+        ]));
+
+        $pdf->Output('Surat_'.$id.'.pdf', 'I');
+    }
 }

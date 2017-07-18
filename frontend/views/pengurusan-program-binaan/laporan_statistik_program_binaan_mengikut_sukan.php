@@ -16,6 +16,7 @@ use app\models\RefProgramSemasaSukanAtlet;
 // contant values
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ElaporanPelaksaan */
@@ -107,6 +108,29 @@ $this->params['breadcrumbs'][] = $this->title;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'sukan' => [
+                        'type'=>Form::INPUT_WIDGET, 
+                        'widgetClass'=>'\kartik\widgets\Select2',
+                        'options'=>[
+                            'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                            [
+                                'append' => [
+                                    'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                    'asButton' => true
+                                ]
+                            ] : null,
+                            'data'=>ArrayHelper::map(GeneralFunction::getSukan(),'id', 'desc'),
+                            'options' => ['placeholder' => Placeholder::sukan],
+                            'pluginOptions' => [
+                                'allowClear' => true
+                            ],],
+                        'columnOptions'=>['colspan'=>6]],
             ]
         ],
         [

@@ -115,6 +115,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
 
                     },
+                    'update' => function ($url, $model) {
+                        $link =  Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                        'title' => Yii::t('yii', 'Update'),
+                        ]);
+                        
+                        return ((isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['update']) 
+                                && $model->hantar_flag == 0) || 
+                                isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['kelulusan'])) ? $link : '';
+                    },
                 ],
                 'template' => $template,
             ],

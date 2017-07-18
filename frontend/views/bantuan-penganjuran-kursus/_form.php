@@ -36,7 +36,9 @@ use common\models\general\GeneralFunction;
 <div class="bantuan-penganjuran-kursus-form">
     
     <?php 
-    if($model->status_permohonan_id && $model->status_permohonan_id==RefStatusBantuanPenganjuranKursus::LULUS){
+    if($model->status_permohonan_id && $model->status_permohonan_id==RefStatusBantuanPenganjuranKursus::LULUS &&
+        ((isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus']['kelulusan']) && $model->laporan_hantar_flag == 1) ||
+        !isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus']['kelulusan']))){
         echo Html::a('Laporan Teknikal & Kepegawaian', ['bantuan-penganjuran-kursus-pegawai-teknikal-laporan/load-bantuan-penganjuran', 'bantuan_penganjuran_kursus_id' =>$model->bantuan_penganjuran_kursus_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
         echo '<br><br>';
     }
@@ -273,13 +275,13 @@ use common\models\general\GeneralFunction;
                 'bil_urusetia' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>true]],
             ]
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'anggaran_perbelanjaan' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>true]],
             ]
-        ],
+        ],*/
     ]
 ]);
         ?>
@@ -604,6 +606,107 @@ use common\models\general\GeneralFunction;
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
                         'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-disertai-penceramah/create', 'bantuan_penganjuran_kursus_id' => $bantuan_penganjuran_kursus_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::maklumat_kursus_seminar_bengkel_yang_telah_disertai_oleh_penceramah.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
+    
+    <h3><?php echo GeneralLabel::elemen_bantuan_yang_dipohon; ?></h3>
+    
+    <?php Pjax::begin(['id' => 'bantuanPenganjuranKursusElemenGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderBantuanPenganjuranKursusElemen,
+        //'filterModel' => $searchModelBantuanPenganjuranKursusElemen,
+        'id' => 'bantuanPenganjuranKursusElemenGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'bantuan_penganjuran_kursus_elemen_id',
+            //'bantuan_penganjuran_kursus_id',
+            //'elemen_bantuan',
+            [
+                'attribute' => 'elemen_bantuan',
+                'value' => 'refElemenBantuanPenganjuranKejohanan.desc'
+            ],
+            //'sub_elemen',
+            [
+                'attribute' => 'sub_elemen',
+                'value' => 'refSubElemenBantuanPenganjuranKejohanan.desc'
+            ],
+            'kadar',
+            'bilangan',
+            'hari',
+            'jumlah',
+            // 'session_id',
+            // 'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['bantuan-penganjuran-kursus-elemen/delete', 'id' => $model->bantuan_penganjuran_kursus_elemen_id]).'", "'.GeneralMessage::confirmDelete.'", "bantuanPenganjuranKursusElemenGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-elemen/update', 'id' => $model->bantuan_penganjuran_kursus_elemen_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::elemen_bantuan_yang_dipohon.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-elemen/view', 'id' => $model->bantuan_penganjuran_kursus_elemen_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::elemen_bantuan_yang_dipohon.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php 
+        $jumlah_elemen = 0.00;
+        foreach($dataProviderBantuanPenganjuranKursusElemen->models as $PTLmodel){
+            $jumlah_elemen += $PTLmodel->jumlah;
+        }
+        
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'anggaran_perbelanjaan' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>true, 'disabled'=>true,'value'=>$jumlah_elemen]],
+            ]
+        ],
+    ]
+]);
+    ?>
+    
+    <!--<h4>Jumlah: RM <?=$jumlah_elemen?></h4>-->
+    
+    <?php Pjax::end(); ?>
+    
+    <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-elemen/create', 'bantuan_penganjuran_kursus_id' => $bantuan_penganjuran_kursus_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::elemen_bantuan_yang_dipohon.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

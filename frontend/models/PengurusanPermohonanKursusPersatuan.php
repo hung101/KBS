@@ -7,6 +7,8 @@ use Yii;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 use common\models\general\GeneralFunction;
+use yii\web\UploadedFile;
+use app\models\general\Upload;
 
 /**
  * This is the model class for table "tbl_pengurusan_permohonan_kursus_persatuan".
@@ -89,7 +91,8 @@ class PengurusanPermohonanKursusPersatuan extends \yii\db\ActiveRecord
             [['emel', 'facebook'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan', 'surat_permohonan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['memo'], 'string', 'max' => 500, 'tooLong' => GeneralMessage::yii_validation_string_max],
-			['tarikh_kursus','validateBeforePengurusan', 'on' => 'create'],
+            ['tarikh_kursus','validateBeforePengurusan', 'on' => 'create'],
+            [['surat_permohonan'], 'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -132,18 +135,33 @@ class PengurusanPermohonanKursusPersatuan extends \yii\db\ActiveRecord
             'jumlah_diluluskan' => GeneralLabel::jumlah_diluluskan,
             'catatan' => GeneralLabel::catatan,
             'jawatan' => GeneralLabel::jawatan,
-			'surat_permohonan' => GeneralLabel::surat_permohonan_rasmi,
-			'tarikh_permohonan' => GeneralLabel::tarikh_permohonan,  //'Tarikh Permohonan',
+            'surat_permohonan' => GeneralLabel::surat_permohonan_rasmi,
+            'tarikh_permohonan' => GeneralLabel::tarikh_permohonan,  //'Tarikh Permohonan',
             'memo' => '',
         ];
     }
 	
-	public function validateBeforePengurusan(){
+    public function validateBeforePengurusan(){
         $dateMinus = new \DateTime($this->tarikh_kursus);
-        $dateMinus->modify('-1 month'); // 1 months before tarikh mula kursus
+        $dateMinus->modify('-60 days'); // 60 days before tarikh mula kursus
 
         if($dateMinus->format('Y-m-d') <= GeneralFunction::getCurrentDate()){
-            $this->addError('tarikh_kursus','Tarikh mula kursus tidak boleh kurang 30 hari dari tarikh hari ini');
+            $this->addError('tarikh_kursus','Tarikh mula kursus tidak boleh kurang 60 hari dari tarikh hari ini');
+        }
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
+
+        if(!$file && $this->$attribute==""){
+            $this->addError($attribute, GeneralMessage::uploadEmptyError);
         }
     }
     

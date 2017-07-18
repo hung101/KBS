@@ -18,7 +18,7 @@ class BantuanPenganjuranKursusSearch extends BantuanPenganjuranKursus
     public function rules()
     {
         return [
-            [['bantuan_penganjuran_kursus_id', 'bil_penceramah', 'bil_peserta', 'bil_urusetia', 'created_by', 'updated_by'], 'integer'],
+            [['bantuan_penganjuran_kursus_id', 'bil_penceramah', 'bil_peserta', 'bil_urusetia', 'created_by', 'updated_by', 'hantar_flag'], 'integer'],
             [['badan_sukan', 'sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 
                 'alamat_poskod', 'no_telefon', 'no_faks', 'laman_sesawang', 'facebook', 'twitter', 'nama_bank', 'no_akaun', 
                 'nama_kursus_seminar_bengkel', 'tarikh', 'tempat', 'tujuan', 'kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri', 
@@ -80,6 +80,7 @@ class BantuanPenganjuranKursusSearch extends BantuanPenganjuranKursus
             'tbl_bantuan_penganjuran_kursus.updated_by' => $this->updated_by,
             'tbl_bantuan_penganjuran_kursus.created' => $this->created,
             'tbl_bantuan_penganjuran_kursus.updated' => $this->updated,
+            'tbl_bantuan_penganjuran_kursus.hantar_flag' => $this->hantar_flag,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_profil_badan_sukan.nama_badan_sukan', $this->badan_sukan])

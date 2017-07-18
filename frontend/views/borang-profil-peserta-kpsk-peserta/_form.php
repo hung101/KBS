@@ -35,7 +35,8 @@ $penilaian =  ['objektif' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>
 $session = new Session;
 $session->open();
 //var_dump($session['borang_profil_peserta_kpsk_tahap_id']);
-if(isset($session['borang_profil_peserta_kpsk_tahap_id']) && $session['borang_profil_peserta_kpsk_tahap_id'] === '1'){
+
+if(isset($session['borang_profil_peserta_kpsk_tahap_id']) && $session['borang_profil_peserta_kpsk_tahap_id'] == '1'){
 	
 	$penilaian = ['objektif' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>2]],
                 'esei' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>2]],
@@ -256,6 +257,7 @@ $session->close();
 ]);
     ?>
     
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-profil-peserta-kpsk']['keputusan']) || $readonly): ?>
     <br>
     <br>
     <pre style="text-align: center"><strong><?php echo GeneralLabel::pembahagian_markah_cap; ?></strong></pre>
@@ -301,6 +303,8 @@ $session->close();
     ]
 ]);
     ?>
+    
+    <?php endif; ?>
 
     <div class="form-group">
         <?php if(!$readonly): ?>

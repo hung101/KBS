@@ -11,6 +11,8 @@ use app\models\BantuanPenganjuranKursusPegawaiTeknikalDisertai;
 use frontend\models\BantuanPenganjuranKursusPegawaiTeknikalDisertaiSearch;
 use app\models\BantuanPenganjuranKursusPegawaiTeknikalOlehMsn;
 use frontend\models\BantuanPenganjuranKursusPegawaiTeknikalOlehMsnSearch;
+use app\models\BantuanPenganjuranKursusPegawaiTeknikalElemen;
+use frontend\models\BantuanPenganjuranKursusPegawaiTeknikalElemenSearch;
 use app\models\MsnLaporan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -70,6 +72,10 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
             $queryParams['BantuanPenganjuranKursusPegawaiTeknikalSearch']['created_by'] = Yii::$app->user->identity->id;
         }
         
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus-pegawai-teknikal']['kelulusan'])) {
+            $queryParams['BantuanPenganjuranKursusPegawaiTeknikalSearch']['hantar_flag'] = 1;
+        }
+        
         $searchModel = new BantuanPenganjuranKursusPegawaiTeknikalSearch();
         $dataProvider = $searchModel->search($queryParams);
 
@@ -121,6 +127,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
         $queryPar['BantuanPenganjuranKursusPegawaiTeknikalDicadangkanSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_id'] = $id;
         $queryPar['BantuanPenganjuranKursusPegawaiTeknikalDisertaiSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_id'] = $id;
         $queryPar['BantuanPenganjuranKursusPegawaiTeknikalOlehMsnSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_id'] = $id;
+        $queryPar['BantuanPenganjuranKursusPegawaiTeknikalElemenSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_id'] = $id;
         
         $searchModelBantuanPenganjuranKursusPegawaiTeknikalDicadangkan  = new BantuanPenganjuranKursusPegawaiTeknikalDicadangkanSearch();
         $dataProviderBantuanPenganjuranKursusPegawaiTeknikalDicadangkan = $searchModelBantuanPenganjuranKursusPegawaiTeknikalDicadangkan->search($queryPar);
@@ -131,6 +138,9 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
         $searchModelBantuanPenganjuranKursusPegawaiTeknikalOlehMsn  = new BantuanPenganjuranKursusPegawaiTeknikalOlehMsnSearch();
         $dataProviderBantuanPenganjuranKursusPegawaiTeknikalOlehMsn = $searchModelBantuanPenganjuranKursusPegawaiTeknikalOlehMsn->search($queryPar);
         
+        $searchModelBantuanPenganjuranKursusPegawaiTeknikalElemen  = new BantuanPenganjuranKursusPegawaiTeknikalElemenSearch();
+        $dataProviderBantuanPenganjuranKursusPegawaiTeknikalElemen = $searchModelBantuanPenganjuranKursusPegawaiTeknikalElemen->search($queryPar);
+        
         return $this->render('view', [
             'model' => $model,
             'searchModelBantuanPenganjuranKursusPegawaiTeknikalDicadangkan' => $searchModelBantuanPenganjuranKursusPegawaiTeknikalDicadangkan,
@@ -139,6 +149,8 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
             'dataProviderBantuanPenganjuranKursusPegawaiTeknikalDisertai' => $dataProviderBantuanPenganjuranKursusPegawaiTeknikalDisertai,
             'searchModelBantuanPenganjuranKursusPegawaiTeknikalOlehMsn' => $searchModelBantuanPenganjuranKursusPegawaiTeknikalOlehMsn,
             'dataProviderBantuanPenganjuranKursusPegawaiTeknikalOlehMsn' => $dataProviderBantuanPenganjuranKursusPegawaiTeknikalOlehMsn,
+            'searchModelBantuanPenganjuranKursusPegawaiTeknikalElemen' => $searchModelBantuanPenganjuranKursusPegawaiTeknikalElemen,
+            'dataProviderBantuanPenganjuranKursusPegawaiTeknikalElemen' => $dataProviderBantuanPenganjuranKursusPegawaiTeknikalElemen,
             'readonly' => true,
         ]);
     }
@@ -157,8 +169,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
         $model = new BantuanPenganjuranKursusPegawaiTeknikal();
         
         $model->scenario = 'create';
-        $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
-        $model->status_permohonan = RefStatusBantuanPenganjuranKursusPegawaiTeknikal::SEDANG_DIPROSES;
+        
         
         if(Yii::$app->user->identity->profil_badan_sukan){
             $model->badan_sukan = Yii::$app->user->identity->profil_badan_sukan;
@@ -172,6 +183,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
             $queryPar['BantuanPenganjuranKursusPegawaiTeknikalDicadangkanSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['BantuanPenganjuranKursusPegawaiTeknikalDisertaiSearch']['session_id'] = Yii::$app->session->id;
             $queryPar['BantuanPenganjuranKursusPegawaiTeknikalOlehMsnSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['BantuanPenganjuranKursusPegawaiTeknikalElemenSearch']['session_id'] = Yii::$app->session->id;
         }
         
         $searchModelBantuanPenganjuranKursusPegawaiTeknikalDicadangkan  = new BantuanPenganjuranKursusPegawaiTeknikalDicadangkanSearch();
@@ -182,6 +194,9 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
         
         $searchModelBantuanPenganjuranKursusPegawaiTeknikalOlehMsn  = new BantuanPenganjuranKursusPegawaiTeknikalOlehMsnSearch();
         $dataProviderBantuanPenganjuranKursusPegawaiTeknikalOlehMsn = $searchModelBantuanPenganjuranKursusPegawaiTeknikalOlehMsn->search($queryPar);
+        
+        $searchModelBantuanPenganjuranKursusPegawaiTeknikalElemen  = new BantuanPenganjuranKursusPegawaiTeknikalElemenSearch();
+        $dataProviderBantuanPenganjuranKursusPegawaiTeknikalElemen = $searchModelBantuanPenganjuranKursusPegawaiTeknikalElemen->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             
@@ -194,6 +209,9 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
                 
                 BantuanPenganjuranKursusPegawaiTeknikalOlehMsn::updateAll(['bantuan_penganjuran_kursus_pegawai_teknikal_id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_id], 'session_id = "'.Yii::$app->session->id.'"');
                 BantuanPenganjuranKursusPegawaiTeknikalOlehMsn::updateAll(['session_id' => ''], 'bantuan_penganjuran_kursus_pegawai_teknikal_id = "'.$model->bantuan_penganjuran_kursus_pegawai_teknikal_id.'"');
+                
+                BantuanPenganjuranKursusPegawaiTeknikalElemen::updateAll(['bantuan_penganjuran_kursus_pegawai_teknikal_id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_id], 'session_id = "'.Yii::$app->session->id.'"');
+                BantuanPenganjuranKursusPegawaiTeknikalElemen::updateAll(['session_id' => ''], 'bantuan_penganjuran_kursus_pegawai_teknikal_id = "'.$model->bantuan_penganjuran_kursus_pegawai_teknikal_id.'"');
             }
             
             $file = UploadedFile::getInstance($model, 'surat_rasmi_badan_sukan');
@@ -243,9 +261,9 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
                             ->setTo($modelUser->email)
                             ->setFrom('noreply@spsb.com')
                             ->setSubject('Pemberitahuan - Permohonan Baru: Penyertaan Pegawai Teknikal Mengikut Kursus / Seminar / Bengkel Dalam Dan Luar Negara')
-                            ->setTextBody("Salam Sejahtera,
+                            ->setTextBody("Assalamualaikum dan Salam Sejahtera, 
     <br><br>
-    Berikut adalah butir permohonan telah dihantar : 
+    Terdapat permohonan baru yang diterima: 
     <br>
     Badan Sukan: " . $refProfilBadanSukan['nama_badan_sukan'] . "
     Nama Kursus / Seminar / Bengkel: " . $model->nama_kursus_seminar_bengkel . '
@@ -255,6 +273,8 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
     Jumlah Bantuan Yang Dipohon: RM' . $model->jumlah_bantuan_yang_dipohon . '
     <br>
     Link: ' . BaseUrl::to(['bantuan-penganjuran-kursus-pegawai-teknikal/view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_id], true) . '
+    <br><br>
+    Sekian.
     <br><br>
     "KE ARAH KECEMERLANGAN SUKAN"
     Majlis Sukan Negara Malaysia.
@@ -275,6 +295,8 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
                 'dataProviderBantuanPenganjuranKursusPegawaiTeknikalDisertai' => $dataProviderBantuanPenganjuranKursusPegawaiTeknikalDisertai,
                 'searchModelBantuanPenganjuranKursusPegawaiTeknikalOlehMsn' => $searchModelBantuanPenganjuranKursusPegawaiTeknikalOlehMsn,
                 'dataProviderBantuanPenganjuranKursusPegawaiTeknikalOlehMsn' => $dataProviderBantuanPenganjuranKursusPegawaiTeknikalOlehMsn,
+                'searchModelBantuanPenganjuranKursusPegawaiTeknikalElemen' => $searchModelBantuanPenganjuranKursusPegawaiTeknikalElemen,
+                'dataProviderBantuanPenganjuranKursusPegawaiTeknikalElemen' => $dataProviderBantuanPenganjuranKursusPegawaiTeknikalElemen,
                 'readonly' => false,
             ]);
     }
@@ -300,6 +322,7 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
         $queryPar['BantuanPenganjuranKursusPegawaiTeknikalDicadangkanSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_id'] = $id;
         $queryPar['BantuanPenganjuranKursusPegawaiTeknikalDisertaiSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_id'] = $id;
         $queryPar['BantuanPenganjuranKursusPegawaiTeknikalOlehMsnSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_id'] = $id;
+        $queryPar['BantuanPenganjuranKursusPegawaiTeknikalElemenSearch']['bantuan_penganjuran_kursus_pegawai_teknikal_id'] = $id;
         
         $searchModelBantuanPenganjuranKursusPegawaiTeknikalDicadangkan  = new BantuanPenganjuranKursusPegawaiTeknikalDicadangkanSearch();
         $dataProviderBantuanPenganjuranKursusPegawaiTeknikalDicadangkan = $searchModelBantuanPenganjuranKursusPegawaiTeknikalDicadangkan->search($queryPar);
@@ -309,6 +332,9 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
         
         $searchModelBantuanPenganjuranKursusPegawaiTeknikalOlehMsn  = new BantuanPenganjuranKursusPegawaiTeknikalOlehMsnSearch();
         $dataProviderBantuanPenganjuranKursusPegawaiTeknikalOlehMsn = $searchModelBantuanPenganjuranKursusPegawaiTeknikalOlehMsn->search($queryPar);
+        
+        $searchModelBantuanPenganjuranKursusPegawaiTeknikalElemen  = new BantuanPenganjuranKursusPegawaiTeknikalElemenSearch();
+        $dataProviderBantuanPenganjuranKursusPegawaiTeknikalElemen = $searchModelBantuanPenganjuranKursusPegawaiTeknikalElemen->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($model, 'surat_rasmi_badan_sukan');
@@ -360,6 +386,8 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
                 'dataProviderBantuanPenganjuranKursusPegawaiTeknikalDisertai' => $dataProviderBantuanPenganjuranKursusPegawaiTeknikalDisertai,
                 'searchModelBantuanPenganjuranKursusPegawaiTeknikalOlehMsn' => $searchModelBantuanPenganjuranKursusPegawaiTeknikalOlehMsn,
                 'dataProviderBantuanPenganjuranKursusPegawaiTeknikalOlehMsn' => $dataProviderBantuanPenganjuranKursusPegawaiTeknikalOlehMsn,
+                'searchModelBantuanPenganjuranKursusPegawaiTeknikalElemen' => $searchModelBantuanPenganjuranKursusPegawaiTeknikalElemen,
+                'dataProviderBantuanPenganjuranKursusPegawaiTeknikalElemen' => $dataProviderBantuanPenganjuranKursusPegawaiTeknikalElemen,
                 'readonly' => false,
             ]);
     }
@@ -405,6 +433,31 @@ class BantuanPenganjuranKursusPegawaiTeknikalController extends Controller
         $session['bantuan-penganjuran-kursus-pegawai-teknikal-badan_sukan_id'] = $badan_sukan_id;
         
         $session->close();
+    }
+    
+    /**
+     * Updates an existing BantuanPenganjuranKejohanan model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set approved
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
+        $model->status_permohonan = RefStatusBantuanPenganjuranKursusPegawaiTeknikal::SEDANG_DIPROSES;
+        
+        $model->save();
+        
+        return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_id]);
     }
     
     public function actionLaporanStatistikPenyertaanPegawaiTeknikalMengikutKursus()

@@ -17,6 +17,7 @@ use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefJantina;
@@ -148,7 +149,12 @@ use app\models\RefSukan;
             //'kategori_atlet',
             //'sukan',
             //'acara',
-            'tarikh',
+            [
+                'attribute' => 'tarikh',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);
+                },
+            ],
             /*[
                 'attribute' => 'atlet',
                 'value' => 'refAtlet.name_penuh'
@@ -222,7 +228,13 @@ use app\models\RefSukan;
 
             //'pemberian_suplemen_makanan_jus_rundingan_pendidikan_id',
             //'perkhidmatan_permakanan_id',
-            'tarikh',
+            //'tarikh',
+            [
+                'attribute' => 'tarikh',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);
+                },
+            ],
             'nama_suplemen_makanan_jus_rundingan_pendidikan',
             'kuantiti_ml_g',
             //'harga',
@@ -287,7 +299,12 @@ use app\models\RefSukan;
             //'acara',
             // 'atlet',
             //'nama_jus',
-            'tarikh',
+            [
+                'attribute' => 'tarikh',
+                'value'=>function ($model) {
+                    return GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);
+                },
+            ],
             [
                 'attribute' => 'nama_jus',
                 'filterInputOptions' => [

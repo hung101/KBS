@@ -38,7 +38,9 @@ use common\models\general\GeneralFunction;
     <?php //echo Html::a('Laporan Teknikal & Kepegawaian', ['bantuan-penganjuran-kursus-pegawai-teknikal-laporan/create'], ['class' => 'btn btn-warning', 'target' => '_blank']); ?>
     
     <?php 
-    if($model->status_permohonan_id && $model->status_permohonan_id==RefStatusBantuanPenganjuranKursusPegawaiTeknikal::LULUS && $readonly){
+    if($model->status_permohonan_id && $model->status_permohonan_id==RefStatusBantuanPenganjuranKursusPegawaiTeknikal::LULUS &&
+        ((isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus-pegawai-teknikal']['kelulusan']) && $model->laporan_hantar_flag == 1) ||
+        !isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kursus-pegawai-teknikal']['kelulusan']))){
         echo Html::a('Laporan Teknikal & Kepegawaian', ['bantuan-penganjuran-kursus-pegawai-teknikal-laporan/load', 'bantuan_penganjuran_kursus_pegawai_teknikal_id' =>$model->bantuan_penganjuran_kursus_pegawai_teknikal_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
         echo '<br><br>';
     }
@@ -559,7 +561,7 @@ use common\models\general\GeneralFunction;
     <br>
     
     <!--<h3>Maklumat Kursus / Seminar / Bengkel Dalam Dan Luar Negara Yang Telah Disertai Oleh Pegawai Di Atas (Tahun Semasa & Tahun Sebelum)</h3>-->
-    <h3><?php echo GeneralLabel::maklumat_kursus_seminar_bengkel_dalam_dan_luar_negara_yang_telah_disertai; ?></h3>
+    <!--<h3><?php echo GeneralLabel::maklumat_kursus_seminar_bengkel_dalam_dan_luar_negara_yang_telah_disertai; ?></h3>
     
     <?php Pjax::begin(['id' => 'bantuanPenganjuranKursusPegawaiTeknikalDisertaiGrid', 'timeout' => 100000]); ?>
 
@@ -630,6 +632,107 @@ use common\models\general\GeneralFunction;
         
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
                         'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-disertai/create', 'bantuan_penganjuran_kursus_pegawai_teknikal_id' => $bantuan_penganjuran_kursus_pegawai_teknikal_id]).'", "'.GeneralLabel::maklumat_kursus_seminar_bengkel_dalam_dan_luar_negara_yang_telah_disertai.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>-->
+    
+    <h3><?php echo GeneralLabel::elemen_bantuan_yang_dipohon; ?></h3>
+    
+    <?php Pjax::begin(['id' => 'bantuanPenganjuranKursusPegawaiTeknikalElemenGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderBantuanPenganjuranKursusPegawaiTeknikalElemen,
+        //'filterModel' => $searchModelBantuanPenganjuranKursusPegawaiTeknikalElemen,
+        'id' => 'bantuanPenganjuranKursusPegawaiTeknikalElemenGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            //'bantuan_penganjuran_kursus_pegawai_teknikal_elemen_id',
+            //'bantuan_penganjuran_kursus_pegawai_teknikal_id',
+            //'elemen_bantuan',
+            [
+                'attribute' => 'elemen_bantuan',
+                'value' => 'refElemenBantuanPenganjuranKejohanan.desc'
+            ],
+            //'sub_elemen',
+            [
+                'attribute' => 'sub_elemen',
+                'value' => 'refSubElemenBantuanPenganjuranKejohanan.desc'
+            ],
+            'kadar',
+            'bilangan',
+            'hari',
+            'jumlah',
+            // 'session_id',
+            // 'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
+
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-elemen/delete', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_elemen_id]).'", "'.GeneralMessage::confirmDelete.'", "bantuanPenganjuranKursusPegawaiTeknikalElemenGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-elemen/update', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_elemen_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::elemen_bantuan_yang_dipohon.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-elemen/view', 'id' => $model->bantuan_penganjuran_kursus_pegawai_teknikal_elemen_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::elemen_bantuan_yang_dipohon.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php 
+        $jumlah_elemen = 0.00;
+        foreach($dataProviderBantuanPenganjuranKursusPegawaiTeknikalElemen->models as $PTLmodel){
+            $jumlah_elemen += $PTLmodel->jumlah;
+        }
+        
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'anggaran_perbelanjaan' => ['type'=>Form::INPUT_TEXT,'options'=>['maxlength'=>true, 'disabled'=>true,'value'=>$jumlah_elemen]],
+            ]
+        ],
+    ]
+]);
+    ?>
+    
+    <!--<h4>Jumlah: RM <?=$jumlah_elemen?></h4>-->
+    
+    <?php Pjax::end(); ?>
+    
+    <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['bantuan-penganjuran-kursus-pegawai-teknikal-elemen/create', 'bantuan_penganjuran_kursus_pegawai_teknikal_id' => $bantuan_penganjuran_kursus_pegawai_teknikal_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::elemen_bantuan_yang_dipohon.'");',
                         'class' => 'btn btn-success',
                         ]);?>
     </p>

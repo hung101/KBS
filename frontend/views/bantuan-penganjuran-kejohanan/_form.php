@@ -38,7 +38,9 @@ use common\models\general\GeneralFunction;
 <div class="bantuan-penganjuran-kejohanan-form">
     
     <?php 
-    if($model->status_permohonan_id && $model->status_permohonan_id==RefStatusBantuanPenganjuranKejohanan::LULUS){
+    if($model->status_permohonan_id && $model->status_permohonan_id==RefStatusBantuanPenganjuranKejohanan::LULUS &&
+        ((isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['kelulusan']) && $model->laporan_hantar_flag == 1) ||
+        !isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-penganjuran-kejohanan']['kelulusan']))){
         echo Html::a('Laporan Penganjuran Kejohanan', ['bantuan-penganjuran-kejohanan-laporan/load', 'bantuan_penganjuran_kejohanan_id' =>$model->bantuan_penganjuran_kejohanan_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
         echo '<br><br>';
     }

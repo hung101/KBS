@@ -341,10 +341,9 @@ $('#pengurusanpemantauandanpenilaianjurulatihketua-penilaian_oleh').change(funct
 });
         
 $('#jurulatihId').change(function(){
-    
+    clearForm();
+            
     $.get('$URLJurulatih',{id:$(this).val()},function(data){
-        clearForm();
-        
         var data = $.parseJSON(data);
         
         if(data !== null){
@@ -359,6 +358,7 @@ $('#jurulatihId').change(function(){
         
         if(data !== null){
             $("#pengurusanpemantauandanpenilaianjurulatihketua-nama_sukan").val(data.sukan).trigger("change");
+            $('#pengurusanpemantauandanpenilaianjurulatihketua-nama_acara').depdrop('init');
             if(data.refJurulatihAcara !== null){ 
                 $("#pengurusanpemantauandanpenilaianjurulatihketua-nama_acara").val(data.refJurulatihAcara[0].acara).trigger("change");
             }

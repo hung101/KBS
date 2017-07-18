@@ -81,7 +81,9 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
                 'jawatankuasa_setiausaha', 'jawatankuasa_bendahari', 'jumlah_bantuan_yang_dipohon'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['catatan', 'catatan_pemohon', 'nama_program', 'tarikh_pelaksanaan', 'tarikh_pelaksanaan_tamat', 'tempat_pelaksanaan', 'bilangan_peserta', 'tujuan_program_aktiviti', 'tarikh_mesyuarat', 'tarikh_bayar',
                 'objektif_pertubuhan', 'aktiviti_dan_kejayaan_yang_dicapai', 'catatan_admin', 'hantar_flag', 'tarikh_hantar', 'ulasan_negeri'], 'safe'],
-            [['bilangan_keahlian', 'bilangan_cawangan_badan_gabungan', 'laporan', 'status_permohonan', 'negeri_sokongan', 'user_public_id', 'profil_badan_sukan_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['bilangan_keahlian', 'bilangan_cawangan_badan_gabungan', 'laporan', 'status_permohonan', 'negeri_sokongan', 'user_public_id', 'profil_badan_sukan_id',
+                'semak_borang_permohonan_bantuan', 'semak_kertas_kerja_program', 'semak_salinan_sijil_pendaftaran_persatuan', 'semak_salinan_perlembagaan_persatuan',
+                'semak_senarai_ahli_jawatankuasa_persatuan', 'semak_buku_bank_penyata_bank_kewangan_persatuan', 'semak_laporan_pelaksaaan_program_terdahulu', 'semak_surat_setuju_terima_pb_4'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['pertubuhan_persatuan_sendiri', 'lain_lain_sumbangan', 'yuran_bayaran_penyertaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_perbelanjaan', 'jumlah_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [[ 'pejabat_yang_mendaftarkan', 'jawatankuasa_penaung', 'jawatankuasa_pegerusi', 'jawatankuasa_timbalan_pengerusi', 'jawatankuasa_naib_pengerusi', 'jawatankuasa_setiausaha', 'jawatankuasa_bendahari'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_pendaftaran', 'alamat_negeri', 'alamat_surat_menyurat_negeri', 'bil_mesyuarat', 'peringkat_program'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -95,7 +97,7 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
             [['muat_naik_pb4', 'muat_naik_pb5', 'muat_naik_pb6', 'kertas_kerja','sijil_pendaftaran_persatuan', 
                     'salinan_perlembagaan_persatuan','senarai_ahli_jawatankuasa_persatuan','salinan_akaun_bank_persatuan', 
                     'laporan_penyata_kewangan_tahunan'],'validateFileUpload', 'skipOnEmpty' => false],
-            [['tarikh_didaftarkan'], 'compare', 'compareValue'=>date("Y-m-d"), 'operator'=>'<=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
+            [['tarikh_didaftarkan'], 'compare', 'compareValue'=>date("Y-m-d"), 'operator'=>'<=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::custom_validation_tarikh_didaftarkan],
             [['jumlah_diluluskan'], 'compare', 'compareAttribute'=>'jumlah_bantuan_yang_dipohon', 'operator'=>'<=', 'type' => 'number', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare_max],
             [['tarikh_pelaksanaan_tamat'], 'compare', 'compareAttribute'=>'tarikh_pelaksanaan', 'operator'=>'>=', 'skipOnEmpty'=>true, 'message' => GeneralMessage::yii_validation_compare],
         ];
@@ -181,7 +183,15 @@ class PermohonanEBantuan extends \yii\db\ActiveRecord
             'profil_badan_sukan_id' => GeneralLabel::badan_sukan,
             'laporan' => GeneralLabel::laporan,
             'ulasan_negeri' => GeneralLabel::ulasan_negeri,
-            'catatan_pemohon' => GeneralLabel::catatan_pemohon,
+            'catatan_pemohon' => GeneralLabel::catatan,
+            'semak_borang_permohonan_bantuan' => GeneralLabel::semak_borang_permohonan_bantuan, 
+            'semak_kertas_kerja_program' => GeneralLabel::semak_kertas_kerja_program, 
+            'semak_salinan_sijil_pendaftaran_persatuan' => GeneralLabel::semak_salinan_sijil_pendaftaran_persatuan, 
+            'semak_salinan_perlembagaan_persatuan' => GeneralLabel::semak_salinan_perlembagaan_persatuan,
+            'semak_senarai_ahli_jawatankuasa_persatuan' => GeneralLabel::semak_senarai_ahli_jawatankuasa_persatuan, 
+            'semak_buku_bank_penyata_bank_kewangan_persatuan' => GeneralLabel::semak_buku_bank_penyata_bank_kewangan_persatuan, 
+            'semak_laporan_pelaksaaan_program_terdahulu' => GeneralLabel::semak_laporan_pelaksaaan_program_terdahulu, 
+            'semak_surat_setuju_terima_pb_4' => GeneralLabel::semak_surat_setuju_terima_pb_4
         ];
     }
     

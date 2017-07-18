@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 use app\models\general\GeneralVariable;
+use common\models\general\GeneralFunction;
 
 // table reference
 use app\models\RefJabatanUser;
@@ -88,6 +89,8 @@ class UserController extends Controller
         $model->scenario = 'create';
         
         $model->status = \common\models\User::STATUS_ACTIVE;
+        
+        $model->last_active = GeneralFunction::getCurrentTimestamp();
         /*$model->peranan = 3;
         $model->jabatan_id = 4;
         $model->full_name = 'Admin ';
@@ -161,6 +164,8 @@ class UserController extends Controller
                 $model->login_attempted = 0; //reset login attempt
                 $model->is_new_user = 'YES';
             }
+            
+            $model->last_active = GeneralFunction::getCurrentTimestamp(); // reset last_active date
             
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->id]);

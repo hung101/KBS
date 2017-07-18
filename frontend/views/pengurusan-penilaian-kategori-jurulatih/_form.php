@@ -144,6 +144,23 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
      });
      return false;
 });
+
+
+$('#pengurusanpenilaiankategorijurulatih-penilaian_sub_kategori').on('depdrop.change', function(event) {
+    checkKategori();
+});
+
+function checkKategori(){
+    if($('#pengurusanpenilaiankategorijurulatih-penilaian_kategori').val()=='3' ||
+        $('#pengurusanpenilaiankategorijurulatih-penilaian_kategori').val()=='6' ||
+        $('#pengurusanpenilaiankategorijurulatih-penilaian_kategori').val()=='7'){
+        //$('.field-pengurusanpenilaiankategorijurulatih-penilaian_sub_kategori').show();
+        $("#pengurusanpenilaiankategorijurulatih-penilaian_sub_kategori").prop("disabled", false);
+    } else {
+        //$('.field-pengurusanpenilaiankategorijurulatih-penilaian_sub_kategori').hide();
+        $("#pengurusanpenilaiankategorijurulatih-penilaian_sub_kategori").prop("disabled", true);
+    }
+}
      
 
 JS;

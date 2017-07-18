@@ -57,13 +57,13 @@ class SkimKebajikan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['jenis_bantuan_skak', 'jumlah_bantuan', 'nama_pemohon', 'nama_penerima', 'jenis_sukan', 'perkara', 'sukan', 'jenis_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['jenis_bantuan_skak', 'nama_pemohon_text', 'jumlah_bantuan', 'nama_pemohon', 'nama_penerima', 'jenis_sukan', 'perkara', 'sukan', 'jenis_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['jumlah_bantuan', 'jumlah_kos_perubatan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tarikh_kejadian', 'tarikh_kelulusan'], 'safe'],
             [['kelulusan', 'bank_penerima', 'no_akaun_penerima', 'hubungan_penerima'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['emel_penerima'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['jenis_bantuan_skak', 'jenis_sukan', 'jenis_bantuan_lain_yang_diterima', 'no_akaun_penerima'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_pemohon', 'nama_penerima'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_pemohon', 'nama_penerima', 'nama_pemohon_text'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['masalah_dihadapi', 'emel_penerima'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lokasi_kejadian'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan', 'muat_naik'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -83,7 +83,8 @@ class SkimKebajikan extends \yii\db\ActiveRecord
             'skim_kebajikan_id' => GeneralLabel::skim_kebajikan_id,
             'jenis_bantuan_skak' => GeneralLabel::jenis_bantuan,
             'jumlah_bantuan' => GeneralLabel::jumlah_bantuan,
-            'nama_pemohon' => GeneralLabel::nama_pemohon,
+            'nama_pemohon_text' => GeneralLabel::nama_pemohon,
+            'nama_pemohon' => GeneralLabel::atlet,
             'nama_penerima' => GeneralLabel::nama_penerima,
             'jenis_sukan' => GeneralLabel::jenis_sukan,
             'masalah_dihadapi' => GeneralLabel::masalah_dihadapi,

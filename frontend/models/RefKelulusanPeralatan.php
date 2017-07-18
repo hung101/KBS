@@ -19,9 +19,10 @@ use app\models\general\GeneralMessage;
  */
 class RefKelulusanPeralatan extends \yii\db\ActiveRecord
 {
-    const LULUS = 1;
-    const TIDAK_DISOKONG = 2;
-    const SEDANG_DIPROSES = 3;
+    const LULUS_PENGARAH = 1;
+    const LULUS_JKB = 2;
+    const TIDAK_DISOKONG = 3;
+    const SEDANG_DIPROSES = 4;
     
     /**
      * @inheritdoc

@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['update'])): ?>
-            <?= Html::a('Update', ['update', 'id' => $model->jurulatih_id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Update', ['update', 'id' => $model->jurulatih_id, 'mesyuarat_id' => $mesyuarat_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['jurulatih']['delete'])): ?>
             <?= Html::a('Delete', ['delete', 'id' => $model->jurulatih_id], [

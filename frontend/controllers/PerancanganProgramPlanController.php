@@ -262,6 +262,46 @@ class PerancanganProgramPlanController extends Controller
         }
     }
     
+    /**
+     * Get Bandars base on Negeri id
+     * @param integer $id actionHryye
+     * @return mixed
+     */
+    public function actionSubitems()
+    {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $cat_id = $parents[0];
+                $out = self::getItemsByKategori($cat_id); 
+                // the getSubCatList function will query the database based on the
+                // cat_id and return an array like below:
+                // [
+                //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+                //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+                // ]
+                echo Json::encode(['output'=>$out, 'selected'=>'']);
+                return;
+            }
+        }
+        echo Json::encode(['output'=>'', 'selected'=>'']);
+    }
+    
+    /**
+     * get list of Bandar by Negeri
+     * @param integer $id
+     * @return Array Bandars
+     */
+    public static function getItemsByKategori($kategori_id) {
+        $data = PerancanganProgramPlan::find()
+                ->where(['IS NOT', 'perancangan_program_plan_master_id', NULL])
+                            ->andWhere(['=', 'bahagian', $kategori_id])->select(['perancangan_program_id as id','nama_program AS name'])->asArray()->all();
+        $value = (count($data) == 0) ? ['' => ''] : $data;
+
+        return $value;
+    }
+    
     public function actionLaporanKewangan()
     {
         

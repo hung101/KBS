@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 
 /**
  * This is the model class for table "tbl_bantuan_penganjuran_kursus_pegawai_teknikal_laporan_tuntutan".
@@ -40,14 +42,14 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan extends \yii\db\Act
     public function rules()
     {
         return [
-            [['bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id', 'created_by', 'updated_by'], 'integer'],
-            [['kejohanan_kursus_seminar_bengkel', 'tarikh_mula', 'tarikh_tamat', 'tempat', 'jumlah_kelulusan', 'pendahuluan_80', 'jumlah_yang_dituntut_20'], 'required'],
+            [['bantuan_penganjuran_kursus_pegawai_teknikal_laporan_id', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['kejohanan_kursus_seminar_bengkel', 'tarikh_mula', 'tarikh_tamat', 'tempat', 'jumlah_kelulusan', 'jumlah_yang_dituntut_20'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['tarikh_mula', 'tarikh_tamat', 'created', 'updated'], 'safe'],
-            [['jumlah_kelulusan', 'pendahuluan_80', 'jumlah_yang_dituntut_20'], 'number'],
-            [['kejohanan_kursus_seminar_bengkel'], 'string', 'max' => 80],
-            [['tempat'], 'string', 'max' => 90],
-            [['no_cek', 'no_boucer'], 'string', 'max' => 50],
-            [['session_id'], 'string', 'max' => 100],
+            [['jumlah_kelulusan', 'pendahuluan_80', 'jumlah_yang_dituntut_20'], 'number', 'message' => GeneralMessage::yii_validation_number],
+            [['kejohanan_kursus_seminar_bengkel'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_cek', 'no_boucer'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['session_id'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             ['jumlah_yang_dituntut_20','validateJumlahDituntut'],
         ];
     }
@@ -65,10 +67,10 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanTuntutan extends \yii\db\Act
             'tarikh_tamat' => 'Tarikh Tamat',
             'tempat' => 'Tempat',
             'jumlah_kelulusan' => 'Jumlah Kelulusan (RM)',
-            'pendahuluan_80' => 'Pendahuluan (80%) (RM)',
+            'pendahuluan_80' => 'Pendahuluan (RM)',
             'no_cek' => 'No. Cek',
             'no_boucer' => 'No. Boucer',
-            'jumlah_yang_dituntut_20' => 'Jumlah Yang Dituntut (20%) (RM)',
+            'jumlah_yang_dituntut_20' => 'Jumlah Yang Dituntut (RM)',
             'session_id' => 'Session ID',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',

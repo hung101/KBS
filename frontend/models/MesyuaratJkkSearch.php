@@ -82,6 +82,25 @@ class MesyuaratJkkSearch extends MesyuaratJkk
                 ->andFilterWhere(['like', 'tbl_ref_jenis_cawangan_kuasa_jkk_jkp.desc', $this->jenis_mesyuarat])
                 ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan])
                 ->andFilterWhere(['like', 'tbl_ref_program_semasa_sukan_atlet.desc', $this->program]);
+        
+        
+        // add filter base on sukan access role in tbl_user->sukan - START
+        if(Yii::$app->user->identity->sukan){
+            $sukan_access=explode(',',Yii::$app->user->identity->sukan);
+            
+            $arr_sukan_filter = array();
+            
+            for($i = 0; $i < count($sukan_access); $i++){
+                $arr_sukan = null;
+                $arr_sukan = array('tbl_mesyuarat_jkk.sukan'=>$sukan_access[$i]); 
+                    array_push($arr_sukan_filter,$arr_sukan);
+            }
+            
+            $query->andFilterWhere(['tbl_mesyuarat_jkk.sukan'=>$arr_sukan_filter]);
+            
+            $query->orFilterWhere(['tbl_mesyuarat_jkk.created_by'=>Yii::$app->user->identity->id]);
+        }
+        // add filter base on sukan access role in tbl_user->sukan - END
 
         return $dataProvider;
     }

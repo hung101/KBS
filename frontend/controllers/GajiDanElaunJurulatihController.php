@@ -29,6 +29,7 @@ use app\models\RefSukan;
 use app\models\RefProgramJurulatih;
 use app\models\RefGajiElaunJurulatih;
 use app\models\RefBahagianJurulatih;
+use app\models\RefStatusTawaran;
 
 /**
  * GajiDanElaunJurulatihController implements the CRUD actions for GajiDanElaunJurulatih model.
@@ -91,6 +92,12 @@ class GajiDanElaunJurulatihController extends Controller
         $ref = RefSukan::findOne(['id' => $model->nama_sukan]);
         $model->nama_sukan = $ref['desc'];
         
+        $ref = RefStatusTawaran::findOne(['id' => $model->status_tawaran_jkb]);
+        $model->status_tawaran_jkb = $ref['desc'];
+        
+        $ref = RefStatusTawaran::findOne(['id' => $model->status_tawaran_mpj]);
+        $model->status_tawaran_mpj = $ref['desc'];
+        
         if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
         if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
         
@@ -127,6 +134,9 @@ class GajiDanElaunJurulatihController extends Controller
         }
         
         $model = new GajiDanElaunJurulatih();
+        
+        $model->status_tawaran_mpj = RefStatusTawaran::DALAM_PROSES;
+        $model->status_tawaran_jkb = RefStatusTawaran::DALAM_PROSES;
         
         $queryPar = null;
         

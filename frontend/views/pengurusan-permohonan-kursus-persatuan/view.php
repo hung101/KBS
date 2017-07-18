@@ -8,6 +8,7 @@ use app\models\general\GeneralLabel;
 use app\models\general\GeneralMessage;
 
 use app\models\RefStatusPermohonanJkk;
+use app\models\BorangProfilPesertaKpsk;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\PengurusanPermohonanKursusPersatuan */
@@ -22,10 +23,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-permohonan-kursus-persatuan']['update'])): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-permohonan-kursus-persatuan']['create']) && $model->hantar_flag == 0)): ?>
+            <?= Html::a(GeneralLabel::send, ['hantar', 'id' => $model->pengurusan_permohonan_kursus_persatuan_id], [
+                'class' => 'btn btn-success',
+                'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                    'method' => 'post',
+                ],
+                ]) ?>
+        <?php endif; ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-permohonan-kursus-persatuan']['update']) && $model->hantar_flag == 0) || isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-permohonan-kursus-persatuan']['kelulusan'])): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->pengurusan_permohonan_kursus_persatuan_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-permohonan-kursus-persatuan']['delete'])): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-permohonan-kursus-persatuan']['delete']) && $model->hantar_flag == 0) || isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-permohonan-kursus-persatuan']['kelulusan'])): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->pengurusan_permohonan_kursus_persatuan_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
@@ -37,7 +47,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php if($model->kelulusan_id == RefStatusPermohonanJkk::LULUS): ?>
             <?= Html::a('Surat Tawaran', ['surat-tawaran', 'pengurusan_permohonan_kursus_persatuan_id' => $model->pengurusan_permohonan_kursus_persatuan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
         <?php endif; ?>
-        <?= Html::a(GeneralLabel::borang_profil_peserta, ['/borang-profil-peserta-kpsk/create', 'id' => $model->pengurusan_permohonan_kursus_persatuan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
+        <?php 
+            $modelBorang = BorangProfilPesertaKpsk::findOne(['pengurusan_permohonan_kursus_persatuan_id' => $model->pengurusan_permohonan_kursus_persatuan_id]);
+            if(($modelBorang !== null && $modelBorang->hantar_flag == 1 && !Yii::$app->user->identity->profil_badan_sukan) || 
+                Yii::$app->user->identity->profil_badan_sukan): 
+        ?>
+            <?= Html::a(GeneralLabel::borang_profil_peserta, ['/borang-profil-peserta-kpsk/load', 'id' => $model->pengurusan_permohonan_kursus_persatuan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
+        <?php endif; ?>
     </p>
     
     <?= $this->render('_form', [
