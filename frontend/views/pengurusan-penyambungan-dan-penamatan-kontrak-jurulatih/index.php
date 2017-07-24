@@ -85,14 +85,22 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'nama_acara',
             // 'status_jurulatih',
             //'status_permohonan',
-            [
+            /*[
                 'attribute' => 'status_permohonan',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan,
                 ],
                 'value' => 'refStatusPermohonanKontrakJurulatih.desc'
-            ],
+            ],*/
+            [
+                'attribute' => 'status_tawaran_jkb',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_tawaran_jkb,
+                ],
+                'value' => 'refStatusJkb.desc'
+            ],        
             // 'status_keaktifan_jurulatih',
             // 'muat_naik_document',
 

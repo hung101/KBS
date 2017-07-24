@@ -239,7 +239,8 @@ use app\models\general\GeneralVariable;
     <h3><?php echo GeneralLabel::lampiran_perbelanjaanresit; ?></h3>
     
     <div class="alert alert-warning alert-dismissible" role="alert">
-        <strong>Nota:</strong> Setiap dokumen yang dimuatnaik perlu disahkan dan dihantar kepada Majlis Sukan Negara
+        <strong>Nota:</strong> <!--Setiap dokumen yang dimuatnaik perlu disahkan dan dihantar kepada Majlis Sukan Negara-->
+        Setiap dokumen perlu disahkan sebelum dimuat naik
     </div>
     
     <?php 
@@ -334,7 +335,7 @@ use app\models\general\GeneralVariable;
     </p>
     <?php endif; ?>
     
-	<?php 
+    <?php 
         $jumlah_dipohon = 0.00;
         foreach($dataProviderInformasiPermohonan->models as $PBKmodel){
             $jumlah_dipohon += $PBKmodel->amaun;
@@ -342,7 +343,7 @@ use app\models\general\GeneralVariable;
     ?>
     <br>
     <h4><?= GeneralLabel::jumlah_dipohon ?> (RM): <?php echo number_format($jumlah_dipohon, 2);?></h4>
-	<?= $form->field($model, 'jumlah_dipohon')->hiddenInput(['value'=> $jumlah_dipohon])->label(false); ?>
+        <?php if(!$readonly){ echo $form->field($model, 'jumlah_dipohon')->hiddenInput(['value'=> $jumlah_dipohon])->label(false);} ?>
     <?php Pjax::end(); ?>
     
     <br>
@@ -438,7 +439,7 @@ use app\models\general\GeneralVariable;
 
     <div class="form-group">
         <?php if(!$readonly): ?>
-        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::send : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
+        <?= Html::submitButton($model->isNewRecord ? GeneralLabel::save : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',
             'data' => [
                     'confirm' => GeneralMessage::confirmSave,
                 ],]) ?>

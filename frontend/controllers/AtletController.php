@@ -11,6 +11,9 @@ use app\models\MsnSuratTawaranAtlet;
 use app\models\MsnLaporanAtletPencapaianPrestasiSecaraIndividu;
 use app\models\User;
 use app\models\AtletPrintForm;
+use app\models\MesyuaratJkk;
+use app\models\AtletSukan;
+use app\models\AtletKewanganElaun;
 use frontend\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -41,6 +44,7 @@ use app\models\RefAgensiOku;
 use app\models\RefKategoriKecacatan;
 use app\models\RefPassportTempatDikeluarkan;
 use app\models\RefTawaranAtlet;
+use app\models\RefBilJkk;
 
 use app\models\general\GeneralLabel;
 use app\models\general\Upload;
@@ -176,7 +180,7 @@ class AtletController extends Controller
      * @param string $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($id,$mesyuarat_id=null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -279,6 +283,7 @@ class AtletController extends Controller
         return $this->render('layout', [
             'model' => $atlet,
             'readonly' => true,
+            'mesyuarat_id' => $mesyuarat_id,
         ]);
         
         $session->close();
@@ -289,7 +294,7 @@ class AtletController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($mesyuarat_id=null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -302,6 +307,14 @@ class AtletController extends Controller
 		$session->remove('kelulusan_atlet');
         
         $model = new Atlet();
+        
+        if($mesyuarat_id!=null && ($modelMesyuaratJkk = MesyuaratJkk::findOne($mesyuarat_id)) !== null){
+            $ref = RefBilJkk::findOne(['id' => $modelMesyuaratJkk->bil_mesyuarat]);
+            $modelMesyuaratJkk->bil_mesyuarat = $ref['desc'];
+            
+            $model->bilangan_jkk_jkp = $modelMesyuaratJkk->bil_mesyuarat;
+            $model->tarikh_jkk_jkp = date_format(date_create($modelMesyuaratJkk->tarikh),"Y-m-d");
+        }
         
         $model->tawaran = RefStatusTawaran::DALAM_PROSES; //default
         
@@ -348,7 +361,7 @@ class AtletController extends Controller
         ->setTo($modelPS->email)
                                     ->setFrom('noreply@spsb.com')
         ->setSubject('PSK telah memasukkan atlet baru')
-        ->setHtmlBody("Salam Sejahtera,
+        ->setHtmlBody("Assalamualaikum dan Salam Sejahtera, 
             <br><br>
 Nama Atlet: " . $model->name_penuh . "<br>
 No Kad Pengenalan: " . $model->ic_no . '<br>
@@ -368,7 +381,7 @@ Majlis Sukan Negara Malaysia.
         ->setTo($modelPS->email)
                                     ->setFrom('noreply@spsb.com')
         ->setSubject('Majlis Sukan Negeri telah memasukkan atlet baru')
-        ->setHtmlBody("Salam Sejahtera,
+        ->setHtmlBody("Assalamualaikum dan Salam Sejahtera, 
 <br><br>
 Nama Atlet: " . $model->name_penuh . "<br>
 No Kad Pengenalan: " . $model->ic_no . '<br>
@@ -381,13 +394,14 @@ Majlis Sukan Negara Malaysia.
                     }
                 }
                 
-                return $this->redirect(['view', 'id' => $model->atlet_id]);
+                return $this->redirect(['view', 'id' => $model->atlet_id,'mesyuarat_id' => $mesyuarat_id]);
             }
         }
         
         return $this->render('layout', [
             'model' => $model,
             'readonly' => false,
+            'mesyuarat_id' => $mesyuarat_id,
         ]);
         
         $session->close();
@@ -399,7 +413,7 @@ Majlis Sukan Negara Malaysia.
      * @param string $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id,$mesyuarat_id=null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -417,6 +431,14 @@ Majlis Sukan Negara Malaysia.
 		$session['kelulusan_atlet'] = $model->tawaran;
         
         $existingGambar = $model->gambar;
+        
+        if($mesyuarat_id!=null && ($modelMesyuaratJkk = MesyuaratJkk::findOne($mesyuarat_id)) !== null){
+            $ref = RefBilJkk::findOne(['id' => $modelMesyuaratJkk->bil_mesyuarat]);
+            $modelMesyuaratJkk->bil_mesyuarat = $ref['desc'];
+            
+            $model->bilangan_jkk_jkp = $modelMesyuaratJkk->bil_mesyuarat;
+            $model->tarikh_jkk_jkp = date_format(date_create($modelMesyuaratJkk->tarikh),"Y-m-d");
+        }
         
         if ($model->load(Yii::$app->request->post())) {
             
@@ -457,21 +479,41 @@ Majlis Sukan Negara Malaysia.
                 
                 if (($modelUser = User::findOne($model->created_by)) !== null) {
                     if($modelUser->email && $modelUser->email != ''){
+                        $modelSukanProgram = AtletSukan::find()->joinWith(['refSukan'])
+                            ->joinWith(['refAcara'])
+                            ->joinWith(['refProgramSemasaSukanAtlet'])
+                            ->joinWith(['refCawangan'])
+                            ->joinWith(['refSource'])
+                            ->joinWith(['refStatusSukanAtlet'])
+                            ->joinWith(['refJurulatih'])
+                            ->where('atlet_id = :atlet_id', [':atlet_id' => $model->atlet_id])->orderBy(['tarikh_mula_menyertai_program_msn' => SORT_DESC,])->one();
+                        
+                        
+                        $modelElaun = AtletKewanganElaun::find()->where('atlet_id = :atlet_id', [':atlet_id' => $model->atlet_id])
+                                                ->orderBy(['tarikh_mula' => SORT_DESC,])->one();
+                        
                         $ref = RefStatusTawaran::findOne(['id' => $model->tawaran]);
                         $statusTawaranDesc = $ref['desc'];
         
                         try {
                             Yii::$app->mailer->compose()
                                     ->setTo($modelUser->email)
-                                                                ->setFrom('noreply@spsb.com')
+                                    ->setFrom('noreply@spsb.com')
                                     ->setSubject('Status Tawaran Atlet (' . $model->name_penuh . ') Telah Diproses')
-                                    ->setHtmlBody('Salam Sejahtera,<br><br>
-
-                            Nama Atlet: ' . $model->name_penuh . '<br>
-                            No Kad Pengenalan: ' . $model->ic_no . '<br>
-                            Status Tawaran Terkini: ' . $statusTawaranDesc . '<br>
+                                    ->setHtmlBody('Assalamualaikum dan Salam Sejahtera, <br><br>
+<b><u>TAWARAN ATLET SUKAN '.(isset($modelSukanProgram['refSukan']['desc']) ? GeneralFunction::getUpperCaseWords($modelSukanProgram['refSukan']['desc']) : '').' </u></b><br>
+    Dengan segala hormatnya, saya ingin menarik perhatian tuan/puan kepada perkara di atas.<br><br>
+    2.    Adalah dimaklumkan bahawa atlet berikut telah ' . $statusTawaranDesc . ' bagi program dibawah Majlis Sukan Negara Malaysia:-<br>
+                            Nama: ' . $model->name_penuh . '<br>
+                            No. K/P: ' . $model->ic_no . '<br>
+                            Sukan: ' .(isset($modelSukanProgram['refSukan']['desc']) ? $modelSukanProgram['refSukan']['desc'] : ''). '<br>
+                            Program: ' .(isset($modelSukanProgram['refProgramSemasaSukanAtlet']['desc']) ? $modelSukanProgram['refProgramSemasaSukanAtlet']['desc'] : ''). '<br>
+                            Elaun: RM ' . ($modelElaun && $modelElaun->jumlah_elaun ? $modelElaun->jumlah_elaun : '') . '<br>
+<br>                           
+Sekian, terima kasih. 
 <br><br>
                             "KE ARAH KECEMERLANGAN SUKAN"<br>
+                            Bahagian ' . ($model->cacat=='1' ? 'Paralimpik' : 'Atlet') . '<br>
                             Majlis Sukan Negara Malaysia.<br>
                             ')->send();
                         }
@@ -486,7 +528,7 @@ Majlis Sukan Negara Malaysia.
             }
             
             if($model->save()){
-                return $this->redirect(['view', 'id' => $model->atlet_id]);
+                return $this->redirect(['view', 'id' => $model->atlet_id,'mesyuarat_id' => $mesyuarat_id]);
             }
             
         }
@@ -496,6 +538,7 @@ Majlis Sukan Negara Malaysia.
         return $this->render('layout', [
             'model' => $model,
             'readonly' => false,
+            'mesyuarat_id' => $mesyuarat_id,
         ]);
     }
     
@@ -648,7 +691,7 @@ Majlis Sukan Negara Malaysia.
         }
         
         $model['view_url'] = Url::to(['/atlet/view', 'id' => $model['atlet_id']]);
-        $model['view_url_button'] = Html::a(GeneralLabel::view . ' ' . GeneralLabel::profil, '#', ['class'=>'btn btn-primary custom_button', 'onclick' => 'window.open("' . Url::to(['/atlet/view', 'id' => $model['atlet_id']]) . '", "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no"); return false;']) ;
+        $model['view_url_button'] = Html::a(GeneralLabel::view . ' ' . GeneralLabel::profil, '#', ['class'=>'btn btn-primary custom_button', 'onclick' => 'window.open("' . Url::to(['/atlet/view', 'id' => $model['atlet_id'], 'mesyuarat_id' => 0]) . '", "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no"); return false;']) ;
                     
         echo Json::encode($model);
     }
@@ -816,6 +859,29 @@ Majlis Sukan Negara Malaysia.
         return $value;
     }
     
+    /**
+     * validate IC duplicate
+     * @param integer $id
+     * @return integer $id
+     */
+    public static function actionCheckIc($ic_no=null, $atlet_id=null) {
+        $model = Atlet::find()->where('ic_no = :ic_no', [':ic_no' => $ic_no])->one();
+        
+        if($atlet_id != null && $atlet_id != ""){
+            $model = Atlet::find()->where('ic_no = :ic_no AND atlet_id <> :atlet_id', [':ic_no' => $ic_no, ':atlet_id' => $atlet_id])->one();
+        }
+
+        if($model == null){
+            echo 0;
+        } else {
+            echo 1; // duplicate IC
+        }
+        
+        //echo Json::encode($model);
+    }
+    
+    
+    
     public function actionPrint($id) {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -901,7 +967,11 @@ Majlis Sukan Negara Malaysia.
             
             
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->source))$model->source = implode(",",$model->source);
@@ -1000,7 +1070,11 @@ Majlis Sukan Negara Malaysia.
         if ($model->load(Yii::$app->request->post())) {
             
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->kategori_kecacatan))$model->kategori_kecacatan = implode(",",$model->kategori_kecacatan);
@@ -1106,7 +1180,11 @@ Majlis Sukan Negara Malaysia.
         if ($model->load(Yii::$app->request->post())) {
             
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
@@ -1179,7 +1257,11 @@ Majlis Sukan Negara Malaysia.
         if ($model->load(Yii::$app->request->post())) {
             
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->kategori_kecacatan))$model->kategori_kecacatan = implode(",",$model->kategori_kecacatan);
@@ -1259,7 +1341,11 @@ Majlis Sukan Negara Malaysia.
         if ($model->load(Yii::$app->request->post())) {
             
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
@@ -1332,7 +1418,11 @@ Majlis Sukan Negara Malaysia.
         if ($model->load(Yii::$app->request->post())) {
             
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             //if(!empty($model->kategori_kecacatan))$model->kategori_kecacatan = implode(",",$model->kategori_kecacatan);
@@ -1531,7 +1621,11 @@ Majlis Sukan Negara Malaysia.
         if ($model->load(Yii::$app->request->post())) {
             
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
@@ -1623,7 +1717,11 @@ Majlis Sukan Negara Malaysia.
         if ($model->load(Yii::$app->request->post())) {
             
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
@@ -1715,7 +1813,11 @@ Majlis Sukan Negara Malaysia.
         if ($model->load(Yii::$app->request->post())) {
             
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
@@ -1794,7 +1896,11 @@ Majlis Sukan Negara Malaysia.
         if ($model->load(Yii::$app->request->post())) {
             
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
@@ -1873,7 +1979,11 @@ Majlis Sukan Negara Malaysia.
         if ($model->load(Yii::$app->request->post())) {
             
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
@@ -1952,7 +2062,11 @@ Majlis Sukan Negara Malaysia.
         if ($model->load(Yii::$app->request->post())) {
             
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
@@ -2030,7 +2144,11 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
@@ -2108,7 +2226,11 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
@@ -2187,7 +2309,11 @@ Majlis Sukan Negara Malaysia.
         if ($model->load(Yii::$app->request->post())) {
             
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
@@ -2420,7 +2546,11 @@ Majlis Sukan Negara Malaysia.
         if ($model->load(Yii::$app->request->post())) {
             
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
@@ -2652,7 +2782,11 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
@@ -2730,7 +2864,11 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->cawangan))$model->cawangan = implode(",",$model->cawangan);
@@ -2808,7 +2946,11 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
@@ -2906,7 +3048,11 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
@@ -3040,7 +3186,11 @@ Majlis Sukan Negara Malaysia.
         if ($model->load(Yii::$app->request->post())) {
             
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
@@ -3203,7 +3353,11 @@ Majlis Sukan Negara Malaysia.
         if ($model->load(Yii::$app->request->post())) {
             
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
@@ -3366,7 +3520,11 @@ Majlis Sukan Negara Malaysia.
         if ($model->load(Yii::$app->request->post())) {
             
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
@@ -3471,7 +3629,11 @@ Majlis Sukan Negara Malaysia.
         if ($model->load(Yii::$app->request->post())) {
             
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
@@ -3619,7 +3781,11 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);
@@ -3717,7 +3883,11 @@ Majlis Sukan Negara Malaysia.
 
         if ($model->load(Yii::$app->request->post())) {
             if(!empty($model->program))$model->program = implode(",",$model->program);
-            if(!empty($model->sukan))$model->sukan = implode(",",$model->sukan);
+            if(!empty($model->sukan)){
+                $model->sukan = implode(",",$model->sukan);
+            } elseif(Yii::$app->user->identity->sukan && !empty(Yii::$app->user->identity->sukan)){
+                $model->sukan = Yii::$app->user->identity->sukan;
+            }
             if(!empty($model->acara))$model->acara = implode(",",$model->acara);
             if(!empty($model->negeri))$model->negeri = implode(",",$model->negeri);
             if(!empty($model->atlet))$model->atlet = implode(",",$model->atlet);

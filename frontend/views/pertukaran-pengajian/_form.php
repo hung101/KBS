@@ -252,7 +252,8 @@ use app\models\general\GeneralMessage;
     ]
 ]);
     ?>
-    
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pertukaran-pengajian']['kelulusan']) || $readonly): ?>
+    <hr>
     <?php
      echo FormGrid::widget([
     'model' => $model,
@@ -299,6 +300,7 @@ use app\models\general\GeneralMessage;
     ]
 ]);
     ?>
+    <?php endif; ?>
 
     <div class="form-group">
         <?php if(!$readonly): ?>
@@ -351,6 +353,7 @@ $('#atletId').change(function(){
                 if(data.refAtletPendidikan[0] !== null){ 
                     $('#pertukaranpengajian-kategori_pengajian').val(data.refAtletPendidikan[0].fakulti).trigger("change");
                     $('#pertukaranpengajian-nama_pengajian_sekarang').val(data.institusi_sekolah).trigger("change");
+                    $('#pertukaranpengajian-sebab').val(data.refAtletPendidikan[0].no_matrix);
                 }
             }
         });
@@ -360,6 +363,9 @@ $('#atletId').change(function(){
 function clearForm(){
     $('#pertukaranpengajian-program').val('').trigger("change");
     $('#pertukaranpengajian-sukan').val('').trigger("change");
+    $('#pertukaranpengajian-kategori_pengajian').val('').trigger("change");
+    $('#pertukaranpengajian-nama_pengajian_sekarang').val('').trigger("change");
+    $('#pertukaranpengajian-sebab').val('');
 }
 
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {

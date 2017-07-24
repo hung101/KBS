@@ -84,6 +84,8 @@ class FarmasiPermohonanLiputanPerubatanSukanController extends Controller
         
         $model->tarikh_program = GeneralFunction::convert($model->tarikh_program);
         
+        $model->tarikh_kelulusan = GeneralFunction::convert($model->tarikh_kelulusan);
+        
         return $this->render('view', [
             'model' => $model,
             'readonly' => true,

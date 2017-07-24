@@ -324,56 +324,103 @@ if($model->bahagian === 1 || $model->bahagian === 'Kejohanan'||
 	<div class="isKejohanan">	
 	<?php
         echo FormGrid::widget([
-			'model' => $model,
-			'form' => $form,
-			'autoGenerateColumns' => true,
-			'rows' => [
-				[
-					'columns'=>12,
-					'autoGenerateColumns'=>false, // override columns setting
-					'attributes' => [
-					   'anggaran_perbelanjaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
-						'perbelanjaan_diluluskan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
-					]
-				],
-				[
-					'columns'=>12,
-					'autoGenerateColumns'=>false, // override columns setting
-					'attributes' => [
-					   'bilangan_jkk_jkp' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
-						'tarikh_jkk_jkp' => [
-							'type'=>Form::INPUT_WIDGET, 
-							'widgetClass'=> DateControl::classname(),
-							'ajaxConversion'=>false,
-							'options'=>[
-								'pluginOptions' => [
-									'autoclose'=>true,
-								]
-							],
-							'columnOptions'=>['colspan'=>3]],
-						'status_permohonan' => [
-							'type'=>Form::INPUT_WIDGET, 
-							'widgetClass'=>'\kartik\widgets\Select2',
-							'options'=>[
-								'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-								[
-									'append' => [
-										'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan-program-binaan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-										'asButton' => true
-									]
-								] : null,
-								'data'=>ArrayHelper::map(RefStatusPermohonanProgramBinaan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
-								'options' => ['placeholder' => Placeholder::statusPermohonan],
-		'pluginOptions' => [
-									'allowClear' => true
-								],],
-							'columnOptions'=>['colspan'=>4]],
-					]
-				],
-			]
-		]);
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                [
+                        'columns'=>12,
+                        'autoGenerateColumns'=>false, // override columns setting
+                        'attributes' => [
+                           'anggaran_perbelanjaan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                                'perbelanjaan_diluluskan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                        ]
+                ],
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                       'bilangan_jkk_jkp' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                        'tarikh_jkk_jkp' => [
+                                'type'=>Form::INPUT_WIDGET, 
+                                'widgetClass'=> DateControl::classname(),
+                                'ajaxConversion'=>false,
+                                'options'=>[
+                                        'pluginOptions' => [
+                                                'autoclose'=>true,
+                                        ]
+                                ],
+                                'columnOptions'=>['colspan'=>3]],
+                        'status_permohonan' => [
+                                'type'=>Form::INPUT_WIDGET, 
+                                'widgetClass'=>'\kartik\widgets\Select2',
+                                'options'=>[
+                                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                        [
+                                                'append' => [
+                                                        'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan-program-binaan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                                        'asButton' => true
+                                                ]
+                                        ] : null,
+                                        'data'=>ArrayHelper::map(RefStatusPermohonanProgramBinaan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                        'options' => ['placeholder' => Placeholder::statusPermohonan],
+                                'pluginOptions' => [
+                                                'allowClear' => true
+                                        ],],
+                                'columnOptions'=>['colspan'=>4]],
+                    ]
+                ],
+            ]
+        ]);
     ?>
 	</div>
+    
+    <div class="isJKB">	
+	<?php
+        echo FormGrid::widget([
+            'model' => $model,
+            'form' => $form,
+            'autoGenerateColumns' => true,
+            'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                       'bilangan_jkb' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>true]],
+                        'tarikh_jkb' => [
+                                'type'=>Form::INPUT_WIDGET, 
+                                'widgetClass'=> DateControl::classname(),
+                                'ajaxConversion'=>false,
+                                'options'=>[
+                                        'pluginOptions' => [
+                                                'autoclose'=>true,
+                                        ]
+                                ],
+                                'columnOptions'=>['colspan'=>3]],
+                        'status_tawaran' => [
+                                'type'=>Form::INPUT_WIDGET, 
+                                'widgetClass'=>'\kartik\widgets\Select2',
+                                'options'=>[
+                                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                        [
+                                                'append' => [
+                                                        'content' => Html::a(Html::icon('edit'), ['/ref-status-permohonan-program-binaan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                                        'asButton' => true
+                                                ]
+                                        ] : null,
+                                        'data'=>ArrayHelper::map(RefStatusPermohonanProgramBinaan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                        'options' => ['placeholder' => Placeholder::statusPermohonan],
+                                'pluginOptions' => [
+                                                'allowClear' => true
+                                        ],],
+                                'columnOptions'=>['colspan'=>4]],
+                    ]
+                ],
+            ]
+        ]);
+    ?>
+	</div>
+    
 	<?php
         echo FormGrid::widget([
 			'model' => $model,
@@ -447,19 +494,23 @@ if(isCampFlag === true){
 }
 
 $('#kategoriID').change(function(){
-	var selected = $(this).val();
-	if(selected != '1' && selected != '7' && selected != '8'){
-		$('.isKejohanan').hide();
-	} else {
-		$('.isKejohanan').show();
-	}
+    var selected = $(this).val();
+    if(selected != '1' && selected != '7' && selected != '8'){
+        //$('.isKejohanan').hide();
+    } else {
+        //$('.isKejohanan').show();
+    }
 
     // Jumlah Atlet, Jumlah Jurulatih, Jumlah Pegawai
     if(selected != '1' && selected != '7' && selected != '8' && selected != '6'){
-		$('.isCamp').hide();
-	} else {
-		$('.isCamp').show();
-	}
+        $('.isCamp').hide();
+        $('.isKejohanan').hide();
+        $('.isJKB').hide();
+    } else {
+        $('.isCamp').show();
+        $('.isKejohanan').show();
+        $('.isJKB').show();
+    }
 });
 
      

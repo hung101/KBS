@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a(GeneralLabel::print_borang_permohonan, ['print-borang-permohonan', 'id' => $model->pengurusan_program_binaan_id], ['class' => 'btn btn-success custom_button', 'target' => '_blank']) ?>
         <?php endif; ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['update']) && $model->hantar_flag == 1 && $jenisPermohonan === 'USPTN'): ?>
-            <?= Html::a(GeneralLabel::laporan_penganjuran_penyertaan, ['laporan-penganjuran', 'id' => $model->pengurusan_program_binaan_id, 'readonly' =>false], ['class' => 'btn btn-warning custom_button', 'target' => '_blank']) ?>
+            <?= Html::a(GeneralLabel::laporan_penganjuran_penyertaan, ['laporan-penganjuran', 'id' => $model->pengurusan_program_binaan_id, 'readonly' =>true], ['class' => 'btn btn-warning custom_button', 'target' => '_blank']) ?>
         <?php endif; ?>
     </p>
     

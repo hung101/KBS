@@ -177,6 +177,21 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
      });
      return false;
 });
+
+$('#laporanpemantauanjurulatihkategori-penilaian_sub_kategori').on('depdrop.change', function(event) {
+    checkKategori();
+});
+
+function checkKategori(){
+    if(
+        $('#laporanpemantauanjurulatihkategori-penilaian_kategori').val()=='9'){
+        //$('.field-laporanpemantauanjurulatihkategori-penilaian_sub_kategori').show();
+        $("#laporanpemantauanjurulatihkategori-penilaian_sub_kategori").prop("disabled", false);
+    } else {
+        //$('.field-laporanpemantauanjurulatihkategori-penilaian_sub_kategori').hide();
+        $("#laporanpemantauanjurulatihkategori-penilaian_sub_kategori").prop("disabled", true);
+    }
+}
      
 
 JS;

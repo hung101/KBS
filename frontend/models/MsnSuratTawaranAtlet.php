@@ -31,7 +31,7 @@ class MsnSuratTawaranAtlet extends Model
     {
         return [
             'tarikh' => GeneralLabel::tarikh,
-            'bil_msnm' => "Bil MSNM",
+            'bil_msnm' => "Rujukan MSN",
             'atlet_id' => GeneralLabel::atlet,
             'tarikh_luput' => GeneralLabel::tarikh_luput,
             'gaji_elaun' => GeneralLabel::gaji_elaun,

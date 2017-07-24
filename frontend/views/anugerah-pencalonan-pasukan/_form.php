@@ -59,6 +59,39 @@ use app\models\general\GeneralMessage;
     ?>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    
+    <?php // Gambar Upload
+    if($model->gambar_pasukan){
+        echo "<label>" . $model->getAttributeLabel('gambar_pasukan') . "</label><br>";
+        echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$model->gambar_pasukan.'" width="200px">&nbsp;&nbsp;&nbsp;';
+        if(!$readonly){
+            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->anugerah_pencalonan_pasukan_id, 'field'=> 'gambar_pasukan'], 
+            [
+                'class'=>'btn btn-danger', 
+                'data' => [
+                    'confirm' => GeneralMessage::confirmRemove,
+                    'method' => 'post',
+                ]
+            ]).'<p>';
+        }
+    } else {
+        echo FormGrid::widget([
+        'model' => $model,
+        'form' => $form,
+        'autoGenerateColumns' => true,
+        'rows' => [
+                [
+                    'columns'=>12,
+                    'autoGenerateColumns'=>false, // override columns setting
+                    'attributes' => [
+                        'gambar_pasukan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
+                    ],
+                ],
+            ]
+        ]);
+    }
+    ?>
+    
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -116,38 +149,6 @@ use app\models\general\GeneralMessage;
     ]
 ]);
         ?>
-    
-    <?php // Gambar Upload
-    if($model->gambar_pasukan){
-        echo "<label>" . $model->getAttributeLabel('gambar_pasukan') . "</label><br>";
-        echo Html::a(GeneralLabel::viewAttachment, \Yii::$app->request->BaseUrl.'/' . $model->gambar_pasukan , ['class'=>'btn btn-link', 'target'=>'_blank']) . "&nbsp;&nbsp;&nbsp;";
-        if(!$readonly){
-            echo Html::a(GeneralLabel::remove, ['deleteupload', 'id'=>$model->anugerah_pencalonan_pasukan_id, 'field'=> 'gambar_pasukan'], 
-            [
-                'class'=>'btn btn-danger', 
-                'data' => [
-                    'confirm' => GeneralMessage::confirmRemove,
-                    'method' => 'post',
-                ]
-            ]).'<p>';
-        }
-    } else {
-        echo FormGrid::widget([
-        'model' => $model,
-        'form' => $form,
-        'autoGenerateColumns' => true,
-        'rows' => [
-                [
-                    'columns'=>12,
-                    'autoGenerateColumns'=>false, // override columns setting
-                    'attributes' => [
-                        'gambar_pasukan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3]],
-                    ],
-                ],
-            ]
-        ]);
-    }
-    ?>
     
     <?php
         echo FormGrid::widget([

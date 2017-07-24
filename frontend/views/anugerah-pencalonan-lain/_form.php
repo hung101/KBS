@@ -14,12 +14,16 @@ use yii\widgets\Pjax;
 
 // table reference
 use app\models\RefKategoriPencalonanLain;
+use app\models\Atlet;
+use app\models\Jurulatih;
+use app\models\ProfilBadanSukan;
 
 // contant values
 use app\models\general\Placeholder;
 use app\models\general\GeneralLabel;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralMessage;
+use common\models\general\GeneralFunction;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\AnugerahPencalonanLain */
@@ -95,7 +99,7 @@ use app\models\general\GeneralMessage;
     'form' => $form,
     'autoGenerateColumns' => true,
     'rows' => [
-        /*[
+        [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
@@ -118,12 +122,169 @@ use app\models\general\GeneralMessage;
                         ],],
                     'columnOptions'=>['colspan'=>6]],
             ],
-        ],*/
+        ],
+    ]
+]);
+        ?>
+    
+    <div id="atletDiv">
+        <div class="row">
+            <div class="col-sm-9">
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                 'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
+               
+                 'atlet' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        /*'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,*/
+                        'data'=>ArrayHelper::map(GeneralFunction::getAtlet(),'atlet_id', 'nameAndIC'),
+                        'options' => ['placeholder' => Placeholder::atlet],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>6]],
+            ],
+        ],
+    ]
+]);
+        ?>
+                </div>
+                <div class="col-sm-3">
+                    <fieldset>
+                        <div class="form-group">
+                        <label class="control-label" > &nbsp;</label>
+                        <div id="atletLink"></div>
+                        <div class="help-block"></div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    
+    <div id="jurulatihDiv">
+        <div class="row">
+            <div class="col-sm-9">
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+               
+                 'jurulatih' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        /*'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,*/
+                        'data'=>ArrayHelper::map(GeneralFunction::getJurulatih(),'jurulatih_id', 'nameAndIC'),
+                        'options' => ['placeholder' => Placeholder::jurulatih],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>6]],
+            ],
+        ],
+    ]
+]);
+        ?>
+            </div>
+                <div class="col-sm-3">
+                    <fieldset>
+                        <div class="form-group">
+                        <label class="control-label" > &nbsp;</label>
+                        <div id="jurulatihLink"></div>
+                        <div class="help-block"></div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    
+    <div id="persatuanDiv">
+        <div class="row">
+            <div class="col-sm-9">
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+               
+                 'persatuan_sukan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        /*'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/profil-badan-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,*/
+                        'data'=>ArrayHelper::map(GeneralFunction::getProfilBadanSukan(),'profil_badan_sukan', 'nama_badan_sukan'),
+                        'options' => ['placeholder' => Placeholder::persatuan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>6]],
+            ],
+        ],
+    ]
+]);
+        ?>
+            </div>
+                <div class="col-sm-3">
+                    <fieldset>
+                        <div class="form-group">
+                        <label class="control-label" > &nbsp;</label>
+                        <div id="persatuanLink"></div>
+                        <div class="help-block"></div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>true]],
                 'no_kad_pengenalan' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
             ],
         ],
@@ -250,3 +411,112 @@ use app\models\general\GeneralMessage;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$KATEGORI_ATLET = RefKategoriPencalonanLain::ATLET;
+$KATEGORI_JURULATIH = RefKategoriPencalonanLain::JURULATIH;
+$KATEGORI_PERSATUAN_SUKAN = RefKategoriPencalonanLain::PERSATUAN_SUKAN;
+
+$DateDisplayFormat = GeneralVariable::displayDateFormat;
+
+$URLAtlet = Url::to(['/atlet/get-atlet']);
+$URLJurulatih = Url::to(['/jurulatih/get-jurulatih']);
+$URLPersatuan = Url::to(['/profil-badan-sukan/get-badan-sukan']);
+
+$script = <<< JS
+        
+$(document).ready(function(){
+    checkKategori();
+});
+        
+$('#anugerahpencalonanlain-kategori').change(function(){
+    checkKategori();
+        clearForm();
+});
+        
+function checkKategori(){
+    $('#atletDiv').hide();
+    $('#jurulatihDiv').hide();
+    $('#persatuanDiv').hide();
+        
+    if($('#anugerahpencalonanlain-kategori').val() == '$KATEGORI_ATLET'){
+        $('#atletDiv').show();
+    } else if($('#anugerahpencalonanlain-kategori').val() == '$KATEGORI_JURULATIH'){
+        $('#jurulatihDiv').show();
+    } else if($('#anugerahpencalonanlain-kategori').val() == '$KATEGORI_PERSATUAN_SUKAN'){
+        $('#persatuanDiv').show();
+    }
+}
+        
+$('#anugerahpencalonanlain-atlet').change(function(){
+            
+    if($(this).val() != ''){
+        $.get('$URLAtlet',{id:$(this).val()},function(data){
+            clearForm();
+            
+            var data = $.parseJSON(data);
+
+            if(data !== null){
+                $('#anugerahpencalonanlain-nama').attr('value',data.name_penuh);
+                $('#anugerahpencalonanlain-no_kad_pengenalan').attr('value',data.ic_no);
+                $("#anugerahpencalonanlain-no_tel_1").attr('value',data.tel_no);
+                $("#anugerahpencalonanlain-no_tel_2").attr('value',data.tel_bimbit_no_1);
+            
+                $("#atletLink").html(data.view_url_button);
+            }
+        });
+    }
+});
+        
+$('#anugerahpencalonanlain-jurulatih').change(function(){
+    
+    $.get('$URLJurulatih',{id:$(this).val()},function(data){
+        clearForm();
+        
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+            $('#anugerahpencalonanlain-nama').attr('value',data.nama);
+            $('#anugerahpencalonanlain-no_kad_pengenalan').attr('value',data.ic_no);
+            $('#anugerahpencalonanlain-no_tel_1').attr('value',data.no_telefon);
+            $('#anugerahpencalonanlain-no_tel_2').attr('value',data.no_telefon_bimbit);
+        
+            $("#jurulatihLink").html(data.view_url_button);
+        }
+        
+        });
+});
+        
+$('#anugerahpencalonanlain-persatuan_sukan').change(function(){
+            
+    if($(this).val() != ''){
+        $.get('$URLPersatuan',{id:$(this).val()},function(data){
+            clearForm();
+            
+            var data = $.parseJSON(data);
+
+            if(data !== null){
+                //$('#anugerahpencalonanlain-nama').attr('value',data.name_penuh);
+                //$('#anugerahpencalonanlain-no_kad_pengenalan').attr('value',data.ic_no);
+                $("#anugerahpencalonanlain-no_tel_1").attr('value',data.no_telefon_pejabat);
+                $("#anugerahpencalonanlain-no_tel_2").attr('value',data.no_tel_bimbit);
+            }
+        });
+    }
+});
+         
+function clearForm(){
+    $('#anugerahpencalonanlain-nama').attr('value','');
+    $('#anugerahpencalonanlain-no_kad_pengenalan').attr('value','');
+    $("#anugerahpencalonanlain-no_tel_1").attr('value','');
+    $("#anugerahpencalonanlain-no_tel_2").attr('value','');
+        
+        $("#atletLink").html('');
+        $("#jurulatihLink").html('');
+        $("#persatuanLink").html('');
+}
+        
+JS;
+        
+$this->registerJs($script);
+?>

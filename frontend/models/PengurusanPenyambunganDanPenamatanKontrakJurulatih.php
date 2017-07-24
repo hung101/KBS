@@ -133,4 +133,18 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatih extends \yii\db\ActiveR
     public function getRefJurulatihSukan(){
         return $this->hasMany(JurulatihSukan::className(), ['jurulatih_id' => 'jurulatih']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusJkb(){
+        return $this->hasOne(RefStatusTawaran::className(), ['id' => 'status_tawaran_jkb'])->from(['st1' => RefStatusTawaran::tableName()]);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefStatusMpj(){
+        return $this->hasOne(RefStatusTawaran::className(), ['id' => 'status_tawaran_mpj'])->from(['st2' => RefStatusTawaran::tableName()]);
+    }
 }

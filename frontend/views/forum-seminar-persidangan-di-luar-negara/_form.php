@@ -51,9 +51,8 @@ use app\models\general\GeneralVariable;
         $disablePersatuan = true;
     }
     ?>
-    
     <br>
-    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_pemohon_cap; ?></strong></pre>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_persatuan_cap; ?></strong></pre>
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -64,7 +63,6 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
                 'persatuan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -82,6 +80,27 @@ use app\models\general\GeneralVariable;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
+            ],
+        ],
+        
+    ]
+]);
+        ?>
+    
+    <br>
+    <br>
+    <pre style="text-align: center"><strong><?php echo GeneralLabel::maklumat_pemohon_cap; ?></strong></pre>
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
                 'jawatan' => [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
@@ -99,6 +118,7 @@ use app\models\general\GeneralVariable;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
+                'emel' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>100]],
             ],
         ],
         
@@ -373,6 +393,11 @@ use app\models\general\GeneralVariable;
           </ol>
     </div>
     
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <strong>Nota:</strong> <!--Setiap dokumen yang dimuatnaik perlu disahkan dan dihantar kepada Majlis Sukan Negara-->
+        Setiap dokumen perlu disahkan sebelum dimuat naik
+    </div>
+    
     <?php Pjax::begin(['id' => 'informasiPermohonanGrid', 'timeout' => 100000]); ?>
 
     <?= GridView::widget([
@@ -430,6 +455,15 @@ use app\models\general\GeneralVariable;
             ],
         ],
     ]); ?>
+    
+    <?php 
+        $jumlah_dipohon = 0.00;
+        foreach($dataProviderInformasiPermohonanProgramAntarabangsa->models as $PBKmodel){
+            $jumlah_dipohon += $PBKmodel->amaun;
+        }
+    ?>
+    <br>
+    <h4><?= GeneralLabel::jumlah ?>: <?php echo number_format($jumlah_dipohon, 2);?></h4>
     
     <?php if(!$readonly): ?>
     <p>
@@ -510,17 +544,6 @@ use app\models\general\GeneralVariable;
 ]);
     ?>
     <?php endif; ?>
-
-
-    <!--<?= $form->field($model, 'nama')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'amaun')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'negara')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'status_permohonan')->textInput(['maxlength' => 30]) ?>
-
-    <?= $form->field($model, 'catatan')->textInput(['maxlength' => 255]) ?>-->
 
     <div class="form-group">
         <?php if(!$readonly): ?>

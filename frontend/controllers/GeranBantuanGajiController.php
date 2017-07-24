@@ -61,8 +61,14 @@ class GeranBantuanGajiController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['kelulusan'])) {
+            $queryParams['GeranBantuanGajiSearch']['hantar_flag'] = 1;
+        }
+        
         $searchModel = new GeranBantuanGajiSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -154,9 +160,6 @@ class GeranBantuanGajiController extends Controller
         }
         
         $model = new GeranBantuanGaji();
-        
-        $model->status_tawaran_mpj = RefStatusTawaran::DALAM_PROSES;
-        $model->status_tawaran_jkb = RefStatusTawaran::DALAM_PROSES;
 		
 	$queryPar = null;
         
@@ -278,6 +281,30 @@ class GeranBantuanGajiController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    
+    /**
+     * Updates an existing GeranBantuanGaji model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set hantar flag
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date capture
+        $model->status_tawaran_mpj = RefStatusTawaran::DALAM_PROSES;
+        $model->status_tawaran_jkb = RefStatusTawaran::DALAM_PROSES;
+        
+        $model->save();
+        
+        return $this->redirect(['view', 'id' => $model->geran_bantuan_gaji_id]);
     }
 
     /**

@@ -49,8 +49,14 @@ class PengurusanPemantauanDanPenilaianJurulatihKetuaController extends Controlle
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-pemantauan-dan-penilaian-jurulatih']['kelulusan'])) {
+            $queryParams['PengurusanPemantauanDanPenilaianJurulatihKetuaSearch']['hantar'] = 1;
+        }
+        
         $searchModel = new PengurusanPemantauanDanPenilaianJurulatihKetuaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

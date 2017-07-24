@@ -97,6 +97,15 @@ class PengurusanProgramBinaanController extends Controller
             $queryParams['PengurusanProgramBinaanSearch']['created_by'] = Yii::$app->user->identity->id;
         }
         
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['kelulusan'])) {
+            $queryParams['PengurusanProgramBinaanSearch']['hantar_flag'] = 1;
+        }
+        
+        /*if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['usptn'])) {
+            $queryParams['PengurusanProgramBinaanSearch']['jenis_permohonan_id'] = 3; // only show usptn
+        }*/
+        
+        
         $searchModel = new PengurusanProgramBinaanSearch();
         $dataProvider = $searchModel->search($queryParams);
 
@@ -349,34 +358,6 @@ class PengurusanProgramBinaanController extends Controller
                 PengurusanProgramBinaanSukan::updateAll(['pengurusan_program_binaan_id' => $model->pengurusan_program_binaan_id], 'session_id = "'.Yii::$app->session->id.'"');
                 PengurusanProgramBinaanSukan::updateAll(['session_id' => ''], 'pengurusan_program_binaan_id = "'.$model->pengurusan_program_binaan_id.'"');
             }
-  
-            if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_pengurusan-program-binaan'])->groupBy('id')->all()) !== null) {
-        
-                foreach($modelUsers as $modelUser){
-
-                    if($modelUser->email && $modelUser->email != ""){
-                        //echo "E-mail: " . $modelUser->email . "\n";
-                        Yii::$app->mailer->compose()
-                        ->setTo($modelUser->email)
-                        ->setFrom('noreply@spsb.com')
-                        ->setSubject('Pemberitahuan: Permohonan Program Binaan Baru')
-                        ->setHtmlBody("Assalamualaikum dan Salam Sejahtera,
-<br><br>
-Terdapat permohonan baru yang diterima: 
-<br>
-<br>Nama Aktiviti: " . $model->nama_aktiviti . '
-<br>Tempat: ' . $model->tempat . '
-<br>Tarikh Mula: ' . $model->tarikh_mula . '
-<br>Tarikh Tamat: ' . $model->tarikh_tamat . '
-<br><br>
-Link: ' . BaseUrl::to(['pengurusan-program-binaan/view', 'id' => $model->pengurusan_program_binaan_id], true) . '
-<br><br>
-"KE ARAH KECEMERLANGAN SUKAN"<br>
-Majlis Sukan Negara Malaysia.
-    ')->send();
-                    }
-                }
-            }
             
             return $this->redirect(['view', 'id' => $model->pengurusan_program_binaan_id]);
         } else {
@@ -547,6 +528,34 @@ Majlis Sukan Negara Malaysia.
         $model->status_permohonan = RefStatusPermohonanProgramBinaan::SEDANG_DIPROSES;
         
         $model->save();
+        
+        if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_pengurusan-program-binaan'])->groupBy('id')->all()) !== null) {
+        
+                foreach($modelUsers as $modelUser){
+
+                    if($modelUser->email && $modelUser->email != ""){
+                        //echo "E-mail: " . $modelUser->email . "\n";
+                        Yii::$app->mailer->compose()
+                        ->setTo($modelUser->email)
+                        ->setFrom('noreply@spsb.com')
+                        ->setSubject('Pemberitahuan: Permohonan Program Binaan Baru')
+                        ->setHtmlBody("Assalamualaikum dan Salam Sejahtera,
+<br><br>
+Terdapat permohonan baru yang diterima: 
+<br>
+<br>Nama Aktiviti: " . $model->nama_aktiviti . '
+<br>Tempat: ' . $model->tempat . '
+<br>Tarikh Mula: ' . $model->tarikh_mula . '
+<br>Tarikh Tamat: ' . $model->tarikh_tamat . '
+<br><br>
+Link: ' . BaseUrl::to(['pengurusan-program-binaan/view', 'id' => $model->pengurusan_program_binaan_id], true) . '
+<br><br>
+"KE ARAH KECEMERLANGAN SUKAN"<br>
+Majlis Sukan Negara Malaysia.
+    ')->send();
+                    }
+                }
+            }
         
         return $this->redirect(['view', 'id' => $model->pengurusan_program_binaan_id]);
     }
@@ -1025,6 +1034,11 @@ Majlis Sukan Negara Malaysia.
         $programBinaanSukan = PengurusanProgramBinaanSukan::find()->where(['pengurusan_program_binaan_id' => $parentModel->pengurusan_program_binaan_id])->all();
         
         $model = PengurusanProgramBinaanLaporanPenganjuran::findOne(['pengurusan_program_binaan_id' => $id]);
+        
+        if($model == null){
+            // if not exist then change to create form
+            $readonly =  false;
+        }
         
         //autopopulate if not exist
         foreach($programBinaanSukan as $pbs){

@@ -27,7 +27,7 @@ class MsnSuratRasmi extends Model
     {
         return [
             // [['nama_penerima', 'jawatan', 'address_1', 'negeri', 'tarikh', 'bil_msnm', 'gelaran'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh', 'bil_msnm'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['bil_msnm'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['nama_penerima', 'jawatan', 'address_1', 'address_2', 'address_3', 'negeri', 'tarikh', 'bil_msnm', 'gelaran', 'nama_pengurus_sukan', 'no_telefon_pengurus'], 'safe'],
         ];
     }
@@ -36,7 +36,7 @@ class MsnSuratRasmi extends Model
     {
         return [
             'tarikh' => GeneralLabel::tarikh,
-            'bil_msnm' => "Bil",
+            'bil_msnm' => "Rujukan MSN",
             'nama_penerima' => GeneralLabel::nama,
             'jawatan' => GeneralLabel::jawatan,
             'address_1' => GeneralLabel::alamat_surat_menyurat_1,

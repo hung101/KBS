@@ -397,6 +397,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const butir_butir_perbelanjaan = "Butir-butir Perbelanjaan";
         const butiran = "Butiran";
         const butiran_calon_orang_kurang_upaya_oku = "Butiran Calon Orang Kurang Upaya (OKU)";
+        const butiran_dipohon = "Butiran Dipohon";
         const butiran_kadar = "Butiran Kadar";
         const butiran_pemilik = "Butiran Pemilik";
         const butiran_pemilik_cap = "BUTIRAN PEMILIK";
@@ -3843,8 +3844,13 @@ perincian cadangan perbelanjaan<br>2.Sijil Pendaftaran persatuan<br>3.Salinan Pe
 
         
         
-        public static function getYesNoLabel($bool){
-            $return = "Sedang Disemak";
+        public static function getYesNoLabel($bool,$default=false){
+            $return = "";
+            
+            if($default == true){
+                $return = "Sedang Disemak";
+            }
+            
             if(!is_null($bool)){
                 if($bool){
                     $return = "Ya";
@@ -4265,6 +4271,7 @@ if($session->get('language') == "EN") {
         const butir_butir_perbelanjaan = "Details of Expense";
         const butiran = "Detail";
         const butiran_calon_orang_kurang_upaya_oku = "Candidate Persons With Disabilities (OKU) Detail";
+        const butiran_dipohon = "Details Requested";
         const butiran_kadar = "Rate Detail";
         const butiran_pemilik = "Owner Detail";
         const butiran_pemilik_cap = "OWNER DETAILS";

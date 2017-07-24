@@ -8,6 +8,13 @@ use app\models\general\GeneralLabel;
 /* @var $model app\models\BantuanPenganjuranKursusPegawaiTeknikalLaporan */
 
 $this->title = GeneralLabel::bantuan_penganjuran_kursus_pegawai_teknikal_laporan;
+if($model->bantuan_penganjuran_kursus_id && $model->bantuan_penganjuran_kursus_id != 0){
+    $this->title =  GeneralLabel::laporan . ' ' . GeneralLabel::bantuan_penganjuran_kursus_bengkel_seminar;
+}elseif($model->bantuan_penganjuran_kursus_pegawai_teknikal_id && $model->bantuan_penganjuran_kursus_pegawai_teknikal_id != 0){
+    $this->title =  GeneralLabel::laporan . ' ' . GeneralLabel::bantuan_penganjuran_kursus_pegawai_teknikal;
+}elseif($model->bantuan_penyertaan_pegawai_teknikal_id && $model->bantuan_penyertaan_pegawai_teknikal_id != 0){
+    $this->title =  GeneralLabel::laporan . ' ' . GeneralLabel::bantuan_penyertaan_pegawai_teknikal;
+}
 //$this->params['breadcrumbs'][] = ['label' => GeneralLabel::bantuan_penganjuran_kursus_pegawai_teknikal_laporan, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

@@ -71,14 +71,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'refJenisInsentif.desc'
             ],
             //'pingat',
-            [
+            /*[
                 'attribute' => 'pingat',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::pingat,
                 ],
                 'value' => 'refPingatInsentif.desc'
-            ],
+            ],*/
             //'kumpulan_temasya_kejohanan',
             /*[
                 'attribute' => 'kumpulan_temasya_kejohanan',
@@ -113,7 +113,31 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'created',
             // 'updated',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return ((isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-insentif']['delete']) 
+                                && $model->hantar_flag == 0) || 
+                                isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-insentif']['kelulusan'])) ? Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'data-confirm' => GeneralMessage::confirmDelete,
+                        'data-method' => 'post',
+                        ]) : '';
+
+                    },
+                    'update' => function ($url, $model) {
+                        $link =  Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                        'title' => Yii::t('yii', 'Update'),
+                        ]);
+                        
+                        return ((isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-insentif']['update']) 
+                                && $model->hantar_flag == 0) || 
+                                isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-insentif']['kelulusan'])) ? $link : '';
+                    },
+                ],
+                'template' => $template,
+            ],
         ],
     ]); ?>
 </div>

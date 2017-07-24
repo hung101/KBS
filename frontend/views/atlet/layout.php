@@ -111,6 +111,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'content'=>$this->render('_form', [
                 'model' => $model,
                 'readonly' => $readonly,
+                'mesyuarat_id' => $mesyuarat_id,
             ]),
             'active'=>true,
         ],

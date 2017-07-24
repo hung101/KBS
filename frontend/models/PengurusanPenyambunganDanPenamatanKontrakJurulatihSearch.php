@@ -19,7 +19,7 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihSearch extends Pengurusa
     {
         return [
             [['pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id'], 'integer'],
-            [['jurulatih', 'status_permohonan', 'muat_naik_document', 'tarikh_mula', 'tarikh_tamat'], 'safe'],
+            [['jurulatih', 'status_permohonan', 'muat_naik_document', 'tarikh_mula', 'tarikh_tamat','status_tawaran_jkb','status_tawaran_mpj'], 'safe'],
         ];
     }
 
@@ -69,7 +69,9 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihSearch extends Pengurusa
                 ->andFilterWhere(['like', 'tarikh_mula', $this->tarikh_mula])
                 ->andFilterWhere(['like', 'tarikh_tamat', $this->tarikh_tamat])
             ->andFilterWhere(['like', 'tbl_ref_status_permohonan_kontrak_jurulatih.desc', $this->status_permohonan])
-            ->andFilterWhere(['like', 'muat_naik_document', $this->muat_naik_document]);
+            ->andFilterWhere(['like', 'muat_naik_document', $this->muat_naik_document])
+                ->andFilterWhere(['like', 'st1.desc', $this->status_tawaran_jkb])
+            ->andFilterWhere(['like', 'st2.desc', $this->status_tawaran_mpj]);
         
         
         // add filter base on view own created data role Jurulatih -> View Own Data - START

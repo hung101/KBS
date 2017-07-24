@@ -71,46 +71,54 @@ use app\models\general\GeneralVariable;
     ?>
     
     <?php if($readonly): ?>
-        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['create']) && $model->hantar == 0)): ?>
-            <?= Html::a(GeneralLabel::send, ['hantar', 'id' => $model->atlet_id], ['class' => 'btn btn-success']) ?>
-        <?php endif; ?>
+        <?php if($mesyuarat_id == null): ?>
+            <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['create']) && $model->hantar == 0)): ?>
+                <?= Html::a(GeneralLabel::send, ['hantar', 'id' => $model->atlet_id], ['class' => 'btn btn-success']) ?>
+            <?php endif; ?>
+        <?php endif; // if($mesyuarat_id == null)?>
         <?php if( ((( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['update'])) || 
                 (isset($model->refAtletSukan[0]->program_semasa) && ($model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM || $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))) &&  $model->hantar == 0) || 
                 isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['kemaskini_yang_hantar']) ): ?>
-            <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->atlet_id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->atlet_id, 'mesyuarat_id' => $mesyuarat_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if( ((( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['delete']))  || 
-                (isset($model->refAtletSukan[0]->program_semasa) && ($model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM || $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))) &&  $model->hantar == 0) || 
-                isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['kemaskini_yang_hantar']) ): ?>
-            <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->atlet_id], [
-                'class' => 'btn btn-danger',
-                'data' => [
-                    'confirm' => GeneralMessage::confirmDelete,
-                    'method' => 'post',
-                ],
-            ]) ?>
-    <?php endif; ?>
-    <?php
-    //echo "CACAT = " . $model->cacat . ", TAWARAN = " . $model->tawaran_id;
-        if($model->cacat == 1 || $model->cacat == 'Ya'){
-            echo Html::a(GeneralLabel::print_pdf, '', ['value'=>Url::to(['/atlet/print-paralimpik', 'id' => $model->atlet_id]), 'class' => 'btn btn-info custom_button']);
-        } else {
-            echo Html::a(GeneralLabel::print_pdf, '', ['value'=>Url::to(['/atlet/print', 'id' => $model->atlet_id]), 'class' => 'btn btn-info custom_button']);
+        <?php if($mesyuarat_id == null): ?>
+            <?php if( ((( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['delete']))  || 
+                    (isset($model->refAtletSukan[0]->program_semasa) && ($model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM || $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))) &&  $model->hantar == 0) || 
+                    isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['kemaskini_yang_hantar']) ): ?>
+                <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->atlet_id], [
+                    'class' => 'btn btn-danger',
+                    'data' => [
+                        'confirm' => GeneralMessage::confirmDelete,
+                        'method' => 'post',
+                    ],
+                ]) ?>
+            <?php endif; ?>
+        <?php endif; // if($mesyuarat_id == null)?>
+    <?php if($mesyuarat_id == null): ?>
+        <?php
+        //echo "CACAT = " . $model->cacat . ", TAWARAN = " . $model->tawaran_id;
+            if($model->cacat == 1 || $model->cacat == 'Ya'){
+                echo Html::a(GeneralLabel::print_pdf, '', ['value'=>Url::to(['/atlet/print-paralimpik', 'id' => $model->atlet_id]), 'class' => 'btn btn-info custom_button']);
+            } else {
+                echo Html::a(GeneralLabel::print_pdf, '', ['value'=>Url::to(['/atlet/print', 'id' => $model->atlet_id]), 'class' => 'btn btn-info custom_button']);
+            }
+        ?>
+        <?php //if( ( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['delete']))  || 
+                 //   (isset($model->refAtletSukan[0]->program_semasa) && ($model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM || $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))): ?>
+        <?php 
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['tawaran'])){
+            if($model->tawaran_id && $model->tawaran_id == RefStatusTawaran::LULUS_TAWARAN){
+                if($model->cacat == 1 || $model->cacat == 'Ya'){
+                    echo Html::a(GeneralLabel::generate . ' ' . GeneralLabel::surat_tawaran_atlet, ['surat-tawaran-atlet-paralimpik', 'atlet_id' => $model->atlet_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+                } else {
+                    echo Html::a(GeneralLabel::generate . ' ' . GeneralLabel::surat_tawaran_atlet, ['surat-tawaran-atlet', 'atlet_id' => $model->atlet_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+                }
+                echo " " . Html::a(GeneralLabel::generate . ' ' . GeneralLabel::surat_akuan_persetujuan_atlet, ['surat-akuan-persetujuan-atlet', 'atlet_id' => $model->atlet_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
+            }
+            echo " " . Html::a(GeneralLabel::surat_pengesahan, ['surat-pengesahan', 'id' => $model->atlet_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
         }
-    ?>
-    <?php //if( ( !isset($model->refAtletSukan[0]->program_semasa) || (isset($model->refAtletSukan[0]->program_semasa) && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM && $model->refAtletSukan[0]->program_semasa != RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['delete']))  || 
-             //   (isset($model->refAtletSukan[0]->program_semasa) && ($model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM || $model->refAtletSukan[0]->program_semasa == RefProgramSemasaSukanAtlet::PODIUM_PARALIMPIK) && isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['podium_kemas_kini']))): ?>
-    <?php 
-    if($model->tawaran_id && $model->tawaran_id == RefStatusTawaran::LULUS_TAWARAN){
-        if($model->cacat == 1 || $model->cacat == 'Ya'){
-            echo Html::a(GeneralLabel::generate . ' ' . GeneralLabel::surat_tawaran_atlet, ['surat-tawaran-atlet-paralimpik', 'atlet_id' => $model->atlet_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
-        } else {
-            echo Html::a(GeneralLabel::generate . ' ' . GeneralLabel::surat_tawaran_atlet, ['surat-tawaran-atlet', 'atlet_id' => $model->atlet_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
-        }
-        echo " " . Html::a(GeneralLabel::generate . ' ' . GeneralLabel::surat_akuan_persetujuan_atlet, ['surat-akuan-persetujuan-atlet', 'atlet_id' => $model->atlet_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
-    }
-    echo " " . Html::a(GeneralLabel::surat_pengesahan, ['surat-pengesahan', 'id' => $model->atlet_id], ['class' => 'btn btn-warning', 'target' => '_blank']); 
-    ?>
+        ?>
+    <?php endif; // if($mesyuarat_id == null)?>
     <?= Html::a(GeneralLabel::backToList, ['index'], ['class' => 'btn btn-warning']) ?>
     <?php //endif; ?>
     <br>
@@ -911,7 +919,7 @@ use app\models\general\GeneralVariable;
     ]
 ]);
     ?>
-    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['tawaran']) && !$model->isNewRecord){ ?>
+    <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['atlet']['tawaran']) || $readonly) && !$model->isNewRecord){ ?>
     <hr>
     <pre style="text-align: center"><strong><?php echo GeneralLabel::status_tawaran; ?></strong></pre>
     
@@ -1086,8 +1094,12 @@ use app\models\general\GeneralVariable;
 <?php
 $DateDisplayFormat = GeneralVariable::displayDateFormat;
 $ConfirmMsg = GeneralMessage::confirmPrint;
+$errorDuplicate = GeneralMessage::yii_validation_unique;
+$URLCheckIC = Url::to(['/atlet/check-ic']);
 
 $script = <<< JS
+        
+var atlet_id = '$model->atlet_id';
         
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 
@@ -1154,6 +1166,21 @@ $('.custom_button').click(function(){
     return false;
             
 });});
+            
+$("#NoICID").focusout(function() {
+    $.get('$URLCheckIC', {ic_no:$(this).val(), atlet_id:atlet_id}, function(data){
+        if(data !== null){
+            if(data == '1'){
+            // duplicate IC
+                $(".field-NoICID").addClass("has-error");
+                $(".field-NoICID").append('<div id="ic_error" class="help-block">No. Kad Pengenalan/Tentera/Polis "'+$("#NoICID").val()+'" telah dicipta</div>');
+            } else {
+                $(".field-NoICID").removeClass("has-error");
+                $('#ic_error').remove();
+            }
+        }
+    });
+});
 
 JS;
         

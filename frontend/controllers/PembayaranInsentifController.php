@@ -68,8 +68,14 @@ class PembayaranInsentifController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-insentif']['kelulusan'])) {
+            $queryParams['PembayaranInsentifSearch']['hantar_flag'] = 1;
+        }
+        
         $searchModel = new PembayaranInsentifSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -169,8 +175,6 @@ class PembayaranInsentifController extends Controller
         }
         
         $model = new PembayaranInsentif();
-        
-        $model->kelulusan = RefKelulusanInsentif::DALAM_PROSES;
         
         $queryPar = null;
         
@@ -277,6 +281,30 @@ class PembayaranInsentifController extends Controller
                 'readonly' => false,
             ]);
         }
+    }
+    
+    /**
+     * Updates an existing PembayaranInsentif model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set approved
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->kelulusan = RefKelulusanInsentif::DALAM_PROSES;
+        
+        $model->save();
+        
+        return $this->redirect(['view', 'id' => $model->pembayaran_insentif_id]);
     }
 
     /**
@@ -928,19 +956,25 @@ class PembayaranInsentifController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             
-			$query = PembayaranInsentifAtlet::find()->joinWith(['refAtlet'])->joinWith(['refAcara'])->where(['IS NOT', 'sukan', null]);
+			$query = PembayaranInsentifAtlet::find()
+                                ->joinWith(['refAtlet'])
+                                ->joinWith(['refAcara'])
+                                ->joinWith(['refPembayaranInsentif'])
+                                ->where(['IS NOT', 'tbl_pembayaran_insentif_atlet.sukan', null])
+                                ->andWhere(['IS NOT', 'tbl_pembayaran_insentif.pembayaran_insentif_id', null])
+                                ->andWhere(['=', 'tbl_pembayaran_insentif.hantar_flag', 1]);
 			
 			if(isset($model->sukan) && $model->sukan != '')
 			{
-				$query = $query->andFilterWhere(['sukan' => $model->sukan]);
+				$query = $query->andFilterWhere(['tbl_pembayaran_insentif_atlet.sukan' => $model->sukan]);
 			}
 			
 			if(isset($model->atlet) && $model->atlet != '')
 			{
-				$query = $query->andFilterWhere(['atlet' => $model->atlet]);
+				$query = $query->andFilterWhere(['tbl_pembayaran_insentif_atlet.atlet' => $model->atlet]);
 			}
 			
-			$query = $query->groupBy('atlet', 'sukan')->all();
+			$query = $query->groupBy('atlet', 'tbl_pembayaran_insentif_atlet.sukan')->all();
 			
 			// echo '<pre>';
 			// foreach($query as $key => $value){

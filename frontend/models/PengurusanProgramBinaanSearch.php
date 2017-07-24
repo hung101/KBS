@@ -15,6 +15,7 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
     public $status_permohonan_id;
     public $atlet_id;
     public $kategori_peserta;
+    public $jenis_permohonan_id;
     
     /**
      * @inheritdoc
@@ -23,7 +24,7 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
     {
         return [
             [['jumlah_yang_diluluskan'], 'number'],
-            [['pengurusan_program_binaan_id', 'status_permohonan_id', 'created_by', 'atlet_id', 'kategori_peserta', 'mesyuarat_id', 'program'], 'integer'],
+            [['pengurusan_program_binaan_id', 'status_permohonan_id', 'created_by', 'atlet_id', 'kategori_peserta', 'mesyuarat_id', 'program', 'hantar_flag', 'jenis_permohonan_id'], 'integer'],
             [['nama_ppn', 'pengurus_pn', 'kategori_permohonan', 'jenis_permohonan', 'sukan', 'tempat', 'tahap', 'negeri', 'daerah', 'tarikh_mula', 'tarikh_tamat',
                 'sokongan_pn', 'kelulusan', 'status_permohonan', 'aktiviti', 'nama_aktiviti'], 'safe'],
         ];
@@ -83,6 +84,8 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
             'tbl_pengurusan_program_binaan.mesyuarat_id' => $this->mesyuarat_id,
             'tbl_pengurusan_program_binaan.program' => $this->program,
             'tbl_pengurusan_program_binaan.sukan' => $this->sukan,
+            'tbl_pengurusan_program_binaan.hantar_flag' => $this->hantar_flag,
+            'tbl_pengurusan_program_binaan.jenis_permohonan' => $this->jenis_permohonan_id,
         ]);
 
         $query->andFilterWhere(['like', 'nama_ppn', $this->nama_ppn])
@@ -102,6 +105,17 @@ class PengurusanProgramBinaanSearch extends PengurusanProgramBinaan
                 ->andFilterWhere(['like', 'tbl_perancangan_program.nama_program', $this->aktiviti])
                 ->andFilterWhere(['like', 'tbl_pengurusan_program_binaan.tarikh_mula', $this->tarikh_mula])
                 ->andFilterWhere(['like', 'tbl_pengurusan_program_binaan.tarikh_tamat', $this->tarikh_tamat]);
+        
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['usptn'])) {
+            // USPTN
+            $query->andFilterWhere(['tbl_pengurusan_program_binaan.jenis_permohonan' => 3]);
+        } elseif(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['psk'])) {
+            // non-USPTN
+            $query->andFilterWhere(['tbl_pengurusan_program_binaan.jenis_permohonan' => 1])->orFilterWhere(['tbl_pengurusan_program_binaan.jenis_permohonan' => 2]);
+        }
+        
+        
 
         return $dataProvider;
     }

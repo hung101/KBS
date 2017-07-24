@@ -23,7 +23,7 @@ class BantuanPenganjuranKursusSearch extends BantuanPenganjuranKursus
                 'alamat_poskod', 'no_telefon', 'no_faks', 'laman_sesawang', 'facebook', 'twitter', 'nama_bank', 'no_akaun', 
                 'nama_kursus_seminar_bengkel', 'tarikh', 'tempat', 'tujuan', 'kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri', 
                 'butiran_perbelanjaan', 'maklumat_lain_sokongan', 'status_permohonan', 'catatan', 'tarikh_permohonan', 'jkb', 
-                'created', 'updated'], 'safe'],
+                'created', 'updated', 'selesai'], 'safe'],
             [['anggaran_perbelanjaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number'],
         ];
     }
@@ -49,7 +49,8 @@ class BantuanPenganjuranKursusSearch extends BantuanPenganjuranKursus
         $query = BantuanPenganjuranKursus::find()
                 ->joinWith(['refProfilBadanSukan'])
                 ->joinWith(['refStatusBantuanPenganjuranKursus'])
-                ->joinWith(['refSukan']);
+                ->joinWith(['refSukan'])
+                ->joinWith(['refKelulusan']);
 
         // add conditions that should always apply here
 
@@ -110,7 +111,8 @@ class BantuanPenganjuranKursusSearch extends BantuanPenganjuranKursus
             ->andFilterWhere(['like', 'catatan', $this->catatan])
             ->andFilterWhere(['like', 'jkb', $this->jkb])
                 ->andFilterWhere(['like', 'jumlah_bantuan_yang_dipohon', $this->jumlah_bantuan_yang_dipohon])
-                ->andFilterWhere(['like', 'tarikh_permohonan', $this->tarikh_permohonan]);
+                ->andFilterWhere(['like', 'tarikh_permohonan', $this->tarikh_permohonan])
+                ->andFilterWhere(['like', 'tbl_ref_kelulusan.desc', $this->selesai]);
         
         
         // add filter base on sukan access role in tbl_user->sukan - START

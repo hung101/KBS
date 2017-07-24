@@ -57,8 +57,14 @@ class SkimKebajikanController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['skim-kebajikan']['kelulusan'])) {
+            $queryParams['SkimKebajikanSearch']['hantar_flag'] = 1;
+        }
+        
         $searchModel = new SkimKebajikanSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -262,7 +268,7 @@ Dengan hormatnya saya ingin menarik perhatian Tuan/Puan mengenai perkara di atas
                                 Majlis Sukan Negara Malaysia.
                                 ')->send();
                                 
-                                Yii::$app->session->setFlash('success', 'E-mel telah dihantar kepada penerima.');
+                                Yii::$app->session->setFlash('success', 'E-mel telah dihantar kepada pemohon.');
                         }
                         catch(\Swift_SwiftException $exception)
                         {
@@ -423,7 +429,7 @@ Dengan hormatnya saya ingin menarik perhatian Tuan/Puan mengenai perkara di atas
                                 Majlis Sukan Negara Malaysia.
                                 ')->send();
                                 
-                                Yii::$app->session->setFlash('success', 'E-mel telah dihantar kepada penerima.');
+                                Yii::$app->session->setFlash('success', 'E-mel telah dihantar kepada pemohon.');
                         }
                         catch(\Swift_SwiftException $exception)
                         {
@@ -467,6 +473,30 @@ Dengan hormatnya saya ingin menarik perhatian Tuan/Puan mengenai perkara di atas
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    
+    /**
+     * Updates an existing SkimKebajikan model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set approved
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->kelulusan = RefKelulusanInsentif::DALAM_PROSES;
+        
+        $model->save();
+        
+        return $this->redirect(['view', 'id' => $model->skim_kebajikan_id]);
     }
 
     /**

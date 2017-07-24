@@ -19,10 +19,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['skim-kebajikan']['update'])): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['skim-kebajikan']['create']) && $model->hantar_flag == 0)): ?>
+            <?= Html::a(GeneralLabel::send, ['hantar', 'id' => $model->skim_kebajikan_id], [
+                'class' => 'btn btn-success',
+                'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                    'method' => 'post',
+                ],
+                ]) ?>
+        <?php endif; ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['skim-kebajikan']['update']) && $model->hantar_flag == 0) || isset(Yii::$app->user->identity->peranan_akses['MSN']['skim-kebajikan']['kelulusan'])): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->skim_kebajikan_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['skim-kebajikan']['delete'])): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['skim-kebajikan']['delete']) && $model->hantar_flag == 0) || isset(Yii::$app->user->identity->peranan_akses['MSN']['skim-kebajikan']['kelulusan'])): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->skim_kebajikan_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
@@ -31,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
-		<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['skim-kebajikan']['update'])): ?>
+		<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['skim-kebajikan']['kelulusan']) && $model->hantar_flag == 1): ?>
             <?= Html::a(GeneralLabel::print_jkb, ['print-jkb', 'id' => $model->skim_kebajikan_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
 		<?php endif; ?>
     </p>

@@ -23,6 +23,8 @@ use yii\web\UploadedFile;
 use yii\web\Session;
 use yii\helpers\Json;
 use yii\helpers\BaseUrl;
+use yii\helpers\Url;
+use kartik\helpers\Html;
 
 use app\models\general\GeneralVariable;
 use app\models\general\Upload;
@@ -237,6 +239,14 @@ class JurulatihController extends Controller
         $session->close();
         
         $model = new Jurulatih();
+        
+        if($mesyuarat_id!=null && ($modelMesyuaratJkk = MesyuaratJkk::findOne($mesyuarat_id)) !== null){
+            $ref = RefBilJkk::findOne(['id' => $modelMesyuaratJkk->bil_mesyuarat]);
+            $modelMesyuaratJkk->bil_mesyuarat = $ref['desc'];
+            
+            $model->bilangan_jkb = $modelMesyuaratJkk->bil_mesyuarat;
+            $model->tarikh_jkb = date_format(date_create($modelMesyuaratJkk->tarikh),"Y-m-d");
+        }
         
         $model->status_tawaran = RefStatusTawaran::DALAM_PROSES; //default
 
@@ -457,7 +467,10 @@ class JurulatihController extends Controller
     
     public function actionGetJurulatih($id){
         // find Jurulatih
-        $model = Jurulatih::findOne($id);
+        $model = Jurulatih::find()->where(['tbl_jurulatih.jurulatih_id'=>$id])->asArray()->one();
+        
+        $model['view_url'] = Url::to(['/jurulatih/view', 'id' => $model['jurulatih_id']]);
+        $model['view_url_button'] = Html::a(GeneralLabel::view . ' ' . GeneralLabel::profil, '#', ['class'=>'btn btn-primary custom_button', 'onclick' => 'window.open("' . Url::to(['/jurulatih/view', 'id' => $model['jurulatih_id'], 'mesyuarat_id' => 0]) . '", "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no"); return false;']) ;
         
         echo Json::encode($model);
     }
@@ -550,7 +563,8 @@ class JurulatihController extends Controller
                //->andWhere(['=', 'status_tawaran', RefStatusTawaran::LULUS_TAWARAN])
                 //->andWhere(['tbl_jurulatih.status_tawaran_mpj'=>'1'])
                 //->andWhere(['tbl_jurulatih.status_tawaran_jkb'=>'1'])
-                ->select(['tbl_jurulatih.jurulatih_id AS id','nama AS name'])->asArray()->createCommand()->queryAll();
+                ->select(['tbl_jurulatih.jurulatih_id AS id','nama AS name'])
+                ->groupBy('tbl_jurulatih.jurulatih_id')->asArray()->createCommand()->queryAll();
         
         $value = (count($data) == 0) ? ['' => ''] : $data;
 

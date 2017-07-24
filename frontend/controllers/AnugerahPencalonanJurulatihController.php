@@ -8,7 +8,9 @@ use frontend\models\AnugerahPencalonanJurulatihSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
+use app\models\general\Upload;
 use app\models\general\GeneralVariable;
 use app\models\general\GeneralLabel;
 
@@ -103,13 +105,20 @@ class AnugerahPencalonanJurulatihController extends Controller
         $model = new AnugerahPencalonanJurulatih();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->anugerah_pencalonan_jurulatih_id]);
-        } else {
-            return $this->render('create', [
+            $file = UploadedFile::getInstance($model, 'gambar');
+            if($file){
+                $model->gambar = Upload::uploadFile($file, Upload::anugerahPencalonanJurulatihFolder, $model->anugerah_pencalonan_jurulatih_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->anugerah_pencalonan_jurulatih_id]);
+            }
+        } 
+        
+        return $this->render('create', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -127,13 +136,21 @@ class AnugerahPencalonanJurulatihController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->anugerah_pencalonan_jurulatih_id]);
-        } else {
-            return $this->render('update', [
+            
+            $file = UploadedFile::getInstance($model, 'gambar');
+            if($file){
+                $model->gambar = Upload::uploadFile($file, Upload::anugerahPencalonanJurulatihFolder, $model->anugerah_pencalonan_jurulatih_id);
+            }
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->anugerah_pencalonan_jurulatih_id]);
+            }
+        } 
+        
+        return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,
             ]);
-        }
     }
 
     /**
@@ -151,6 +168,28 @@ class AnugerahPencalonanJurulatihController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    
+    // Add function for delete image or file
+    public function actionDeleteupload($id, $field)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+            $img = $this->findModel($id)->$field;
+            
+            if($img){
+                if (!unlink($img)) {
+                    return false;
+                }
+            }
+
+            $img = $this->findModel($id);
+            $img->$field = NULL;
+            $img->update();
+
+            return $this->redirect(['update', 'id' => $id]);
     }
 
     /**

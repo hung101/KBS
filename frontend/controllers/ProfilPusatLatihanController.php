@@ -251,7 +251,9 @@ class ProfilPusatLatihanController extends Controller
         $data = ProfilPusatLatihanJurulatih::find()
                 ->joinWith(['refProfilPusatLatihan'])
                ->where(['jurulatih'=>$jurulatih_id])
-                ->select(['tbl_profil_pusat_latihan.profil_pusat_latihan_id AS id','tbl_profil_pusat_latihan.nama_pusat_latihan AS name'])->asArray()->createCommand()->queryAll();
+                ->select(['tbl_profil_pusat_latihan.profil_pusat_latihan_id AS id','tbl_profil_pusat_latihan.nama_pusat_latihan AS name'])
+                ->groupBy('tbl_profil_pusat_latihan.profil_pusat_latihan_id')
+                ->asArray()->createCommand()->queryAll();
         
         $value = (count($data) == 0) ? ['' => ''] : $data;
 

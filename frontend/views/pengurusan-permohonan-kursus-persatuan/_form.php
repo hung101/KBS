@@ -300,7 +300,7 @@ use common\models\general\GeneralFunction;
     ]
 ]);
         ?>
-    
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-permohonan-kursus-persatuan']['kelulusan']) || $readonly): ?>
     <br>
     <pre style="text-align: center"><strong><?php echo GeneralLabel::kegunaan_msn ?></strong></pre>
     
@@ -429,7 +429,7 @@ use common\models\general\GeneralFunction;
     <br>
     
     
-    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-permohonan-kursus-persatuan']['kelulusan']) || $readonly): ?>
+    
     <hr>
     
     <?php if(!$model->isNewRecord && !$readonly):?>

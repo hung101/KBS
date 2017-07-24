@@ -93,7 +93,7 @@ class BantuanPenganjuranKejohanan extends \yii\db\ActiveRecord
     {
         return [
             [['badan_sukan', 'sukan', 'jumlah_bantuan_yang_dipohon'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_mula', 'tarikh_tamat', 'tarikh_permohonan', 'tarikh_jkb', 'created', 'updated'], 'safe'],
+            [['tarikh_mula', 'tarikh_tamat', 'tarikh_permohonan', 'tarikh_jkb', 'created', 'updated', 'selesai'], 'safe'],
             [['bil_pasukan', 'bil_peserta', 'bil_pengadil_hakim', 'bil_pegawai_teknikal', 'bilangan_pembantu', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['anggaran_perbelanjaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['badan_sukan', 'nama_bank', 'jkb'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -163,6 +163,7 @@ class BantuanPenganjuranKejohanan extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
             'surat_kelulusan' => GeneralLabel::surat_kelulusan,
+            'selesai' => GeneralLabel::selesai,
         ];
     }
     
@@ -211,5 +212,12 @@ class BantuanPenganjuranKejohanan extends \yii\db\ActiveRecord
      */
     public function getRefSukan(){
         return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKelulusan(){
+        return $this->hasOne(RefKelulusan::className(), ['id' => 'selesai']);
     }
 }

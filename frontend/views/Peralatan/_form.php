@@ -89,6 +89,7 @@ use app\models\general\GeneralMessage;
         </div>
     </div>
     
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['kelulusan']) || $readonly): ?>
     <div class="panel panel-default">
         <div class="panel-heading">
             <strong><?=GeneralLabel::cadangan?></strong>
@@ -117,6 +118,7 @@ use app\models\general\GeneralMessage;
             ?>
         </div>
     </div>
+    <?php endif; ?>
     
     <?php
 /*         echo FormGrid::widget([

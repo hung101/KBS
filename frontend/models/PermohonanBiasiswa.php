@@ -80,6 +80,7 @@ class PermohonanBiasiswa extends \yii\db\ActiveRecord
             [['alamat_rumah_1', 'alamat_rumah_2', 'alamat_rumah_3', 'alamat_pengajian_1', 'alamat_pengajian_2', 'alamat_pengajian_3'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_rumah_negeri', 'alamat_pengajian_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_rumah_bandar', 'alamat_pengajian_bandar'], 'string', 'max' => 40, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['no_matrix'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_rumah_poskod', 'alamat_pengajian_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_rumah_poskod', 'alamat_pengajian_poskod','no_tel_rumah', 'no_tel_bimbit', 'no_tel_pengajian', 'no_fax_pengajian'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_tel_rumah', 'no_tel_bimbit', 'no_tel_pengajian', 'no_fax_pengajian'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -124,7 +125,8 @@ class PermohonanBiasiswa extends \yii\db\ActiveRecord
             'muatnaik' => GeneralLabel::muatnaik,
             'kelulusan' => GeneralLabel::kelulusan,
             'kadar' => 'Kadar (Elaun Insentif)',
-            'jenis_biasiswa_lain' => 'Lain-lain',
+            'jenis_biasiswa_lain' => GeneralLabel::lain_lain,
+            'no_matrix' => GeneralLabel::no_matrix,
         ];
     }
     

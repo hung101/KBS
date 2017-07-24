@@ -177,6 +177,68 @@ use app\models\general\GeneralMessage;
         }
     ?>
     <?php endif; ?>
+        
+        <h3><?php echo GeneralLabel::subjek ?></h3>
+	
+	<?php Pjax::begin(['id' => 'maklumatAkademikSubjekGrid', 'timeout' => 100000]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderMaklumatAkademikSubjek,
+        //'filterModel' => $searchModelPengurusanProgramBinaanAtlet,
+        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
+        'id' => 'maklumatAkademikSubjekGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+			'kod_subjek',
+			'subjek',
+			'bil_kredit',
+			'nama_pensyarah',
+			'no_telefon',
+			'email',
+            // [
+                // 'attribute' => 'sukan',
+                // 'value' => 'refSukan.desc'
+            // ],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['maklumat-akademik-subjek/delete', 'id' => $model->maklumat_akademik_subjek_id]).'", "'.GeneralMessage::confirmDelete.'", "maklumatAkademikSubjekGrid");',
+                        ]);
+
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['maklumat-akademik-subjek/update', 'id' => $model->maklumat_akademik_subjek_id]).'", "'.GeneralLabel::updateTitle .' '.GeneralLabel::subjek.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['maklumat-akademik-subjek/view', 'id' => $model->maklumat_akademik_subjek_id]).'", "'.GeneralLabel::viewTitle .' '.GeneralLabel::subjek.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['maklumat-akademik-subjek/create', 'maklumat_akademik_id' => $maklumat_akademik_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::subjek.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
 	
 	<h3><?php echo GeneralLabel::jadual ?></h3>
 	
@@ -243,67 +305,7 @@ use app\models\general\GeneralMessage;
     
     <br>
 	
-	<h3><?php echo GeneralLabel::subjek ?></h3>
 	
-	<?php Pjax::begin(['id' => 'maklumatAkademikSubjekGrid', 'timeout' => 100000]); ?>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProviderMaklumatAkademikSubjek,
-        //'filterModel' => $searchModelPengurusanProgramBinaanAtlet,
-        'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => ''],
-        'id' => 'maklumatAkademikSubjekGrid',
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-			'kod_subjek',
-			'subjek',
-			'bil_kredit',
-			'nama_pensyarah',
-			'no_telefon',
-			'email',
-            // [
-                // 'attribute' => 'sukan',
-                // 'value' => 'refSukan.desc'
-            // ],
-            ['class' => 'yii\grid\ActionColumn',
-                'buttons' => [
-                    'delete' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
-                        'title' => Yii::t('yii', 'Delete'),
-                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['maklumat-akademik-subjek/delete', 'id' => $model->maklumat_akademik_subjek_id]).'", "'.GeneralMessage::confirmDelete.'", "maklumatAkademikSubjekGrid");',
-                        ]);
-
-                    },
-                    'update' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
-                        'title' => Yii::t('yii', 'Update'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['maklumat-akademik-subjek/update', 'id' => $model->maklumat_akademik_subjek_id]).'", "'.GeneralLabel::updateTitle .' '.GeneralLabel::subjek.'");',
-                        ]);
-                    },
-                    'view' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
-                        'title' => Yii::t('yii', 'View'),
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['maklumat-akademik-subjek/view', 'id' => $model->maklumat_akademik_subjek_id]).'", "'.GeneralLabel::viewTitle .' '.GeneralLabel::subjek.'");',
-                        ]);
-                    }
-                ],
-                'template' => $template,
-            ],
-        ],
-    ]); ?>
-    
-    <?php Pjax::end(); ?>
-    
-     <?php if(!$readonly): ?>
-    <p>
-        <?php 
-        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
-                        'onclick' => 'loadModalRenderAjax("'.Url::to(['maklumat-akademik-subjek/create', 'maklumat_akademik_id' => $maklumat_akademik_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::subjek.'");',
-                        'class' => 'btn btn-success',
-                        ]);?>
-    </p>
-    <?php endif; ?>
-    
-    <br>
 	
     <div class="form-group">
 		<?php if(!$readonly): ?>
@@ -335,6 +337,10 @@ $('#atletID').change(function(){
 			$('#programID').val(data['refAtletSukan'][0]['program_semasa']).trigger("change");
             $('#maklumatakademik-atlet_no_tel').val(data.tel_no);
 			$('#maklumatakademik-atlet_hp_no').val(data.tel_bimbit_no_1);
+        
+            if(data.refAtletPendidikan[0] !== null){
+                $('#maklumatakademik-no_matrik').val(data.refAtletPendidikan[0].no_matrix);
+            }
         }
     });
     
@@ -342,9 +348,10 @@ $('#atletID').change(function(){
      
 function clearForm(){
     $('#sukanID').val('').trigger("change");
-	$('#programID').val('').trigger("change");
-	$('#maklumatakademik-atlet_no_tel').val('');
-	$('#maklumatakademik-atlet_hp_no').val('');
+    $('#programID').val('').trigger("change");
+    $('#maklumatakademik-atlet_no_tel').val('');
+    $('#maklumatakademik-atlet_hp_no').val('');
+    $('#maklumatakademik-no_matrik').val('');
 }
         
 $(document).ready(function(){

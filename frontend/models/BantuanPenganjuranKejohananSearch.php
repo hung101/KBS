@@ -20,7 +20,11 @@ class BantuanPenganjuranKejohananSearch extends BantuanPenganjuranKejohanan
         return [
             [['bantuan_penganjuran_kejohanan_id', 'bil_pasukan', 'bil_peserta', 'bil_pengadil_hakim', 'bil_pegawai_teknikal', 'bilangan_pembantu', 
                 'created_by', 'updated_by', 'hantar_flag'], 'integer'],
-            [['badan_sukan', 'sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_telefon', 'no_faks', 'laman_sesawang', 'facebook', 'twitter', 'nama_bank', 'no_akaun', 'nama_kejohanan_pertandingan', 'peringkat', 'tarikh_mula', 'tarikh_tamat', 'tempat', 'tujuan', 'kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri', 'permohonan_rasmi_dari_ahli_gabungan', 'maklumat_lain_sokongan', 'status_permohonan', 'catatan', 'tarikh_permohonan', 'jkb', 'tarikh_jkb', 'created', 'updated'], 'safe'],
+            [['badan_sukan', 'sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 
+                'no_telefon', 'no_faks', 'laman_sesawang', 'facebook', 'twitter', 'nama_bank', 'no_akaun', 'nama_kejohanan_pertandingan', 
+                'peringkat', 'tarikh_mula', 'tarikh_tamat', 'tempat', 'tujuan', 'kertas_kerja', 'surat_rasmi_badan_sukan_ms_negeri', 
+                'permohonan_rasmi_dari_ahli_gabungan', 'maklumat_lain_sokongan', 'status_permohonan', 'catatan', 'tarikh_permohonan', 'jkb', 
+                'tarikh_jkb', 'created', 'updated', 'selesai'], 'safe'],
             [['anggaran_perbelanjaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number'],
         ];
     }
@@ -46,7 +50,8 @@ class BantuanPenganjuranKejohananSearch extends BantuanPenganjuranKejohanan
         $query = BantuanPenganjuranKejohanan::find()
                 ->joinWith(['refProfilBadanSukan'])
                 ->joinWith(['refStatusBantuanPenganjuranKejohanan'])
-                ->joinWith(['refSukan']);
+                ->joinWith(['refSukan'])
+                ->joinWith(['refKelulusan']);
 
         // add conditions that should always apply here
 
@@ -111,7 +116,8 @@ class BantuanPenganjuranKejohananSearch extends BantuanPenganjuranKejohanan
             ->andFilterWhere(['like', 'tbl_ref_status_bantuan_penganjuran_kejohanan.desc', $this->status_permohonan])
             ->andFilterWhere(['like', 'catatan', $this->catatan])
             ->andFilterWhere(['like', 'jkb', $this->jkb])
-                ->andFilterWhere(['like', 'jumlah_bantuan_yang_dipohon', $this->jumlah_bantuan_yang_dipohon]);
+                ->andFilterWhere(['like', 'jumlah_bantuan_yang_dipohon', $this->jumlah_bantuan_yang_dipohon])
+                ->andFilterWhere(['like', 'tbl_ref_kelulusan.desc', $this->selesai]);
 
         return $dataProvider;
     }

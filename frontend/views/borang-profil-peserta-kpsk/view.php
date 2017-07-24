@@ -36,7 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php if($model->hantar_flag == 0 && isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-profil-peserta-kpsk']['update'])): ?>
             <?= Html::a(GeneralLabel::send, ['hantar', 'id' => $model->borang_profil_peserta_kpsk_id], ['class' => 'btn btn-success']) ?>
         <?php endif; ?>
-        <?= Html::a('Hantar Keputusan Melalui Emel', ['hantar-keputusan-emel', 'borang_profil_peserta_kpsk_id' => $model->borang_profil_peserta_kpsk_id], ['class' => 'btn btn-warning']) ?>
+        <?php if($model->hantar_flag == 1 && isset(Yii::$app->user->identity->peranan_akses['MSN']['borang-profil-peserta-kpsk']['keputusan'])): ?>
+            <?= Html::a('Hantar Keputusan Melalui Emel', ['hantar-keputusan-emel', 'borang_profil_peserta_kpsk_id' => $model->borang_profil_peserta_kpsk_id], ['class' => 'btn btn-warning']) ?>
+        <?php endif; ?>
     </p>
     
     <?= $this->render('_form', [

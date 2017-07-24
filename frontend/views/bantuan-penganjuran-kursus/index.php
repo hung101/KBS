@@ -66,13 +66,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refSukan.desc'
             ],
-            [
+            /*[
                 'attribute' => 'no_pendaftaran',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_pendaftaran,
                 ],
-            ],
+            ],*/
             //'alamat_1',
             // 'alamat_2',
             // 'alamat_3',
@@ -127,6 +127,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=>function ($model) {
                     return GeneralFunction::convert($model->tarikh_permohonan, GeneralFunction::TYPE_DATETIME);
                 },
+            ],
+            [
+                'attribute' => 'selesai',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::selesai,
+                ],
+                'value' => 'refKelulusan.desc'
             ],
             // 'jumlah_dilulus',
             // 'jkb',

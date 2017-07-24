@@ -29,6 +29,8 @@ use app\models\ProfilBadanSukan;
 use app\models\RefPeringkatBantuanMenghadiriProgramAntarabangsa;
 use app\models\RefJawatanBantuanMenghadiriProgramAntarabangsa;
 
+use common\models\User; 
+
 /**
  * ForumSeminarPersidanganDiLuarNegaraController implements the CRUD actions for ForumSeminarPersidanganDiLuarNegara model.
  */
@@ -56,8 +58,16 @@ class ForumSeminarPersidanganDiLuarNegaraController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        if(Yii::$app->user->identity->profil_badan_sukan){
+            $queryParams['ForumSeminarPersidanganDiLuarNegaraSearch']['created_by'] = Yii::$app->user->identity->id;
+        }
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['forum-seminar-persidangan-di-luar-negara']['status_permohonan'])) {
+            $queryParams['ForumSeminarPersidanganDiLuarNegaraSearch']['hantar_flag'] = 1;
+        }
+        
         $searchModel = new ForumSeminarPersidanganDiLuarNegaraSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -203,8 +213,10 @@ class ForumSeminarPersidanganDiLuarNegaraController extends Controller
         
         $model = $this->findModel($id);
 		
-		$existingSurat = $model->surat_permohonan;
-		$existingJemputan = $model->surat_jemputan;
+        $existingSurat = $model->surat_permohonan;
+        $existingJemputan = $model->surat_jemputan;
+        
+        $oldStatusPermohonan = null;
         
         $queryPar = null;
         
@@ -217,8 +229,10 @@ class ForumSeminarPersidanganDiLuarNegaraController extends Controller
 		$searchModelForumSeminarPeserta = new ForumSeminarPesertaSearch();
         $dataProviderForumSeminarPeserta = $searchModelForumSeminarPeserta->search($queryPar);
 
-		if($model->load(Yii::$app->request->post())){	
-			$file = UploadedFile::getInstance($model, 'surat_permohonan');
+        if($model->load(Yii::$app->request->post())){
+            $oldStatusPermohonan = $model->getOldAttribute('status_permohonan');
+            
+            $file = UploadedFile::getInstance($model, 'surat_permohonan');
 
             if($file){
                 //valid file to upload
@@ -240,6 +254,33 @@ class ForumSeminarPersidanganDiLuarNegaraController extends Controller
         }
 		
         if (Yii::$app->request->post() && $model->save()) {
+            if($model->emel && $model->emel != "" && $model->status_permohonan ){
+                if($model->status_permohonan != $oldStatusPermohonan){
+                    try {
+                        if($model->status_permohonan == RefStatusPermohonanBantuanMenghadiriProgramAntarabangs::LULUS){ // Approved
+                            Yii::$app->mailer->compose()
+                                    ->setTo($model->emel)
+                                                                ->setFrom('noreply@spsb.com')
+                                    ->setSubject('Permohonan Bantuan Menghadiri Program Antarabangsa Tuan/Puan Telah Diproses')
+                                    ->setHtmlBody('Assalamualaikum dan Salam Sejahtera, 
+<br><br>
+Sukacita, permohonan bantuan menghadiri program antarabangsa Tuan/Puan telah LULUS.
+<br><br>
+Sekian.
+    <br><br>
+    "KE ARAH KECEMERLANGAN SUKAN"<br>
+    Majlis Sukan Negara Malaysia.
+                            ')->send();
+                        }
+                    }
+                    catch(\Swift_SwiftException $exception)
+                    {
+                        //return 'Can sent mail due to the following exception'.print_r($exception);
+                        Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                    }
+                }
+            }
+            
             return $this->redirect(['view', 'id' => $model->forum_seminar_persidangan_di_luar_negara_id]);
         } else {
             return $this->render('update', [
@@ -268,6 +309,65 @@ class ForumSeminarPersidanganDiLuarNegaraController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    
+    /**
+     * Updates an existing ForumSeminarPersidanganDiLuarNegara model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set approved
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->status_permohonan = RefStatusPermohonanBantuanMenghadiriProgramAntarabangs::DALAM_PROSES;
+        
+        $model->save();
+        
+        // notification to pegawai for new application
+        if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_forum-seminar-persidangan-di-luar-negara'])->groupBy('id')->all()) !== null) {
+            $refProfilBadanSukan = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->persatuan]);
+
+            foreach($modelUsers as $modelUser){
+
+                if($modelUser->email && $modelUser->email != ""){
+                    //echo "E-mail: " . $modelUser->email . "\n";
+                    try {
+                            Yii::$app->mailer->compose()
+                            ->setTo($modelUser->email)
+                            ->setFrom('noreply@spsb.com')
+                            ->setSubject('Pemberitahuan - Permohonan Baru: Bantuan Menghadiri Program Antarabangsa')
+                            ->setHtmlBody('Assalamualaikum dan Salam Sejahtera, 
+    <br><br>
+    Terdapat permohonan baru yang diterima: 
+    <br>Badan Sukan: ' . $refProfilBadanSukan['nama_badan_sukan'] . '
+    <br>Nama Pemohon:  ' . $model->nama . '
+    <br>Jumlah bantuan yang dipohon: RM  ' . number_format($model->amaun, 2) . '
+    <br><br>
+    Sekian.
+    <br><br>
+    "KE ARAH KECEMERLANGAN SUKAN"<br>
+    Majlis Sukan Negara Malaysia.
+        ')->send();
+                            }
+                    catch(\Swift_SwiftException $exception)
+                    {
+                        //return 'Can sent mail due to the following exception'.print_r($exception);
+                        Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                    }
+                }
+            }
+        }
+        
+        return $this->redirect(['view', 'id' => $model->forum_seminar_persidangan_di_luar_negara_id]);
     }
 
     /**

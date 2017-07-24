@@ -191,16 +191,16 @@ class MaklumatAkademikController extends Controller
 	
 	public function actionPrint($id)
 	{
-		if (Yii::$app->user->isGuest) {
-            return $this->redirect(array(GeneralVariable::loginPagePath));
-        }  
-        $model = $this->findModel($id);
+            if (Yii::$app->user->isGuest) {
+                return $this->redirect(array(GeneralVariable::loginPagePath));
+            }  
+            $model = $this->findModel($id);
 		
-		$MaklumatAkademikJadual = MaklumatAkademikJadual::find()->where(['maklumat_akademik_id' => $model->maklumat_akademik_id])->orderBy('hari')->all();
-		$MaklumatAkademikSubjek = MaklumatAkademikSubjek::find()->where(['maklumat_akademik_id' => $model->maklumat_akademik_id])->orderBy('subjek')->all();
+            $MaklumatAkademikJadual = MaklumatAkademikJadual::find()->where(['maklumat_akademik_id' => $model->maklumat_akademik_id])->orderBy('hari')->orderBy('masa_dari')->all();
+            $MaklumatAkademikSubjek = MaklumatAkademikSubjek::find()->where(['maklumat_akademik_id' => $model->maklumat_akademik_id])->orderBy('subjek')->all();
 		
-		$ref = Atlet::findOne(['atlet_id' => $model->atlet]);
-        $model->atlet = $ref['nameAndIc'];
+            $ref = Atlet::findOne(['atlet_id' => $model->atlet]);
+            $model->atlet = $ref['nameAndIc'];
 		
 		$ref = RefProgramSemasaSukanAtlet::findOne(['id' => $model->program]);
         $model->program = $ref['desc'];

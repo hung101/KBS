@@ -3,9 +3,10 @@
 namespace app\models;
 
 use Yii;
-
-use app\models\general\GeneralLabel;
+use yii\web\UploadedFile;
+use app\models\general\Upload;
 use app\models\general\GeneralMessage;
+use app\models\general\GeneralLabel;
 
 /**
  * This is the model class for table "tbl_anugerah_pencalonan_jurulatih".
@@ -34,6 +35,24 @@ class AnugerahPencalonanJurulatih extends \yii\db\ActiveRecord
     {
         return 'tbl_anugerah_pencalonan_jurulatih';
     }
+    
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior',
+            [
+                'class' => \yii\behaviors\BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            [
+                'class' => \yii\behaviors\TimestampBehavior::className(),
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'updated',
+                'value' => new \yii\db\Expression('NOW()'),
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -50,6 +69,7 @@ class AnugerahPencalonanJurulatih extends \yii\db\ActiveRecord
             [['no_telefon_1', 'no_telefon_2'], 'string', 'max' => 14],
             [['no_telefon_1', 'no_telefon_2'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],            
             [['ulasan_pencapaian'], 'string', 'max' => 255],
+            [['gambar'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 
@@ -74,6 +94,17 @@ class AnugerahPencalonanJurulatih extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
         ];
+    }
+    
+    /**
+     * Validate upload file cannot be empty
+     */
+    public function validateFileUpload($attribute, $params){
+        $file = UploadedFile::getInstance($this, $attribute);
+        
+        if($file && $file->getHasError()){
+            $this->addError($attribute, 'File error :' . Upload::getUploadErrorDesc($file->error));
+        }
     }
     
     /**

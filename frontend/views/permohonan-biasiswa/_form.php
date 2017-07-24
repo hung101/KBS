@@ -36,6 +36,69 @@ use app\models\general\GeneralMessage;
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'id'=>$model->formName(), 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <div class="row">
+        <div class="col-sm-6">
+            <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'atlet_id' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
+                        'options' => ['placeholder' => Placeholder::atlet, 'id'=>'atletId'],
+'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>6]],
+            ],
+        ],
+        ]
+]);
+    ?>
+        </div>
+        <div id="atletLinkDiv" class="col-sm-1" style="display: none;">
+            <fieldset>
+            <div class="form-group">
+            <label class="control-label" > &nbsp;</label>
+            <div id="atletLink"></div>
+            <div class="help-block"></div>
+            </div>
+            </fieldset>
+        </div>
+        <div class="col-sm-3">
+            <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'no_ic' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>12]],
+            ],
+        ],
+        ]
+]);
+    ?>
+        </div>
+    </div>   
     <?php
         echo FormGrid::widget([
     'model' => $model,
@@ -80,60 +143,11 @@ use app\models\general\GeneralMessage;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>3]],
-                'nama_institusi_pengajian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                'no_matrix' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
             ],
         ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'tarikh_mula_pengajian' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=> DateControl::classname(),
-                    'ajaxConversion'=>false,
-                    'options'=>[
-                        'pluginOptions' => [
-                            'autoclose'=>true,
-                        ]
-                    ],
-                    'columnOptions'=>['colspan'=>3]],
-                'tarikh_tamat_pengajian' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=> DateControl::classname(),
-                    'ajaxConversion'=>false,
-                    'options'=>[
-                        'pluginOptions' => [
-                            'autoclose'=>true,
-                        ]
-                    ],
-                    'columnOptions'=>['colspan'=>3]],
-                 'nama_program_pengajian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
-            ],
-        ],
-        [
-            'columns'=>12,
-            'autoGenerateColumns'=>false, // override columns setting
-            'attributes' => [
-                'atlet_id' => [
-                    'type'=>Form::INPUT_WIDGET, 
-                    'widgetClass'=>'\kartik\widgets\Select2',
-                    'options'=>[
-                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
-                        [
-                            'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/atlet/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
-                                'asButton' => true
-                            ]
-                        ] : null,
-                        'data'=>ArrayHelper::map(Atlet::find()->all(),'atlet_id', 'nameAndIC'),
-                        'options' => ['placeholder' => Placeholder::atlet, 'id'=>'atletId'],
-'pluginOptions' => [
-                            'allowClear' => true
-                        ],],
-                    'columnOptions'=>['colspan'=>6]],
-                'no_ic' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>12]],
-            ],
-        ],
+        
+        
         /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -221,8 +235,42 @@ use app\models\general\GeneralMessage;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'no_tel_rumah' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
                 'no_tel_bimbit' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
+                'no_tel_rumah' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>14]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'tarikh_mula_pengajian' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                'tarikh_tamat_pengajian' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+            ],
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'nama_program_pengajian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                'nama_institusi_pengajian' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
             ],
         ],
         /*[
@@ -386,6 +434,21 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 
     $("form#{$model->formName()} input").prop("disabled", false);
 });
+    
+$(document).ready(function(){
+    if($("#atletId").val() != ''){
+            
+        $.get('$URLAtlet',{id:$("#atletId").val()},function(data){
+
+            var data = $.parseJSON(data);
+
+            if(data !== null){
+                $("#atletLink").html(data.view_url_button);
+                $("#atletLinkDiv").show();
+            }
+        });
+    }
+});
             
 $('#atletId').change(function(){
             
@@ -400,12 +463,15 @@ $('#atletId').change(function(){
                 $('#permohonanbiasiswa-no_ic').attr('value',data.ic_no);
                 $('#permohonanbiasiswa-no_tel_rumah').attr('value',data.tel_no);
                 $('#permohonanbiasiswa-no_tel_bimbit').attr('value',data.tel_bimbit_no_1);
-            $('#permohonanbiasiswa-alamat_rumah_1').attr('value',data.alamat_rumah_1);
-            $('#permohonanbiasiswa-alamat_rumah_2').attr('value',data.alamat_rumah_2);
-            $('#permohonanbiasiswa-alamat_rumah_3').attr('value',data.alamat_rumah_3);
-            $('#permohonanbiasiswa-alamat_rumah_negeri').val(data.alamat_rumah_negeri).trigger("change");
-            $('#permohonanbiasiswa-alamat_rumah_bandar').val(data.alamat_rumah_bandar).trigger("change");
-            $('#permohonanbiasiswa-alamat_rumah_poskod').attr('value',data.alamat_rumah_poskod);
+                $('#permohonanbiasiswa-alamat_rumah_1').attr('value',data.alamat_rumah_1);
+                $('#permohonanbiasiswa-alamat_rumah_2').attr('value',data.alamat_rumah_2);
+                $('#permohonanbiasiswa-alamat_rumah_3').attr('value',data.alamat_rumah_3);
+                $('#permohonanbiasiswa-alamat_rumah_negeri').val(data.alamat_rumah_negeri).trigger("change");
+                $('#permohonanbiasiswa-alamat_rumah_bandar').val(data.alamat_rumah_bandar).trigger("change");
+                $('#permohonanbiasiswa-alamat_rumah_poskod').attr('value',data.alamat_rumah_poskod);
+            
+                $("#atletLink").html(data.view_url_button);
+                $("#atletLinkDiv").show();
             
                 if(data.refAtletSukan[0] !== null){ 
                     $('#permohonanbiasiswa-program').val(data.refAtletSukan[0].program_semasa).trigger("change");
@@ -417,6 +483,7 @@ $('#atletId').change(function(){
                     //$('#permohonanbiasiswa-nama_institusi_pengajian').attr('value',data.refAtletPendidikan[0].nama);
                     $('#permohonanbiasiswa-nama_institusi_pengajian').attr('value',data.institusi_sekolah);
                     $('#permohonanbiasiswa-nama_program_pengajian').attr('value',data.refAtletPendidikan[0].kursus);
+                    $('#permohonanbiasiswa-no_matrik').val(data.refAtletPendidikan[0].no_matrix);
                 }
             }
         });
@@ -435,9 +502,19 @@ function clearForm(){
     $('#permohonanbiasiswa-program').val('').trigger("change");
     $('#permohonanbiasiswa-sukan').val('').trigger("change");
     $('#permohonanbiasiswa-tahap_pendidikan').val('').trigger("change");
-    $('#permohonanbiasiswa-nama_institusi_pengajian').attr('value','');;
-    $('#permohonanbiasiswa-nama_program_pengajian').attr('value','');;
+    $('#permohonanbiasiswa-nama_institusi_pengajian').attr('value','');
+    $('#permohonanbiasiswa-nama_program_pengajian').attr('value','');
+    $('#permohonanbiasiswa-no_matrik').val('');
+            
+    $("#atletLink").html('');
+    $("#atletLinkDiv").hide();
 }
+            
+$(function(){
+$('.custom_button').click(function(){
+        window.open($(this).attr('value'), "PopupWindow", "width=1300,height=800,scrollbars=yes,resizable=no");
+        return false;
+});});
 
 JS;
         

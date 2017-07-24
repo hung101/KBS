@@ -35,7 +35,7 @@ if(count($PembayaranElaun) > 0){
 <div style="float:left; width:40%; text-align:right">
 	<table border="0" align="right" cellspacing="0">
 		<tr>
-			<td>Bil MSNM</td>
+			<td>Rujukan MSN</td>
 			<td>:</td>
 			<td><?= $model->bil_msnm ?></td>
 		</tr>
@@ -102,8 +102,16 @@ Saya yang menurut perintah,
 <br /><br /><br />
 
 </p>
+<?php if($parentModel->cacat == '0'): ?>
 <b>(JEFRI NGADIRIN)</b><br />
 Pemangku Pengarah<br />
 Bahagian Atlet<br />
 b/p Ketua Pengarah<br />
 Majlis Sukan Negara Malaysia
+<?php else: ?>
+Yang Menurut Perintah<br />
+En Mohd Safrushahar Yusoff<br />
+Pemangku Pengarah<br />
+Pengarah Bahagian Paralimpik<br />
+Majlis Sukan Negara Malaysia
+<?php endif; ?>

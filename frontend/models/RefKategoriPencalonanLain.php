@@ -19,6 +19,10 @@ use app\models\general\GeneralMessage;
  */
 class RefKategoriPencalonanLain extends \yii\db\ActiveRecord
 {
+    const ATLET = 1;
+    const JURULATIH = 2;
+    const PERSATUAN_SUKAN = 3;
+    
     /**
      * @inheritdoc
      */

@@ -24,6 +24,7 @@ use yii\helpers\BaseUrl;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
+use app\models\general\GeneralLabel;
 use common\models\general\GeneralFunction;
 
 // table reference
@@ -120,6 +121,8 @@ class BantuanPenganjuranKejohananController extends Controller
         $model->status_permohonan_id = $model->status_permohonan;
         $ref = RefStatusBantuanPenganjuranKejohanan::findOne(['id' => $model->status_permohonan]);
         $model->status_permohonan = $ref['desc'];
+        
+        $model->selesai = GeneralLabel::getYesNoLabel($model->selesai);
         
         if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
         if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
@@ -256,38 +259,6 @@ class BantuanPenganjuranKejohananController extends Controller
                 BantuanPenganjuranKejohananOlehMsn::updateAll(['bantuan_penganjuran_kejohanan_id' => $model->bantuan_penganjuran_kejohanan_id], 'session_id = "'.Yii::$app->session->id.'"');
                 BantuanPenganjuranKejohananOlehMsn::updateAll(['session_id' => ''], 'bantuan_penganjuran_kejohanan_id = "'.$model->bantuan_penganjuran_kejohanan_id.'"');
             }
-            
-            if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_bantuan-penganjuran-kejohanan'])->groupBy('id')->all()) !== null) {
-                $refProfilBadanSukan = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->badan_sukan]);
-
-                    foreach($modelUsers as $modelUser){
-
-                        if($modelUser->email && $modelUser->email != ""){
-                            //echo "E-mail: " . $modelUser->email . "\n";
-                            Yii::$app->mailer->compose()
-                            ->setTo($modelUser->email)
-                            ->setFrom('noreply@spsb.com')
-                            ->setSubject('Pemberitahuan - Permohonan Baru: Bantuan Penganjuran Kejohanan')
-                            ->setHtmlBody('Assalamualaikum dan Salam Sejahtera, 
-    <br><br>
-    Terdapat permohonan baru yang diterima: 
-    <br>Badan Sukan: ' . $refProfilBadanSukan['nama_badan_sukan'] . '
-    <br>Nama Kejohanan / Pertandingan: ' . $model->nama_kejohanan_pertandingan . '
-    <br>Tempat: ' . $model->tempat . '
-    <br>Tarikh Mula: ' . $model->tarikh_mula . '
-    <br>Tarikh Tamat: ' . $model->tarikh_tamat . '
-    <br>Jumlah bantuan yang dipohon : RM  ' . $model->jumlah_bantuan_yang_dipohon . '
-    <br><br>
-    Link: ' . BaseUrl::to(['bantuan-penganjuran-kejohanan/view', 'id' => $model->bantuan_penganjuran_kejohanan_id], true) . '
-    <br><br>
-    Sekian.
-    <br><br>
-    "KE ARAH KECEMERLANGAN SUKAN"<br>
-    Majlis Sukan Negara Malaysia.
-        ')->send();
-                        }
-                    }
-                }
             
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_id]);
@@ -473,8 +444,41 @@ class BantuanPenganjuranKejohananController extends Controller
         
         $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
         $model->status_permohonan = RefStatusBantuanPenganjuranKejohanan::SEDANG_DIPROSES;
+        $model->selesai = 0; // set approved
         
         $model->save();
+        
+        if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_bantuan-penganjuran-kejohanan'])->groupBy('id')->all()) !== null) {
+                $refProfilBadanSukan = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->badan_sukan]);
+
+                    foreach($modelUsers as $modelUser){
+
+                        if($modelUser->email && $modelUser->email != ""){
+                            //echo "E-mail: " . $modelUser->email . "\n";
+                            Yii::$app->mailer->compose()
+                            ->setTo($modelUser->email)
+                            ->setFrom('noreply@spsb.com')
+                            ->setSubject('Pemberitahuan - Permohonan Baru: Bantuan Penganjuran Kejohanan')
+                            ->setHtmlBody('Assalamualaikum dan Salam Sejahtera, 
+    <br><br>
+    Terdapat permohonan baru yang diterima: 
+    <br>Badan Sukan: ' . $refProfilBadanSukan['nama_badan_sukan'] . '
+    <br>Nama Kejohanan / Pertandingan: ' . $model->nama_kejohanan_pertandingan . '
+    <br>Tempat: ' . $model->tempat . '
+    <br>Tarikh Mula: ' . $model->tarikh_mula . '
+    <br>Tarikh Tamat: ' . $model->tarikh_tamat . '
+    <br>Jumlah bantuan yang dipohon : RM  ' . $model->jumlah_bantuan_yang_dipohon . '
+    <br><br>
+    Link: ' . BaseUrl::to(['bantuan-penganjuran-kejohanan/view', 'id' => $model->bantuan_penganjuran_kejohanan_id], true) . '
+    <br><br>
+    Sekian.
+    <br><br>
+    "KE ARAH KECEMERLANGAN SUKAN"<br>
+    Majlis Sukan Negara Malaysia.
+        ')->send();
+                        }
+                    }
+                }
         
         return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kejohanan_id]);
     }

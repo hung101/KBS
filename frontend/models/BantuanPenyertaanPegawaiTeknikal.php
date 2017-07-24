@@ -90,7 +90,7 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
             [['badan_sukan', 'sukan', 'no_pendaftaran', 'alamat_1', 'alamat_negeri', 'alamat_poskod', 
                 'no_telefon', 'nama_bank', 'no_akaun', 'nama_kejohanan', 'peringkat', 'tarikh', 'tempat', 'tujuan', 
                 'jumlah_bantuan_yang_dipohon', 'tarikh_permohonan'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh', 'tarikh_permohonan', 'tarikh_jkb', 'created', 'updated'], 'safe'],
+            [['tarikh', 'tarikh_permohonan', 'tarikh_jkb', 'created', 'updated', 'selesai'], 'safe'],
             [['anggaran_perbelanjaan','jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['created_by', 'updated_by', 'no_telefon' ,'no_faks' , 'status_permohonan_id', 'no_akaun', 'status_permohonan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['badan_sukan', 'nama_bank', 'peringkat_lain_lain', 'jkb', 'negara'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -161,6 +161,7 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
             'tarikh_tamat' => GeneralLabel::tarikh_tamat,  //'Tarikh Tamat',
             'negara' => GeneralLabel::negara,  //'Negara',
             'surat_kelulusan' => GeneralLabel::surat_kelulusan,
+            'selesai' => GeneralLabel::selesai, 
         ];
     }
     
@@ -204,5 +205,12 @@ class BantuanPenyertaanPegawaiTeknikal extends \yii\db\ActiveRecord
      */
     public function getRefSukan(){
         return $this->hasOne(RefSukan::className(), ['id' => 'sukan']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRefKelulusan(){
+        return $this->hasOne(RefKelulusan::className(), ['id' => 'selesai']);
     }
 }

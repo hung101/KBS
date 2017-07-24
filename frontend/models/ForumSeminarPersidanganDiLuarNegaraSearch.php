@@ -18,7 +18,7 @@ class ForumSeminarPersidanganDiLuarNegaraSearch extends ForumSeminarPersidanganD
     public function rules()
     {
         return [
-            [['forum_seminar_persidangan_di_luar_negara_id'], 'integer'],
+            [['forum_seminar_persidangan_di_luar_negara_id', 'created_by', 'hantar_flag'], 'integer'],
 			[['jumlah_diluluskan'], 'number'],
             [['nama', 'negara', 'status_permohonan', 'catatan'], 'safe'],
             [['amaun'], 'number'],
@@ -45,7 +45,8 @@ class ForumSeminarPersidanganDiLuarNegaraSearch extends ForumSeminarPersidanganD
     {
         $query = ForumSeminarPersidanganDiLuarNegara::find()
                 ->joinWith(['refNegara'])
-                ->joinWith(['refStatusPermohonanBantuanMenghadiriProgramAntarabangs']);
+                ->joinWith(['refStatusPermohonanBantuanMenghadiriProgramAntarabangs'])
+                ->orderBy(['tbl_forum_seminar_persidangan_di_luar_negara.created' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -63,6 +64,8 @@ class ForumSeminarPersidanganDiLuarNegaraSearch extends ForumSeminarPersidanganD
             'forum_seminar_persidangan_di_luar_negara_id' => $this->forum_seminar_persidangan_di_luar_negara_id,
             'amaun' => $this->amaun,
 			'jumlah_diluluskan' => $this->jumlah_diluluskan,
+            'tbl_forum_seminar_persidangan_di_luar_negara.created_by' => $this->created_by,
+            'tbl_forum_seminar_persidangan_di_luar_negara.hantar_flag' => $this->hantar_flag,
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama])

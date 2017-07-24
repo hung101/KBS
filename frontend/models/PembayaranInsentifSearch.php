@@ -19,7 +19,7 @@ class PembayaranInsentifSearch extends PembayaranInsentif
     public function rules()
     {
         return [
-            [['pembayaran_insentif_id', 'rekod_baharu', 'created_by', 'updated_by', 'atlet'], 'integer'],
+            [['pembayaran_insentif_id', 'rekod_baharu', 'created_by', 'updated_by', 'atlet', 'hantar_flag'], 'integer'],
             [['kejohanan', 'jenis_insentif', 'pingat', 'kumpulan_temasya_kejohanan', 'kelulusan', 'tarikh_kelulusan', 'tarikh_pembayaran_insentif', 'created', 'updated',
                 'nama_kejohanan'], 'safe'],
             [['jumlah'], 'number'],
@@ -86,6 +86,7 @@ class PembayaranInsentifSearch extends PembayaranInsentif
             'created' => $this->created,
             'updated' => $this->updated,
             'tbl_pembayaran_insentif_atlet.atlet' => $this->atlet,
+            'tbl_pembayaran_insentif.hantar_flag' => $this->hantar_flag,
         ]);
 
         $query->andFilterWhere(['like', 'kejohanan', $this->kejohanan])

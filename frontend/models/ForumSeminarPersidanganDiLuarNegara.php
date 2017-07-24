@@ -54,12 +54,15 @@ class ForumSeminarPersidanganDiLuarNegara extends \yii\db\ActiveRecord
         return [
             [['jenis_program','nama', 'nama_program', 'tarikh', 'tarikh_tamat', 'persatuan', 'jawatan', 'nama_wakil_persatuan_1', 'nama_wakil_persatuan_2', 'amaun', 'negara', 
                 'status_permohonan', 'peringkat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_kelulusan_jkb', 'tarikh_tamat'], 'safe'],        
+            [['tarikh_kelulusan_jkb', 'tarikh_tamat', 'status_permohonan'], 'safe'],        
             [['amaun', 'jumlah_diluluskan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['nama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['negara', 'status_permohonan', 'bilangan_jkb'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['emel'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['negara', 'bilangan_jkb'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan', 'surat_permohonan', 'surat_jemputan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
-			[['surat_permohonan', 'surat_jemputan'], 'validateFileUpload', 'skipOnEmpty' => false],
+            [['surat_permohonan', 'surat_jemputan'], 'validateFileUpload', 'skipOnEmpty' => false],
+            [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
+            [['tarikh_tamat'], 'compare', 'compareAttribute'=>'tarikh', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
         ];
     }
 
@@ -76,7 +79,7 @@ class ForumSeminarPersidanganDiLuarNegara extends \yii\db\ActiveRecord
             'jenis_program' => GeneralLabel::jenis_program,
             'nama' => GeneralLabel::nama,
             'nama_program' => GeneralLabel::nama_program,
-            'tarikh' => GeneralLabel::tarikh,
+            'tarikh' => GeneralLabel::tarikh_program,
             'persatuan' => GeneralLabel::persatuan,
             'jawatan' => GeneralLabel::jawatan,
             'nama_wakil_persatuan_1' => GeneralLabel::nama_peserta_program,
@@ -89,9 +92,10 @@ class ForumSeminarPersidanganDiLuarNegara extends \yii\db\ActiveRecord
             'tarikh_kelulusan_jkb' => GeneralLabel::tarikh_kelulusan_jkb,
             'bilangan_jkb' => GeneralLabel::bilangan_jkb,
             'peringkat' => GeneralLabel::peringkat,
-            'tarikh_tamat' => GeneralLabel::tarikh_tamat,
-			'surat_permohonan' => GeneralLabel::surat_permohonan_rasmi,
-			'surat_jemputan' => GeneralLabel::surat_jemputan_penganjur,
+            'tarikh_tamat' => GeneralLabel::tarikh_tamat_program,
+            'surat_permohonan' => GeneralLabel::surat_permohonan_rasmi,
+            'surat_jemputan' => GeneralLabel::surat_jemputan_penganjur,
+            'emel' => GeneralLabel::emel,
         ];
     }
 	

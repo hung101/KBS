@@ -57,12 +57,16 @@ class PengurusanPemantauanDanPenilaianJurulatihController extends Controller
         
         $session->close();
         
-        $queryPar = Yii::$app->request->queryParams;
+        $queryParams = Yii::$app->request->queryParams;
         
-        $queryPar['PengurusanPemantauanDanPenilaianJurulatihSearch']['jurulatih'] = $jurulatih_id;
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-pemantauan-dan-penilaian-jurulatih']['kelulusan'])) {
+            $queryParams['PengurusanPemantauanDanPenilaianJurulatihSearch']['hantar'] = 1;
+        }
+        
+        $queryParams['PengurusanPemantauanDanPenilaianJurulatihSearch']['jurulatih'] = $jurulatih_id;
         
         $searchModel = new PengurusanPemantauanDanPenilaianJurulatihSearch();
-        $dataProvider = $searchModel->search($queryPar);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

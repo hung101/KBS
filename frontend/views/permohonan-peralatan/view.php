@@ -42,7 +42,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php endif; ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['update']) && $model->hantar_flag == 1): ?>
             <?= Html::a(GeneralLabel::permohonan_penerimaan_peralatan, ['print-permohonan-penerimaan-peralatan', 'id' => $model->permohonan_peralatan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
-            <?= Html::a(GeneralLabel::borang_jkb, ['print-jkb', 'id' => $model->permohonan_peralatan_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
+            <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['kelulusan'])): ?>
+                <?= Html::a(GeneralLabel::borang_jkb, ['print-jkb', 'id' => $model->permohonan_peralatan_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
+            <?php endif; ?>
         <?php endif; ?>
     </p>
     

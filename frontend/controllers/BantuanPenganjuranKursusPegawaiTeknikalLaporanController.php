@@ -124,9 +124,9 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporanController extends Controlle
             $model->tujuan_kursus_kejohanan = $modelBantuanPenganjuranKursus->nama_kursus_seminar_bengkel;
             $model->tarikh = $modelBantuanPenganjuranKursus->tarikh;
             $model->tarikh_tamat = $modelBantuanPenganjuranKursus->tarikh_tamat;
-            //$model->bilangan_pasukan = $modelBantuanPenganjuranKursusPegawaiTeknikal->bil_pasukan;
-            //$model->bilangan_peserta = $modelBantuanPenganjuranKursusPegawaiTeknikal->bil_peserta;
-            //$model->bilangan_pegawai_teknikal = $modelBantuanPenganjuranKursusPegawaiTeknikal->bil_pegawai_teknikal;
+            $model->bilangan_penceramah = $modelBantuanPenganjuranKursus->bil_penceramah;
+            $model->bilangan_peserta = $modelBantuanPenganjuranKursus->bil_peserta;
+            $model->bilangan_urusetia = $modelBantuanPenganjuranKursus->bil_urusetia;
             //$model->bilangan_pembantu = $modelBantuanPenganjuranKursusPegawaiTeknikal->bilangan_pembantu;
             $model->jumlah_kelulusan = $modelBantuanPenganjuranKursus->jumlah_dilulus;
         }

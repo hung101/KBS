@@ -62,6 +62,7 @@ use app\models\RefAgensiOku;
 use app\models\RefKategoriKecacatan;
 use app\models\RefPassportTempatDikeluarkan;
 use app\models\RefJenisElaun;
+use app\models\RefTawaranAtlet;
 
 use common\models\general\GeneralFunction;
 use app\models\general\GeneralLabel;
@@ -600,6 +601,9 @@ use app\models\general\GeneralLabel;
 
             $YesNo = GeneralLabel::getYesNoLabel($modelAtlet->cacat);
             $modelAtlet->cacat = $YesNo;
+            
+            $ref = RefTawaranAtlet::findOne(['id' => $modelAtlet->tawaran_atlet]);
+            $modelAtlet->tawaran_atlet = $ref['desc'];
         
         
             $modelSukanProgram = AtletSukan::find()->joinWith(['refSukan'])
@@ -3366,6 +3370,19 @@ use app\models\general\GeneralLabel;
                             <td class="field_label_2"><?=GeneralLabel::fail_rujukan?></td>
                             <td class="field_colon_2">:</td>
                             <td class="field_value_2"><?=($modelAtlet->tawaran_fail_rujukan ? $modelAtlet->tawaran_fail_rujukan : $no_data)?></td>
+                        </tr>
+                        <tr>
+                            <td class="field_label_2"><?=GeneralLabel::bilangan_jkk_jkp?></td>
+                            <td class="field_colon_2">:</td>
+                            <td class="field_value_2"><?=($modelAtlet->bilangan_jkk_jkp ? GeneralFunction::getUpperCaseWords($modelAtlet->bilangan_jkk_jkp) : $no_data)?></td>
+                            <td class="field_label_2"><?=GeneralLabel::tarikh_jkk_jkp?></td>
+                            <td class="field_colon_2">:</td>
+                            <td class="field_value_2"><?=($modelAtlet->tarikh_jkk_jkp ? GeneralFunction::getDatePrintFormat($modelAtlet->tarikh_jkk_jkp) : $no_data)?></td>
+                        </tr>
+                        <tr>
+                            <td class="field_label_2"><?=GeneralLabel::tawaran_atlet?></td>
+                            <td class="field_colon_2">:</td>
+                            <td class="field_value_col_4" colspan="4"><?=($modelAtlet->tawaran_atlet ? GeneralFunction::getUpperCaseWords($modelAtlet->tawaran_atlet) : $no_data)?></td>
                         </tr>
                     </table>
                 </div>

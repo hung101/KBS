@@ -18,8 +18,9 @@ class GeranBantuanGajiSearch extends GeranBantuanGaji
     public function rules()
     {
         return [
-            [['geran_bantuan_gaji_id'], 'integer'],
-            [['muatnaik_gambar', 'kelulusan', 'nama_jurulatih', 'cawangan', 'sub_cawangan', 'program_msn', 'lain_lain_program', 'pusat_latihan', 'nama_sukan', 'nama_acara', 'status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 'kategori_geran', 'status_geran', 'catatan'], 'safe'],
+            [['geran_bantuan_gaji_id', 'hantar_flag'], 'integer'],
+            [['muatnaik_gambar', 'kelulusan', 'nama_jurulatih', 'cawangan', 'sub_cawangan', 'program_msn', 'lain_lain_program', 'pusat_latihan', 
+                'nama_sukan', 'nama_acara', 'status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 'kategori_geran', 'status_geran', 'catatan'], 'safe'],
             [['jumlah_geran'], 'number'],
         ];
     }
@@ -64,6 +65,7 @@ class GeranBantuanGajiSearch extends GeranBantuanGaji
             'geran_bantuan_gaji_id' => $this->geran_bantuan_gaji_id,
             'jumlah_geran' => $this->jumlah_geran,
             //'kelulusan' => $this->kelulusan,
+            'tbl_geran_bantuan_gaji.hantar_flag' => $this->hantar_flag,
         ]);
 
         $query->andFilterWhere(['like', 'muatnaik_gambar', $this->muatnaik_gambar])

@@ -289,7 +289,7 @@ class PertukaranPengajianController extends Controller
         GeneralFunction::generateReport('/spsb/MSN/LaporanPenangguhanUniversiti', $format, $controls, 'laporan_penangguhan_universiti');
     }
 	
-	public function actionSurat($id)
+    public function actionSurat($id)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));

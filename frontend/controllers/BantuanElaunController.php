@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use Yii;
 use app\models\BantuanElaun;
 use frontend\models\BantuanElaunSearch;
+use app\models\BantuanElaunMuatnaik;
+use frontend\models\BantuanElaunMuatnaikSearch;
 use app\models\MsnSuratSue;
 use app\models\MsnLaporan;
 use yii\web\Controller;
@@ -29,6 +31,8 @@ use app\models\RefStatusPermohonanSue;
 use app\models\RefNegara;
 use app\models\ProfilBadanSukan;
 use app\models\RefKursusBantuanElaun;
+
+use common\models\User;
 
 /**
  * BantuanElaunController implements the CRUD actions for BantuanElaun model.
@@ -61,6 +65,10 @@ class BantuanElaunController extends Controller
         
         if(Yii::$app->user->identity->profil_badan_sukan){
             $queryParams['BantuanElaunSearch']['created_by'] = Yii::$app->user->identity->id;
+        }
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-elaun']['status_permohonan'])) {
+            $queryParams['BantuanElaunSearch']['hantar_flag'] = 1;
         }
         
         $searchModel = new BantuanElaunSearch();
@@ -126,8 +134,17 @@ class BantuanElaunController extends Controller
         if($model->tarikh_tamat_dilantik != "") {$model->tarikh_tamat_dilantik = GeneralFunction::convert($model->tarikh_tamat_dilantik, GeneralFunction::TYPE_DATE);}
         if($model->tarikh_lahir != "") {$model->tarikh_lahir = GeneralFunction::convert($model->tarikh_lahir, GeneralFunction::TYPE_DATE);}
         
+        $queryPar = null;
+        
+        $queryPar['BantuanElaunMuatnaikSearch']['bantuan_elaun_id'] = $id;
+        
+        $searchModelBantuanElaunMuatnaik  = new BantuanElaunMuatnaikSearch();
+        $dataProviderBantuanElaunMuatnaik = $searchModelBantuanElaunMuatnaik->search($queryPar);
+        
         return $this->render('view', [
             'model' => $model,
+            'searchModelBantuanElaunMuatnaik' => $searchModelBantuanElaunMuatnaik,
+            'dataProviderBantuanElaunMuatnaik' => $dataProviderBantuanElaunMuatnaik,
             'readonly' => true,
         ]);
     }
@@ -145,9 +162,6 @@ class BantuanElaunController extends Controller
         
         $model = new BantuanElaun();
         
-		$model->tarikh = GeneralFunction::getCurrentTimestamp();
-        
-        $model->status_permohonan = RefStatusPermohonanSue::DALAM_PROSES;
         $oldStatusPermohonan = null;
         
         if(Yii::$app->user->identity->profil_badan_sukan){
@@ -158,7 +172,23 @@ class BantuanElaunController extends Controller
             $oldStatusPermohonan = $model->getOldAttribute('status_permohonan');
         }
         
+         $queryPar = null;
+        
+        Yii::$app->session->open();
+        
+        if(isset(Yii::$app->session->id)){
+            $queryPar['BantuanElaunMuatnaikSearch']['session_id'] = Yii::$app->session->id;
+        }
+        
+        $searchModelBantuanElaunMuatnaik  = new BantuanElaunMuatnaikSearch();
+        $dataProviderBantuanElaunMuatnaik = $searchModelBantuanElaunMuatnaik->search($queryPar);
+        
         if (Yii::$app->request->post() && $model->save()) {
+            if(isset(Yii::$app->session->id)){
+                BantuanElaunMuatnaik::updateAll(['bantuan_elaun_id' => $model->bantuan_elaun_id], 'session_id = "'.Yii::$app->session->id.'"');
+                BantuanElaunMuatnaik::updateAll(['session_id' => ''], 'bantuan_elaun_id = "'.$model->bantuan_elaun_id.'"');
+            }
+            
             $file = UploadedFile::getInstance($model, 'muatnaik_gambar');
             $filename = $model->bantuan_elaun_id . "-muatnaik_gambar";
             if($file){
@@ -177,6 +207,7 @@ class BantuanElaunController extends Controller
                 $model->surat_permohonan = Upload::uploadFile($file, Upload::bantuanElaunFolder, $filename);
             }
             
+            // notification to pemohon
             if($model->emel && $model->emel != "" && $model->status_permohonan ){
                 if($model->status_permohonan != $oldStatusPermohonan){
                     $ref = RefJenisBantuanSue::findOne(['id' => $model->jenis_bantuan]);
@@ -219,6 +250,8 @@ Majlis Sukan Negara Malaysia.
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'searchModelBantuanElaunMuatnaik' => $searchModelBantuanElaunMuatnaik,
+                'dataProviderBantuanElaunMuatnaik' => $dataProviderBantuanElaunMuatnaik,
                 'readonly' => false,
             ]);
         }
@@ -238,10 +271,17 @@ Majlis Sukan Negara Malaysia.
         
         $model = $this->findModel($id);
         
+        $queryPar = null;
+        
+        $queryPar['BantuanElaunMuatnaikSearch']['bantuan_elaun_id'] = $id;
+        
+        $searchModelBantuanElaunMuatnaik  = new BantuanElaunMuatnaikSearch();
+        $dataProviderBantuanElaunMuatnaik = $searchModelBantuanElaunMuatnaik->search($queryPar);
+        
         $oldStatusPermohonan = null;
         
         $existingMuatnaikDokumen = $model->muatnaik_dokumen;
-		$existingSurat = $model->surat_permohonan;
+        $existingSurat = $model->surat_permohonan;
         
         if($model->load(Yii::$app->request->post())){
             $oldStatusPermohonan = $model->getOldAttribute('status_permohonan');
@@ -304,12 +344,14 @@ Majlis Sukan Negara Malaysia.
                                     ->setTo($model->emel)
                                                                 ->setFrom('noreply@spsb.com')
                                     ->setSubject('Permohonan ' . $jenis_bantuan . ' Tuan/Puan telah diproses')
-                                    ->setHtmlBody('Salam Sejahtera,
+                                    ->setHtmlBody('Assalamualaikum dan Salam Sejahtera, 
 <br><br>
 Dimaklumkan Permohonan ' . $jenis_bantuan . ' Persatuan Sukan Kebangsaan Tuan/Puan telah '.GeneralFunction::getUpperCaseWords($model->status_permohonan).'.
 <br><br>
-"KE ARAH KECEMERLANGAN SUKAN"<br><br>
-Majlis Sukan Negara Malaysia.
+Sekian.
+    <br><br>
+    "KE ARAH KECEMERLANGAN SUKAN"<br>
+    Majlis Sukan Negara Malaysia.
                             ')->send();
                         //}
                     }
@@ -327,6 +369,8 @@ Majlis Sukan Negara Malaysia.
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'searchModelBantuanElaunMuatnaik' => $searchModelBantuanElaunMuatnaik,
+                'dataProviderBantuanElaunMuatnaik' => $dataProviderBantuanElaunMuatnaik,
                 'readonly' => false,
             ]);
         }
@@ -351,6 +395,77 @@ Majlis Sukan Negara Malaysia.
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    
+    /**
+     * Updates an existing BantuanElaun model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set approved
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->tarikh = GeneralFunction::getCurrentTimestamp();
+        $model->status_permohonan = RefStatusPermohonanSue::DALAM_PROSES;
+        
+        $model->save();
+        
+        // notification to pegawai for new application
+        if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_bantuan-elaun'])->groupBy('id')->all()) !== null) {
+            $refProfilBadanSukan = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->nama_persatuan]);
+
+            $ref = RefJenisBantuanSue::findOne(['id' => $model->jenis_bantuan]);
+            $jenis_bantuan = $ref['desc'];
+
+            if(trim($jenis_bantuan) == "elaun sue"){
+                $jenis_bantuan = 'Elaun SUE';
+            } else if(trim($jenis_bantuan) == "elaun penyelaras psk"){
+               $jenis_bantuan = 'Elaun Penyelaras PSK';
+            } else if(trim($jenis_bantuan) == "emolumen psk"){
+               $jenis_bantuan = 'Emolumen PSK';
+            } 
+
+            foreach($modelUsers as $modelUser){
+
+                if($modelUser->email && $modelUser->email != ""){
+                    //echo "E-mail: " . $modelUser->email . "\n";
+                    try {
+                            Yii::$app->mailer->compose()
+                            ->setTo($modelUser->email)
+                            ->setFrom('noreply@spsb.com')
+                            ->setSubject('Pemberitahuan - Permohonan Baru: ' . $jenis_bantuan)
+                            ->setHtmlBody('Assalamualaikum dan Salam Sejahtera, 
+    <br><br>
+    Terdapat permohonan baru yang diterima: 
+    <br>Badan Sukan: ' . $refProfilBadanSukan['nama_badan_sukan'] . '
+    <br>Nama:  ' . $model->nama . '
+    <br>Jumlah bantuan yang dipohon: RM  ' . number_format($model->jumlah_elaun, 2) . '
+    <br><br>
+    Sekian.
+    <br><br>
+    "KE ARAH KECEMERLANGAN SUKAN"<br>
+    Majlis Sukan Negara Malaysia.
+        ')->send();
+                            }
+                    catch(\Swift_SwiftException $exception)
+                    {
+                        //return 'Can sent mail due to the following exception'.print_r($exception);
+                        Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                    }
+                }
+            }
+        }
+        
+        return $this->redirect(['view', 'id' => $model->bantuan_elaun_id]);
     }
 
     /**

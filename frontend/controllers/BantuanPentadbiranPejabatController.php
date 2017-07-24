@@ -25,6 +25,8 @@ use app\models\RefBandar;
 use app\models\RefNegeri;
 use app\models\ProfilBadanSukan;
 
+use common\models\User; 
+
 /**
  * BantuanPentadbiranPejabatController implements the CRUD actions for BantuanPentadbiranPejabat model.
  */
@@ -52,8 +54,18 @@ class BantuanPentadbiranPejabatController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if(Yii::$app->user->identity->profil_badan_sukan){
+            $queryParams['BantuanPentadbiranPejabatSearch']['created_by'] = Yii::$app->user->identity->id;
+        }
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['bantuan-pentadbiran-pejabat']['status_permohonan'])) {
+            $queryParams['BantuanPentadbiranPejabatSearch']['hantar_flag'] = 1;
+        }
+        
         $searchModel = new BantuanPentadbiranPejabatSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -120,9 +132,7 @@ class BantuanPentadbiranPejabatController extends Controller
         
         $model = new BantuanPentadbiranPejabat();
         
-        $model->tarikh = GeneralFunction::getCurrentTimestamp();
         
-        $model->status_permohonan = RefStatusPermohonanBantuanPentadbiranPejabat::DALAM_PROSES;
         
         if(Yii::$app->user->identity->profil_badan_sukan){
             $model->persatuan = Yii::$app->user->identity->profil_badan_sukan;
@@ -245,12 +255,14 @@ Majlis Sukan Negara Malaysia.
                                     ->setTo($model->emel)
                                                                 ->setFrom('noreply@spsb.com')
                                     ->setSubject('Permohonan Bantuan Pentadbiran Pejabat Tuan/Puan Telah Diproses')
-                                    ->setHtmlBody('Salam Sejahtera,
+                                    ->setHtmlBody('Assalamualaikum dan Salam Sejahtera, 
 <br><br>
 Sukacita, permohonan bantuan pentadbiran pejabat Tuan/Puan telah LULUS.
 <br><br>
-"KE ARAH KECEMERLANGAN SUKAN"<br>
-Majlis Sukan Negara Malaysia.
+Sekian.
+    <br><br>
+    "KE ARAH KECEMERLANGAN SUKAN"<br>
+    Majlis Sukan Negara Malaysia.
                             ')->send();
                         }
                     }
@@ -288,6 +300,66 @@ Majlis Sukan Negara Malaysia.
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+    
+    /**
+     * Updates an existing BantuanElaun model.
+     * If approved is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionHantar($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $model->hantar_flag = 1; // set approved
+        $model->tarikh_hantar = GeneralFunction::getCurrentTimestamp(); // set date capture
+        
+        $model->tarikh = GeneralFunction::getCurrentTimestamp();
+        $model->status_permohonan = RefStatusPermohonanBantuanPentadbiranPejabat::DALAM_PROSES;
+        
+        $model->save();
+        
+        // notification to pegawai for new application
+        if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_bantuan-pentadbiran-pejabat'])->groupBy('id')->all()) !== null) {
+            $refProfilBadanSukan = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->persatuan]);
+
+            foreach($modelUsers as $modelUser){
+
+                if($modelUser->email && $modelUser->email != ""){
+                    //echo "E-mail: " . $modelUser->email . "\n";
+                    try {
+                            Yii::$app->mailer->compose()
+                            ->setTo($modelUser->email)
+                            ->setFrom('noreply@spsb.com')
+                            ->setSubject('Pemberitahuan - Permohonan Baru: Bantuan Pentadbiran Pejabat')
+                            ->setHtmlBody('Assalamualaikum dan Salam Sejahtera, 
+    <br><br>
+    Terdapat permohonan baru yang diterima: 
+    <br>Badan Sukan: ' . $refProfilBadanSukan['nama_badan_sukan'] . '
+    <br>Nama Pemohon:  ' . $model->nama . '
+    <br>Jumlah bantuan yang dipohon: RM  ' . number_format($model->jumlah_dipohon, 2) . '
+    <br><br>
+    Sekian.
+    <br><br>
+    "KE ARAH KECEMERLANGAN SUKAN"<br>
+    Majlis Sukan Negara Malaysia.
+        ')->send();
+                            }
+                    catch(\Swift_SwiftException $exception)
+                    {
+                        //return 'Can sent mail due to the following exception'.print_r($exception);
+                        Yii::$app->session->setFlash('error', 'Terdapat ralat menghantar e-mel.');
+                    }
+                }
+            }
+        }
+        
+        return $this->redirect(['view', 'id' => $model->bantuan_pentadbiran_pejabat_id]);
     }
 
     /**

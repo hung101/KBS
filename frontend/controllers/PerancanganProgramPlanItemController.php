@@ -89,6 +89,9 @@ class PerancanganProgramPlanItemController extends Controller
         $ref = RefStatusPermohonanProgramBinaan::findOne(['id' => $model->status_permohonan]);
         $model->status_permohonan = $ref['desc'];
         
+        $ref = RefStatusPermohonanProgramBinaan::findOne(['id' => $model->status_tawaran]);
+        $model->status_tawaran = $ref['desc'];
+        
         if($model->tarikh_mula != "") {$model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);}
         if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
         if($model->tarikh_jkk_jkp != "") {$model->tarikh_jkk_jkp = GeneralFunction::convert($model->tarikh_jkk_jkp, GeneralFunction::TYPE_DATE);}

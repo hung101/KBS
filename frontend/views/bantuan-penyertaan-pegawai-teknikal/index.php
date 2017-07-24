@@ -66,13 +66,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'value' => 'refSukan.desc'
             ],
-            [
+            /*[
                 'attribute' => 'no_pendaftaran',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_pendaftaran,
                 ],
-            ],
+            ],*/
             //'alamat_1',
             // 'alamat_2',
             // 'alamat_3',
@@ -106,6 +106,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::status_permohonan,
                 ],
                 'value' => 'refStatusBantuanPenyertaanPegawaiTeknikal.desc'
+            ],
+            [
+                'attribute' => 'selesai',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::selesai,
+                ],
+                'value' => 'refKelulusan.desc'
             ],
             // 'catatan',
             // 'tarikh_permohonan',

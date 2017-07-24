@@ -19,10 +19,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-insentif']['update'])): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-insentif']['create']) && $model->hantar_flag == 0)): ?>
+            <?= Html::a(GeneralLabel::send, ['hantar', 'id' => $model->pembayaran_insentif_id], [
+                'class' => 'btn btn-success',
+                'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                    'method' => 'post',
+                ],
+                ]) ?>
+        <?php endif; ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-insentif']['update']) && $model->hantar_flag == 0) || isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-insentif']['kelulusan'])): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->pembayaran_insentif_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-insentif']['delete'])): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-insentif']['delete']) && $model->hantar_flag == 0) || isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-insentif']['kelulusan'])): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->pembayaran_insentif_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
@@ -31,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
-		<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-insentif']['update'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pembayaran-insentif']['kelulusan']) && $model->hantar_flag == 1): ?>
             <?= Html::a(GeneralLabel::print_jkb, ['print-jkb', 'id' => $model->pembayaran_insentif_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
         <?php endif; ?>
     </p>

@@ -12,7 +12,7 @@ use app\models\RefJenisInsentif;
 <?php
 if(count($query) > 0){
 ?>
-<table border="1" cellspacing="0" cellpadding="10" style="width:100%">
+<table border="1" cellspacing="0" cellpadding="10" style="width:100%; font-size:11;">
 	<tr>
 		<th>SUKAN</th>
 		<th width="30%">NAMA KEJOHANAN<br />TARIKH/TEMPAT</th>
@@ -30,7 +30,9 @@ if(count($query) > 0){
 		$items = PembayaranInsentifAtlet::find()->joinWith(['refAtlet'])->joinWith(['refAcara'])->joinWith(['refPembayaranInsentif'])
 				 ->where(['atlet' => $value['atlet']])
 				 ->andWhere(['tbl_pembayaran_insentif_atlet.sukan' => $value['sukan']])
-				 ->andWhere(['IS NOT', 'tbl_pembayaran_insentif_atlet.sukan', null]);
+				 ->andWhere(['IS NOT', 'tbl_pembayaran_insentif_atlet.sukan', null])
+                                ->andWhere(['IS NOT', 'tbl_pembayaran_insentif.pembayaran_insentif_id', null])
+                                ->andWhere(['=', 'tbl_pembayaran_insentif.hantar_flag', 1]);
 		
 		if(isset($model->sukan) && $model->sukan != '')
 		{

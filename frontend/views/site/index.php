@@ -997,21 +997,29 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                 $command = $connection->createCommand('
                                     SELECT *, IFNULL(sub_1.SHAKAM + sub_1.INSENTIF_KHAS + sub_1.SHAKAR + sub_1.REKOD_BARU + sub_1.SGAR + sub_1.SIKAP,0) AS JUMLAH_KESELURUHAN
                                     FROM (
-                                            SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 1),0.0) AS SHAKAM,
-                                            IFNULL((SELECT SUM(ia.insentif_khas)
-                                                    FROM `tbl_pembayaran_insentif_atlet` ia
-                                                    LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
-                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS INSENTIF_KHAS,
-                                            IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 2),0.0) AS SHAKAR,
-                                            IFNULL((SELECT SUM(s.nilai_rekod_baharu) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS REKOD_BARU,
-                                            IFNULL((SELECT SUM(ij.nilai)
-                                                    FROM `tbl_pembayaran_insentif_jurulatih` ij
-                                                    LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
-                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS SGAR,
-                                            IFNULL((SELECT SUM(s.nilai_sikap)
-                                                    FROM tbl_pembayaran_insentif s
-                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS SIKAP
-
+                                       SELECT 
+                                       IFNULL((SELECT SUM(ia.nilai) FROM `tbl_pembayaran_insentif_atlet` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year
+                                                    AND s.jenis_insentif = 1 AND s.kelulusan = 1),0.0) AS SHAKAM,
+                                       IFNULL((SELECT SUM(ia.insentif_khas) FROM `tbl_pembayaran_insentif_atlet` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0) AS INSENTIF_KHAS,
+                                    IFNULL((SELECT SUM(ia.nilai) FROM `tbl_pembayaran_insentif_atlet` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year
+                                                    AND s.jenis_insentif = 2 AND s.kelulusan = 1),0.0) AS SHAKAR,
+                                    IFNULL((SELECT SUM(ia.rekod_baru) FROM `tbl_pembayaran_insentif_atlet` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0) AS REKOD_BARU,
+                                    IFNULL((SELECT SUM(ij.nilai)
+                                            FROM `tbl_pembayaran_insentif_jurulatih` ij
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0) AS SGAR,
+                                    IFNULL((SELECT SUM(ia.nilai)
+                                            FROM `tbl_pembayaran_insentif_persatuan` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0) AS SIKAP
                                     ) sub_1', [':year' => date("Y")]);
 
                                 $resultTahun1 = $command->queryAll();
@@ -1054,21 +1062,29 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                 $command = $connection->createCommand('
                                     SELECT *, IFNULL(sub_1.SHAKAM + sub_1.INSENTIF_KHAS + sub_1.SHAKAR + sub_1.REKOD_BARU + sub_1.SGAR + sub_1.SIKAP,0) AS JUMLAH_KESELURUHAN
                                     FROM (
-                                            SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 1),0.0) AS SHAKAM,
-                                            IFNULL((SELECT SUM(ia.insentif_khas)
-                                                    FROM `tbl_pembayaran_insentif_atlet` ia
-                                                    LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
-                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS INSENTIF_KHAS,
-                                            IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 2),0.0) AS SHAKAR,
-                                            IFNULL((SELECT SUM(s.nilai_rekod_baharu) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS REKOD_BARU,
-                                            IFNULL((SELECT SUM(ij.nilai)
-                                                    FROM `tbl_pembayaran_insentif_jurulatih` ij
-                                                    LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
-                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS SGAR,
-                                            IFNULL((SELECT SUM(s.nilai_sikap)
-                                                    FROM tbl_pembayaran_insentif s
-                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS SIKAP
-
+                                       SELECT 
+                                       IFNULL((SELECT SUM(ia.nilai) FROM `tbl_pembayaran_insentif_atlet` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year
+                                                    AND s.jenis_insentif = 1 AND s.kelulusan = 1),0.0) AS SHAKAM,
+                                       IFNULL((SELECT SUM(ia.insentif_khas) FROM `tbl_pembayaran_insentif_atlet` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0) AS INSENTIF_KHAS,
+                                    IFNULL((SELECT SUM(ia.nilai) FROM `tbl_pembayaran_insentif_atlet` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year
+                                                    AND s.jenis_insentif = 2 AND s.kelulusan = 1),0.0) AS SHAKAR,
+                                    IFNULL((SELECT SUM(ia.rekod_baru) FROM `tbl_pembayaran_insentif_atlet` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0) AS REKOD_BARU,
+                                    IFNULL((SELECT SUM(ij.nilai)
+                                            FROM `tbl_pembayaran_insentif_jurulatih` ij
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0) AS SGAR,
+                                    IFNULL((SELECT SUM(ia.nilai)
+                                            FROM `tbl_pembayaran_insentif_persatuan` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0) AS SIKAP
                                     ) sub_1', [':year' => date("Y",strtotime("-1 year"))]);
 
                                 $resultTahun2 = $command->queryAll();
@@ -1097,21 +1113,29 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                 $command = $connection->createCommand('
                                     SELECT *, IFNULL(sub_1.SHAKAM + sub_1.INSENTIF_KHAS + sub_1.SHAKAR + sub_1.REKOD_BARU + sub_1.SGAR + sub_1.SIKAP,0) AS JUMLAH_KESELURUHAN
                                     FROM (
-                                            SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 1),0.0) AS SHAKAM,
-                                            IFNULL((SELECT SUM(ia.insentif_khas)
-                                                    FROM `tbl_pembayaran_insentif_atlet` ia
-                                                    LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
-                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS INSENTIF_KHAS,
-                                            IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 2),0.0) AS SHAKAR,
-                                            IFNULL((SELECT SUM(s.nilai_rekod_baharu) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS REKOD_BARU,
-                                            IFNULL((SELECT SUM(ij.nilai)
-                                                    FROM `tbl_pembayaran_insentif_jurulatih` ij
-                                                    LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
-                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS SGAR,
-                                            IFNULL((SELECT SUM(s.nilai_sikap)
-                                                    FROM tbl_pembayaran_insentif s
-                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS SIKAP
-
+                                       SELECT 
+                                       IFNULL((SELECT SUM(ia.nilai) FROM `tbl_pembayaran_insentif_atlet` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year
+                                                    AND s.jenis_insentif = 1 AND s.kelulusan = 1),0.0) AS SHAKAM,
+                                       IFNULL((SELECT SUM(ia.insentif_khas) FROM `tbl_pembayaran_insentif_atlet` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0) AS INSENTIF_KHAS,
+                                    IFNULL((SELECT SUM(ia.nilai) FROM `tbl_pembayaran_insentif_atlet` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year
+                                                    AND s.jenis_insentif = 2 AND s.kelulusan = 1),0.0) AS SHAKAR,
+                                    IFNULL((SELECT SUM(ia.rekod_baru) FROM `tbl_pembayaran_insentif_atlet` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0) AS REKOD_BARU,
+                                    IFNULL((SELECT SUM(ij.nilai)
+                                            FROM `tbl_pembayaran_insentif_jurulatih` ij
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0) AS SGAR,
+                                    IFNULL((SELECT SUM(ia.nilai)
+                                            FROM `tbl_pembayaran_insentif_persatuan` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0) AS SIKAP
                                     ) sub_1', [':year' => date("Y",strtotime("-2 year"))]);
 
                                 $resultTahun3 = $command->queryAll();
@@ -1139,21 +1163,29 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                 $command = $connection->createCommand('
                                     SELECT *, IFNULL(sub_1.SHAKAM + sub_1.INSENTIF_KHAS + sub_1.SHAKAR + sub_1.REKOD_BARU + sub_1.SGAR + sub_1.SIKAP,0) AS JUMLAH_KESELURUHAN
                                     FROM (
-                                            SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 1),0.0) AS SHAKAM,
-                                            IFNULL((SELECT SUM(ia.insentif_khas)
-                                                    FROM `tbl_pembayaran_insentif_atlet` ia
-                                                    LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
-                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS INSENTIF_KHAS,
-                                            IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 2),0.0) AS SHAKAR,
-                                            IFNULL((SELECT SUM(s.nilai_rekod_baharu) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS REKOD_BARU,
-                                            IFNULL((SELECT SUM(ij.nilai)
-                                                    FROM `tbl_pembayaran_insentif_jurulatih` ij
-                                                    LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
-                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS SGAR,
-                                            IFNULL((SELECT SUM(s.nilai_sikap)
-                                                    FROM tbl_pembayaran_insentif s
-                                                    WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0) AS SIKAP
-
+                                       SELECT 
+                                       IFNULL((SELECT SUM(ia.nilai) FROM `tbl_pembayaran_insentif_atlet` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year
+                                                    AND s.jenis_insentif = 1 AND s.kelulusan = 1),0.0) AS SHAKAM,
+                                       IFNULL((SELECT SUM(ia.insentif_khas) FROM `tbl_pembayaran_insentif_atlet` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0) AS INSENTIF_KHAS,
+                                    IFNULL((SELECT SUM(ia.nilai) FROM `tbl_pembayaran_insentif_atlet` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year
+                                                    AND s.jenis_insentif = 2 AND s.kelulusan = 1),0.0) AS SHAKAR,
+                                    IFNULL((SELECT SUM(ia.rekod_baru) FROM `tbl_pembayaran_insentif_atlet` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0) AS REKOD_BARU,
+                                    IFNULL((SELECT SUM(ij.nilai)
+                                            FROM `tbl_pembayaran_insentif_jurulatih` ij
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0) AS SGAR,
+                                    IFNULL((SELECT SUM(ia.nilai)
+                                            FROM `tbl_pembayaran_insentif_persatuan` ia
+                                            LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
+                                            WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0) AS SIKAP
                                     ) sub_1', [':year' => date("Y",strtotime("-3 year"))]);
 
                                 $resultTahun4 = $command->queryAll();
@@ -1223,30 +1255,37 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                       // Jenis Insentif Sort - START
                                       $command = $connection->createCommand('
                                           SELECT *
-              FROM (
+                                            FROM (
+                                                    SELECT IFNULL((SELECT SUM(ia.nilai) FROM `tbl_pembayaran_insentif_atlet` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year
+                                              AND s.jenis_insentif = 1 AND s.kelulusan = 1),0.0) AS JUMLAH, "SHAKAM" AS JENIS_INSENTIF
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ia.insentif_khas) FROM `tbl_pembayaran_insentif_atlet` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0), "INSENTIF_KHAS"
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ia.nilai) FROM `tbl_pembayaran_insentif_atlet` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year
+                                              AND s.jenis_insentif = 2 AND s.kelulusan = 1),0.0), "SHAKAR"
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ia.rekod_baru) FROM `tbl_pembayaran_insentif_atlet` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0), "REKOD_BARU"
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ij.nilai)
+                                      FROM `tbl_pembayaran_insentif_jurulatih` ij
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0), "SGAR"
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ia.nilai)
+                                      FROM `tbl_pembayaran_insentif_persatuan` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0), "SIKAP"
 
-                      SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 1),0.0) AS JUMLAH, "SHAKAM" AS JENIS_INSENTIF
-                      UNION
-                      SELECT IFNULL((SELECT SUM(ia.insentif_khas)
-                              FROM `tbl_pembayaran_insentif_atlet` ia
-                              LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
-                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "INSENTIF_KHAS"
-                      UNION
-                      SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 2),0.0), "SHAKAR"
-                      UNION
-                      SELECT IFNULL((SELECT SUM(s.nilai_rekod_baharu) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "REKOD_BARU"
-                      UNION
-                      SELECT IFNULL((SELECT SUM(ij.nilai)
-                              FROM `tbl_pembayaran_insentif_jurulatih` ij
-                              LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
-                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "SGAR"
-                      UNION
-                      SELECT IFNULL((SELECT SUM(s.nilai_sikap)
-                              FROM tbl_pembayaran_insentif s
-                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "SIKAP"
-
-              ) sub_1 
-              ORDER BY JUMLAH DESC', [':year' => date("Y")]);
+                                            ) sub_1 
+                                            ORDER BY JUMLAH DESC', [':year' => date("Y")]);
 
                                       $result = $command->queryAll();
 
@@ -1299,30 +1338,37 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                       // Jenis Insentif Sort - START
                                       $command = $connection->createCommand('
                                           SELECT *
-              FROM (
+                                            FROM (
+                                                    SELECT IFNULL((SELECT SUM(ia.nilai) FROM `tbl_pembayaran_insentif_atlet` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year
+                                              AND s.jenis_insentif = 1 AND s.kelulusan = 1),0.0) AS JUMLAH, "SHAKAM" AS JENIS_INSENTIF
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ia.insentif_khas) FROM `tbl_pembayaran_insentif_atlet` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0), "INSENTIF_KHAS"
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ia.nilai) FROM `tbl_pembayaran_insentif_atlet` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year
+                                              AND s.jenis_insentif = 2 AND s.kelulusan = 1),0.0), "SHAKAR"
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ia.rekod_baru) FROM `tbl_pembayaran_insentif_atlet` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0), "REKOD_BARU"
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ij.nilai)
+                                      FROM `tbl_pembayaran_insentif_jurulatih` ij
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0), "SGAR"
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ia.nilai)
+                                      FROM `tbl_pembayaran_insentif_persatuan` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0), "SIKAP"
 
-                      SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 1),0.0) AS JUMLAH, "SHAKAM" AS JENIS_INSENTIF
-                      UNION
-                      SELECT IFNULL((SELECT SUM(ia.insentif_khas)
-                              FROM `tbl_pembayaran_insentif_atlet` ia
-                              LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
-                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "INSENTIF_KHAS"
-                      UNION
-                      SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 2),0.0), "SHAKAR"
-                      UNION
-                      SELECT IFNULL((SELECT SUM(s.nilai_rekod_baharu) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "REKOD_BARU"
-                      UNION
-                      SELECT IFNULL((SELECT SUM(ij.nilai)
-                              FROM `tbl_pembayaran_insentif_jurulatih` ij
-                              LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
-                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "SGAR"
-                      UNION
-                      SELECT IFNULL((SELECT SUM(s.nilai_sikap)
-                              FROM tbl_pembayaran_insentif s
-                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "SIKAP"
-
-              ) sub_1 
-              ORDER BY JUMLAH DESC', [':year' => date("Y",strtotime("-1 year"))]);
+                                            ) sub_1 
+                                            ORDER BY JUMLAH DESC', [':year' => date("Y",strtotime("-1 year"))]);
 
                                       $result = $command->queryAll();
 
@@ -1375,30 +1421,37 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                       // Jenis Insentif Sort - START
                                       $command = $connection->createCommand('
                                           SELECT *
-              FROM (
+                                            FROM (
+                                                    SELECT IFNULL((SELECT SUM(ia.nilai) FROM `tbl_pembayaran_insentif_atlet` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year
+                                              AND s.jenis_insentif = 1 AND s.kelulusan = 1),0.0) AS JUMLAH, "SHAKAM" AS JENIS_INSENTIF
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ia.insentif_khas) FROM `tbl_pembayaran_insentif_atlet` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0), "INSENTIF_KHAS"
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ia.nilai) FROM `tbl_pembayaran_insentif_atlet` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year
+                                              AND s.jenis_insentif = 2 AND s.kelulusan = 1),0.0), "SHAKAR"
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ia.rekod_baru) FROM `tbl_pembayaran_insentif_atlet` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0), "REKOD_BARU"
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ij.nilai)
+                                      FROM `tbl_pembayaran_insentif_jurulatih` ij
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0), "SGAR"
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ia.nilai)
+                                      FROM `tbl_pembayaran_insentif_persatuan` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0), "SIKAP"
 
-                      SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 1),0.0) AS JUMLAH, "SHAKAM" AS JENIS_INSENTIF
-                      UNION
-                      SELECT IFNULL((SELECT SUM(ia.insentif_khas)
-                              FROM `tbl_pembayaran_insentif_atlet` ia
-                              LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
-                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "INSENTIF_KHAS"
-                      UNION
-                      SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 2),0.0), "SHAKAR"
-                      UNION
-                      SELECT IFNULL((SELECT SUM(s.nilai_rekod_baharu) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "REKOD_BARU"
-                      UNION
-                      SELECT IFNULL((SELECT SUM(ij.nilai)
-                              FROM `tbl_pembayaran_insentif_jurulatih` ij
-                              LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
-                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "SGAR"
-                      UNION
-                      SELECT IFNULL((SELECT SUM(s.nilai_sikap)
-                              FROM tbl_pembayaran_insentif s
-                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "SIKAP"
-
-              ) sub_1 
-              ORDER BY JUMLAH DESC', [':year' => date("Y",strtotime("-2 year"))]);
+                                            ) sub_1 
+                                            ORDER BY JUMLAH DESC', [':year' => date("Y",strtotime("-2 year"))]);
 
                                       $result = $command->queryAll();
 
@@ -1451,30 +1504,37 @@ $this->title = GeneralLabel::kementerian_belia_dan_sukan_malaysia_dashboard;
                                       // Jenis Insentif Sort - START
                                       $command = $connection->createCommand('
                                           SELECT *
-              FROM (
+                                            FROM (
+                                                    SELECT IFNULL((SELECT SUM(ia.nilai) FROM `tbl_pembayaran_insentif_atlet` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year
+                                              AND s.jenis_insentif = 1 AND s.kelulusan = 1),0.0) AS JUMLAH, "SHAKAM" AS JENIS_INSENTIF
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ia.insentif_khas) FROM `tbl_pembayaran_insentif_atlet` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0), "INSENTIF_KHAS"
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ia.nilai) FROM `tbl_pembayaran_insentif_atlet` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year
+                                              AND s.jenis_insentif = 2 AND s.kelulusan = 1),0.0), "SHAKAR"
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ia.rekod_baru) FROM `tbl_pembayaran_insentif_atlet` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0), "REKOD_BARU"
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ij.nilai)
+                                      FROM `tbl_pembayaran_insentif_jurulatih` ij
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0), "SGAR"
+                                                    UNION
+                                                    SELECT IFNULL((SELECT SUM(ia.nilai)
+                                      FROM `tbl_pembayaran_insentif_persatuan` ia
+                                      LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
+                                      WHERE YEAR(s.tarikh_hantar) = :year AND s.kelulusan = 1),0.0), "SIKAP"
 
-                      SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 1),0.0) AS JUMLAH, "SHAKAM" AS JENIS_INSENTIF
-                      UNION
-                      SELECT IFNULL((SELECT SUM(ia.insentif_khas)
-                              FROM `tbl_pembayaran_insentif_atlet` ia
-                              LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id=ia.pembayaran_insentif_id
-                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "INSENTIF_KHAS"
-                      UNION
-                      SELECT IFNULL((SELECT SUM(s.jumlah) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year AND s.jenis_insentif = 2),0.0), "SHAKAR"
-                      UNION
-                      SELECT IFNULL((SELECT SUM(s.nilai_rekod_baharu) FROM tbl_pembayaran_insentif s WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "REKOD_BARU"
-                      UNION
-                      SELECT IFNULL((SELECT SUM(ij.nilai)
-                              FROM `tbl_pembayaran_insentif_jurulatih` ij
-                              LEFT JOIN tbl_pembayaran_insentif s ON s.pembayaran_insentif_id = ij.pembayaran_insentif_id
-                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "SGAR"
-                      UNION
-                      SELECT IFNULL((SELECT SUM(s.nilai_sikap)
-                              FROM tbl_pembayaran_insentif s
-                              WHERE YEAR(s.tarikh_pembayaran_insentif) = :year),0.0), "SIKAP"
-
-              ) sub_1 
-              ORDER BY JUMLAH DESC', [':year' => date("Y",strtotime("-3 year"))]);
+                                            ) sub_1 
+                                            ORDER BY JUMLAH DESC', [':year' => date("Y",strtotime("-3 year"))]);
 
                                       $result = $command->queryAll();
 

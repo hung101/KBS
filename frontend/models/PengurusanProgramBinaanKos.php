@@ -78,7 +78,7 @@ class PengurusanProgramBinaanKos extends \yii\db\ActiveRecord
             'anggaran_perbelanjaan' => GeneralLabel::anggaran_perbelanjaan,
             'jumlah_cadangan' => GeneralLabel::jumlah,
             'catatan_cadangan' => GeneralLabel::catatan,
-            'perbelanjaan_dipohon' => GeneralLabel::perbelanjaan_dipohon,
+            'perbelanjaan_dipohon' => GeneralLabel::butiran_dipohon,
             'kategori_perbelanjaan' => GeneralLabel::kategori_perbelanjaan,
             'kadar_pohon' => GeneralLabel::kadar,
             'bilangan_pohon' => GeneralLabel::bilangan,

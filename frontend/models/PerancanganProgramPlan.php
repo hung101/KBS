@@ -53,10 +53,10 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
     {
         return [
             [['tarikh_mula', 'tarikh_tamat', 'jenis_program', 'nama_program', 'bahagian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_mula', 'tarikh_tamat', 'tarikh_kelulusan', 'status_program', 'sukan', 'cawangan', 'tarikh_jkk_jkp'], 'safe'],
-            [['mesyuarat_id', 'status_permohonan', 'jenis_aktiviti', 'jumlah_atlet', 'jumlah_jurulatih', 'jumlah_pegawai'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['tarikh_mula', 'tarikh_tamat', 'tarikh_kelulusan', 'status_program', 'sukan', 'cawangan', 'tarikh_jkk_jkp', 'tarikh_jkb'], 'safe'],
+            [['mesyuarat_id', 'status_permohonan', 'jenis_aktiviti', 'jumlah_atlet', 'jumlah_jurulatih', 'jumlah_pegawai', 'status_tawaran'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah_atlet', 'jumlah_jurulatih', 'jumlah_pegawai'], 'string', 'max' => 11, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_program', 'bilangan_jkk_jkp'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_program', 'bilangan_jkk_jkp', 'bilangan_jkb'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kelulusan'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['lokasi'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['muat_naik'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -107,6 +107,9 @@ class PerancanganProgramPlan extends \yii\db\ActiveRecord
             'jumlah_atlet' => GeneralLabel::jumlah_atlet,
             'jumlah_jurulatih' => GeneralLabel::jumlah_jurulatih,
             'jumlah_pegawai' => GeneralLabel::jumlah_pegawai,
+            'bilangan_jkb' => GeneralLabel::bilangan_jkb,
+            'tarikh_jkb' => GeneralLabel::tarikh_jkb,
+            'status_tawaran' => GeneralLabel::status_tawaran,
         ];
     }
     

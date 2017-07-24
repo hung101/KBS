@@ -19,10 +19,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['update'])): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['create']) && $model->hantar_flag == 0)): ?>
+            <?= Html::a(GeneralLabel::send, ['hantar', 'id' => $model->geran_bantuan_gaji_id], [
+                'class' => 'btn btn-success',
+                'data' => [
+                    'confirm' => GeneralMessage::confirmSave,
+                    'method' => 'post',
+                ],
+                ]) ?>
+        <?php endif; ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['update']) && $model->hantar_flag == 0) || isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['kelulusan'])): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->geran_bantuan_gaji_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['delete'])): ?>
+        <?php if((isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['delete']) && $model->hantar_flag == 0) || isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['kelulusan'])): ?>
             <?php /*echo Html::a(GeneralLabel::delete, ['delete', 'id' => $model->geran_bantuan_gaji_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
@@ -31,15 +40,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]);*/ ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['update'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['geran-bantuan-gaji']['create']) && $model->hantar_flag == 1): ?>
             <?= Html::a(GeneralLabel::cetak, ['print', 'id' => $model->geran_bantuan_gaji_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
         <?php endif; ?>
     </p>
     
     <?= $this->render('_form', [
         'model' => $model,
-		'searchModelGeranBantuanGajiLampiran' => $searchModelGeranBantuanGajiLampiran,
-		'dataProviderGeranBantuanGajiLampiran' => $dataProviderGeranBantuanGajiLampiran,
+        'searchModelGeranBantuanGajiLampiran' => $searchModelGeranBantuanGajiLampiran,
+        'dataProviderGeranBantuanGajiLampiran' => $dataProviderGeranBantuanGajiLampiran,
         'readonly' => $readonly,
     ]) ?>
 

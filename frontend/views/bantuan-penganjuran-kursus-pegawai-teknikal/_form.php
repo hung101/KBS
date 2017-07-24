@@ -891,6 +891,12 @@ use common\models\general\GeneralFunction;
                         'options'=>['disabled'=>true]
                     ],
                     'columnOptions'=>['colspan'=>3]],
+                'selesai' => [
+                    'type'=>Form::INPUT_RADIO_LIST, 
+                    'items'=>[true=>GeneralLabel::yes, false=>GeneralLabel::no],
+                    'value'=>false,
+                    'options'=>['inline'=>true],
+                    'columnOptions'=>['colspan'=>2]],
             ]
         ],
                 [

@@ -90,12 +90,24 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn',
                 'buttons' => [
                     'delete' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                        return ((isset(Yii::$app->user->identity->peranan_akses['MSN']['forum-seminar-persidangan-di-luar-negara']['update']) 
+                                && $model->hantar_flag == 0) || 
+                                isset(Yii::$app->user->identity->peranan_akses['MSN']['forum-seminar-persidangan-di-luar-negara']['status_permohonan'])) ? 
+                        Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
                         'title' => Yii::t('yii', 'Delete'),
                         'data-confirm' => GeneralMessage::confirmDelete,
                         'data-method' => 'post',
-                        ]);
+                        ]) : '';
 
+                    },
+                    'update' => function ($url, $model) {
+                        $link =  Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                        'title' => Yii::t('yii', 'Update'),
+                        ]);
+                        
+                        return ((isset(Yii::$app->user->identity->peranan_akses['MSN']['forum-seminar-persidangan-di-luar-negara']['update']) 
+                                && $model->hantar_flag == 0) || 
+                                isset(Yii::$app->user->identity->peranan_akses['MSN']['forum-seminar-persidangan-di-luar-negara']['status_permohonan'])) ? $link : '';
                     },
                 ],
                 'template' => $template,

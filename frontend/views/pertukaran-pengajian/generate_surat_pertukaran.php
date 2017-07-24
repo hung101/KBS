@@ -65,7 +65,7 @@ Segala kerjasama daripada pihak <?= $model->gelaran ?> dalam perkara ini amatlah
 	<b>' KE ARAH KECEMERLANGAN SUKAN '<b>
 </p>
 <p>
-Yang benar,
+Saya yang menurut perintah,
 <br /><br /><br />
 
 </p>

@@ -47,12 +47,15 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporan extends \yii\db\ActiveRecor
     public function rules()
     {
         return [
-            [['tarikh', 'tarikh_tamat', 'tempat', 'tujuan_kursus_kejohanan', 'bilangan_pasukan', 'bilangan_peserta', 'bilangan_pembantu', 'bilangan_pegawai_teknikal'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh', 'tarikh_tamat', 'tempat', 'tujuan_kursus_kejohanan', 'bilangan_pasukan', 'bilangan_peserta', 'bilangan_pembantu', 
+                'bilangan_pegawai_teknikal','bilangan_penceramah','bilangan_urusetia'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['tarikh', 'created', 'updated', 'tarikh_tamat'], 'safe'],
             [['bilangan_pasukan', 'bilangan_peserta', 'bilangan_pegawai_teknikal', 'bilangan_pembantu', 'created_by', 
-                'updated_by', 'bantuan_penganjuran_kursus_pegawai_teknikal_id', 'bantuan_penyertaan_pegawai_teknikal_id', 'bantuan_penganjuran_kursus_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+                'updated_by', 'bantuan_penganjuran_kursus_pegawai_teknikal_id', 'bantuan_penyertaan_pegawai_teknikal_id', 'bantuan_penganjuran_kursus_id'
+                ,'bilangan_penceramah','bilangan_urusetia'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tujuan_kursus_kejohanan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['bilangan_pasukan', 'bilangan_peserta', 'bilangan_pembantu','bilangan_pegawai_teknikal','bilangan_penceramah','bilangan_urusetia'], 'string', 'max' => 11, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jumlah_kelulusan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['laporan_bergambar', 'penyata_perbelanjaan_resit_yang_telah_disahkan', 'jadual_keputusan_pertandingan', 'senarai_peserta', 
                 'statistik_penyertaan', 'senarai_pegawai_penceramah', 'senarai_urusetia_sukarelawan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -88,6 +91,8 @@ class BantuanPenganjuranKursusPegawaiTeknikalLaporan extends \yii\db\ActiveRecor
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
+            'bilangan_penceramah' => 'Bilangan Penceramah',
+            'bilangan_urusetia' => 'Bilangan Urusetia',
         ];
     }
     

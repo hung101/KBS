@@ -19,7 +19,11 @@ class BantuanPenganjuranKursusPegawaiTeknikalSearch extends BantuanPenganjuranKu
     {
         return [
             [['bantuan_penganjuran_kursus_pegawai_teknikal_id', 'created_by', 'updated_by', 'hantar_flag'], 'integer'],
-            [['badan_sukan', 'sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_telefon', 'no_faks', 'laman_sesawang', 'facebook', 'twitter', 'nama_bank', 'no_akaun', 'nama_kursus_seminar_bengkel', 'tarikh', 'tempat', 'tujuan', 'surat_rasmi_badan_sukan', 'surat_jemputan_daripada_pengelola', 'butiran_perbelanjaan', 'salinan_passport', 'maklumat_lain_sokongan', 'status_permohonan', 'catatan', 'tarikh_permohonan', 'jkb', 'tarikh_jkb', 'created', 'updated'], 'safe'],
+            [['badan_sukan', 'sukan', 'no_pendaftaran', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 
+                'alamat_poskod', 'no_telefon', 'no_faks', 'laman_sesawang', 'facebook', 'twitter', 'nama_bank', 'no_akaun', 
+                'nama_kursus_seminar_bengkel', 'tarikh', 'tempat', 'tujuan', 'surat_rasmi_badan_sukan', 'surat_jemputan_daripada_pengelola', 
+                'butiran_perbelanjaan', 'salinan_passport', 'maklumat_lain_sokongan', 'status_permohonan', 'catatan', 'tarikh_permohonan', 
+                'jkb', 'tarikh_jkb', 'created', 'updated', 'selesai'], 'safe'],
             [['yuran_penyertaan', 'jumlah_bantuan_yang_dipohon', 'jumlah_dilulus'], 'number'],
         ];
     }
@@ -45,7 +49,8 @@ class BantuanPenganjuranKursusPegawaiTeknikalSearch extends BantuanPenganjuranKu
         $query = BantuanPenganjuranKursusPegawaiTeknikal::find()
                 ->joinWith(['refProfilBadanSukan'])
                 ->joinWith(['refStatusBantuanPenganjuranKursusPegawaiTeknikal'])
-                ->joinWith(['refSukan']);
+                ->joinWith(['refSukan'])
+                ->joinWith(['refKelulusan']);
 
         // add conditions that should always apply here
 
@@ -103,7 +108,8 @@ class BantuanPenganjuranKursusPegawaiTeknikalSearch extends BantuanPenganjuranKu
             ->andFilterWhere(['like', 'maklumat_lain_sokongan', $this->maklumat_lain_sokongan])
             ->andFilterWhere(['like', 'tbl_ref_status_bantuan_penganjuran_kursus_pegawai_teknikal.desc', $this->status_permohonan])
             ->andFilterWhere(['like', 'catatan', $this->catatan])
-            ->andFilterWhere(['like', 'jkb', $this->jkb]);
+            ->andFilterWhere(['like', 'jkb', $this->jkb])
+                ->andFilterWhere(['like', 'tbl_ref_kelulusan.desc', $this->selesai]);
         
         
         // add filter base on sukan access role in tbl_user->sukan - START

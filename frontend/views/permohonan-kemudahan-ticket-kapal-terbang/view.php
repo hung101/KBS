@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['update']) && $model->hantar_flag == 1): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-kemudahan-ticket-kapal-terbang']['kelulusan']) && $model->hantar_flag == 1): ?>
             <?= Html::a(GeneralLabel::borang_penempahan_tiket, ['borang-penempahan', 'id' => $model->permohonan_kemudahan_ticket_kapal_terbang_id], ['class' => 'btn btn-success', 'target' => '_blank']) ?>
         <?php endif; ?>
     </p>

@@ -25,6 +25,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const akademiAkkPermitKerjaFolder = "akk_permit_kerja";
         const akkProgramJurulatihFolder = "akk_program_jurulatih";
         const anugerahPencalonanAtletFolder = "anugerah_pencalonan_atlet";
+        const anugerahPencalonanJurulatihFolder = "anugerah_pencalonan_jurulatih";
         const anugerahPencalonanKepimpinanSukanFolder = "anugerah_pencalonan_kepimpinan_sukan";
         const anugerahPencalonanLainFolder = "anugerah_pencalonan_lain";
         const anugerahPencalonanPasukanFolder = "anugerah_pencalonan_pasukan";
@@ -33,6 +34,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const borangaduankerosakanjeniskerosakanFolder = "borang_aduan_kerosakan_jenis_kerosakan";
         const atletKursusKemFolder = "atlet_kursus_kem";
         const bantuanElaunFolder = "bantuan_elaun";
+        const bantuanElaunMuatnaikFolder = "bantuan_elaun_muatnaik";
         const bantuanPenganjuranKejohananFolder = "bantuan_penganjuran_kejohanan";
         const bantuanPenganjuranKejohananLaporanFolder = "bantuan_penganjuran_kejohanan_laporan";
         const bantuanPenganjuranKejohananSirkitFolder = "bantuan_penganjuran_kejohanan_sirkit";
@@ -182,6 +184,7 @@ if($session->get('language') == "EN") {
         const akademiAkkPermitKerjaFolder = "akk_permit_kerja";
         const akkProgramJurulatihFolder = "akk_program_jurulatih";
         const anugerahPencalonanAtletFolder = "anugerah_pencalonan_atlet";
+        const anugerahPencalonanJurulatihFolder = "anugerah_pencalonan_jurulatih";
         const anugerahPencalonanKepimpinanSukanFolder = "anugerah_pencalonan_kepimpinan_sukan";
         const anugerahPencalonanLainFolder = "anugerah_pencalonan_lain";
         const anugerahPencalonanPasukanFolder = "anugerah_pencalonan_pasukan";
@@ -190,6 +193,7 @@ if($session->get('language') == "EN") {
         const borangaduankerosakanjeniskerosakanFolder = "borang_aduan_kerosakan_jenis_kerosakan";
         const atletKursusKemFolder = "atlet_kursus_kem";
         const bantuanElaunFolder = "bantuan_elaun";
+        const bantuanElaunMuatnaikFolder = "bantuan_elaun_muatnaik";
         const bantuanPenganjuranKejohananFolder = "bantuan_penganjuran_kejohanan";
         const bantuanPenganjuranKejohananLaporanFolder = "bantuan_penganjuran_kejohanan_laporan";
         const bantuanPenganjuranKejohananSirkitFolder = "bantuan_penganjuran_kejohanan_sirkit";

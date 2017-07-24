@@ -87,10 +87,11 @@ class AnugerahPencalonanAtlet extends \yii\db\ActiveRecord
                 'pencalonan_pasukan_wanita_kebangsaan_tahun', 'pencalonan_olahragawan_harapan_tahun', 'pencalonan_olahragawati_harapan_tahun', 'nama_kategori',
                 'bil_mesyuarat'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['status_pencalonan'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['kejayaan', 'ulasan_kejayaan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['kejayaan', 'ulasan_kejayaan', 'gambar'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
                         [['no_telefon_1', 'no_telefon_2'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['no_telefon_1', 'no_telefon_2'], 'string', 'max' => 14, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['gambar'],'validateFileUpload', 'skipOnEmpty' => false],
         ];
     }
 

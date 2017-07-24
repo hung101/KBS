@@ -18,7 +18,7 @@ class BantuanElaunSearch extends BantuanElaun
     public function rules()
     {
         return [
-            [['bantuan_elaun_id', 'umur', 'created_by'], 'integer'],
+            [['bantuan_elaun_id', 'umur', 'created_by', 'hantar_flag'], 'integer'],
             [['nama', 'muatnaik_gambar', 'no_kad_pengenalan', 'tarikh_lahir', 'jantina', 'kewarganegara', 'bangsa', 'agama', 'kelayakan_akademi', 'alamat_1', 'alamat_2', 
                 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 'emel', 'kontrak', 'muatnaik_dokumen', 'status_permohonan', 
                 'catatan', 'jenis_bantuan', 'nama_persatuan'], 'safe'],
@@ -47,7 +47,8 @@ class BantuanElaunSearch extends BantuanElaun
         $query = BantuanElaun::find()
                 ->joinWith(['refJenisBantuanSue'])
                 ->joinWith(['refProfilBadanSukan'])
-                ->joinWith(['refStatusPermohonanSue']);
+                ->joinWith(['refStatusPermohonanSue'])
+                ->orderBy(['tbl_bantuan_elaun.created' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -68,6 +69,7 @@ class BantuanElaunSearch extends BantuanElaun
             'jumlah_elaun' => $this->jumlah_elaun,
 			'jumlah_kelulusan' => $this->jumlah_kelulusan,
             'tbl_bantuan_elaun.created_by' => $this->created_by,
+            'hantar_flag' => $this->hantar_flag,
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama])

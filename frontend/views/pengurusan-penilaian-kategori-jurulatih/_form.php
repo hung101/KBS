@@ -93,14 +93,6 @@ use app\models\general\GeneralMessage;
 ]);
         ?>
 
-    <!--<?= $form->field($model, 'pengurusan_pemantauan_dan_penilaian_jurulatih_id')->textInput() ?>
-
-    <?= $form->field($model, 'penilaian_kategori')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'penilaian_sub_kategori')->textInput(['maxlength' => 80]) ?>
-
-    <?= $form->field($model, 'markah_penilaian')->textInput() ?>-->
-
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary',

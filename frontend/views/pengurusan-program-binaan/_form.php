@@ -39,10 +39,10 @@ use app\models\general\GeneralMessage;
 /* @var $form yii\widgets\ActiveForm */
 
 //set jenis_permohonan by default to id 1 (not USPTN) if empty
+$disableJenisPermohonan = false;
+
 if(!isset($model->jenis_permohonan) || $model->jenis_permohonan === null)
 {
-    $disableJenisPermohonan = false;
-    
     if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-program-binaan']['psk'])){
         $model->jenis_permohonan = RefJenisPermohonan::PSK;
         $disableJenisPermohonan = true;
@@ -85,7 +85,7 @@ if(isset($model->jenis_permohonan))
         }
     ?>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     <?php
         echo FormGrid::widget([
             'model' => $model,
@@ -1197,6 +1197,15 @@ $URL_SET_SUKAN = Url::to(['/pengurusan-program-binaan/set-sukan']);
 $URL_SET_BAHAGIAN = Url::to(['/pengurusan-program-binaan/set-bahagian']);
 
 $script = <<< JS
+        
+$('form#{$model->formName()}').on('beforeSubmit', function (e) {
+
+    var form = $(this);
+
+    $("form#{$model->formName()} input").prop("disabled", false);
+    
+    $("#pengurusanprogrambinaan-jenis_permohonan").prop("disabled", false);
+});
         
 $(document).ready(function(){
     // changeSukan();

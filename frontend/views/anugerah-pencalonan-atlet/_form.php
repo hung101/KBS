@@ -36,6 +36,7 @@ use app\models\general\GeneralMessage;
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data'],]); ?>
     <?php
     if($model->gambar){
+        echo "<label>" . $model->getAttributeLabel('gambar') . "</label><br>";
         echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$model->gambar.'" width="200px">&nbsp;&nbsp;&nbsp;';
         if(!$readonly){
             echo Html::a(GeneralLabel::removeImage, ['deleteupload', 'id'=>$model->anugerah_pencalonan_atlet, 'field'=> 'gambar'], 
@@ -180,22 +181,14 @@ use app\models\general\GeneralMessage;
 ]);
         ?>
         </div>
-        <div class="col-sm-1">
-            
+        <div id="atletLinkDiv" class="col-sm-1" style="display: none;">
             <fieldset>
-<div class="form-group">
-<label class="control-label" > &nbsp;</label>
-<div id="atletLink"></div>
-<div class="help-block"></div>
-</div>
-
-	
-
-
-	
-
-</fieldset>
-        
+            <div class="form-group">
+            <label class="control-label" > &nbsp;</label>
+            <div id="atletLink"></div>
+            <div class="help-block"></div>
+            </div>
+            </fieldset>
         </div>
         <div class="col-sm-3">
             <?php
@@ -535,6 +528,7 @@ $('#atletId').change(function(){
                 $("#anugerahpencalonanatlet-no_telefon_2").attr('value',data.tel_bimbit_no_1);
             
                 $("#atletLink").html(data.view_url_button);
+                $("#atletLinkDiv").show();
             }
         });
     }
@@ -545,7 +539,8 @@ function clearForm(){
     $("#anugerahpencalonanatlet-no_telefon_1").attr('value','');
     $("#anugerahpencalonanatlet-no_telefon_2").attr('value','');
     
-   $("#atletLink").html('');
+    $("#atletLink").html('');
+    $("#atletLinkDiv").hide();
 }
             
 $(function(){

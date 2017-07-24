@@ -114,7 +114,8 @@ use app\models\general\GeneralMessage;
                             'placeholder' => Placeholder::bandar,
                             'url'=>Url::to(['/ref-sekolah-institusi/subinstitusis'])],
                         ],
-                    'columnOptions'=>['colspan'=>3]],
+                    'columnOptions'=>['colspan'=>9]],
+                'no_matrix' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>50]],
             ]
         ],
         [

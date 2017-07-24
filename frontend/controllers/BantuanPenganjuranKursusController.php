@@ -24,6 +24,7 @@ use yii\helpers\BaseUrl;
 
 use app\models\general\Upload;
 use app\models\general\GeneralVariable;
+use app\models\general\GeneralLabel;
 use common\models\general\GeneralFunction;
 
 // table reference
@@ -137,6 +138,8 @@ class BantuanPenganjuranKursusController extends Controller
         $ref = RefStatusBantuanPenganjuranKursus::findOne(['id' => $model->status_permohonan]);
         $model->status_permohonan = $ref['desc'];
         
+        $model->selesai = GeneralLabel::getYesNoLabel($model->selesai);
+        
         if($model->tarikh != "") {$model->tarikh = GeneralFunction::convert($model->tarikh, GeneralFunction::TYPE_DATE);}
         if($model->tarikh_tamat != "") {$model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);}
         if($model->tarikh_permohonan != "") {$model->tarikh_permohonan = GeneralFunction::convert($model->tarikh_permohonan, GeneralFunction::TYPE_DATETIME);}
@@ -245,38 +248,6 @@ class BantuanPenganjuranKursusController extends Controller
             }
             
             if($model->save()){
-                if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_bantuan-penganjuran-kursus'])->groupBy('id')->all()) !== null) {
-                    $refProfilBadanSukan = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->badan_sukan]);
-                    foreach($modelUsers as $modelUser){
-
-                        if($modelUser->email && $modelUser->email != ""){
-                            //echo "E-mail: " . $modelUser->email . "\n";
-                            Yii::$app->mailer->compose()
-                            ->setTo($modelUser->email)
-                            ->setFrom('noreply@spsb.com')
-                            ->setSubject('Pemberitahuan - Permohonan Baru: Bantuan Penganjuran Kursus / Bengkel / Seminar')
-                            ->setHtmlBody("Assalamualaikum dan Salam Sejahtera, 
-    <br><br>
-    Terdapat permohonan baru yang diterima: 
-    <br>
-    Badan Sukan: " . $refProfilBadanSukan['nama_badan_sukan'] . "
-    <br>Nama Kursus / Seminar / Bengkel: " . $model->nama_kursus_seminar_bengkel . '
-    <br>Tempat: ' . $model->tempat . '
-    <br>Tarikh Mula: ' . $model->tarikh . '
-    <br>Tarikh Tamat: ' . $model->tarikh_tamat . '
-    <br>Jumlah Bantuan Yang Dipohon: RM' . $model->jumlah_bantuan_yang_dipohon . '
-    <br><br>
-    Link: ' . BaseUrl::to(['bantuan-penganjuran-kursus/view', 'id' => $model->bantuan_penganjuran_kursus_id], true) . '
-    <br><br>
-    Sekian.
-    <br><br>
-    "KE ARAH KECEMERLANGAN SUKAN"<br>
-    Majlis Sukan Negara Malaysia.
-        ')->send();
-                        }
-                    }
-                }
-                
                 return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_id]);
             }
         } 
@@ -462,8 +433,41 @@ class BantuanPenganjuranKursusController extends Controller
         
         $model->tarikh_permohonan = GeneralFunction::getCurrentTimestamp();
         $model->status_permohonan = RefStatusBantuanPenganjuranKursus::SEDANG_DIPROSES;
+        $model->selesai = 0; // set tidak
         
         $model->save();
+        
+        if (($modelUsers = User::find()->joinWith('refUserPeranan')->andFilterWhere(['like', 'tbl_user_peranan.peranan_akses', 'pemberitahuan_emel_bantuan-penganjuran-kursus'])->groupBy('id')->all()) !== null) {
+                    $refProfilBadanSukan = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->badan_sukan]);
+                    foreach($modelUsers as $modelUser){
+
+                        if($modelUser->email && $modelUser->email != ""){
+                            //echo "E-mail: " . $modelUser->email . "\n";
+                            Yii::$app->mailer->compose()
+                            ->setTo($modelUser->email)
+                            ->setFrom('noreply@spsb.com')
+                            ->setSubject('Pemberitahuan - Permohonan Baru: Bantuan Penganjuran Kursus / Bengkel / Seminar')
+                            ->setHtmlBody("Assalamualaikum dan Salam Sejahtera, 
+    <br><br>
+    Terdapat permohonan baru yang diterima: 
+    <br>
+    Badan Sukan: " . $refProfilBadanSukan['nama_badan_sukan'] . "
+    <br>Nama Kursus / Seminar / Bengkel: " . $model->nama_kursus_seminar_bengkel . '
+    <br>Tempat: ' . $model->tempat . '
+    <br>Tarikh Mula: ' . $model->tarikh . '
+    <br>Tarikh Tamat: ' . $model->tarikh_tamat . '
+    <br>Jumlah Bantuan Yang Dipohon: RM' . $model->jumlah_bantuan_yang_dipohon . '
+    <br><br>
+    Link: ' . BaseUrl::to(['bantuan-penganjuran-kursus/view', 'id' => $model->bantuan_penganjuran_kursus_id], true) . '
+    <br><br>
+    Sekian.
+    <br><br>
+    "KE ARAH KECEMERLANGAN SUKAN"<br>
+    Majlis Sukan Negara Malaysia.
+        ')->send();
+                        }
+                    }
+                }
         
         return $this->redirect(['view', 'id' => $model->bantuan_penganjuran_kursus_id]);
     }

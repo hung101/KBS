@@ -46,6 +46,7 @@ use common\models\general\GeneralFunction;
     ?>
 
     <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName()]); ?>
+    <?php echo $form->errorSummary($model); ?>
     <?php
         echo FormGrid::widget([
     'model' => $model,

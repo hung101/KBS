@@ -18,7 +18,7 @@ class BantuanPentadbiranPejabatSearch extends BantuanPentadbiranPejabat
     public function rules()
     {
         return [
-            [['bantuan_pentadbiran_pejabat_id'], 'integer'],
+            [['bantuan_pentadbiran_pejabat_id', 'created_by', 'hantar_flag'], 'integer'],
 			[['jumlah_dipohon', 'jumlah_kelulusan'], 'number'],
             [['nama', 'no_kad_pengenalan', 'tarikh_lahir', 'alamat_1', 'alamat_2', 'alamat_3', 'alamat_negeri', 'alamat_bandar', 'alamat_poskod', 'no_tel_bimbit', 
                 'status_permohonan', 'catatan', 'persatuan', 'jawatan'], 'safe'],
@@ -46,7 +46,8 @@ class BantuanPentadbiranPejabatSearch extends BantuanPentadbiranPejabat
         $query = BantuanPentadbiranPejabat::find()
                 ->joinWith(['refStatusPermohonanBantuanPentadbiranPejabat'])
                 ->joinWith(['refProfilBadanSukan'])
-                ->joinWith(['refJawatanBantuanPentadbiranPejabat']);
+                ->joinWith(['refJawatanBantuanPentadbiranPejabat'])
+                ->orderBy(['tbl_bantuan_pentadbiran_pejabat.created' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -65,6 +66,8 @@ class BantuanPentadbiranPejabatSearch extends BantuanPentadbiranPejabat
             'tarikh_lahir' => $this->tarikh_lahir,
 			'jumlah_dipohon' => $this->jumlah_dipohon,
 			'jumlah_kelulusan' => $this->jumlah_kelulusan,
+            'tbl_bantuan_pentadbiran_pejabat.created_by' => $this->jumlah_kelulusan,
+            'tbl_bantuan_pentadbiran_pejabat.hantar_flag' => $this->hantar_flag,
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama])

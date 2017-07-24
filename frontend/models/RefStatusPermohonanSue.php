@@ -21,11 +21,11 @@ use app\models\general\GeneralMessage;
 class RefStatusPermohonanSue extends \yii\db\ActiveRecord
 {
     const LULUS = 1;
-    const GAGAL = 2;
-    const TERIMA = 3;
-    const TOLAK = 4;
+    const TIDAK_LULUS = 2;
+    const DITANGGUH = 3;
+    //const TOLAK = 4;
     const DALAM_PROSES = 5;
-    const MENERIMA_ULASAN = 6;
+    //const MENERIMA_ULASAN = 6;
     
     /**
      * @inheritdoc

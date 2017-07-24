@@ -18,7 +18,7 @@ class SkimKebajikanSearch extends SkimKebajikan
     public function rules()
     {
         return [
-            [['skim_kebajikan_id', 'kelulusan'], 'integer'],
+            [['skim_kebajikan_id', 'kelulusan', 'hantar_flag'], 'integer'],
             [['jenis_bantuan_skak', 'nama_pemohon', 'nama_penerima', 'jenis_sukan', 'masalah_dihadapi', 'tarikh_kejadian', 'lokasi_kejadian', 'jenis_bantuan_lain_yang_diterima'], 'safe'],
             [['jumlah_bantuan'], 'number'],
         ];
@@ -64,6 +64,7 @@ class SkimKebajikanSearch extends SkimKebajikan
             'jumlah_bantuan' => $this->jumlah_bantuan,
             'tarikh_kejadian' => $this->tarikh_kejadian,
             'kelulusan' => $this->kelulusan,
+            'hantar_flag' => $this->hantar_flag,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_jenis_kebajikan.desc', $this->jenis_bantuan_skak])
