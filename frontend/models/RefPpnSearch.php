@@ -18,8 +18,8 @@ class RefPpnSearch extends RefPpn
     public function rules()
     {
         return [
-            [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
-            [['desc', 'created', 'updated'], 'safe'],
+            [['id', 'aktif', 'created_by', 'updated_by', 'no_kad_pengenalan'], 'integer'],
+            [['desc', 'created', 'updated', 'sukan', 'negeri', 'jawatan'], 'safe'],
         ];
     }
 
@@ -41,7 +41,9 @@ class RefPpnSearch extends RefPpn
      */
     public function search($params)
     {
-        $query = RefPpn::find();
+        $query = RefPpn::find()
+                ->joinWith(['refNegeri'])
+                ->joinWith(['refSukan']);
 
         // add conditions that should always apply here
 
@@ -67,7 +69,11 @@ class RefPpnSearch extends RefPpn
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc]);
+        $query->andFilterWhere(['like', 'desc', $this->desc])
+                ->andFilterWhere(['like', 'no_kad_pengenalan', $this->no_kad_pengenalan])
+                ->andFilterWhere(['like', 'jawatan', $this->jawatan])
+                ->andFilterWhere(['like', 'tbl_ref_negeri.desc', $this->negeri])
+                ->andFilterWhere(['like', 'tbl_ref_sukan.desc', $this->sukan]);
 
         return $dataProvider;
     }

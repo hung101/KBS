@@ -630,6 +630,7 @@ $('#jurulatihId').change(function(){
             }
             //$("#gajidanelaunjurulatih-program").val(data.program).trigger("change");
             //$("#gajidanelaunjurulatih-nama_sukan").val(data.nama_sukan).trigger("change");
+            $('#gajidanelaunjurulatih-no_pekerja').attr('value',data.no_fail);
         }
     });
         
@@ -661,6 +662,7 @@ function clearForm(){
     $("#gajidanelaunjurulatih-tarikh_mula-disp").val('');
     $('#gajidanelaunjurulatih-tarikh_tamat').attr('value','');
     $('#gajidanelaunjurulatih-tarikh_tamat-disp').attr('value','');
+    $('#gajidanelaunjurulatih-no_pekerja').attr('value','');
 }
         
 JS;

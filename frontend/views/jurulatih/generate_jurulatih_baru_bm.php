@@ -107,10 +107,10 @@ if(isset($model->tarikh) && $model->tarikh != null)
 
 Tuan,
 <p>
-    Saya bersetuju / tidak bersetuju menerima tawaran lantikan Majlis sebagai <b>Jurulatih</b> beserta dengan syarat-syarat lantikan seperti yang dinyatakan di dalam surat tuan MSN bil: <b><?= $model->bil_msnm ?></b>
+    Saya bersetuju / tidak bersetuju menerima tawaran lantikan Majlis sebagai <b>Jurulatih <?=$sukan?></b> beserta dengan syarat-syarat lantikan seperti yang dinyatakan di dalam surat tuan Rujukan MSN: <b><?= $model->bil_msnm ?></b>
 </p>
 <p>
-2.&nbsp;&nbsp;&nbsp;&nbsp;Saya akan melapor diri untuk bertugas mulai: <?= $tarikhMula ?>
+2.&nbsp;&nbsp;&nbsp;&nbsp;Saya akan melapor diri untuk bertugas mulai: _________________________<?php //echo $tarikhMula ?>
 </p>
 <p>
 3.&nbsp;&nbsp;&nbsp;&nbsp;Bersama ini dikemukakan dokumen berikut seperti yang diarahkan untuk tindakan tuan:-

@@ -22,8 +22,8 @@ class MsnSuratTawaranJurulatih extends Model
     public function rules()
     {
         return [
-            [['format', 'jurulatih_id', 'tarikh', 'bil_msnm', 'bahasa'], 'required', 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh', 'bil_msnm', 'jurulatih_id', 'tarikh_luput', 'bahasa', 'jurulatih_status_desc'], 'safe'],
+            [['format', 'jurulatih_id', 'bil_msnm', 'bahasa'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['tarikh', 'bil_msnm', 'jurulatih_id', 'tarikh_luput', 'bahasa', 'tarikh', 'jurulatih_status_desc'], 'safe'],
         ];
     }
 
@@ -31,7 +31,7 @@ class MsnSuratTawaranJurulatih extends Model
     {
         return [
             'tarikh' => GeneralLabel::tarikh,
-            'bil_msnm' => "Bil MSNM",
+            'bil_msnm' => "Rujukan MSN",
             'jurulatih_id' => GeneralLabel::jurulatih,
             'tarikh_luput' => GeneralLabel::tarikh_luput,
             'format' => GeneralLabel::format,

@@ -81,8 +81,8 @@ class PengurusanUpstnController extends Controller
         $ref = RefSukan::findOne(['id' => $model->nama_sukan]);
         $model->nama_sukan = $ref['desc'];
         
-        //$ref = RefPpn::findOne(['id' => $model->nama_pengurus_sukan]);
-        //$model->nama_pengurus_sukan = $ref['desc'];
+        $ref = RefPpn::findOne(['id' => $model->nama_pengurus_sukan]);
+        $model->nama_pengurus_sukan = $ref['desc'];
         
         $ref = RefNegeri::findOne(['id' => $model->negeri]);
         $model->negeri = $ref['desc'];

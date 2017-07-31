@@ -258,7 +258,13 @@ use common\models\general\GeneralFunction;
                     'confirm' => GeneralMessage::confirmSave,
                 ],]) ?>
         <?php endif; ?>
-        <?= Html::a(GeneralLabel::backToList, ['index'], ['class' => 'btn btn-warning']) ?>
+        <?php
+        if($jurulatih_id!=null){
+            echo html::a(GeneralLabel::backToList, ['index','jurulatih_id'=>$jurulatih_id], ['class' => 'btn btn-warning']);
+        } else {
+            echo html::a(GeneralLabel::backToList, ['index'], ['class' => 'btn btn-warning']);
+        }
+        ?>
     </div>
 
     <?php ActiveForm::end(); ?>

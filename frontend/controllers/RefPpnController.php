@@ -9,6 +9,12 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use app\models\general\GeneralVariable;
+use app\models\general\GeneralLabel;
+
+use app\models\RefNegeri;
+use app\models\RefSukan;
+
 /**
  * RefPpnController implements the CRUD actions for RefPpn model.
  */
@@ -35,6 +41,10 @@ class RefPpnController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $searchModel = new RefPpnSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -51,8 +61,23 @@ class RefPpnController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $model = $this->findModel($id);
+        
+        $ref = RefNegeri::findOne(['id' => $model->negeri]);
+        $model->negeri = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $model->aktif = GeneralLabel::getYesNoLabel($model->aktif);
+        
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'readonly' => true,
         ]);
     }
 
@@ -63,6 +88,10 @@ class RefPpnController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new RefPpn();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -70,6 +99,7 @@ class RefPpnController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'readonly' => false,
             ]);
         }
     }
@@ -82,6 +112,10 @@ class RefPpnController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -89,6 +123,7 @@ class RefPpnController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'readonly' => false,
             ]);
         }
     }
@@ -101,6 +136,10 @@ class RefPpnController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

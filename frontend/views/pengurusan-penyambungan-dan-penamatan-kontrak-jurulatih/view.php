@@ -20,7 +20,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penyambungan-dan-penamatan-kontrak-jurulatih']['update'])): ?>
+        <?php if( (isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penyambungan-dan-penamatan-kontrak-jurulatih']['update']) && 
+                ($model->status_tawaran_mpj == "" || $model->status_tawaran_mpj == "Dalam Proses")  && 
+                ($model->status_tawaran_jkb == "" || $model->status_tawaran_jkb == "Dalam Proses") ) || 
+                isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penyambungan-dan-penamatan-kontrak-jurulatih']['status_permohonan']) ): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->pengurusan_penyambungan_dan_penamatan_kontrak_jurulatih_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-penyambungan-dan-penamatan-kontrak-jurulatih']['delete'])): ?>

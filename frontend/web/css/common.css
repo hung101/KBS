@@ -82,3 +82,8 @@ div.required label:after {
 		0px -1px 0px rgba(000,000,000,0.4),
 		0px 1px 0px rgba(255,255,255,0.3);
 }
+
+
+.modul-header-row {
+    padding-left: 20px;
+}

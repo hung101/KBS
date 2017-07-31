@@ -19,7 +19,7 @@ class RefSekolahInstitusiSearch extends RefSekolahInstitusi
     {
         return [
             [['id', 'aktif', 'created_by', 'updated_by'], 'integer'],
-            [['desc', 'created', 'updated'], 'safe'],
+            [['desc', 'created', 'updated', 'ref_tahap_pendidikan_id'], 'safe'],
         ];
     }
 
@@ -41,7 +41,8 @@ class RefSekolahInstitusiSearch extends RefSekolahInstitusi
      */
     public function search($params)
     {
-        $query = RefSekolahInstitusi::find();
+        $query = RefSekolahInstitusi::find()
+                ->joinWith('refTahapPendidikan');
 
         // add conditions that should always apply here
 
@@ -67,7 +68,8 @@ class RefSekolahInstitusiSearch extends RefSekolahInstitusi
             'updated' => $this->updated,
         ]);
 
-        $query->andFilterWhere(['like', 'desc', $this->desc]);
+        $query->andFilterWhere(['like', 'desc', $this->desc])
+                ->andFilterWhere(['like', 'tbl_ref_tahap_pendidikan.desc', $this->ref_tahap_pendidikan_id]);
 
         return $dataProvider;
     }

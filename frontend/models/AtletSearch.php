@@ -177,6 +177,7 @@ class AtletSearch extends Atlet
             
             if(!isset($this->jurulatih)){
                 $query->andFilterWhere(['tbl_atlet_sukan.nama_sukan'=>$arr_sukan_filter]);
+                $query->orWhere("(tbl_atlet_sukan.nama_sukan = '' OR tbl_atlet_sukan.nama_sukan IS NULL) AND tbl_atlet.created_by = " . Yii::$app->user->identity->id);
             }
         }
         // add filter base on sukan access role in tbl_user->sukan - END

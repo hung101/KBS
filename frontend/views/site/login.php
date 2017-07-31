@@ -21,7 +21,7 @@ $this->title = GeneralLabel::login;
         <div class="col-lg-5">
             <?php
  $form = ActiveForm::begin(['id' => 'login-form']); ?>
-                <?= $form->field($model, 'username') ?>
+                <?= $form->field($model, 'username')->textInput(['maxlength'=>12]) ?>
                 <?= $form->field($model, 'password')->passwordInput() ?>
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>
                 <div style="color:#999;margin:1em 0">

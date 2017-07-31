@@ -49,8 +49,8 @@ class MsnLaporanJurulatihWajaran extends Model
             'status' => GeneralLabel::status,
             'negara' => GeneralLabel::negara,
             'jurulatih' => GeneralLabel::jurulatih,
-            'laporan_jurulatih' => "Laporan Jurulatih & CCE (%)",
-            'prestasi_atlet' => "Prestasi Atlet (Di Temasya / Kejohanan) (%)",
+            'laporan_jurulatih' => "Laporan Jurulatih & CCE (40%)",
+            'prestasi_atlet' => "Prestasi Atlet (Di Temasya / Kejohanan) (40%)",
             'kenaikan_gaji_elaun' => "Jumlah Kenaikan Gaji / Elaun) (RM)",
             'format' => GeneralLabel::format,
         ];

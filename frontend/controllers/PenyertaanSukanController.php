@@ -67,6 +67,8 @@ use app\models\RefAktivitiPendedahan;
 use \app\models\PerancanganProgramPlan;
 use app\models\RefStatusPermohonanProgramBinaan;
 use app\models\RefKategoriKejohananTemasya;
+use app\models\RefKategoriKejohanan;
+use app\models\RefStatusKejohanan;
 
 /**
  * PenyertaanSukanController implements the CRUD actions for PenyertaanSukan model.
@@ -628,7 +630,7 @@ class PenyertaanSukanController extends Controller
         ]);
     }
     
-    public function actionLaporanPenyertaanKejohanan($id)
+    public function actionLaporanPenyertaanKejohanan($id, $readonly)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -637,6 +639,11 @@ class PenyertaanSukanController extends Controller
         $parentModel = $this->findModel($id);
         
         $model = LaporanPenyertaanKejohanan::findOne(['penyertaan_sukan_id' => $id]);
+        
+        if($model == null){
+            // if not exist then change to create form
+            $readonly =  false;
+        }
         
         $queryPar['KejohananPegawaiSearch']['penyertaan_sukan_id'] = $id;
         $queryPar['KejohananPengurusSearch']['penyertaan_sukan_id'] = $id;
@@ -797,8 +804,47 @@ class PenyertaanSukanController extends Controller
             if($model->save())
             {
                 Yii::$app->session->setFlash('success', 'Laporan berjaya dikemaskini');
+                
+                return $this->redirect(['laporan-penyertaan-kejohanan', 'id' => $model->penyertaan_sukan_id, 'readonly' => true]);
             }
         }
+        
+        if($readonly === '1') {
+            $readonly = true;
+            
+            if(isset($model->tarikh_mula))
+            {
+                $model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);
+            }
+            
+            if(isset($model->tarikh_tamat))
+            {
+                $model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);
+            }
+            
+            if(isset($model->tarikh_bertolak))
+            {
+                $model->tarikh_bertolak = GeneralFunction::convert($model->tarikh_bertolak, GeneralFunction::TYPE_DATE);
+            }
+            
+            if(isset($model->tarikh_balik))
+            {
+                $model->tarikh_balik = GeneralFunction::convert($model->tarikh_balik, GeneralFunction::TYPE_DATE);
+            }
+            
+            $ref = RefSukan::findOne(['id' => $model->sukan]);
+            $model->sukan = $ref['desc'];
+            
+            $ref = PerancanganProgramPlan::findOne(['perancangan_program_id' => $model->nama_kejohanan]);
+            $model->nama_kejohanan = $ref['nama_program'];
+            
+            $ref = RefKategoriKejohanan::findOne(['id' => $model->kategori_kejohanan]);
+            $model->kategori_kejohanan = $ref['desc'];
+            
+            $ref = RefStatusKejohanan::findOne(['id' => $model->status]);
+            $model->status = $ref['desc'];
+        }
+        else { $readonly = false; }
         
         return $this->render('laporan_penyertaan_kejohanan', [
             'parentModel' => $parentModel,
@@ -809,6 +855,7 @@ class PenyertaanSukanController extends Controller
             'dataProviderKejohananAtlet' => $dataProviderKejohananAtlet,
             'dataProviderKejohananPrestasi' => $dataProviderKejohananPrestasi,
             'dataProviderKejohananRanking' => $dataProviderKejohananRanking,
+            'readonly' => $readonly,
         ]);
     }
     
@@ -839,7 +886,7 @@ class PenyertaanSukanController extends Controller
         $pdf->Output('Laporan_Penyertaan_Kejohanan'.$model->laporan_penyertaan_kejohanan_id.'.pdf', 'I');
     }
     
-    public function actionLaporanPendedahanLatihan($id)
+    public function actionLaporanPendedahanLatihan($id, $readonly)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -848,6 +895,11 @@ class PenyertaanSukanController extends Controller
         $parentModel = $this->findModel($id);
         
         $model = LaporanPendedahanLatihan::findOne(['penyertaan_sukan_id' => $id]);
+        
+        if($model == null){
+            // if not exist then change to create form
+            $readonly =  false;
+        }
         
         $queryPar['PendedahanPegawaiSearch']['penyertaan_sukan_id'] = $id;
         $queryPar['PendedahanJurulatihSearch']['penyertaan_sukan_id'] = $id;
@@ -964,8 +1016,44 @@ class PenyertaanSukanController extends Controller
             if($model->save())
             {
                 Yii::$app->session->setFlash('success', 'Laporan berjaya dikemaskini');
+                
+                return $this->redirect(['laporan-pendedahan-latihan', 'id' => $model->penyertaan_sukan_id, 'readonly' => true]);
             }
         }
+        
+        if($readonly === '1') {
+            $readonly = true;
+            
+            if(isset($model->tarikh_mula))
+            {
+                $model->tarikh_mula = GeneralFunction::convert($model->tarikh_mula, GeneralFunction::TYPE_DATE);
+            }
+            
+            if(isset($model->tarikh_tamat))
+            {
+                $model->tarikh_tamat = GeneralFunction::convert($model->tarikh_tamat, GeneralFunction::TYPE_DATE);
+            }
+            
+            if(isset($model->tarikh_bertolak))
+            {
+                $model->tarikh_bertolak = GeneralFunction::convert($model->tarikh_bertolak, GeneralFunction::TYPE_DATE);
+            }
+            
+            if(isset($model->tarikh_balik))
+            {
+                $model->tarikh_balik = GeneralFunction::convert($model->tarikh_balik, GeneralFunction::TYPE_DATE);
+            }
+            
+            $ref = RefSukan::findOne(['id' => $model->sukan]);
+            $model->sukan = $ref['desc'];
+            
+            $ref = RefAktivitiPendedahan::findOne(['id' => $model->aktiviti]);
+            $model->aktiviti = $ref['desc'];
+            
+            $ref = RefKategoriKejohanan::findOne(['id' => $model->kategori_kejohanan]);
+            $model->kategori_kejohanan = $ref['desc'];
+        }
+        else { $readonly = false; }
     
         return $this->render('laporan_pendedahan_latihan', [
             'parentModel' => $parentModel,
@@ -973,6 +1061,7 @@ class PenyertaanSukanController extends Controller
             'dataProviderPendedahanPegawai' => $dataProviderPendedahanPegawai,
             'dataProviderPendedahanJurulatih' => $dataProviderPendedahanJurulatih,
             'dataProviderPendedahanAtlet' => $dataProviderPendedahanAtlet,
+            'readonly' => $readonly,
         ]);
     }
     

@@ -6,7 +6,7 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\RefPpnSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$this->title = 'PPN';
+$this->title = GeneralLabel::profil_ppn;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-ppn-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(GeneralLabel::createTitle.' PPN', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(GeneralLabel::createTitle.' '.GeneralLabel::profil_ppn, ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -27,11 +27,33 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'desc',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
-                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::desc,
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama,
                 ]
             ],
-            //'aktif',
             [
+                'attribute' => 'no_kad_pengenalan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::no_kad_pengenalan,
+                ]
+            ],
+            [
+                'attribute' => 'jawatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jawatan,
+                ]
+            ],
+            [
+                'attribute' => 'negeri',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::negeri,
+                ],
+                'value' => 'refNegeri.desc'
+            ],
+            //'aktif',
+            /*[
                 'attribute' => 'aktif',
                 'filterInputOptions' => [
                     'class'       => 'form-control',
@@ -40,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     return $model->aktif == 1 ? GeneralLabel::yes : GeneralLabel::no;
                 },
-            ],
+            ],*/
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

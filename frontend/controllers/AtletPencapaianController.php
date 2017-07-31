@@ -326,7 +326,7 @@ class AtletPencapaianController extends Controller
      * @return Array Bandars
      */
     public static function getChild($atlet_id) {
-        $data = AtletPencapaian::find()->where(['atlet_id'=>$atlet_id])->select(['pencapaian_id AS id','nama_kejohanan_temasya AS name'])->asArray()->all();
+        $data = AtletPencapaian::find()->where('nama_kejohanan_temasya <> ""')->andWhere(['atlet_id'=>$atlet_id])->select(['pencapaian_id AS id','nama_kejohanan_temasya AS name'])->asArray()->all();
         $value = (count($data) == 0) ? ['' => ''] : $data;
 
         return $value;

@@ -411,7 +411,17 @@ class GeneralFunction{
 	
 	public static function getJurulatih($param = null){
         
-        $jurulatih_dd_list = Jurulatih::find()->where(['=', 'status_tawaran_mpj', RefStatusTawaran::LULUS_TAWARAN])->andWhere(['=', 'status_tawaran_jkb', RefStatusTawaran::LULUS_TAWARAN]); // defauilt show all lulus mpj and jkb
+        $jurulatih_dd_list = Jurulatih::find()
+                ->where(['=', 'status_tawaran_mpj', RefStatusTawaran::LULUS_TAWARAN])
+                ->andWhere(['=', 'status_tawaran_jkb', RefStatusTawaran::LULUS_TAWARAN]); // defauilt show all lulus mpj and jkb
+        
+        if(isset($param['geran'])){
+            $jurulatih_dd_list = $jurulatih_dd_list->andWhere('status_jurulatih = 6')->orWhere('status_jurulatih = 7');
+        }
+        
+        if(Yii::$app->user->identity->profil_badan_sukan){
+            $jurulatih_dd_list = $jurulatih_dd_list->andWhere('created_by = ' . Yii::$app->user->identity->id);
+        }
         
         $jurulatih_dd_list = $jurulatih_dd_list->all();
         

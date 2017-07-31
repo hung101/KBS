@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['laporan-pemantauan-jurulatih']['update']) && $model->created_by == Yii::$app->user->identity->id): ?>
-            <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->laporan_pemantauan_jurulatih_id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->laporan_pemantauan_jurulatih_id,'jurulatih_id'=>$jurulatih_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['laporan-pemantauan-jurulatih']['delete']) && $model->created_by == Yii::$app->user->identity->id): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->laporan_pemantauan_jurulatih_id], [
@@ -44,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'searchModelLaporanPemantauanJurulatihKategori' => $searchModelLaporanPemantauanJurulatihKategori,
         'dataProviderLaporanPemantauanJurulatihKategori' => $dataProviderLaporanPemantauanJurulatihKategori,
         'readonly' => $readonly,
+        'jurulatih_id' => $jurulatih_id,
     ]) ?>
 
     <?php /*echo DetailView::widget([

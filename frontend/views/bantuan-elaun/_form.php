@@ -25,6 +25,7 @@ use app\models\RefStatusPermohonanSue;
 use app\models\RefNegara;
 use app\models\ProfilBadanSukan;
 use app\models\RefKursusBantuanElaun;
+use app\models\RefBank;
 
 // contant values
 use app\models\general\Placeholder;
@@ -290,9 +291,9 @@ use app\models\general\GeneralVariable;
 ]);
         ?>
     
-    
-    
-    <?php
+    <div class='row'>
+        <div class='col-sm-6'>
+            <?php
         echo FormGrid::widget([
     'model' => $model,
     'form' => $form,
@@ -302,11 +303,61 @@ use app\models\general\GeneralVariable;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                 'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>5],'options'=>['maxlength'=>80]],
-                'no_kad_pengenalan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>4],'options'=>['maxlength'=>12, 'id'=>'NoICID']],
+                'nama' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>80]],
+                'no_kad_pengenalan' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>12, 'id'=>'NoICID']],
                  
             ],
         ],
+        
+    ]
+]);
+        ?>
+        </div>
+        <div class='col-sm-6' id='bankDetails'>
+            <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'nama_bank' =>  [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-bank/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefBank::find()->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::bank],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>6]],
+                'no_akaun' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>100]],
+                 
+            ],
+        ],
+        
+    ]
+]);
+        ?>
+        </div>
+    </div>
+    
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
         [
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
@@ -447,6 +498,26 @@ use app\models\general\GeneralVariable;
         ?>
     
     <h3><?php echo GeneralLabel::muatnaik_dokumen; ?></h3>
+    <?php if(!$readonly): ?>
+    <div class="panel panel-danger">
+        <div class="panel-body">
+            <strong><?php echo GeneralLabel::senarai_document; ?></strong>
+        </div>
+        <ol id='senarai_sue' style='display:none;'>
+            <li>Surat Lantikan</li>
+            <li>Surat Setuju Terima Lantikan</li>
+            <li>Resume</li>
+            <li>Sijil-sijil</li>
+            <li>Spesifikasi Tugas</li>
+        </ol>
+        <ol id='senarai_emolumen_penyelaras' style='display:none;'>
+            <li>Surat Lantikan</li>
+            <li>Surat Setuju Terima Lantikan</li>
+            <li>Syarat-syarat Kontrak</li>
+            <li>Spesifikasi Tugas</li>
+        </ol>
+    </div>
+    <?php endif; ?>
     
     <div class="alert alert-warning alert-dismissible" role="alert">
         <strong>Nota:</strong> <!--Setiap dokumen yang dimuatnaik perlu disahkan dan dihantar kepada Majlis Sukan Negara-->
@@ -724,6 +795,8 @@ $DateDisplayFormat = GeneralVariable::displayDateFormat;
 
 $script = <<< JS
         
+var readonly = '$readonly';
+        
 $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 
     var form = $(this);
@@ -742,6 +815,10 @@ $(document).ready(function(){
     
     if($("#persatuanId").val() != ''){
         getPersatuanProfile();
+    }
+    
+    if($("#bantuanelaun-jenis_bantuan").val() != '' && !readonly){
+        getSenarai();
     }
 });
         
@@ -792,6 +869,26 @@ function getPersatuanProfile(){
             $('#bantuanelaun-emel').attr('value',data.emel_badan_sukan);
         }
     });
+}
+            
+$('#bantuanelaun-jenis_bantuan').change(function(){
+    getSenarai();
+});
+            
+function getSenarai(){
+    if($("#bantuanelaun-jenis_bantuan").val() == '1'){
+        $("#senarai_emolumen_penyelaras").hide();
+        $("#senarai_sue").show();
+    } else {
+        $("#senarai_sue").hide();
+        $("#senarai_emolumen_penyelaras").show();
+    }
+            
+    if($("#bantuanelaun-jenis_bantuan").val() == '2'){
+        $("#bankDetails").show();
+    }else{
+        $("#bankDetails").hide();
+    }
 }
 
 function clearForm(){

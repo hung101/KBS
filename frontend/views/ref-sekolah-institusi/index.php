@@ -24,6 +24,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
+                'attribute' => 'ref_tahap_pendidikan_id',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::tahap_pendidikan,
+                ],
+                'value' => 'refTahapPendidikan.desc',
+            ],
+            [
                 'attribute' => 'desc',
                 'filterInputOptions' => [
                     'class'       => 'form-control',

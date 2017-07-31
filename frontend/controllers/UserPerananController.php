@@ -121,6 +121,8 @@ class UserPerananController extends Controller
                 $modules['Admin'] = $admin;
             }
             
+            $model->agensi = implode(",",$model->agensi);
+            
             foreach($modules as $category_key => $category_value){
                 foreach($category_value as $action_key => $action_value){
                     foreach($action_value as $permission_key => $permission_value){
@@ -134,9 +136,10 @@ class UserPerananController extends Controller
             $model->peranan_akses = json_encode($modules);
         }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Yii::$app->request->post() && $model->save()) {
             return $this->redirect(['view', 'id' => $model->user_peranan_id]);
         } else {
+            
             return $this->render('create', [
                 'model' => $model,
                 'readonly' => false,
@@ -191,6 +194,8 @@ class UserPerananController extends Controller
                 $modules['Admin'] = $admin;
             }
             
+            $model->agensi = implode(",",$model->agensi);
+            
             foreach($modules as $category_key => $category_value){
                 foreach($category_value as $action_key => $action_value){
                     foreach($action_value as $permission_key => $permission_value){
@@ -207,6 +212,8 @@ class UserPerananController extends Controller
         if (Yii::$app->request->post() && $model->save()) {
             return $this->redirect(['view', 'id' => $model->user_peranan_id]);
         } else {
+            $model->agensi=explode(',',$model->agensi);
+            
             return $this->render('update', [
                 'model' => $model,
                 'readonly' => false,

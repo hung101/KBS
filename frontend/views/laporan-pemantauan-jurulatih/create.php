@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'searchModelLaporanPemantauanJurulatihKategori' => $searchModelLaporanPemantauanJurulatihKategori,
         'dataProviderLaporanPemantauanJurulatihKategori' => $dataProviderLaporanPemantauanJurulatihKategori,
         'readonly' => $readonly,
+        'jurulatih_id' => $jurulatih_id,
     ]) ?>
 
 </div>

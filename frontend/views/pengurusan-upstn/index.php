@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class'       => 'form-control',
                     'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_pengurus_sukan,
                 ],
-                //'value' => 'refPpn.desc'
+                'value' => 'refPpn.desc'
             ],
             //'nama_sukan',
             [

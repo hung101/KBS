@@ -69,10 +69,10 @@ class ProfilPusatLatihan extends \yii\db\ActiveRecord
         return [
             [['sukan', 'program', 'nama_pusat_latihan', 'alamat_1', 'alamat_negeri', 'alamat_poskod',
                 'hakmilik'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_program_bermula', 'tahun_siap_pembinaan', 'created', 'updated'], 'safe'],
+            [['tarikh_program_bermula', 'tahun_siap_pembinaan', 'created', 'updated', 'tarikh_jkk_jkb', 'status_permohonan'], 'safe'],
             [['kos_project'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['created_by', 'updated_by', 'mesyuarat_id'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['nama_pusat_latihan', 'hakmilik', 'kadar_sewaan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_pusat_latihan', 'hakmilik', 'kadar_sewaan', 'jkk_jkb'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_1', 'alamat_2', 'alamat_3', 'status', 'sukan', 'program'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_negeri'], 'string', 'max' => 3, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['alamat_bandar', 'alamat_poskod'], 'string', 'max' => 5, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -116,6 +116,9 @@ class ProfilPusatLatihan extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created' => 'Created',
             'updated' => 'Updated',
+            'jkk_jkb' => GeneralLabel::jkk_jkb,
+            'tarikh_jkk_jkb' => GeneralLabel::tarikh_jkk_jkb,
+            'status_permohonan' => GeneralLabel::status_permohonan,
         ];
     }
     

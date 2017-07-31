@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['laporan-pemantauan-jurulatih']['create'])): ?>
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['laporan-pemantauan-jurulatih']['create']) && $jurulatih_id==null): ?>
         <p>
             <?= Html::a(GeneralLabel::createTitle . ' ' . GeneralLabel::pemantauan_jurulatih, ['create', 'jurulatih_id' => $jurulatih_id], ['class' => 'btn btn-success']) ?>
         </p>

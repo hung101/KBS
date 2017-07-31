@@ -20,10 +20,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pertukaran-pengajian']['update'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pertukaran-pengajian']['update']) && $model->status_permohonan === 'Dalam Proses'): ?>
             <?= Html::a(GeneralLabel::update, ['update', 'id' => $model->pertukaran_pengajian_id], ['class' => 'btn btn-primary']) ?>
         <?php endif; ?>
-        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pertukaran-pengajian']['delete'])): ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pertukaran-pengajian']['delete']) && $model->status_permohonan === 'Dalam Proses'): ?>
             <?= Html::a(GeneralLabel::delete, ['delete', 'id' => $model->pertukaran_pengajian_id], [
                 'class' => 'btn btn-danger',
                 'data' => [
@@ -32,9 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ]) ?>
         <?php endif; ?>
-		<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pertukaran-pengajian']['kelulusan']) && $model->status_permohonan === 'Lulus'): ?>
-			<?= Html::a(GeneralLabel::cetak_surat_rasmi, ['surat', 'id' => $model->pertukaran_pengajian_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
-		<?php endif; ?>
+        <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['pertukaran-pengajian']['kelulusan']) && $model->status_permohonan === 'Lulus'): ?>
+            <?= Html::a(GeneralLabel::cetak_surat_rasmi, ['surat', 'id' => $model->pertukaran_pengajian_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
+        <?php endif; ?>
     </p>
     
     <?= $this->render('_form', [

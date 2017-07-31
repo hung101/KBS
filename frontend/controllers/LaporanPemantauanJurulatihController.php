@@ -167,7 +167,7 @@ class LaporanPemantauanJurulatihController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id,$jurulatih_id = null)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(array(GeneralVariable::loginPagePath));
@@ -190,6 +190,7 @@ class LaporanPemantauanJurulatihController extends Controller
                 'searchModelLaporanPemantauanJurulatihKategori' => $searchModelLaporanPemantauanJurulatihKategori,
                 'dataProviderLaporanPemantauanJurulatihKategori' => $dataProviderLaporanPemantauanJurulatihKategori,
                 'readonly' => false,
+                'jurulatih_id' => $jurulatih_id,
             ]);
         }
     }

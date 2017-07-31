@@ -106,7 +106,7 @@ if(isset($model->tarikh) && $model->tarikh != null)
 <br />
 Tuan,
 <p>
-    Saya bersetuju / tidak setuju menerima Tawaran Pelantikan Semula / Kenaikan Gaji sebagai Jurulatih Sepenuh Masa Sukan <b><?= $sukan ?></b> beserta dengan syarat-syarat lantikan seperti yang dinyatakan di dalam surat rujukan tuan Bil MSNM: <b><?= $model->bil_msnm ?></b> bertarikh <b><?= $selectedDate ?></b>.
+    Saya bersetuju / tidak setuju menerima Tawaran Pelantikan Semula / Kenaikan Gaji sebagai Jurulatih Sepenuh Masa Sukan <b><?= $sukan ?></b> beserta dengan syarat-syarat lantikan seperti yang dinyatakan di dalam surat rujukan tuan Rujukan MSN: <b><?= $model->bil_msnm ?></b> bertarikh <b><?= $selectedDate ?></b>.
 </p>
 
 <p>Sekian, terima kasih.</p>

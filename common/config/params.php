@@ -4,7 +4,7 @@ return [
     'supportEmail' => 'noreply@spsb.com',
     'user.passwordResetTokenExpire' => 3600,
 	// eddie start
-    'expiryTimeout' => 6000, // 300 sec / 5 minutes
+    'expiryTimeout' => 900, // 300 sec / 5 minutes
     'passwordExpiry' => 90 * 24 * 60 * 60, // 90 days in sec
     'allowLoginAttempt' => 3, // number of allow login attemption
     'allowConcurrentLogin' => false, // reset auth key if false

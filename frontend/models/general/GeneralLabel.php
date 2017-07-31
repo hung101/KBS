@@ -71,7 +71,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const acara = "Acara";
         const action = "Action";
         const activiti = "Activiti";
-        const admin = "Admin";
+        const admin = "Pentadbir";
         const admin_e_biasiswa = "Admin E Biasiswa";
         const admin_e_biasiswa_id = "Sesi Permohonan";
         const aduan_dimajukan_kepada_agensi_lain = "Aduan Dimajukan Kepada Agensi Lain";
@@ -434,6 +434,7 @@ if($session->get('language') == "BM" || $session->get('language') == null || $se
         const catitan_ringkas = "Catatan Ringkas";
         const cawangan = "Cawangan";
         const cawangan_dan_alamat_bank = "Cawangan Dan Alamat Bank";
+        const cek_atas_nama = "Cek Atas Nama";
         const cetak = "Cetak";
         const cetak_profil_atlet = "Cetak Profil Atlet";
         const cetak_profil_atlet_paralimpik = "Cetak Profil Atlet (Paralimpik)";
@@ -1279,6 +1280,7 @@ perincian cadangan perbelanjaan<br>2.Sijil Pendaftaran persatuan<br>3.Salinan Pe
         const minit_ajk_muat_naik = "Minit AJK";
         const mod_latihan = "Mod Latihan";
         const model = "Model";
+        const modul = "Modul";
         const module_name = "Module Name";
         const mou_moa_antarabangsa = "MOU-MOA Antarabangsa";
         const ms_negeri = "MS Negeri";
@@ -1662,6 +1664,7 @@ perincian cadangan perbelanjaan<br>2.Sijil Pendaftaran persatuan<br>3.Salinan Pe
         const laporan_pemantauan_usptn = "Laporan Pemantauan USPTN";
         const pemohon_kursus_tahap_akk_id = "Pemohon Kursus Tahap Akk ID";
         const penajaan_sokongan_id = "Penajaan Sokongan ID";
+        const penapis_agensi = "Penapis Agensi";
         const pencalonan_olahragawan_harapan_tahun = "Pencalonan Olahragawan Harapan Tahun";
         const pencalonan_olahragawan_tahun = "Pencalonan Olahragawan Tahun";
         const pencalonan_olahragawati_harapan_tahun = "Pencalonan Olahragawati Harapan Tahun";
@@ -1924,6 +1927,7 @@ perincian cadangan perbelanjaan<br>2.Sijil Pendaftaran persatuan<br>3.Salinan Pe
         const profil_delegasi_teknikal = "Profil Delegasi Teknikal";
         const profil_konsultan_id = "Profil Konsultan ID";
         const profil_pegawai_teknikal = "Profil Pegawai Teknikal";
+        const profil_ppn = "Profil PPN";
         const profil_psk = "Profil PSK";
         const profil_pusat_latihan = "Profil Pusat Latihan";
         const profil_sukarelawan = "Profil Sukarelawan";
@@ -2330,11 +2334,12 @@ perincian cadangan perbelanjaan<br>2.Sijil Pendaftaran persatuan<br>3.Salinan Pe
         const hantar = "Tarikh Hantar";
         const tarikh_hingga = "Hingga";
         const tarikh_jkb = "Tarikh JKB";
+        const tarikh_jkk_jkb = "Tarikh JKK / JKB";
         const tarikh_jkk_jkp = "Tarikh JKK / JKP";
         const tarikh_journal = "Tarikh Journal";
-		const laporan_temujanji = "Laporan Temujanji";
-		const laporan_status = "Laporan Status";
-		const laporan_mengikut_sukan = "Laporan Mengikut Sukan";
+        const laporan_temujanji = "Laporan Temujanji";
+        const laporan_status = "Laporan Status";
+        const laporan_mengikut_sukan = "Laporan Mengikut Sukan";
         const tarikh_kejadian = "Tarikh Kejadian";
         const tarikh_kejohanan = "Tarikh Kejohanan";
         const tarikh_kejohanan_program_aktiviti_yang_disertai = "Tarikh Aktiviti";
@@ -2702,7 +2707,7 @@ perincian cadangan perbelanjaan<br>2.Sijil Pendaftaran persatuan<br>3.Salinan Pe
         const laporan_skim_kebajikan = "Laporan Skim Kebajikan";
         const laporan_skim_pelesenan_kejurulatihan_kebangsaan = "Laporan Skim Pelesenan Kejurulatihan Kebangsaan";
         const laporan_statistik_analisi_tubuh_badan = "Laporan Statistik Analisis Tubuh Badan";
-        const laporan_statistik_atlet = "Laporan Statistik Atlet";
+        const laporan_statistik_atlet = "Laporan Statistik Atlet Mengikut Program";
         const laporan_statistik_atlet_agama = "Laporan Statistik Atlet Mengikut Agama";
         const laporan_statistik_atlet_agama_paralimpik = "Laporan Statistik Atlet Mengikut Agama (Paralimpik)";
         const laporan_statistik_atlet_bangsa = "Laporan Statistik Atlet Mengikut Bangsa";
@@ -2711,7 +2716,7 @@ perincian cadangan perbelanjaan<br>2.Sijil Pendaftaran persatuan<br>3.Salinan Pe
         const laporan_statistik_atlet_institusi_sekolah_paralimpik = "Laporan Statistik Atlet Mengikut Institusi / Sekolah (Paralimpik)";
         const laporan_statistik_atlet_jantina = "Laporan Statistik Atlet Mengikut Jantina";
         const laporan_statistik_atlet_jantina_paralimpik = "Laporan Statistik Atlet Mengikut Jantina (Paralimpik)";
-        const laporan_statistik_atlet_paralimpik = "Laporan Statistik Atlet (Paralimpik)";
+        const laporan_statistik_atlet_paralimpik = "Laporan Statistik Atlet Mengikut Program (Paralimpik)";
         const laporan_statistik_atlet_pendidikan = "Laporan Statistik Atlet Mengikut Pendidikan";
         const laporan_statistik_atlet_pendidikan_paralimpik = "Laporan Statistik Atlet Mengikut Pendidikan (Paralimpik)";
         const laporan_statistik_atlet_umur = "Laporan Statistik Atlet Mengikut Umur";
@@ -2945,7 +2950,9 @@ perincian cadangan perbelanjaan<br>2.Sijil Pendaftaran persatuan<br>3.Salinan Pe
         const senarai_document_7 = "Salinan Sijil Pendidikan Kejurulatihan.";
         const senarai_document_8 = "Salinan Sijil Skim Persijilan Kejurulatihan Kebangsaan (SPKK) terkini. (Kursus Sains Sukan dan Kursus Sukan Spesifik)";        
         const senarai_dokumen_sokongan = "Senarai Dokumen Sokongan";
+        const sesi_concurrent_msg = "Sesi tamat. ID anda telah di log masuk di PC lain.";
         const sesi_kaunseling = "Sesi Kaunseling";
+        const sesi_tamat_msg = "Sesi tamat. Anda telah meninggalkan laman web ini lebih dari 15 minit.";
         const sijil_tambahan_yang_dikehendaki_bagi_sukan_akuatik_sahaja = "SIJIL TAMBAHAN YANG DIKEHENDAKI BAGI SUKAN AKUATIK SAHAJA";
         const sistem_pengurusan_atlet = "Sistem Pengurusan Atlet";
         const sistem_pengurusan_kejohanan = "Sistem Pengurusan Kejohanan";
@@ -3065,10 +3072,10 @@ perincian cadangan perbelanjaan<br>2.Sijil Pendaftaran persatuan<br>3.Salinan Pe
         const jenis_kursuskem = "Jenis Kursuskem";
         const jenis_lesen_memandu = "Jenis Lesen Memandu";
         const jenis_perkhidmatan_akademik = "Jenis Perkhidmatan Akademik";
-		const status_bantuan_penganjuran_kejohanan = "Status Bantuan Penganjuran Kejohanan";
+        const status_bantuan_penganjuran_kejohanan = "Status Bantuan Penganjuran Kejohanan";
         const jenis_permohonan_pendidikan = "Jenis Permohonan Pendidikan";
         const jenis_permohonan_program_binaan = "Jenis Permohonan Program Binaan";
-		const status_pusat_latihan = "Status Pusat Latihan";
+        const status_pusat_latihan = "Status Pusat Latihan";
         const jenis_program_bantuan_menghadiri_program_antarabangsa = "Jenis Program Bantuan Menghadiri Program Antarabangsa";
         const jenis_program_binaan = "Jenis Program Binaan";
         const jenis_program_jaringan_antarabangsa = "Jenis Program Jaringan Antarabangsa";
@@ -3080,9 +3087,10 @@ perincian cadangan perbelanjaan<br>2.Sijil Pendaftaran persatuan<br>3.Salinan Pe
         const jenis_temujanji_pesakit_luar = "Jenis Temujanji Pesakit Luar";
         const jenis_temujanji_rehabilitasi = "Jenis Temujanji Rehabilitasi";
         const jenis_bayaran = "Jenis Bayaran";
-		const pengkalan_data = "Pengkalan Data";
+        const pengkalan_data = "Pengkalan Data";
+        const jkk_jkb = "JKK / JKB";
         const jkk_jkp = "JKK / JKP";
-		const analisa = "Analisa";
+        const analisa = "Analisa";
         const juru_urut = "Juru Urut";
         const jurulatih_msn = "Jurulatih MSN";
         const kadar = "Kadar";
@@ -4311,6 +4319,7 @@ if($session->get('language') == "EN") {
         const catitan_ringkas = "Simple Entry";
         const cawangan = "Branch";
         const cawangan_dan_alamat_bank = "Branch And Address Of The Bank";
+        const cek_atas_nama = "Cheques Name";
         const cetak = "Print";
         const cetak_profil_atlet = "Print Profile Athlete";
         const cetak_profil_atlet_paralimpik = "Print Profile Athlete (Paralympic)";
@@ -5141,6 +5150,7 @@ details of the proposed spending most 2.Certificate Registration association mos
         const minit_ajk_muat_naik = "Minutes COMMITTEE MEMBER";
         const mod_latihan = "Training Mode";
         const model = "Model";
+        const modul = "Modul";
 		const jumlah_bantuan_yang_dipohon_index = "Total Aid Applied";
         const module_name = "Module Name";
         const mou_moa_antarabangsa = "MOU-MOA International";
@@ -5516,6 +5526,7 @@ details of the proposed spending most 2.Certificate Registration association mos
         const pemohon = "The applicant";
         const pemohon_kursus_tahap_akk_id = "Applicant ID Akk Level Course";
         const penajaan_sokongan_id = "Sponsorship Support ID";
+        const penapis_agensi = "Agency Filter";
         const pencalonan_olahragawan_harapan_tahun = "The Nomination Of The Sportsman Of The Year Hope";
         const pencalonan_olahragawan_tahun = "The Nomination Of The Sportsman Of The Year";
         const pencalonan_olahragawati_harapan_tahun = "The Nomination Of The Sportswoman Of The Year Hope";
@@ -5779,6 +5790,7 @@ details of the proposed spending most 2.Certificate Registration association mos
         const profil_delegasi_teknikal = "Technical Delegate profile";
         const profil_konsultan_id = "Profile Consultant ID";
         const profil_pegawai_teknikal = "Profile Technical Officer";
+        const profil_ppn = "Profile PPN";
         const profil_psk = "Profile PSK";
         const profil_pusat_latihan = "Profile Training Center";
         const profil_sukarelawan = "Profile Volunteer";
@@ -6170,6 +6182,7 @@ details of the proposed spending most 2.Certificate Registration association mos
         const hantar = "Date Sent";
         const tarikh_hingga = "To";
         const tarikh_jkb = "The Date Of JKB";
+        const tarikh_jkk_jkb = "The Date Of JKK / JKB";
         const tarikh_jkk_jkp = "The Date Of JKK / JKP";
         const tarikh_journal = "The Date Of The Journal";
         const tarikh_kejadian = "Date Of Occurrence";
@@ -6557,7 +6570,7 @@ details of the proposed spending most 2.Certificate Registration association mos
         const laporan_skim_kebajikan = "Report of the National Athletes Welfare Scheme";
         const laporan_skim_pelesenan_kejurulatihan_kebangsaan = "Report of the National Coaching Licensing Scheme";
         const laporan_statistik_analisi_tubuh_badan = "Body Analytics Statistical Report";
-        const laporan_statistik_atlet = "Athletes Statistical Report";
+        const laporan_statistik_atlet = "Athletes Statistical Report By Programme";
         const laporan_statistik_atlet_agama = "Athletes Statistical Report By Religion";
         const laporan_statistik_atlet_agama_paralimpik = "Athletes Statistical Report By Religion (Paralympic)";
         const laporan_statistik_atlet_bangsa = "Athletes Statistical Report By Nation";
@@ -6566,7 +6579,7 @@ details of the proposed spending most 2.Certificate Registration association mos
         const laporan_statistik_atlet_institusi_sekolah_paralimpik = "Athletes Statistical Report By Institution / School (Paralympic)";
         const laporan_statistik_atlet_jantina = "Athletes Statistical Report By Gender";
         const laporan_statistik_atlet_jantina_paralimpik = "Athletes Statistical Report By Gender (Paralimpik)";
-        const laporan_statistik_atlet_paralimpik = "Athletes Statistical Report (Paralympic)";
+        const laporan_statistik_atlet_paralimpik = "Athletes Statistical Report By Programme (Paralympic)";
         const laporan_statistik_atlet_pendidikan = "Athletes Statistical Report By Education";
         const laporan_statistik_atlet_pendidikan_paralimpik = "Athletes Statistical Report By Education (Paralympic)";
         const laporan_statistik_atlet_umur = "Athletes Statistical Report By Age";
@@ -6809,7 +6822,9 @@ details of the proposed spending most 2.Certificate Registration association mos
         const senarai_document_7 = "Copy of coaching education certificates.";
         const senarai_document_8 = "Copy of latest certificates from Skim Persijilan Kejurulatihan Kebangsaan (SPKK).";
         const senarai_dokumen_sokongan = "List of Supporting Documents";
+        const sesi_concurrent_msg = "Session expired. Your ID has been logged in another PC.";
         const sesi_kaunseling = "Counselling Session";
+        const sesi_tamat_msg = "Session expired. You have left this browser idle for more than 15 minutes.";
         const sijil_tambahan_yang_dikehendaki_bagi_sukan_akuatik_sahaja = "ADDITIONAL CERTIFICATES REQUIRED ONLY FOR AQUATIC SPORTS";
         const sistem_pengurusan_atlet = "Athlete Management System";
         const sistem_pengurusan_kejohanan = "Tournament Management System";
@@ -6943,6 +6958,7 @@ details of the proposed spending most 2.Certificate Registration association mos
         const jenis_temujanji_pesakit_luar = "Types Of Outpatient Appointment";
         const jenis_temujanji_rehabilitasi = "Type Of Appointment Rehabilitation";
         const jenis_bayaran = "Payment Type";
+        const jkk_jkb = "JKK / JKB";
         const jkk_jkp = "JKK / JKP";
         const juru_urut = "Well Massage";
         const jurulatih_msn = "Coach MSN";

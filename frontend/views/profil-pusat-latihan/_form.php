@@ -19,6 +19,7 @@ use app\models\RefBandar;
 use app\models\RefStatusPusatLatihan;
 use app\models\RefSukan;
 use app\models\RefProgramMsn;
+use app\models\RefStatusBantuanPenganjuranKejohanan;
 
 // contant values
 use app\models\general\Placeholder;
@@ -215,13 +216,13 @@ use app\models\general\GeneralMessage;
                     'columnOptions'=>['colspan'=>3]],
             ]
         ],
-        [
+        /*[
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
                 'catatan' => ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>2],'options'=>['maxlength'=>255]],
             ]
-        ],
+        ],*/
     ]
 ]);
     ?>
@@ -317,50 +318,219 @@ use app\models\general\GeneralMessage;
                         ]);?>
     </p>
     <?php endif; ?>
+    
+    <br>
+    
+    <h3><?php echo GeneralLabel::kemudahan; ?></h3>
+    
+    <?php Pjax::begin(['id' => 'profilPusatLatihanKemudahanGrid', 'timeout' => 100000]); ?>
 
-   <!-- <?= $form->field($model, 'nama_pusat_latihan')->textInput(['maxlength' => true]) ?>
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderProfilPusatLatihanKemudahan,
+        //'filterModel' => $searchModelProfilPusatLatihanKemudahan,
+        'id' => 'profilPusatLatihanKemudahanGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
 
-    <?= $form->field($model, 'alamat_1')->textInput(['maxlength' => true]) ?>
+            
+            //'profil_pusat_latihan_kemudahan_id',
+            //'profil_pusat_latihan_id',
+            [
+                'attribute' => 'jenis_kemudahan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::jenis_kemudahan,
+                ],
+                'value' => 'refJenisKemudahan.desc'
+            ],
+            [
+                'attribute' => 'sukan',
+                'value'=>function ($model) {
+                    $SukanListID = explode(',', $model->sukan);
+                    $SukanListName = "";
 
-    <?= $form->field($model, 'alamat_2')->textInput(['maxlength' => true]) ?>
+                    foreach($SukanListID as $SukanID){
+                        $ref = RefSukan::findOne(['id' => $SukanID]);
+                        if($SukanListName != ""){
+                            $SukanListName .= ', ';
+                        }
+                        $SukanListName .= $ref['desc'];
+                    }
+                    
+                    return $SukanListName;
+                },
+            ],
+            //'session_id',
+            //'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
 
-    <?= $form->field($model, 'alamat_3')->textInput(['maxlength' => true]) ?>
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['profil-pusat-latihan-kemudahan/delete', 'id' => $model->profil_pusat_latihan_kemudahan_id]).'", "'.GeneralMessage::confirmDelete.'", "profilPusatLatihanKemudahanGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
 
-    <?= $form->field($model, 'alamat_negeri')->textInput(['maxlength' => true]) ?>
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-pusat-latihan-kemudahan/update', 'id' => $model->profil_pusat_latihan_kemudahan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::kemudahan.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-pusat-latihan-kemudahan/view', 'id' => $model->profil_pusat_latihan_kemudahan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::kemudahan.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-pusat-latihan-kemudahan/create', 'profil_pusat_latihan_id' => $profil_pusat_latihan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::kemudahan.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
+    
+    <h3><?php echo GeneralLabel::peralatan; ?></h3>
+    
+    <?php Pjax::begin(['id' => 'profilPusatLatihanPeralatanGrid', 'timeout' => 100000]); ?>
 
-    <?= $form->field($model, 'alamat_bandar')->textInput(['maxlength' => true]) ?>
+    <?= GridView::widget([
+        'dataProvider' => $dataProviderProfilPusatLatihanPeralatan,
+        //'filterModel' => $searchModelProfilPusatLatihanPeralatan,
+        'id' => 'profilPusatLatihanPeralatanGrid',
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
 
-    <?= $form->field($model, 'alamat_poskod')->textInput(['maxlength' => true]) ?>
+            
+            //'profil_pusat_latihan_peralatan_id',
+            //'profil_pusat_latihan_id',
+            [
+                'attribute' => 'nama_peralatan',
+                'filterInputOptions' => [
+                    'class'       => 'form-control',
+                    'placeholder' => GeneralLabel::filter.' '.GeneralLabel::nama_peralatan,
+                ],
+            ],
+            //'session_id',
+            //'created_by',
+            // 'updated_by',
+            // 'created',
+            // 'updated',
 
-    <?= $form->field($model, 'no_telefon')->textInput(['maxlength' => true]) ?>
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Delete'),
+                        'onclick' => 'deleteRecordModalAjax("'.Url::to(['profil-pusat-latihan-peralatan/delete', 'id' => $model->profil_pusat_latihan_peralatan_id]).'", "'.GeneralMessage::confirmDelete.'", "profilPusatLatihanPeralatanGrid");',
+                        //'data-confirm' => 'Czy na pewno usunąć ten rekord?',
+                        ]);
 
-    <?= $form->field($model, 'no_faks')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'emel')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'tarikh_program_bermula')->textInput() ?>
-
-    <?= $form->field($model, 'tahun_siap_pembinaan')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'kos_project')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'keluasan_venue')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'hakmilik')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'kadar_sewaan')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'catatan')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
-
-    <?= $form->field($model, 'created')->textInput() ?>
-
-    <?= $form->field($model, 'updated')->textInput() ?>-->
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'Update'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-pusat-latihan-peralatan/update', 'id' => $model->profil_pusat_latihan_peralatan_id]).'", "'.GeneralLabel::updateTitle . ' '.GeneralLabel::peralatan.'");',
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', 'javascript:void(0);', [
+                        'title' => Yii::t('yii', 'View'),
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-pusat-latihan-peralatan/view', 'id' => $model->profil_pusat_latihan_peralatan_id]).'", "'.GeneralLabel::viewTitle . ' '.GeneralLabel::peralatan.'");',
+                        ]);
+                    }
+                ],
+                'template' => $template,
+            ],
+        ],
+    ]); ?>
+    
+    <?php Pjax::end(); ?>
+    
+     <?php if(!$readonly): ?>
+    <p>
+        <?php 
+        echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
+                        'onclick' => 'loadModalRenderAjax("'.Url::to(['profil-pusat-latihan-peralatan/create', 'profil_pusat_latihan_id' => $profil_pusat_latihan_id]).'", "'.GeneralLabel::createTitle . ' '.GeneralLabel::peralatan.'");',
+                        'class' => 'btn btn-success',
+                        ]);?>
+    </p>
+    <?php endif; ?>
+    
+    <br>
+    
+    <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['kelulusan']) || $readonly): ?>
+    <?php
+        echo FormGrid::widget([
+    'model' => $model,
+    'form' => $form,
+    'autoGenerateColumns' => true,
+    'rows' => [
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'jkk_jkb' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>true]],
+                'tarikh_jkk_jkb' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=> DateControl::classname(),
+                    'ajaxConversion'=>false,
+                    'options'=>[
+                        'pluginOptions' => [
+                            'autoclose'=>true,
+                        ]
+                    ],
+                    'columnOptions'=>['colspan'=>3]],
+                'status_permohonan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-bantuan-penganjuran-kejohanan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefStatusBantuanPenganjuranKejohanan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::statusPermohonan],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>4]],
+            ]
+        ],
+        [
+            'columns'=>12,
+            'autoGenerateColumns'=>false, // override columns setting
+            'attributes' => [
+                'catatan' =>  ['type'=>Form::INPUT_TEXTAREA,'columnOptions'=>['colspan'=>6],'options'=>['maxlength'=>255]],
+            ],
+        ],
+    ]
+]);
+    ?>
+    <?php endif; ?>
 
     <div class="form-group">
         <?php if(!$readonly): ?>

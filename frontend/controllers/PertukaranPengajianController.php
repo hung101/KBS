@@ -303,8 +303,8 @@ class PertukaranPengajianController extends Controller
             $ref = Atlet::findOne(['atlet_id' => $parentModel->atlet_id]);
             $parentModel->atlet_id = $ref['name_penuh'];
 
-            $ref = RefPengajian::findOne(['id' => $parentModel->nama_pertukaran_pengajian]);
-            $parentModel->nama_pertukaran_pengajian = $ref['desc'];
+            //$ref = RefPengajian::findOne(['id' => $parentModel->nama_pertukaran_pengajian]);
+            //$parentModel->nama_pertukaran_pengajian = $ref['desc'];
 
             $ref = PerancanganProgram::findOne(['perancangan_program_id' => $parentModel->kejohanan_program]);
             $parentModel->kejohanan_program = $ref['nama_program'];

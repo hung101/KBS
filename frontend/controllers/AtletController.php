@@ -563,7 +563,11 @@ Sekian, terima kasih.
         
         //return $this->redirect(['view', 'id' => $model->jurulatih_id]);
         
-        return $this->redirect(['index']);
+        if($model->cacat == '1'){
+            return $this->redirect(['index-cacat']);
+        } else {
+            return $this->redirect(['index']);
+        }
     }
 
     public function actionBulk() {

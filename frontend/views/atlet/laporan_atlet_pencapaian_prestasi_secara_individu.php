@@ -112,7 +112,7 @@ $cawangan_list = GeneralFunction::getCawangan($param_cawangan);
                             ] : null,
                             'pluginOptions'=>['multiple' => true,'allowClear'=>true]
                         ],
-                        'data'=>ArrayHelper::map(AtletPencapaian::find()->all(),'pencapaian_id', 'nama_kejohanan_temasya'),
+                        'data'=>ArrayHelper::map(AtletPencapaian::find()->where('nama_kejohanan_temasya <> ""')->groupBy('nama_kejohanan_temasya')->all(),'pencapaian_id', 'nama_kejohanan_temasya'),
                         'options'=>['prompt'=>'',],
                         'pluginOptions' => [
                             'depends'=>[Html::getInputId($model, 'atlet')],

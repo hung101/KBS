@@ -64,6 +64,12 @@ class PerancanganProgramPlanController extends Controller
             return $this->redirect(array(GeneralVariable::loginPagePath));
         }
         
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if(isset(Yii::$app->user->identity->peranan_akses['MSN']['perancangan-program']['view_own_data'])){
+            $queryParams['PerancanganProgramPlanMasterSearch']['created_by'] = Yii::$app->user->identity->id;
+        }
+        
         $searchModel = new PerancanganProgramPlanMasterSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

@@ -62,7 +62,7 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatih extends \yii\db\ActiveR
     {
         return [
             [['jurulatih', 'tarikh_mula', 'status_permohonan', 'tarikh_tamat'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['jurulatih', 'status_tawaran_jkb', 'status_tawaran_mpj'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['jurulatih', 'status_tawaran_jkb', 'status_tawaran_mpj', 'status_jurulatih', 'sukan', 'cadangan_status_jurulatih', 'bahagian'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['jumlah_gaji_elaun', 'cadangan_jumlah_gaji_elaun'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['tarikh_mula_lantikan', 'tarikh_tamat_lantikan', 'penamatan_tarikh_berkuatkuasa', 'tarikh_jkb', 'tarikh_mpj'], 'safe'],
             //[[ 'muat_naik_document'], 'string', 'max' => 100],
@@ -103,6 +103,10 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatih extends \yii\db\ActiveR
             'pengerusi' => GeneralLabel::pengerusi,
             'catatan_mpj' => GeneralLabel::catatan,
             'status_tawaran_mpj' => GeneralLabel::status_tawaran_mpj,
+            'status_jurulatih' => GeneralLabel::status_jurulatih,
+            'sukan' => GeneralLabel::sukan,
+            'cadangan_status_jurulatih' => GeneralLabel::status_jurulatih,
+            'bahagian' => GeneralLabel::bahagian,
         ];
     }
     

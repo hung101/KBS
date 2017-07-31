@@ -34,6 +34,8 @@ use common\models\general\GeneralFunction;
 /* @var $this yii\web\View */
 /* @var $model app\models\GeranBantuanGaji */
 /* @var $form yii\widgets\ActiveForm */
+
+$param['geran'] = true; // filter status geran only for Jurulatih DD
 ?>
 
 <div class="geran-bantuan-gaji-form">
@@ -72,7 +74,7 @@ use common\models\general\GeneralFunction;
                                 'asButton' => true
                             ]
                         ] : null,
-                        'data'=>ArrayHelper::map(GeneralFunction::getJurulatih(),'jurulatih_id', 'nameAndIC'),
+                        'data'=>ArrayHelper::map(GeneralFunction::getJurulatih($param),'jurulatih_id', 'nameAndIC'),
                         'options' => ['placeholder' => Placeholder::jurulatih, 'id'=>'jurulatihId'],
 'pluginOptions' => [
                             'allowClear' => true
@@ -237,6 +239,7 @@ use common\models\general\GeneralFunction;
                         ]
                     ],
                     'columnOptions'=>['colspan'=>3]],
+                'cek_atas_nama' =>['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>3],'options'=>['maxlength'=>80]],
                 //'status_keaktifan_jurulatih' => ['type'=>Form::INPUT_DROPDOWN_LIST,'items'=>[''=>'-- Pilih Keaktifan Jurulatih --'],'columnOptions'=>['colspan'=>3]],
             ],
         ],
@@ -784,6 +787,35 @@ $('#jurulatihId').change(function(){
         }
     });
 });
+            
+$(document).ready(function(){
+    setDuration();
+});
+        
+$("#geranbantuangaji-tarikh_mula").change(function(){
+    setDuration();
+});
+        
+$("#geranbantuangaji-tarikh_tamat").change(function(){
+    setDuration();
+});
+            
+function setDuration(){
+    if($("#geranbantuangaji-tarikh_mula").val() !== "" && $("#geranbantuangaji-tarikh_tamat").val() !== ""){
+        var fromDatetime = $("#geranbantuangaji-tarikh_mula").val();
+        var toDatetime = $("#geranbantuangaji-tarikh_tamat").val();
+
+        var fromDate = moment(fromDatetime,'YYYY-MM-DD');
+        var toDate = moment(toDatetime,'YYYY-MM-DD');
+
+        if(fromDatetime != "" && toDatetime != ""){
+            months = monthDiff2(fromDate,toDate);
+            $("#geranbantuangaji-bulan").val(months);
+        }
+    }
+            
+    calculateJumlahGeran();
+}
      
 function clearForm(){
     $("#geranbantuangaji-status_jurulatih").val('').trigger("change");

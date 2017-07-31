@@ -469,6 +469,7 @@ $('#atletId').change(function(){
                 $('#permohonanbiasiswa-alamat_rumah_negeri').val(data.alamat_rumah_negeri).trigger("change");
                 $('#permohonanbiasiswa-alamat_rumah_bandar').val(data.alamat_rumah_bandar).trigger("change");
                 $('#permohonanbiasiswa-alamat_rumah_poskod').attr('value',data.alamat_rumah_poskod);
+                
             
                 $("#atletLink").html(data.view_url_button);
                 $("#atletLinkDiv").show();
@@ -483,7 +484,11 @@ $('#atletId').change(function(){
                     //$('#permohonanbiasiswa-nama_institusi_pengajian').attr('value',data.refAtletPendidikan[0].nama);
                     $('#permohonanbiasiswa-nama_institusi_pengajian').attr('value',data.institusi_sekolah);
                     $('#permohonanbiasiswa-nama_program_pengajian').attr('value',data.refAtletPendidikan[0].kursus);
-                    $('#permohonanbiasiswa-no_matrik').val(data.refAtletPendidikan[0].no_matrix);
+                    $('#permohonanbiasiswa-no_matrix').val(data.refAtletPendidikan[0].no_matrix);
+                    $("#permohonanbiasiswa-tarikh_mula_pengajian-disp").val(formatDisplayDate(data.refAtletPendidikan[0].tahun_mula));
+                    $("#permohonanbiasiswa-tarikh_tamat_pengajian-disp").val(formatDisplayDate(data.refAtletPendidikan[0].tahun_tamat));
+                    $("#permohonanbiasiswa-tarikh_mula_pengajian").val(data.refAtletPendidikan[0].tahun_mula);
+                    $("#permohonanbiasiswa-tarikh_tamat_pengajian").val(data.refAtletPendidikan[0].tahun_tamat);
                 }
             }
         });
@@ -504,7 +509,12 @@ function clearForm(){
     $('#permohonanbiasiswa-tahap_pendidikan').val('').trigger("change");
     $('#permohonanbiasiswa-nama_institusi_pengajian').attr('value','');
     $('#permohonanbiasiswa-nama_program_pengajian').attr('value','');
-    $('#permohonanbiasiswa-no_matrik').val('');
+    $('#permohonanbiasiswa-no_matrix').val('');
+            
+    $("#permohonanbiasiswa-tarikh_mula_pengajian-disp").val('');
+    $("#permohonanbiasiswa-tarikh_tamat_pengajian-disp").val('');
+    $("#permohonanbiasiswa-tarikh_mula_pengajian").val('');
+    $("#permohonanbiasiswa-tarikh_tamat_pengajian").val('');
             
     $("#atletLink").html('');
     $("#atletLinkDiv").hide();

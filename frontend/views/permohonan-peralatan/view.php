@@ -6,6 +6,8 @@ use yii\widgets\DetailView;
 use app\models\general\GeneralMessage;
 use app\models\general\GeneralLabel;
 
+use app\models\RefKelulusanPeralatan;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\PermohonanPeralatan */
 
@@ -41,7 +43,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ]) ?>
         <?php endif; ?>
         <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['update']) && $model->hantar_flag == 1): ?>
-            <?= Html::a(GeneralLabel::permohonan_penerimaan_peralatan, ['print-permohonan-penerimaan-peralatan', 'id' => $model->permohonan_peralatan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
+            <?php if($model->kelulusan == RefKelulusanPeralatan::LULUS_JKB || $model->kelulusan == RefKelulusanPeralatan::LULUS_PENGARAH): ?>
+                <?= Html::a(GeneralLabel::permohonan_penerimaan_peralatan, ['print-permohonan-penerimaan-peralatan', 'id' => $model->permohonan_peralatan_id], ['class' => 'btn btn-warning', 'target' => '_blank']) ?>
+            <?php endif; ?>
             <?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['permohonan-peralatan']['kelulusan'])): ?>
                 <?= Html::a(GeneralLabel::borang_jkb, ['print-jkb', 'id' => $model->permohonan_peralatan_id], ['class' => 'btn btn-info', 'target' => '_blank']) ?>
             <?php endif; ?>

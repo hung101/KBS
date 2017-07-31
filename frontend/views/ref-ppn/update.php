@@ -5,10 +5,10 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPpn */
 
-$this->title = GeneralLabel::updateTitle.' '.'PPN'.': ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'PPN', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
+$this->title = GeneralLabel::updateTitle . ' ' . GeneralLabel::profil_ppn;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::profil_ppn, 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::viewTitle . ' ' . GeneralLabel::profil_ppn, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-ppn-update">
 
@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = GeneralLabel::updateTitle;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'readonly' => $readonly,
     ]) ?>
 
 </div>

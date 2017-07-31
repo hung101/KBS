@@ -31,6 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+            [
+                'attribute' => 'ref_tahap_pendidikan_id',
+                'value' => $model->refTahapPendidikan->desc,
+            ],
             'desc',
             //'aktif',
             [

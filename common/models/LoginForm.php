@@ -80,8 +80,14 @@ class LoginForm extends Model
                     $user->save();
                 }
                 
-                //$this->addError($attribute, 'Incorrect username or password, or account deactivated.');
-                $this->addError($attribute, 'Nama pengguna atau kata laluan salah, atau akaun dinyahaktifkan');
+                if($user && $user->login_attempted == 3){ // prompt attempted 3 times invalid 
+                    $this->addError($attribute, 'Akaun anda disekat kerana cubaan login maksimum, sila hubungi admin.');
+                } elseif($user && $user->status == User::STATUS_DELETED){
+                    $this->addError($attribute, 'Akaun anda telah dinyahaktifkan. Sila hubungi admin SPSB.');
+                } else {
+                    //$this->addError($attribute, 'Incorrect username or password, or account deactivated.');
+                    $this->addError($attribute, 'Nama pengguna atau kata laluan salah, atau akaun dinyahaktifkan');
+                }
             }
         }
     }
@@ -132,6 +138,8 @@ class LoginForm extends Model
                 return false;
             } elseif($user->last_active && $dateActiveExpired && $dateActiveExpired->format('Y-m-d') < date("Y-m-d")){
                 $this->addError('username', 'Akaun anda telah dinyahaktifkan. Sila hubungi admin SPSB.');
+                $user->status = User::STATUS_DELETED;
+                $user->save();
                 return false;
             } elseif($user->expiry_date && $user->expiry_date < date("Y-m-d")){
                 $this->addError('username', 'Akaun anda telah digantung. Sila hubungi admin SPSB.');

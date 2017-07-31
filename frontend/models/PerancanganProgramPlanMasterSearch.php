@@ -21,7 +21,7 @@ class PerancanganProgramPlanMasterSearch extends PerancanganProgramPlanMaster
     public function rules()
     {
         return [
-            [['mesyuarat_id', 'sukan_id', 'program_id'], 'integer'],
+            [['mesyuarat_id', 'sukan_id', 'program_id', 'created_by'], 'integer'],
             [['tarikh_mula', 'tarikh_tamat', 'cawangan', 'sukan', 'program'], 'safe'],
         ];
     }
@@ -45,7 +45,7 @@ class PerancanganProgramPlanMasterSearch extends PerancanganProgramPlanMaster
     public function search($params)
     {
         $query = PerancanganProgramPlanMaster::find()
-				->joinWith(['refCawangan'])
+                ->joinWith(['refCawangan'])
                 ->joinWith(['refSukan'])
                 ->joinWith(['refProgramSemasaSukanAtlet']);
 
@@ -67,6 +67,7 @@ class PerancanganProgramPlanMasterSearch extends PerancanganProgramPlanMaster
             'mesyuarat_id' => $this->mesyuarat_id,
             'sukan' => $this->sukan_id,
             'program' => $this->program_id,
+            'tbl_perancangan_program_plan_master.created_by' => $this->created_by,
         ]);
 
         $query->andFilterWhere(['like', 'tbl_ref_cawangan.desc', $this->cawangan])

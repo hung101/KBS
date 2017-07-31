@@ -41,8 +41,18 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
+        $queryParams = Yii::$app->request->queryParams;
+        
+        if(Yii::$app->user->identity->peranan != UserPeranan::PERANAN_ADMIN){
+            $queryParams['UserSearch']['created_by'] = Yii::$app->user->identity->id;
+        }
+        
         $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -57,6 +67,10 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
         
         $ref = RefJabatanUser::findOne(['id' => $model->jabatan_id]);
@@ -84,6 +98,10 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = new User();
         
         $model->scenario = 'create';
@@ -137,6 +155,10 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $model = $this->findModel($id);
         
         if ($model->load(Yii::$app->request->post()) && $model->sukan) {
@@ -186,6 +208,10 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(array(GeneralVariable::loginPagePath));
+        }
+        
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

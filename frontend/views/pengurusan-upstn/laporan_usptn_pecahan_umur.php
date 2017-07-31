@@ -91,8 +91,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns'=>12,
             'autoGenerateColumns'=>false, // override columns setting
             'attributes' => [
-                'nama_ppn' => ['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6]],
-                    /*[
+                'nama_ppn' => //['type'=>Form::INPUT_TEXT,'columnOptions'=>['colspan'=>6]],
+                    [
                     'type'=>Form::INPUT_WIDGET, 
                     'widgetClass'=>'\kartik\widgets\Select2',
                     'options'=>[
@@ -108,7 +108,7 @@ $this->params['breadcrumbs'][] = $this->title;
 'pluginOptions' => [
                             'allowClear' => true
                         ],],
-                    'columnOptions'=>['colspan'=>5]],*/
+                    'columnOptions'=>['colspan'=>5]],
             ],
         ],
         [

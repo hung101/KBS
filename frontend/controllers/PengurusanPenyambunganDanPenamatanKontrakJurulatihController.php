@@ -23,6 +23,9 @@ use app\models\RefGajiElaunJurulatih;
 use app\models\RefJenisPermohonanKontrakJurulatih;
 use app\models\RefStatusTawaran;
 use app\models\User;
+use app\models\RefStatusJurulatih;
+use app\models\RefSukan;
+use app\models\RefBahagianJurulatih;
 
 /**
  * PengurusanPenyambunganDanPenamatanKontrakJurulatihController implements the CRUD actions for PengurusanPenyambunganDanPenamatanKontrakJurulatih model.
@@ -100,6 +103,18 @@ class PengurusanPenyambunganDanPenamatanKontrakJurulatihController extends Contr
         
         $ref = RefStatusTawaran::findOne(['id' => $model->status_tawaran_jkb]);
         $model->status_tawaran_jkb = $ref['desc'];
+        
+        $ref = RefStatusJurulatih::findOne(['id' => $model->status_jurulatih]);
+        $model->status_jurulatih = $ref['desc'];
+        
+        $ref = RefStatusJurulatih::findOne(['id' => $model->cadangan_status_jurulatih]);
+        $model->cadangan_status_jurulatih = $ref['desc'];
+        
+        $ref = RefSukan::findOne(['id' => $model->sukan]);
+        $model->sukan = $ref['desc'];
+        
+        $ref = RefBahagianJurulatih::findOne(['id' => $model->bahagian]);
+        $model->bahagian = $ref['desc'];
         
         if($model->tarikh_mula_lantikan != "") {$model->tarikh_mula_lantikan = GeneralFunction::convert($model->tarikh_mula_lantikan, GeneralFunction::TYPE_DATE);}
         if($model->tarikh_tamat_lantikan != "") {$model->tarikh_tamat_lantikan = GeneralFunction::convert($model->tarikh_tamat_lantikan, GeneralFunction::TYPE_DATE);}

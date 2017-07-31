@@ -64,7 +64,7 @@ if(count($sukanList) > 0)
 </div>
 <div class="clear" style="border-bottom:1px solid #000;margin:5px 0px 30px"></div>
 <div style="float:right; width:30%">
-    <i>MSNM Ref</i> : <?= $model->bil_msnm ?><br />
+    <i>MSN Ref</i> : <?= $model->bil_msnm ?><br />
     <i>Date</i> : <?= $model->tarikh ?>
 </div>
 <div class="clear" style=""></div>

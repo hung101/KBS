@@ -22,8 +22,9 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['id', 'status', 'peranan', 'ipt_bendahari_e_biasiswa'], 'integer'],
-            [['username', 'jabatan_id', 'auth_key', 'password_hash', 'password_reset_token', 'full_name', 'tel_mobile_no', 'tel_no', 'email', 'no_kad_pengenalan', 'nama_peranan', 'ipt_bendahari_e_biasiswa_desc'], 'safe'],
+            [['id', 'status', 'peranan', 'ipt_bendahari_e_biasiswa', 'created_by'], 'integer'],
+            [['username', 'jabatan_id', 'auth_key', 'password_hash', 'password_reset_token', 'full_name', 'tel_mobile_no', 'tel_no', 'email', 
+                'no_kad_pengenalan', 'nama_peranan', 'ipt_bendahari_e_biasiswa_desc'], 'safe'],
         ];
     }
 
@@ -82,6 +83,7 @@ class UserSearch extends User
             'peranan' => $this->peranan,
             'status' => $this->status,
             'ipt_bendahari_e_biasiswa' => $this->ipt_bendahari_e_biasiswa,
+            'tbl_user.created_by' => $this->created_by,
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])

@@ -8,6 +8,7 @@ use frontend\assets\DashboardAsset;
 use frontend\widgets\Alert;
 use kartik\widgets\SideNav;
 use yii\web\Session;
+use yii\helpers\Url;
 
 use common\models\User;
 
@@ -33,7 +34,11 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
     <title><?= Html::encode("SPSB :: " . $this->title) ?></title>
     <?php $this->head() ?>
 </head>
+<?php if(Yii::$app->user->isGuest):?>
 <body>
+<?php else:?>
+<body onload="StartTimers(); timerCheckConcurrent();" onmousemove="ResetTimers();">
+<?php endif;?>
     <?php $this->beginBody() ?>
     <div class="wrap">
         <?php
@@ -71,7 +76,7 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
                 ],
             ];
             
-            if (Yii::$app->user->isGuest) {
+            if (Yii::$app->user->isGuest || Yii::$app->user->identity->is_new_user == "YES" || Yii::$app->user->identity->password_expiry < date('Y-m-d H:i:s', time()) ) {
                 $topMenuItems[] = ['label' => GeneralLabel::login, 'url' => ['/site/login']];
                 
             } else {
@@ -498,23 +503,24 @@ $dashboardBaseUrl = $dashboardAsset->baseUrl;
 									],
 								],
 								[
-									'label' => 'USPTN',
-									'items' => [
-										['label' => GeneralLabel::profil_pusat_latihan, 'url' => ['/profil-pusat-latihan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['module'])],
-                                        ['label' => GeneralLabel::pemantauan_usptn, 'url' => ['/pengurusan-upstn/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-										[
-											'label' => GeneralLabel::laporan,
-											'items' => [
-												['label' => GeneralLabel::laporan_pusat_latihan, 'url' => ['/profil-pusat-latihan/laporan-pusat-latihan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['module'])],
-												['label' => GeneralLabel::laporan_statistik_pemantauan, 'url' => ['/pengurusan-upstn/laporan-statistik-pemantauan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-												['label' => GeneralLabel::laporan_usptn_lawatan_pemantauan, 'url' => ['/pengurusan-upstn/laporan-usptn-lawatan-pemantauan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-												['label' => GeneralLabel::laporan_usptn_pecahan_kaum, 'url' => ['/pengurusan-upstn/laporan-usptn-pecahan-kaum'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-												['label' => GeneralLabel::laporan_usptn_pecahan_umur, 'url' => ['/pengurusan-upstn/laporan-usptn-pecahan-umur'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-												['label' => GeneralLabel::laporan_usptn_perjumpaan_atlet, 'url' => ['/pengurusan-upstn/laporan-usptn-perjumpaan-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-												['label' => GeneralLabel::laporan_usptn_perjumpaan_jurulatih, 'url' => ['/pengurusan-upstn/laporan-usptn-perjumpaan-jurulatih'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
-											],
-										],
-									],
+                                                                    'label' => 'USPTN',
+                                                                    'items' => [
+                                                                        ['label' => GeneralLabel::profil_ppn, 'url' => ['/ref-ppn/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['ref-ppn']['module'])],
+                                                                        ['label' => GeneralLabel::profil_pusat_latihan, 'url' => ['/profil-pusat-latihan/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['module'])],
+                                                                        ['label' => GeneralLabel::pemantauan_usptn, 'url' => ['/pengurusan-upstn/index'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
+                                                                        [
+                                                                                'label' => GeneralLabel::laporan,
+                                                                                'items' => [
+                                                                                        ['label' => GeneralLabel::laporan_pusat_latihan, 'url' => ['/profil-pusat-latihan/laporan-pusat-latihan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['profil-pusat-latihan']['module'])],
+                                                                                        ['label' => GeneralLabel::laporan_statistik_pemantauan, 'url' => ['/pengurusan-upstn/laporan-statistik-pemantauan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
+                                                                                        ['label' => GeneralLabel::laporan_usptn_lawatan_pemantauan, 'url' => ['/pengurusan-upstn/laporan-usptn-lawatan-pemantauan'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
+                                                                                        ['label' => GeneralLabel::laporan_usptn_pecahan_kaum, 'url' => ['/pengurusan-upstn/laporan-usptn-pecahan-kaum'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
+                                                                                        ['label' => GeneralLabel::laporan_usptn_pecahan_umur, 'url' => ['/pengurusan-upstn/laporan-usptn-pecahan-umur'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
+                                                                                        ['label' => GeneralLabel::laporan_usptn_perjumpaan_atlet, 'url' => ['/pengurusan-upstn/laporan-usptn-perjumpaan-atlet'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
+                                                                                        ['label' => GeneralLabel::laporan_usptn_perjumpaan_jurulatih, 'url' => ['/pengurusan-upstn/laporan-usptn-perjumpaan-jurulatih'], 'visible' => isset(Yii::$app->user->identity->peranan_akses['MSN']['pengurusan-upstn']['module'])],
+                                                                                ],
+                                                                        ],
+                                                                    ],
 								],
 								[
 									'label' => 'JKK / JKP',
@@ -1121,6 +1127,16 @@ if(isset($sideMenuItems)){
 <?php 
         //echo Yii::$app->controller->id . '<br>'; //current controller id 
         //echo Yii::$app->controller->action->id . '<br>'; //current controller action id 
+        $auth_key_session = "";
+        $current_user_auth_key = "";
+        
+        if(isset($session['auth_key'])){
+            $auth_key_session = $session['auth_key'];
+        }
+        
+        if(isset($modelUser->auth_key)){
+            $current_user_auth_key = $modelUser->auth_key;
+        }
         
         if (!Yii::$app->user->isGuest && ($modelUser = User::findIdentity(Yii::$app->user->identity->id)) !== null) {
             $session = new Session;
@@ -1148,3 +1164,74 @@ if(isset($sideMenuItems)){
             $session->close();
         }
 ?>
+
+
+<script>
+    
+// 15 minutes timeout session - START
+// Set timeout variables.
+var timoutWarning = 840000; // Display warning in 14 Mins.
+//var timoutWarning = 840000; // Display warning in 14 Mins.
+var timoutNow = <?=Yii::$app->params['expiryTimeout']?>000; // Timeout in 15 mins.
+//var timoutNow = 900000; // Timeout in 15 mins.
+var logoutUrl = '<?=Url::to(['/site/expire-logout'])?>'; // URL to logout page.
+
+var warningTimer;
+var timeoutTimer;
+
+// Start timers.
+function StartTimers() {
+    warningTimer = setTimeout("IdleWarning()", timoutWarning);
+    timeoutTimer = setTimeout("IdleTimeout()", timoutNow);
+}
+
+// Reset timers.
+function ResetTimers() {
+    clearTimeout(warningTimer);
+    clearTimeout(timeoutTimer);
+    StartTimers();
+    //$("#timeout").dialog('close');
+    
+    //alert("reset");
+}
+
+// Show idle timeout warning dialog.
+function IdleWarning() {
+    /*$("#timeout").dialog({
+        modal: true
+    });*/
+        
+        //alert("warning");
+}
+
+// Logout the user.
+function IdleTimeout() {
+    window.location = logoutUrl;
+}
+// 15 minutes timeout session - END
+
+
+
+// concurrent login checking - START
+var timer_checking = 3000; // 1 second
+var checkConcurrentTimer;
+var auth_key_session = '<?=$auth_key_session?>';
+var current_user_auth_key = '<?=$current_user_auth_key?>';
+
+function timerCheckConcurrent(){
+    checkConcurrentTimer = setTimeout("checkConcurrent()", timer_checking);
+}
+
+function checkConcurrent(){
+    if('<?=Yii::$app->params['allowConcurrentLogin']?>' == '1'){
+        //alert("no need check");
+    } else {
+        //alert("must checkConcurrent");
+        $.get('<?=Url::to(['/site/check-concurrent'])?>','',function(data){
+        });
+    }
+    
+    timerCheckConcurrent();
+}
+// concurrent login checking - END
+</script>

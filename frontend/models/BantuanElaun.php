@@ -76,13 +76,14 @@ class BantuanElaun extends \yii\db\ActiveRecord
             [['nama', 'jenis_bantuan', 'nama_persatuan', 'tarikh_mula_dilantik', 'tarikh_tamat_dilantik', 'no_kad_pengenalan', 
                 'tarikh_lahir', 'umur', 'jantina', 'kewarganegara', 'bangsa', 'agama', 'kelayakan_akademi', 'alamat_1', 'alamat_negeri', 
                 'alamat_poskod', 'no_tel_bimbit', 'jumlah_elaun', 'status_permohonan', 'emel', 'kontrak'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_lahir'], 'safe'],
+            [['tarikh_lahir', 'nama_bank'], 'safe'],
             [['kursus'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['umur', 'status_permohonan', 'no_kad_pengenalan', 'jenis_bantuan_id', 'status_permohonan_id', 'alamat_poskod', 'no_tel_bimbit', 'no_tel_persatuan_pejabat'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
+            [['umur', 'status_permohonan', 'no_kad_pengenalan', 'jenis_bantuan_id', 'status_permohonan_id', 'alamat_poskod', 'no_tel_bimbit', 
+                'no_tel_persatuan_pejabat', 'no_akaun'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['emel'], 'email', 'message' => GeneralMessage::yii_validation_email],
             [['jumlah_elaun', 'jumlah_kelulusan'], 'number', 'message' => GeneralMessage::yii_validation_number],
             [['nama', 'kelayakan_akademi'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['muatnaik_gambar', 'emel', 'muatnaik_dokumen'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['muatnaik_gambar', 'emel', 'muatnaik_dokumen', 'no_akaun'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['no_kad_pengenalan'], 'string', 'max' => 12, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['jantina'], 'string', 'max' => 1, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kewarganegara', 'alamat_negeri'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -138,7 +139,9 @@ class BantuanElaun extends \yii\db\ActiveRecord
             'catatan' => GeneralLabel::catatan,
             'kursus' => GeneralLabel::bidang_pengkhususan_aliran,
             'jumlah_kelulusan' => GeneralLabel::jumlah_diluluskan,
-			'surat_permohonan' => GeneralLabel::surat_permohonan_rasmi,
+            'surat_permohonan' => GeneralLabel::surat_permohonan_rasmi,
+            'nama_bank' => GeneralLabel::nama_bank,
+            'no_akaun' => GeneralLabel::no_akaun,
         ];
     }
 	

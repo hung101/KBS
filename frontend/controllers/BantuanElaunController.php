@@ -31,6 +31,7 @@ use app\models\RefStatusPermohonanSue;
 use app\models\RefNegara;
 use app\models\ProfilBadanSukan;
 use app\models\RefKursusBantuanElaun;
+use app\models\RefBank;
 
 use common\models\User;
 
@@ -125,6 +126,9 @@ class BantuanElaunController extends Controller
         
         $ref = ProfilBadanSukan::findOne(['profil_badan_sukan' => $model->nama_persatuan]);
         $model->nama_persatuan = $ref['nama_badan_sukan'];
+        
+        $ref = RefBank::findOne(['id' => $model->nama_bank]);
+        $model->nama_bank = $ref['desc'];
         
         //$ref = RefKursusBantuanElaun::findOne(['id' => $model->kursus]);
         //$model->kursus = $ref['desc'];

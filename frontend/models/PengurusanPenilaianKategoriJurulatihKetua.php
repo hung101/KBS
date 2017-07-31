@@ -52,7 +52,8 @@ class PengurusanPenilaianKategoriJurulatihKetua extends \yii\db\ActiveRecord
         return [
             [['penilaian_kategori', 'markah_penilaian'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
             [['pengurusan_pemantauan_dan_penilaian_jurulatih_id', 'markah_penilaian'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['penilaian_kategori', 'penilaian_sub_kategori'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['penilaian_kategori', 'penilaian_sub_kategori'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['pengurusan_pemantauan_dan_penilaian_jurulatih_id', 'penilaian_kategori', 'penilaian_sub_kategori', 'session_id'], 'unique', 'targetAttribute' => ['pengurusan_pemantauan_dan_penilaian_jurulatih_id', 'penilaian_kategori', 'penilaian_sub_kategori', 'session_id'] , 'message' => GeneralMessage::yii_validation_unique_multiple],
         ];
     }
 

@@ -39,24 +39,35 @@ if(isset($parentModel->penyertaan_sukan_id)){
     $penyertaan_sukan_id = $parentModel->penyertaan_sukan_id;
 }
 
+if($model->isNewRecord){
 $model->sukan = $parentModel->nama_sukan;
 $model->nama_kejohanan = $parentModel->nama_kejohanan_temasya;
 $model->tarikh_mula = $parentModel->tarikh_mula;
 $model->tarikh_tamat = $parentModel->tarikh_tamat;
 $model->tempat = $parentModel->tempat_penginapan;
+}
 
+
+if(!$readonly){
+    $template = '{view} {update} {delete}';
+} else {
+    $template = '{view}';
+}
 ?>
 <div class="laporan-penyertaan-kejohanan">
 
     <h1><?= Html::encode($this->title) ?></h1>
     
+    <?php if($readonly): ?>
+            <?= Html::a(GeneralLabel::update, ['laporan-penyertaan-kejohanan', 'id' => $model->penyertaan_sukan_id, 'readonly' => false], ['class' => 'btn btn-primary']) ?>
+    <?php endif; ?>
     <?php if(isset($model->laporan_penyertaan_kejohanan_id)): ?>
-        <?= Html::a(GeneralLabel::cetak, ['print-laporan-penyertaan-kejohanan', 'id' => $parentModel->penyertaan_sukan_id], ['class' => 'btn btn-primary custom_button', 'target' => '_blank']) ?><br /><br />
+        <?= Html::a(GeneralLabel::cetak, ['print-laporan-penyertaan-kejohanan', 'id' => $parentModel->penyertaan_sukan_id], ['class' => 'btn btn-info custom_button', 'target' => '_blank']) ?><br /><br />
     <?php endif; ?>
 
     <p class="text-muted"><span style="color: red">*</span> <?= GeneralLabel::mandatoryField?></p>
 
-    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'staticOnly'=>$readonly, 'id'=>$model->formName(), 'options' => ['enctype' => 'multipart/form-data']]); ?>
     
     <?php
         echo FormGrid::widget([
@@ -263,13 +274,13 @@ $model->tempat = $parentModel->tempat_penginapan;
                         ]);
                     }
                 ],
-                'template' => '{view} {update} {delete}',
+                'template' => $template,
             ],
         ],
     ]); ?>
     
     <?php Pjax::end(); ?>
-    
+    <?php if(!$readonly): ?>
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
@@ -277,6 +288,7 @@ $model->tempat = $parentModel->tempat_penginapan;
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
+    <?php endif; ?>
     <br />
     
     <h3><?php echo GeneralLabel::pengurus; ?></h3>
@@ -312,13 +324,14 @@ $model->tempat = $parentModel->tempat_penginapan;
                         ]);
                     }
                 ],
-                'template' => '{view} {update} {delete}',
+                'template' => $template,
             ],
         ],
     ]); ?>
     
     <?php Pjax::end(); ?>
     
+    <?php if(!$readonly): ?>
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
@@ -326,6 +339,7 @@ $model->tempat = $parentModel->tempat_penginapan;
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
+    <?php endif; ?>
     <br />
     
     <h3><?php echo GeneralLabel::jurulatih; ?></h3>
@@ -370,13 +384,13 @@ $model->tempat = $parentModel->tempat_penginapan;
                         ]);
                     }
                 ],
-                'template' => '{view} {update} {delete}',
+                'template' => $template,
             ],
         ],
     ]); ?>
     
     <?php Pjax::end(); ?>
-    
+    <?php if(!$readonly): ?>
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
@@ -384,6 +398,7 @@ $model->tempat = $parentModel->tempat_penginapan;
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
+    <?php endif; ?>
     <br />
     
     <h3><?php echo GeneralLabel::atlet; ?></h3>
@@ -409,7 +424,7 @@ $model->tempat = $parentModel->tempat_penginapan;
 				'label' => GeneralLabel::jantina,
 				'value' => function ($data) {
 					$query = \app\models\Atlet::findOne(['atlet_id' => $data->atlet_id]);
-					$ref =  RefJantina::findOne(['id' => $query->jantina]);
+					$ref =  RefJantina::findOne(['id' => $query['jantina']]);
                                         return $ref['desc'];
 				},
 			],
@@ -436,13 +451,13 @@ $model->tempat = $parentModel->tempat_penginapan;
                         ]);
                     }
                 ],
-                'template' => '{view} {update} {delete}',
+                'template' => $template,
             ],
         ],
     ]); ?>
     
     <?php Pjax::end(); ?>
-    
+    <?php if(!$readonly): ?>
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
@@ -450,6 +465,7 @@ $model->tempat = $parentModel->tempat_penginapan;
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
+    <?php endif; ?>
     <br />
     
     <?= $form->field($model, 'penginapan')->textarea(['rows' => '4']) ?>
@@ -471,6 +487,7 @@ $model->tempat = $parentModel->tempat_penginapan;
         $label = false;
     }
     
+    if(!$readonly){
     echo FormGrid::widget([
         'model' => $model,
         'form' => $form,
@@ -486,6 +503,7 @@ $model->tempat = $parentModel->tempat_penginapan;
             ]
         ]);
     echo "<br />";
+    }
         
     ?>
     
@@ -541,13 +559,13 @@ $model->tempat = $parentModel->tempat_penginapan;
                         ]);
                     }
                 ],
-                'template' => '{view} {update} {delete}',
+                'template' => $template,
             ],
         ],
     ]); ?>
     
     <?php Pjax::end(); ?>
-    
+    <?php if(!$readonly): ?>
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
@@ -555,6 +573,7 @@ $model->tempat = $parentModel->tempat_penginapan;
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
+    <?php endif; ?>
     
     <h3><?php echo GeneralLabel::kedudukan_ranking; ?></h3>
 
@@ -593,13 +612,13 @@ $model->tempat = $parentModel->tempat_penginapan;
                         ]);
                     }
                 ],
-                'template' => '{view} {update} {delete}',
+                'template' => $template,
             ],
         ],
     ]); ?>
     
     <?php Pjax::end(); ?>
-    
+    <?php if(!$readonly): ?>
     <p>
         <?php 
         echo Html::a('<span class="glyphicon glyphicon-plus"></span>', 'javascript:void(0);', [
@@ -607,6 +626,7 @@ $model->tempat = $parentModel->tempat_penginapan;
                         'class' => 'btn btn-success',
                         ]);?>
     </p>
+    <?php endif; ?>
     
     <br />
     <?= $form->field($model, 'ulasan_prestasi')->textarea(['rows' => '4']) ?>
@@ -626,6 +646,7 @@ $model->tempat = $parentModel->tempat_penginapan;
         $label = false;
     }
     
+    if(!$readonly){
     echo FormGrid::widget([
         'model' => $model,
         'form' => $form,
@@ -641,16 +662,20 @@ $model->tempat = $parentModel->tempat_penginapan;
             ]
         ]);
     echo "<br />";
+    }
         
     ?>
     <?= $form->field($model, 'rumusan')->textarea(['rows' => '4']) ?>
     <br />
+    
+    <?php if(!$readonly): ?>
     <div class="form-group">
         <?= Html::submitButton(GeneralLabel::update, ['class' => 'btn btn-primary',
             'data' => [
                     'confirm' => GeneralMessage::confirmSave,
                 ],]) ?>
     </div>
+    <?php endif; ?>
 
     <?php ActiveForm::end(); ?>
 </div>

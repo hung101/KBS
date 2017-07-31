@@ -5,8 +5,8 @@ use common\models\general\GeneralFunction;
 
 use app\models\RefSukan;
 use app\models\RefProgramSemasaSukanAtlet;
-use app
-\models\PembayaranElaun;
+use app\models\PembayaranElaun;
+use app\models\AtletKewanganElaun;
 
 
 $selectedDate = null;
@@ -24,9 +24,9 @@ $ref = RefProgramSemasaSukanAtlet::findOne($parentModel->refAtletSukan[0]->progr
 $parentModel->refAtletSukan[0]->program_semasa = $ref['desc'];
 
 $elaun = null;
-$PembayaranElaun = PembayaranElaun::find()->where(['atlet_id' => $parentModel->atlet_id])->orderBy(['pembayaran_elaun_id' => SORT_DESC])->all();
-if(count($PembayaranElaun) > 0){
-	$elaun = 'RM '.number_format($PembayaranElaun[0]->jumlah_elaun, 2);
+$PembayaranElaun = AtletKewanganElaun::find()->where(['atlet_id' => $parentModel->atlet_id])->orderBy(['tarikh_mula' => SORT_DESC])->one();
+if($PembayaranElaun !== null){
+	$elaun = 'RM '.number_format($PembayaranElaun->jumlah_elaun, 2);
 }
 ?>
 <div style="float:left; width:60%">

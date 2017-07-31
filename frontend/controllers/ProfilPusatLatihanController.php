@@ -7,6 +7,10 @@ use app\models\ProfilPusatLatihan;
 use frontend\models\ProfilPusatLatihanSearch;
 use app\models\ProfilPusatLatihanJurulatih;
 use frontend\models\ProfilPusatLatihanJurulatihSearch;
+use app\models\ProfilPusatLatihanPeralatan;
+use frontend\models\ProfilPusatLatihanPeralatanSearch;
+use app\models\ProfilPusatLatihanKemudahan;
+use frontend\models\ProfilPusatLatihanKemudahanSearch;
 use app\models\MsnLaporanPusatLatihan;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -23,6 +27,7 @@ use app\models\RefBandar;
 use app\models\RefStatusPusatLatihan;
 use app\models\RefSukan;
 use app\models\RefProgramMsn;
+use app\models\RefStatusBantuanPenganjuranKejohanan;
 
 /**
  * ProfilPusatLatihanController implements the CRUD actions for ProfilPusatLatihan model.
@@ -91,19 +96,35 @@ class ProfilPusatLatihanController extends Controller
         $ref = RefProgramMsn::findOne(['id' => $model->program]);
         $model->program = $ref['desc'];
         
+        $ref = RefStatusBantuanPenganjuranKejohanan::findOne(['id' => $model->status_permohonan]);
+        $model->status_permohonan = $ref['desc'];
+        
         if($model->tarikh_program_bermula != "") {$model->tarikh_program_bermula = GeneralFunction::convert($model->tarikh_program_bermula, GeneralFunction::TYPE_DATE);}
+        if($model->tarikh_jkk_jkb != "") {$model->tarikh_jkk_jkb = GeneralFunction::convert($model->tarikh_jkk_jkb, GeneralFunction::TYPE_DATE);}
         
         $queryPar = null;
         
         $queryPar['ProfilPusatLatihanJurulatihSearch']['profil_pusat_latihan_id'] = $id;
+        $queryPar['ProfilPusatLatihanPeralatanSearch']['profil_pusat_latihan_id'] = $id;
+        $queryPar['ProfilPusatLatihanKemudahanSearch']['profil_pusat_latihan_id'] = $id;
         
         $searchModelProfilPusatLatihanJurulatih = new ProfilPusatLatihanJurulatihSearch();
         $dataProviderProfilPusatLatihanJurulatih= $searchModelProfilPusatLatihanJurulatih->search($queryPar);
+        
+        $searchModelProfilPusatLatihanPeralatan = new ProfilPusatLatihanPeralatanSearch();
+        $dataProviderProfilPusatLatihanPeralatan= $searchModelProfilPusatLatihanPeralatan->search($queryPar);
+        
+        $searchModelProfilPusatLatihanKemudahan = new ProfilPusatLatihanKemudahanSearch();
+        $dataProviderProfilPusatLatihanKemudahan = $searchModelProfilPusatLatihanKemudahan->search($queryPar);
         
         return $this->render('view', [
             'model' => $model,
             'searchModelProfilPusatLatihanJurulatih' => $searchModelProfilPusatLatihanJurulatih,
             'dataProviderProfilPusatLatihanJurulatih' => $dataProviderProfilPusatLatihanJurulatih,
+            'searchModelProfilPusatLatihanPeralatan' => $searchModelProfilPusatLatihanPeralatan,
+            'dataProviderProfilPusatLatihanPeralatan' => $dataProviderProfilPusatLatihanPeralatan,
+            'searchModelProfilPusatLatihanKemudahan' => $searchModelProfilPusatLatihanKemudahan,
+            'dataProviderProfilPusatLatihanKemudahan' => $dataProviderProfilPusatLatihanKemudahan,
             'readonly' => true,
         ]);
     }
@@ -127,15 +148,29 @@ class ProfilPusatLatihanController extends Controller
         
         if(isset(Yii::$app->session->id)){
             $queryPar['ProfilPusatLatihanJurulatihSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['ProfilPusatLatihanPeralatanSearch']['session_id'] = Yii::$app->session->id;
+            $queryPar['ProfilPusatLatihanKemudahanSearch']['session_id'] = Yii::$app->session->id;
         }
         
         $searchModelProfilPusatLatihanJurulatih = new ProfilPusatLatihanJurulatihSearch();
         $dataProviderProfilPusatLatihanJurulatih= $searchModelProfilPusatLatihanJurulatih->search($queryPar);
+        
+        $searchModelProfilPusatLatihanPeralatan = new ProfilPusatLatihanPeralatanSearch();
+        $dataProviderProfilPusatLatihanPeralatan= $searchModelProfilPusatLatihanPeralatan->search($queryPar);
+        
+        $searchModelProfilPusatLatihanKemudahan = new ProfilPusatLatihanKemudahanSearch();
+        $dataProviderProfilPusatLatihanKemudahan = $searchModelProfilPusatLatihanKemudahan->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             if(isset(Yii::$app->session->id)){
                 ProfilPusatLatihanJurulatih::updateAll(['profil_pusat_latihan_id' => $model->profil_pusat_latihan_id], 'session_id = "'.Yii::$app->session->id.'"');
                 ProfilPusatLatihanJurulatih::updateAll(['session_id' => ''], 'profil_pusat_latihan_id = "'.$model->profil_pusat_latihan_id.'"');
+                
+                ProfilPusatLatihanPeralatan::updateAll(['profil_pusat_latihan_id' => $model->profil_pusat_latihan_id], 'session_id = "'.Yii::$app->session->id.'"');
+                ProfilPusatLatihanPeralatan::updateAll(['session_id' => ''], 'profil_pusat_latihan_id = "'.$model->profil_pusat_latihan_id.'"');
+                
+                ProfilPusatLatihanKemudahan::updateAll(['profil_pusat_latihan_id' => $model->profil_pusat_latihan_id], 'session_id = "'.Yii::$app->session->id.'"');
+                ProfilPusatLatihanKemudahan::updateAll(['session_id' => ''], 'profil_pusat_latihan_id = "'.$model->profil_pusat_latihan_id.'"');
             }
             
             return $this->redirect(['view', 'id' => $model->profil_pusat_latihan_id]);
@@ -144,6 +179,10 @@ class ProfilPusatLatihanController extends Controller
                 'model' => $model,
                 'searchModelProfilPusatLatihanJurulatih' => $searchModelProfilPusatLatihanJurulatih,
                 'dataProviderProfilPusatLatihanJurulatih' => $dataProviderProfilPusatLatihanJurulatih,
+                'searchModelProfilPusatLatihanPeralatan' => $searchModelProfilPusatLatihanPeralatan,
+                'dataProviderProfilPusatLatihanPeralatan' => $dataProviderProfilPusatLatihanPeralatan,
+                'searchModelProfilPusatLatihanKemudahan' => $searchModelProfilPusatLatihanKemudahan,
+                'dataProviderProfilPusatLatihanKemudahan' => $dataProviderProfilPusatLatihanKemudahan,
                 'readonly' => false,
             ]);
         }
@@ -166,9 +205,17 @@ class ProfilPusatLatihanController extends Controller
         $queryPar = null;
         
         $queryPar['ProfilPusatLatihanJurulatihSearch']['profil_pusat_latihan_id'] = $id;
+        $queryPar['ProfilPusatLatihanPeralatanSearch']['profil_pusat_latihan_id'] = $id;
+        $queryPar['ProfilPusatLatihanKemudahanSearch']['profil_pusat_latihan_id'] = $id;
         
         $searchModelProfilPusatLatihanJurulatih = new ProfilPusatLatihanJurulatihSearch();
         $dataProviderProfilPusatLatihanJurulatih= $searchModelProfilPusatLatihanJurulatih->search($queryPar);
+        
+        $searchModelProfilPusatLatihanPeralatan = new ProfilPusatLatihanPeralatanSearch();
+        $dataProviderProfilPusatLatihanPeralatan= $searchModelProfilPusatLatihanPeralatan->search($queryPar);
+        
+        $searchModelProfilPusatLatihanKemudahan = new ProfilPusatLatihanKemudahanSearch();
+        $dataProviderProfilPusatLatihanKemudahan = $searchModelProfilPusatLatihanKemudahan->search($queryPar);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->profil_pusat_latihan_id]);
@@ -177,6 +224,10 @@ class ProfilPusatLatihanController extends Controller
                 'model' => $model,
                 'searchModelProfilPusatLatihanJurulatih' => $searchModelProfilPusatLatihanJurulatih,
                 'dataProviderProfilPusatLatihanJurulatih' => $dataProviderProfilPusatLatihanJurulatih,
+                'searchModelProfilPusatLatihanPeralatan' => $searchModelProfilPusatLatihanPeralatan,
+                'dataProviderProfilPusatLatihanPeralatan' => $dataProviderProfilPusatLatihanPeralatan,
+                'searchModelProfilPusatLatihanKemudahan' => $searchModelProfilPusatLatihanKemudahan,
+                'dataProviderProfilPusatLatihanKemudahan' => $dataProviderProfilPusatLatihanKemudahan,
                 'readonly' => false,
             ]);
         }

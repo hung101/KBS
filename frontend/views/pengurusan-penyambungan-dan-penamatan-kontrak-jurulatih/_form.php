@@ -16,6 +16,9 @@ use app\models\RefProgramJurulatih;
 use app\models\RefGajiElaunJurulatih;
 use app\models\RefJenisPermohonanKontrakJurulatih;
 use app\models\RefStatusTawaran;
+use app\models\RefStatusJurulatih;
+use app\models\RefSukan;
+use app\models\RefBahagianJurulatih;
 
 // contant values
 use app\models\general\Placeholder;
@@ -68,6 +71,23 @@ use common\models\general\GeneralFunction;
                             'allowClear' => true
                         ],],
                     'columnOptions'=>['colspan'=>6]],
+                'status_jurulatih' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-status-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefStatusJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::statusJurulatih],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
             ],
         ],
     ]
@@ -97,6 +117,23 @@ use common\models\general\GeneralFunction;
                         ] : null,
                         'data'=>ArrayHelper::map(RefProgramJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
                         'options' => ['placeholder' => Placeholder::program],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],],
+                    'columnOptions'=>['colspan'=>3]],
+                'sukan' => [
+                    'type'=>Form::INPUT_WIDGET, 
+                    'widgetClass'=>'\kartik\widgets\Select2',
+                    'options'=>[
+                        'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                        [
+                            'append' => [
+                                'content' => Html::a(Html::icon('edit'), ['/ref-sukan/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'asButton' => true
+                            ]
+                        ] : null,
+                        'data'=>ArrayHelper::map(RefSukan::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                        'options' => ['placeholder' => Placeholder::sukan],
                         'pluginOptions' => [
                             'allowClear' => true
                         ],],
@@ -135,7 +172,7 @@ use common\models\general\GeneralFunction;
                         'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                         [
                             'append' => [
-                                'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                'content' => Html::a(Html::icon('edit'), ['/ref-gaji-elaun-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                 'asButton' => true
                             ]
                         ] : null,
@@ -229,6 +266,46 @@ use common\models\general\GeneralFunction;
                                                     'allowClear' => true
                                                 ],],
                                             'columnOptions'=>['colspan'=>3]],
+                                    ],
+                                ],
+                                [
+                                    'columns'=>12,
+                                    'autoGenerateColumns'=>false, // override columns setting
+                                    'attributes' => [
+                                        'cadangan_status_jurulatih' => [
+                                            'type'=>Form::INPUT_WIDGET, 
+                                            'widgetClass'=>'\kartik\widgets\Select2',
+                                            'options'=>[
+                                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                                [
+                                                    'append' => [
+                                                        'content' => Html::a(Html::icon('edit'), ['/ref-status-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                                        'asButton' => true
+                                                    ]
+                                                ] : null,
+                                                'data'=>ArrayHelper::map(RefStatusJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                                'options' => ['placeholder' => Placeholder::statusJurulatih],
+                                                'pluginOptions' => [
+                                                    'allowClear' => true
+                                                ],],
+                                            'columnOptions'=>['colspan'=>3]],
+                                        'bahagian' => [
+                                            'type'=>Form::INPUT_WIDGET, 
+                                            'widgetClass'=>'\kartik\widgets\Select2',
+                                            'options'=>[
+                                                'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
+                                                [
+                                                    'append' => [
+                                                        'content' => Html::a(Html::icon('edit'), ['/ref-bahagian-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                                        'asButton' => true
+                                                    ]
+                                                ] : null,
+                                                'data'=>ArrayHelper::map(RefBahagianJurulatih::find()->where(['=', 'aktif', 1])->all(),'id', 'desc'),
+                                                'options' => ['placeholder' => Placeholder::bahagian],
+                                                'pluginOptions' => [
+                                                    'allowClear' => true
+                                                ],],
+                                            'columnOptions'=>['colspan'=>3]],
                                         //'muat_naik_cadangan' => ['type'=>Form::INPUT_FILE,'columnOptions'=>['colspan'=>3],'options'=>[]],
                                     ],
                                 ],
@@ -292,7 +369,7 @@ use common\models\general\GeneralFunction;
                                                 'addon' => (isset(Yii::$app->user->identity->peranan_akses['Admin']['is_admin'])) ? 
                                                 [
                                                     'append' => [
-                                                        'content' => Html::a(Html::icon('edit'), ['/ref-negeri/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
+                                                        'content' => Html::a(Html::icon('edit'), ['/ref-gaji-elaun-jurulatih/index'], ['class'=>'btn btn-success', 'target' => '_blank']),
                                                         'asButton' => true
                                                     ]
                                                 ] : null,
@@ -575,7 +652,7 @@ use common\models\general\GeneralFunction;
 <?php
 $DateDisplayFormat = GeneralVariable::displayDateFormat;
 $URLJurulatihSukan = Url::to(['/jurulatih-sukan/get-jurulatih-sukan-acara']);
-
+$URLJurulatih = Url::to(['/jurulatih/get-jurulatih']);
 $script = <<< JS
         
 // enable all the disabled field before submit
@@ -589,14 +666,22 @@ $('form#{$model->formName()}').on('beforeSubmit', function (e) {
 });
         
 $('#jurulatihId').change(function(){
+    clearForm();
+    
+    $.get('$URLJurulatih',{id:$(this).val()},function(data){
+        var data = $.parseJSON(data);
+        
+        if(data !== null){
+            $('#pengurusanpenyambungandanpenamatankontrakjurulatih-status_jurulatih').val(data.status_jurulatih).trigger("change");
+        }
+    });
         
     $.get('$URLJurulatihSukan',{jurulatih_id:$(this).val()},function(data){
-        clearForm();
-        
         var data = $.parseJSON(data);
         
         if(data !== null){
             $("#pengurusanpenyambungandanpenamatankontrakjurulatih-program").val(data.program).trigger("change");
+            $("#pengurusanpenyambungandanpenamatankontrakjurulatih-sukan").val(data.sukan).trigger("change");
             $("#pengurusanpenyambungandanpenamatankontrakjurulatih-gaji_elaun").val(data.gaji_elaun).trigger("change");
             $("#pengurusanpenyambungandanpenamatankontrakjurulatih-jumlah_gaji_elaun").attr('value',data.jumlah);
             $("#pengurusanpenyambungandanpenamatankontrakjurulatih-tarikh_mula_lantikan").attr('value',data.tarikh_mula_lantikan);
@@ -620,7 +705,9 @@ function clearForm(){
     $('#pengurusanpenyambungandanpenamatankontrakjurulatih-tarikh_tamat_lantikan-disp').attr('value','');
     $('#pengurusanpenyambungandanpenamatankontrakjurulatih-jumlah_gaji_elaun').attr('value','');
     $("#pengurusanpenyambungandanpenamatankontrakjurulatih-program").val('').trigger("change");
+    $("#pengurusanpenyambungandanpenamatankontrakjurulatih-sukan").val('').trigger("change");
     $("#pengurusanpenyambungandanpenamatankontrakjurulatih-gaji_elaun").val('').trigger("change");
+    $("#pengurusanpenyambungandanpenamatankontrakjurulatih-status_jurulatih").val('').trigger("change");
 }
         
 JS;

@@ -57,10 +57,10 @@ class PengurusanUpstn extends \yii\db\ActiveRecord
             [['nama_pengurus_sukan', 'nama_sukan', 'tarikh_lawatan', 'tempat', 'kehadiran', 'isu', 'negeri', 'l_melayu', 'l_cina',
                 'l_india', 'l_lain_lain', 'w_melayu', 'w_cina', 'w_india', 'w_lain_lain', 'u12_lelaki', 'u12_wanita', 'u15_lelaki',
                 'u15_wanita', 'u18_lelaki', 'u18_wanita', 'u21_lelaki', 'u21_wanita'], 'required', 'skipOnEmpty' => true, 'message' => GeneralMessage::yii_validation_required],
-            [['tarikh_lawatan', 'masa', 'negeri'], 'safe'],
+            [['nama_pengurus_sukan', 'tarikh_lawatan', 'masa', 'negeri'], 'safe'],
             [['l_melayu', 'l_cina', 'l_india', 'l_lain_lain', 'w_melayu', 'w_cina', 'w_india', 'w_lain_lain', 'u12_lelaki', 'u12_wanita', 'u15_lelaki',
                 'u15_wanita', 'u18_lelaki', 'u18_wanita', 'u21_lelaki', 'u21_wanita'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['nama_pengurus_sukan', 'nama_sukan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['nama_sukan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tempat'], 'string', 'max' => 90, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['kehadiran', 'isu', 'ulasan'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];

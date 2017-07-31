@@ -6,8 +6,8 @@ use app\models\general\GeneralLabel;
 /* @var $this yii\web\View */
 /* @var $model app\models\RefPpn */
 
-$this->title = GeneralLabel::createTitle.' PPN';
-$this->params['breadcrumbs'][] = ['label' => 'PPN', 'url' => ['index']];
+$this->title = GeneralLabel::createTitle . ' ' . GeneralLabel::profil_ppn;
+$this->params['breadcrumbs'][] = ['label' => GeneralLabel::profil_ppn, 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="ref-ppn-create">
@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'readonly' => $readonly,
     ]) ?>
 
 </div>

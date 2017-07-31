@@ -70,7 +70,7 @@ class GeranBantuanGaji extends \yii\db\ActiveRecord
             [[ 'bulan', 'nama_acara', 'nama_sukan'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['muatnaik_gambar'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['boucher', 'no_cek', 'bil_jkb', 'bil_mpj'], 'string', 'max' => 50, 'tooLong' => GeneralMessage::yii_validation_string_max],
-            [['nama_jurulatih', 'cawangan', 'sub_cawangan', 'program_msn', 'lain_lain_program', 'pusat_latihan', 'agensi'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max, 'skipOnEmpty' => true],
+            [['nama_jurulatih', 'cawangan', 'sub_cawangan', 'program_msn', 'lain_lain_program', 'pusat_latihan', 'agensi', 'cek_atas_nama'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max, 'skipOnEmpty' => true],
             [['kelulusan', 'status_jurulatih', 'status_permohonan', 'status_keaktifan_jurulatih', 'kategori_geran', 'status_geran'], 'string', 'max' => 30, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['catatan', 'rujukan', 'status_terkini_pengeluaran_cek', 'salinan_tawaran', 'persetujuan_terima', 'pengerusi', 'kelulusan_dkp', 'catatan_jkb', 'catatan_mpj'], 'string', 'max' => 255, 'tooLong' => GeneralMessage::yii_validation_string_max],
             [['tarikh_tamat_kontrak'], 'compare', 'compareAttribute'=>'tarikh_mula_kontrak', 'operator'=>'>=', 'message' => GeneralMessage::yii_validation_compare],
@@ -126,6 +126,7 @@ class GeranBantuanGaji extends \yii\db\ActiveRecord
             'status_tawaran_mpj' => GeneralLabel::status_tawaran_mpj,
             'pengerusi' => GeneralLabel::pengerusi,
             'catatan_mpj' => GeneralLabel::catatan,
+            'cek_atas_nama' => GeneralLabel::cek_atas_nama,
         ];
     }
     

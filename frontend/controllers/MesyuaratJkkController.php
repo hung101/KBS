@@ -451,7 +451,7 @@ Dengan segala hormatnya perkara diatas dirujuk. <br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tempat: '. $model->tempat .'<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pengerusi : '. $model->pengerusi_mesyuarat .'<br><br>
 3. Dengan segala hormatnya dijemput hadir. <br><br>
-4. Perhatian dan kerjasama semua berhubungn perkara ini amatlah dihargai dan didahului dengan ucapan terima kasih. 
+4. Perhatian dan kerjasama semua berhubung perkara ini amatlah dihargai dan didahului dengan ucapan terima kasih. 
 ';
                             // email minits
                             if($model->minit_mesyuarat != ""){

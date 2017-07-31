@@ -48,7 +48,7 @@ if(count($sukanList) > 0)
 ?>
 <table align="right">
     <tr>
-        <td>Bil MSNM</td>
+        <td>Rujukan MSN</td>
         <td>:</td>
         <td><?= $model->bil_msnm ?></td>
     </tr>
@@ -100,5 +100,7 @@ s.k<br />
     <li>Pemangku Pengarah Bahagian Pengurusan Sukan</li>
     <li>Pengarah Bahagian Atlet</li>
     <li>Sispen/Gaji</li>
-    <li>J-404</li>
+    <?php if($parentModel->no_fail != ""):  ?>
+    <li><?=$parentModel->no_fail?></li>
+    <?php endif;  ?>
 </ol>

@@ -65,7 +65,8 @@ class UserPeranan extends \yii\db\ActiveRecord
             [['nama_peranan', 'peranan_akses', 'aktif'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['peranan_akses'], 'safe'],
             [['aktif'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
-            [['nama_peranan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max]
+            [['nama_peranan'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
+            [['agensi'], 'string', 'max' => 100, 'tooLong' => GeneralMessage::yii_validation_string_max]
         ];
     }
 
@@ -79,7 +80,7 @@ class UserPeranan extends \yii\db\ActiveRecord
             'nama_peranan' => GeneralLabel::nama_peranan,
             'peranan_akses' => GeneralLabel::peranan_akses,
             'aktif' => GeneralLabel::aktif,
-
+            'agensi' => GeneralLabel::penapis_agensi,
         ];
     }
     

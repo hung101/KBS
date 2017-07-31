@@ -50,10 +50,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php endif; ?>
 		<?php if($isTamat): ?>
 			<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update'])): ?>
-				<?= Html::a(GeneralLabel::laporan_penyertaan_kejohanan, ['laporan-penyertaan-kejohanan', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-success custom_button', 'target' => '_blank']) ?>
+				<?= Html::a(GeneralLabel::laporan_penyertaan_kejohanan, ['laporan-penyertaan-kejohanan', 'id' => $model->penyertaan_sukan_id, 'readonly' =>true], ['class' => 'btn btn-success custom_button', 'target' => '_blank']) ?>
 			<?php endif; ?>
 			<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update'])): ?>
-				<?= Html::a(GeneralLabel::laporan_pendedahan_latihan, ['laporan-pendedahan-latihan', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-warning custom_button', 'target' => '_blank']) ?>
+				<?= Html::a(GeneralLabel::laporan_pendedahan_latihan, ['laporan-pendedahan-latihan', 'id' => $model->penyertaan_sukan_id, 'readonly' =>true], ['class' => 'btn btn-warning custom_button', 'target' => '_blank']) ?>
 			<?php endif; ?>
 			<?php if(isset(Yii::$app->user->identity->peranan_akses['MSN']['penyertaan-sukan']['update'])): ?>
 				<?= Html::a(GeneralLabel::cetak_pencapaian_atlet, ['print-penilaian-prestasi', 'id' => $model->penyertaan_sukan_id], ['class' => 'btn btn-default custom_button', 'target' => '_blank']) ?>

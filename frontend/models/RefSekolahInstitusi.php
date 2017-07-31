@@ -51,7 +51,7 @@ class RefSekolahInstitusi extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['desc'], 'required', 'message' => GeneralMessage::yii_validation_required],
+            [['ref_tahap_pendidikan_id','desc'], 'required', 'message' => GeneralMessage::yii_validation_required],
             [['aktif', 'created_by', 'updated_by'], 'integer', 'message' => GeneralMessage::yii_validation_integer],
             [['created', 'updated'], 'safe'],
             [['desc'], 'string', 'max' => 80, 'tooLong' => GeneralMessage::yii_validation_string_max],
@@ -71,7 +71,11 @@ class RefSekolahInstitusi extends \yii\db\ActiveRecord
             'updated_by' => GeneralLabel::updated_by,
             'created' => GeneralLabel::created,
             'updated' => GeneralLabel::updated,
-
+            'ref_tahap_pendidikan_id' => GeneralLabel::tahap_pendidikan,
         ];
+    }
+    
+    public function getRefTahapPendidikan() {
+        return $this->hasOne(RefTahapPendidikan::className(), ['id' => 'ref_tahap_pendidikan_id']);
     }
 }

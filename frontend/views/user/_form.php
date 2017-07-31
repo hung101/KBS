@@ -16,7 +16,7 @@ use app\models\UserPeranan;
 use app\models\ProfilBadanSukan;
 use app\models\RefSukan;
 use app\models\RefNegeri;
-
+use common\models\User;
 
 // contant values
 use app\models\general\Placeholder;
@@ -58,6 +58,17 @@ $user_peranan_list = UserPeranan::find()->where(['=', 'aktif', 1])->all();
 
 if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user-peranan']['view_own_data'])){
     $user_peranan_list = UserPeranan::find()->where(['=', 'aktif', 1])->where(['=', 'created_by', Yii::$app->user->identity->id])->all();
+}
+
+if (($modelCreator = User::findOne(Yii::$app->user->identity->created_by)) !== null) {
+//echo "Created ID = " . Yii::$app->user->identity->created_by;
+//echo "<br>Creator Name = " . $modelCreator->full_name;
+    if($modelCreator->peranan != UserPeranan::PERANAN_ADMIN){
+        // creator is not admin
+        $user_peranan_list = UserPeranan::find()->where(['=', 'aktif', 1])
+                ->where(['=', 'created_by', $modelCreator->id])
+                ->andWhere(['<>', 'user_peranan_id', Yii::$app->user->identity->peranan])->all(); //exclude my own peranan
+    }
 }
 
 ?>
@@ -265,29 +276,7 @@ if(isset(Yii::$app->user->identity->peranan_akses['Admin']['user-peranan']['view
         ?>
     
     <br>
-
-    <!--<?= $form->field($model, 'username')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'jabatan_id')->textInput() ?>
-
-    <?= $form->field($model, 'peranan')->textInput() ?>
-
-    <?= $form->field($model, 'auth_key')->textInput(['maxlength' => 32]) ?>
-
-    <?= $form->field($model, 'password_hash')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'password_reset_token')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'full_name')->textInput(['maxlength' => 50]) ?>
-
-    <?= $form->field($model, 'tel_mobile_no')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'tel_no')->textInput(['maxlength' => 14]) ?>
-
-    <?= $form->field($model, 'email')->textInput(['maxlength' => 255]) ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>-->
-
+    
     <div class="form-group">
         <?php if(!$readonly): ?>
         <?= Html::submitButton($model->isNewRecord ? GeneralLabel::create : GeneralLabel::update, ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
